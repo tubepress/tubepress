@@ -22,7 +22,7 @@ class tubepress_impl_options_ui_fields_ColorFieldTest extends tubepress_impl_opt
 {
     protected function _buildSut($name)
     {
-        return new tubepress_impl_options_ui_fields_ColorField($name);
+        return new tubepress_impl_options_ui_fields_ColorField($name, 'someTab');
     }
 
     protected function getTemplatePath()
@@ -30,4 +30,3 @@ class tubepress_impl_options_ui_fields_ColorFieldTest extends tubepress_impl_opt
         return 'src/main/resources/system-templates/options_page/fields/color.tpl.php';
     }
 }
-

@@ -231,15 +231,5 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
-        $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
-        $option->setLabel('Implementation');                                                                                  //>(translatable)<
-        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED => 'Provider default',                         //>(translatable)<
-        ));
-        $odr->registerOptionDescriptor($option);
     }
 }

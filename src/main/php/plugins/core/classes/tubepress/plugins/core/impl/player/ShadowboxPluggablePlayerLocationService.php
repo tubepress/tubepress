@@ -57,4 +57,12 @@ class tubepress_plugins_core_impl_player_ShadowboxPluggablePlayerLocationService
     {
         return true;
     }
+
+    /**
+     * @return string The human-readable name of this player location.
+     */
+    public final function getFriendlyName()
+    {
+        return 'with Shadowbox';                                        //>(translatable)<
+    }
 }

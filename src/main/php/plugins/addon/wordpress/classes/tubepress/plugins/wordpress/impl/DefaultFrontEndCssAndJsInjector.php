@@ -65,8 +65,7 @@ EOT;
             return;
         }
 
-        $fse      = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $baseName = $fse->getTubePressInstallationDirectoryBaseName();
+        $baseName = basename(TUBEPRESS_ROOT);
 
         $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/js/tubepress.js", $baseName);
         $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/css/tubepress.css", $baseName);
@@ -80,4 +79,3 @@ EOT;
         $wordPressFunctionWrapper->wp_enqueue_style('tubepress');
     }
 }
-

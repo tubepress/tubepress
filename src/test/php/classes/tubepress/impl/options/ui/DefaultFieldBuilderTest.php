@@ -22,15 +22,18 @@ class FakeThingy
 {
     public $_arg;
 
-    public function __construct($arg)
+    public $_secondArg;
+
+    public function __construct($arg, $secondArg)
     {
         $this->_arg = $arg;
+        $this->_secondArg = $secondArg;
     }
 }
 
 class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTest
 {
-	private $_sut;
+    private $_sut;
 
     private $_mockOptionDescriptorReference;
 
@@ -44,8 +47,8 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
 
     private $_mockEnvironmentDetector;
 
-	public function setup()
-	{
+    public function setup()
+    {
         $this->_mockOptionDescriptorReference   = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockMessageService              = Mockery::mock(tubepress_spi_message_MessageService::_);
         $this->_mockStorageManager              = Mockery::mock(tubepress_spi_options_StorageManager::_);
@@ -61,29 +64,30 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
 
         $this->_sut = new tubepress_impl_options_ui_DefaultFieldBuilder();
-	}
+    }
 
-	public function testBuild()
-	{
-        $result = $this->_sut->build('something awesome', 'FakeThingy');
+    public function testBuild()
+    {
+        $result = $this->_sut->build('something awesome', 'FakeThingy', 'some tab');
 
         $this->assertTrue($result instanceof FakeThingy);
         $this->assertEquals('something awesome', $result->_arg);
-	}
-	
+        $this->assertEquals('some tab', $result->_secondArg);
+    }
+
     public function testBuildMeta()
     {
         $this->_setupOptionDescriptorReferenceForMetaMultiSelect();
-        
+
         $result = $this->_sut->buildMetaDisplayMultiSelectField();
-        
+
         $this->assertTrue($result instanceof tubepress_impl_options_ui_fields_MetaMultiSelectField);
     }
-    
+
     private function _getOdNames()
     {
         return array(
-    
+
             tubepress_api_const_options_names_Meta::AUTHOR,
             tubepress_api_const_options_names_Meta::CATEGORY,
             tubepress_api_const_options_names_Meta::DESCRIPTION,
@@ -99,24 +103,23 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
             tubepress_api_const_options_names_Meta::VIEWS,
         );
     }
-    
+
     private function _setupOptionDescriptorReferenceForMetaMultiSelect()
     {
         $names = $this->_getOdNames();
-    
+
         $ods = array();
-    
+
         foreach ($names as $name) {
-    
+
             $od = new tubepress_spi_options_OptionDescriptor($name);
             $od->setBoolean();
-    
+
             $ods[] = $od;
-    
+
             $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->with($name)->once()->andReturn($od);
         }
-    
+
         return $ods;
     }
 }
-

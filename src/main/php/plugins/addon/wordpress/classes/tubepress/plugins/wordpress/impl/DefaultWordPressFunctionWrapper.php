@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -68,7 +68,7 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
      * A safe way of adding a named option/value pair to the options database table. It does nothing if the option already exists.
      *
      * @param string $name  Name of the option to// TODO: Implement add_options_page() method. be added. Use underscores to separate words, and do not
-     *                      use uppercase—this is going to be placed into the database.
+     *                      use uppercaseâ€”this is going to be placed into the database.
      * @param string $value Value for this option name.
      *
      * @return void
@@ -302,4 +302,17 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
         /** @noinspection PhpUndefinedFunctionInspection */
         return site_url();
     }
+
+    /**
+     * The content_url template tag retrieves the url to the content area for the current site with the
+     * appropriate protocol, 'https' if is_ssl() and 'http' otherwise.
+     *
+     * @return string Content url link with optional path appended.
+     */
+    public final function content_url()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return content_url();
+    }
+
 }

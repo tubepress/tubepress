@@ -22,7 +22,7 @@ class tubepress_impl_options_ui_fields_TextFieldTest extends tubepress_impl_opti
 {
     protected function _buildSut($name)
     {
-        return new tubepress_impl_options_ui_fields_TextField($name);
+        return new tubepress_impl_options_ui_fields_TextField($name, 'someTab');
     }
 
     protected function getTemplatePath()
@@ -30,4 +30,3 @@ class tubepress_impl_options_ui_fields_TextFieldTest extends tubepress_impl_opti
         return 'src/main/resources/system-templates/options_page/fields/text.tpl.php';
     }
 }
-

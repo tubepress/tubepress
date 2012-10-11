@@ -47,4 +47,9 @@ interface tubepress_spi_player_PluggablePlayerLocationService
      * @return boolean True if this player location produces HTML, false otherwise.
      */
     function producesHtml();
+
+    /**
+     * @return string The human-readable name of this player location.
+     */
+    function getFriendlyName();
 }

@@ -34,9 +34,10 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Official support for plugin API
 * Fixed HTTPS bug
 * Significant performance improvements in parsing raw feeds from remote video APIs
-* Major reorganization of code to support pluggability
+* Major rearchitecture of code to support pluggability
 * Switched to PSR-0 classloading and Composer for dependency control
-* Improved performance due to "lazy loading" services
+* Improved performance with "lazy loading" of services services
+* Removed HTTP transport disabling options
 * YouTube added option to remove all player controls
 * YouTube added option to use light/dark theme
 * YouTube added option to control closed captions

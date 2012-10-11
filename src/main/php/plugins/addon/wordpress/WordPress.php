@@ -48,6 +48,9 @@ class tubepress_plugins_wordpress_WordPress
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_wordpress_impl_listeners_WordPressApiIntegrator(), 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_wordpress_impl_listeners_WordPressOptionsPageBuilder(), 'onBoot'));
     }
 }
 

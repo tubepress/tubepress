@@ -65,5 +65,7 @@ class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPlayerEmbeddedPlayerTest 
         $this->assertEquals('http://www.youtube.com/watch?v=xx', $result->toString());
     }
 
+
+
 }
 

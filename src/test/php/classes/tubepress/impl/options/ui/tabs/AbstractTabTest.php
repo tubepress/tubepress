@@ -20,73 +20,85 @@
  */
 abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressUnitTest
 {
-	private $_sut;
+    private $_sut;
 
     private $_mockFieldBuilder;
 
     private $_mockTemplateBuilder;
 
-    private $_mockEnvironmentDetector;
+    private $_mockServiceCollectionsRegistry;
 
     public function setup()
-	{
-		$ms                             = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+    {
+        $ms                             = Mockery::mock(tubepress_spi_message_MessageService::_);
         $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockFieldBuilder        = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($ms);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
 
-		$ms->shouldReceive('_')->andReturnUsing( function ($key) {
+        $ms->shouldReceive('_')->andReturnUsing( function ($key) {
 
-		    return "<<message: $key>>";
-		});
+            return "<<message: $key>>";
+        });
 
-		$this->_sut = $this->_buildSut();
-	}
+        $this->_sut = $this->_buildSut();
+    }
 
-	public function testGetName()
-	{
+    public function testGetName()
+    {
         $this->assertEquals('<<message: ' . $this->_getRawTitle() . '>>', $this->_sut->getTitle());
-	}
+    }
 
-	public function testGetHtml()
-	{
-	    $expected = $this->_getFieldArray();
-	    $expectedFieldArray = $this->getAdditionalFields();
+    public function testGetHtml()
+    {
+        $expected = $this->getHardcodedFieldArray();
 
-	    foreach ($expected as $name => $type) {
+        $fakeExtraField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+        $fakeExtraField->shouldReceive('getDesiredTabName')->once()->andReturn($this->_sut->getName());
+        $fakeExtraFields = array($fakeExtraField);
+        $expectedFieldArray = $this->getAdditionalFields();
 
-	        $this->_mockFieldBuilder->shouldReceive('build')->once()->with($name, $type)->andReturn("$name-$type");
-	        $expectedFieldArray[] = "$name-$type";
-	    }
-	    
-	    $template = \Mockery::mock('ehough_contemplate_api_Template');
-	    $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY, $expectedFieldArray);
-	    $template->shouldReceive('toString')->once()->andReturn('final result');
+        foreach ($expected as $name => $type) {
 
-	    $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath!>>');
-	    $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath!>>/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
-	    
-	    $this->assertEquals('final result', $this->_sut->getHtml());
-	}
+            $this->_mockFieldBuilder->shouldReceive('build')->once()->with($name, $type, $this->_sut->getName())->andReturn("$name-$type");
+            $expectedFieldArray[] = "$name-$type";
+        }
 
-	protected function getAdditionalFields()
-	{
-	    return array();
-	}
+        $allFields = array_merge($expectedFieldArray, $fakeExtraFields);
+
+        $template = \Mockery::mock('ehough_contemplate_api_Template');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY, $allFields);
+        $template->shouldReceive('toString')->once()->andReturn('final result');
+
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
+
+
+
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME)->andReturn(
+
+            $fakeExtraFields
+        );
+
+        $this->assertEquals('final result', $this->_sut->getHtml());
+    }
+
+    protected function getAdditionalFields()
+    {
+        return array();
+    }
 
     protected function getFieldBuilder()
     {
         return $this->_mockFieldBuilder;
     }
-	
-	protected abstract function _getFieldArray();
 
-	protected abstract function _getRawTitle();
+    protected abstract function getHardcodedFieldArray();
 
-	protected abstract function _buildSut();
+    protected abstract function _getRawTitle();
+
+    protected abstract function _buildSut();
 }

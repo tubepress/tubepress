@@ -20,9 +20,9 @@
  */
 class tubepress_impl_options_ui_tabs_ThumbsTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-	protected function _getFieldArray()
-	{
-	    return array(
+    protected function getHardcodedFieldArray()
+    {
+        return array(
 
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
@@ -35,15 +35,15 @@ class tubepress_impl_options_ui_tabs_ThumbsTabTest extends tubepress_impl_option
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
 
         );
-	}
+    }
 
-	protected function _getRawTitle()
-	{
-	    return 'Thumbnails';
-	}
+    protected function _getRawTitle()
+    {
+        return 'Thumbnails';
+    }
 
-	protected function _buildSut()
-	{
-	    return new tubepress_impl_options_ui_tabs_ThumbsTab();
-	}
+    protected function _buildSut()
+    {
+        return new tubepress_impl_options_ui_tabs_ThumbsTab();
+    }
 }

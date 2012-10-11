@@ -20,22 +20,22 @@
  */
 class tubepress_impl_options_ui_tabs_ThemeTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-	protected function _getFieldArray()
-	{
-	    return array(
+    protected function getHardcodedFieldArray()
+    {
+        return array(
 
             tubepress_api_const_options_names_Thumbs::THEME => tubepress_impl_options_ui_fields_ThemeField::FIELD_CLASS_NAME
 
         );
-	}
+    }
 
-	protected function _getRawTitle()
-	{
-	    return 'Theme';
-	}
+    protected function _getRawTitle()
+    {
+        return 'Theme';
+    }
 
-	protected function _buildSut()
-	{
-	    return new tubepress_impl_options_ui_tabs_ThemeTab();
-	}
+    protected function _buildSut()
+    {
+        return new tubepress_impl_options_ui_tabs_ThemeTab();
+    }
 }

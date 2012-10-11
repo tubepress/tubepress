@@ -22,7 +22,7 @@
 /**
  * Displays the advanced options tab.
  */
-class tubepress_impl_options_ui_tabs_AdvancedTab extends tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_AdvancedTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
     /**
      * Get the untranslated title of this tab.
@@ -34,20 +34,20 @@ class tubepress_impl_options_ui_tabs_AdvancedTab extends tubepress_impl_options_
         return 'Advanced';  //>(translatable)<
     }
 
-    /**
-     * Get the delegate form handlers.
-     *
-     * @return array An array of tubepress_spi_options_ui_FormHandler.
-     */
-    protected final function getDelegateFormHandlers()
+    protected final function getHardCodedFields()
     {
         $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DEBUG_ON,               tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::KEYWORD,                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::HTTPS,                  tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DEBUG_ON, tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::KEYWORD,  tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,    $this->getName()),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::HTTPS,    tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
         );
+    }
+
+    public final function getName()
+    {
+        return 'advanced';
     }
 }

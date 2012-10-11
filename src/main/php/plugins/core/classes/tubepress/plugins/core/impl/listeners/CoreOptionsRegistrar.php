@@ -31,7 +31,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
-        
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DEBUG_ON);
         $option->setDefaultValue(true);
         $option->setLabel('Enable debugging');                                                                                                                                                                                                                                                         //>(translatable)<
@@ -89,22 +89,8 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $option->setLabel('Play each video');                                                                                              //>(translatable)<
         $option->setDefaultValue('normal');
-//        $option->setAcceptableValues(array(
-//            tubepress_api_const_options_values_PlayerLocationValue::NORMAL    => 'normally (at the top of your gallery)',                 //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::POPUP     => 'in a popup window',                                     //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::YOUTUBE   => 'from the video\'s original YouTube page',               //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::VIMEO     => 'from the video\'s original Vimeo page',                 //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::SHADOWBOX => 'with Shadowbox',                                        //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::JQMODAL   => 'with jqModal',                                          //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::TINYBOX   => 'with TinyBox',                                          //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::FANCYBOX  => 'with FancyBox',                                         //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::STATICC   => 'statically (page refreshes on each thumbnail click)',   //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::SOLO      => 'in a new window on its own',                            //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::DETACHED  => 'in a "detached" location (see the documentation)'		  //>(translatable)<
-//        ));
+        $option->setAcceptableValuesCallback(array($this, 'getValidPlayerLocations'));
         $odr->registerOptionDescriptor($option);
-
-
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::AUTONEXT);
         $option->setLabel('Play videos sequentially without user intervention');  //>(translatable)<
@@ -218,11 +204,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setValidValueRegex('/\w*/');
         $odr->registerOptionDescriptor($option);
 
-
-
-
-
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
         $option->setAcceptableValues(array(
             'youtube',
@@ -291,10 +272,13 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
 
-
-
-
-
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
+        $option->setLabel('Implementation');                                                                                  //>(translatable)<
+        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
+        $option->setExcludedProviders(array('vimeo'));
+        $option->setAcceptableValuesCallback(array($this, 'getValidPlayerImplementations'));
+        $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::KEYWORDS);
         $option->setLabel('Keywords');  //>(translatable)<
@@ -328,27 +312,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED);
-//        $option->setAcceptableValues(array(
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
-//        ));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::OUTPUT);
@@ -443,11 +406,8 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $fileSystemService              = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystem();
         $fileSystemFinderFactoryService = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystemFinderFactory();
 
-        $systemThemesDirectory =
-            $environmentDetectorService->getTubePressBaseInstallationPath() . '/src/main/resources/default-themes';
-
-        $userThemesDirectory =
-            $environmentDetectorService->getUserContentDirectory() . '/themes';
+        $systemThemesDirectory = TUBEPRESS_ROOT . '/src/main/resources/default-themes';
+        $userThemesDirectory   = $environmentDetectorService->getUserContentDirectory() . '/themes';
 
         $directoriesToSearch = array();
 
@@ -484,4 +444,66 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
 
         return $toReturn;
     }
+
+    public final function getValidPlayerImplementations()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $embeddedImpls              = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        $providerNames              = $this->getRegisteredProviderNames();
+        $detected                   = array();
+
+        foreach ($embeddedImpls as $embeddedImpl) {
+
+            /**
+             * If the embedded player service's name does not match a registered provider name,
+             * it must be non provider based, so let's add it.
+             */
+            if (! in_array($embeddedImpl->getName(), $providerNames)) {
+
+                $detected[$embeddedImpl->getName()] = $embeddedImpl->getFriendlyName();
+            }
+        }
+
+        return array_merge(array(
+
+            tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED => 'Provider default',                         //>(translatable)<
+        ), $detected);
+    }
+
+    public final function getValidPlayerLocations()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $playerLocations            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PluggablePlayerLocationService::_);
+
+        $toReturn = array();
+
+        foreach ($playerLocations as $playerLocation) {
+
+            $toReturn[$playerLocation->getName()] = $playerLocation->getFriendlyName();
+        }
+
+        return $toReturn;
+    }
+
+    private function getRegisteredProviderNames()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+
+        $toReturn = array();
+
+        foreach ($videoProviders as $videoProvider) {
+
+            $toReturn[] = $videoProvider->getName();
+        }
+
+        return $toReturn;
+    }
+
+    /**
+     * These are here to keep Pro strings translatable.
+     * 'with FancyBox'    //>(translatable)<
+     * 'with TinyBox'     //>(translatable)<
+     * 'in a "detached" location (see the documentation)'  //>(translatable)<
+     */
 }

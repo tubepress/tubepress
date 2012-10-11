@@ -24,16 +24,7 @@
  */
 class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_FormHandler
 {
-    const __ = 'tubepress_impl_options_ui_DefaultTabsHandler';
-
     const TEMPLATE_VAR_TABS = 'tubepress_impl_options_ui_DefaultTabsHandler__tabs';
-
-    private $_tabs;
-
-    public function __construct(array $tabs)
-    {
-        $this->_tabs = $tabs;
-    }
 
     /**
      * Generates the HTML for the "meat" of the options form.
@@ -42,12 +33,9 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     public final function getHtml()
     {
-        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-
-        $basePath       = $environmentDetector->getTubePressBaseInstallationPath();
-        $template       = $templateBuilder->getNewTemplateInstance("$basePath/src/main/resources/system-templates/options_page/tabs.tpl.php");
-        $tabs           = $this->getDelegateFormHandlers();
+        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php');
+        $tabs            = $this->getDelegateFormHandlers();
 
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);
 
@@ -61,6 +49,8 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     protected final function getDelegateFormHandlers()
     {
-        return $this->_tabs;
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+
+        return $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
     }
 }

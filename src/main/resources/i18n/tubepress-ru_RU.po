@@ -411,6 +411,7 @@ msgid "Cache cleaning factor"
 msgstr ""
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
+
 msgstr ""
 
 msgid "Only show options applicable to..."
@@ -534,5 +535,8 @@ msgid "Dark"
 msgstr ""
 
 msgid "Light"
+msgstr ""
+
+msgid "JW FLV Media Player (by Longtail Video)"
 msgstr ""
 

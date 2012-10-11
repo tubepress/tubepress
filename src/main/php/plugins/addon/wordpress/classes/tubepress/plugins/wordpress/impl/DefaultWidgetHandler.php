@@ -16,7 +16,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress_plugins_wordpress_spi_WidgetHandler
 {
@@ -37,7 +37,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
         $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
-            $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
+        $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
 
         $wpFunctionWrapper->wp_register_sidebar_widget('tubepress', 'TubePress', array($this, 'printWidgetHtml'), $widgetOps);
         $wpFunctionWrapper->wp_register_widget_control('tubepress', 'TubePress', array($this, 'printControlHtml'));
@@ -112,7 +112,6 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
     {
         $wpsm         = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
         $msg          = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $explorer     = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
         $tplBuilder   = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
         $hrps         = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
 
@@ -126,7 +125,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
         }
 
         /* load up the gallery template */
-        $templatePath = $explorer->getTubePressBaseInstallationPath() . '/src/main/php/plugins/addon/wordpress/resources/templates/widget_controls.tpl.php';
+        $templatePath = TUBEPRESS_ROOT . '/src/main/php/plugins/addon/wordpress/resources/templates/widget_controls.tpl.php';
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */

@@ -55,10 +55,9 @@ class tubepress_plugins_corewordpress_listeners_WordPressBootTest extends TubePr
 
     function testWordPress()
     {
-        $this->_mockWpFunctionWrapper->shouldReceive('site_url')->once()->andReturn('valueofsiteurl');
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('path');
+        $this->_mockWpFunctionWrapper->shouldReceive('content_url')->once()->andReturn('valueofcontenturl');
 
-        $this->_mockWpFunctionWrapper->shouldReceive('load_plugin_textdomain')->once()->with('tubepress', false, 'path/src/main/resources/i18n');
+        $this->_mockWpFunctionWrapper->shouldReceive('load_plugin_textdomain')->once()->with('tubepress', false, 'tubepress/src/main/resources/i18n');
 
         $this->_mockWpFunctionWrapper->shouldReceive('add_filter')->once()->with('the_content', array($this->_mockContentFilter, 'filterContent'));
         $this->_mockWpFunctionWrapper->shouldReceive('add_action')->once()->with('wp_head', array($this->_mockJsAndCssInjector, 'printInHtmlHead'));
@@ -70,8 +69,7 @@ class tubepress_plugins_corewordpress_listeners_WordPressBootTest extends TubePr
         $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 
         global $tubepress_base_url;
-        $this->assertEquals('valueofsiteurl/wp-content/plugins/path', $tubepress_base_url);
+        $this->assertEquals('valueofcontenturl/plugins/tubepress', $tubepress_base_url);
     }
 
 }
-

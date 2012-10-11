@@ -93,6 +93,14 @@ class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServ
         return 'youtube';
     }
 
+    /**
+     * @return string The friendly name of this embedded player service.
+     */
+    public final function getFriendlyName()
+    {
+        return 'YouTube';
+    }
+
     private static function _getAnnotationsValue($raw)
     {
         return $raw ? 1 : 3;

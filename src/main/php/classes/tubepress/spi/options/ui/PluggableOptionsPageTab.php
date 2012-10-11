@@ -22,9 +22,9 @@
 /**
  * An individual option tab.
  */
-interface tubepress_spi_options_ui_Tab extends tubepress_spi_options_ui_FormHandler
+interface tubepress_spi_options_ui_PluggableOptionsPageTab extends tubepress_spi_options_ui_FormHandler
 {
-    const __ = 'tubepress_spi_options_ui_Tab';
+    const CLASS_NAME = 'tubepress_spi_options_ui_PluggableOptionsPageTab';
 
     /**
      * Get the title of this tab.
@@ -32,4 +32,6 @@ interface tubepress_spi_options_ui_Tab extends tubepress_spi_options_ui_FormHand
      * @return string The title of this tab.
      */
     function getTitle();
+
+    function getName();
 }

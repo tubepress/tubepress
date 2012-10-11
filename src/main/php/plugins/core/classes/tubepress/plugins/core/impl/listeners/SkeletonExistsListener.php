@@ -30,28 +30,28 @@ class tubepress_plugins_core_impl_listeners_SkeletonExistsListener
 
 
         if ($ed->isWordPress()) {
-        	
-	        /* add the content directory if it's not already there */
-	        if (!is_dir(ABSPATH . 'wp-content/tubepress-content')) {
-	        	
-	        	$this->_tryToMirror(
-                    $ed->getTubePressBaseInstallationPath() . '/src/main/resources/user-content-skeleton/tubepress-content',
+
+            /* add the content directory if it's not already there */
+            if (!is_dir(ABSPATH . 'wp-content/tubepress-content')) {
+
+                $this->_tryToMirror(
+                    TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content',
                     ABSPATH . 'wp-content');
-	        }
-	        
+            }
+
         } else {
-        	
-        	$basePath = $ed->getTubePressBaseInstallationPath();
-        	
-        	/* add the content directory if it's not already there */
-        	if (!is_dir($basePath . '/tubepress-content')) {
+
+            $basePath = TUBEPRESS_ROOT;
+
+            /* add the content directory if it's not already there */
+            if (!is_dir($basePath . '/tubepress-content')) {
 
                 $this->_tryToMirror(
 
                     $basePath . '/src/main/resources/user-content-skeleton/tubepress-content',
                     $basePath
                 );
-        	}
+            }
         }
     }
 

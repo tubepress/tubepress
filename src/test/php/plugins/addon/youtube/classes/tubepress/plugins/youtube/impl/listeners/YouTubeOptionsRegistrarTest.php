@@ -239,15 +239,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
-        $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
-        $option->setLabel('Implementation');                                                                                  //>(translatable)<
-        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED => 'Provider default',                         //>(translatable)<
-        ));
-        $this->_verifyOption($option);
+
 
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());

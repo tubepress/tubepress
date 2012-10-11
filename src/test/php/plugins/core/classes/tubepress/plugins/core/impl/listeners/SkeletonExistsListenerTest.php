@@ -29,10 +29,10 @@ class tubepress_plugins_core_impl_listeners_SkeletonExistsListenerTest extends T
     function setup()
     {
         $this->_sut = new tubepress_plugins_core_impl_listeners_SkeletonExistsListener();
-        
+
         if (!defined('ABSPATH')) {
 
-        	define('ABSPATH', '/value-of-abspath/');
+            define('ABSPATH', '/value-of-abspath/');
         }
 
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
@@ -45,23 +45,21 @@ class tubepress_plugins_core_impl_listeners_SkeletonExistsListenerTest extends T
     function testWordPress()
     {
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
 
-		$this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with('<<basepath>>/src/main/resources/user-content-skeleton/tubepress-content', '/value-of-abspath/wp-content');
-        
+        $this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content', '/value-of-abspath/wp-content');
+
         $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 
         $this->assertTrue(true);
     }
-    
+
     function testNonWordPress()
     {
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
 
-        $this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with('<<basepath>>/src/main/resources/user-content-skeleton/tubepress-content', '<<basepath>>');
-    
-    	$this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
+        $this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content', TUBEPRESS_ROOT);
+
+        $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 
         $this->assertTrue(true);
     }

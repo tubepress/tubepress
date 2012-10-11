@@ -115,7 +115,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (isset($this->_acceptableValuesCallback)) {
 
-            return call_user_func(array($this->_acceptableValuesCallback, 'getAcceptableValues'), $this->getName());
+            return call_user_func($this->_acceptableValuesCallback, $this->getName());
         }
 
         return $this->_acceptableValues;
@@ -280,9 +280,9 @@ class tubepress_spi_options_OptionDescriptor
         $this->_checkRegexNotSet();
         $this->_checkAcceptableValuesNotSet();
 
-        if (! is_callable(array($callback, 'getAcceptableValues'))) {
+        if (! is_callable($callback)) {
 
-            throw new InvalidArgumentException('Acceptable values callback must implement getAcceptableValues()');
+            throw new InvalidArgumentException('Acceptable values callback is not callable');
         }
 
         $this->_acceptableValuesCallback = $callback;

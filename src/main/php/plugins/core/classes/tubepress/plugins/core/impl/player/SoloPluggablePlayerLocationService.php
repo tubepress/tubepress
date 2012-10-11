@@ -57,4 +57,12 @@ class tubepress_plugins_core_impl_player_SoloPluggablePlayerLocationService impl
     {
         return false;
     }
+
+    /**
+     * @return string The human-readable name of this player location.
+     */
+    public final function getFriendlyName()
+    {
+        return 'in a new window on its own';                            //>(translatable)<
+    }
 }

@@ -22,7 +22,7 @@
 /**
  * Base class for HTML fields.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractField
+abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField
 {
     const TEMPLATE_VAR_VALUE = 'tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField__value';
 
@@ -32,7 +32,9 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     /** Option descriptor. */
     private $_optionDescriptor;
 
-    public function __construct($name)
+    private $_desiredTabName;
+
+    public function __construct($name, $desiredTabName)
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
@@ -52,6 +54,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
             array_push($this->_providerArray, 'youtube');
         }
+
+        $this->_desiredTabName = $desiredTabName;
     }
 
     /**
@@ -101,12 +105,10 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
      */
     public final function getHtml()
     {
-        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
         $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
         $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
 
-        $basePath     = $environmentDetector->getTubePressBaseInstallationPath();
-        $template     = $templateBuilder->getNewTemplateInstance($basePath . '/' . $this->getTemplatePath());
+        $template     = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getTemplatePath());
         $currentValue = $storageManager->get($this->_optionDescriptor->getName());
 
         $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_optionDescriptor->getName());
@@ -132,6 +134,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
         return $this->_onSubmitSimple();
     }
 
+    public final function getDesiredTabName()
+    {
+        return $this->_desiredTabName;
+    }
+
     /**
      * Get the path to the template for this field, relative
      * to TubePress's root.
@@ -154,7 +161,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
      */
     protected function populateTemplate($template, $currentValue)
     {
-         //override point
+        //override point
     }
 
     protected final function getOptionDescriptor()

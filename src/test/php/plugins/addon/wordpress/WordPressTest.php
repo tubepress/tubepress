@@ -20,31 +20,34 @@
  */
 class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
 {
-	private $_mockEventDispatcher;
+    private $_mockEventDispatcher;
 
     private $_mockEnvironmentDetector;
 
-	function setup()
-	{
-		$this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+    function setup()
+    {
+        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
-	}
+    }
 
-	function testCore()
+    function testCore()
     {
         $expected = array(
 
             array(tubepress_api_const_event_CoreEventNames::BOOT =>
-                array(new tubepress_plugins_wordpress_impl_listeners_WordPressOptionsRegistrar(), 'onBoot')),
+            array(new tubepress_plugins_wordpress_impl_listeners_WordPressOptionsRegistrar(), 'onBoot')),
 
             array(tubepress_api_const_event_CoreEventNames::BOOT =>
-                array(new tubepress_plugins_wordpress_impl_listeners_WordPressIocContainerBuilder(), 'onBoot')),
+            array(new tubepress_plugins_wordpress_impl_listeners_WordPressIocContainerBuilder(), 'onBoot')),
 
             array(tubepress_api_const_event_CoreEventNames::BOOT =>
-                array(new tubepress_plugins_wordpress_impl_listeners_WordPressApiIntegrator(), 'onBoot')),
+            array(new tubepress_plugins_wordpress_impl_listeners_WordPressApiIntegrator(), 'onBoot')),
+
+            array(tubepress_api_const_event_CoreEventNames::BOOT =>
+            array(new tubepress_plugins_wordpress_impl_listeners_WordPressOptionsPageBuilder(), 'onBoot')),
         );
 
         $eventArray = array();
@@ -68,16 +71,16 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
 
                 $eventName, Mockery::on(function ($arr) use ($callbacks) {
 
-                    foreach ($callbacks as $callback) {
+                foreach ($callbacks as $callback) {
 
-                        if ($arr[0] instanceof $callback[0] && $arr[1] === $callback[1]) {
+                    if ($arr[0] instanceof $callback[0] && $arr[1] === $callback[1]) {
 
-                            return true;
-                        }
+                        return true;
                     }
+                }
 
-                    return false;
-                }));
+                return false;
+            }));
         }
 
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);

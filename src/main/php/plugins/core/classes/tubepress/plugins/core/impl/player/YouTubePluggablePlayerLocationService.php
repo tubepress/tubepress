@@ -57,4 +57,12 @@ class tubepress_plugins_core_impl_player_YouTubePluggablePlayerLocationService i
     {
         return false;
     }
+
+    /**
+     * @return string The human-readable name of this player location.
+     */
+    public final function getFriendlyName()
+    {
+        return 'from the video\'s original YouTube page';               //>(translatable)<
+    }
 }

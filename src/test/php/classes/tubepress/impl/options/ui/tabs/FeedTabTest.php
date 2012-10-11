@@ -20,26 +20,26 @@
  */
 class tubepress_impl_options_ui_tabs_FeedTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-	protected function _getFieldArray()
-	{
-	    return array(
+    protected function getHardcodedFieldArray()
+    {
+        return array(
 
-    	    tubepress_api_const_options_names_Feed::ORDER_BY         => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
-	        tubepress_api_const_options_names_Feed::PER_PAGE_SORT    => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Feed::ORDER_BY         => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Feed::PER_PAGE_SORT    => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
 
         );
-	}
+    }
 
-	protected function _getRawTitle()
-	{
-	    return 'Feed';
-	}
+    protected function _getRawTitle()
+    {
+        return 'Feed';
+    }
 
-	protected function _buildSut()
-	{
-	    return new tubepress_impl_options_ui_tabs_FeedTab( );
-	}
+    protected function _buildSut()
+    {
+        return new tubepress_impl_options_ui_tabs_FeedTab( );
+    }
 }

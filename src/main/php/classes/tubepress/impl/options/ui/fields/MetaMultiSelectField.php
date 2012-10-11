@@ -25,24 +25,24 @@
 class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
 {
     public function __construct()
-     {
-         $reference = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+    {
+        $reference = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
-         parent::__construct(array(
+        parent::__construct(array(
 
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::AUTHOR),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::RATING),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::CATEGORY),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::UPLOADED),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::DESCRIPTION),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::ID),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::KEYWORDS),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::LIKES),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::RATINGS),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::LENGTH),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::TITLE),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::URL),
-             $reference->findOneByName(tubepress_api_const_options_names_Meta::VIEWS),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::AUTHOR),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::RATING),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::CATEGORY),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::UPLOADED),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::DESCRIPTION),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::ID),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::KEYWORDS),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::LIKES),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::RATINGS),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::LENGTH),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::TITLE),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::URL),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::VIEWS),
 
         ), 'metadropdown');
     }
@@ -65,6 +65,11 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
     protected final function getRawDescription()
     {
         return '';
+    }
+
+    public final function getDesiredTabName()
+    {
+        return 'meta';
     }
 
 }

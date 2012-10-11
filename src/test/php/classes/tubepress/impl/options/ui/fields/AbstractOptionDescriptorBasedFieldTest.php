@@ -20,11 +20,11 @@
  */
 abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_impl_options_ui_fields_AbstractFieldTest
 {
-	private $_sut;
+    private $_sut;
 
-	private $_mockOptionDescriptor;
+    private $_mockOptionDescriptor;
 
-	private $_mockHttpRequestParameterService;
+    private $_mockHttpRequestParameterService;
 
     private $_mockOptionsValidator;
 
@@ -38,13 +38,13 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
     private $_mockTemplateBuilder;
 
-	public function setup()
-	{
-		$this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-		$this->_mockOptionDescriptor            = new tubepress_spi_options_OptionDescriptor('name');
+    public function setup()
+    {
+        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockOptionDescriptor            = new tubepress_spi_options_OptionDescriptor('name');
 
-		$this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-		$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_mockOptionDescriptor);
+        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_mockOptionDescriptor);
 
         $this->_mockStorageManager      = Mockery::mock(tubepress_spi_options_StorageManager::_);
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
@@ -62,139 +62,136 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
         parent::doSetup($this->_mockMessageService);
 
-		$this->_sut = $this->_buildSut('name');
-	}
+        $this->_sut = $this->_buildSut('name');
+    }
 
-	public function testSubmitSimpleInvalid()
-	{
-	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
-	    $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
+    public function testSubmitSimpleInvalid()
+    {
+        $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
-	    $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
+        $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
         $this->_mockOptionsValidator->shouldReceive('getProblemMessage')->once()->with('name', 'some-value')->andReturn('you suck');
 
-	    $this->assertEquals(array('you suck'), $this->_sut->onSubmit());
-	}
+        $this->assertEquals(array('you suck'), $this->_sut->onSubmit());
+    }
 
-	public function testSubmitNoExist()
-	{
-	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(false);
+    public function testSubmitNoExist()
+    {
+        $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(false);
 
-	    $this->assertNull($this->_sut->onSubmit());
-	}
+        $this->assertNull($this->_sut->onSubmit());
+    }
 
-	public function testSubmitBoolean()
-	{
-	    $this->_mockOptionDescriptor->setBoolean();
+    public function testSubmitBoolean()
+    {
+        $this->_mockOptionDescriptor->setBoolean();
 
-	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+        $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
 
-	    $this->_mockStorageManager->shouldReceive('set')->once()->with('name', true)->andReturn(true);
+        $this->_mockStorageManager->shouldReceive('set')->once()->with('name', true)->andReturn(true);
 
-	    $this->assertNull($this->_sut->onSubmit());
-	}
+        $this->assertNull($this->_sut->onSubmit());
+    }
 
-	public function testSubmitSimple()
-	{
+    public function testSubmitSimple()
+    {
 
-	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
-	    $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
+        $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
-	    $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
-	    $this->_mockStorageManager->shouldReceive('set')->once()->with('name', 'some-value')->andReturn(true);
+        $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
+        $this->_mockStorageManager->shouldReceive('set')->once()->with('name', 'some-value')->andReturn(true);
 
-	    $this->assertNull($this->_sut->onSubmit());
-	}
+        $this->assertNull($this->_sut->onSubmit());
+    }
 
-	protected function getSut()
-	{
-	    return $this->_sut;
-	}
+    protected function getSut()
+    {
+        return $this->_sut;
+    }
 
-	protected function getMockOptionDescriptor()
-	{
-	    return $this->_mockOptionDescriptor;
-	}
+    protected function getMockOptionDescriptor()
+    {
+        return $this->_mockOptionDescriptor;
+    }
 
     protected function getMockEnvironmentDetector()
     {
         return $this->_mockEnvironmentDetector;
     }
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
-	public function testBadOptionName()
-	{
-		$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testBadOptionName()
+    {
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
 
-		$this->_sut = new tubepress_impl_options_ui_fields_TextField('name');
-	}
+        $this->_sut = new tubepress_impl_options_ui_fields_TextField('name', 'someTab');
+    }
 
-	public function testGetInputHtml()
-	{
-	    $template = \Mockery::mock('ehough_contemplate_api_Template');
-	    $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME, 'name');
-	    $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
+    public function testGetInputHtml()
+    {
+        $template = \Mockery::mock('ehough_contemplate_api_Template');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME, 'name');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
         $template->shouldReceive('toString')->once()->andReturn('boogity');
 
-	    $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/' . $this->getTemplatePath())->andReturn($template);
 
-	    $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/' . $this->getTemplatePath())->andReturn($template);
+        $this->_mockStorageManager->shouldReceive('get')->once()->with('name')->andReturn('<<currentvalue>>');
 
-	    $this->_mockStorageManager->shouldReceive('get')->once()->with('name')->andReturn('<<currentvalue>>');
+        $this->_performAdditionToStringTestSetup($template);
 
-	    $this->_performAdditionToStringTestSetup($template);
+        $this->assertEquals('boogity', $this->_sut->getHtml());
+    }
 
-	    $this->assertEquals('boogity', $this->_sut->getHtml());
-	}
+    protected function _performAdditionToStringTestSetup($template)
+    {
+        //override point
+    }
 
-	protected function _performAdditionToStringTestSetup($template)
-	{
-	    //override point
-	}
+    protected function _performAdditionGetDescriptionSetup()
+    {
+        //override point
+    }
 
-	protected function _performAdditionGetDescriptionSetup()
-	{
-	    //override point
-	}
-
-	public function testProviders()
-	{
+    public function testProviders()
+    {
         $this->assertTrue($this->_sut->getArrayOfApplicableProviderNames() === array('vimeo', 'youtube'));
-	}
+    }
 
-	public function testGetProOnlyNo()
-	{
+    public function testGetProOnlyNo()
+    {
 
-	    $this->assertTrue($this->_sut->isProOnly() === false);
-	}
+        $this->assertTrue($this->_sut->isProOnly() === false);
+    }
 
-	public function testGetProOnlyYes()
-	{
-	    $this->_mockOptionDescriptor->setProOnly();
+    public function testGetProOnlyYes()
+    {
+        $this->_mockOptionDescriptor->setProOnly();
 
-	    $this->assertTrue($this->_sut->isProOnly() === true);
-	}
+        $this->assertTrue($this->_sut->isProOnly() === true);
+    }
 
-	public function testGetDescription()
-	{
-	    $this->_mockOptionDescriptor->setDescription('some-desc');
+    public function testGetDescription()
+    {
+        $this->_mockOptionDescriptor->setDescription('some-desc');
 
-	    $this->_performAdditionGetDescriptionSetup();
+        $this->_performAdditionGetDescriptionSetup();
 
-	    $this->assertTrue($this->_sut->getDescription() === '<<message: some-desc>>');
-	}
+        $this->assertTrue($this->_sut->getDescription() === '<<message: some-desc>>');
+    }
 
-	public function testGetTitle()
-	{
-	    $this->_mockOptionDescriptor->setLabel('some-label');
+    public function testGetTitle()
+    {
+        $this->_mockOptionDescriptor->setLabel('some-label');
 
-	    $this->assertTrue($this->_sut->getTitle() === '<<message: some-label>>');
-	}
+        $this->assertTrue($this->_sut->getTitle() === '<<message: some-label>>');
+    }
 
-	protected abstract function getTemplatePath();
+    protected abstract function getTemplatePath();
 
-	protected abstract function _buildSut($name);
+    protected abstract function _buildSut($name);
 }
-

@@ -35,7 +35,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
                 $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS),
                 $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS),
 
-        ), 'filterdropdown');
+            ), 'filterdropdown');
     }
 
     /**
@@ -56,5 +56,10 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
     protected final function getRawDescription()
     {
         return '';
+    }
+
+    public final function getDesiredTabName()
+    {
+        return null;
     }
 }

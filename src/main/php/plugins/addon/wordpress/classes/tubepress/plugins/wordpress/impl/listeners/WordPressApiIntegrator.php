@@ -26,24 +26,22 @@ class tubepress_plugins_wordpress_impl_listeners_WordPressApiIntegrator
 {
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
-        $ed = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-
         global $tubepress_base_url;
 
-        $baseName          = $ed->getTubePressInstallationDirectoryBaseName();
+        $baseName          = basename(TUBEPRESS_ROOT);
         $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
         if ($this->_isWordPressMuDomainMapped()) {
 
-            $prefix = $this->_getScheme($wpFunctionWrapper) . constant('COOKIE_DOMAIN');
+            $prefix = $this->_getScheme($wpFunctionWrapper) . constant('COOKIE_DOMAIN') . '/wp-content';
 
         } else {
 
-            $prefix = $wpFunctionWrapper->site_url();
+            $prefix = $wpFunctionWrapper->content_url();
         }
 
-        $tubepress_base_url = $prefix . "/wp-content/plugins/$baseName";
+        $tubepress_base_url = $prefix . "/plugins/$baseName";
 
         /* register the plugin's message bundles */
         $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");

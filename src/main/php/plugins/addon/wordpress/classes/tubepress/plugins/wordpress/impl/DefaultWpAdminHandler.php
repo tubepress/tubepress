@@ -36,9 +36,8 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
             return;
         }
 
-        $fs                   = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
         $wpFunctionWrapper    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
-        $baseName             = $fs->getTubePressInstallationDirectoryBaseName();
+        $baseName             = basename(TUBEPRESS_ROOT);
         $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/jquery-ui-flick/jquery-ui-1.8.24.custom.css", $baseName);
         $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/options-page.css", $baseName);
         $jqueryMultiSelectCss = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
@@ -81,12 +80,6 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
      */
     public final function printOptionsPageHtml()
     {
-        /* grab the storage manager */
-        $wpsm = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
-
-        /* initialize our options in case we need to */
-        $wpsm->init();
-
         /* get the form handler */
         $optionsForm = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFormHandler();
         $hrps        = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
@@ -94,7 +87,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
         /* are we updating? */
         if ($hrps->hasParam('tubepress_save')) {
 
-        	self::_verifyNonce();
+            self::_verifyNonce();
 
             try {
 
@@ -122,7 +115,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
     {
         $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
-    	$wpFunctionWrapper->check_admin_referer('tubepress-save', 'tubepress-nonce');
+        $wpFunctionWrapper->check_admin_referer('tubepress-save', 'tubepress-nonce');
     }
 
     private static function _error($message)
@@ -135,4 +128,3 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
         echo '<div id="message" class="error fade"><p><strong>' . $message . '</strong></p></div>';
     }
 }
-

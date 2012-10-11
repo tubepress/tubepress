@@ -57,4 +57,12 @@ class tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService im
     {
         return true;
     }
+
+    /**
+     * @return string The human-readable name of this player location.
+     */
+    public final function getFriendlyName()
+    {
+        return 'normally (at the top of your gallery)';                 //>(translatable)<
+    }
 }

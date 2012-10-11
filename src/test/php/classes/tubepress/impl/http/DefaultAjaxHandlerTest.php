@@ -48,7 +48,9 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
 
         $this->_sut->handle();
 
-        $this->assertTrue(400 === http_response_code());
+        $actualResponse = http_response_code();
+
+        $this->assertEquals(400, $actualResponse);
     }
 
     function testFoundSuitableCommand()

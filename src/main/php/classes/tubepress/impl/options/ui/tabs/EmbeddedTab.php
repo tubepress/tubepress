@@ -22,7 +22,7 @@
 /**
  * Displays the embedded tab.
  */
-class tubepress_impl_options_ui_tabs_EmbeddedTab extends tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_EmbeddedTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
     /**
      * Get the untranslated title of this tab.
@@ -39,23 +39,46 @@ class tubepress_impl_options_ui_tabs_EmbeddedTab extends tubepress_impl_options_
      *
      * @return array An array of tubepress_spi_options_ui_FormHandler.
      */
-    protected final function getDelegateFormHandlers()
+    protected final function getHardCodedFields()
     {
         $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION,  tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_IMPL,      tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,  tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,   tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LAZYPLAY,         tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,            tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::SHOW_INFO,        tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-        	$fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTONEXT,         tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTOPLAY,         tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LOOP,             tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::ENABLE_JS_API,    tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION,
+                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_IMPL,
+                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,
+                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,
+                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LAZYPLAY,
+                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::SHOW_INFO,
+                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTONEXT,
+                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTOPLAY,
+                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LOOP,
+                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::ENABLE_JS_API,
+                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
         );
+    }
+
+    public final function getName()
+    {
+        return 'embedded';
     }
 }

@@ -79,7 +79,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         $this->assertEquals(array(
             'youtube',
             'vimeo',
-            ), $this->_sut->getArrayOfApplicableProviderNames());
+        ), $this->_sut->getArrayOfApplicableProviderNames());
     }
 
     public function testOnSubmit()
@@ -123,9 +123,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
             $this->_mockStorageManager->shouldReceive('get')->once()->with($odName)->andReturn(true);
         }
 
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php')->andReturn($template);
 
         $this->assertEquals('boogity', $this->_sut->getHtml());
     }
@@ -170,4 +168,3 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         return $ods;
     }
 }
-

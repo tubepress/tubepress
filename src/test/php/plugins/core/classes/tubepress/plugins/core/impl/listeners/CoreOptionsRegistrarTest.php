@@ -50,7 +50,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
     {
         $this->setupMocks();
 
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(54);
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(55);
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 
@@ -59,6 +59,27 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
 
     public function testOptions()
     {
+        $serviceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
+
+        $mockPlayer = Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $mockPlayers = array($mockPlayer);
+        $mockPlayer->shouldReceive('getName')->times(9)->andReturn('abc');
+        $mockPlayer->shouldReceive('getFriendlyName')->times(9)->andReturn('friendly name');
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(9)->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayers);
+
+        $mockEmbedded = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        $mockEmbedded->shouldReceive('getName')->times(110)->andReturn('yy-embed-name-yy');
+        $mockEmbedded->shouldReceive('getFriendlyName')->times(55)->andReturn('friendly embed name');
+        $mockEmbeds = array($mockEmbedded);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
+
+        $videoProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $videoProvider->shouldReceive('getName')->times(55)->andReturn('xxvideo-provider-name-xx');
+        $videoProviders = array($videoProvider);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($serviceCollectionsRegistry);
+
         $this->setupMocks();
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DEBUG_ON);
@@ -67,8 +88,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option->setDescription('If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.');  //>(translatable)<
         $option->setBoolean();
         $this->_verifyOption($option);
-
-
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::HTTPS);
         $option->setDefaultValue(false);
@@ -120,19 +139,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $option->setLabel('Play each video');                                                                                                 //>(translatable)<
         $option->setDefaultValue('normal');
-//        $option->setAcceptableValues(array(
-//            tubepress_api_const_options_values_PlayerLocationValue::NORMAL    => 'normally (at the top of your gallery)',                 //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::POPUP     => 'in a popup window',                                     //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::YOUTUBE   => 'from the video\'s original YouTube page',               //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::VIMEO     => 'from the video\'s original Vimeo page',                 //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::SHADOWBOX => 'with Shadowbox',                                        //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::JQMODAL   => 'with jqModal',                                          //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::TINYBOX   => 'with TinyBox',                                          //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::FANCYBOX  => 'with FancyBox',                                         //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::STATICC   => 'statically (page refreshes on each thumbnail click)',   //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::SOLO      => 'in a new window on its own',                            //>(translatable)<
-//            tubepress_api_const_options_values_PlayerLocationValue::DETACHED  => 'in a "detached" location (see the documentation)'		  //>(translatable)<
-//        ));
+        $option->setAcceptableValues(array('abc' => 'friendly name'));
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::AUTONEXT);
@@ -462,6 +469,14 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option->setBoolean();
         $this->_verifyOption($option);
 
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
+        $option->setLabel('Implementation');                                                                                  //>(translatable)<
+        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
+        $option->setExcludedProviders(array('vimeo'));
+        $option->setAcceptableValues(array('provider_based' => 'Provider default', 'yy-embed-name-yy' => 'friendly embed name'));
+        $this->_verifyOption($option);
+
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 
         $this->assertTrue(true);
@@ -471,22 +486,22 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
     {
         $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(Mockery::on(function ($registeredOption) use ($expectedOption) {
 
-               return $registeredOption instanceof tubepress_spi_options_OptionDescriptor
-                   && $registeredOption->getAcceptableValues() === $expectedOption->getAcceptableValues()
-                   && $registeredOption->getAliases() === $expectedOption->getAliases()
-                   && $registeredOption->getDefaultValue() === $expectedOption->getDefaultValue()
-                   && $registeredOption->getDescription() === $expectedOption->getDescription()
-                   && $registeredOption->getLabel() === $expectedOption->getLabel()
-                   && $registeredOption->getName() === $expectedOption->getName()
-                   && $registeredOption->getValidValueRegex() === $expectedOption->getValidValueRegex()
-                   && $registeredOption->isAbleToBeSetViaShortcode() === $expectedOption->isAbleToBeSetViaShortcode()
-                   && $registeredOption->isApplicableToAllProviders() === $expectedOption->isApplicableToAllProviders()
-                   && $registeredOption->isApplicableToProvider('vimeo') === $expectedOption->isApplicableToProvider('vimeo')
-                   && $registeredOption->isApplicableToProvider('youtube') === $expectedOption->isApplicableToProvider('youtube')
-                   && $registeredOption->isBoolean() === $expectedOption->isBoolean()
-                   && $registeredOption->isMeantToBePersisted() === $expectedOption->isMeantToBePersisted()
-                   && $registeredOption->hasDiscreteAcceptableValues() === $expectedOption->hasDiscreteAcceptableValues()
-                   && $registeredOption->isProOnly() === $expectedOption->isProOnly();
+            return $registeredOption instanceof tubepress_spi_options_OptionDescriptor
+                && $registeredOption->getAcceptableValues() === $expectedOption->getAcceptableValues()
+                && $registeredOption->getAliases() === $expectedOption->getAliases()
+                && $registeredOption->getDefaultValue() === $expectedOption->getDefaultValue()
+                && $registeredOption->getDescription() === $expectedOption->getDescription()
+                && $registeredOption->getLabel() === $expectedOption->getLabel()
+                && $registeredOption->getName() === $expectedOption->getName()
+                && $registeredOption->getValidValueRegex() === $expectedOption->getValidValueRegex()
+                && $registeredOption->isAbleToBeSetViaShortcode() === $expectedOption->isAbleToBeSetViaShortcode()
+                && $registeredOption->isApplicableToAllProviders() === $expectedOption->isApplicableToAllProviders()
+                && $registeredOption->isApplicableToProvider('vimeo') === $expectedOption->isApplicableToProvider('vimeo')
+                && $registeredOption->isApplicableToProvider('youtube') === $expectedOption->isApplicableToProvider('youtube')
+                && $registeredOption->isBoolean() === $expectedOption->isBoolean()
+                && $registeredOption->isMeantToBePersisted() === $expectedOption->isMeantToBePersisted()
+                && $registeredOption->hasDiscreteAcceptableValues() === $expectedOption->hasDiscreteAcceptableValues()
+                && $registeredOption->isProOnly() === $expectedOption->isProOnly();
         }));
     }
 
@@ -498,10 +513,10 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $finder              = \Mockery::mock('ehough_fimble_api_Finder');
         $fakeThemeDir        = \Mockery::mock();
 
-        $environmentDetector->shouldReceive('getTubePressBaseInstallationPath')->andReturn('base-install-path');
+
         $environmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
 
-        $filesystem->shouldReceive('exists')->once()->with('base-install-path/src/main/resources/default-themes')->andReturn(false);
+        $filesystem->shouldReceive('exists')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
         $filesystem->shouldReceive('exists')->once()->with('user-content-dir/themes')->andReturn(true);
 
         $finderFactory->shouldReceive('createFinder')->once()->andReturn($finder);
@@ -516,6 +531,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($environmentDetector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystem($filesystem);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystemFinderFactory($finderFactory);
+
     }
 
 }

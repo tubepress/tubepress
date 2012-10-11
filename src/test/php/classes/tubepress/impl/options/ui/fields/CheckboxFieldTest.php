@@ -22,7 +22,7 @@ class tubepress_impl_options_ui_fields_CheckboxFieldTest extends tubepress_impl_
 {
     protected function _buildSut($name)
     {
-        return new tubepress_impl_options_ui_fields_BooleanField($name);
+        return new tubepress_impl_options_ui_fields_BooleanField($name, 'something');
     }
 
     protected function getTemplatePath()
@@ -30,4 +30,3 @@ class tubepress_impl_options_ui_fields_CheckboxFieldTest extends tubepress_impl_
         return 'src/main/resources/system-templates/options_page/fields/checkbox.tpl.php';
     }
 }
-

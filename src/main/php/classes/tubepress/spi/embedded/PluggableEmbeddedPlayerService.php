@@ -32,6 +32,11 @@ interface tubepress_spi_embedded_PluggableEmbeddedPlayerService
     function getName();
 
     /**
+     * @return string The friendly name of this embedded player service.
+     */
+    function getFriendlyName();
+
+    /**
      * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The template for this embedded player.

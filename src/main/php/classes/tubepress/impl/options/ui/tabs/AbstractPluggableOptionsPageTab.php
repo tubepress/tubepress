@@ -22,9 +22,9 @@
 /**
  * Displays a tab on the options page.
  */
-abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_Tab
+abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_PluggableOptionsPageTab
 {
-    const TEMPLATE_VAR_WIDGETARRAY = 'tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
+    const TEMPLATE_VAR_FIELDARRAY = 'tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
 
     /**
      * Get the title of this tab.
@@ -45,16 +45,38 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl
      */
     public final function getHtml()
     {
-        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $basePath            = $environmentDetector->getTubePressBaseInstallationPath();
-        $template            = $templateBuilder->getNewTemplateInstance($basePath . DIRECTORY_SEPARATOR . $this->getTemplatePath());
+        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
 
-        $template->setVariable(self::TEMPLATE_VAR_WIDGETARRAY, $this->getDelegateFormHandlers());
+        $template->setVariable(self::TEMPLATE_VAR_FIELDARRAY, $this->getDelegateFormHandlers());
 
         $this->addToTemplate($template);
-        
+
         return $template->toString();
+    }
+
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    public final function getDelegateFormHandlers()
+    {
+        $baseFields       = $this->getHardCodedFields();
+        $additionalFields = array();
+
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $allFields                  = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+
+        foreach ($allFields as $candidateField) {
+
+            if ($candidateField->getDesiredTabName() === $this->getName()) {
+
+                array_push($additionalFields, $candidateField);
+            }
+        }
+
+        return array_merge($baseFields, $additionalFields);
     }
 
     /**
@@ -73,7 +95,17 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl
      */
     protected function addToTemplate(ehough_contemplate_api_Template $template)
     {
-        
+        //override point
+    }
+
+    /**
+     * Override point.
+     *
+     * @return array An array of fields that should always show up in this tab.
+     */
+    protected function getHardCodedFields()
+    {
+        return array();
     }
 
     /**

@@ -38,14 +38,14 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
     private $_tabs;
 
     /**
-     * @var tubepress_spi_options_ui_Field
+     * @var tubepress_spi_options_ui_PluggableOptionsPageField
      */
     private $_filterField;
 
     public function __construct(
 
         tubepress_spi_options_ui_FormHandler $tabs,
-        tubepress_spi_options_ui_Field       $filterField)
+        tubepress_spi_options_ui_PluggableOptionsPageField       $filterField)
     {
         $this->_tabs        = $tabs;
         $this->_filterField = $filterField;
@@ -61,9 +61,7 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
     {
         $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
         $templateBldr   = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $fse            = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $basePath       = $fse->getTubePressBaseInstallationPath();
-        $template       = $templateBldr->getNewTemplateInstance($basePath . '/' . $this->getRelativeTemplatePath());
+        $template       = $templateBldr->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getRelativeTemplatePath());
 
         $template->setVariable(self::TEMPLATE_VAR_TITLE, $messageService->_('TubePress Options'));                                                                                                                                                                                                                                                                                                                                 //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_INTRO, $messageService->_('Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.')); //>(translatable)<

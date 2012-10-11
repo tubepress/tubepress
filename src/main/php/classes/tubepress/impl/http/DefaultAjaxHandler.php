@@ -170,6 +170,6 @@ if (!function_exists('http_response_code')) {
 
     function http_response_code($code = null)
     {
-        tubepress_impl_http_DefaultAjaxHandler::simulatedHttpResponseCode($code);
+        return tubepress_impl_http_DefaultAjaxHandler::simulatedHttpResponseCode($code);
     }
 }

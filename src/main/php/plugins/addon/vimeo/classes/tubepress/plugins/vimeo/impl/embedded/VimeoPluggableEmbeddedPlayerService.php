@@ -88,8 +88,16 @@ class tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService 
     /**
      * @return string The name of the video provider whose videos this player handles.
      */
-    function getHandledProviderName()
+    public final function getHandledProviderName()
     {
         return 'vimeo';
+    }
+
+    /**
+     * @return string The friendly name of this embedded player service.
+     */
+    public final function getFriendlyName()
+    {
+        return 'Vimeo';
     }
 }

@@ -59,4 +59,12 @@ class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerSe
     {
         return $themeHandler->getTemplateInstance('embedded/longtail.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/addon/jwflvplayer/resources/templates');
     }
+
+    /**
+     * @return string The friendly name of this embedded player service.
+     */
+    public final function getFriendlyName()
+    {
+        return 'JW FLV Media Player (by Longtail Video)';  //>(translatable)<
+    }
 }

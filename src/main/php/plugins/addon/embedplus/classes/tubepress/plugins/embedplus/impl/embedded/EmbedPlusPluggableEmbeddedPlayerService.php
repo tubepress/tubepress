@@ -59,4 +59,12 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer
     {
         return 'youtube';
     }
+
+    /**
+     * @return string The friendly name of this embedded player service.
+     */
+    public final function getFriendlyName()
+    {
+        return 'EmbedPlus';
+    }
 }

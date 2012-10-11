@@ -549,4 +549,5 @@ msgstr ""
 msgid "Light"
 msgstr ""
 
-    
+msgid "JW FLV Media Player (by Longtail Video)"
+msgstr ""    
