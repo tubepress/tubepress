@@ -29,7 +29,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_VideoMeta
         $context                   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $messageService            = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
         $optionDescriptorReference = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
-        $metaNames                 = tubepress_impl_util_LangUtils::getDefinedConstants(tubepress_api_const_options_names_Meta::_);
+        $metaNames                 = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
         $shouldShow                = array();
         $labels                    = array();
         $template                  = $event->getSubject();

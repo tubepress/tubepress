@@ -133,14 +133,14 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         return array(
 
             tubepress_api_const_options_names_Meta::AUTHOR,
-            tubepress_api_const_options_names_Meta::RATING,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
             tubepress_api_const_options_names_Meta::CATEGORY,
             tubepress_api_const_options_names_Meta::UPLOADED,
             tubepress_api_const_options_names_Meta::DESCRIPTION,
             tubepress_api_const_options_names_Meta::ID,
             tubepress_api_const_options_names_Meta::KEYWORDS,
-            tubepress_api_const_options_names_Meta::LIKES,
-            tubepress_api_const_options_names_Meta::RATINGS,
+            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS,
             tubepress_api_const_options_names_Meta::LENGTH,
             tubepress_api_const_options_names_Meta::TITLE,
             tubepress_api_const_options_names_Meta::URL,

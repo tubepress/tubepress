@@ -32,6 +32,10 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
+        /**
+         * ADVANCED OPTIONS
+         */
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DEBUG_ON);
         $option->setDefaultValue(true);
         $option->setLabel('Enable debugging');                                                                                                                                                                                                                                                         //>(translatable)<
@@ -60,6 +64,12 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setCannotBeSetViaShortcode();
         $odr->registerOptionDescriptor($option);
 
+
+
+        /**
+         * CACHE OPTIONS
+         */
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR);
         $option->setDefaultValue(20);
         $option->setLabel('Cache cleaning factor');                                                                                             //>(translatable)<
@@ -86,11 +96,11 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
-        $option->setLabel('Play each video');                                                                                              //>(translatable)<
-        $option->setDefaultValue('normal');
-        $option->setAcceptableValuesCallback(array($this, 'getValidPlayerLocations'));
-        $odr->registerOptionDescriptor($option);
+
+
+        /**
+         * EMBEDDED PLAYER OPTIONS
+         */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::AUTONEXT);
         $option->setLabel('Play videos sequentially without user intervention');  //>(translatable)<
@@ -141,6 +151,20 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
 
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
+        $option->setLabel('Implementation');                                                                                  //>(translatable)<
+        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
+        $option->setExcludedProviders(array('vimeo'));
+        $option->setAcceptableValuesCallback(array($this, 'getValidPlayerImplementations'));
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $option->setLabel('Play each video');                                                                                              //>(translatable)<
+        $option->setDefaultValue('normal');
+        $option->setAcceptableValuesCallback(array($this, 'getValidPlayerLocations'));
+        $odr->registerOptionDescriptor($option);
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SEQUENCE);
         $option->setDoNotPersist();
         $odr->registerOptionDescriptor($option);
@@ -151,27 +175,11 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
-        $option->setLabel('Video blacklist');                                        //>(translatable)<
-        $option->setDescription('A list of video IDs that should never be displayed.');  //>(translatable)<
-        $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
-        $option->setDefaultValue(tubepress_api_const_options_values_PerPageSortValue::NONE);
-        $option->setLabel('Per-page sort order');                                            //>(translatable)<
-        $option->setDescription('Additional sort order applied to each individual page of a gallery');  //>(translatable)<
-        $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::NEWEST         => 'date published (newest first)', //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::OLDEST         => 'date published (oldest first)', //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::DURATION       => 'length',                        //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::NONE           => 'none',                          //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::RANDOM         => 'random',                        //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::RATING         => 'rating',                        //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',                         //>(translatable)<
-            tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
-        ));
-        $odr->registerOptionDescriptor($option);
+
+        /**
+         * FEED OPTIONS
+         */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::ORDER_BY);
         $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::VIEW_COUNT);
@@ -191,6 +199,23 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         ));
         $odr->registerOptionDescriptor($option);
 
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
+        $option->setDefaultValue(tubepress_api_const_options_values_PerPageSortValue::NONE);
+        $option->setLabel('Per-page sort order');                                            //>(translatable)<
+        $option->setDescription('Additional sort order applied to each individual page of a gallery');  //>(translatable)<
+        $option->setAcceptableValues(array(
+            tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::NEWEST         => 'date published (newest first)', //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::OLDEST         => 'date published (oldest first)', //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::DURATION       => 'length',                        //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::NONE           => 'none',                          //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::RANDOM         => 'random',                        //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::RATING         => 'rating',                        //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',                         //>(translatable)<
+            tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
+        ));
+        $odr->registerOptionDescriptor($option);
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $option->setDefaultValue(300);
         $option->setLabel('Maximum total videos to retrieve');                                                                   //>(translatable)<
@@ -204,11 +229,19 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setValidValueRegex('/\w*/');
         $odr->registerOptionDescriptor($option);
 
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
+        $option->setLabel('Video blacklist');                                        //>(translatable)<
+        $option->setDescription('A list of video IDs that should never be displayed.');  //>(translatable)<
+        $odr->registerOptionDescriptor($option);
+
+
+
+        /**
+         * INTERACTIVE SEARCH OPTIONS
+         */
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
-        $option->setAcceptableValues(array(
-            'youtube',
-            'vimeo',
-        ));
+        $option->setAcceptableValuesCallback(array($this, 'getValidVideoProviderNames'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_DOM_ID);
@@ -222,25 +255,10 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL);
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DATEFORMAT);
-        $option->setDefaultValue('M j, Y');
-        $option->setLabel('Date format');                                                                                                                    //>(translatable)<
-        $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.');   //>(translatable)<
-        $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DESC_LIMIT);
-        $option->setDefaultValue(80);
-        $option->setLabel('Maximum description length');                                                                  //>(translatable)<
-        $option->setDescription('Maximum number of characters to display in video descriptions. Set to 0 for no limit.'); //>(translatable)<
-        $option->setValidValueRegex(self::$_regexNonNegativeInteger);
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::RELATIVE_DATES);
-        $option->setDefaultValue(false);
-        $option->setLabel('Use relative dates');                                    //>(translatable)<
-        $option->setDescription('e.g. "yesterday" instead of "November 3, 1980".');  //>(translatable)<
-        $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        /**
+         * META DISPLAY OPTIONS
+         */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::AUTHOR);
         $option->setLabel('Author');  //>(translatable)<
@@ -266,23 +284,15 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::LENGTH);
-        $option->setLabel('Runtime');  //>(translatable)<
-        $option->setDefaultValue(true);
-        $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
-        $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
-        $option->setLabel('Implementation');                                                                                  //>(translatable)<
-        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
-        $option->setExcludedProviders(array('vimeo'));
-        $option->setAcceptableValuesCallback(array($this, 'getValidPlayerImplementations'));
-        $odr->registerOptionDescriptor($option);
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::KEYWORDS);
         $option->setLabel('Keywords');  //>(translatable)<
         $option->setDefaultValue(false);
+        $option->setBoolean();
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::LENGTH);
+        $option->setLabel('Runtime');  //>(translatable)<
+        $option->setDefaultValue(true);
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
 
@@ -310,8 +320,34 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
 
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DATEFORMAT);
+        $option->setDefaultValue('M j, Y');
+        $option->setLabel('Date format');                                                                                                                    //>(translatable)<
+        $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.');   //>(translatable)<
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DESC_LIMIT);
+        $option->setDefaultValue(80);
+        $option->setLabel('Maximum description length');                                                                  //>(translatable)<
+        $option->setDescription('Maximum number of characters to display in video descriptions. Set to 0 for no limit.'); //>(translatable)<
+        $option->setValidValueRegex(self::$_regexNonNegativeInteger);
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::RELATIVE_DATES);
+        $option->setDefaultValue(false);
+        $option->setLabel('Use relative dates');                                    //>(translatable)<
+        $option->setDescription('e.g. "yesterday" instead of "November 3, 1980".');  //>(translatable)<
+        $option->setBoolean();
+        $odr->registerOptionDescriptor($option);
+
+
+
+        /**
+         * OUTPUT OPTIONS
+         */
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
-        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED);
+        $option->setDefaultValue('recently_featured');
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::OUTPUT);
@@ -321,6 +357,12 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::VIDEO);
         $option->setDoNotPersist();
         $odr->registerOptionDescriptor($option);
+
+
+
+        /**
+         * THUMBNAIL OPTIONS
+         */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION);
         $option->setLabel('<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination'); //>(translatable)<
@@ -358,8 +400,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
 
-
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
         $option->setDefaultValue(20);
         $option->setLabel('Thumbnails per page');                    //>(translatable)<
@@ -387,6 +427,9 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $odr->registerOptionDescriptor($option);
 
+
+
+        //TODO: remove me
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
         $option->setDefaultValue(true);
         $option->setLabel('Vimeo');    //>(translatable)<
@@ -449,7 +492,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $embeddedImpls              = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-        $providerNames              = $this->getRegisteredProviderNames();
+        $providerNames              = $this->getValidVideoProviderNames();
         $detected                   = array();
 
         foreach ($embeddedImpls as $embeddedImpl) {
@@ -485,7 +528,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         return $toReturn;
     }
 
-    private function getRegisteredProviderNames()
+    public final function getValidVideoProviderNames()
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);

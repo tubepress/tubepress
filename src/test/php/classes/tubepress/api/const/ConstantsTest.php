@@ -29,7 +29,7 @@ class tubepress_api_const_ConstantsTest extends TubePressUnitTest
             'tubepress_api_const_options_names_Embedded' 					=> array('playerImplementation', 'embeddedHeight', 'embeddedWidth', 'lazyPlay', 'autoplay', 'loop', 'showInfo', 'playerLocation', 'autoNext', 'sequence', 'enableJsApi'),
             'tubepress_api_const_options_names_Feed'						=> array('orderBy', 'videoBlacklist', 'resultCountCap', 'searchResultsRestrictedToUser',  'perPageSort'),
             'tubepress_api_const_options_names_InteractiveSearch'			=> array('searchProvider', 'searchResultsDomId', 'searchResultsOnly', 'searchResultsUrl'),
-            'tubepress_api_const_options_names_Meta'						=> array('author', 'category', 'description', 'id', 'length', 'likes', 'rating', 'ratings', 'tags', 'title', 'uploaded', 'url', 'views', 'dateFormat', 'descriptionLimit', 'relativeDates'),
+            'tubepress_api_const_options_names_Meta'						=> array('author', 'category', 'description', 'id', 'length', 'rating', 'ratings', 'likes', 'rating', 'ratings', 'tags', 'title', 'uploaded', 'url', 'views', 'dateFormat', 'descriptionLimit', 'relativeDates'),
             'tubepress_api_const_options_names_OptionsUi'					=> array('showVimeoOptions', 'showYouTubeOptions'),
             'tubepress_api_const_options_names_Output'						=> array('mode', 'output', 'video'),
             'tubepress_api_const_options_names_Thumbs'						=> array('theme', 'ajaxPagination', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth', 'fluidThumbs', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails'),

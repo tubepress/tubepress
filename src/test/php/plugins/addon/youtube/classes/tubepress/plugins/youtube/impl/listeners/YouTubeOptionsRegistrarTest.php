@@ -217,14 +217,14 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::RATING);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Meta::RATING);
         $option->setLabel('Average rating');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::RATINGS);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS);
         $option->setLabel('Number of ratings');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();

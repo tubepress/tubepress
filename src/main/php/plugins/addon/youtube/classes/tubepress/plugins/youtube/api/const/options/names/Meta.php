@@ -23,26 +23,8 @@
  * Option names that control which meta info is displayed below video
  * thumbnails
  */
-class tubepress_api_const_options_names_Meta
+class tubepress_plugins_youtube_api_const_options_names_Meta
 {
-    const AUTHOR      = 'author';
-    const CATEGORY    = 'category';
-    const DESCRIPTION = 'description';
-    const ID          = 'id';
-    const KEYWORDS    = 'tags';
-    const LENGTH      = 'length';
-    const TITLE       = 'title';
-    const UPLOADED    = 'uploaded';
-    const URL         = 'url';
-    const VIEWS       = 'views';
-
-    const DATEFORMAT     = 'dateFormat';
-    const DESC_LIMIT     = 'descriptionLimit';
-    const RELATIVE_DATES = 'relativeDates';
-
-    //DEPRECATED:
-    const TAGS    = 'tags';
-    const LIKES   = 'likes'; //this has been moved to vimeo
-    const RATING  = 'rating';//this has been moved to YouTube
-    const RATINGS = 'ratings';//this has been moved to YouTube
+    const RATING  = 'rating';
+    const RATINGS = 'ratings';
 }

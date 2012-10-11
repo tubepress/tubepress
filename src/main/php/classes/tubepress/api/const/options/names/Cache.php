@@ -26,6 +26,6 @@ class tubepress_api_const_options_names_Cache
 {
     const CACHE_CLEAN_FACTOR     = 'cacheCleaningFactor';
     const CACHE_DIR              = 'cacheDirectory';
-    const CACHE_LIFETIME_SECONDS = 'cacheLifetimeSeconds';
     const CACHE_ENABLED          = 'cacheEnabled';
+    const CACHE_LIFETIME_SECONDS = 'cacheLifetimeSeconds';
 }

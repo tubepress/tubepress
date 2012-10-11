@@ -31,14 +31,14 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
         parent::__construct(array(
 
             $reference->findOneByName(tubepress_api_const_options_names_Meta::AUTHOR),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::RATING),
+            $reference->findOneByName(tubepress_plugins_youtube_api_const_options_names_Meta::RATING),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::CATEGORY),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::UPLOADED),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::DESCRIPTION),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::ID),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::KEYWORDS),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::LIKES),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::RATINGS),
+            $reference->findOneByName(tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES),
+            $reference->findOneByName(tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::LENGTH),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::TITLE),
             $reference->findOneByName(tubepress_api_const_options_names_Meta::URL),

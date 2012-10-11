@@ -48,7 +48,7 @@ class tubepress_plugins_core_impl_filters_singlevideotemplate_VideoMetaTest exte
 	          return "##$msg##";
 	    });
 
-	    $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants(tubepress_api_const_options_names_Meta::_);
+	    $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
         $shouldShow = array();
         $labels     = array();
 

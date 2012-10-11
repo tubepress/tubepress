@@ -102,7 +102,7 @@ class tubepress_plugins_vimeo_impl_listeners_VimeoOptionsRegistrar
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::LIKES);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES);
         $option->setLabel('Number of "likes"');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();

@@ -74,9 +74,9 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
 
         $videoProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $videoProvider->shouldReceive('getName')->times(55)->andReturn('xxvideo-provider-name-xx');
+        $videoProvider->shouldReceive('getName')->times(79)->andReturn('xxvideo-provider-name-xx');
         $videoProviders = array($videoProvider);
-        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(79)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($serviceCollectionsRegistry);
 
@@ -261,10 +261,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
 
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
-        $option->setAcceptableValues(array(
-            'youtube',
-            'vimeo',
-        ));
+        $option->setAcceptableValues(array('xxvideo-provider-name-xx'));
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_DOM_ID);
