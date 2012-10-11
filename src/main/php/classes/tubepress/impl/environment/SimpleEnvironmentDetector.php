@@ -71,28 +71,8 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
 
         } else {
 
-            return $this->getTubePressBaseInstallationPath() . '/tubepress-content';
+            return TUBEPRESS_ROOT . '/tubepress-content';
         }
-    }
-
-    /**
-     * Finds the absolute path of the TubePress installation on the filesystem.
-     *
-     * @return string The absolute filesystem path of this TubePress installation.
-     */
-    public function getTubePressBaseInstallationPath()
-    {
-        return realpath(dirname(__FILE__) . '/../../../../../../../');
-    }
-
-    /**
-     * Find the directory name of the TubePress base installation.
-     *
-     * @return string The base name of the TubePress installation directory.
-     */
-    function getTubePressInstallationDirectoryBaseName()
-    {
-        return basename($this->getTubePressBaseInstallationPath());
     }
 
     /**

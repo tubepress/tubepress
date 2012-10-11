@@ -22,14 +22,12 @@ class tubepress_impl_options_ui_fields_ThemeFieldTest extends tubepress_impl_opt
 {
     protected function _buildSut($name)
     {
-        return new tubepress_impl_options_ui_fields_ThemeField($name);
+        return new tubepress_impl_options_ui_fields_ThemeField($name, 'theme');
     }
 
     protected function _performAdditionGetDescriptionSetup()
     {
-        $this->getMockEnvironmentDetector()->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
         $this->getMockEnvironmentDetector()->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user content dir>>');
 
     }
 }
-

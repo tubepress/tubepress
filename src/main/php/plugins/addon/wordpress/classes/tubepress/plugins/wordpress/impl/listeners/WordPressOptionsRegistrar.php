@@ -28,11 +28,11 @@ class tubepress_plugins_wordpress_impl_listeners_WordPressOptionsRegistrar
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
         $option->setDefaultValue('TubePress');
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $odr->registerOptionDescriptor($option);
     }

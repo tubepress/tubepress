@@ -75,7 +75,7 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandler exten
      */
     protected function getProviderName()
     {
-        return tubepress_spi_provider_Provider::YOUTUBE;
+        return 'youtube';
     }
 
     /**
@@ -96,6 +96,20 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandler exten
     protected function getLogger()
     {
         return $this->_logger;
+    }
+
+
+    protected function canHandleResponse(ehough_shortstop_api_HttpResponse $response)
+    {
+        $entity = $response->getEntity();
+
+        if (! $entity) {
+
+            return false;
+        }
+
+        return stripos($entity->getContent(), '<title>') !== false
+            || stripos($entity->getContent(), '<internalReason>') !== false;
     }
 
     private function _parseError(ehough_shortstop_api_HttpResponse $response)

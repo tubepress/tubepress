@@ -22,7 +22,7 @@ class tubepress_impl_options_ui_fields_DropdownFieldTest extends tubepress_impl_
 {
     protected function _buildSut($name)
     {
-        return new tubepress_impl_options_ui_fields_DropdownField($name);
+        return new tubepress_impl_options_ui_fields_DropdownField($name, 'someTab');
     }
 
     protected function getTemplatePath()
@@ -40,4 +40,3 @@ class tubepress_impl_options_ui_fields_DropdownFieldTest extends tubepress_impl_
             array('foo' => '<<message: bar>>', 'smack' => '<<message: rock>>'));
     }
 }
-

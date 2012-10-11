@@ -26,8 +26,16 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $this->onTearDown();
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::reset();
-        
+
         Mockery::close();
+    }
+
+    public static function setUpBeforeClass()
+    {
+        if (! defined('TUBEPRESS_ROOT')) {
+
+            define('TUBEPRESS_ROOT', realpath(__DIR__ . '/../../../'));
+        }
     }
 
     protected function onTearDown()

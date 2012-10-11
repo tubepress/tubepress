@@ -38,7 +38,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
 
     public function setUp()
     {
-        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockOptionDescriptorArrary    = $this->_buildMockOptionDescriptorArray();
         $this->_mockMessageService            = Mockery::mock(tubepress_spi_message_MessageService::_);
 
@@ -77,9 +77,9 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
     public function testGetProviders()
     {
         $this->assertEquals(array(
-            tubepress_spi_provider_Provider::YOUTUBE,
-            tubepress_spi_provider_Provider::VIMEO,
-            ), $this->_sut->getArrayOfApplicableProviderNames());
+            'youtube',
+            'vimeo',
+        ), $this->_sut->getArrayOfApplicableProviderNames());
     }
 
     public function testOnSubmit()
@@ -123,9 +123,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
             $this->_mockStorageManager->shouldReceive('get')->once()->with($odName)->andReturn(true);
         }
 
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php')->andReturn($template);
 
         $this->assertEquals('boogity', $this->_sut->getHtml());
     }
@@ -135,14 +133,14 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         return array(
 
             tubepress_api_const_options_names_Meta::AUTHOR,
-            tubepress_api_const_options_names_Meta::RATING,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
             tubepress_api_const_options_names_Meta::CATEGORY,
             tubepress_api_const_options_names_Meta::UPLOADED,
             tubepress_api_const_options_names_Meta::DESCRIPTION,
             tubepress_api_const_options_names_Meta::ID,
             tubepress_api_const_options_names_Meta::KEYWORDS,
-            tubepress_api_const_options_names_Meta::LIKES,
-            tubepress_api_const_options_names_Meta::RATINGS,
+            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS,
             tubepress_api_const_options_names_Meta::LENGTH,
             tubepress_api_const_options_names_Meta::TITLE,
             tubepress_api_const_options_names_Meta::URL,
@@ -159,7 +157,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
 
         foreach ($names as $name) {
 
-            $od = new tubepress_api_model_options_OptionDescriptor($name);
+            $od = new tubepress_spi_options_OptionDescriptor($name);
             $od->setBoolean();
 
             $ods[] = $od;
@@ -170,4 +168,3 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         return $ods;
     }
 }
-

@@ -20,38 +20,31 @@
  */
 class tubepress_impl_options_ui_tabs_EmbeddedTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-	protected function _getFieldArray()
-	{
-	    return array(
+    protected function getHardcodedFieldArray()
+    {
+        return array(
 
-    	    tubepress_api_const_options_names_Embedded::PLAYER_LOCATION  => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::PLAYER_IMPL      => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT  => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH   => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::LAZYPLAY         => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::PLAYER_COLOR     => tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT => tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::SHOW_INFO        => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::FULLSCREEN       => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::HIGH_QUALITY     => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-		    tubepress_api_const_options_names_Embedded::AUTONEXT         => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::AUTOPLAY         => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::LOOP             => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-    	    tubepress_api_const_options_names_Embedded::SHOW_RELATED     => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-	        tubepress_api_const_options_names_Embedded::AUTOHIDE         => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-	        tubepress_api_const_options_names_Embedded::MODEST_BRANDING  => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-	        tubepress_api_const_options_names_Embedded::ENABLE_JS_API    => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION  => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::PLAYER_IMPL      => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT  => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH   => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::LAZYPLAY         => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::SHOW_INFO        => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::AUTONEXT         => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::AUTOPLAY         => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::LOOP             => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
+            tubepress_api_const_options_names_Embedded::ENABLE_JS_API    => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
 
         );
-	}
+    }
 
-	protected function _getRawTitle()
-	{
-	    return 'Player';
-	}
+    protected function _getRawTitle()
+    {
+        return 'Player';
+    }
 
-	protected function _buildSut()
-	{
-	    return new tubepress_impl_options_ui_tabs_EmbeddedTab();
-	}
+    protected function _buildSut()
+    {
+        return new tubepress_impl_options_ui_tabs_EmbeddedTab();
+    }
 }

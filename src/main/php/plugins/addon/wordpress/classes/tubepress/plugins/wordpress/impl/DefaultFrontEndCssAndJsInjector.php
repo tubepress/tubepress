@@ -65,11 +65,10 @@ EOT;
             return;
         }
 
-        $fse      = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $baseName = $fse->getTubePressInstallationDirectoryBaseName();
+        $baseName = basename(TUBEPRESS_ROOT);
 
         $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/js/tubepress.js", $baseName);
-        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/resources/default-themes/default/style.css", $baseName);
+        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/css/tubepress.css", $baseName);
 
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
         $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);
@@ -80,4 +79,3 @@ EOT;
         $wordPressFunctionWrapper->wp_enqueue_style('tubepress');
     }
 }
-

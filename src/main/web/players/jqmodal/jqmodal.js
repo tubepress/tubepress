@@ -12,7 +12,7 @@ var TubePressJqModalPlayer = (function () {
 	var events	= TubePressEvents,
 		name	= 'jqmodal',
 		doc		= jQuery(document),
-		path	= getTubePressBaseUrl() + '/sys/ui/static/players/jqmodal/lib/jqModal.',
+		path	= TubePressGlobalJsConfig.baseUrl + '/src/main/web/players/jqmodal/lib/jqModal.',
 		
 		invoke = function (e, videoId, galleryId, width, height) {
 

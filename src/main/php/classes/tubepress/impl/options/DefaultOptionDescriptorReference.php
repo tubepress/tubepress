@@ -22,13 +22,26 @@
 /**
  * Holds all the option descriptors for TubePress. This implementation just holds them in memory.
  */
-class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepress_api_service_options_OptionDescriptorReference
+class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepress_spi_options_OptionDescriptorReference
 {
     /** Provides fast lookup by name. */
     private $_nameToOptionDescriptorMap = array();
 
-    /** All option descriptors. */
-    private $_optionDescriptors = array();
+    /**
+     * @var tubepress_spi_options_StorageManager
+     */
+    private $_optionStorageManager;
+
+    /**
+     * @var array An array of option descriptors that were registered before the storage manager
+     *            was alive.
+     */
+    private $_preStorageManagerOptionDescriptorBuffer = array();
+
+    /**
+     * @var bool True if we already registered ourselves as a listener, false otherwise.
+     */
+    private $_didRegisterSelfAsListener = false;
 
     /**
      * Returns all of the option descriptors.
@@ -37,7 +50,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      */
     public final function findAll()
     {
-        return $this->_optionDescriptors;
+        return array_values($this->_nameToOptionDescriptorMap);
     }
 
     /**
@@ -45,7 +58,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      *
      * @param string $name The option descriptor to look up.
      *
-     * @return tubepress_api_model_options_OptionDescriptor The option descriptor with the
+     * @return tubepress_spi_options_OptionDescriptor The option descriptor with the
      *                                                    given name, or null if not found.
      */
     public final function findOneByName($name)
@@ -61,21 +74,56 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
     /**
      * Register a new option descriptor for use by TubePress.
      *
-     * @param tubepress_api_model_options_OptionDescriptor $optionDescriptor The new option descriptor.
+     * @param tubepress_spi_options_OptionDescriptor $optionDescriptor The new option descriptor.
      *
      * @throws InvalidArgumentException If the descriptor could not be registered.
      *
      * @return void
      */
-    public final function registerOptionDescriptor(tubepress_api_model_options_OptionDescriptor $optionDescriptor)
+    public final function registerOptionDescriptor(tubepress_spi_options_OptionDescriptor $optionDescriptor)
     {
         if (array_key_exists($optionDescriptor->getName(), $this->_nameToOptionDescriptorMap)) {
 
             throw new InvalidArgumentException($optionDescriptor->getName() . ' is already registered as an option descriptor');
         }
 
-        array_push($this->_optionDescriptors, $optionDescriptor);
+        if (! $this->_didRegisterSelfAsListener) {
+
+            $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+
+            $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::OPTION_STORAGE_MANAGER_READY,
+                array($this, 'onOptionStorageManagerReady'));
+
+            $this->_didRegisterSelfAsListener = true;
+        }
 
         $this->_nameToOptionDescriptorMap[$optionDescriptor->getName()] = $optionDescriptor;
+
+        if (! isset($this->_optionStorageManager)) {
+
+            $this->_preStorageManagerOptionDescriptorBuffer[] = $optionDescriptor;
+
+            return;
+        }
+
+        $this->_quickRegister($optionDescriptor);
+    }
+
+    public final function onOptionStorageManagerReady(tubepress_api_event_TubePressEvent $event)
+    {
+        $this->_optionStorageManager        = $event->getSubject();
+
+        foreach ($this->_preStorageManagerOptionDescriptorBuffer as $optionDescriptor) {
+
+            $this->_quickRegister($optionDescriptor);
+        }
+    }
+
+    private function _quickRegister(tubepress_spi_options_OptionDescriptor $optionDescriptor)
+    {
+        if ($optionDescriptor->isMeantToBePersisted()) {
+
+            $this->_optionStorageManager->createIfNotExists($optionDescriptor->getName(), $optionDescriptor->getDefaultValue());
+        }
     }
 }

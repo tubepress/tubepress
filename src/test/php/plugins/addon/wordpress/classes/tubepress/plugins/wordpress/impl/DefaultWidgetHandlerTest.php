@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
+class tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -82,8 +82,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
         $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
         $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress-widget-submit')->andReturn(false);
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('fakepath');
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('fakepath/src/main/php/plugins/addon/wordpress/resources/templates/widget_controls.tpl.php')->andReturn($mockTemplate);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/plugins/addon/wordpress/resources/templates/widget_controls.tpl.php')->andReturn($mockTemplate);
 
         ob_start();
 
@@ -106,7 +105,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
             tubepress_api_const_options_names_Meta::VIEWS                  => false,
             tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
             tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
-            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => tubepress_api_const_options_values_PlayerLocationValue::POPUP,
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'popup',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT        => 105,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH         => 22135,
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE      => false,
@@ -122,10 +121,10 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
 
         ob_start();
         $this->_sut->printWidgetHtml(array(
-    		'before_widget' => 'before_widget',
-    		'before_title'  => 'before_title',
-    		'after_title'   => 'after_title',
-    		'after_widget'  => 'after_widget'
+            'before_widget' => 'before_widget',
+            'before_title'  => 'before_title',
+            'after_title'   => 'after_title',
+            'after_widget'  => 'after_widget'
         ));
         $contents = ob_get_contents();
         ob_end_clean();

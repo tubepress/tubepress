@@ -24,26 +24,13 @@
  */
 class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
 {
-    /**
-     * The requested Ajax action.
-     */
-    const CHAIN_KEY_ACTION = 'action';
+    private $_logger;
 
-    /**
-     * The HTTP response code.
-     */
-    const CHAIN_KEY_STATUS_CODE = 'responseStatusCode';
+    private $_isDebugEnabled;
 
-    /**
-     * The output to return.
-     */
-    const CHAIN_KEY_OUTPUT = 'output';
-
-    private $_chain;
-
-    public function __construct(ehough_chaingang_api_Chain $chain)
+    public function __construct()
     {
-        $this->_chain = $chain;
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Ajax Handler');
     }
 
     /**
@@ -53,6 +40,8 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
      */
     public final function handle()
     {
+        $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
+
         $httpRequestParameterService = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
         $actionName                  = $httpRequestParameterService->getParamValue(tubepress_spi_const_http_ParamName::ACTION);
 
@@ -63,36 +52,58 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             return;
         }
 
-        $context = new ehough_chaingang_impl_StandardContext();
-        $context->put(self::CHAIN_KEY_ACTION, $actionName);
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $commandHandlers            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_http_PluggableAjaxCommandService::_);
+        $chosenCommandHandler       = null;
 
-        try {
+        if ($this->_isDebugEnabled) {
 
-            $handled = $this->_chain->execute($context);
+            $this->_logger->debug('There are ' . count($commandHandlers) . ' pluggable Ajax command service(s) registered');
+        }
 
-        } catch (Exception $e) {
+        foreach ($commandHandlers as $commandHandler) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            if ($commandHandler->getName() === $actionName) {
+
+                $chosenCommandHandler = $commandHandler;
+                break;
+            }
+
+            if ($this->_isDebugEnabled) {
+
+                $this->_logger->debug($commandHandler->getName() . ' could not handle action ' . $actionName);
+            }
+        }
+
+        if ($chosenCommandHandler === null) {
+
+            if ($this->_isDebugEnabled) {
+
+                $this->_logger->debug('No pluggable Ajax command services could handle action ' . $actionName);
+            }
 
             http_response_code(500);
-            echo $e->getMessage();
             return;
         }
 
+        if ($this->_isDebugEnabled) {
 
-        if (! $handled) {
-
-            http_response_code(501);
-            echo 'Unabled to handle "' . $actionName . '" action';
-            return;
+            $this->_logger->debug($chosenCommandHandler->getName() . ' chose to handle action ' . $actionName);
         }
 
-        http_response_code($context->get(self::CHAIN_KEY_STATUS_CODE));
-        echo $context->get(self::CHAIN_KEY_OUTPUT);
+        /** @noinspection PhpUndefinedMethodInspection */
+        $chosenCommandHandler->handle();
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        http_response_code($chosenCommandHandler->getHttpStatusCode());
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        echo $chosenCommandHandler->getOutput();
     }
-}
 
-if (!function_exists('http_response_code')) {
-    function http_response_code($code = NULL) {
-
+    public static function simulatedHttpResponseCode($code = null)
+    {
         if ($code !== NULL) {
 
             switch ($code) {
@@ -133,6 +144,7 @@ if (!function_exists('http_response_code')) {
                 case 503: $text = 'Service Unavailable'; break;
                 case 504: $text = 'Gateway Time-out'; break;
                 case 505: $text = 'HTTP Version not supported'; break;
+
                 default:
                     exit('Unknown http status code "' . htmlentities($code) . '"');
                     break;
@@ -151,6 +163,13 @@ if (!function_exists('http_response_code')) {
         }
 
         return $code;
+    }
+}
 
+if (!function_exists('http_response_code')) {
+
+    function http_response_code($code = null)
+    {
+        return tubepress_impl_http_DefaultAjaxHandler::simulatedHttpResponseCode($code);
     }
 }

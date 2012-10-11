@@ -22,7 +22,7 @@
 /**
  * Displays a multi-select drop-down input.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractField
+abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField
 {
     const TEMPLATE_VAR_DESCRIPTORS = 'tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
 
@@ -38,7 +38,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     {
         foreach ($optionDescriptors as $optionDescriptor) {
 
-            if (! $optionDescriptor instanceof tubepress_api_model_options_OptionDescriptor) {
+            if (! $optionDescriptor instanceof tubepress_spi_options_OptionDescriptor) {
 
                 throw new InvalidArgumentException('Non option descriptor detected');
             }
@@ -117,10 +117,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
      */
     public final function getHtml()
     {
-        $envDetector     = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
         $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $basePath        = $envDetector->getTubePressBaseInstallationPath();
-        $template        = $templateBuilder->getNewTemplateInstance($basePath . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php');
+        $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php');
         $currentValues   = array();
         $storageManager  = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
 
@@ -160,8 +158,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     {
         return array(
 
-            tubepress_spi_provider_Provider::YOUTUBE,
-            tubepress_spi_provider_Provider::VIMEO,
+            'youtube',
+            'vimeo',
         );
     }
 }

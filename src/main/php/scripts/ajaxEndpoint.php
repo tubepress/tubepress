@@ -22,9 +22,11 @@
 /*
  * WordPress stubbornly will not load except from the global scope.
  */
-if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false) {
+if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false ||true) {
 
-    include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
+	require '/var/www/tubepress_testing_ground/wp-blog-header.php';
+    //require '/var/www/gshd/wordpress/wp-blog-header.php';
+    //include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
 }
 
 /**

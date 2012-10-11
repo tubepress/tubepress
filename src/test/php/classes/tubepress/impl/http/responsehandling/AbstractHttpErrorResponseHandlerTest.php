@@ -26,8 +26,6 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
 
     private $_mockResponse;
 
-    private $_mockProviderCalculator;
-
     function setUp()
     {
         $this->_sut = $this->buildSut();
@@ -35,35 +33,15 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
         $this->_mockResponse = new ehough_shortstop_api_HttpResponse();
         $this->_mockContext  = new ehough_chaingang_impl_StandardContext();
         $this->_mockContext->put(ehough_shortstop_impl_HttpResponseHandlerChain::CHAIN_KEY_RESPONSE, $this->_mockResponse);
-
-        $this->_mockProviderCalculator = Mockery::mock(tubepress_spi_provider_ProviderCalculator::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
-    }
-
-    /**
-     * @expectedException RuntimeException
-     */
-    function testNoEntity()
-    {
-        $this->_mockResponse->setStatusCode(200);
-
-        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn($this->getProviderName());
-
-        $this->_sut->execute($this->_mockContext);
     }
 
     function testWrongProvider()
     {
-        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('something');
-
         $this->assertFalse($this->_sut->execute($this->_mockContext));
     }
 
     protected function getMessage()
     {
-        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn($this->getProviderName());
-
         $result = $this->_sut->execute($this->_mockContext);
 
         $this->assertTrue($result);
@@ -92,11 +70,12 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
         return $this->_sut;
     }
 
-    protected function getProviderCalculator()
+    protected function _setMessageBody($message)
     {
-        return $this->_mockProviderCalculator;
-    }
+        $entity = new ehough_shortstop_api_HttpEntity();
+        $entity->setContent($message);
 
-    protected abstract function getProviderName();
+        $this->_mockResponse->setEntity($entity);
+    }
 }
 

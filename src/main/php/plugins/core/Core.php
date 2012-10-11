@@ -28,71 +28,89 @@ class tubepress_plugins_core_Core
 
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
+        self::_registerBootListeners($eventDispatcher);
+        self::_registerFilters($eventDispatcher);
+    }
+
+    private static function _registerBootListeners(ehough_tickertape_api_IEventDispatcher $eventDispatcher)
+    {
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_core_listeners_CoreOptionsRegistrar(), 'onBoot'));
+            array(new tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar(), 'onBoot'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_core_listeners_SkeletonExistsListener(), 'onBoot'));
+            array(new tubepress_plugins_core_impl_listeners_SkeletonExistsListener(), 'onBoot'));
 
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_core_impl_listeners_ShortcodeHandlersRegistrar(), 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_core_impl_listeners_AjaxCommandsRegistrar(), 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_core_impl_listeners_PlayerLocationsRegistrar(), 'onBoot'));
+    }
+
+    private static function _registerFilters(ehough_tickertape_api_IEventDispatcher $eventDispatcher)
+    {
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
-            array(new tubepress_plugins_core_filters_variablereadfromexternalinput_StringMagic(), 'onIncomingInput'));
+            array(new tubepress_plugins_core_impl_filters_variablereadfromexternalinput_StringMagic(), 'onIncomingInput'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_singlevideotemplate_VideoMeta(), 'onSingleVideoTemplate'));
+            array(new tubepress_plugins_core_impl_filters_singlevideotemplate_VideoMeta(), 'onSingleVideoTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_singlevideotemplate_CoreVariables(), 'onSingleVideoTemplate'));
+            array(new tubepress_plugins_core_impl_filters_singlevideotemplate_CoreVariables(), 'onSingleVideoTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_searchinputtemplate_CoreVariables(), 'onSearchInputTemplate'));
+            array(new tubepress_plugins_core_impl_filters_searchinputtemplate_CoreVariables(), 'onSearchInputTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_videogallerypage_PerPageSorter(), 'onVideoGalleryPage'));
+            array(new tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter(), 'onVideoGalleryPage'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_videogallerypage_ResultCountCapper(), 'onVideoGalleryPage'));
+            array(new tubepress_plugins_core_impl_filters_videogallerypage_ResultCountCapper(), 'onVideoGalleryPage'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_videogallerypage_VideoBlacklist(), 'onVideoGalleryPage'));
+            array(new tubepress_plugins_core_impl_filters_videogallerypage_VideoBlacklist(), 'onVideoGalleryPage'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_videogallerypage_VideoPrepender(), 'onVideoGalleryPage'));
+            array(new tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender(), 'onVideoGalleryPage'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET,
-            array(new tubepress_plugins_core_filters_prevalidationoptionset_StringMagic(), 'onPreValidationOptionSet'));
+            array(new tubepress_plugins_core_impl_filters_prevalidationoptionset_StringMagic(), 'onPreValidationOptionSet'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET,
-            array(new tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover(), 'onPreValidationOptionSet'));
+            array(new tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover(), 'onPreValidationOptionSet'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PLAYER_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_playertemplate_CoreVariables(), 'onPlayerTemplate'));
+            array(new tubepress_plugins_core_impl_filters_playertemplate_CoreVariables(), 'onPlayerTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_gallerytemplate_CoreVariables(), 'onGalleryTemplate'));
+            array(new tubepress_plugins_core_impl_filters_gallerytemplate_CoreVariables(), 'onGalleryTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerName(), 'onGalleryTemplate'));
+            array(new tubepress_plugins_core_impl_filters_gallerytemplate_EmbeddedPlayerName(), 'onGalleryTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_gallerytemplate_Pagination(), 'onGalleryTemplate'));
+            array(new tubepress_plugins_core_impl_filters_gallerytemplate_Pagination(), 'onGalleryTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_gallerytemplate_Player(), 'onGalleryTemplate'));
+            array(new tubepress_plugins_core_impl_filters_gallerytemplate_Player(), 'onGalleryTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_gallerytemplate_VideoMeta(), 'onGalleryTemplate'));
+            array(new tubepress_plugins_core_impl_filters_gallerytemplate_VideoMeta(), 'onGalleryTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_galleryinitjs_GalleryInitJsBaseParams(), 'onGalleryInitJs'));
+            array(new tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams(), 'onGalleryInitJs'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_galleryhtml_GalleryJs(), 'onGalleryHtml'));
+            array(new tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs(), 'onGalleryHtml'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_embeddedtemplate_CoreVariables(), 'onEmbeddedTemplate'));
+            array(new tubepress_plugins_core_impl_filters_embeddedtemplate_CoreVariables(), 'onEmbeddedTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
-            array(new tubepress_plugins_core_filters_embeddedhtml_PlayerJavaScriptApi(), 'onEmbeddedHtml'));
+            array(new tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi(), 'onEmbeddedHtml'));
     }
 }
 

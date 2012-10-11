@@ -36,5 +36,14 @@ class tubepress_plugins_wordpress_impl_listeners_WordPressIocContainerBuilder
         tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($messageService);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($storageManager);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFormHandler($uiFormHandler);
+
+
+        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+
+        $eventDispatcher->dispatch(
+
+            tubepress_api_const_event_CoreEventNames::OPTION_STORAGE_MANAGER_READY,
+            new tubepress_api_event_TubePressEvent($storageManager)
+        );
     }
 }

@@ -20,7 +20,7 @@
  */
 
 /**
- * Implementation of org_tubepress_api_options_StorageManager that uses the
+ * Implementation of tubepress_spi_options_StorageManager that uses the
  * regular WordPress options API
  */
 class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager
@@ -44,34 +44,6 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
         $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
         $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $optionName, $optionValue);
-    }
-
-    /**
-     * Deletes an option from storage
-     *
-     * @param mixed $optionName The name of the option to delete
-     *
-     * @return void
-     */
-    protected function delete($optionName)
-    {
-        $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
-        
-        $wordPressFunctionWrapperService->delete_option(self::$_optionPrefix . $optionName);
-    }
-
-    /**
-     * Determines if an option exists
-     *
-     * @param string $optionName The name of the option in question
-     *
-     * @return boolean True if the option exists, false otherwise
-     */
-    public function exists($optionName)
-    {
-        $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
-        
-        return $wordPressFunctionWrapperService->get_option(self::$_optionPrefix . $optionName) !== false;
     }
 
     /**
@@ -101,5 +73,29 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
         $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
         $wordPressFunctionWrapperService->update_option(self::$_optionPrefix . $optionName, $optionValue);
+    }
+
+    /**
+     * @return array All the option names currently in this storage manager.
+     */
+    protected function getAllOptionNames()
+    {
+        global $wpdb;
+
+        $raw = $wpdb->get_results("SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'tubepress-%'");
+
+        if (! $raw || ! is_array($raw)) {
+
+            return array();
+        }
+
+        $toReturn = array();
+
+        foreach ($raw as $optionName) {
+
+            $toReturn[] = str_replace(self::$_optionPrefix, '', $optionName->option_name);
+        }
+
+        return $toReturn;
     }
 }

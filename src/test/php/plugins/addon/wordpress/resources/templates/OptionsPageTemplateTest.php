@@ -28,17 +28,17 @@ class tubepress_plugins_wordpress_resources_templates_OptionsPageTemplateTest ex
 {
     public function test()
     {
-        $filter = \Mockery::mock('tubepress_spi_options_ui_Field');
+        $filter = \Mockery::mock('tubepress_spi_options_ui_PluggableOptionsPageField');
         $filter->shouldReceive('getTitle')->once()->andReturn('filter-title');
         $filter->shouldReceive('getHtml')->once()->andReturn('filter-html');
-        
+
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}    = '<<template-var-title>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}    = $filter;
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}    = '<<template-var-intro>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
-        
+
         ob_start();
         include __DIR__ . '/../../../../../../../main/php/plugins/addon/wordpress/resources/templates/options_page.tpl.php';
         $result = ob_get_contents();
@@ -46,17 +46,17 @@ class tubepress_plugins_wordpress_resources_templates_OptionsPageTemplateTest ex
 
         $this->assertEquals($this->_removeTabs($this->_removeNewLines($this->_expected())), $this->_removeTabs($this->_removeNewLines($result)));
     }
-    
+
     public function doNonce()
     {
-    	echo 'nonce';
+        echo 'nonce';
     }
 
     private function _removeNewLines($string)
     {
         return (string)str_replace(array("\r", "\r\n", "\n"), '', $string);
     }
-    
+
     private function _removeTabs($string)
     {
         return (string)str_replace("\t", '   ', $string);

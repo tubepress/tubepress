@@ -22,7 +22,7 @@
 /**
  * Displays the feed tab.
  */
-class tubepress_impl_options_ui_tabs_FeedTab extends tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_FeedTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
     /**
      * Get the untranslated title of this tab.
@@ -39,22 +39,31 @@ class tubepress_impl_options_ui_tabs_FeedTab extends tubepress_impl_options_ui_t
      *
      * @return array An array of tubepress_spi_options_ui_FormHandler.
      */
-    protected final function getDelegateFormHandlers()
+    protected final function getHardCodedFields()
     {
         $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::ORDER_BY,         tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::PER_PAGE_SORT,    tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::DEV_KEY,          tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::VIMEO_KEY,        tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::VIMEO_SECRET,     tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST,  tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::FILTER,           tubepress_impl_options_ui_fields_DropDownField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY,  tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Feed::ORDER_BY,
+                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Feed::PER_PAGE_SORT,
+                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP,
+                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST,
+                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
+
+            $fieldBuilder->build(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER,
+                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
         );
+    }
+
+    public final function getName()
+    {
+        return 'feed';
     }
 }

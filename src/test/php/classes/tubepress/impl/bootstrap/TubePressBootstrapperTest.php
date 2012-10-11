@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTest
+class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -53,9 +53,6 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
     {
         $mockPlugin1 = Mockery::mock(tubepress_spi_plugin_Plugin::_);
         $mockPlugin2 = Mockery::mock(tubepress_spi_plugin_Plugin::_);
-
-        $root = realpath(__DIR__ . '/../../../../../../../');
-        define('TUBEPRESS_ROOT', $root);
 
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');

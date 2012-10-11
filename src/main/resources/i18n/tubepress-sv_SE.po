@@ -291,12 +291,6 @@ msgstr ""
 msgid "Default is 999999."
 msgstr ""
 
-msgid "Highlight color"
-msgstr ""
-
-msgid "Default is FFFFFF."
-msgstr ""
-
 msgid "Show title and rating before video starts"
 msgstr ""
 
@@ -372,9 +366,6 @@ msgstr ""
 msgid "Provider default"
 msgstr ""
 
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr ""
-
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr ""
 
@@ -403,36 +394,6 @@ msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to regis
 msgstr ""
 
 msgid "Vimeo API \"Consumer Secret\""
-msgstr ""
-
-msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
-
-msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
-
-msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
-
-msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
-
-msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
-msgstr ""
-
-msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
-msgstr ""
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
-msgstr ""
-
-msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
-msgstr ""
-
-msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
 msgstr ""
 
 msgid "Cache directory"
@@ -492,16 +453,10 @@ msgstr ""
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr ""
 
-msgid "No viewable videos"
-msgstr ""
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr ""
-
-msgid "Play videos in high definition by default"
 msgstr ""
 
 msgid "Randomize thumbnail images"
@@ -556,5 +511,29 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr ""
 
 msgid "random"
+msgstr ""
+
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
+msgstr ""
+
+msgid "JW FLV Media Player (by Longtail Video)"
 msgstr ""
 

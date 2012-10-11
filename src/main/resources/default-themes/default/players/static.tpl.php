@@ -18,15 +18,4 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-?>
-<div class="tubepress_normal_embedded_wrapper" style="width: <?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px">
-  
-    <div id="tubepress_embedded_title_<?php echo ${tubepress_api_const_template_Variable::GALLERY_ID}; ?>" class="tubepress_embedded_title">
-      <?php echo ${tubepress_api_const_template_Variable::VIDEO}->getTitle(); ?>
-    
-    </div>
-    <div id="tubepress_embedded_object_<?php echo ${tubepress_api_const_template_Variable::GALLERY_ID}; ?>">
-      <?php echo ${tubepress_api_const_template_Variable::EMBEDDED_SOURCE}; ?>
-    
-    </div>
-  </div>
+include 'normal.tpl.php';

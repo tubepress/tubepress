@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnitTest
+class tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -48,22 +48,27 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
     function testJqueryInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/jquery-1.7.1.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/js/jquery-1.8.2.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
     }
 
     function testJsInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/tubepress.js"></script>', $this->_sut->getHeadJsIncludeString());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/js/tubepress.js"></script>', $this->_sut->getHeadJsIncludeString());
     }
 
     function testInlineJs()
     {
-        $this->assertEquals('<script type="text/javascript">function getTubePressBaseUrl(){return "<tubepress_base_url>";}</script>', $this->_sut->getHeadInlineJs());
+        $mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($mockExecutionContext);
+
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTPS)->andReturn(false);
+
+        $this->assertEquals('<script type="text/javascript">TubePressGlobalJsConfig = { baseUrl : "<tubepress_base_url>", https : false };</script>', $this->_sut->getHeadInlineJs());
     }
 
     function testCss()
     {
-        $this->assertEquals('<link rel="stylesheet" href="<tubepress_base_url>/sys/ui/themes/default/style.css" type="text/css" />', $this->_sut->getHeadCssIncludeString());
+        $this->assertEquals('<link rel="stylesheet" href="<tubepress_base_url>/src/main/web/css/tubepress.css" type="text/css" />', $this->_sut->getHeadCssIncludeString());
     }
 
 	function testHeadMetaPageOne()

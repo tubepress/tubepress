@@ -8,38 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jQuery-1.7.2" level="application" />
-    <orderEntry type="module-library">
-      <library name="PHP">
-        <CLASSES>
-          <root url="file:///var/www/gshd/wordpress/wp-includes" />
-          <root url="file:///var/www/gshd/wordpress/wp-admin" />
-          <root url="file:///usr/share/php" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file:///var/www/gshd/wordpress/wp-includes" />
-          <root url="file:///var/www/gshd/wordpress/wp-admin" />
-          <root url="file:///usr/share/php" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="PHARS">
-        <CLASSES>
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/modified.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/nosig.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/wrongsig.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/nosigmodified.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/test.phar" />
-        </CLASSES>
-        <SOURCES>
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/modified.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/nosig.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/wrongsig.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/nosigmodified.phar" />
-          <root url="phar:///usr/share/php/test/PharUtil/test/PharUtil/data/phar/test.phar" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>
 

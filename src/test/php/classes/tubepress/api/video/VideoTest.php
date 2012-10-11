@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_api_video_VideoTest extends TubePressUnitTest
+class tubepress_api_video_VideoTest extends TubePressUnitTest
 {
 	private $_vid;
 

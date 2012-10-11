@@ -18,12 +18,26 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePressUnitTest
+class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePressUnitTest
 {
 	private $_sut;
 
+    private $_mockEventDispatcher;
+
 	public function setup()
 	{
+        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+
+        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_CoreEventNames::OPTION_STORAGE_MANAGER_READY,
+
+            Mockery::on(function ($arg) {
+
+                return $arg[0] instanceof tubepress_impl_options_DefaultOptionDescriptorReference;
+            })
+        );
+
 		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 	}
 
@@ -32,10 +46,37 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	 */
 	public function testRegisterDuplicate()
 	{
-	    $od = new tubepress_api_model_options_OptionDescriptor('name');
+	    $od = new tubepress_spi_options_OptionDescriptor('name');
 
 	    $this->_sut->registerOptionDescriptor($od);
 	    $this->_sut->registerOptionDescriptor($od);
 	}
+
+    public function testGetAll()
+    {
+        $od = new tubepress_spi_options_OptionDescriptor('name');
+
+        $this->_sut->registerOptionDescriptor($od);
+
+        $result = $this->_sut->findAll();
+
+        $this->assertTrue(is_array($result));
+        $this->assertSame($od, $result[0]);
+    }
+
+    public function testFindOne()
+    {
+        $result = $this->_sut->findOneByName('x');
+
+        $this->assertNull($result);
+
+        $od = new tubepress_spi_options_OptionDescriptor('name');
+
+        $this->_sut->registerOptionDescriptor($od);
+
+        $result = $this->_sut->findOneByName('name');
+
+        $this->assertSame($od, $result);
+    }
 }
 

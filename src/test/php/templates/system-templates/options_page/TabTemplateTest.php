@@ -18,25 +18,25 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_template_templates_optionspage_TabTemplateTest extends TubePressUnitTest
+class tubepress_impl_template_templates_optionspage_TabTemplateTest extends TubePressUnitTest
 {
     public function test()
     {
-        $one = \Mockery::mock(tubepress_spi_options_ui_Field::_);
+        $one = \Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::_);
         $one->shouldReceive('getHtml')->once()->andReturn('one-html');
         $one->shouldReceive('getTitle')->once()->andReturn('one-title');
         $one->shouldReceive('getDescription')->once()->andReturn('one-description');
         $one->shouldReceive('isProOnly')->once()->andReturn(true);
         $one->shouldReceive('getArrayOfApplicableProviderNames')->once()->andReturn(array('foo', 'bar'));
 
-        $two = \Mockery::mock(tubepress_spi_options_ui_Field::_);
+        $two = \Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::_);
         $two->shouldReceive('getHtml')->once()->andReturn('two-html');
         $two->shouldReceive('getTitle')->once()->andReturn('two-title');
         $two->shouldReceive('getDescription')->once()->andReturn('two-description');
         $two->shouldReceive('isProOnly')->once()->andReturn(false);
         $two->shouldReceive('getArrayOfApplicableProviderNames')->once()->andReturn(array());
 
-        ${tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} = array($one, $two);
+        ${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY} = array($one, $two);
 
         ob_start();
         include __DIR__ . '/../../../../../main/resources/system-templates/options_page/tab.tpl.php';

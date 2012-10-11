@@ -25,37 +25,33 @@
  */
 final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_patterns_ioc_AbstractReadOnlyIocContainer
 {
-    const SERVICE_AJAX_HANDLER                = 'ajaxHandler';
-    const SERVICE_BOOTSTRAPPER                = 'bootStrapper';
-    const SERVICE_CACHE                       = 'cacheService';
-    const SERVICE_EMBEDDED_HTML_GENERATOR     = 'embeddedHtmlGenerator';
-    const SERVICE_ENVIRONMENT_DETECTOR        = 'environmentDetector';
-    const SERVICE_EVENT_DISPATCHER            = 'eventDispatcher';
-    const SERVICE_EXECUTION_CONTEXT           = 'executionContext';
-    const SERVICE_FEED_FETCHER                = 'feedFetcher';
-    const SERVICE_FEED_INSPECTOR              = 'feedInspector';
-    const SERVICE_FILESYSTEM                  = 'fileSystem';
-    const SERVICE_FILESYSTEM_FINDER_FACTORY   = 'fileSystemFinderFactory';
-    const SERVICE_HEAD_HTML_GENERATOR         = 'headHtmlGenerator';
-    const SERVICE_HTTP_CLIENT                 = 'httpClient';
-    const SERVICE_HTTP_RESPONSE_HANDLER       = 'httpResponseHandler';
-    const SERVICE_HTTP_REQUEST_PARAMS         = 'httpRequestParameterService';
-    const SERVICE_OPTION_DESCRIPTOR_REFERENCE = 'optionDescriptorReference';
-    const SERVICE_OPTION_VALIDATOR            = 'optionValidator';
-    const SERVICE_OPTIONS_UI_FIELDBUILDER     = 'optionsUiFieldBuilder';
-    const SERVICE_PLAYER_HTML_GENERATOR       = 'playerHtmlGenerator';
-    const SERVICE_PLUGIN_DISCOVER             = 'pluginDiscoverer';
-    const SERVICE_PLUGIN_REGISTRY             = 'pluginRegistry';
-    const SERVICE_QUERY_STRING_SERVICE        = 'queryStringService';
-    const SERVICE_SHORTCODE_HTML_GENERATOR    = 'shortcodeHtmlGenerator';
-    const SERVICE_SHORTCODE_PARSER            = 'shortcodeParser';
-    const SERVICE_TEMPLATE_BUILDER            = 'templateBuilder';
-    const SERVICE_THEME_HANDLER               = 'themeHandler';
-    const SERVICE_URL_BUILDER                 = 'urlBuilder';
-    const SERVICE_VIDEO_FACTORY               = 'videoFactory';
-    const SERVICE_VIDEO_PROVIDER              = 'videoProvider';
-    const SERVICE_VIDEO_PROVIDER_CALCULATOR   = 'videoProviderCalculator';
-    const SERVICE_VIDEO_PROVIDER_REGISTRY     = 'videoProviderRegistry';
+    const SERVICE_AJAX_HANDLER                 = 'ajaxHandler';
+    const SERVICE_BOOTSTRAPPER                 = 'bootStrapper';
+    const SERVICE_CACHE                        = 'cacheService';
+    const SERVICE_EMBEDDED_HTML_GENERATOR      = 'embeddedHtmlGenerator';
+    const SERVICE_ENVIRONMENT_DETECTOR         = 'environmentDetector';
+    const SERVICE_EVENT_DISPATCHER             = 'eventDispatcher';
+    const SERVICE_EXECUTION_CONTEXT            = 'executionContext';
+    const SERVICE_FEED_FETCHER                 = 'feedFetcher';
+    const SERVICE_FILESYSTEM                   = 'fileSystem';
+    const SERVICE_FILESYSTEM_FINDER_FACTORY    = 'fileSystemFinderFactory';
+    const SERVICE_HEAD_HTML_GENERATOR          = 'headHtmlGenerator';
+    const SERVICE_HTTP_CLIENT                  = 'httpClient';
+    const SERVICE_HTTP_RESPONSE_HANDLER        = 'httpResponseHandler';
+    const SERVICE_HTTP_REQUEST_PARAMS          = 'httpRequestParameterService';
+    const SERVICE_OPTION_DESCRIPTOR_REFERENCE  = 'optionDescriptorReference';
+    const SERVICE_OPTION_VALIDATOR             = 'optionValidator';
+    const SERVICE_OPTIONS_UI_FIELDBUILDER      = 'optionsUiFieldBuilder';
+    const SERVICE_PLAYER_HTML_GENERATOR        = 'playerHtmlGenerator';
+    const SERVICE_PLUGIN_DISCOVER              = 'pluginDiscoverer';
+    const SERVICE_PLUGIN_REGISTRY              = 'pluginRegistry';
+    const SERVICE_QUERY_STRING_SERVICE         = 'queryStringService';
+    const SERVICE_SERVICE_COLLECTIONS_REGISTRY = 'serviceCollectionsRegistry';
+    const SERVICE_SHORTCODE_HTML_GENERATOR     = 'shortcodeHtmlGenerator';
+    const SERVICE_SHORTCODE_PARSER             = 'shortcodeParser';
+    const SERVICE_TEMPLATE_BUILDER             = 'templateBuilder';
+    const SERVICE_THEME_HANDLER                = 'themeHandler';
+    const SERVICE_VIDEO_COLLECTOR              = 'videoCollector';
 
     /**
      * @var ehough_iconic_api_IContainer
@@ -74,7 +70,6 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         $this->_registerEventDispatcher();
         $this->_registerExecutionContext();
         $this->_registerFeedFetcher();
-        $this->_registerFeedInspector();
         $this->_registerFilesystem();
         $this->_registerFilesystemFinderFactory();
         $this->_registerHeadHtmlGenerator();
@@ -88,34 +83,23 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         $this->_registerPluginDiscoverer();
         $this->_registerPluginRegistry();
         $this->_registerQueryStringService();
+        $this->_registerServiceCollectionsRegistry();
         $this->_registerShortcodeHtmlGenerator();
         $this->_registerShortcodeParser();
         $this->_registerTemplateBuilder();
         $this->_registerThemeHandler();
-        $this->_registerUrlBuilder();
-        $this->_registerVideoFactory();
-        $this->_registerVideoProvider();
-        $this->_registerVideoProviderCalculator();
-        $this->_registerVideoProviderRegistry();
+        $this->_registerVideoCollector();
     }
 
     private function _registerAjaxHandler()
     {
-        $chainName = '_tubepress_impl_http_DefaultAjaxHandler__chain';
-        $commands = array(
-
-            'tubepress_impl_http_ajaxhandling_PlayerHtmlCommand'
-        );
-
-        $this->_registerChainDefinitionByClassNames($chainName, $commands);
-
         /** @noinspection PhpUndefinedMethodInspection */
         $this->_delegate->register(
 
             self::SERVICE_AJAX_HANDLER,
             'tubepress_impl_http_DefaultAjaxHandler'
 
-        )->addArgument(new ehough_iconic_impl_Reference($chainName));
+        );
     }
 
     private function _registerBootstrapper()
@@ -140,25 +124,13 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
 
     private function _registerEmbeddedHtmlGenerator()
     {
-        $chainName = '_tubepress_impl_embedded_EmbeddedPlayerChain_chain';
-
-        $commands = array(
-
-            'tubepress_impl_embedded_commands_JwFlvCommand',
-            'tubepress_impl_embedded_commands_EmbedPlusCommand',
-            'tubepress_impl_embedded_commands_YouTubeIframeCommand',
-            'tubepress_impl_embedded_commands_VimeoCommand'
-        );
-
-        $this->_registerChainDefinitionByClassNames($chainName, $commands);
-
         /** @noinspection PhpUndefinedMethodInspection */
         $this->_delegate->register(
 
             self::SERVICE_EMBEDDED_HTML_GENERATOR,
-            'tubepress_impl_embedded_EmbeddedPlayerChain'
+            'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'
 
-        )->addArgument(new ehough_iconic_impl_Reference($chainName));
+        );
     }
 
     private function _registerEnvironmentDetector()
@@ -195,27 +167,6 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
             self::SERVICE_FEED_FETCHER,
             'tubepress_impl_feed_CacheAwareFeedFetcher'
         );
-    }
-
-    private function _registerFeedInspector()
-    {
-        $chainName = '_tubepress_impl_feed_FeedInspectorChain_chain';
-
-        $commands = array(
-
-            'tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand',
-            'tubepress_impl_feed_inspection_VimeoFeedInspectionCommand'
-        );
-
-        $this->_registerChainDefinitionByClassNames($chainName, $commands);
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->_delegate->register(
-
-            self::SERVICE_FEED_INSPECTOR,
-            'tubepress_impl_feed_FeedInspectorChain'
-
-        )->addArgument(new ehough_iconic_impl_Reference($chainName));
     }
 
     private function _registerFilesystem()
@@ -284,7 +235,6 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         $transportChainId = '_ehough_shortstop_impl_HttpClientChain_transportchain';
 
         $this->_registerChainDefinitionByReferences($transportChainId, $transportReferences);
-
 
         /**
          * Register the content decoding commands and chain.
@@ -441,82 +391,24 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         );
     }
 
+    private function _registerServiceCollectionsRegistry()
+    {
+        $this->_delegate->register(
+
+            self::SERVICE_SERVICE_COLLECTIONS_REGISTRY,
+            'tubepress_impl_patterns_sl_DefaultServiceCollectionsRegistry'
+        );
+    }
+
     private function _registerShortcodeHtmlGenerator()
     {
-        /**
-         * This is another complicated function. Step carefully!
-         */
-
-        $simpleCommandClasses = array(
-
-            'tubepress_impl_shortcode_commands_SearchInputCommand',
-            'tubepress_impl_shortcode_commands_SingleVideoCommand',
-            'tubepress_impl_shortcode_commands_ThumbGalleryCommand',
-        );
-
-        foreach ($simpleCommandClasses as $simpleCommandClass) {
-
-            $this->_delegate->register($simpleCommandClass, $simpleCommandClass);
-        }
-
-        $justThumbCommandChainId = '_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain_justthumbcommandchain';
-
-        $this->_registerChainDefinitionByReferences(
-
-            $justThumbCommandChainId,
-            array(new ehough_iconic_impl_Reference('tubepress_impl_shortcode_commands_ThumbGalleryCommand'))
-        );
-
-        $justSingleCommandChainId = '_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain_justsinglecommandchain';
-
-        $this->_registerChainDefinitionByReferences(
-
-            $justSingleCommandChainId,
-            array(new ehough_iconic_impl_Reference('tubepress_impl_shortcode_commands_SingleVideoCommand'))
-        );
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->_delegate->register(
-
-            'tubepress_impl_shortcode_commands_SearchOutputCommand',
-            'tubepress_impl_shortcode_commands_SearchOutputCommand'
-
-        )->addArgument(new ehough_iconic_impl_Reference($justThumbCommandChainId));
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->_delegate->register(
-
-            'tubepress_impl_shortcode_commands_SoloPlayerCommand',
-            'tubepress_impl_shortcode_commands_SoloPlayerCommand'
-
-        )->addArgument(new ehough_iconic_impl_Reference($justSingleCommandChainId));
-
-        $commandReferences = array();
-        $finalCommands     = array(
-
-            'tubepress_impl_shortcode_commands_SearchInputCommand',
-            'tubepress_impl_shortcode_commands_SearchOutputCommand',
-            'tubepress_impl_shortcode_commands_SingleVideoCommand',
-            'tubepress_impl_shortcode_commands_SoloPlayerCommand',
-            'tubepress_impl_shortcode_commands_ThumbGalleryCommand',
-        );
-
-        foreach ($finalCommands as $finalCommand) {
-
-            array_push($commandReferences, new ehough_iconic_impl_Reference($finalCommand));
-        }
-
-        $finalChainId = '_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain_chain';
-
-        $this->_registerChainDefinitionByReferences($finalChainId, $commandReferences);
-
         /** @noinspection PhpUndefinedMethodInspection */
         $this->_delegate->register(
 
             self::SERVICE_SHORTCODE_HTML_GENERATOR,
-            'tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain'
+            'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator'
 
-        )->addArgument(new ehough_iconic_impl_Reference($finalChainId));
+        );
     }
 
     private function _registerShortcodeParser()
@@ -546,72 +438,12 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         );
     }
 
-    private function _registerUrlBuilder()
-    {
-        $chainId = 'tubepress_impl_feed_UrlBuilderChain_chain';
-
-        $commands = array(
-
-            'tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand',
-            'tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand'
-        );
-
-        $this->_registerChainDefinitionByClassNames($chainId, $commands);
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->_delegate->register(
-
-            self::SERVICE_URL_BUILDER,
-            'tubepress_impl_feed_UrlBuilderChain'
-
-        )->addArgument(new ehough_iconic_impl_Reference($chainId));
-    }
-
-    private function _registerVideoFactory()
-    {
-        $chainId = 'tubepress_impl_factory_VideoFactoryChain_chain';
-
-        $commands = array(
-
-            'tubepress_impl_factory_commands_YouTubeFactoryCommand',
-            'tubepress_impl_factory_commands_VimeoFactoryCommand'
-        );
-
-        $this->_registerChainDefinitionByClassNames($chainId, $commands);
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->_delegate->register(
-
-            self::SERVICE_VIDEO_FACTORY,
-            'tubepress_impl_factory_VideoFactoryChain'
-
-        )->addArgument(new ehough_iconic_impl_Reference($chainId));
-    }
-
-    private function _registerVideoProvider()
+    private function _registerVideoCollector()
     {
         $this->_delegate->register(
 
-            self::SERVICE_VIDEO_PROVIDER,
-            'tubepress_impl_provider_SimpleProvider'
-        );
-    }
-
-    private function _registerVideoProviderCalculator()
-    {
-        $this->_delegate->register(
-
-            self::SERVICE_VIDEO_PROVIDER_CALCULATOR,
-            'tubepress_impl_provider_SimpleProviderCalculator'
-        );
-    }
-
-    private function _registerVideoProviderRegistry()
-    {
-        $this->_delegate->register(
-
-            self::SERVICE_VIDEO_PROVIDER_REGISTRY,
-            'tubepress_impl_provider_DefaultVideoProviderRegistry'
+            self::SERVICE_VIDEO_COLLECTOR,
+            'tubepress_impl_collector_DefaultVideoCollector'
         );
     }
 

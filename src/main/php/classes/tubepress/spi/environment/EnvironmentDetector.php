@@ -49,20 +49,6 @@ interface tubepress_spi_environment_EnvironmentDetector
     function getUserContentDirectory();
 
     /**
-     * Finds the absolute path of the TubePress installation on the filesystem.
-     *
-     * @return string The absolute filesystem path of this TubePress installation.
-     */
-    function getTubePressBaseInstallationPath();
-
-    /**
-     * Find the directory name of the TubePress base installation.
-     *
-     * @return string The base name of the TubePress installation directory.
-     */
-    function getTubePressInstallationDirectoryBaseName();
-
-    /**
      * Get the current TubePress version.
      *
      * @return tubepress_spi_version_Version The current version.

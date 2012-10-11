@@ -55,7 +55,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
         $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $keyword  = $context->get(tubepress_api_const_options_names_Advanced::KEYWORD);
 
-	    if (!$this->somethingToParse($content, $keyword)) {
+        if (!$this->somethingToParse($content, $keyword)) {
 
             return;
         }
@@ -72,7 +72,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != '') {
 
-            $text    = preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', utf8_encode($matches[1]));
+            $text    = preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', $matches[1]);
             $text    = self::_convertQuotes($text);
             $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s*,)?(?:\s|$)/';
 

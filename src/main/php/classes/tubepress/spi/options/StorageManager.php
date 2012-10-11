@@ -28,22 +28,6 @@ interface tubepress_spi_options_StorageManager
     const _ = 'tubepress_spi_options_StorageManager';
 
     /**
-     * Determines if an option exists
-     *
-     * @param string $optionName The name of the option in question
-     *
-     * @return boolean True if the option exists, false otherwise
-     */
-    function exists($optionName);
-
-    /**
-     * Initializes the storage
-     *
-     * @return void
-     */
-    function init();
-
-    /**
      * Retrieve the current value of an option
      *
      * @param string $optionName The name of the option
@@ -61,4 +45,14 @@ interface tubepress_spi_options_StorageManager
      * @return boolean True on success, otherwise a string error message.
      */
     function set($optionName, $optionValue);
+
+    /**
+     * Creates an option in storage
+     *
+     * @param mixed $optionName  The name of the option to create
+     * @param mixed $optionValue The default value of the new option
+     *
+     * @return void
+     */
+    function createIfNotExists($optionName, $optionValue);
 }

@@ -30,19 +30,15 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
 
     private $_mockTemplateBuilder;
 
-    private $_mockEnvironmentDetector;
-
     function setUp()
     {
         $this->_mockTabs = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
-        $this->_mockFilter = Mockery::mock('tubepress_spi_options_ui_Field');
+        $this->_mockFilter = Mockery::mock('tubepress_spi_options_ui_PluggableOptionsPageField');
 
         $this->_mockMessageService   = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockTemplateBuilder = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
 
         $this->_sut = new tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
@@ -71,9 +67,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
     {
         $template       = \Mockery::mock('ehough_contemplate_api_Template');
 
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/src/main/php/plugins/addon/wordpress/resources/templates/options_page.tpl.php')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/plugins/addon/wordpress/resources/templates/options_page.tpl.php')->andReturn($template);
 
         $this->_mockMessageService->shouldReceive('_')->once()->with('TubePress Options')->andReturn('<<title>>');
         $this->_mockMessageService->shouldReceive('_')->once()->with('Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.')->andReturn('<<blurb>>');

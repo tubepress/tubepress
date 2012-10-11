@@ -25,6 +25,11 @@ $loader = new ehough_pulsar_ComposerClassLoader(__DIR__ . '/../../../vendor/');
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/classes');
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/core/classes');
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/wordpress/classes');
+$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/youtube/classes');
+$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/vimeo/classes');
+$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/basicplayerlocations/classes');
+$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/embedplus/classes');
+$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/jwflvplayer/classes');
 $loader->registerFallbackDirectory(__DIR__);
 $loader->register();
 

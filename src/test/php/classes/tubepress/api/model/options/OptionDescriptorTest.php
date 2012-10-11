@@ -25,7 +25,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
 
     function setUp()
     {
-        $this->_sut = new tubepress_api_model_options_OptionDescriptor('name');
+        $this->_sut = new tubepress_spi_options_OptionDescriptor('name');
     }
 
     function testSetAcceptableValues()
@@ -126,7 +126,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     */
     function testNonStringName()
     {
-        new tubepress_api_model_options_OptionDescriptor(88);
+        new tubepress_spi_options_OptionDescriptor(88);
     }
 
     /**
@@ -134,7 +134,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
      */
     function testNullName()
     {
-        new tubepress_api_model_options_OptionDescriptor(null);
+        new tubepress_spi_options_OptionDescriptor(null);
     }
 
     /**
@@ -221,8 +221,8 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     {
         $this->assertTrue($this->_sut->isApplicableToAllProviders());
         $this->_sut->setExcludedProviders(array('youtube'));
-        $this->assertTrue($this->_sut->isApplicableToVimeo());
-        $this->assertFalse($this->_sut->isApplicableToYouTube());
+        $this->assertTrue($this->_sut->isApplicableToProvider('vimeo'));
+        $this->assertFalse($this->_sut->isApplicableToProvider('youtube'));
         $this->assertFalse($this->_sut->isApplicableToAllProviders());
     }
 

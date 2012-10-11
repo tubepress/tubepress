@@ -18,15 +18,15 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_template_templates_optionspage_TabsTemplateTest extends TubePressUnitTest
+class tubepress_impl_template_templates_optionspage_TabsTemplateTest extends TubePressUnitTest
 {
     public function test()
     {
-        $tab1 = \Mockery::mock(tubepress_spi_options_ui_Tab::_);
+        $tab1 = \Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageTab::_);
         $tab1->shouldReceive('getTitle')->times(3)->andReturn('title1');
         $tab1->shouldReceive('getHtml')->once()->andReturn('html1');
 
-        $tab2 = \Mockery::mock(tubepress_spi_options_ui_Tab::_);
+        $tab2 = \Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageTab::_);
         $tab2->shouldReceive('getTitle')->times(3)->andReturn('title2');
         $tab2->shouldReceive('getHtml')->once()->andReturn('html2');
 

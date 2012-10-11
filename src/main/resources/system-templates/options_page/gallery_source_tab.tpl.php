@@ -21,7 +21,7 @@
 ?>
 <table class="tubepress-tab">
 
-	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} as $name => $field):
+	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY} as $name => $field):
 	
 	    if ($name === tubepress_api_const_options_names_Output::GALLERY_SOURCE) { continue; }
 	?>

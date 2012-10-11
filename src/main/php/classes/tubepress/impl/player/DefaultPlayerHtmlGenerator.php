@@ -33,25 +33,44 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
      */
     public final function getHtml(tubepress_api_video_Video $vid)
     {
-        $executionContextService   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $themeHandlerService       = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
-        $providerCalculatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderCalculator();
-        $eventDispatcherService    = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $executionContextService    = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $themeHandler               = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $playerName   = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
-        $template     = $themeHandlerService->getTemplateInstance("players/$playerName.tpl.php");
-        $providerName = $providerCalculatorService->calculateProviderOfVideoId($vid->getId());
+        $requestedPlayerLocation   = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $playerLocation            = null;
+        $registeredPlayerLocations = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PluggablePlayerLocationService::_);
+
+        foreach ($registeredPlayerLocations as $registeredPlayerLocation) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            if ($registeredPlayerLocation->getName() === $requestedPlayerLocation) {
+
+                $playerLocation = $registeredPlayerLocation;
+                break;
+            }
+        }
+
+        if ($playerLocation === null) {
+
+            return null;
+        }
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $template = $playerLocation->getTemplate($themeHandler);
+
+        $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         /*
          * Run filters for the player template construction.
          */
+        /** @noinspection PhpUndefinedMethodInspection */
         $playerTemplateEvent = new tubepress_api_event_TubePressEvent(
 
             $template, array(
 
-                'video' => $vid,
-                'providerName' => $providerName,
-                'playerName' => $playerName)
+                'video'      => $vid,
+                'playerName' => $playerLocation->getName())
         );
 
         $eventDispatcherService->dispatch(
@@ -64,11 +83,12 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          * Run filters for the player HTML construction.
          */
         $html            = $playerTemplateEvent->getSubject()->toString();
+
+        /** @noinspection PhpUndefinedMethodInspection */
         $playerHtmlEvent = new tubepress_api_event_TubePressEvent($html, array(
 
             'video'        => $vid,
-            'providerName' => $providerName,
-            'playerName'   => $playerName
+            'playerName'   => $playerLocation->getName()
         ));
 
         $eventDispatcherService->dispatch(

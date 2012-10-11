@@ -177,9 +177,6 @@ msgstr "Predefinita a 425."
 msgid "Default is 999999."
 msgstr "Predefinita a 999999."
 
-msgid "Default is FFFFFF."
-msgstr "Predefinita a FFFFFF."
-
 msgid "Loop"
 msgstr "Loop"
 
@@ -191,9 +188,6 @@ msgstr "Mostra titolo e votazione prima dell'avvio del video"
 
 msgid "Main color"
 msgstr "Colore principale"
-
-msgid "Highlight color"
-msgstr "Colore evidenziatore"
 
 msgid "Show related videos"
 msgstr "Mostra video correlati"
@@ -384,9 +378,6 @@ msgstr "rigoroso"
 msgid "Provider default"
 msgstr "Provider predefinito"
 
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr "JW FLV Media Player (by Longtail Video)"
-
 msgid "Implementation"
 msgstr "Implementazione"
 
@@ -419,36 +410,6 @@ msgstr "<a href=\"http://vimeo.com/api/applications/new\">Clicca qui</a> per ott
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "API Vimeo \"Consumer Secret\""
-
-msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Non tentare di utilizzare il cURL per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
-
-msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Non tentare di utilizzare l'estensione PHP HTTP per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
-
-msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Non tentare di utilizzare la funzione fopen per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
-
-msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Non tentare di utilizzare la funzione fsockopen per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
-
-msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Non tentare di utilizzare i PHP stream per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
-msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a>"
-
-msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
-msgstr "Disattiva il trasporto <a href=\"http://php.net/http_request\">estensione HTTP</a>"
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
-msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a>"
-
-msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
-msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/fsockopen\">fsockopen</a>"
-
-msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
-msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a>"
 
 msgid "Cache directory"
 msgstr "Cartella cache"
@@ -507,16 +468,10 @@ msgstr ""
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr ""
 
-msgid "No viewable videos"
-msgstr ""
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr ""
-
-msgid "Play videos in high definition by default"
 msgstr ""
 
 msgid "Randomize thumbnail images"
@@ -573,3 +528,26 @@ msgstr ""
 msgid "random"
 msgstr ""
 
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
+msgstr ""
+
+msgid "JW FLV Media Player (by Longtail Video)"
+msgstr ""

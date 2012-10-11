@@ -25,17 +25,12 @@
  */
 class tubepress_api_const_options_names_Meta
 {
-    const _ = 'tubepress_api_const_options_names_Meta';
-
     const AUTHOR      = 'author';
     const CATEGORY    = 'category';
     const DESCRIPTION = 'description';
     const ID          = 'id';
-    const LENGTH      = 'length';
-    const LIKES       = 'likes';
-    const RATING      = 'rating';
-    const RATINGS     = 'ratings';
     const KEYWORDS    = 'tags';
+    const LENGTH      = 'length';
     const TITLE       = 'title';
     const UPLOADED    = 'uploaded';
     const URL         = 'url';
@@ -47,4 +42,7 @@ class tubepress_api_const_options_names_Meta
 
     //DEPRECATED:
     const TAGS    = 'tags';
+    const LIKES   = 'likes'; //this has been moved to vimeo
+    const RATING  = 'rating';//this has been moved to YouTube
+    const RATINGS = 'ratings';//this has been moved to YouTube
 }

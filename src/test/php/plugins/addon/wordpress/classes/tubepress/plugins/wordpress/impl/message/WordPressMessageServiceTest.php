@@ -21,25 +21,25 @@
 
 class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest extends TubePressUnitTest
 {
-	private $_sut;
+    private $_sut;
 
     private static $_i18nDirectoryPath;
 
-	private static $_poFiles;
+    private static $_poFiles;
 
-	private static $_allTranslatableStrings;
+    private static $_allTranslatableStrings;
 
-	public static function setUpBeforeClass()
-	{
-        self::$_i18nDirectoryPath = realpath(dirname(__FILE__) . '/../../../../../../../../../../../main/resources/i18n');
+    public static function setUpBeforeClass()
+    {
+        self::$_i18nDirectoryPath = TUBEPRESS_ROOT . '/src/main/resources/i18n';
 
-	    self::$_poFiles = self::_getPoFiles();
+        self::$_poFiles = self::_getPoFiles();
 
-	    self::$_allTranslatableStrings = self::_getAllTranslatableStrings();
-	}
+        self::$_allTranslatableStrings = self::_getAllTranslatableStrings();
+    }
 
-	function setUp()
-	{
+    function setUp()
+    {
         $wrapper = \Mockery::mock(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
         $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
 
@@ -48,11 +48,11 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
 
         tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($wrapper);
 
-		$this->_sut = new tubepress_plugins_wordpress_impl_message_WordPressMessageService($wrapper);
-	}
+        $this->_sut = new tubepress_plugins_wordpress_impl_message_WordPressMessageService($wrapper);
+    }
 
-	function testAllStringsPresent()
-	{
+    function testAllStringsPresent()
+    {
 
         foreach (self::$_poFiles as $poFile) {
 
@@ -76,129 +76,129 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
 
             $this->assertTrue($ok);
         }
-	}
+    }
 
-	function testPoCompiles()
-	{
-		foreach (self::$_poFiles as $poFile) {
+    function testPoCompiles()
+    {
+        foreach (self::$_poFiles as $poFile) {
 
-		    $this->assertTrue(self::_poFileCompiles($poFile, 'msgfmt', "$poFile does not compile correctly"));
-		}
-	}
+            $this->assertTrue(self::_poFileCompiles($poFile, 'msgfmt', "$poFile does not compile correctly"));
+        }
+    }
 
-	function testGetKeyNoExists()
-	{
+    function testGetKeyNoExists()
+    {
         $this->assertEquals('', $this->_sut->_(''));
         $this->assertEquals('', $this->_sut->_(null));
-	}
+    }
 
-	function testGetKey()
-	{
-	    $result = $this->_sut->_('foo') === "[[foo]]";
+    function testGetKey()
+    {
+        $result = $this->_sut->_('foo') === "[[foo]]";
 
-	    if (!$result) {
+        if (!$result) {
 
-	        print "foo did not resolve to [[foo]]";
-	    }
+            print "foo did not resolve to [[foo]]";
+        }
 
-	    $this->assertTrue($result);
-	}
+        $this->assertTrue($result);
+    }
 
-   	private static function _getAllTranslatableStrings()
-   	{
-   	    $command = 'grep -r ">(translatable)<" ' . dirname(__FILE__) . '/../../../../../../../../../../../main';
-   	    exec($command, $results, $return);
+    private static function _getAllTranslatableStrings()
+    {
+        $command = 'grep -r ">(translatable)<" ' . TUBEPRESS_ROOT . '/src/main/php';
+        exec($command, $results, $return);
 
-   	    self::assertTrue($return === 0, "$command failed");
-   	    self::assertTrue(count($results) > 0, 'grep didn\'t find any strings to translate');
+        self::assertTrue($return === 0, "$command failed");
+        self::assertTrue(count($results) > 0, 'grep didn\'t find any strings to translate');
 
-   	    $strings = array();
-   	    foreach ($results as $grepLine) {
+        $strings = array();
+        foreach ($results as $grepLine) {
 
-   	        $result = preg_match_all("/^[^']*'(.+)'[^']*$/", $grepLine, $matches);
+            $result = preg_match_all("/^[^']*'(.+)'[^']*$/", $grepLine, $matches);
 
-   	        if (!$result || count($matches) !== 2) {
+            if (!$result || count($matches) !== 2) {
 
-   	            echo 'Found more than on match on ' . $grepLine . '. ' . var_export($matches, true);
-   	            exit;
-   	        }
+                echo 'Found more than on match on ' . $grepLine . '. ' . var_export($matches, true);
+                exit;
+            }
 
-   	        $strings[] = str_replace("\'", "'", $matches[1][0]);
-   	    }
+            $strings[] = str_replace("\'", "'", $matches[1][0]);
+        }
 
         return $strings;
-   	}
+    }
 
-   	private static function _poFileCompiles($file, $exec)
-   	{
-   	    $realPath = self::$_i18nDirectoryPath . '/' . $file;
+    private static function _poFileCompiles($file, $exec)
+    {
+        $realPath = self::$_i18nDirectoryPath . '/' . $file;
 
-   	    $outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
+        $outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 
-        $msgFmt = `which msgfmt`;
+        $msgFmt = `/usr/bin/which msgfmt`;
         $msgFmt = tubepress_impl_util_StringUtils::removeNewLines($msgFmt);
 
         $toRun = "$msgFmt -o $outputfile $realPath";
 
-   	    exec($toRun, $output, $return);
+        exec($toRun, $output, $return);
 
         return $return === 0;
-   	}
+    }
 
-   	private static function _getPoFiles()
-   	{
-   	    $files = array();
-
-   	    $handle = opendir(self::$_i18nDirectoryPath);
-
-   	    while (false !== ($file = readdir($handle))) {
-
-   	        if ($file == "." || $file == "..") {
-
-   	            continue;
-   	        }
-
-   	        if (1 == preg_match('/.*\.po.*/', $file)) {
-
-   	            $files[] = $file;
-   	        }
-   	    }
-
-   	    closedir($handle);
-
-   	    return $files;
-   	}
-
-   	private static function _getStringsFromPoFile($file)
-   	{
-   	    $rawMatches = array();
-
-   	    $potContents = file_get_contents(self::$_i18nDirectoryPath . '/' . $file);
-
-   	    preg_match_all("/msgid\b.*/", $potContents, $rawMatches, PREG_SET_ORDER);
-
-   	    $matches = array();
-
-   	    foreach ($rawMatches as $rawMatch) {
-
-   	        $r = $rawMatch[0];
-   	        $r = str_replace("msgid \"", "", $r);
-   	        $r = substr($r, 0, self::_rstrpos($r, "\""));
-   	        if ($r == '') {
-   	            continue;
-   	        }
-   	        $r = str_replace("\\\"", "\"", $r);
-   	        $matches[] = $r;
-   	    }
-
-   	    return $matches;
-   	}
-
-   	private static function _rstrpos ($haystack, $needle)
+    private static function _getPoFiles()
     {
-   	    $index = strpos(strrev($haystack), strrev($needle));
-   	    $index = strlen($haystack) - strlen($index) - $index;
+        $files = array();
 
-   	    return $index;
-   	}
+        $handle = opendir(self::$_i18nDirectoryPath);
+
+        while (false !== ($file = readdir($handle))) {
+
+            if ($file == "." || $file == "..") {
+
+                continue;
+            }
+
+            if (1 == preg_match('/.*\.po.*/', $file)) {
+
+                $files[] = $file;
+            }
+        }
+
+        closedir($handle);
+
+        return $files;
+    }
+
+    private static function _getStringsFromPoFile($file)
+    {
+        $rawMatches = array();
+
+        $potContents = file_get_contents(self::$_i18nDirectoryPath . '/' . $file);
+
+        preg_match_all("/msgid\b.*/", $potContents, $rawMatches, PREG_SET_ORDER);
+
+        $matches = array();
+
+        foreach ($rawMatches as $rawMatch) {
+
+            $r = $rawMatch[0];
+            $r = str_replace("msgid \"", "", $r);
+            $r = substr($r, 0, self::_rstrpos($r, "\""));
+            if ($r == '') {
+                continue;
+            }
+            $r = str_replace("\\\"", "\"", $r);
+            $matches[] = $r;
+        }
+
+        return $matches;
+    }
+
+    private static function _rstrpos ($haystack, $needle)
+    {
+        $index = strpos(strrev($haystack), strrev($needle));
+        $index = strlen($haystack) - strlen($index) - $index;
+
+        return $index;
+    }
 }

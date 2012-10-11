@@ -19,7 +19,7 @@
  *
  */
 
-class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePressUnitTest
+class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -51,24 +51,9 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubeP
 
     public function testGetUserContentDirNonWordPress()
     {
-        $dir = realpath(dirname(__FILE__) . '/../../../../../../..');
+        $dir = TUBEPRESS_ROOT;
 
         $this->assertEquals("$dir/tubepress-content", $this->_sut->getUserContentDirectory());
-    }
-
-    function testGetBaseInstallationPath()
-    {
-        $result = $this->_sut->getTubePressBaseInstallationPath();
-
-        $dirname = basename($result);
-
-        $this->assertEquals('tubepress', $dirname);
-    }
-
-    function testGetBaseInstallationBasename()
-    {
-        $result = $this->_sut->getTubePressInstallationDirectoryBaseName();
-        $this->assertEquals('tubepress', $result);
     }
 
 }
