@@ -231,14 +231,6 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
-        $option->setDefaultValue(true);
-        $option->setLabel('Randomize thumbnail images');                                                                                                                                                                                                                                              //>(translatable)<
-        $option->setDescription('Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.'); //>(translatable)<
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
 
 
 

@@ -48,7 +48,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
 
     public function testFindAll()
     {
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(55);
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(56);
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 
@@ -66,15 +66,15 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(9)->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayers);
 
         $mockEmbedded = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-        $mockEmbedded->shouldReceive('getName')->times(110)->andReturn('yy-embed-name-yy');
-        $mockEmbedded->shouldReceive('getFriendlyName')->times(55)->andReturn('friendly embed name');
+        $mockEmbedded->shouldReceive('getName')->times(112)->andReturn('yy-embed-name-yy');
+        $mockEmbedded->shouldReceive('getFriendlyName')->times(56)->andReturn('friendly embed name');
         $mockEmbeds = array($mockEmbedded);
-        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(56)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
 
         $videoProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $videoProvider->shouldReceive('getName')->times(79)->andReturn('xxvideo-provider-name-xx');
+        $videoProvider->shouldReceive('getName')->times(80)->andReturn('xxvideo-provider-name-xx');
         $videoProviders = array($videoProvider);
-        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(79)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(80)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($serviceCollectionsRegistry);
 
@@ -450,6 +450,14 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option->setLabel('Width (px) of thumbs');  //>(translatable)<
         $option->setDescription('Default is 120.');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexPositiveInteger);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
+        $option->setDefaultValue(true);
+        $option->setLabel('Randomize thumbnail images');                                                                                                                                                                                                                                              //>(translatable)<
+        $option->setDescription('Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.'); //>(translatable)<
+        $option->setBoolean();
+        $option->setExcludedProviders(array('vimeo'));
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
