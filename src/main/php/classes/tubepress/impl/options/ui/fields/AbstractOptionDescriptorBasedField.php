@@ -26,9 +26,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 {
     const TEMPLATE_VAR_VALUE = 'tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField__value';
 
-    /** Applicable providers. */
-    private $_providerArray = array();
-
     /** Option descriptor. */
     private $_optionDescriptor;
 
@@ -45,27 +42,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
             throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $name));
         }
 
-        if ($this->_optionDescriptor->isApplicableToProvider('vimeo')) {
-
-            array_push($this->_providerArray, 'vimeo');
-        }
-
-        if ($this->_optionDescriptor->isApplicableToProvider('youtube')) {
-
-            array_push($this->_providerArray, 'youtube');
-        }
-
         $this->_desiredTabName = $desiredTabName;
-    }
-
-    /**
-     * Gets the providers to which this field applies.
-     *
-     * @return array An array of provider names to which this field applies. May be empty. Never null.
-     */
-    public final function getArrayOfApplicableProviderNames()
-    {
-        return $this->_providerArray;
     }
 
     /**

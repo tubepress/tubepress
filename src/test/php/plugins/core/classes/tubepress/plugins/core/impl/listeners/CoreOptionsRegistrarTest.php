@@ -22,16 +22,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
 {
     private static $_regexPositiveInteger    = '/[1-9][0-9]{0,6}/';
     private static $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';
-    private static $_regexColor              = '/^([0-9a-f]{1,2}){3}$/i';
     private static $_regexWordChars          = '/\w+/';
-    private static $_valueMapTime = array(
-
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::ALL_TIME   => 'all time',        //>(translatable)<
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_MONTH => 'this month',      //>(translatable)<
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_WEEK  => 'this week',       //>(translatable)<
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY      => 'today',           //>(translatable)<
-    );
-    private static $_providerArrayYouTube = array('youtube');
 
     private $_sut;
 
@@ -457,7 +448,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option->setLabel('Randomize thumbnail images');                                                                                                                                                                                                                                              //>(translatable)<
         $option->setDescription('Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.'); //>(translatable)<
         $option->setBoolean();
-        $option->setExcludedProviders(array('vimeo'));
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
@@ -476,7 +466,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
         $option->setLabel('Implementation');                                                                                  //>(translatable)<
         $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
-        $option->setExcludedProviders(array('vimeo'));
         $option->setAcceptableValues(array('provider_based' => 'Provider default', 'yy-embed-name-yy' => 'friendly embed name'));
         $this->_verifyOption($option);
 
@@ -498,9 +487,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
                 && $registeredOption->getName() === $expectedOption->getName()
                 && $registeredOption->getValidValueRegex() === $expectedOption->getValidValueRegex()
                 && $registeredOption->isAbleToBeSetViaShortcode() === $expectedOption->isAbleToBeSetViaShortcode()
-                && $registeredOption->isApplicableToAllProviders() === $expectedOption->isApplicableToAllProviders()
-                && $registeredOption->isApplicableToProvider('vimeo') === $expectedOption->isApplicableToProvider('vimeo')
-                && $registeredOption->isApplicableToProvider('youtube') === $expectedOption->isApplicableToProvider('youtube')
                 && $registeredOption->isBoolean() === $expectedOption->isBoolean()
                 && $registeredOption->isMeantToBePersisted() === $expectedOption->isMeantToBePersisted()
                 && $registeredOption->hasDiscreteAcceptableValues() === $expectedOption->hasDiscreteAcceptableValues()

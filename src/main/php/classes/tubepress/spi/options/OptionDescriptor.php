@@ -57,11 +57,6 @@ class tubepress_spi_options_OptionDescriptor
     private $_description;
 
     /**
-     * @var array Providers for which this option is known to not work.
-     */
-    private $_excludedProviders = array();
-
-    /**
      * @var bool Boolean flag to indicate if this option is boolean.
      */
     private $_isBoolean = false;
@@ -210,29 +205,11 @@ class tubepress_spi_options_OptionDescriptor
     }
 
     /**
-     * @param string $providerName The name of the provider.
-     *
-     * @return bool True if this option is applicable to the given provider, false otherwise.
-     */
-    public final function isApplicableToProvider($providerName)
-    {
-        return ! in_array($providerName, $this->_excludedProviders);
-    }
-
-    /**
      * @return bool True if this option takes on only boolean values, false otherwise.
      */
     public final function isBoolean()
     {
         return $this->_isBoolean;
-    }
-
-    /**
-     * @return bool True if this option is applicable to all providers, false otherwise.
-     */
-    public final function isApplicableToAllProviders()
-    {
-        return empty($this->_excludedProviders);
     }
 
     /**
@@ -360,16 +337,6 @@ class tubepress_spi_options_OptionDescriptor
     public final function setDoNotPersist()
     {
         $this->_shouldPersist = false;
-    }
-
-    /**
-     * @param array $excludedProviders The array of providers for which this option is not applicable.
-     *
-     * @return void
-     */
-    public final function setExcludedProviders(array $excludedProviders)
-    {
-        $this->_excludedProviders = $excludedProviders;
     }
 
     /**

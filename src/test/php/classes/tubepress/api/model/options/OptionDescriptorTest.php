@@ -217,15 +217,6 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
         $this->assertEquals('regex', $this->_sut->getValidValueRegex());
     }
 
-    function testGetExcludedProviders()
-    {
-        $this->assertTrue($this->_sut->isApplicableToAllProviders());
-        $this->_sut->setExcludedProviders(array('youtube'));
-        $this->assertTrue($this->_sut->isApplicableToProvider('vimeo'));
-        $this->assertFalse($this->_sut->isApplicableToProvider('youtube'));
-        $this->assertFalse($this->_sut->isApplicableToAllProviders());
-    }
-
     function testGetAliases()
     {
         $this->_sut->setAliases(array('alias'));
