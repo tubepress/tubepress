@@ -24,6 +24,6 @@
  */
 class tubepress_plugins_vimeo_api_const_options_names_Feed
 {
-    const VIMEO_KEY        = 'vimeoKey';
-    const VIMEO_SECRET     = 'vimeoSecret';
+    const VIMEO_KEY    = 'vimeoKey';
+    const VIMEO_SECRET = 'vimeoSecret';
 }

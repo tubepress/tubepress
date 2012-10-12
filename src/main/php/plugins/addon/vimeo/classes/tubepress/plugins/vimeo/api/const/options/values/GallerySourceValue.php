@@ -24,12 +24,12 @@
  */
 class tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue
 {
-    const VIMEO_UPLOADEDBY       = 'vimeoUploadedBy';
-    const VIMEO_LIKES            = 'vimeoLikes';
-    const VIMEO_APPEARS_IN       = 'vimeoAppearsIn';
-    const VIMEO_SEARCH           = 'vimeoSearch';
-    const VIMEO_CREDITED         = 'vimeoCreditedTo';
-    const VIMEO_CHANNEL          = 'vimeoChannel';
-    const VIMEO_ALBUM            = 'vimeoAlbum';
-    const VIMEO_GROUP            = 'vimeoGroup';
+    const VIMEO_UPLOADEDBY  = 'vimeoUploadedBy';
+    const VIMEO_LIKES       = 'vimeoLikes';
+    const VIMEO_APPEARS_IN  = 'vimeoAppearsIn';
+    const VIMEO_SEARCH      = 'vimeoSearch';
+    const VIMEO_CREDITED    = 'vimeoCreditedTo';
+    const VIMEO_CHANNEL     = 'vimeoChannel';
+    const VIMEO_ALBUM       = 'vimeoAlbum';
+    const VIMEO_GROUP       = 'vimeoGroup';
 }
