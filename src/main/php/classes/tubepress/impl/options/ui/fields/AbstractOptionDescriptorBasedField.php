@@ -117,6 +117,29 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     }
 
     /**
+     * Gets the providers to which this field applies.
+     *
+     * @return array An array of provider names to which this field applies. May be empty. Never null.
+     */
+    public final function getArrayOfApplicableProviderNames()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+
+        $toReturn = array();
+
+        foreach ($videoProviders as $videoProvider) {
+
+            if ($videoProvider->isOptionApplicable($this->_optionDescriptor->getName())) {
+
+                $toReturn[] = $videoProvider->getName();
+            }
+        }
+
+        return $toReturn;
+    }
+
+    /**
      * Get the path to the template for this field, relative
      * to TubePress's root.
      *

@@ -412,6 +412,7 @@ msgstr ""
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
 
+
 msgstr ""
 
 msgid "Only show options applicable to..."
@@ -469,12 +470,6 @@ msgid "Thumbnails per page"
 msgstr ""
 
 msgid "Show each video's..."
-msgstr ""
-
-msgid "YouTube"
-msgstr ""
-
-msgid "Vimeo"
 msgstr ""
 
 msgid "Enable JavaScript API"

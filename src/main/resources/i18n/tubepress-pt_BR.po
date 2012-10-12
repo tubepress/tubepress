@@ -473,12 +473,6 @@ msgstr "\"Lazy\" play videos"
 msgid "Auto-play each video after thumbnail click."
 msgstr "Iniciar automaticamente cada vídeo depois de um clique na miniatura"
 
-msgid "YouTube"
-msgstr ""
-
-msgid "Vimeo"
-msgstr ""
-
 msgid "Show each video's..."
 msgstr ""
 

@@ -18,11 +18,12 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+?>
+<select id="multiselect-<?php echo ${tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>" name="<?php echo ${tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>[]" multiple="multiple">
 
-/**
- * Options related to the options UI.
- */
-class tubepress_api_const_options_names_OptionsUi
-{
-    const PROVIDERS_TO_HIDE = 'optionsUiProvidersToHide';
-}
+	<?php foreach (${tubepress_impl_options_ui_fields_FilterMultiSelectField::TEMPLATE_VAR_PROVIDERS} as $providerName => $providerLabel): ?>
+
+	<option value="<?php echo $providerName; ?>" <?php if (in_array($providerName, ${tubepress_impl_options_ui_fields_FilterMultiSelectField::TEMPLATE_VAR_CURRENTVALUES})): ?>selected="selected"<?php endif; ?>><?php echo $providerLabel; ?></option>
+
+	<?php endforeach; ?>
+</select>

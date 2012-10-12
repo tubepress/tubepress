@@ -39,7 +39,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
 
     public function testFindAll()
     {
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(56);
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(55);
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 
@@ -57,15 +57,16 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(9)->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayers);
 
         $mockEmbedded = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-        $mockEmbedded->shouldReceive('getName')->times(112)->andReturn('yy-embed-name-yy');
-        $mockEmbedded->shouldReceive('getFriendlyName')->times(56)->andReturn('friendly embed name');
+        $mockEmbedded->shouldReceive('getName')->times(110)->andReturn('yy-embed-name-yy');
+        $mockEmbedded->shouldReceive('getFriendlyName')->times(55)->andReturn('friendly embed name');
         $mockEmbeds = array($mockEmbedded);
-        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(56)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
 
         $videoProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $videoProvider->shouldReceive('getName')->times(80)->andReturn('xxvideo-provider-name-xx');
+        $videoProvider->shouldReceive('getName')->times(133)->andReturn('xxvideo-provider-name-xx');
+        $videoProvider->shouldReceive('getFriendlyName')->times(133)->andReturn('xx Friendly Provider Name xx');
         $videoProviders = array($videoProvider);
-        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(80)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(133)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($serviceCollectionsRegistry);
 
@@ -347,27 +348,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED);
-//        $option->setAcceptableValues(array(
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-//            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
-//            tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
-//        ));
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::OUTPUT);
@@ -450,16 +430,9 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option->setBoolean();
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
-        $option->setDefaultValue(true);
-        $option->setLabel('Vimeo');    //>(translatable)<
-        $option->setBoolean();
-        $this->_verifyOption($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS);
-        $option->setDefaultValue(true);
-        $option->setLabel('YouTube');    //>(translatable)<
-        $option->setBoolean();
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
+        $option->setAcceptableValues(array('xxvideo-provider-name-xx' => 'xx Friendly Provider Name xx'));
+        $option->setLabel('Only show options applicable to...');    //>(translatable)<
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);

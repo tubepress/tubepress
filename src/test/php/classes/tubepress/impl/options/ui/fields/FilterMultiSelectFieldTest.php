@@ -20,7 +20,6 @@
  */
 class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepress_impl_options_ui_fields_AbstractFieldTest
 {
-
     private $_sut;
 
     private $_mockOptionDescriptorReference;
@@ -32,8 +31,6 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
     private $_mockHttpRequestParameterService;
 
     private $_mockTemplateBuilder;
-
-    private $_mockEnvironmentDetector;
     
     public function setUp()
     {
@@ -42,16 +39,11 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
         $this->_mockStorageManager              = Mockery::mock(tubepress_spi_options_StorageManager::_);
         $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockEnvironmentDetector         = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $mockYouTubeOptions = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS);
-        $mockYouTubeOptions->setBoolean();
+        $mockOption = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
+        $mockOption->setLabel('some crazy title');
 
-        $mockVimeoOptions = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
-        $mockVimeoOptions->setBoolean();
-
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS)->andReturn($mockYouTubeOptions);
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE)->andReturn($mockOption);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
@@ -66,7 +58,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
     
     public function testGetTitle()
     {
-        $this->assertEquals('<<message: Only show options applicable to...>>', $this->_sut->getTitle());
+        $this->assertEquals('<<message: some crazy title>>', $this->_sut->getTitle());
     }
     
     public function testGetDescription()

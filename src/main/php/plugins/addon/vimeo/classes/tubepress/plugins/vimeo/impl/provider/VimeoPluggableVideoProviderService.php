@@ -88,6 +88,50 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
     }
 
     /**
+     * @return string The human-readable name of this video provider.
+     */
+    public final function getFriendlyName()
+    {
+        return 'Vimeo';
+    }
+
+    /**
+     * @param string $name The name of the option to test.
+     *
+     * @return boolean True if this provider provided the given option, false otherwise.
+     */
+    public final function isOptionApplicable($name)
+    {
+        return in_array($name, array(
+
+            tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,
+            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY,
+            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET,
+            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES,
+        ));
+    }
+
+    /**
+     * @param string $name The name of the gallery source to test.
+     *
+     * @return boolean True if this provider supplies the given gallery source, false otherwise.
+     */
+    public final function providesGallerySource($name)
+    {
+        return in_array($name, array(
+
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE,
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
+        ));
+    }
+
+    /**
      * Count the total videos in this feed result.
      *
      * @return int The total result count of this query, or 0 if there was a problem.

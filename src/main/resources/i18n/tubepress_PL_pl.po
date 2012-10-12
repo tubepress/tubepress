@@ -481,12 +481,6 @@ msgstr "Miniaturek na stronę"
 msgid "Show each video's..."
 msgstr "Pokaż dla każdego filmu..."
 
-msgid "YouTube"
-msgstr "YouTube"
-
-msgid "Vimeo"
-msgstr "Vimeo"
-
 msgid "Enable JavaScript API"
 msgstr "Włącz JavaScript API"
 

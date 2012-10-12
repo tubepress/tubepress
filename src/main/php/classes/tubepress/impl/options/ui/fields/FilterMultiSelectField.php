@@ -22,20 +22,119 @@
 /**
  * Displays a multi-select drop-down input for video meta.
  */
-class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
+class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField
 {
+    const TEMPLATE_VAR_PROVIDERS = 'tubepress_impl_options_ui_fields_FilterMultiSelectField__providers';
+
+    const TEMPLATE_VAR_CURRENTVALUES = 'tubepress_impl_options_ui_fields_FilterMultiSelectField__currentValues';
+
+    /**
+     * @var tubepress_spi_options_OptionDescriptor The underlying option descriptor.
+     */
+    private $_hideOptionDescriptor;
+
     public function __construct()
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
-        parent::__construct(
+        $this->_hideOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
+    }
 
-            array(
+    /**
+     * Handles form submission.
+     *
+     * @return array An array of failure messages if there's a problem, otherwise null.
+     */
+    public final function onSubmit()
+    {
+        $hrps           = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $storageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $optionName     = $this->_hideOptionDescriptor->getName();
+        $providerNames  = array_keys($this->_hideOptionDescriptor->getAcceptableValues());
 
-                $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS),
-                $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS),
+        /**
+         * This means that they want to hide everything.
+         */
+        if (! $hrps->hasParam($optionName)) {
 
-            ), 'filterdropdown');
+            $storageManager->set($optionName, implode(';', $providerNames));
+
+            return null;
+        }
+
+        $vals = $hrps->getParamValue($optionName);
+
+        if (! is_array($vals)) {
+
+            /* this should never happen. */
+            return null;
+        }
+
+        $toHide = array();
+        foreach ($providerNames as $providerName) {
+
+            /*
+             * They checked the box, which means they want to show it.
+             */
+            if (in_array($providerName, $vals)) {
+
+                continue;
+            }
+
+            /**
+             * They don't want to show this provider, so hide it.
+             */
+            $toHide[] = $providerName;
+        }
+
+        $result = $storageManager->set($optionName, implode(';', $toHide));
+
+        if ($result !== true) {
+
+            return array($result);
+        }
+
+        return null;
+    }
+
+    /**
+     * Generates the HTML for the options form.
+     *
+     * @return string The HTML for the options form.
+     */
+    public final function getHtml()
+    {
+        $templateBuilder  = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $template         = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect-provider-filter.tpl.php');
+        $storageManager   = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $optionName       = $this->_hideOptionDescriptor->getName();
+        $currentHides     = explode(';', $storageManager->get($optionName));
+        $allProviders     = $this->_hideOptionDescriptor->getAcceptableValues();
+        $currentShows     = array();
+
+        foreach ($allProviders as $providerName => $providerLabel) {
+
+            if (! in_array($providerName, $currentHides)) {
+
+                $currentShows[] = $providerName;
+            }
+        }
+
+        $template->setVariable(self::TEMPLATE_VAR_NAME,          $optionName);
+        $template->setVariable(self::TEMPLATE_VAR_PROVIDERS,     $allProviders);
+        $template->setVariable(self::TEMPLATE_VAR_CURRENTVALUES, $currentShows);
+
+        return $template->toString();
+    }
+
+    /**
+     * Gets whether or not this field is TubePress Pro only.
+     *
+     * @return boolean True if this field is TubePress Pro only. False otherwise.
+     */
+    public final function isProOnly()
+    {
+        return false;
     }
 
     /**
@@ -45,7 +144,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
      */
     protected final function getRawTitle()
     {
-        return 'Only show options applicable to...';    //>(translatable)<
+        return $this->_hideOptionDescriptor->getLabel();
     }
 
     /**
@@ -61,5 +160,15 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
     public final function getDesiredTabName()
     {
         return null;
+    }
+
+    /**
+     * Gets the providers to which this field applies.
+     *
+     * @return array An array of provider names to which this field applies. May be empty. Never null.
+     */
+    public final function getArrayOfApplicableProviderNames()
+    {
+        return $this->allProviders();
     }
 }

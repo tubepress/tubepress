@@ -108,6 +108,40 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
     }
 
     /**
+     * @return string The human-readable name of this video provider.
+     */
+    public final function getFriendlyName()
+    {
+        return 'YouTube';
+    }
+
+    /**
+     * @param string $name The name of the option to test.
+     *
+     * @return boolean True if this provider provided the given option, false otherwise.
+     */
+    public final function isOptionApplicable($name)
+    {
+        return in_array($name, array(
+
+
+        ));
+    }
+
+    /**
+     * @param string $name The name of the gallery source to test.
+     *
+     * @return boolean True if this provider supplies the given gallery source, false otherwise.
+     */
+    public final function providesGallerySource($name)
+    {
+        return in_array($name, array(
+
+
+        ));
+    }
+
+    /**
      * Count the total videos in this feed result.
      *
      * @return int The total result count of this query, or 0 if there was a problem.

@@ -460,12 +460,6 @@ msgstr "Video alkaa pyöriä heti esikatselukuvan painamisen jälkeen."
 msgid "in a \"detached\" location (see the documentation)"
 msgstr ""
 
-msgid "Vimeo"
-msgstr ""
-
-msgid "YouTube"
-msgstr ""
-
 msgid "Show each video's..."
 msgstr ""
 

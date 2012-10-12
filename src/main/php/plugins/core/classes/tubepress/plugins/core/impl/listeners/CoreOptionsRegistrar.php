@@ -24,6 +24,77 @@
  */
 class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
 {
+    public static $OPTION_NAMES_CORE = array(
+
+        tubepress_api_const_options_names_Advanced::DEBUG_ON,
+        tubepress_api_const_options_names_Advanced::GALLERY_ID,
+        tubepress_api_const_options_names_Advanced::HTTPS,
+        tubepress_api_const_options_names_Advanced::KEYWORD,
+
+        tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR,
+        tubepress_api_const_options_names_Cache::CACHE_DIR,
+        tubepress_api_const_options_names_Cache::CACHE_ENABLED,
+        tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS,
+
+        tubepress_api_const_options_names_Embedded::AUTONEXT,
+        tubepress_api_const_options_names_Embedded::AUTOPLAY,
+        tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,
+        tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,
+        tubepress_api_const_options_names_Embedded::ENABLE_JS_API,
+        tubepress_api_const_options_names_Embedded::LAZYPLAY,
+        tubepress_api_const_options_names_Embedded::LOOP,
+        tubepress_api_const_options_names_Embedded::PLAYER_IMPL,
+        tubepress_api_const_options_names_Embedded::PLAYER_LOCATION,
+        tubepress_api_const_options_names_Embedded::SEQUENCE,
+        tubepress_api_const_options_names_Embedded::SHOW_INFO,
+
+        tubepress_api_const_options_names_Feed::ORDER_BY,
+        tubepress_api_const_options_names_Feed::PER_PAGE_SORT,
+        tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP,
+        tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER,
+        tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST,
+
+        tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER,
+        tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_DOM_ID,
+        tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY,
+        tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL,
+
+        tubepress_api_const_options_names_Meta::AUTHOR,
+        tubepress_api_const_options_names_Meta::CATEGORY,
+        tubepress_api_const_options_names_Meta::DATEFORMAT,
+        tubepress_api_const_options_names_Meta::DESC_LIMIT,
+        tubepress_api_const_options_names_Meta::DESCRIPTION,
+        tubepress_api_const_options_names_Meta::ID,
+        tubepress_api_const_options_names_Meta::KEYWORDS,
+        tubepress_api_const_options_names_Meta::LENGTH,
+        tubepress_api_const_options_names_Meta::LIKES,
+        tubepress_api_const_options_names_Meta::RATING,
+        tubepress_api_const_options_names_Meta::RATINGS,
+        tubepress_api_const_options_names_Meta::RELATIVE_DATES,
+        tubepress_api_const_options_names_Meta::TAGS,
+        tubepress_api_const_options_names_Meta::TITLE,
+        tubepress_api_const_options_names_Meta::UPLOADED,
+        tubepress_api_const_options_names_Meta::URL,
+        tubepress_api_const_options_names_Meta::VIEWS,
+
+        tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE,
+
+        tubepress_api_const_options_names_Output::GALLERY_SOURCE,
+        tubepress_api_const_options_names_Output::OUTPUT,
+        tubepress_api_const_options_names_Output::VIDEO,
+
+        tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
+        tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,
+        tubepress_api_const_options_names_Thumbs::HQ_THUMBS,
+        tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE,
+        tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW,
+        tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS,
+        tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE,
+        tubepress_api_const_options_names_Thumbs::THEME,
+        tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,
+        tubepress_api_const_options_names_Thumbs::THUMB_WIDTH
+    );
+
     private static $_regexPositiveInteger    = '/[1-9][0-9]{0,6}/';
     private static $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';
     private static $_regexWordChars          = '/\w+/';
@@ -340,6 +411,14 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $odr->registerOptionDescriptor($option);
 
 
+        /**
+         * OPTIONS UI OPTIONS
+         */
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
+        $option->setAcceptableValuesCallback(array($this, 'getValidProviderNamesToFriendlyNames'));
+        $option->setLabel('Only show options applicable to...');    //>(translatable)<
+        $odr->registerOptionDescriptor($option);
+
 
         /**
          * OUTPUT OPTIONS
@@ -432,21 +511,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setDescription('Default is 120.');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $odr->registerOptionDescriptor($option);
-
-
-
-        //TODO: remove me
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
-        $option->setDefaultValue(true);
-        $option->setLabel('Vimeo');    //>(translatable)<
-        $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS);
-        $option->setDefaultValue(true);
-        $option->setLabel('YouTube');    //>(translatable)<
-        $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
     }
 
     public final function getValidThemeOptions()
@@ -536,6 +600,11 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
 
     public final function getValidVideoProviderNames()
     {
+        return array_keys($this->getValidProviderNamesToFriendlyNames());
+    }
+
+    public final function getValidProviderNamesToFriendlyNames()
+    {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
 
@@ -543,7 +612,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
 
         foreach ($videoProviders as $videoProvider) {
 
-            $toReturn[] = $videoProvider->getName();
+            $toReturn[$videoProvider->getName()] = $videoProvider->getFriendlyName();
         }
 
         return $toReturn;

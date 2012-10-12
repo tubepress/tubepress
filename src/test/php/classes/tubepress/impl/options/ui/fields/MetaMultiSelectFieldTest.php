@@ -74,14 +74,6 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         $this->assertFalse($this->_sut->isProOnly());
     }
 
-    public function testGetProviders()
-    {
-        $this->assertEquals(array(
-            'youtube',
-            'vimeo',
-        ), $this->_sut->getArrayOfApplicableProviderNames());
-    }
-
     public function testOnSubmit()
     {
 

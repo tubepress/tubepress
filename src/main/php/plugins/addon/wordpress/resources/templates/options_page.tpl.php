@@ -71,14 +71,14 @@
 
 					selector += ', ';
 				}
-				
+
 				selector += '.' + arrayOfPossible[i];
 			}
 
 			jQuery(selector).each(function () {
 
 				var element = jQuery(this);
-				
+
 				for (var x = 0; x < arrayOfSelected.length; x++) {
 
 					if (element.hasClass(arrayOfSelected[x])) {
@@ -89,34 +89,34 @@
 				}
 
 				element.hide();
-				
+
 			});
 		},
 
 		filterHandler = function () {
 
 			//get the selected classes
-			var selected = jQuery('#multiselect-filterdropdown option:selected').map(function (e) {
+			var selected = jQuery('#multiselect-optionsUiProvidersToHide option:selected').map(function (e) {
 
 				return normalizeProviderName(jQuery(this).val());
 			}),
 
 			//get all the classes
-			allPossible = jQuery('#multiselect-filterdropdown option').map(function (e) {
+			allPossible = jQuery('#multiselect-optionsUiProvidersToHide option').map(function (e) {
 
 				return normalizeProviderName(jQuery(this).val());
 			});
 
 			//run it, yo
-			doShowAndHide(selected, allPossible);			
+			doShowAndHide(selected, allPossible);
 		};
 
 		//make the multi-selects
-		jQuery('#multiselect-filterdropdown').multiselect({
+		jQuery('#multiselect-optionsUiProvidersToHide').multiselect({
 
 			selectedText : 'choose...'
 		});
-		
+
 		jQuery('#multiselect-metadropdown').multiselect({
 
 			selectedText : 'choose...',
@@ -124,7 +124,7 @@
 		});
 
 		//bind to value changes on the filter drop-down
-		jQuery('#multiselect-filterdropdown').change(filterHandler);
+		jQuery('#multiselect-optionsUiProvidersToHide').change(filterHandler);
 
 		//filter based on what's in the drop-down
 		filterHandler();

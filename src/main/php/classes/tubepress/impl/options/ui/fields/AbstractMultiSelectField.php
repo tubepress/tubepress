@@ -148,18 +148,4 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     {
         return false;
     }
-
-    /**
-     * Gets the providers to which this field applies.
-     *
-     * @return array An array of provider names to which this field applies. May be empty. Never null.
-     */
-    public final function getArrayOfApplicableProviderNames()
-    {
-        return array(
-
-            'youtube',
-            'vimeo',
-        );
-    }
 }
