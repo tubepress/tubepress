@@ -54,6 +54,19 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
 
+        $mockProvider1 = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('xyz'));
+
+        $mockProvider2 = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('abc'));
+
+        $mockProviders = array($mockProvider1, $mockProvider2);
+
+        $mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
+        $mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($mockProviders);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($mockServiceCollectionsRegistry);
+
         $this->doSetup($this->_mockMessageService);
 
         $this->_sut = new tubepress_impl_options_ui_fields_MetaMultiSelectField();
@@ -125,18 +138,18 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
         return array(
 
             tubepress_api_const_options_names_Meta::AUTHOR,
-            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
+
             tubepress_api_const_options_names_Meta::CATEGORY,
             tubepress_api_const_options_names_Meta::UPLOADED,
             tubepress_api_const_options_names_Meta::DESCRIPTION,
             tubepress_api_const_options_names_Meta::ID,
             tubepress_api_const_options_names_Meta::KEYWORDS,
-            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES,
-            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS,
             tubepress_api_const_options_names_Meta::LENGTH,
             tubepress_api_const_options_names_Meta::TITLE,
             tubepress_api_const_options_names_Meta::URL,
             tubepress_api_const_options_names_Meta::VIEWS,
+            'xyz',
+            'abc',
         );
     }
 

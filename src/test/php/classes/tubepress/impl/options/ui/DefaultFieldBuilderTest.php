@@ -79,6 +79,19 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
     {
         $this->_setupOptionDescriptorReferenceForMetaMultiSelect();
 
+        $mockProvider1 = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('xyz'));
+
+        $mockProvider2 = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('abc'));
+
+        $mockProviders = array($mockProvider1, $mockProvider2);
+
+        $mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
+        $mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($mockProviders);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($mockServiceCollectionsRegistry);
+
         $result = $this->_sut->buildMetaDisplayMultiSelectField();
 
         $this->assertTrue($result instanceof tubepress_impl_options_ui_fields_MetaMultiSelectField);
@@ -93,9 +106,8 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
             tubepress_api_const_options_names_Meta::DESCRIPTION,
             tubepress_api_const_options_names_Meta::ID,
             tubepress_api_const_options_names_Meta::LENGTH,
-            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES,
-            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
-            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS,
+            'abc',
+            'xyz',
             tubepress_api_const_options_names_Meta::KEYWORDS,
             tubepress_api_const_options_names_Meta::TITLE,
             tubepress_api_const_options_names_Meta::UPLOADED,

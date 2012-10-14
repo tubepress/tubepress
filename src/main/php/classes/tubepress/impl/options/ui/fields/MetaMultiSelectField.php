@@ -26,25 +26,37 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
 {
     public function __construct()
     {
+        $metaNames = array(
+
+            tubepress_api_const_options_names_Meta::AUTHOR,
+            tubepress_api_const_options_names_Meta::CATEGORY,
+            tubepress_api_const_options_names_Meta::UPLOADED,
+            tubepress_api_const_options_names_Meta::DESCRIPTION,
+            tubepress_api_const_options_names_Meta::ID,
+            tubepress_api_const_options_names_Meta::KEYWORDS,
+            tubepress_api_const_options_names_Meta::LENGTH,
+            tubepress_api_const_options_names_Meta::TITLE,
+            tubepress_api_const_options_names_Meta::URL,
+            tubepress_api_const_options_names_Meta::VIEWS,
+        );
+
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+
+        foreach ($videoProviders as $videoProvider) {
+
+            $metaNames = array_merge($metaNames, $videoProvider->getAdditionalMetaNames());
+        }
+
+        $metas     = array();
         $reference = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
-        parent::__construct(array(
+        foreach ($metaNames as $metaName) {
 
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::AUTHOR),
-            $reference->findOneByName(tubepress_plugins_youtube_api_const_options_names_Meta::RATING),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::CATEGORY),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::UPLOADED),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::DESCRIPTION),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::ID),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::KEYWORDS),
-            $reference->findOneByName(tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES),
-            $reference->findOneByName(tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::LENGTH),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::TITLE),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::URL),
-            $reference->findOneByName(tubepress_api_const_options_names_Meta::VIEWS),
+            $metas[] = $reference->findOneByName($metaName);
+        }
 
-        ), 'metadropdown');
+        parent::__construct($metas, 'metadropdown');
     }
 
     /**

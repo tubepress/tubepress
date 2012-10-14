@@ -445,4 +445,16 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
 
         return $this->_urlBuilder->buildSingleVideoUrl($id);
     }
+
+    /**
+     * @return array An array of meta names
+     */
+    public final function getAdditionalMetaNames()
+    {
+        return array(
+
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS
+        );
+    }
 }

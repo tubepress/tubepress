@@ -81,4 +81,9 @@ interface tubepress_spi_provider_PluggableVideoProviderService
      * @return string The human-readable name of this video provider.
      */
     function getFriendlyName();
+
+    /**
+     * @return array An array of meta names
+     */
+    function getAdditionalMetaNames();
 }

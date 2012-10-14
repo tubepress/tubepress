@@ -331,4 +331,15 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
 
         return $results;
     }
+
+    /**
+     * @return array An array of meta names
+     */
+    public final function getAdditionalMetaNames()
+    {
+        return array(
+
+            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES
+        );
+    }
 }
