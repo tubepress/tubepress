@@ -55,31 +55,5 @@ class tubepress_impl_options_ui_tabs_GallerySourceTabTest extends TubePressUnitT
         $this->assertEquals('<<message: Which videos?>>', $this->_sut->getTitle());
     }
 
-    public function testGetHtml()
-    {
-        $fakeExtraField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
-        $fakeExtraField->shouldReceive('getDesiredTabName')->once()->andReturn($this->_sut->getName());
-        $fakeExtraFields = array($fakeExtraField);
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME)->andReturn(
-
-            $fakeExtraFields
-        );
-
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('some mode');
-
-        $template = \Mockery::mock('ehough_contemplate_api_Template');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_GallerySourceTab::TEMPLATE_VAR_CURRENT_MODE, 'some mode');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY, $fakeExtraFields);
-        $template->shouldReceive('toString')->once()->andReturn('final result');
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php')->andReturn($template);
-
-        $this->assertEquals('final result', $this->_sut->getHtml());
-    }
-
-    private function getFieldArray()
-    {
-        return array();
-    }
 }

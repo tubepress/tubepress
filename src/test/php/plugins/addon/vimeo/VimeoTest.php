@@ -40,7 +40,10 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
             array(new tubepress_plugins_vimeo_impl_listeners_VimeoEmbeddedPlayerRegistrar(), 'onBoot')),
 
             array(tubepress_api_const_event_CoreEventNames::BOOT =>
-            array(new tubepress_plugins_vimeo_impl_listeners_VimeoProviderRegistrar(), 'onBoot'))
+            array(new tubepress_plugins_vimeo_impl_listeners_VimeoProviderRegistrar(), 'onBoot')),
+
+            array(tubepress_api_const_event_CoreEventNames::BOOT =>
+            array(new tubepress_plugins_vimeo_impl_listeners_VimeoOptionsPageBuilder(), 'onBoot'))
         );
 
         $eventArray = array();

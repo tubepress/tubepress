@@ -40,6 +40,9 @@ class tubepress_plugins_youtube_YouTube
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_youtube_impl_listeners_YouTubeEmbeddedPlayerRegistrar(), 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_youtube_impl_listeners_YouTubeOptionsPageBuilder(), 'onBoot'));
     }
 }
 

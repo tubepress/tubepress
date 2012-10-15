@@ -32,6 +32,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY      => 'today',           //>(translatable)<
     );
     private static $_regexWordChars = '/\w+/';
+    private static $_youTubeVideo = '/[a-zA-Z_-]{11}/';
 
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
@@ -175,14 +176,14 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
-        $option->setDefaultValue('D2B04665B213AE35');
-        $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35');  //>(translatable)<
+        $option->setDefaultValue('PLF679CB240DD4C112');
+        $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: PLF679CB240DD4C112. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: <a href="http://www.youtube.com/playlist?p=PLF679CB240DD4C112">http://www.youtube.com/playlist?p=PLF679CB240DD4C112</a>');  //>(translatable)<
         $option->setLabel('This YouTube playlist');                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $option->setValidValueRegex('/[\w-]+/');
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE);
-        $option->setDefaultValue('mrdeathgod');
+        $option->setDefaultValue('FPSRussia');
         $option->setLabel('This YouTube user\'s "favorites"');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
@@ -197,6 +198,28 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         $option->setDefaultValue('3hough');
         $option->setLabel('Videos from this YouTube user');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE);
+        $option->setLabel('Most-shared YouTube videos on Facebook and Twitter from');  //>(translatable)<
+        $option->setAcceptableValues(self::$_valueMapTime);
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE);
+        $option->setLabel('Popular videos on <a href="http://www.youtube.com/trends">YouTube Trends</a> from');  //>(translatable)<
+        $option->setAcceptableValues(self::$_valueMapTime);
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE);
+        $option->setLabel('YouTube videos related to this YouTube video');  //>(translatable)<
+        $option->setValidValueRegex(self::$_youTubeVideo);
+        $option->setDefaultValue('P9M__yYbsZ4');
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE);
+        $option->setLabel('Videos responses to this YouTube video');  //>(translatable)<
+        $option->setValidValueRegex(self::$_youTubeVideo);
+        $option->setDefaultValue('Yh0AhrY9GjA');
         $odr->registerOptionDescriptor($option);
 
 

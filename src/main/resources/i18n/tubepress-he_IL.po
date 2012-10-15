@@ -38,9 +38,6 @@ msgstr "קטעי וידאו אחרונים מ \"featured\" בדף הבית של 
 msgid "This YouTube playlist"
 msgstr "playlist רשימת השמעה זאת"
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
-msgstr "מוגבל ל -200 קטעי וידאו לכל רשימת השמעה. בדרך כלל נראה משהו כזה:D2B04665B213AE35. העתק את מזהה רשימת ההשמעה מסוף כתובת האתר בשורת הכתובת של הדפדפן שלך (בעודך מסתכל ברשימת ההשמעה v YouTube). זה בא מיד אחרי \"p=\". למשל: http://youtube.com/my_playlists?p=D2B04665B213AE35"
-
 msgid "Most-viewed YouTube videos from"
 msgstr "קטעי וידאו הנצפים ביותר מ"
 
@@ -531,4 +528,19 @@ msgid "Light"
 msgstr ""
 
 msgid "JW FLV Media Player (by Longtail Video)"
+msgstr ""
+
+msgid "Limited to 200 videos per playlist. Will usually look something like this: PLF679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=PLF679CB240DD4C112\">http://www.youtube.com/playlist?p=PLF679CB240DD4C112</a>"
+msgstr ""
+
+msgid "Most-shared YouTube videos on Facebook and Twitter from"
+msgstr ""
+
+msgid "Popular videos on <a href=\"http://www.youtube.com/trends\">YouTube Trends</a> from"
+msgstr ""
+
+msgid "YouTube videos related to this YouTube video"
+msgstr ""
+
+msgid "Videos responses to this YouTube video"
 msgstr ""

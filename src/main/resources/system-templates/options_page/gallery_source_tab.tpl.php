@@ -21,9 +21,11 @@
 ?>
 <table class="tubepress-tab">
 
-	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY} as $name => $field):
-	
-	    if ($name === tubepress_api_const_options_names_Output::GALLERY_SOURCE) { continue; }
+	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY} as $field):
+
+        if (!($field instanceof tubepress_impl_options_ui_fields_GallerySourceField)) continue;
+
+        $name = $field->getGallerySourceName();
 	?>
 
     <tr class="<?php foreach ($field->getArrayOfApplicableProviderNames() as $provider): echo "tubepress-$provider-option "; endforeach; if ($field->isProOnly()) { echo 'tubepress-pro-option'; } ?>">

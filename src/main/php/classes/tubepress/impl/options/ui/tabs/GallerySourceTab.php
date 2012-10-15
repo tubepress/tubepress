@@ -70,4 +70,21 @@ class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_opt
     {
         return 'gallery-source';
     }
+
+    /**
+     * Override point.
+     *
+     * @return array An array of fields that should always show up in this tab.
+     */
+    protected function getHardCodedFields()
+    {
+        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+
+        return array(
+
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE =>
+                $fieldBuilder->build(tubepress_api_const_options_names_Output::GALLERY_SOURCE,
+                    tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
+        );
+    }
 }

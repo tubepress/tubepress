@@ -40,6 +40,9 @@ class tubepress_plugins_vimeo_Vimeo
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_vimeo_impl_listeners_VimeoEmbeddedPlayerRegistrar(), 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_vimeo_impl_listeners_VimeoOptionsPageBuilder(), 'onBoot'));
     }
 }
 
