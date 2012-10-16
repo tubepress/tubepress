@@ -69,5 +69,23 @@ class tubepress_plugins_vimeo_impl_listeners_VimeoOptionsPageBuilder
                 $field
             );
         }
+
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            new tubepress_impl_options_ui_fields_ColorField(tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR, 'embedded')
+        );
+
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            new tubepress_impl_options_ui_fields_TextField(tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY, 'feed')
+        );
+
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            new tubepress_impl_options_ui_fields_TextField(tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET, 'feed')
+        );
     }
 }
