@@ -22,31 +22,71 @@
 -->
 <project name="tubepress-build-common">
 
+    <!-- Store the path of our directory -->
 	<dirname property="tubepress-build-common.basedir" file="${ant.file.tubepress-build-common}"/>
-	
-	<property file="${tubepress-build-common.basedir}/../config/config.common.properties" />
-	<property file="config/config.properties" />
-	<property name="stagingdir"        value="${build.directory.stage}/${build.directory.stage.basename}" />
+
+    <!-- Initialize some properties. -->
+	<property file="${tubepress-build-common.basedir}/../config/config.properties" />
+	<property name="stagingdir"        value="stage/${build.directory.stage.basename}" />
 	<property name="jscompresslist"    value="config/js-to-compress.txt" />
-	
-	<target name="clean" description="Cleans build environment">
-    
-		<echo message="Deleting ${build.directory.dist} and ${build.directory.stage}" />
-		
-		<delete dir="${build.directory.dist}" />
-		<delete dir="${build.directory.stage}" />
-	</target>
-    
-	<target name="init" description="Cleans and preps the build directory for a new build">
-    
-		<antcall target="clean" />
-	    
-		<echo message="Creating empty directories at ${build.directory.dist} and ${build.directory.stage}" />
-	    
-		<mkdir dir="${build.directory.dist}" />
-		<mkdir dir="${build.directory.stage}" />
-	</target>
-    
+
+
+
+    <target name="init" description="Cleans and preps the build directory for a new build">
+
+        <!-- Clean up. -->
+        <antcall target="clean" />
+
+        <!-- Create the output directories. -->
+        <echo message="Creating empty directories at dist and stage" />
+        <mkdir dir="dist" />
+        <mkdir dir="stage" />
+
+    </target>
+
+    <target name="clean" description="Cleans build environment">
+
+        <echo message="Deleting dist and stage" />
+
+        <delete dir="dist" />
+        <delete dir="stage" />
+    </target>
+
+    <target name="stage-self" description="Copies over TubePress into the staging directory for processing">
+
+        <echo message="Copying self into ${stagingdir}" />
+
+        <copy todir="${stagingdir}">
+
+            <fileset dir="../../.." excludesfile="${tubepress-build-common.basedir}/../config/distribution-exclusions.txt" />
+        </copy>
+    </target>
+
+    <target name="add-wordpress-files" description="Copies WordPress resources into TubePress">
+
+        <copy todir="${stagingdir}">
+
+            <fileset dir="resources/wordpress" />
+        </copy>
+    </target>
+
+    <target name="suppress-directory-listings" description="Adds empty index.php files to various areas">
+
+        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/plugins/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/themes/index.php" />
+
+    </target>
+
+    <target name="modify-wordpress-info">
+
+        <replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
+        <replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.free.desc}" />
+        <replace file="${stagingdir}/tubepress.php" token="@TubePress@" value="TubePress" />
+
+    </target>
+
 	<target name="compress-js" description="Compresses JS files">
 
 		<copy todir="${stagingdir}">
@@ -59,7 +99,7 @@
 		<apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
 			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
 			<arg line="-jar"/>
-			<arg path="${tubepress-build-common.basedir}/../${bin.yuicompressor}"/>
+			<arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.6.jar"/>
 			<srcfile />
 			<arg line="-o" />
 			<mapper type="identity" />
@@ -67,33 +107,13 @@
 		</apply>
 
 	</target>
-	
-	<target name="stage-self" description="Copies over TubePress into the staging directory for processing">
 
-		<echo message="Copying self into ${stagingdir}" />
-		<copy todir="${stagingdir}">
-	    	<fileset dir=".." excludesfile="${tubepress-build-common.basedir}/../config/distribution-exclusions.txt" />
-		</copy>
-	</target>
-	
-	<target name="add-distribution-resources" description="Copies distribution resources into TubePress">
-	
-		<copy todir="${stagingdir}">
-			  <fileset dir="resources" />
-		</copy>
-	</target>
-	
 	<target name="package">
 
-		<zip destfile="${build.directory.dist}/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="${build.directory.stage}" />
+		<zip destfile="dist/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="stage" />
 
 	</target>
 	
-	<target name="modify-wordpress-info">
-        
-		<replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
-		<replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.free.desc}" />
 
-	</target>
     
 </project>

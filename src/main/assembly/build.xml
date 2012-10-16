@@ -20,6 +20,11 @@
  *
  */
 -->
+<!--
+
+Builds the free WordPress plugin package of Tubepress.
+
+-->
 <project name="tubepress-free" default="build-free" basedir=".">
 
     <import file="include/common.xml" />
@@ -27,7 +32,8 @@
     <target name="build-free" description="Builds the free version of TubePress" depends="init">
 	            
         <antcall target="stage-self" />
-    	<antcall target="add-distribution-resources" />
+    	<antcall target="add-wordpress-files" />
+        <antcall target="suppress-directory-listings" />
         <antcall target="modify-wordpress-info" />
         <antcall target="compress-js" />
         <antcall target="package" />

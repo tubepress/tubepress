@@ -1,6 +1,6 @@
 <?php
 /**
-Plugin Name: TubePress
+Plugin Name: @TubePress@
 Plugin URI: http://tubepress.org
 Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. @description@
 Author: Eric D. Hough
