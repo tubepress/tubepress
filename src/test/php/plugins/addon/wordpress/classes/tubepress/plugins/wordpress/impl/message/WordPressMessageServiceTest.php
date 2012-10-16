@@ -138,7 +138,7 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
         $msgFmt = `/usr/bin/which msgfmt`;
         $msgFmt = tubepress_impl_util_StringUtils::removeNewLines($msgFmt);
 
-        $toRun = "/opt/local/bin/msgfmt -o $outputfile $realPath";
+        $toRun = "$msgFmt -o $outputfile $realPath";
 
         exec($toRun, $output, $return);
 

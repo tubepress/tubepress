@@ -108,17 +108,6 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
             tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY,
             tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET,
             tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES,
-        ));
-    }
-
-    /**
-     * @param string $name The name of the gallery source to test.
-     *
-     * @return boolean True if this provider supplies the given gallery source, false otherwise.
-     */
-    public final function providesGallerySource($name)
-    {
-        return in_array($name, array(
 
             tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
             tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
@@ -128,7 +117,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
             tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
             tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
             tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
-        ));
+
+        )) || in_array($name, tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar::$OPTION_NAMES_CORE);
     }
 
     /**

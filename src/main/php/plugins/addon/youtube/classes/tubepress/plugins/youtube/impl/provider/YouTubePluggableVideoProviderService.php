@@ -124,21 +124,37 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
     {
         return in_array($name, array(
 
+            tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED,
+            tubepress_plugins_youtube_api_const_options_names_Embedded::THEME,
+            tubepress_plugins_youtube_api_const_options_names_Feed::DEV_KEY,
+            tubepress_plugins_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY,
+            tubepress_plugins_youtube_api_const_options_names_Feed::FILTER,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS,
 
-        ));
-    }
-
-    /**
-     * @param string $name The name of the gallery source to test.
-     *
-     * @return boolean True if this provider supplies the given gallery source, false otherwise.
-     */
-    public final function providesGallerySource($name)
-    {
-        return in_array($name, array(
-
-
-        ));
+        )) || in_array($name, tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar::$OPTION_NAMES_CORE);
     }
 
     /**
