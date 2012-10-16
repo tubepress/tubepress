@@ -911,7 +911,7 @@ var TubePressCompat = (function () {
 			/* caching script loader */
 			jquery.getScript = function (url, callback, cache) {
 			
-				jquery.ajax({ type: 'GET', url: url, success: callback, dataType: 'script', cache: cache }); 
+				return jquery.ajax({ type: 'GET', url: url, success: callback, dataType: 'script', cache: cache });
 			};
 		};
 
