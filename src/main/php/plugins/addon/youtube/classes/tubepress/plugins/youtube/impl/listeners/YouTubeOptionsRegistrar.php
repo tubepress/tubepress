@@ -32,7 +32,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY      => 'today',           //>(translatable)<
     );
     private static $_regexWordChars = '/\w+/';
-    private static $_youTubeVideo = '/[a-zA-Z_-]{11}/';
+    private static $_youTubeVideo = '/[a-zA-Z0-9_-]{11}/';
 
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
@@ -201,7 +201,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE);
-        $option->setLabel('Most-shared YouTube videos on Facebook and Twitter from');  //>(translatable)<
+        $option->setLabel('YouTube videos most-shared on Facebook and Twitter from');  //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $odr->registerOptionDescriptor($option);
 
@@ -211,7 +211,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE);
-        $option->setLabel('YouTube videos related to this YouTube video');  //>(translatable)<
+        $option->setLabel('Videos related to this YouTube video');  //>(translatable)<
         $option->setValidValueRegex(self::$_youTubeVideo);
         $option->setDefaultValue('P9M__yYbsZ4');
         $odr->registerOptionDescriptor($option);

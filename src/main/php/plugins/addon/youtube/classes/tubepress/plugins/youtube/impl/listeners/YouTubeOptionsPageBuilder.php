@@ -154,6 +154,12 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsPageBuilder
         $serviceCollectionsRegistry->registerService(
 
             tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            new tubepress_impl_options_ui_fields_DropdownField(tubepress_plugins_youtube_api_const_options_names_Embedded::THEME, 'embedded')
+        );
+
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
             new tubepress_impl_options_ui_fields_BooleanField(tubepress_plugins_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY, 'feed')
         );
 

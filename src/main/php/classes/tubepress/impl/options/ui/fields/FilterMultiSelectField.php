@@ -50,7 +50,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
         $hrps           = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
         $storageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
         $optionName     = $this->_hideOptionDescriptor->getName();
-        $providerNames  = array_keys($this->_hideOptionDescriptor->getAcceptableValues());
+        $providerNames  = array_keys($this->_getValidProviderNamesToFriendlyNames());
 
         /**
          * This means that they want to hide everything.
@@ -109,7 +109,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
         $storageManager   = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
         $optionName       = $this->_hideOptionDescriptor->getName();
         $currentHides     = explode(';', $storageManager->get($optionName));
-        $allProviders     = $this->_hideOptionDescriptor->getAcceptableValues();
+        $allProviders     = $this->_getValidProviderNamesToFriendlyNames();
         $currentShows     = array();
 
         foreach ($allProviders as $providerName => $providerLabel) {
@@ -170,5 +170,20 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
     public final function getArrayOfApplicableProviderNames()
     {
         return $this->allProviders();
+    }
+
+    private function _getValidProviderNamesToFriendlyNames()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+
+        $toReturn = array();
+
+        foreach ($videoProviders as $videoProvider) {
+
+            $toReturn[$videoProvider->getName()] = $videoProvider->getFriendlyName();
+        }
+
+        return $toReturn;
     }
 }

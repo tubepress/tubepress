@@ -544,13 +544,13 @@ msgstr ""
 msgid "Limited to 200 videos per playlist. Will usually look something like this: PLF679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=PLF679CB240DD4C112\">http://www.youtube.com/playlist?p=PLF679CB240DD4C112</a>"
 msgstr ""
 
-msgid "Most-shared YouTube videos on Facebook and Twitter from"
+msgid "YouTube videos most-shared on Facebook and Twitter from"
 msgstr ""
 
 msgid "Popular videos on <a href=\"http://www.youtube.com/trends\">YouTube Trends</a> from"
 msgstr ""
 
-msgid "YouTube videos related to this YouTube video"
+msgid "Videos related to this YouTube video"
 msgstr ""
 
 msgid "Videos responses to this YouTube video"

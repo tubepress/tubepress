@@ -24,7 +24,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
 
     private $_mockOptionsDescriptorReference;
 
-    private static $_youTubeVideo = '/[a-zA-Z_-]{11}/';
+    private static $_youTubeVideo = '/[a-zA-Z0-9_-]{11}/';
 
     private static $_valueMapTime = array(
 
@@ -207,7 +207,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE);
-        $option->setLabel('Most-shared YouTube videos on Facebook and Twitter from');  //>(translatable)<
+        $option->setLabel('YouTube videos most-shared on Facebook and Twitter from');  //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->_verifyOption($option);
 
@@ -217,7 +217,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE);
-        $option->setLabel('YouTube videos related to this YouTube video');  //>(translatable)<
+        $option->setLabel('Videos related to this YouTube video');  //>(translatable)<
         $option->setValidValueRegex(self::$_youTubeVideo);
         $option->setDefaultValue('P9M__yYbsZ4');
         $this->_verifyOption($option);

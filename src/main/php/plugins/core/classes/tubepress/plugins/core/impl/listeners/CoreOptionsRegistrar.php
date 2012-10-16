@@ -415,7 +415,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
          * OPTIONS UI OPTIONS
          */
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
-        $option->setAcceptableValuesCallback(array($this, 'getValidProviderNamesToFriendlyNames'));
         $option->setLabel('Only show options applicable to...');    //>(translatable)<
         $odr->registerOptionDescriptor($option);
 

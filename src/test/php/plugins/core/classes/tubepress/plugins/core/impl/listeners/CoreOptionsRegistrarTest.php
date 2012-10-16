@@ -63,10 +63,10 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
 
         $videoProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $videoProvider->shouldReceive('getName')->times(133)->andReturn('xxvideo-provider-name-xx');
-        $videoProvider->shouldReceive('getFriendlyName')->times(133)->andReturn('xx Friendly Provider Name xx');
+        $videoProvider->shouldReceive('getName')->times(79)->andReturn('xxvideo-provider-name-xx');
+        $videoProvider->shouldReceive('getFriendlyName')->times(79)->andReturn('xx Friendly Provider Name xx');
         $videoProviders = array($videoProvider);
-        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(133)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
+        $serviceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(79)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($serviceCollectionsRegistry);
 
@@ -431,7 +431,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
-        $option->setAcceptableValues(array('xxvideo-provider-name-xx' => 'xx Friendly Provider Name xx'));
         $option->setLabel('Only show options applicable to...');    //>(translatable)<
         $this->_verifyOption($option);
 
