@@ -36,22 +36,31 @@ interface tubepress_plugins_wordpress_spi_WordPressFunctionWrapper
     /**
      * Hooks a function on to a specific action.
      *
-     * @param string $tag      The name of the action to which $function_to_add is hooked.
-     * @param mixed  $function The name of the function you wish to be called.
+     * @param string $tag          The name of the action to which $function_to_add is hooked.
+     * @param mixed  $function     The name of the function you wish to be called.
+     * @param int    $priority     Used to specify the order in which the functions associated with a particular
+     *                             action are executed. Lower numbers correspond with earlier execution, and
+     *                             functions with the same priority are executed in the order in which they were
+     *                             added to the action.
+     * @param int    $acceptedArgs The number of arguments the function accepts.
      *
      * @return void
      */
-    function add_action($tag, $function);
+    function add_action($tag, $function, $priority, $acceptedArgs);
 
     /**
      * Hooks a function to a specific filter action.
      *
-     * @param string $tag      The name of the filter to hook the $function_to_add to.
-     * @param mixed  $function A callback for the function to be called when the filter is applied.
-     *
+     * @param string $tag          The name of the filter to hook the $function_to_add to.
+     * @param mixed  $function     A callback for the function to be called when the filter is applied.
+     * @param int    $priority     Used to specify the order in which the functions associated with a particular
+     *                             filter are executed. Lower numbers correspond with earlier execution, and
+     *                             functions with the same priority are executed in the order in which they were
+     *                             added to the action.
+     * @param int    $acceptedArgs The number of arguments the function accepts.
      * @return void
      */
-    function add_filter($tag, $function);
+    function add_filter($tag, $function, $priority, $acceptedArgs);
 
     /**
      * A safe way of adding a named option/value pair to the options database table. It does nothing if the option already exists.
@@ -116,6 +125,11 @@ interface tubepress_plugins_wordpress_spi_WordPressFunctionWrapper
     function get_option($name);
 
     /**
+     * @return string The current WP version.
+     */
+    function wp_version();
+
+    /**
      * This Conditional Tag checks if the Dashboard or the administration panel is being displayed.
      *
      * @return boolean True on success, otherwise false.
@@ -140,6 +154,15 @@ interface tubepress_plugins_wordpress_spi_WordPressFunctionWrapper
      * @return void
      */
     function load_plugin_textdomain($domain, $absPath, $relPath);
+
+    /**
+     * Gets the basename of a plugin (extracts the name of a plugin from its filename).
+     *
+     * @param string $file The filename of a plugin.
+     *
+     * @return string The basename of the plugin.
+     */
+    function plugin_basename($file);
 
     /**
      * The plugins_url template tag retrieves the url to the plugins directory or to a specific file within that directory.

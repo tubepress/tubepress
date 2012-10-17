@@ -43,5 +43,12 @@ interface tubepress_plugins_wordpress_spi_WpAdminHandler
      * @return void
      */
     function registerAdminMenuItem();
+
+    /**
+     * @param array $links An array of meta links for this plugin.
+     *
+     * @return void
+     */
+    function modifyMetaRowLinks($links, $file);
 }
 

@@ -111,6 +111,31 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
         print $optionsForm->getHtml();
     }
 
+    /**
+     * @param array  $links An array of meta links for this plugin.
+     * @param string $file  The file.
+     *
+     * @return void
+     */
+    public final function modifyMetaRowLinks($links, $file)
+    {
+        $wordPressFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+
+        $plugin = $wordPressFunctionWrapper->plugin_basename(basename(TUBEPRESS_ROOT) . '/tubepress.php');
+
+        if ($file != $plugin) {
+
+            return;
+        }
+
+        return array_merge($links, array(
+
+            sprintf('<a href="options-general.php?page=tubepress.php">%s</a>', $wordPressFunctionWrapper->__('Settings', 'tubepress')),
+            sprintf('<a href="http://tubepress.org/documentation/">Documentation</a>'),
+            sprintf('<a href="http://tubepress.org/forum/">Support</a>'),
+        ));
+    }
+
     private static function _verifyNonce()
     {
         $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();

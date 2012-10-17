@@ -151,6 +151,18 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
     }
 
     /**
+     * Gets the basename of a plugin (extracts the name of a plugin from its filename).
+     *
+     * @param string $file The filename of a plugin.
+     *
+     * @return string The basename of the plugin.
+     */
+    public final function plugin_basename($file)
+    {
+        return plugin_basename($file);
+    }
+
+    /**
      * The safe and recommended method of adding JavaScript to a WordPress generated page.
      *
      * @param string $handle Name of the script.
@@ -238,29 +250,38 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
     /**
      * Hooks a function on to a specific action.
      *
-     * @param string $tag      The name of the action to which $function_to_add is hooked.
-     * @param mixed  $function The name of the function you wish to be called.
+     * @param string $tag          The name of the action to which $function_to_add is hooked.
+     * @param mixed  $function     The name of the function you wish to be called.
+     * @param int    $priority     Used to specify the order in which the functions associated with a particular
+     *                             action are executed. Lower numbers correspond with earlier execution, and
+     *                             functions with the same priority are executed in the order in which they were
+     *                             added to the action.
+     * @param int    $acceptedArgs The number of arguments the function accepts.
      *
      * @return void
      */
-    public final function add_action($tag, $function)
+    public final function add_action($tag, $function, $priority, $acceptedArgs)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        add_action($tag, $function);
+        add_action($tag, $function, $priority, $acceptedArgs);
     }
 
     /**
      * Hooks a function to a specific filter action.
      *
-     * @param string $tag      The name of the filter to hook the $function_to_add to.
-     * @param mixed  $function A callback for the function to be called when the filter is applied.
-     *
+     * @param string $tag          The name of the filter to hook the $function_to_add to.
+     * @param mixed  $function     A callback for the function to be called when the filter is applied.
+     * @param int    $priority     Used to specify the order in which the functions associated with a particular
+     *                             filter are executed. Lower numbers correspond with earlier execution, and
+     *                             functions with the same priority are executed in the order in which they were
+     *                             added to the action.
+     * @param int    $acceptedArgs The number of arguments the function accepts.
      * @return void
      */
-    public final function add_filter($tag, $function)
+    public final function add_filter($tag, $function, $priority, $acceptedArgs)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        add_filter($tag, $function);
+        add_filter($tag, $function, $priority, $acceptedArgs);
     }
 
     /**
@@ -315,4 +336,13 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
         return content_url();
     }
 
+    /**
+     * @return string The current WP version.
+     */
+    public final function wp_version()
+    {
+        global $wp_version;
+
+        return $wp_version;
+    }
 }

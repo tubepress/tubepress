@@ -51,14 +51,24 @@ class tubepress_plugins_wordpress_impl_listeners_WordPressApiIntegrator
         $wpAdminHandler   = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWpAdminHandler();
         $widgetHandler    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWidgetHandler();
 
-        $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'));
-        $wpFunctionWrapper->add_action('wp_head', array($jsAndCssInjector, 'printInHtmlHead'));
-        $wpFunctionWrapper->add_action('init', array($jsAndCssInjector, 'registerStylesAndScripts'));
+        $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'), 10, 1);
+        $wpFunctionWrapper->add_action('wp_head', array($jsAndCssInjector, 'printInHtmlHead'), 10, 1);
+        $wpFunctionWrapper->add_action('init', array($jsAndCssInjector, 'registerStylesAndScripts'), 10, 1);
 
-        $wpFunctionWrapper->add_action('admin_menu', array($wpAdminHandler, 'registerAdminMenuItem'));
-        $wpFunctionWrapper->add_action('admin_enqueue_scripts', array($wpAdminHandler, 'registerStylesAndScripts'));
+        $wpFunctionWrapper->add_action('admin_menu', array($wpAdminHandler, 'registerAdminMenuItem'), 10, 1);
+        $wpFunctionWrapper->add_action('admin_enqueue_scripts', array($wpAdminHandler, 'registerStylesAndScripts'), 10, 1);
 
-        $wpFunctionWrapper->add_action('widgets_init', array($widgetHandler, 'registerWidget'));
+        $wpFunctionWrapper->add_action('widgets_init', array($widgetHandler, 'registerWidget'), 10, 1);
+
+        if (version_compare($wpFunctionWrapper->wp_version(), '2.8.alpha', '>')) {
+
+            $filterPoint = 'plugin_row_meta';
+        } else {
+
+            $filterPoint = 'plugin_action_links';
+        }
+
+        $wpFunctionWrapper->add_filter($filterPoint, array($wpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
     }
 
     private function _getScheme(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper $wpFunctionWrapper)
