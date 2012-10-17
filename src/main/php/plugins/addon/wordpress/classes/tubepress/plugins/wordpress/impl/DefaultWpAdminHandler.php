@@ -125,7 +125,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
 
         if ($file != $plugin) {
 
-            return;
+            return $links;
         }
 
         return array_merge($links, array(
