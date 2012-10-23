@@ -58,6 +58,11 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
     private function _doBoot()
     {
+        /**
+         * Keep track of how long this takes.
+         */
+        $then = microtime(true);
+
         $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
         tubepress_impl_patterns_ioc_KernelServiceLocator::setCoreIocContainer($coreIocContainer);
 
@@ -88,6 +93,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
             $this->_logger->debug(sprintf('Found %d plugins (%d system and %d user)',
                 count($allPlugins), count($systemPlugins), count($userPlugins)));
+            $this->_logger->debug('Now register plugin classloaders');
         }
 
         /**
@@ -95,22 +101,62 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          */
         $this->_registerPluginClasspaths($allPlugins, $loggerDebugEnabled);
 
+        if ($loggerDebugEnabled) {
+
+            $this->_logger->debug('Done registering plugin classloaders. Now registering plugin IoC container extensions.');
+        }
+
         /**
          * Load IOC container extensions.
          */
         $this->_registerIocContainerExtensions($allPlugins, $coreIocContainer, $loggerDebugEnabled);
+
+        if ($loggerDebugEnabled) {
+
+            $this->_logger->debug('Done registering plugin IoC container extensions. Now compiling IoC container.');
+        }
 
         /**
          * Compile all our services.
          */
         $coreIocContainer->compile();
 
+        if ($loggerDebugEnabled) {
+
+            $this->_logger->debug('Done compiling IoC container. Now loading plugins.');
+        }
+
+        $index = 0;
+        $count = count($allPlugins);
+
         /**
          * Load plugins.
          */
         foreach ($allPlugins as $plugin) {
 
+            if ($loggerDebugEnabled) {
+
+                $this->_logger->debug(sprintf('Attempting to load plugin %d of %d: %s',
+                    $index, $count, $plugin->getName()));
+            }
+
             $pluginLoader->load($plugin);
+
+            if ($loggerDebugEnabled) {
+
+                $this->_logger->debug(sprintf('Done attempting to load plugin %d of %d: %s',
+                    $index, $count, $plugin->getName()));
+            }
+
+            $index++;
+        }
+
+        if ($loggerDebugEnabled) {
+
+            $now = microtime(true);
+
+            $this->_logger->debug(sprintf('Boot completed in %f milliseconds',
+                (($now - $then) * 1000.0)));
         }
 
         /* remember that we booted. */
@@ -120,6 +166,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     private function _registerIocContainerExtensions($plugins, tubepress_impl_patterns_ioc_CoreIocContainer $coreIocContainer,
                                                      $loggerDebugEnabled)
     {
+        $index = 1;
+        $count = count($plugins);
+
         foreach ($plugins as $plugin) {
 
             $extensions = $plugin->getIocContainerExtensions();
@@ -128,9 +177,11 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                 if ($loggerDebugEnabled) {
 
-                    $this->_logger->debug(sprintf('Plugin %s did not register any IoC container extensions',
-                        $plugin->getName()));
+                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Did not register any IoC container extensions',
+                        $index, $count, $plugin->getName()));
                 }
+
+                $index++;
 
                 continue;
             }
@@ -139,8 +190,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                 if ($loggerDebugEnabled) {
 
-                    $this->_logger->debug(sprintf('Will attempt to load %s as an IoC container extension for plugin %s',
-                        $extension, $plugin->getName()));
+                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Will attempt to load %s as an IoC container extension',
+                        $index, $count, $plugin->getName(), $extension));
                 }
 
                 try {
@@ -150,17 +201,28 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
                     /** @noinspection PhpParamsInspection */
                     $coreIocContainer->registerExtension($ref->newInstance());
 
+                    if ($loggerDebugEnabled) {
+
+                        $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Successfully loaded %s as an IoC container extension',
+                            $index, $count, $plugin->getName(), $extension));
+                    }
+
                 } catch (Exception $e) {
 
-                    $this->_logger->warn(sprintf('Failed to load %s as an IoC container extension for plugin %s: %s',
-                        $extension, $plugin->getName(), $e->getMessage()));
+                    $this->_logger->warn(sprintf('(Plugin %d of %d: %s) Failed to load %s as an IoC container extension: %s',
+                        $index, $count, $plugin->getName(), $extension, $e->getMessage()));
                 }
             }
+
+            $index++;
         }
     }
 
     private function _registerPluginClasspaths(array $plugins, $loggerDebugEnabled)
     {
+        $index = 1;
+        $count = count($plugins);
+
         foreach ($plugins as $plugin) {
 
             $classPaths = $plugin->getPsr0ClassPathRoots();
@@ -169,17 +231,19 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                 if ($loggerDebugEnabled) {
 
-                    $this->_logger->debug(sprintf('Plugin %s did not register any classloaders',
-                        $plugin->getName()));
+                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Did not define any classpaths',
+                        $index, $count, $plugin->getName()));
                 }
+
+                $index++;
 
                 continue;
             }
 
             if ($loggerDebugEnabled) {
 
-                $this->_logger->debug(sprintf('Creating classloader for %s plugin that has %d classpath(s)',
-                    $plugin->getName(), count($classPaths)));
+                $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Creating classloader that has %d classpath(s)',
+                    $index, $count, $plugin->getName(), count($classPaths)));
             }
 
             $loader = new ehough_pulsar_SymfonyUniversalClassLoader();
@@ -190,14 +254,16 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                 if ($loggerDebugEnabled) {
 
-                    $this->_logger->debug(sprintf('Registering %s as a classpath for plugin %s',
-                        $realDir, $plugin->getName()));
+                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Registering %s as a classpath',
+                        $index, $count, $plugin->getName(), $realDir));
                 }
 
                 $loader->registerFallbackDirectory($realDir);
             }
 
             $loader->register();
+
+            $index++;
         }
     }
 

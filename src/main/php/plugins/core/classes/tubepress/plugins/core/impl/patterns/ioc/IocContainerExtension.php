@@ -35,7 +35,6 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     public final function load(ehough_iconic_impl_ContainerBuilder $container)
     {
         $this->_registerAjaxHandler($container);
-        $this->_registerBootstrapper($container);
         $this->_registerCacheService($container);
         $this->_registerEmbeddedHtmlGenerator($container);
         $this->_registerEventDispatcher($container);
@@ -79,15 +78,6 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
             tubepress_spi_const_patterns_ioc_ServiceIds::AJAX_HANDLER,
             'tubepress_impl_http_DefaultAjaxHandler'
 
-        );
-    }
-
-    private function _registerBootstrapper(ehough_iconic_impl_ContainerBuilder $container)
-    {
-        $container->register(
-
-            tubepress_spi_const_patterns_ioc_ServiceIds::BOOTSTRAPPER,
-            'tubepress_impl_bootstrap_TubePressBootstrapper'
         );
     }
 
