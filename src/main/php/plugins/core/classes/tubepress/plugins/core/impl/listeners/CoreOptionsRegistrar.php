@@ -99,7 +99,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
     private static $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';
     private static $_regexWordChars          = '/\w+/';
 
-    public function onBoot(ehough_tickertape_api_Event $bootEvent)
+    public function registerCoreOptions()
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 

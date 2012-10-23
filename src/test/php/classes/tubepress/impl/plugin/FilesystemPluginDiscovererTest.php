@@ -18,6 +18,10 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+require_once __DIR__ . '/../../../../../resources/plugins/FakeExtension.php';
+
+
 class tubepress_impl_player_FilesystemPluginDiscovererTest extends TubePressUnitTest
 {
     private $_sut;
@@ -41,7 +45,8 @@ class tubepress_impl_player_FilesystemPluginDiscovererTest extends TubePressUnit
         $this->_splInfoArray = array();
 
         $this->_mockFinder->shouldReceive('files')->andReturn($this->_mockFinder);
-        $this->_mockFinder->shouldReceive('name')->once()->with('*.info')->andReturnUsing(array($this, '_callback'));
+        $this->_mockFinder->shouldReceive('name')->with('*.info')->andReturn($this->_mockFinder);
+        $this->_mockFinder->shouldReceive('depth')->once()->with('< 3')->andReturnUsing(array($this, '_callback'));
 
         $this->_mockFilesystemFinderFactory = Mockery::mock('ehough_fimble_api_FinderFactory');
         $this->_mockFilesystemFinderFactory->shouldReceive('createFinder')->andReturn($this->_mockFinder);
@@ -54,6 +59,7 @@ class tubepress_impl_player_FilesystemPluginDiscovererTest extends TubePressUnit
         $this->_splInfoArray[] = new SplFileInfo($this->_fakePluginRoot . '/bad_info_file2/b.info');
 
         $this->_mockFinder->shouldReceive('in')->with($this->_fakePluginRoot . '/bad_info_file2')->andReturn($this->_mockFinder);
+
 
         $result = $this->_sut->findPluginsRecursivelyInDirectory($this->_fakePluginRoot . '/bad_info_file2');
 
@@ -106,6 +112,7 @@ class tubepress_impl_player_FilesystemPluginDiscovererTest extends TubePressUnit
         $this->assertTrue($plugin->getDescription() === 'Description for plugin B');
         $this->assertTrue($plugin->getVersion() instanceof tubepress_spi_version_Version);
         $this->assertTrue((string) $plugin->getVersion() === '3.2.1');
+        $this->assertEquals(array('SomethingPath'), $plugin->getPsr0ClassPathRoots());
     }
 
     public function _callback()

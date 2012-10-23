@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_impl_listeners_SkeletonExistsListener
 {
-    public function onBoot(ehough_tickertape_api_Event $bootEvent)
+    public function ensureSkeletonExists()
     {
         $ed = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
 

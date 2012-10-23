@@ -22,32 +22,86 @@ class tubepress_plugins_core_Core
 {
     public static function registerListeners()
     {
-        $loader = new ehough_pulsar_SymfonyUniversalClassLoader();
-        $loader->registerFallbackDirectory(dirname(__FILE__) . '/classes');
-        $loader->register();
-
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
-        self::_registerBootListeners($eventDispatcher);
+        self::_registerBootListeners();
         self::_registerFilters($eventDispatcher);
     }
 
-    private static function _registerBootListeners(ehough_tickertape_api_IEventDispatcher $eventDispatcher)
+    private static function _registerBootListeners()
     {
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar(), 'onBoot'));
+        $optionsRegistrar = new tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar();
+        $optionsRegistrar->registerCoreOptions();
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_core_impl_listeners_SkeletonExistsListener(), 'onBoot'));
+        $skeletonExistsListener = new tubepress_plugins_core_impl_listeners_SkeletonExistsListener();
+        $skeletonExistsListener->ensureSkeletonExists();
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_core_impl_listeners_ShortcodeHandlersRegistrar(), 'onBoot'));
+        self::_registerShortcodeHandlers();
+        self::_registerPlayerLocations();
+        self::_registerAjaxCommands();
+    }
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_core_impl_listeners_AjaxCommandsRegistrar(), 'onBoot'));
+    private static function _registerAjaxCommands()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_core_impl_listeners_PlayerLocationsRegistrar(), 'onBoot'));
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_http_PluggableAjaxCommandService::_,
+            new tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService()
+        );
+    }
+
+    private static function _registerPlayerLocations()
+    {
+        $playerLocations = array(
+
+            new tubepress_plugins_core_impl_player_JqModalPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_ShadowboxPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_StaticPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_VimeoPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_SoloPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_YouTubePluggablePlayerLocationService()
+        );
+
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+
+        foreach ($playerLocations as $playerLocation) {
+
+            $serviceCollectionsRegistry->registerService(
+
+                tubepress_spi_player_PluggablePlayerLocationService::_,
+                $playerLocation
+            );
+        }
+    }
+
+    private static function _registerShortcodeHandlers()
+    {
+        $thumbGalleryHandler = new tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService();
+        $singleVideoHandler  = new tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService();
+
+        $handlers = array(
+
+            new tubepress_plugins_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService(),
+            new tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService($thumbGalleryHandler),
+            $singleVideoHandler,
+            new tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService($singleVideoHandler),
+            $thumbGalleryHandler
+        );
+
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+
+        foreach ($handlers as $handler) {
+
+            $serviceCollectionsRegistry->registerService(
+
+                tubepress_spi_shortcode_PluggableShortcodeHandlerService::_,
+                $handler
+            );
+        }
     }
 
     private static function _registerFilters(ehough_tickertape_api_IEventDispatcher $eventDispatcher)

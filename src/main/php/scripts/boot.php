@@ -57,19 +57,17 @@ if (! function_exists('bootTubePress')) {
         }
 
         /*
-         * Now build the core IOC container and assign it to the kernel service locator.
-         * That should be enough to get everything else off the ground.
+         * Finally, hand off control to the TubePress bootstrapper. This will
+         *
+         * 1. Build and compile the core IOC container.
+         * 2. Load system plugins
+         * 3. Load user plugins
          */
-        $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setCoreIocContainer($coreIocContainer);
-
-        /*
-         * Finally, hand off control to the TubePress bootstrapper. This will load plugins
-         * and send out a "boot" notification.
-         */
-        tubepress_impl_patterns_ioc_KernelServiceLocator::getBootStrapper()->boot();
+        $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
+        $bootStrapper->boot();
     }
 }
+
 /*
  * Don't boot twice.
  */

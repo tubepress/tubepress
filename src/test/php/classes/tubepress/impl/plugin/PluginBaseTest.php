@@ -28,7 +28,9 @@ class tubepress_impl_player_PluginBaseTest extends TubePressUnitTest
             'description',
             '1.0.0',
             'short',
-            'absPath'
+            'absPath',
+            array(),
+            array()
         );
         
         $this->assertEquals('name', $sut->getName());
@@ -49,7 +51,9 @@ class tubepress_impl_player_PluginBaseTest extends TubePressUnitTest
             'description',
             'x.y.z',
             'short',
-            'absPath'
+            'absPath',
+            array(),
+            array()
         );
 
         $this->assertEquals('name', $sut->getName());
@@ -61,13 +65,17 @@ class tubepress_impl_player_PluginBaseTest extends TubePressUnitTest
 
     public function testBuildsCorrectly3()
     {
+        $mockExtension = Mockery::mock('ehough_iconic_api_extension_IExtension');
+
         $sut = new tubepress_impl_plugin_PluginBase(
 
             'name',
             'description',
             tubepress_spi_version_Version::parse('5.6.4'),
             'short',
-            'absPath'
+            'absPath',
+            array($mockExtension),
+            array()
         );
 
         $this->assertEquals('name', $sut->getName());
@@ -75,5 +83,6 @@ class tubepress_impl_player_PluginBaseTest extends TubePressUnitTest
         $this->assertEquals('5.6.4', (string) $sut->getVersion());
         $this->assertEquals('absPath', $sut->getAbsolutePathOfDirectory());
         $this->assertEquals('short', $sut->getFileNameWithoutExtension());
+        $this->assertEquals(array($mockExtension), $sut->getIocContainerExtensions());
     }
 }

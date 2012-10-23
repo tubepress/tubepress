@@ -53,15 +53,12 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerTest ex
     {
         $mock1 = new tubepress_spi_options_OptionDescriptor('mock1');
 
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE)->andReturn($mock1);
+        //$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE)->andReturn($mock1);
 
         $toTest = array(
 
             tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_CONTENT_FILTER         => tubepress_plugins_wordpress_spi_ContentFilter::_,
-            tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_MESSAGE                => tubepress_spi_message_MessageService::_,
-            tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_OPTIONS_UI_FORMHANDLER => tubepress_spi_options_ui_FormHandler::_,
             tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_CSS_AND_JS_INJECTOR    => tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_,
-            tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_OPTIONS_STORAGE        => tubepress_spi_options_StorageManager::_,
             tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_WIDGET_HANDLER         => tubepress_plugins_wordpress_spi_WidgetHandler::_,
             tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_WP_ADMIN_HANDLER       => tubepress_plugins_wordpress_spi_WpAdminHandler::_,
             tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_WP_FUNCTION_WRAPPER    => tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_

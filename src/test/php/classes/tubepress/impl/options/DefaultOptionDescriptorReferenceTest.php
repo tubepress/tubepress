@@ -22,23 +22,15 @@ class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePr
 {
 	private $_sut;
 
-    private $_mockEventDispatcher;
+    private $_storageManager;
 
 	public function setup()
 	{
-        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
-
-        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_CoreEventNames::OPTION_STORAGE_MANAGER_READY,
-
-            Mockery::on(function ($arg) {
-
-                return $arg[0] instanceof tubepress_impl_options_DefaultOptionDescriptorReference;
-            })
-        );
-
 		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
+
+        $this->_storageManager = Mockery::mock(tubepress_spi_options_StorageManager::_);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_storageManager);
 	}
 
 	/**
@@ -47,6 +39,9 @@ class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePr
 	public function testRegisterDuplicate()
 	{
 	    $od = new tubepress_spi_options_OptionDescriptor('name');
+        $od->setDefaultValue('xyz');
+
+        $this->_storageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
 
 	    $this->_sut->registerOptionDescriptor($od);
 	    $this->_sut->registerOptionDescriptor($od);
@@ -55,6 +50,10 @@ class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePr
     public function testGetAll()
     {
         $od = new tubepress_spi_options_OptionDescriptor('name');
+
+        $od->setDefaultValue('xyz');
+
+        $this->_storageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
 
         $this->_sut->registerOptionDescriptor($od);
 
@@ -71,6 +70,9 @@ class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePr
         $this->assertNull($result);
 
         $od = new tubepress_spi_options_OptionDescriptor('name');
+        $od->setDefaultValue('xyz');
+
+        $this->_storageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
 
         $this->_sut->registerOptionDescriptor($od);
 

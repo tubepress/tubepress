@@ -49,13 +49,25 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
      */
     private $_absPath;
 
+    /**
+     * @var array
+     */
+    private $_iocContainerExtensions;
+
+    /**
+     * @var array
+     */
+    private $_psr0ClassPathRoots;
+
     public function __construct(
 
         $name,
         $description,
         $version,
         $fileNameWithoutExtension,
-        $absolutePath) {
+        $absolutePath,
+        array $iocContainerExtensions,
+        array $psr0ClassPathRoots) {
 
         $this->_name                      = $name;
         $this->_description               = $description;
@@ -70,6 +82,9 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
 
             $this->_version = tubepress_spi_version_Version::parse($version);
         }
+
+        $this->_iocContainerExtensions = $iocContainerExtensions;
+        $this->_psr0ClassPathRoots     = $psr0ClassPathRoots;
     }
 
     /**
@@ -110,5 +125,21 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
     public final function getFileNameWithoutExtension()
     {
         return $this->_fileNameWithoutExtension;
+    }
+
+    /**
+     * @return array An array of IOC container extensions. May be empty, never null.
+     */
+    public final function getIocContainerExtensions()
+    {
+        return $this->_iocContainerExtensions;
+    }
+
+    /**
+     * @return array An array of PSR-0 compliant class path roots.
+     */
+    public final function getPsr0ClassPathRoots()
+    {
+        return $this->_psr0ClassPathRoots;
     }
 }

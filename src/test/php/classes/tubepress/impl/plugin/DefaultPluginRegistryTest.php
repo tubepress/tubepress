@@ -36,7 +36,8 @@ class tubepress_impl_player_DefaultPluginRegistryTest extends TubePressUnitTest
             'hello',
             '1.2.3',
             'b',
-            __DIR__ . '/../../../../../resources/plugins/good_plugin'
+            __DIR__ . '/../../../../../resources/plugins/good_plugin',
+            array(), array()
         );
 
         $this->_sut->load($plugin);

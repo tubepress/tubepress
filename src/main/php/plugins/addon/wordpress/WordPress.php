@@ -34,23 +34,124 @@ class tubepress_plugins_wordpress_WordPress
             return;
         }
 
-        $loader = new ehough_pulsar_SymfonyUniversalClassLoader();
-        $loader->registerFallbackDirectory(dirname(__FILE__) . '/classes');
-        $loader->register();
+        /**
+         * Build a WP-specific IOC container.
+         */
+        $iocContainer   = new tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer();
+        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setCoreIocContainer($iocContainer);
 
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        self::_registerWpOptions();
+        self::_registerOptionsPageItems();
+        self::_registerSelfWithWordPressApi();
+    }
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_wordpress_impl_listeners_WordPressOptionsRegistrar(), 'onBoot'));
+    private static function _registerSelfWithWordPressApi()
+    {
+        global $tubepress_base_url;
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_wordpress_impl_listeners_WordPressIocContainerBuilder(), 'onBoot'));
+        $baseName          = basename(TUBEPRESS_ROOT);
+        $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_wordpress_impl_listeners_WordPressApiIntegrator(), 'onBoot'));
+        /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
+        if (self::_isWordPressMuDomainMapped()) {
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_wordpress_impl_listeners_WordPressOptionsPageBuilder(), 'onBoot'));
+            $prefix = self::_getScheme($wpFunctionWrapper) . constant('COOKIE_DOMAIN') . '/wp-content';
+
+        } else {
+
+            $prefix = $wpFunctionWrapper->content_url();
+        }
+
+        $tubepress_base_url = $prefix . "/plugins/$baseName";
+
+        /* register the plugin's message bundles */
+        $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");
+
+        $contentFilter    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getContentFilter();
+        $jsAndCssInjector = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getFrontEndCssAndJsInjector();
+        $wpAdminHandler   = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWpAdminHandler();
+        $widgetHandler    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWidgetHandler();
+
+        $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'), 10, 1);
+        $wpFunctionWrapper->add_action('wp_head', array($jsAndCssInjector, 'printInHtmlHead'), 10, 1);
+        $wpFunctionWrapper->add_action('init', array($jsAndCssInjector, 'registerStylesAndScripts'), 10, 1);
+
+        $wpFunctionWrapper->add_action('admin_menu', array($wpAdminHandler, 'registerAdminMenuItem'), 10, 1);
+        $wpFunctionWrapper->add_action('admin_enqueue_scripts', array($wpAdminHandler, 'registerStylesAndScripts'), 10, 1);
+
+        $wpFunctionWrapper->add_action('widgets_init', array($widgetHandler, 'registerWidget'), 10, 1);
+
+        if (version_compare($wpFunctionWrapper->wp_version(), '2.8.alpha', '>')) {
+
+            $filterPoint = 'plugin_row_meta';
+        } else {
+
+            $filterPoint = 'plugin_action_links';
+        }
+
+        $wpFunctionWrapper->add_filter($filterPoint, array($wpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
+    }
+
+    private static function _registerOptionsPageItems()
+    {
+        $wordPressFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+
+        if (! $wordPressFunctionWrapper->is_admin()) {
+
+            //we only want to do this stuff on the admin page
+            return;
+        }
+
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+
+        $tabs = array(
+
+            new tubepress_impl_options_ui_tabs_GallerySourceTab(),
+            new tubepress_impl_options_ui_tabs_ThumbsTab(),
+            new tubepress_impl_options_ui_tabs_EmbeddedTab(),
+            new tubepress_impl_options_ui_tabs_MetaTab(),
+            new tubepress_impl_options_ui_tabs_ThemeTab(),
+            new tubepress_impl_options_ui_tabs_FeedTab(),
+            new tubepress_impl_options_ui_tabs_CacheTab(),
+            new tubepress_impl_options_ui_tabs_AdvancedTab()
+        );
+
+        foreach ($tabs as $tab) {
+
+            $serviceCollectionsRegistry->registerService(
+
+                tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME,
+                $tab
+            );
+        }
+    }
+
+    private static function _registerWpOptions()
+    {
+        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
+        $option->setDefaultValue('TubePress');
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
+        $odr->registerOptionDescriptor($option);
+    }
+
+    private static function _getScheme(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper $wpFunctionWrapper)
+    {
+        if ($wpFunctionWrapper->is_ssl()) {
+
+            return 'https://';
+        }
+
+        return 'http://';
+    }
+
+    private static function _isWordPressMuDomainMapped()
+    {
+        return defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
     }
 }
 

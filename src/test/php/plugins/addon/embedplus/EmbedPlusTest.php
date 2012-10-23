@@ -20,55 +20,21 @@
  */
 class tubepress_plugins_embedplus_EmbedPlusTest extends TubePressUnitTest
 {
-	private $_mockEventDispatcher;
+    private $_mockServiceCollectionsRegistry;
 
 	function setup()
 	{
-		$this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
 	}
 
 	function testEmbedPlus()
     {
-        $expected = array(
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(
 
-            array(tubepress_api_const_event_CoreEventNames::BOOT =>
-            array(new tubepress_plugins_embedplus_impl_listeners_EmbedPlusPlayerRegistrar(), 'onBoot')),
-        );
-
-        $eventArray = array();
-
-        foreach ($expected as $expect) {
-
-            $eventName = array_keys($expect);
-            $eventName = $eventName[0];
-
-            if (! isset($eventArray[$eventName])) {
-
-                $eventArray[$eventName] = array();
-            }
-
-            $eventArray[$eventName][] = $expect[$eventName];
-        }
-
-        foreach ($eventArray as $eventName => $callbacks) {
-
-            $this->_mockEventDispatcher->shouldReceive('addListener')->times(count($callbacks))->with(
-
-                $eventName, Mockery::on(function ($arr) use ($callbacks) {
-
-                    foreach ($callbacks as $callback) {
-
-                        if ($arr[0] instanceof $callback[0] && $arr[1] === $callback[1]) {
-
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }));
-        }
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            Mockery::type('tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService'));
 
         require TUBEPRESS_ROOT . '/src/main/php/plugins/addon/embedplus/EmbedPlusPlayer.php';
 

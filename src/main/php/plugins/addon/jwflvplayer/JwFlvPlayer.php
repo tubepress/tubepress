@@ -26,14 +26,12 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayer
 {
     public static function registerJwFlvPlayerListeners()
     {
-        $loader = new ehough_pulsar_SymfonyUniversalClassLoader();
-        $loader->registerFallbackDirectory(dirname(__FILE__) . '/classes');
-        $loader->register();
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $serviceCollectionsRegistry->registerService(
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_jwflvplayer_impl_listeners_JwFlvPlayerRegistrar(), 'onBoot'));
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerService());
     }
 }
 

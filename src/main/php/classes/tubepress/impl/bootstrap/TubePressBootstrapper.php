@@ -22,7 +22,7 @@
 /**
  * Performs TubePress-wide initialization.
  */
-class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bootstrap_Bootstrapper
+class tubepress_impl_bootstrap_TubePressBootstrapper
 {
     private static $_alreadyBooted = false;
 
@@ -58,6 +58,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
 
     private function _doBoot()
     {
+        $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setCoreIocContainer($coreIocContainer);
+
         $envDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
 
         /* WordPress likes to keep control of the output */
@@ -66,7 +69,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
             ob_start();
         }
 
-        if ($this->_logger->isDebugEnabled()) {
+        $loggerDebugEnabled = $this->_logger->isDebugEnabled();
+
+        if ($loggerDebugEnabled) {
 
             $this->_logger->debug('Booting!');
         }
@@ -75,44 +80,151 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
         $pluginLoader     = tubepress_impl_patterns_ioc_KernelServiceLocator::getPluginRegistry();
 
         /* load plugins */
-        $this->loadSystemPlugins($pluginDiscoverer, $pluginLoader);
-        $this->loadUserPlugins($pluginDiscoverer, $pluginLoader);
+        $systemPlugins = $this->_findSystemPlugins($pluginDiscoverer);
+        $userPlugins   = $this->_findUserPlugins($pluginDiscoverer);
+        $allPlugins    = array_merge($systemPlugins, $userPlugins);
 
-        $pm = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        if ($loggerDebugEnabled) {
 
-        /* tell everyone we're booting */
-        $pm->dispatchWithoutEventInstance(tubepress_api_const_event_CoreEventNames::BOOT);
+            $this->_logger->debug(sprintf('Found %d plugins (%d system and %d user)',
+                count($allPlugins), count($systemPlugins), count($userPlugins)));
+        }
+
+        /**
+         * Load classpaths.
+         */
+        $this->_registerPluginClasspaths($allPlugins, $loggerDebugEnabled);
+
+        /**
+         * Load IOC container extensions.
+         */
+        $this->_registerIocContainerExtensions($allPlugins, $coreIocContainer, $loggerDebugEnabled);
+
+        /**
+         * Compile all our services.
+         */
+        $coreIocContainer->compile();
+
+        /**
+         * Load plugins.
+         */
+        foreach ($allPlugins as $plugin) {
+
+            $pluginLoader->load($plugin);
+        }
 
         /* remember that we booted. */
         self::$_alreadyBooted = true;
     }
 
-    private function loadUserPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer,
-                                     tubepress_spi_plugin_PluginRegistry $registry)
+    private function _registerIocContainerExtensions($plugins, tubepress_impl_patterns_ioc_CoreIocContainer $coreIocContainer,
+                                                     $loggerDebugEnabled)
+    {
+        foreach ($plugins as $plugin) {
+
+            $extensions = $plugin->getIocContainerExtensions();
+
+            if (count($extensions) === 0) {
+
+                if ($loggerDebugEnabled) {
+
+                    $this->_logger->debug(sprintf('Plugin %s did not register any IoC container extensions',
+                        $plugin->getName()));
+                }
+
+                continue;
+            }
+
+            foreach ($extensions as $extension) {
+
+                if ($loggerDebugEnabled) {
+
+                    $this->_logger->debug(sprintf('Will attempt to load %s as an IoC container extension for plugin %s',
+                        $extension, $plugin->getName()));
+                }
+
+                try {
+
+                    $ref = new ReflectionClass($extension);
+
+                    /** @noinspection PhpParamsInspection */
+                    $coreIocContainer->registerExtension($ref->newInstance());
+
+                } catch (Exception $e) {
+
+                    $this->_logger->warn(sprintf('Failed to load %s as an IoC container extension for plugin %s: %s',
+                        $extension, $plugin->getName(), $e->getMessage()));
+                }
+            }
+        }
+    }
+
+    private function _registerPluginClasspaths(array $plugins, $loggerDebugEnabled)
+    {
+        foreach ($plugins as $plugin) {
+
+            $classPaths = $plugin->getPsr0ClassPathRoots();
+
+            if (count($classPaths) === 0) {
+
+                if ($loggerDebugEnabled) {
+
+                    $this->_logger->debug(sprintf('Plugin %s did not register any classloaders',
+                        $plugin->getName()));
+                }
+
+                continue;
+            }
+
+            if ($loggerDebugEnabled) {
+
+                $this->_logger->debug(sprintf('Creating classloader for %s plugin that has %d classpath(s)',
+                    $plugin->getName(), count($classPaths)));
+            }
+
+            $loader = new ehough_pulsar_SymfonyUniversalClassLoader();
+
+            foreach ($classPaths as $classPath) {
+
+                $realDir = $plugin->getAbsolutePathOfDirectory() . DIRECTORY_SEPARATOR . $classPath;
+
+                if ($loggerDebugEnabled) {
+
+                    $this->_logger->debug(sprintf('Registering %s as a classpath for plugin %s',
+                        $realDir, $plugin->getName()));
+                }
+
+                $loader->registerFallbackDirectory($realDir);
+            }
+
+            $loader->register();
+        }
+    }
+
+    private function _findUserPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer)
     {
         $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
 
         $userContentDir = $environmentDetector->getUserContentDirectory();
         $userPluginsDir = $userContentDir . '/plugins';
 
-        $this->loadPluginsFromDirectory($userPluginsDir,
-            $discoverer, $registry, true);
+        return $this->_findPluginsInDirectory($userPluginsDir,
+            $discoverer, true);
     }
 
-    private function loadSystemPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer,
-                                       tubepress_spi_plugin_PluginRegistry $registry)
+    private function _findSystemPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer)
     {
-        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/core',
-            $discoverer, $registry, false);
+        $corePlugins = $this->_findPluginsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/core',
+            $discoverer, false);
 
-        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/addon',
-            $discoverer, $registry, true);
+        $addOnPlugins = $this->_findPluginsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/addon',
+            $discoverer, true);
+
+        return array_merge($corePlugins, $addOnPlugins);
     }
 
-    private function loadPluginsFromDirectory(
-                                              $directory,
+    private function _findPluginsInDirectory($directory,
         tubepress_spi_plugin_PluginDiscoverer $discoverer,
-        tubepress_spi_plugin_PluginRegistry   $registry,
         $recursive)
     {
         if ($recursive) {
@@ -124,9 +236,6 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
             $plugins = $discoverer->findPluginsNonRecursivelyInDirectory(realpath($directory));
         }
 
-        foreach ($plugins as $plugin) {
-
-            $result = $registry->load($plugin);
-        }
+        return $plugins;
     }
 }

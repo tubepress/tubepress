@@ -20,67 +20,215 @@
  */
 class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 {
-	private $_mockEventDispatcher;
+    private $_mockVideoProviderRegistry;
+
+    private $_mockOptionsDescriptorReference;
+
+    private $_mockFieldBuilder;
+
+    private static $_regexWordChars = '/\w+/';
+    private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
 	function setup()
 	{
-		$this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockVideoProviderRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
+        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockFieldBuilder = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockVideoProviderRegistry);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
 	}
 
 	function testVimeo()
     {
-        $expected = array(
+        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            array(tubepress_api_const_event_CoreEventNames::BOOT =>
-            array(new tubepress_plugins_vimeo_impl_listeners_VimeoOptionsRegistrar(), 'onBoot')),
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            Mockery::type('tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService'));
 
-            array(tubepress_api_const_event_CoreEventNames::BOOT =>
-            array(new tubepress_plugins_vimeo_impl_listeners_VimeoEmbeddedPlayerRegistrar(), 'onBoot')),
+        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
+            tubepress_spi_provider_PluggableVideoProviderService::_,
+            Mockery::type('tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService'));
 
-            array(tubepress_api_const_event_CoreEventNames::BOOT =>
-            array(new tubepress_plugins_vimeo_impl_listeners_VimeoProviderRegistrar(), 'onBoot')),
+        $this->_testOptions();
 
-            array(tubepress_api_const_event_CoreEventNames::BOOT =>
-            array(new tubepress_plugins_vimeo_impl_listeners_VimeoOptionsPageBuilder(), 'onBoot'))
-        );
-
-        $eventArray = array();
-
-        foreach ($expected as $expect) {
-
-            $eventName = array_keys($expect);
-            $eventName = $eventName[0];
-
-            if (! isset($eventArray[$eventName])) {
-
-                $eventArray[$eventName] = array();
-            }
-
-            $eventArray[$eventName][] = $expect[$eventName];
-        }
-
-        foreach ($eventArray as $eventName => $callbacks) {
-
-            $this->_mockEventDispatcher->shouldReceive('addListener')->times(count($callbacks))->with(
-
-                $eventName, Mockery::on(function ($arr) use ($callbacks) {
-
-                    foreach ($callbacks as $callback) {
-
-                        if ($arr[0] instanceof $callback[0] && $arr[1] === $callback[1]) {
-
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }));
-        }
+        $this->_testOptionsPageUi();
 
         require __DIR__ . '/../../../../../main/php/plugins/addon/vimeo/Vimeo.php';
 
         $this->assertTrue(true);
+    }
+
+    private function _testOptionsPageUi()
+    {
+        $gallerySources = array(
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
+
+            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
+            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE
+        );
+
+        foreach ($gallerySources as $name => $value) {
+
+            $mockField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+            $mockField->shouldReceive('getDesiredTabName')->andReturn('gallery-source');
+
+            $this->_mockFieldBuilder->shouldReceive('build')->once()->with($value,
+                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, 'gallery-source')->andReturn($mockField);
+
+            $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
+
+                tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+                Mockery::on(function ($arg) use ($name, $value) {
+
+                    return $arg instanceof tubepress_impl_options_ui_fields_GallerySourceField
+                        && $arg->getDesiredTabName() === 'gallery-source'
+                        && $arg->getGallerySourceName() === $name;
+                }));
+        }
+
+        $mockPlayerColorField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+        $mockVimeoKeyField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+        $mockVimeoSecretField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with(
+            tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR
+        )->andReturn($mockPlayerColorField);
+
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with(
+            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY
+        )->andReturn($mockVimeoKeyField);
+
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with(
+            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET
+        )->andReturn($mockVimeoSecretField);
+
+        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
+
+            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            Mockery::type('tubepress_impl_options_ui_fields_ColorField')
+        );
+
+        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->twice()->with(
+
+            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            Mockery::type('tubepress_impl_options_ui_fields_TextField')
+        );
+
+    }
+
+    private function _testOptions()
+    {
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY);
+        $option->setLabel('Vimeo API "Consumer Key"');                                                                                        //>(translatable)<
+        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET);
+        $option->setLabel('Vimeo API "Consumer Secret"');                                                                                     //>(translatable)<
+        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
+        $option->setDefaultValue('mattkaar');
+        $option->setLabel('Videos uploaded by this Vimeo user');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
+        $option->setDefaultValue('coiffier');
+        $option->setLabel('Videos this Vimeo user likes');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE);
+        $option->setDefaultValue('royksopp');
+        $option->setLabel('Videos this Vimeo user appears in');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
+        $option->setDefaultValue('cats playing piano');
+        $option->setLabel('Vimeo search for');  //>(translatable)<
+        $option->setValidValueRegex('/[\w" ]+/');
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
+        $option->setDefaultValue('patricklawler');
+        $option->setLabel('Videos credited to this Vimeo user (either appears in or uploaded by)');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
+        $option->setDefaultValue('splitscreenstuff');
+        $option->setLabel('Videos in this Vimeo channel');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
+        $option->setDefaultValue('hdxs');
+        $option->setLabel('Videos from this Vimeo group');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
+        $option->setDefaultValue('140484');
+        $option->setLabel('Videos from this Vimeo album');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES);
+        $option->setLabel('Number of "likes"');  //>(translatable)<
+        $option->setDefaultValue(false);
+        $option->setBoolean();
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
+        $option->setDefaultValue('999999');
+        $option->setLabel('Main color');              //>(translatable)<
+        $option->setDescription('Default is 999999.'); //>(translatable)<
+        $option->setValidValueRegex(self::$_regexColor);
+        $this->_verifyOption($option);
+    }
+
+    private function _verifyOption(tubepress_spi_options_OptionDescriptor $expectedOption)
+    {
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(Mockery::on(function ($registeredOption) use ($expectedOption) {
+
+            return $registeredOption instanceof tubepress_spi_options_OptionDescriptor
+                && $registeredOption->getAcceptableValues() === $expectedOption->getAcceptableValues()
+                && $registeredOption->getAliases() === $expectedOption->getAliases()
+                && $registeredOption->getDefaultValue() === $expectedOption->getDefaultValue()
+                && $registeredOption->getDescription() === $expectedOption->getDescription()
+                && $registeredOption->getLabel() === $expectedOption->getLabel()
+                && $registeredOption->getName() === $expectedOption->getName()
+                && $registeredOption->getValidValueRegex() === $expectedOption->getValidValueRegex()
+                && $registeredOption->isAbleToBeSetViaShortcode() === $expectedOption->isAbleToBeSetViaShortcode()
+                && $registeredOption->isBoolean() === $expectedOption->isBoolean()
+                && $registeredOption->isMeantToBePersisted() === $expectedOption->isMeantToBePersisted()
+                && $registeredOption->hasDiscreteAcceptableValues() === $expectedOption->hasDiscreteAcceptableValues()
+                && $registeredOption->isProOnly() === $expectedOption->isProOnly();
+        }));
     }
 }

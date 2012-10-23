@@ -26,14 +26,12 @@ class tubepress_plugins_embedplus_EmbedPlusPlayer
 {
     public static function registerEmbedPlusListeners()
     {
-        $loader = new ehough_pulsar_SymfonyUniversalClassLoader();
-        $loader->registerFallbackDirectory(dirname(__FILE__) . '/classes');
-        $loader->register();
+        $embeddedPlayerRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $embeddedPlayerRegistry->registerService(
 
-        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-            array(new tubepress_plugins_embedplus_impl_listeners_EmbedPlusPlayerRegistrar(), 'onBoot'));
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService());
     }
 }
 

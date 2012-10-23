@@ -27,9 +27,6 @@ final class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer 
 {
     const SERVICE_CONTENT_FILTER         = 'contentFilter';
     const SERVICE_CSS_AND_JS_INJECTOR    = 'cssAndJsInjector';
-    const SERVICE_MESSAGE                = 'messageService';
-    const SERVICE_OPTIONS_STORAGE        = 'optionsStorageManager';
-    const SERVICE_OPTIONS_UI_FORMHANDLER = 'optionsUiFormHandler';
     const SERVICE_WIDGET_HANDLER         = 'widgetHandler';
     const SERVICE_WP_ADMIN_HANDLER       = 'wpAdminHandler';
     const SERVICE_WP_FUNCTION_WRAPPER    = 'wpFunctionWrapper';
@@ -45,9 +42,6 @@ final class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer 
 
         $this->_registerContentFilter();
         $this->_registerCssAndJsInjector();
-        $this->_registerMessageService();
-        $this->_registerOptionsStorageManager();
-        $this->_registerOptionsUiFormHandler();
         $this->_registerWidgetHandler();
         $this->_registerWpAdminHandler();
         $this->_registerWpFunctionWrapper();
@@ -69,73 +63,9 @@ final class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer 
 
             self::SERVICE_CSS_AND_JS_INJECTOR,
             'tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector'
-
         );
     }
 
-    private function _registerMessageService()
-    {
-        $this->_delegate->register(
-
-            self::SERVICE_MESSAGE,
-            'tubepress_plugins_wordpress_impl_message_WordPressMessageService'
-        );
-    }
-
-    private function _registerOptionsStorageManager()
-    {
-        $this->_delegate->register(
-
-            self::SERVICE_OPTIONS_STORAGE,
-            'tubepress_plugins_wordpress_impl_options_WordPressStorageManager'
-        );
-    }
-
-    private function _registerOptionsUiFormHandler()
-    {
-        $tabClassNames = array(
-
-            'tubepress_impl_options_ui_tabs_GallerySourceTab',
-            'tubepress_impl_options_ui_tabs_ThumbsTab',
-            'tubepress_impl_options_ui_tabs_EmbeddedTab',
-            'tubepress_impl_options_ui_tabs_MetaTab',
-            'tubepress_impl_options_ui_tabs_ThemeTab',
-            'tubepress_impl_options_ui_tabs_FeedTab',
-            'tubepress_impl_options_ui_tabs_CacheTab',
-            'tubepress_impl_options_ui_tabs_AdvancedTab',
-        );
-
-        $tabReferences = array();
-
-        foreach ($tabClassNames as $tabClassName) {
-
-            $this->_delegate->register($tabClassName, $tabClassName);
-
-            array_push($tabReferences, new ehough_iconic_impl_Reference($tabClassName));
-        }
-
-        $tabsId = 'tubepress_impl_options_ui_DefaultTabsHandler';
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->_delegate->register(
-
-            $tabsId, $tabsId
-
-        )->addArgument($tabReferences);
-
-        $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
-
-        $this->_delegate->register($filterId, $filterId);
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->_delegate->register(
-
-            self::SERVICE_OPTIONS_UI_FORMHANDLER,
-            'tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler'
-
-        )->addArgument(new ehough_iconic_impl_Reference($tabsId))
-         ->addArgument(new ehough_iconic_impl_Reference($filterId));
-    }
 
     private function _registerWidgetHandler()
     {
@@ -163,7 +93,6 @@ final class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer 
             'tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper'
         );
     }
-
 
     /**
      * Gets a service.

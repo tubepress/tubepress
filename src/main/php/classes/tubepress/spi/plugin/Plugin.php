@@ -50,4 +50,14 @@ interface tubepress_spi_plugin_Plugin
      * @return string The filename without the .info extension.
      */
     function getFileNameWithoutExtension();
+
+    /**
+     * @return array An array of IOC container extensions. May be empty, never null.
+     */
+    function getIocContainerExtensions();
+
+    /**
+     * @return array An array of PSR-0 compliant class path roots.
+     */
+    function getPsr0ClassPathRoots();
 }

@@ -36,11 +36,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_ajaxHandler;
 
     /**
-     * @var tubepress_spi_bootstrap_Bootstrapper
-     */
-    private static $_bootStrapper;
-
-    /**
      * @var ehough_stash_api_Cache
      */
     private static $_cacheService;
@@ -185,15 +180,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getAjaxHandler()
     {
-        return self::_lazyGet('_ajaxHandler', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_AJAX_HANDLER);
-    }
-
-    /**
-     * @return tubepress_spi_bootstrap_Bootstrapper The bootstrapper.
-     */
-    public static function getBootstrapper()
-    {
-        return self::_lazyGet('_bootStrapper', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_BOOTSTRAPPER);
+        return self::_lazyGet('_ajaxHandler', tubepress_spi_const_patterns_ioc_ServiceIds::AJAX_HANDLER);
     }
 
     /**
@@ -201,7 +188,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getCacheService()
     {
-        return self::_lazyGet('_cacheService', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_CACHE);
+        return self::_lazyGet('_cacheService', tubepress_spi_const_patterns_ioc_ServiceIds::CACHE);
     }
 
     /**
@@ -209,7 +196,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getEmbeddedHtmlGenerator()
     {
-        return self::_lazyGet('_embeddedHtmlGenerator', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_EMBEDDED_HTML_GENERATOR);
+        return self::_lazyGet('_embeddedHtmlGenerator', tubepress_spi_const_patterns_ioc_ServiceIds::EMBEDDED_HTML_GENERATOR);
     }
 
     /**
@@ -217,7 +204,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getEnvironmentDetector()
     {
-        return self::_lazyGet('_environmentDetector', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_ENVIRONMENT_DETECTOR);
+        return self::_lazyGet('_environmentDetector', tubepress_spi_const_patterns_ioc_ServiceIds::ENVIRONMENT_DETECTOR);
     }
 
     /**
@@ -225,7 +212,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getEventDispatcher()
     {
-        return self::_lazyGet('_eventDispatcher', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_EVENT_DISPATCHER);
+        return self::_lazyGet('_eventDispatcher', tubepress_spi_const_patterns_ioc_ServiceIds::EVENT_DISPATCHER);
     }
 
     /**
@@ -233,7 +220,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getExecutionContext()
     {
-        return self::_lazyGet('_executionContext', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_EXECUTION_CONTEXT);
+        return self::_lazyGet('_executionContext', tubepress_spi_const_patterns_ioc_ServiceIds::EXECUTION_CONTEXT);
     }
 
     /**
@@ -241,7 +228,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getFeedFetcher()
     {
-        return self::_lazyGet('_feedFetcher', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_FEED_FETCHER);
+        return self::_lazyGet('_feedFetcher', tubepress_spi_const_patterns_ioc_ServiceIds::FEED_FETCHER);
     }
 
     /**
@@ -249,7 +236,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getFileSystem()
     {
-        return self::_lazyGet('_fileSystem', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_FILESYSTEM);
+        return self::_lazyGet('_fileSystem', tubepress_spi_const_patterns_ioc_ServiceIds::FILESYSTEM);
     }
 
     /**
@@ -257,7 +244,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getFileSystemFinderFactory()
     {
-        return self::_lazyGet('_fileSystemFinderFactory', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_FILESYSTEM_FINDER_FACTORY);
+        return self::_lazyGet('_fileSystemFinderFactory', tubepress_spi_const_patterns_ioc_ServiceIds::FILESYSTEM_FINDER_FACTORY);
     }
 
     /**
@@ -265,7 +252,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getHeadHtmlGenerator()
     {
-        return self::_lazyGet('_headHtmlGenerator', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_HEAD_HTML_GENERATOR);
+        return self::_lazyGet('_headHtmlGenerator', tubepress_spi_const_patterns_ioc_ServiceIds::HEAD_HTML_GENERATOR);
     }
 
     /**
@@ -273,7 +260,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getHttpClient()
     {
-        return self::_lazyGet('_httpClient', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_HTTP_CLIENT);
+        return self::_lazyGet('_httpClient', tubepress_spi_const_patterns_ioc_ServiceIds::HTTP_CLIENT);
     }
 
     /**
@@ -281,7 +268,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getHttpResponseHandler()
     {
-        return self::_lazyGet('_httpResponseHandler', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_HTTP_RESPONSE_HANDLER);
+        return self::_lazyGet('_httpResponseHandler', tubepress_spi_const_patterns_ioc_ServiceIds::HTTP_RESPONSE_HANDLER);
     }
 
     /**
@@ -289,7 +276,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getHttpRequestParameterService()
     {
-        return self::_lazyGet('_httpRequestParameterService', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_HTTP_REQUEST_PARAMS);
+        return self::_lazyGet('_httpRequestParameterService', tubepress_spi_const_patterns_ioc_ServiceIds::HTTP_REQUEST_PARAMS);
     }
 
     /**
@@ -297,10 +284,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getMessageService()
     {
-        /**
-         * This service is not set by the core IOC container.
-         */
-        return self::$_messageService;
+        return self::_lazyGet('_messageService', tubepress_spi_const_patterns_ioc_ServiceIds::MESSAGE);
     }
 
     /**
@@ -308,7 +292,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getOptionsUiFieldBuilder()
     {
-        return self::_lazyGet('_optionsUiFieldBuilder', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_OPTIONS_UI_FIELDBUILDER);
+        return self::_lazyGet('_optionsUiFieldBuilder', tubepress_spi_const_patterns_ioc_ServiceIds::OPTIONS_UI_FIELDBUILDER);
     }
 
     /**
@@ -316,10 +300,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getOptionsUiFormHandler()
     {
-        /**
-         * This service is not set by the core IOC container.
-         */
-        return self::$_optionsUiFormHandler;
+        return self::_lazyGet('_optionsUiFormHandler', tubepress_spi_const_patterns_ioc_ServiceIds::OPTIONS_UI_FORMHANDLER);
     }
 
     /**
@@ -327,7 +308,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getOptionDescriptorReference()
     {
-        return self::_lazyGet('_optionDescriptorReference', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_OPTION_DESCRIPTOR_REFERENCE);
+        return self::_lazyGet('_optionDescriptorReference', tubepress_spi_const_patterns_ioc_ServiceIds::OPTION_DESCRIPTOR_REFERENCE);
     }
 
     /**
@@ -335,10 +316,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getOptionStorageManager()
     {
-        /**
-         * This service is not set by the core IOC container.
-         */
-        return self::$_optionStorageManager;
+        return self::_lazyGet('_optionStorageManager', tubepress_spi_const_patterns_ioc_ServiceIds::OPTION_STORAGE_MANAGER);
     }
 
     /**
@@ -346,7 +324,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getOptionValidator()
     {
-        return self::_lazyGet('_optionValidator', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_OPTION_VALIDATOR);
+        return self::_lazyGet('_optionValidator', tubepress_spi_const_patterns_ioc_ServiceIds::OPTION_VALIDATOR);
     }
 
     /**
@@ -354,7 +332,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getPlayerHtmlGenerator()
     {
-        return self::_lazyGet('_playerHtmlGenerator', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_PLAYER_HTML_GENERATOR);
+        return self::_lazyGet('_playerHtmlGenerator', tubepress_spi_const_patterns_ioc_ServiceIds::PLAYER_HTML_GENERATOR);
     }
 
     /**
@@ -362,7 +340,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getPluginDiscoverer()
     {
-        return self::_lazyGet('_pluginDiscoverer', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_PLUGIN_DISCOVER);
+        return self::_lazyGet('_pluginDiscoverer', tubepress_spi_const_patterns_ioc_ServiceIds::PLUGIN_DISCOVER);
     }
 
     /**
@@ -370,7 +348,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getPluginRegistry()
     {
-        return self::_lazyGet('_pluginRegistry', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_PLUGIN_REGISTRY);
+        return self::_lazyGet('_pluginRegistry', tubepress_spi_const_patterns_ioc_ServiceIds::PLUGIN_REGISTRY);
     }
 
     /**
@@ -378,7 +356,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getQueryStringService()
     {
-        return self::_lazyGet('_queryStringService', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_QUERY_STRING_SERVICE);
+        return self::_lazyGet('_queryStringService', tubepress_spi_const_patterns_ioc_ServiceIds::QUERY_STRING_SERVICE);
     }
 
     /**
@@ -386,7 +364,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getServiceCollectionsRegistry()
     {
-        return self::_lazyGet('_serviceCollectionsRegistry', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_SERVICE_COLLECTIONS_REGISTRY);
+        return self::_lazyGet('_serviceCollectionsRegistry', tubepress_spi_const_patterns_ioc_ServiceIds::SERVICE_COLLECTIONS_REGISTRY);
     }
 
     /**
@@ -394,7 +372,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getShortcodeHtmlGenerator()
     {
-        return self::_lazyGet('_shortcodeHtmlGenerator', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_SHORTCODE_HTML_GENERATOR);
+        return self::_lazyGet('_shortcodeHtmlGenerator', tubepress_spi_const_patterns_ioc_ServiceIds::SHORTCODE_HTML_GENERATOR);
     }
 
     /**
@@ -402,7 +380,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getShortcodeParser()
     {
-        return self::_lazyGet('_shortcodeParser', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_SHORTCODE_PARSER);
+        return self::_lazyGet('_shortcodeParser', tubepress_spi_const_patterns_ioc_ServiceIds::SHORTCODE_PARSER);
     }
 
     /**
@@ -410,7 +388,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getTemplateBuilder()
     {
-        return self::_lazyGet('_templateBuilder', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_TEMPLATE_BUILDER);
+        return self::_lazyGet('_templateBuilder', tubepress_spi_const_patterns_ioc_ServiceIds::TEMPLATE_BUILDER);
     }
 
     /**
@@ -418,7 +396,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getThemeHandler()
     {
-        return self::_lazyGet('_themeHandler', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_THEME_HANDLER);
+        return self::_lazyGet('_themeHandler', tubepress_spi_const_patterns_ioc_ServiceIds::THEME_HANDLER);
     }
 
     /**
@@ -426,7 +404,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     public static function getVideoCollector()
     {
-        return self::_lazyGet('_videoCollector', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_COLLECTOR);
+        return self::_lazyGet('_videoCollector', tubepress_spi_const_patterns_ioc_ServiceIds::VIDEO_COLLECTOR);
     }
 
     /**
@@ -435,14 +413,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setAjaxHandler(tubepress_spi_http_AjaxHandler $ajaxHandler)
     {
         self::$_ajaxHandler = $ajaxHandler;
-    }
-
-    /**
-     * @param tubepress_spi_bootstrap_Bootstrapper $bootStrapper The bootstrapper.
-     */
-    public static function setBootstrapper(tubepress_spi_bootstrap_Bootstrapper $bootStrapper)
-    {
-        self::$_bootStrapper = $bootStrapper;
     }
 
     /**
@@ -686,7 +656,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
         self::$_coreIocContainer = null;
 
         self::$_ajaxHandler = null;
-        self::$_bootStrapper = null;
         self::$_cacheService = null;
         self::$_embeddedHtmlGenerator = null;
         self::$_environmentDetector = null;

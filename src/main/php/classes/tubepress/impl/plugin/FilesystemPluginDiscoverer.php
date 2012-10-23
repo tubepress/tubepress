@@ -68,7 +68,13 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
 
         if ($doNotRecurse) {
 
-            $finder->depth(0);
+            //this helps with testing :/
+            $finder = $finder->depth(0);
+
+        } else {
+
+            //this helps with testing :/
+            $finder = $finder->depth('< 3');
         }
 
         $toReturn = array();
@@ -137,7 +143,9 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
                 $infoFileContents['description'],
                 $infoFileContents['version'],
                 str_replace('.info', '', basename($infoFile->getRealpath())),
-                dirname($infoFile->getRealpath())
+                dirname($infoFile->getRealpath()),
+                isset($infoFileContents['iocContainerExtensions']) ? $infoFileContents['iocContainerExtensions'] : array(),
+                isset($infoFileContents['classPathRoots']) ? $infoFileContents['classPathRoots'] : array()
             );
 
         } catch (Exception $e) {
@@ -148,6 +156,4 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
         }
 
     }
-
-
 }
