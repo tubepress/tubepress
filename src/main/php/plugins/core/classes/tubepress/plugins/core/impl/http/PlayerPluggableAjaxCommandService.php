@@ -26,6 +26,13 @@
  */
 class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends tubepress_impl_http_AbstractPluggableAjaxCommandService
 {
+    private $_logger;
+
+    public function __construct()
+    {
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Player Ajax Command');
+    }
+
     /**
      * @return string The command name that this handler responds to.
      */
@@ -41,9 +48,21 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
         $provider         = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoCollector();
         $qss              = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
         $sp               = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeParser();
+        $isDebugEnabled   = $this->_logger->isDebugEnabled();
+
+        if ($isDebugEnabled) {
+
+            $this->_logger->debug('Handling incoming request. First parsing shortcode.');
+        }
 
         $shortcode = rawurldecode($qss->getParamValue(tubepress_spi_const_http_ParamName::SHORTCODE));
         $videoId   = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);
+
+        if ($isDebugEnabled) {
+
+            $this->_logger->debug('Requested shortcode is ' . $shortcode);
+            $this->_logger->debug('Requested video is ' . $videoId);
+        }
 
         /* gather up the options */
         $sp->parse($shortcode);
@@ -53,12 +72,22 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
             $executionContext->set(tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
         }
 
+        if ($isDebugEnabled) {
+
+            $this->_logger->debug('Now asking video collector for video ' . $videoId);
+        }
+
         /* grab the video! */
         $video = $provider->collectSingleVideo($videoId);
 
         if ($video === null) {
 
             return array(404 => "Video $videoId not found");
+        }
+
+        if ($isDebugEnabled) {
+
+            $this->_logger->debug('Video collector found video ' . $videoId . '. Sending it to browser');
         }
 
         $title = rawurlencode($video->getTitle());
