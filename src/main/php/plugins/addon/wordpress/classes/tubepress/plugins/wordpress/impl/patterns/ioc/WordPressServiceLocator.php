@@ -61,7 +61,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator
      */
     public static function getContentFilter()
     {
-        return self::_lazyGet('_contentFilter', tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_CONTENT_FILTER);
+        return self::_lazyGet('_contentFilter', tubepress_plugins_wordpress_spi_WordPressServiceIds::CONTENT_FILTER);
     }
 
     /**
@@ -69,7 +69,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator
      */
     public static function getFrontEndCssAndJsInjector()
     {
-        return self::_lazyGet('_frontEndCssAndJsInjector', tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_CSS_AND_JS_INJECTOR);
+        return self::_lazyGet('_frontEndCssAndJsInjector', tubepress_plugins_wordpress_spi_WordPressServiceIds::CSS_AND_JS_INJECTOR);
     }
 
     /**
@@ -77,7 +77,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator
      */
     public static function getWidgetHandler()
     {
-        return self::_lazyGet('_widgetHandler', tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_WIDGET_HANDLER);
+        return self::_lazyGet('_widgetHandler', tubepress_plugins_wordpress_spi_WordPressServiceIds::WIDGET_HANDLER);
     }
 
     /**
@@ -85,7 +85,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator
      */
     public static function getWordPressFunctionWrapper()
     {
-        return self::_lazyGet('_wordPressFunctionWrapper', tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_WP_FUNCTION_WRAPPER);
+        return self::_lazyGet('_wordPressFunctionWrapper', tubepress_plugins_wordpress_spi_WordPressServiceIds::WP_FUNCTION_WRAPPER);
     }
 
     /**
@@ -93,7 +93,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator
      */
     public static function getWpAdminHandler()
     {
-        return self::_lazyGet('_wpAdminHandler', tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer::SERVICE_WP_ADMIN_HANDLER);
+        return self::_lazyGet('_wpAdminHandler', tubepress_plugins_wordpress_spi_WordPressServiceIds::WP_ADMIN_HANDLER);
     }
 
     /**

@@ -33,9 +33,23 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressCoreIocContainerExt
      */
     public final function load(ehough_iconic_impl_ContainerBuilder $container)
     {
+        /**
+         * Core stuff.
+         */
         $this->_registerMessageService($container);
         $this->_registerOptionsUiFormHandler($container);
         $this->_registerOptionsStorageManager($container);
+
+        /**
+         * WordPress specific stuff.
+         */
+        $this->_registerContentFilter($container);
+        $this->_registerCssAndJsInjector($container);
+        $this->_registerWidgetHandler($container);
+        $this->_registerWpAdminHandler($container);
+        $this->_registerWpFunctionWrapper($container);
+
+        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setCoreIocContainer($container);
     }
 
     /**
@@ -93,5 +107,52 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressCoreIocContainerExt
 
         )->addArgument(new ehough_iconic_impl_Reference($tabsId))
          ->addArgument(new ehough_iconic_impl_Reference($filterId));
+    }
+
+    private function _registerContentFilter(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        $container->register(
+
+            tubepress_plugins_wordpress_spi_WordPressServiceIds::CONTENT_FILTER,
+            'tubepress_plugins_wordpress_impl_DefaultContentFilter'
+        );
+    }
+
+    private function _registerCssAndJsInjector(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        $container->register(
+
+            tubepress_plugins_wordpress_spi_WordPressServiceIds::CSS_AND_JS_INJECTOR,
+            'tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector'
+        );
+    }
+
+
+    private function _registerWidgetHandler(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        $container->register(
+
+            tubepress_plugins_wordpress_spi_WordPressServiceIds::WIDGET_HANDLER,
+            'tubepress_plugins_wordpress_impl_DefaultWidgetHandler'
+        );
+    }
+
+    private function _registerWpAdminHandler(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        $container->register(
+
+            tubepress_plugins_wordpress_spi_WordPressServiceIds::WP_ADMIN_HANDLER,
+            'tubepress_plugins_wordpress_impl_DefaultWpAdminHandler'
+        );
+    }
+
+    private function _registerWpFunctionWrapper(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        $container->register(
+
+            tubepress_plugins_wordpress_spi_WordPressServiceIds::WP_FUNCTION_WRAPPER,
+            'tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper'
+        );
     }
 }

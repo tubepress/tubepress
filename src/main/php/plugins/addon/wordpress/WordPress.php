@@ -34,12 +34,6 @@ class tubepress_plugins_wordpress_WordPress
             return;
         }
 
-        /**
-         * Build a WP-specific IOC container.
-         */
-        $iocContainer   = new tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer();
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setCoreIocContainer($iocContainer);
-
         self::_registerWpOptions();
         self::_registerOptionsPageItems();
         self::_registerSelfWithWordPressApi();

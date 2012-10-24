@@ -19,14 +19,12 @@
  *
  */
 
-/**
- * Advanced option names for the plugin.
- */
-class tubepress_api_const_options_names_Advanced
+interface tubepress_plugins_wordpress_spi_WordPressServiceIds
 {
-    const DEBUG_ON    = 'debugging_enabled';
-    const GALLERY_ID  = 'galleryId';
-    const HTTP_METHOD = 'httpMethod';
-    const HTTPS       = 'https';
-    const KEYWORD     = 'keyword';
+    const CONTENT_FILTER         = 'contentFilter';
+    const CSS_AND_JS_INJECTOR    = 'cssAndJsInjector';
+    const WIDGET_HANDLER         = 'widgetHandler';
+    const WP_ADMIN_HANDLER       = 'wpAdminHandler';
+    const WP_FUNCTION_WRAPPER    = 'wpFunctionWrapper';
 }
+

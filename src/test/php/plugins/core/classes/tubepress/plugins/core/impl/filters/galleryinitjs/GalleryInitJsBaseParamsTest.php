@@ -48,6 +48,7 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(888);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTP_METHOD)->andReturn('some-http-method');
         $this->_mockExecutionContext->shouldReceive('toShortcode')->once()->andReturn(' + "&');
 
         $event = new tubepress_api_event_TubePressEvent(array('yo' => 'mamma'));
@@ -74,6 +75,7 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 	        'embeddedHeight' => '"999"',
 	        'embeddedWidth' => '"888"',
 	        'fluidThumbs' => 'false',
+            'httpMethod' => '"some-http-method"',
 	        'playerLocationName' => '"player-loc"',
             'shortcode' => '"%20%2B%20%22%26"',
             'playerJsUrl' => '"xyz/abc"',

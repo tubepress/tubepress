@@ -48,6 +48,9 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
         $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_SHORTCODE] =
             '"' . rawurlencode($context->toShortcode()) . '"';
 
+        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_HTTP_METHOD] =
+            '"' . $context->get(tubepress_api_const_options_names_Advanced::HTTP_METHOD) . '"';
+
         $playerLocation = $this->_findPlayerLocation($context);
 
         if ($playerLocation !== null) {

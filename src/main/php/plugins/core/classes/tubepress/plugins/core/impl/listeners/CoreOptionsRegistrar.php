@@ -28,6 +28,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
 
         tubepress_api_const_options_names_Advanced::DEBUG_ON,
         tubepress_api_const_options_names_Advanced::GALLERY_ID,
+        tubepress_api_const_options_names_Advanced::HTTP_METHOD,
         tubepress_api_const_options_names_Advanced::HTTPS,
         tubepress_api_const_options_names_Advanced::KEYWORD,
 
@@ -133,6 +134,17 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option->setDescription('The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.'); //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $option->setCannotBeSetViaShortcode();
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::HTTP_METHOD);
+        $option->setDefaultValue(ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET);
+        $option->setLabel('HTTP method');                                                           //>(translatable)<
+        $option->setDescription('Defines the HTTP method used in most TubePress Ajax operations');  //>(translatable)<
+        $option->setAcceptableValues(array(
+
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET => ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET,
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST => ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST,
+        ));
         $odr->registerOptionDescriptor($option);
 
 

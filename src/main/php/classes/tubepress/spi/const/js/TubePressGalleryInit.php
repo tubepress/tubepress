@@ -28,17 +28,18 @@ class tubepress_spi_const_js_TubePressGalleryInit
 
     const NAME_INIT_FUNCTION = 'init';
 
-    const NAME_PARAM_AJAXPAGINATION = 'ajaxPagination';
-    const NAME_PARAM_AUTONEXT       = 'autoNext';
-    const NAME_PARAM_EMBEDDEDHEIGHT = 'embeddedHeight';
-    const NAME_PARAM_EMBEDDEDWIDTH  = 'embeddedWidth';
-    const NAME_PARAM_ENABLEJSAPI    = 'jsApiEnabled';
-    const NAME_PARAM_FLUIDTHUMBS    = 'fluidThumbs';
-    const NAME_PARAM_PLAYERLOC      = 'playerLocationName';
-    const NAME_PARAM_PLAYERJSURL    = 'playerJsUrl';
+    const NAME_PARAM_AJAXPAGINATION       = 'ajaxPagination';
+    const NAME_PARAM_AUTONEXT             = 'autoNext';
+    const NAME_PARAM_EMBEDDEDHEIGHT       = 'embeddedHeight';
+    const NAME_PARAM_EMBEDDEDWIDTH        = 'embeddedWidth';
+    const NAME_PARAM_ENABLEJSAPI          = 'jsApiEnabled';
+    const NAME_PARAM_HTTP_METHOD          = 'httpMethod';
+    const NAME_PARAM_FLUIDTHUMBS          = 'fluidThumbs';
+    const NAME_PARAM_PLAYERLOC            = 'playerLocationName';
+    const NAME_PARAM_PLAYERJSURL          = 'playerJsUrl';
     const NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
-    const NAME_PARAM_PLAYSEQUENCE   = 'playSequence';
-    const NAME_PARAM_SEQUENCE       = 'sequence';
-    const NAME_PARAM_SHORTCODE      = 'shortcode';
-    const NAME_PARAM_THEME          = 'themeCSS';
+    const NAME_PARAM_PLAYSEQUENCE         = 'playSequence';
+    const NAME_PARAM_SEQUENCE             = 'sequence';
+    const NAME_PARAM_SHORTCODE            = 'shortcode';
+    const NAME_PARAM_THEME                = 'themeCSS';
 }

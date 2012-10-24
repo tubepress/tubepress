@@ -203,21 +203,21 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
     {
         $mockPlayer = Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayers = array($mockPlayer);
-        $mockPlayer->shouldReceive('getName')->times(9)->andReturn('abc');
-        $mockPlayer->shouldReceive('getFriendlyName')->times(9)->andReturn('friendly name');
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(9)->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayers);
+        $mockPlayer->shouldReceive('getName')->times(10)->andReturn('abc');
+        $mockPlayer->shouldReceive('getFriendlyName')->times(10)->andReturn('friendly name');
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(10)->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayers);
 
         $mockEmbedded = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-        $mockEmbedded->shouldReceive('getName')->times(110)->andReturn('yy-embed-name-yy');
-        $mockEmbedded->shouldReceive('getFriendlyName')->times(55)->andReturn('friendly embed name');
+        $mockEmbedded->shouldReceive('getName')->times(112)->andReturn('yy-embed-name-yy');
+        $mockEmbedded->shouldReceive('getFriendlyName')->times(56)->andReturn('friendly embed name');
         $mockEmbeds = array($mockEmbedded);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(55)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(56)->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeds);
 
         $videoProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $videoProvider->shouldReceive('getName')->times(79)->andReturn('xxvideo-provider-name-xx');
-        $videoProvider->shouldReceive('getFriendlyName')->times(79)->andReturn('xx Friendly Provider Name xx');
+        $videoProvider->shouldReceive('getName')->times(81)->andReturn('xxvideo-provider-name-xx');
+        $videoProvider->shouldReceive('getFriendlyName')->times(81)->andReturn('xx Friendly Provider Name xx');
         $videoProviders = array($videoProvider);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(79)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->times(81)->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($videoProviders);
 
         $this->setupMocks();
 
@@ -247,6 +247,17 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $option->setDescription('The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.'); //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $option->setCannotBeSetViaShortcode();
+        $this->_verifyOption($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::HTTP_METHOD);
+        $option->setDefaultValue(ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET);
+        $option->setLabel('HTTP method');                                                           //>(translatable)<
+        $option->setDescription('Defines the HTTP method used in most TubePress Ajax operations');  //>(translatable)<
+        $option->setAcceptableValues(array(
+
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET => ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET,
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST => ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST,
+        ));
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR);
@@ -589,6 +600,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
         $option->setAcceptableValues(array('provider_based' => 'Provider default', 'yy-embed-name-yy' => 'friendly embed name'));
         $this->_verifyOption($option);
+
     }
 
     private function _verifyOption(tubepress_spi_options_OptionDescriptor $expectedOption)
@@ -620,19 +632,19 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $fakeThemeDir        = \Mockery::mock();
 
 
-        $environmentDetector->shouldReceive('getUserContentDirectory')->times(50)->andReturn('user-content-dir');
+        $environmentDetector->shouldReceive('getUserContentDirectory')->times(51)->andReturn('user-content-dir');
 
-        $filesystem->shouldReceive('exists')->times(50)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
-        $filesystem->shouldReceive('exists')->times(50)->with('user-content-dir/themes')->andReturn(true);
+        $filesystem->shouldReceive('exists')->times(51)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
+        $filesystem->shouldReceive('exists')->times(51)->with('user-content-dir/themes')->andReturn(true);
 
-        $finderFactory->shouldReceive('createFinder')->times(50)->andReturn($finder);
-        $finder->shouldReceive('directories')->times(50)->andReturn($finder);
-        $finder->shouldReceive('in')->times(50)->with(array('user-content-dir/themes'))->andReturn($finder);
-        $finder->shouldReceive('depth')->times(50)->with(0);
+        $finderFactory->shouldReceive('createFinder')->times(51)->andReturn($finder);
+        $finder->shouldReceive('directories')->times(51)->andReturn($finder);
+        $finder->shouldReceive('in')->times(51)->with(array('user-content-dir/themes'))->andReturn($finder);
+        $finder->shouldReceive('depth')->times(51)->with(0);
 
         $finder->shouldReceive('getIterator')->andReturn(new ArrayIterator(array($fakeThemeDir)));
 
-        $fakeThemeDir->shouldReceive('getBasename')->times(50)->andReturn('xyz');
+        $fakeThemeDir->shouldReceive('getBasename')->times(51)->andReturn('xyz');
 
         $environmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
 
