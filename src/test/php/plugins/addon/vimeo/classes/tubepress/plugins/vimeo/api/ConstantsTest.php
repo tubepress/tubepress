@@ -24,7 +24,7 @@ class tubepress_plugins_vimeo_api_const_ConstantsTest extends TubePressUnitTest
     {
         $toTest = array(
 
-			'tubepress_plugins_youtube_api_const_options_names_GallerySource'	    => array('youtubeMostSharedValue', 'youtubeTrendingValue', 'youtubeRelatedValue', 'favoritesValue', 'youtubeMostPopularValue', 'playlistValue', 'tagValue', 'youtubeTopFavoritesValue', 'top_ratedValue', 'userValue', 'most_discussedValue', 'youtubeResponsesValue', 'most_recentValue', 'most_respondedValue', 'youtubeFeaturedValue'),
+			'tubepress_plugins_youtube_api_const_options_names_GallerySource'	    => array('youtubeMostSharedValue', 'youtubeTrendingValue', 'youtubeRelatedValue', 'favoritesValue', 'youtubeMostPopularValue', 'playlistValue', 'tagValue', 'youtubeTopFavoritesValue', 'top_ratedValue', 'userValue', 'most_discussedValue', 'youtubeResponsesValue', 'most_recentValue', 'most_respondedValue', 'recently_featuredValue'),
             'tubepress_plugins_youtube_api_const_options_values_GallerySourceValue'	=> array('favorites', 'most_discussed', 'most_recent', 'most_responded', 'youtubeMostPopular', 'playlist', 'recently_featured', 'tag', 'top_rated', 'user', 'youtubeTopFavorites', 'youtubeMostShared', 'youtubeRelated', 'youtubeTrending', 'youtubeResponses'),
             'tubepress_plugins_youtube_api_const_options_values_SafeSearchValue'	=> array('moderate', 'none', 'strict'),
             'tubepress_plugins_youtube_api_const_options_values_TimeFrameValue'		=> array('all_time', 'this_month', 'this_week', 'today'),

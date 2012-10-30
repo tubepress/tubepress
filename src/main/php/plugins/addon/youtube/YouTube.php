@@ -157,6 +157,12 @@ class tubepress_plugins_youtube_YouTube
         $option->setLabel('Most-favorited YouTube videos from');  //>(translatable)<
         $odr->registerOptionDescriptor($option);
 
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE);
+        $option->setLabel('YouTube videos most-shared on Facebook and Twitter from');  //>(translatable)<
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
+        $option->setAcceptableValues(self::$_valueMapTime);
+        $odr->registerOptionDescriptor($option);
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $option->setAcceptableValues(self::$_valueMapTime);
@@ -166,21 +172,43 @@ class tubepress_plugins_youtube_YouTube
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
         $option->setLabel('Most-recently added YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE);
         $option->setLabel('Most-discussed YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
         $option->setLabel('Most-responded to YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE);
         $option->setLabel('The latest "featured" videos on YouTube\'s homepage from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE);
+        $option->setLabel('Popular videos on <a href="http://www.youtube.com/trends">YouTube Trends</a> from');  //>(translatable)<
+        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE);
+        $option->setLabel('Videos related to this YouTube video');  //>(translatable)<
+        $option->setValidValueRegex(self::$_youTubeVideo);
+        $option->setDefaultValue('P9M__yYbsZ4');
+        $odr->registerOptionDescriptor($option);
+
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE);
+        $option->setLabel('Videos responses to this YouTube video');  //>(translatable)<
+        $option->setValidValueRegex(self::$_youTubeVideo);
+        $option->setDefaultValue('9bZkp7q19f0');
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
@@ -208,27 +236,7 @@ class tubepress_plugins_youtube_YouTube
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE);
-        $option->setLabel('YouTube videos most-shared on Facebook and Twitter from');  //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE);
-        $option->setLabel('Popular videos on <a href="http://www.youtube.com/trends">YouTube Trends</a> from');  //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE);
-        $option->setLabel('Videos related to this YouTube video');  //>(translatable)<
-        $option->setValidValueRegex(self::$_youTubeVideo);
-        $option->setDefaultValue('P9M__yYbsZ4');
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE);
-        $option->setLabel('Videos responses to this YouTube video');  //>(translatable)<
-        $option->setValidValueRegex(self::$_youTubeVideo);
-        $option->setDefaultValue('Yh0AhrY9GjA');
-        $odr->registerOptionDescriptor($option);
 
 
         /**
@@ -336,6 +344,12 @@ class tubepress_plugins_youtube_YouTube
 
                 tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
                 tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE,
+                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+
+            array(
+
+                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
+                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE,
                 tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
 
             array(

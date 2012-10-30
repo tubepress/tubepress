@@ -129,7 +129,7 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
         return $strings;
     }
 
-    private static function _poFileCompiles($file, $exec)
+    private function _poFileCompiles($file, $exec)
     {
         $realPath = self::$_i18nDirectoryPath . '/' . $file;
 
@@ -137,6 +137,12 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
 
         $msgFmt = `/usr/bin/which msgfmt`;
         $msgFmt = tubepress_impl_util_StringUtils::removeNewLines($msgFmt);
+
+        if (!is_file($msgFmt) || !is_executable($msgFmt)) {
+
+            $this->markTestSkipped('msgfmt does not exist on this installation');
+            return true;
+        }
 
         $toRun = "$msgFmt -o $outputfile $realPath";
 

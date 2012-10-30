@@ -86,6 +86,16 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
                 $url = 'standardfeeds/most_discussed';
                 break;
 
+            case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED:
+
+                $url = 'videos/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE) . '/related';
+                break;
+
+            case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES:
+
+                $url = 'videos/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE) . '/responses';
+                break;
+
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
 
                 $url = 'users/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE) . '/favorites';
