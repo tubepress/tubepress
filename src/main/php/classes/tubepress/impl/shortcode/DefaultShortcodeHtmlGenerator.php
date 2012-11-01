@@ -36,6 +36,8 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
      *
      * @param string $shortCodeContent The shortcode content.
      *
+     * @throws RuntimeException If no handlers could generate the proper HTML.
+     *
      * @return string The HTML for the given shortcode, or the error message if there was a problem.
      */
     public function getHtmlForShortcode($shortCodeContent)
