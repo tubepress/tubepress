@@ -108,7 +108,7 @@ class tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandle
 	          return "<<$key>>";
 	    });
 
-	    $this->assertEquals('<<no-videos-found>>', $this->_sut->getHtml());
+	    $this->assertEquals('<<No matching videos>>', $this->_sut->getHtml());
 	}
 
 	function testExecute()

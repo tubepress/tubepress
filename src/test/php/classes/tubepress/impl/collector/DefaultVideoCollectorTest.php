@@ -118,9 +118,6 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
         $this->assertSame($mockPage, $result);
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testMultipleNoProvidersCouldHandle()
     {
         $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
@@ -136,12 +133,19 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION, Mockery::on(function ($arg) {
+
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
+        }));
+
         $result = $this->_sut->collectVideoGalleryPage();
+
+        $this->assertTrue($result instanceof tubepress_api_video_VideoGalleryPage);
+        $this->assertTrue($result->getTotalResultCount() === 0);
+        $this->assertTrue(is_array($result->getVideos()));
+        $this->assertTrue(count($result->getVideos()) === 0);
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testMultipleNoProviders()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('x');
@@ -150,6 +154,16 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION, Mockery::on(function ($arg) {
+
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
+        }));
+
         $result = $this->_sut->collectVideoGalleryPage();
+
+        $this->assertTrue($result instanceof tubepress_api_video_VideoGalleryPage);
+        $this->assertTrue($result->getTotalResultCount() === 0);
+        $this->assertTrue(is_array($result->getVideos()));
+        $this->assertTrue(count($result->getVideos()) === 0);
     }
 }

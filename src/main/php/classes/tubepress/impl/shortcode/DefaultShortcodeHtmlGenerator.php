@@ -63,7 +63,7 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
 
         if ($html === null) {
 
-            return 'No handlers could generate HTML';
+            throw new RuntimeException('No shortcode handlers could generate HTML');
         }
 
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();

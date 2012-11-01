@@ -83,7 +83,7 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
 
         if ($video === null) {
 
-            return "Video $videoId not found";
+            return sprintf('Video %s not found', $videoId);    //>(translatable)<
         }
 
         if ($pluginManager->hasListeners(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION)) {

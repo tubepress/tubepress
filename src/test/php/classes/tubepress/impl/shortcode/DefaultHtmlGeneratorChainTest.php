@@ -63,6 +63,9 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
         $this->assertEquals('foobar', $result);
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
     function testNoHandlersCouldHandle()
     {
         $mockHandler = Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
@@ -72,18 +75,17 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
 
         $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_)->andReturn($mockHandlers);
 
-        $result = $this->_sut->getHtmlForShortcode('shortcode');
-
-        $this->assertEquals('No handlers could generate HTML', $result);
+        $this->_sut->getHtmlForShortcode('shortcode');
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
     function testNoHandlers()
     {
         $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_)->andReturn(array());
 
-        $result = $this->_sut->getHtmlForShortcode('shortcode');
-
-        $this->assertEquals('No handlers could generate HTML', $result);
+        $this->_sut->getHtmlForShortcode('shortcode');
     }
 
 }

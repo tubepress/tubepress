@@ -42,8 +42,6 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
     /**
      * Collects a video gallery page.
      *
-     * @throws RuntimeException If no videos found.
-     *
      * @return tubepress_api_video_VideoGalleryPage The video gallery page, never null.
      */
     public final function collectVideoGalleryPage()
@@ -82,6 +80,8 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
                 /** @noinspection PhpUndefinedMethodInspection */
                 $result = $videoProvider->fetchVideoGalleryPage($currentPage);
+
+                break;
             }
 
             if ($this->_isDebugEnabled) {
@@ -94,7 +94,12 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         if ($result === null) {
 
-            throw new RuntimeException('No matching videos');    //>(translatable)<
+            if ($this->_isDebugEnabled) {
+
+                $this->_logger->debug('No video providers could handle this request');
+            }
+
+            $result = new tubepress_api_video_VideoGalleryPage();
         }
 
         $event = new tubepress_api_event_TubePressEvent($result);

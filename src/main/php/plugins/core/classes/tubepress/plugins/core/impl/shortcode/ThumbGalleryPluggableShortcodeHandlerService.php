@@ -94,7 +94,7 @@ class tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandle
 
         if ($numVideos == 0) {
 
-            return $ms->_('no-videos-found');
+            return $ms->_('No matching videos');     //>(translatable)<
         }
 
         /* send the template through the plugins */

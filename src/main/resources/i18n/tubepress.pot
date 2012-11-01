@@ -17,10 +17,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: TubePress 2.3.0\n"
+"Project-Id-Version: TubePress\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Eric Hough <eric@tubepress.org>\n"
+"Last-Translator: Eric D. Hough <eric@tubepress.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -563,4 +563,7 @@ msgid "HTTP method"
 msgstr ""
 
 msgid "Defines the HTTP method used in most TubePress Ajax operations"
+msgstr ""
+
+msgid "Video %s not found"
 msgstr ""

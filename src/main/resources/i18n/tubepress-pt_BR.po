@@ -566,3 +566,6 @@ msgstr ""
 
 msgid "Defines the HTTP method used in most TubePress Ajax operations"
 msgstr ""
+
+msgid "Video %s not found"
+msgstr ""

@@ -16,7 +16,7 @@
 # along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 msgid ""
 msgstr ""
-"Project-Id-Version: TubePress in italiano\n"
+"Project-Id-Version: TubePress it_IT\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao[at]gmail[dot]com>\n"
@@ -563,4 +563,7 @@ msgid "HTTP method"
 msgstr ""
 
 msgid "Defines the HTTP method used in most TubePress Ajax operations"
+msgstr ""
+
+msgid "Video %s not found"
 msgstr ""
