@@ -70,7 +70,12 @@ class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServ
 
         $link->setQueryVariable('autohide', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoHide));
         $link->setQueryVariable('autoplay', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
-        $link->setQueryVariable('cc_load_policy', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($cc));
+
+        if ($cc) {
+
+            $link->setQueryVariable('cc_load_policy', '1');
+        }
+
         $link->setQueryVariable('controls', self::_getControlsValue($controls));
         $link->setQueryVariable('disablekb', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($disableKeys));
         $link->setQueryVariable('enablejsapi', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($enableJsApi));
