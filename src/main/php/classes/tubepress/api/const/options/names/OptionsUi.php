@@ -24,5 +24,5 @@
  */
 class tubepress_api_const_options_names_OptionsUi
 {
-    const PROVIDERS_TO_HIDE = 'optionsUiProvidersToHide';
+    const ENABLED_FILTERS = 'enabledOptionFilters';
 }

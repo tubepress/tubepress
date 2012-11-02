@@ -40,10 +40,10 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
         $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
 
-        $mockOption = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
+        $mockOption = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::ENABLED_FILTERS);
         $mockOption->setLabel('some crazy title');
 
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE)->andReturn($mockOption);
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::ENABLED_FILTERS)->andReturn($mockOption);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);

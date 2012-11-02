@@ -37,7 +37,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
-        $this->_hideOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
+        $this->_hideOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::ENABLED_FILTERS);
     }
 
     /**

@@ -78,7 +78,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         tubepress_api_const_options_names_Meta::URL,
         tubepress_api_const_options_names_Meta::VIEWS,
 
-        tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE,
+        tubepress_api_const_options_names_OptionsUi::ENABLED_FILTERS,
 
         tubepress_api_const_options_names_Output::GALLERY_SOURCE,
         tubepress_api_const_options_names_Output::OUTPUT,
@@ -426,7 +426,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         /**
          * OPTIONS UI OPTIONS
          */
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::PROVIDERS_TO_HIDE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::ENABLED_FILTERS);
         $option->setLabel('Only show options applicable to...');    //>(translatable)<
         $odr->registerOptionDescriptor($option);
 
