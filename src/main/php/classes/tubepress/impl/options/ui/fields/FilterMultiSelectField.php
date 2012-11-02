@@ -22,7 +22,8 @@
 /**
  * Displays a multi-select drop-down input for video meta.
  */
-class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField
+class tubepress_impl_options_ui_fields_FilterMultiSelectField
+    extends tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField
 {
     const TEMPLATE_VAR_PROVIDERS = 'tubepress_impl_options_ui_fields_FilterMultiSelectField__providers';
 
@@ -31,13 +32,13 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
     /**
      * @var tubepress_spi_options_OptionDescriptor The underlying option descriptor.
      */
-    private $_enabledFiltersOptionDescriptor;
+    private $_disabledParticipantsOptionDescriptor;
 
     public function __construct()
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
-        $this->_enabledFiltersOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::ENABLED_FILTERS);
+        $this->_disabledParticipantsOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
     }
 
     /**
@@ -47,17 +48,17 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
      */
     public final function onSubmit()
     {
-        $hrps           = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $storageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
-        $optionName     = $this->_enabledFiltersOptionDescriptor->getName();
-        $allFilterNames = array_keys($this->_getFilterNamesToFriendlyNamesMap());
+        $hrps                 = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
+        $allParticipantNames = array_keys($this->_getFilterNamesToFriendlyNamesMap());
 
         /**
          * This means that they want to hide everything.
          */
         if (! $hrps->hasParam($optionName)) {
 
-            $storageManager->set($optionName, implode(';', $allFilterNames));
+            $storageManager->set($optionName, implode(';', $allParticipantNames));
 
             return null;
         }
@@ -71,12 +72,12 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
         }
 
         $toHide = array();
-        foreach ($allFilterNames as $filterName) {
+        foreach ($allParticipantNames as $participantName) {
 
             /*
              * They checked the box, which means they want to show it.
              */
-            if (in_array($filterName, $vals)) {
+            if (in_array($participantName, $vals)) {
 
                 continue;
             }
@@ -84,7 +85,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
             /**
              * They don't want to show this provider, so hide it.
              */
-            $toHide[] = $filterName;
+            $toHide[] = $participantName;
         }
 
         $result = $storageManager->set($optionName, implode(';', $toHide));
@@ -104,24 +105,24 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
      */
     public final function getHtml()
     {
-        $templateBuilder  = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $template         = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect-provider-filter.tpl.php');
-        $storageManager   = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
-        $optionName       = $this->_enabledFiltersOptionDescriptor->getName();
-        $currentHides     = explode(';', $storageManager->get($optionName));
-        $allFiltersMap    = $this->_getFilterNamesToFriendlyNamesMap();
-        $currentShows     = array();
+        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $template            = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect-provider-filter.tpl.php');
+        $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
+        $currentHides        = explode(';', $storageManager->get($optionName));
+        $participantsNameMap = $this->_getFilterNamesToFriendlyNamesMap();
+        $currentShows        = array();
 
-        foreach ($allFiltersMap as $filterName => $filterFriendlyName) {
+        foreach ($participantsNameMap as $participantName => $participantFriendlyName) {
 
-            if (! in_array($filterName, $currentHides)) {
+            if (! in_array($participantName, $currentHides)) {
 
-                $currentShows[] = $filterName;
+                $currentShows[] = $participantName;
             }
         }
 
         $template->setVariable(self::TEMPLATE_VAR_NAME,          $optionName);
-        $template->setVariable(self::TEMPLATE_VAR_PROVIDERS,     $allFiltersMap);
+        $template->setVariable(self::TEMPLATE_VAR_PROVIDERS,     $participantsNameMap);
         $template->setVariable(self::TEMPLATE_VAR_CURRENTVALUES, $currentShows);
 
         return $template->toString();
@@ -144,7 +145,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
      */
     protected final function getRawTitle()
     {
-        return $this->_enabledFiltersOptionDescriptor->getLabel();
+        return $this->_disabledParticipantsOptionDescriptor->getLabel();
     }
 
     /**
@@ -175,7 +176,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
     private function _getFilterNamesToFriendlyNamesMap()
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $registeredFilters          = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageFilter::_);
+        $registeredFilters          = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
 
         $toReturn = array();
 

@@ -24,5 +24,5 @@
  */
 class tubepress_api_const_options_names_OptionsUi
 {
-    const ENABLED_FILTERS = 'enabledOptionFilters';
+    const DISABLED_OPTIONS_PAGE_PARTICIPANTS = 'disabledOptionsPageParticipants';
 }

@@ -590,7 +590,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $option->setBoolean();
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::ENABLED_FILTERS);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
         $option->setLabel('Only show options applicable to...');    //>(translatable)<
         $this->_verifyOption($option);
 
