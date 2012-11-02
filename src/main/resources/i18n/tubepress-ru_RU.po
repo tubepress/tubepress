@@ -555,3 +555,21 @@ msgstr ""
 
 msgid "Video %s not found"
 msgstr ""
+
+msgid "JW FLV Player background color"
+msgstr ""
+
+msgid "JW FLV Player front color"
+msgstr ""
+
+msgid "JW FLV Player light color"
+msgstr ""
+
+msgid "JW FLV Player screen color"
+msgstr ""
+
+msgid "Default is FFFFFF"
+msgstr ""
+
+msgid "Default is 000000"
+msgstr ""

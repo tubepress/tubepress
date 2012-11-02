@@ -23,27 +23,37 @@ class tubepress_plugins_jwflvplayer_resources_templates_embedded_JwFlvPlayerEmbe
 	public function testTemplate()
     {
         $this->expectOutputString(<<<EOT
-<embed	src="tp-base-url/sys/ui/static/flash/longtail/player.swf"
-		width="99"
-		height="88"
-        allowscriptaccess="never"
-        wmode="opaque"
-        movie="tp-base-url/sys/ui/static/flash/longtail/player.swf"
-        bgcolor="some-color"
-        frontcolor="some-color"
-        quality="high"
-        flashvars="file=data-url&amp;autostart=starttt&amp;height=88&amp;width=99&amp;frontcolor=some-color"
+<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='99' height='88'>
+    <param name='movie' value='tp-base-url/src/main/web/flash/longtail/player.swf'>
+    <param name='allowfullscreen' value='true'>
+    <param name='allowscriptaccess' value='always'>
+    <param name='wmode' value='transparent'>
+    <param name='flashvars' value='file=data-url&amp;autostart=starttt&amp;backcolor=back-color&amp;frontcolor=front-color&amp;lightcolor=light-color&amp;screencolor=screen-color'>
+
+<embed	type='application/x-shockwave-flash'
+        src='tp-base-url/src/main/web/flash/longtail/player.swf'
+		width='99'
+		height='88'
+		bgcolor='undefined'
+        allowscriptaccess='always'
+        allowfullscreen='true'
+        wmode='transparent'
+        flashvars='file=data-url&amp;autostart=starttt&amp;backcolor=back-color&amp;frontcolor=front-color&amp;lightcolor=light-color&amp;screencolor=screen-color'
 </embed>
+</object>
 EOT
 );
 
         ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL} = 'tp-base-url';
-        ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY} = 'some-color';
         ${tubepress_api_const_template_Variable::VIDEO_ID} = 'video-id';
         ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH} = 99;
         ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT} = 88;
         ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL} = 'data-url';
         ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART} = 'starttt';
+        ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_BACK} = 'back-color';
+        ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_FRONT} = 'front-color';
+        ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_LIGHT} = 'light-color';
+        ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_SCREEN} = 'screen-color';
 
         require TUBEPRESS_ROOT . '/src/main/php/plugins/addon/jwflvplayer/resources/templates/embedded/longtail.tpl.php';
     }

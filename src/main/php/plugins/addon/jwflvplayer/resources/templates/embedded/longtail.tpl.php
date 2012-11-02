@@ -19,14 +19,21 @@
  *
  */
 ?>
-<embed	src="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf"
-		width="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>"
-		height="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>"
-        allowscriptaccess="never"
-        wmode="opaque"
-        movie="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf"
-        bgcolor="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
-        frontcolor="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
-        quality="high"
-        flashvars="file=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>&amp;frontcolor=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
+<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>' height='<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>'>
+    <param name='movie' value='<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/src/main/web/flash/longtail/player.swf'>
+    <param name='allowfullscreen' value='true'>
+    <param name='allowscriptaccess' value='always'>
+    <param name='wmode' value='transparent'>
+    <param name='flashvars' value='file=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART}; ?>&amp;backcolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_BACK}; ?>&amp;frontcolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_FRONT}; ?>&amp;lightcolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_LIGHT}; ?>&amp;screencolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_SCREEN}; ?>'>
+
+<embed	type='application/x-shockwave-flash'
+        src='<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/src/main/web/flash/longtail/player.swf'
+		width='<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>'
+		height='<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>'
+		bgcolor='undefined'
+        allowscriptaccess='always'
+        allowfullscreen='true'
+        wmode='transparent'
+        flashvars='file=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART}; ?>&amp;backcolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_BACK}; ?>&amp;frontcolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_FRONT}; ?>&amp;lightcolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_LIGHT}; ?>&amp;screencolor=<?php echo ${tubepress_plugins_jwflvplayer_api_const_template_Variable::COLOR_SCREEN}; ?>'
 </embed>
+</object>
