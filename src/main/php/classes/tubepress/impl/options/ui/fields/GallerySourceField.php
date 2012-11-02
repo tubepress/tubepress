@@ -22,13 +22,13 @@
 /**
  * A field suited for display on the gallery source tab.
  */
-class tubepress_impl_options_ui_fields_GallerySourceField implements tubepress_spi_options_ui_PluggableOptionsPageField
+class tubepress_impl_options_ui_fields_GallerySourceField implements tubepress_spi_options_ui_Field
 {
     private $_name;
 
     private $_field;
 
-    public function  __construct($gallerySourceName, tubepress_spi_options_ui_PluggableOptionsPageField $field)
+    public function  __construct($gallerySourceName, tubepress_spi_options_ui_Field $field)
     {
         $this->_name  = $gallerySourceName;
         $this->_field = $field;

@@ -38,14 +38,14 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
     private $_tabs;
 
     /**
-     * @var tubepress_spi_options_ui_PluggableOptionsPageField
+     * @var tubepress_spi_options_ui_Field
      */
     private $_filterField;
 
     public function __construct(
 
         tubepress_spi_options_ui_FormHandler $tabs,
-        tubepress_spi_options_ui_PluggableOptionsPageField       $filterField)
+        tubepress_spi_options_ui_Field       $filterField)
     {
         $this->_tabs        = $tabs;
         $this->_filterField = $filterField;

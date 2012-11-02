@@ -374,7 +374,7 @@ class tubepress_plugins_youtube_YouTube
 
             $serviceCollectionsRegistry->registerService(
 
-                tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+                tubepress_spi_options_ui_Field::CLASS_NAME,
                 $field
             );
         }
@@ -395,32 +395,32 @@ class tubepress_plugins_youtube_YouTube
 
             $serviceCollectionsRegistry->registerService(
 
-                tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+                tubepress_spi_options_ui_Field::CLASS_NAME,
                 new tubepress_impl_options_ui_fields_BooleanField($embeddedBoolean, 'embedded')
             );
         }
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             new tubepress_impl_options_ui_fields_DropdownField(tubepress_plugins_youtube_api_const_options_names_Embedded::THEME, 'embedded')
         );
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             new tubepress_impl_options_ui_fields_BooleanField(tubepress_plugins_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY, 'feed')
         );
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             new tubepress_impl_options_ui_fields_TextField(tubepress_plugins_youtube_api_const_options_names_Feed::DEV_KEY, 'feed')
         );
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             new tubepress_impl_options_ui_fields_DropdownField(tubepress_plugins_youtube_api_const_options_names_Feed::FILTER, 'feed')
         );
     }

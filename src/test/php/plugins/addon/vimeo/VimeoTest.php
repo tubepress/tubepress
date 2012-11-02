@@ -91,7 +91,7 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 
         foreach ($gallerySources as $name => $value) {
 
-            $mockField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+            $mockField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
             $mockField->shouldReceive('getDesiredTabName')->andReturn('gallery-source');
 
             $this->_mockFieldBuilder->shouldReceive('build')->once()->with($value,
@@ -99,7 +99,7 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 
             $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-                tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+                tubepress_spi_options_ui_Field::CLASS_NAME,
                 Mockery::on(function ($arg) use ($name, $value) {
 
                     return $arg instanceof tubepress_impl_options_ui_fields_GallerySourceField
@@ -108,9 +108,9 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
                 }));
         }
 
-        $mockPlayerColorField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
-        $mockVimeoKeyField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
-        $mockVimeoSecretField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+        $mockPlayerColorField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $mockVimeoKeyField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $mockVimeoSecretField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with(
             tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR
@@ -126,13 +126,13 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             Mockery::type('tubepress_impl_options_ui_fields_ColorField')
         );
 
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->twice()->with(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             Mockery::type('tubepress_impl_options_ui_fields_TextField')
         );
 

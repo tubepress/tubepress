@@ -66,7 +66,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
         $additionalFields = array();
 
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $allFields                  = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+        $allFields                  = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_Field::CLASS_NAME);
 
         foreach ($allFields as $candidateField) {
 

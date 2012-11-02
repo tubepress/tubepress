@@ -31,7 +31,7 @@ class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_opt
      * @param string $type            The name of the class to construct to represent this field.
      * @param string $expectedTabName The expected tab name.
      *
-     * @return tubepress_spi_options_ui_PluggableOptionsPageField The constructed field.
+     * @return tubepress_spi_options_ui_Field The constructed field.
      */
     public final function build($name, $type, $expectedTabName)
     {

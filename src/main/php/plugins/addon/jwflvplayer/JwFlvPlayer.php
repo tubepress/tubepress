@@ -70,7 +70,7 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayer
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             $fieldBuilder->build(
                 tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_BACK,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
@@ -80,7 +80,7 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayer
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             $fieldBuilder->build(
                 tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_FRONT,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
@@ -90,7 +90,7 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayer
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             $fieldBuilder->build(
                 tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_LIGHT,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
@@ -100,7 +100,7 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayer
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             $fieldBuilder->build(
                 tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_SCREEN,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,

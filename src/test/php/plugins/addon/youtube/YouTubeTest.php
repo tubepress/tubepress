@@ -376,7 +376,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
         foreach ($gallerySources as $source) {
 
-            $mockField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+            $mockField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
             $mockField->shouldReceive('getDesiredTabName')->andReturn('gallery-source');
 
             $this->_mockFieldBuilder->shouldReceive('build')->once()->with($source[1],
@@ -386,7 +386,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
             $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-                tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+                tubepress_spi_options_ui_Field::CLASS_NAME,
                 Mockery::on(function ($arg) use ($name) {
 
                     return $arg instanceof tubepress_impl_options_ui_fields_GallerySourceField
@@ -416,7 +416,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
             $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-                tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+                tubepress_spi_options_ui_Field::CLASS_NAME,
                 Mockery::on(function ($arg) use ($mockDescriptor) {
 
                     return $arg instanceof tubepress_impl_options_ui_fields_BooleanField
@@ -448,7 +448,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             Mockery::on(function ($arg) use ($mockPlayerColorField) {
 
                 return $arg instanceof tubepress_impl_options_ui_fields_DropdownField
@@ -458,7 +458,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             Mockery::on(function ($arg) use ($mockVimeoKeyField) {
 
                 return $arg instanceof tubepress_impl_options_ui_fields_BooleanField
@@ -468,7 +468,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             Mockery::on(function ($arg) use ($mockVimeoKeyField) {
 
                 return $arg instanceof tubepress_impl_options_ui_fields_DropdownField
@@ -478,7 +478,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME,
+            tubepress_spi_options_ui_Field::CLASS_NAME,
             Mockery::on(function ($arg) use ($mockVimeoKeyField) {
 
                 return $arg instanceof tubepress_impl_options_ui_fields_TextField

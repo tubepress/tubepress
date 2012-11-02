@@ -22,9 +22,9 @@
 /**
  * An HTML input field or some sort.
  */
-interface tubepress_spi_options_ui_PluggableOptionsPageField extends tubepress_spi_options_ui_FormHandler
+interface tubepress_spi_options_ui_Field extends tubepress_spi_options_ui_FormHandler
 {
-    const CLASS_NAME = 'tubepress_spi_options_ui_PluggableOptionsPageField';
+    const CLASS_NAME = 'tubepress_spi_options_ui_Field';
 
     /**
      * Gets the title of this field, usually consumed by humans.

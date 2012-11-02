@@ -22,7 +22,7 @@
 /**
  * Base class for HTML fields.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField implements tubepress_spi_options_ui_PluggableOptionsPageField
+abstract class tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField implements tubepress_spi_options_ui_Field
 {
     const TEMPLATE_VAR_NAME  = 'tubepress_impl_options_ui_fields_AbstractField__name';
 

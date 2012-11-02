@@ -57,7 +57,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
     {
         $expected = $this->getHardcodedFieldArray();
 
-        $fakeExtraField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+        $fakeExtraField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
         $fakeExtraField->shouldReceive('getDesiredTabName')->once()->andReturn($this->_sut->getName());
         $fakeExtraFields = array($fakeExtraField);
         $expectedFieldArray = $this->getAdditionalFields();
@@ -78,7 +78,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 
 
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME)->andReturn(
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME)->andReturn(
 
             $fakeExtraFields
         );

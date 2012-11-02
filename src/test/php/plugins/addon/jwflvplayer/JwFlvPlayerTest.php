@@ -78,10 +78,10 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayerTest extends TubePressUnitTest
         $option->setValidValueRegex(self::$_regexColor);
         $this->_verifyOption($option);
 
-        $mockColorBackField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
-        $mockColorFrontField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
-        $mockColorLightField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
-        $mockColorScreenField = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME);
+        $mockColorBackField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $mockColorFrontField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $mockColorLightField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $mockColorScreenField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
 
         $this->_mockFieldBuilder->shouldReceive('build')->once()->with(
 
@@ -111,10 +111,10 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayerTest extends TubePressUnitTest
             'embedded'
         )->andReturn($mockColorScreenField);
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME, $mockColorBackField);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME, $mockColorFrontField);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME, $mockColorLightField);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageField::CLASS_NAME, $mockColorScreenField);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorBackField);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorFrontField);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorLightField);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorScreenField);
 
         $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             Mockery::on(function ($arg) {
