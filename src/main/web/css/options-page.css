@@ -28,6 +28,7 @@
     margin-bottom: -8px;
     margin-top: 0.5em;
     width: 100%;
+    padding-bottom: 1em;
 }
 
 .tubepress-tab td {
@@ -56,3 +57,27 @@ ul.ui-multiselect-checkboxes label span {
 	margin-left: 3px;
 }
 
+div.tubepress-participant{
+
+    margin-top: 1.8em;
+    padding: 0;
+}
+
+div.tubepress-participant-header {
+
+    border: 0;
+    padding: 0.6em;
+    margin-bottom: 1em;
+}
+
+div.tubepress-tab {
+
+    width: 60%;
+    min-width: 800px;
+}
+
+th.tubepress-field-header img {
+
+    float: left;
+    margin-right: 0.5em;
+}

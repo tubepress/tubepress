@@ -20,10 +20,12 @@
  */
 
 /**
- * Displays the appearance tab.
+ * Displays the cache tab.
  */
 class tubepress_impl_options_ui_tabs_CacheTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
+    const TAB_NAME = 'cache';
+
     /**
      * Get the untranslated title of this tab.
      *
@@ -34,33 +36,8 @@ class tubepress_impl_options_ui_tabs_CacheTab extends tubepress_impl_options_ui_
         return 'Cache';  //>(translatable)<
     }
 
-    /**
-     * Get the delegate form handlers.
-     *
-     * @return array An array of tubepress_spi_options_ui_FormHandler.
-     */
-    protected final function getHardCodedFields()
-    {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
-        return array(
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_ENABLED,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_DIR,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,    $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
-        );
-    }
-
     public final function getName()
     {
-        return 'cache';
+        return self::TAB_NAME;
     }
 }

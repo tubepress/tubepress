@@ -24,6 +24,8 @@
  */
 class tubepress_impl_options_ui_tabs_ThemeTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
+    const TAB_NAME = 'theme';
+
     /**
      * Get the untranslated title of this tab.
      *
@@ -34,24 +36,8 @@ class tubepress_impl_options_ui_tabs_ThemeTab extends tubepress_impl_options_ui_
         return 'Theme';  //>(translatable)<
     }
 
-    /**
-     * Get the delegate form handlers.
-     *
-     * @return array An array of tubepress_spi_options_ui_FormHandler.
-     */
-    protected final function getHardCodedFields()
-    {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
-        return array(
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::THEME,
-                tubepress_impl_options_ui_fields_ThemeField::FIELD_CLASS_NAME, $this->getName())
-        );
-    }
-
     public final function getName()
     {
-        return 'theme';
+        return self::TAB_NAME;
     }
 }

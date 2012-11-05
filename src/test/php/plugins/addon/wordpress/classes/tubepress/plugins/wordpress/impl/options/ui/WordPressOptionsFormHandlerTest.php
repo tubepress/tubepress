@@ -70,7 +70,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/plugins/addon/wordpress/resources/templates/options_page.tpl.php')->andReturn($template);
 
         $this->_mockMessageService->shouldReceive('_')->once()->with('TubePress Options')->andReturn('<<title>>');
-        $this->_mockMessageService->shouldReceive('_')->once()->with('Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.')->andReturn('<<blurb>>');
+        $this->_mockMessageService->shouldReceive('_')->once()->with('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more information.')->andReturn('<<blurb>>');
         $this->_mockMessageService->shouldReceive('_')->once()->with('Save')->andReturn('<<save>>');
 
         $this->_mockTabs->shouldReceive('getHtml')->once()->andReturn('<<tabhtml>>');

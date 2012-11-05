@@ -158,21 +158,6 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
         return '';
     }
 
-    public final function getDesiredTabName()
-    {
-        return null;
-    }
-
-    /**
-     * Gets the providers to which this field applies.
-     *
-     * @return array An array of provider names to which this field applies. May be empty. Never null.
-     */
-    public final function getArrayOfApplicableProviderNames()
-    {
-        return $this->allProviders();
-    }
-
     private function _getFilterNamesToFriendlyNamesMap()
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
@@ -181,6 +166,11 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
         $toReturn = array();
 
         foreach ($registeredFilters as $filter) {
+
+            if ($filter->getName() === 'core') {
+
+                continue;
+            }
 
             $toReturn[$filter->getName()] = $filter->getFriendlyName();
         }

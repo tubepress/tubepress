@@ -24,8 +24,6 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 
     private $_mockOptionsDescriptorReference;
 
-    private $_mockFieldBuilder;
-
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
@@ -33,11 +31,9 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 	{
         $this->_mockVideoProviderRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
         $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockFieldBuilder = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockVideoProviderRegistry);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
 	}
 
 	function testVimeo()
@@ -62,80 +58,11 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 
     private function _testOptionsPageUi()
     {
-        $gallerySources = array(
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE
-        );
-
-        foreach ($gallerySources as $name => $value) {
-
-            $mockField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-            $mockField->shouldReceive('getDesiredTabName')->andReturn('gallery-source');
-
-            $this->_mockFieldBuilder->shouldReceive('build')->once()->with($value,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, 'gallery-source')->andReturn($mockField);
-
-            $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-
-                tubepress_spi_options_ui_Field::CLASS_NAME,
-                Mockery::on(function ($arg) use ($name, $value) {
-
-                    return $arg instanceof tubepress_impl_options_ui_fields_GallerySourceField
-                        && $arg->getDesiredTabName() === 'gallery-source'
-                        && $arg->getGallerySourceName() === $name;
-                }));
-        }
-
-        $mockPlayerColorField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $mockVimeoKeyField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $mockVimeoSecretField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-
-        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with(
-            tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR
-        )->andReturn($mockPlayerColorField);
-
-        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with(
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY
-        )->andReturn($mockVimeoKeyField);
-
-        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with(
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET
-        )->andReturn($mockVimeoSecretField);
-
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            Mockery::type('tubepress_impl_options_ui_fields_ColorField')
+            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
+            Mockery::type('tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant')
         );
-
-        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->twice()->with(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            Mockery::type('tubepress_impl_options_ui_fields_TextField')
-        );
-
     }
 
     private function _testOptions()

@@ -46,13 +46,4 @@ interface tubepress_spi_options_ui_Field extends tubepress_spi_options_ui_FormHa
      * @return boolean True if this field is TubePress Pro only. False otherwise.
      */
     function isProOnly();
-
-    /**
-     * Gets the providers to which this field applies.
-     *
-     * @return array An array of provider names to which this field applies. May be empty. Never null.
-     */
-    function getArrayOfApplicableProviderNames();
-
-    function getDesiredTabName();
 }

@@ -31,8 +31,8 @@ final class tubepress_plugins_vimeo_Vimeo
     {
         self::_registerVimeoOptions();
         self::_registerVimeoEmbeddedPlayer();
-        self::_registerVimeoOptionsPageItems();
         self::_registerVimeoVideoProvider();
+        self::_registerVimeoOptionsPageParticipant();
     }
 
     private static function _registerVimeoOptions()
@@ -141,71 +141,6 @@ final class tubepress_plugins_vimeo_Vimeo
         );
     }
 
-    private static function _registerVimeoOptionsPageItems()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $fieldBuilder               = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
-        $gallerySources = array(
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
-
-            tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE
-        );
-
-        foreach ($gallerySources as $name => $value) {
-
-            $field = $fieldBuilder->build($value,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, 'gallery-source');
-
-            $field = new tubepress_impl_options_ui_fields_GallerySourceField($name, $field);
-
-            $serviceCollectionsRegistry->registerService(
-
-                tubepress_spi_options_ui_Field::CLASS_NAME,
-                $field
-            );
-        }
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            new tubepress_impl_options_ui_fields_ColorField(tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR, 'embedded')
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            new tubepress_impl_options_ui_fields_TextField(tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY, 'feed')
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            new tubepress_impl_options_ui_fields_TextField(tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET, 'feed')
-        );
-    }
-
     private static function _registerVimeoVideoProvider()
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
@@ -217,6 +152,17 @@ final class tubepress_plugins_vimeo_Vimeo
 
                 new tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder()
             )
+        );
+    }
+
+    private static function _registerVimeoOptionsPageParticipant()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
+            new tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant()
         );
     }
 }

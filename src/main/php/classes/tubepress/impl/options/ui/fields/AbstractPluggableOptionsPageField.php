@@ -77,21 +77,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageFiel
      */
     protected abstract function getRawDescription();
 
-    protected final function allProviders()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
-
-        $toReturn = array();
-
-        foreach ($videoProviders as $videoProvider) {
-
-            $toReturn[] = $videoProvider->getName();
-        }
-
-        return $toReturn;
-    }
-
     private function _getMessage($raw)
     {
         if ($raw == '') {

@@ -38,8 +38,8 @@ class tubepress_plugins_youtube_YouTube
     {
         self::_registerYouTubeOptions();
         self::_registerYouTubeEmbeddedPlayer();
-        self::_registerYouTubeOptionsPageItems();
         self::_registerYouTubeVideoProvider();
+        self::_registerYouTubeOptionsPage();
     }
 
     private static function _registerYouTubeOptions()
@@ -267,164 +267,6 @@ class tubepress_plugins_youtube_YouTube
         );
     }
 
-    private static function _registerYouTubeOptionsPageItems()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $fieldBuilder               = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
-        $gallerySources = array(
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
-                tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-        );
-
-        foreach ($gallerySources as $gallerySource) {
-
-            $field = $fieldBuilder->build($gallerySource[1],
-                $gallerySource[2], 'gallery-source');
-
-            $field = new tubepress_impl_options_ui_fields_GallerySourceField($gallerySource[0], $field);
-
-            $serviceCollectionsRegistry->registerService(
-
-                tubepress_spi_options_ui_Field::CLASS_NAME,
-                $field
-            );
-        }
-
-        $embeddedBooleans = array(
-
-            tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED,
-        );
-
-        foreach ($embeddedBooleans as $embeddedBoolean) {
-
-            $serviceCollectionsRegistry->registerService(
-
-                tubepress_spi_options_ui_Field::CLASS_NAME,
-                new tubepress_impl_options_ui_fields_BooleanField($embeddedBoolean, 'embedded')
-            );
-        }
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            new tubepress_impl_options_ui_fields_DropdownField(tubepress_plugins_youtube_api_const_options_names_Embedded::THEME, 'embedded')
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            new tubepress_impl_options_ui_fields_BooleanField(tubepress_plugins_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY, 'feed')
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            new tubepress_impl_options_ui_fields_TextField(tubepress_plugins_youtube_api_const_options_names_Feed::DEV_KEY, 'feed')
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            new tubepress_impl_options_ui_fields_DropdownField(tubepress_plugins_youtube_api_const_options_names_Feed::FILTER, 'feed')
-        );
-    }
-
     private static function _registerYouTubeVideoProvider()
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
@@ -436,6 +278,17 @@ class tubepress_plugins_youtube_YouTube
 
                 new tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder()
             )
+        );
+    }
+
+    private static function _registerYouTubeOptionsPage()
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
+            new tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant()
         );
     }
 }

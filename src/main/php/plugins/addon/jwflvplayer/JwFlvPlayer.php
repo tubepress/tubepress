@@ -30,13 +30,18 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayer
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $odr                        = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
-        $fieldBuilder               = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
         $eventDispatcher            = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         $serviceCollectionsRegistry->registerService(
 
             tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
             new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerService()
+        );
+
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
+            new tubepress_plugins_jwflvplayer_impl_options_ui_JwFlvPlayerOptionsPageParticipant()
         );
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_BACK);
@@ -66,47 +71,6 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayer
         $option->setDescription('Default is 000000');                  //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $odr->registerOptionDescriptor($option);
-
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            $fieldBuilder->build(
-                tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_BACK,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-                'embedded'
-            )
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            $fieldBuilder->build(
-                tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_FRONT,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-                'embedded'
-            )
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            $fieldBuilder->build(
-                tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_LIGHT,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-                'embedded'
-            )
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_Field::CLASS_NAME,
-            $fieldBuilder->build(
-                tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_SCREEN,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-                'embedded'
-            )
-        );
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
 

@@ -58,7 +58,7 @@
 
 			var normal = raw.replace('show', '').replace('Options', '');
 
-			return 'tubepress-' + normal.toLowerCase() + '-option';
+			return 'tubepress-participant-' + normal.toLowerCase();
 		},
 
 		doShowAndHide = function (arrayOfSelected, arrayOfPossible) {
@@ -96,13 +96,13 @@
 		filterHandler = function () {
 
 			//get the selected classes
-			var selected = jQuery('#multiselect-optionsUiProvidersToHide option:selected').map(function (e) {
+			var selected = jQuery('#multiselect-disabledOptionsPageParticipants option:selected').map(function (e) {
 
 				return normalizeProviderName(jQuery(this).val());
 			}),
 
 			//get all the classes
-			allPossible = jQuery('#multiselect-optionsUiProvidersToHide option').map(function (e) {
+			allPossible = jQuery('#multiselect-disabledOptionsPageParticipants option').map(function (e) {
 
 				return normalizeProviderName(jQuery(this).val());
 			});
@@ -112,7 +112,7 @@
 		};
 
 		//make the multi-selects
-		jQuery('#multiselect-optionsUiProvidersToHide').multiselect({
+		jQuery('#multiselect-disabledOptionsPageParticipants').multiselect({
 
 			selectedText : 'choose...'
 		});
@@ -124,12 +124,9 @@
 		});
 
 		//bind to value changes on the filter drop-down
-		jQuery('#multiselect-optionsUiProvidersToHide').change(filterHandler);
+		jQuery('#multiselect-disabledOptionsPageParticipants').change(filterHandler);
 
 		//filter based on what's in the drop-down
 		filterHandler();
-
-		//add the asterisk to Pro options
-		jQuery('.tubepress-pro-option th').append(' *');
 	});
 </script>

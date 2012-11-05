@@ -20,19 +20,6 @@
  */
 class tubepress_impl_options_ui_tabs_CacheTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-
-    protected function getHardcodedFieldArray()
-    {
-        return array(
-
-            tubepress_api_const_options_names_Cache::CACHE_ENABLED          => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Cache::CACHE_DIR              => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-
-        );
-    }
-
     protected function _getRawTitle()
     {
         return 'Cache';

@@ -20,6 +20,9 @@
  */
 abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
+     */
     private $_sut;
 
     private $_mockFieldBuilder;
@@ -30,6 +33,10 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 
     public function setup()
     {
+        global $tubepress_base_url;
+
+        $tubepress_base_url = 'tubepress-base-url';
+
         $ms                             = Mockery::mock(tubepress_spi_message_MessageService::_);
         $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockFieldBuilder        = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
@@ -48,6 +55,13 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
         $this->_sut = $this->_buildSut();
     }
 
+    protected function onTearDown()
+    {
+        global $tubepress_base_url;
+
+        unset($tubepress_base_url);
+    }
+
     public function testGetName()
     {
         $this->assertEquals('<<message: ' . $this->_getRawTitle() . '>>', $this->_sut->getTitle());
@@ -55,48 +69,58 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 
     public function testGetHtml()
     {
-        $expected = $this->getHardcodedFieldArray();
+        $mockOptionsPageParticipant1          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant2          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockPluggableOptionsPageParticipants = array($mockOptionsPageParticipant1, $mockOptionsPageParticipant2);
 
-        $fakeExtraField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $fakeExtraField->shouldReceive('getDesiredTabName')->once()->andReturn($this->_sut->getName());
-        $fakeExtraFields = array($fakeExtraField);
-        $expectedFieldArray = $this->getAdditionalFields();
-
-        foreach ($expected as $name => $type) {
-
-            $this->_mockFieldBuilder->shouldReceive('build')->once()->with($name, $type, $this->_sut->getName())->andReturn("$name-$type");
-            $expectedFieldArray[] = "$name-$type";
-        }
-
-        $allFields = array_merge($expectedFieldArray, $fakeExtraFields);
+        $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array());
+        $mockOptionsPageParticipant2->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array('x'));
 
         $template = \Mockery::mock('ehough_contemplate_api_Template');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY, $allFields);
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_PARTICIPANT_ARRAY, array($mockOptionsPageParticipant2));
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_TAB_NAME, $this->_sut->getName());
+        $template->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, 'tubepress-base-url');
         $template->shouldReceive('toString')->once()->andReturn('final result');
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
 
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_)->andReturn(
 
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME)->andReturn(
-
-            $fakeExtraFields
+            $mockPluggableOptionsPageParticipants
         );
 
         $this->assertEquals('final result', $this->_sut->getHtml());
     }
 
-    protected function getAdditionalFields()
+    public function testGetDelegateFormHandlers()
     {
-        return array();
+        $mockOptionsPageParticipant1          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant2          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockPluggableOptionsPageParticipants = array($mockOptionsPageParticipant1, $mockOptionsPageParticipant2);
+
+        $fakeField1 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $fakeField2 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $fakeField3 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+
+        $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField1));
+        $mockOptionsPageParticipant2->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField2, $fakeField3));
+
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_)->andReturn(
+
+            $mockPluggableOptionsPageParticipants
+        );
+
+        $result = $this->_sut->getDelegateFormHandlers();
+
+        $expected = array($fakeField1, $fakeField2, $fakeField3);
+
+        $this->assertEquals($expected, $result);
     }
 
     protected function getFieldBuilder()
     {
         return $this->_mockFieldBuilder;
     }
-
-    protected abstract function getHardcodedFieldArray();
 
     protected abstract function _getRawTitle();
 

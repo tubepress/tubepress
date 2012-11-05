@@ -24,6 +24,8 @@
  */
 class tubepress_impl_options_ui_tabs_ThumbsTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
+    const TAB_NAME = 'thumbs';
+
     /**
      * Get the untranslated title of this tab.
      *
@@ -34,48 +36,8 @@ class tubepress_impl_options_ui_tabs_ThumbsTab extends tubepress_impl_options_ui
         return 'Thumbnails';  //>(translatable)<
     }
 
-    /**
-     * Get the delegate form handlers.
-     *
-     * @return array An array of tubepress_spi_options_ui_FormHandler.
-     */
-    protected final function getHardCodedFields()
-    {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
-        return array(
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::HQ_THUMBS,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME, $this->getName()),
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
-        );
-    }
-
     public final function getName()
     {
-        return 'thumbs';
+        return self::TAB_NAME;
     }
 }

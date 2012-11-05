@@ -20,18 +20,6 @@
  */
 class tubepress_impl_options_ui_tabs_MetaTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-    private $_mockFieldBuilder;
-
-    protected function getHardcodedFieldArray()
-    {
-        return array(
-
-            tubepress_api_const_options_names_Meta::DATEFORMAT     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Meta::RELATIVE_DATES => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Meta::DESC_LIMIT     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-        );
-    }
-
     protected function _getRawTitle()
     {
         return 'Meta';
@@ -40,12 +28,5 @@ class tubepress_impl_options_ui_tabs_MetaTabTest extends tubepress_impl_options_
     protected function _buildSut()
     {
         return new tubepress_impl_options_ui_tabs_MetaTab();
-    }
-
-    protected function getAdditionalFields()
-    {
-        $this->getFieldBuilder()->shouldReceive('buildMetaDisplayMultiSelectField')->once()->andReturn('foobar');
-
-        return array('foobar');
     }
 }

@@ -84,21 +84,6 @@ class tubepress_impl_options_ui_fields_GallerySourceField implements tubepress_s
         return $this->_field->isProOnly();
     }
 
-    /**
-     * Gets the providers to which this field applies.
-     *
-     * @return array An array of provider names to which this field applies. May be empty. Never null.
-     */
-    public final function getArrayOfApplicableProviderNames()
-    {
-        return $this->_field->getArrayOfApplicableProviderNames();
-    }
-
-    public final function getDesiredTabName()
-    {
-        return $this->_field->getDesiredTabName();
-    }
-
     public final function getGallerySourceName()
     {
         return $this->_name;

@@ -50,6 +50,11 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayerTest extends TubePressUnitTest
             tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
             Mockery::type('tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerService'));
 
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(
+
+            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
+            Mockery::type('tubepress_plugins_jwflvplayer_impl_options_ui_JwFlvPlayerOptionsPageParticipant'));
+
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_BACK);
         $option->setDefaultValue('FFFFFF');
         $option->setLabel('JW FLV Player background color');           //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
@@ -78,43 +83,7 @@ class tubepress_plugins_jwflvplayer_JwFlvPlayerTest extends TubePressUnitTest
         $option->setValidValueRegex(self::$_regexColor);
         $this->_verifyOption($option);
 
-        $mockColorBackField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $mockColorFrontField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $mockColorLightField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $mockColorScreenField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
 
-        $this->_mockFieldBuilder->shouldReceive('build')->once()->with(
-
-            tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_BACK,
-            tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-            'embedded'
-        )->andReturn($mockColorBackField);
-
-        $this->_mockFieldBuilder->shouldReceive('build')->once()->with(
-
-            tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_FRONT,
-            tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-            'embedded'
-        )->andReturn($mockColorFrontField);
-
-        $this->_mockFieldBuilder->shouldReceive('build')->once()->with(
-
-            tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_LIGHT,
-            tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-            'embedded'
-        )->andReturn($mockColorLightField);
-
-        $this->_mockFieldBuilder->shouldReceive('build')->once()->with(
-
-            tubepress_plugins_jwflvplayer_api_const_options_names_Embedded::COLOR_SCREEN,
-            tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME,
-            'embedded'
-        )->andReturn($mockColorScreenField);
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorBackField);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorFrontField);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorLightField);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(tubepress_spi_options_ui_Field::CLASS_NAME, $mockColorScreenField);
 
         $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             Mockery::on(function ($arg) {

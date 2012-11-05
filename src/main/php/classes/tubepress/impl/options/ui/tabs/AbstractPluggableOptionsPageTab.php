@@ -24,7 +24,8 @@
  */
 abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_PluggableOptionsPageTab
 {
-    const TEMPLATE_VAR_FIELDARRAY = 'tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
+    const TEMPLATE_VAR_PARTICIPANT_ARRAY = 'tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab__participantArray';
+    const TEMPLATE_VAR_TAB_NAME          = 'tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab__tabName';
 
     /**
      * Get the title of this tab.
@@ -45,10 +46,26 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
      */
     public final function getHtml()
     {
+        global $tubepress_base_url;
+
         $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
         $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
 
-        $template->setVariable(self::TEMPLATE_VAR_FIELDARRAY, $this->getDelegateFormHandlers());
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $optionsPageParticipants    = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $tabParticipants            = array();
+
+        foreach ($optionsPageParticipants as $optionsPageParticipant) {
+
+            if (count($optionsPageParticipant->getFieldsForTab($this->getName())) > 0) {
+
+                array_push($tabParticipants, $optionsPageParticipant);
+            }
+        }
+
+        $template->setVariable(self::TEMPLATE_VAR_PARTICIPANT_ARRAY, $tabParticipants);
+        $template->setVariable(self::TEMPLATE_VAR_TAB_NAME, $this->getName());
+        $template->setVariable(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $tubepress_base_url);
 
         $this->addToTemplate($template);
 
@@ -62,21 +79,17 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
      */
     public final function getDelegateFormHandlers()
     {
-        $baseFields       = $this->getHardCodedFields();
-        $additionalFields = array();
+        $fields = array();
 
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $allFields                  = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $optionsPageParticipants    = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
 
-        foreach ($allFields as $candidateField) {
+        foreach ($optionsPageParticipants as $optionsPageParticipant) {
 
-            if ($candidateField->getDesiredTabName() === $this->getName()) {
-
-                array_push($additionalFields, $candidateField);
-            }
+            $fields = array_merge($fields, $optionsPageParticipant->getFieldsForTab($this->getName()));
         }
 
-        return array_merge($baseFields, $additionalFields);
+        return $fields;
     }
 
     /**
@@ -96,16 +109,6 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     protected function addToTemplate(ehough_contemplate_api_Template $template)
     {
         //override point
-    }
-
-    /**
-     * Override point.
-     *
-     * @return array An array of fields that should always show up in this tab.
-     */
-    protected function getHardCodedFields()
-    {
-        return array();
     }
 
     /**

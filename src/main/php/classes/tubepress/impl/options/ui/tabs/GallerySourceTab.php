@@ -24,6 +24,11 @@
  */
 class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
+    /**
+     * @var string The name of this tab.
+     */
+    const TAB_NAME = 'gallery-source';
+
     const TEMPLATE_VAR_CURRENT_MODE = 'tubepress_impl_options_ui_tabs_GallerySourceTab__mode';
 
     /**
@@ -68,23 +73,6 @@ class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_opt
 
     public final function getName()
     {
-        return 'gallery-source';
-    }
-
-    /**
-     * Override point.
-     *
-     * @return array An array of fields that should always show up in this tab.
-     */
-    protected function getHardCodedFields()
-    {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
-        return array(
-
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE =>
-                $fieldBuilder->build(tubepress_api_const_options_names_Output::GALLERY_SOURCE,
-                    tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME, $this->getName()),
-        );
+        return self::TAB_NAME;
     }
 }

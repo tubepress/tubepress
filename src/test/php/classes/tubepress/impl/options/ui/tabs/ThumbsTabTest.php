@@ -20,23 +20,6 @@
  */
 class tubepress_impl_options_ui_tabs_ThumbsTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-    protected function getHardcodedFieldArray()
-    {
-        return array(
-
-            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION  => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::FLUID_THUMBS     => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE   => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW   => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::HQ_THUMBS        => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS    => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-
-        );
-    }
-
     protected function _getRawTitle()
     {
         return 'Thumbnails';

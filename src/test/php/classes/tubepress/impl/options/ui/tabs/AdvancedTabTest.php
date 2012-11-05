@@ -20,17 +20,6 @@
  */
 class tubepress_impl_options_ui_tabs_AdvancedTabTest extends tubepress_impl_options_ui_tabs_AbstractTabTest
 {
-    protected function getHardcodedFieldArray()
-    {
-        return array(
-
-            tubepress_api_const_options_names_Advanced::DEBUG_ON    => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Advanced::KEYWORD     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Advanced::HTTPS       => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
-            tubepress_api_const_options_names_Advanced::HTTP_METHOD => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME,
-        );
-    }
-
     protected function _getRawTitle()
     {
         return 'Advanced';

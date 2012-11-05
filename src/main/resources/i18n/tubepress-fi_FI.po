@@ -19,8 +19,8 @@ msgstr "TubePress-asetukset"
 msgid "Save"
 msgstr "Tallenna"
 
-msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
-msgstr "Muokkaa lisäosan oletusasetuksia. Asetukset voi ohittaa sivu/artikkelikohtaisesti TubePressin lyhytkoodeilla. Lue lisätietoja <a href=\"http://tubepress.org/documentation\">dokumentaatiosta (english)</a>. Asetuksen vieressä oleva asteriski (*) tarkoittaa asetusta, joka edellyttää <a href=\"http://tubepress.org/features\">TubePress Pro</a>-lisenssiä."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
+msgstr ""
 
 msgid "Which videos?"
 msgstr "Mitkä videot?"
@@ -570,4 +570,13 @@ msgid "Default is FFFFFF"
 msgstr ""
 
 msgid "Default is 000000"
+msgstr ""
+
+msgid "JW FLV Player"
+msgstr ""
+
+msgid "Vimeo"
+msgstr ""
+
+msgid "Core"
 msgstr ""

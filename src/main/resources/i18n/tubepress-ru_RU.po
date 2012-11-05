@@ -20,8 +20,8 @@ msgstr "Настройки TubePress"
 msgid "Save"
 msgstr "Сохранить"
 
-msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
-msgstr "Установить параметры по умолчанию для плагина. Любую из этих опций можно изменить при написании Заметки/Страницы, используя специальные коды TubePress. Смотрите <a href=\"http://tubepress.org/documentation\"> документацию </a> для получения дополнительной информации. Звездочка (*) рядом с опцией показывает, что она доступна только в версии <a href=\"http://tubepress.org/features\"> TubePress Pro </a>."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
+msgstr ""
 
 msgid "Which videos?"
 msgstr "Какое видео?"
@@ -572,4 +572,13 @@ msgid "Default is FFFFFF"
 msgstr ""
 
 msgid "Default is 000000"
+msgstr ""
+
+msgid "JW FLV Player"
+msgstr ""
+
+msgid "Vimeo"
+msgstr ""
+
+msgid "Core"
 msgstr ""

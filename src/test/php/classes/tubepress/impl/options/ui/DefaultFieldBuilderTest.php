@@ -22,12 +22,9 @@ class FakeThingy
 {
     public $_arg;
 
-    public $_secondArg;
-
-    public function __construct($arg, $secondArg)
+    public function __construct($arg)
     {
         $this->_arg = $arg;
-        $this->_secondArg = $secondArg;
     }
 }
 
@@ -68,11 +65,10 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
 
     public function testBuild()
     {
-        $result = $this->_sut->build('something awesome', 'FakeThingy', 'some tab');
+        $result = $this->_sut->build('something awesome', 'FakeThingy');
 
         $this->assertTrue($result instanceof FakeThingy);
         $this->assertEquals('something awesome', $result->_arg);
-        $this->assertEquals('some tab', $result->_secondArg);
     }
 
     public function testBuildMeta()

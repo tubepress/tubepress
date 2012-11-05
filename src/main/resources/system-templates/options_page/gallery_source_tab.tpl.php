@@ -19,16 +19,27 @@
  *
  */
 ?>
-<table class="tubepress-tab">
+<div class="tubepress-tab">
 
-	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_FIELDARRAY} as $field):
+	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_PARTICIPANT_ARRAY} as $participant): ?>
 
-        if (!($field instanceof tubepress_impl_options_ui_fields_GallerySourceField)) continue;
+    <div<?php if ($participant->getName() !== 'core'): ?> class="ui-corner-all ui-widget-content tubepress-participant tubepress-participant-<?php echo $participant->getName(); ?>"<?php endif; ?>>
 
-        $name = $field->getGallerySourceName();
-	?>
+        <?php if ($participant->getName() !== 'core'): ?>
 
-    <tr class="<?php foreach ($field->getArrayOfApplicableProviderNames() as $provider): echo "tubepress-$provider-option "; endforeach; if ($field->isProOnly()) { echo 'tubepress-pro-option'; } ?>">
+        <div class="ui-widget ui-widget-header tubepress-participant-header">
+
+            <span><?php echo $participant->getFriendlyName(); ?></span>
+        </div>
+
+        <?php endif; ?>
+
+    <?php foreach ($participant->getFieldsForTab(${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_TAB_NAME}) as $field): ?>
+
+    <table>
+        <?php if (!($field instanceof tubepress_impl_options_ui_fields_GallerySourceField)) continue; $name = $field->getGallerySourceName(); ?>
+
+        <tr class="tubepress-participant tubepress-participant-<?php echo $participant->getName(); ?>">
 
 		<th><?php echo $field->getTitle(); ?></th>
 
@@ -40,5 +51,7 @@
 		</td>
 	</tr>
 
-	<?php endforeach; ?>
-</table>
+<?php endforeach; ?>
+    </table></div>
+<?php endforeach; ?>
+</div>

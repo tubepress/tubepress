@@ -165,6 +165,15 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
             })
         );
 
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(
+
+            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
+            Mockery::on(function ($arg) {
+
+                return $arg instanceof tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant;
+            })
+        );
+
         $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->times(8)->with(
 
             tubepress_spi_player_PluggablePlayerLocationService::_,

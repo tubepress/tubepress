@@ -24,6 +24,8 @@
  */
 class tubepress_impl_options_ui_tabs_AdvancedTab extends tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab
 {
+    const TAB_NAME = 'advanced';
+
     /**
      * Get the untranslated title of this tab.
      *
@@ -34,21 +36,8 @@ class tubepress_impl_options_ui_tabs_AdvancedTab extends tubepress_impl_options_
         return 'Advanced';  //>(translatable)<
     }
 
-    protected final function getHardCodedFields()
-    {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
-        return array(
-
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DEBUG_ON,    tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,  $this->getName()),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::KEYWORD,     tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,     $this->getName()),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::HTTPS,       tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,  $this->getName()),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::HTTP_METHOD, tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME, $this->getName()),
-        );
-    }
-
     public final function getName()
     {
-        return 'advanced';
+        return self::TAB_NAME;
     }
 }

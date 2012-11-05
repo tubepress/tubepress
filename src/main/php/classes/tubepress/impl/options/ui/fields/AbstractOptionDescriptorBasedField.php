@@ -29,9 +29,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     /** Option descriptor. */
     private $_optionDescriptor;
 
-    private $_desiredTabName;
-
-    public function __construct($name, $desiredTabName)
+    public function __construct($name)
     {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
@@ -41,8 +39,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
             throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $name));
         }
-
-        $this->_desiredTabName = $desiredTabName;
     }
 
     /**
@@ -109,34 +105,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
         }
 
         return $this->_onSubmitSimple();
-    }
-
-    public final function getDesiredTabName()
-    {
-        return $this->_desiredTabName;
-    }
-
-    /**
-     * Gets the providers to which this field applies.
-     *
-     * @return array An array of provider names to which this field applies. May be empty. Never null.
-     */
-    public final function getArrayOfApplicableProviderNames()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
-
-        $toReturn = array();
-
-        foreach ($videoProviders as $videoProvider) {
-
-            if ($videoProvider->isOptionApplicable($this->_optionDescriptor->getName())) {
-
-                $toReturn[] = $videoProvider->getName();
-            }
-        }
-
-        return $toReturn;
     }
 
     /**

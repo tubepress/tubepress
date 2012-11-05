@@ -112,11 +112,6 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
         $this->assertFalse($this->_sut->isProOnly());
     }
 
-    public function testGetDesiredTabName()
-    {
-        $this->assertNull($this->_sut->getDesiredTabName());
-    }
-
     public function testOnSubmitOnlyShowOne()
     {
         $this->setupMockFilters();
@@ -156,13 +151,13 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
     private function setupMockFilters()
     {
         $mockFilter = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockFilter->shouldReceive('getName')->once()->andReturn('filter-name');
+        $mockFilter->shouldReceive('getName')->twice()->andReturn('filter-name');
         $mockFilter->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name');
         $mockFilter2 = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockFilter2->shouldReceive('getName')->once()->andReturn('filter-name-2');
+        $mockFilter2->shouldReceive('getName')->twice()->andReturn('filter-name-2');
         $mockFilter2->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-2');
         $mockFilter3 = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockFilter3->shouldReceive('getName')->once()->andReturn('filter-name-3');
+        $mockFilter3->shouldReceive('getName')->twice()->andReturn('filter-name-3');
         $mockFilter3->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-3');
         $mockFilters = array($mockFilter, $mockFilter2, $mockFilter3);
         $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_)->andReturn($mockFilters);
