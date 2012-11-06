@@ -84,7 +84,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Fixed interactive searching results in certain situations (closes issue 448)
 * Reorganized WordPress admin page
 * Updated Portuguese translation thanks to Míriam de Paula (closes issue 425)
-* Version bump JW FLV Player to 5.9
+* Version bump JW Player to 5.9
 
 = 2.2.9 =
 * Allow for loading of user themes (regression fix)
@@ -143,7 +143,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Improved visual feedback during Ajax operations (closes issue 142 )
 * Better upgrade notice for TubePress Pro users in a WordPress environment (closes issue 252 )
 * Graceful handling of single video embedding when video isn't found (closes issue 267 )
-* Broken gallery when trying to display Vimeo videos with JW FLV Media Player (closes issue 242 )
+* Broken gallery when trying to display Vimeo videos with JW Player (closes issue 242 )
 * Incorrect detection of multi-gallery mode in some circumstances (closes issue 238 )
 * Duplicate videos no longer appear in galleries (closes issue 248 )
 * Private Vimeo videos no longer appear in galleries
@@ -176,10 +176,10 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Fixed aliased text with Ajax pagination in Internet Explorer 7
 * Search engines no longer index TubePress's internal directories (closes issue 221)
 * Static player now works with Vimeo (closes issue 217)
-* Fixed color support for JW FLV Player
+* Fixed color support for JW Player
 * YouTube "most linked" gallery replaced with YouTube "top favorites" gallery due to change in API
 * Version bump for Shadowbox.js to 3.0.3
-* Version bump for JW FLV Media Player to 5.2
+* Version bump for JW Player to 5.2
 * Version bump for jQuery to 1.4.2
 * Version bump for php-gettext to 1.0.10
 * Added Arabic translation thanks to Abdullah Hamed
@@ -229,7 +229,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Improved sidebar's CSS
 * Fixed bug in video sort order (closes issue 146)
 * Fixed bug that could cause fatal error in templates
-* Version bump for JW FLV Media Player (to 5.0)
+* Version bump for JW Player (to 5.0)
 * Updated Italian translation thanks to Gianni Diurno
 
 = 1.8.7 =
@@ -252,7 +252,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * (TubePress Pro only) Ajax pagination (closes issue 45 and issue 111)
 * (TubePress Pro only) Version bump for jQuery (1.2.6 -> 1.3.2)
 * (TubePress Pro only) Removed potential "Invalid locale category name" warning that shows up on some PHP installations
-* Version bump for JW FLV Media Player (to 4.6)
+* Version bump for JW Player (to 4.6)
 * Fixed bug that prevented display of videos with "limited syndication" restriction
 * Shortcode and input validation is much more comprehensive (closes issue 129)
 * Fixed bug that prevented videos from playing in high definition upon request (closes issue 137)
@@ -280,7 +280,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Unavailable videos will now not appear in galleries at all 
 
 = 1.8.0 =
-* New embedded player option: JW Flv Media Player
+* New embedded player option: JW Player
 * New player location: jqModal
 * All classes use dependency injection via Crafty
 * jQuery 1.2.6 or higher is now required (built-in for WordPress users)

@@ -72,8 +72,8 @@ class tubepress_impl_template_templates_optionspage_TabTemplateTest extends Tube
 		    two-html			<br />
 			two-description		</td>
 	</tr>
-    </table></div>
-</div>
+    </table>
+    </div></div>
 EOT;
     }
 

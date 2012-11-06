@@ -128,7 +128,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         if ($this->_isDebugEnabled) {
 
-            $this->_logger->debug(sprintf('Fetching video with ID <tt>%s</tt>', $customVideoId));
+            $this->_logger->debug(sprintf('Fetching video with ID <code>%s</code>', $customVideoId));
         }
 
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();

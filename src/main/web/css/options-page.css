@@ -59,7 +59,7 @@ ul.ui-multiselect-checkboxes label span {
 
 div.tubepress-participant{
 
-    margin-top: 1.8em;
+    margin-bottom: 1.8em;
     padding: 0;
 }
 
@@ -79,5 +79,5 @@ div.tubepress-tab {
 th.tubepress-field-header img {
 
     float: left;
-    margin-right: 0.5em;
+    margin: 0.2em 0.5em 1em 0;
 }

@@ -60,7 +60,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
 
         if ($this->_logger->isDebugEnabled()) {
 
-            $this->_logger->debug(sprintf('URL to fetch is <tt>%s</tt>', $url));
+            $this->_logger->debug(sprintf('URL to fetch is <code>%s</code>', $url));
         }
 
         /* make the request */
@@ -117,7 +117,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
 
         if ($this->_logger->isDebugEnabled()) {
 
-            $this->_logger->debug(sprintf('Fetching video with ID <tt>%s</tt>', $videoId));
+            $this->_logger->debug(sprintf('Fetching video with ID <code>%s</code>', $videoId));
         }
 
         $feedFetcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getFeedFetcher();

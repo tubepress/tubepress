@@ -23,16 +23,16 @@
 
 	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_PARTICIPANT_ARRAY} as $participant): ?>
 
-    <div<?php if ($participant->getName() !== 'core'): ?> class="ui-corner-all ui-widget-content tubepress-participant tubepress-participant-<?php echo $participant->getName(); ?>"<?php endif; ?>>
+    <?php if ($participant->getName() !== 'core'): ?>
 
-        <?php if ($participant->getName() !== 'core'): ?>
+    <div class="ui-corner-all ui-widget-content tubepress-participant tubepress-participant-<?php echo $participant->getName(); ?>">
 
         <div class="ui-widget ui-widget-header tubepress-participant-header">
 
             <span><?php echo $participant->getFriendlyName(); ?></span>
         </div>
 
-        <?php endif; ?>
+    <?php endif; ?>
 
     <table>
     <?php foreach ($participant->getFieldsForTab(${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_TAB_NAME}) as $field): ?>
@@ -48,6 +48,8 @@
 		</td>
 	</tr>
 <?php endforeach; ?>
-    </table></div>
+    </table>
+
+    <?php if ($participant->getName() !== 'core'): ?></div><?php endif; ?>
 <?php endforeach; ?>
 </div>

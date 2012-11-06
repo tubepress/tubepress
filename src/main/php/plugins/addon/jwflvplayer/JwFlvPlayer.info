@@ -1,4 +1,0 @@
-name = JW FLV Player
-version = 1.0.0
-description = Provides TubePress with the ability play videos with JW FLV Player by Longtail
-classPathRoots[] = classes

@@ -29,7 +29,7 @@ $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/yout
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/vimeo/classes');
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/basicplayerlocations/classes');
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/embedplus/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/jwflvplayer/classes');
+$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/addon/jwplayer/classes');
 $loader->registerFallbackDirectory(__DIR__);
 $loader->register();
 

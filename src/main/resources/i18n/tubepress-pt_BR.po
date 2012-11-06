@@ -413,8 +413,8 @@ msgstr "Nota: esta opção não pode ser usada com o recurso \"Randomizar Miniat
 msgid "Theme"
 msgstr "Tema"
 
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
-msgstr "O tema TubePress a ser utilizado por esta galeria. Seus temas podem ser encontrados em <tt>% s </ tt>, e os temas padrão podem ser encontradas em <tt>% s </ tt>."
+msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
+msgstr "O tema TubePress a ser utilizado por esta galeria. Seus temas podem ser encontrados em <code>%s</code>, e os temas padrão podem ser encontradas em <code>%s</code>."
 
 msgid "Vimeo API \"Consumer Key\""
 msgstr "API Vimeo \"Consumer Key\""
@@ -542,7 +542,7 @@ msgstr ""
 msgid "Light"
 msgstr ""
 
-msgid "JW FLV Media Player (by Longtail Video)"
+msgid "JW Player (by Longtail Video)"
 msgstr ""
 
 msgid "Limited to 200 videos per playlist. Will usually look something like this: PLF679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=PLF679CB240DD4C112\">http://www.youtube.com/playlist?p=PLF679CB240DD4C112</a>"
@@ -570,16 +570,16 @@ msgstr ""
 msgid "Video %s not found"
 msgstr ""
 
-msgid "JW FLV Player background color"
+msgid "Background color"
 msgstr ""
 
-msgid "JW FLV Player front color"
+msgid "Front color"
 msgstr ""
 
-msgid "JW FLV Player light color"
+msgid "Light color"
 msgstr ""
 
-msgid "JW FLV Player screen color"
+msgid "Screen color"
 msgstr ""
 
 msgid "Default is FFFFFF"
@@ -588,7 +588,7 @@ msgstr ""
 msgid "Default is 000000"
 msgstr ""
 
-msgid "JW FLV Player"
+msgid "JW Player"
 msgstr ""
 
 msgid "Vimeo"

@@ -505,7 +505,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THEME);
         $option->setLabel('Theme');                                                                                                                                       //>(translatable)<
-        $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>.'); //>(translatable)<
+        $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.'); //>(translatable)<
         $option->setAcceptableValuesCallback(array($this, 'getValidThemeOptions'));
         $odr->registerOptionDescriptor($option);
 
