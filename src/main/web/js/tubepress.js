@@ -54,6 +54,61 @@ var TubePressLogger = (function () {
 	};
 }()),
 
+TubePressJson = (function () {
+
+	'use strict';
+
+	var jquery			= jQuery,
+		version			= jquery.fn.jquery,
+		modernJquery	= /1\.6|7|8|9\.[0-9]+/.test(version) !== false,
+		parser,
+		parse = function (msg) {
+
+			return parser(msg);
+		};
+
+	if (modernJquery) {
+
+		parser = function (msg) {
+
+			return jquery.parseJSON(msg);
+		};
+
+	} else {
+
+		parser = function (data) {
+
+			if (typeof data !== 'string' || !data) {
+
+				return null;
+			}
+
+			data = jquery.trim(data);
+
+			if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
+				.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
+				.replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
+
+				//noinspection JSHint,JSHint
+				return window.JSON && window.JSON.parse ?
+
+					window.JSON.parse(data) :
+
+					(new Function("return " + data))();
+
+			} else {
+
+				throw 'Invalid JSON: ' + data;
+			}
+		};
+	}
+
+	return {
+
+		parse : parse
+	};
+}()),
+
 /**
  * Various Ajax utilities.
  */
@@ -250,6 +305,8 @@ TubePressGallery = (function () {
 	var galleries	= {},
 		docElement	= jQuery(document),
 		events		= TubePressEvents,
+		nvpMap		= 'nvpMap',
+		jsMap		= 'jsMap',
 
 		/**
 		 * Does the gallery use Ajax pagination?
@@ -257,7 +314,7 @@ TubePressGallery = (function () {
 		isAjaxPagination = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].ajaxPagination;
+			return galleries[galleryId][nvpMap].ajaxPagination;
 		},
 
 		/**
@@ -266,7 +323,7 @@ TubePressGallery = (function () {
 		isAutoNext = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].autoNext;
+			return galleries[galleryId][nvpMap].autoNext;
 		},
 
 		/**
@@ -275,7 +332,7 @@ TubePressGallery = (function () {
 		isFluidThumbs = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].fluidThumbs;
+			return galleries[galleryId][nvpMap].fluidThumbs;
 		},
 
 		/**
@@ -284,7 +341,7 @@ TubePressGallery = (function () {
 		getEmbeddedHeight = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].embeddedHeight;
+			return galleries[galleryId][nvpMap].embeddedHeight;
 		},
 
 		/**
@@ -293,7 +350,7 @@ TubePressGallery = (function () {
 		getEmbeddedWidth = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].embeddedWidth;
+			return galleries[galleryId][nvpMap].embeddedWidth;
 		},
 
 		/**
@@ -302,7 +359,12 @@ TubePressGallery = (function () {
 		getHttpMethod = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].httpMethod;
+			return galleries[galleryId][nvpMap].httpMethod;
+		},
+
+		getNvpMap = function (galleryId) {
+
+			return galleries[galleryId][nvpMap];
 		},
 
 		/**
@@ -311,7 +373,7 @@ TubePressGallery = (function () {
 		getPlayerLocationName = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].playerLocationName;
+			return galleries[galleryId][nvpMap].playerLocation;
 		},
 
 		/**
@@ -320,7 +382,7 @@ TubePressGallery = (function () {
 		getPlayerJsUrl = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].playerJsUrl;
+			return galleries[galleryId][jsMap].playerJsUrl;
 		},
 
 		/**
@@ -329,7 +391,7 @@ TubePressGallery = (function () {
 		getPlayerProducesHtml = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].playerLocationProducesHtml;
+			return galleries[galleryId][jsMap].playerLocationProducesHtml;
 		},
 
 		/**
@@ -338,16 +400,7 @@ TubePressGallery = (function () {
 		getSequence = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].sequence;
-		},
-
-		/**
-		 * What's the shortcode for this gallery?
-		 */
-		getShortcode = function (galleryId) {
-
-			//noinspection JSUnresolvedVariable
-			return galleries[galleryId].shortcode;
+			return galleries[galleryId][jsMap].sequence;
 		},
 
 		/**
@@ -381,11 +434,11 @@ TubePressGallery = (function () {
 		getEmbeddedHeight		: getEmbeddedHeight,
 		getEmbeddedWidth		: getEmbeddedWidth,
 		getHttpMethod			: getHttpMethod,
+		getNvpMap				: getNvpMap,
 		getPlayerLocationName	: getPlayerLocationName,
 		getPlayerLocationProducesHtml : getPlayerProducesHtml,
 		getPlayerJsUrl          : getPlayerJsUrl,
 		getSequence				: getSequence,
-		getShortcode			: getShortcode,
 		init					: init
 	};
 }()),
@@ -434,10 +487,10 @@ TubePressPlayers = (function () {
 			var playerName	= tubepressGallery.getPlayerLocationName(galleryId),
 				height		= tubepressGallery.getEmbeddedHeight(galleryId),
 				width		= tubepressGallery.getEmbeddedWidth(galleryId),
-				shortcode	= tubepressGallery.getShortcode(galleryId),
+				nvpMap		= tubepressGallery.getNvpMap(galleryId),
 				callback	= function (data) {
 
-					var result	= jquery.parseJSON(data.responseText),
+					var result	= TubePressJson.parse(data.responseText),
 						title	= decodeUri(result.title),
 						html	= decodeUri(result.html);
 
@@ -446,13 +499,17 @@ TubePressPlayers = (function () {
 
 				dataToSend = {
 
-					'action'				: 'playerHtml',
-					'tubepress_video'		: videoId,
-					'tubepress_shortcode'	: shortcode
+					'action'			: 'playerHtml',
+					'tubepress_video'	: videoId
 				},
 
 				url = TubePressGlobalJsConfig.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php',
 				method;
+
+			/**
+			 * Add the NVPs for TubePress to the data.
+			 */
+			jquery.extend(dataToSend, nvpMap);
 
 			/** Announce we're gonna invoke the player... */
 			documentElement.trigger(tubepressEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);
@@ -881,14 +938,14 @@ TubePressAjaxPagination = (function () {
 		processClick = function (anchor, galleryId) {
 
 			var baseUrl				= TubePressGlobalJsConfig.baseUrl,
-				shortcode			= gallery.getShortcode(galleryId),
+				nvpMap				= gallery.getNvpMap(galleryId),
 				page				= anchor.attr('rel'),
 				thumbnailArea		= TubePressThumbs.getThumbAreaSelector(galleryId),
 				postLoadCallback	= function () {
 
 					postLoad(galleryId);
 				},
-				pageToLoad			= baseUrl + '/src/main/php/scripts/ajaxEndpoint?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
+				pageToLoad			= baseUrl + '/src/main/php/scripts/ajaxEndpoint?tubepress_' + page + '&tubepress_galleryId=' + galleryId + jquery.param(nvpMap),
 				remotePageSelector	= thumbnailArea + ' > *',
 				httpMethod			= gallery.getHttpMethod(galleryId);
 
@@ -956,22 +1013,25 @@ TubePressPlayerApi = (function () {
 	var
 
 		/** These variable declarations aide in compression. */
-		jquery					= jQuery,
-		documentElement			= jquery(document),
-		events					= TubePressEvents,
-		logger					= TubePressLogger,
+		jquery				= jQuery,
+		documentElement		= jquery(document),
+		events				= TubePressEvents,
+		logger				= TubePressLogger,
 
 		/** YouTube variables. */
-		loadingYouTubeApi		= false,
-		youTubePrefix			= 'tubepress-youtube-player-',
-		youTubePlayers			= {},
-		youTubeIdPattern		= /[a-z0-9\-_]{11}/i,
+		loadingYouTubeApi	= false,
+		youTubePrefix		= 'tubepress-youtube-player-',
+		youTubePlayers		= {},
+		youTubeIdPattern	= /[a-z0-9\-_]{11}/i,
 
 		/** Vimeo variables. */
-		loadingVimeoApi			= false,
-		vimeoPrefix				= 'tubepress-vimeo-player-',
-		vimeoPlayers			= {},
-		vimeoIdPattern			= /[0-9]+/,
+		loadingVimeoApi		= false,
+		vimeoPrefix			= 'tubepress-vimeo-player-',
+		vimeoPlayers		= {},
+		vimeoIdPattern		= /[0-9]+/,
+
+		httpScheme			= 'http',
+		httpsScheme			= 'https',
 
 		/**
 		 * Is the given video ID from YouTube?
@@ -1123,7 +1183,8 @@ TubePressPlayerApi = (function () {
 		 */
 		loadYouTubeApi = function () {
 
-			var scheme = TubePressGlobalJsConfig.https ? 'https' : 'http';
+			//noinspection JSUnresolvedVariable
+			var scheme = TubePressGlobalJsConfig.https ? httpsScheme : httpScheme;
 
 			if (! loadingYouTubeApi && ! isYouTubeApiAvailable()) {
 
@@ -1142,6 +1203,9 @@ TubePressPlayerApi = (function () {
 		 */
 		loadVimeoApi = function () {
 
+			//noinspection JSUnresolvedVariable
+			var scheme = TubePressGlobalJsConfig.https ? httpsScheme : httpScheme;
+
 			if (! loadingVimeoApi && ! isVimeoApiAvailable()) {
 
 				if (logger.on()) {
@@ -1150,7 +1214,7 @@ TubePressPlayerApi = (function () {
 				}
 
 				loadingVimeoApi = true;
-				jquery.getScript('http://a.vimeocdn.com/js/froogaloop2.min.js');
+				jquery.getScript(scheme + '://a.vimeocdn.com/js/froogaloop2.min.js');
 			}
 		},
 
@@ -1160,6 +1224,7 @@ TubePressPlayerApi = (function () {
 		 */
 		onYouTubeStateChange = function (event) {
 
+			//noinspection JSUnresolvedVariable
 			var videoId		= getVideoIdFromYouTubeEvent(event),
 				eventData	= event.data,
 				playerState	= YT.PlayerState;
@@ -1468,33 +1533,6 @@ var TubePressAjaxSearch = (function () {
 }()),
 
 /**
- * Dependency checks for TubePress.
- */
-TubePressDepCheck = (function () {
-
-	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-	'use strict';
-
-	var init = function () {
-
-		var version			= jQuery.fn.jquery,
-			windowConsole	= window.console;
-
-		if (/1\.6|7|8|9\.[0-9]+/.test(version) === false) {
-
-			/** Try to log it... */
-			if (windowConsole !== undefined) {
-
-				windowConsole.log("TubePress requires jQuery 1.6 or higher. This page is running version " + version);
-			}
-		}
-	};
-
-	return { init : init };
-
-}()),
-
-/**
  * Primary TubePress boot function.
  */
 tubePressBoot = function () {
@@ -1503,7 +1541,6 @@ tubePressBoot = function () {
 	'use strict';
 
 	TubePressCompat.init();
-	TubePressDepCheck.init();
 };
 
 /**
