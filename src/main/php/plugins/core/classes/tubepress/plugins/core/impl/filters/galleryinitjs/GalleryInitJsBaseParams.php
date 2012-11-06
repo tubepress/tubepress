@@ -24,50 +24,92 @@
  */
 class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 {
-    public function onGalleryInitJs(tubepress_api_event_TubePressEvent $event)
+    private static $_PROPERTY_NVPMAP = 'nvpMap';
+
+    private static $_PROPERTY_JSMAP = 'jsMap';
+
+    const NAME_PARAM_PLAYERJSURL          = 'playerJsUrl';
+    const NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
+
+    /**
+     * The following options are required by JS, so we explicity set them:
+     *
+     *  ajaxPagination
+     *  autoNext
+     *  embeddedHeight
+     *  embeddedWidth
+     *  fluidThumbs
+     *  httpMethod
+     *  playerLocation
+     *
+     * The following options are JS-specific
+     *
+     *  playerJsUrl
+     *  playerLocationProducesHtml
+     *
+     * Otherwise, we simply set any "custom" options so they can be passed back in via Ajax operations.
+     */
+    public final function onGalleryInitJs(tubepress_api_event_TubePressEvent $event)
     {
         $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
 
         $args = $event->getSubject();
 
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_AJAXPAGINATION] =
-            $context->get(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION) ? 'true' : 'false';
+        $requiredNvpMap = $this->_buildRequiredNvpMap($context);
+        $jsMap          = $this->_buildJsMap($context);
+        $customNvpMap   = $context->getCustomOptions();
 
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_EMBEDDEDHEIGHT] =
-            '"' . $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT) . '"';
+        $finalNvpMap = array_merge($requiredNvpMap, $customNvpMap);
 
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_EMBEDDEDWIDTH] =
-            '"' . $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH) . '"';
+        $newArgs = array(
 
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_FLUIDTHUMBS] =
-            $context->get(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS) ? 'true' : 'false';
+            self::$_PROPERTY_NVPMAP => $finalNvpMap,
+            self::$_PROPERTY_JSMAP  => $jsMap
+        );
 
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_PLAYERLOC] =
-            '"' . $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION) . '"';
+        $event->setSubject(array_merge($args, $newArgs));
+    }
 
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_SHORTCODE] =
-            '"' . rawurlencode($context->toShortcode()) . '"';
-
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_HTTP_METHOD] =
-            '"' . $context->get(tubepress_api_const_options_names_Advanced::HTTP_METHOD) . '"';
+    private function _buildJsMap(tubepress_spi_context_ExecutionContext $context)
+    {
+        $toReturn = array();
 
         $playerLocation = $this->_findPlayerLocation($context);
 
         if ($playerLocation !== null) {
 
-            $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_PLAYERJSURL] =
-                '"' . $this->_getPlayerJsUrl($playerLocation) . '"';
+            $toReturn[self::NAME_PARAM_PLAYERJSURL] = $this->_getPlayerJsUrl($playerLocation);
 
-            $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_PLAYER_PRODUCES_HTML] =
-                $playerLocation->producesHtml() ? 'true' : 'false';
+            $toReturn[self::NAME_PARAM_PLAYER_PRODUCES_HTML] = (bool) $playerLocation->producesHtml();
         }
 
-
-
-        $event->setSubject($args);
+        return $toReturn;
     }
 
-    private function _findPlayerLocation($context)
+    private function _buildRequiredNvpMap(tubepress_spi_context_ExecutionContext $context)
+    {
+        $toReturn = array();
+
+        $requiredOptions = array(
+
+            tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
+            tubepress_api_const_options_names_Embedded::AUTONEXT,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,
+            tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,
+            tubepress_api_const_options_names_Advanced::HTTP_METHOD,
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION
+        );
+
+        foreach ($requiredOptions as $optionName) {
+
+            $toReturn[$optionName] = $context->get($optionName);
+        }
+
+        return $toReturn;
+    }
+
+    private function _findPlayerLocation(tubepress_spi_context_ExecutionContext $context)
     {
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $playerLocations            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PluggablePlayerLocationService::_);

@@ -28,6 +28,8 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 
     private $_mockEventDispatcher;
 
+    private $_mockJsonEncoder;
+
 	function setup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs();
@@ -38,20 +40,27 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 
         $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+
+        $this->_mockJsonEncoder = new ehough_jameson_impl_FastEncoder();
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setJsonEncoder($this->_mockJsonEncoder);
 	}
 
 	function testAlterHtml()
 	{
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, Mockery::on(function ($arg) {
+        $fakeArgs = array('yo' => 'mamma', 'is' => '"so fat"', 'x' => array('foo' => 500, 'html' => '<>\'"'));
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, Mockery::on(function ($arg) use ($fakeArgs) {
 
             $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array();
 
-            $arg->setSubject(array('yo' => 'mamma', 'is' => '"so fat"'));
+            $arg->setSubject($fakeArgs);
 
             return $good;
         }));
+
+
 
         $event = new tubepress_api_event_TubePressEvent('hello');
 
@@ -72,10 +81,7 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 	    return <<<EOT
 hello
 <script type="text/javascript">
-	TubePressGallery.init(gallery-id, {
-		yo : mamma,
-		is : "so fat"
-	});
+	TubePressGallery.init(gallery-id, {"yo":"mamma","is":"\"so fat\"","x":{"foo":500,"html":"<>'\""}});
 </script>
 EOT;
 	}

@@ -44,12 +44,13 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
         global $tubepress_base_url;
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTONEXT)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(999);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(888);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTP_METHOD)->andReturn('some-http-method');
-        $this->_mockExecutionContext->shouldReceive('toShortcode')->once()->andReturn(' + "&');
+        $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array('x' => 'y', 'foo' => 'bar'));
 
         $event = new tubepress_api_event_TubePressEvent(array('yo' => 'mamma'));
 
@@ -71,17 +72,26 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
 	    $this->assertEquals(array(
 
-	        'ajaxPagination' => 'true',
-	        'embeddedHeight' => '"999"',
-	        'embeddedWidth' => '"888"',
-	        'fluidThumbs' => 'false',
-            'httpMethod' => '"some-http-method"',
-	        'playerLocationName' => '"player-loc"',
-            'shortcode' => '"%20%2B%20%22%26"',
-            'playerJsUrl' => '"xyz/abc"',
-            'playerLocationProducesHtml' => 'true',
-            'yo' => 'mamma'
+            'yo' => 'mamma',
 
+            'nvpMap' => array(
+
+                'ajaxPagination' => true,
+                'autoNext' => true,
+                'embeddedHeight' => 999,
+                'embeddedWidth' => 888,
+                'fluidThumbs' => false,
+                'httpMethod' => 'some-http-method',
+                'playerLocation' => 'player-loc',
+                'x' => 'y',
+                'foo' => 'bar'
+            ),
+
+            'jsMap' => array(
+
+                'playerJsUrl' => 'xyz/abc',
+                'playerLocationProducesHtml' => true,
+            )
 	    ), $result);
 	}
 }

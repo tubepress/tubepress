@@ -24,43 +24,34 @@
  */
 class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs
 {
+    private static $_NAME_CLASS = 'TubePressGallery';
+
+    private static $_NAME_INIT_FUNCTION = 'init';
+
     public function onGalleryHtml(tubepress_api_event_TubePressEvent $event)
     {
         $context       = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $filterManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $encoder       = tubepress_impl_patterns_ioc_KernelServiceLocator::getJsonEncoder();
         $galleryId     = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         $jsEvent = new tubepress_api_event_TubePressEvent(array());
 
         $filterManager->dispatch(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, $jsEvent);
 
-        $args     = $jsEvent->getSubject();
-        $argCount = count($args);
-        $html     = $event->getSubject();
+        $args    = $jsEvent->getSubject();
+        $asJson  = $encoder->encode($args);
+        $html = $event->getSubject();
 
         $toReturn = $html
             . "\n"
             . '<script type="text/javascript">'
             . "\n\t"
-            . tubepress_spi_const_js_TubePressGalleryInit::NAME_CLASS
+            . self::$_NAME_CLASS
             . '.'
-            . tubepress_spi_const_js_TubePressGalleryInit::NAME_INIT_FUNCTION
-            . "($galleryId, {\n";
+            . self::$_NAME_INIT_FUNCTION
+            . "($galleryId, $asJson);\n</script>";
 
-        $x = 0;
-        foreach ($args as $name => $value) {
-
-            $toReturn .= "\t\t$name : $value";
-
-            if (($x + 1) < $argCount) {
-
-                $toReturn .= ",\n";
-            }
-            $x++;
-        }
-
-        $final = $toReturn . "\n\t});\n</script>";
-
-        $event->setSubject($final);
+        $event->setSubject($toReturn);
     }
 }
