@@ -1,0 +1,4 @@
+name = Basic YouTube Integration
+version = 1.0.0
+description = Provides TubePress with the ability to work with YouTube
+classPathRoots[] = classes

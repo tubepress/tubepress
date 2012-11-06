@@ -1,0 +1,4 @@
+name = EmbedPlus
+version = 1.0.0
+description = Provides TubePress with the ability play videos with EmbedPlus
+classPathRoots[] = classes

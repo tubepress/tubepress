@@ -280,13 +280,12 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
     private function _findSystemPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer)
     {
-        $corePlugins = $this->_findPluginsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/core',
-            $discoverer, false);
-
-        $addOnPlugins = $this->_findPluginsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/addon',
+        $corePlugins = $this->_findPluginsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins',
             $discoverer, true);
 
-        return array_merge($corePlugins, $addOnPlugins);
+        usort($corePlugins, array($this, '_corePluginSorter'));
+
+        return $corePlugins;
     }
 
     private function _findPluginsInDirectory($directory,
@@ -303,5 +302,41 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         }
 
         return $plugins;
+    }
+
+    private function _corePluginSorter(tubepress_spi_plugin_Plugin $first, tubepress_spi_plugin_Plugin $second)
+    {
+        $firstName  = $first->getName();
+        $secondName = $second->getName();
+
+        /*
+         * The core plugin always gets loaded first.
+         */
+
+        if ($firstName === 'TubePress Core') {
+
+            return -1;
+        }
+
+        if ($secondName === 'TubePress Core') {
+
+            return 1;
+        }
+
+        /*
+         * YouTube is more popular than Vimeo, so let's load them in that order.
+         */
+
+        if (strpos($firstName, 'YouTube') !== false && strpos($secondName, 'Vimeo') !== false) {
+
+            return -1;
+        }
+
+        if (strpos($firstName, 'Vimeo') !== false && strpos($secondName, 'YouTube') !== false) {
+
+            return 1;
+        }
+
+        return strcasecmp($firstName, $secondName);
     }
 }
