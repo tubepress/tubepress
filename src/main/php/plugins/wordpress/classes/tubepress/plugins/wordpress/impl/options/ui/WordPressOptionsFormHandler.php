@@ -20,13 +20,11 @@
  */
 
 /**
- * Displays a WordPress-specific options form for TubePress
- *
+ * Displays a WordPress-specific options form for TubePress.
  */
 class tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
 {
-
-    protected function getRelativeTemplatePath()
+    protected final function getRelativeTemplatePath()
     {
         return 'src/main/php/plugins/wordpress/resources/templates/options_page.tpl.php';
     }

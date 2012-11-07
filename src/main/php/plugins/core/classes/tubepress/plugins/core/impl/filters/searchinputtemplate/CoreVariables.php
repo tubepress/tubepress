@@ -40,7 +40,7 @@ class tubepress_plugins_core_impl_filters_searchinputtemplate_CoreVariables
 
         } catch (Exception $e) {
 
-            //this is not a real problem
+            //this is not a real problem, as the user might simply not supply a custom URL
         }
 
         /* if the user didn't request a certain page, just send the search results right back here */

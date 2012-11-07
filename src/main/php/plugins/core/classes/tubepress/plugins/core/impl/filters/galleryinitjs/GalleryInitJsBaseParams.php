@@ -28,8 +28,8 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
     private static $_PROPERTY_JSMAP = 'jsMap';
 
-    const NAME_PARAM_PLAYERJSURL          = 'playerJsUrl';
-    const NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
+    private static $_NAME_PARAM_PLAYERJSURL          = 'playerJsUrl';
+    private static $_NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
 
     /**
      * The following options are required by JS, so we explicity set them:
@@ -78,9 +78,8 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
         if ($playerLocation !== null) {
 
-            $toReturn[self::NAME_PARAM_PLAYERJSURL] = $this->_getPlayerJsUrl($playerLocation);
-
-            $toReturn[self::NAME_PARAM_PLAYER_PRODUCES_HTML] = (bool) $playerLocation->producesHtml();
+            $toReturn[self::$_NAME_PARAM_PLAYERJSURL]          = $this->_getPlayerJsUrl($playerLocation);
+            $toReturn[self::$_NAME_PARAM_PLAYER_PRODUCES_HTML] = (bool) $playerLocation->producesHtml();
         }
 
         return $toReturn;

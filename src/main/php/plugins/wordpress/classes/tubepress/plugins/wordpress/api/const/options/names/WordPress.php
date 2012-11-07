@@ -20,7 +20,7 @@
  */
 
 /**
- * WordPress option names for the plugin.
+ * WordPress option names.
  */
 class tubepress_plugins_wordpress_api_const_options_names_WordPress
 {

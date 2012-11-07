@@ -20,7 +20,7 @@
  */
 
 /**
- * Message service that uses gettext (via WordPress)
+ * Message service that uses gettext (via WordPress).
  */
 class tubepress_plugins_wordpress_impl_message_WordPressMessageService implements tubepress_spi_message_MessageService
 {
@@ -31,7 +31,7 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageService implement
      *
      * @return string The corresponding message, or "" if not found
      */
-    public function _($message)
+    public final function _($message)
     {
         $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 

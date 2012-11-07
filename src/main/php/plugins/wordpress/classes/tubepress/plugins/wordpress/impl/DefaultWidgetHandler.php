@@ -50,7 +50,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
      *
      * @return void
      */
-    function printWidgetHtml($opts)
+    public final function printWidgetHtml($opts)
     {
         extract($opts);
 
@@ -83,6 +83,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
         $context->setCustomOptions($finalOptions);
 
         if ($context->get(tubepress_api_const_options_names_Thumbs::THEME) === '') {
+
             $context->set(tubepress_api_const_options_names_Thumbs::THEME, 'sidebar');
         }
 

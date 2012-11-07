@@ -33,16 +33,10 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
         	return;
         }
 
-        $html = $event->getSubject();
+        $html    = $event->getSubject();
         $videoId = $event->getArgument('videoId');
-
-        $final = $html . $this->_getPlayerRegistryJs($videoId);
+        $final   = "$html<script type=\"text/javascript\">TubePressPlayerApi.register('$videoId');</script>";
 
         $event->setSubject($final);
-    }
-
-    private function _getPlayerRegistryJs($videoId)
-    {
-        return "<script type=\"text/javascript\">TubePressPlayerApi.register('$videoId');</script>";
     }
 }

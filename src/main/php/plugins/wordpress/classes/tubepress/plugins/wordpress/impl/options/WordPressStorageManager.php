@@ -21,7 +21,7 @@
 
 /**
  * Implementation of tubepress_spi_options_StorageManager that uses the
- * regular WordPress options API
+ * regular WordPress options API.
  */
 class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager
 {
@@ -39,7 +39,7 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
      *
      * @return void
      */
-    protected function create($optionName, $optionValue)
+    protected final function create($optionName, $optionValue)
     {
         $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
@@ -53,7 +53,7 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
      *
      * @return mixed The option's value
      */
-    public function get($optionName)
+    public final function get($optionName)
     {
         $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
@@ -68,7 +68,7 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
      *
      * @return void
      */
-    protected function setOption($optionName, $optionValue)
+    protected final function setOption($optionName, $optionValue)
     {
         $wordPressFunctionWrapperService = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
@@ -78,7 +78,7 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
     /**
      * @return array All the option names currently in this storage manager.
      */
-    protected function getAllOptionNames()
+    protected final function getAllOptionNames()
     {
         global $wpdb;
 

@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_wordpress_WordPress
 {
-    public static function registerWordPressListeners()
+    public static function init()
     {
         $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
 
@@ -67,10 +67,10 @@ class tubepress_plugins_wordpress_WordPress
         $widgetHandler    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWidgetHandler();
 
         $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'), 10, 1);
-        $wpFunctionWrapper->add_action('wp_head', array($jsAndCssInjector, 'printInHtmlHead'), 10, 1);
-        $wpFunctionWrapper->add_action('init', array($jsAndCssInjector, 'registerStylesAndScripts'), 10, 1);
+        $wpFunctionWrapper->add_action('wp_head',     array($jsAndCssInjector, 'printInHtmlHead'), 10, 1);
+        $wpFunctionWrapper->add_action('init',        array($jsAndCssInjector, 'registerStylesAndScripts'), 10, 1);
 
-        $wpFunctionWrapper->add_action('admin_menu', array($wpAdminHandler, 'registerAdminMenuItem'), 10, 1);
+        $wpFunctionWrapper->add_action('admin_menu',            array($wpAdminHandler, 'registerAdminMenuItem'), 10, 1);
         $wpFunctionWrapper->add_action('admin_enqueue_scripts', array($wpAdminHandler, 'registerStylesAndScripts'), 10, 1);
 
         $wpFunctionWrapper->add_action('widgets_init', array($widgetHandler, 'registerWidget'), 10, 1);
@@ -78,6 +78,7 @@ class tubepress_plugins_wordpress_WordPress
         if (version_compare($wpFunctionWrapper->wp_version(), '2.8.alpha', '>')) {
 
             $filterPoint = 'plugin_row_meta';
+
         } else {
 
             $filterPoint = 'plugin_action_links';
@@ -149,4 +150,4 @@ class tubepress_plugins_wordpress_WordPress
     }
 }
 
-tubepress_plugins_wordpress_WordPress::registerWordPressListeners();
+tubepress_plugins_wordpress_WordPress::init();

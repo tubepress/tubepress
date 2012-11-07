@@ -32,7 +32,7 @@ class tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylist
     }
 
 
-    public function onPreValidationOptionSet(tubepress_api_event_TubePressEvent $event)
+    public final function onPreValidationOptionSet(tubepress_api_event_TubePressEvent $event)
     {
         $name = $event->getArgument('optionName');
 

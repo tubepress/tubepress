@@ -24,27 +24,27 @@
  */
 class tubepress_plugins_core_impl_filters_embeddedtemplate_CoreVariables
 {
-    public function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
+    public final function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
     {
         global $tubepress_base_url;
 
-        $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $template = $event->getSubject();
-        $dataUrl = $event->getArgument('dataUrl');
-        $videoId = $event->getArgument('videoId');
+        $dataUrl  = $event->getArgument('dataUrl');
+        $videoId  = $event->getArgument('videoId');
 
-        $autoPlay        = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
-        $embedWidth      = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
-        $embedHeight     = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
+        $autoPlay    = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $embedWidth  = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
+        $embedHeight = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
 
         $vars = array(
 
-            tubepress_api_const_template_Variable::EMBEDDED_DATA_URL        => $dataUrl->toString(true),
-            tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL       => $tubepress_base_url,
-            tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART       => tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay),
-            tubepress_api_const_template_Variable::EMBEDDED_WIDTH           => $embedWidth,
-            tubepress_api_const_template_Variable::EMBEDDED_HEIGHT          => $embedHeight,
-            tubepress_api_const_template_Variable::VIDEO_ID                 => $videoId,
+            tubepress_api_const_template_Variable::EMBEDDED_DATA_URL  => $dataUrl->toString(true),
+            tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL => $tubepress_base_url,
+            tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART => tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay),
+            tubepress_api_const_template_Variable::EMBEDDED_WIDTH     => $embedWidth,
+            tubepress_api_const_template_Variable::EMBEDDED_HEIGHT    => $embedHeight,
+            tubepress_api_const_template_Variable::VIDEO_ID           => $videoId,
         );
 
         foreach ($vars as $key => $value) {

@@ -28,7 +28,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
      *
      * @return void
      */
-    function registerStylesAndScripts($hook)
+    public final function registerStylesAndScripts($hook)
     {
         /* only run on TubePress settings page */
         if ($hook !== 'settings_page_tubepress') {
@@ -115,7 +115,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
      * @param array  $links An array of meta links for this plugin.
      * @param string $file  The file.
      *
-     * @return void
+     * @return array The modified links
      */
     public final function modifyMetaRowLinks($links, $file)
     {
