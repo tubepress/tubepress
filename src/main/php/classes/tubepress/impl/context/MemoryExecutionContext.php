@@ -180,33 +180,4 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     {
         return $this->_actualShortcodeUsed;
     }
-
-    /**
-     * Reconstruct the current state of this execution context as a shortcode string.
-     *
-     * @return string This context as a shortcode string.
-     */
-    public final function toShortcode()
-    {
-        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
-
-        $trigger  = $this->get(tubepress_api_const_options_names_Advanced::KEYWORD);
-        $optPairs = array();
-
-        foreach ($this->_customOptions as $name => $value) {
-
-            $od = $odr->findOneByName($name);
-
-            if ($od->isBoolean()) {
-
-                $value = $value ? 'true' : 'false';
-            }
-
-            $optPairs[] = $name . '="' . str_replace('"', '\"', $value) . '"';
-        }
-
-        $optString = implode($optPairs, ' ');
-
-        return "[$trigger $optString]";
-    }
 }

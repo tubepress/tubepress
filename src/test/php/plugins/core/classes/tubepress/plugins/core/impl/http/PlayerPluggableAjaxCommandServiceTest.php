@@ -33,7 +33,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
 
     private $_mockHttpRequestParameterService;
 
-    private $_mockShortcodeParser;
+    private $_mockJsonEncoder;
 
     public function setUp()
     {
@@ -43,22 +43,23 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
         $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockVideoCollector = Mockery::mock(tubepress_spi_collector_VideoCollector::_);
         $this->_mockPlayerHtmlGenerator = Mockery::mock(tubepress_spi_player_PlayerHtmlGenerator::_);
-        $this->_mockShortcodeParser = Mockery::mock(tubepress_spi_shortcode_ShortcodeParser::_);
+        $this->_mockJsonEncoder = Mockery::mock('ehough_jameson_api_IEncoder');
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProvider($this->_mockVideoCollector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setPlayerHtmlGenerator($this->_mockPlayerHtmlGenerator);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setShortcodeHtmlParser($this->_mockShortcodeParser);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setJsonEncoder($this->_mockJsonEncoder);
     }
 
     public function testVideoFound()
     {
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::SHORTCODE)->andReturn('-shortcode-');
+        $queryParams = array('foo' => 'bar', 'a' => 'b');
+
+        $this->_mockHttpRequestParameterService->shouldReceive('getAllParams')->once()->andReturn($queryParams);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::VIDEO)->andReturn('-video-');
 
-        $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('-shortcode-');
-
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($queryParams);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LAZYPLAY)->andReturn(false);
 
         $mockVideo = new tubepress_api_video_Video();
@@ -68,19 +69,26 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
 
         $this->_mockVideoCollector->shouldReceive('collectSingleVideo')->once()->andReturn($mockVideo);
 
+        $this->_mockJsonEncoder->shouldReceive('encode')->once()->with(array(
+
+            'title' => 'video title',
+            'html'  => 'player-html'
+        ))->andReturn('foobarr');
+
         $this->_sut->handle();
 
         $this->assertEquals(200, $this->_sut->getHttpStatusCode());
-        $this->assertEquals('{ "title" : "video%20title", "html" : "player-html" }', $this->_sut->getOutput());
+        $this->assertEquals('foobarr', $this->_sut->getOutput());
     }
 
     public function testLazyPlay()
     {
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::SHORTCODE)->andReturn('-shortcode-');
+        $queryParams = array('foo' => 'bar', 'a' => 'b');
+
+        $this->_mockHttpRequestParameterService->shouldReceive('getAllParams')->once()->andReturn($queryParams);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::VIDEO)->andReturn('-video-');
 
-        $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('-shortcode-');
-
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($queryParams);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LAZYPLAY)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
 
@@ -94,11 +102,12 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
 
     public function testVideoNotFound()
     {
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::SHORTCODE)->andReturn('-shortcode-');
+        $queryParams = array('foo' => 'bar', 'a' => 'b');
+
+        $this->_mockHttpRequestParameterService->shouldReceive('getAllParams')->once()->andReturn($queryParams);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::VIDEO)->andReturn('-video-');
 
-        $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('-shortcode-');
-
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($queryParams);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LAZYPLAY)->andReturn(false);
 
         $this->_mockVideoCollector->shouldReceive('collectSingleVideo')->once()->andReturn(null);

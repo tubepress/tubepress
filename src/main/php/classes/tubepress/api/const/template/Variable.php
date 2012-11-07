@@ -42,12 +42,13 @@ class tubepress_api_const_template_Variable
     const PAGINATION_TOP           = 'topPagination';
     const PLAYER_HTML              = 'preGallery';
     const PLAYER_NAME              = 'playerName';
+
     const SEARCH_HANDLER_URL       = 'searchHandlerUrl';
     const SEARCH_HIDDEN_INPUTS     = 'searchHiddenInputs';
     const SEARCH_BUTTON            = 'searchButton';
     const SEARCH_TARGET_DOM_ID     = 'searchTargetDomId';
     const SEARCH_TERMS             = 'searchTerms';
-    const SHORTCODE                = 'shortcode';
+
     const THUMBNAIL_HEIGHT         = 'thumbHeight';
     const THUMBNAIL_WIDTH          = 'thumbWidth';
     const TUBEPRESS_BASE_URL       = 'tubepressBaseUrl';

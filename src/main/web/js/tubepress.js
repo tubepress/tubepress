@@ -457,7 +457,6 @@ TubePressPlayers = (function () {
 		documentElement		= jquery(document),
 		tubepressGallery	= TubePressGallery,
 		tubepressEvents		= TubePressEvents,
-		decodeUri			= decodeURIComponent,
 
 		/** Keep track of the players we've loaded. */
 		loadedPlayers = {},
@@ -491,8 +490,8 @@ TubePressPlayers = (function () {
 				callback	= function (data) {
 
 					var result	= TubePressJson.parse(data.responseText),
-						title	= decodeUri(result.title),
-						html	= decodeUri(result.html);
+						title	= result.title,
+						html	= result.html;
 
 					documentElement.trigger(tubepressEvents.PLAYER_POPULATE + playerName, [ title, html, height, width, videoId, galleryId ]);
 				},
@@ -1448,17 +1447,17 @@ TubePressPlayerApi = (function () {
 		onVimeoReady			:	onVimeoReady
 	};
 
-}());
+}()),
 
 /**
  * Handles Ajax interactive searching.
  */
-var TubePressAjaxSearch = (function () {
+TubePressAjaxSearch = (function () {
 
 	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
 	'use strict';
 
-	var performSearch = function (urlEncodedShortcode, urlEncodedSearchTerms, targetDomSelector, galleryId) {
+	var performSearch = function (nvpMap, rawSearchTerms, targetDomSelector, galleryId) {
 
 		/** These variable declarations aide in compression. */
 		var jquery		= jQuery,
@@ -1469,6 +1468,7 @@ var TubePressAjaxSearch = (function () {
 			callback,
 			ajaxResultSelector,
 			finalAjaxContentDestination,
+			urlParams,
 
 			/** The Ajax response results that we're interested in. */
 			gallerySelector = '#tubepress_gallery_' + galleryId,
@@ -1524,8 +1524,28 @@ var TubePressAjaxSearch = (function () {
 			logger.log('Ajax selector: ' + ajaxResultSelector);
 		}
 
-		TubePressAjax.loadAndStyle(httpMethod, TubePressGlobalJsConfig.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php?shortcode=' +
-			urlEncodedShortcode + '&tubepress_search=' + urlEncodedSearchTerms, finalAjaxContentDestination, ajaxResultSelector, null, callback);
+		urlParams = {
+
+			action				: 'ajaxInteractiveSearch',
+			tubepress_search	: rawSearchTerms
+		};
+
+		jquery.extend(urlParams, nvpMap);
+
+		TubePressAjax.loadAndStyle(
+
+			httpMethod,
+
+			TubePressGlobalJsConfig.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php?' + jquery.param(urlParams),
+
+			finalAjaxContentDestination,
+
+			ajaxResultSelector,
+
+			null,
+
+			callback
+		);
 	};
 
 	return { performSearch : performSearch };

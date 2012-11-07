@@ -24,12 +24,17 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
     private $_mockExecutionContext;
 
+    private $_mockOptionDescriptorReference;
+
 	function setup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams();
 
         $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+
+        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
 	}
 
     function onTearDown()
@@ -51,6 +56,19 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
         $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTP_METHOD)->andReturn('some-http-method');
         $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array('x' => 'y', 'foo' => 'bar'));
+
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(9)->andReturnUsing(function ($arg) {
+
+           if ($arg === tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION) {
+
+               $mockOdr = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION);
+               $mockOdr->setBoolean();
+
+               return $mockOdr;
+           }
+
+            return null;
+        });
 
         $event = new tubepress_api_event_TubePressEvent(array('yo' => 'mamma'));
 

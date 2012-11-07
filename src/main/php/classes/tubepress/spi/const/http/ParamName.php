@@ -28,6 +28,5 @@ class tubepress_spi_const_http_ParamName
     const DEBUG        = 'tubepress_debug';
     const PAGE         = 'tubepress_page';
     const SEARCH_TERMS = 'tubepress_search';
-    const SHORTCODE    = 'tubepress_shortcode';
     const VIDEO        = 'tubepress_video';
 }

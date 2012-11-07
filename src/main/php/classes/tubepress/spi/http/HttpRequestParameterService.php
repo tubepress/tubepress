@@ -59,4 +59,11 @@ interface tubepress_spi_http_HttpRequestParameterService
      * @return mixed True if the parameter is found in PHP's $_REQUEST array, false otherwise.
      */
     function hasParam($name);
+
+    /**
+     * Returns a map of param name => param value for ALL parameters in the request.
+     *
+     * @return array A map of param name => param value for ALL parameters in the request.
+     */
+    function getAllParams();
 }
