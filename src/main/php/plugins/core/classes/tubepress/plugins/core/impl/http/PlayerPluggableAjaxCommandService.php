@@ -47,7 +47,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
         $player           = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerHtmlGenerator();
         $provider         = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoCollector();
         $qss              = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $sp               = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeParser();
+        $jsonEncoder      = tubepress_impl_patterns_ioc_KernelServiceLocator::getJsonEncoder();
         $isDebugEnabled   = $this->_logger->isDebugEnabled();
 
         if ($isDebugEnabled) {
@@ -55,17 +55,15 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
             $this->_logger->debug('Handling incoming request. First parsing shortcode.');
         }
 
-        $shortcode = rawurldecode($qss->getParamValue(tubepress_spi_const_http_ParamName::SHORTCODE));
-        $videoId   = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);
+        $nvpMap  = $qss->getAllParams();
+        $videoId = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);
 
         if ($isDebugEnabled) {
 
-            $this->_logger->debug('Requested shortcode is ' . $shortcode);
             $this->_logger->debug('Requested video is ' . $videoId);
         }
 
-        /* gather up the options */
-        $sp->parse($shortcode);
+        $executionContext->setCustomOptions($nvpMap);
 
         if ($executionContext->get(tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
 
@@ -90,10 +88,13 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
             $this->_logger->debug('Video collector found video ' . $videoId . '. Sending it to browser');
         }
 
-        $title = rawurlencode($video->getTitle());
-        $html  = rawurlencode($player->getHtml($video));
+        $toReturn = array(
 
-        return array(200 => "{ \"title\" : \"$title\", \"html\" : \"$html\" }");
+            'title' => $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE),
+            'html'  => $player->getHtml($video)
+        );
+
+        return array(200 => $jsonEncoder->encode($toReturn));
     }
 }
 

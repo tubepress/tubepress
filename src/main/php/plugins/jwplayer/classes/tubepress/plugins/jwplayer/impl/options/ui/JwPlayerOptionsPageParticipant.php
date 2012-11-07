@@ -27,7 +27,7 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant 
     /**
      * @return string The name that will be displayed in the options page filter (top right).
      */
-    function getFriendlyName()
+    public final function getFriendlyName()
     {
         return 'JW Player';     //>(translatable)<
     }
@@ -35,7 +35,7 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant 
     /**
      * @return string All lowercase alphanumerics.
      */
-    function getName()
+    public final function getName()
     {
         return 'jwplayer';
     }
@@ -45,7 +45,7 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant 
      *
      * @return array An array of fields that should be shown on the given tab. May be empty, never null.
      */
-    function getFieldsForTab($tabName)
+    public final function getFieldsForTab($tabName)
     {
         if ($tabName !== tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME) {
 
@@ -57,21 +57,25 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant 
         return array(
 
             $fieldBuilder->build(
+
                 tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             ),
 
             $fieldBuilder->build(
+
                 tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             ),
 
             $fieldBuilder->build(
+
                 tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             ),
 
             $fieldBuilder->build(
+
                 tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             )

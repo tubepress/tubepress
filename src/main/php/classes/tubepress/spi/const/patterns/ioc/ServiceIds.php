@@ -37,6 +37,8 @@ class tubepress_spi_const_patterns_ioc_ServiceIds
     const HTTP_CLIENT                  = 'httpClient';
     const HTTP_RESPONSE_HANDLER        = 'httpResponseHandler';
     const HTTP_REQUEST_PARAMS          = 'httpRequestParameterService';
+    const JSON_DECODER                 = 'jsonDecoder';
+    const JSON_ENCODER                 = 'jsonEncoder';
     const MESSAGE                      = 'messageService';
     const OPTION_DESCRIPTOR_REFERENCE  = 'optionDescriptorReference';
     const OPTION_STORAGE_MANAGER       = 'optionStorageManager';

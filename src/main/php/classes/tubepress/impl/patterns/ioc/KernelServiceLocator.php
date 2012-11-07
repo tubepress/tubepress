@@ -96,6 +96,16 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_httpRequestParameterService;
 
     /**
+     * @var ehough_jameson_api_IDecoder
+     */
+    private static $_jsonDecoder;
+
+    /**
+     * @var ehough_jameson_api_IEncoder
+     */
+    private static $_jsonEncoder;
+
+    /**
      * @var tubepress_spi_message_MessageService
      */
     private static $_messageService;
@@ -277,6 +287,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getHttpRequestParameterService()
     {
         return self::_lazyGet('_httpRequestParameterService', tubepress_spi_const_patterns_ioc_ServiceIds::HTTP_REQUEST_PARAMS);
+    }
+
+    /**
+     * @return ehough_jameson_api_IDecoder
+     */
+    public static function getJsonDecoder()
+    {
+        return self::_lazyGet('_jsonDecoder', tubepress_spi_const_patterns_ioc_ServiceIds::JSON_DECODER);
+    }
+
+    /**
+     * @return ehough_jameson_api_IEncoder
+     */
+    public static function getJsonEncoder()
+    {
+        return self::_lazyGet('_jsonEncoder', tubepress_spi_const_patterns_ioc_ServiceIds::JSON_ENCODER);
     }
 
     /**
@@ -512,6 +538,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @param ehough_jameson_api_IDecoder $decoder The JSON decoder.
+     */
+    public static function setJsonDecoder(ehough_jameson_api_IDecoder $decoder)
+    {
+        self::$_jsonDecoder = $decoder;
+    }
+
+    /**
+     * @param ehough_jameson_api_IEncoder $encoder The JSON encoder.
+     */
+    public static function setJsonEncoder(ehough_jameson_api_IEncoder $encoder)
+    {
+        self::$_jsonEncoder = $encoder;
+    }
+
+    /**
      * @param tubepress_spi_message_MessageService $messageService The message service.
      */
     public static function setMessageService(tubepress_spi_message_MessageService $messageService)
@@ -668,6 +710,8 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
         self::$_httpClient = null;
         self::$_httpResponseHandler = null;
         self::$_httpRequestParameterService = null;
+        self::$_jsonDecoder = null;
+        self::$_jsonEncoder = null;
         self::$_messageService = null;
         self::$_optionDescriptorReference = null;
         self::$_optionStorageManager = null;

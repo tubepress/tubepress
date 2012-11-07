@@ -79,8 +79,6 @@ interface tubepress_spi_context_ExecutionContext
      */
     function getActualShortcodeUsed();
 
-    function toShortcode();
-
     /**
      * Resets the context for fresh execution.
      */

@@ -45,6 +45,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         $this->_registerHttpClient($container);
         $this->_registerHttpResponseHandler($container);
         $this->_registerHttpRequestParameterService($container);
+        $this->_registerJsonEncoderAndDecoder($container);
         $this->_registerOptionDescriptorReference($container);
         $this->_registerOptionValidator($container);
         $this->_registerOptionsUiFieldBuilder($container);
@@ -271,6 +272,21 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
             'ehough_shortstop_impl_HttpResponseHandlerChain'
 
         )->addArgument(new ehough_iconic_impl_Reference($chainId));
+    }
+
+    private function _registerJsonEncoderAndDecoder(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        $container->register(
+
+            tubepress_spi_const_patterns_ioc_ServiceIds::JSON_DECODER,
+            'ehough_jameson_impl_FastDecoder'
+        );
+
+        $container->register(
+
+            tubepress_spi_const_patterns_ioc_ServiceIds::JSON_ENCODER,
+            'ehough_jameson_impl_FastEncoder'
+        );
     }
 
     private function _registerHttpRequestParameterService(ehough_iconic_impl_ContainerBuilder $container)

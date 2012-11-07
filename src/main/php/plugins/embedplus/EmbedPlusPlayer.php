@@ -24,15 +24,15 @@
  */
 class tubepress_plugins_embedplus_EmbedPlusPlayer
 {
-    public static function registerEmbedPlusListeners()
+    public static function init()
     {
-        $embeddedPlayerRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $embeddedPlayerRegistry->registerService(
+        $serviceCollectionsRegistry->registerService(
 
             tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
             new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService());
     }
 }
 
-tubepress_plugins_embedplus_EmbedPlusPlayer::registerEmbedPlusListeners();
+tubepress_plugins_embedplus_EmbedPlusPlayer::init();

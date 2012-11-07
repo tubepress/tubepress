@@ -126,7 +126,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $this->_logger->debug('Done compiling IoC container. Now loading plugins.');
         }
 
-        $index = 0;
+        $index = 1;
         $count = count($allPlugins);
 
         /**

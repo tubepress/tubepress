@@ -31,19 +31,21 @@ class tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipa
      */
     public final function getFieldsForTab($tabName)
     {
+        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+
         switch ($tabName) {
 
             case tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME:
 
-                return $this->getFieldsForEmbeddedTab();
+                return $this->getFieldsForEmbeddedTab($fieldBuilder);
 
             case tubepress_impl_options_ui_tabs_FeedTab::TAB_NAME:
 
-                return $this->getFieldsForFeedTab();
+                return $this->getFieldsForFeedTab($fieldBuilder);
 
             case tubepress_impl_options_ui_tabs_GallerySourceTab::TAB_NAME:
 
-                return $this->getFieldsForGallerySourceTab();
+                return $this->getFieldsForGallerySourceTab($fieldBuilder);
 
             default:
 
@@ -67,10 +69,8 @@ class tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipa
         return 'vimeo';
     }
 
-    private function getFieldsForEmbeddedTab()
+    private function getFieldsForEmbeddedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
         return array(
 
             $fieldBuilder->build(
@@ -81,10 +81,8 @@ class tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipa
         );
     }
 
-    private function getFieldsForFeedTab()
+    private function getFieldsForFeedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
         return array(
 
             $fieldBuilder->build(
@@ -101,35 +99,33 @@ class tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipa
         );
     }
 
-    private function getFieldsForGallerySourceTab()
+    private function getFieldsForGallerySourceTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
         $gallerySources = array(
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
 
             tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE
+                tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE
         );
 
         $toReturn = array();

@@ -33,7 +33,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
      *               otherwise be found in PHP's $_REQUEST array. Returns null
      *               if the parameter is not set on this request.
      */
-    public function getParamValue($name)
+    public final function getParamValue($name)
     {
         /** Are we sure we have it? */
         if (!($this->hasParam($name))) {
@@ -72,7 +72,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
      *                       otherwise be found in PHP's $_REQUEST array. Returns null
      *                       if the parameter is not set on this request.
      */
-    public function getParamValueAsInt($name, $default)
+    public final function getParamValueAsInt($name, $default)
     {
         $raw = $this->getParamValue($name);
 
@@ -92,9 +92,26 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
      *
      * @return mixed True if the parameter is found in PHP's $_REQUEST array, false otherwise.
      */
-    public function hasParam($name)
+    public final function hasParam($name)
     {
         return array_key_exists($name, $_REQUEST);
+    }
+
+    /**
+     * Returns a map of param name => param value for ALL parameters in the request.
+     *
+     * @return array A map of param name => param value for ALL parameters in the request.
+     */
+    public final function getAllParams()
+    {
+        $toReturn = array();
+
+        foreach ($_REQUEST as $key => $value) {
+
+            $toReturn[$key] = $this->getParamValue($key);
+        }
+
+        return $toReturn;
     }
 }
 

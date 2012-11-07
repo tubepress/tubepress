@@ -24,10 +24,10 @@
  */
 final class tubepress_plugins_vimeo_Vimeo
 {
-    private static $_regexWordChars          = '/\w+/';
-    private static $_regexColor              = '/^([0-9a-f]{1,2}){3}$/i';
+    private static $_regexWordChars = '/\w+/';
+    private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
-    public static function registerVimeoListeners()
+    public static function init()
     {
         self::_registerVimeoOptions();
         self::_registerVimeoEmbeddedPlayer();
@@ -45,8 +45,8 @@ final class tubepress_plugins_vimeo_Vimeo
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
         $option->setDefaultValue('999999');
-        $option->setLabel('Main color');              //>(translatable)<
-        $option->setDescription('Default is 999999.'); //>(translatable)<
+        $option->setLabel('Main color');                    //>(translatable)<
+        $option->setDescription('Default is 999999.');      //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $odr->registerOptionDescriptor($option);
 
@@ -72,7 +72,7 @@ final class tubepress_plugins_vimeo_Vimeo
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
         $option->setDefaultValue('140484');
-        $option->setLabel('Videos from this Vimeo album');  //>(translatable)<
+        $option->setLabel('Videos from this Vimeo album');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
@@ -84,7 +84,7 @@ final class tubepress_plugins_vimeo_Vimeo
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
         $option->setDefaultValue('splitscreenstuff');
-        $option->setLabel('Videos in this Vimeo channel');  //>(translatable)<
+        $option->setLabel('Videos in this Vimeo channel');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
@@ -96,25 +96,25 @@ final class tubepress_plugins_vimeo_Vimeo
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
         $option->setDefaultValue('hdxs');
-        $option->setLabel('Videos from this Vimeo group');  //>(translatable)<
+        $option->setLabel('Videos from this Vimeo group');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
         $option->setDefaultValue('coiffier');
-        $option->setLabel('Videos this Vimeo user likes');  //>(translatable)<
+        $option->setLabel('Videos this Vimeo user likes');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
         $option->setDefaultValue('cats playing piano');
-        $option->setLabel('Vimeo search for');  //>(translatable)<
+        $option->setLabel('Vimeo search for');                   //>(translatable)<
         $option->setValidValueRegex('/[\w" ]+/');
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
         $option->setDefaultValue('mattkaar');
-        $option->setLabel('Videos uploaded by this Vimeo user');  //>(translatable)<
+        $option->setLabel('Videos uploaded by this Vimeo user'); //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
@@ -167,4 +167,4 @@ final class tubepress_plugins_vimeo_Vimeo
     }
 }
 
-tubepress_plugins_vimeo_Vimeo::registerVimeoListeners();
+tubepress_plugins_vimeo_Vimeo::init();
