@@ -50,10 +50,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
 
     private $_videoArray;
 
-    public function __construct(
-
-        tubepress_spi_provider_UrlBuilder $urlBuilder
-    )
+    public function __construct(tubepress_spi_provider_UrlBuilder $urlBuilder)
     {
         $this->_logger     = ehough_epilog_api_LoggerFactory::getLogger('Vimeo Video Provider');
         $this->_urlBuilder = $urlBuilder;
@@ -93,32 +90,6 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
     public final function getFriendlyName()
     {
         return 'Vimeo';
-    }
-
-    /**
-     * @param string $name The name of the option to test.
-     *
-     * @return boolean True if this provider provided the given option, false otherwise.
-     */
-    public final function isOptionApplicable($name)
-    {
-        return in_array($name, array(
-
-            tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY,
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET,
-            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES,
-
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
-
-        )) || in_array($name, tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar::$OPTION_NAMES_CORE);
     }
 
     /**

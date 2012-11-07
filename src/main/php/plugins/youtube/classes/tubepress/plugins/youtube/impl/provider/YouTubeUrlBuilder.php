@@ -49,56 +49,67 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER:
 
                 $url = 'users/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE) . '/uploads';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED:
 
                 $url = 'standardfeeds/top_rated?time=' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR:
 
                 $url = 'standardfeeds/most_popular?time=' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE);
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
 
                 $url = 'playlists/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED:
 
                 $url = 'standardfeeds/most_responded';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT:
 
                 $url = 'standardfeeds/most_recent';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES:
 
                 $url = 'standardfeeds/top_favorites';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED:
 
                 $url = 'standardfeeds/most_discussed';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED:
 
                 $url = 'videos/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE) . '/related';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES:
 
                 $url = 'videos/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE) . '/responses';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
 
                 $url = 'users/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE) . '/favorites';
+
                 break;
 
             case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
@@ -109,14 +120,18 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
                 $url  = "videos?q=$tags";
 
                 $filter = $execContext->get(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
+
                 if ($filter != '') {
+
                     $url .= "&author=$filter";
                 }
+
                 break;
 
             default:
 
                 $url = 'standardfeeds/recently_featured';
+
                 break;
         }
 
@@ -140,8 +155,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
      */
     public final function buildSingleVideoUrl($id)
     {
-        $context      = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-
+        $context    = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $requestURL = new ehough_curly_Url("http://gdata.youtube.com/feeds/api/videos/$id");
 
         $this->_urlPostProcessingCommon($context, $requestURL);
@@ -194,12 +208,14 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
         if ($order == tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
 
             $url->setQueryVariable(self::$_URL_PARAM_ORDER, $order);
+
             return;
         }
 
         if ($order == tubepress_api_const_options_values_OrderByValue::NEWEST) {
 
             $url->setQueryVariable(self::$_URL_PARAM_ORDER, 'published');
+
             return;
         }
 
@@ -214,6 +230,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
                 tubepress_api_const_options_values_OrderByValue::TITLE))) {
                 $url->setQueryVariable(self::$_URL_PARAM_ORDER, $order);
             }
+            
             return;
         }
 

@@ -36,16 +36,24 @@ class tubepress_plugins_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateV
         $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $template = $event->getSubject();
 
-        $template->setVariable(tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_FRONT,
-            $context->get(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_FRONT));
+        $toSet = array(
 
-        $template->setVariable(tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_LIGHT,
-            $context->get(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT));
+            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_FRONT =>
+            tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
 
-        $template->setVariable(tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_SCREEN,
-            $context->get(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN));
+            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_LIGHT =>
+                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
 
-        $template->setVariable(tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_BACK,
-            $context->get(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK));
+            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_SCREEN =>
+                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
+
+            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_BACK =>
+                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+        );
+
+        foreach ($toSet as $templateVariableName => $optionName) {
+
+            $template->setVariable($templateVariableName, $context->get($optionName));
+        }
     }
 }

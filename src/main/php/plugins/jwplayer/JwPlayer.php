@@ -46,28 +46,28 @@ class tubepress_plugins_jwplayer_JwPlayer
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
         $option->setDefaultValue('FFFFFF');
-        $option->setLabel('Background color');           //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
+        $option->setLabel('Background color');                         //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
         $option->setDescription('Default is FFFFFF');                  //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_FRONT);
         $option->setDefaultValue('000000');
-        $option->setLabel('Front color');           //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
+        $option->setLabel('Front color');                              //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
         $option->setDescription('Default is 000000');                  //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT);
         $option->setDefaultValue('000000');
-        $option->setLabel('Light color');           //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
+        $option->setLabel('Light color');                              //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
         $option->setDescription('Default is 000000');                  //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN);
         $option->setDefaultValue('000000');
-        $option->setLabel('Screen color');           //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
+        $option->setLabel('Screen color');                             //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
         $option->setDescription('Default is 000000');                  //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $odr->registerOptionDescriptor($option);

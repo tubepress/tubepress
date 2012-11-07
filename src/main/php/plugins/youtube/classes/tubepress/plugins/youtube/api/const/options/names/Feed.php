@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_youtube_api_const_options_names_Feed
 {
-    const DEV_KEY          = 'developerKey';
-    const EMBEDDABLE_ONLY  = 'embeddableOnly';
-    const FILTER           = 'filter_racy';
+    const DEV_KEY         = 'developerKey';
+    const EMBEDDABLE_ONLY = 'embeddableOnly';
+    const FILTER          = 'filter_racy';
 }

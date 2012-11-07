@@ -64,13 +64,6 @@ interface tubepress_spi_provider_PluggableVideoProviderService
     function getName();
 
     /**
-     * @param string $name The name of the option to test.
-     *
-     * @return boolean True if this provider provides the given option, false otherwise.
-     */
-    function isOptionApplicable($name);
-
-    /**
      * @return string The human-readable name of this video provider.
      */
     function getFriendlyName();

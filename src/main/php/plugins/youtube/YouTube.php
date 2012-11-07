@@ -34,7 +34,7 @@ class tubepress_plugins_youtube_YouTube
     private static $_regexWordChars = '/\w+/';
     private static $_youTubeVideo = '/[a-zA-Z0-9_-]{11}/';
 
-    public static function registerYouTubeListeners()
+    public static function init()
     {
         self::_registerYouTubeOptions();
         self::_registerYouTubeEmbeddedPlayer();
@@ -293,4 +293,4 @@ class tubepress_plugins_youtube_YouTube
     }
 }
 
-tubepress_plugins_youtube_YouTube::registerYouTubeListeners();
+tubepress_plugins_youtube_YouTube::init();

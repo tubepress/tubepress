@@ -31,19 +31,21 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
      */
     public final function getFieldsForTab($tabName)
     {
+        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+
         switch ($tabName) {
 
             case tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME:
 
-                return $this->getFieldsForEmbeddedTab();
+                return $this->getFieldsForEmbeddedTab($fieldBuilder);
 
             case tubepress_impl_options_ui_tabs_FeedTab::TAB_NAME:
 
-                return $this->getFieldsForFeedTab();
+                return $this->getFieldsForFeedTab($fieldBuilder);
 
             case tubepress_impl_options_ui_tabs_GallerySourceTab::TAB_NAME:
 
-                return $this->getFieldsForGallerySourceTab();
+                return $this->getFieldsForGallerySourceTab($fieldBuilder);
 
             default:
 
@@ -67,10 +69,8 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
         return 'youtube';
     }
 
-    private function getFieldsForEmbeddedTab()
+    private function getFieldsForEmbeddedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
         $embeddedBooleans = array(
 
             tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE,
@@ -100,10 +100,8 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
         return $toReturn;
     }
 
-    private function getFieldsForFeedTab()
+    private function getFieldsForFeedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
         return array(
 
             $fieldBuilder->build(
@@ -126,10 +124,8 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
         );
     }
 
-    private function getFieldsForGallerySourceTab()
+    private function getFieldsForGallerySourceTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
-
         $gallerySources = array(
 
             array(
