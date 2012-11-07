@@ -53,9 +53,12 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $mockPlugin2->shouldReceive('getName')->andReturn('mock plugin 2');
 
         $mockPlugin1IocContainerExtensions = array('FakeExtension');
+        $mockPlugin2IocCompilerPasses = array('FakeCompilerPass');
 
         $mockPlugin1->shouldReceive('getIocContainerExtensions')->once()->andReturn($mockPlugin1IocContainerExtensions);
+        $mockPlugin1->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn(array());
         $mockPlugin2->shouldReceive('getIocContainerExtensions')->once()->andReturn(array());
+        $mockPlugin2->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn($mockPlugin2IocCompilerPasses);
         $mockPlugin1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
         $mockPlugin2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
 

@@ -113,7 +113,17 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         if ($loggerDebugEnabled) {
 
-            $this->_logger->debug('Done registering plugin IoC container extensions. Now compiling IoC container.');
+            $this->_logger->debug('Done registering plugin IoC container extensions. Now registering plugin IoC compiler passes.');
+        }
+
+        /*
+         * Load IOC compiler passes.
+         */
+        $this->_registerIocCompilerPasses($allPlugins, $coreIocContainer, $loggerDebugEnabled);
+
+        if ($loggerDebugEnabled) {
+
+            $this->_logger->debug('Done registering plugin IoC compiler passes. Now compiling IoC container.');
         }
 
         /**
@@ -162,6 +172,61 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         /* remember that we booted. */
         self::$_alreadyBooted = true;
     }
+
+     private function _registerIocCompilerPasses($plugins, tubepress_impl_patterns_ioc_CoreIocContainer $coreIocContainer,
+                                                      $loggerDebugEnabled)
+     {
+         $index = 1;
+         $count = count($plugins);
+
+         foreach ($plugins as $plugin) {
+
+             $compilerPasses = $plugin->getIocContainerCompilerPasses();
+
+             if (count($compilerPasses) === 0) {
+
+                 if ($loggerDebugEnabled) {
+
+                     $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Did not register any IoC compiler passes',
+                         $index, $count, $plugin->getName()));
+                 }
+
+                 $index++;
+
+                 continue;
+             }
+
+             foreach ($compilerPasses as $compilerPass) {
+
+                 if ($loggerDebugEnabled) {
+
+                     $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Will attempt to load %s as an IoC compiler pass',
+                         $index, $count, $plugin->getName(), $compilerPass));
+                 }
+
+                 try {
+
+                     $ref = new ReflectionClass($compilerPass);
+
+                     /** @noinspection PhpParamsInspection */
+                     $coreIocContainer->addCompilerPass($ref->newInstance());
+
+                     if ($loggerDebugEnabled) {
+
+                         $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Successfully loaded %s as an IoC compiler pass',
+                             $index, $count, $plugin->getName(), $compilerPass));
+                     }
+
+                 } catch (Exception $e) {
+
+                     $this->_logger->warn(sprintf('(Plugin %d of %d: %s) Failed to load %s as an IoC compiler pass: %s',
+                         $index, $count, $plugin->getName(), $compilerPass, $e->getMessage()));
+                 }
+             }
+
+             $index++;
+         }
+     }
 
     private function _registerIocContainerExtensions($plugins, tubepress_impl_patterns_ioc_CoreIocContainer $coreIocContainer,
                                                      $loggerDebugEnabled)
