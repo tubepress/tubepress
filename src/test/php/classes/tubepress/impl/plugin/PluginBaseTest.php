@@ -30,6 +30,7 @@ class tubepress_impl_player_PluginBaseTest extends TubePressUnitTest
             'short',
             'absPath',
             array(),
+            array(),
             array()
         );
         
@@ -53,6 +54,7 @@ class tubepress_impl_player_PluginBaseTest extends TubePressUnitTest
             'short',
             'absPath',
             array(),
+            array(),
             array()
         );
 
@@ -75,6 +77,7 @@ class tubepress_impl_player_PluginBaseTest extends TubePressUnitTest
             'short',
             'absPath',
             array($mockExtension),
+            array(),
             array()
         );
 

@@ -57,6 +57,11 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
     /**
      * @var array
      */
+    private $_iocContainerCompilerPasses;
+
+    /**
+     * @var array
+     */
     private $_psr0ClassPathRoots;
 
     public function __construct(
@@ -67,6 +72,7 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
         $fileNameWithoutExtension,
         $absolutePath,
         array $iocContainerExtensions,
+        array $iocContainerPasses,
         array $psr0ClassPathRoots) {
 
         $this->_name                      = $name;
@@ -83,8 +89,9 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
             $this->_version = tubepress_spi_version_Version::parse($version);
         }
 
-        $this->_iocContainerExtensions = $iocContainerExtensions;
-        $this->_psr0ClassPathRoots     = $psr0ClassPathRoots;
+        $this->_iocContainerExtensions     = $iocContainerExtensions;
+        $this->_iocContainerCompilerPasses = $iocContainerPasses;
+        $this->_psr0ClassPathRoots         = $psr0ClassPathRoots;
     }
 
     /**
@@ -141,5 +148,13 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
     public final function getPsr0ClassPathRoots()
     {
         return $this->_psr0ClassPathRoots;
+    }
+
+    /**
+     * @return array An array of IOC compiler passes. May be empty, never null.
+     */
+    public final function getIocContainerCompilerPasses()
+    {
+        return $this->_iocContainerCompilerPasses;
     }
 }

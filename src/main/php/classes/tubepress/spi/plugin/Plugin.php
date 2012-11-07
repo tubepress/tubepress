@@ -26,8 +26,15 @@ interface tubepress_spi_plugin_Plugin
 {
     const _ = 'tubepress_spi_plugin_Plugin';
 
+    const ATTRIBUTE_CLASSPATH_ROOTS     = 'classPathRoots';
+    const ATTRIBUTE_DESC                = 'description';
+    const ATTRIBUTE_NAME                = 'name';
+    const ATTRIBUTE_IOC_COMPILER_PASSES = 'iocContainerCompilerPasses';
+    const ATTRIBUTE_IOC_EXTENSIONS      = 'iocContainerExtensions';
+    const ATTRIBUTE_VERSION             = 'version';
+
     /**
-     * @return string The friendly name of this plugin.
+     * @return string The friendly and globally unique name of this plugin. 100 characters or less.
      */
     function getName();
 
@@ -57,7 +64,12 @@ interface tubepress_spi_plugin_Plugin
     function getIocContainerExtensions();
 
     /**
-     * @return array An array of PSR-0 compliant class path roots.
+     * @return array An array of IOC compiler passes. May be empty, never null.
+     */
+    function getIocContainerCompilerPasses();
+
+    /**
+     * @return array An array of PSR-0 compliant class path roots. May be empty, never null.
      */
     function getPsr0ClassPathRoots();
 }

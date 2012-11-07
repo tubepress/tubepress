@@ -139,13 +139,24 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
 
             return new tubepress_impl_plugin_PluginBase(
 
-                $infoFileContents['name'],
-                $infoFileContents['description'],
-                $infoFileContents['version'],
+                $infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_NAME],
+
+                $infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_DESC],
+
+                $infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_VERSION],
+
                 str_replace('.info', '', basename($infoFile->getRealpath())),
+
                 dirname($infoFile->getRealpath()),
-                isset($infoFileContents['iocContainerExtensions']) ? $infoFileContents['iocContainerExtensions'] : array(),
-                isset($infoFileContents['classPathRoots']) ? $infoFileContents['classPathRoots'] : array()
+
+                isset($infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_IOC_EXTENSIONS]) ?
+                    $infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_IOC_EXTENSIONS] : array(),
+
+                isset($infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_IOC_COMPILER_PASSES]) ?
+                    $infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_IOC_COMPILER_PASSES] : array(),
+
+                isset($infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_CLASSPATH_ROOTS]) ?
+                    $infoFileContents[tubepress_spi_plugin_Plugin::ATTRIBUTE_CLASSPATH_ROOTS] : array()
             );
 
         } catch (Exception $e) {
