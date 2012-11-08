@@ -49,9 +49,11 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
             $shortcodeParser->parse($shortCodeContent);
         }
 
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $handlers                   = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
-        $html                       = null;
+        $handlers = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeHandlers();
+
+        usort($handlers, array($this, 'sortShortcodeHandlers'));
+
+        $html = null;
 
         foreach ($handlers as $handler) {
 
@@ -59,6 +61,7 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
             if ($handler->shouldExecute()) {
 
                 $html = $handler->getHtml();
+
                 break;
             }
         }
@@ -83,5 +86,20 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
         }
 
         return $event->getSubject();
+    }
+
+    public final function sortShortcodeHandlers($first, $second)
+    {
+        if ($first instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+
+            return 1;
+        }
+
+        if ($second instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+
+            return -1;
+        }
+
+        return 0;
     }
 }

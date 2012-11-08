@@ -47,15 +47,12 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
     public final function collectVideoGalleryPage()
     {
         $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
-
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $executionContext           = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-
-        $videoSource  = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
-        $providers    = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $result       = null;
-        $providerName = null;
-        $currentPage  = $this->_getCurrentPage();
+        $executionContext      = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $providers             = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
+        $videoSource           = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $result                = null;
+        $providerName          = null;
+        $currentPage           = $this->_getCurrentPage();
 
         if ($this->_isDebugEnabled) {
 
@@ -131,9 +128,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
             $this->_logger->debug(sprintf('Fetching video with ID <code>%s</code>', $customVideoId));
         }
 
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $providers = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $providers = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
 
         foreach ($providers as $videoProvider) {
 

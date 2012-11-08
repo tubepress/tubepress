@@ -24,8 +24,6 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
 
     private $_mockOptionsDescriptorReference;
 
-    private $_mockServiceCollectionsRegistry;
-
     private $_mockWordPressFunctionWrapper;
 
     private $_mockContentFilter;
@@ -36,39 +34,29 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
 
     private $_mockWidgetHandler;
 
-    function setup()
+    function onSetup()
     {
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        $this->_mockWordPressFunctionWrapper   = Mockery::mock(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockContentFilter       = Mockery::mock(tubepress_plugins_wordpress_spi_ContentFilter::_);
-        $this->_mockJsAndCssInjector    = Mockery::mock(tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_);
-        $this->_mockWpAdminHandler      = Mockery::mock(tubepress_plugins_wordpress_spi_WpAdminHandler::_);
-        $this->_mockWidgetHandler       = Mockery::mock(tubepress_plugins_wordpress_spi_WidgetHandler::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWordPressFunctionWrapper);
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setContentFilter($this->_mockContentFilter);
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setFrontEndCssAndJsInjector($this->_mockJsAndCssInjector);
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWpAdminHandler($this->_mockWpAdminHandler);
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWidgetHandler($this->_mockWidgetHandler);
+        $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockWordPressFunctionWrapper   = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockContentFilter              = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_ContentFilter::_);
+        $this->_mockJsAndCssInjector           = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_);
+        $this->_mockWpAdminHandler             = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WpAdminHandler::_);
+        $this->_mockWidgetHandler              = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WidgetHandler::_);
     }
 
     function testCore()
     {
-
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
 
         $this->_testOptions();
         $this->_testAdmin();
         $this->_testApi();
 
-        require __DIR__ . '/../../../../main/php/plugins/wordpress/WordPress.php';
+        require TUBEPRESS_ROOT . '/src/main/php/plugins/wordpress/WordPress.php';
 
         global $tubepress_base_url;
+
         $this->assertEquals('valueofcontenturl/plugins/tubepress', $tubepress_base_url);
     }
 
@@ -91,22 +79,7 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
     
     private function _testAdmin()
     {
-        $this->_mockWordPressFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(true);
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->times(8)->with(
-
-            tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME,
-            Mockery::on(function ($arg) {
-                return $arg instanceof  tubepress_impl_options_ui_tabs_GallerySourceTab ||
-                    $arg instanceof  tubepress_impl_options_ui_tabs_ThumbsTab ||
-                    $arg instanceof  tubepress_impl_options_ui_tabs_EmbeddedTab ||
-                    $arg instanceof  tubepress_impl_options_ui_tabs_MetaTab ||
-                    $arg instanceof  tubepress_impl_options_ui_tabs_ThemeTab ||
-                    $arg instanceof  tubepress_impl_options_ui_tabs_FeedTab ||
-                    $arg instanceof  tubepress_impl_options_ui_tabs_CacheTab ||
-                    $arg instanceof  tubepress_impl_options_ui_tabs_AdvancedTab;
-            })
-        );
+        //$this->_mockWordPressFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(true);
     }
 
     private function _testOptions()

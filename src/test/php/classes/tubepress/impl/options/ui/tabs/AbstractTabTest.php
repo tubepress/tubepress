@@ -29,23 +29,15 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 
     private $_mockTemplateBuilder;
 
-    private $_mockServiceCollectionsRegistry;
-
-    public function setup()
+    public function onSetup()
     {
         global $tubepress_base_url;
 
         $tubepress_base_url = 'tubepress-base-url';
 
-        $ms                             = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockFieldBuilder        = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
-        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($ms);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
+        $ms                             = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockFieldBuilder        = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
 
         $ms->shouldReceive('_')->andReturnUsing( function ($key) {
 
@@ -69,8 +61,8 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 
     public function testGetHtml()
     {
-        $mockOptionsPageParticipant1          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockOptionsPageParticipant2          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant1          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant2          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockPluggableOptionsPageParticipants = array($mockOptionsPageParticipant1, $mockOptionsPageParticipant2);
 
         $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array());
@@ -84,19 +76,13 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_)->andReturn(
-
-            $mockPluggableOptionsPageParticipants
-        );
-
         $this->assertEquals('final result', $this->_sut->getHtml());
     }
 
     public function testGetDelegateFormHandlers()
     {
-        $mockOptionsPageParticipant1          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockOptionsPageParticipant2          = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockPluggableOptionsPageParticipants = array($mockOptionsPageParticipant1, $mockOptionsPageParticipant2);
+        $mockOptionsPageParticipant1          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant2          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
 
         $fakeField1 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
         $fakeField2 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
@@ -104,11 +90,6 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 
         $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField1));
         $mockOptionsPageParticipant2->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField2, $fakeField3));
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_)->andReturn(
-
-            $mockPluggableOptionsPageParticipants
-        );
 
         $result = $this->_sut->getDelegateFormHandlers();
 

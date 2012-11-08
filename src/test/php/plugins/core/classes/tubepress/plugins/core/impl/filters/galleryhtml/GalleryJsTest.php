@@ -30,19 +30,13 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 
     private $_mockJsonEncoder;
 
-	function setup()
+	function onSetup()
 	{
-		$this->_sut = new tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs();
-		$this->_providerResult = new tubepress_api_video_VideoGalleryPage();
-
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-
-        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
-
-        $this->_mockJsonEncoder = new ehough_jameson_impl_FastEncoder();
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setJsonEncoder($this->_mockJsonEncoder);
+		$this->_sut                  = new tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs();
+		$this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockJsonEncoder      = $this->createMockSingletonService('ehough_jameson_api_IEncoder');
 	}
 
 	function testAlterHtml()
@@ -60,9 +54,9 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
             return $good;
         }));
 
-
-
         $event = new tubepress_api_event_TubePressEvent('hello');
+
+        $this->_mockJsonEncoder->shouldReceive('encode')->once()->with($fakeArgs)->andReturn('json');
 
         $event->setArguments(array(
 
@@ -81,7 +75,7 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 	    return <<<EOT
 hello
 <script type="text/javascript">
-	TubePressGallery.init(gallery-id, {"yo":"mamma","is":"\"so fat\"","x":{"foo":500,"html":"<>'\""}});
+	TubePressGallery.init(gallery-id, json);
 </script>
 EOT;
 	}

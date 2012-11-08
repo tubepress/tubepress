@@ -33,13 +33,11 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
      */
     public final function getHtml(tubepress_api_video_Video $vid)
     {
-        $executionContextService    = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $themeHandler               = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
+        $executionContextService   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $themeHandler              = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
         $requestedPlayerLocation   = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $playerLocation            = null;
-        $registeredPlayerLocations = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $registeredPlayerLocations = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerLocations();
 
         foreach ($registeredPlayerLocations as $registeredPlayerLocation) {
 
@@ -47,6 +45,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
             if ($registeredPlayerLocation->getName() === $requestedPlayerLocation) {
 
                 $playerLocation = $registeredPlayerLocation;
+
                 break;
             }
         }

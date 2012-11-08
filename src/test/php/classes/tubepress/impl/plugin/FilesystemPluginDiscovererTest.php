@@ -34,7 +34,7 @@ class tubepress_impl_player_FilesystemPluginDiscovererTest extends TubePressUnit
 
     private $_splInfoArray;
 
-    public function setUp()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_plugin_FilesystemPluginDiscoverer();
 
@@ -48,10 +48,9 @@ class tubepress_impl_player_FilesystemPluginDiscovererTest extends TubePressUnit
         $this->_mockFinder->shouldReceive('name')->with('*.info')->andReturn($this->_mockFinder);
         $this->_mockFinder->shouldReceive('depth')->once()->with('< 3')->andReturnUsing(array($this, '_callback'));
 
-        $this->_mockFilesystemFinderFactory = Mockery::mock('ehough_fimble_api_FinderFactory');
+        $this->_mockFilesystemFinderFactory = $this->createMockSingletonService('ehough_fimble_api_FinderFactory');
         $this->_mockFilesystemFinderFactory->shouldReceive('createFinder')->andReturn($this->_mockFinder);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystemFinderFactory($this->_mockFilesystemFinderFactory);
     }
 
     public function testBadInfoFile2()
@@ -91,7 +90,7 @@ class tubepress_impl_player_FilesystemPluginDiscovererTest extends TubePressUnit
 
         $this->assertTrue(is_array($result));
 
-        $this->assertTrue(count($result) === 0);
+        $this->assertTrue(count($result) === 1);
     }
 
     public function testGoodPlugin()

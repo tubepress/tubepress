@@ -27,38 +27,28 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
 
     private $_mockExecutionContext;
 
-    private $_mockServiceCollectionsRegistry;
-
     private $_mockHttpRequestParameterService;
 
     private $_mockEventDispatcher;
+    
+    private $_mockProvider;
 
-    public function setUp()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_collector_DefaultVideoCollector();
 
-        $this->_mockServiceCollectionsRegistry  = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        $this->_mockExecutionContext            = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockEventDispatcher             = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
     }
 
     public function testGetSingle()
     {
-        $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
-        $mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(true);
-        $mockProvider->shouldReceive('fetchSingleVideo')->once()->with('xyz')->andReturn('123');
-
-        $mockProviders = array($mockProvider);
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($mockProviders);
+        $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
+        $this->_mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(true);
+        $this->_mockProvider->shouldReceive('fetchSingleVideo')->once()->with('xyz')->andReturn('123');
 
         $result = $this->_sut->collectSingleVideo('xyz');
 
@@ -67,14 +57,10 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
 
     public function testGetSingleNoProvidersRecognize()
     {
-        $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
+        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(false);
-
-        $mockProviders = array($mockProvider);
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($mockProviders);
+        $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
+        $this->_mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(false);
 
         $result = $this->_sut->collectSingleVideo('xyz');
 
@@ -83,8 +69,6 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
 
     public function testGetSingleNoProviders()
     {
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn(array());
-
         $result = $this->_sut->collectSingleVideo('xyz');
 
         $this->assertNull($result);
@@ -94,17 +78,13 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
     {
         $mockPage = new tubepress_api_video_VideoGalleryPage();
 
-        $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array('x'));
-        $mockProvider->shouldReceive('fetchVideoGalleryPage')->once()->with(97)->andReturn($mockPage);
-        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
-
-        $mockProviders = array($mockProvider);
+        $this->_mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array('x'));
+        $this->_mockProvider->shouldReceive('fetchVideoGalleryPage')->once()->with(97)->andReturn($mockPage);
+        $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('x');
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($mockProviders);
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 
@@ -120,16 +100,11 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
 
     public function testMultipleNoProvidersCouldHandle()
     {
-        $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
-
-        $mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array());
-
-        $mockProviders = array($mockProvider);
+        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
+        $this->_mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array());
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('x');
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($mockProviders);
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 
@@ -149,8 +124,6 @@ class tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUnitTe
     public function testMultipleNoProviders()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('x');
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn(array());
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 

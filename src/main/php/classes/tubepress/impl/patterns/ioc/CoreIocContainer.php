@@ -23,7 +23,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_patterns_ioc_AbstractReadOnlyIocContainer
+final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconic_api_IContainer
 {
     /**
      * @var ehough_iconic_impl_ContainerBuilder
@@ -93,9 +93,46 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         return $this->_delegate->hasParameter($name);
     }
 
+    /**
+     * Sets a service.
+     *
+     * @param string $id      The service identifier
+     * @param object $service The service instance
+     * @param string $scope   The scope of the service
+     *
+     * @return void
+     */
+    public function set($id, $service, $scope = self::SCOPE_CONTAINER)
+    {
+        $this->_delegate->set($id, $service, $scope);
+    }
+
+    /**
+     * Sets a parameter.
+     *
+     * @param string $name  The parameter name
+     * @param mixed  $value The parameter value
+     *
+     * @return void
+     */
+    public function setParameter($name, $value)
+    {
+        $this->_delegate->setParameter($name, $value);
+    }
+
+    public function findTaggedServiceIds($tag)
+    {
+        return $this->_delegate->findTaggedServiceIds($tag);
+    }
+
     public function registerExtension(ehough_iconic_api_extension_IExtension $extension)
     {
         $this->_delegate->registerExtension($extension);
+    }
+
+    public function addCompilerPass(ehough_iconic_api_compiler_ICompilerPass $pass, $type = ehough_iconic_impl_compiler_PassConfig::TYPE_BEFORE_OPTIMIZATION)
+    {
+        $this->_delegate->addCompilerPass($pass, $type);
     }
 
     public function compile()
@@ -107,7 +144,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
     {
         $this->_delegate->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::ENVIRONMENT_DETECTOR,
+            tubepress_spi_environment_EnvironmentDetector::_,
             'tubepress_impl_environment_SimpleEnvironmentDetector'
         );
     }
@@ -116,7 +153,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
     {
         $this->_delegate->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::FILESYSTEM_FINDER_FACTORY,
+            'ehough_fimble_api_FinderFactory',
             'ehough_fimble_impl_StandardFinderFactory'
         );
     }
@@ -125,7 +162,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
     {
         $this->_delegate->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::PLUGIN_DISCOVER,
+            tubepress_spi_plugin_PluginDiscoverer::_,
             'tubepress_impl_plugin_FilesystemPluginDiscoverer'
         );
     }
@@ -134,7 +171,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
     {
         $this->_delegate->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::PLUGIN_REGISTRY,
+            tubepress_spi_plugin_PluginRegistry::_,
             'tubepress_impl_plugin_DefaultPluginRegistry'
         );
     }

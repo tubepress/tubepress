@@ -26,15 +26,12 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
     private $_mockOptionDescriptorReference;
 
-	function setup()
+	function onSetup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-
-        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
+        $this->_mockExecutionContext          = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 	}
 
     function onTearDown()
@@ -72,17 +69,12 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
         $event = new tubepress_api_event_TubePressEvent(array('yo' => 'mamma'));
 
-        $mockPlayer = Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $mockPlayer = $this->createMockPluggableService(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayer->shouldReceive('getName')->andReturn('player-loc');
         $mockPlayer->shouldReceive('getRelativePlayerJsUrl')->andReturn('abc');
         $mockPlayer->shouldReceive('producesHtml')->once()->andReturn(true);
-        $mockPlayers = array($mockPlayer);
 
         $tubepress_base_url = 'xyz';
-
-        $mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($mockServiceCollectionsRegistry);
-        $mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayers);
 
         $this->_sut->onGalleryInitJs($event);
 

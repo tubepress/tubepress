@@ -24,7 +24,7 @@ class tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends T
 
     private $_mockExecutionContext;
 
-	function setup()
+	function onSetup()
 	{
         global $tubepress_base_url;
 
@@ -32,8 +32,7 @@ class tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends T
 
 		$this->_sut = new tubepress_plugins_core_impl_filters_embeddedtemplate_CoreVariables();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 	}
 
 	function testAlter()

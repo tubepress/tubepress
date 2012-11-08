@@ -30,21 +30,17 @@ class tubepress_plugins_core_impl_filters_searchinputtemplate_CoreVariablesTest 
 
     private $_mockHttpRequestParameterService;
 
-	function setup()
+	function onSetup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_searchinputtemplate_CoreVariables();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
-        $this->_mockQueryStringService = Mockery::mock(tubepress_spi_querystring_QueryStringService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setQueryStringService($this->_mockQueryStringService);
+        $this->_mockQueryStringService = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);;
 
-        $this->_mockMessageService = Mockery::mock(tubepress_spi_message_MessageService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
+        $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 	}
 
 	function testYouTubeFavorites()

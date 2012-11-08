@@ -24,19 +24,15 @@ class tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnitTest
 
     private $_mockHttpRequestParameterService;
 
-    function setUp()
+    function onSetup()
     {
         global $tubepress_base_url;
 
         $tubepress_base_url = '<tubepress_base_url>';
 
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
         $this->_sut = new tubepress_impl_html_DefaultHeadHtmlGenerator();
-
-
     }
 
     function onTearDown()
@@ -58,8 +54,7 @@ class tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnitTest
 
     function testInlineJs()
     {
-        $mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($mockExecutionContext);
+        $mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTPS)->andReturn(false);
 

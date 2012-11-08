@@ -22,7 +22,7 @@ class tubepress_impl_player_DefaultPluginRegistryTest extends TubePressUnitTest
 {
     private $_sut;
 
-    public function setUp()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_plugin_DefaultPluginRegistry();
     }

@@ -28,16 +28,13 @@ class tubepress_plugins_core_impl_filters_singlevideotemplate_VideoMetaTest exte
 
     private $_mockOptionDescriptorReference;
 
-	function setup()
+	function onSetup()
 	{
-        $this->_mockMessageService = Mockery::mock(tubepress_spi_message_MessageService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
+        $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
-        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
+        $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 
 		$this->_sut = new tubepress_plugins_core_impl_filters_singlevideotemplate_VideoMeta();
 	}

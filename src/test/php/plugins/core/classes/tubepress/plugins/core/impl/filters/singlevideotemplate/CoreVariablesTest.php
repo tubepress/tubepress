@@ -26,15 +26,12 @@ class tubepress_plugins_core_impl_filters_singlevideotemplate_CoreVariablesTest 
 
     private $_mockEmbeddedHtmlGenerator;
 
-	function setup()
+	function onSetup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_singlevideotemplate_CoreVariables();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-
-        $this->_mockEmbeddedHtmlGenerator = Mockery::mock(tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEmbeddedHtmlGenerator($this->_mockEmbeddedHtmlGenerator);
+        $this->_mockExecutionContext      = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEmbeddedHtmlGenerator = $this->createMockSingletonService(tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
 	}
 
 	function testYouTubeFavorites()
@@ -59,7 +56,5 @@ class tubepress_plugins_core_impl_filters_singlevideotemplate_CoreVariablesTest 
 
         $this->assertEquals($mockTemplate, $event->getSubject());
 	}
-
-
 }
 

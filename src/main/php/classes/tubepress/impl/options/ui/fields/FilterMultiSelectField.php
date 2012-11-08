@@ -51,7 +51,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
         $hrps                 = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
         $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
         $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
-        $allParticipantNames = array_keys($this->_getFilterNamesToFriendlyNamesMap());
+        $allParticipantNames = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
 
         /**
          * This means that they want to hide everything.
@@ -72,6 +72,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
         }
 
         $toHide = array();
+
         foreach ($allParticipantNames as $participantName) {
 
             /*
@@ -106,11 +107,11 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
     public final function getHtml()
     {
         $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $template            = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect-provider-filter.tpl.php');
         $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $template            = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect-provider-filter.tpl.php');
         $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
         $currentHides        = explode(';', $storageManager->get($optionName));
-        $participantsNameMap = $this->_getFilterNamesToFriendlyNamesMap();
+        $participantsNameMap = $this->_getParticipantNamesToFriendlyNamesMap();
         $currentShows        = array();
 
         foreach ($participantsNameMap as $participantName => $participantFriendlyName) {
@@ -158,21 +159,20 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
         return '';
     }
 
-    private function _getFilterNamesToFriendlyNamesMap()
+    private function _getParticipantNamesToFriendlyNamesMap()
     {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $registeredFilters          = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $participants = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageParticipants();
 
         $toReturn = array();
 
-        foreach ($registeredFilters as $filter) {
+        foreach ($participants as $participant) {
 
-            if ($filter->getName() === 'core') {
+            if ($participant->getName() === 'core') {
 
                 continue;
             }
 
-            $toReturn[$filter->getName()] = $filter->getFriendlyName();
+            $toReturn[$participant->getName()] = $participant->getFriendlyName();
         }
 
         return $toReturn;

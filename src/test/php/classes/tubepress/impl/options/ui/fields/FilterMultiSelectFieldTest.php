@@ -36,30 +36,20 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
     
     private $_mockHttpRequestParameterService;
 
-    private $_mockServiceCollectionsRegistry;
-
     private $_mockTemplateBuilder;
 
-    public function setUp()
+    public function onSetup()
     {
-        $this->_mockOptionDescriptorReference   = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockMessageService              = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockStorageManager              = Mockery::mock(tubepress_spi_options_StorageManager::_);
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockServiceCollectionsRegistry  = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockOptionDescriptorReference   = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
 
         $mockOption = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
         $mockOption->setLabel('some crazy title');
 
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn($mockOption);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
 
         parent::doSetup($this->_mockMessageService);
 
@@ -150,17 +140,15 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
 
     private function setupMockFilters()
     {
-        $mockFilter = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockFilter = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockFilter->shouldReceive('getName')->twice()->andReturn('filter-name');
         $mockFilter->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name');
-        $mockFilter2 = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockFilter2 = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockFilter2->shouldReceive('getName')->twice()->andReturn('filter-name-2');
         $mockFilter2->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-2');
-        $mockFilter3 = Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockFilter3 = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockFilter3->shouldReceive('getName')->twice()->andReturn('filter-name-3');
         $mockFilter3->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-3');
-        $mockFilters = array($mockFilter, $mockFilter2, $mockFilter3);
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_)->andReturn($mockFilters);
     }
 }
 

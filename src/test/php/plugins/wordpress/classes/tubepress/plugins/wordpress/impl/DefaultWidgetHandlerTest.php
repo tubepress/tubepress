@@ -40,29 +40,19 @@ class tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
 
     private $_mockWpFunctionWrapper;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_plugins_wordpress_impl_DefaultWidgetHandler();
 
-        $this->_mockMessageService   = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockTemplateBuilder = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockShortcodeParser = Mockery::mock(tubepress_spi_shortcode_ShortcodeParser::_);
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockShortCodeHtmlGenerator = Mockery::mock(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
-        $this->_mockStorageManager  = Mockery::mock(tubepress_spi_options_StorageManager::_);
-        $this->_mockWpFunctionWrapper = Mockery::mock(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setShortcodeHtmlParser($this->_mockShortcodeParser);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setShortcodeHtmlGenerator($this->_mockShortCodeHtmlGenerator);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
+        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockShortCodeHtmlGenerator      = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $this->_mockMessageService->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";

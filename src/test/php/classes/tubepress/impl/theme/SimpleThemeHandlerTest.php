@@ -29,15 +29,11 @@ class tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
 
     private $_mockEnvironmentDetector;
 
-    public function setup()
+    public function onSetup()
     {
-        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockContext             = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockContext             = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
         $this->_sut = new tubepress_impl_theme_SimpleThemeHandler();
     }

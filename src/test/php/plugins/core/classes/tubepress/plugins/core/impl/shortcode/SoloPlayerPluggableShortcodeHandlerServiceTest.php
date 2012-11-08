@@ -31,16 +31,13 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
 
     private $_mockSingleVideoShortcodeHandler;
 
-	function setup()
+	function onSetup()
 	{
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-
-        $this->_mockSingleVideoShortcodeHandler = Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+        $this->_mockSingleVideoShortcodeHandler = $this->createMockPluggableService(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
 		$this->_sut = new tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService($this->_mockSingleVideoShortcodeHandler);
 	}

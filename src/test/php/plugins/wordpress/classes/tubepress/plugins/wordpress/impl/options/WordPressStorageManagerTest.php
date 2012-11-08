@@ -34,23 +34,17 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
 
     public $options = 'xyz';
 
-    public function setUp()
+    public function onSetup()
     {
         global $wpdb;
 
         $wpdb = $this;
 
-        $this->_mockEnvironmentDetector      = \Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockEventDispatcher          = \Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-        $this->_mockOptionValidator          = \Mockery::mock(tubepress_spi_options_OptionValidator::_);
-        $this->_mockOptionsReference         = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockWordPressFunctionWrapper = \Mockery::mock(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionValidator($this->_mockOptionValidator);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsReference);
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWordPressFunctionWrapper);
+        $this->_mockEnvironmentDetector      = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEventDispatcher          = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockOptionValidator          = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
+        $this->_mockOptionsReference         = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $this->_sut = new tubepress_plugins_wordpress_impl_options_WordPressStorageManager();
     }

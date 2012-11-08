@@ -26,7 +26,7 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
 
     private $_mockResponse;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = $this->buildSut();
 

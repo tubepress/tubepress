@@ -28,6 +28,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
     private $_logger;
 
+    private $_iocContainer = null;
+
     public function __construct()
     {
         $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('TubePress Bootstrapper');
@@ -56,6 +58,16 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         }
     }
 
+    /**
+     * This is here strictly for testing :/
+     *
+     * @param ehough_iconic_api_IContainer $iocContainer The IoC container.
+     */
+    public final function setIocContainer(ehough_iconic_api_IContainer $iocContainer)
+    {
+        $this->_iocContainer = $iocContainer;
+    }
+
     private function _doBoot()
     {
         /**
@@ -63,8 +75,16 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          */
         $then = microtime(true);
 
-        $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setCoreIocContainer($coreIocContainer);
+        if ($this->_iocContainer) {
+
+            $coreIocContainer = $this->_iocContainer;
+
+        } else {
+
+            $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
+        }
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setIocContainer($coreIocContainer);
 
         $envDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
 
@@ -93,6 +113,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
             $this->_logger->debug(sprintf('Found %d plugins (%d system and %d user)',
                 count($allPlugins), count($systemPlugins), count($userPlugins)));
+
             $this->_logger->debug('Now register plugin classloaders');
         }
 
@@ -173,8 +194,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         self::$_alreadyBooted = true;
     }
 
-     private function _registerIocCompilerPasses($plugins, tubepress_impl_patterns_ioc_CoreIocContainer $coreIocContainer,
-                                                      $loggerDebugEnabled)
+     private function _registerIocCompilerPasses($plugins, $coreIocContainer, $loggerDebugEnabled)
      {
          $index = 1;
          $count = count($plugins);
@@ -228,8 +248,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          }
      }
 
-    private function _registerIocContainerExtensions($plugins, tubepress_impl_patterns_ioc_CoreIocContainer $coreIocContainer,
-                                                     $loggerDebugEnabled)
+    private function _registerIocContainerExtensions($plugins, $coreIocContainer, $loggerDebugEnabled)
     {
         $index = 1;
         $count = count($plugins);

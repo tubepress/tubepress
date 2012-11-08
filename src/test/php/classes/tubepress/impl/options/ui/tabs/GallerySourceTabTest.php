@@ -26,26 +26,17 @@ class tubepress_impl_options_ui_tabs_GallerySourceTabTest extends TubePressUnitT
 
     private $_mockExecutionContext;
 
-    private $_mockServiceCollectionsRegistry;
-
-    public function setup()
+    public function onSetup()
     {
-        $ms                             = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockFieldBuilder        = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
-        $this->_mockExecutionContext    = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
+        $ms                             = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockFieldBuilder        = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockExecutionContext    = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $ms->shouldReceive('_')->andReturnUsing( function ($key) {
 
             return "<<message: $key>>";
         });
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($ms);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
 
         $this->_sut = new tubepress_impl_options_ui_tabs_GallerySourceTab();
     }

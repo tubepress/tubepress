@@ -26,14 +26,12 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoPrependerTest ex
 
     private $_mockHttpRequestParameterService;
 
-	function setup()
+	function onSetup()
 	{
 
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
-        $this->_mockVideoProvider = Mockery::mock(tubepress_spi_collector_VideoCollector::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProvider($this->_mockVideoProvider);
+        $this->_mockVideoProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
 
 		$this->_sut = new tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender();
 	}

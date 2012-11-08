@@ -24,13 +24,12 @@ class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePr
 
     private $_storageManager;
 
-	public function setup()
+	public function onSetup()
 	{
 		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 
-        $this->_storageManager = Mockery::mock(tubepress_spi_options_StorageManager::_);
+        $this->_storageManager = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_storageManager);
 	}
 
 	/**

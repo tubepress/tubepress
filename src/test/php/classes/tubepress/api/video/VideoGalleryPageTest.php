@@ -22,7 +22,7 @@ class tubepress_api_video_VideoGalleryPageTest extends TubePressUnitTest
 {
     private $_sut;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_api_video_VideoGalleryPage();
     }

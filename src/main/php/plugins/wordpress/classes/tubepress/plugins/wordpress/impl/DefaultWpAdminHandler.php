@@ -36,7 +36,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
             return;
         }
 
-        $wpFunctionWrapper    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper    = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
         $baseName             = basename(TUBEPRESS_ROOT);
         $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/jquery-ui-flick/jquery-ui-1.8.24.custom.css", $baseName);
         $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/options-page.css", $baseName);
@@ -69,7 +69,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
      */
     public final function registerAdminMenuItem()
     {
-        $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->add_options_page('TubePress Options', 'TubePress', 'manage_options',
             'tubepress', array($this, 'printOptionsPageHtml'));
@@ -119,7 +119,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
      */
     public final function modifyMetaRowLinks($links, $file)
     {
-        $wordPressFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $plugin = $wordPressFunctionWrapper->plugin_basename(basename(TUBEPRESS_ROOT) . '/tubepress.php');
 
@@ -138,7 +138,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
 
     private static function _verifyNonce()
     {
-        $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->check_admin_referer('tubepress-save', 'tubepress-nonce');
     }

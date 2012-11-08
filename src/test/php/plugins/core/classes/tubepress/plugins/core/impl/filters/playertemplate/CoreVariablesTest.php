@@ -26,15 +26,13 @@ class tubepress_plugins_core_impl_filters_playertemplate_CoreVariablesTest exten
 
     private $_mockEmbeddedHtmlGenerator;
 
-    public function setup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_plugins_core_impl_filters_playertemplate_CoreVariables();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
-        $this->_mockEmbeddedHtmlGenerator = Mockery::mock(tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEmbeddedHtmlGenerator($this->_mockEmbeddedHtmlGenerator);
+        $this->_mockEmbeddedHtmlGenerator = $this->createMockSingletonService(tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
     }
 
     function testAlterTemplate()

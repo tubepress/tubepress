@@ -29,14 +29,6 @@ final class tubepress_plugins_vimeo_Vimeo
 
     public static function init()
     {
-        self::_registerVimeoOptions();
-        self::_registerVimeoEmbeddedPlayer();
-        self::_registerVimeoVideoProvider();
-        self::_registerVimeoOptionsPageParticipant();
-    }
-
-    private static function _registerVimeoOptions()
-    {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
         /**
@@ -128,42 +120,6 @@ final class tubepress_plugins_vimeo_Vimeo
         $option->setDefaultValue(false);
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
-    }
-
-    private static function _registerVimeoEmbeddedPlayer()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
-            new tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService()
-        );
-    }
-
-    private static function _registerVimeoVideoProvider()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_provider_PluggableVideoProviderService::_,
-            new tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService(
-
-                new tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder()
-            )
-        );
-    }
-
-    private static function _registerVimeoOptionsPageParticipant()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
-            new tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant()
-        );
     }
 }
 

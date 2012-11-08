@@ -33,18 +33,14 @@ class tubepress_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServ
 
     private $_mockProvider;
 
-	function setup()
+	function onSetup()
 	{
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-        $this->_mockThemeHandler     = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
-        $this->_mockProvider = Mockery::mock(tubepress_spi_collector_VideoCollector::_);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProvider($this->_mockProvider);
-        
+
 		$this->_sut = new tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService();
 	}
 

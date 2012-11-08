@@ -44,21 +44,14 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
 
     private $_mockEnvironmentDetector;
 
-    public function setup()
+    public function onSetup()
     {
-        $this->_mockOptionDescriptorReference   = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockMessageService              = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockStorageManager              = Mockery::mock(tubepress_spi_options_StorageManager::_);
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockEnvironmentDetector         = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        $this->_mockOptionDescriptorReference   = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
         $this->_sut = new tubepress_impl_options_ui_DefaultFieldBuilder();
     }
@@ -75,18 +68,13 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
     {
         $this->_setupOptionDescriptorReferenceForMetaMultiSelect();
 
-        $mockProvider1 = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider1 = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('xyz'));
 
-        $mockProvider2 = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider2 = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('abc'));
 
         $mockProviders = array($mockProvider1, $mockProvider2);
-
-        $mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        $mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn($mockProviders);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($mockServiceCollectionsRegistry);
 
         $result = $this->_sut->buildMetaDisplayMultiSelectField();
 

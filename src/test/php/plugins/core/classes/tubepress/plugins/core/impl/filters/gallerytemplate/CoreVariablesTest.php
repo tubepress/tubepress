@@ -24,12 +24,11 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_CoreVariablesTest exte
 
     private $_mockExecutionContext;
 
-    public function setup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_plugins_core_impl_filters_gallerytemplate_CoreVariables();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
     }
 
     function testAlterTemplate()

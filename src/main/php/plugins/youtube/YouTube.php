@@ -36,14 +36,6 @@ class tubepress_plugins_youtube_YouTube
 
     public static function init()
     {
-        self::_registerYouTubeOptions();
-        self::_registerYouTubeEmbeddedPlayer();
-        self::_registerYouTubeVideoProvider();
-        self::_registerYouTubeOptionsPage();
-    }
-
-    private static function _registerYouTubeOptions()
-    {
         $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
         /**
@@ -254,42 +246,6 @@ class tubepress_plugins_youtube_YouTube
         $option->setDefaultValue(false);
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);
-    }
-
-    private static function _registerYouTubeEmbeddedPlayer()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
-            new tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService()
-        );
-    }
-
-    private static function _registerYouTubeVideoProvider()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_provider_PluggableVideoProviderService::_,
-            new tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService(
-
-                new tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder()
-            )
-        );
-    }
-
-    private static function _registerYouTubeOptionsPage()
-    {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
-            new tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant()
-        );
     }
 }
 

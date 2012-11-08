@@ -23,7 +23,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
 
     private $_sut;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_spi_options_OptionDescriptor('name');
     }

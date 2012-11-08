@@ -24,18 +24,16 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_VideoMetaTest extends 
 
     private $_mockExecutionContext;
 
-	function setup()
+	function onSetup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_gallerytemplate_VideoMeta();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 	}
 
 	function testVideoMetaAboveAndBelow()
 	{
-        $messageService = Mockery::mock(tubepress_spi_message_MessageService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($messageService);
+        $messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 	    $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
 	          return "##$msg##";
 	    });
@@ -44,8 +42,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_VideoMetaTest extends 
         $shouldShow = array();
         $labels     = array();
 
-        $mockOdr = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($mockOdr);
+        $mockOdr = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 
         $mockOdr->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
 

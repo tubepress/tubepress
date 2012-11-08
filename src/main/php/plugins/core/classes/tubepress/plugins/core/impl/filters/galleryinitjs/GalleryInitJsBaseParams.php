@@ -49,7 +49,7 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
      *
      * Otherwise, we simply set any "custom" options so they can be passed back in via Ajax operations.
      */
-    public final function onGalleryInitJs(tubepress_api_event_TubePressEvent $event)
+    public function onGalleryInitJs(tubepress_api_event_TubePressEvent $event)
     {
         $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
 
@@ -110,9 +110,8 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
     private function _findPlayerLocation(tubepress_spi_context_ExecutionContext $context)
     {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $playerLocations            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PluggablePlayerLocationService::_);
-        $requestedPlayerName        = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $playerLocations     = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerLocations();
+        $requestedPlayerName = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
         foreach ($playerLocations as $playerLocation) {
 

@@ -22,10 +22,8 @@ class tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylist
 {
 	private $_sut;
 
-	function setup()
+	function onSetup()
 	{
-		parent::setUp();
-
 		$this->_sut = new tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover();
 	}
 

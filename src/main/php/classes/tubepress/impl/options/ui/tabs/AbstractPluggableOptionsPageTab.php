@@ -48,12 +48,10 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         global $tubepress_base_url;
 
-        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
-
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $optionsPageParticipants    = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $tabParticipants            = array();
+        $templateBuilder         = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $template                = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
+        $optionsPageParticipants = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageParticipants();
+        $tabParticipants         = array();
 
         foreach ($optionsPageParticipants as $optionsPageParticipant) {
 
@@ -81,8 +79,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         $fields = array();
 
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $optionsPageParticipants    = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $optionsPageParticipants = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageParticipants();
 
         foreach ($optionsPageParticipants as $optionsPageParticipant) {
 

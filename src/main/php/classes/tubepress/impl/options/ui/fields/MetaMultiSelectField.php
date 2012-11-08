@@ -40,8 +40,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
             tubepress_api_const_options_names_Meta::VIEWS,
         );
 
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $videoProviders             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $videoProviders = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
 
         foreach ($videoProviders as $videoProvider) {
 

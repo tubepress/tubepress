@@ -36,15 +36,14 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_PaginationTest extends
 
     private $_mockHttpRequestParameterService;
 
-    public function setup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_plugins_core_impl_filters_gallerytemplate_Pagination();
 
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockQueryStringService          = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
+        $messageService                         = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)->andReturn(true);
@@ -57,19 +56,13 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_PaginationTest extends
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
 
-        $this->_mockQueryStringService = Mockery::mock(tubepress_spi_querystring_QueryStringService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setQueryStringService($this->_mockQueryStringService);
         $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org');
-
-        $messageService = Mockery::mock(tubepress_spi_message_MessageService::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($messageService);
 
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
         });
 
-        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
     }
 
     public function testAjax()

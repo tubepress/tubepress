@@ -32,21 +32,15 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandlerTest extends TubePre
 
     private $_mockEnvironmentDetector;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_plugins_wordpress_impl_DefaultWpAdminHandler();
 
-        $this->_mockWpFunctionWrapper = Mockery::mock(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockStorageManager  = Mockery::mock(tubepress_spi_options_StorageManager::_);
-        $this->_mockFormHandler = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFormHandler($this->_mockFormHandler);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockFormHandler                 = $this->createMockSingletonService(tubepress_spi_options_ui_FormHandler::_);
+        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
     }
 
 

@@ -20,8 +20,6 @@
  */
 class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 {
-    private $_mockVideoProviderRegistry;
-
     private $_mockOptionsDescriptorReference;
 
     private $_mockFieldBuilder;
@@ -37,33 +35,17 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
     );
     private static $_regexWordChars          = '/\w+/';
 
-	function setup()
+	function onSetup()
 	{
-        $this->_mockVideoProviderRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockFieldBuilder = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockVideoProviderRegistry);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
+        $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockFieldBuilder               = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
 	}
 
 	function testLoad()
     {
-        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-
-            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
-            Mockery::type('tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService'));
-
-        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-            tubepress_spi_provider_PluggableVideoProviderService::_,
-            Mockery::type('tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService'));
-
         $this->_testOptions();
 
-        $this->_testOptionsPageUi();
-
-        require __DIR__ . '/../../../../main/php/plugins/youtube/YouTube.php';
+        require TUBEPRESS_ROOT . '/src/main/php/plugins/youtube/YouTube.php';
 
         $this->assertTrue(true);
     }
@@ -277,14 +259,5 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
                 && $registeredOption->hasDiscreteAcceptableValues() === $expectedOption->hasDiscreteAcceptableValues()
                 && $registeredOption->isProOnly() === $expectedOption->isProOnly();
         }));
-    }
-
-    private function _testOptionsPageUi()
-    {
-        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-
-            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
-            Mockery::type('tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant')
-        );
     }
 }

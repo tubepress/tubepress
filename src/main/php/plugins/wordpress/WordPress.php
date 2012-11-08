@@ -35,7 +35,6 @@ class tubepress_plugins_wordpress_WordPress
         }
 
         self::_registerWpOptions();
-        self::_registerOptionsPageItems();
         self::_registerSelfWithWordPressApi();
     }
 
@@ -44,7 +43,8 @@ class tubepress_plugins_wordpress_WordPress
         global $tubepress_base_url;
 
         $baseName          = basename(TUBEPRESS_ROOT);
-        $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper =
+            tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
         if (self::_isWordPressMuDomainMapped()) {
@@ -61,10 +61,14 @@ class tubepress_plugins_wordpress_WordPress
         /* register the plugin's message bundles */
         $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");
 
-        $contentFilter    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getContentFilter();
-        $jsAndCssInjector = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getFrontEndCssAndJsInjector();
-        $wpAdminHandler   = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWpAdminHandler();
-        $widgetHandler    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWidgetHandler();
+        $contentFilter    =
+            tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_ContentFilter::_);
+        $jsAndCssInjector =
+            tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_);
+        $wpAdminHandler   =
+            tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WpAdminHandler::_);
+        $widgetHandler    =
+            tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WidgetHandler::_);
 
         $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'), 10, 1);
         $wpFunctionWrapper->add_action('wp_head',     array($jsAndCssInjector, 'printInHtmlHead'), 10, 1);
@@ -85,40 +89,6 @@ class tubepress_plugins_wordpress_WordPress
         }
 
         $wpFunctionWrapper->add_filter($filterPoint, array($wpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
-    }
-
-    private static function _registerOptionsPageItems()
-    {
-        $wordPressFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
-
-        if (! $wordPressFunctionWrapper->is_admin()) {
-
-            //we only want to do this stuff on the admin page
-            return;
-        }
-
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        $tabs = array(
-
-            new tubepress_impl_options_ui_tabs_GallerySourceTab(),
-            new tubepress_impl_options_ui_tabs_ThumbsTab(),
-            new tubepress_impl_options_ui_tabs_EmbeddedTab(),
-            new tubepress_impl_options_ui_tabs_MetaTab(),
-            new tubepress_impl_options_ui_tabs_ThemeTab(),
-            new tubepress_impl_options_ui_tabs_FeedTab(),
-            new tubepress_impl_options_ui_tabs_CacheTab(),
-            new tubepress_impl_options_ui_tabs_AdvancedTab()
-        );
-
-        foreach ($tabs as $tab) {
-
-            $serviceCollectionsRegistry->registerService(
-
-                tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME,
-                $tab
-            );
-        }
     }
 
     private static function _registerWpOptions()

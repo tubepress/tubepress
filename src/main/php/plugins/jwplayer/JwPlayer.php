@@ -28,21 +28,8 @@ class tubepress_plugins_jwplayer_JwPlayer
 
     public static function init()
     {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $odr                        = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
         $eventDispatcher            = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
-            new tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService()
-        );
-
-        $serviceCollectionsRegistry->registerService(
-
-            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
-            new tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant()
-        );
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
         $option->setDefaultValue('FFFFFF');

@@ -38,27 +38,19 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
     private $_mockTemplateBuilder;
 
-    public function setup()
+    public function onSetup()
     {
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockOptionDescriptor            = new tubepress_spi_options_OptionDescriptor('name');
 
-        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_mockOptionDescriptor);
 
-        $this->_mockStorageManager      = Mockery::mock(tubepress_spi_options_StorageManager::_);
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockOptionsValidator    = Mockery::mock(tubepress_spi_options_OptionValidator::_);
-        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockMessageService      = Mockery::mock(tubepress_spi_message_MessageService::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionValidator($this->_mockOptionsValidator);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        $this->_mockStorageManager      = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockOptionsValidator    = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
+        $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockMessageService      = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
         parent::doSetup($this->_mockMessageService);
 

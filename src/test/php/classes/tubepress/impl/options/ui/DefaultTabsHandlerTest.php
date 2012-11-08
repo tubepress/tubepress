@@ -24,25 +24,16 @@ class tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnitTest
 
     private $_mockTemplateBuilder;
 
-    private $_mockServiceCollectionsRegistry;
-
     private $_expectedTabs = array();
 
-    public function setup()
+    public function onSetup()
     {
-        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
+        $this->_mockTemplateBuilder = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
 
         for ($x = 0; $x < 8; $x++) {
 
-            $this->_expectedTabs[] = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
+            $this->_expectedTabs[] = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
         }
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(
-            tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME)->andReturn($this->_expectedTabs);
 
         $this->_sut = new tubepress_impl_options_ui_DefaultTabsHandler();
     }
@@ -62,8 +53,6 @@ class tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnitTest
 
     public function testSubmit()
     {
-        $vals = array('one' => 'two');
-
         foreach ($this->_expectedTabs as $tab) {
 
             $tab->shouldReceive('onSubmit')->once();

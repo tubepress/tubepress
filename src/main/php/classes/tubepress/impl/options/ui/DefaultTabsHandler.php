@@ -49,8 +49,6 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     protected final function getDelegateFormHandlers()
     {
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
-        return $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
+        return tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageTabs();
     }
 }

@@ -34,6 +34,9 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
      */
     public final function load(ehough_iconic_impl_ContainerBuilder $container)
     {
+        /**
+         * Singleton services.
+         */
         $this->_registerAjaxHandler($container);
         $this->_registerCacheService($container);
         $this->_registerEmbeddedHtmlGenerator($container);
@@ -51,12 +54,21 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         $this->_registerOptionsUiFieldBuilder($container);
         $this->_registerPlayerHtmlGenerator($container);
         $this->_registerQueryStringService($container);
-        $this->_registerServiceCollectionsRegistry($container);
         $this->_registerShortcodeHtmlGenerator($container);
         $this->_registerShortcodeParser($container);
         $this->_registerTemplateBuilder($container);
         $this->_registerThemeHandler($container);
         $this->_registerVideoCollector($container);
+
+        /**
+         * Pluggable services.
+         */
+        $this->_registerPluggableServices($container);
+
+        /**
+         * Filters
+         */
+        $this->_registerFilters($container);
     }
 
     /**
@@ -76,9 +88,8 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::AJAX_HANDLER,
+            tubepress_spi_http_AjaxHandler::_,
             'tubepress_impl_http_DefaultAjaxHandler'
-
         );
     }
 
@@ -87,10 +98,10 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::CACHE,
+            'ehough_stash_api_Cache',
             'ehough_stash_impl_PearCacheLiteCache'
 
-        )->addArgument(new ehough_iconic_impl_Reference(tubepress_spi_const_patterns_ioc_ServiceIds::FILESYSTEM));
+        )->addArgument(new ehough_iconic_impl_Reference('ehough_fimble_api_Filesystem'));
     }
 
     private function _registerEmbeddedHtmlGenerator(ehough_iconic_impl_ContainerBuilder $container)
@@ -98,9 +109,8 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::EMBEDDED_HTML_GENERATOR,
+            tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
             'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'
-
         );
     }
 
@@ -108,7 +118,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::EVENT_DISPATCHER,
+            'ehough_tickertape_api_IEventDispatcher',
             'ehough_tickertape_impl_StandardEventDispatcher'
         );
     }
@@ -117,7 +127,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::EXECUTION_CONTEXT,
+            tubepress_spi_context_ExecutionContext::_,
             'tubepress_impl_context_MemoryExecutionContext'
         );
     }
@@ -126,18 +136,16 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::FILESYSTEM,
+            'ehough_fimble_api_Filesystem',
             'ehough_fimble_impl_StandardFilesystem'
         );
     }
-
-
 
     private function _registerFeedFetcher(ehough_iconic_impl_ContainerBuilder $container)
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::FEED_FETCHER,
+            tubepress_spi_feed_FeedFetcher::_,
             'tubepress_impl_feed_CacheAwareFeedFetcher'
         );
     }
@@ -146,7 +154,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::HEAD_HTML_GENERATOR,
+            tubepress_spi_html_HeadHtmlGenerator::_,
             'tubepress_impl_html_DefaultHeadHtmlGenerator'
         );
     }
@@ -249,7 +257,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::HTTP_CLIENT,
+            'ehough_shortstop_api_HttpClient',
             'ehough_shortstop_impl_HttpClientChain'
 
         )->addArgument(new ehough_iconic_impl_Reference($transportChainId))
@@ -268,7 +276,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::HTTP_RESPONSE_HANDLER,
+            'ehough_shortstop_api_HttpResponseHandler',
             'ehough_shortstop_impl_HttpResponseHandlerChain'
 
         )->addArgument(new ehough_iconic_impl_Reference($chainId));
@@ -278,13 +286,13 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::JSON_DECODER,
+            'ehough_jameson_api_IDecoder',
             'ehough_jameson_impl_FastDecoder'
         );
 
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::JSON_ENCODER,
+            'ehough_jameson_api_IEncoder',
             'ehough_jameson_impl_FastEncoder'
         );
     }
@@ -293,7 +301,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::HTTP_REQUEST_PARAMS,
+            tubepress_spi_http_HttpRequestParameterService::_,
             'tubepress_impl_http_DefaultHttpRequestParameterService'
         );
     }
@@ -302,7 +310,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::OPTION_DESCRIPTOR_REFERENCE,
+            tubepress_spi_options_OptionDescriptorReference::_,
             'tubepress_impl_options_DefaultOptionDescriptorReference'
         );
     }
@@ -311,7 +319,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::OPTION_VALIDATOR,
+            tubepress_spi_options_OptionValidator::_,
             'tubepress_impl_options_DefaultOptionValidator'
         );
     }
@@ -320,7 +328,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::OPTIONS_UI_FIELDBUILDER,
+            tubepress_spi_options_ui_FieldBuilder::_,
             'tubepress_impl_options_ui_DefaultFieldBuilder'
         );
     }
@@ -329,7 +337,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::PLAYER_HTML_GENERATOR,
+            tubepress_spi_player_PlayerHtmlGenerator::_,
             'tubepress_impl_player_DefaultPlayerHtmlGenerator'
         );
     }
@@ -338,26 +346,16 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::QUERY_STRING_SERVICE,
+            tubepress_spi_querystring_QueryStringService::_,
             'tubepress_impl_querystring_SimpleQueryStringService'
-        );
-    }
-
-    private function _registerServiceCollectionsRegistry(ehough_iconic_impl_ContainerBuilder $container)
-    {
-        $container->register(
-
-            tubepress_spi_const_patterns_ioc_ServiceIds::SERVICE_COLLECTIONS_REGISTRY,
-            'tubepress_impl_patterns_sl_DefaultServiceCollectionsRegistry'
         );
     }
 
     private function _registerShortcodeHtmlGenerator(ehough_iconic_impl_ContainerBuilder $container)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::SHORTCODE_HTML_GENERATOR,
+            tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
             'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator'
 
         );
@@ -367,7 +365,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::SHORTCODE_PARSER,
+            tubepress_spi_shortcode_ShortcodeParser::_,
             'tubepress_impl_shortcode_SimpleShortcodeParser'
         );
     }
@@ -376,7 +374,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::TEMPLATE_BUILDER,
+            'ehough_contemplate_api_TemplateBuilder',
             'ehough_contemplate_impl_SimpleTemplateBuilder'
         );
     }
@@ -385,7 +383,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::THEME_HANDLER,
+            tubepress_spi_theme_ThemeHandler::_,
             'tubepress_impl_theme_SimpleThemeHandler'
         );
     }
@@ -394,9 +392,115 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_const_patterns_ioc_ServiceIds::VIDEO_COLLECTOR,
+            tubepress_spi_collector_VideoCollector::_,
             'tubepress_impl_collector_DefaultVideoCollector'
         );
+    }
+
+    private function _registerPluggableServices(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant',
+            'tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant'
+
+        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+
+        $container->register(
+
+            'tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService',
+            'tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService'
+
+        )->addTag(tubepress_spi_http_PluggableAjaxCommandService::_);
+
+        $playerLocationClasses = array(
+
+            'tubepress_plugins_core_impl_player_JqModalPluggablePlayerLocationService',
+            'tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService',
+            'tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService',
+            'tubepress_plugins_core_impl_player_ShadowboxPluggablePlayerLocationService',
+            'tubepress_plugins_core_impl_player_StaticPluggablePlayerLocationService',
+            'tubepress_plugins_core_impl_player_VimeoPluggablePlayerLocationService',
+            'tubepress_plugins_core_impl_player_SoloPluggablePlayerLocationService',
+            'tubepress_plugins_core_impl_player_YouTubePluggablePlayerLocationService',
+        );
+
+        foreach ($playerLocationClasses as $playerLocationClass) {
+
+            $container->register(
+
+                $playerLocationClass, $playerLocationClass
+
+            )->addTag(tubepress_spi_player_PluggablePlayerLocationService::_);
+        }
+
+        $container->register(
+
+            'tubepress_plugins_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService',
+            'tubepress_plugins_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService'
+
+        )->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+
+        $container->register(
+
+            'tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService',
+            'tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService'
+
+        )->addArgument(new ehough_iconic_impl_Reference('tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'))
+         ->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+
+        $container->register(
+
+            'tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService',
+            'tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService'
+
+        )->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+
+        $container->register(
+
+            'tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService',
+            'tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService'
+
+        )->addArgument(new ehough_iconic_impl_Reference('tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService'))
+         ->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+
+        $container->register(
+
+            'tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService',
+            'tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'
+        )->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+    }
+
+    private function _registerFilters(ehough_iconic_impl_ContainerBuilder $container)
+    {
+        $filterClasses = array(
+
+            'tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi',
+            'tubepress_plugins_core_impl_filters_embeddedtemplate_CoreVariables',
+            'tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs',
+            'tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams',
+            'tubepress_plugins_core_impl_filters_gallerytemplate_CoreVariables',
+            'tubepress_plugins_core_impl_filters_gallerytemplate_EmbeddedPlayerName',
+            'tubepress_plugins_core_impl_filters_gallerytemplate_Pagination',
+            'tubepress_plugins_core_impl_filters_gallerytemplate_Player',
+            'tubepress_plugins_core_impl_filters_gallerytemplate_VideoMeta',
+            'tubepress_plugins_core_impl_filters_playertemplate_CoreVariables',
+            'tubepress_plugins_core_impl_filters_prevalidationoptionset_StringMagic',
+            'tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover',
+            'tubepress_plugins_core_impl_filters_searchinputtemplate_CoreVariables',
+            'tubepress_plugins_core_impl_filters_singlevideotemplate_CoreVariables',
+            'tubepress_plugins_core_impl_filters_singlevideotemplate_VideoMeta',
+            'tubepress_plugins_core_impl_filters_variablereadfromexternalinput_StringMagic',
+            'tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter',
+            'tubepress_plugins_core_impl_filters_videogallerypage_ResultCountCapper',
+            'tubepress_plugins_core_impl_filters_videogallerypage_VideoBlacklist',
+            'tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender',
+        );
+
+        foreach ($filterClasses as $filterClass) {
+
+            $container->register($filterClass, $filterClass);
+        }
     }
 
     private function _registerChainDefinitionByClassNames(ehough_iconic_impl_ContainerBuilder $container, $chainName, array $classNames)

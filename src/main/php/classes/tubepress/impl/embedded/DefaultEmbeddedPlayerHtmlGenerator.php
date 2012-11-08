@@ -20,10 +20,13 @@
  */
 
 /**
- * An HTML-embeddable video player.
+ * Generates HTML for the embedded video player.
  */
 class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tubepress_spi_embedded_EmbeddedHtmlGenerator
 {
+    /**
+     * @var ehough_epilog_api_ILogger Logger.
+     */
     private $_logger;
 
     public function __construct()
@@ -117,12 +120,13 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
      */
     private function _getEmbeddedPlayer($videoId)
     {
-        $executionContext           = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-
+        $executionContext            = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $embeddedPlayers             = tubepress_impl_patterns_ioc_KernelServiceLocator::getEmbeddedPlayers();
         $requestedEmbeddedPlayerName = $executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
-        $embeddedPlayers             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
+        /**
+         * CASE 1: The user has requested a specific embedded player that is registered.
+         */
         if ($requestedEmbeddedPlayerName !== tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED) {
 
             foreach ($embeddedPlayers as $embeddedPlayer) {
@@ -130,13 +134,17 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
                 /** @noinspection PhpUndefinedMethodInspection */
                 if ($embeddedPlayer->getName() === $requestedEmbeddedPlayerName) {
 
+                    //found it!
                     return $embeddedPlayer;
                 }
             }
         }
 
+        /**
+         * CASE 2: The user has requested a specific embedded player that is NOT registered.
+         */
         $calculatedProviderName = null;
-        $videoProviders         = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $videoProviders         = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
 
         foreach ($videoProviders as $videoProvider) {
 

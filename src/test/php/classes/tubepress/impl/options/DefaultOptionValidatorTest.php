@@ -25,11 +25,9 @@ class tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUnitTes
 
     private $_mockOptionsDescriptorReference;
 
-	public function setup()
+	public function onSetup()
 	{
-        $this->_mockOptionsDescriptorReference = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
+        $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 
 		$this->_sut = new tubepress_impl_options_DefaultOptionValidator($this->_mockOptionsDescriptorReference);
 	}

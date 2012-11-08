@@ -23,7 +23,7 @@ class tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePressU
 
     private $_sut;
 
-    public function setup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_querystring_SimpleQueryStringService();
     }

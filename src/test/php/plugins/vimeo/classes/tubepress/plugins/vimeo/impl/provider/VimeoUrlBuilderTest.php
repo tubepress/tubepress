@@ -30,13 +30,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
 
     private $_mockExecutionContext;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
     }

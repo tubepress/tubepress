@@ -24,8 +24,14 @@
  */
 class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
 {
+    /**
+     * @var ehough_epilog_api_ILogger Logger.
+     */
     private $_logger;
 
+    /**
+     * @var boolean Is debugging enabled?
+     */
     private $_isDebugEnabled;
 
     public function __construct()
@@ -57,9 +63,8 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             return;
         }
 
-        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $commandHandlers            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_http_PluggableAjaxCommandService::_);
-        $chosenCommandHandler       = null;
+        $commandHandlers      = tubepress_impl_patterns_ioc_KernelServiceLocator::getAjaxCommandHandlers();
+        $chosenCommandHandler = null;
 
         if ($this->_isDebugEnabled) {
 
@@ -72,6 +77,7 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             if ($commandHandler->getName() === $actionName) {
 
                 $chosenCommandHandler = $commandHandler;
+
                 break;
             }
 
@@ -89,6 +95,7 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             }
 
             http_response_code(500);
+
             return;
         }
 

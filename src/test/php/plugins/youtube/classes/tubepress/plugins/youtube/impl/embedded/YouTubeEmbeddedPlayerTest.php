@@ -25,7 +25,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
      */
     private $_sut;
 
-    public function setUp()
+    public function onSetup()
     {
         $this->_sut = new tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService();
     }
@@ -42,7 +42,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
 
     public function testGetTemplate()
     {
-        $mockThemeHandler = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
+        $mockThemeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
 
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 
@@ -57,9 +57,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
 
     public function testGetDataUrl()
     {
-        $mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($mockExecutionContext);
+        $mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);

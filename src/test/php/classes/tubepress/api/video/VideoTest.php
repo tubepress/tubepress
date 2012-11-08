@@ -22,7 +22,7 @@ class tubepress_api_video_VideoTest extends TubePressUnitTest
 {
 	private $_vid;
 
-	function setUp()
+	function onSetup()
 	{
 		$this->_vid = new tubepress_api_video_Video();
 	}

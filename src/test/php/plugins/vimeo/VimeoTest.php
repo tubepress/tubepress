@@ -20,49 +20,23 @@
  */
 class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 {
-    private $_mockVideoProviderRegistry;
-
     private $_mockOptionsDescriptorReference;
 
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
-	function setup()
+	function onSetup()
 	{
-        $this->_mockVideoProviderRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockVideoProviderRegistry);
+        $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 	}
 
 	function testVimeo()
     {
-        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-
-            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
-            Mockery::type('tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService'));
-
-        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-            tubepress_spi_provider_PluggableVideoProviderService::_,
-            Mockery::type('tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService'));
-
         $this->_testOptions();
 
-        $this->_testOptionsPageUi();
-
-        require __DIR__ . '/../../../../main/php/plugins/vimeo/Vimeo.php';
+        require TUBEPRESS_ROOT . '/src/main/php/plugins/vimeo/Vimeo.php';
 
         $this->assertTrue(true);
-    }
-
-    private function _testOptionsPageUi()
-    {
-        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-
-            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
-            Mockery::type('tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant')
-        );
     }
 
     private function _testOptions()

@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_impl_filters_embeddedtemplate_CoreVariables
 {
-    public final function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
     {
         global $tubepress_base_url;
 

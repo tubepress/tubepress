@@ -38,15 +38,13 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
         self::$_allTranslatableStrings = self::_getAllTranslatableStrings();
     }
 
-    function setUp()
+    function onSetup()
     {
-        $wrapper = \Mockery::mock(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wrapper = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
         $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
 
             return "[[$key]]";
         });
-
-        tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($wrapper);
 
         $this->_sut = new tubepress_plugins_wordpress_impl_message_WordPressMessageService($wrapper);
     }

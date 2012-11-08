@@ -27,13 +27,12 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantT
 
     private $_mockFieldBuilder;
 
-    public function setUp() {
+    public function onSetup() {
 
         $this->_sut = new tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant();
 
-        $this->_mockFieldBuilder = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockFieldBuilder = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
     }
 
     public function testGetName()

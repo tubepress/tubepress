@@ -35,21 +35,15 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
 
     private $_mockJsonEncoder;
 
-    public function setUp()
+    public function onSetup()
     {
         $this->_sut = new tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockVideoCollector = Mockery::mock(tubepress_spi_collector_VideoCollector::_);
-        $this->_mockPlayerHtmlGenerator = Mockery::mock(tubepress_spi_player_PlayerHtmlGenerator::_);
-        $this->_mockJsonEncoder = Mockery::mock('ehough_jameson_api_IEncoder');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProvider($this->_mockVideoCollector);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setPlayerHtmlGenerator($this->_mockPlayerHtmlGenerator);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setJsonEncoder($this->_mockJsonEncoder);
+        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockVideoCollector              = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
+        $this->_mockPlayerHtmlGenerator         = $this->createMockSingletonService(tubepress_spi_player_PlayerHtmlGenerator::_);
+        $this->_mockJsonEncoder                 = $this->createMockSingletonService('ehough_jameson_api_IEncoder');
     }
 
     public function testVideoFound()

@@ -34,7 +34,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
     public final function registerWidget()
     {
         $msg               = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
         $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
@@ -142,7 +142,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
 
     private static function _verifyNonce() {
 
-        $wpFunctionWrapper = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
     }

@@ -81,26 +81,16 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
 
         foreach ($finder as $infoFile) {
 
-            if ($this->_hasMatchingPhpFile($infoFile)) {
+            $plugin = $this->_buildPlugin($infoFile);
 
-                $plugin = $this->_buildPlugin($infoFile);
-
-                if ($plugin !== null) {
-
-                    if ($this->_logger->isDebugEnabled()) {
-
-                        $this->_logger->debug('Found valid plugin at ' . $infoFile->getRealpath());
-                    }
-
-                    $toReturn[] = $plugin;
-                }
-
-            } else {
+            if ($plugin !== null) {
 
                 if ($this->_logger->isDebugEnabled()) {
 
-                    $this->_logger->debug('Found a .info file but missing .php file: ' . $infoFile->getRealpath());
+                    $this->_logger->debug('Found valid plugin at ' . $infoFile->getRealpath());
                 }
+
+                $toReturn[] = $plugin;
             }
         }
 
@@ -110,15 +100,6 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
         }
 
         return $toReturn;
-    }
-
-    private function _hasMatchingPhpFile($infoFile)
-    {
-        $directory            = dirname($infoFile->getRealpath());
-        $nameWithoutExtension = str_replace('.info', '', basename($infoFile->getRealpath()));
-        $phpFilePath          = "$directory/$nameWithoutExtension.php";
-
-        return is_file($phpFilePath) && is_readable($phpFilePath);
     }
 
     private function _buildPlugin($infoFile)

@@ -22,7 +22,7 @@ abstract class tubepress_plugins_core_impl_filters_AbstractStringMagicFilterTest
 {
 	private $_sut;
 
-	function setup()
+	function onSetup()
 	{
 		$this->_sut = $this->_buildSut();
 	}

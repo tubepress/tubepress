@@ -23,7 +23,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePress
 {
     private $_sut;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_impl_environment_SimpleEnvironmentDetector();
     }

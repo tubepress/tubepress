@@ -31,17 +31,14 @@ class tubepress_plugins_core_impl_shortcode_SearchInputPluggableShortcodeHandler
 
     private $_mockEventDispatcher;
 
-    function setup()
+    function onSetup()
     {
         $this->_sut = new tubepress_plugins_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-        $this->_mockThemeHandler     = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
     }
 
     function testShouldNotExecute()

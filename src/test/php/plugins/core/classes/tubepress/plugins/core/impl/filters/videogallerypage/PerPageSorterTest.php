@@ -26,10 +26,9 @@ class tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorterTest ext
 
     private $_mockExecutionContext;
 
-	function setup()
+	function onSetup()
 	{
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
 		$this->_sut = new tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter();
 		$this->_buildVideos();

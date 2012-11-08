@@ -20,8 +20,6 @@
  */
 class tubepress_plugins_jwplayer_JwPlayerTest extends TubePressUnitTest
 {
-    private $_mockServiceCollectionsRegistry;
-
     private $_mockFieldBuilder;
 
     private $_mockOptionsDescriptorReference;
@@ -30,31 +28,15 @@ class tubepress_plugins_jwplayer_JwPlayerTest extends TubePressUnitTest
 
     private static $_regexColor = '/^([0-9a-f]{1,2}){3}$/i';
 
-	public function setup()
+	public function onSetup()
 	{
-        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
-        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockFieldBuilder               = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
-        $this->_mockEventDispatcher            = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockFieldBuilder               = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
 	}
 
 	public function testJwPlayer()
     {
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(
-
-            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
-            Mockery::type('tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService'));
-
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->once()->with(
-
-            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_,
-            Mockery::type('tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant'));
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
         $option->setDefaultValue('FFFFFF');
         $option->setLabel('Background color');           //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
@@ -82,8 +64,6 @@ class tubepress_plugins_jwplayer_JwPlayerTest extends TubePressUnitTest
         $option->setDescription('Default is 000000');                  //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $this->_verifyOption($option);
-
-
 
         $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             Mockery::on(function ($arg) {

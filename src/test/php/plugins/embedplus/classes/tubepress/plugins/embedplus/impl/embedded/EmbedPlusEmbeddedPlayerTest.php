@@ -22,7 +22,7 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest exte
 {
     private $_sut;
 
-    public function setUp() {
+    public function onSetup() {
 
         $this->_sut = new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService();
     }
@@ -39,7 +39,7 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest exte
 
     public function testGetTemplate()
     {
-        $mockThemeHandler = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
+        $mockThemeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
 
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 
@@ -54,10 +54,7 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest exte
 
     public function testGetDataUrl()
     {
-        $mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($mockExecutionContext);
-
+        $mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 

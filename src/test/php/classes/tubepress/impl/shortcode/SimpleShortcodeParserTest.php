@@ -24,14 +24,11 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     private $_mockExecutionContext;
     private $_mockEventDispatcher;
 
-    public function setup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser();
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
     }

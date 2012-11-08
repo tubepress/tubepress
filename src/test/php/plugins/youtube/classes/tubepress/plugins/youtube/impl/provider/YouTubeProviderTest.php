@@ -35,18 +35,13 @@ class tubepress_plugins_youtube_impl_provider_YouTubeProviderTest extends TubePr
 
     private $_mockHttpRequestParameterService;
 
-    public function setUp()
+    public function onSetup()
     {
-        $this->_mockUrlBuilder  = Mockery::mock(tubepress_spi_provider_UrlBuilder::_);
-        $this->_mockFeedFetcher = Mockery::mock(tubepress_spi_feed_FeedFetcher::_);
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setFeedFetcher($this->_mockFeedFetcher);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        $this->_mockUrlBuilder  = $this->createMockSingletonService(tubepress_spi_provider_UrlBuilder::_);
+        $this->_mockFeedFetcher = $this->createMockSingletonService(tubepress_spi_feed_FeedFetcher::_);
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
         $this->_sut = new tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService($this->_mockUrlBuilder);
     }

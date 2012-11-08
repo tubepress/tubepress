@@ -27,13 +27,10 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     private $_mockExecutionContext;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder();
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');

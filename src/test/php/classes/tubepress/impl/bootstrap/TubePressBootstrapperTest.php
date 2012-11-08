@@ -30,19 +30,22 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
     private $_mockPluginRegistry;
 
-    function setUp()
+    function onSetup()
     {
         $this->_sut = new tubepress_impl_bootstrap_TubePressBootstrapper();
 
-        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockStorageManager      = Mockery::mock(tubepress_spi_options_StorageManager::_);
-        $this->_mockPluginDiscoverer    = Mockery::mock(tubepress_spi_plugin_PluginDiscoverer::_);
-        $this->_mockPluginRegistry      = Mockery::mock(tubepress_spi_plugin_PluginRegistry::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockStorageManager      = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockPluginDiscoverer    = $this->createMockSingletonService(tubepress_spi_plugin_PluginDiscoverer::_);
+        $this->_mockPluginRegistry      = $this->createMockSingletonService(tubepress_spi_plugin_PluginRegistry::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setPluginDiscoverer($this->_mockPluginDiscoverer);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setPluginRegistry($this->_mockPluginRegistry);
+        $this->_sut->setIocContainer($this->getMockIocContainer());
+    }
+
+    public static function setUpBeforeClass()
+    {
+        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeExtension.php';
     }
 
     function testBoot()
@@ -51,15 +54,16 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $mockPlugin2 = Mockery::mock(tubepress_spi_plugin_Plugin::_);
         $mockPlugin1->shouldReceive('getName')->andReturn('mock plugin 1');
         $mockPlugin2->shouldReceive('getName')->andReturn('mock plugin 2');
+        $mockPlugin1->shouldReceive('getAbsolutePathOfDirectory')->once()->andReturn('xyz');
 
-        $mockPlugin1IocContainerExtensions = array('FakeExtension');
-        $mockPlugin2IocCompilerPasses = array('FakeCompilerPass');
+        $mockPlugin1IocContainerExtensions = array('FakeExtension', 'bogus class');
+        $mockPlugin2IocCompilerPasses = array('FakeCompilerPass', 'no such class');
 
         $mockPlugin1->shouldReceive('getIocContainerExtensions')->once()->andReturn($mockPlugin1IocContainerExtensions);
         $mockPlugin1->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn(array());
         $mockPlugin2->shouldReceive('getIocContainerExtensions')->once()->andReturn(array());
         $mockPlugin2->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn($mockPlugin2IocCompilerPasses);
-        $mockPlugin1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
+        $mockPlugin1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('some root'));
         $mockPlugin2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
 
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
@@ -74,6 +78,15 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin1);
         $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin2);
 
+        $this->getMockIocContainer()->shouldReceive('addCompilerPass')->once()->with(Mockery::type('FakeCompilerPass'));
+        $this->getMockIocContainer()->shouldReceive('registerExtension')->once()->with(Mockery::type('FakeExtension'));
+        $this->getMockIocContainer()->shouldReceive('compile')->once();
+
+        $this->_sut->boot();
+
+        /*
+         * Try booting twice.
+         */
         $this->_sut->boot();
 
         $this->assertTrue(true);

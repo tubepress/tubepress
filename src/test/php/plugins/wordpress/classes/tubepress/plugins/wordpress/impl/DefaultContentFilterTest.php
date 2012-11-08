@@ -32,21 +32,16 @@ class tubepress_plugins_wordpress_impl_DefaultContentFilterTest extends TubePres
 
     private $_mockMessageService;
 
-    public function setUp()
+    public function onSetup()
     {
         $this->_sut = new tubepress_plugins_wordpress_impl_DefaultContentFilter();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockMessageService   = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockShortcodeHtmlGenerator = Mockery::mock(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
-        $this->_mockShortcodeParser = Mockery::mock(tubepress_spi_shortcode_ShortcodeParser::_);
-        $this->_mockStorageManager = Mockery::mock(tubepress_spi_options_StorageManager::_);
+        $this->_mockExecutionContext       = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockMessageService         = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockShortcodeHtmlGenerator = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
+        $this->_mockShortcodeParser        = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
+        $this->_mockStorageManager         = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setShortcodeHtmlGenerator($this->_mockShortcodeHtmlGenerator);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setShortcodeHtmlParser($this->_mockShortcodeParser);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
     }
 
     function testContentFilter()

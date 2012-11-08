@@ -24,11 +24,9 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
 
     private $_mockEventDispatcher;
 
-    function setup()
+    function onSetup()
     {
-        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
 
         $this->_sut = new tubepress_impl_http_DefaultHttpRequestParameterService();
     }

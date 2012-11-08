@@ -28,17 +28,13 @@ class tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTest
 
     private $_mockHttpResponseHandler;
 
-	function setUp()
+	function onSetup()
 	{
-        $this->_mockCache      = Mockery::mock('ehough_stash_api_Cache');
-        $this->_mockHttpClient = Mockery::mock('ehough_shortstop_api_HttpClient');
-        $this->_mockHttpResponseHandler = Mockery::mock('ehough_shortstop_api_HttpResponseHandler');
+        $this->_mockCache               = $this->createMockSingletonService('ehough_stash_api_Cache');
+        $this->_mockHttpClient          = $this->createMockSingletonService('ehough_shortstop_api_HttpClient');
+        $this->_mockHttpResponseHandler = $this->createMockSingletonService('ehough_shortstop_api_HttpResponseHandler');
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setCacheService($this->_mockCache);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpClient($this->_mockHttpClient);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpResponseHandler($this->_mockHttpResponseHandler);
-
-		$this->_sut            = new tubepress_impl_feed_CacheAwareFeedFetcher();
+		$this->_sut = new tubepress_impl_feed_CacheAwareFeedFetcher();
 	}
 
 	function testFetchGoodXmlCacheHit()
@@ -50,7 +46,6 @@ class tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTest
 
 	function testFetchGoodXmlCacheMiss()
 	{
-
         $this->_mockCache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn(false);
         $this->_mockCache->shouldReceive('save')->once()->with("http://www.ietf.org/css/ietf.css", "someValue");
 

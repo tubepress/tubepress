@@ -26,15 +26,12 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_PlayerTest extends Tub
 
     private $_mockPlayerHtmlGenerator;
 
-    function setup()
+    function onSetup()
     {
         $this->_sut = new tubepress_plugins_core_impl_filters_gallerytemplate_Player();
 
-        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-
-        $this->_mockPlayerHtmlGenerator = Mockery::mock(tubepress_spi_player_PlayerHtmlGenerator::_);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setPlayerHtmlGenerator($this->_mockPlayerHtmlGenerator);
+        $this->_mockExecutionContext    = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockPlayerHtmlGenerator = $this->createMockSingletonService(tubepress_spi_player_PlayerHtmlGenerator::_);
     }
 
     function testNonPlayerLoadOnPage()

@@ -30,16 +30,13 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
 
     private $_mockTemplateBuilder;
 
-    function setUp()
+    function onSetup()
     {
-        $this->_mockTabs = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
+        $this->_mockTabs            = $this->createMockSingletonService(tubepress_spi_options_ui_FormHandler::_);
+        $this->_mockMessageService  = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockTemplateBuilder = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+
         $this->_mockFilter = Mockery::mock('tubepress_spi_options_ui_Field');
-
-        $this->_mockMessageService   = Mockery::mock(tubepress_spi_message_MessageService::_);
-        $this->_mockTemplateBuilder = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
 
         $this->_sut = new tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
     }
@@ -55,8 +52,6 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
 
     function testOnSubmit()
     {
-
-
         $this->_mockTabs->shouldReceive('onSubmit')->once()->andReturn(null);
         $this->_mockFilter->shouldReceive('onSubmit')->once()->andReturn(null);
 
