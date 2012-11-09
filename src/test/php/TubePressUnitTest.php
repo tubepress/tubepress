@@ -87,6 +87,11 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 
     public final function _getMockServiceById($id)
     {
+        if (! is_array($this->_mocks)) {
+
+            throw new RuntimeException("Failed to find singleton service with ID $id. Did you forget to call createMockSingletonService()?");
+        }
+
         foreach ($this->_mocks as $mock) {
 
             if ($mock->id === $id) {

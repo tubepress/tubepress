@@ -170,4 +170,23 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     {
         return $this->_actualShortcodeUsed;
     }
+
+    public static function convertBooleans($map)
+    {
+        $optionDescriptorReference = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+
+        foreach ($map as $key => $value) {
+
+            $optionDescriptor = $optionDescriptorReference->findOneByName($key);
+
+            if ($optionDescriptor === null || !$optionDescriptor->isBoolean()) {
+
+                continue;
+            }
+
+            $map[$key] = $value ? true : false;
+        }
+
+        return $map;
+    }
 }
