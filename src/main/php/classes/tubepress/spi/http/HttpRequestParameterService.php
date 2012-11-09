@@ -10,25 +10,25 @@
  */
 
 /**
- * Pulls out info from $_REQUEST.
+ * Pulls out info from $_GET or $_POST.
  */
 interface tubepress_spi_http_HttpRequestParameterService
 {
     const _ = 'tubepress_spi_http_HttpRequestParameterService';
 
     /**
-     * Gets the parameter value from PHP's $_REQUEST array.
+     * Gets the parameter value from PHP's $_GET or $_POST array.
      *
      * @param string $name The name of the parameter.
      *
      * @return mixed The raw value of the parameter. Can be anything that would
-     *               otherwise be found in PHP's $_REQUEST array. Returns null
+     *               otherwise be found in PHP's $_GET or $_POST array. Returns null
      *               if the parameter is not set on this request.
      */
     function getParamValue($name);
 
     /**
-     * Gets the parameter value from PHP's $_REQUEST array. If the hasParam($name) returs false, this
+     * Gets the parameter value from PHP's $_GET or $_POST array. If the hasParam($name) returs false, this
      *  behaves just like getParamvalue($name). Otherwise, if the raw parameter value is numeric, a conversion
      *  will be attempted.
      *
@@ -36,17 +36,17 @@ interface tubepress_spi_http_HttpRequestParameterService
      * @param int    $default The default value is the raw value is not integral.
      *
      * @return mixed The raw value of the parameter. Can be anything that would
-     *               otherwise be found in PHP's $_REQUEST array. Returns null
+     *               otherwise be found in PHP's $_GET or $_POST array. Returns null
      *               if the parameter is not set on this request.
      */
     function getParamValueAsInt($name, $default);
 
     /**
-     * Determines if the parameter is set in PHP's $_REQUEST array.
+     * Determines if the parameter is set in PHP's $_GET or $_POST array.
      *
      * @param string $name The name of the parameter.
      *
-     * @return mixed True if the parameter is found in PHP's $_REQUEST array, false otherwise.
+     * @return mixed True if the parameter is found in PHP's $_GET or $_POST array, false otherwise.
      */
     function hasParam($name);
 

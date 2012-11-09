@@ -15,12 +15,17 @@
 class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepress_spi_http_HttpRequestParameterService
 {
     /**
-     * Gets the parameter value from PHP's $_REQUEST array.
+     * @var array A merged array of $_GET and $_POST for this request.
+     */
+    private $_cachedMergedGetAndPostArray;
+
+    /**
+     * Gets the parameter value from PHP's $_GET or $_POST array.
      *
      * @param string $name The name of the parameter.
      *
      * @return mixed The raw value of the parameter. Can be anything that would
-     *               otherwise be found in PHP's $_REQUEST array. Returns null
+     *               otherwise be found in PHP's $_GET or $_POST array. Returns null
      *               if the parameter is not set on this request.
      */
     public final function getParamValue($name)
@@ -31,7 +36,8 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
             return null;
         }
 
-        $rawValue = $_REQUEST[$name];
+        $request  = $this->_getGETandPOSTarray();
+        $rawValue = $request[$name];
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
@@ -51,7 +57,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
     }
 
     /**
-     * Gets the parameter value from PHP's $_REQUEST array. If the hasParam($name) returs false, this
+     * Gets the parameter value from PHP's $_GET or $_POST array. If the hasParam($name) returns false, this
      *  behaves just like getParamvalue($name). Otherwise, if the raw parameter value is numeric, a conversion
      *  will be attempted.
      *
@@ -59,7 +65,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
      * @param int    $default The default value is the raw value is not integral.
      *
      * @return mixed The raw value of the parameter. Can be anything that would
-     *                       otherwise be found in PHP's $_REQUEST array. Returns null
+     *                       otherwise be found in PHP's $_GET or $_POST array. Returns null
      *                       if the parameter is not set on this request.
      */
     public final function getParamValueAsInt($name, $default)
@@ -76,15 +82,17 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
     }
 
     /**
-     * Determines if the parameter is set in PHP's $_REQUEST array.
+     * Determines if the parameter is set in PHP's $_GET or $_POST array.
      *
      * @param string $name The name of the parameter.
      *
-     * @return mixed True if the parameter is found in PHP's $_REQUEST array, false otherwise.
+     * @return mixed True if the parameter is found in PHP's $_GET or $_POST array, false otherwise.
      */
     public final function hasParam($name)
     {
-        return array_key_exists($name, $_REQUEST);
+        $request = $this->_getGETandPOSTarray();
+
+        return array_key_exists($name, $request);
     }
 
     /**
@@ -95,13 +103,24 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
     public final function getAllParams()
     {
         $toReturn = array();
+        $request  = $this->_getGETandPOSTarray();
 
-        foreach ($_REQUEST as $key => $value) {
+        foreach ($request as $key => $value) {
 
             $toReturn[$key] = $this->getParamValue($key);
         }
 
         return $toReturn;
+    }
+
+    private function _getGETandPOSTarray()
+    {
+        if (! isset($this->_cachedMergedGetAndPostArray)) {
+
+            $this->_cachedMergedGetAndPostArray = array_merge($_GET, $_POST);
+        }
+
+        return $this->_cachedMergedGetAndPostArray;
     }
 }
 
