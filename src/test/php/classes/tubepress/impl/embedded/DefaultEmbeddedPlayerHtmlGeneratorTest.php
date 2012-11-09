@@ -32,12 +32,16 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
 
     public function testMatchingCustomPlayer()
     {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('z');
+
         $mockEmbeddedPlayer = $this->createMockPluggableService(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
         $mockEmbeddedPlayer->shouldReceive('getName')->twice()->andReturn('z');
         $mockEmbeddedPlayer->shouldReceive('getDataUrlForVideo')->once()->with('video-id')->andReturn('data-url');
-        $mockEmbeddedPlayer->shouldReceive('getHandledProviderName')->once()->andReturn('some-provider');
+        $mockEmbeddedPlayer->shouldReceive('getHandledProviderName')->twice()->andReturn('some-provider');
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('z');
+        $mockVideoProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockVideoProvider->shouldReceive('recognizesVideoId')->once()->with('video-id')->andReturn(true);
+        $mockVideoProvider->shouldReceive('getName')->once()->andReturn('some-provider');
 
         $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
@@ -80,7 +84,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
 
         $mockVideoProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockVideoProvider->shouldReceive('recognizesVideoId')->once()->with('video-id')->andReturn(true);
-        $mockVideoProvider->shouldReceive('getName')->once()->andReturn('xyz');
+        $mockVideoProvider->shouldReceive('getName')->twice()->andReturn('xyz');
 
         $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
@@ -122,7 +126,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
 
         $mockVideoProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockVideoProvider->shouldReceive('recognizesVideoId')->once()->with('video-id')->andReturn(true);
-        $mockVideoProvider->shouldReceive('getName')->once()->andReturn('something else');
+        $mockVideoProvider->shouldReceive('getName')->twice()->andReturn('something else');
 
         $html = $this->_sut->getHtml('video-id');
 

@@ -113,16 +113,18 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         $executionContext            = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $embeddedPlayers             = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedPlayers();
         $requestedEmbeddedPlayerName = $executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $recognizingProvider         = $this->_findProviderThatRecognizesVideoId($videoId);
 
         /**
-         * CASE 1: The user has requested a specific embedded player that is registered.
+         * The user has requested a specific embedded player that is registered. Let's see if the provider agrees.
          */
         if ($requestedEmbeddedPlayerName !== tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED) {
 
             foreach ($embeddedPlayers as $embeddedPlayer) {
 
                 /** @noinspection PhpUndefinedMethodInspection */
-                if ($embeddedPlayer->getName() === $requestedEmbeddedPlayerName) {
+                if ($embeddedPlayer->getName() === $requestedEmbeddedPlayerName && $recognizingProvider !== null
+                    && $recognizingProvider->getName() === $embeddedPlayer->getHandledProviderName()) {
 
                     //found it!
                     return $embeddedPlayer;
@@ -131,47 +133,55 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         }
 
         /**
-         * CASE 2: The user has requested a specific embedded player that is NOT registered.
+         * None of the registered video providers recognize this video ID. Nothing we can do about that. This
+         * should basically never happen.
          */
-        $calculatedProviderName = null;
-        $videoProviders         = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
-
-        foreach ($videoProviders as $videoProvider) {
-
-            if ($videoProvider->recognizesVideoId($videoId)) {
-
-                $calculatedProviderName = $videoProvider->getName();
-                break;
-            }
-        }
-
-        /**
-         * None of the registered video providers recognize this video ID.
-         */
-        if ($calculatedProviderName === null) {
+        if ($recognizingProvider === null) {
 
             return null;
         }
 
+        /**
+         * Do we have an embedded provider whose name exactly matches the provider? If so, let's use that. This
+         * should be the common case.
+         */
         foreach ($embeddedPlayers as $embeddedPlayer) {
 
-            if ($embeddedPlayer->getName() === $calculatedProviderName) {
+            if ($embeddedPlayer->getName() === $recognizingProvider->getName()) {
 
                  return $embeddedPlayer;
             }
         }
 
+        /**
+         * Running out of options. See if we can find *any* player that can handle videos from this provider.
+         */
         foreach ($embeddedPlayers as $embeddedPlayer) {
 
-            if ($embeddedPlayer->getHandledProviderName() === $calculatedProviderName) {
+            if ($embeddedPlayer->getHandledProviderName() === $recognizingProvider->getName()) {
 
                 return $embeddedPlayer;
             }
         }
 
         /**
-         * None of the registered embedded players support the calculated provider.
+         * None of the registered embedded players support the calculated provider. I give up.
          */
+        return null;
+    }
+
+    private function _findProviderThatRecognizesVideoId($videoId)
+    {
+        $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
+
+        foreach ($videoProviders as $videoProvider) {
+
+            if ($videoProvider->recognizesVideoId($videoId)) {
+
+                return $videoProvider;
+            }
+        }
+
         return null;
     }
 }
