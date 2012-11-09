@@ -27,9 +27,9 @@ class tubepress_plugins_wordpress_impl_DefaultContentFilter implements tubepress
     public final function filterContent($content = '')
     {
         /* do as little work as possible here 'cause we might not even run */
-        $wpsm    = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $wpsm    = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $trigger = $wpsm->get(tubepress_api_const_options_names_Advanced::KEYWORD);
-        $parser  = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeParser();
+        $parser  = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
 
         /* no shortcode? get out */
         if (!$parser->somethingToParse($content, $trigger)) {
@@ -42,8 +42,8 @@ class tubepress_plugins_wordpress_impl_DefaultContentFilter implements tubepress
 
     private static function _getHtml($content, $trigger, tubepress_spi_shortcode_ShortcodeParser $parser)
     {
-        $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $gallery = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeHtmlGenerator();
+        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $gallery = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHtmlGenerator();
 
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {

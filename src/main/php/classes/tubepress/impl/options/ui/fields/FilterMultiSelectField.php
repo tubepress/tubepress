@@ -36,7 +36,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
 
     public function __construct()
     {
-        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         $this->_disabledParticipantsOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
     }
@@ -48,8 +48,8 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
      */
     public final function onSubmit()
     {
-        $hrps                 = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $hrps                 = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
         $allParticipantNames = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
 
@@ -106,8 +106,8 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
      */
     public final function getHtml()
     {
-        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $templateBuilder     = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $template            = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect-provider-filter.tpl.php');
         $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
         $currentHides        = explode(';', $storageManager->get($optionName));
@@ -161,7 +161,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
 
     private function _getParticipantNamesToFriendlyNamesMap()
     {
-        $participants = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageParticipants();
+        $participants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
 
         $toReturn = array();
 

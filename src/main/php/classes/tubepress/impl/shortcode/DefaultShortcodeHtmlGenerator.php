@@ -45,11 +45,11 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
 
-            $shortcodeParser = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeParser();
+            $shortcodeParser = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
             $shortcodeParser->parse($shortCodeContent);
         }
 
-        $handlers = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeHandlers();
+        $handlers = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHandlers();
 
         usort($handlers, array($this, 'sortShortcodeHandlers'));
 
@@ -71,7 +71,7 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
             throw new RuntimeException('No shortcode handlers could generate HTML');
         }
 
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $event = new tubepress_api_event_TubePressEvent($html);
 

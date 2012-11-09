@@ -33,7 +33,7 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageService implement
      */
     public final function _($message)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapperService = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         return $message == '' ? '' : $wordPressFunctionWrapperService->__($message, 'tubepress');
     }

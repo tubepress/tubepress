@@ -31,7 +31,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
     public function __construct($name)
     {
-        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         $this->_optionDescriptor = $odr->findOneByName($name);
 
@@ -78,8 +78,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
      */
     public final function getHtml()
     {
-        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $templateBuilder     = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
         $template     = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getTemplatePath());
         $currentValue = $storageManager->get($this->_optionDescriptor->getName());
@@ -140,8 +140,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     private function _onSubmitSimple()
     {
         $name            = $this->_optionDescriptor->getName();
-        $hrps            = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $optionValidator = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
+        $hrps            = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $optionValidator = tubepress_impl_patterns_sl_ServiceLocator::getOptionValidator();
 
         if (! $hrps->hasParam($name)) {
 
@@ -163,7 +163,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     private function _onSubmitBoolean()
     {
         $name = $this->_optionDescriptor->getName();
-        $hrps = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         /* if the user checked the box, the option name will appear in the POST vars */
         return $this->_setToStorage($name, $hrps->hasParam($name));
@@ -171,7 +171,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
     private function _setToStorage($name, $value)
     {
-        $storageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
         $result = $storageManager->set($name, $value);
 

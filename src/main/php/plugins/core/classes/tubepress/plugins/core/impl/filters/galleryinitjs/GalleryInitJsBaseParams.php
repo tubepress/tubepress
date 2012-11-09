@@ -51,7 +51,7 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
      */
     public function onGalleryInitJs(tubepress_api_event_TubePressEvent $event)
     {
-        $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         $args = $event->getSubject();
 
@@ -110,7 +110,7 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
     private function _findPlayerLocation(tubepress_spi_context_ExecutionContext $context)
     {
-        $playerLocations     = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerLocations();
+        $playerLocations     = tubepress_impl_patterns_sl_ServiceLocator::getPlayerLocations();
         $requestedPlayerName = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
         foreach ($playerLocations as $playerLocation) {
@@ -133,7 +133,7 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
     private function _convertBooleans($map)
     {
-        $optionDescriptorReference = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $optionDescriptorReference = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         foreach ($map as $key => $value) {
 

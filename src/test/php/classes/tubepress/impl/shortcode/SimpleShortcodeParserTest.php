@@ -281,7 +281,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
 
     private function _setupExpectedFilters($expected)
     {
-        $pm = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $pm = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         foreach ($expected as $name => $value) {
 

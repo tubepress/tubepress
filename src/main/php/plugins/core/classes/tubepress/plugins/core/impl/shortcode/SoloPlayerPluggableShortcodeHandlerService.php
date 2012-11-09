@@ -53,7 +53,7 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
      */
     public final function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $playerName  = $execContext->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
         if ($playerName !== 'solo') {
@@ -67,7 +67,7 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
         }
 
         /* see if we have a custom video ID set */
-        $qss     = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $qss     = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $videoId = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);
 
         if ($videoId == '') {
@@ -88,8 +88,8 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
      */
     public final function getHtml()
     {
-        $qss         = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $qss         = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoId     = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);;
 
         if ($this->_logger->isDebugEnabled()) {

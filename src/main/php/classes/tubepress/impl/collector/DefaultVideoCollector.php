@@ -47,8 +47,8 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
     public final function collectVideoGalleryPage()
     {
         $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
-        $executionContext      = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $providers             = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
+        $executionContext      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $providers             = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
         $videoSource           = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         $result                = null;
         $providerName          = null;
@@ -101,7 +101,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $event = new tubepress_api_event_TubePressEvent($result);
 
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $eventDispatcher->dispatch(
 
@@ -128,7 +128,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
             $this->_logger->debug(sprintf('Fetching video with ID <code>%s</code>', $customVideoId));
         }
 
-        $providers = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
+        $providers = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
 
         foreach ($providers as $videoProvider) {
 
@@ -157,7 +157,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
     private function _getCurrentPage()
     {
-        $qss = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $qss = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         $page = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 

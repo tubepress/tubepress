@@ -42,7 +42,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
      */
     public final function buildGalleryUrl($currentPage)
     {
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         switch ($execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE)) {
 
@@ -155,7 +155,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
      */
     public final function buildSingleVideoUrl($id)
     {
-        $context    = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $requestURL = new ehough_curly_Url("http://gdata.youtube.com/feeds/api/videos/$id");
 
         $this->_urlPostProcessingCommon($context, $requestURL);

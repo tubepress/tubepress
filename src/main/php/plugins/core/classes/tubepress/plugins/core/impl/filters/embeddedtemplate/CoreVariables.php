@@ -28,7 +28,7 @@ class tubepress_plugins_core_impl_filters_embeddedtemplate_CoreVariables
     {
         global $tubepress_base_url;
 
-        $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $template = $event->getSubject();
         $dataUrl  = $event->getArgument('dataUrl');
         $videoId  = $event->getArgument('videoId');

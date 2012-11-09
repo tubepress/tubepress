@@ -37,15 +37,15 @@ class tubepress_plugins_core_impl_shortcode_SearchInputPluggableShortcodeHandler
      */
     function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         return $execContext->get(tubepress_api_const_options_names_Output::OUTPUT) === tubepress_api_const_options_values_OutputValue::SEARCH_INPUT;
     }
 
     public function getHtml()
     {
-        $th       = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
-        $pm       = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $th       = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $pm       = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template = $th->getTemplateInstance('search/search_input.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
 
         if ($pm->hasListeners(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION)) {

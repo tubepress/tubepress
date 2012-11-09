@@ -47,7 +47,7 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
      */
     public final function getProblemMessage($optionName, $candidate)
     {
-        $optionDescriptorReferenceService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $optionDescriptorReferenceService = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         $descriptor = $optionDescriptorReferenceService->findOneByName($optionName);
 

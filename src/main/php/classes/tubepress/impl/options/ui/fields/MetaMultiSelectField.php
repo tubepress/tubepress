@@ -40,7 +40,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
             tubepress_api_const_options_names_Meta::VIEWS,
         );
 
-        $videoProviders = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
+        $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
 
         foreach ($videoProviders as $videoProvider) {
 
@@ -48,7 +48,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
         }
 
         $metas     = array();
-        $reference = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $reference = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         foreach ($metaNames as $metaName) {
 

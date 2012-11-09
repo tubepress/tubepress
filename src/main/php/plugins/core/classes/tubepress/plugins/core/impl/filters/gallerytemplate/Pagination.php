@@ -28,8 +28,8 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
 
     public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
     {
-        $context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $pm             = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $pm             = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $providerResult = $event->getArgument('videoGalleryPage');
         $template       = $event->getSubject();
 
@@ -65,10 +65,10 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
      */
     private function _getHtml($vidCount)
     {
-        $context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $qss            = tubepress_impl_patterns_ioc_KernelServiceLocator::getQueryStringService();
-        $hrps           = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $qss            = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
+        $hrps           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         $currentPage = $hrps->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
         $vidsPerPage = $context->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);

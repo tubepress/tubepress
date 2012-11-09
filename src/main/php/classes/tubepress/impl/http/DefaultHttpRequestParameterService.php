@@ -43,7 +43,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
 
         $rawValue = $_REQUEST[$name];
 
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $event = new tubepress_api_event_TubePressEvent(
 

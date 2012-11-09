@@ -33,7 +33,7 @@ class tubepress_plugins_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateV
             return;
         }
 
-        $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $template = $event->getSubject();
 
         $toSet = array(

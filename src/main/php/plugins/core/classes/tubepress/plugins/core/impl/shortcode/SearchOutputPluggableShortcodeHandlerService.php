@@ -50,7 +50,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
      */
     public final function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         /* not configured at all for search results */
         if ($execContext->get(tubepress_api_const_options_names_Output::OUTPUT) !== tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
@@ -64,7 +64,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
         }
 
         /* do we have search terms? */
-        $qss            = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $qss            = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $rawSearchTerms = $qss->getParamValue(tubepress_spi_const_http_ParamName::SEARCH_TERMS);
 
         /* are we set up for a gallery fallback? */
@@ -93,8 +93,8 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
      */
     public final function getHtml()
     {
-        $qss            = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $execContext    = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $qss            = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $execContext    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $rawSearchTerms = $qss->getParamValue(tubepress_spi_const_http_ParamName::SEARCH_TERMS);
         $hasSearchTerms = $rawSearchTerms != '';
 

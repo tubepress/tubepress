@@ -27,9 +27,9 @@ class tubepress_plugins_core_impl_filters_singlevideotemplate_VideoMeta
     public function onSingleVideoTemplate(tubepress_api_event_TubePressEvent $event)
     {
         $template                  = $event->getSubject();
-        $context                   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $messageService            = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $optionDescriptorReference = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $context                   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $messageService            = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $optionDescriptorReference = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
         $metaNames                 = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
         $shouldShow                = array();
         $labels                    = array();

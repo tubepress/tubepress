@@ -28,8 +28,8 @@ class tubepress_plugins_jwplayer_JwPlayer
 
     public static function init()
     {
-        $odr                        = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
-        $eventDispatcher            = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $odr                        = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+        $eventDispatcher            = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
         $option->setDefaultValue('FFFFFF');

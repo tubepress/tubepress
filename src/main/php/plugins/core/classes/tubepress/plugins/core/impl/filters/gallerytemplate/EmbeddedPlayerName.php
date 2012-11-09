@@ -34,7 +34,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_EmbeddedPlayerName
 
     private static function _getEmbeddedServiceName(tubepress_api_video_VideoGalleryPage $page)
     {
-        $context     = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context     = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $stored      = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $videoArray  = $page->getVideos();
         $randomVideo = $videoArray[array_rand($videoArray)];

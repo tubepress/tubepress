@@ -33,7 +33,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
      */
     public final function load(ehough_iconic_impl_ContainerBuilder $container)
     {
-        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         if (! $environmentDetector->isWordPress()) {
 

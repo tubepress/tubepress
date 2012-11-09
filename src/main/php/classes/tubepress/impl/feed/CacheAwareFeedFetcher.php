@@ -47,7 +47,7 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
         $result = '';
         if ($useCache) {
 
-            $cache = tubepress_impl_patterns_ioc_KernelServiceLocator::getCacheService();
+            $cache = tubepress_impl_patterns_sl_ServiceLocator::getCacheService();
 
             if ($this->_logger->isDebugEnabled()) {
 
@@ -98,8 +98,8 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
     {
         $u               = new ehough_curly_Url($url);
         $request         = new ehough_shortstop_api_HttpRequest(ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET, $u);
-        $client          = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpClient();
-        $responseHandler = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpResponseHandler();
+        $client          = tubepress_impl_patterns_sl_ServiceLocator::getHttpClient();
+        $responseHandler = tubepress_impl_patterns_sl_ServiceLocator::getHttpResponseHandler();
 
         return $client->executeAndHandleResponse($request, $responseHandler);
     }

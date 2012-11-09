@@ -58,7 +58,7 @@ class tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService 
      */
     public final function getDataUrlForVideo($videoId)
     {
-        $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         $autoPlay = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $showInfo = $context->get(tubepress_api_const_options_names_Embedded::SHOW_INFO);

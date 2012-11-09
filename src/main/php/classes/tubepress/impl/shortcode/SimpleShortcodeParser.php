@@ -52,7 +52,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
     private function _wrappedParse($content)
     {
-        $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $keyword  = $context->get(tubepress_api_const_options_names_Advanced::KEYWORD);
 
         if (!$this->somethingToParse($content, $keyword)) {
@@ -120,7 +120,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
     private function _buildNameValuePairArray($match)
     {
         $toReturn      = array();
-        $pluginManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $pluginManager = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         foreach ($match as $m) {
 

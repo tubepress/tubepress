@@ -74,7 +74,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder implements tubepress
     public final function buildGalleryUrl($currentPage)
     {
         $params       = array();
-        $execContext  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $mode         = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
         $this->_verifyKeyAndSecretExists($execContext);
@@ -173,7 +173,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder implements tubepress
      */
     public final function buildSingleVideoUrl($id)
     {
-        $execContext  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         $this->_verifyKeyAndSecretExists($execContext);
 

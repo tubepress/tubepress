@@ -75,7 +75,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
 
         if ($optionDescriptor->isMeantToBePersisted()) {
 
-            $optionStorageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+            $optionStorageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
             $optionStorageManager->createIfNotExists($optionDescriptor->getName(), $optionDescriptor->getDefaultValue());
         }

@@ -73,7 +73,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
             return $this->_customOptions[$optionName];
         }
 
-        $optionStorageManagerService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $optionStorageManagerService = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
         return $optionStorageManagerService->get($optionName);
     }
@@ -88,8 +88,8 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     public final function set($optionName, $optionValue)
     {
-        $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-        $optionValidatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
+        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $optionValidatorService = tubepress_impl_patterns_sl_ServiceLocator::getOptionValidator();
 
         /** First run it through the filters. */
         /** Run it through the filters. */

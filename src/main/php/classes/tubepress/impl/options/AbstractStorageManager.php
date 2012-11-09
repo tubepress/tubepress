@@ -45,7 +45,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      */
     public final function set($optionName, $optionValue)
     {
-        $optionDescriptorReferenceService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $optionDescriptorReferenceService = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         $descriptor = $optionDescriptorReferenceService->findOneByName($optionName);
 
@@ -63,8 +63,8 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             return true;
         }
 
-        $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-        $optionValidatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
+        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $optionValidatorService = tubepress_impl_patterns_sl_ServiceLocator::getOptionValidator();
 
         /** Run it through the filters. */
         $event = new tubepress_api_event_TubePressEvent($optionValue, array(

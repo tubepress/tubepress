@@ -51,7 +51,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServ
     {
         $link  = new ehough_curly_Url('http://www.youtube.com/embed/' . $videoId);
 
-        $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         $autoPlay        = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $loop            = $context->get(tubepress_api_const_options_names_Embedded::LOOP);

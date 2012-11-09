@@ -43,11 +43,11 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
 
     protected function getStatusCodeToHtmlMap()
     {
-        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $player           = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerHtmlGenerator();
-        $provider         = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoCollector();
-        $qss              = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $jsonEncoder      = tubepress_impl_patterns_ioc_KernelServiceLocator::getJsonEncoder();
+        $executionContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $player           = tubepress_impl_patterns_sl_ServiceLocator::getPlayerHtmlGenerator();
+        $provider         = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
+        $qss              = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $jsonEncoder      = tubepress_impl_patterns_sl_ServiceLocator::getJsonEncoder();
         $isDebugEnabled   = $this->_logger->isDebugEnabled();
 
         if ($isDebugEnabled) {

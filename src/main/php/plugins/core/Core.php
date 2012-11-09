@@ -50,7 +50,7 @@ class tubepress_plugins_core_Core
         $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';
         $_regexWordChars          = '/\w+/';
 
-        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         /**
          * ADVANCED OPTIONS
@@ -474,7 +474,7 @@ class tubepress_plugins_core_Core
 
     public static function _callbackGetValidPlayerImplementations()
     {
-        $embeddedImpls = tubepress_impl_patterns_ioc_KernelServiceLocator::getEmbeddedPlayers();
+        $embeddedImpls = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedPlayers();
         $providerNames = self::_callbackGetValidVideoProviderNames();
         $detected      = array();
 
@@ -498,7 +498,7 @@ class tubepress_plugins_core_Core
 
     public static function _callbackGetValidPlayerLocations()
     {
-        $playerLocations = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerLocations();
+        $playerLocations = tubepress_impl_patterns_sl_ServiceLocator::getPlayerLocations();
         $toReturn        = array();
 
         foreach ($playerLocations as $playerLocation) {
@@ -516,9 +516,9 @@ class tubepress_plugins_core_Core
 
     public static function _callbackGetValidThemeOptions()
     {
-        $environmentDetectorService     = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $fileSystemService              = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystem();
-        $fileSystemFinderFactoryService = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystemFinderFactory();
+        $environmentDetectorService     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $fileSystemService              = tubepress_impl_patterns_sl_ServiceLocator::getFileSystem();
+        $fileSystemFinderFactoryService = tubepress_impl_patterns_sl_ServiceLocator::getFileSystemFinderFactory();
 
         $systemThemesDirectory = TUBEPRESS_ROOT . '/src/main/resources/default-themes';
         $userThemesDirectory   = $environmentDetectorService->getUserContentDirectory() . '/themes';
@@ -561,7 +561,7 @@ class tubepress_plugins_core_Core
 
     private static function _getValidProviderNamesToFriendlyNames()
     {
-        $videoProviders = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
+        $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
         $toReturn       = array();
 
         foreach ($videoProviders as $videoProvider) {
@@ -582,7 +582,7 @@ class tubepress_plugins_core_Core
 
     private static function _ensureTubePressContentDirectoryExists()
     {
-        $ed = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $ed = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
 
         if ($ed->isWordPress()) {
@@ -613,7 +613,7 @@ class tubepress_plugins_core_Core
 
     private static function _tryToMirror($source, $dest)
     {
-        $fs = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystem();
+        $fs = tubepress_impl_patterns_sl_ServiceLocator::getFileSystem();
 
         try {
 
@@ -634,7 +634,7 @@ class tubepress_plugins_core_Core
 
     private static function _registerEventListeners()
     {
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $callback        = array('tubepress_plugins_core_Core', '_callbackHandleEvent');
         $eventNames      = array(
 
@@ -827,7 +827,7 @@ class tubepress_plugins_core_Core
 
     private static function _call(tubepress_api_event_TubePressEvent $event, $serviceId, $functionName)
     {
-        $serviceInstance = tubepress_impl_patterns_ioc_KernelServiceLocator::getService($serviceId);
+        $serviceInstance = tubepress_impl_patterns_sl_ServiceLocator::getService($serviceId);
 
         $serviceInstance->$functionName($event);
     }

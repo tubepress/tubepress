@@ -62,7 +62,7 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
             return array();
         }
 
-        $finderFactory = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystemFinderFactory();
+        $finderFactory = tubepress_impl_patterns_sl_ServiceLocator::getFileSystemFinderFactory();
 
         $finder = $finderFactory->createFinder()->files()->in($directory)->name('*.info');
 

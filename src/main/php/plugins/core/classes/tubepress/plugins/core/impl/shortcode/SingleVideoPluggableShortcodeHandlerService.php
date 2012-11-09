@@ -44,7 +44,7 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
      */
     public final function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoId     = $execContext->get(tubepress_api_const_options_names_Output::VIDEO);
 
         return $videoId != '';
@@ -55,7 +55,7 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
      */
     public final function getHtml()
     {
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoId     = $execContext->get(tubepress_api_const_options_names_Output::VIDEO);
 
         if ($this->_logger->isDebugEnabled()) {
@@ -68,9 +68,9 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
 
     private function _getSingleVideoHtml($videoId)
     {
-        $pluginManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-        $provider      = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoCollector();
-        $themeHandler  = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
+        $pluginManager = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $provider      = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
+        $themeHandler  = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
         $template      = $themeHandler->getTemplateInstance('single_video.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
 
         /* grab the video from the provider */

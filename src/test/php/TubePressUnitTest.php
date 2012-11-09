@@ -37,7 +37,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $this->_mockIocContainer->shouldReceive('findTaggedServiceIds')->andReturnUsing(array($this, '_getMockServiceIdsByTag'));
 
         /** @noinspection PhpParamsInspection */
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setIocContainer($this->_mockIocContainer);
+        tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($this->_mockIocContainer);
 
         $this->onSetup();
     }

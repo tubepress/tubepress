@@ -84,7 +84,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageFiel
             return '';
         }
 
-        $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
+        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
 
         return $messageService->_($raw);
     }

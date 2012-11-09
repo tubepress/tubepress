@@ -48,7 +48,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
 
         $result = new tubepress_api_video_VideoGalleryPage();
 
-        $feedFetcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getFeedFetcher();
+        $feedFetcher = tubepress_impl_patterns_sl_ServiceLocator::getFeedFetcher();
 
         if ($this->_logger->isDebugEnabled()) {
 
@@ -120,7 +120,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
             $this->_logger->debug(sprintf('Fetching video with ID <code>%s</code>', $videoId));
         }
 
-        $feedFetcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getFeedFetcher();
+        $feedFetcher = tubepress_impl_patterns_sl_ServiceLocator::getFeedFetcher();
 
         $videoUrl   = $this->buildSingleVideoUrl($videoId);
 
@@ -344,7 +344,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
     {
         if (! isset($this->_executionContext)) {
 
-            $this->_executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+            $this->_executionContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         }
     }
 
@@ -365,7 +365,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
             return $videos;
         }
 
-        $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         /**
          * Throw up an construction event for each video.

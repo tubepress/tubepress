@@ -35,7 +35,7 @@ abstract class tubepress_impl_provider_AbstractDispatchingPluggableVideoProvider
     {
         $result = $this->fetchVideoGalleryPageNoDispatch($currentPage);
 
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $event = new tubepress_api_event_TubePressEvent($result);
 

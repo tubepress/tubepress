@@ -53,7 +53,7 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             $this->_logger->debug('Handling incoming request');
         }
 
-        $httpRequestParameterService = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $httpRequestParameterService = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $actionName                  = $httpRequestParameterService->getParamValue(tubepress_spi_const_http_ParamName::ACTION);
 
         if ($actionName == '') {
@@ -63,7 +63,7 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             return;
         }
 
-        $commandHandlers      = tubepress_impl_patterns_ioc_KernelServiceLocator::getAjaxCommandHandlers();
+        $commandHandlers      = tubepress_impl_patterns_sl_ServiceLocator::getAjaxCommandHandlers();
         $chosenCommandHandler = null;
 
         if ($this->_isDebugEnabled) {

@@ -30,9 +30,9 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs
 
     public function onGalleryHtml(tubepress_api_event_TubePressEvent $event)
     {
-        $context       = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $filterManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-        $encoder       = tubepress_impl_patterns_ioc_KernelServiceLocator::getJsonEncoder();
+        $context       = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $filterManager = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $encoder       = tubepress_impl_patterns_sl_ServiceLocator::getJsonEncoder();
         $galleryId     = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         $jsEvent = new tubepress_api_event_TubePressEvent(array());

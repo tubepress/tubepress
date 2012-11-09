@@ -42,7 +42,7 @@ class tubepress_impl_html_DefaultHeadHtmlGenerator implements tubepress_spi_html
     {
         $url = $this->_tubepressBaseUrl;
 
-        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $executionContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $https            = $executionContext->get(tubepress_api_const_options_names_Advanced::HTTPS) ? 'true' : 'false';
 
         return <<<EOT
@@ -64,7 +64,7 @@ EOT;
 
     public function getHeadHtmlMeta()
     {
-        $qss  = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $qss  = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $page = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 
         return $page > 1 ? "<meta name=\"robots\" content=\"noindex, nofollow\" />" : '';

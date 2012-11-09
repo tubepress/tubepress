@@ -61,7 +61,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
             $this->_logger->debug("Requested theme is '$currentTheme'");
         }
 
-        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $filePath        = $this->_getFilePath($currentTheme, $pathToTemplate, $fallBackDirectory, $debugEnabled);
         $template        = $templateBuilder->getNewTemplateInstance($filePath);
 
@@ -80,7 +80,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     */
     public function calculateCurrentThemeName()
     {
-        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $executionContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $currentTheme     = $executionContext->get(tubepress_api_const_options_names_Thumbs::THEME);
 
         if ($currentTheme == '') {
@@ -93,7 +93,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
     private function _getFilePath($currentTheme, $pathToTemplate, $fallBackDirectory, $debugEnabled)
     {
-        $environmentDetector  = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $environmentDetector  = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $userContentDirectory = $environmentDetector->getUserContentDirectory();
 
         /**

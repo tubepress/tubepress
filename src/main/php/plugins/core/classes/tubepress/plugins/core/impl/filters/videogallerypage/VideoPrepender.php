@@ -33,7 +33,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender
 
     public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
     {
-        $hrps = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         $customVideoId = $hrps->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);
 
@@ -99,7 +99,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender
 
         try {
 
-            $provider = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoCollector();
+            $provider = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
 
             $video = $provider->collectSingleVideo($id);
 

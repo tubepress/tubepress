@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePressUnitTest
+class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
 {
     function testLazyLookups()
     {
@@ -36,9 +36,9 @@ class tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePressUnit
 
             $getMethod = 'get' . $gets[$x];
 
-            tubepress_impl_patterns_ioc_KernelServiceLocator::setIocContainer($mockIocContainer);
+            tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($mockIocContainer);
 
-            $result = tubepress_impl_patterns_ioc_KernelServiceLocator::$getMethod();
+            $result = tubepress_impl_patterns_sl_ServiceLocator::$getMethod();
 
             $this->assertSame($result, $mockService);
         }

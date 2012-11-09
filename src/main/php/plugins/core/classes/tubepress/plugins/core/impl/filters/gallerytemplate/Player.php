@@ -26,8 +26,8 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Player
 {
     public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
     {
-        $context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $htmlGenerator  = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerHtmlGenerator();
+        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $htmlGenerator  = tubepress_impl_patterns_sl_ServiceLocator::getPlayerHtmlGenerator();
         $playerName     = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $providerResult = $event->getArgument('videoGalleryPage');
         $videos         = $providerResult->getVideos();

@@ -34,7 +34,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
      */
     public final function getTitle()
     {
-        $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
+        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
 
         return $messageService->_($this->getRawTitle());
     }
@@ -48,9 +48,9 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         global $tubepress_base_url;
 
-        $templateBuilder         = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $templateBuilder         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $template                = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
-        $optionsPageParticipants = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageParticipants();
+        $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
         $tabParticipants         = array();
 
         foreach ($optionsPageParticipants as $optionsPageParticipant) {
@@ -79,7 +79,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         $fields = array();
 
-        $optionsPageParticipants = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageParticipants();
+        $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
 
         foreach ($optionsPageParticipants as $optionsPageParticipant) {
 

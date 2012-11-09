@@ -33,7 +33,7 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     public final function getHtml()
     {
-        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php');
         $tabs            = $this->getDelegateFormHandlers();
 
@@ -49,6 +49,6 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     protected final function getDelegateFormHandlers()
     {
-        return tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsPageTabs();
+        return tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageTabs();
     }
 }

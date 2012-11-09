@@ -34,7 +34,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_ResultCountCapper
     public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
     {
         $totalResults = $event->getSubject()->getTotalResultCount();
-        $context      = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $limit        = $context->get(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
         $secondCut    = min($firstCut, self::_calculateRealMax($context, $firstCut));

@@ -50,7 +50,7 @@ class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_opt
      */
     protected final function addToTemplate(ehough_contemplate_api_Template $template)
     {
-        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $executionContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         $currentMode = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 

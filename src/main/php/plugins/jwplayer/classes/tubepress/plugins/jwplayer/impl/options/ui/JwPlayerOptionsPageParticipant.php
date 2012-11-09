@@ -52,7 +52,7 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant 
             return array();
         }
 
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 

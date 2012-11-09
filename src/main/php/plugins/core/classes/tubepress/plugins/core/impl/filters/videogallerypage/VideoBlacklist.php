@@ -34,7 +34,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoBlacklist
 	public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
 	{
 		$videos         = $event->getSubject()->getVideos();
-		$context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+		$context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 		$blacklist      = $context->get(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
 		$videosToKeep   = array();
 		$blacklistCount = 0;

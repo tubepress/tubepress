@@ -37,7 +37,7 @@ class tubepress_impl_options_ui_fields_ThemeField extends tubepress_impl_options
      */
     protected final function getModifiedDescription($originalDescription)
     {
-        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         $defaultThemesPath = TUBEPRESS_ROOT . '/src/main/resources/default-themes';
         $userThemesPath    = $environmentDetector->getUserContentDirectory() . '/themes';

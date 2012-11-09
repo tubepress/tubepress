@@ -31,7 +31,7 @@ class tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipa
      */
     public final function getFieldsForTab($tabName)
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         switch ($tabName) {
 

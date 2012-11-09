@@ -28,7 +28,7 @@ class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector implement
      */
     public final function printInHtmlHead()
     {
-        $wordPressFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         /* no need to print anything in the head of the admin section */
         if ($wordPressFunctionWrapper->is_admin()) {
@@ -36,7 +36,7 @@ class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector implement
             return;
         }
 
-        $hh  = tubepress_impl_patterns_ioc_KernelServiceLocator::getHeadHtmlGenerator();
+        $hh  = tubepress_impl_patterns_sl_ServiceLocator::getHeadHtmlGenerator();
 
         /* this inline JS helps initialize TubePress */
         $inlineJs = $hh->getHeadInlineJs();
@@ -57,7 +57,7 @@ EOT;
      */
     public final function registerStylesAndScripts()
     {
-        $wordPressFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         /* no need to queue any of this stuff up in the admin section or login page */
         if ($wordPressFunctionWrapper->is_admin() || __FILE__ === 'wp-login.php') {

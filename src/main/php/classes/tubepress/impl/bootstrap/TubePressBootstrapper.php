@@ -84,9 +84,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
         }
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setIocContainer($coreIocContainer);
+        tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($coreIocContainer);
 
-        $envDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $envDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {
@@ -101,8 +101,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $this->_logger->debug('Booting!');
         }
 
-        $pluginDiscoverer = tubepress_impl_patterns_ioc_KernelServiceLocator::getPluginDiscoverer();
-        $pluginLoader     = tubepress_impl_patterns_ioc_KernelServiceLocator::getPluginRegistry();
+        $pluginDiscoverer = tubepress_impl_patterns_sl_ServiceLocator::getPluginDiscoverer();
+        $pluginLoader     = tubepress_impl_patterns_sl_ServiceLocator::getPluginRegistry();
 
         /* load plugins */
         $systemPlugins = $this->_findSystemPlugins($pluginDiscoverer);
@@ -353,7 +353,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
     private function _findUserPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer)
     {
-        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         $userContentDir = $environmentDetector->getUserContentDirectory();
         $userPluginsDir = $userContentDir . '/plugins';

@@ -29,7 +29,7 @@ final class tubepress_plugins_vimeo_Vimeo
 
     public static function init()
     {
-        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+        $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         /**
          * EMBEDDED PLAYER OPTIONS

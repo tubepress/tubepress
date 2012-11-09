@@ -27,10 +27,10 @@ class tubepress_plugins_core_impl_filters_searchinputtemplate_CoreVariables
     public function onSearchInputTemplate(tubepress_api_event_TubePressEvent $event)
     {
         $template   = $event->getSubject();
-        $context    = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $qss        = tubepress_impl_patterns_ioc_KernelServiceLocator::getQueryStringService();
-        $hrps       = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
-        $ms         = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
+        $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $qss        = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
+        $hrps       = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $ms         = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $resultsUrl = $context->get(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL);
         $url        = '';
 

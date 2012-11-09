@@ -59,8 +59,8 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
      */
     public function getHtml()
     {
-        $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $templateBldr   = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $templateBldr   = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $template       = $templateBldr->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getRelativeTemplatePath());
 
         $template->setVariable(self::TEMPLATE_VAR_TITLE, $messageService->_('TubePress Options'));                                                                                                                                                                                                                                                                                                                                 //>(translatable)<

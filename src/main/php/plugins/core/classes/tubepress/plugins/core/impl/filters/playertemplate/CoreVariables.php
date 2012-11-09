@@ -26,8 +26,8 @@ class tubepress_plugins_core_impl_filters_playertemplate_CoreVariables
 {
     public function onPlayerTemplate(tubepress_api_event_TubePressEvent $event)
     {
-        $embedded  = tubepress_impl_patterns_ioc_KernelServiceLocator::getEmbeddedHtmlGenerator();
-        $context   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $embedded  = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedHtmlGenerator();
+        $context   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $galleryId = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         $template = $event->getSubject();

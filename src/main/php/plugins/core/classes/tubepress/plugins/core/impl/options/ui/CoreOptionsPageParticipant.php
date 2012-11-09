@@ -89,7 +89,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForAdvancedTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -102,7 +102,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForCacheTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -122,7 +122,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForEmbeddedTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -160,7 +160,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForFeedTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -183,7 +183,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForMetaTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -202,7 +202,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForThemeTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -213,7 +213,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForThumbsTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -248,7 +248,7 @@ class tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant implemen
 
     private function getFieldsForGallerySourceTab()
     {
-        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 

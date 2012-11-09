@@ -22,7 +22,7 @@
 /**
  * A service locator for kernel services.
  */
-class tubepress_impl_patterns_ioc_KernelServiceLocator
+class tubepress_impl_patterns_sl_ServiceLocator
 {
     /**
      * @var mixed This is a special member that is a reference to the core IOC service.

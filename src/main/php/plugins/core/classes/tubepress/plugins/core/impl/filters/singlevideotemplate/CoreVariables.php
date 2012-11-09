@@ -29,8 +29,8 @@ class tubepress_plugins_core_impl_filters_singlevideotemplate_CoreVariables
         $video    = $event->getArgument('video');
         $template = $event->getSubject();
 
-        $context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $embedded       = tubepress_impl_patterns_ioc_KernelServiceLocator::getEmbeddedHtmlGenerator();
+        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $embedded       = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedHtmlGenerator();
         $embeddedString = $embedded->getHtml($video->getId());
         $width          = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
 

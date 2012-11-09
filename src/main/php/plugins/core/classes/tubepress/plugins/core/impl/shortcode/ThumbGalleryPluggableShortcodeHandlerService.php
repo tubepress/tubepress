@@ -49,7 +49,7 @@ class tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandle
      */
     public final function getHtml()
     {
-        $execContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $galleryId   = $execContext->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         if ($galleryId == '') {
@@ -69,11 +69,11 @@ class tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandle
             $this->_logger->debug(sprintf('Starting to build thumbnail gallery %s', $galleryId));
         }
 
-        $provider      = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoCollector();
-        $pluginManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-        $themeHandler  = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
-        $ms            = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $qss           = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $provider      = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
+        $pluginManager = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $themeHandler  = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $ms            = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $qss           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
         $page          = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 

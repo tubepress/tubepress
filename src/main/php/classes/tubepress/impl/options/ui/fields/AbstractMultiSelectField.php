@@ -66,7 +66,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
      */
     public final function onSubmit()
     {
-        $hrps = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         if (! $hrps->hasParam($this->_name)) {
 
@@ -89,7 +89,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
         }
 
         $errors         = array();
-        $storageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
@@ -117,10 +117,10 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
      */
     public final function getHtml()
     {
-        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php');
         $currentValues   = array();
-        $storageManager  = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+        $storageManager  = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 

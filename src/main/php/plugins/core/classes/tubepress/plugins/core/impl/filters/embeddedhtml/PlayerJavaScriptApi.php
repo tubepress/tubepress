@@ -26,7 +26,7 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
 {
     public function onEmbeddedHtml(tubepress_api_event_TubePressEvent $event)
     {
-        $context   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $context   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 
         if (! $context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)) {
 

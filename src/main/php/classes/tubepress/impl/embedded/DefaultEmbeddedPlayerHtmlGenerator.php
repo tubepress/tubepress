@@ -52,8 +52,8 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
             return null;
         }
 
-        $themeHandler           = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
-        $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $themeHandler           = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $template = $embeddedPlayer->getTemplate($themeHandler);
 
@@ -120,8 +120,8 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
      */
     private function _getEmbeddedPlayer($videoId)
     {
-        $executionContext            = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $embeddedPlayers             = tubepress_impl_patterns_ioc_KernelServiceLocator::getEmbeddedPlayers();
+        $executionContext            = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $embeddedPlayers             = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedPlayers();
         $requestedEmbeddedPlayerName = $executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
 
         /**
@@ -144,7 +144,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
          * CASE 2: The user has requested a specific embedded player that is NOT registered.
          */
         $calculatedProviderName = null;
-        $videoProviders         = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviders();
+        $videoProviders         = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
 
         foreach ($videoProviders as $videoProvider) {
 

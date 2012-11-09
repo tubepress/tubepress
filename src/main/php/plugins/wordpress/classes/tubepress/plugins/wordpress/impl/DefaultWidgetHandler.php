@@ -33,8 +33,8 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
      */
     public final function registerWidget()
     {
-        $msg               = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $wpFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $msg               = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
         $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
@@ -54,9 +54,9 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
     {
         extract($opts);
 
-        $context      = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $parser       = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeParser();
-        $gallery      = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeHtmlGenerator();
+        $context      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $parser       = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
+        $gallery      = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHtmlGenerator();
 
         /* default widget options */
         $defaultWidgetOptions = array(
@@ -111,10 +111,10 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
      */
     public final function printControlHtml()
     {
-        $wpsm         = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
-        $msg          = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $tplBuilder   = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $hrps         = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $wpsm         = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+        $msg          = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $tplBuilder   = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $hrps         = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         /* are we saving? */
         if ($hrps->hasParam(self::WIDGET_SUBMIT_TAG)) {
@@ -142,7 +142,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
 
     private static function _verifyNonce() {
 
-        $wpFunctionWrapper = tubepress_impl_patterns_ioc_KernelServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
     }
