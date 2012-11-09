@@ -4,19 +4,9 @@
  *
  * This file is part of TubePress (http://tubepress.org)
  *
- * TubePress is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * TubePress is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
 <object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>' height='<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>'>
