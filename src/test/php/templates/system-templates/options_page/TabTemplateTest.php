@@ -16,13 +16,13 @@ class tubepress_impl_template_templates_optionspage_TabTemplateTest extends Tube
         $one->shouldReceive('getHtml')->once()->andReturn('one-html');
         $one->shouldReceive('getTitle')->once()->andReturn('one-title');
         $one->shouldReceive('getDescription')->once()->andReturn('one-description');
-        $one->shouldReceive('isProOnly')->once()->andReturn(true);
+        $one->shouldReceive('isProOnly')->twice()->andReturn(true);
 
         $two = \Mockery::mock(tubepress_spi_options_ui_Field::_);
         $two->shouldReceive('getHtml')->once()->andReturn('two-html');
         $two->shouldReceive('getTitle')->once()->andReturn('two-title');
         $two->shouldReceive('getDescription')->once()->andReturn('two-description');
-        $two->shouldReceive('isProOnly')->once()->andReturn(false);
+        $two->shouldReceive('isProOnly')->twice()->andReturn(false);
 
         $mockParticipant = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockParticipant->shouldReceive('getName')->times(3)->andReturn('popp-name');
@@ -51,12 +51,14 @@ class tubepress_impl_template_templates_optionspage_TabTemplateTest extends Tube
         </div>
     <table>
     <tr>
-		<th class="tubepress-field-header"><a href="http://tubepress.org/pro"><img src="tubepress-base-url/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a><span>one-title</span></th>
+                <td class="tubepress-pro-banner"><a href="http://tubepress.org/pro"><img src="tubepress-base-url/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a></td>
+		<th class="tubepress-field-header tubepress-pro-field-header"><span>one-title</span></th>
 		<td>
 		    one-html			<br />
 			one-description		</td>
 	</tr>
     <tr>
+                <td style="margin: 0; padding: 0"></td>
 		<th class="tubepress-field-header"><span>two-title</span></th>
 		<td>
 		    two-html			<br />

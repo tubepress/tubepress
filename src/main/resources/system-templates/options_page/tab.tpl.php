@@ -29,7 +29,13 @@
 
     <tr>
 
-		<th class="tubepress-field-header"><?php if ($field->isProOnly()): ?><a href="http://tubepress.org/pro"><img src="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a><?php endif; ?><span><?php echo $field->getTitle(); ?></span></th>
+        <?php if ($field->isProOnly()): ?>
+        <td class="tubepress-pro-banner"><a href="http://tubepress.org/pro"><img src="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a></td>
+        <?php else: ?>
+        <td style="margin: 0; padding: 0"></td>
+        <?php endif; ?>
+
+		<th class="tubepress-field-header<?php if ($field->isProOnly()): ?> tubepress-pro-field-header<?php endif; ?>"><span><?php echo $field->getTitle(); ?></span></th>
 
 		<td>
 		    <?php echo $field->getHtml(); ?>

@@ -70,3 +70,14 @@ th.tubepress-field-header img {
     float: left;
     margin: 0.2em 0.5em 1em 0;
 }
+
+th.tubepress-pro-field-header {
+
+    min-width: 150px;
+}
+
+td.tubepress-pro-banner {
+
+    padding: 12px 0 0 0;
+    vertical-align: top;
+}
