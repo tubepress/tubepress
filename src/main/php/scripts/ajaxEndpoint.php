@@ -37,4 +37,4 @@ require 'boot.php';
 /**
  * Hand off the request to the Ajax handler.
  */
-tubepress_impl_patterns_ioc_KernelServiceLocator::getAjaxHandler()->handle();
+tubepress_impl_patterns_sl_ServiceLocator::getAjaxHandler()->handle();
