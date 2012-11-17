@@ -16,10 +16,13 @@
     	<h2><?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}; ?></h2>
 
     	<div style="margin-bottom: 1em; width: 100%; float: left">
-    	    <div style="float: left; width: 59%">
+    	    <div style="float: left; width: 40%">
     	        <?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}; ?>
     	    </div>
-    	    <div style="float: right">	    
+    	    <div style="float: left; width: 30%">
+                <div class="tubepress-notice-box" style="margin: 0 10%; font-weight: bold; width: 80%; text-align: center">You're missing out! Upgrade to <a href="http://tubepress.org/pro">TubePress Pro</a> now for even more features and technical support.</div>
+    	    </div>
+            <div style="float: right">
 				<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getTitle() ?> <?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getHtml(); ?>
     	    </div>
     	</div>

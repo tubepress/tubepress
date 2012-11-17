@@ -69,7 +69,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandlerTest extends TubePre
         $contents = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals('<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>yo', $contents);
+        $this->assertEquals('<div class="updated tubepress-options-updated"><p><strong>Options updated</strong></p></div>yo', $contents);
     }
 
     function testSubmitInvalidValue()

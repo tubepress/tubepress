@@ -85,7 +85,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
 
                 if ($result === null) {
 
-                    echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+                    echo '<div class="updated tubepress-options-updated"><p><strong>Options updated</strong></p></div>';
 
                 } else {
 
