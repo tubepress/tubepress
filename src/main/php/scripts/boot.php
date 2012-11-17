@@ -31,27 +31,13 @@ if (! function_exists('bootTubePress')) {
         $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/deprecated_code/classes');
         $loader->register();
 
-        /**
-         * Next, set up logging.
-         */
-        if (isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0) {
-
-            $formatter = new ehough_epilog_impl_formatter_LineFormatter("[%time%] %channel%: %message% <br />\n");
-
-            $handler = new ehough_epilog_impl_handler_PrintHandler();
-            $handler->setFormatter($formatter);
-
-            $handler->setLevel(ehough_epilog_api_ILogger::DEBUG);
-
-            ehough_epilog_api_LoggerFactory::setHandlerStack(array($handler));
-        }
-
         /*
          * Finally, hand off control to the TubePress bootstrapper. This will
          *
-         * 1. Build and compile the core IOC container.
-         * 2. Load system plugins
-         * 3. Load user plugins
+         * 1. Setup logging.
+         * 2. Build and compile the core IOC container.
+         * 3. Load system plugins
+         * 4. Load user plugins
          */
         $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
         $bootStrapper->boot();

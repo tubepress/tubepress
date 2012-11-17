@@ -20,14 +20,20 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
     private $_mockPluginRegistry;
 
+    private $_mockExecutionContext;
+
+    private $_mockHttpRequestParameterService;
+
     function onSetup()
     {
         $this->_sut = new tubepress_impl_bootstrap_TubePressBootstrapper();
 
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockStorageManager      = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockPluginDiscoverer    = $this->createMockSingletonService(tubepress_spi_plugin_PluginDiscoverer::_);
-        $this->_mockPluginRegistry      = $this->createMockSingletonService(tubepress_spi_plugin_PluginRegistry::_);
+        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockPluginDiscoverer            = $this->createMockSingletonService(tubepress_spi_plugin_PluginDiscoverer::_);
+        $this->_mockPluginRegistry              = $this->createMockSingletonService(tubepress_spi_plugin_PluginRegistry::_);
+        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
         $this->_sut->setIocContainer($this->getMockIocContainer());
     }
@@ -71,6 +77,11 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->getMockIocContainer()->shouldReceive('addCompilerPass')->once()->with(Mockery::type('FakeCompilerPass'));
         $this->getMockIocContainer()->shouldReceive('registerExtension')->once()->with(Mockery::type('FakeExtension'));
         $this->getMockIocContainer()->shouldReceive('compile')->once();
+
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(true);
+
+        $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn('false');
 
         $this->_sut->boot();
 
