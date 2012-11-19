@@ -75,8 +75,6 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
             array('ehough_shortstop_impl_contentencoding_NativeDeflateRfc1951Decompressor', 'ehough_shortstop_impl_contentencoding_NativeDeflateRfc1951Decompressor'),
             array('ehough_shortstop_impl_transferencoding_ChunkedTransferDecoder', 'ehough_shortstop_impl_transferencoding_ChunkedTransferDecoder'),
             array('ehough_shortstop_api_HttpClient', 'ehough_shortstop_impl_HttpClientChain'),
-            array('tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandler', 'tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandler'),
-            array('ehough_shortstop_api_HttpResponseHandler', 'ehough_shortstop_impl_HttpResponseHandlerChain'),
             array('ehough_jameson_api_IDecoder', 'ehough_jameson_impl_FastDecoder'),
             array('ehough_jameson_api_IEncoder', 'ehough_jameson_impl_FastEncoder'),
             array(tubepress_spi_http_HttpRequestParameterService::_, 'tubepress_impl_http_DefaultHttpRequestParameterService'),

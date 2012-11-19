@@ -64,6 +64,10 @@ class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTe
                 tubepress_spi_options_ui_PluggableOptionsPageParticipant::_),
             array('tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter',
                 'tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter'),
+
+            array('tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
+                'tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
+                'tubepress.impl.http.ResponseHandler'),
         );
 
         $toReturn = array();

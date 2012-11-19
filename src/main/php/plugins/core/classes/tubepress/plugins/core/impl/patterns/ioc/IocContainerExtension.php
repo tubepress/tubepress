@@ -36,7 +36,6 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         $this->_registerFilesystem($container);
         $this->_registerHeadHtmlGenerator($container);
         $this->_registerHttpClient($container);
-        $this->_registerHttpResponseHandler($container);
         $this->_registerHttpRequestParameterService($container);
         $this->_registerJsonEncoderAndDecoder($container);
         $this->_registerOptionDescriptorReference($container);
@@ -253,23 +252,6 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         )->addArgument(new ehough_iconic_impl_Reference($transportChainId))
             ->addArgument(new ehough_iconic_impl_Reference($contentDecoderId))
             ->addArgument(new ehough_iconic_impl_Reference($transferDecoderId));
-    }
-
-    private function _registerHttpResponseHandler(ehough_iconic_impl_ContainerBuilder $container)
-    {
-        $chainId = 'ehough_shortstop_impl_HttpResponseHandlerChain_chain';
-
-        $commands = array('tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandler');
-
-        $this->_registerChainDefinitionByClassNames($container, $chainId, $commands);
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $container->register(
-
-            'ehough_shortstop_api_HttpResponseHandler',
-            'ehough_shortstop_impl_HttpResponseHandlerChain'
-
-        )->addArgument(new ehough_iconic_impl_Reference($chainId));
     }
 
     private function _registerJsonEncoderAndDecoder(ehough_iconic_impl_ContainerBuilder $container)
@@ -519,13 +501,11 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
                 $references
             )
 
-        )->setFactoryClass('_tubepress_impl_patterns_ioc_CoreIocContainer_ChainBuilder')
-            ->setFactoryMethod('buildChain');
+        )->setFactoryClass('tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension')
+         ->setFactoryMethod('_buildChain');
     }
-}
-class _tubepress_impl_patterns_ioc_CoreIocContainer_ChainBuilder
-{
-    public static function buildChain()
+
+    public static function _buildChain()
     {
         $chain    = new ehough_chaingang_impl_StandardChain();
         $commands = func_get_args();

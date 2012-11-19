@@ -57,6 +57,12 @@ class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtension i
             'tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter',
             'tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter'
         );
+
+        $container->register(
+
+            'tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
+            'tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler'
+        )->addTag('tubepress.impl.http.ResponseHandler');
     }
 
     /**
