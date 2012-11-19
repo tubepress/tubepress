@@ -22,7 +22,7 @@
     	    <div style="float: left; width: 30%">
                 <div class="tubepress-notice-box" style="margin: 0 10%; width: 80%; text-align: center">You're missing out! Upgrade to <a href="http://tubepress.org/pro">TubePress Pro</a> now for even more features and technical support.</div>
     	    </div>
-            <div style="float: right">
+            <div style="float: right; width: 30%; text-align: right">
 				<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getTitle() ?> <?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getHtml(); ?>
     	    </div>
     	</div>
