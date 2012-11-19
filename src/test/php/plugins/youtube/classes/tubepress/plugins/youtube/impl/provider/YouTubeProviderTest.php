@@ -85,10 +85,6 @@ class tubepress_plugins_youtube_impl_provider_YouTubeProviderTest extends TubePr
         $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(36)->andReturn('abc');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
-        $this->_mockExecutionContext->shouldReceive('get')->times(16)->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(3);
-        $this->_mockExecutionContext->shouldReceive('get')->times(16)->with(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
-        $this->_mockExecutionContext->shouldReceive('get')->times(16)->with(tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(false);
-        $this->_mockExecutionContext->shouldReceive('get')->times(16)->with(tubepress_api_const_options_names_Meta::DATEFORMAT)->andReturn('c');
 
         $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->galleryXml());
 
@@ -119,8 +115,6 @@ class tubepress_plugins_youtube_impl_provider_YouTubeProviderTest extends TubePr
     {
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('SJxBZgC29ts')->andReturn('abc');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(3);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
         $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->singleVideoXml());
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(

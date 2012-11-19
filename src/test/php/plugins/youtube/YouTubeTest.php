@@ -14,6 +14,8 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 
     private $_mockFieldBuilder;
 
+    private $_mockEventDispatcher;
+
     private static $_youTubeVideo = '/[a-zA-Z0-9_-]{11}/';
 
     private static $_valueMapTime = array(
@@ -29,15 +31,41 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
 	{
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockFieldBuilder               = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
 	}
 
 	function testLoad()
     {
         $this->_testOptions();
+        $this->_testEventListenerRegistration();
 
         require TUBEPRESS_ROOT . '/src/main/php/plugins/youtube/YouTube.php';
 
         $this->assertTrue(true);
+    }
+
+    function testEventHandler()
+    {
+        $video = new tubepress_api_video_Video();
+
+        $event = new tubepress_api_event_TubePressEvent($video);
+        $event->setName(tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION);
+
+        $mockFilter = $this->createMockSingletonService('tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter');
+        $mockFilter->shouldReceive('onVideoConstruction')->once()->with($event);
+
+        tubepress_plugins_youtube_YouTube::_callbackEventHandler($event);
+
+        $this->assertTrue(true);
+    }
+
+    private function _testEventListenerRegistration()
+    {
+        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(
+
+            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            array('tubepress_plugins_youtube_YouTube', '_callbackEventHandler')
+        );
     }
 
     private function _testOptions()

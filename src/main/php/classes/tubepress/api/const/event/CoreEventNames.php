@@ -166,9 +166,13 @@ class tubepress_api_const_event_CoreEventNames
     const VARIABLE_READ_FROM_EXTERNAL_INPUT = 'core.variableReadFromExternalInput';
 
     /**
-     * This event is fired when a TubePress builds a TubePress video.
+     * This event is fired when a TubePress builds a TubePress video. Some providers may add additional
+     * arguments to this event.
      *
      * @subject tubepress_api_video_Video The TubePress video.
+     *
+     * @arg int   zeroBasedFeedIndex The zero-based index into the raw feed from which this video was built.
+     * @arg mixed rawFeed            The "raw" unaltered feed from the provider.
      */
     const VIDEO_CONSTRUCTION = 'core.videoConstruction';
 

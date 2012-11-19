@@ -38,6 +38,13 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_sut->setIocContainer($this->getMockIocContainer());
     }
 
+    function onTearDown()
+    {
+        $nullHandler = new ehough_epilog_impl_handler_NullHandler();
+
+        ehough_epilog_api_LoggerFactory::setHandlerStack(array($nullHandler));
+    }
+
     public static function setUpBeforeClass()
     {
         require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';

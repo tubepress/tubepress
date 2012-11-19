@@ -10,22 +10,60 @@
  */
 
 /**
- * Registers a few extensions to allow TubePress to work with YouTube.
+ * Allows TubePress to work with YouTube.
  */
 class tubepress_plugins_youtube_YouTube
 {
-    private static $_valueMapTime = array(
-
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::ALL_TIME   => 'all time',        //>(translatable)<
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_MONTH => 'this month',      //>(translatable)<
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_WEEK  => 'this week',       //>(translatable)<
-        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY      => 'today',           //>(translatable)<
-    );
-    private static $_regexWordChars = '/\w+/';
-    private static $_youTubeVideo = '/[a-zA-Z0-9_-]{11}/';
-
     public static function init()
     {
+        self::_registerOptions();
+        self::_registerEventListeners();
+    }
+
+    public static function _callbackEventHandler(tubepress_api_event_TubePressEvent $event)
+    {
+        switch ($event->getName()) {
+
+            case tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION:
+
+                self::_call(
+
+                    $event,
+                    'tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter', 'onVideoConstruction'
+                );
+        }
+    }
+
+    private static function _call(tubepress_api_event_TubePressEvent $event, $serviceId, $functionName)
+    {
+        $serviceInstance = tubepress_impl_patterns_sl_ServiceLocator::getService($serviceId);
+
+        $serviceInstance->$functionName($event);
+    }
+
+    private static function _registerEventListeners()
+    {
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+
+        $eventDispatcher->addListener(
+
+            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            array('tubepress_plugins_youtube_YouTube', '_callbackEventHandler')
+        );
+    }
+
+    private static function _registerOptions()
+    {
+        $_valueMapTime = array(
+
+            tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::ALL_TIME   => 'all time',        //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_MONTH => 'this month',      //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_WEEK  => 'this week',       //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY      => 'today',           //>(translatable)<
+        );
+        $_regexWordChars = '/\w+/';
+        $_regexYouTubeVideo = '/[a-zA-Z0-9_-]{11}/';
+        
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         /**
@@ -129,67 +167,67 @@ class tubepress_plugins_youtube_YouTube
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setLabel('Top-rated YouTube videos from');  //>(translatable)<
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setLabel('Most-favorited YouTube videos from');  //>(translatable)<
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE);
         $option->setLabel('YouTube videos most-shared on Facebook and Twitter from');  //>(translatable)<
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setLabel('Most-viewed YouTube videos from');  //>(translatable)<
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
         $option->setLabel('Most-recently added YouTube videos from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE);
         $option->setLabel('Most-discussed YouTube videos from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
         $option->setLabel('Most-responded to YouTube videos from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE);
         $option->setLabel('The latest "featured" videos on YouTube\'s homepage from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE);
         $option->setLabel('Popular videos on <a href="http://www.youtube.com/trends">YouTube Trends</a> from');  //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
+        $option->setAcceptableValues($_valueMapTime);
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE);
         $option->setLabel('Videos related to this YouTube video');  //>(translatable)<
-        $option->setValidValueRegex(self::$_youTubeVideo);
+        $option->setValidValueRegex($_regexYouTubeVideo);
         $option->setDefaultValue('P9M__yYbsZ4');
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE);
         $option->setLabel('Videos responses to this YouTube video');  //>(translatable)<
-        $option->setValidValueRegex(self::$_youTubeVideo);
+        $option->setValidValueRegex($_regexYouTubeVideo);
         $option->setDefaultValue('9bZkp7q19f0');
         $odr->registerOptionDescriptor($option);
 
@@ -203,7 +241,7 @@ class tubepress_plugins_youtube_YouTube
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE);
         $option->setDefaultValue('FPSRussia');
         $option->setLabel('This YouTube user\'s "favorites"');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
+        $option->setValidValueRegex($_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
@@ -215,7 +253,7 @@ class tubepress_plugins_youtube_YouTube
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE);
         $option->setDefaultValue('3hough');
         $option->setLabel('Videos from this YouTube user');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
+        $option->setValidValueRegex($_regexWordChars);
         $odr->registerOptionDescriptor($option);
 
 

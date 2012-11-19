@@ -51,6 +51,12 @@ class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtension imple
             'tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant'
 
         )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+
+        $container->register(
+
+            'tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter',
+            'tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter'
+        );
     }
 
     /**

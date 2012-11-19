@@ -12,7 +12,7 @@
 /**
  * Handles the heavy lifting for YouTube.
  */
-class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService extends tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideoProviderService
+class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService extends tubepress_impl_provider_AbstractPluggableVideoProviderService
 {
     private static $_NAMESPACE_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     private static $_NAMESPACE_APP        = 'http://www.w3.org/2007/app';
@@ -103,11 +103,25 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
     }
 
     /**
+     * @return array An array of meta names
+     */
+    public final function getAdditionalMetaNames()
+    {
+        return array(
+
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
+            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS
+        );
+    }
+
+    /**
      * Count the total videos in this feed result.
+     *
+     * @param mixed $feed The raw feed from the provider.
      *
      * @return int The total result count of this query, or 0 if there was a problem.
      */
-    protected final function getTotalResultCount()
+    protected final function getTotalResultCount($feed)
     {
         $total        = $this->_domDocument->getElementsByTagNameNS(self::$_NAMESPACE_OPENSEARCH, '*');
         $node         = $total->item(0);
@@ -130,7 +144,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
      *
      * @return boolean True if we can build a video from this element, false otherwise.
      */
-    protected final function _canHandleVideo($index)
+    protected final function canWorkWithVideoAtIndex($index)
     {
         $states = $this->_relativeQuery($index, 'app:control/yt:state');
 
@@ -151,167 +165,58 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
      *
      * @return integer An estimated count of videos in this feed.
      */
-    protected final function _countVideosInFeed($feed)
+    protected final function countVideosInFeed($feed)
     {
         return $this->_xpath->query('//atom:entry')->length;
     }
 
-    protected final function _getAuthorDisplayName($index)
-    {
-        return $this->_getAuthorUid($index);
-    }
-
-    protected final function _getAuthorUid($index)
-    {
-        return $this->_relativeQuery($index, 'atom:author/atom:name')->item(0)->nodeValue;
-    }
-
-    protected final function _getCategory($index)
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        return trim($this->_relativeQuery($index, 'media:group/media:category')->item(0)->getAttribute('label'));
-    }
-
-    protected final function _getRawCommentCount($index)
-    {
-        return '';
-    }
-
-    protected final function _getDescription($index)
-    {
-        return $this->_relativeQuery($index, 'media:group/media:description')->item(0)->nodeValue;
-    }
-
-    protected final function _getDurationInSeconds($index)
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        return $this->_relativeQuery($index, 'media:group/yt:duration')->item(0)->getAttribute('seconds');
-    }
-
-    protected final function _getHomeUrl($index)
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        $rawUrl = $this->_relativeQuery($index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
-        $url    = new ehough_curly_Url($rawUrl);
-
-        return $url->toString(true);
-    }
-
-    protected final function _getId($index)
-    {
-        $link    = $this->_relativeQuery($index, "atom:link[@type='text/html']")->item(0);
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        preg_match('/.*v=(.{11}).*/', $link->getAttribute('href'), $matches);
-
-        return $matches[1];
-    }
-
-    protected final function _getKeywordsArray($index)
-    {
-        $rawKeywords = $this->_relativeQuery($index, 'media:group/media:keywords')->item(0);
-        $raw         = trim($rawKeywords->nodeValue);
-
-        return explode(', ', $raw);
-    }
-
-    protected final function _getRawLikeCount($index)
-    {
-        return '';
-    }
-
-    protected final function _getRatingAverage($index)
-    {
-        $count = $this->_relativeQuery($index, 'gd:rating')->item(0);
-
-        if ($count != null) {
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            return number_format($count->getAttribute('average'), 2);
-        }
-
-        return '';
-    }
-
-    protected final function _getRawRatingCount($index)
-    {
-        $count = $this->_relativeQuery($index, 'gd:rating')->item(0);
-
-        if ($count != null) {
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            return $count->getAttribute('numRaters');
-        }
-
-        return '';
-    }
-
-    protected final function _getThumbnailUrlsArray($index)
-    {
-        $thumbs = $this->_relativeQuery($index, 'media:group/media:thumbnail');
-        $result = array();
-
-        foreach ($thumbs as $thumb) {
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            $url = $thumb->getAttribute('url');
-
-            if (strpos($url, 'hqdefault') === false && strpos($url, 'mqdefault') === false) {
-
-                $result[] = $url;
-            }
-        }
-
-        return $result;
-    }
-
-    protected final function _getTimeLastUpdatedInUnixTime($index)
-    {
-        return '';
-    }
-
-    protected final function _getTimePublishedInUnixTime($index)
-    {
-        $publishedNode = $this->_relativeQuery($index, 'media:group/yt:uploaded');
-
-        if ($publishedNode->length == 0) {
-
-            return '';
-        }
-
-        $rawTime = $publishedNode->item(0)->nodeValue;
-
-        return tubepress_impl_util_TimeUtils::rfc3339toUnixTime($rawTime);
-    }
-
-    protected final function _getTitle($index)
-    {
-        return $this->_relativeQuery($index, 'atom:title')->item(0)->nodeValue;
-    }
-
-    protected final function _getRawViewCount($index)
-    {
-        $stats = $this->_relativeQuery($index, 'yt:statistics')->item(0);
-
-        if ($stats != null) {
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            return $stats->getAttribute('viewCount');
-        }
-
-        return '';
-    }
-
-    protected function _preFactoryExecution($feed)
+    protected final function prepareForFeedAnalysis($feed)
     {
         $this->_createDomDocument($feed);
         $this->_xpath = $this->_createXPath($this->_domDocument);
     }
 
-    protected function _postFactoryExecution($feed)
+    protected final function onFeedAnalysisComplete($feed)
     {
         unset($this->_domDocument);
         unset($this->_xpath);
+    }
+
+    /**
+     * Builds a URL for a list of videos
+     *
+     * @param int $currentPage The current page number of the gallery.
+     *
+     * @return string The request URL for this gallery.
+     */
+    protected final function buildGalleryUrl($currentPage)
+    {
+        return $this->_urlBuilder->buildGalleryUrl($currentPage);
+    }
+
+    /**
+     * Builds a request url for a single video
+     *
+     * @param string $id The video ID to search for
+     *
+     * @throws InvalidArgumentException If unable to build a URL for the given video.
+     *
+     * @return string The URL for the single video given.
+     */
+    protected final function buildSingleVideoUrl($id)
+    {
+        if (! $this->recognizesVideoId($id)) {
+
+            throw new InvalidArgumentException("Unable to build YouTube URL for video with ID $id");
+        }
+
+        return $this->_urlBuilder->buildSingleVideoUrl($id);
+    }
+
+    protected final function onBeforeFiringVideoConstructionEvent(tubepress_api_event_TubePressEvent $event)
+    {
+        $event->setArgument('domDocument', $this->_domDocument);
+        $event->setArgument('xPath', $this->_xpath);
     }
 
     private static function _makeSureNumeric($result)
@@ -374,48 +279,5 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
     private function _relativeQuery($index, $query)
     {
         return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
-    }
-
-    /**
-     * Builds a URL for a list of videos
-     *
-     * @param int $currentPage The current page number of the gallery.
-     *
-     * @return string The request URL for this gallery.
-     */
-    protected function buildGalleryUrl($currentPage)
-    {
-        return $this->_urlBuilder->buildGalleryUrl($currentPage);
-    }
-
-    /**
-     * Builds a request url for a single video
-     *
-     * @param string $id The video ID to search for
-     *
-     * @throws InvalidArgumentException If unable to build a URL for the given video.
-     *
-     * @return string The URL for the single video given.
-     */
-    protected function buildSingleVideoUrl($id)
-    {
-        if (! $this->recognizesVideoId($id)) {
-
-            throw new InvalidArgumentException("Unable to build YouTube URL for video with ID $id");
-        }
-
-        return $this->_urlBuilder->buildSingleVideoUrl($id);
-    }
-
-    /**
-     * @return array An array of meta names
-     */
-    public final function getAdditionalMetaNames()
-    {
-        return array(
-
-            tubepress_plugins_youtube_api_const_options_names_Meta::RATING,
-            tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS
-        );
     }
 }

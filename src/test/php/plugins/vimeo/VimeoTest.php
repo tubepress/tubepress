@@ -12,21 +12,49 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 {
     private $_mockOptionsDescriptorReference;
 
+    private $_mockEventDispatcher;
+
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
 	function onSetup()
 	{
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
 	}
 
-	function testVimeo()
+	function testInit()
     {
         $this->_testOptions();
+        $this->_testEventListenerRegistration();
 
         require TUBEPRESS_ROOT . '/src/main/php/plugins/vimeo/Vimeo.php';
 
         $this->assertTrue(true);
+    }
+
+    function testEventHandler()
+    {
+        $video = new tubepress_api_video_Video();
+
+        $event = new tubepress_api_event_TubePressEvent($video);
+        $event->setName(tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION);
+
+        $mockFilter = $this->createMockSingletonService('tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter');
+        $mockFilter->shouldReceive('onVideoConstruction')->once()->with($event);
+
+        tubepress_plugins_vimeo_Vimeo::_callbackEventHandler($event);
+
+        $this->assertTrue(true);
+    }
+
+    private function _testEventListenerRegistration()
+    {
+        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(
+
+            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            array('tubepress_plugins_vimeo_Vimeo', '_callbackEventHandler')
+        );
     }
 
     private function _testOptions()

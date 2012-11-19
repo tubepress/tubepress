@@ -69,6 +69,9 @@ class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtensionTest e
 
             array('tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder',
                 'tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder'),
+
+            array('tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter',
+                'tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter'),
         );
 
         $toReturn = array();

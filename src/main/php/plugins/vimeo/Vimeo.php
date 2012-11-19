@@ -19,6 +19,44 @@ final class tubepress_plugins_vimeo_Vimeo
 
     public static function init()
     {
+        self::_registerOptions();
+        self::_registerEventListeners();
+    }
+
+    public static function _callbackEventHandler(tubepress_api_event_TubePressEvent $event)
+    {
+        switch ($event->getName()) {
+
+            case tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION:
+
+                self::_call(
+
+                    $event,
+                    'tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter', 'onVideoConstruction'
+                );
+        }
+    }
+
+    private static function _call(tubepress_api_event_TubePressEvent $event, $serviceId, $functionName)
+    {
+        $serviceInstance = tubepress_impl_patterns_sl_ServiceLocator::getService($serviceId);
+
+        $serviceInstance->$functionName($event);
+    }
+
+    private static function _registerEventListeners()
+    {
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+
+        $eventDispatcher->addListener(
+
+            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            array('tubepress_plugins_vimeo_Vimeo', '_callbackEventHandler')
+        );
+    }
+
+    private static function _registerOptions()
+    {
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         /**

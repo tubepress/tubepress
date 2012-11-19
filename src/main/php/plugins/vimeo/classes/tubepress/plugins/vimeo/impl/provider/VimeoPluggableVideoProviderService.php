@@ -12,7 +12,7 @@
 /**
  * Handles the heavy lifting for Vimeo.
  */
-class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService extends tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideoProviderService
+class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService extends tubepress_impl_provider_AbstractPluggableVideoProviderService
 {
     private static $_sources = array(
 
@@ -83,11 +83,26 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
     }
 
     /**
+     * @return array An array of meta names
+     */
+    public final function getAdditionalMetaNames()
+    {
+        return array(
+
+            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES
+        );
+    }
+
+
+
+    /**
      * Count the total videos in this feed result.
+     *
+     * @param mixed $feed The raw feed from the provider.
      *
      * @return int The total result count of this query, or 0 if there was a problem.
      */
-    protected final function getTotalResultCount()
+    protected final function getTotalResultCount($feed)
     {
         return isset($this->_unserialized->videos->total) ? $this->_unserialized->videos->total : 0;
     }
@@ -104,7 +119,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
      *
      * @return boolean True if we can build a video from this element, false otherwise.
      */
-    protected final function _canHandleVideo($index)
+    protected final function canWorkWithVideoAtIndex($index)
     {
         return $this->_videoArray[$index]->embed_privacy !== 'nowhere';
     }
@@ -116,122 +131,52 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
      *
      * @return integer An estimated count of videos in this feed.
      */
-    protected final function _countVideosInFeed($feed)
+    protected final function countVideosInFeed($feed)
     {
         return sizeof($this->_videoArray);
     }
 
-    protected final function _getAuthorDisplayName($index)
-    {
-        return $this->_videoArray[$index]->owner->display_name;
-    }
-
-    protected final function _getAuthorUid($index)
-    {
-        return $this->_videoArray[$index]->owner->username;
-    }
-
-    protected final function _getCategory($index)
-    {
-        return '';
-    }
-
-    protected final function _getRawCommentCount($index)
-    {
-        return '';
-    }
-
-    protected final function _getDescription($index)
-    {
-        return $this->_videoArray[$index]->description;
-    }
-
-    protected final function _getDurationInSeconds($index)
-    {
-        return $this->_videoArray[$index]->duration;
-    }
-
-    protected final function _getHomeUrl($index)
-    {
-        return 'http://vimeo.com/' . $this->_videoArray[$index]->id;
-    }
-
-    protected final function _getId($index)
-    {
-        return $this->_videoArray[$index]->id;
-    }
-
-    protected final function _getKeywordsArray($index)
-    {
-        return self::_gatherArrayOfContent($this->_videoArray[$index], 'tags', 'tag');
-    }
-
-    protected final function _getRawLikeCount($index)
-    {
-        return $this->_videoArray[$index]->number_of_likes;
-    }
-
-    protected final function _getRatingAverage($index)
-    {
-        return '';
-    }
-
-    protected final function _getRawRatingCount($index)
-    {
-        return '';
-    }
-
-    protected final function _getThumbnailUrlsArray($index)
-    {
-        $raw = self::_gatherArrayOfContent($this->_videoArray[$index], 'thumbnails', 'thumbnail');
-
-        return array($raw[0]);
-    }
-
-    protected final function _getTimeLastUpdatedInUnixTime($index)
-    {
-        return '';
-    }
-
-    protected final function _getTimePublishedInUnixTime($index)
-    {
-        return @strtotime($this->_videoArray[$index]->upload_date);
-    }
-
-    protected final function _getTitle($index)
-    {
-        return $this->_videoArray[$index]->title;
-    }
-
-    protected final function _getRawViewCount($index)
-    {
-        return $this->_videoArray[$index]->number_of_plays;
-    }
-
-    protected function _preFactoryExecution($feed)
+    protected final function prepareForFeedAnalysis($feed)
     {
         $this->_unserialized = @unserialize($feed);
+        $this->_videoArray   = array();
 
-        $unserialized = $this->_unserialized;
+        /*
+         * Make sure we can actually unserialize the feed.
+         */
+        if ($this->_unserialized === false) {
 
-        if (isset($unserialized->video)) {
+            throw new RuntimeException('Unable to unserialize PHP from Vimeo');
+        }
 
-            $this->_videoArray = (array) $unserialized->video;
+        /*
+         * Make sure Vimeo is happy.
+         */
+        if ($this->_unserialized->stat !== 'ok') {
+
+            throw new RuntimeException('Vimeo returned an error');
+        }
+
+        /*
+         * Is this just a single video?
+         */
+        if (isset($this->_unserialized->video)) {
+
+            $this->_videoArray = (array) $this->_unserialized->video;
 
             return;
         }
 
-        if (isset($unserialized->videos) && isset($unserialized->videos->video)) {
+        /*
+         * Must be a page of videos.
+         */
+        if (isset($this->_unserialized->videos) && isset($this->_unserialized->videos->video)) {
 
-            $this->_videoArray = (array) $unserialized->videos->video;
-
-            return;
+            $this->_videoArray = (array) $this->_unserialized->videos->video;
         }
-
-        $this->_videoArray = array();
     }
 
-    protected function _postFactoryExecution($feed)
+    protected final function onFeedAnalysisComplete($feed)
     {
         unset($this->_videoArray);
         unset($this->_unserialized);
@@ -244,7 +189,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
      *
      * @return string The request URL for this gallery.
      */
-    protected function buildGalleryUrl($currentPage)
+    protected final function buildGalleryUrl($currentPage)
     {
         return $this->_urlBuilder->buildGalleryUrl($currentPage);
     }
@@ -258,7 +203,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
      *
      * @return string The URL for the single video given.
      */
-    protected function buildSingleVideoUrl($id)
+    protected final function buildSingleVideoUrl($id)
     {
         if (! $this->recognizesVideoId($id)) {
 
@@ -268,29 +213,9 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
         return $this->_urlBuilder->buildSingleVideoUrl($id);
     }
 
-    protected static function _gatherArrayOfContent($node, $firstDimension, $secondDimension)
+    protected final function onBeforeFiringVideoConstructionEvent(tubepress_api_event_TubePressEvent $event)
     {
-        $results = array();
-
-        if (isset($node->$firstDimension) && is_array($node->$firstDimension->$secondDimension)) {
-
-            foreach ($node->$firstDimension->$secondDimension as $item) {
-
-                $results[] = $item->_content;
-            }
-        }
-
-        return $results;
-    }
-
-    /**
-     * @return array An array of meta names
-     */
-    public final function getAdditionalMetaNames()
-    {
-        return array(
-
-            tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES
-        );
+        $event->setArgument('unserializedFeed', $this->_unserialized);
+        $event->setArgument('videoArray', $this->_videoArray);
     }
 }
