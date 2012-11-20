@@ -39,7 +39,8 @@
 
         "psr-0": {
 
-            "tubepress": "src/main/php"
+            "tubepress": "src/main/php/classes",
+            "org_tubepress" : "src/main/php/deprecated_code/classes"
         }
     }
 }
