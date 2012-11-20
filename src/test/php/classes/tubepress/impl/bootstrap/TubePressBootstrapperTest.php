@@ -90,12 +90,12 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn('false');
 
-        $this->_sut->boot();
+        $this->_sut->boot(new ehough_pulsar_SymfonyUniversalClassLoader());
 
         /*
          * Try booting twice.
          */
-        $this->_sut->boot();
+        $this->_sut->boot(new ehough_pulsar_SymfonyUniversalClassLoader());
 
         $this->assertTrue(true);
     }

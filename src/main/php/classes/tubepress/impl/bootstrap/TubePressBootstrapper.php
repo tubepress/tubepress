@@ -34,20 +34,29 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
      */
     private $_shouldLog = true;
 
+    /**
+     * @var ehough_pulsar_SymfonyUniversalClassLoader The classloader.
+     */
+    private $_classLoader;
+
     private $_iocContainer = null;
 
     /**
      * Performs TubePress-wide initialization.
      *
+     * @var ehough_pulsar_SymfonyUniversalClassLoader $classLoader The TubePress classloader.
+     *
      * @return null
      */
-    public final function boot()
+    public final function boot(ehough_pulsar_SymfonyUniversalClassLoader $classLoader)
     {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
 
             return;
         }
+
+        $this->_classLoader = $classLoader;
 
         /*
          * Setup basic logging facilities.
@@ -351,9 +360,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
                     $index, $count, $plugin->getName(), count($classPaths)));
             }
 
-            $loader = new ehough_pulsar_SymfonyUniversalClassLoader();
-
-            foreach ($classPaths as $classPath) {
+            foreach ($classPaths as $prefix => $classPath) {
 
                 $realDir = $plugin->getAbsolutePathOfDirectory() . DIRECTORY_SEPARATOR . $classPath;
 
@@ -363,10 +370,15 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
                         $index, $count, $plugin->getName(), $realDir));
                 }
 
-                $loader->registerFallbackDirectory($realDir);
-            }
+                if ($prefix) {
 
-            $loader->register();
+                    $this->_classLoader->registerDirectory($prefix, $classPath);
+
+                } else {
+
+                    $this->_classLoader->registerFallbackDirectory($realDir);
+                }
+            }
 
             $index++;
         }

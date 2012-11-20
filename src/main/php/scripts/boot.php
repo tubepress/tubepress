@@ -38,7 +38,7 @@ if (! function_exists('bootTubePress')) {
          * 4. Load user plugins
          */
         $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
-        $bootStrapper->boot();
+        $bootStrapper->boot($loader);
     }
 }
 
