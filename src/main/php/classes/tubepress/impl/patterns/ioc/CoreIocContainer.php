@@ -24,6 +24,14 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
     {
         $this->_delegate = new ehough_iconic_impl_ContainerBuilder();
 
+        /**
+         * Remove some advanced IOC container stuff that we don't use (yet). This makes TubePress boot about
+         * 30% faster!
+         */
+        $compilerPassConfig = $this->_delegate->getCompilerPassConfig();
+        $compilerPassConfig->setOptimizationPasses(array());
+        $compilerPassConfig->setRemovingPasses(array());
+
         $this->_registerEnvironmentDetector();
         $this->_registerFilesystemFinderFactory();
         $this->_registerPluginDiscoverer();
