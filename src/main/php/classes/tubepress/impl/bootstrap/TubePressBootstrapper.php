@@ -372,7 +372,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                 if ($prefix) {
 
-                    $this->_classLoader->registerDirectory($prefix, $classPath);
+                    $this->_classLoader->registerDirectory($prefix, $realDir);
 
                 } else {
 

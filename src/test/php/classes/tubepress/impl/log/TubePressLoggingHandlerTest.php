@@ -40,7 +40,7 @@ class tubepress_impl_log_TubePressLoggingHandlerTest extends TubePressUnitTest
 
     function testLogEnabled2()
     {
-        $this->expectOutputRegex('/^\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] test: hello!!! <br \/>\\n\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] test: hey!!! <br \/>$/');
+        $this->expectOutputRegex('/^\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[CRITICAL\] test: hello!!! <br \/>\\n\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[CRITICAL\] test: hey!!! <br \/>$/');
 
         $this->_logger->critical('hello!!!');
 
@@ -53,7 +53,7 @@ class tubepress_impl_log_TubePressLoggingHandlerTest extends TubePressUnitTest
 
     function testLogEnabled1()
     {
-        $this->expectOutputRegex('/^\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] test: hey!!! <br \/>$/');
+        $this->expectOutputRegex('/^\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[CRITICAL\] test: hey!!! <br \/>$/');
 
         $this->_sut->setStatus(true);
 

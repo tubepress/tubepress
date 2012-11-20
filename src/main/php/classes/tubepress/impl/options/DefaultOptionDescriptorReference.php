@@ -18,6 +18,11 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
     private $_nameToOptionDescriptorMap = array();
 
     /**
+     * @var tubepress_spi_options_StorageManager Cache of the storage manager.
+     */
+    private $_storageManager;
+
+    /**
      * Returns all of the option descriptors.
      *
      * @return array All of the registered option descriptors.
@@ -56,18 +61,23 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      */
     public final function registerOptionDescriptor(tubepress_spi_options_OptionDescriptor $optionDescriptor)
     {
-        if (array_key_exists($optionDescriptor->getName(), $this->_nameToOptionDescriptorMap)) {
+        $name = $optionDescriptor->getName();
+
+        if (isset($this->_nameToOptionDescriptorMap[$name])) {
 
             throw new InvalidArgumentException($optionDescriptor->getName() . ' is already registered as an option descriptor');
         }
 
-        $this->_nameToOptionDescriptorMap[$optionDescriptor->getName()] = $optionDescriptor;
+        $this->_nameToOptionDescriptorMap[$name] = $optionDescriptor;
+
+        if (!isset($this->_storageManager)) {
+
+            $this->_storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+        }
 
         if ($optionDescriptor->isMeantToBePersisted()) {
 
-            $optionStorageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-
-            $optionStorageManager->createIfNotExists($optionDescriptor->getName(), $optionDescriptor->getDefaultValue());
+            $this->_storageManager->createIfNotExists($name, $optionDescriptor->getDefaultValue());
         }
     }
 }

@@ -33,7 +33,7 @@ class tubepress_impl_log_TubePressLoggingHandler extends ehough_epilog_impl_hand
     {
         parent::__construct();
 
-        $this->setFormatter(new ehough_epilog_impl_formatter_LineFormatter("[%time%] %channel%: %message% <br />\n"));
+        $this->setFormatter(new ehough_epilog_impl_formatter_LineFormatter("[%time%] [%level_name%] %channel%: %message% <br />\n"));
         $this->setLevel(ehough_epilog_api_ILogger::DEBUG);
     }
 
