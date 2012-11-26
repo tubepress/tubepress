@@ -16,7 +16,8 @@
 	<dirname property="tubepress-build-common.basedir" file="${ant.file.tubepress-build-common}"/>
 
     <!-- Initialize some properties. -->
-    <property file="config/common.properties" />
+    <property file="${tubepress-build-common.basedir}/../config/common.properties" />
+    <property file="config/custom.properties" />
 	<property name="stagingdir"        value="stage/${build.directory.stage.basename}" />
 	<property name="jscompresslist"    value="config/js-to-compress.txt" />
 
@@ -47,7 +48,7 @@
         <copy todir="${stagingdir}">
 
             <fileset dir="../../.." excludesfile="${tubepress-build-common.basedir}/../config/distribution-exclusions.txt" />
-        </copy>
+        </copy><property file="config/pro.properties" />
     </target>
 
     <target name="add-wordpress-files" description="Copies WordPress resources into TubePress">

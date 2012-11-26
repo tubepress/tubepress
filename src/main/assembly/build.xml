@@ -17,8 +17,6 @@ Builds the free WordPress plugin package of Tubepress.
 -->
 <project name="tubepress-free" default="build-free" basedir=".">
 
-    <property file="config/free.properties" />
-
     <import file="include/common.xml" />
 	    
     <target name="build-free" description="Builds the free version of TubePress" depends="init">
