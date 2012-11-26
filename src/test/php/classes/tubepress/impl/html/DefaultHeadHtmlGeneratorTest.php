@@ -34,7 +34,7 @@ class tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnitTest
 
     function testJqueryInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/js/jquery-1.8.2.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/js/jquery-1.8.3.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
     }
 
     function testJsInclude()

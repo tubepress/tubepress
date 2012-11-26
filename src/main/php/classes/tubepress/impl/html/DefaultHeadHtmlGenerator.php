@@ -25,7 +25,7 @@ class tubepress_impl_html_DefaultHeadHtmlGenerator implements tubepress_spi_html
     public function getHeadJqueryInclusion()
     {
         $url = $this->_tubepressBaseUrl;
-        return "<script type=\"text/javascript\" src=\"$url/src/main/web/js/jquery-1.8.2.min.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$url/src/main/web/js/jquery-1.8.3.min.js\"></script>";
     }
 
     public function getHeadInlineJs()
