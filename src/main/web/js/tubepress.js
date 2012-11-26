@@ -317,7 +317,7 @@ TubePressGallery = (function () {
 		isAjaxPagination = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId][nvpMap].ajaxPagination;
+			return galleries[galleryId][jsMap].ajaxPagination;
 		},
 
 		/**
@@ -326,7 +326,7 @@ TubePressGallery = (function () {
 		isAutoNext = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId][nvpMap].autoNext;
+			return galleries[galleryId][jsMap].autoNext;
 		},
 
 		/**
@@ -335,7 +335,7 @@ TubePressGallery = (function () {
 		isFluidThumbs = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId][nvpMap].fluidThumbs;
+			return galleries[galleryId][jsMap].fluidThumbs;
 		},
 
 		/**
@@ -362,7 +362,7 @@ TubePressGallery = (function () {
 		getHttpMethod = function (galleryId) {
 
 			//noinspection JSUnresolvedVariable
-			return galleries[galleryId][nvpMap].httpMethod;
+			return galleries[galleryId][jsMap].httpMethod;
 		},
 
 		getNvpMap = function (galleryId) {

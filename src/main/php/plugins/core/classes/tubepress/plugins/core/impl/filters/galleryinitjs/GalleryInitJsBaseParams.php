@@ -54,7 +54,7 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
         $newArgs = array(
 
             self::$_PROPERTY_NVPMAP => tubepress_impl_context_MemoryExecutionContext::convertBooleans($nvpMap),
-            self::$_PROPERTY_JSMAP  => $jsMap
+            self::$_PROPERTY_JSMAP  => tubepress_impl_context_MemoryExecutionContext::convertBooleans($jsMap),
         );
 
         $event->setSubject(array_merge($args, $newArgs));
@@ -72,6 +72,19 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
             $toReturn[self::$_NAME_PARAM_PLAYER_PRODUCES_HTML] = (bool) $playerLocation->producesHtml();
         }
 
+        $requiredOptions = array(
+
+            tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
+            tubepress_api_const_options_names_Embedded::AUTONEXT,
+            tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,
+            tubepress_api_const_options_names_Advanced::HTTP_METHOD,
+        );
+
+        foreach ($requiredOptions as $optionName) {
+
+            $toReturn[$optionName] = $context->get($optionName);
+        }
+
         return $toReturn;
     }
 
@@ -81,12 +94,8 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
         $requiredOptions = array(
 
-            tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
-            tubepress_api_const_options_names_Embedded::AUTONEXT,
             tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,
             tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,
-            tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,
-            tubepress_api_const_options_names_Advanced::HTTP_METHOD,
             tubepress_api_const_options_names_Embedded::PLAYER_LOCATION
         );
 

@@ -44,7 +44,7 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTP_METHOD)->andReturn('some-http-method');
         $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array('x' => 'y', 'foo' => 'bar'));
 
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(9)->andReturnUsing(function ($arg) {
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(11)->andReturnUsing(function ($arg) {
 
            if ($arg === tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION) {
 
@@ -76,12 +76,8 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
             'nvpMap' => array(
 
-                'ajaxPagination' => true,
-                'autoNext' => true,
                 'embeddedHeight' => 999,
                 'embeddedWidth' => 888,
-                'fluidThumbs' => false,
-                'httpMethod' => 'some-http-method',
                 'playerLocation' => 'player-loc',
                 'x' => 'y',
                 'foo' => 'bar'
@@ -91,6 +87,10 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
                 'playerJsUrl' => 'xyz/abc',
                 'playerLocationProducesHtml' => true,
+                'ajaxPagination' => true,
+                'autoNext' => true,
+                'fluidThumbs' => false,
+                'httpMethod' => 'some-http-method',
             )
 	    ), $result);
 	}
