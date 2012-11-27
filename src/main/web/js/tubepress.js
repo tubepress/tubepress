@@ -835,7 +835,8 @@ TubePressThumbs = (function () {
 		getThumbWidth = function (galleryId) {
 
 			var thumbArea			= getThumbArea(galleryId),
-				firstVisualElement	= thumbArea.find('img:first');
+				firstVisualElement	= thumbArea.find('img:first'),
+				width               = 120;
 
 			if (firstVisualElement.length === 0) {
 
@@ -843,8 +844,15 @@ TubePressThumbs = (function () {
 
 				if (firstVisualElement.length === 0) {
 
-					return 120;
+					return width;
 				}
+			}
+
+			width = firstVisualElement.attr('width');
+
+			if (width) {
+
+				return width;
 			}
 
 			return firstVisualElement.width();

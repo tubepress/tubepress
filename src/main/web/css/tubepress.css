@@ -37,7 +37,6 @@
 
 .tubepress_thumb div.tubepress_embed,
 .tubepress_thumb img {
-	padding: 5% 5% 1% 5%;
 	display: block;
 	margin: 0 auto ! important;
 	-ms-interpolation-mode: bicubic;
@@ -45,12 +44,6 @@
 
 .tubepress_thumb a {
 	cursor: pointer;	
-}
-
-.tubepress_meta_group {
-	margin-top: 0;
-	text-align: left;
-	padding: 0 5% 0 5%;
 }
 
 .tubepress_single_video .tubepress_meta_group {
@@ -62,7 +55,7 @@
 }
 
 dl.tubepress_meta_group {
-	width: 100%;
+    margin: 0 auto ! important;
 }
 
 dt.tubepress_meta_title, 
