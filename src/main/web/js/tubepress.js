@@ -963,7 +963,11 @@ TubePressAjaxPagination = (function () {
 
 					postLoad(galleryId);
 				},
-				pageToLoad			= baseUrl + '/src/main/php/scripts/ajaxEndpoint?tubepress_' + page + '&tubepress_galleryId=' + galleryId + jquery.param(nvpMap),
+				toSend				= {
+
+					action : 'shortcode'
+				},
+				pageToLoad			= baseUrl + '/src/main/php/scripts/ajaxEndpoint.php?tubepress_' + page + '&' + jquery.param(jquery.extend(toSend, nvpMap)),
 				remotePageSelector	= thumbnailArea + ' > *',
 				httpMethod			= gallery.getHttpMethod(galleryId);
 
