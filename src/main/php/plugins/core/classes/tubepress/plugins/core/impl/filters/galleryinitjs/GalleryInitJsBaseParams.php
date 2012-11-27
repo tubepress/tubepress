@@ -75,7 +75,6 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
         $requiredOptions = array(
 
             tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
-            tubepress_api_const_options_names_Embedded::AUTONEXT,
             tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,
             tubepress_api_const_options_names_Advanced::HTTP_METHOD,
         );

@@ -36,7 +36,6 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
         global $tubepress_base_url;
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTONEXT)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(999);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(888);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
@@ -44,7 +43,7 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTP_METHOD)->andReturn('some-http-method');
         $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array('x' => 'y', 'foo' => 'bar'));
 
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(11)->andReturnUsing(function ($arg) {
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(10)->andReturnUsing(function ($arg) {
 
            if ($arg === tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION) {
 
@@ -88,7 +87,6 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
                 'playerJsUrl' => 'xyz/abc',
                 'playerLocationProducesHtml' => true,
                 'ajaxPagination' => true,
-                'autoNext' => true,
                 'fluidThumbs' => false,
                 'httpMethod' => 'some-http-method',
             )
