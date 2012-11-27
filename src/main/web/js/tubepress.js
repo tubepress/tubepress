@@ -406,6 +406,11 @@ TubePressGallery = (function () {
 			return galleries[galleryId][jsMap].sequence;
 		},
 
+		isRegistered = function (galleryId) {
+
+			return galleries[galleryId] !== undefined;
+		},
+
 		/**
 		 * Performs gallery initialization on jQuery(document).ready().
 		 */
@@ -431,18 +436,19 @@ TubePressGallery = (function () {
 
 	return {
 
-		isAjaxPagination		: isAjaxPagination,
-		isAutoNext				: isAutoNext,
-		isFluidThumbs			: isFluidThumbs,
-		getEmbeddedHeight		: getEmbeddedHeight,
-		getEmbeddedWidth		: getEmbeddedWidth,
-		getHttpMethod			: getHttpMethod,
-		getNvpMap				: getNvpMap,
-		getPlayerLocationName	: getPlayerLocationName,
-		getPlayerLocationProducesHtml : getPlayerProducesHtml,
-		getPlayerJsUrl          : getPlayerJsUrl,
-		getSequence				: getSequence,
-		init					: init
+		isAjaxPagination				: isAjaxPagination,
+		isAutoNext						: isAutoNext,
+		isFluidThumbs					: isFluidThumbs,
+		getEmbeddedHeight				: getEmbeddedHeight,
+		getEmbeddedWidth				: getEmbeddedWidth,
+		getHttpMethod					: getHttpMethod,
+		getNvpMap						: getNvpMap,
+		getPlayerLocationName			: getPlayerLocationName,
+		getPlayerLocationProducesHtml	: getPlayerProducesHtml,
+		getPlayerJsUrl					: getPlayerJsUrl,
+		getSequence						: getSequence,
+		isRegistered					: isRegistered,
+		init							: init
 	};
 }()),
 
@@ -1488,27 +1494,33 @@ TubePressAjaxSearch = (function () {
 	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
 	'use strict';
 
-	var performSearch = function (nvpMap, rawSearchTerms, targetDomSelector, galleryId) {
+	var performSearch = function (galleryInitJs, rawSearchTerms, galleryId) {
 
 		/** These variable declarations aide in compression. */
-		var jquery		= jQuery,
-			logger		= TubePressLogger,
-			httpMethod	= TubePressGallery.getHttpMethod(galleryId),
+		var jquery				= jQuery,
+			gallery				= TubePressGallery,
+			logger				= TubePressLogger,
+			targetDomSelector	= galleryInitJs.nvpMap.searchResultsDomId,
 
 			/** Some vars we'll need later. */
 			callback,
 			ajaxResultSelector,
 			finalAjaxContentDestination,
-			urlParams,
+
+			urlParams = {
+
+				action				: 'shortcode',
+				tubepress_search	: rawSearchTerms
+			},
 
 			/** The Ajax response results that we're interested in. */
 			gallerySelector = '#tubepress_gallery_' + galleryId,
 
 			/** Does a gallery with this ID already exist? */
-			galleryExists = jquery(gallerySelector).length > 0,
+			galleryExists = gallery.isRegistered(galleryId),
 
 			/** Does the target DOM exist? */
-			targetDomExists = targetDomSelector && targetDomSelector !== '' && jquery(targetDomSelector).length > 0;
+			targetDomExists = targetDomSelector !== undefined && jquery(targetDomSelector).length > 0;
 
 		/** We have three cases to handle... */
 		if (galleryExists) {
@@ -1555,17 +1567,11 @@ TubePressAjaxSearch = (function () {
 			logger.log('Ajax selector: ' + ajaxResultSelector);
 		}
 
-		urlParams = {
-
-			action				: 'ajaxInteractiveSearch',
-			tubepress_search	: rawSearchTerms
-		};
-
-		jquery.extend(urlParams, nvpMap);
+		jquery.extend(urlParams, galleryInitJs.nvpMap);
 
 		TubePressAjax.loadAndStyle(
 
-			httpMethod,
+			galleryInitJs.jsMap.httpMethod,
 
 			TubePressGlobalJsConfig.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php?' + jquery.param(urlParams),
 
