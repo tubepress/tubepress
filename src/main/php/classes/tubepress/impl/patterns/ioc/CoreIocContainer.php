@@ -145,6 +145,9 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             tubepress_spi_environment_EnvironmentDetector::_,
             'tubepress_impl_environment_SimpleEnvironmentDetector'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $this->_delegate->setAlias('tubepress_impl_environment_SimpleEnvironmentDetector', tubepress_spi_environment_EnvironmentDetector::_);
     }
 
     private function _registerFilesystemFinderFactory()
@@ -154,6 +157,9 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             'ehough_fimble_api_FinderFactory',
             'ehough_fimble_impl_StandardFinderFactory'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $this->_delegate->setAlias('ehough_fimble_impl_StandardFinderFactory', 'ehough_fimble_api_FinderFactory');
     }
 
     private function _registerPluginDiscoverer()
@@ -163,6 +169,9 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             tubepress_spi_plugin_PluginDiscoverer::_,
             'tubepress_impl_plugin_FilesystemPluginDiscoverer'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $this->_delegate->setAlias('tubepress_impl_plugin_FilesystemPluginDiscoverer', tubepress_spi_plugin_PluginDiscoverer::_);
     }
 
     private function _registerPluginRegistry()
@@ -172,5 +181,8 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             tubepress_spi_plugin_PluginRegistry::_,
             'tubepress_impl_plugin_DefaultPluginRegistry'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $this->_delegate->setAlias('tubepress_impl_plugin_DefaultPluginRegistry', tubepress_spi_plugin_PluginRegistry::_);
     }
 }

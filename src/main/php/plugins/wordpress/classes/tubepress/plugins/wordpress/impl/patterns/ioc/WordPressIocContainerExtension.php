@@ -87,8 +87,10 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
 
             tubepress_spi_message_MessageService::_,
             'tubepress_plugins_wordpress_impl_message_WordPressMessageService'
-
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_message_WordPressMessageService', tubepress_spi_message_MessageService::_);
     }
 
     private function _registerOptionsStorageManager(ehough_iconic_impl_ContainerBuilder $container)
@@ -98,6 +100,9 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
             tubepress_spi_options_StorageManager::_,
             'tubepress_plugins_wordpress_impl_options_WordPressStorageManager'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_options_WordPressStorageManager', tubepress_spi_options_StorageManager::_);
     }
 
     private function _registerOptionsUiFormHandler(ehough_iconic_impl_ContainerBuilder $container)
@@ -123,6 +128,9 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
 
         )->addArgument(new ehough_iconic_impl_Reference($tabsId))
          ->addArgument(new ehough_iconic_impl_Reference($filterId));
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler', tubepress_spi_options_ui_FormHandler::_);
     }
 
     private function _registerContentFilter(ehough_iconic_impl_ContainerBuilder $container)
@@ -132,6 +140,9 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
             tubepress_plugins_wordpress_spi_ContentFilter::_,
             'tubepress_plugins_wordpress_impl_DefaultContentFilter'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_DefaultContentFilter', tubepress_plugins_wordpress_spi_ContentFilter::_);
     }
 
     private function _registerCssAndJsInjector(ehough_iconic_impl_ContainerBuilder $container)
@@ -142,6 +153,9 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
             tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_,
             'tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector', tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_);
     }
 
 
@@ -152,6 +166,9 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
             tubepress_plugins_wordpress_spi_WidgetHandler::_,
             'tubepress_plugins_wordpress_impl_DefaultWidgetHandler'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_DefaultWidgetHandler', tubepress_plugins_wordpress_spi_WidgetHandler::_);
     }
 
     private function _registerWpAdminHandler(ehough_iconic_impl_ContainerBuilder $container)
@@ -161,6 +178,9 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
             tubepress_plugins_wordpress_spi_WpAdminHandler::_,
             'tubepress_plugins_wordpress_impl_DefaultWpAdminHandler'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_DefaultWpAdminHandler', tubepress_plugins_wordpress_spi_WpAdminHandler::_);
     }
 
     private function _registerWpFunctionWrapper(ehough_iconic_impl_ContainerBuilder $container)
@@ -170,5 +190,8 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
             tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_,
             'tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper'
         );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper', tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
     }
 }

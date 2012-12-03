@@ -49,6 +49,44 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
                 $this->assertTrue($definition->hasTag($service->tag));
             }
         }
+
+        foreach ($this->_getExpectedAliases() as $expectedAliasMap) {
+
+            $aliasedService = $this->_mockParentContainer->get($expectedAliasMap[1]);
+            $originalService = $this->_mockParentContainer->get($expectedAliasMap[0]);
+
+            $this->assertSame($originalService, $aliasedService);
+        }
+    }
+
+    private function _getExpectedAliases()
+    {
+        return array(
+
+            array(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler'),
+            array('ehough_stash_api_Cache', 'ehough_stash_impl_PearCacheLiteCache'),
+            array(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'),
+            array('ehough_tickertape_api_IEventDispatcher', 'ehough_tickertape_impl_StandardEventDispatcher'),
+            array(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext'),
+            array('ehough_fimble_api_Filesystem', 'ehough_fimble_impl_StandardFilesystem'),
+            array(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher'),
+            array(tubepress_spi_html_HeadHtmlGenerator::_, 'tubepress_impl_html_DefaultHeadHtmlGenerator'),
+            array('ehough_shortstop_impl_DefaultHttpMessageParser', 'ehough_shortstop_impl_DefaultHttpMessageParser'),
+            array('ehough_shortstop_api_HttpClient', 'ehough_shortstop_impl_HttpClientChain'),
+            array('ehough_jameson_api_IDecoder', 'ehough_jameson_impl_FastDecoder'),
+            array('ehough_jameson_api_IEncoder', 'ehough_jameson_impl_FastEncoder'),
+            array(tubepress_spi_http_HttpRequestParameterService::_, 'tubepress_impl_http_DefaultHttpRequestParameterService'),
+            array(tubepress_spi_options_OptionDescriptorReference::_, 'tubepress_impl_options_DefaultOptionDescriptorReference'),
+            array(tubepress_spi_options_OptionValidator::_, 'tubepress_impl_options_DefaultOptionValidator'),
+            array(tubepress_spi_options_ui_FieldBuilder::_, 'tubepress_impl_options_ui_DefaultFieldBuilder'),
+            array(tubepress_spi_player_PlayerHtmlGenerator::_, 'tubepress_impl_player_DefaultPlayerHtmlGenerator'),
+            array(tubepress_spi_querystring_QueryStringService::_, 'tubepress_impl_querystring_SimpleQueryStringService'),
+            array(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_, 'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator'),
+            array(tubepress_spi_shortcode_ShortcodeParser::_, 'tubepress_impl_shortcode_SimpleShortcodeParser'),
+            array('ehough_contemplate_api_TemplateBuilder', 'ehough_contemplate_impl_SimpleTemplateBuilder'),
+            array(tubepress_spi_theme_ThemeHandler::_, 'tubepress_impl_theme_SimpleThemeHandler'),
+            array(tubepress_spi_collector_VideoCollector::_, 'tubepress_impl_collector_DefaultVideoCollector'),
+        );
     }
 
     private function _getExpectedServices()
