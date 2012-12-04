@@ -62,7 +62,7 @@ class tubepress_plugins_core_Core
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::GALLERY_ID);
-        $option->setValidValueRegex('/\w+/');
+        $option->setValidValueRegex($_regexWordChars);
         $option->setDoNotPersist();
         $odr->registerOptionDescriptor($option);
 
