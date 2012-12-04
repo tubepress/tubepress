@@ -90,7 +90,7 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
         $option->setDefaultValue('cats playing piano');
         $option->setLabel('Vimeo search for');  //>(translatable)<
-        $option->setValidValueRegex('/[\w"\s]+/');
+        $option->setValidValueRegex('/[\w"\s\+]+/');
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
