@@ -14,7 +14,7 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 
     private $_mockEventDispatcher;
 
-    private static $_regexWordChars = '/\w+/';
+    private static $_regexWordChars = '/[\w\+\s]+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
 	function onSetup()
@@ -90,7 +90,7 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
         $option->setDefaultValue('cats playing piano');
         $option->setLabel('Vimeo search for');  //>(translatable)<
-        $option->setValidValueRegex('/[\w" ]+/');
+        $option->setValidValueRegex('/[\w"\s]+/');
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);

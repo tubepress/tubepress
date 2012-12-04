@@ -106,7 +106,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
         if ($this->_logger->isDebugEnabled()) {
 
-            $this->_logger->debug(sprintf('Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage));
+            $this->_logger->warn(sprintf('Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage));
         }
 
         return $problemMessage;

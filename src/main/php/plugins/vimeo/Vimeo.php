@@ -14,7 +14,7 @@
  */
 final class tubepress_plugins_vimeo_Vimeo
 {
-    private static $_regexWordChars = '/\w+/';
+    private static $_regexWordChars = '/[\w\+\s]+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
     public static function init()
@@ -129,7 +129,7 @@ final class tubepress_plugins_vimeo_Vimeo
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
         $option->setDefaultValue('cats playing piano');
         $option->setLabel('Vimeo search for');                   //>(translatable)<
-        $option->setValidValueRegex('/[\w" ]+/');
+        $option->setValidValueRegex('/[\w"\s]+/');
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
