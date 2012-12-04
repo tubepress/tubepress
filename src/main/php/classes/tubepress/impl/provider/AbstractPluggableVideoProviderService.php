@@ -29,22 +29,57 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
     public final function fetchVideoGalleryPage($currentPage)
     {
         $this->_cacheLogger();
+        $this->_cacheLogger();
 
-        /*
-         * This function
-         *
-         * 1. Fetches the video gallery page.
-         * 2. Fires the core.videoGalleryPageConstruction event.
+        $result       = new tubepress_api_video_VideoGalleryPage();
+        $debugEnabled = $this->_logger->isDebugEnabled();
+
+        if ($debugEnabled) {
+
+            $this->_logger->debug(sprintf('Current page number is %d', $currentPage));
+        }
+
+        $url = $this->buildGalleryUrl($currentPage);
+
+        if ($debugEnabled) {
+
+            $this->_logger->debug(sprintf('URL to fetch is <code>%s</code>', $url));
+        }
+
+        $rawFeed                  = $this->_fetchFeedAndPrepareForAnalysis($url);
+        $reportedTotalResultCount = $this->getTotalResultCount($rawFeed);
+
+        /**
+         * If no results, we can shortcut things here.
          */
+        if ($reportedTotalResultCount < 1) {
 
-        $result = $this->_doFetchVideoGalleryPage($currentPage);
-        $event  = new tubepress_api_event_TubePressEvent($result);
+            $result->setTotalResultCount(0);
+            $result->setVideos(array());
 
-        return $this->_fireEventAndGetSubject(
+            return $result;
+        }
 
-            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-            $event
-        );
+        if ($debugEnabled) {
+
+            $this->_logger->debug(sprintf('Reported total result count is %d video(s)', $reportedTotalResultCount));
+        }
+
+        /* convert the feed to videos */
+        $videoArray = $this->_feedToVideoArray($rawFeed);
+
+        if (count($videoArray) == 0) {
+
+            $result->setTotalResultCount(0);
+            $result->setVideos(array());
+
+            return $result;
+        }
+
+        $result->setTotalResultCount($reportedTotalResultCount);
+        $result->setVideos($videoArray);
+
+        return $result;
     }
 
     /**
@@ -173,63 +208,6 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
     protected function onBeforeFiringVideoConstructionEvent(tubepress_api_event_TubePressEvent $event)
     {
         //override point
-    }
-
-
-
-    private function _doFetchVideoGalleryPage($currentPage)
-    {
-        $this->_cacheLogger();
-
-        $result       = new tubepress_api_video_VideoGalleryPage();
-        $debugEnabled = $this->_logger->isDebugEnabled();
-
-        if ($debugEnabled) {
-
-            $this->_logger->debug(sprintf('Current page number is %d', $currentPage));
-        }
-
-        $url = $this->buildGalleryUrl($currentPage);
-
-        if ($debugEnabled) {
-
-            $this->_logger->debug(sprintf('URL to fetch is <code>%s</code>', $url));
-        }
-
-        $rawFeed                  = $this->_fetchFeedAndPrepareForAnalysis($url);
-        $reportedTotalResultCount = $this->getTotalResultCount($rawFeed);
-
-        /**
-         * If no results, we can shortcut things here.
-         */
-        if ($reportedTotalResultCount < 1) {
-
-            $result->setTotalResultCount(0);
-            $result->setVideos(array());
-
-            return $result;
-        }
-
-        if ($debugEnabled) {
-
-            $this->_logger->debug(sprintf('Reported total result count is %d video(s)', $reportedTotalResultCount));
-        }
-
-        /* convert the feed to videos */
-        $videoArray = $this->_feedToVideoArray($rawFeed);
-
-        if (count($videoArray) == 0) {
-
-            $result->setTotalResultCount(0);
-            $result->setVideos(array());
-
-            return $result;
-        }
-
-        $result->setTotalResultCount($reportedTotalResultCount);
-        $result->setVideos($videoArray);
-
-        return $result;
     }
 
     private function _feedToVideoArray($feed)

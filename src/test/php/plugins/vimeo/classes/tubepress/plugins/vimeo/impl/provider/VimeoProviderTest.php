@@ -85,15 +85,6 @@ class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressU
             })
         );
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-
-            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-            Mockery::on(function ($arg) {
-
-                return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
-            })
-        );
-
         $result = $this->_sut->fetchVideoGalleryPage(36);
 
         $this->assertTrue($result instanceof tubepress_api_video_VideoGalleryPage);
