@@ -24,7 +24,8 @@
  */
 if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false ||true) {
 
-    include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
+    //include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
+    include '/home/ehough/Dropbox/git/sites/tubepress_testing_ground/wordpress/wp-blog-header.php';
 }
 
 /**
