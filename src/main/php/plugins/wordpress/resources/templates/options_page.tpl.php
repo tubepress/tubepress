@@ -16,13 +16,10 @@
     	<h2><?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}; ?></h2>
 
     	<div style="margin-bottom: 1em; width: 100%; float: left">
-    	    <div style="float: left; width: 40%">
+    	    <div style="float: left; width: 55%">
     	        <?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}; ?>
     	    </div>
-    	    <div style="float: left; width: 30%">
-                <div class="tubepress-notice-box" style="margin: 0 10%; width: 80%; text-align: center">You're missing out! Upgrade to <a href="http://tubepress.org/pro">TubePress Pro</a> now for even more features and technical support.</div>
-    	    </div>
-            <div style="float: right; width: 30%; text-align: right">
+            <div style="float: right; width: 35%; text-align: right">
 				<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getTitle() ?> <?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getHtml(); ?>
     	    </div>
     	</div>
@@ -30,9 +27,9 @@
 
     	<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}; ?>
 
-    	<br />
-    	<input type="submit" name="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}; ?>" class="button-primary" value="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}; ?>" />
-    	<br /><br />
+        <div id="tubepress-box-holder"></div>
+
+    	<input id="tubepress-submit-button" type="submit" name="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}; ?>" class="button-primary" value="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}; ?>" />
 
 		<?php
 			
@@ -44,82 +41,169 @@
 </div>
 
 <script type="text/javascript">
+    var TubePressBoxes = <?php echo ${tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY}; ?>;
+    var TubePressOptionFilter = (function () {
 
-	jQuery(document).ready(function () {
+                'use strict';
 
-		var normalizeProviderName = function (raw) {
+                var normalizeProviderName = function (raw) {
 
-			var normal = raw.replace('show', '').replace('Options', '');
+                            var normal = raw.replace('show', '').replace('Options', '');
 
-			return 'tubepress-participant-' + normal.toLowerCase();
-		},
+                            return 'tubepress-participant-' + normal.toLowerCase();
+                        },
 
-		doShowAndHide = function (arrayOfSelected, arrayOfPossible) {
+                        doShowAndHide = function (arrayOfSelected, arrayOfPossible) {
 
-			var selector = '';
+                            var selector = '', i;
 
-			for (var i = 0; i < arrayOfPossible.length; i++) {
+                            for (i = 0; i < arrayOfPossible.length; i += 1) {
 
-				if (i != 0) {
+                                if (i !== 0) {
 
-					selector += ', ';
-				}
+                                    selector += ', ';
+                                }
 
-				selector += '.' + arrayOfPossible[i];
-			}
+                                selector += '.' + arrayOfPossible[i];
+                            }
 
-			jQuery(selector).each(function () {
+                            jQuery(selector).each(function () {
 
-				var element = jQuery(this);
+                                var element = jQuery(this), x;
 
-				for (var x = 0; x < arrayOfSelected.length; x++) {
+                                for (x = 0; x < arrayOfSelected.length; x += 1) {
 
-					if (element.hasClass(arrayOfSelected[x])) {
+                                    if (element.hasClass(arrayOfSelected[x])) {
 
-						element.show();
-						return;
-					}
-				}
+                                        element.show();
+                                        return;
+                                    }
+                                }
 
-				element.hide();
+                                element.hide();
+                            });
+                        },
 
-			});
-		},
+                        filterHandler = function () {
 
-		filterHandler = function () {
+                            //get the selected classes
+                            var selected = jQuery('#multiselect-disabledOptionsPageParticipants option:selected').map(function (e) {
 
-			//get the selected classes
-			var selected = jQuery('#multiselect-disabledOptionsPageParticipants option:selected').map(function (e) {
+                                        return normalizeProviderName(jQuery(this).val());
+                                    }),
 
-				return normalizeProviderName(jQuery(this).val());
-			}),
+                            //get all the classes
+                                    allPossible = jQuery('#multiselect-disabledOptionsPageParticipants option').map(function (e) {
 
-			//get all the classes
-			allPossible = jQuery('#multiselect-disabledOptionsPageParticipants option').map(function (e) {
+                                        return normalizeProviderName(jQuery(this).val());
+                                    });
 
-				return normalizeProviderName(jQuery(this).val());
-			});
+                            //run it, yo
+                            doShowAndHide(selected, allPossible);
+                        },
 
-			//run it, yo
-			doShowAndHide(selected, allPossible);
-		};
+                        init = function () {
 
-		//make the multi-selects
-		jQuery('#multiselect-disabledOptionsPageParticipants').multiselect({
+                            var multiSelect = jQuery('#multiselect-disabledOptionsPageParticipants');
 
-			selectedText : 'choose...'
-		});
+                            //make the multi-selects
+                            multiSelect.multiselect({
 
-		jQuery('#multiselect-metadropdown').multiselect({
+                                selectedText : 'choose...'
+                            });
 
-			selectedText : 'choose...',
-			height: 350
-		});
+                            jQuery('#multiselect-metadropdown').multiselect({
 
-		//bind to value changes on the filter drop-down
-		jQuery('#multiselect-disabledOptionsPageParticipants').change(filterHandler);
+                                selectedText : 'choose...',
+                                height: 350
+                            });
 
-		//filter based on what's in the drop-down
-		filterHandler();
-	});
+                            //bind to value changes on the filter drop-down
+                            multiSelect.change(filterHandler);
+
+                            //filter based on what's in the drop-down
+                            filterHandler();
+                        };
+
+                return {
+
+                    init : init
+                };
+
+            }()),
+
+            TubePressBoxHandler = (function () {
+
+                'use strict';
+
+                //http://www.aaronpeters.nl/blog/iframe-loading-techniques-performance
+
+                var boxParentDiv = '#tubepress-box-holder',
+
+                        createAndAppendIframe = function (title) {
+
+                            var titleDiv = jQuery('<div/>', {
+
+                                    'class' : 'ui-widget ui-widget-header tubepress-participant-header',
+                                    'style' : 'margin-bottom: 0'
+
+                                }).append(jQuery('<span/>').html(title)),
+
+                                iframe = jQuery('<iframe/>');
+
+                            jQuery('<div/>', {
+
+                                'class' : 'ui-corner-all ui-widget-content',
+                                'style' : 'margin-bottom: 1em;'
+
+                            }).append(titleDiv).append(iframe).appendTo(boxParentDiv);
+
+                            return iframe[0];
+                        },
+
+                        writeUrlInIframe = function (iframeElement, url) {
+
+                            var doc = iframeElement.contentWindow.document;
+
+                            doc.open().write('<body onload="var d = document;d.getElementsByTagName(\'head\')[0].appendChild(d.createElement(\'script\')).src=\'' + url.replace(/\//g, '\\/') + '\'">');
+
+                            doc.close();
+                        },
+
+                        load = function (box) {
+
+                            var iframe = createAndAppendIframe(box.title);
+
+                            writeUrlInIframe(iframe, box.url);
+                        },
+
+                        init = function () {
+
+                            if (window.TubePressBoxes === undefined) {
+
+                                return;
+                            }
+
+                            var i;
+
+                            for (i = 0; i < TubePressBoxes.length; i += 1) {
+
+                                load(TubePressBoxes[i]);
+                            }
+                        };
+
+                return {
+
+                    init : init
+                };
+
+            }());
+
+    jQuery(document).ready(function () {
+
+        'use strict';
+
+        TubePressOptionFilter.init();
+        TubePressBoxHandler.init();
+    });
 </script>

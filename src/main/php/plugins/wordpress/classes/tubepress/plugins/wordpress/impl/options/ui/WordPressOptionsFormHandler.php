@@ -14,8 +14,32 @@
  */
 class tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
 {
+    const TEMPLATE_VAR_BOX_ARRAY = 'tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler__boxArray';
+
+    protected function onPreTemplateToString(ehough_contemplate_api_Template $template)
+    {
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $jsonEncoder         = tubepress_impl_patterns_sl_ServiceLocator::getJsonEncoder();
+        $toEncode = array();
+
+        if (! $environmentDetector->isPro()) {
+
+            $toEncode[] = $this->_generateBox('You\'re missing out!', 'http://tubepress.org/snippets/wordpress/youre-missing-out.php');
+        }
+
+        $toEncode[] = $this->_generateBox('Latest News', 'http://tubepress.org/snippets/wordpress/latest-news.php');
+        $toEncode[] = $this->_generateBox('Need Help?', 'http://tubepress.org/snippets/wordpress/need-help.php');
+
+        $template->setVariable(tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, $jsonEncoder->encode($toEncode));
+    }
+
     protected final function getRelativeTemplatePath()
     {
         return 'src/main/php/plugins/wordpress/resources/templates/options_page.tpl.php';
+    }
+
+    private function _generateBox($title, $url) {
+
+        return array('title' => $title, 'url' => $url);
     }
 }

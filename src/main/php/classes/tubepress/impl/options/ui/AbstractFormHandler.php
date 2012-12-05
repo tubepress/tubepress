@@ -60,6 +60,8 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
         $template->setVariable(self::TEMPLATE_VAR_TABS, $this->_tabs->getHtml());
         $template->setVariable(self::TEMPLATE_VAR_FILTER, $this->_filterField);
 
+        $this->onPreTemplateToString($template);
+
         return $template->toString();
     }
 
@@ -69,4 +71,10 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
     }
 
     protected abstract function getRelativeTemplatePath();
+
+    //override point
+    protected function onPreTemplateToString(ehough_contemplate_api_Template $template)
+    {
+        return;
+    }
 }
