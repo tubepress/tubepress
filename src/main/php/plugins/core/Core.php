@@ -264,10 +264,6 @@ class tubepress_plugins_core_Core
         $option->setAcceptableValuesCallback(array('tubepress_plugins_core_Core', '_callbackGetValidVideoProviderNames'));
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_DOM_ID);
-        $option->setProOnly();
-        $odr->registerOptionDescriptor($option);
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
         $option->setBoolean();
         $odr->registerOptionDescriptor($option);

@@ -15,7 +15,6 @@
 class tubepress_api_const_options_names_InteractiveSearch
 {
     const SEARCH_PROVIDER       = 'searchProvider';
-    const SEARCH_RESULTS_DOM_ID = 'searchResultsDomId';
     const SEARCH_RESULTS_ONLY   = 'searchResultsOnly';
     const SEARCH_RESULTS_URL    = 'searchResultsUrl';
 }

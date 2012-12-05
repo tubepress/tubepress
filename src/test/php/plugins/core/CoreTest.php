@@ -120,28 +120,28 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $mockPlayer->shouldReceive('getFriendlyName')->times(10)->andReturn('friendly name');
 
         $mockEmbedded = $this->createMockPluggableService(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-        $mockEmbedded->shouldReceive('getName')->times(112)->andReturn('yy-embed-name-yy');
-        $mockEmbedded->shouldReceive('getFriendlyName')->times(56)->andReturn('friendly embed name');
+        $mockEmbedded->shouldReceive('getName')->times(110)->andReturn('yy-embed-name-yy');
+        $mockEmbedded->shouldReceive('getFriendlyName')->times(55)->andReturn('friendly embed name');
 
         $videoProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $videoProvider->shouldReceive('getName')->times(81)->andReturn('xxvideo-provider-name-xx');
-        $videoProvider->shouldReceive('getFriendlyName')->times(81)->andReturn('xx Friendly Provider Name xx');
+        $videoProvider->shouldReceive('getName')->times(80)->andReturn('xxvideo-provider-name-xx');
+        $videoProvider->shouldReceive('getFriendlyName')->times(80)->andReturn('xx Friendly Provider Name xx');
 
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(51)->andReturn('user-content-dir');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(50)->andReturn('user-content-dir');
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
-        $this->_mockFileSystem->shouldReceive('exists')->times(51)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
-        $this->_mockFileSystem->shouldReceive('exists')->times(51)->with('user-content-dir/themes')->andReturn(true);
+        $this->_mockFileSystem->shouldReceive('exists')->times(50)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
+        $this->_mockFileSystem->shouldReceive('exists')->times(50)->with('user-content-dir/themes')->andReturn(true);
 
         $fakeThemeDir        = Mockery::mock();
-        $fakeThemeDir->shouldReceive('getBasename')->times(51)->andReturn('xyz');
+        $fakeThemeDir->shouldReceive('getBasename')->times(50)->andReturn('xyz');
 
         $finder              = Mockery::mock('ehough_fimble_api_Finder');
-        $finder->shouldReceive('directories')->times(51)->andReturn($finder);
-        $finder->shouldReceive('in')->times(51)->with(array('user-content-dir/themes'))->andReturn($finder);
-        $finder->shouldReceive('depth')->times(51)->with(0);
+        $finder->shouldReceive('directories')->times(50)->andReturn($finder);
+        $finder->shouldReceive('in')->times(50)->with(array('user-content-dir/themes'))->andReturn($finder);
+        $finder->shouldReceive('depth')->times(50)->with(0);
         $finder->shouldReceive('getIterator')->andReturn(new ArrayIterator(array($fakeThemeDir)));
 
-        $this->_mockFinderFactory->shouldReceive('createFinder')->times(51)->andReturn($finder);
+        $this->_mockFinderFactory->shouldReceive('createFinder')->times(50)->andReturn($finder);
 
 
 
@@ -330,10 +330,6 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
         $option->setAcceptableValues(array('xxvideo-provider-name-xx'));
-        $this->_verifySingleOptionRegistration($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_DOM_ID);
-        $option->setProOnly();
         $this->_verifySingleOptionRegistration($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
