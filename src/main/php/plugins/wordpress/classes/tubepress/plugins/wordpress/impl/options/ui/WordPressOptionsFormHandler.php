@@ -24,10 +24,10 @@ class tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler ex
 
         if (! $environmentDetector->isPro()) {
 
-            $toEncode[] = $this->_generateBox('You\'re missing out!', 'http://tubepress.org/snippets/wordpress/youre-missing-out.php');
+            $toEncode[] = $this->_generateBox('You\'re Missing Out!', 'http://tubepress.org/snippets/wordpress/youre-missing-out.php');
         }
 
-        $toEncode[] = $this->_generateBox('Latest News', 'http://tubepress.org/snippets/wordpress/latest-news.php');
+        $toEncode[] = $this->_generateBox('TubePress News', 'http://tubepress.org/snippets/wordpress/latest-news.php');
         $toEncode[] = $this->_generateBox('Need Help?', 'http://tubepress.org/snippets/wordpress/need-help.php');
 
         $template->setVariable(tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, $jsonEncoder->encode($toEncode));

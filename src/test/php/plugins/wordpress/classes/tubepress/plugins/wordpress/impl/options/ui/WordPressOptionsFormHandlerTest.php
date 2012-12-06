@@ -68,8 +68,8 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
 
         $this->_mockJsonEncoder->shouldReceive('encode')->once()->with(array(
 
-            array('title' => 'You\'re missing out!', 'url' => 'http://tubepress.org/snippets/wordpress/youre-missing-out.php'),
-            array('title' => 'Latest News', 'url' => 'http://tubepress.org/snippets/wordpress/latest-news.php'),
+            array('title' => 'You\'re Missing Out!', 'url' => 'http://tubepress.org/snippets/wordpress/youre-missing-out.php'),
+            array('title' => 'TubePress News', 'url' => 'http://tubepress.org/snippets/wordpress/latest-news.php'),
             array('title' => 'Need Help?', 'url' => 'http://tubepress.org/snippets/wordpress/need-help.php')
 
         ))->andReturn('encoded!');

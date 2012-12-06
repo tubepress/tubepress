@@ -10,8 +10,9 @@
 #tubepress_tabs {
 	
 	min-height: 300px;
-    width: 80%;
+    width: 100%;
     float: left;
+    padding: 0;
 } 
  
 .tubepress-tab {
@@ -63,7 +64,7 @@ div.tubepress-participant-header {
 
 div.tubepress-tab {
 
-    min-width: 800px;
+    min-width: 600px;
 }
 
 th.tubepress-field-header img {
@@ -98,11 +99,7 @@ div.tubepress-notice-box {
 
 div#tubepress-box-holder {
 
-    margin-left: 1em;
-    float: left;
-    width: 18%;
-    min-width: 200px;
-    min-height: 250px;
+    float: right;
 }
 
 input#tubepress-submit-button {
@@ -111,16 +108,24 @@ input#tubepress-submit-button {
     margin-top: 1em;
     margin-bottom: 2em;
     float: left;
+    width: 70px;
 }
 
 #tubepress-box-holder iframe {
 
     width: 100%;
     overflow: hidden;
-    height: 200px;
+    min-height: 210px;
 }
 
 #tubepress-box-holder iframe::-webkit-scrollbar {
 
     display: none;
+}
+
+.tubepress-box {
+
+    margin-top: 1em;
+    float: left;
+    margin-left: 1em;
 }

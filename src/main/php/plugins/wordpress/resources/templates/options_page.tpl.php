@@ -27,9 +27,9 @@
 
     	<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}; ?>
 
-        <div id="tubepress-box-holder"></div>
-
     	<input id="tubepress-submit-button" type="submit" name="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}; ?>" class="button-primary" value="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}; ?>" />
+
+        <div id="tubepress-box-holder"></div>
 
 		<?php
 			
@@ -153,8 +153,7 @@
 
                             jQuery('<div/>', {
 
-                                'class' : 'ui-corner-all ui-widget-content',
-                                'style' : 'margin-bottom: 1em;'
+                                'class' : 'ui-corner-all ui-widget-content tubepress-box'
 
                             }).append(titleDiv).append(iframe).appendTo(boxParentDiv);
 
