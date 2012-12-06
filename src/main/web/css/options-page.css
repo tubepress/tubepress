@@ -84,6 +84,12 @@ td.tubepress-pro-banner {
     vertical-align: top;
 }
 
+td.tubepress-pro-banner img {
+
+    margin-left: 1em;
+    margin-top: -3px;
+}
+
 div.tubepress-notice-box {
 
     background-color: #FFFFE0;

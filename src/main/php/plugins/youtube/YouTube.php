@@ -81,12 +81,14 @@ class tubepress_plugins_youtube_YouTube
         $option->setLabel('Show closed captions by default');                                                  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
+        $option->setProOnly();
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD);
         $option->setLabel('Disable keyboard controls');                                                  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
+        $option->setProOnly();
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN);
@@ -106,12 +108,14 @@ class tubepress_plugins_youtube_YouTube
         $option->setLabel('Show video annotations by default');                                                  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
+        $option->setProOnly();
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS);
         $option->setLabel('Show video controls');                                                  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
+        $option->setProOnly();
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED);
@@ -129,6 +133,7 @@ class tubepress_plugins_youtube_YouTube
             tubepress_plugins_youtube_api_const_options_values_ThemeValue::LIGHT => 'Light'    //>(translatable)<
         ));
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_ThemeValue::DARK);
+        $option->setProOnly();
         $odr->registerOptionDescriptor($option);
 
 

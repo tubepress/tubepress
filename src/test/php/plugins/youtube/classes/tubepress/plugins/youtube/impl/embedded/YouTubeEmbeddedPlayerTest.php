@@ -52,21 +52,15 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
-
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE)->andReturn(false);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD)->andReturn(false);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::THEME)->andReturn(tubepress_plugins_youtube_api_const_options_values_ThemeValue::DARK);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://www.youtube.com/embed/xx?autohide=0&autoplay=1&cc_load_policy=1&controls=2&disablekb=0&enablejsapi=1&fs=0&iv_load_policy=1&loop=0&modestbranding=1&rel=0&showinfo=1&theme=dark', $result->toString());
+        $this->assertEquals('http://www.youtube.com/embed/xx?autohide=0&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
     }
 }

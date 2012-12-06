@@ -81,24 +81,28 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
         $option->setLabel('Show closed captions by default');                                                  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
+        $option->setProOnly();
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD);
         $option->setLabel('Disable keyboard controls');                                                  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
+        $option->setProOnly();
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS);
         $option->setLabel('Show video annotations by default');                                                  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
+        $option->setProOnly();
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS);
         $option->setLabel('Show video controls');                                                  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
+        $option->setProOnly();
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::THEME);
@@ -109,6 +113,7 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
             tubepress_plugins_youtube_api_const_options_values_ThemeValue::LIGHT => 'Light'    //>(translatable)<
         ));
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_ThemeValue::DARK);
+        $option->setProOnly();
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN);
