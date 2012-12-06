@@ -55,6 +55,9 @@ class tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilte
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_ID] =
             $this->_relativeQuery($xpath, $index, 'media:group/yt:videoid')->item(0)->nodeValue;
 
+        /* Keywords. */
+        $toReturn[tubepress_api_video_Video::ATTRIBUTE_KEYWORD_ARRAY] = array();
+
         /* Rating */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_RATING_AVERAGE] = $this->_getRatingAverage($xpath, $index);
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_RATING_COUNT] = $this->_getRatingCount($xpath, $index);
