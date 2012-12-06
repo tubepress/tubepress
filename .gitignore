@@ -1,5 +1,7 @@
 .DS_Store
-test/test.properties
-.settings
-.buildpath
-test/test.config
+src/main/assembly/stage
+src/main/assembly/dist
+.idea/workspace.xml
+vendor
+composer.lock
+tubepress.php

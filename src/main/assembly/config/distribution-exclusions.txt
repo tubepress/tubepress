@@ -1,0 +1,14 @@
+**/.travis.yml
+.idea/**
+composer.*
+.git/**
+.gitignore
+README.md
+src/main/resources/i18n/tubepress.mo
+src/test/**
+src/main/assembly/**
+tubepress.php
+vendor/autoload.php
+vendor/composer/ClassLoader.php
+vendor/composer/installed*
+vendor/mockery/**
