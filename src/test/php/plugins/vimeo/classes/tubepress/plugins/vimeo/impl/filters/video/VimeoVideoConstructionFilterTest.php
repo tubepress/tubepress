@@ -48,7 +48,7 @@ class tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilterTes
         $this->assertEquals('1347129000', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
         $this->assertEquals('Saturday 8th of September 2012 02:30:00 PM', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
-        $this->assertEquals('96', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
+        $this->assertEquals('96,321', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
         $this->assertEquals('6', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT));
     }
 
@@ -74,7 +74,7 @@ class tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilterTes
         $this->assertEquals('1347129000', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
         $this->assertEquals('3 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
-        $this->assertEquals('96', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
+        $this->assertEquals('96,321', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
         $this->assertEquals('6', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT));
     }
 

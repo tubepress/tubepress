@@ -76,7 +76,7 @@ class tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter ex
 
         /* Views. */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT] =
-            $videoArray[$index]->number_of_plays;
+            number_format($videoArray[$index]->number_of_plays);
 
         return $toReturn;
     }
