@@ -186,49 +186,61 @@ class tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder implements tubep
 
     private function _urlProcessingOrderBy(tubepress_spi_context_ExecutionContext $execContext, ehough_curly_Url $url)
     {
-        $order = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
-        $mode  = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        /*
+         * relevance – Entries are ordered by their relevance to a search query. This is the default setting for video search results feeds.
+         * published – Entries are returned in reverse chronological order. This is the default value for video feeds other than search results feeds.
+         * viewCount – Entries are ordered from most views to least views.
+         * rating – Entries are ordered from highest rating to lowest rating.
+         *
+         * In a request for a playlist feed, the following values are valid for this parameter:
+         *
+         * position – Entries are ordered by their position in the playlist. This is the default setting.
+         * commentCount – Entries are ordered by number of comments from most comments to least comments.
+         * duration – Entries are ordered by length of each playlist video from longest video to shortest video.
+         * published – Entries are returned in reverse chronological order.
+         * reversedPosition – Entries are ordered in reverse of their position in the playlist.
+         * title – Entries are ordered alphabetically by title.
+         * viewCount – Entries are ordered from most views to least views.
+         */
 
-        if ($order == tubepress_api_const_options_values_OrderByValue::RANDOM) {
+        $requestedSortOrder   = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
+        $currentGallerySource = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
-            return;
-        }
-
-        /* any feed can take these */
-        if ($order == tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
-
-            $url->setQueryVariable(self::$_URL_PARAM_ORDER, $order);
-
-            return;
-        }
-
-        if ($order == tubepress_api_const_options_values_OrderByValue::NEWEST) {
+        if ($requestedSortOrder === tubepress_api_const_options_values_OrderByValue::NEWEST) {
 
             $url->setQueryVariable(self::$_URL_PARAM_ORDER, 'published');
+            return;
+        }
+
+        if ($requestedSortOrder == tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
+
+            $url->setQueryVariable(self::$_URL_PARAM_ORDER, $requestedSortOrder);
 
             return;
         }
 
-        /* playlist specific stuff */
-        if ($mode == tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST) {
+        if ($currentGallerySource == tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST) {
 
-            if (in_array($order, array(
+            if (in_array($requestedSortOrder, array(
 
                 tubepress_api_const_options_values_OrderByValue::POSITION,
                 tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT,
                 tubepress_api_const_options_values_OrderByValue::DURATION,
-                tubepress_api_const_options_values_OrderByValue::TITLE))) {
-                $url->setQueryVariable(self::$_URL_PARAM_ORDER, $order);
+                tubepress_api_const_options_values_OrderByValue::REV_POSITION,
+                tubepress_api_const_options_values_OrderByValue::TITLE,
+
+            ))) {
+
+                $url->setQueryVariable(self::$_URL_PARAM_ORDER, $requestedSortOrder);
+                return;
             }
-            
-            return;
-        }
 
-        if (in_array($order, array(tubepress_api_const_options_values_OrderByValue::RELEVANCE, tubepress_api_const_options_values_OrderByValue::RATING))) {
+        } else {
 
-            $url->setQueryVariable(self::$_URL_PARAM_ORDER, $order);
+            if (in_array($requestedSortOrder, array(tubepress_api_const_options_values_OrderByValue::RELEVANCE, tubepress_api_const_options_values_OrderByValue::RATING))) {
+
+                $url->setQueryVariable(self::$_URL_PARAM_ORDER, $requestedSortOrder);
+            }
         }
     }
-
-
 }

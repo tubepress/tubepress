@@ -14,15 +14,16 @@
  */
 class tubepress_api_const_options_values_OrderByValue
 {
-    const COMMENT_COUNT  = 'commentCount';
-    const DURATION       = 'duration';
-    const NEWEST         = 'newest';
-    const OLDEST         = 'oldest';
-    const POSITION       = 'position';
-    const RANDOM         = 'random';
-    const RATING         = 'rating';
-    const RELEVANCE      = 'relevance';
-    const TITLE          = 'title';
-    const VIEW_COUNT     = 'viewCount';
+    const COMMENT_COUNT = 'commentCount';
+    const DURATION      = 'duration';
+    const NEWEST        = 'newest';
+    const OLDEST        = 'oldest';
+    const POSITION      = 'position';
+    const RANDOM        = 'random';
+    const RATING        = 'rating';
+    const RELEVANCE     = 'relevance';
+    const REV_POSITION  = 'reversedPosition';
+    const TITLE         = 'title';
+    const VIEW_COUNT    = 'viewCount';
     
 }

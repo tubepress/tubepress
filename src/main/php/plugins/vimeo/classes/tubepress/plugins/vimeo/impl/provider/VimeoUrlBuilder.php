@@ -49,6 +49,9 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder implements tubepress
     private static $_SORT_MOST_LIKED    = 'most_liked';
     private static $_SORT_MOST_PLAYED   = 'most_played';
     private static $_SORT_RELEVANT      = 'relevant';
+    private static $_SORT_NEWEST        = 'newest';
+    private static $_SORT_OLDEST        = 'oldest';
+    private static $_SORT_RANDOM        = 'random';
 
     private static $_INI_ARG_SEPARATOR = 'arg_separator.input';
 
@@ -182,6 +185,29 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder implements tubepress
 
     private function _getSort($mode, tubepress_spi_context_ExecutionContext $execContext)
     {
+        /**
+         * 'vimeoUploadedBy'    : newest, oldest, most_played, most_commented, or most_liked
+         *                      https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.getUploaded
+         *
+         * 'vimeoLikes'         : newest, oldest, most_played, most_commented, or most_liked
+         *                      https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.getLikes
+         *
+         * 'vimeoAppearsIn'     : newest, oldest, most_played, most_commented, or most_liked
+         *                      https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.getAppearsIn
+         *
+         * 'vimeoSearch'        : newest, oldest, most_played, most_commented, or most_liked, or relevant
+         *                      https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.getByTag
+         *
+         * 'vimeoCreditedTo'    : newest, oldest, most_played, most_commented, or most_liked
+         *                      https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.getAll
+         *
+         * 'vimeoChannel'       : N/A
+         * 'vimeoAlbum'         : N/A
+         *
+         * 'vimeoGroup'         : newest, oldest, most_played, most_commented, most_liked, or random
+         *                      https://developer.vimeo.com/apis/advanced/methods/vimeo.groups.getVideos
+         */
+
         /* these two modes can't be sorted */
         if ($mode == tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL
             || $mode == tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM) {
@@ -191,40 +217,46 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder implements tubepress
 
         $order = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
 
+        /* handle "relevance" sort */
         if ($mode == tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH
             && $order == tubepress_api_const_options_values_OrderByValue::RELEVANCE) {
 
                return self::$_SORT_RELEVANT;
         }
 
+        /* handle "random" sort */
         if ($mode == tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP
             && $order == tubepress_api_const_options_values_OrderByValue::RANDOM) {
 
             return $order;
         }
 
-        if ($order == tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
+        switch ($order) {
 
-            return self::$_SORT_MOST_PLAYED;
+            case tubepress_api_const_options_values_OrderByValue::NEWEST:
+
+                return self::$_SORT_NEWEST;
+
+            case tubepress_api_const_options_values_OrderByValue::OLDEST:
+
+                return self::$_SORT_OLDEST;
+
+            case tubepress_api_const_options_values_OrderByValue::VIEW_COUNT:
+
+                return self::$_SORT_MOST_PLAYED;
+
+            case tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT:
+
+                return self::$_SORT_MOST_COMMENTS;
+
+            case tubepress_api_const_options_values_OrderByValue::RATING:
+
+                return self::$_SORT_MOST_LIKED;
+
+            default:
+
+                return '';
         }
-
-        if ($order == tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT) {
-
-            return self::$_SORT_MOST_COMMENTS;
-        }
-
-        if ($order == tubepress_api_const_options_values_OrderByValue::RATING) {
-
-            return self::$_SORT_MOST_LIKED;
-        }
-
-        if ($order == tubepress_api_const_options_values_OrderByValue::NEWEST
-            || $order == tubepress_api_const_options_values_OrderByValue::OLDEST) {
-
-            return $order;
-        }
-
-        return '';
     }
 
     private function _buildUrl($params, tubepress_spi_context_ExecutionContext $execContext)

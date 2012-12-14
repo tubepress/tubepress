@@ -206,16 +206,17 @@ class tubepress_plugins_core_Core
         $option->setLabel('Order videos by');                                                                                                                                      //>(translatable)<
         $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.'); //>(translatable)<
         $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)', //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)', //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::DURATION       => 'length',                        //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',        //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',                      //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',                        //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',                     //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::TITLE          => 'title',                         //>(translatable)<
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::DURATION       => 'length',                          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::REV_POSITION   => 'reversed position in a playlist', //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',                        //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',                          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',                       //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::TITLE          => 'title',                           //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',                      //>(translatable)<
         ));
         $odr->registerOptionDescriptor($option);
 

@@ -307,6 +307,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
             tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',                   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::DURATION       => 'length',                   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::REV_POSITION   => 'reversed position in a playlist', //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',                 //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',                   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',                //>(translatable)<
