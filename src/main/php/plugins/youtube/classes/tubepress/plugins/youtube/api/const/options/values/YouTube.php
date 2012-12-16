@@ -14,11 +14,23 @@
  */
 class tubepress_plugins_youtube_api_const_options_values_YouTube
 {
-    const AUTOHIDE_SHOW_BOTH              = 'showBoth';
-    const AUTOHIDE_HIDE_BOTH              = 'fadeBoth';
-    const AUTOHIDE_HIDE_BAR_SHOW_CONTROLS = 'fadeNone';
+    const AUTOHIDE_SHOW_BOTH              = 'youtubePlayerFadeNone';
+    const AUTOHIDE_HIDE_BOTH              = 'youtubePlayerFadeBoth';
+    const AUTOHIDE_HIDE_BAR_SHOW_CONTROLS = 'youtubePlayerFadeProgressBar';
 
-    const CONTROLS_HIDE                 = 'hide';
-    const CONTROLS_SHOW_IMMEDIATE_FLASH = 'immediate';
-    const CONTROLS_SHOW_DELAYED_FLASH   = 'delayed';
+    const CONTROLS_HIDE                 = 'youtubeControlsHide';
+    const CONTROLS_SHOW_IMMEDIATE_FLASH = 'youtubeControlsShowImmediate';
+    const CONTROLS_SHOW_DELAYED_FLASH   = 'youtubeControlsShowDelayed';
+
+    const TIMEFRAME_TODAY      = 'today';
+    const TIMEFRAME_THIS_WEEK  = 'this_week';
+    const TIMEFRAME_THIS_MONTH = 'this_month';
+    const TIMEFRAME_ALL_TIME   = 'all_time';
+
+    const PLAYER_THEME_DARK  = 'youtubePlayerThemeDark';
+    const PLAYER_THEME_LIGHT = 'youtubePlayerThemeLight';
+
+    const SAFESEARCH_NONE     = 'none';
+    const SAFESEARCH_MODERATE = 'moderate';
+    const SAFESEARCH_STRICT   = 'strict';
 }
