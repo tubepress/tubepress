@@ -71,10 +71,15 @@ class tubepress_plugins_youtube_YouTube
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE);
-        $option->setLabel('Auto-hide video controls');                                                  //>(translatable)<
-        $option->setDescription('A few seconds after playback begins, fade out the video controls.');   //>(translatable)<
-        $option->setDefaultValue(false);
-        $option->setBoolean();
+        $option->setLabel('Fade progress bar and video controls');                                                                              //>(translatable)<
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS);
+        $option->setAcceptableValues(array(
+
+            tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS => 'Fade progress bar only',     //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BOTH              => 'Fade progress bar and video controls', //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_SHOW_BOTH              => 'Disable fading - always show both'   //>(translatable)<
+        ));
+        $option->setDescription('After video playback begins, choose which elements (if any) of the embedded video player to automatically hide.');   //>(translatable)<
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS);

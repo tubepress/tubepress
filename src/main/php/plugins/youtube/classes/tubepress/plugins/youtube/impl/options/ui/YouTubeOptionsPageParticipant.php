@@ -61,9 +61,17 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
 
     private function getFieldsForEmbeddedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
     {
+        $toReturn = array(
+
+            $fieldBuilder->build(
+
+                tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE,
+                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
+            )
+        );
+
         $embeddedBooleans = array(
 
-            tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE,
             tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
             tubepress_plugins_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD,
             tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN,
@@ -73,13 +81,10 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
             tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED,
         );
 
-        $toReturn = array(
+        $toReturn[] = $fieldBuilder->build(
 
-            $fieldBuilder->build(
-
-                tubepress_plugins_youtube_api_const_options_names_Embedded::THEME,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
-            ),
+            tubepress_plugins_youtube_api_const_options_names_Embedded::THEME,
+            tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
         );
 
         foreach ($embeddedBooleans as $embeddedBoolean) {

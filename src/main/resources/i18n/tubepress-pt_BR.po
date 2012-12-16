@@ -492,12 +492,6 @@ msgstr ""
 msgid "Serve thumbnails and embedded video player over a secure connection."
 msgstr ""
 
-msgid "Auto-hide video controls"
-msgstr ""
-
-msgid "A few seconds after playback begins, fade out the video controls."
-msgstr ""
-
 msgid "\"Modest\" branding"
 msgstr ""
 
@@ -590,4 +584,16 @@ msgid "Core"
 msgstr ""
 
 msgid "reversed position in a playlist"
+msgstr ""
+
+msgid "Fade progress bar and video controls"
+msgstr ""
+
+msgid "Fade progress bar only"
+msgstr ""
+
+msgid "Disable fading - always show both"
+msgstr ""
+
+msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
 msgstr ""

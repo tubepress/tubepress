@@ -52,7 +52,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServ
         $modestBranding  = $context->get(tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING);
         $showRelated     = $context->get(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED);
 
-        $link->setQueryVariable('autohide', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoHide));
+        $link->setQueryVariable('autohide', $this->_getAutoHideValue($autoHide));
         $link->setQueryVariable('autoplay', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
 
         $link->setQueryVariable('enablejsapi', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($enableJsApi));
@@ -79,5 +79,23 @@ class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServ
     public final function getFriendlyName()
     {
         return 'YouTube';
+    }
+
+    private function _getAutoHideValue($autoHide)
+    {
+        switch ($autoHide) {
+
+            case tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BOTH:
+
+                return 1;
+
+            case tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_SHOW_BOTH:
+
+                return 0;
+
+            default:
+
+                return 2;
+        }
     }
 }
