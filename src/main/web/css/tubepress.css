@@ -10,7 +10,7 @@
 }
 
 .tubepress_embedded_title {
-	font-weight: bold;
+	font-weight: 700;
 	font-size: larger;
 	margin-bottom: .3em;
 }
@@ -31,11 +31,10 @@
 	height: 175px;
 	line-height: 1.1em;
 	font-size: 11px;
-	display: inline;
 	overflow: hidden;
 }
 
-.tubepress_thumb div.tubepress_embed,
+.tubepress_thumb .tubepress_embed,
 .tubepress_thumb img {
 	display: block;
 	margin: 0 auto ! important;
@@ -43,7 +42,7 @@
 }
 
 .tubepress_thumb a {
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 .tubepress_single_video .tubepress_meta_group {
@@ -72,14 +71,14 @@ dd.tubepress_meta {
 
 dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:hover {
 	font-size: 12px;
-	font-weight: bold;
+	font-weight: 700;
 	float: left;
 	width: auto;
 }
 
 dd.tubepress_meta_runtime {
 	font-size: 11px;
-	font-weight: bold;
+	font-weight: 700;
 	clear: both;	
 }
 
@@ -93,7 +92,7 @@ dt.tubepress_meta_id,
 dt.tubepress_meta_views,
 dt.tubepress_meta_uploaddate {
 	font-style: italic;
-	color: #666666;
+	color: #666;
 }
 
 dt.tubepress_meta_author:after, 
@@ -145,7 +144,6 @@ dd.tubepress_meta_description {
     padding: 5% 5% 1% 2%;
     margin: 0 auto ! important;
     -ms-interpolation-mode: bicubic;
-    display: inline;
 }
 
 .tubepress_sidebar .tubepress_thumbnail_area {
@@ -160,12 +158,12 @@ dd.tubepress_meta_description {
     padding: 0 2%;  
 }
 
-.tubepress_container div.pagination span.disabled {
+.tubepress_container .pagination .disabled {
 	color: #adaaad;
 }
 
-.tubepress_container div.pagination .tubepress_pagination_dots {
-    padding: 0px 0px 0px 3px;
+.tubepress_container .pagination .tubepress_pagination_dots {
+    padding: 0 0 0 3px;
 }
 
 div.tubepress_single_video {
@@ -183,7 +181,7 @@ div.tubepress_container div.pagination {
     font-size: 13px;	
     text-align:center;
     clear: both;    
-    margin: .7em 0px;
+    margin: .7em 0;
 }
 
 div.tubepress_container div.pagination a, div.tubepress_container div.pagination span {
@@ -199,9 +197,9 @@ div.tubepress_container div.pagination span.current {
     background: none repeat scroll 0 0 #313428;
     border: 1px solid #202020;
     border-radius: 3px 3px 3px 3px;
-    color: #FFFFFF;
+    color: #FFF;
     margin: 0;
-    padding: 0px 8px;
+    padding: 0 8px;
     
 }
 div.tubepress_container div.pagination a {
@@ -210,12 +208,12 @@ div.tubepress_container div.pagination a {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#F0F0F0'); /* for IE */
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#F0F0F0)); /* for webkit browsers */
     background: -moz-linear-gradient(top,  #fff,  #F0F0F0); /* for firefox 3.6+ */ 
-    border: 1px solid #C0C0C0;
+    border: 1px solid silver;
     border-radius: 3px 3px 3px 3px;
     color: #000099;
     display: inline-block;
     margin: 0;
-    padding: 0px 8px;
+    padding: 0 8px;
     text-decoration: none;
 }
 
