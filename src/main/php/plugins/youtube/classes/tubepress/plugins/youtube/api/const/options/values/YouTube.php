@@ -17,4 +17,8 @@ class tubepress_plugins_youtube_api_const_options_values_YouTube
     const AUTOHIDE_SHOW_BOTH              = 'showBoth';
     const AUTOHIDE_HIDE_BOTH              = 'fadeBoth';
     const AUTOHIDE_HIDE_BAR_SHOW_CONTROLS = 'fadeNone';
+
+    const CONTROLS_HIDE                 = 'hide';
+    const CONTROLS_SHOW_IMMEDIATE_FLASH = 'immediate';
+    const CONTROLS_SHOW_DELAYED_FLASH   = 'delayed';
 }

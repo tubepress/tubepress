@@ -77,7 +77,6 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
             tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN,
             tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING,
             tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS,
-            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
             tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED,
         );
 
@@ -91,6 +90,12 @@ class tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant im
 
             $toReturn[] = $fieldBuilder->build($embeddedBoolean, tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME);
         }
+
+        $toReturn[] = $fieldBuilder->build(
+
+            tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
+            tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
+        );
 
         return $toReturn;
     }

@@ -104,10 +104,15 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS);
-        $option->setLabel('Show video controls');                                                  //>(translatable)<
-        $option->setDefaultValue(true);
-        $option->setBoolean();
+        $option->setLabel('Show or hide video controls');                                                                               //>(translatable)<
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_YouTube::CONTROLS_SHOW_IMMEDIATE_FLASH);
         $option->setProOnly();
+        $option->setAcceptableValues(array(
+
+            tubepress_plugins_youtube_api_const_options_values_YouTube::CONTROLS_SHOW_IMMEDIATE_FLASH => 'Show controls - load Flash player immediately',          //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_YouTube::CONTROLS_SHOW_DELAYED_FLASH   => 'Show controls - load Flash player when playback begins', //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_YouTube::CONTROLS_HIDE                 => 'Hide controls',                                          //>(translatable)<
+        ));
         $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::THEME);

@@ -513,7 +513,16 @@ msgstr ""
 msgid "Show video annotations by default"
 msgstr ""
 
-msgid "Show video controls"
+msgid "Show or hide video controls"
+msgstr ""
+
+msgid "Show controls - load Flash player immediately"
+msgstr ""
+
+msgid "Show controls - load Flash player when playback begins"
+msgstr ""
+
+msgid "Hide controls"
 msgstr ""
 
 msgid "YouTube player theme"
@@ -542,7 +551,6 @@ msgstr ""
 
 msgid "Videos responses to this YouTube video"
 msgstr ""
-
 
 msgid "HTTP method"
 msgstr ""
