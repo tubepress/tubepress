@@ -24,7 +24,7 @@ if (! function_exists('bootTubePress')) {
         /**
          * Second, we add our classloader.
          */
-        if (! class_exists('ehough_pulsar_ComposerClassLoader.php')) {
+        if (! class_exists('ehough_pulsar_ComposerClassLoader')) {
 
             require_once TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
         }
