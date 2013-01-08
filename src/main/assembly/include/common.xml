@@ -97,6 +97,12 @@
 
 	</target>
 
+    <target name="php-version-compatability-mods">
+
+        <replace dir="${stagingdir}" token="__DIR__" value="dirname(__FILE__)" />
+
+    </target>
+
 	<target name="package">
 
 		<zip destfile="dist/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="stage" />
