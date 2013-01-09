@@ -96,7 +96,7 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
     {
         $infoFileContents = @parse_ini_file($infoFile);
 
-        if ($infoFileContents === false) {
+        if ($infoFileContents === false || empty($infoFileContents)) {
 
             if ($this->_logger->isDebugEnabled()) {
 

@@ -2,4 +2,4 @@ name = Basic Vimeo Integration
 version = 1.0.0
 description = Provides TubePress with the ability to work with Vimeo
 iocContainerExtensions[] = tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtension
-classPathRoots[tubepress_plugins_vimeo] = classes
+classPathRoots[] = classes

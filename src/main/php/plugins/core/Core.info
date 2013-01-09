@@ -3,4 +3,4 @@ version = 1.0.0
 description = TubePress core functionality.
 iocContainerExtensions[] = tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension
 iocContainerCompilerPasses[] = tubepress_plugins_core_impl_patterns_ioc_CoreIocContainerCompilerPass
-classPathRoots[tubepress_plugins_core_impl] = classes
+classPathRoots[] = classes
