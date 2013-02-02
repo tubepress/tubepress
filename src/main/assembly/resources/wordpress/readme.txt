@@ -18,7 +18,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 **Support**
 
 * [Documentation](http://tubepress.org/documentation/)
-* [Support forum](http://tubepress.org/forum/)
+* [Support forum](http://community.tubepress.org)
 * [Bugs / Feature Requests](http://code.google.com/p/tubepress/issues/list)
 * [Source code](http://github.com/ehough/tubepress)
 
@@ -32,11 +32,36 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 == Changelog ==
 = 3.0.0 =
 
-* Significant performance improvements in parsing raw feeds from remote video APIs
-* Major rearchitecture of code to support pluggability
-* Switched to PSR-0 classloading and Composer for dependency control
-* Improved performance with "lazy loading" of services services
-
+* New features
+    * New YouTube gallery sources: YouTube Trends, most-shared on social media, related videos, and video responses
+    * New YouTube player options for TubePress Pro: hide all controls, light/dark theme, closed-captions, and annotations
+    * Major performance improvements across the board
+    * Compatibility with older versions of jQuery (closes issue 504)
+    * Ability to choose between HTTP GET and POST for Ajax operations (closes issue 481)
+    * Much greater control over JW Player colors
+    * Official support for the TubePress Add-On API
+    * YouTube option "autoHide" now accepts and applies all three acceptable values
+* Bug fixes
+    * Some references to HTTP URLs when HTTPS is enabled (closes issue 508)
+    * Fixed broken Ajax pagination with used in certain situations (closes issue 448)
+    * Multiple video sources is capping the total results incorrectly (closes issue 522)
+    * Incompatability with YOOtheme Widgetkit slideshow (closes issue 532)
+    * Prevent accidental downgrade from TubePress Pro to free version when using WordPress's auto-update mechanism
+    * Non-English language settings are now preserved correctly during Ajax pagination and searching
+    * Vimeo view counts are now formatted with commas
+* Changed
+    * Removed obsolete YouTube player parameters: HD, color1, color2
+    * Removed options to disable specific HTTP transports
+    * Switched to PSR-0 classloading
+    * Now using Composer for dependency control
+    * Upgrade JW Player to 5.10
+    * Changed "JW FLV Player" to just "JW Player"
+    * Restructuring of options page to improve usability
+    * Rearchitecture of code base to support pluggability
+    * Upgrade jQuery core to 1.8.3
+    * Upgrade jQuery UI to 1.8.24
+    * Upgrade jQuery MultiSelect UI Widget to 1.13
+    * Upgrade jscolor to 1.4.0
 
 = 2.4.5 =
 * Now accepts new format of YouTube playlist IDs
@@ -46,7 +71,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Error message in Chrome's JavaScript console on page load: Uncaught TypeError: Object W has no method 'getVideoUrl'
 * Interactive search input form improperly handles non-ASCII characters
 * Tag-based galleries malfunction when source PHP files are not encoded as UTF-8
-* YouTube "most_viewed" feed is now "most_popular" (closes issue 529 )
+* YouTube "most_viewed" feed is now "most_popular" (closes issue 529)
 
 = 2.4.3 =
 * Fixed bug that prevented sequential playback in YouTube galleries
@@ -92,7 +117,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Graceful handling of "No videos found" error when using TubePress Pro in a standalone environment
 
 = 2.2.8 =
-* IE9 support (closes issue 263 )
+* IE9 support (closes issue 263)
 * Auto-upgrade in WordPress no longer wipes out custom themes (closes issue 349)
 * Vimeo galleries are no longer affected by value of arg_separator.input INI setting (closes issue 307)
 * JS and CSS now load correctly under HTTPS (closes issue 371)
@@ -114,38 +139,38 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 
 = 2.2.5 =
 * Lightweight plugin support! Now you can customize TubePress's behavior without touching the core.
-* "Lazy" play option. Auto-starts video playback after thumbnail click (closes issue 166 )
-* Improved video meta support for embedded player in thumbnail galleries (closes issue 169 )
+* "Lazy" play option. Auto-starts video playback after thumbnail click (closes issue 166)
+* Improved video meta support for embedded player in thumbnail galleries (closes issue 169)
 * EmbedPlus support
-* TubePress Pro: Ability to combine YouTube and Vimeo in a single gallery (closes issue 228 )
-* TubePress Pro: Ability to load embedded player in a "detached" location (closes issue 244 )
+* TubePress Pro: Ability to combine YouTube and Vimeo in a single gallery (closes issue 228)
+* TubePress Pro: Ability to load embedded player in a "detached" location (closes issue 244)
 * Fixed broken i18n functionality in WordPress
 * Custom theme CSS now loads correctly for single video embeds
 * Updated Italian translation thanks to Gianni Diurno
-* Fixed jQuery UI conflict in admin section of WordPress (closes issue 296 )
+* Fixed jQuery UI conflict in admin section of WordPress (closes issue 296)
 * User themes now appear in dropdown menu in WordPress settings page
-* Private Vimeo videos no longer appear in galleries (closes issue 276 )
-* YouTube embedded player now uses wmode=transparent (closes issue 298 )
-* Fixed deprecated warnings in PHP 5.3.0+ (closes issue 337 )
+* Private Vimeo videos no longer appear in galleries (closes issue 276)
+* YouTube embedded player now uses wmode=transparent (closes issue 298)
+* Fixed deprecated warnings in PHP 5.3.0+ (closes issue 337)
 * Made "fluid thumbnails" a first-class option, is now easy to disable when desired.
 * Modernized pagination style
 * Version bump to TinyBox2
 * Version bump to jQuery 1.6.1
-* Version bump to Fancybox 1.3.4 (closes issue 332 )
+* Version bump to Fancybox 1.3.4 (closes issue 332)
 
 = 2.2.0 =
-* Interactive searching! (closes issue 138 )
+* Interactive searching! (closes issue 138)
 * YouTube iframe embedded player (closes issue 265  and  issue 259 )
-* Improved inclusion of JS/CSS resources in WordPress environments (closes issue 191 )
+* Improved inclusion of JS/CSS resources in WordPress environments (closes issue 191)
 * Ability to restrict search-based galleries to videos from a specific YouTube/Vimeo user
 * New HTTP subsystem provides faster and more robust feed retrieval
 * Added advanced caching options
-* Improved visual feedback during Ajax operations (closes issue 142 )
-* Better upgrade notice for TubePress Pro users in a WordPress environment (closes issue 252 )
-* Graceful handling of single video embedding when video isn't found (closes issue 267 )
-* Broken gallery when trying to display Vimeo videos with JW Player (closes issue 242 )
-* Incorrect detection of multi-gallery mode in some circumstances (closes issue 238 )
-* Duplicate videos no longer appear in galleries (closes issue 248 )
+* Improved visual feedback during Ajax operations (closes issue 142)
+* Better upgrade notice for TubePress Pro users in a WordPress environment (closes issue 252)
+* Graceful handling of single video embedding when video isn't found (closes issue 267)
+* Broken gallery when trying to display Vimeo videos with JW Player (closes issue 242)
+* Incorrect detection of multi-gallery mode in some circumstances (closes issue 238)
+* Duplicate videos no longer appear in galleries (closes issue 248)
 * Private Vimeo videos no longer appear in galleries
 * Non-functional message service when using TubePress Pro in a PHP environment without built-in gettext support
 * Fixed bug that could affect TubePress Pro users in a WordPress environment hosted on Windows-based PHP installations
