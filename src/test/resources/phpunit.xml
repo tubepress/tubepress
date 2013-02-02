@@ -1,0 +1,24 @@
+<phpunit
+    colors="true"
+    stopOnError="true"
+    stopOnFailure="true"
+	stopOnIncomplete="true"
+	stopOnSkipped="true"
+	strict="true"
+    processIsolation="false"
+    bootstrap="../php/bootstrap.php">
+	<testsuites>
+	   <testsuite name="TubePress tests">
+	       <directory>../php/</directory>
+	   </testsuite>
+	</testsuites>
+    <filter>
+        <whitelist>
+           <directory suffix=".php">../../main/php</directory>
+            <exclude>
+                <file>../../main/php/scripts/ajaxEndpoint.php</file>
+            </exclude>
+        </whitelist>
+
+    </filter>
+</phpunit>

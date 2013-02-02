@@ -1,0 +1,5 @@
+name = Basic YouTube Integration
+version = 1.0.0
+description = Provides TubePress with the ability to work with YouTube
+iocContainerExtensions[] = tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtension
+classPathRoots[] = classes

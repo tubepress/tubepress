@@ -1,0 +1,5 @@
+name = JW Player
+version = 1.0.0
+description = Provides TubePress with the ability play videos with JW Player by Longtail Video
+iocContainerExtensions[] = tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension
+classPathRoots[] = classes

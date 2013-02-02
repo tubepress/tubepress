@@ -1,0 +1,5 @@
+name = EmbedPlus
+version = 1.0.0
+description = Provides TubePress with the ability play videos with EmbedPlus
+iocContainerExtensions[] = tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension
+classPathRoots[] = classes

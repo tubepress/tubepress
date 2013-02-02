@@ -1,0 +1,5 @@
+name = Basic WordPress Integration
+version = 1.0.0
+description = Provides the basic functionality needed to allow TubePress to operate in a WordPress environment.
+iocContainerExtensions[] = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtension
+classPathRoots[] = classes
