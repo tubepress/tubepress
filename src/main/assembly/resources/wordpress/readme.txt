@@ -18,7 +18,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 **Support**
 
 * [Documentation](http://tubepress.org/documentation/)
-* [Support forum](http://tubepress.org/forum/)
+* [Support forum](http://community.tubepress.org)
 * [Bugs / Feature Requests](http://code.google.com/p/tubepress/issues/list)
 * [Source code](http://github.com/ehough/tubepress)
 
