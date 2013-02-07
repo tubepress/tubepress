@@ -10,31 +10,38 @@
 
 /*global jQuery, TubePressAjax, TubePressEvents */
 /*jslint sloppy: true, white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
-
 var TubePressNormalPlayer = (function () {
-	
+
+    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+    'use strict';
+
 	var prefix  = 'tubepress_',
 	
 		getTitleId = function (gId) {
+
 			return '#' + prefix + 'embedded_title_' + gId;
 		},
 	
 		/* this stuff helps compression */
-		jquery	= jQuery,
-		tpAjax	= TubePressAjax,
-		events	= TubePressEvents,
-		name	= 'normal',
-		doc		= jquery(document),
+		jquery      = jQuery,
+		tpAjax      = TubePressLoadStyler,
+		events      = TubePressEvents.PLAYERS,
+        subscribe   = TubePressBeacon.subscribe,
+		name        = 'normal',
+		doc         = jquery(document),
 	
 		applyLoadingStyle = function (id) {
+
 			tpAjax.applyLoadingStyle(id);
 		},
 		
 		removeLoadingStyle = function (id) {
+
 			tpAjax.removeLoadingStyle(id);
 		},
 	
 		getEmbedId = function (gId) {
+
 			return '#' + prefix + 'embedded_object_' + gId;
 		},
 	
@@ -56,8 +63,7 @@ var TubePressNormalPlayer = (function () {
 			removeLoadingStyle(getEmbedId(galleryId));
 		};
 
-	doc.bind(events.PLAYER_INVOKE + name, invoke);
-	doc.bind(events.PLAYER_POPULATE + name, populate);
-} ());
+	subscribe(events.PLAYER_INVOKE + name, invoke);
+    subscribe(events.PLAYER_POPULATE + name, populate);
 
-
+}());

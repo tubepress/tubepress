@@ -10,16 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jQuery-1.7.2" level="application" />
-    <orderEntry type="module-library">
-      <library name="PHP">
-        <CLASSES>
-          <root url="file:///usr/share/php" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file:///usr/share/php" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>
 
