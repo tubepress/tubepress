@@ -119,49 +119,183 @@ TubePressEvents = (function () {
     /*
      * These variable declarations aide in compression.
      */
-    var xdot = '.',
-        xtubepress = 'tubepress',
-        xsequencing = xtubepress + xdot + 'sequencing' + xdot,
-        xembedded = xtubepress + xdot + 'embedded' + xdot,
-        xplayers = xtubepress + xdot + 'players' + xdot,
-        xthumbgallery = xtubepress + xdot + 'thumbgallery' + xdot;
+    var xdot          = '.',
+        xtubepress    = 'tubepress',
+        xsequencing   = xtubepress + xdot + 'sequencing'   + xdot,
+        xembedded     = xtubepress + xdot + 'embedded'     + xdot,
+        xplayers      = xtubepress + xdot + 'players'      + xdot,
+        xthumbgallery = xtubepress + xdot + 'thumbgallery' + xdot,
+        xdom          = xtubepress + xdot + 'dom'          + xdot,
+        xajax         = xtubepress + xdot + 'ajax'         + xdot,
+
+        xrequest   = 'request',
+        xbefore    = 'before',
+        xafter     = 'after',
+        xget       = 'get',
+        xload      = 'load',
+        xelement   = 'element';
 
     return {
+
+        DOM : {
+
+            /**
+             * tubepress.dom.requestjs
+             *
+             * A JavaScript file has been requested.
+             *
+             * @arg String   URL     The URL of the JavaScript file.
+             * @arg Function success Optional. The callback to invoke when the script is successfully loaded.
+             */
+            JS_REQUESTED  : xdom + xrequest + 'js',
+
+            /**
+             * tubepress.dom.requestcss
+             *
+             * A CSS file has been requested.
+             *
+             * @arg String URL The URL of the CSS file.
+             */
+            CSS_REQUESTED : xdom + xrequest + 'css',
+
+            FADE_REQUESTED : xdom + xrequest + 'fade' + xelement,
+
+            UNFADE_REQUESTED : xdom + xrequest + 'unfade' + xelement
+        },
+
+        AJAX : {
+
+            /**
+             * tubepress.ajax.requestget
+             *
+             * @arg String              method   The type of request to make ("POST" or "GET")
+             * @arg String              url      A string containing the URL to which the request is sent.
+             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
+             * @arg Function            complete A function to be called when the request finishes.
+             * @arg String              dataType The type of data expected from the server.
+             *
+             * Someone has requested to fetch something.
+             */
+            GET_REQUESTED : xajax + xrequest + xget,
+
+            /**
+             * tubepress.ajax.requestload
+             *
+             * @arg String              method   The type of request to make ("POST" or "GET")
+             * @arg String              url      A string containing the URL to which the request is sent.
+             * @arg String              target   The selector of where to load the returned data.
+             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
+             * @arg Function            complete A function to be called when the request finishes.
+             *
+             * Someone has requested to load something.
+             */
+            LOAD_REQUESTED : xajax + xrequest + xload,
+
+            /**
+             * tubepress.ajax.beforeget
+             *
+             * @arg String              method   The type of request to make ("POST" or "GET")
+             * @arg String              url      A string containing the URL to which the request is sent.
+             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
+             * @arg Function            complete A function to be called when the request finishes.
+             * @arg String              dataType The type of data expected from the server.
+             *
+             * We're about to fetch something.
+             */
+            BEFORE_GET  : xajax + xbefore + xget,
+
+            /**
+             * tubepress.ajax.afterget
+             *
+             * @arg String                  method        The type of request made ("POST" or "GET")
+             * @arg String                  url           A string containing the URL to which the request is sent.
+             * @arg PlainObject, String     data          A plain object or string that was sent to the server with the request.
+             * @arg Function                complete      A function to be called when the request finishes.
+             * @arg String                  dataType      The type of data expected from the server.
+             * @arg String                  returnedData  The data returned from the server
+             * @arg String                  textStatus    The request status
+             * @arg XMLHttpRequest or jqXHR xhr           The XMLHttpRequest or jqXHR object.
+             *
+             * We finished fetching something.
+             *
+             */
+            AFTER_GET   : xajax + xafter  + xget,
+
+            /**
+             * tubepress.ajax.beforeload
+             *
+             * @arg String              method   The type of request to make ("POST" or "GET")
+             * @arg String              url      A string containing the URL to which the request is sent.
+             * @arg String              target   The selector of where to load the returned data.
+             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
+             * @arg Function            complete A function to be called when the request finishes.
+             *
+             * We're about to load something.
+             *
+             */
+            BEFORE_LOAD : xajax + xbefore + xload,
+
+            /**
+             * tubepress.ajax.afterload
+             *
+             * @arg String                  method       The type of request to make ("POST" or "GET")
+             * @arg String                  url          A string containing the URL to which the request is sent.
+             * @arg String                  target       The selector of where to load the returned data.
+             * @arg PlainObject, String     data         A plain object or string that is sent to the server with the request.
+             * @arg Function                complete     A function to be called when the request finishes.
+             * @arg String                  returnedData The data returned from the server
+             * @arg String                  textStatus   The request status
+             * @arg XMLHttpRequest or jqXHR xhr          The XMLHttpRequest or jqXHR object.
+             *
+             * We're about to load something.
+             *
+             */
+            AFTER_LOAD  : xajax + xafter  + xload
+        },
 
         SEQUENCING : {
 
             /** A gallery's primary video has changed. */
-            GALLERY_VIDEO_CHANGE : xsequencing + '1'
+            GALLERY_VIDEO_HAS_CHANGED : xsequencing + '1'
         },
 
         EMBEDDED : {
 
             /** An embedded video has been loaded. */
-            EMBEDDED_LOAD      : xembedded + '1',
+            EMBEDDED_LOAD      : xembedded + 'load',
 
             /** Playback of a video started. */
-            PLAYBACK_STARTED   : xembedded + '2',
+            PLAYBACK_STARTED   : xembedded + 'start',
 
             /** Playback of a video stopped. */
-            PLAYBACK_STOPPED   : xembedded + '3',
+            PLAYBACK_STOPPED   : xembedded + 'stop',
 
             /** Playback of a video is buffering. */
-            PLAYBACK_BUFFERING : xembedded + '4',
+            PLAYBACK_BUFFERING : xembedded + 'buffer',
 
             /** Playback of a video is paused. */
-            PLAYBACK_PAUSED    : xembedded + '5',
+            PLAYBACK_PAUSED    : xembedded + 'pause',
 
             /** Playback of a video has errored out. */
-            PLAYBACK_ERROR     : xembedded + '6'
+            PLAYBACK_ERROR     : xembedded + 'error'
         },
 
         PLAYERS : {
 
-            /** A TubePress player is being invoked. */
-            PLAYER_INVOKE   : xplayers + '1',
+            /**
+             * tubepress.players.invoke
+             *
+             * A TubePress player is being invoked.
+             *
+             * @arg string videoId   The video about to be played
+             * @arg string galleryId The gallery containing this video
+             * @arg string width     The video width (px)
+             * @arg string height    The video height (px)
+             */
+            PLAYER_INVOKE   : xplayers + 'invoke',
 
             /** A TubePress player is being populated. */
-            PLAYER_POPULATE : xplayers + '2'
+            PLAYER_POPULATE : xplayers + 'populate'
         },
 
         THUMBGALLERY : {
@@ -172,10 +306,10 @@ TubePressEvents = (function () {
              * @arg string galleryId The identifier of this gallery.
              * @arg object params    The parameters of this gallery.
              */
-            NEW_GALLERY_LOADED : xthumbgallery + '1',
+            NEW_GALLERY_LOADED : xthumbgallery + 'newgallery',
 
             /** A new set of thumbnails has entered the DOM. */
-            NEW_THUMBS_LOADED  : xthumbgallery + '2'
+            NEW_THUMBS_LOADED  : xthumbgallery + 'newthumbs'
         }
     };
 }()),
@@ -244,21 +378,50 @@ TubePressDomInjector = (function () {
     /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
     'use strict';
 
-    /*
-     * Dynamically load CSS into the DOM.
-     */
-    var loadCss = function (path) {
+    var domEvents          = TubePressEvents.DOM,
+        subscribe          = TubePressBeacon.subscribe,
+        filesAlreadyLoaded = [],
+        logger             = TubePressLogger,
 
-        var    fileref = document.createElement('link');
+        alreadyLoaded = function (path) {
 
-        fileref.setAttribute('rel', 'stylesheet');
-        fileref.setAttribute('type', 'text/css');
-        fileref.setAttribute('href', path);
+            return filesAlreadyLoaded[path] === true;
+        },
 
-        document.getElementsByTagName('head')[0].appendChild(fileref);
-    },
+        doLog = function (path, type) {
 
-        loadScript = function (path, success) {
+            if (logger.on()) {
+
+                logger.log('Injecting ' + type + ': ' + path);
+            }
+        },
+
+        loadCss = function (event, path) {
+
+            if (alreadyLoaded(path)) {
+
+                return;
+            }
+
+            var fileref   = document.createElement('link');
+
+            fileref.setAttribute('rel', 'stylesheet');
+            fileref.setAttribute('type', 'text/css');
+            fileref.setAttribute('href', path);
+
+            doLog(path, 'CSS');
+
+            document.getElementsByTagName('head')[0].appendChild(fileref);
+        },
+
+        loadScript = function (event, path, success) {
+
+            if (alreadyLoaded(path)) {
+
+                return;
+            }
+
+            doLog(path, 'JS');
 
             jQuery.ajax({
 
@@ -269,11 +432,8 @@ TubePressDomInjector = (function () {
             });
         };
 
-    return {
-
-        loadCss    : loadCss,
-        loadScript : loadScript
-    };
+    subscribe(domEvents.JS_REQUESTED, loadScript);
+    subscribe(domEvents.CSS_REQUESTED, loadCss);
 }()),
 
 /**
@@ -284,30 +444,42 @@ TubePressLoadStyler = (function () {
     /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
     'use strict';
 
-    var jquery = jQuery,
+    var jquery     = jQuery,
+        subscribe  = TubePressBeacon.subscribe,
+        events     = TubePressEvents,
+        ajaxEvents = events.AJAX,
+        domEvents  = events.DOM,
+
+        applyLoadStyle = function (event, target) {
+
+            jquery(target).fadeTo(0, 0.3);
+        },
+
+        removeLoadStyle = function (event, target) {
+
+            jquery(target).fadeTo(0, 1);
+        },
 
         /**
          * Fade to "white".
          */
-        applyLoadingStyle = function (targetDiv) {
+        onBeforeLoad = function (event, method, url, target, dataToSend, complete) {
 
-            jquery(targetDiv).fadeTo(0, 0.3);
+            applyLoadStyle(event, target);
         },
 
         /**
          * Fade back to full opacity.
          */
-        removeLoadingStyle = function (targetDiv) {
+        onAfterLoad = function (event, method, url, target, dataToSend, complete, dataReturned, textStatus, xhr) {
 
-            jquery(targetDiv).fadeTo(0, 1);
+            removeLoadStyle(event, target);
         };
 
-    return {
-
-        applyLoadingStyle   : applyLoadingStyle,
-        removeLoadingStyle  : removeLoadingStyle
-    };
-
+    subscribe(ajaxEvents.BEFORE_LOAD, onBeforeLoad);
+    subscribe(ajaxEvents.AFTER_LOAD, onAfterLoad);
+    subscribe(domEvents.FADE_REQUESTED, applyLoadStyle);
+    subscribe(domEvents.UNFADE_REQUESTED, removeLoadStyle);
 }()),
 
 /**
@@ -320,98 +492,85 @@ TubePressAjax = (function () {
 
     var
         /** These variable declarations aide in compression. */
-        jquery      = jQuery,
-        isFunction  = jquery.isFunction,
-        styler      = TubePressLoadStyler,
+        jquery     = jQuery,
+        isFunction = jquery.isFunction,
+        ajaxEvents = TubePressEvents.AJAX,
+        beacon     = TubePressBeacon,
+        publish    = beacon.publish,
+        subscribe  = beacon.subscribe,
 
         /**
          * Similar to jQuery's "load" but tolerates non-200 status codes.
          * https://github.com/jquery/jquery/blob/master/src/ajax.js#L168.
          */
-        load = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
+        onLoadRequested = function (event, method, url, targetDiv, dataToSend, complete) {
 
-            var completeCallback = function (res) {
+            var completeCallback, selector,
 
-                var responseText    = res.responseText,
-                    html            = selector ? jquery('<div>').append(responseText).find(selector) : responseText;
+                off = url.indexOf(' ');
+
+            if (off >= 0) {
+
+                selector = url.slice(off, url.length);
+                url      = url.slice(0, off);
+            }
+
+            completeCallback = function (responseText, textStatus, xhr) {
+
+                var html = selector ? jquery('<div>').append(responseText).find(selector) : responseText;
 
                 jquery(targetDiv).html(html);
 
-                /* did the user supply a post-load function? */
-                if (isFunction(postLoadFunction)) {
+                publish(ajaxEvents.AFTER_LOAD, [ method, url, targetDiv, dataToSend, complete, responseText, textStatus, xhr ]);
 
-                    postLoadFunction();
+                /* did the user supply a post-load function? */
+                if (isFunction(complete)) {
+
+                    complete(responseText, textStatus, xhr);
                 }
             };
 
-            /** did the user supply a pre-load function? */
-            if (isFunction(preLoadFunction)) {
+            publish(ajaxEvents.BEFORE_LOAD, [ method, url, targetDiv, dataToSend, complete ]);
 
-                preLoadFunction();
-            }
+            return jquery.ajax({
 
-            jquery.ajax({
-
-                url            : url,
-                type        : method,
-                dataType    : 'html',
-                complete    : completeCallback
+                url      : url,
+                type     : method,
+                dataType : 'html',
+                complete : completeCallback,
+                data     : dataToSend
             });
         },
 
         /**
          * Similar to jQuery's "get" but ignores response code.
          */
-        get = function (method, url, data, success, dataType) {
+        onGetRequested = function (event, method, url, data, complete, dataType) {
 
-            jquery.ajax({
+            publish(ajaxEvents.BEFORE_GET, [ method, url, data, complete, dataType ]);
 
-                url            : url,
-                type        : method,
-                data        : data,
-                dataType    : dataType,
-                complete    : success
+            var completeCallback = function (returnedData, textStatus, xhr) {
+
+                publish(ajaxEvents.AFTER_GET, [ method, url, data, complete, dataType, returnedData, textStatus, xhr ]);
+
+                if (isFunction(complete)) {
+
+                    complete(returnedData, textStatus, xhr);
+                }
+            };
+
+            return jquery.ajax({
+
+                url      : url,
+                type     : method,
+                data     : data,
+                dataType : dataType,
+                complete : completeCallback
             });
-
-        },
-
-        triggerDoneLoading = function (targetDiv) {
-
-            styler.removeLoadingStyle(targetDiv);
-        },
-
-        /**
-         * Calls "load", but does some additional styling on the target element while it's processing.
-         */
-        loadAndStyle = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
-
-            /** one way or another, we're removing the loading style when we're done... */
-            var post = function () {
-
-                    triggerDoneLoading(targetDiv);
-                };
-
-            styler.applyLoadingStyle(targetDiv);
-
-            /** ... but maybe we want to do something else too */
-            if (isFunction(postLoadFunction)) {
-
-                post = function () {
-
-                    triggerDoneLoading(targetDiv);
-                    postLoadFunction();
-                };
-            }
-
-            /** do the load. do it! */
-            load(method, url, targetDiv, selector, preLoadFunction, post);
         };
 
-    return {
-
-        loadAndStyle    : loadAndStyle,
-        get             : get
-    };
+    subscribe(ajaxEvents.GET_REQUESTED, onGetRequested);
+    subscribe(ajaxEvents.LOAD_REQUESTED, onLoadRequested);
 }()),
 
 TubePressGallery = (function () {
@@ -470,7 +629,7 @@ TubePressGallery = (function () {
          */
         getEmbeddedHeight = function (galleryId) {
 
-            return internalGet(galleryId, jsMap, 'embeddedHeight');
+            return internalGet(galleryId, nvpMap, 'embeddedHeight');
         },
 
         /**
@@ -478,7 +637,7 @@ TubePressGallery = (function () {
          */
         getEmbeddedWidth = function (galleryId) {
 
-            return internalGet(galleryId, jsMap, 'embeddedWidth');
+            return internalGet(galleryId, nvpMap, 'embeddedWidth');
         },
 
         /**
@@ -499,7 +658,7 @@ TubePressGallery = (function () {
          */
         getPlayerLocationName = function (galleryId) {
 
-            return internalGet(galleryId, jsMap, 'playerLocation');
+            return internalGet(galleryId, nvpMap, 'playerLocation');
         },
 
         /**
@@ -579,35 +738,38 @@ TubePressPlayers = (function () {
         /**
          * Find the player required for a gallery and load the JS.
          */
-        bootPlayer = function (e, galleryId) {
+        onNewGalleryLoaded = function (e, galleryId) {
 
-            var playerName = tubepressGallery.getPlayerLocationName(galleryId),
-                path       = tubepressGallery.getPlayerJsUrl(galleryId);
+            var path = tubepressGallery.getPlayerJsUrl(galleryId);
 
             /*
              * Load this player's JS, if needed.
              */
-            //noinspection JSUnresolvedFunction
-            TubePressDomInjector.loadScript(path, playerName);
+            tubepressBeacon.publish(tubepressEvents.DOM.JS_REQUESTED, [ path ]);
         },
 
         /**
          * Load up a TubePress player with the given video ID.
          */
-        invokePlayer = function (e, galleryId, videoId) {
+        onGalleryVideoHasChanged = function (e, galleryId, videoId) {
 
             var playerName = tubepressGallery.getPlayerLocationName(galleryId),
                 height     = tubepressGallery.getEmbeddedHeight(galleryId),
                 width      = tubepressGallery.getEmbeddedWidth(galleryId),
                 nvpMap     = tubepressGallery.getNvpMap(galleryId),
 
-                callback   = function (data) {
+                callback = function (data, textStatus, xhr) {
+
+                    if (textStatus !== 'success') {
+
+                        return;
+                    }
 
                     var result = TubePressJson.parse(data.responseText),
                         title  = result.title,
                         html   = result.html;
 
-                    publish(playerEvents.PLAYER_POPULATE + playerName, [ title, html, height, width, videoId, galleryId ]);
+                    publish(playerEvents.PLAYER_POPULATE, [ playerName, title, html, height, width, videoId, galleryId ]);
                 },
 
                 dataToSend = {
@@ -625,7 +787,7 @@ TubePressPlayers = (function () {
             jquery.extend(dataToSend, nvpMap);
 
             /** Announce we're gonna invoke the player... */
-            publish(playerEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);
+            publish(playerEvents.PLAYER_INVOKE, [ playerName, videoId, galleryId, width, height ]);
 
             /** If this player requires population, go fetch the HTML for it. */
             if (tubepressGallery.getPlayerLocationProducesHtml(galleryId)) {
@@ -633,15 +795,15 @@ TubePressPlayers = (function () {
                 method = tubepressGallery.getHttpMethod(galleryId);
 
                 /* ... and fetch the HTML for it */
-                TubePressAjax.get(method, url, dataToSend, callback, 'json');
+                publish(tubepressEvents.AJAX.GET_REQUESTED, [ method, url, dataToSend, callback, 'json' ]);
             }
         };
 
     /** When we see a new gallery... */
-    subscribe(tubepressEvents.THUMBGALLERY.NEW_GALLERY_LOADED, bootPlayer);
+    subscribe(tubepressEvents.THUMBGALLERY.NEW_GALLERY_LOADED, onNewGalleryLoaded);
 
     /** When a user clicks a thumbnail... */
-    subscribe(tubepressEvents.SEQUENCING.GALLERY_VIDEO_CHANGE, invokePlayer);
+    subscribe(tubepressEvents.SEQUENCING.GALLERY_VIDEO_HAS_CHANGED, onGalleryVideoHasChanged);
 }()),
 
 /**
@@ -761,7 +923,7 @@ TubePressSequencer = (function () {
             galleries[galleryId][currentVideoId] = videoId;
 
             /** Announce the change. */
-            tubePressBeacon.publish(events.SEQUENCING.GALLERY_VIDEO_CHANGE, [galleryId, videoId]);
+            tubePressBeacon.publish(events.SEQUENCING.GALLERY_VIDEO_HAS_CHANGED, [galleryId, videoId]);
         },
 
         /**
@@ -1060,7 +1222,7 @@ TubePressAjaxPagination = (function () {
          */
         postLoad = function (galleryId) {
 
-            beacon.publish(TubePressEvents.THUMBGALLERY.NEW_THUMBS_LOADED, galleryId);
+            beacon.publish(TubePressEvents.THUMBGALLERY.NEW_THUMBS_LOADED, [ galleryId ]);
         },
 
         /** Handles an ajax pagination click. */
@@ -1133,7 +1295,7 @@ TubePressPlayerApiUtils = (function () {
          */
         triggerEvent = function (eventName, videoId) {
 
-            TubePressBeacon.publish(eventName, videoId);
+            TubePressBeacon.publish(eventName, [ videoId ]);
         },
 
         /**
@@ -1295,8 +1457,7 @@ TubePressYouTubePlayerApi = (function () {
             //noinspection JSUnresolvedVariable
             var scheme = TubePressGlobalJsConfig.https ? 'https' : 'http';
 
-            //noinspection JSUnresolvedVariable
-            scriptLoader.loadScript(scheme + '://www.youtube.com/player_api');
+            TubePressBeacon.publish(TubePressEvents.DOM.JS_REQUESTED, [ scheme + '://www.youtube.com/player_api' ]);
         },
 
         /**
@@ -1479,7 +1640,7 @@ TubePressVimeoPlayerApi = (function () {
 
                 loadingVimeoApi = true;
 
-                TubePressDomInjector.loadScript(scheme + '://a.vimeocdn.com/js/froogaloop2.min.js');
+                TubePressBeacon.publish(TubePressEvents.DOM.JS_REQUESTED, [ scheme + '://a.vimeocdn.com/js/froogaloop2.min.js' ]);
             }
         },
 
@@ -1619,7 +1780,7 @@ TubePressAjaxSearch = (function () {
             /** Announce the new thumbs */
             callback = function () {
 
-                TubePressBeacon.publish(TubePressEvents.THUMBGALLERY.NEW_THUMBS_LOADED, galleryId);
+                TubePressBeacon.publish(TubePressEvents.THUMBGALLERY.NEW_THUMBS_LOADED, [ galleryId ]);
             };
 
         } else {

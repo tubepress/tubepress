@@ -9,61 +9,77 @@
  */
 
 /*global jQuery, TubePressAjax, TubePressEvents */
-/*jslint sloppy: true, white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
+/*jslint sloppy: true, white: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
 var TubePressNormalPlayer = (function () {
 
     /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
     'use strict';
 
 	var prefix  = 'tubepress_',
+        embedded = 'embedded_',
 	
 		getTitleId = function (gId) {
 
-			return '#' + prefix + 'embedded_title_' + gId;
+			return '#' + prefix + embedded + 'title_' + gId;
 		},
 	
 		/* this stuff helps compression */
-		jquery      = jQuery,
-		tpAjax      = TubePressLoadStyler,
-		events      = TubePressEvents.PLAYERS,
-        subscribe   = TubePressBeacon.subscribe,
-		name        = 'normal',
-		doc         = jquery(document),
-	
-		applyLoadingStyle = function (id) {
-
-			tpAjax.applyLoadingStyle(id);
-		},
-		
-		removeLoadingStyle = function (id) {
-
-			tpAjax.removeLoadingStyle(id);
-		},
+		jquery       = jQuery,
+        events       = TubePressEvents,
+		playerEvents = events.PLAYERS,
+        domEvents    = events.DOM,
+        beacon       = TubePressBeacon,
+        subscribe    = beacon.subscribe,
+		name         = 'normal',
+        addLoadEvent = domEvents.FADE_REQUESTED,
+        remLoadEvent = domEvents.UNFADE_REQUESTED,
 	
 		getEmbedId = function (gId) {
 
-			return '#' + prefix + 'embedded_object_' + gId;
+			return '#' + prefix + embedded + 'object_' + gId;
 		},
-	
-		invoke = function (e, videoId, galleryId, width, height) {
 
-			var titleDivId = getTitleId(galleryId);
-			
-			applyLoadingStyle(titleDivId);
-			applyLoadingStyle(getEmbedId(galleryId));
+        fireEventIfExists = function (target, eventName) {
 
-			jquery(titleDivId)[0].scrollIntoView(true);
+            if (jquery(target).length > 0) {
+
+                beacon.publish(eventName, [ target ]);
+            }
+        },
+
+		invoke = function (e, playerName, videoId, galleryId, width, height) {
+
+            if (playerName !== name) {
+
+                return;
+            }
+
+			var titleDivId = getTitleId(galleryId),
+                titleDiv   = jquery(titleDivId);
+
+            fireEventIfExists(titleDivId, addLoadEvent);
+            fireEventIfExists(getEmbedId(galleryId), addLoadEvent);
+
+            if (titleDiv.length > 0) {
+
+                titleDiv[0].scrollIntoView(true);
+            }
 		},
 		
-		populate = function (e, title, html, height, width, videoId, galleryId) {
-			
-			jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_embedded_wrapper:first').replaceWith(html);
-			
-			removeLoadingStyle(getTitleId(galleryId));
-			removeLoadingStyle(getEmbedId(galleryId));
+		populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
+
+            if (playerName !== name) {
+
+                return;
+            }
+
+			jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_' + embedded + 'wrapper:first').replaceWith(html);
+
+            fireEventIfExists(getTitleId(galleryId), remLoadEvent);
+            fireEventIfExists(getEmbedId(galleryId), remLoadEvent);
 		};
 
-	subscribe(events.PLAYER_INVOKE + name, invoke);
-    subscribe(events.PLAYER_POPULATE + name, populate);
+	subscribe(playerEvents.PLAYER_INVOKE, invoke);
+    subscribe(playerEvents.PLAYER_POPULATE, populate);
 
 }());
