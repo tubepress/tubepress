@@ -14,14 +14,6 @@
 /*global jQuery, TubePressGlobalJsConfig, YT, Froogaloop, console */
 /*jslint devel: true, browser: true, sloppy: false, white: true, maxerr: 50, indent: 4 */
 
-/*!
- * $script.js Async loader & dependency manager
- * https://github.com/ded/script.js
- * (c) Dustin Diaz, Jacob Thornton 2011
- * License: MIT
- */
-(function(a,b,c){typeof c["module"]!="undefined"&&c.module.exports?c.module.exports=b():typeof c["define"]!="undefined"&&c["define"]=="function"&&c.define.amd?define(a,b):c[a]=b()})("TubePress$cript",function(){function p(a,b){for(var c=0,d=a.length;c<d;++c)if(!b(a[c]))return j;return 1}function q(a,b){p(a,function(a){return!b(a)})}function r(a,b,i){function o(a){return a.call?a():d[a]}function t(){if(!--n){d[m]=1,l&&l();for(var a in f)p(a.split("|"),o)&&!q(f[a],o)&&(f[a]=[])}}a=a[k]?a:[a];var j=b&&b.call,l=j?b:i,m=j?a.join(""):b,n=a.length;return setTimeout(function(){q(a,function(a){if(h[a])return m&&(e[m]=1),h[a]==2&&t();h[a]=1,m&&(e[m]=1),s(!c.test(a)&&g?g+a+".js":a,t)})},0),r}function s(c,d){var e=a.createElement("script"),f=j;e.onload=e.onerror=e[o]=function(){if(e[m]&&!/^c|loade/.test(e[m])||f)return;e.onload=e[o]=null,f=1,h[c]=2,d()},e.async=1,e.src=c,b.insertBefore(e,b.firstChild)}var a=document,b=a.getElementsByTagName("head")[0],c=/^https?:\/\//,d={},e={},f={},g,h={},i="string",j=!1,k="push",l="DOMContentLoaded",m="readyState",n="addEventListener",o="onreadystatechange";return!a[m]&&a[n]&&(a[n](l,function t(){a.removeEventListener(l,t,j),a[m]="complete"},j),a[m]="loading"),r.get=s,r.order=function(a,b,c){(function d(e){e=a.shift(),a.length?r(e,d):r(e,b,c)})()},r.path=function(a){g=a},r.ready=function(a,b,c){a=a[k]?a:[a];var e=[];return!q(a,function(a){d[a]||e[k](a)})&&p(a,function(a){return d[a]})?b():!function(a){f[a]=f[a]||[],f[a][k](b),c&&c(e)}(a.join("|")),r},r},this)
-
 /**
  * Logger!
  */
@@ -68,6 +60,8 @@ var TubePressLogger = (function () {
 /**
  * Lightweight event bus for TubePress.
  *
+ * https://gist.github.com/cowboy/661855
+ *
  * jQuery Tiny Pub/Sub - v0.3 - 11/4/2010
  * http://benalman.com/
  *
@@ -80,8 +74,10 @@ TubePressBeacon = (function () {
     /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
     'use strict';
 
-    var bus         = jQuery({}),
-        subscribe   = function () {
+    var bus    = jQuery({}),
+        logger = TubePressLogger,
+
+        subscribe = function () {
 
             bus.bind.apply(bus, arguments);
         },
@@ -92,6 +88,14 @@ TubePressBeacon = (function () {
         },
 
         publish = function () {
+
+            if (logger.on()) {
+
+                var args = arguments;
+
+                logger.log('Firing "' + args[0]);
+                logger.dir(args[1]);
+            }
 
             bus.trigger.apply(bus, arguments);
         };
@@ -127,46 +131,51 @@ TubePressEvents = (function () {
         SEQUENCING : {
 
             /** A gallery's primary video has changed. */
-            GALLERY_VIDEO_CHANGE    : xsequencing + '1'
+            GALLERY_VIDEO_CHANGE : xsequencing + '1'
         },
 
         EMBEDDED : {
 
             /** An embedded video has been loaded. */
-            EMBEDDED_LOAD            : xembedded + '1',
+            EMBEDDED_LOAD      : xembedded + '1',
 
             /** Playback of a video started. */
-            PLAYBACK_STARTED        : xembedded + '2',
+            PLAYBACK_STARTED   : xembedded + '2',
 
             /** Playback of a video stopped. */
-            PLAYBACK_STOPPED        : xembedded + '3',
+            PLAYBACK_STOPPED   : xembedded + '3',
 
             /** Playback of a video is buffering. */
-            PLAYBACK_BUFFERING        : xembedded + '4',
+            PLAYBACK_BUFFERING : xembedded + '4',
 
             /** Playback of a video is paused. */
-            PLAYBACK_PAUSED            : xembedded + '5',
+            PLAYBACK_PAUSED    : xembedded + '5',
 
             /** Playback of a video has errored out. */
-            PLAYBACK_ERROR            : xembedded + '6'
+            PLAYBACK_ERROR     : xembedded + '6'
         },
 
         PLAYERS : {
 
             /** A TubePress player is being invoked. */
-            PLAYER_INVOKE            : xplayers + '1',
+            PLAYER_INVOKE   : xplayers + '1',
 
             /** A TubePress player is being populated. */
-            PLAYER_POPULATE            : xplayers + '2'
+            PLAYER_POPULATE : xplayers + '2'
         },
 
         THUMBGALLERY : {
 
-            /** A new set of thumbnails has entered the DOM. */
-            NEW_THUMBS_LOADED        : xthumbgallery + '1',
+            /**
+             * An entirely new gallery has entered the DOM.
+             *
+             * @arg string galleryId The identifier of this gallery.
+             * @arg object params    The parameters of this gallery.
+             */
+            NEW_GALLERY_LOADED : xthumbgallery + '1',
 
-            /** An entirely new gallery has entered the DOM. */
-            NEW_GALLERY_LOADED        : xthumbgallery + '2'
+            /** A new set of thumbnails has entered the DOM. */
+            NEW_THUMBS_LOADED  : xthumbgallery + '2'
         }
     };
 }()),
@@ -227,6 +236,43 @@ TubePressJson = (function () {
     return {
 
         parse : parse
+    };
+}()),
+
+TubePressDomInjector = (function () {
+
+    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+    'use strict';
+
+    /*
+     * Dynamically load CSS into the DOM.
+     */
+    var loadCss = function (path) {
+
+        var    fileref = document.createElement('link');
+
+        fileref.setAttribute('rel', 'stylesheet');
+        fileref.setAttribute('type', 'text/css');
+        fileref.setAttribute('href', path);
+
+        document.getElementsByTagName('head')[0].appendChild(fileref);
+    },
+
+        loadScript = function (path, success) {
+
+            jQuery.ajax({
+
+                url      : path,
+                dataType : 'script',
+                success  : success,
+                cache    : true
+            });
+        };
+
+    return {
+
+        loadCss    : loadCss,
+        loadScript : loadScript
     };
 }()),
 
@@ -368,42 +414,14 @@ TubePressAjax = (function () {
     };
 }()),
 
-/**
- * Handles dynamic loading of CSS. This should only really be used for TubePress players
- * and NOT TubePress themes.
- */
-TubePressCss = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    /*
-     * Dynamically load CSS into the DOM.
-     */
-    var load = function (path) {
-
-        var    fileref = document.createElement('link');
-
-        fileref.setAttribute('rel', 'stylesheet');
-        fileref.setAttribute('type', 'text/css');
-        fileref.setAttribute('href', path);
-        document.getElementsByTagName('head')[0].appendChild(fileref);
-    };
-
-    return {
-
-        load    : load
-    };
-}()),
-
 TubePressGallery = (function () {
 
     /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
     'use strict';
 
     var galleryRegistry = {},
-        nvpMap            = 'nvpMap',
-        jsMap            = 'jsMap',
+        nvpMap          = 'nvpMap',
+        jsMap           = 'jsMap',
 
         /**
          * Have we heard about this gallery?
@@ -416,7 +434,7 @@ TubePressGallery = (function () {
         /**
          * Gets a property for the given gallery.
          */
-        internalGet = function (galleryId, property, jsOrNvp) {
+        internalGet = function (galleryId, jsOrNvp, property) {
 
             return isRegistered(galleryId) ?
 
@@ -512,7 +530,7 @@ TubePressGallery = (function () {
         /**
          * Performs gallery initialization on jQuery(document).ready().
          */
-        onNewGallery = function (galleryId, params) {
+        onNewGallery = function (event, galleryId, params) {
 
             /** Save the params. */
             galleryRegistry[galleryId] = params;
@@ -570,7 +588,7 @@ TubePressPlayers = (function () {
              * Load this player's JS, if needed.
              */
             //noinspection JSUnresolvedFunction
-            TubePress$cript(path, playerName);
+            TubePressDomInjector.loadScript(path, playerName);
         },
 
         /**
@@ -1018,9 +1036,7 @@ TubePressThumbs = (function () {
     return {
 
         getCurrentPageNumber     : getCurrentPageNumber,
-        getGalleryIdFromRelSplit : getGalleryIdFromRelSplit,
-        getThumbAreaSelector     : getThumbAreaSelector,
-        getVideoIdFromIdAttr     : getVideoIdFromIdAttr
+        getThumbAreaSelector     : getThumbAreaSelector
     };
 }()),
 
@@ -1169,6 +1185,7 @@ TubePressPlayerApiUtils = (function () {
             if (test() === true) {
 
                 callback();
+
                 return;
             }
 
@@ -1202,13 +1219,12 @@ TubePressYouTubePlayerApi = (function () {
     var
 
         /** These variable declarations aide in compression. */
-        jquery           = jQuery,
-        logger           = TubePressLogger,
-        bundleName       = 'youtube_player_api',
-        scriptLoader     = TubePress$cript,
-        youTubePrefix    = 'tubepress-youtube-player-',
-        undefText        = 'undefined',
-        apiUtils         = TubePressPlayerApiUtils,
+        jquery        = jQuery,
+        logger        = TubePressLogger,
+        scriptLoader  = TubePressDomInjector,
+        youTubePrefix = 'tubepress-youtube-player-',
+        undefText     = 'undefined',
+        apiUtils      = TubePressPlayerApiUtils,
 
         isLoadingApi     = false,
         youTubePlayers   = {},
@@ -1280,7 +1296,7 @@ TubePressYouTubePlayerApi = (function () {
             var scheme = TubePressGlobalJsConfig.https ? 'https' : 'http';
 
             //noinspection JSUnresolvedVariable
-            scriptLoader(scheme + '://www.youtube.com/player_api', bundleName);
+            scriptLoader.loadScript(scheme + '://www.youtube.com/player_api');
         },
 
         /**
@@ -1399,6 +1415,9 @@ TubePressYouTubePlayerApi = (function () {
 
     TubePressBeacon.subscribe(TubePressEvents.EMBEDDED.EMBEDDED_LOAD, onNewVideoRegistered);
 
+    /**
+     * It's necessary to make these functions public, as the YouTube API will need to call them
+     */
     return {
 
         onYouTubeStateChange : onYouTubeStateChange,
@@ -1414,9 +1433,10 @@ TubePressVimeoPlayerApi = (function () {
     var
 
         /** These variable declarations aide in compression. */
-        jquery      = jQuery,
         vimeoPrefix = 'tubepress-vimeo-player-',
         apiUtils    = TubePressPlayerApiUtils,
+        httpsScheme = 'https',
+        httpScheme  = 'http',
 
         /** Vimeo variables. */
         loadingVimeoApi = false,
@@ -1458,7 +1478,8 @@ TubePressVimeoPlayerApi = (function () {
             if (! loadingVimeoApi && ! isVimeoApiAvailable()) {
 
                 loadingVimeoApi = true;
-                TubePress$cript(scheme + '://a.vimeocdn.com/js/froogaloop2.min.js', 'vimeoApi');
+
+                TubePressDomInjector.loadScript(scheme + '://a.vimeocdn.com/js/froogaloop2.min.js');
             }
         },
 
@@ -1651,23 +1672,32 @@ TubePressAjaxSearch = (function () {
 
 }());
 
+/**
+ * This is TubePress's asynchronous event bus. It allows others to call
+ *
+ * _beacon.push(eventName, args);
+ *
+ * before this file is loaded. It will translate these push() calls into
+ * TubePressBeacon.publish(eventName, args)
+ */
 //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
-(function() {
+(function () {
 
-    var queue = window._beacon, entity,
+    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+    'use strict';
 
-        queueCall = function (callArray) {
+    var queue = window._beacon,
+        entity,
 
-            var method = callArray[0],
-                args   = callArray.slice(1);
+        queueCall = function (eventName, args) {
 
-            TubePressBeacon[method].apply(this, args);
+            TubePressBeacon.publish(eventName, args);
         };
 
     if (typeof queue !== 'undefined') {
 
         // loop through our existing queue, calling methods in order
-        queue.reverse()
+        queue.reverse();
 
         while (queue.length) {
 
@@ -1683,4 +1713,4 @@ TubePressAjaxSearch = (function () {
 
         push : queueCall
     };
-})();
+}());

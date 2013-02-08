@@ -25,7 +25,7 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
 
         $html    = $event->getSubject();
         $videoId = $event->getArgument('videoId');
-        $final   = "$html<script type=\"text/javascript\">var _beacon = _beacon || []; _beacon.push(['publish', 'tubepress.embedded.1', '$videoId']);</script>";
+        $final   = "$html<script type=\"text/javascript\">var _beacon = _beacon || []; _beacon.push('tubepress.embedded.1', ['$videoId']);</script>";
 
         $event->setSubject($final);
     }
