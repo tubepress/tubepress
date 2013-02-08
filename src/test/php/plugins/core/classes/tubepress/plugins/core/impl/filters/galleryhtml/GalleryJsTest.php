@@ -63,10 +63,7 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 	function expectedAjax()
 	{
 	    return <<<EOT
-hello
-<script type="text/javascript">
-	TubePressGallery.init(gallery-id, json);
-</script>
+hello<script type="text/javascript">var _beacon = _beacon || []; _beacon.push('tubepress.thumbgallery.1', [ 'gallery-id', json ]);</script>
 EOT;
 	}
 }

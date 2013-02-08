@@ -44,6 +44,6 @@ class tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApitTest extend
 
         $this->_sut->onEmbeddedHtml($event);
 
-	    $this->assertEquals('hello<script type="text/javascript">TubePressPlayerApi.register(\'abc\');</script>', $event->getSubject());
+	    $this->assertEquals('hello<script type="text/javascript">var _beacon = _beacon || []; _beacon.push(\'tubepress.embedded.1\', [\'abc\']);</script>', $event->getSubject());
 	}
 }
