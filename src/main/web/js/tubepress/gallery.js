@@ -252,10 +252,6 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 text_embedded  = 'embedded',
                 subscribe      = beacon.subscribe,
 
-                text_tubePressGallery = text_tubePress + 'Gallery',
-                queue                 = win[text_tubePressGallery],
-                entity                = [],
-
                 /**
                  * Have we heard about this gallery?
                  */
@@ -545,46 +541,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
                         internalRegistry[galleryId][currentVideoId] = videoId;
                     }
-                },
-
-                initGallery = function (galleryId, params) {
-
-                    publish(galleryEvents.NEW_GALLERY_LOADED, [ galleryId, params ]);
-                },
-
-                onReady = function () {
-
-                    //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
-                    var queueCall = function (callArray) {
-
-                        var method = callArray[0],
-                            args   = callArray.slice(1);
-
-                        galleryRegistry[method].apply(this, args);
-                    };
-
-                    if (langUtils.isDefined(queue)) {
-
-                        // loop through our existing queue, calling methods in order
-                        queue.reverse();
-
-                        while (queue.length) {
-
-                            entity = queue.pop();
-
-                            queueCall(entity);
-                        }
-                    }
-
-                    // over write the sampleQueue, replacing the push method with 'queueCall'
-                    // this creates a globally accessible interface to your API through sampleQueue.push()
-                    win[text_tubePressGallery] = {
-
-                        push : queueCall
-                    };
                 };
-
-            subscribe('tubepress.galleryjs.ready', onReady);
 
             subscribe(galleryEvents.NEW_GALLERY_LOADED, onNewGallery);
 
@@ -598,7 +555,6 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
             return {
 
-                initGallery                        : initGallery,
                 isAjaxPagination                   : isAjaxPagination,
                 isAutoNext                         : isAutoNext,
                 isCurrentlyPlayingVideo            : isCurrentlyPlayingVideo,
@@ -616,6 +572,19 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 getPlayerJsUrl                     : getPlayerJsUrl,
                 getSequence                        : getSequence,
                 getThumbAreaSelector               : getThumbAreaSelector
+            };
+        }()),
+
+        asyncGalleryRegistrar = (function () {
+
+            var init = function (galleryId, params) {
+
+                publish(galleryEvents.NEW_GALLERY_LOADED, [ galleryId, params ]);
+            };
+
+            return {
+
+                init : init
             };
         }());
 
@@ -830,9 +799,10 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
     return {
 
-        LoadStyler : loadStyler
+        AysncRegistrar : asyncGalleryRegistrar,
+        LoadStyler     : loadStyler
     };
 
 }(jQuery, window, TubePress));
 
-TubePress.Beacon.publish('tubepress.galleryjs.ready', []);
+TubePress.AsyncUtil.processQueueCalls('tubePressGallery', TubePressGallery.AysncRegistrar);

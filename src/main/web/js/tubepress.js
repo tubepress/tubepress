@@ -22,11 +22,9 @@ var TubePress = (function (jquery, win) {
      * Let's start with some variable declarations to help us with compression.
      */
     var text_tubepress = 'tubepress',
-        text_tubePress = 'tubePress',
         windowLocation = win.location,
         dokument       = win.document,
         troo           = true,
-        readyEventName = text_tubepress + '.ready',
         coreJsPrefix   = 'src/main/web/js',
 
         /**
@@ -249,7 +247,7 @@ var TubePress = (function (jquery, win) {
          */
         beacon = (function () {
 
-            var bus                  = jquery({}),
+            var bus = jquery({}),
 
                 subscribe = function () {
 
@@ -287,10 +285,7 @@ var TubePress = (function (jquery, win) {
          */
         domInjector = (function () {
 
-            var text_tubePressDomInjector = text_tubePress + 'DomInjector',
-                queue                     = win[text_tubePressDomInjector],
-                filesAlreadyLoaded        = [],
-                entity,
+            var filesAlreadyLoaded = [],
 
                 alreadyLoaded = function (path) {
 
@@ -334,9 +329,9 @@ var TubePress = (function (jquery, win) {
 
                     var fileref   = dokument.createElement('link');
 
-                    fileref.setAttribute('rel', 'stylesheet');
-                    fileref.setAttribute('type', 'text/css');
-                    fileref.setAttribute('href', path);
+                    fileref.rel  = 'stylesheet';
+                    fileref.type = 'text/css';
+                    fileref.ref  = path;
 
                     doLog(path, 'CSS');
 
@@ -373,41 +368,7 @@ var TubePress = (function (jquery, win) {
                 loadedEmbeddedApiJs = function () {
 
                     loadJs(coreJsPrefix + '/' + text_tubepress + '/embedded.js');
-                },
-
-                onReady = function () {
-
-                    //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
-                    var queueCall = function (callArray) {
-
-                        var method = callArray[0],
-                            args   = callArray.slice(1);
-
-                        domInjector[method].apply(this, args);
-                    };
-
-                    if (langUtils.isDefined(queue)) {
-
-                        // loop through our existing queue, calling methods in order
-                        queue.reverse();
-
-                        while (queue.length) {
-
-                            entity = queue.pop();
-
-                            queueCall(entity);
-                        }
-                    }
-
-                    // over write the sampleQueue, replacing the push method with 'queueCall'
-                    // this creates a globally accessible interface to your API through sampleQueue.push()
-                    win[text_tubePressDomInjector] = {
-
-                        push : queueCall
-                    };
                 };
-
-            beacon.subscribe(readyEventName, onReady);
 
             return {
 
@@ -416,8 +377,54 @@ var TubePress = (function (jquery, win) {
                 loadGalleryJs     : loadGalleryJs,
                 loadEmbeddedApiJs : loadedEmbeddedApiJs
             };
+        }()),
+
+        /**
+         * Core of our asychronous APIs.
+         */
+        asyncConverter = (function () {
+
+            //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
+            var convertQueueToFunctionCalls = function (asyncObjectName, delegate) {
+
+                var queue = win[asyncObjectName],
+
+                    queueCall = function (callArray) {
+
+                        var method = callArray[0],
+                            args   = callArray.slice(1);
+
+                        delegate[method].apply(this, args);
+                    };
+
+                if (langUtils.isDefined(queue)) {
+
+                    // loop through our existing queue, calling methods in order
+                    queue.reverse();
+
+                    while (queue.length) {
+
+                        queueCall(queue.pop());
+                    }
+                }
+
+                // over write the sampleQueue, replacing the push method with 'queueCall'
+                // this creates a globally accessible interface to your API through sampleQueue.push()
+                win[asyncObjectName] = {
+
+                    push : queueCall
+                };
+            };
+
+            return {
+
+                processQueueCalls : convertQueueToFunctionCalls
+            };
         }());
 
+    /**
+     * Stuff we expose to everyone else.
+     */
     return {
 
         LangUtils   : langUtils,
@@ -425,13 +432,10 @@ var TubePress = (function (jquery, win) {
         Events      : events,
         Beacon      : beacon,
         DomInjector : domInjector,
-        Environment : environment
+        Environment : environment,
+        AsyncUtil   : asyncConverter
     };
 
 }(jQuery, window));
 
-//noinspection JSUnresolvedVariable
-/**
- * Announce that we're ready.
- */
-TubePress.Beacon.publish('tubepress.ready', []);
+TubePress.AsyncUtil.processQueueCalls('tubePressDomInjector', TubePress.DomInjector);

@@ -37,7 +37,7 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs
 <script type="text/javascript">
    var tubePressDomInjector = tubePressDomInjector || [], tubePressGallery = tubePressGallery || [];
        tubePressDomInjector.push(['loadGalleryJs']);
-       tubePressGallery.push(['initGallery', '$galleryId', $asJson ]);
+       tubePressGallery.push(['init', '$galleryId', $asJson ]);
 </script>
 EOT;
 

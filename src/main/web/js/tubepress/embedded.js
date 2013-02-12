@@ -429,50 +429,12 @@ var TubePressEmbedded = (function (jquery, win, tubepress) {
             };
         }()),
 
-        tubePressEmbeddedApi = (function () {
+        asyncPlayerRegistrar = (function () {
 
-            var text_tubePressEmbeddedApi = 'tubePressEmbeddedApi',
-                queue                     = win[text_tubePressEmbeddedApi],
-                entity                    = [],
-
-                register = function (videoId) {
+            var register = function (videoId) {
 
                     publish(events.EMBEDDED.EMBEDDED_LOAD, [ videoId ]);
-                },
-
-                onReady = function () {
-
-                    //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
-                    var queueCall = function (callArray) {
-
-                        var method = callArray[0],
-                            args   = callArray.slice(1);
-
-                        tubePressEmbeddedApi[method].apply(this, args);
-                    };
-
-                    if (langUtils.isDefined(queue)) {
-
-                        // loop through our existing queue, calling methods in order
-                        queue.reverse();
-
-                        while (queue.length) {
-
-                            entity = queue.pop();
-
-                            queueCall(entity);
-                        }
-                    }
-
-                    // over write the sampleQueue, replacing the push method with 'queueCall'
-                    // this creates a globally accessible interface to your API through sampleQueue.push()
-                    win[text_tubePressEmbeddedApi] = {
-
-                        push : queueCall
-                    };
                 };
-
-            subscribe('tubepress.embeddedapi.ready', onReady);
 
             return {
 
@@ -480,6 +442,12 @@ var TubePressEmbedded = (function (jquery, win, tubepress) {
             };
         }());
 
+    return {
+
+        AsyncRegistrar : asyncPlayerRegistrar
+    };
+
 }(jQuery, window, TubePress));
 
-TubePress.Beacon.publish('tubepress.embeddedapi.ready', []);
+TubePress.AsyncUtil.processQueueCalls('tubePressEmbeddedApi', TubePressEmbedded.AsyncRegistrar);
+
