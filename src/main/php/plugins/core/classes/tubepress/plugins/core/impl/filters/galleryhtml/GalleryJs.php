@@ -34,7 +34,11 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs
         $html   = $event->getSubject();
 
         $toReturn = $html . <<<EOT
-<script type="text/javascript">var _beacon = _beacon || []; _beacon.push('tubepress.thumbgallery.newgallery', [ '$galleryId', $asJson ]);</script>
+<script type="text/javascript">
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressGallery = tubePressGallery || [];
+       tubePressDomInjector.push(['loadGalleryJs']);
+       tubePressGallery.push(['initGallery', '$galleryId', $asJson ]);
+</script>
 EOT;
 
         $event->setSubject($toReturn);

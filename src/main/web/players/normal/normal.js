@@ -10,9 +10,9 @@
 
 /*global jQuery, TubePressAjax, TubePressEvents */
 /*jslint sloppy: true, white: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
-var TubePressNormalPlayer = (function () {
+(function (jquery, tubePress, tubePressGallery) {
 
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+    /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
 	var prefix  = 'tubepress_',
@@ -24,28 +24,19 @@ var TubePressNormalPlayer = (function () {
 		},
 	
 		/* this stuff helps compression */
-		jquery       = jQuery,
-        events       = TubePressEvents,
+        events       = tubePress.Events,
 		playerEvents = events.PLAYERS,
-        domEvents    = events.DOM,
-        beacon       = TubePressBeacon,
+        beacon       = tubePress.Beacon,
         subscribe    = beacon.subscribe,
 		name         = 'normal',
-        addLoadEvent = domEvents.FADE_REQUESTED,
-        remLoadEvent = domEvents.UNFADE_REQUESTED,
+        styler       = tubePressGallery.LoadStyler,
+        addStyle     = styler.applyLoadingStyle,
+        remStyle     = styler.removeLoadingStyle,
 	
 		getEmbedId = function (gId) {
 
 			return '#' + prefix + embedded + 'object_' + gId;
 		},
-
-        fireEventIfExists = function (target, eventName) {
-
-            if (jquery(target).length > 0) {
-
-                beacon.publish(eventName, [ target ]);
-            }
-        },
 
 		invoke = function (e, playerName, videoId, galleryId, width, height) {
 
@@ -57,8 +48,8 @@ var TubePressNormalPlayer = (function () {
 			var titleDivId = getTitleId(galleryId),
                 titleDiv   = jquery(titleDivId);
 
-            fireEventIfExists(titleDivId, addLoadEvent);
-            fireEventIfExists(getEmbedId(galleryId), addLoadEvent);
+            addStyle(titleDivId);
+            addStyle(getEmbedId(galleryId));
 
             if (titleDiv.length > 0) {
 
@@ -75,11 +66,11 @@ var TubePressNormalPlayer = (function () {
 
 			jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_' + embedded + 'wrapper:first').replaceWith(html);
 
-            fireEventIfExists(getTitleId(galleryId), remLoadEvent);
-            fireEventIfExists(getEmbedId(galleryId), remLoadEvent);
+            remStyle(getTitleId(galleryId));
+            remStyle(getEmbedId(galleryId));
 		};
 
 	subscribe(playerEvents.PLAYER_INVOKE, invoke);
     subscribe(playerEvents.PLAYER_POPULATE, populate);
 
-}());
+}(jQuery, TubePress, TubePressGallery));

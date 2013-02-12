@@ -14,1864 +14,419 @@
 /*global jQuery, TubePressGlobalJsConfig, YT, Froogaloop, console */
 /*jslint devel: true, browser: true, sloppy: false, white: true, maxerr: 50, indent: 4 */
 
-/**
- * Logger!
- */
-var TubePressLogger = (function () {
+var TubePress = (function (jquery, win) {
 
+    /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
     /**
-     * Is the log on?
+     * Let's start with some variable declarations to help us with compression.
      */
-    var isLoggingRequested        = location.search.indexOf('tubepress_debug=true') !== -1,
-        windowConsole            = window.console,
-        isLoggingAvailable        = windowConsole !== undefined,
+    var text_tubepress = 'tubepress',
+        text_tubePress = 'tubePress',
+        windowLocation = win.location,
+        dokument       = win.document,
+        troo           = true,
+        readyEventName = text_tubepress + '.ready',
+        coreJsPrefix   = 'src/main/web/js',
 
         /**
-         * The log is on if it's been enabled and requested.
+         * Random language utilities.
          */
-        isLoggingOn = function () {
+        langUtils = (function () {
 
-            return isLoggingRequested && isLoggingAvailable;
-        },
+            var isDefined = function (obj) {
 
-        /**
-         * Output a message.
-         */
-        log = function (msg) {
+                return typeof obj !== 'undefined';
+            },
 
-            windowConsole.log(msg);
-        },
+                getParameterByName = function (name) {
 
-        dir = function (obj) {
+                    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 
-            windowConsole.dir(obj);
-        };
+                    var regexS  = "[\\?&]" + name + "=([^&#]*)",
+                        regex   = new RegExp(regexS),
+                        results = regex.exec(windowLocation.search);
 
-    return {
+                    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+                },
 
-        on    : isLoggingOn,
-        log    : log,
-        dir    : dir
-    };
-}()),
+                parseIntOrZero = function (candidate) {
 
-/**
- * Lightweight event bus for TubePress.
- *
- * https://gist.github.com/cowboy/661855
- *
- * jQuery Tiny Pub/Sub - v0.3 - 11/4/2010
- * http://benalman.com/
- *
- * Copyright (c) 2010 "Cowboy" Ben Alman
- * Dual licensed under the MIT and GPL licenses.
- * http://benalman.com/about/license/
- */
-TubePressBeacon = (function () {
+                    var firstPass = parseInt(candidate, 10);
 
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
+                    return isNaN(firstPass) ? 0 : firstPass;
+                },
 
-    var bus    = jQuery({}),
-        logger = TubePressLogger,
+                /**
+                 * Utility to wait for test() to be true, then call callback()
+                 */
+                callWhenTrue = function (callback, test, delay) {
 
-        subscribe = function () {
+                    /** It's ready... */
+                    if (test() === troo) {
 
-            bus.bind.apply(bus, arguments);
-        },
-
-        unsubscribe = function () {
-
-            bus.unbind.apply(bus, arguments);
-        },
-
-        publish = function () {
-
-            if (logger.on()) {
-
-                var args = arguments;
-
-                logger.log('Firing "' + args[0]);
-                logger.dir(args[1]);
-            }
-
-            bus.trigger.apply(bus, arguments);
-        };
-
-    return {
-
-        subscribe   : subscribe,
-        unsubscribe : unsubscribe,
-        publish     : publish
-    };
-}()),
-
-/**
- * Events that TubePress fires.
- */
-TubePressEvents = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    /*
-     * These variable declarations aide in compression.
-     */
-    var xdot          = '.',
-        xtubepress    = 'tubepress',
-        xsequencing   = xtubepress + xdot + 'sequencing'   + xdot,
-        xembedded     = xtubepress + xdot + 'embedded'     + xdot,
-        xplayers      = xtubepress + xdot + 'players'      + xdot,
-        xthumbgallery = xtubepress + xdot + 'thumbgallery' + xdot,
-        xdom          = xtubepress + xdot + 'dom'          + xdot,
-        xajax         = xtubepress + xdot + 'ajax'         + xdot,
-
-        xrequest   = 'request',
-        xbefore    = 'before',
-        xafter     = 'after',
-        xget       = 'get',
-        xload      = 'load',
-        xelement   = 'element';
-
-    return {
-
-        DOM : {
-
-            /**
-             * tubepress.dom.requestjs
-             *
-             * A JavaScript file has been requested.
-             *
-             * @arg String   URL     The URL of the JavaScript file.
-             * @arg Function success Optional. The callback to invoke when the script is successfully loaded.
-             */
-            JS_REQUESTED  : xdom + xrequest + 'js',
-
-            /**
-             * tubepress.dom.requestcss
-             *
-             * A CSS file has been requested.
-             *
-             * @arg String URL The URL of the CSS file.
-             */
-            CSS_REQUESTED : xdom + xrequest + 'css',
-
-            FADE_REQUESTED : xdom + xrequest + 'fade' + xelement,
-
-            UNFADE_REQUESTED : xdom + xrequest + 'unfade' + xelement
-        },
-
-        AJAX : {
-
-            /**
-             * tubepress.ajax.requestget
-             *
-             * @arg String              method   The type of request to make ("POST" or "GET")
-             * @arg String              url      A string containing the URL to which the request is sent.
-             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
-             * @arg Function            complete A function to be called when the request finishes.
-             * @arg String              dataType The type of data expected from the server.
-             *
-             * Someone has requested to fetch something.
-             */
-            GET_REQUESTED : xajax + xrequest + xget,
-
-            /**
-             * tubepress.ajax.requestload
-             *
-             * @arg String              method   The type of request to make ("POST" or "GET")
-             * @arg String              url      A string containing the URL to which the request is sent.
-             * @arg String              target   The selector of where to load the returned data.
-             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
-             * @arg Function            complete A function to be called when the request finishes.
-             *
-             * Someone has requested to load something.
-             */
-            LOAD_REQUESTED : xajax + xrequest + xload,
-
-            /**
-             * tubepress.ajax.beforeget
-             *
-             * @arg String              method   The type of request to make ("POST" or "GET")
-             * @arg String              url      A string containing the URL to which the request is sent.
-             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
-             * @arg Function            complete A function to be called when the request finishes.
-             * @arg String              dataType The type of data expected from the server.
-             *
-             * We're about to fetch something.
-             */
-            BEFORE_GET  : xajax + xbefore + xget,
-
-            /**
-             * tubepress.ajax.afterget
-             *
-             * @arg String                  method        The type of request made ("POST" or "GET")
-             * @arg String                  url           A string containing the URL to which the request is sent.
-             * @arg PlainObject, String     data          A plain object or string that was sent to the server with the request.
-             * @arg Function                complete      A function to be called when the request finishes.
-             * @arg String                  dataType      The type of data expected from the server.
-             * @arg String                  returnedData  The data returned from the server
-             * @arg String                  textStatus    The request status
-             * @arg XMLHttpRequest or jqXHR xhr           The XMLHttpRequest or jqXHR object.
-             *
-             * We finished fetching something.
-             *
-             */
-            AFTER_GET   : xajax + xafter  + xget,
-
-            /**
-             * tubepress.ajax.beforeload
-             *
-             * @arg String              method   The type of request to make ("POST" or "GET")
-             * @arg String              url      A string containing the URL to which the request is sent.
-             * @arg String              target   The selector of where to load the returned data.
-             * @arg PlainObject, String data     A plain object or string that is sent to the server with the request.
-             * @arg Function            complete A function to be called when the request finishes.
-             *
-             * We're about to load something.
-             *
-             */
-            BEFORE_LOAD : xajax + xbefore + xload,
-
-            /**
-             * tubepress.ajax.afterload
-             *
-             * @arg String                  method       The type of request to make ("POST" or "GET")
-             * @arg String                  url          A string containing the URL to which the request is sent.
-             * @arg String                  target       The selector of where to load the returned data.
-             * @arg PlainObject, String     data         A plain object or string that is sent to the server with the request.
-             * @arg Function                complete     A function to be called when the request finishes.
-             * @arg String                  returnedData The data returned from the server
-             * @arg String                  textStatus   The request status
-             * @arg XMLHttpRequest or jqXHR xhr          The XMLHttpRequest or jqXHR object.
-             *
-             * We're about to load something.
-             *
-             */
-            AFTER_LOAD  : xajax + xafter  + xload
-        },
-
-        SEQUENCING : {
-
-            /** A gallery's primary video has changed. */
-            GALLERY_VIDEO_HAS_CHANGED : xsequencing + '1'
-        },
-
-        EMBEDDED : {
-
-            /** An embedded video has been loaded. */
-            EMBEDDED_LOAD      : xembedded + 'load',
-
-            /** Playback of a video started. */
-            PLAYBACK_STARTED   : xembedded + 'start',
-
-            /** Playback of a video stopped. */
-            PLAYBACK_STOPPED   : xembedded + 'stop',
-
-            /** Playback of a video is buffering. */
-            PLAYBACK_BUFFERING : xembedded + 'buffer',
-
-            /** Playback of a video is paused. */
-            PLAYBACK_PAUSED    : xembedded + 'pause',
-
-            /** Playback of a video has errored out. */
-            PLAYBACK_ERROR     : xembedded + 'error'
-        },
-
-        PLAYERS : {
-
-            /**
-             * tubepress.players.invoke
-             *
-             * A TubePress player is being invoked.
-             *
-             * @arg string videoId   The video about to be played
-             * @arg string galleryId The gallery containing this video
-             * @arg string width     The video width (px)
-             * @arg string height    The video height (px)
-             */
-            PLAYER_INVOKE   : xplayers + 'invoke',
-
-            /** A TubePress player is being populated. */
-            PLAYER_POPULATE : xplayers + 'populate'
-        },
-
-        THUMBGALLERY : {
-
-            /**
-             * An entirely new gallery has entered the DOM.
-             *
-             * @arg string galleryId The identifier of this gallery.
-             * @arg object params    The parameters of this gallery.
-             */
-            NEW_GALLERY_LOADED : xthumbgallery + 'newgallery',
-
-            /** A new set of thumbnails has entered the DOM. */
-            NEW_THUMBS_LOADED  : xthumbgallery + 'newthumbs'
-        }
-    };
-}()),
-
-/**
- * Exposes a parse() function that wraps jQuery.parseJSON(), but adapts to
- * jQuery < 1.6.
- */
-TubePressJson = (function () {
-
-    'use strict';
-
-    var jquery            = jQuery,
-        version            = jquery.fn.jquery,
-        modernJquery    = /1\.6|7|8|9\.[0-9]+/.test(version) !== false,
-        parser,
-        parse = function (msg) {
-
-            return parser(msg);
-        };
-
-    if (modernJquery) {
-
-        parser = function (msg) {
-
-            return jquery.parseJSON(msg);
-        };
-
-    } else {
-
-        parser = function (data) {
-
-            if (typeof data !== 'string' || !data) {
-
-                return null;
-            }
-
-            data = jquery.trim(data);
-
-            if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
-                .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
-                .replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
-
-                //noinspection JSHint,JSHint
-                return window.JSON && window.JSON.parse ?
-
-                    window.JSON.parse(data) :
-
-                    (new Function("return " + data))();
-
-            } else {
-
-                throw 'Invalid JSON: ' + data;
-            }
-        };
-    }
-
-    return {
-
-        parse : parse
-    };
-}()),
-
-TubePressDomInjector = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var domEvents          = TubePressEvents.DOM,
-        subscribe          = TubePressBeacon.subscribe,
-        filesAlreadyLoaded = [],
-        logger             = TubePressLogger,
-
-        alreadyLoaded = function (path) {
-
-            return filesAlreadyLoaded[path] === true;
-        },
-
-        doLog = function (path, type) {
-
-            if (logger.on()) {
-
-                logger.log('Injecting ' + type + ': ' + path);
-            }
-        },
-
-        loadCss = function (event, path) {
-
-            if (alreadyLoaded(path)) {
-
-                return;
-            }
-
-            var fileref   = document.createElement('link');
-
-            fileref.setAttribute('rel', 'stylesheet');
-            fileref.setAttribute('type', 'text/css');
-            fileref.setAttribute('href', path);
-
-            doLog(path, 'CSS');
-
-            document.getElementsByTagName('head')[0].appendChild(fileref);
-        },
-
-        loadScript = function (event, path, success) {
-
-            if (alreadyLoaded(path)) {
-
-                return;
-            }
-
-            doLog(path, 'JS');
-
-            jQuery.ajax({
-
-                url      : path,
-                dataType : 'script',
-                success  : success,
-                cache    : true
-            });
-        };
-
-    subscribe(domEvents.JS_REQUESTED, loadScript);
-    subscribe(domEvents.CSS_REQUESTED, loadCss);
-}()),
-
-/**
- * Handles styling DOM elements before and after loads.
- */
-TubePressLoadStyler = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var jquery     = jQuery,
-        subscribe  = TubePressBeacon.subscribe,
-        events     = TubePressEvents,
-        ajaxEvents = events.AJAX,
-        domEvents  = events.DOM,
-
-        applyLoadStyle = function (event, target) {
-
-            jquery(target).fadeTo(0, 0.3);
-        },
-
-        removeLoadStyle = function (event, target) {
-
-            jquery(target).fadeTo(0, 1);
-        },
-
-        /**
-         * Fade to "white".
-         */
-        onBeforeLoad = function (event, method, url, target, dataToSend, complete) {
-
-            applyLoadStyle(event, target);
-        },
-
-        /**
-         * Fade back to full opacity.
-         */
-        onAfterLoad = function (event, method, url, target, dataToSend, complete, dataReturned, textStatus, xhr) {
-
-            removeLoadStyle(event, target);
-        };
-
-    subscribe(ajaxEvents.BEFORE_LOAD, onBeforeLoad);
-    subscribe(ajaxEvents.AFTER_LOAD, onAfterLoad);
-    subscribe(domEvents.FADE_REQUESTED, applyLoadStyle);
-    subscribe(domEvents.UNFADE_REQUESTED, removeLoadStyle);
-}()),
-
-/**
- * Various Ajax utilities.
- */
-TubePressAjax = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-        /** These variable declarations aide in compression. */
-        jquery     = jQuery,
-        isFunction = jquery.isFunction,
-        ajaxEvents = TubePressEvents.AJAX,
-        beacon     = TubePressBeacon,
-        publish    = beacon.publish,
-        subscribe  = beacon.subscribe,
-
-        /**
-         * Similar to jQuery's "load" but tolerates non-200 status codes.
-         * https://github.com/jquery/jquery/blob/master/src/ajax.js#L168.
-         */
-        onLoadRequested = function (event, method, url, targetDiv, dataToSend, complete) {
-
-            var completeCallback, selector,
-
-                off = url.indexOf(' ');
-
-            if (off >= 0) {
-
-                selector = url.slice(off, url.length);
-                url      = url.slice(0, off);
-            }
-
-            completeCallback = function (responseText, textStatus, xhr) {
-
-                var html = selector ? jquery('<div>').append(responseText).find(selector) : responseText;
-
-                jquery(targetDiv).html(html);
-
-                publish(ajaxEvents.AFTER_LOAD, [ method, url, targetDiv, dataToSend, complete, responseText, textStatus, xhr ]);
-
-                /* did the user supply a post-load function? */
-                if (isFunction(complete)) {
-
-                    complete(responseText, textStatus, xhr);
-                }
-            };
-
-            publish(ajaxEvents.BEFORE_LOAD, [ method, url, targetDiv, dataToSend, complete ]);
-
-            return jquery.ajax({
-
-                url      : url,
-                type     : method,
-                dataType : 'html',
-                complete : completeCallback,
-                data     : dataToSend
-            });
-        },
-
-        /**
-         * Similar to jQuery's "get" but ignores response code.
-         */
-        onGetRequested = function (event, method, url, data, complete, dataType) {
-
-            publish(ajaxEvents.BEFORE_GET, [ method, url, data, complete, dataType ]);
-
-            var completeCallback = function (returnedData, textStatus, xhr) {
-
-                publish(ajaxEvents.AFTER_GET, [ method, url, data, complete, dataType, returnedData, textStatus, xhr ]);
-
-                if (isFunction(complete)) {
-
-                    complete(returnedData, textStatus, xhr);
-                }
-            };
-
-            return jquery.ajax({
-
-                url      : url,
-                type     : method,
-                data     : data,
-                dataType : dataType,
-                complete : completeCallback
-            });
-        };
-
-    subscribe(ajaxEvents.GET_REQUESTED, onGetRequested);
-    subscribe(ajaxEvents.LOAD_REQUESTED, onLoadRequested);
-}()),
-
-TubePressGallery = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var galleryRegistry = {},
-        nvpMap          = 'nvpMap',
-        jsMap           = 'jsMap',
-
-        /**
-         * Have we heard about this gallery?
-         */
-        isRegistered = function (galleryId) {
-
-            return typeof galleryRegistry[galleryId] !== 'undefined';
-        },
-
-        /**
-         * Gets a property for the given gallery.
-         */
-        internalGet = function (galleryId, jsOrNvp, property) {
-
-            return isRegistered(galleryId) ?
-
-                    galleryRegistry[galleryId][jsOrNvp][property] : null;
-        },
-
-        /**
-         * Does the gallery use Ajax pagination?
-         */
-        isAjaxPagination = function (galleryId) {
-
-            return internalGet(galleryId, jsMap, 'ajaxPagination');
-        },
-
-        /**
-         * Does the gallery use auto-next?
-         */
-        isAutoNext = function (galleryId) {
-
-            return internalGet(galleryId, jsMap, 'autoNext');
-        },
-
-        /**
-         * Does the gallery use fluid thumbs?
-         */
-        isFluidThumbs = function (galleryId) {
-
-            return internalGet(galleryId, jsMap, 'fluidThumbs');
-        },
-
-        /**
-         * What's the embedded height for the video player of this gallery?
-         */
-        getEmbeddedHeight = function (galleryId) {
-
-            return internalGet(galleryId, nvpMap, 'embeddedHeight');
-        },
-
-        /**
-         * What's the embedded width for the video player of this gallery?
-         */
-        getEmbeddedWidth = function (galleryId) {
-
-            return internalGet(galleryId, nvpMap, 'embeddedWidth');
-        },
-
-        /**
-         * Which HTTP method (GET or POST) does this gallery want to use?
-         */
-        getHttpMethod = function (galleryId) {
-
-            return internalGet(galleryId, jsMap, 'httpMethod');
-        },
-
-        getNvpMap = function (galleryId) {
-
-            return galleryRegistry[galleryId][nvpMap];
-        },
-
-        /**
-         * What's the gallery's player location name?
-         */
-        getPlayerLocationName = function (galleryId) {
-
-            return internalGet(galleryId, nvpMap, 'playerLocation');
-        },
-
-        /**
-         * Where is the JS init code for this player?
-         */
-        getPlayerJsUrl = function (galleryId) {
-
-            return internalGet(galleryId, jsMap, 'playerJsUrl');
-        },
-
-        /**
-         * Does this player produce HTML?
-         */
-        getPlayerProducesHtml = function (galleryId) {
-
-            return internalGet(galleryId, jsMap, 'playerLocationProducesHtml');
-        },
-
-        /**
-         * What's the sequence of videos for this gallery?
-         */
-        getSequence = function (galleryId) {
-
-            return internalGet(galleryId, jsMap, 'sequence');
-        },
-
-
-        /**
-         * Performs gallery initialization on jQuery(document).ready().
-         */
-        onNewGallery = function (event, galleryId, params) {
-
-            /** Save the params. */
-            galleryRegistry[galleryId] = params;
-        };
-
-    /**
-     * We want to get notified of any gallery appearances.
-     */
-    TubePressBeacon.subscribe(TubePressEvents.THUMBGALLERY.NEW_GALLERY_LOADED, onNewGallery);
-
-    return {
-
-        isAjaxPagination              : isAjaxPagination,
-        isAutoNext                    : isAutoNext,
-        isFluidThumbs                 : isFluidThumbs,
-        getEmbeddedHeight             : getEmbeddedHeight,
-        getEmbeddedWidth              : getEmbeddedWidth,
-        getHttpMethod                 : getHttpMethod,
-        getNvpMap                     : getNvpMap,
-        getPlayerLocationName         : getPlayerLocationName,
-        getPlayerLocationProducesHtml : getPlayerProducesHtml,
-        getPlayerJsUrl                : getPlayerJsUrl,
-        getSequence                   : getSequence,
-        isRegistered                  : isRegistered
-    };
-}()),
-
-/**
- * Handles player-related functionality (popup, Shadowbox, etc)
- */
-TubePressPlayers = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-        /** These variable declarations help compression. */
-        jquery           = jQuery,
-        tubepressGallery = TubePressGallery,
-        tubepressEvents  = TubePressEvents,
-        tubepressBeacon  = TubePressBeacon,
-        playerEvents     = tubepressEvents.PLAYERS,
-        publish          = tubepressBeacon.publish,
-        subscribe        = tubepressBeacon.subscribe,
-
-        /**
-         * Find the player required for a gallery and load the JS.
-         */
-        onNewGalleryLoaded = function (e, galleryId) {
-
-            var path = tubepressGallery.getPlayerJsUrl(galleryId);
-
-            /*
-             * Load this player's JS, if needed.
-             */
-            tubepressBeacon.publish(tubepressEvents.DOM.JS_REQUESTED, [ path ]);
-        },
-
-        /**
-         * Load up a TubePress player with the given video ID.
-         */
-        onGalleryVideoHasChanged = function (e, galleryId, videoId) {
-
-            var playerName = tubepressGallery.getPlayerLocationName(galleryId),
-                height     = tubepressGallery.getEmbeddedHeight(galleryId),
-                width      = tubepressGallery.getEmbeddedWidth(galleryId),
-                nvpMap     = tubepressGallery.getNvpMap(galleryId),
-
-                callback = function (data, textStatus, xhr) {
-
-                    if (textStatus !== 'success') {
+                        callback();
 
                         return;
                     }
 
-                    var result = TubePressJson.parse(data.responseText),
-                        title  = result.title,
-                        html   = result.html;
+                    /** Set up a timeout callback. */
+                    var func = function () {
 
-                    publish(playerEvents.PLAYER_POPULATE, [ playerName, title, html, height, width, videoId, galleryId ]);
-                },
+                        callWhenTrue(callback, test, delay);
+                    };
 
-                dataToSend = {
-
-                    'action'          : 'playerHtml',
-                    'tubepress_video' : videoId
-                },
-
-                url = TubePressGlobalJsConfig.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php',
-                method;
-
-            /**
-             * Add the NVPs for TubePress to the data.
-             */
-            jquery.extend(dataToSend, nvpMap);
-
-            /** Announce we're gonna invoke the player... */
-            publish(playerEvents.PLAYER_INVOKE, [ playerName, videoId, galleryId, width, height ]);
-
-            /** If this player requires population, go fetch the HTML for it. */
-            if (tubepressGallery.getPlayerLocationProducesHtml(galleryId)) {
-
-                method = tubepressGallery.getHttpMethod(galleryId);
-
-                /* ... and fetch the HTML for it */
-                publish(tubepressEvents.AJAX.GET_REQUESTED, [ method, url, dataToSend, callback, 'json' ]);
-            }
-        };
-
-    /** When we see a new gallery... */
-    subscribe(tubepressEvents.THUMBGALLERY.NEW_GALLERY_LOADED, onNewGalleryLoaded);
-
-    /** When a user clicks a thumbnail... */
-    subscribe(tubepressEvents.SEQUENCING.GALLERY_VIDEO_HAS_CHANGED, onGalleryVideoHasChanged);
-}()),
-
-/**
- * Sequencing support for TubePress.
- */
-TubePressSequencer = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-
-        /** These variable declarations aide in compression. */
-        tubepressGallery        = TubePressGallery,
-        jquery                  = jQuery,
-        events                  = TubePressEvents,
-        logger                  = TubePressLogger,
-        isCurrentlyPlayingVideo = 'isCurrentlyPlayingVideo',
-        currentVideoId          = 'currentVideoId',
-        tubePressBeacon         = TubePressBeacon,
-        subscribe               = tubePressBeacon.subscribe,
-
-        /** Galleries that we track. */
-        galleries = {},
-
-        /**
-         * Searches through our galleries for one that matches the given.
-         */
-        findGalleryThatMatchesTest = function (test) {
-
-            var galleryId;
-
-            for (galleryId in galleries) {
-
-                if (galleries.hasOwnProperty(galleryId)) {
-
-                    if (test(galleryId)) {
-
-                        return galleryId;
-                    }
-                }
-            }
-
-            return undefined;
-        },
-
-        /**
-         * Find the gallery with the given video loaded up.
-         */
-        findGalleryIdWithVideoIdAsCurrent = function (videoId) {
-
-            var test = function (galleryId) {
-
-                var gall = galleries[galleryId];
-
-                return gall[currentVideoId] === videoId;
-            };
-
-            return findGalleryThatMatchesTest(test);
-        },
-
-        /**
-         * Find the gallery that is currently playing the given video.
-         */
-        findGalleryIdCurrentlyPlayingVideo = function (videoId) {
-
-            var test = function (galleryId) {
-
-                var gall               = galleries[galleryId],
-                    isCurrentlyPlaying = gall[currentVideoId] === videoId && gall[isCurrentlyPlayingVideo];
-
-                if (isCurrentlyPlaying) {
-
-                    return galleryId;
-                }
-
-                return false;
-            };
-
-            return findGalleryThatMatchesTest(test);
-        },
-
-        /**
-         * When a new gallery is loaded...
-         */
-        onNewGalleryLoaded = function (e, galleryId) {
-
-            var gall     = {},
-                sequence = tubepressGallery.getSequence(galleryId);
-
-            gall[isCurrentlyPlayingVideo] = false;
-
-            /**
-             * If this gallery has a sequence,
-             * save the first video as the "current" video.
-             */
-            if (sequence) {
-
-                gall[currentVideoId] = sequence[0];
-            }
-
-            /** Record it. */
-            galleries[galleryId] = gall;
-
-            if (logger.on()) {
-
-                logger.log('Gallery ' + galleryId + ' loaded');
-            }
-        },
-
-        /**
-         * Set a video as "current" for a gallery.
-         */
-        changeToVideo = function (galleryId, videoId) {
-
-            /** Save it as current. */
-            galleries[galleryId][currentVideoId] = videoId;
-
-            /** Announce the change. */
-            tubePressBeacon.publish(events.SEQUENCING.GALLERY_VIDEO_HAS_CHANGED, [galleryId, videoId]);
-        },
-
-        /**
-         * Go to the next video in the gallery.
-         */
-        next = function (galleryId) {
-
-            /** Get the gallery's sequence. This is an array of video ids. */
-            var sequence    = tubepressGallery.getSequence(galleryId),
-                vidId        = galleries[galleryId][currentVideoId],
-                index        = jquery.inArray(vidId, sequence),
-                lastIndex    = sequence ? sequence.length - 1 : index;
-
-            /** Sorry, we don't know anything about this video id, or we've reached the end of the gallery. */
-            if (index === -1 || index === lastIndex) {
-
-                return;
-            }
-
-            /** Start the next video in line. */
-            changeToVideo(galleryId, sequence[index + 1]);
-        },
-
-        /** Play the previous video in the gallery. */
-        prev = function (galleryId) {
-
-            /** Get the gallery's sequence. This is an array of video ids. */
-            var sequence    = tubepressGallery.getSequence(galleryId),
-                vidId        = galleries[galleryId][currentVideoId],
-                index        = jquery.inArray(vidId, sequence);
-
-            /** Sorry, we don't know anything about this video id, or we're at the start of the gallery. */
-            if (index === -1 || index === 0) {
-
-                return;
-            }
-
-            /** Start the previous video in line. */
-            changeToVideo(galleryId, sequence[index + 1]);
-        },
-
-        /**
-         * A video on the page has started.
-         */
-        onPlaybackStarted = function (e, videoId) {
-
-            var matchingGalleryId = findGalleryIdWithVideoIdAsCurrent(videoId);
-
-            /**
-             * If we don't have a gallery assigned to this video, we don't really care.
-             */
-            if (! matchingGalleryId) {
-
-                return;
-            }
-
-            /**
-             * Record the video as playing.
-             */
-            galleries[matchingGalleryId][isCurrentlyPlayingVideo]    = true;
-            galleries[matchingGalleryId][currentVideoId]                = videoId;
-
-            if (logger.on()) {
-
-                logger.log('Playback of ' + videoId + ' started for gallery ' + matchingGalleryId);
-            }
-        },
-
-        /**
-         * A video on the page has stopped.
-         */
-        onPlaybackStopped = function (e, videoId) {
-
-            var matchingGalleryId = findGalleryIdCurrentlyPlayingVideo(videoId);
-
-            /**
-             * If we don't have a gallery assigned to this video, we don't really care.
-             */
-            if (! matchingGalleryId) {
-
-                return;
-            }
-
-            /**
-             * Record the video as not playing.
-             */
-            galleries[matchingGalleryId][isCurrentlyPlayingVideo] = false;
-
-            if (logger.on()) {
-
-                logger.log('Playback of ' + videoId + ' stopped for gallery ' + matchingGalleryId);
-            }
-
-            if (tubepressGallery.isAutoNext(matchingGalleryId) && tubepressGallery.getSequence(matchingGalleryId)) {
-
-                if (logger.on()) {
-
-                    logger.log('Auto-starting next for gallery ' + matchingGalleryId);
-                }
-
-                /** Go to the next one! */
-                next(matchingGalleryId);
-            }
-        };
-
-    /** We want to keep track of all galleries that are loaded. */
-    subscribe(events.THUMBGALLERY.NEW_GALLERY_LOADED, onNewGalleryLoaded);
-
-    /** We would like to be notified when a video starts */
-    subscribe(events.EMBEDDED.PLAYBACK_STARTED, onPlaybackStarted);
-
-    /** We would like to be notified when a video ends, in the case of auto-next. */
-    subscribe(events.EMBEDDED.PLAYBACK_STOPPED, onPlaybackStopped);
-
-    return {
-
-        changeToVideo : changeToVideo,
-        next          : next,
-        prev          : prev
-    };
-
-}()),
-
-/**
- * Handles basic thumbnail tasks.
- */
-TubePressThumbs = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-        /** These variables aide in compression. */
-        jquery = jQuery,
-        events = TubePressEvents.THUMBGALLERY,
-        math   = Math,
-
-        /**
-         * Get the jQuery selector where the thumbs live.
-         */
-        //this is hard-coded - need to get rid of that.
-        getThumbAreaSelector = function (galleryId) {
-
-            return "#tubepress_gallery_" + galleryId + "_thumbnail_area";
-        },
-
-        /**
-         * Get the jQuery reference to where the thumbnails live.
-         */
-        getThumbArea = function (galleryId) {
-
-            return jquery(getThumbAreaSelector(galleryId));
-        },
-
-        /**
-         * Parse the gallery ID from the "rel" attribute.
-         */
-        getGalleryIdFromRelSplit = function (relSplit) {
-
-            return relSplit[3];
-        },
-
-        /**
-         * Parse the video ID from the "rel" attribute.
-         */
-        getVideoIdFromIdAttr = function (id) {
-
-            var end = id.lastIndexOf('_');
-
-            return id.substring(16, end);
-        },
-
-        /**
-         * Get the thumbnail width. Usually this is just a static thumbnail
-         * image, but *may* be an actual embed or something like that.
-         *
-         * Fallback value is 120.
-         */
-        getThumbWidth = function (galleryId) {
-
-            var thumbArea          = getThumbArea(galleryId),
-                firstVisualElement = thumbArea.find('img:first'),
-                width              = 120;
-
-            if (firstVisualElement.length === 0) {
-
-                firstVisualElement = thumbArea.find('div.tubepress_thumb:first > div.tubepress_embed');
-
-                if (firstVisualElement.length === 0) {
-
-                    return width;
-                }
-            }
-
-            width = firstVisualElement.attr('width');
-
-            if (width) {
-
-                return width;
-            }
-
-            return firstVisualElement.width();
-        },
-
-        /**
-         * Click listener callback.
-         */
-        clickListener = function () {
-
-            var rel_split = jquery(this).attr('rel').split('_'),
-                galleryId = getGalleryIdFromRelSplit(rel_split),
-                videoId   = getVideoIdFromIdAttr(jquery(this).attr('id'));
-
-            /** Tell the gallery to change it's video. */
-            TubePressSequencer.changeToVideo(galleryId, videoId);
-        },
-
-        /** http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
-        makeThumbsFluid = function (galleryId) {
-
-            getThumbArea(galleryId).css({ 'width' : '100%' });
-
-            var gallerySelector = getThumbAreaSelector(galleryId),
-                columnWidth     = getThumbWidth(galleryId),
-                gallery         = jquery(gallerySelector),
-                colWrap         = gallery.width(),
-                colNum          = math.floor(colWrap / columnWidth),
-                colFixed        = math.floor(colWrap / colNum),
-                thumbs          = jquery(gallerySelector + ' div.tubepress_thumb');
-
-            gallery.css({ 'width' : '100%'});
-            gallery.css({ 'width' : colWrap });
-            thumbs.css({ 'width' : colFixed});
-        },
-
-        /**
-         * What page is the gallery on?
-         */
-        //this is way too fragile.
-        getCurrentPageNumber = function (galleryId) {
-
-            var page               = 1,
-                paginationSelector = 'div#tubepress_gallery_' + galleryId + ' div.tubepress_thumbnail_area:first > div.pagination:first > span.current',
-                current            = jquery(paginationSelector);
-
-            if (current.length > 0) {
-
-                page = current.html();
-            }
-
-            return page;
-        },
-
-        /**
-         * Callback for thumbnail loads.
-         */
-        thumbBinder = function (e, galleryId) {
-
-            /* add a click handler to each link in this gallery */
-            jquery("#tubepress_gallery_" + galleryId + " a[id^='tubepress_']").click(clickListener);
-
-            /* fluid thumbs if we need it */
-            if (TubePressGallery.isFluidThumbs(galleryId)) {
-
-                makeThumbsFluid(galleryId);
-            }
-        };
-
-    TubePressBeacon.subscribe(events.NEW_THUMBS_LOADED + ' ' + events.NEW_GALLERY_LOADED, thumbBinder);
-
-    /* return only public functions */
-    return {
-
-        getCurrentPageNumber     : getCurrentPageNumber,
-        getThumbAreaSelector     : getThumbAreaSelector
-    };
-}()),
-
-/**
- * Functions for handling Ajax pagination.
- */
-TubePressAjaxPagination = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-        /** These variable declarations aide in compression. */
-        jquery  = jQuery,
-        beacon  = TubePressBeacon,
-        events  = TubePressEvents,
-        gallery = TubePressGallery,
-
-        /**
-         * After we've loaded a new set of thumbs.
-         */
-        postLoad = function (galleryId) {
-
-            beacon.publish(TubePressEvents.THUMBGALLERY.NEW_THUMBS_LOADED, [ galleryId ]);
-        },
-
-        /** Handles an ajax pagination click. */
-        processClick = function (anchor, galleryId) {
-
-            var baseUrl       = TubePressGlobalJsConfig.baseUrl,
-                nvpMap        = gallery.getNvpMap(galleryId),
-                page          = anchor.attr('rel'),
-                thumbnailArea = TubePressThumbs.getThumbAreaSelector(galleryId),
-
-                postLoadCallback = function () {
-
-                    postLoad(galleryId);
-                },
-
-                toSend = {
-
-                    action : 'shortcode'
-                },
-
-                pageToLoad         = baseUrl + '/src/main/php/scripts/ajaxEndpoint.php?tubepress_' + page + '&' + jquery.param(jquery.extend(toSend, nvpMap)),
-                remotePageSelector = thumbnailArea + ' > *',
-                httpMethod         = gallery.getHttpMethod(galleryId);
-
-            TubePressAjax.loadAndStyle(httpMethod, pageToLoad, thumbnailArea, remotePageSelector, '', postLoadCallback);
-        },
-
-        /** Initializes pagination HTML for Ajax. */
-        addClickHandlers = function (galleryId) {
-
-            var clickCallback = function () {
-
-                processClick(jquery(this), galleryId);
-            };
-
-            jquery('#tubepress_gallery_' + galleryId + ' div.pagination a').click(clickCallback);
-        },
-
-        /**
-         * Adds click handlers to galleries with Ajax pagination.
-         */
-        paginationBinder = function (e, galleryId) {
-
-            if (gallery.isAjaxPagination(galleryId)) {
-
-                addClickHandlers(galleryId);
-            }
-        };
-
-    /** Sets up new thumbnails for ajax pagination */
-    beacon.subscribe(events.NEW_THUMBS_LOADED + ' ' + events.NEW_GALLERY_LOADED, paginationBinder);
-
-}()),
-
-/**
- * Provides auto-sequencing capability for TubePress.
- */
-TubePressPlayerApiUtils = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-
-        /** These variable declarations aide in compression. */
-        events = TubePressEvents.EMBEDDED,
-
-        /**
-         * Helper method to trigger events on jQuery(document).
-         */
-        triggerEvent = function (eventName, videoId) {
-
-            TubePressBeacon.publish(eventName, [ videoId ]);
-        },
-
-        /**
-         * A video has started.
-         */
-        fireVideoStarted = function (videoId) {
-
-            triggerEvent(events.PLAYBACK_STARTED, videoId);
-        },
-
-        /**
-         * A video has stopped.
-         */
-        fireVideoStopped = function (videoId) {
-
-            triggerEvent(events.PLAYBACK_STOPPED, videoId);
-        },
-
-        /**
-         * A video is buffering.
-         */
-        fireVideoBuffering = function (videoId) {
-
-            triggerEvent(events.PLAYBACK_BUFFERING, videoId);
-        },
-
-        /**
-         * A video has paused.
-         */
-        fireVideoPaused = function (videoId) {
-
-            triggerEvent(events.PLAYBACK_PAUSED, videoId);
-        },
-
-        /**
-         * A video has encountered an error.
-         */
-        fireVideoError = function (videoId) {
-
-            triggerEvent(events.PLAYBACK_ERROR, videoId);
-        },
-
-        /**
-         * Utility to wait for test() to be true, then call callback()
-         */
-        callWhenTrue = function (callback, test, delay) {
-
-            /** It's ready... */
-            if (test() === true) {
-
-                callback();
-
-                return;
-            }
-
-            /** Set up a timeout callback. */
-            var func = function () {
-
-                callWhenTrue(callback, test, delay);
-            };
-
-            /** Keep waiting... */
-            setTimeout(func, delay);
-        };
-
-    return {
-
-        fireVideoError     : fireVideoError,
-        fireVideoPaused    : fireVideoPaused,
-        fireVideoBuffering : fireVideoBuffering,
-        fireVideoStopped   : fireVideoStopped,
-        fireVideoStarted   : fireVideoStarted,
-        callWhenTrue       : callWhenTrue
-    };
-
-}()),
-
-TubePressYouTubePlayerApi = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-
-        /** These variable declarations aide in compression. */
-        jquery        = jQuery,
-        logger        = TubePressLogger,
-        scriptLoader  = TubePressDomInjector,
-        youTubePrefix = 'tubepress-youtube-player-',
-        undefText     = 'undefined',
-        apiUtils      = TubePressPlayerApiUtils,
-
-        isLoadingApi     = false,
-        youTubePlayers   = {},
-        youTubeIdPattern = /[a-z0-9\-_]{11}/i,
-
-
-        /**
-         * Is the given video ID from YouTube?
-         */
-        isYouTubeVideoId = function (videoId) {
-
-            return youTubeIdPattern.test(videoId);
-        },
-
-        /**
-         * Pulls out the video ID from a YouTube event.
-         */
-        getVideoIdFromYouTubeEvent = function (event) {
-
-            var domId  = event.target.a.id,
-                vId    = domId.replace(youTubePrefix, ''),
-                player = youTubePlayers[vId],
-
-                url,
-                loadedId,
-                ampersandPosition;
-
-            //noinspection JSUnresolvedVariable
-            if (! jquery.isFunction(player.getVideoUrl)) {
-
-                return null;
-            }
-
-            //noinspection JSUnresolvedFunction
-            url               = player.getVideoUrl();
-            loadedId          = url.split('v=')[1];
-            ampersandPosition = loadedId.indexOf('&');
-
-            if (ampersandPosition !== -1) {
-
-                loadedId = loadedId.substring(0, ampersandPosition);
-            }
-
-            return loadedId;
-        },
-
-        /**
-         * Is the YouTube API available yet?
-         */
-        isYouTubeApiAvailable = function () {
-
-            //noinspection JSUnresolvedVariable
-            return typeof window.YT !== undefText && typeof YT.Player !== undefText;
-        },
-
-        /**
-         * Load the YouTube API, if necessary.
-         */
-        loadYouTubeApi = function () {
-
-            if (isLoadingApi || isYouTubeApiAvailable()) {
-
-                return;
-            }
-
-            isLoadingApi = true;
-
-            //noinspection JSUnresolvedVariable
-            var scheme = TubePressGlobalJsConfig.https ? 'https' : 'http';
-
-            TubePressBeacon.publish(TubePressEvents.DOM.JS_REQUESTED, [ scheme + '://www.youtube.com/player_api' ]);
-        },
-
-        /**
-         * The YouTube player will call this method when a player event
-         * fires.
-         */
-        onYouTubeStateChange = function (event) {
-
-            //noinspection JSUnresolvedVariable
-            var videoId     = getVideoIdFromYouTubeEvent(event),
-                eventData   = event.data,
-                playerState = YT.PlayerState;
-
-            /**
-             * If we can't parse the event, just bail.
-             */
-            if (videoId === null) {
-
-                return;
-            }
-
-            //noinspection JSUnresolvedVariable
-            switch (eventData) {
-
-            case playerState.PLAYING:
-
-                apiUtils.fireVideoStarted(videoId);
-                break;
-
-            case playerState.PAUSED:
-
-                apiUtils.fireVideoPaused(videoId);
-                break;
-
-            case playerState.ENDED:
-
-                apiUtils.fireVideoStopped(videoId);
-                break;
-
-            case playerState.BUFFERING:
-
-                apiUtils.fireVideoBuffering(videoId);
-                break;
-
-            default:
-
-                if (logger.on()) {
-
-                    logger.log('Unknown YT event');
-                    logger.dir(event);
-                }
-
-                //unknown event
-                break;
-            }
-        },
-
-        /**
-         * YouTube will call this when a player hits an error.
-         */
-        onYouTubeError = function (event) {
-
-            var videoId = getVideoIdFromYouTubeEvent(event);
-
-            if (videoId === null) {
-
-                return;
-            }
-
-            if (logger.on()) {
-
-                logger.log('YT error');
-                logger.dir(event);
-            }
-
-            apiUtils.fireVideoError(videoId);
-        },
-
-        /**
-         * Registers a YouTube player for use with the TubePress API.
-         */
-        registerYouTubeVideo = function (videoId) {
-
-            /** Load 'er up. */
-            loadYouTubeApi();
-
-            /** This stuff will execute once the TubePress API is loaded. */
-            var callback = function () {
-
-                if (logger.on()) {
-
-                    logger.log('Register YT video ' + videoId + ' with TubePress');
-                }
-
-                //noinspection JSUnresolvedFunction
-                youTubePlayers[videoId] = new YT.Player(youTubePrefix + videoId, {
-
-                    events: {
-
-                        'onError'       : onYouTubeError,
-                        'onStateChange' : onYouTubeStateChange
-                    }
-                });
-            };
-
-            apiUtils.callWhenTrue(callback, isYouTubeApiAvailable, 250);
-        },
-
-        onNewVideoRegistered = function (event, videoId) {
-
-            if (isYouTubeVideoId(videoId)) {
-
-                registerYouTubeVideo(videoId);
-            }
-        };
-
-    TubePressBeacon.subscribe(TubePressEvents.EMBEDDED.EMBEDDED_LOAD, onNewVideoRegistered);
-
-    /**
-     * It's necessary to make these functions public, as the YouTube API will need to call them
-     */
-    return {
-
-        onYouTubeStateChange : onYouTubeStateChange,
-        onYouTubeError       : onYouTubeError
-    };
-}()),
-
-TubePressVimeoPlayerApi = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var
-
-        /** These variable declarations aide in compression. */
-        vimeoPrefix = 'tubepress-vimeo-player-',
-        apiUtils    = TubePressPlayerApiUtils,
-        httpsScheme = 'https',
-        httpScheme  = 'http',
-
-        /** Vimeo variables. */
-        loadingVimeoApi = false,
-        vimeoPlayers    = {},
-        vimeoIdPattern  = /[0-9]+/,
-
-        /**
-         * Is the given video ID from Vimeo?
-         */
-        isVimeoVideoId = function (videoId) {
-
-            return vimeoIdPattern.test(videoId);
-        },
-
-        /**
-         * Pulls out the video ID from a Vimeo event.
-         */
-        getVideoIdFromVimeoEvent = function (event) {
-
-            return event.replace(vimeoPrefix, '');
-        },
-
-        /**
-         * Is the Vimeo API available yet?
-         */
-        isVimeoApiAvailable = function () {
-
-            return window.Froogaloop !== undefined;
-        },
-
-        /**
-         * Load the Vimeo API, if necessary.
-         */
-        loadVimeoApi = function () {
-
-            //noinspection JSUnresolvedVariable
-            var scheme = TubePressGlobalJsConfig.https ? httpsScheme : httpScheme;
-
-            if (! loadingVimeoApi && ! isVimeoApiAvailable()) {
-
-                loadingVimeoApi = true;
-
-                TubePressBeacon.publish(TubePressEvents.DOM.JS_REQUESTED, [ scheme + '://a.vimeocdn.com/js/froogaloop2.min.js' ]);
-            }
-        },
-
-        /**
-         * Vimeo will call then when a video starts.
-         */
-        onVimeoPlay = function (event) {
-
-            var videoId = getVideoIdFromVimeoEvent(event);
-
-            apiUtils.fireVideoStarted(videoId);
-        },
-
-        /**
-         * Vimeo will call then when a video pauses.
-         */
-        onVimeoPause = function (event) {
-
-            var videoId = getVideoIdFromVimeoEvent(event);
-
-            apiUtils.fireVideoPaused(videoId);
-        },
-
-        /**
-         * Vimeo will call then when a video ends.
-         */
-        onVimeoFinish = function (event) {
-
-            var videoId = getVideoIdFromVimeoEvent(event);
-
-            apiUtils.fireVideoStopped(videoId);
-        },
-
-        /**
-         * A Vimeo player is ready for action.
-         */
-        onVimeoReady = function (playerId) {
-
-            var froog = vimeoPlayers[playerId];
-
-            froog.addEvent('play', onVimeoPlay);
-            froog.addEvent('pause', onVimeoPause);
-            froog.addEvent('finish', onVimeoFinish);
-        },
-
-        /**
-         * Registers a Vimeo player for use with the TubePress API.
-         */
-        registerVimeoVideo = function (videoId) {
-
-            /** Load up the API. */
-            loadVimeoApi();
-
-            var playerId = vimeoPrefix + videoId,
-                iframe   = document.getElementById(playerId),
-
-                callback = function () {
-
-                    /** Create and save the player. */
-                    var froog = new Froogaloop(iframe);
-
-                    vimeoPlayers[playerId] = froog;
-
-                    froog.addEvent('ready', onVimeoReady);
+                    /** Keep waiting... */
+                    setTimeout(func, delay);
                 };
 
-            /** Execute it when Vimeo is ready. */
-            apiUtils.callWhenTrue(callback, isVimeoApiAvailable, 500);
-        },
+            return {
 
-        onNewVideoRegistered = function (event, videoId) {
+                isDefined          : isDefined,
+                getParameterByName : getParameterByName,
+                parseIntOrZero     : parseIntOrZero,
+                callWhenTrue       : callWhenTrue
+            };
+        }()),
 
-            if (isVimeoVideoId(videoId)) {
+        /**
+         * Logger!
+         */
+        logger = (function () {
 
-                registerVimeoVideo(videoId);
-            }
-        };
+            /**
+             * Is the log on?
+             */
+            var isLoggingRequested = windowLocation.search.indexOf(text_tubepress + '_debug=true') !== -1,
+                windowConsole      = win.console,
+                isLoggingAvailable = langUtils.isDefined(windowConsole),
 
-    TubePressBeacon.subscribe(TubePressEvents.EMBEDDED.EMBEDDED_LOAD, onNewVideoRegistered);
+                /**
+                 * The log is on if it's been enabled and requested.
+                 */
+                isLoggingOn = function () {
+
+                    return isLoggingRequested && isLoggingAvailable;
+                },
+
+                /**
+                 * Output a message.
+                 */
+                log = function (msg) {
+
+                    windowConsole.log(msg);
+                },
+
+                dir = function (obj) {
+
+                    windowConsole.dir(obj);
+                };
+
+            return {
+
+                on  : isLoggingOn,
+                log : log,
+                dir : dir
+            };
+        }()),
+
+        /**
+         * Details about our environment.
+         */
+        environment = (function () {
+
+            var alreadyCalculatedBaseUrl = false,
+                cachedBaseUrl,
+
+                getBaseUrl = function () {
+
+                    if (!alreadyCalculatedBaseUrl) {
+
+                        //http://stackoverflow.com/questions/2161159/get-script-path
+                        var scripts = dokument.getElementsByTagName('script'),
+                            x       = 0,
+                            scriptSrc;
+
+                        for (x; x < scripts.length; x += 1) {
+
+                            scriptSrc = scripts[x].src;
+
+                            if (scriptSrc.indexOf('/' + text_tubepress + '.js') !== -1) {
+
+                                cachedBaseUrl = scriptSrc.substr(0, scriptSrc.lastIndexOf('/')).split('?')[0].replace(coreJsPrefix, '');
+                                break;
+                            }
+                        }
+                    }
+
+                    return cachedBaseUrl;
+                };
+
+            return {
+
+                getBaseUrl : getBaseUrl
+            };
+        }()),
+
+        /**
+         * Events that TubePress fires.
+         */
+        events = (function () {
+
+            /*
+             * These variable declarations aide in compression.
+             */
+            var xdot          = '.',
+                xembedded     = text_tubepress + xdot + 'embedded'     + xdot,
+                xplayers      = text_tubepress + xdot + 'players'      + xdot,
+                xajax         = text_tubepress + xdot + 'ajax'         + xdot,
+                xsearch       = text_tubepress + xdot + 'search'       + xdot,
+                xrequest      = 'request';
+
+            return {
+
+                AJAX : {
+
+                    BEFORE   : xajax + 'before',
+
+                    SUCCESS  : xajax + 'success',
+
+                    ERROR    : xajax + 'error',
+
+                    COMPLETE : xajax + 'complete'
+                },
+
+                EMBEDDED : {
+
+                    /** An embedded video has been loaded. */
+                    EMBEDDED_LOAD      : xembedded + 'load',
+
+                    /** Playback of a video started. */
+                    PLAYBACK_STARTED   : xembedded + 'start',
+
+                    /** Playback of a video stopped. */
+                    PLAYBACK_STOPPED   : xembedded + 'stop',
+
+                    /** Playback of a video is buffering. */
+                    PLAYBACK_BUFFERING : xembedded + 'buffer',
+
+                    /** Playback of a video is paused. */
+                    PLAYBACK_PAUSED    : xembedded + 'pause',
+
+                    /** Playback of a video has errored out. */
+                    PLAYBACK_ERROR     : xembedded + 'error'
+                },
+
+                PLAYERS : {
+
+                    /** A TubePress player is being invoked. */
+                    PLAYER_INVOKE   : xplayers + 'invoke',
+
+                    /** A TubePress player is being populated. */
+                    PLAYER_POPULATE : xplayers + 'populate'
+                },
+
+                SEARCH : {
+
+                    STATIC_SEARCH_REQUESTED : xsearch + xrequest + 'static',
+
+                    AJAX_SEARCH_REQUESTED : xsearch + xrequest + 'ajax'
+                }
+            };
+        }()),
+
+        /**
+         * Lightweight event bus for TubePress.
+         *
+         * https://gist.github.com/cowboy/661855
+         *
+         * jQuery Tiny Pub/Sub - v0.3 - 11/4/2010
+         * http://benalman.com/
+         *
+         * Copyright (c) 2010 "Cowboy" Ben Alman
+         * Dual licensed under the MIT and GPL licenses.
+         * http://benalman.com/about/license/
+         */
+        beacon = (function () {
+
+            var bus                  = jquery({}),
+
+                subscribe = function () {
+
+                    bus.bind.apply(bus, arguments);
+                },
+
+                unsubscribe = function () {
+
+                    bus.unbind.apply(bus, arguments);
+                },
+
+                publish = function () {
+
+                    if (logger.on()) {
+
+                        var args = arguments;
+
+                        logger.log('Firing "' + args[0]);
+                        logger.dir(args[1]);
+                    }
+
+                    bus.trigger.apply(bus, arguments);
+                };
+
+            return {
+
+                subscribe   : subscribe,
+                unsubscribe : unsubscribe,
+                publish     : publish
+            };
+        }()),
+
+        /**
+         * Injects JS and CSS into the DOM.
+         */
+        domInjector = (function () {
+
+            var text_tubePressDomInjector = text_tubePress + 'DomInjector',
+                queue                     = win[text_tubePressDomInjector],
+                filesAlreadyLoaded       = [],
+                entity,
+
+                alreadyLoaded = function (path) {
+
+                    return filesAlreadyLoaded[path] === troo;
+                },
+
+                convertToAbsoluteUrl = function (url) {
+
+                    if (url.indexOf('http') === 0) {
+
+                        //already absolute
+                        return url;
+                    }
+
+                    return environment.getBaseUrl() + url;
+                },
+
+                doLog = function (path, type) {
+
+                    if (logger.on()) {
+
+                        logger.log('Injecting ' + type + ': ' + path);
+                    }
+                },
+
+                appendToHead = function (element) {
+
+                    dokument.getElementsByTagName('head')[0].appendChild(element);
+                },
+
+                loadCss = function (path) {
+
+                    path = convertToAbsoluteUrl(path);
+
+                    if (alreadyLoaded(path)) {
+
+                        return;
+                    }
+
+                    filesAlreadyLoaded[path] = troo;
+
+                    var fileref   = dokument.createElement('link');
+
+                    fileref.setAttribute('rel', 'stylesheet');
+                    fileref.setAttribute('type', 'text/css');
+                    fileref.setAttribute('href', path);
+
+                    doLog(path, 'CSS');
+
+                    appendToHead(fileref);
+                },
+
+                loadJs = function (path) {
+
+                    path = convertToAbsoluteUrl(path);
+
+                    if (alreadyLoaded(path)) {
+
+                        return;
+                    }
+
+                    filesAlreadyLoaded[path] = troo;
+
+                    doLog(path, 'JS');
+
+                    var script = dokument.createElement('script');
+
+                    script.type  = 'text/javascript';
+                    script.src   = path;
+                    script.async = troo;
+
+                    dokument.getElementsByTagName('head')[0].appendChild(script);
+                },
+
+                loadGalleryJs = function () {
+
+                    loadJs(coreJsPrefix + '/' + text_tubepress + '/gallery.js');
+                },
+
+                onReady = function () {
+
+                    //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
+                    var queueCall = function (callArray) {
+
+                        var method = callArray[0],
+                            args   = callArray.slice(1);
+
+                        domInjector[method].apply(this, args);
+                    };
+
+                    if (langUtils.isDefined(queue)) {
+
+                        // loop through our existing queue, calling methods in order
+                        queue.reverse();
+
+                        while (queue.length) {
+
+                            entity = queue.pop();
+
+                            queueCall(entity);
+                        }
+                    }
+
+                    // over write the sampleQueue, replacing the push method with 'queueCall'
+                    // this creates a globally accessible interface to your API through sampleQueue.push()
+                    win[text_tubePressDomInjector] = {
+
+                        push : queueCall
+                    };
+                };
+
+            beacon.subscribe(readyEventName, onReady);
+
+            return {
+
+                loadJs        : loadJs,
+                loadCss       : loadCss,
+                loadGalleryJs : loadGalleryJs
+            };
+        }());
 
     return {
 
-        onVimeoReady  : onVimeoReady,
-        onVimeoPlay   : onVimeoPlay,
-        onVimeoPause  : onVimeoPause,
-        onVimeoFinish : onVimeoFinish
+        LangUtils   : langUtils,
+        Logger      : logger,
+        Events      : events,
+        Beacon      : beacon,
+        DomInjector : domInjector,
+        Environment : environment
     };
-}()),
 
+}(jQuery, window));
+
+//noinspection JSUnresolvedVariable
 /**
- * Handles Ajax interactive searching.
+ * Announce that we're ready.
  */
-TubePressAjaxSearch = (function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var performSearch = function (galleryInitJs, rawSearchTerms, galleryId) {
-
-        /** These variable declarations aide in compression. */
-        var jquery            = jQuery,
-            gallery           = TubePressGallery,
-            logger            = TubePressLogger,
-            targetDomSelector = galleryInitJs.nvpMap.searchResultsDomId,
-
-            /** Some vars we'll need later. */
-            callback,
-            ajaxResultSelector,
-            finalAjaxContentDestination,
-
-            urlParams = {
-
-                action           : 'shortcode',
-                tubepress_search : rawSearchTerms
-            },
-
-            /** The Ajax response results that we're interested in. */
-            gallerySelector = '#tubepress_gallery_' + galleryId,
-
-            /** Does a gallery with this ID already exist? */
-            galleryExists = gallery.isRegistered(galleryId),
-
-            /** Does the target DOM exist? */
-            targetDomExists = targetDomSelector !== undefined && jquery(targetDomSelector).length > 0;
-
-        /** We have three cases to handle... */
-        if (galleryExists) {
-
-            //CASE 1: gallery already exists
-
-            /** Stick the thumbs into the existing thumb area. */
-            finalAjaxContentDestination = TubePressThumbs.getThumbAreaSelector(galleryId);
-
-            /** We want just the new thumbnails. */
-            ajaxResultSelector = finalAjaxContentDestination + ' > *';
-
-            /** Announce the new thumbs */
-            callback = function () {
-
-                TubePressBeacon.publish(TubePressEvents.THUMBGALLERY.NEW_THUMBS_LOADED, [ galleryId ]);
-            };
-
-        } else {
-
-            if (targetDomExists) {
-
-                //CASE 2: TARGET SELECTOR EXISTS AND GALLERY DOES NOT EXIST
-
-                /** Stick the gallery into the target DOM. */
-                finalAjaxContentDestination = targetDomSelector;
-
-            } else {
-
-                //CASE 3: TARGET SELECTOR DOES NOT EXIST AND GALLERY DOES NOT EXIST
-
-                if (logger.on()) {
-
-                    logger.log('Bad target selector and missing gallery');
-                }
-
-                return;
-            }
-        }
-
-        if (logger.on()) {
-
-            logger.log('Final dest: ' + finalAjaxContentDestination);
-            logger.log('Ajax selector: ' + ajaxResultSelector);
-        }
-
-        jquery.extend(urlParams, galleryInitJs.nvpMap);
-
-        TubePressAjax.loadAndStyle(
-
-            galleryInitJs.jsMap.httpMethod,
-
-            TubePressGlobalJsConfig.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php?' + jquery.param(urlParams),
-
-            finalAjaxContentDestination,
-
-            ajaxResultSelector,
-
-            null,
-
-            callback
-        );
-    };
-
-    return { performSearch : performSearch };
-
-}());
-
-/**
- * This is TubePress's asynchronous event bus. It allows others to call
- *
- * _beacon.push(eventName, args);
- *
- * before this file is loaded. It will translate these push() calls into
- * TubePressBeacon.publish(eventName, args)
- */
-//http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
-(function () {
-
-    /** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-    'use strict';
-
-    var queue = window._beacon,
-        entity,
-
-        queueCall = function (eventName, args) {
-
-            TubePressBeacon.publish(eventName, args);
-        };
-
-    if (typeof queue !== 'undefined') {
-
-        // loop through our existing queue, calling methods in order
-        queue.reverse();
-
-        while (queue.length) {
-
-            entity = queue.pop();
-
-            queueCall(entity);
-        }
-    }
-
-    // over write the sampleQueue, replacing the push method with 'queueCall'
-    // this creates a globally accessible interface to your API through sampleQueue.push()
-    window._beacon = {
-
-        push : queueCall
-    };
-}());
+TubePress.Beacon.publish('tubepress.ready', []);
