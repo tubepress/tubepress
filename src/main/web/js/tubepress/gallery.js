@@ -58,9 +58,9 @@ var TubePressGallery = (function (jquery, win, tubepress) {
         }()),
 
         /**
-     * Exposes a parse() function that wraps jQuery.parseJSON(), but adapts to
-     * jQuery < 1.6.
-     */
+         * Exposes a parse() function that wraps jQuery.parseJSON(), but adapts to
+         * jQuery < 1.6.
+         */
         jsonParser = (function () {
 
             var version      = jquery.fn.jquery,
@@ -584,7 +584,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                     };
                 };
 
-            subscribe('tubepress.galleryjsready', onReady);
+            subscribe('tubepress.galleryjs.ready', onReady);
 
             subscribe(galleryEvents.NEW_GALLERY_LOADED, onNewGallery);
 
@@ -835,4 +835,4 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
 }(jQuery, window, TubePress));
 
-TubePress.Beacon.publish('tubepress.galleryjsready', []);
+TubePress.Beacon.publish('tubepress.galleryjs.ready', []);

@@ -8,7 +8,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * @author Eric D. Hough (eric@tubepress.org)
- * @author Bill Jackson (genalgo@tubepress.org)
  */
 
 /*global jQuery, TubePressGlobalJsConfig, YT, Froogaloop, console */
@@ -290,7 +289,7 @@ var TubePress = (function (jquery, win) {
 
             var text_tubePressDomInjector = text_tubePress + 'DomInjector',
                 queue                     = win[text_tubePressDomInjector],
-                filesAlreadyLoaded       = [],
+                filesAlreadyLoaded        = [],
                 entity,
 
                 alreadyLoaded = function (path) {
@@ -371,6 +370,11 @@ var TubePress = (function (jquery, win) {
                     loadJs(coreJsPrefix + '/' + text_tubepress + '/gallery.js');
                 },
 
+                loadedEmbeddedApiJs = function () {
+
+                    loadJs(coreJsPrefix + '/' + text_tubepress + '/embedded.js');
+                },
+
                 onReady = function () {
 
                     //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
@@ -407,9 +411,10 @@ var TubePress = (function (jquery, win) {
 
             return {
 
-                loadJs        : loadJs,
-                loadCss       : loadCss,
-                loadGalleryJs : loadGalleryJs
+                loadJs            : loadJs,
+                loadCss           : loadCss,
+                loadGalleryJs     : loadGalleryJs,
+                loadEmbeddedApiJs : loadedEmbeddedApiJs
             };
         }());
 
