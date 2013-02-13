@@ -17,13 +17,13 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
     var jquery_isFunction = jquery.isFunction,
         text_tubepress    = 'tubepress',
-        text_tubePress    = 'tubePress',
         beacon            = tubepress.Beacon,
         subscribe         = beacon.subscribe,
         publish           = beacon.publish,
         langUtils         = tubepress.LangUtils,
         events            = tubepress.Events,
         environment       = tubepress.Environment,
+        domInjector       = tubepress.DomInjector,
 
         /**
          * Gallery-related events.
@@ -421,6 +421,8 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                     if (sequence) {
 
                         internalRegistry[galleryId][currentVideoId] = sequence[0];
+
+                        domInjector.loadJs('src/main/web/js/' + text_tubepress + '/embedded.js');
                     }
                 },
 
@@ -797,10 +799,37 @@ var TubePressGallery = (function (jquery, win, tubepress) {
         subscribe(galleryEvents.NEW_VIDEO_REQUESTED, onNewVideoRequested);
     }());
 
+    /**
+     * Handles pagination clicks.
+     */
+    (function () {
+
+        var handlePaginationClick = function (anchor, galleryId) {
+
+                var page = anchor.data('page');
+
+                publish(galleryEvents.PAGE_CHANGE_REQUESTED, [ galleryId, page ]);
+            },
+
+            onNewGalleryOrThumbs = function (event, galleryId) {
+
+                var pagationClickCallback = function () {
+
+                    handlePaginationClick(jquery(this), galleryId);
+                };
+
+                jquery('#' + text_tubepress + '_gallery_' + galleryId + ' div.pagination a').click(pagationClickCallback);
+            };
+
+        subscribe(galleryEvents.NEW_GALLERY_LOADED + ' ' + galleryEvents.NEW_THUMBS_LOADED, onNewGalleryOrThumbs);
+    }());
+
     return {
 
         AysncRegistrar : asyncGalleryRegistrar,
-        LoadStyler     : loadStyler
+        LoadStyler     : loadStyler,
+        Registry       : galleryRegistry,
+        Events         : events
     };
 
 }(jQuery, window, TubePress));

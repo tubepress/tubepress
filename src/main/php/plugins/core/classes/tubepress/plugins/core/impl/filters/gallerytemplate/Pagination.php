@@ -68,12 +68,6 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
 
         $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->toString(), 'tubepress_page');
 
-        /* if we're using Ajax for pagination, remove all the hrefs */
-        if ($context->get(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)) {
-
-            $result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
-        }
-
         return $result;
     }
 
@@ -104,7 +98,8 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
             if ($page > 1) {
                 $url->setQueryVariable($pagestring, $prev);
                 $newurl      = $url->toString();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">&laquo; " .
+                $pagination .= $this->_buildAnchorOpener($newurl, true, $prev);
+                $pagination .= "&laquo; " .
                     $messageService->_('prev') .                                     //>(translatable)<
                 	'</a>';
             }
@@ -116,7 +111,8 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
                     } else {
                         $url->setQueryVariable($pagestring, $counter);
                         $newurl      = $url->toString();
-                        $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
+                        $pagination .= $this->_buildAnchorOpener($newurl, true, $counter);
+                        $pagination .= "$counter</a>";
                     }
                 }
             } elseif ($lastpage >= 7 + ($adjacents * 2)) {
@@ -128,23 +124,28 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
                             $newurl      = $url->toString();
-                            $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
+                            $pagination .= $this->_buildAnchorOpener($newurl, true, $counter);
+                            $pagination .= "$counter</a>";
                         }
                     }
                     $pagination .= self::DOTS;
                     $url->setQueryVariable($pagestring, $lpm1);
                     $newurl      = $url->toString();
-                    $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
+                    $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $lpm1);
+                    $pagination .= "$lpm1</a>";
                     $url->setQueryVariable($pagestring, $lastpage);
                     $newurl      = $url->toString();
-                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";
+                    $pagination .= $this->_buildAnchorOpener($newurl, true, $lastpage);
+                    $pagination .= "$lastpage</a>";
                 } elseif ($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
                     $url->setQueryVariable($pagestring, 1);
                     $newurl      = $url->toString();
-                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">1</a>";
+                    $pagination .= $this->_buildAnchorOpener($newurl, true, 1);
+                    $pagination .= "1</a>";
                     $url->setQueryVariable($pagestring, 2);
                     $newurl      = $url->toString();
-                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
+                    $pagination .= $this->_buildAnchorOpener($newurl, true, 2);
+                    $pagination .= "2</a>";
                     $pagination .= self::DOTS;
 
                     for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
@@ -153,25 +154,30 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
                             $newurl      = $url->toString();
-                            $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
+                            $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $counter);
+                            $pagination .= "$counter</a>";
                         }
                     }
                     $pagination .= self::DOTS;
 
                     $url->setQueryVariable($pagestring, $lpm1);
                     $newurl      = $url->toString();
-                    $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
+                    $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $lpm1);
+                    $pagination .= "$lpm1</a>";
                     $url->setQueryVariable($pagestring, $lastpage);
                     $newurl      = $url->toString();
-                    $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";
+                    $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $lastpage);
+                    $pagination .= "$lastpage</a>";
 
                 } else {
                     $url->setQueryVariable($pagestring, 1);
                     $newurl = $url->toString();
-                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">1</a>";
+                    $pagination .= $this->_buildAnchorOpener($newurl, true, 1);
+                    $pagination .= "1</a>";
                     $url->setQueryVariable($pagestring, 2);
                     $newurl = $url->toString();
-                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
+                    $pagination .= $this->_buildAnchorOpener($newurl, true, 1);
+                    $pagination .= "2</a>";
                     $pagination .= self::DOTS;
 
                     for ($counter = $lastpage - (1 + ($adjacents * 3)); $counter <= $lastpage; $counter++) {
@@ -180,7 +186,8 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
                             $newurl = $url->toString();
-                            $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
+                            $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $counter);
+                            $pagination .= "$counter</a>";
                         }
                     }
                 }
@@ -188,8 +195,8 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
             if ($page < $counter - 1) {
                 $url->setQueryVariable($pagestring, $next);
                 $newurl      = $url->toString();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" .
-                    $messageService->_('next') .             //>(translatable)<
+                $pagination .= $this->_buildAnchorOpener($newurl, true, $next);
+                $pagination .= $messageService->_('next') .             //>(translatable)<
                 	' &raquo;</a>';
             } else {
                 $pagination .= '<span class="disabled">' .
@@ -199,5 +206,19 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_Pagination
             $pagination .= "</div>\n";
         }
         return $pagination;
+    }
+
+    private function _buildAnchorOpener($href, $noFollow, $page)
+    {
+        $a = '<a ';
+
+        if ($noFollow) {
+
+            $a .= 'rel="nofollow"';
+        }
+
+        $a .= " href=\"$href\" data-page=\"$page\">";
+
+        return $a;
     }
 }

@@ -427,13 +427,13 @@ var TubePress = (function (jquery, win) {
      */
     return {
 
-        LangUtils   : langUtils,
-        Logger      : logger,
-        Events      : events,
+        AsyncUtil   : asyncConverter,
         Beacon      : beacon,
         DomInjector : domInjector,
         Environment : environment,
-        AsyncUtil   : asyncConverter
+        Events      : events,
+        LangUtils   : langUtils,
+        Logger      : logger
     };
 
 }(jQuery, window));
