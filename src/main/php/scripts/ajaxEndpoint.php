@@ -24,7 +24,7 @@
  */
 if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false) {
 
-    include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
+    include substr(__FILE__, 0, strpos(__FILE__, 'wp-content/plugins/')) . 'wp-blog-header.php';
 }
 
 /**
