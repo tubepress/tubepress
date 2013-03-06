@@ -24,8 +24,7 @@
  */
 if (true || strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false) {
 
-    include '/home/ehough/Dropbox/git/sites/ttg.lan/front/wordpress/wp-blog-header.php';
-//    include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
+    include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
 }
 
 /**

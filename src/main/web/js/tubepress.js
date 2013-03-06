@@ -13,6 +13,14 @@
 /*global jQuery, TubePressGlobalJsConfig, YT, Froogaloop, console */
 /*jslint devel: true, browser: true, sloppy: false, white: true, maxerr: 50, indent: 4 */
 
+/**
+ * This file serves as the core of TubePress's JavaScript presence. It contains
+ *
+ *  1. Utility functions, mostly to help with language and runtime tasks.
+ *  2. An event bus.
+ *  3. Functions to asychronously load other TubePress scripts as needed.
+ */
+
 var TubePress = (function (jquery, win) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
@@ -21,11 +29,12 @@ var TubePress = (function (jquery, win) {
     /**
      * Let's start with some variable declarations to help us with compression.
      */
-    var text_tubepress = 'tubepress',
-        windowLocation = win.location,
-        dokument       = win.document,
-        troo           = true,
-        coreJsPrefix   = 'src/main/web/js',
+    var text_tubepress    = 'tubepress',
+        windowLocation    = win.location,
+        dokument          = win.document,
+        troo              = true,
+        coreJsPrefix      = 'src/main/web/js',
+        jquery_isFunction = jquery.isFunction,
 
         /**
          * Random language utilities.
@@ -163,73 +172,6 @@ var TubePress = (function (jquery, win) {
             return {
 
                 getBaseUrl : getBaseUrl
-            };
-        }()),
-
-        /**
-         * Events that TubePress fires.
-         */
-        events = (function () {
-
-            /*
-             * These variable declarations aide in compression.
-             */
-            var xdot          = '.',
-                xembedded     = text_tubepress + xdot + 'embedded'     + xdot,
-                xplayers      = text_tubepress + xdot + 'players'      + xdot,
-                xajax         = text_tubepress + xdot + 'ajax'         + xdot,
-                xsearch       = text_tubepress + xdot + 'search'       + xdot,
-                xrequest      = 'request';
-
-            return {
-
-                AJAX : {
-
-                    BEFORE   : xajax + 'before',
-
-                    SUCCESS  : xajax + 'success',
-
-                    ERROR    : xajax + 'error',
-
-                    COMPLETE : xajax + 'complete'
-                },
-
-                EMBEDDED : {
-
-                    /** An embedded video has been loaded. */
-                    EMBEDDED_LOAD      : xembedded + 'load',
-
-                    /** Playback of a video started. */
-                    PLAYBACK_STARTED   : xembedded + 'start',
-
-                    /** Playback of a video stopped. */
-                    PLAYBACK_STOPPED   : xembedded + 'stop',
-
-                    /** Playback of a video is buffering. */
-                    PLAYBACK_BUFFERING : xembedded + 'buffer',
-
-                    /** Playback of a video is paused. */
-                    PLAYBACK_PAUSED    : xembedded + 'pause',
-
-                    /** Playback of a video has errored out. */
-                    PLAYBACK_ERROR     : xembedded + 'error'
-                },
-
-                PLAYERS : {
-
-                    /** A TubePress player is being invoked. */
-                    PLAYER_INVOKE   : xplayers + 'invoke',
-
-                    /** A TubePress player is being populated. */
-                    PLAYER_POPULATE : xplayers + 'populate'
-                },
-
-                SEARCH : {
-
-                    STATIC_SEARCH_REQUESTED : xsearch + xrequest + 'static',
-
-                    AJAX_SEARCH_REQUESTED : xsearch + xrequest + 'ajax'
-                }
             };
         }()),
 
@@ -420,6 +362,183 @@ var TubePress = (function (jquery, win) {
 
                 processQueueCalls : convertQueueToFunctionCalls
             };
+        }()),
+
+        /**
+         * Exposes a parse() function that wraps jQuery.parseJSON(), but adapts to
+         * jQuery < 1.6.
+         */
+        jsonParser = (function () {
+
+            var version      = jquery.fn.jquery,
+                modernJquery = /1\.6|7|8|9\.[0-9]+/.test(version) !== false,
+                parser,
+                parse = function (msg) {
+
+                    return parser(msg);
+                };
+
+            if (modernJquery) {
+
+                parser = function (msg) {
+
+                    return jquery.parseJSON(msg);
+                };
+
+            } else {
+
+                parser = function (data) {
+
+                    if (typeof data !== 'string' || !data) {
+
+                        return null;
+                    }
+
+                    data = jquery.trim(data);
+
+
+                    if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
+                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
+                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
+
+                        return (win.JSON && win.JSON.parse) ?
+
+                            win.JSON.parse(data) : (new Function('return ' + data))();
+
+                    } else {
+
+                        throw 'Invalid JSON: ' + data;
+                    }
+                };
+            }
+
+            return {
+
+                parse : parse
+            };
+        }()),
+
+        /**
+         * Handles styling DOM elements before and after loads.
+         */
+        loadStyler = (function () {
+
+            /**
+             * Fade to "white".
+             */
+            var applyLoadingStyle = function (targetDiv) {
+
+                    jquery(targetDiv).fadeTo(0, 0.3);
+                },
+
+                /**
+                 * Fade back to full opacity.
+                 */
+                removeLoadingStyle = function (targetDiv) {
+
+                    jquery(targetDiv).fadeTo(0, 1);
+                };
+
+            return {
+
+                applyLoadingStyle  : applyLoadingStyle,
+                removeLoadingStyle : removeLoadingStyle
+            };
+        }()),
+
+        /**
+         * Various Ajax utilities.
+         */
+        ajaxExecutor = (function () {
+
+            /**
+             * Similar to jQuery's "load" but tolerates non-200 status codes.
+             * https://github.com/jquery/jquery/blob/master/src/ajax.js#L168.
+             */
+            var load = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
+
+                var completeCallback = function (res) {
+
+                    var responseText = res.responseText,
+                        html         = selector ? jquery('<div>').append(responseText).find(selector) : responseText;
+
+                    jquery(targetDiv).html(html);
+
+                    /* did the user supply a post-load function? */
+                    if (jquery_isFunction(postLoadFunction)) {
+
+                        postLoadFunction();
+                    }
+                };
+
+                /** did the user supply a pre-load function? */
+                if (jquery_isFunction(preLoadFunction)) {
+
+                    preLoadFunction();
+                }
+
+                jquery.ajax({
+
+                    url      : url,
+                    type     : method,
+                    dataType : 'html',
+                    complete : completeCallback
+                });
+            },
+
+            /**
+             * Similar to jQuery's "get" but ignores response code.
+             */
+            get = function (method, url, data, success, dataType) {
+
+                jquery.ajax({
+
+                    url      : url,
+                    type     : method,
+                    data     : data,
+                    dataType : dataType,
+                    complete : success
+                });
+
+            },
+
+            triggerDoneLoading = function (targetDiv) {
+
+                loadStyler.removeLoadingStyle(targetDiv);
+            },
+
+            /**
+             * Calls "load", but does some additional styling on the target element while it's processing.
+             */
+            loadAndStyle = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
+
+                /** one way or another, we're removing the loading style when we're done... */
+                var post = function () {
+
+                    triggerDoneLoading(targetDiv);
+                };
+
+                loadStyler.applyLoadingStyle(targetDiv);
+
+                /** ... but maybe we want to do something else too */
+                if (jquery_isFunction(postLoadFunction)) {
+
+                    post = function () {
+
+                        triggerDoneLoading(targetDiv);
+                        postLoadFunction();
+                    };
+                }
+
+                /** do the load. do it! */
+                load(method, url, targetDiv, selector, preLoadFunction, post);
+            };
+
+            return {
+
+                loadAndStyle : loadAndStyle,
+                get          : get
+            };
         }());
 
     /**
@@ -427,13 +546,24 @@ var TubePress = (function (jquery, win) {
      */
     return {
 
+        Ajax : {
+
+            Executor   : ajaxExecutor,
+            LoadStyler : loadStyler
+        },
+
         AsyncUtil   : asyncConverter,
         Beacon      : beacon,
         DomInjector : domInjector,
         Environment : environment,
-        Events      : events,
-        LangUtils   : langUtils,
-        Logger      : logger
+
+        Lang : {
+
+            Utils      : langUtils,
+            JsonParser : jsonParser
+        },
+
+        Logger : logger
     };
 
 }(jQuery, window));

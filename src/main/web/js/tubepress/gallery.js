@@ -15,224 +15,23 @@ var TubePressGallery = (function (jquery, win, tubepress) {
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
-    var jquery_isFunction = jquery.isFunction,
-        text_tubepress    = 'tubepress',
-        beacon            = tubepress.Beacon,
-        subscribe         = beacon.subscribe,
-        publish           = beacon.publish,
-        langUtils         = tubepress.LangUtils,
-        events            = tubepress.Events,
-        environment       = tubepress.Environment,
-        domInjector       = tubepress.DomInjector,
-
-        /**
-         * Gallery-related events.
-         */
-        galleryEvents = (function () {
-
-            var xdot          = '.',
-                xrequest      = 'request',
-                xthumbgallery = text_tubepress + xdot + 'thumbgallery' + xdot;
-
-            return {
-
-                /**
-                 * An entirely new gallery has entered the DOM.
-                 *
-                 * @arg string galleryId The identifier of this gallery.
-                 * @arg object params    The parameters of this gallery.
-                 */
-                NEW_GALLERY_LOADED : xthumbgallery + 'newgallery',
-
-                /** A new set of thumbnails has entered the DOM. */
-                NEW_THUMBS_LOADED  : xthumbgallery + 'newthumbs',
-
-                NEW_VIDEO_REQUESTED : xthumbgallery + xrequest + 'newvideo',
-
-                NEXT_VIDEO_REQUESTED : xthumbgallery + xrequest + 'nextvideo',
-
-                PREV_VIDEO_REQUESTED : xthumbgallery + xrequest + 'prevvideo',
-
-                PAGE_CHANGE_REQUESTED : xthumbgallery + xrequest + 'pagechange'
-            };
-        }()),
-
-        /**
-         * Exposes a parse() function that wraps jQuery.parseJSON(), but adapts to
-         * jQuery < 1.6.
-         */
-        jsonParser = (function () {
-
-            var version      = jquery.fn.jquery,
-                modernJquery = /1\.6|7|8|9\.[0-9]+/.test(version) !== false,
-                parser,
-                parse = function (msg) {
-
-                    return parser(msg);
-                };
-
-            if (modernJquery) {
-
-                parser = function (msg) {
-
-                    return jquery.parseJSON(msg);
-                };
-
-            } else {
-
-                parser = function (data) {
-
-                    if (typeof data !== 'string' || !data) {
-
-                        return null;
-                    }
-
-                    data = jquery.trim(data);
-
-
-                    if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
-                            .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
-                            .replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
-
-                        return (win.JSON && win.JSON.parse) ?
-
-                                win.JSON.parse(data) : (new Function('return ' + data))();
-
-                    } else {
-
-                        throw 'Invalid JSON: ' + data;
-                    }
-                };
-            }
-
-            return {
-
-                parse : parse
-            };
-        }()),
-
-        /**
-         * Handles styling DOM elements before and after loads.
-         */
-        loadStyler = (function () {
-
-            /**
-             * Fade to "white".
-             */
-            var applyLoadingStyle = function (targetDiv) {
-
-                    jquery(targetDiv).fadeTo(0, 0.3);
-                },
-
-                /**
-                 * Fade back to full opacity.
-                 */
-                removeLoadingStyle = function (targetDiv) {
-
-                    jquery(targetDiv).fadeTo(0, 1);
-                };
-
-            return {
-
-                applyLoadingStyle  : applyLoadingStyle,
-                removeLoadingStyle : removeLoadingStyle
-            };
-        }()),
-
-        /**
-         * Various Ajax utilities.
-         */
-        ajaxExecutor = (function () {
-
-            /**
-             * Similar to jQuery's "load" but tolerates non-200 status codes.
-             * https://github.com/jquery/jquery/blob/master/src/ajax.js#L168.
-             */
-            var load = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
-
-                    var completeCallback = function (res) {
-
-                        var responseText = res.responseText,
-                            html         = selector ? jquery('<div>').append(responseText).find(selector) : responseText;
-
-                        jquery(targetDiv).html(html);
-
-                        /* did the user supply a post-load function? */
-                        if (jquery_isFunction(postLoadFunction)) {
-
-                            postLoadFunction();
-                        }
-                    };
-
-                    /** did the user supply a pre-load function? */
-                    if (jquery_isFunction(preLoadFunction)) {
-
-                        preLoadFunction();
-                    }
-
-                    jquery.ajax({
-
-                        url      : url,
-                        type     : method,
-                        dataType : 'html',
-                        complete : completeCallback
-                    });
-                },
-
-                /**
-                 * Similar to jQuery's "get" but ignores response code.
-                 */
-                get = function (method, url, data, success, dataType) {
-
-                    jquery.ajax({
-
-                        url      : url,
-                        type     : method,
-                        data     : data,
-                        dataType : dataType,
-                        complete : success
-                    });
-
-                },
-
-                triggerDoneLoading = function (targetDiv) {
-
-                    loadStyler.removeLoadingStyle(targetDiv);
-                },
-
-                /**
-                 * Calls "load", but does some additional styling on the target element while it's processing.
-                 */
-                loadAndStyle = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
-
-                    /** one way or another, we're removing the loading style when we're done... */
-                    var post = function () {
-
-                        triggerDoneLoading(targetDiv);
-                    };
-
-                    loadStyler.applyLoadingStyle(targetDiv);
-
-                    /** ... but maybe we want to do something else too */
-                    if (jquery_isFunction(postLoadFunction)) {
-
-                        post = function () {
-
-                            triggerDoneLoading(targetDiv);
-                            postLoadFunction();
-                        };
-                    }
-
-                    /** do the load. do it! */
-                    load(method, url, targetDiv, selector, preLoadFunction, post);
-                };
-
-            return {
-
-                loadAndStyle : loadAndStyle,
-                get          : get
-            };
-        }()),
+    var text_tubepress               = 'tubepress',
+        text_eventPrefix_gallery     = text_tubepress + '.thumbgallery.',
+        text_eventPrefix_events      = text_tubepress + '.embedded.',
+        text_eventPrefix_players     = text_tubepress + '.players.',
+        text_event_playerPopulate    = text_eventPrefix_players + 'populate',
+        text_event_playerInvoke      = text_eventPrefix_players + 'invoke',
+        text_event_newGallery        = text_eventPrefix_gallery + 'newgallery',
+        text_event_newThumbs         = text_eventPrefix_gallery + 'newthumbs',
+        text_event_galleryPageChange = text_eventPrefix_gallery + 'requestpagechange',
+        text_event_galleryNewVideo   = text_eventPrefix_gallery + 'requestnewvideo',
+        text_event_embeddedStart     = text_eventPrefix_events + 'start',
+        text_event_embeddedStop      = text_eventPrefix_events + 'stop',
+        beacon                       = tubepress.Beacon,
+        subscribe                    = beacon.subscribe,
+        publish                      = beacon.publish,
+        langUtils                    = tubepress.Lang.Utils,
+        environment                  = tubepress.Environment,
 
         /**
          * Keeps state for any gallery loaded on the page.
@@ -246,7 +45,6 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 currentVideoId   = 'currentVideoId',
                 isPlayingNow     = 'playingNow',
 
-                embeddedEvents = events.EMBEDDED,
                 parseIntOrZero = langUtils.parseIntOrZero,
                 text_player    = 'player',
                 text_embedded  = 'embedded',
@@ -421,8 +219,6 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                     if (sequence) {
 
                         internalRegistry[galleryId][currentVideoId] = sequence[0];
-
-                        domInjector.loadJs('src/main/web/js/' + text_tubepress + '/embedded.js');
                     }
                 },
 
@@ -545,15 +341,15 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                     }
                 };
 
-            subscribe(galleryEvents.NEW_GALLERY_LOADED, onNewGallery);
+            subscribe(text_event_newGallery, onNewGallery);
 
-            subscribe(galleryEvents.PAGE_CHANGE_REQUESTED, onPageChange);
+            subscribe(text_event_galleryPageChange, onPageChange);
 
-            subscribe(galleryEvents.NEW_VIDEO_REQUESTED, onNewVideoRequested);
+            subscribe(text_event_galleryNewVideo, onNewVideoRequested);
 
-            subscribe(embeddedEvents.PLAYBACK_STOPPED, onPlaybackStopped);
+            subscribe(text_event_embeddedStop, onPlaybackStopped);
 
-            subscribe(embeddedEvents.PLAYBACK_STARTED, onPlaybackStarted);
+            subscribe(text_event_embeddedStart, onPlaybackStarted);
 
             return {
 
@@ -581,7 +377,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
             var init = function (galleryId, params) {
 
-                publish(galleryEvents.NEW_GALLERY_LOADED, [ galleryId, params ]);
+                publish(text_event_newGallery, [ galleryId, params ]);
             };
 
             return {
@@ -673,7 +469,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 }
             };
 
-        subscribe(galleryEvents.NEW_THUMBS_LOADED + ' ' + galleryEvents.NEW_GALLERY_LOADED, onNewGalleryOrThumbs);
+        subscribe(text_event_newThumbs + ' ' + text_event_newGallery, onNewGalleryOrThumbs);
     }());
 
     /**
@@ -708,7 +504,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                     galleryId = getGalleryIdFromRelSplit(rel_split),
                     videoId   = getVideoIdFromIdAttr(jquery(this).attr('id'));
 
-                publish(galleryEvents.NEW_VIDEO_REQUESTED, [ galleryId, videoId ]);
+                publish(text_event_galleryNewVideo, [ galleryId, videoId ]);
             },
 
             /**
@@ -720,7 +516,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 jquery('#' + text_tubepress + '_gallery_' + galleryId + " a[id^='" + text_tubepress + "_']").click(clickListener);
             };
 
-        subscribe(galleryEvents.NEW_THUMBS_LOADED + ' ' + galleryEvents.NEW_GALLERY_LOADED, onNewGalleryOrThumbs);
+        subscribe(text_event_newThumbs + ' ' + text_event_newGallery, onNewGalleryOrThumbs);
 
     }());
 
@@ -729,14 +525,10 @@ var TubePressGallery = (function (jquery, win, tubepress) {
      */
     (function () {
 
-        var
-            /** These variable declarations help compression. */
-            playerEvents     = tubepress.Events.PLAYERS,
-
-            /**
-             * Find the player required for a gallery and load the JS.
-             */
-            onNewGalleryLoaded = function (e, galleryId) {
+        /**
+         * Find the player required for a gallery and load the JS.
+         */
+        var onNewGalleryLoaded = function (e, galleryId) {
 
                 var path = galleryRegistry.getPlayerJsUrl(galleryId);
 
@@ -758,11 +550,11 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
                     callback   = function (data) {
 
-                        var result = jsonParser.parse(data.responseText),
+                        var result = tubepress.JsonParser.parse(data.responseText),
                             title  = result.title,
                             html   = result.html;
 
-                        publish(playerEvents.PLAYER_POPULATE, [ playerName, title, html, height, width, videoId, galleryId ]);
+                        publish(text_event_playerPopulate, [ playerName, title, html, height, width, videoId, galleryId ]);
                     },
 
                     dataToSend = {
@@ -780,7 +572,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 jquery.extend(dataToSend, nvpMap);
 
                 /** Announce we're gonna invoke the player... */
-                publish(playerEvents.PLAYER_INVOKE, [ playerName, videoId, galleryId, width, height ]);
+                publish(text_event_playerInvoke, [ playerName, height, width, videoId, galleryId ]);
 
                 /** If this player requires population, go fetch the HTML for it. */
                 if (galleryRegistry.getPlayerLocationProducesHtml(galleryId)) {
@@ -788,15 +580,15 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                     method = galleryRegistry.getHttpMethod(galleryId);
 
                     /* ... and fetch the HTML for it */
-                    ajaxExecutor.get(method, url, dataToSend, callback, 'json');
+                    tubepress.Ajax.Executor.get(method, url, dataToSend, callback, 'json');
                 }
             };
 
         /** When we see a new gallery... */
-        subscribe(galleryEvents.NEW_GALLERY_LOADED, onNewGalleryLoaded);
+        subscribe(text_event_newGallery, onNewGalleryLoaded);
 
         /** When a user clicks a thumbnail... */
-        subscribe(galleryEvents.NEW_VIDEO_REQUESTED, onNewVideoRequested);
+        subscribe(text_event_galleryNewVideo, onNewVideoRequested);
     }());
 
     /**
@@ -808,7 +600,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
                 var page = anchor.data('page');
 
-                publish(galleryEvents.PAGE_CHANGE_REQUESTED, [ galleryId, page ]);
+                publish(text_event_galleryPageChange, [ galleryId, page ]);
             },
 
             onNewGalleryOrThumbs = function (event, galleryId) {
@@ -821,15 +613,13 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 jquery('#' + text_tubepress + '_gallery_' + galleryId + ' div.pagination a').click(pagationClickCallback);
             };
 
-        subscribe(galleryEvents.NEW_GALLERY_LOADED + ' ' + galleryEvents.NEW_THUMBS_LOADED, onNewGalleryOrThumbs);
+        subscribe(text_event_newThumbs + ' ' + text_event_newGallery, onNewGalleryOrThumbs);
     }());
 
     return {
 
         AysncRegistrar : asyncGalleryRegistrar,
-        LoadStyler     : loadStyler,
-        Registry       : galleryRegistry,
-        Events         : events
+        Registry       : galleryRegistry
     };
 
 }(jQuery, window, TubePress));
