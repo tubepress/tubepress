@@ -59,7 +59,7 @@
 
     } else {
 
-        tubePress.DomInjector.loadJs(tubePress.Environment.getBaseUrl() + '/src/main/web/js/vendor/jquery.query/jQuery.query.js');
+        tubePress.DomInjector.loadJs(tubePress.Environment.getBaseUrl() + '/src/main/web/vendor/jquery.query/jQuery.query.js');
         tubePressLangUtils.callWhenTrue(
 
             scanAndModifyThumbs,

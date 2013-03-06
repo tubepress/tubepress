@@ -2,6 +2,6 @@
 src/main/assembly/stage
 src/main/assembly/dist
 .idea/workspace.xml
-vendor
+/vendor
 composer.lock
 tubepress.php

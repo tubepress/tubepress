@@ -1,4 +1,4 @@
-/**
+/**!
  * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
@@ -304,12 +304,12 @@ var TubePress = (function (jquery, win) {
 
                 loadGalleryJs = function () {
 
-                    loadJs(coreJsPrefix + '/' + text_tubepress + '/gallery.js');
+                    loadJs(coreJsPrefix + '/gallery.js');
                 },
 
                 loadedEmbeddedApiJs = function () {
 
-                    loadJs(coreJsPrefix + '/' + text_tubepress + '/embedded.js');
+                    loadJs(coreJsPrefix + '/embedded.js');
                 };
 
             return {

@@ -28,12 +28,12 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
 
         $wpFunctionWrapper    = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
         $baseName             = basename(TUBEPRESS_ROOT);
-        $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/jquery-ui-flick/jquery-ui-1.8.24.custom.css", $baseName);
+        $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", $baseName);
         $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/options-page.css", $baseName);
-        $jqueryMultiSelectCss = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
-        $jsColorUrl           = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/js/jscolor/jscolor.js", $baseName);
-        $jqueryUiJsUrl        = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/js/jquery-ui/jquery-ui-1.8.24.custom.min.js", $baseName);
-        $jqueryMultiSelectJs  = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/js/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName);
+        $jqueryMultiSelectCss = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
+        $jsColorUrl           = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jscolor/jscolor.js", $baseName);
+        $jqueryUiJsUrl        = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", $baseName);
+        $jqueryMultiSelectJs  = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName);
 
         $wpFunctionWrapper->wp_register_style('jquery-ui-flick', $jqueryUiCssUrl);
         $wpFunctionWrapper->wp_register_style('tubepress-options-page', $wpOptionsPageCss);

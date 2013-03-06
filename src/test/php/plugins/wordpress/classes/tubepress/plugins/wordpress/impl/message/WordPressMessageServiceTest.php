@@ -123,7 +123,7 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
 
         $outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 
-        $msgFmt = '/opt/local/bin/msgfmt';
+        $msgFmt = '/usr/bin/msgfmt';
         $msgFmt = tubepress_impl_util_StringUtils::removeNewLines($msgFmt);
 
         if (!is_file($msgFmt) || !is_executable($msgFmt)) {

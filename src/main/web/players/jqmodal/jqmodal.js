@@ -17,7 +17,7 @@
 	/* this stuff helps compression */
 	var name                 = 'jqmodal',
 		subscribe            = tubePress.Beacon.subscribe,
-		path                 = tubePress.Environment.getBaseUrl() + '/src/main/web/players/jqmodal/lib/jqModal.',
+		path                 = tubePress.Environment.getBaseUrl() + '/src/main/web/vendor/jqmodal/jqModal.',
         domInjector          = tubePress.DomInjector,
         event_prefix_players = 'tubepress.players.',
 
