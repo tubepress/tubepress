@@ -550,7 +550,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
                     callback   = function (data) {
 
-                        var result = tubepress.JsonParser.parse(data.responseText),
+                        var result = tubepress.Lang.JsonParser.parse(data.responseText),
                             title  = result.title,
                             html   = result.html;
 

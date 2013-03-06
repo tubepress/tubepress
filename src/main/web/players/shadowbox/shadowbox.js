@@ -19,23 +19,22 @@
 
 	/* this stuff helps compression */
 
-	var events       = tubePress.Events,
-        playerEvents = events.PLAYERS,
-        name         = 'shadowbox',
-		url          = 'src/main/web/players/' + name + '/',
-        text_lib     = 'lib',
-        text_html    = 'html',
-        beacon       = tubePress.Beacon,
-        subscribe    = beacon.subscribe,
-        langUtils    = tubePress.LangUtils,
-        domInjector  = tubePress.DomInjector,
+	var name                 = 'shadowbox',
+		url                  = 'src/main/web/players/' + name + '/',
+        text_lib             = 'lib',
+        text_html            = 'html',
+        beacon               = tubePress.Beacon,
+        subscribe            = beacon.subscribe,
+        langUtils            = tubePress.Lang.Utils,
+        domInjector          = tubePress.DomInjector,
+        event_prefix_players = 'tubepress.players.',
 
         isShadowBoxAvailable = function () {
 
             return langUtils.isDefined(window.Shadowbox);
         },
 
-		boot = function () {
+		initShadowbox = function () {
 
 			Shadowbox.path = url + text_lib + '/';
 
@@ -51,7 +50,7 @@
 			Shadowbox.load();
 		},
 
-        performInitialBoot = function () {
+        loadShadowboxIfNeeded = function () {
 
             if (! isShadowBoxAvailable()) {
 
@@ -62,14 +61,14 @@
 
                 langUtils.callWhenTrue(
 
-                    boot,
+                    initShadowbox,
                     isShadowBoxAvailable,
                     300
                 );
             }
         },
 
-		onPlayerInvoked = function (e, playerName, videoId, galleryId, width, height) {
+		onPlayerInvoked = function (e, playerName, height, width, videoId, galleryId) {
 
             if (playerName !== name) {
 
@@ -117,9 +116,9 @@
             );
 		};
 
-	subscribe(playerEvents.PLAYER_INVOKE, onPlayerInvoked);
-	subscribe(playerEvents.PLAYER_POPULATE, onPlayerPopulated);
+	subscribe(event_prefix_players + 'invoke', onPlayerInvoked);
+	subscribe(event_prefix_players + 'populate', onPlayerPopulated);
 
-    performInitialBoot();
+    loadShadowboxIfNeeded();
 
 }(jQuery, TubePress));

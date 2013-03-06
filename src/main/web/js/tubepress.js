@@ -273,7 +273,7 @@ var TubePress = (function (jquery, win) {
 
                     fileref.rel  = 'stylesheet';
                     fileref.type = 'text/css';
-                    fileref.ref  = path;
+                    fileref.href = path;
 
                     doLog(path, 'CSS');
 

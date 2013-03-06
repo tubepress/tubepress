@@ -10,7 +10,7 @@
 
 /*global jQuery, TubePressAjax, TubePressEvents */
 /*jslint sloppy: true, white: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
-(function (jquery, tubePress, tubePressGallery) {
+(function (jquery, tubePress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -24,21 +24,20 @@
 		},
 	
 		/* this stuff helps compression */
-        events       = tubePress.Events,
-		playerEvents = events.PLAYERS,
-        beacon       = tubePress.Beacon,
-        subscribe    = beacon.subscribe,
-		name         = 'normal',
-        styler       = tubePressGallery.LoadStyler,
-        addStyle     = styler.applyLoadingStyle,
-        remStyle     = styler.removeLoadingStyle,
+        beacon                   = tubePress.Beacon,
+        subscribe                = beacon.subscribe,
+		name                     = 'normal',
+        styler                   = tubePress.Ajax.LoadStyler,
+        addStyle                 = styler.applyLoadingStyle,
+        remStyle                 = styler.removeLoadingStyle,
+        text_eventPrefix_players = 'tubepress.players.',
 	
 		getEmbedId = function (gId) {
 
 			return '#' + prefix + embedded + 'object_' + gId;
 		},
 
-		invoke = function (e, playerName, videoId, galleryId, width, height) {
+		invoke = function (e, playerName, height, width, videoId, galleryId) {
 
             if (playerName !== name) {
 
@@ -70,7 +69,7 @@
             remStyle(getEmbedId(galleryId));
 		};
 
-	subscribe(playerEvents.PLAYER_INVOKE, invoke);
-    subscribe(playerEvents.PLAYER_POPULATE, populate);
+	subscribe(text_eventPrefix_players + 'invoke', invoke);
+    subscribe(text_eventPrefix_players + 'populate', populate);
 
-}(jQuery, TubePress, TubePressGallery));
+}(jQuery, TubePress));

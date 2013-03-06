@@ -7,16 +7,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-var TubePressYouTubePlayer = (function () {
-	
-	/* this stuff helps compression */
-	var events	= TubePressEvents,
-		name	= 'youtube',
-		
-		invoke = function (e, videoId, galleryId, width, height) {
+(function () {
 
-			window.location = 'http://www.youtube.com/watch?v=' + videoId;
-		};
+    /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
+    'use strict';
 
-	jQuery(document).bind(events.PLAYER_INVOKE + name, invoke);
+    /* this stuff helps compression */
+    var invoke = function (e, playerName, height, width, videoId, galleryId) {
+
+        if (playerName !== 'youtube') {
+
+            return;
+        }
+
+        window.location = 'http://www.youtube.com/watch?v=' + videoId;
+    };
+
+    TubePress.Beacon.subscribe('tubepress.players.invoke', invoke);
+
 }());

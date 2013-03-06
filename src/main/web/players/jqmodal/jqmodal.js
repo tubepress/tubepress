@@ -7,20 +7,26 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/*jslint browser: true, devel: true */
-/*global jQuery TubePressEvents TubePressCss TubePressGlobalJsConfig */
-var TubePressJqModalPlayer = (function () {
+/* jslint browser: true, devel: true */
+/* global jQuery TubePressEvents TubePressCss TubePressGlobalJsConfig */
+(function (jquery, tubePress) {
 
-	'use strict';
+    /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
+    'use strict';
 
 	/* this stuff helps compression */
-	var events	= TubePressEvents,
-		name	= 'jqmodal',
-		jquery	= jQuery,
-		doc		= jquery(document),
-		path	= TubePressGlobalJsConfig.baseUrl + '/src/main/web/players/jqmodal/lib/jqModal.',
+	var name                 = 'jqmodal',
+		subscribe            = tubePress.Beacon.subscribe,
+		path                 = tubePress.Environment.getBaseUrl() + '/src/main/web/players/jqmodal/lib/jqModal.',
+        domInjector          = tubePress.DomInjector,
+        event_prefix_players = 'tubepress.players.',
 
-		invoke = function (e, videoId, galleryId, width, height) {
+		invoke = function (e, playerName, height, width, videoId, galleryId) {
+
+            if (playerName !== name) {
+
+                return;
+            }
 
 			var element = jquery('<div id="jqmodal' + galleryId + videoId + '" style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;"></div>').appendTo('body'),
 				hider = function (hash) {
@@ -32,14 +38,23 @@ var TubePressJqModalPlayer = (function () {
 			element.jqm({ onHide : hider }).jqmShow();
 		},
 
-		populate = function (e, title, html, height, width, videoId, galleryId) {
+		populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
+
+            if (playerName !== name) {
+
+                return;
+            }
 
 			jquery('#jqmodal' + galleryId + videoId).html(html);
 		};
 
-	jquery.getScript(path + 'js', function () {}, true);
-	TubePressCss.load(path + 'css');
+    if (!jquery.isFunction(jquery.fn.jqm)) {
 
-	doc.bind(events.PLAYER_INVOKE + name, invoke);
-	doc.bind(events.PLAYER_POPULATE + name, populate);
-}());
+        domInjector.loadJs(path + 'js');
+        domInjector.loadCss(path + 'css');
+    }
+
+	subscribe(event_prefix_players + 'invoke', invoke);
+	subscribe(event_prefix_players + 'populate', populate);
+
+}(jQuery, TubePress));
