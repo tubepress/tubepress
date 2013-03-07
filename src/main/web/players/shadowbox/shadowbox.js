@@ -12,57 +12,113 @@
 /*jslint sloppy: true, white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
 
 
-var TubePressShadowboxPlayer = (function () {
-	
+(function (jquery, tubePress) {
+
+    /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
+    'use strict';
+
 	/* this stuff helps compression */
-	var events	= TubePressEvents,
-		name	= 'shadowbox',
-		jquery	= jQuery,
-		doc		= jquery(document),
-		url		= TubePressGlobalJsConfig.baseUrl + '/src/main/web/players/shadowbox/',
 
-		boot	= function () {
+	var name                 = 'shadowbox',
+		url                  = 'src/main/web/players/' + name + '/',
+        text_lib             = 'lib',
+        text_html            = 'html',
+        beacon               = tubePress.Beacon,
+        subscribe            = beacon.subscribe,
+        langUtils            = tubePress.Lang.Utils,
+        domInjector          = tubePress.DomInjector,
+        event_prefix_players = 'tubepress.playerlocation.',
 
-			if (typeof Shadowbox === 'undefined') {
-				setTimeout(boot, 400);
-				return;
-			}
-		
-			Shadowbox.path = url + 'lib/';
+        isShadowBoxAvailable = function () {
+
+            return langUtils.isDefined(window.Shadowbox);
+        },
+
+		initShadowbox = function () {
+
+			Shadowbox.path = url + text_lib + '/';
+
 			Shadowbox.init({
+
 				initialHeight	: 160,
 				initialWidth	: 320,
-				skipSetup		: true, 
-				players			: ['html'],
+				skipSetup		: true,
+				players			: [text_html],
 				useSizzle		: false
 			});
+
 			Shadowbox.load();
 		},
-		
-		invoke = function (e, videoId, galleryId, width, height) {
+
+        loadShadowboxIfNeeded = function () {
+
+            if (! isShadowBoxAvailable()) {
+
+                var prefix = url + text_lib + '/' + name;
+
+                domInjector.loadJs(prefix + '.js');
+                domInjector.loadCss(prefix + '.css');
+
+                langUtils.callWhenTrue(
+
+                    initShadowbox,
+                    isShadowBoxAvailable,
+                    300
+                );
+            }
+        },
+
+		onPlayerInvoked = function (e, playerName, height, width, videoId, galleryId) {
+
+            if (playerName !== name) {
+
+                return;
+            }
+
 			Shadowbox.open({
-				player:		'html',
+
+				player:		text_html,
 				height:		height,
 				width:		width,
 				content:	'&nbsp;'
 			});
 		},
-		
-		populate = function (e, title, html, height, width, videoId, galleryId) {
-			
-			if (!jquery('#sb-player').length) {
-				setTimeout( function () { populate(e, title, html, height, width, videoId, galleryId); }, 200);
-				return;
-			}
-			
-			jquery('#sb-player').html(html);
-		};
-		
-	jQuery.getScript(url + 'lib/shadowbox.js', function () {}, true);
-	TubePressCss.load(url + 'lib/shadowbox.css');
 
-	boot();
-	
-	doc.bind(events.PLAYER_INVOKE + name, invoke);
-	doc.bind(events.PLAYER_POPULATE + name, populate);
-}());
+        doPopulate = function (html) {
+
+            jquery('#sb-player').html(html);
+        },
+
+		onPlayerPopulated = function (e, playerName, title, html, height, width, videoId, galleryId) {
+
+            var callback, test;
+
+            if (playerName !== name) {
+
+                return;
+            }
+
+            callback = function () {
+
+                doPopulate(html);
+            };
+
+            test = function () {
+
+                return jquery('#sb-player').length > 0;
+            };
+
+            langUtils.callWhenTrue(
+
+                callback,
+                test,
+                200
+            );
+		};
+
+	subscribe(event_prefix_players + 'invoke', onPlayerInvoked);
+	subscribe(event_prefix_players + 'populate', onPlayerPopulated);
+
+    loadShadowboxIfNeeded();
+
+}(jQuery, TubePress));

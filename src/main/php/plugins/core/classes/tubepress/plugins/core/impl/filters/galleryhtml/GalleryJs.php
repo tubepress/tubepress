@@ -29,18 +29,17 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs
 
         $filterManager->dispatch(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, $jsEvent);
 
-        $args    = $jsEvent->getSubject();
-        $asJson  = $encoder->encode($args);
-        $html = $event->getSubject();
+        $args   = $jsEvent->getSubject();
+        $asJson = $encoder->encode($args);
+        $html   = $event->getSubject();
 
-        $toReturn = $html
-            . "\n"
-            . '<script type="text/javascript">'
-            . "\n\t"
-            . self::$_NAME_CLASS
-            . '.'
-            . self::$_NAME_INIT_FUNCTION
-            . "($galleryId, $asJson);\n</script>";
+        $toReturn = $html . <<<EOT
+<script type="text/javascript">
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressGalleryRegistrar = tubePressGalleryRegistrar || [];
+       tubePressDomInjector.push(['loadGalleryJs']);
+       tubePressGalleryRegistrar.push(['register', '$galleryId', $asJson ]);
+</script>
+EOT;
 
         $event->setSubject($toReturn);
     }

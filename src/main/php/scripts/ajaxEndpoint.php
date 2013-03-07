@@ -12,7 +12,7 @@
 /*
  * WordPress stubbornly will not load except from the global scope.
  */
-if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false) {
+if (true || strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false) {
 
     include substr(__FILE__, 0, strpos(__FILE__, 'wp-content/plugins/')) . 'wp-blog-header.php';
 }
