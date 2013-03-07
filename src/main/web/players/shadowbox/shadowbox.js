@@ -27,7 +27,7 @@
         subscribe            = beacon.subscribe,
         langUtils            = tubePress.Lang.Utils,
         domInjector          = tubePress.DomInjector,
-        event_prefix_players = 'tubepress.players.',
+        event_prefix_players = 'tubepress.playerlocation.',
 
         isShadowBoxAvailable = function () {
 

@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
     private static $_PROPERTY_JSMAP = 'jsMap';
 
-    private static $_NAME_PARAM_PLAYERJSURL          = 'playerJsUrl';
+    private static $_NAME_PARAM_PLAYERJSURL          = 'playerLocationJsUrl';
     private static $_NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
 
     /**

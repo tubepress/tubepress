@@ -23,6 +23,6 @@
         window.location = 'http://www.youtube.com/watch?v=' + videoId;
     };
 
-    TubePress.Beacon.subscribe('tubepress.players.invoke', invoke);
+    TubePress.Beacon.subscribe('tubepress.playerlocation.invoke', invoke);
 
 }());

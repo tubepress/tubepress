@@ -64,9 +64,9 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 	{
 	    return <<<EOT
 hello<script type="text/javascript">
-   var tubePressDomInjector = tubePressDomInjector || [], tubePressGallery = tubePressGallery || [];
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressGalleryRegistrar = tubePressGalleryRegistrar || [];
        tubePressDomInjector.push(['loadGalleryJs']);
-       tubePressGallery.push(['init', 'gallery-id', json ]);
+       tubePressGalleryRegistrar.push(['register', 'gallery-id', json ]);
 </script>
 EOT;
 	}

@@ -68,6 +68,6 @@
         );
     }
 
-    tubePress.Beacon.subscribe('tubepress.thumbgallery.newthumbs', scanAndModifyThumbs);
+    tubePress.Beacon.subscribe('tubepress.gallery.newthumbs', scanAndModifyThumbs);
 
 }(jQuery, TubePress, TubePressGallery));

@@ -19,7 +19,7 @@
 		subscribe            = tubePress.Beacon.subscribe,
 		path                 = tubePress.Environment.getBaseUrl() + '/src/main/web/vendor/jqmodal/jqModal.',
         domInjector          = tubePress.DomInjector,
-        event_prefix_players = 'tubepress.players.',
+        event_prefix_players = 'tubepress.playerlocation.',
 
 		invoke = function (e, playerName, height, width, videoId, galleryId) {
 

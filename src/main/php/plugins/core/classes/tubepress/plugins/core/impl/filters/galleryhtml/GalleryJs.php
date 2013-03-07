@@ -35,9 +35,9 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs
 
         $toReturn = $html . <<<EOT
 <script type="text/javascript">
-   var tubePressDomInjector = tubePressDomInjector || [], tubePressGallery = tubePressGallery || [];
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressGalleryRegistrar = tubePressGalleryRegistrar || [];
        tubePressDomInjector.push(['loadGalleryJs']);
-       tubePressGallery.push(['init', '$galleryId', $asJson ]);
+       tubePressGalleryRegistrar.push(['register', '$galleryId', $asJson ]);
 </script>
 EOT;
 

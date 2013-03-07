@@ -84,7 +84,7 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
             'jsMap' => array(
 
-                'playerJsUrl' => 'xyz/abc',
+                'playerLocationJsUrl' => 'xyz/abc',
                 'playerLocationProducesHtml' => true,
                 'ajaxPagination' => true,
                 'fluidThumbs' => false,

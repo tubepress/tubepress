@@ -24,6 +24,6 @@
         window.location = 'http://www.vimeo.com/' + videoId;
     };
 
-	TubePress.Beacon.subscribe('tubepress.players.invoke', invoke);
+	TubePress.Beacon.subscribe('tubepress.playerlocation.invoke', invoke);
 
 }());

@@ -20,7 +20,7 @@
 	var name                 = 'popup',
 		subscribe            = tubePress.Beacon.subscribe,
 		windows              = {},
-        event_prefix_players = 'tubepress.players.',
+        event_prefix_players = 'tubepress.playerlocation.',
 
 		invoke = function (e, playerName, height, width, videoId, galleryId) {
 

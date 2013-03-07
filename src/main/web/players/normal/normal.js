@@ -30,7 +30,7 @@
         styler                   = tubePress.Ajax.LoadStyler,
         addStyle                 = styler.applyLoadingStyle,
         remStyle                 = styler.removeLoadingStyle,
-        text_eventPrefix_players = 'tubepress.players.',
+        text_eventPrefix_players = 'tubepress.playerlocation.',
 	
 		getEmbedId = function (gId) {
 

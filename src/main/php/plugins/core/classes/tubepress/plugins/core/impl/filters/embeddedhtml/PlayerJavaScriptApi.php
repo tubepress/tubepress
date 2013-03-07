@@ -16,7 +16,13 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
 {
     public function onEmbeddedHtml(tubepress_api_event_TubePressEvent $event)
     {
-        $context   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $context             = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+
+        if (! $environmentDetector->isPro()) {
+
+            return;
+        }
 
         if (! $context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)) {
 
@@ -27,9 +33,9 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
         $videoId = $event->getArgument('videoId');
         $final   = $html . <<<EOT
 <script type="text/javascript">
-   var tubePressDomInjector = tubePressDomInjector || [], tubePressEmbeddedApi = tubePressEmbeddedApi || [];
-       tubePressDomInjector.push(['loadEmbeddedApiJs']);
-       tubePressEmbeddedApi.push(['register', '$videoId' ]);
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressPlayerApi = tubePressPlayerApi || [];
+       tubePressDomInjector.push(['loadPlayerApiJs']);
+       tubePressPlayerApi.push(['register', '$videoId' ]);
 </script>
 EOT;
 

@@ -307,17 +307,23 @@ var TubePress = (function (jquery, win) {
                     loadJs(coreJsPrefix + '/gallery.js');
                 },
 
-                loadedEmbeddedApiJs = function () {
+                loadPlayerApiJs = function () {
 
-                    loadJs(coreJsPrefix + '/embedded.js');
+                    loadJs(coreJsPrefix + '/playerApi.js');
+                },
+
+                loadAjaxSearchJs = function () {
+
+                    loadJs(coreJsPrefix + '/ajaxSearch.js');
                 };
 
             return {
 
-                loadJs            : loadJs,
-                loadCss           : loadCss,
-                loadGalleryJs     : loadGalleryJs,
-                loadEmbeddedApiJs : loadedEmbeddedApiJs
+                loadJs           : loadJs,
+                loadCss          : loadCss,
+                loadGalleryJs    : loadGalleryJs,
+                loadPlayerApiJs  : loadPlayerApiJs,
+                loadAjaxSearchJs : loadAjaxSearchJs
             };
         }()),
 
@@ -329,7 +335,10 @@ var TubePress = (function (jquery, win) {
             //http://tmxcredit.com/tech-blog/understanding-javascript-asynchronous-apis/
             var convertQueueToFunctionCalls = function (asyncObjectName, delegate) {
 
-                var queue = win[asyncObjectName],
+                var loggerOn = logger.on(),
+                    queueLength,
+
+                    queue = win[asyncObjectName],
 
                     queueCall = function (callArray) {
 
@@ -341,6 +350,13 @@ var TubePress = (function (jquery, win) {
 
                 if (langUtils.isDefined(queue)) {
 
+                    queueLength = queue.length;
+
+                    if (loggerOn) {
+
+                        logger.log('Running ' + queueLength + ' queue items for ' + asyncObjectName);
+                    }
+
                     // loop through our existing queue, calling methods in order
                     queue.reverse();
 
@@ -348,6 +364,11 @@ var TubePress = (function (jquery, win) {
 
                         queueCall(queue.pop());
                     }
+                }
+
+                if (loggerOn) {
+
+                    logger.log(asyncObjectName + ' is now connected');
                 }
 
                 // over write the sampleQueue, replacing the push method with 'queueCall'
@@ -542,6 +563,18 @@ var TubePress = (function (jquery, win) {
         }());
 
     /**
+     * Convert any queued calls to their real counterparts.
+     */
+    (function () {
+
+        var textCamelCaseTubePress = 'tubePress';
+
+        asyncConverter.processQueueCalls(textCamelCaseTubePress + 'DomInjector', domInjector);
+        asyncConverter.processQueueCalls(textCamelCaseTubePress + 'Beacon', beacon);
+
+    }());
+
+    /**
      * Stuff we expose to everyone else.
      */
     return {
@@ -567,5 +600,3 @@ var TubePress = (function (jquery, win) {
     };
 
 }(jQuery, window));
-
-TubePress.AsyncUtil.processQueueCalls('tubePressDomInjector', TubePress.DomInjector);
