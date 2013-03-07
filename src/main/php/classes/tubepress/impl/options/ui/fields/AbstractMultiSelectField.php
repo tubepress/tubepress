@@ -56,7 +56,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
      */
     public final function onSubmit()
     {
-        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $hrps           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
         if (! $hrps->hasParam($this->_name)) {
 
@@ -64,7 +65,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
             foreach ($this->_optionDescriptors as $optionDescriptor) {
 
                 /** @noinspection PhpUndefinedMethodInspection */
-                $this->getStorageManager()->set($optionDescriptor->getName(), false);
+                $storageManager->set($optionDescriptor->getName(), false);
             }
 
             return null;
@@ -79,7 +80,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
         }
 
         $errors         = array();
-        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
