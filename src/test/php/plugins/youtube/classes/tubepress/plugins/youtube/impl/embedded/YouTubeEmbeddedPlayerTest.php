@@ -61,7 +61,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://www.youtube.com/embed/xx?autohide=1&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
+        $this->assertEquals('http://www.youtube.com/embed/xx?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
     }
 
     public function testGetDataUrlAutoShowBoth()
@@ -80,7 +80,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://www.youtube.com/embed/xx?autohide=0&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
+        $this->assertEquals('http://www.youtube.com/embed/xx?wmode=opaque&autohide=0&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
     }
 
     public function testGetDataUrlAutoHideBarShowControls()
@@ -99,6 +99,6 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://www.youtube.com/embed/xx?autohide=2&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
+        $this->assertEquals('http://www.youtube.com/embed/xx?wmode=opaque&autohide=2&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
     }
 }
