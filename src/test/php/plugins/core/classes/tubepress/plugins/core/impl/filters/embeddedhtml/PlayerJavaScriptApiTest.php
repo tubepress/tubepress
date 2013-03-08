@@ -44,16 +44,16 @@ class tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApitTest extend
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
 
-        $event = new tubepress_api_event_TubePressEvent('hello');
+        $event = new tubepress_api_event_TubePressEvent('hello id="tubepress-video-object-47773745" ');
         $event->setArgument('videoId', 'abc');
 
         $this->_sut->onEmbeddedHtml($event);
 
         $expected = <<<EOT
-hello<script type="text/javascript">
+hello id="tubepress-video-object-47773745" <script type="text/javascript">
    var tubePressDomInjector = tubePressDomInjector || [], tubePressPlayerApi = tubePressPlayerApi || [];
        tubePressDomInjector.push(['loadPlayerApiJs']);
-       tubePressPlayerApi.push(['register', 'abc' ]);
+       tubePressPlayerApi.push(['register', 'tubepress-video-object-47773745' ]);
 </script>
 EOT;
 

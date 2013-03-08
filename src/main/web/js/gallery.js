@@ -264,35 +264,24 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 },
 
                 /**
-                 * Find the gallery with the given video loaded up.
-                 */
-                findGalleryIdWithVideoIdAsCurrent = function (videoId) {
-
-                    var test = function (galleryId) {
-
-                        return internalRegistry[galleryId][text_currentVideoId] === videoId;
-                    };
-
-                    return findGalleryThatMatchesTest(test);
-                },
-
-                /**
                  * Find the gallery that is currently playingcurrentVideoId the given video.
                  */
-                findGalleryIdCurrentlyPlayingVideo = function (videoId) {
+                findGalleryContainingVideoDomId = function (domId) {
 
-                    var test = function (galleryId) {
+                    var selector = '[id^="' + domId + '"]',
 
-                        var gall               = internalRegistry[galleryId],
-                            isCurrentlyPlaying = gall[text_currentVideoId] === videoId && gall[isCurrentlyPlayingVideo];
+                        test = function (galleryId) {
 
-                        if (isCurrentlyPlaying) {
+                            var gall = jquery('#' + text_tubepress + '_gallery_' + galleryId);
 
-                            return galleryId;
-                        }
+                            if (!gall.length) {
 
-                        return fawlse;
-                    };
+                                //we couldn't find this gallery for some reason
+                                return false;
+                            }
+
+                            return gall.find(selector).length > 0;
+                        };
 
                     return findGalleryThatMatchesTest(test);
                 },
@@ -300,9 +289,9 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 /**
                  * A video on the page has stopped.
                  */
-                onVideoStop = function (e, videoId) {
+                onVideoStop = function (e, videoId, domId) {
 
-                    var matchingGalleryId = findGalleryIdCurrentlyPlayingVideo(videoId);
+                    var matchingGalleryId = findGalleryContainingVideoDomId(domId);
 
                     /**
                      * If we don't have a gallery assigned to this video, we don't really care.
@@ -321,9 +310,9 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 /**
                  * A video on the page has started.
                  */
-                onVideoStart = function (e, videoId) {
+                onVideoStart = function (e, videoId, domId) {
 
-                    var matchingGalleryId = findGalleryIdWithVideoIdAsCurrent(videoId);
+                    var matchingGalleryId = findGalleryContainingVideoDomId(domId);
 
                     /**
                      * If we don't have a gallery assigned to this video, we don't really care.
@@ -363,23 +352,23 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
             return {
 
-                isAjaxPagination                   : isAjaxPagination,
-                isAutoNext                         : isAutoNext,
-                isCurrentlyPlayingVideo            : isCurrentlyPlayingVideo,
-                isFluidThumbs                      : isFluidThumbs,
-                isRegistered                       : isRegistered,
-                findGalleryIdCurrentlyPlayingVideo : findGalleryIdCurrentlyPlayingVideo,
-                getCurrentPageNumber               : getCurrentPageNumber,
-                getCurrentVideoId                  : getCurrentVideoId,
-                getEmbeddedHeight                  : getEmbeddedHeight,
-                getEmbeddedWidth                   : getEmbeddedWidth,
-                getHttpMethod                      : getHttpMethod,
-                getNvpMap                          : getNvpMap,
-                getPlayerLocationName              : getPlayerLocationName,
-                getPlayerLocationProducesHtml      : getPlayerLocationProducesHtml,
-                getPlayerLocationJsUrl             : getPlayerLocationJsUrl,
-                getSequence                        : getSequence,
-                getThumbAreaSelector               : getThumbAreaSelector
+                isAjaxPagination                : isAjaxPagination,
+                isAutoNext                      : isAutoNext,
+                isCurrentlyPlayingVideo         : isCurrentlyPlayingVideo,
+                isFluidThumbs                   : isFluidThumbs,
+                isRegistered                    : isRegistered,
+                findGalleryContainingVideoDomId : findGalleryContainingVideoDomId,
+                getCurrentPageNumber            : getCurrentPageNumber,
+                getCurrentVideoId               : getCurrentVideoId,
+                getEmbeddedHeight               : getEmbeddedHeight,
+                getEmbeddedWidth                : getEmbeddedWidth,
+                getHttpMethod                   : getHttpMethod,
+                getNvpMap                       : getNvpMap,
+                getPlayerLocationName           : getPlayerLocationName,
+                getPlayerLocationProducesHtml   : getPlayerLocationProducesHtml,
+                getPlayerLocationJsUrl          : getPlayerLocationJsUrl,
+                getSequence                     : getSequence,
+                getThumbAreaSelector            : getThumbAreaSelector
             };
         }()),
 
@@ -649,7 +638,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
             /** Get the gallery's sequence. This is an array of video ids. */
             var sequence  = galleryRegistry.getSequence(galleryId),
                 vidId     = galleryRegistry.getCurrentVideoId(galleryId),
-                index     = jquery.inArray(vidId, sequence),
+                index     = jquery.inArray(vidId.toString(), sequence),
                 lastIndex = sequence ? sequence.length - 1 : index;
 
             /** Sorry, we don't know anything about this video id, or we've reached the end of the gallery. */
@@ -668,7 +657,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 /** Get the gallery's sequence. This is an array of video ids. */
                 var sequence = galleryRegistry.getSequence(galleryId),
                     vidId    = galleryRegistry.getCurrentVideoId(galleryId),
-                    index    = jquery.inArray(vidId, sequence);
+                    index    = jquery.inArray(vidId.toString(), sequence);
 
                 /** Sorry, we don't know anything about this video id, or we're at the start of the gallery. */
                 if (index === -1 || index === 0) {
@@ -687,7 +676,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
     }());
 
     /**
-     * Handles auto-next capability.
+     * Handles auto-next.
      */
     (function () {
 
@@ -696,9 +685,9 @@ var TubePressGallery = (function (jquery, win, tubepress) {
          */
         var logger = tubepress.Logger,
 
-            onVideoStop = function (e, videoId) {
+            onVideoStop = function (e, videoId, domId, providerName, playerImplementationName) {
 
-                var galleryId = galleryRegistry.findGalleryIdCurrentlyPlayingVideo(videoId);
+                var galleryId = galleryRegistry.findGalleryContainingVideoDomId(domId);
 
                 if (!galleryId) {
 

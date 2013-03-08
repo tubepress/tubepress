@@ -69,7 +69,7 @@ class tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService 
         if ($jsApi) {
 
             $link->setQueryVariable(self::$_URL_PARAM_JS_API, 1);
-            $link->setQueryVariable(self::$_URL_PARAM_PLAYER_ID, "tubepress-vimeo-player-$videoId");
+            $link->setQueryVariable(self::$_URL_PARAM_PLAYER_ID, 'tubepress-video-object-' . mt_rand());
         }
 
         return $link;

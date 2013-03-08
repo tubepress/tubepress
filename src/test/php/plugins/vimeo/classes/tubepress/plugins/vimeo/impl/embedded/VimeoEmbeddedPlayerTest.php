@@ -56,7 +56,7 @@ class tubepress_plugins_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends Tube
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://player.vimeo.com/video/xx?autoplay=1&color=ABCDEF&loop=0&portrait=1&byline=1&title=1&api=1&player_id=tubepress-vimeo-player-xx', $result->toString());
+        $this->assertRegExp('~^http://player\.vimeo\.com/video/xx\?autoplay=1&color=ABCDEF&loop=0&portrait=1&byline=1&title=1&api=1&player_id=tubepress-video-object-[0-9]+$~', $result->toString());
     }
 
 }

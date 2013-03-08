@@ -30,15 +30,27 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
         }
 
         $html    = $event->getSubject();
-        $videoId = $event->getArgument('videoId');
+        $domId   = $this->_getDomIdFromHtml($html);
         $final   = $html . <<<EOT
 <script type="text/javascript">
    var tubePressDomInjector = tubePressDomInjector || [], tubePressPlayerApi = tubePressPlayerApi || [];
        tubePressDomInjector.push(['loadPlayerApiJs']);
-       tubePressPlayerApi.push(['register', '$videoId' ]);
+       tubePressPlayerApi.push(['register', '$domId' ]);
 </script>
 EOT;
 
         $event->setSubject($final);
+    }
+
+    private function _getDomIdFromHtml($html)
+    {
+        $result = preg_match('/\sid="(tubepress-video-object-[0-9]+)"\s.*/', $html, $matches);
+
+        if ($result < 1 || count($matches) < 2) {
+
+            throw new RuntimeException("TubePress-generated video embeds must have a DOM id attribute that starts with 'tubepress-video-object-'");
+        }
+
+        return $matches[1];
     }
 }

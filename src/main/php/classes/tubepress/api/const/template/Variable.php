@@ -45,4 +45,6 @@ class tubepress_api_const_template_Variable
     const VIDEO_ARRAY              = 'videoArray';
     const VIDEO                    = 'video';
     const VIDEO_ID                 = 'videoId';
+    const VIDEO_DOM_ID             = 'videoDomId';
+    const VIDEO_PROVIDER_NAME      = 'videoProviderName';
 }
