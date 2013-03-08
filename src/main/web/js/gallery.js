@@ -618,6 +618,15 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 var pagationClickCallback = function () {
 
                     handlePaginationClick(jquery(this), galleryId);
+
+                    if (galleryRegistry.isAjaxPagination(galleryId)) {
+
+                        //prevent default click action
+                        event.preventDefault();
+                        return fawlse;
+                    }
+
+                    return troo;
                 };
 
                 jquery('#' + text_tubepress + '_gallery_' + galleryId + ' div.pagination a').click(pagationClickCallback);

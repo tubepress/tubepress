@@ -474,23 +474,25 @@ var TubePress = (function (jquery, win) {
 
             /**
              * Similar to jQuery's "load" but tolerates non-200 status codes.
-             * https://github.com/jquery/jquery/blob/master/src/ajax.js#L168.
+             * https://github.com/jquery/jquery/blob/1.8-stable/src/ajax.js#L203
              */
             var load = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
 
-                var completeCallback = function (res) {
+                var rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
 
-                    var responseText = res.responseText,
-                        html         = selector ? jquery('<div>').append(responseText).find(selector) : responseText;
+                    completeCallback = function (res) {
 
-                    jquery(targetDiv).html(html);
+                        var responseText = res.responseText,
+                            html         = selector ? jquery('<div>').append(responseText.replace(rscript, '')).find(selector) : responseText;
 
-                    /* did the user supply a post-load function? */
-                    if (jquery_isFunction(postLoadFunction)) {
+                        jquery(targetDiv).html(html);
 
-                        postLoadFunction();
-                    }
-                };
+                        /* did the user supply a post-load function? */
+                        if (jquery_isFunction(postLoadFunction)) {
+
+                            postLoadFunction();
+                        }
+                    };
 
                 /** did the user supply a pre-load function? */
                 if (jquery_isFunction(preLoadFunction)) {
