@@ -30,6 +30,21 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 3.0.1 =
+
+* New Features
+    * TubePress's JavaScript loads faster and is less prone to interference from other scripts
+    * Full Russian translation by Artem Kalmykov
+* Bug Fixes
+    * "cURL Failed" that affected some PHP installations
+    * Ajax operations are broken in WordPress installations with Suhosin
+    * Fatal error when updating settings in WordPress in certain situations
+    * Incompatability with Shadowbox.js, Fancybox, or NextGEN WordPress plugins (fixes issue 167)
+    * Unable to configure custom directory for API cache
+* Changed
+    * Changed default cURL timeout from 5 to 15 seconds
+    * YouTube iframe now uses wmode=opaque for Flash
+
 = 3.0.0 =
 
 * New features
