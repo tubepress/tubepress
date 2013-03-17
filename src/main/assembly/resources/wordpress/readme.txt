@@ -39,7 +39,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
     * "cURL Failed" that affected some PHP installations
     * Ajax operations are broken in WordPress installations with Suhosin
     * Fatal error when updating settings in WordPress in certain situations
-    * Incompatability with Shadowbox.js, Fancybox, or NextGEN WordPress plugins (fixes issue 167)
+    * Incompatibility with Shadowbox.js, Fancybox, or NextGEN WordPress plugins (fixes issue 167)
     * Unable to configure custom directory for API cache
 * Changed
     * Changed default cURL timeout from 5 to 15 seconds
