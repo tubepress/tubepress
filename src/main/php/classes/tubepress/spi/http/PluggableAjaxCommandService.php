@@ -21,9 +21,20 @@ interface tubepress_spi_http_PluggableAjaxCommandService
      */
     function getName();
 
+    /**
+     * Handle the Ajax request.
+     *
+     * @return void
+     */
     function handle();
 
+    /**
+     * @return integer The HTTP status code after handling this request.
+     */
     function getHttpStatusCode();
 
+    /**
+     * @return string The HTML output after handling this request.
+     */
     function getOutput();
 }

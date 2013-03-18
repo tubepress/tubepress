@@ -10,7 +10,7 @@
  */
 
 /**
- * Class for managing HTTP Transports and making HTTP requests.
+ * Handles incoming Ajax requests and outputs a response.
  */
 class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
 {
