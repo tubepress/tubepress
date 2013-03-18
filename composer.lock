@@ -1,18 +1,18 @@
 {
-    "hash": "eee944ac26362efbc319bd76c85734ef",
+    "hash": "843a736242bc7c88c729c0f300d0966b",
     "packages": [
         {
             "name": "ehough/chaingang",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ehough/chaingang",
-                "reference": "1.0.1"
+                "url": "https://github.com/ehough/chaingang.git",
+                "reference": "1.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ehough/chaingang/zipball/1.0.1",
-                "reference": "1.0.1",
+                "url": "https://api.github.com/repos/ehough/chaingang/zipball/1.0.2",
+                "reference": "1.0.2",
                 "shasum": ""
             },
             "require": {
@@ -22,13 +22,13 @@
                 "ehough/pulsar": "1.*",
                 "mockery/mockery": ">=0.7.2"
             },
-            "time": "2012-07-11 13:08:05",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "ehough_chaingang": "src/main/php"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -40,20 +40,21 @@
                 }
             ],
             "description": "Chain of Responsibility pattern in PHP.",
-            "homepage": "https://github.com/ehough/chaingang"
+            "homepage": "https://github.com/ehough/chaingang",
+            "time": "2013-03-18 17:08:46"
         },
         {
             "name": "ehough/contemplate",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ehough/contemplate",
-                "reference": "1.0.0"
+                "url": "https://github.com/ehough/contemplate.git",
+                "reference": "1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ehough/contemplate/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/ehough/contemplate/zipball/1.0.1",
+                "reference": "1.0.1",
                 "shasum": ""
             },
             "require": {
@@ -62,13 +63,13 @@
             "require-dev": {
                 "ehough/pulsar": "1.*"
             },
-            "time": "2012-07-11 14:17:10",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "ehough_contemplate": "src/main/php"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -80,20 +81,21 @@
                 }
             ],
             "description": "Simple and ultra-fast PHP template library",
-            "homepage": "https://github.com/ehough/contemplate"
+            "homepage": "https://github.com/ehough/contemplate",
+            "time": "2013-03-18 17:19:29"
         },
         {
             "name": "ehough/curly",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ehough/curly",
-                "reference": "1.0.1"
+                "url": "https://github.com/ehough/curly.git",
+                "reference": "1.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ehough/curly/zipball/1.0.1",
-                "reference": "1.0.1",
+                "url": "https://api.github.com/repos/ehough/curly/zipball/1.0.2",
+                "reference": "1.0.2",
                 "shasum": ""
             },
             "require": {
@@ -102,13 +104,13 @@
             "require-dev": {
                 "ehough/pulsar": "1.*"
             },
-            "time": "2012-07-11 13:09:51",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "ehough_curly": "src/main/php"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -120,7 +122,8 @@
                 }
             ],
             "description": "Powerful PHP class for working with URLs",
-            "homepage": "https://github.com/ehough/curly"
+            "homepage": "https://github.com/ehough/curly",
+            "time": "2013-03-18 17:38:44"
         },
         {
             "name": "ehough/epilog",
@@ -139,7 +142,6 @@
             "require-dev": {
                 "ehough/pulsar": "1.*"
             },
-            "time": "2013-01-09 01:32:13",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -158,7 +160,8 @@
                 }
             ],
             "description": "Logger based heavily on Monolog, but works with PHP 5.1 and above.",
-            "homepage": "https://github.com/ehough/epilog"
+            "homepage": "https://github.com/ehough/epilog",
+            "time": "2013-01-09 01:32:13"
         },
         {
             "name": "ehough/fimble",
@@ -181,7 +184,6 @@
                 "ehough/pulsar": "1.*",
                 "mockery/mockery": ">=0.7.2"
             },
-            "time": "2013-01-09 01:32:57",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -200,7 +202,8 @@
                 }
             ],
             "description": "Filesystem utilities for PHP 5.1.0 and above.",
-            "homepage": "https://github.com/ehough/fimble"
+            "homepage": "https://github.com/ehough/fimble",
+            "time": "2013-01-09 01:32:57"
         },
         {
             "name": "ehough/iconic",
@@ -222,7 +225,6 @@
             "require-dev": {
                 "ehough/pulsar": "1.*"
             },
-            "time": "2013-01-09 02:40:53",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -241,20 +243,21 @@
                 }
             ],
             "description": "PHP Dependency Injection (DI) container heavily based on Symfony's DI component, but more lightweight. Requires PHP 5.1.0 or higher.",
-            "homepage": "https://github.com/ehough/iconic"
+            "homepage": "https://github.com/ehough/iconic",
+            "time": "2013-01-09 02:40:53"
         },
         {
             "name": "ehough/jameson",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ehough/jameson",
-                "reference": "1.0.0"
+                "url": "https://github.com/ehough/jameson.git",
+                "reference": "1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ehough/jameson/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/ehough/jameson/zipball/1.0.1",
+                "reference": "1.0.1",
                 "shasum": ""
             },
             "require": {
@@ -263,13 +266,13 @@
             "require-dev": {
                 "ehough/pulsar": "1.*"
             },
-            "time": "2012-07-11 13:13:50",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "ehough_jameson": "src/main/php"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -281,7 +284,8 @@
                 }
             ],
             "description": "JSON encoder/decoder compatible with PHP 5.1 and above.",
-            "homepage": "https://github.com/ehough/jameson"
+            "homepage": "https://github.com/ehough/jameson",
+            "time": "2013-03-18 18:35:41"
         },
         {
             "name": "ehough/pulsar",
@@ -297,19 +301,19 @@
                 "reference": "1.1.0",
                 "shasum": ""
             },
-            "time": "2012-07-07 16:08:29",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "ehough_pulsar": "src/main/php"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
             "authors": [
                 {
-                    "name": "Eric Hough",
+                    "name": "Eric D. Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
@@ -320,7 +324,8 @@
                 "autoload",
                 "autoloader",
                 "psr-0"
-            ]
+            ],
+            "time": "2012-07-07 16:08:29"
         },
         {
             "name": "ehough/shortstop",
@@ -346,7 +351,6 @@
                 "ehough/pulsar": "1.*",
                 "mockery/mockery": ">=0.7.2"
             },
-            "time": "2013-02-13 03:52:14",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -365,7 +369,8 @@
                 }
             ],
             "description": "Fast and flexible HTTP client for PHP 5.1 and above",
-            "homepage": "https://github.com/ehough/shortstop"
+            "homepage": "https://github.com/ehough/shortstop",
+            "time": "2013-02-13 03:52:14"
         },
         {
             "name": "ehough/stash",
@@ -389,13 +394,13 @@
                 "ehough/pulsar": "1.*",
                 "mockery/mockery": ">=0.7.2"
             },
-            "time": "2012-07-11 13:16:30",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "ehough_stash": "src/main/php"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -407,7 +412,8 @@
                 }
             ],
             "description": "Simple and flexible cache for PHP.",
-            "homepage": "https://github.com/ehough/stash"
+            "homepage": "https://github.com/ehough/stash",
+            "time": "2012-07-11 13:16:30"
         },
         {
             "name": "ehough/tickertape",
@@ -431,13 +437,13 @@
                 "ehough/pulsar": "1.*",
                 "mockery/mockery": ">=0.7.2"
             },
-            "time": "2012-07-11 17:49:25",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "ehough_tickertape": "src/main/php"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -449,15 +455,76 @@
                 }
             ],
             "description": "Event dispatch heavily based on Symfony's, but more lightweight and compatible with PHP 5.1 and above.",
-            "homepage": "https://github.com/ehough/tickertape"
+            "homepage": "https://github.com/ehough/tickertape",
+            "time": "2012-07-11 17:49:25"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+        {
+            "name": "mockery/mockery",
+            "version": "0.7.2",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/padraic/mockery.git",
+                "reference": "0.7.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/padraic/mockery/zipball/0.7.2",
+                "reference": "0.7.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "suggest": {
+                "Hamcrest": "1.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mockery": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "New BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Pádraic Brady",
+                    "email": "padraic.brady@gmail.com",
+                    "homepage": "http://blog.astrumfutura.com"
+                }
+            ],
+            "description": "Mockery is a simple yet flexible PHP mock object framework for use in unit testing with PHPUnit, PHPSpec or any other testing framework. Its core goal is to offer a test double framework with a succint API capable of clearly defining all possible object operations and interactions using a human readable Domain Specific Language (DSL). Designed as a drop in alternative to PHPUnit's phpunit-mock-objects library, Mockery is easy to integrate with PHPUnit and can operate alongside phpunit-mock-objects without the World ending.",
+            "homepage": "http://github.com/padraic/mockery",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "library",
+                "mock",
+                "mock objects",
+                "mockery",
+                "stub",
+                "test",
+                "test double",
+                "testing"
+            ],
+            "time": "2012-01-24 12:22:39"
+        }
+    ],
     "aliases": [
 
     ],
     "minimum-stability": "stable",
     "stability-flags": [
+
+    ],
+    "platform": [
+
+    ],
+    "platform-dev": [
 
     ]
 }
