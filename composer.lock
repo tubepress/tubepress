@@ -1,0 +1,463 @@
+{
+    "hash": "eee944ac26362efbc319bd76c85734ef",
+    "packages": [
+        {
+            "name": "ehough/chaingang",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/chaingang",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/chaingang/zipball/1.0.1",
+                "reference": "1.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*",
+                "mockery/mockery": ">=0.7.2"
+            },
+            "time": "2012-07-11 13:08:05",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_chaingang": "src/main/php"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Chain of Responsibility pattern in PHP.",
+            "homepage": "https://github.com/ehough/chaingang"
+        },
+        {
+            "name": "ehough/contemplate",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/contemplate",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/contemplate/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*"
+            },
+            "time": "2012-07-11 14:17:10",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_contemplate": "src/main/php"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Simple and ultra-fast PHP template library",
+            "homepage": "https://github.com/ehough/contemplate"
+        },
+        {
+            "name": "ehough/curly",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/curly",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/curly/zipball/1.0.1",
+                "reference": "1.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*"
+            },
+            "time": "2012-07-11 13:09:51",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_curly": "src/main/php"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Powerful PHP class for working with URLs",
+            "homepage": "https://github.com/ehough/curly"
+        },
+        {
+            "name": "ehough/epilog",
+            "version": "1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/epilog",
+                "reference": "1.5.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/epilog/archive/1.5.2.zip",
+                "reference": "1.5.2",
+                "shasum": ""
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*"
+            },
+            "time": "2013-01-09 01:32:13",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_epilog": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Logger based heavily on Monolog, but works with PHP 5.1 and above.",
+            "homepage": "https://github.com/ehough/epilog"
+        },
+        {
+            "name": "ehough/fimble",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/fimble",
+                "reference": "1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/fimble/archive/1.1.2.zip",
+                "reference": "1.1.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*",
+                "mockery/mockery": ">=0.7.2"
+            },
+            "time": "2013-01-09 01:32:57",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_fimble": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Filesystem utilities for PHP 5.1.0 and above.",
+            "homepage": "https://github.com/ehough/fimble"
+        },
+        {
+            "name": "ehough/iconic",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/iconic",
+                "reference": "1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/iconic/archive/1.1.2.zip",
+                "reference": "1.1.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*"
+            },
+            "time": "2013-01-09 02:40:53",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_iconic": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "PHP Dependency Injection (DI) container heavily based on Symfony's DI component, but more lightweight. Requires PHP 5.1.0 or higher.",
+            "homepage": "https://github.com/ehough/iconic"
+        },
+        {
+            "name": "ehough/jameson",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/jameson",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/jameson/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*"
+            },
+            "time": "2012-07-11 13:13:50",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_jameson": "src/main/php"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "JSON encoder/decoder compatible with PHP 5.1 and above.",
+            "homepage": "https://github.com/ehough/jameson"
+        },
+        {
+            "name": "ehough/pulsar",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/pulsar",
+                "reference": "1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/pulsar/zipball/1.1.0",
+                "reference": "1.1.0",
+                "shasum": ""
+            },
+            "time": "2012-07-07 16:08:29",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_pulsar": "src/main/php"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Intelligent classloaders PHP 5",
+            "homepage": "https://github.com/ehough/pulsar",
+            "keywords": [
+                "autoload",
+                "autoloader",
+                "psr-0"
+            ]
+        },
+        {
+            "name": "ehough/shortstop",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/shortstop",
+                "reference": "1.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ehough/shortstop/zipball/1.0.3",
+                "reference": "1.0.3",
+                "shasum": ""
+            },
+            "require": {
+                "ehough/chaingang": "*",
+                "ehough/curly": "*",
+                "ehough/epilog": "*",
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*",
+                "mockery/mockery": ">=0.7.2"
+            },
+            "time": "2013-02-13 03:52:14",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_shortstop": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Fast and flexible HTTP client for PHP 5.1 and above",
+            "homepage": "https://github.com/ehough/shortstop"
+        },
+        {
+            "name": "ehough/stash",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/stash",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/stash/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "ehough/fimble": "1.*",
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*",
+                "mockery/mockery": ">=0.7.2"
+            },
+            "time": "2012-07-11 13:16:30",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_stash": "src/main/php"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Simple and flexible cache for PHP.",
+            "homepage": "https://github.com/ehough/stash"
+        },
+        {
+            "name": "ehough/tickertape",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/tickertape",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ehough/tickertape/zipball/1.0.0",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "ehough/fimble": "1.*",
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "ehough/pulsar": "1.*",
+                "mockery/mockery": ">=0.7.2"
+            },
+            "time": "2012-07-11 17:49:25",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_tickertape": "src/main/php"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Event dispatch heavily based on Symfony's, but more lightweight and compatible with PHP 5.1 and above.",
+            "homepage": "https://github.com/ehough/tickertape"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": [
+
+    ]
+}

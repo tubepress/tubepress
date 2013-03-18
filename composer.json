@@ -17,17 +17,17 @@
 
     "require": {
 
-        "ehough/chaingang": "*",
+        "ehough/chaingang":   "*",
         "ehough/contemplate": "*",
-        "ehough/curly": "*",
-        "ehough/epilog": "*",
-        "ehough/fimble": "*",
-        "ehough/iconic": "*",
-        "ehough/jameson": "*",
-        "ehough/pulsar": "*",
-        "ehough/shortstop": "*",
-        "ehough/stash": "*",
-        "ehough/tickertape": "*"
+        "ehough/curly":       "*",
+        "ehough/epilog":      "*",
+        "ehough/fimble":      "*",
+        "ehough/iconic":      "*",
+        "ehough/jameson":     "*",
+        "ehough/pulsar":      "1.1.0",
+        "ehough/shortstop":   "*",
+        "ehough/stash":       "*",
+        "ehough/tickertape":  "*"
     },
 
     "require-dev": {
