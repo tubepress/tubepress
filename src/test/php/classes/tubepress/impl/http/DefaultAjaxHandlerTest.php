@@ -76,6 +76,9 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->assertTrue(500 === http_response_code());
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     function testSetHttpStatusCode()
     {
         tubepress_impl_http_DefaultAjaxHandler::simulatedHttpResponseCode(505);

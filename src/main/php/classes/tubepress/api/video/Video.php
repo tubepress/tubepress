@@ -10,10 +10,13 @@
  */
 
 /**
- * A video object that TubePress processes
+ * A video object that TubePress processes. It's basically just a key-value store.
  */
 class tubepress_api_video_Video
 {
+    /**
+     * We provide constansts here for commonly used keys.
+     */
     const ATTRIBUTE_AUTHOR_DISPLAY_NAME      = 'authorDisplayName';
     const ATTRIBUTE_AUTHOR_USER_ID           = 'authorUid';
     const ATTRIBUTE_CATEGORY_DISPLAY_NAME    = 'category';

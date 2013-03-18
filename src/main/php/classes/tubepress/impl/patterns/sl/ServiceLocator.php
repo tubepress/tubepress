@@ -318,6 +318,14 @@ class tubepress_impl_patterns_sl_ServiceLocator
         return self::getServicesWithTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
     }
 
+    /**
+     * @return array An array of tubepress_spi_options_ui_PluggableFieldBuilder
+     */
+    public static function getFieldBuilders()
+    {
+        return self::getServicesWithTag(tubepress_spi_options_ui_PluggableFieldBuilder::_);
+    }
+
 
 
     /**

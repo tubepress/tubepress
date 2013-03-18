@@ -15,7 +15,7 @@
 class tubepress_impl_bootstrap_TubePressBootstrapper
 {
     /**
-     * @var bool
+     * @var boolean Did we already boot?
      */
     private static $_alreadyBooted = false;
 
@@ -39,6 +39,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
      */
     private $_classLoader;
 
+    /**
+     * @var ehough_iconic_api_IContainer The IoC container.
+     */
     private $_iocContainer = null;
 
     /**

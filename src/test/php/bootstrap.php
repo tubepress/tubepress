@@ -22,6 +22,3 @@ $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/embedplus/
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/jwplayer/classes');
 $loader->registerFallbackDirectory(__DIR__);
 $loader->register();
-
-//TODO: remove this later.
-define('TUBEPRESS_BOOTED', true);
