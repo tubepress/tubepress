@@ -133,9 +133,9 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandlerTest extends TubePre
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_script')->once()->with("jquery-ui-tubepress", "b");
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_script')->once()->with("jquery-ui-multiselect-widget", "c");
 
-        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jscolor-tubepress');
-        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-tubepress');
-        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-multiselect-widget');
+        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jscolor-tubepress', false, array(), false, false);
+        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-tubepress', false, array(), false, false);
+        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-multiselect-widget', false, array(), false, false);
 
         $this->_sut->registerStylesAndScripts('settings_page_tubepress');
 

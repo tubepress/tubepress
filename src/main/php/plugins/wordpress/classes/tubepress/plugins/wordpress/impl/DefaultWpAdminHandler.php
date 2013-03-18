@@ -47,9 +47,9 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
         $wpFunctionWrapper->wp_register_script('jquery-ui-tubepress', $jqueryUiJsUrl);
         $wpFunctionWrapper->wp_register_script('jquery-ui-multiselect-widget', $jqueryMultiSelectJs);
 
-        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-tubepress');
-        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-multiselect-widget');
-        $wpFunctionWrapper->wp_enqueue_script('jscolor-tubepress');
+        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-tubepress', false, array(), false, false);
+        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-multiselect-widget', false, array(), false, false);
+        $wpFunctionWrapper->wp_enqueue_script('jscolor-tubepress', false, array(), false, false);
     }
 
     /**

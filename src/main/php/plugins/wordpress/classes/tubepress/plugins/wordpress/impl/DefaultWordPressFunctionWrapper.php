@@ -55,6 +55,96 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
     }
 
     /**
+     * Returns an array of pages that are in the blog, optionally constrained by parameters.
+     * This array is not tree-like (hierarchical).
+     *
+     * @param array $args See http://codex.wordpress.org/Function_Reference/get_pages.
+     *
+     * @return array An array containing all the Pages matching the request. The returned array is an array of "page" objects.
+     *               See http://codex.wordpress.org/Function_Reference/get_pages.
+     */
+    public final function get_pages($args)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_pages($args);
+    }
+
+    /**
+     * Returns the available page templates in the currently active theme.
+     * It searches all the current theme's template files for the commented Template Name: name of template.
+     *
+     * @return array Where key is the filename and value is the name of the template.
+     */
+    public final function get_page_templates()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_page_templates();
+    }
+
+    /**
+     * Create an array of posts based on a set of parameters.
+     *
+     * @param array $args See http://codex.wordpress.org/Function_Reference/get_posts.
+     *
+     * @return array List of post objects.
+     */
+    public final function get_posts($args)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_posts($args);
+    }
+
+    /**
+     * Retrieve the numeric ID of the current post. This tag must be within The Loop.
+     *
+     * @return integer The ID of the current post.
+     */
+    public final function get_the_ID()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_the_ID();
+    }
+
+    /**
+     * Remove an enqueued script.
+     *
+     * @param string $handle Name of the script.
+     *
+     * @return void
+     */
+    public final function wp_dequeue_script($handle)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        wp_dequeue_script($handle);
+    }
+
+    /**
+     * Remove a CSS file that was enqueued with wp_enqueue_style().
+     *
+     * @param string $handle Name of the enqueued stylesheet.
+     *
+     * @return void
+     */
+    public final function wp_dequeue_style($handle)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        wp_dequeue_style($handle);
+    }
+
+    /**
+     * Remove a registered script (javascript).
+     *
+     * @param string $handle Name of the script.
+     *
+     * @return void
+     */
+    public final function wp_deregister_script($handle)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        wp_deregister_script($handle);
+    }
+
+    /**
      * A safe way of adding a named option/value pair to the options database table. It does nothing if the option already exists.
      *
      * @param string $name  Name of the option to// TODO: Implement add_options_page() method. be added. Use underscores to separate words, and do not
@@ -155,14 +245,20 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
     /**
      * The safe and recommended method of adding JavaScript to a WordPress generated page.
      *
-     * @param string $handle Name of the script.
+     * @param string $handle     Name of the script.
+     * @param string $src        URL to the script, e.g. http://example.com/wp-content/themes/my-theme/my-theme-script.js.
+     * @param array  $deps       Array of the handles of all the registered scripts that this script depends on,
+     *                           that is the scripts that must be loaded before this script.
+     * @param string $ver        String specifying the script version number, if it has one,
+     *                           which is concatenated to the end of the path as a query string.
+     * @param boolean $in_footer If this parameter is true, the script is placed before the </body> end tag.
      *
      * @return void
      */
-    public final function wp_enqueue_script($handle)
+    public final function wp_enqueue_script($handle, $src, $deps, $ver, $in_footer)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        wp_enqueue_script($handle);
+        wp_enqueue_script($handle, $src, $deps, $ver, $in_footer);
     }
 
     /**

@@ -63,8 +63,8 @@ EOT;
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
         $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);
 
-        $wordPressFunctionWrapper->wp_enqueue_script('jquery');
-        $wordPressFunctionWrapper->wp_enqueue_script('tubepress');
+        $wordPressFunctionWrapper->wp_enqueue_script('jquery', false, array(), false, false);
+        $wordPressFunctionWrapper->wp_enqueue_script('tubepress', false, array(), false, false);
 
         $wordPressFunctionWrapper->wp_enqueue_style('tubepress');
     }
