@@ -3,6 +3,7 @@
 composer.*
 .git/**
 .gitignore
+.travis.yml
 README.md
 src/main/resources/i18n/tubepress.mo
 src/test/**
