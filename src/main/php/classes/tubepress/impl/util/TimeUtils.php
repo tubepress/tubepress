@@ -79,8 +79,15 @@ class tubepress_impl_util_TimeUtils
         $tmp      = preg_replace('/(\.[0-9]{1,})?/', '', $tmp);
         $datetime = substr($tmp, 0, 19);
         $timezone = str_replace(':', '', substr($tmp, 19, 6));
+        $reset    = date_default_timezone_get();
 
-        return @strtotime($datetime . ' ' . $timezone);
+        date_default_timezone_set('Zulu');
+
+        $toReturn = strtotime($datetime . ' ' . $timezone);
+
+        date_default_timezone_set($reset);
+
+        return $toReturn;
     }
 }
 
