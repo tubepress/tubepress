@@ -24,16 +24,27 @@ class tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilte
 
     private $_mockExecutionContext;
 
+    private $_timezoneReset;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(9);
+
+        $this->_timezoneReset = date_default_timezone_get();
+    }
+
+    public function onTearDown()
+    {
+        date_default_timezone_set($this->_timezoneReset);
     }
 
     public function testConstructionGalleryXmlStaticThumbAbsoluteDates()
     {
+        date_default_timezone_set('America/New_York');
+
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DATEFORMAT)->andReturn('l jS \of F Y h:i:s A');

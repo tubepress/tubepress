@@ -78,16 +78,23 @@ class tubepress_impl_util_TimeUtils
         $tmp      = str_replace('T', ' ', $rfcTime);
         $tmp      = preg_replace('/(\.[0-9]{1,})?/', '', $tmp);
         $datetime = substr($tmp, 0, 19);
+
+        if (tubepress_impl_util_StringUtils::endsWith($tmp, 'Z')) {
+
+            $reset = date_default_timezone_get();
+
+            date_default_timezone_set('UTC');
+
+            $toReturn = strtotime($datetime);
+
+            date_default_timezone_set($reset);
+
+            return $toReturn;
+        }
+
         $timezone = str_replace(':', '', substr($tmp, 19, 6));
-        $reset    = date_default_timezone_get();
 
-        date_default_timezone_set('Zulu');
-
-        $toReturn = strtotime($datetime . ' ' . $timezone);
-
-        date_default_timezone_set($reset);
-
-        return $toReturn;
+        return strtotime($datetime . ' ' . $timezone);
     }
 }
 
