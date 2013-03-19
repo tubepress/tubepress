@@ -24,8 +24,13 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     function testNoAction()
     {
+        $this->setInIsolation(true);
+
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn(null);
 
         $this->expectOutputString('Missing "action" parameter');
@@ -37,8 +42,13 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->assertEquals(400, $actualResponse);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     function testFoundSuitableCommand()
     {
+        $this->setInIsolation(true);
+
         $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('action');
         $mockHandler->shouldReceive('handle')->once();
@@ -55,8 +65,13 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
 
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     function testHandleNoSuitableCommandHandler()
     {
+        $this->setInIsolation(true);
+
         $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('x');
 
@@ -67,8 +82,13 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->assertTrue(500 === http_response_code());
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     function testHandleNoCommandHandlers()
     {
+        $this->setInIsolation(true);
+
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn('action');
 
         $this->_sut->handle();

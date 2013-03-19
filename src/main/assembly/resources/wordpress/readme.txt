@@ -41,6 +41,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
     * Fatal error when updating settings in WordPress in certain situations
     * Incompatibility with Shadowbox.js, Fancybox, or NextGEN WordPress plugins (fixes issue 167)
     * Unable to configure custom directory for API cache
+    * Wrong timezone calculation when parsing dates from YouTube and Vimeo
 * Changed
     * Changed default cURL timeout from 5 to 15 seconds
     * YouTube iframe now uses wmode=opaque for Flash
