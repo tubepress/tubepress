@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -22,15 +22,7 @@ interface tubepress_spi_options_ui_FieldBuilder
      * @param string $name            The name of the field to build.
      * @param string $type            The name of the class to construct to represent this field.
      *
-     * @return tubepress_spi_options_ui_Field The constructed field.
+     * @return tubepress_spi_options_ui_Field The constructed field, or null if unable to build.
      */
-    public function build($name, $type);
-
-
-    /**
-     * Builds the multi-select dropdown for meta display.
-     *
-     * @return tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
-     */
-    function buildMetaDisplayMultiSelectField();
+    function build($name, $type);
 }

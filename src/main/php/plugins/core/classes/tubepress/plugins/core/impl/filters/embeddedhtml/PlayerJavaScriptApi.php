@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -16,7 +16,13 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
 {
     public function onEmbeddedHtml(tubepress_api_event_TubePressEvent $event)
     {
-        $context   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $context             = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+
+        if (! $environmentDetector->isPro()) {
+
+            return;
+        }
 
         if (! $context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)) {
 
@@ -24,9 +30,27 @@ class tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
         }
 
         $html    = $event->getSubject();
-        $videoId = $event->getArgument('videoId');
-        $final   = "$html<script type=\"text/javascript\">TubePressPlayerApi.register('$videoId');</script>";
+        $domId   = $this->_getDomIdFromHtml($html);
+        $final   = $html . <<<EOT
+<script type="text/javascript">
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressPlayerApi = tubePressPlayerApi || [];
+       tubePressDomInjector.push(['loadPlayerApiJs']);
+       tubePressPlayerApi.push(['register', '$domId' ]);
+</script>
+EOT;
 
         $event->setSubject($final);
+    }
+
+    private function _getDomIdFromHtml($html)
+    {
+        $result = preg_match('/\sid="(tubepress-video-object-[0-9]+)"\s.*/', $html, $matches);
+
+        if ($result < 1 || count($matches) < 2) {
+
+            throw new RuntimeException("TubePress-generated video embeds must have a DOM id attribute that starts with 'tubepress-video-object-'");
+        }
+
+        return $matches[1];
     }
 }

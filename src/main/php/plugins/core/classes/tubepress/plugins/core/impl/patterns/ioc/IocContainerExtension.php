@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -506,6 +506,12 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
             'tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService',
             'tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'
         )->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+
+        $container->register(
+
+            'tubepress_plugins_core_impl_options_ui_CorePluggableFieldBuilder',
+            'tubepress_plugins_core_impl_options_ui_CorePluggableFieldBuilder'
+        )->addTag(tubepress_spi_options_ui_PluggableFieldBuilder::_);
     }
 
     private function _registerFilters(ehough_iconic_impl_ContainerBuilder $container)

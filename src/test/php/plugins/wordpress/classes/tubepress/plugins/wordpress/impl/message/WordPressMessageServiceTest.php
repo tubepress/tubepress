@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -123,12 +123,12 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
 
         $outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 
-        $msgFmt = `/usr/bin/which msgfmt`;
+        $msgFmt = '/usr/bin/msgfmt';
         $msgFmt = tubepress_impl_util_StringUtils::removeNewLines($msgFmt);
 
         if (!is_file($msgFmt) || !is_executable($msgFmt)) {
 
-            $this->markTestSkipped('msgfmt does not exist on this installation');
+            $this->markTestSkipped('msgfmt does not exist on this installation (' . $msgFmt . ')');
             return true;
         }
 

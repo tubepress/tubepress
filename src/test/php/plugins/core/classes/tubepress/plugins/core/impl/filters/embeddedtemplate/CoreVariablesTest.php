@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -39,6 +39,12 @@ class tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends T
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, 660);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_HEIGHT, 732);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_ID, 'video-id');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_DOM_ID, Mockery::on(function ($arg) {
+
+            return preg_match('/^tubepress-video-object-[0-9]+$/', $arg) === 1;
+        }));
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'embedded-impl-name');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_PROVIDER_NAME, 'video-provider-name');
 
         $event = new tubepress_api_event_TubePressEvent($mockTemplate);
         $event->setArguments(array(

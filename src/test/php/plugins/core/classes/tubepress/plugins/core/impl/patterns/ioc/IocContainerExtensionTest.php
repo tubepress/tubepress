@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -127,6 +127,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
             array(tubepress_spi_theme_ThemeHandler::_, 'tubepress_impl_theme_SimpleThemeHandler'),
             array(tubepress_spi_collector_VideoCollector::_, 'tubepress_impl_collector_DefaultVideoCollector'),
             array('tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant', 'tubepress_plugins_core_impl_options_ui_CoreOptionsPageParticipant', tubepress_spi_options_ui_PluggableOptionsPageParticipant::_),
+            array('tubepress_plugins_core_impl_options_ui_CorePluggableFieldBuilder', 'tubepress_plugins_core_impl_options_ui_CorePluggableFieldBuilder', tubepress_spi_options_ui_PluggableFieldBuilder::_),
             array('tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService', 'tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService', tubepress_spi_http_PluggableAjaxCommandService::_),
             array('tubepress_plugins_core_impl_player_JqModalPluggablePlayerLocationService', 'tubepress_plugins_core_impl_player_JqModalPluggablePlayerLocationService', tubepress_spi_player_PluggablePlayerLocationService::_),
             array('tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService', 'tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService', tubepress_spi_player_PluggablePlayerLocationService::_),

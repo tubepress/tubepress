@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -15,7 +15,7 @@
 class tubepress_impl_bootstrap_TubePressBootstrapper
 {
     /**
-     * @var bool
+     * @var boolean Did we already boot?
      */
     private static $_alreadyBooted = false;
 
@@ -39,6 +39,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
      */
     private $_classLoader;
 
+    /**
+     * @var ehough_iconic_api_IContainer The IoC container.
+     */
     private $_iocContainer = null;
 
     /**

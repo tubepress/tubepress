@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -17,15 +17,19 @@ class tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApitTest extend
 
     private $_mockExecutionContext;
 
+    private $_mockEnvironmentDetector;
+
 	function onSetup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 	}
 
     function testJsApiNotEnabled()
     {
+        $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(false);
 
         $event = new tubepress_api_event_TubePressEvent('hello');
@@ -37,13 +41,22 @@ class tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApitTest extend
 
 	function testJsApiEnabled()
 	{
+        $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
 
-        $event = new tubepress_api_event_TubePressEvent('hello');
+        $event = new tubepress_api_event_TubePressEvent('hello id="tubepress-video-object-47773745" ');
         $event->setArgument('videoId', 'abc');
 
         $this->_sut->onEmbeddedHtml($event);
 
-	    $this->assertEquals('hello<script type="text/javascript">TubePressPlayerApi.register(\'abc\');</script>', $event->getSubject());
+        $expected = <<<EOT
+hello id="tubepress-video-object-47773745" <script type="text/javascript">
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressPlayerApi = tubePressPlayerApi || [];
+       tubePressDomInjector.push(['loadPlayerApiJs']);
+       tubePressPlayerApi.push(['register', 'tubepress-video-object-47773745' ]);
+</script>
+EOT;
+
+	    $this->assertEquals($expected, $event->getSubject());
 	}
 }

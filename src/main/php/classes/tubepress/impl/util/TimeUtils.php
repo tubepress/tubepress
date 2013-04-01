@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -78,9 +78,23 @@ class tubepress_impl_util_TimeUtils
         $tmp      = str_replace('T', ' ', $rfcTime);
         $tmp      = preg_replace('/(\.[0-9]{1,})?/', '', $tmp);
         $datetime = substr($tmp, 0, 19);
+
+        if (tubepress_impl_util_StringUtils::endsWith($tmp, 'Z')) {
+
+            $reset = date_default_timezone_get();
+
+            date_default_timezone_set('UTC');
+
+            $toReturn = strtotime($datetime);
+
+            date_default_timezone_set($reset);
+
+            return $toReturn;
+        }
+
         $timezone = str_replace(':', '', substr($tmp, 19, 6));
 
-        return @strtotime($datetime . ' ' . $timezone);
+        return strtotime($datetime . ' ' . $timezone);
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -24,16 +24,27 @@ class tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilte
 
     private $_mockExecutionContext;
 
+    private $_timezoneReset;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(9);
+
+        $this->_timezoneReset = date_default_timezone_get();
+    }
+
+    public function onTearDown()
+    {
+        date_default_timezone_set($this->_timezoneReset);
     }
 
     public function testConstructionGalleryXmlStaticThumbAbsoluteDates()
     {
+        date_default_timezone_set('America/New_York');
+
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DATEFORMAT)->andReturn('l jS \of F Y h:i:s A');
@@ -86,7 +97,7 @@ class tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilte
         $this->assertEquals('35,077', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_RATING_COUNT));
         $this->assertRegExp('~^http://i\.ytimg\.com/vi/J5nyQLr2zjc/(?:1|2|3|default)\.jpg$~', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL));
         $this->assertEquals('1346785891', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('4 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
+        $this->assertEquals('7 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('SPAGHETTI AND MEAT BUGS PRANK', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
         $this->assertEquals('1,571,314', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
     }

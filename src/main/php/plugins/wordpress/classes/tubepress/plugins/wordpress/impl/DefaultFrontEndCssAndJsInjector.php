@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -63,8 +63,8 @@ EOT;
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
         $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);
 
-        $wordPressFunctionWrapper->wp_enqueue_script('jquery');
-        $wordPressFunctionWrapper->wp_enqueue_script('tubepress');
+        $wordPressFunctionWrapper->wp_enqueue_script('jquery', false, array(), false, false);
+        $wordPressFunctionWrapper->wp_enqueue_script('tubepress', false, array(), false, false);
 
         $wordPressFunctionWrapper->wp_enqueue_style('tubepress');
     }

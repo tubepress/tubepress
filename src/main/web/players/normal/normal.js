@@ -1,5 +1,5 @@
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -9,55 +9,67 @@
  */
 
 /*global jQuery, TubePressAjax, TubePressEvents */
-/*jslint sloppy: true, white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
+/*jslint sloppy: true, white: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
+(function (jquery, tubePress) {
 
-var TubePressNormalPlayer = (function () {
-	
+    /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
+    'use strict';
+
 	var prefix  = 'tubepress_',
+        embedded = 'embedded_',
 	
 		getTitleId = function (gId) {
-			return '#' + prefix + 'embedded_title_' + gId;
+
+			return '#' + prefix + embedded + 'title_' + gId;
 		},
 	
 		/* this stuff helps compression */
-		jquery	= jQuery,
-		tpAjax	= TubePressAjax,
-		events	= TubePressEvents,
-		name	= 'normal',
-		doc		= jquery(document),
-	
-		applyLoadingStyle = function (id) {
-			tpAjax.applyLoadingStyle(id);
-		},
-		
-		removeLoadingStyle = function (id) {
-			tpAjax.removeLoadingStyle(id);
-		},
+        beacon                   = tubePress.Beacon,
+        subscribe                = beacon.subscribe,
+		name                     = 'normal',
+        styler                   = tubePress.Ajax.LoadStyler,
+        addStyle                 = styler.applyLoadingStyle,
+        remStyle                 = styler.removeLoadingStyle,
+        text_eventPrefix_players = 'tubepress.playerlocation.',
 	
 		getEmbedId = function (gId) {
-			return '#' + prefix + 'embedded_object_' + gId;
+
+			return '#' + prefix + embedded + 'object_' + gId;
 		},
-	
-		invoke = function (e, videoId, galleryId, width, height) {
 
-			var titleDivId = getTitleId(galleryId);
-			
-			applyLoadingStyle(titleDivId);
-			applyLoadingStyle(getEmbedId(galleryId));
+		invoke = function (e, playerName, height, width, videoId, galleryId) {
 
-			jquery(titleDivId)[0].scrollIntoView(true);
+            if (playerName !== name) {
+
+                return;
+            }
+
+			var titleDivId = getTitleId(galleryId),
+                titleDiv   = jquery(titleDivId);
+
+            addStyle(titleDivId);
+            addStyle(getEmbedId(galleryId));
+
+            if (titleDiv.length > 0) {
+
+                titleDiv[0].scrollIntoView(true);
+            }
 		},
 		
-		populate = function (e, title, html, height, width, videoId, galleryId) {
-			
-			jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_embedded_wrapper:first').replaceWith(html);
-			
-			removeLoadingStyle(getTitleId(galleryId));
-			removeLoadingStyle(getEmbedId(galleryId));
+		populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
+
+            if (playerName !== name) {
+
+                return;
+            }
+
+			jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_' + embedded + 'wrapper:first').replaceWith(html);
+
+            remStyle(getTitleId(galleryId));
+            remStyle(getEmbedId(galleryId));
 		};
 
-	doc.bind(events.PLAYER_INVOKE + name, invoke);
-	doc.bind(events.PLAYER_POPULATE + name, populate);
-} ());
+	subscribe(text_eventPrefix_players + 'invoke', invoke);
+    subscribe(text_eventPrefix_players + 'populate', populate);
 
-
+}(jQuery, TubePress));

@@ -7,7 +7,7 @@ Author: Eric D. Hough
 Version: git-bleeding
 Author URI: http://ehough.com
 
-Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
 
 This file is part of TubePress (http://tubepress.org)
 

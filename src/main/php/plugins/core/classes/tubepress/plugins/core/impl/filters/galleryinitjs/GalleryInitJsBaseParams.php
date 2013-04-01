@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
     private static $_PROPERTY_JSMAP = 'jsMap';
 
-    private static $_NAME_PARAM_PLAYERJSURL          = 'playerJsUrl';
+    private static $_NAME_PARAM_PLAYERJSURL          = 'playerLocationJsUrl';
     private static $_NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
 
     /**

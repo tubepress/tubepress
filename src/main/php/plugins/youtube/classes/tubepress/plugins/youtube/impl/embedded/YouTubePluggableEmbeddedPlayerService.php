@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -52,6 +52,7 @@ class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServ
         $modestBranding  = $context->get(tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING);
         $showRelated     = $context->get(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED);
 
+        $link->setQueryVariable('wmode', 'opaque');
         $link->setQueryVariable('autohide', $this->_getAutoHideValue($autoHide));
         $link->setQueryVariable('autoplay', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
 

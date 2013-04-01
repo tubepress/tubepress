@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -69,7 +69,7 @@ class tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService 
         if ($jsApi) {
 
             $link->setQueryVariable(self::$_URL_PARAM_JS_API, 1);
-            $link->setQueryVariable(self::$_URL_PARAM_PLAYER_ID, "tubepress-vimeo-player-$videoId");
+            $link->setQueryVariable(self::$_URL_PARAM_PLAYER_ID, 'tubepress-video-object-' . mt_rand());
         }
 
         return $link;

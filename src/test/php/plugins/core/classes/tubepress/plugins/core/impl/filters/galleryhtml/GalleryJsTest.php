@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -63,9 +63,10 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 	function expectedAjax()
 	{
 	    return <<<EOT
-hello
-<script type="text/javascript">
-	TubePressGallery.init(gallery-id, json);
+hello<script type="text/javascript">
+   var tubePressDomInjector = tubePressDomInjector || [], tubePressGalleryRegistrar = tubePressGalleryRegistrar || [];
+       tubePressDomInjector.push(['loadGalleryJs']);
+       tubePressGalleryRegistrar.push(['register', 'gallery-id', json ]);
 </script>
 EOT;
 	}

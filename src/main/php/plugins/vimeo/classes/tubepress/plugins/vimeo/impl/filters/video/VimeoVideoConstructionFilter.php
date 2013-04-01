@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -64,11 +64,14 @@ class tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter ex
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL] =
             $this->_getThumbnailUrl($videoArray, $index);
 
-        /* Time published. */
+        /* Time published. Vimeo dates are in US Eastern Time.*/
+        $reset = date_default_timezone_get();
+        date_default_timezone_set('America/New_York');
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
-            @strtotime($videoArray[$index]->upload_date);
+            strtotime($videoArray[$index]->upload_date);
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED] =
             $this->unixTimeToHumanReadable($toReturn[tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME]);
+        date_default_timezone_set($reset);
 
         /* Title. */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_TITLE] =

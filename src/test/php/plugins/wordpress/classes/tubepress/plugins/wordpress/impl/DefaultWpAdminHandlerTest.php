@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -114,12 +114,12 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandlerTest extends TubePre
 
     function testInit()
     {
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/css/jquery-ui-flick/jquery-ui-1.8.24.custom.css", "tubepress")->andReturn('y');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", "tubepress")->andReturn('y');
         $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/css/options-page.css", "tubepress")->andReturn('z');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/css/jquery-ui-multiselect-widget/jquery.multiselect.css", "tubepress")->andReturn('x');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/js/jscolor/jscolor.js", "tubepress")->andReturn('a');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/js/jquery-ui/jquery-ui-1.8.24.custom.min.js", "tubepress")->andReturn('b');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/js/jquery-ui-multiselect-widget/jquery.multiselect.min.js", "tubepress")->andReturn('c');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", "tubepress")->andReturn('x');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jscolor/jscolor.js", "tubepress")->andReturn('a');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", "tubepress")->andReturn('b');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", "tubepress")->andReturn('c');
 
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with("jquery-ui-flick", "y");
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with("tubepress-options-page", "z");
@@ -133,9 +133,9 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandlerTest extends TubePre
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_script')->once()->with("jquery-ui-tubepress", "b");
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_script')->once()->with("jquery-ui-multiselect-widget", "c");
 
-        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jscolor-tubepress');
-        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-tubepress');
-        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-multiselect-widget');
+        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jscolor-tubepress', false, array(), false, false);
+        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-tubepress', false, array(), false, false);
+        $this->_mockWpFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery-ui-multiselect-widget', false, array(), false, false);
 
         $this->_sut->registerStylesAndScripts('settings_page_tubepress');
 

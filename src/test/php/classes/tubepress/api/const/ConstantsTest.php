@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -26,7 +26,7 @@ class tubepress_api_const_ConstantsTest extends TubePressUnitTest
             'tubepress_api_const_options_values_OrderByValue'				=> array('commentCount', 'duration', 'newest', 'oldest', 'position', 'random', 'rating', 'relevance', 'title', 'viewCount', 'reversedPosition'),
             'tubepress_api_const_options_values_PerPageSortValue'           => array('commentCount', 'duration', 'newest', 'oldest', 'random', 'rating', 'none', 'title', 'viewCount'),
             'tubepress_api_const_options_values_PlayerImplementationValue'	=> array('provider_based'),
-            'tubepress_api_const_template_Variable'                         => array('autostart', 'bottomPagination', 'embeddedColorHightlight', 'embeddedColorPrimary', 'embeddedFullscreen', 'embeddedHeight', 'embeddedImplementationName', 'embeddedSource', 'embeddedWidth', 'galleryId', 'homeURL', 'metaLabels', 'playerName', 'preGallery', 'searchButton', 'searchHandlerUrl', 'searchHiddenInputs', 'searchTargetDomId', 'searchTerms', 'shouldShow', 'thumbHeight', 'thumbWidth', 'topPagination', 'tubepressBaseUrl', 'video', 'videoArray', 'videoId')
+            'tubepress_api_const_template_Variable'                         => array('videoDomId', 'videoProviderName', 'autostart', 'bottomPagination', 'embeddedColorHightlight', 'embeddedColorPrimary', 'embeddedFullscreen', 'embeddedHeight', 'embeddedImplementationName', 'embeddedSource', 'embeddedWidth', 'galleryId', 'homeURL', 'metaLabels', 'playerName', 'preGallery', 'searchButton', 'searchHandlerUrl', 'searchHiddenInputs', 'searchTargetDomId', 'searchTerms', 'shouldShow', 'thumbHeight', 'thumbWidth', 'topPagination', 'tubepressBaseUrl', 'video', 'videoArray', 'videoId')
 
         );
 

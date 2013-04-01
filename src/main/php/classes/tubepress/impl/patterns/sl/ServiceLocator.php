@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -316,6 +316,14 @@ class tubepress_impl_patterns_sl_ServiceLocator
     public static function getShortcodeHandlers()
     {
         return self::getServicesWithTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+    }
+
+    /**
+     * @return array An array of tubepress_spi_options_ui_PluggableFieldBuilder
+     */
+    public static function getFieldBuilders()
+    {
+        return self::getServicesWithTag(tubepress_spi_options_ui_PluggableFieldBuilder::_);
     }
 
 

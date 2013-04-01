@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -84,7 +84,7 @@ class tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest ex
 
             'jsMap' => array(
 
-                'playerJsUrl' => 'xyz/abc',
+                'playerLocationJsUrl' => 'xyz/abc',
                 'playerLocationProducesHtml' => true,
                 'ajaxPagination' => true,
                 'fluidThumbs' => false,

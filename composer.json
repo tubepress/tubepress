@@ -5,11 +5,11 @@
 
     "homepage": "https://github.com/ehough/tubepress",
 
-    "license": "GPL-3.0+",
+    "license": "MPL-2.0",
 
     "authors": [
         {
-            "name": "Eric Hough",
+            "name": "TubePress LLC",
             "email": "eric@tubepress.org",
             "homepage": "http://tubepress.org"
         }
@@ -17,17 +17,17 @@
 
     "require": {
 
-        "ehough/chaingang": "*",
+        "ehough/chaingang":   "*",
         "ehough/contemplate": "*",
-        "ehough/curly": "*",
-        "ehough/epilog": "*",
-        "ehough/fimble": "*",
-        "ehough/iconic": "*",
-        "ehough/jameson": "*",
-        "ehough/pulsar": "*",
-        "ehough/shortstop": "*",
-        "ehough/stash": "*",
-        "ehough/tickertape": "*"
+        "ehough/curly":       "*",
+        "ehough/epilog":      "*",
+        "ehough/fimble":      "*",
+        "ehough/iconic":      "*",
+        "ehough/jameson":     "*",
+        "ehough/pulsar":      "1.1.0",
+        "ehough/shortstop":   "*",
+        "ehough/stash":       "*",
+        "ehough/tickertape":  "*"
     },
 
     "require-dev": {
@@ -39,7 +39,9 @@
 
         "psr-0": {
 
-            "tubepress": "src/main/php/classes",
+            "tubepress_api":  "src/main/php/classes",
+            "tubepress_impl": "src/main/php/classes",
+            "tubepress_spi":  "src/main/php/classes",
             "org_tubepress" : "src/main/php/deprecated_code/classes"
         }
     }

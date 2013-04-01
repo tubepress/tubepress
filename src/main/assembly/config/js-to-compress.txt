@@ -1,4 +1,5 @@
 src/main/web/js/tubepress.js
+src/main/web/js/gallery.js
 src/main/web/players/jqmodal/jqmodal.js
 src/main/web/players/normal/normal.js
 src/main/web/players/popup/popup.js

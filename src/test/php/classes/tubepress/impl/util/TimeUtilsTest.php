@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -14,7 +14,7 @@ class tubepress_impl_util_TimeUtilsTest extends TubePressUnitTest
 	function testGetRelativeTimePastDecade()
 	{
 		$result = tubepress_impl_util_TimeUtils::getRelativeTime(1000000000);
-		$this->assertEquals('11 years ago', $result);
+		$this->assertEquals('12 years ago', $result);
 	}
 
 	function testGetRelativeTimePast5Years()

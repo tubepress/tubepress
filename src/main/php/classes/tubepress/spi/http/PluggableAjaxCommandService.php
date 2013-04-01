@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -21,9 +21,20 @@ interface tubepress_spi_http_PluggableAjaxCommandService
      */
     function getName();
 
+    /**
+     * Handle the Ajax request.
+     *
+     * @return void
+     */
     function handle();
 
+    /**
+     * @return integer The HTTP status code after handling this request.
+     */
     function getHttpStatusCode();
 
+    /**
+     * @return string The HTML output after handling this request.
+     */
     function getOutput();
 }

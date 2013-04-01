@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -10,7 +10,7 @@
  */
 
 /**
- * Class for managing HTTP Transports and making HTTP requests.
+ * Handles incoming Ajax requests and outputs a response.
  */
 class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
 {

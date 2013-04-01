@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -72,7 +72,7 @@ class tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilterTes
         $this->assertEquals('49078748', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_ID));
         $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL));
         $this->assertEquals('1347129000', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('4 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
+        $this->assertEquals('6 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
         $this->assertEquals('96,321', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
         $this->assertEquals('6', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT));
