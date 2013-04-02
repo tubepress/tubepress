@@ -13,7 +13,7 @@ class tubepress_plugins_embedplus_resources_templates_embedded_EmbedPlusEmbedded
 	public function testTemplate()
     {
         $this->expectOutputString(<<<EOT
-<object type="application/x-shockwave-flash" width="99" height="120" data="http://getembedplus.com/embedplus.swf">
+<object id="video-dom-id" type="application/x-shockwave-flash" width="99" height="120" data="http://getembedplus.com/embedplus.swf">
 
 	<param name="movie"		value="http://getembedplus.com/embedplus.swf" />
 	<param name="quality"		value="high" />
@@ -32,6 +32,7 @@ EOT
         ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH} = 99;
         ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT} = 88;
         ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL} = 'data-url';
+        ${org_tubepress_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
 
         require TUBEPRESS_ROOT . '/src/main/php/plugins/embedplus/resources/templates/embedded/embedplus.tpl.php';
     }

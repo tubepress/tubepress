@@ -44,7 +44,7 @@ EOT;
 
     private function _getDomIdFromHtml($html)
     {
-        $result = preg_match('/\sid="(tubepress-video-object-[0-9]+)"\s.*/', $html, $matches);
+        $result = preg_match('/\sid="(tubepress-video-object-[0-9]+)"[^"].*/', $html, $matches);
 
         if ($result < 1 || count($matches) < 2) {
 

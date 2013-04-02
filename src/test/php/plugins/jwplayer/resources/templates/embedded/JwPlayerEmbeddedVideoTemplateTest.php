@@ -13,6 +13,7 @@ class tubepress_plugins_jwplayer_resources_templates_embedded_JwPlayerEmbeddedVi
 	public function testTemplate()
     {
         $this->expectOutputString(<<<EOT
+<div id="video-dom-id">
 <object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='99' height='88'>
     <param name='movie' value='tp-base-url/src/main/web/flash/longtail/player.swf'>
     <param name='allowfullscreen' value='true'>
@@ -31,6 +32,7 @@ class tubepress_plugins_jwplayer_resources_templates_embedded_JwPlayerEmbeddedVi
         flashvars='file=data-url&amp;autostart=starttt&amp;backcolor=back-color&amp;frontcolor=front-color&amp;lightcolor=light-color&amp;screencolor=screen-color'
 </embed>
 </object>
+</div>
 EOT
 );
 
@@ -44,6 +46,7 @@ EOT
         ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_FRONT} = 'front-color';
         ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_LIGHT} = 'light-color';
         ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_SCREEN} = 'screen-color';
+        ${org_tubepress_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
 
         require TUBEPRESS_ROOT . '/src/main/php/plugins/jwplayer/resources/templates/embedded/longtail.tpl.php';
     }

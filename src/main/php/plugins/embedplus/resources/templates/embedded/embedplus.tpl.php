@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<object type="application/x-shockwave-flash" width="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo intval(${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}) + 32; ?>" data="http://getembedplus.com/embedplus.swf">
+<object id="<?php echo ${tubepress_api_const_template_Variable::VIDEO_DOM_ID}; ?>" type="application/x-shockwave-flash" width="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo intval(${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}) + 32; ?>" data="http://getembedplus.com/embedplus.swf">
 
 	<param name="movie"		value="http://getembedplus.com/embedplus.swf" />
 	<param name="quality"		value="high" />
