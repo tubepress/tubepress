@@ -300,14 +300,6 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
     }
 
     /**
-     * @return string The absolute path the add-on's manifest file.
-     */
-    public function getAbsolutePathOfManifest()
-    {
-
-    }
-
-    /**
      * @return array Optional. An array of IOC container extension class names. May be empty, never null.
      */
     public function getIocContainerExtensions()
@@ -358,7 +350,14 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
 
         } else {
 
-            $this->_version = tubepress_spi_version_Version::parse($version);
+            try {
+
+                $this->_version = tubepress_spi_version_Version::parse($version);
+
+            } catch (InvalidArgumentException $e) {
+
+                throw new InvalidArgumentException('Invalid version: ' . $e->getMessage());
+            }
         }
     }
 
@@ -368,10 +367,12 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
 
             throw new InvalidArgumentException('Add-on title must be a string');
         }
+
         if (strlen($title) > 255) {
 
             throw new InvalidArgumentException('Add-on titles must be 255 characters or less');
         }
+
         $this->_title = $title;
     }
 
@@ -427,7 +428,7 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
     {
         if (!is_string($bootstrap)) {
 
-            throw new InvalidArgumentException('boostrap must be a string');
+            throw new InvalidArgumentException('bootstrap must be a string');
         }
 
         /**
@@ -442,7 +443,14 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
 
         if (! class_exists($bootstrap)) {
 
-            spl_autoload($bootstrap);
+            try {
+
+                spl_autoload($bootstrap);
+
+            } catch (Exception $e) {
+
+                //ignore
+            }
         }
 
         if (!class_exists($bootstrap)) {
