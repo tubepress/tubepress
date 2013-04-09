@@ -20,7 +20,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     private static $_alreadyBooted = false;
 
     /**
-     * @var ehough_epilog_api_ILogger
+     * @var ehough_epilog_psr_LoggerInterface
      */
     private $_logger;
 
@@ -35,23 +35,23 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     private $_shouldLog = true;
 
     /**
-     * @var ehough_pulsar_SymfonyUniversalClassLoader The classloader.
+     * @var ehough_pulsar_UniversalClassLoader The classloader.
      */
     private $_classLoader;
 
     /**
-     * @var ehough_iconic_api_IContainer The IoC container.
+     * @var ehough_iconic_ContainerInterface The IoC container.
      */
     private $_iocContainer = null;
 
     /**
      * Performs TubePress-wide initialization.
      *
-     * @var ehough_pulsar_SymfonyUniversalClassLoader $classLoader The TubePress classloader.
+     * @var ehough_pulsar_UniversalClassLoader $classLoader The TubePress classloader.
      *
      * @return null
      */
-    public final function boot(ehough_pulsar_SymfonyUniversalClassLoader $classLoader)
+    public final function boot(ehough_pulsar_UniversalClassLoader $classLoader)
     {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
@@ -85,9 +85,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     /**
      * This is here strictly for testing :/
      *
-     * @param ehough_iconic_api_IContainer $iocContainer The IoC container.
+     * @param ehough_iconic_ContainerInterface $iocContainer The IoC container.
      */
-    public final function setIocContainer(ehough_iconic_api_IContainer $iocContainer)
+    public final function setIocContainer(ehough_iconic_ContainerInterface $iocContainer)
     {
         $this->_iocContainer = $iocContainer;
     }
@@ -375,11 +375,13 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                 if ($prefix) {
 
-                    $this->_classLoader->registerDirectory($prefix, $realDir);
+                    $this->_classLoader->registerPrefix($prefix, $realDir);
+                    $this->_classLoader->registerNamespace($prefix, $realDir);
 
                 } else {
 
-                    $this->_classLoader->registerFallbackDirectory($realDir);
+                    $this->_classLoader->registerNamespaceFallback($realDir);
+                    $this->_classLoader->registerPrefixFallback($realDir);
                 }
             }
 
@@ -387,7 +389,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         }
     }
 
-    private function _findUserPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer)
+    private function _findUserPlugins(tubepress_spi_addon_AddonDiscoverer $discoverer)
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
@@ -398,7 +400,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $discoverer, true);
     }
 
-    private function _findSystemPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer)
+    private function _findSystemPlugins(tubepress_spi_addon_AddonDiscoverer $discoverer)
     {
         $corePlugins = $this->_findPluginsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins',
             $discoverer, true);
@@ -409,7 +411,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     }
 
     private function _findPluginsInDirectory($directory,
-        tubepress_spi_plugin_PluginDiscoverer $discoverer,
+        tubepress_spi_addon_AddonDiscoverer $discoverer,
         $recursive)
     {
         if ($recursive) {
@@ -434,18 +436,18 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         if ($loggingRequested) {
 
-            $loggingHandler->setLevel(ehough_epilog_api_ILogger::DEBUG);
+            $loggingHandler->setLevel(ehough_epilog_Logger::DEBUG);
 
         } else {
 
-            $loggingHandler->setLevel(ehough_epilog_api_ILogger::WARNING);
+            $loggingHandler->setLevel(ehough_epilog_Logger::WARNING);
         }
 
         $this->_shouldLog = $loggingRequested;
 
-        ehough_epilog_api_LoggerFactory::setHandlerStack(array($loggingHandler));
+        ehough_epilog_LoggerFactory::setHandlerStack(array($loggingHandler));
 
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('TubePress Bootstrapper');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('TubePress Bootstrapper');
 
         $this->_loggingHandler = $loggingHandler;
     }
@@ -462,7 +464,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         $this->_shouldLog = $status;
     }
 
-    private function _corePluginSorter(tubepress_spi_plugin_Plugin $first, tubepress_spi_plugin_Plugin $second)
+    private function _corePluginSorter(tubepress_spi_addon_Addon $first, tubepress_spi_addon_Addon $second)
     {
         $firstName  = $first->getName();
         $secondName = $second->getName();

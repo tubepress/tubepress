@@ -19,7 +19,6 @@ class tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler ex
     protected function onPreTemplateToString(ehough_contemplate_api_Template $template)
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $jsonEncoder         = tubepress_impl_patterns_sl_ServiceLocator::getJsonEncoder();
         $toEncode = array();
 
         if (! $environmentDetector->isPro()) {
@@ -30,7 +29,7 @@ class tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler ex
         $toEncode[] = $this->_generateBox('TubePress News', 'http://tubepress.org/snippets/wordpress/latest-news.php');
         $toEncode[] = $this->_generateBox('Need Help?', 'http://tubepress.org/snippets/wordpress/need-help.php');
 
-        $template->setVariable(tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, $jsonEncoder->encode($toEncode));
+        $template->setVariable(tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, json_encode($toEncode));
     }
 
     protected final function getRelativeTemplatePath()

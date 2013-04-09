@@ -53,11 +53,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_tickertape_api_IEventDispatcher The event dispatcher.
+     * @return ehough_tickertape_EventDispatcherInterface The event dispatcher.
      */
     public static function getEventDispatcher()
     {
-        return self::getService('ehough_tickertape_api_IEventDispatcher');
+        return self::getService('ehough_tickertape_EventDispatcherInterface');
     }
 
     /**
@@ -77,19 +77,19 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_fimble_api_FileSystem The filesystem service.
+     * @return ehough_filesystem_FilesystemInterface The filesystem service.
      */
     public static function getFileSystem()
     {
-        return self::getService('ehough_fimble_api_Filesystem');
+        return self::getService('ehough_filesystem_FilesystemInterface');
     }
 
     /**
-     * @return ehough_fimble_api_FinderFactory The finder factory.
+     * @return ehough_finder_FinderFactoryInterface The finder factory.
      */
     public static function getFileSystemFinderFactory()
     {
-        return self::getService('ehough_fimble_api_FinderFactory');
+        return self::getService('ehough_finder_FinderFactoryInterface');
     }
 
     /**
@@ -122,22 +122,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     public static function getHttpRequestParameterService()
     {
         return self::getService(tubepress_spi_http_HttpRequestParameterService::_);
-    }
-
-    /**
-     * @return ehough_jameson_api_IDecoder
-     */
-    public static function getJsonDecoder()
-    {
-        return self::getService('ehough_jameson_api_IDecoder');
-    }
-
-    /**
-     * @return ehough_jameson_api_IEncoder
-     */
-    public static function getJsonEncoder()
-    {
-        return self::getService('ehough_jameson_api_IEncoder');
     }
 
     /**
@@ -197,19 +181,19 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_plugin_PluginDiscoverer The plugin discoverer.
+     * @return tubepress_spi_addon_AddonDiscoverer The plugin discoverer.
      */
     public static function getPluginDiscoverer()
     {
-        return self::getService(tubepress_spi_plugin_PluginDiscoverer::_);
+        return self::getService(tubepress_spi_addon_AddonDiscoverer::_);
     }
 
     /**
-     * @return tubepress_spi_plugin_PluginRegistry The plugin registry.
+     * @return tubepress_spi_addon_AddonLoader The plugin registry.
      */
     public static function getPluginRegistry()
     {
-        return self::getService(tubepress_spi_plugin_PluginRegistry::_);
+        return self::getService(tubepress_spi_addon_AddonLoader::_);
     }
 
     /**
@@ -329,9 +313,9 @@ class tubepress_impl_patterns_sl_ServiceLocator
 
 
     /**
-     * @param ehough_iconic_api_IContainer $container The core IOC container.
+     * @param ehough_iconic_ContainerInterface $container The core IOC container.
      */
-    public static function setIocContainer(ehough_iconic_api_IContainer $container)
+    public static function setIocContainer(ehough_iconic_ContainerInterface $container)
     {
         self::$_iocContainer = $container;
     }

@@ -16,7 +16,7 @@ class tubepress_impl_log_TubePressLoggingHandlerTest extends TubePressUnitTest
     private $_sut;
 
     /**
-     * @var ehough_epilog_impl_StandardLogger
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 
@@ -24,7 +24,7 @@ class tubepress_impl_log_TubePressLoggingHandlerTest extends TubePressUnitTest
     {
         $this->_sut = new tubepress_impl_log_TubePressLoggingHandler();
 
-        $logger = new ehough_epilog_impl_StandardLogger('test');
+        $logger = new ehough_epilog_Logger('test');
         $logger->pushHandler($this->_sut);
 
         $this->_logger = $logger;

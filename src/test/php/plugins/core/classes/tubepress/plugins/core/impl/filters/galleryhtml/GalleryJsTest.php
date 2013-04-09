@@ -18,15 +18,12 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 
     private $_mockEventDispatcher;
 
-    private $_mockJsonEncoder;
-
 	function onSetup()
 	{
 		$this->_sut                  = new tubepress_plugins_core_impl_filters_galleryhtml_GalleryJs();
 		$this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
-        $this->_mockJsonEncoder      = $this->createMockSingletonService('ehough_jameson_api_IEncoder');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 	}
 
 	function testAlterHtml()
@@ -35,7 +32,7 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 
         $fakeArgs = array('yo' => 'mamma', 'is' => '"so fat"', 'x' => array('foo' => 500, 'html' => '<>\'"'));
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, Mockery::on(function ($arg) use ($fakeArgs) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) use ($fakeArgs) {
 
             $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array();
 
@@ -45,8 +42,6 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
         }));
 
         $event = new tubepress_api_event_TubePressEvent('hello');
-
-        $this->_mockJsonEncoder->shouldReceive('encode')->once()->with($fakeArgs)->andReturn('json');
 
         $event->setArguments(array(
 
@@ -66,7 +61,7 @@ class tubepress_plugins_core_impl_filters_galleryhtml_GalleryJsTest extends Tube
 hello<script type="text/javascript">
    var tubePressDomInjector = tubePressDomInjector || [], tubePressGalleryRegistrar = tubePressGalleryRegistrar || [];
        tubePressDomInjector.push(['loadGalleryJs']);
-       tubePressGalleryRegistrar.push(['register', 'gallery-id', json ]);
+       tubePressGalleryRegistrar.push(['register', 'gallery-id', {"yo":"mamma","is":"\"so fat\"","x":{"foo":500,"html":"<>'\""}} ]);
 </script>
 EOT;
 	}

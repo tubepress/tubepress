@@ -30,7 +30,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressU
         $this->_mockUrlBuilder                  = $this->createMockSingletonService(tubepress_spi_provider_UrlBuilder::_);
         $this->_mockFeedFetcher                 = $this->createMockSingletonService(tubepress_spi_feed_FeedFetcher::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
         $this->_sut = new tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService($this->_mockUrlBuilder);
@@ -79,7 +79,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressU
         $this->_mockEventDispatcher->shouldReceive('dispatch')->times(16)->with(
 
             tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
-            Mockery::on(function ($arg) {
+            ehough_mockery_Mockery::on(function ($arg) {
 
                 return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_Video;
             })
@@ -100,7 +100,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressU
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
             tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
-            Mockery::on(function ($arg) {
+            ehough_mockery_Mockery::on(function ($arg) {
 
                 return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_Video;
             })

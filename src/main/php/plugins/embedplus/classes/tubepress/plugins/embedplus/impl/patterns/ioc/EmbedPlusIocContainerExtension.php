@@ -12,16 +12,16 @@
 /**
  * Registers a few extensions to allow TubePress to work with EmbedPlus.
  */
-class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension implements ehough_iconic_api_extension_IExtension
+class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
 {
     /**
      * Loads a specific configuration.
      *
-     * @param ehough_iconic_impl_ContainerBuilder $container A ContainerBuilder instance
+     * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
      *
      * @return void
      */
-    public final function load(ehough_iconic_impl_ContainerBuilder $container)
+    public final function load(array $config, ehough_iconic_ContainerBuilder $container)
     {
         $container->register(
 
@@ -41,5 +41,29 @@ class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensi
     public final function getAlias()
     {
         return 'embedplus';
+    }
+
+    /**
+     * Returns the namespace to be used for this extension (XML namespace).
+     *
+     * @return string The XML namespace
+     *
+     * @api
+     */
+    public function getNamespace()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the base path for the XSD files.
+     *
+     * @return string The XSD base path
+     *
+     * @api
+     */
+    public function getXsdValidationBasePath()
+    {
+        return null;
     }
 }

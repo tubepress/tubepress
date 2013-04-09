@@ -30,8 +30,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockPluginDiscoverer            = $this->createMockSingletonService(tubepress_spi_plugin_PluginDiscoverer::_);
-        $this->_mockPluginRegistry              = $this->createMockSingletonService(tubepress_spi_plugin_PluginRegistry::_);
+        $this->_mockPluginDiscoverer            = $this->createMockSingletonService(tubepress_spi_addon_AddonDiscoverer::_);
+        $this->_mockPluginRegistry              = $this->createMockSingletonService(tubepress_spi_addon_AddonLoader::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
@@ -40,9 +40,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
     function onTearDown()
     {
-        $nullHandler = new ehough_epilog_impl_handler_NullHandler();
+        $nullHandler = new ehough_epilog_handler_NullHandler();
 
-        ehough_epilog_api_LoggerFactory::setHandlerStack(array($nullHandler));
+        ehough_epilog_LoggerFactory::setHandlerStack(array($nullHandler));
     }
 
     public static function setUpBeforeClass()
@@ -53,8 +53,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
     function testBoot()
     {
-        $mockPlugin1 = Mockery::mock(tubepress_spi_plugin_Plugin::_);
-        $mockPlugin2 = Mockery::mock(tubepress_spi_plugin_Plugin::_);
+        $mockPlugin1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+        $mockPlugin2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
         $mockPlugin1->shouldReceive('getName')->andReturn('mock plugin 1');
         $mockPlugin2->shouldReceive('getName')->andReturn('mock plugin 2');
         $mockPlugin1->shouldReceive('getAbsolutePathOfDirectory')->once()->andReturn('xyz');
@@ -81,8 +81,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin1);
         $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin2);
 
-        $this->getMockIocContainer()->shouldReceive('addCompilerPass')->once()->with(Mockery::type('FakeCompilerPass'));
-        $this->getMockIocContainer()->shouldReceive('registerExtension')->once()->with(Mockery::type('FakeExtension'));
+        $this->getMockIocContainer()->shouldReceive('addCompilerPass')->once()->with(ehough_mockery_Mockery::type('FakeCompilerPass'));
+        $this->getMockIocContainer()->shouldReceive('registerExtension')->once()->with(ehough_mockery_Mockery::type('FakeExtension'));
         $this->getMockIocContainer()->shouldReceive('compile')->once();
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(true);
@@ -90,12 +90,12 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn('false');
 
-        $this->_sut->boot(new ehough_pulsar_SymfonyUniversalClassLoader());
+        $this->_sut->boot(new ehough_pulsar_UniversalClassLoader());
 
         /*
          * Try booting twice.
          */
-        $this->_sut->boot(new ehough_pulsar_SymfonyUniversalClassLoader());
+        $this->_sut->boot(new ehough_pulsar_UniversalClassLoader());
 
         $this->assertTrue(true);
     }

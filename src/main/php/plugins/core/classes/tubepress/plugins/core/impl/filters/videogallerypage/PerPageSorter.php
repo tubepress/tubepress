@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Per-page Sorter');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Per-page Sorter');
     }
 
 	public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
@@ -30,7 +30,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter
 		/** No sort requested? */
 		if ($perPageSortOrder === tubepress_api_const_options_values_PerPageSortValue::NONE) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
                 
                 $this->_logger->debug('Requested per-page sort order is "none". Not applying per-page sorting.');
             }
@@ -43,7 +43,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter
 
 		if ($perPageSortOrder === tubepress_api_const_options_values_PerPageSortValue::RANDOM) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug('Shuffling videos');
             }
@@ -58,7 +58,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter
 		    /** If we have a sorter, use it. */
 		    if (method_exists($this, $sortCallback)) {
 
-                if ($this->_logger->isDebugEnabled()) {
+                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                     $this->_logger->debug(sprintf('Now sorting %s videos on page (%s)', count($videos), $perPageSortOrder));
                 }
@@ -67,7 +67,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_PerPageSorter
 
 		    } else {
 
-                if ($this->_logger->isDebugEnabled()) {
+                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                     $this->_logger->debug(sprintf('No sort available for this page (%s)', $perPageSortOrder));
                 }

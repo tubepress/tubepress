@@ -10,18 +10,18 @@
  */
 
 /**
- * Registry of all plugins.
+ * Registry of all add-ons.
  */
-interface tubepress_spi_plugin_PluginRegistry
+interface tubepress_spi_addon_AddonLoader
 {
-    const _ = 'tubepress_spi_plugin_PluginRegistry';
+    const _ = 'tubepress_spi_addon_AddonLoader';
 
     /**
-     * Loads the given plugin into the system.
+     * Loads the given add-on into the system.
      *
-     * @param tubepress_spi_plugin_Plugin $plugin
+     * @param tubepress_spi_addon_Addon $addon
      *
-     * @return mixed Null if the plugin loaded normally, otherwise a string error message.
+     * @return mixed Null if the add-on loaded normally, otherwise a string error message.
      */
-    function load(tubepress_spi_plugin_Plugin $plugin);
+    function load(tubepress_spi_addon_Addon $addon);
 }

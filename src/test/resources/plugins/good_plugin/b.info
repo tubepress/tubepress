@@ -1,6 +1,0 @@
-name = Plugin B
-description = Description for plugin B
-version = 3.2.1
-iocContainerExtensions[] = FakeExtension
-iocContainerExtensions[]=  FakeExtension
-classPathRoots[] = SomethingPath

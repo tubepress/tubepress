@@ -22,17 +22,14 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
 
     private $_mockEnvironmentDetector;
 
-    private $_mockJsonEncoder;
-
     function onSetup()
     {
         $this->_mockTabs                = $this->createMockSingletonService(tubepress_spi_options_ui_FormHandler::_);
         $this->_mockMessageService      = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockJsonEncoder         = $this->createMockSingletonService('ehough_jameson_api_IEncoder');
 
-        $this->_mockFilter = Mockery::mock('tubepress_spi_options_ui_Field');
+        $this->_mockFilter = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_Field');
 
         $this->_sut = new tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
     }
@@ -56,7 +53,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
 
     function testGetHtml()
     {
-        $template       = \Mockery::mock('ehough_contemplate_api_Template');
+        $template       = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/plugins/wordpress/resources/templates/options_page.tpl.php')->andReturn($template);
 
@@ -65,14 +62,6 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
         $this->_mockMessageService->shouldReceive('_')->once()->with('Save')->andReturn('<<save>>');
 
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(false);
-
-        $this->_mockJsonEncoder->shouldReceive('encode')->once()->with(array(
-
-            array('title' => 'You\'re Missing Out!', 'url' => 'http://tubepress.org/snippets/wordpress/youre-missing-out.php'),
-            array('title' => 'TubePress News', 'url' => 'http://tubepress.org/snippets/wordpress/latest-news.php'),
-            array('title' => 'Need Help?', 'url' => 'http://tubepress.org/snippets/wordpress/need-help.php')
-
-        ))->andReturn('encoded!');
 
         $this->_mockTabs->shouldReceive('getHtml')->once()->andReturn('<<tabhtml>>');
 

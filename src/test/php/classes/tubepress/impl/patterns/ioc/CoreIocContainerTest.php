@@ -36,9 +36,8 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
         $toTest = array(
 
             tubepress_spi_environment_EnvironmentDetector::_ => tubepress_spi_environment_EnvironmentDetector::_,
-            'ehough_fimble_api_FinderFactory'                => 'ehough_fimble_api_FinderFactory',
-            tubepress_spi_plugin_PluginDiscoverer::_         => tubepress_spi_plugin_PluginDiscoverer::_,
-            tubepress_spi_plugin_PluginRegistry::_           => tubepress_spi_plugin_PluginRegistry::_,
+            tubepress_spi_addon_AddonDiscoverer::_           => tubepress_spi_addon_AddonDiscoverer::_,
+            tubepress_spi_addon_AddonLoader::_               => tubepress_spi_addon_AddonLoader::_,
         );
 
         foreach ($toTest as $key => $value) {
@@ -76,7 +75,7 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
 
     public function testHas()
     {
-        $this->assertTrue($this->_sut->has('ehough_fimble_api_FinderFactory'));
+        $this->assertTrue($this->_sut->has(tubepress_spi_environment_EnvironmentDetector::_));
         $this->assertFalse($this->_sut->has('x y z'));
     }
 

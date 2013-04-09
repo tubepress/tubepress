@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Video Prepender');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Video Prepender');
     }
 
     public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
@@ -33,7 +33,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender
             return;
         }
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Prepending video %s to the gallery', $customVideoId));
         }
@@ -97,7 +97,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoPrepender
 
         } catch (Exception $e) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Could not prepend video %s to the gallery: %s', $id, $e->getMessage()));
             }

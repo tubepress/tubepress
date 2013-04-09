@@ -15,7 +15,7 @@
 class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
-     * @var ehough_epilog_api_ILogger
+     * @var ehough_epilog_psr_LoggerInterface
      */
     private $_logger;
 
@@ -26,7 +26,7 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
 
     public function __construct(tubepress_spi_shortcode_PluggableShortcodeHandlerService $singleVideoShortcodeHandler)
     {
-        $this->_logger                      = ehough_epilog_api_LoggerFactory::getLogger('Solo Player Command');
+        $this->_logger                      = ehough_epilog_LoggerFactory::getLogger('Solo Player Command');
         $this->_singleVideoShortcodeHandler = $singleVideoShortcodeHandler;
     }
 
@@ -51,7 +51,7 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
             return false;
         }
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug('Solo player detected. Checking query string for video ID.');
         }
@@ -62,7 +62,7 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
 
         if ($videoId == '') {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug('Solo player in use, but no video ID set in URL.');
             }
@@ -82,7 +82,7 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
         $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoId     = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);;
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Building single video with ID %s', $videoId));
         }
@@ -91,7 +91,7 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerS
 
         if ($result !== true) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug('Could not verify video ID.');
             }

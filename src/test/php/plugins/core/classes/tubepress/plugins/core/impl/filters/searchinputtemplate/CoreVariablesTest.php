@@ -45,7 +45,7 @@ class tubepress_plugins_core_impl_filters_searchinputtemplate_CoreVariablesTest 
             return "##$msg##";
         });
 
-        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, 'http://tubepress.org?foo=bar&something=else');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, array('foo' => 'bar', 'something' => 'else'));
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_TERMS, 'search for something');

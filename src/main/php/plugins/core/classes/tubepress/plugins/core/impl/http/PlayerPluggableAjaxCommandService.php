@@ -20,7 +20,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Player Ajax Command');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Player Ajax Command');
     }
 
     /**
@@ -37,8 +37,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
         $player           = tubepress_impl_patterns_sl_ServiceLocator::getPlayerHtmlGenerator();
         $provider         = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
         $qss              = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $jsonEncoder      = tubepress_impl_patterns_sl_ServiceLocator::getJsonEncoder();
-        $isDebugEnabled   = $this->_logger->isDebugEnabled();
+        $isDebugEnabled   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($isDebugEnabled) {
 
@@ -84,7 +83,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
             'html'  => $player->getHtml($video)
         );
 
-        return array(200 => $jsonEncoder->encode($toReturn));
+        return array(200 => json_encode($toReturn));
     }
 }
 

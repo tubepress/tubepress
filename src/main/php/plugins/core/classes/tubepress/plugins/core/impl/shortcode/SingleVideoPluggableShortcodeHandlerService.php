@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Single Video Shortcode Handler');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Single Video Shortcode Handler');
     }
 
     /**
@@ -48,7 +48,7 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
         $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoId     = $execContext->get(tubepress_api_const_options_names_Output::VIDEO);
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Building single video with ID %s', $videoId));
         }
@@ -64,7 +64,7 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
         $template      = $themeHandler->getTemplateInstance('single_video.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
 
         /* grab the video from the provider */
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Asking provider for video with ID %s', $videoId));
         }

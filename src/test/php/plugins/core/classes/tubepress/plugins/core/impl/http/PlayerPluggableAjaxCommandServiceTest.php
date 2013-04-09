@@ -23,8 +23,6 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
 
     private $_mockHttpRequestParameterService;
 
-    private $_mockJsonEncoder;
-
     public function onSetup()
     {
         $this->_sut = new tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService();
@@ -33,7 +31,6 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockVideoCollector              = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
         $this->_mockPlayerHtmlGenerator         = $this->createMockSingletonService(tubepress_spi_player_PlayerHtmlGenerator::_);
-        $this->_mockJsonEncoder                 = $this->createMockSingletonService('ehough_jameson_api_IEncoder');
     }
 
     public function testVideoFound()
@@ -52,12 +49,6 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
         $this->_mockPlayerHtmlGenerator->shouldReceive('getHtml')->once()->with($mockVideo)->andReturn('player-html');
 
         $this->_mockVideoCollector->shouldReceive('collectSingleVideo')->once()->andReturn($mockVideo);
-
-        $this->_mockJsonEncoder->shouldReceive('encode')->once()->with(array(
-
-            'title' => 'video title',
-            'html'  => 'player-html'
-        ))->andReturn('foobarr');
 
         $this->_sut->handle();
 

@@ -20,7 +20,7 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 	function onSetup()
 	{
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 	}
 
 	function testInit()
@@ -132,7 +132,7 @@ class tubepress_plugins_vimeo_VimeoTest extends TubePressUnitTest
 
     private function _verifyOption(tubepress_spi_options_OptionDescriptor $expectedOption)
     {
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(Mockery::on(function ($registeredOption) use ($expectedOption) {
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(ehough_mockery_Mockery::on(function ($registeredOption) use ($expectedOption) {
 
             return $registeredOption instanceof tubepress_spi_options_OptionDescriptor
                 && $registeredOption->getAcceptableValues() === $expectedOption->getAcceptableValues()

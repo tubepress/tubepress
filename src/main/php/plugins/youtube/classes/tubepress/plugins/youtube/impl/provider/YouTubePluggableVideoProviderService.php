@@ -51,7 +51,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
     private $_xpath;
 
     /**
-     * @var ehough_epilog_api_ILogger Logger.
+     * @var ehough_epilog_psr_LoggerInterface Logger.
      */
     private $_logger;
 
@@ -62,7 +62,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
 
     public function __construct(tubepress_spi_provider_UrlBuilder $urlBuilder)
     {
-        $this->_logger     = ehough_epilog_api_LoggerFactory::getLogger('YouTube Video Provider');
+        $this->_logger     = ehough_epilog_LoggerFactory::getLogger('YouTube Video Provider');
         $this->_urlBuilder = $urlBuilder;
     }
 
@@ -229,7 +229,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
 
     private function _createXPath(DOMDocument $doc)
     {
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug('Building xpath to parse XML');
         }
@@ -251,7 +251,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
 
     private function _createDomDocument($feed)
     {
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug('Attempting to load XML from YouTube');
         }
@@ -268,7 +268,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
             throw new RuntimeException('Could not parse XML from YouTube');
         }
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug('Successfully loaded XML from YouTube');
         }

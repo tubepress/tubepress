@@ -15,13 +15,13 @@
 class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tubepress_spi_embedded_EmbeddedHtmlGenerator
 {
     /**
-     * @var ehough_epilog_api_ILogger Logger.
+     * @var ehough_epilog_psr_LoggerInterface Logger.
      */
     private $_logger;
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
     }
 
     /**

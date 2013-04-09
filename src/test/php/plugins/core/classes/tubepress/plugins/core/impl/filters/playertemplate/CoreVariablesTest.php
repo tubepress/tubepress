@@ -35,7 +35,7 @@ class tubepress_plugins_core_impl_filters_playertemplate_CoreVariablesTest exten
 
         $this->_mockEmbeddedHtmlGenerator->shouldReceive('getHtml')->once()->with('video-id')->andReturn('embedded-html');
 
-        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_SOURCE, 'embedded-html');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::GALLERY_ID, 'gallery-id');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO, $video);

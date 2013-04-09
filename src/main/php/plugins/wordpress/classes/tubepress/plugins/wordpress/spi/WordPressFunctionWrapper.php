@@ -173,12 +173,12 @@ interface tubepress_plugins_wordpress_spi_WordPressFunctionWrapper
      *
      * @param string $domain  Unique identifier for retrieving translated strings.
      * @param string $absPath Relative path to ABSPATH of a folder, where the .mo file resides. Deprecated, but still functional until 2.7.
-     * @param string $relPath Relative path to WP_PLUGIN_DIR, with a trailing slash. This is the preferred argument to use.
+     * @param string $relPath Relative path to WP_addon_DIR, with a trailing slash. This is the preferred argument to use.
      *                        It takes precendence over $abs_rel_path
      *
      * @return void
      */
-    function load_plugin_textdomain($domain, $absPath, $relPath);
+    function load_addon_textdomain($domain, $absPath, $relPath);
 
     /**
      * Gets the basename of a plugin (extracts the name of a plugin from its filename).

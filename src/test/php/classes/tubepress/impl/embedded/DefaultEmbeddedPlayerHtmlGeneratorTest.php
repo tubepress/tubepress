@@ -26,7 +26,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
         $this->_sut = new tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
     }
 
@@ -43,13 +43,13 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
         $mockVideoProvider->shouldReceive('recognizesVideoId')->once()->with('video-id')->andReturn(true);
         $mockVideoProvider->shouldReceive('getName')->once()->andReturn('some-provider');
 
-        $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
-            Mockery::on(function ($arg) use ($mockTemplate) {
+            ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_api_Event && $arg->getSubject() === $mockTemplate
+                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === $mockTemplate
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'some-provider'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -59,9 +59,9 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
         $mockTemplate->shouldReceive('toString')->once()->andReturn('templateAsString');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
-            Mockery::on(function ($arg) use ($mockTemplate) {
+            ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_api_Event && $arg->getSubject() === 'templateAsString'
+                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === 'templateAsString'
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'some-provider'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -86,13 +86,13 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
         $mockVideoProvider->shouldReceive('recognizesVideoId')->once()->with('video-id')->andReturn(true);
         $mockVideoProvider->shouldReceive('getName')->twice()->andReturn('xyz');
 
-        $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
-            Mockery::on(function ($arg) use ($mockTemplate) {
+            ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_api_Event && $arg->getSubject() === $mockTemplate
+                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === $mockTemplate
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'xyz'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -102,9 +102,9 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends Tub
         $mockTemplate->shouldReceive('toString')->once()->andReturn('templateAsString');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
-            Mockery::on(function ($arg) use ($mockTemplate) {
+            ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_api_Event && $arg->getSubject() === 'templateAsString'
+                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === 'templateAsString'
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'xyz'
                     && $arg->getArgument('dataUrl') === 'data-url'

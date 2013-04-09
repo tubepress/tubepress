@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends TubePressUnitTest
+class tubepress_impl_addon_filters_embeddedtemplate_CoreVariablesTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -27,7 +27,7 @@ class tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends T
 
 	function testAlter()
 	{
-	    $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+	    $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(660);
@@ -39,7 +39,7 @@ class tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends T
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, 660);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_HEIGHT, 732);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_ID, 'video-id');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_DOM_ID, Mockery::on(function ($arg) {
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_DOM_ID, ehough_mockery_Mockery::on(function ($arg) {
 
             return preg_match('/^tubepress-video-object-[0-9]+$/', $arg) === 1;
         }));

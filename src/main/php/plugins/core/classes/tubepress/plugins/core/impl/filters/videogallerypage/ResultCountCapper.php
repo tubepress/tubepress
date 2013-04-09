@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_ResultCountCapper
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Result Count Capper');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Result Count Capper');
     }
 
     public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
@@ -31,14 +31,14 @@ class tubepress_plugins_core_impl_filters_videogallerypage_ResultCountCapper
         $videos       = $event->getSubject()->getVideos();
         $resultCount  = count($videos);
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Effective total result count (taking into account user-defined limit) is %d video(s)', $secondCut));
         }
 
         if ($resultCount > $secondCut) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Result has %d video(s), limit is %d. So we\'re chopping it down.', $resultCount, $secondCut));
             }

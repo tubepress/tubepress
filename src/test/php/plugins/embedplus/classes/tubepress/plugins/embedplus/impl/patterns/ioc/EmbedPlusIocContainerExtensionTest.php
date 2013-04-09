@@ -16,7 +16,7 @@ class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensi
     private $_sut;
 
     /**
-     * @var ehough_iconic_impl_ContainerBuilder
+     * @var ehough_iconic_ContainerBuilder
      */
     private $_mockParentContainer;
 
@@ -24,7 +24,7 @@ class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensi
     {
         $this->_sut = new tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension();
 
-        $this->_mockParentContainer = new ehough_iconic_impl_ContainerBuilder();
+        $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
     }
 
     public function testGetAlias()
@@ -34,7 +34,7 @@ class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensi
 
     public function testLoad()
     {
-        $this->_sut->load($this->_mockParentContainer);
+        $this->_sut->load(array(), $this->_mockParentContainer);
 
         foreach ($this->_getExpectedServices() as $service) {
 

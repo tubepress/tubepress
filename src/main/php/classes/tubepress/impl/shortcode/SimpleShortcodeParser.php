@@ -18,7 +18,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Shortcode Parser');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Shortcode Parser');
     }
 
     /**
@@ -52,7 +52,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
         preg_match("/\[$keyword\b(.*)\]/", $content, $matches);
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Found a shortcode: %s', $matches[0]));
         }
@@ -68,7 +68,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
 
-                if ($this->_logger->isDebugEnabled()) {
+                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                     $this->_logger->debug(sprintf('Candidate options detected in shortcode: %s', $matches[0]));
                 }
@@ -80,7 +80,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
         } else {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('No custom options detected in shortcode: %s', $matches[0]));
             }
@@ -135,7 +135,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
                 continue;
             }
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 /** @noinspection PhpUndefinedVariableInspection */
                 $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (unfiltered)', $name, $value));
@@ -156,7 +156,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             $filtered = $event->getSubject();
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (filtered)', $name, $filtered));
             }

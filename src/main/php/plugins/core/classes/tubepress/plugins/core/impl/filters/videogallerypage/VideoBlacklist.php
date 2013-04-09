@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoBlacklist
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Video Blacklister');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Video Blacklister');
     }
 
 	public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
@@ -49,7 +49,7 @@ class tubepress_plugins_core_impl_filters_videogallerypage_VideoBlacklist
 	{
 		if (strpos($blacklist, $id) !== false) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Video with ID %s is blacklisted. Skipping it.', $id));
             }

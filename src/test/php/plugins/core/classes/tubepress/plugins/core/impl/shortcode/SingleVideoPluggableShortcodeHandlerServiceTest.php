@@ -26,7 +26,7 @@ class tubepress_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServ
 	function onSetup()
 	{
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
         $this->_mockProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
 
@@ -45,7 +45,7 @@ class tubepress_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServ
 	{
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::VIDEO)->andReturn('video-id');
 
-	    $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+	    $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
 	    $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('single_video.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
@@ -55,13 +55,13 @@ class tubepress_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServ
 	    $this->_mockProvider->shouldReceive('collectSingleVideo')->once()->with('video-id')->andReturn($video);
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION, Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
             return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $mockTemplate;
         }));
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION, Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
             return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'template-string';
         }));

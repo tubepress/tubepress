@@ -20,7 +20,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Abstract Storage Manager');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
 
         $this->_knownOptionNames = $this->getAllOptionNames();
     }

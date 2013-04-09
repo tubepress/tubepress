@@ -18,7 +18,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
     }
@@ -275,7 +275,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
 
         foreach ($expected as $name => $value) {
 
-            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) use ($name) {
+            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) use ($name) {
 
                 return $arg instanceof tubepress_api_event_TubePressEvent  && $arg->getArgument('optionName') === $name;
             }));

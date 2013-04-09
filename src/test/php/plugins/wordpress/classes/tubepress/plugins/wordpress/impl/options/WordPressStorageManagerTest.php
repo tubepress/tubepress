@@ -31,7 +31,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
         $wpdb = $this;
 
         $this->_mockEnvironmentDetector      = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockEventDispatcher          = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher          = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockOptionValidator          = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
         $this->_mockOptionsReference         = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
@@ -62,7 +62,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
     {
         $od = new tubepress_spi_options_OptionDescriptor('something');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, ehough_mockery_Mockery::type('tubepress_api_event_TubePressEvent'));
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
         $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(false);
         $this->_mockOptionValidator->shouldReceive('getProblemMessage')->once()->with('something', 'value')->andReturn('xyz');
@@ -76,7 +76,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
     {
         $od = new tubepress_spi_options_OptionDescriptor('something');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, ehough_mockery_Mockery::type('tubepress_api_event_TubePressEvent'));
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
         $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
         $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-something', 'value');

@@ -18,7 +18,7 @@ class tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorRespo
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('YouTube Error Handler');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('YouTube Error Handler');
     }
 
     /**
@@ -103,7 +103,7 @@ class tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorRespo
     /**
      * Gets the logger.
      *
-     * @return mixed ehough_epilog_api_ILogger
+     * @return mixed ehough_epilog_psr_LoggerInterface
      */
     protected final function getLogger()
     {

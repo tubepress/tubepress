@@ -20,7 +20,7 @@ class tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTest
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher   = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher   = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockStorageManager    = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockValidationService = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
 
@@ -124,7 +124,7 @@ class tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTest
 
     private function _setupFilters($name, $value)
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, ehough_mockery_Mockery::type('tubepress_api_event_TubePressEvent'));
     }
 }
 

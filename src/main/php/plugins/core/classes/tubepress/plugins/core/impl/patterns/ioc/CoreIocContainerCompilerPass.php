@@ -12,21 +12,21 @@
 /**
  * Currently just builds the HTTP response handler.
  */
-class tubepress_plugins_core_impl_patterns_ioc_CoreIocContainerCompilerPass implements ehough_iconic_api_compiler_ICompilerPass
+class tubepress_plugins_core_impl_patterns_ioc_CoreIocContainerCompilerPass implements ehough_iconic_compiler_CompilerPassInterface
 {
     /**
      * You can modify the container here before it is dumped to PHP code.
      *
-     * @param ehough_iconic_impl_ContainerBuilder $container
+     * @param ehough_iconic_ContainerBuilder $container
      *
      * @return void
      */
-    public final function process(ehough_iconic_impl_ContainerBuilder $container)
+    public final function process(ehough_iconic_ContainerBuilder $container)
     {
         $this->_registerHttpResponseHandler($container);
     }
 
-    private function _registerHttpResponseHandler(ehough_iconic_impl_ContainerBuilder $container)
+    private function _registerHttpResponseHandler(ehough_iconic_ContainerBuilder $container)
     {
         $chainId    = 'ehough_shortstop_impl_HttpResponseHandlerChain_chain';
         $commands   = $container->findTaggedServiceIds('tubepress.impl.http.ResponseHandler');
@@ -34,7 +34,7 @@ class tubepress_plugins_core_impl_patterns_ioc_CoreIocContainerCompilerPass impl
 
         foreach ($commands as $id => $attributes) {
 
-            $references[] = new ehough_iconic_impl_Reference($id);
+            $references[] = new ehough_iconic_Reference($id);
         }
 
         $this->_registerChainDefinitionByReferences($container, $chainId, $references);
@@ -45,16 +45,16 @@ class tubepress_plugins_core_impl_patterns_ioc_CoreIocContainerCompilerPass impl
             'ehough_shortstop_api_HttpResponseHandler',
             'ehough_shortstop_impl_HttpResponseHandlerChain'
 
-        )->addArgument(new ehough_iconic_impl_Reference($chainId));
+        )->addArgument(new ehough_iconic_Reference($chainId));
     }
 
-    private function _registerChainDefinitionByReferences(ehough_iconic_impl_ContainerBuilder $container, $chainName, array $references)
+    private function _registerChainDefinitionByReferences(ehough_iconic_ContainerBuilder $container, $chainName, array $references)
     {
         /** @noinspection PhpUndefinedMethodInspection */
         $container->setDefinition(
 
             $chainName,
-            new ehough_iconic_impl_Definition(
+            new ehough_iconic_Definition(
 
                 'ehough_chaingang_api_Chain',
                 $references

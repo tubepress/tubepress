@@ -1,12 +1,12 @@
 <phpunit
     colors="true"
-    stopOnError="true"
-    stopOnFailure="true"
-	stopOnIncomplete="true"
-	stopOnSkipped="true"
+    stopOnError="false"
+    stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
 	strict="true"
     processIsolation="false"
-    bootstrap="../php/bootstrap.php">
+    bootstrap="../../../vendor/autoload.php">
 	<testsuites>
 	   <testsuite name="TubePress tests">
 	       <directory>../php/</directory>

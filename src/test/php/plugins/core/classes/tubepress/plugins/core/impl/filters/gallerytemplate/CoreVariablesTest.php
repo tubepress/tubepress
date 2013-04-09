@@ -30,7 +30,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_CoreVariablesTest exte
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos(array('video-array'));
 
-        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_ARRAY, array('video-array'));
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::GALLERY_ID, 47);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::THUMBNAIL_WIDTH, 556);

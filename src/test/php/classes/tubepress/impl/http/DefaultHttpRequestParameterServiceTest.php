@@ -16,7 +16,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
 
     function onSetup()
     {
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_sut = new tubepress_impl_http_DefaultHttpRequestParameterService();
     }
@@ -42,7 +42,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
     {
         $_POST['something'] = array(1, 2, 3);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) {
 
 
             $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
@@ -62,7 +62,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
     {
         $_POST['something'] = array(1, 2, 3);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) {
 
 
             $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
@@ -82,7 +82,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
     {
         $_GET['something'] = array(1, 2, 3);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) {
 
 
             $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)

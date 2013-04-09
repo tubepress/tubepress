@@ -15,7 +15,7 @@
 class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
 {
     /**
-     * @var ehough_epilog_api_ILogger Logger.
+     * @var ehough_epilog_psr_LoggerInterface Logger.
      */
     private $_logger;
 
@@ -26,7 +26,7 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Ajax Handler');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Ajax Handler');
     }
 
     /**
@@ -36,7 +36,7 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
      */
     public final function handle()
     {
-        $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
+        $this->_isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($this->_isDebugEnabled) {
 

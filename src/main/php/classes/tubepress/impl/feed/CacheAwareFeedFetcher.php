@@ -15,13 +15,13 @@
 class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_FeedFetcher
 {
     /**
-     * @var ehough_epilog_api_ILogger
+     * @var ehough_epilog_psr_LoggerInterface
      */
     private $_logger;
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Cache Aware Feed Fetcher');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Cache Aware Feed Fetcher');
     }
 
     /**
@@ -39,7 +39,7 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
 
             $cache = tubepress_impl_patterns_sl_ServiceLocator::getCacheService();
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('First asking cache for <a href="%s">URL</a>', $url));
             }
@@ -48,14 +48,14 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
 
             if ($result !== false) {
 
-                if ($this->_logger->isDebugEnabled()) {
+                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                     $this->_logger->debug(sprintf('Cache has <a href="%s">URL</a>. Sweet.', $url));
                 }
 
             } else {
 
-                if ($this->_logger->isDebugEnabled()) {
+                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                     $this->_logger->debug(sprintf('Cache does not have <a href="%s">URL</a>. We\'ll have to get it from the network.', $url));
                 }
@@ -67,7 +67,7 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
 
         } else {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Skip cache check for <a href="%s">URL</a>', $url));
             }
@@ -75,7 +75,7 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
             $result = $this->_getFromNetwork($url);
         }
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
                 $url, htmlspecialchars($result)));

@@ -49,7 +49,7 @@ class tubepress_plugins_wordpress_WordPress
         $tubepress_base_url = $prefix . "/plugins/$baseName";
 
         /* register the plugin's message bundles */
-        $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");
+        $wpFunctionWrapper->load_addon_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");
 
         $contentFilter    =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_ContentFilter::_);

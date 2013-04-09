@@ -18,7 +18,7 @@ class tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylist
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('YouTube Playlist PL Prefix Remover');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('YouTube Playlist PL Prefix Remover');
     }
 
 
@@ -41,7 +41,7 @@ class tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylist
 
         if (tubepress_impl_util_StringUtils::startsWith($value, 'PL')) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Removing \'PL\' prefix from playlist value of %s', $value));
             }
@@ -51,7 +51,7 @@ class tubepress_plugins_core_impl_filters_prevalidationoptionset_YouTubePlaylist
             $event->setSubject($newValue);
         }
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Playlist value %s does not beging with \'PL\'', $value));
         }

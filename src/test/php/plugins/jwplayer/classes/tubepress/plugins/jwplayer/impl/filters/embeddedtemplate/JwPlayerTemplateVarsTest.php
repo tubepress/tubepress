@@ -26,7 +26,7 @@ class tubepress_plugins_jwplayer_impl_embedded_JwPlayerTemplateVarsTest extends 
 
     public function testLongtail()
     {
-        $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
         $event = new tubepress_api_event_TubePressEvent($mockTemplate);
 

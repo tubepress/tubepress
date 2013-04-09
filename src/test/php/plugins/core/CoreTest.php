@@ -22,11 +22,11 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
 
 	function onSetup()
 	{
-		$this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+		$this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_fimble_api_Filesystem');
-        $this->_mockFinderFactory              = $this->createMockSingletonService('ehough_fimble_api_FinderFactory');
+        $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
+        $this->_mockFinderFactory              = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
 
         if (!defined('ABSPATH')) {
 
@@ -100,7 +100,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $event = new tubepress_api_event_TubePressEvent('x');
         $event->setName($test[2]);
         $callback = $this->createMockSingletonService($test[0]);
-        $callback->shouldReceive($test[1])->with(Mockery::on(function ($arg) use ($event) {
+        $callback->shouldReceive($test[1])->with(ehough_mockery_Mockery::on(function ($arg) use ($event) {
 
             return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getName() === $event->getName()
                 && $arg->getSubject() === $event->getSubject();
@@ -132,10 +132,10 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $this->_mockFileSystem->shouldReceive('exists')->times(50)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
         $this->_mockFileSystem->shouldReceive('exists')->times(50)->with('user-content-dir/themes')->andReturn(true);
 
-        $fakeThemeDir        = Mockery::mock();
+        $fakeThemeDir        = ehough_mockery_Mockery::mock();
         $fakeThemeDir->shouldReceive('getBasename')->times(50)->andReturn('xyz');
 
-        $finder              = Mockery::mock('ehough_fimble_api_Finder');
+        $finder              = ehough_mockery_Mockery::mock('ehough_fimble_api_Finder');
         $finder->shouldReceive('directories')->times(50)->andReturn($finder);
         $finder->shouldReceive('in')->times(50)->with(array('user-content-dir/themes'))->andReturn($finder);
         $finder->shouldReceive('depth')->times(50)->with(0);
@@ -538,7 +538,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
 
         $this->_mockEventDispatcher->shouldReceive('addListener')->times(11)->with(
 
-            Mockery::on(function ($eventName) use ($eventNames) {
+            ehough_mockery_Mockery::on(function ($eventName) use ($eventNames) {
 
                 return in_array($eventName, $eventNames);
             }),
@@ -549,7 +549,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
 
     private function _verifySingleOptionRegistration(tubepress_spi_options_OptionDescriptor $expectedOption)
     {
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(Mockery::on(function ($registeredOption) use ($expectedOption) {
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(ehough_mockery_Mockery::on(function ($registeredOption) use ($expectedOption) {
 
             return $registeredOption instanceof tubepress_spi_options_OptionDescriptor
                 && $registeredOption->getAcceptableValues() === $expectedOption->getAcceptableValues()

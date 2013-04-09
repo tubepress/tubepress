@@ -18,7 +18,7 @@ class tubepress_plugins_wordpress_resources_templates_OptionsPageTemplateTest ex
 {
     public function test()
     {
-        $filter = \Mockery::mock('tubepress_spi_options_ui_Field');
+        $filter = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_Field');
         $filter->shouldReceive('getTitle')->once()->andReturn('filter-title');
         $filter->shouldReceive('getHtml')->once()->andReturn('filter-html');
 

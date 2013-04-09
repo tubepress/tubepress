@@ -20,7 +20,7 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
         $this->_sut = new tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator();
 
         $this->_mockShortcodeParser            = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
-        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('shortcode');
     }
@@ -33,7 +33,7 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->andReturn(true);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) {
 
             return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'foobar';
         }));

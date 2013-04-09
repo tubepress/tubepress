@@ -15,7 +15,7 @@
 class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
-     * @var ehough_epilog_api_ILogger
+     * @var ehough_epilog_psr_LoggerInterface
      */
     private $_logger;
 
@@ -23,7 +23,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
 
     public function __construct(tubepress_spi_shortcode_PluggableShortcodeHandlerService $thumbGalleryShortcodeHandler)
     {
-        $this->_logger                       = ehough_epilog_api_LoggerFactory::getLogger('Search Output Shortcode Handler');
+        $this->_logger                       = ehough_epilog_LoggerFactory::getLogger('Search Output Shortcode Handler');
         $this->_thumbGalleryShortcodeHandler = $thumbGalleryShortcodeHandler;
     }
 
@@ -45,7 +45,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
         /* not configured at all for search results */
         if ($execContext->get(tubepress_api_const_options_names_Output::OUTPUT) !== tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug('Not configured for search results');
             }
@@ -64,7 +64,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
         /* the user is not searching and we don't have to show results */
         if (! $hasSearchTerms && ! $mustShowSearchResults) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug('The user isn\'t searching.');
             }
@@ -91,7 +91,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
         /* if the user isn't searching, don't display anything */
         if (! $hasSearchTerms) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug('User doesn\'t appear to be searching. Will not display anything.');
             }
@@ -99,7 +99,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
             return '';
         }
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug('User is searching. We\'ll handle this.');
         }

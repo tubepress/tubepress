@@ -27,7 +27,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
     );
 
     /**
-     * @var ehough_epilog_api_ILogger Logger.
+     * @var ehough_epilog_psr_LoggerInterface Logger.
      */
     private $_logger;
 
@@ -42,7 +42,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
 
     public function __construct(tubepress_spi_provider_UrlBuilder $urlBuilder)
     {
-        $this->_logger     = ehough_epilog_api_LoggerFactory::getLogger('Vimeo Video Provider');
+        $this->_logger     = ehough_epilog_LoggerFactory::getLogger('Vimeo Video Provider');
         $this->_urlBuilder = $urlBuilder;
     }
 

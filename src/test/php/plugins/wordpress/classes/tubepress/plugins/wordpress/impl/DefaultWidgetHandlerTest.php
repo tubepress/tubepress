@@ -51,7 +51,7 @@ class tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
 
     function testPrintWidgetControl()
     {
-        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE, '<<Title>>');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_TITLE, 'value of widget title');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.>>');

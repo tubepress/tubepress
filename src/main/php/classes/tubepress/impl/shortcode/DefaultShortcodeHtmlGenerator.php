@@ -18,7 +18,7 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Shortcode HTML Generator');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Shortcode HTML Generator');
     }
 
     /**

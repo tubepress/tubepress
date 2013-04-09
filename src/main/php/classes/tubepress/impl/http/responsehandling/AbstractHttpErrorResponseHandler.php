@@ -76,7 +76,7 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
     /**
      * Gets the logger.
      *
-     * @return mixed ehough_epilog_api_ILogger
+     * @return mixed ehough_epilog_psr_LoggerInterface
      */
     protected abstract function getLogger();
 }

@@ -12,17 +12,17 @@
 /**
  * Registers a few extensions to allow TubePress to work with YouTube.
  */
-class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtension implements ehough_iconic_api_extension_IExtension
+class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
 {
 
     /**
      * Loads a specific configuration.
      *
-     * @param ehough_iconic_impl_ContainerBuilder $container A ContainerBuilder instance
+     * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
      *
      * @return void
      */
-    public final function load(ehough_iconic_impl_ContainerBuilder $container)
+    public final function load(array $config, ehough_iconic_ContainerBuilder $container)
     {
         $container->register(
 
@@ -42,7 +42,7 @@ class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtension imple
             'tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService',
             'tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService'
 
-        )->addArgument(new ehough_iconic_impl_Reference('tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder'))
+        )->addArgument(new ehough_iconic_Reference('tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder'))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $container->register(
@@ -69,5 +69,29 @@ class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtension imple
     public final function getAlias()
     {
         return 'vimeo';
+    }
+
+    /**
+     * Returns the namespace to be used for this extension (XML namespace).
+     *
+     * @return string The XML namespace
+     *
+     * @api
+     */
+    public function getNamespace()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the base path for the XSD files.
+     *
+     * @return string The XSD base path
+     *
+     * @api
+     */
+    public function getXsdValidationBasePath()
+    {
+        return null;
     }
 }

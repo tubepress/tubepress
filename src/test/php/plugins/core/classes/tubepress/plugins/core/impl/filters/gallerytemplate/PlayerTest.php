@@ -34,7 +34,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_PlayerTest extends Tub
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos(array($fakeVideo));
 
-        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_HTML, '');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_NAME, 'player-name');
 
@@ -71,7 +71,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_PlayerTest extends Tub
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos(array($fakeVideo));
 
-        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_HTML, 'player-html');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_NAME, $name);
 

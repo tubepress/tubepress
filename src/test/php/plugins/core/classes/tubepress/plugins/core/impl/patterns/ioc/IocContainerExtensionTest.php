@@ -16,7 +16,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
     private $_sut;
 
     /**
-     * @var ehough_iconic_impl_ContainerBuilder
+     * @var ehough_iconic_ContainerBuilder
      */
     private $_mockParentContainer;
 
@@ -24,7 +24,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
     {
         $this->_sut = new tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension();
 
-        $this->_mockParentContainer = new ehough_iconic_impl_ContainerBuilder();
+        $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
     }
 
     public function testGetAlias()
@@ -66,15 +66,13 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
             array(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler'),
             array('ehough_stash_api_Cache', 'ehough_stash_impl_PearCacheLiteCache'),
             array(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'),
-            array('ehough_tickertape_api_IEventDispatcher', 'ehough_tickertape_impl_StandardEventDispatcher'),
+            array('ehough_tickertape_EventDispatcherInterface', 'ehough_tickertape_impl_StandardEventDispatcher'),
             array(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext'),
-            array('ehough_fimble_api_Filesystem', 'ehough_fimble_impl_StandardFilesystem'),
+            array('ehough_filesystem_FilesystemInterface', 'ehough_fimble_impl_StandardFilesystem'),
             array(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher'),
             array(tubepress_spi_html_HeadHtmlGenerator::_, 'tubepress_impl_html_DefaultHeadHtmlGenerator'),
             array('ehough_shortstop_impl_DefaultHttpMessageParser', 'ehough_shortstop_impl_DefaultHttpMessageParser'),
             array('ehough_shortstop_api_HttpClient', 'ehough_shortstop_impl_HttpClientChain'),
-            array('ehough_jameson_api_IDecoder', 'ehough_jameson_impl_FastDecoder'),
-            array('ehough_jameson_api_IEncoder', 'ehough_jameson_impl_FastEncoder'),
             array(tubepress_spi_http_HttpRequestParameterService::_, 'tubepress_impl_http_DefaultHttpRequestParameterService'),
             array(tubepress_spi_options_OptionDescriptorReference::_, 'tubepress_impl_options_DefaultOptionDescriptorReference'),
             array(tubepress_spi_options_OptionValidator::_, 'tubepress_impl_options_DefaultOptionValidator'),
@@ -96,9 +94,9 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
             array(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler'),
             array('ehough_stash_api_Cache', 'ehough_stash_impl_PearCacheLiteCache'),
             array(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'),
-            array('ehough_tickertape_api_IEventDispatcher', 'ehough_tickertape_impl_StandardEventDispatcher'),
+            array('ehough_tickertape_EventDispatcherInterface', 'ehough_tickertape_impl_StandardEventDispatcher'),
             array(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext'),
-            array('ehough_fimble_api_Filesystem', 'ehough_fimble_impl_StandardFilesystem'),
+            array('ehough_filesystem_FilesystemInterface', 'ehough_fimble_impl_StandardFilesystem'),
             array(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher'),
             array(tubepress_spi_html_HeadHtmlGenerator::_, 'tubepress_impl_html_DefaultHeadHtmlGenerator'),
             array('ehough_shortstop_impl_DefaultHttpMessageParser', 'ehough_shortstop_impl_DefaultHttpMessageParser'),
@@ -113,8 +111,6 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtensionTest extends
             array('ehough_shortstop_impl_contentencoding_NativeDeflateRfc1951Decompressor', 'ehough_shortstop_impl_contentencoding_NativeDeflateRfc1951Decompressor'),
             array('ehough_shortstop_impl_transferencoding_ChunkedTransferDecoder', 'ehough_shortstop_impl_transferencoding_ChunkedTransferDecoder'),
             array('ehough_shortstop_api_HttpClient', 'ehough_shortstop_impl_HttpClientChain'),
-            array('ehough_jameson_api_IDecoder', 'ehough_jameson_impl_FastDecoder'),
-            array('ehough_jameson_api_IEncoder', 'ehough_jameson_impl_FastEncoder'),
             array(tubepress_spi_http_HttpRequestParameterService::_, 'tubepress_impl_http_DefaultHttpRequestParameterService'),
             array(tubepress_spi_options_OptionDescriptorReference::_, 'tubepress_impl_options_DefaultOptionDescriptorReference'),
             array(tubepress_spi_options_OptionValidator::_, 'tubepress_impl_options_DefaultOptionValidator'),

@@ -56,7 +56,7 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->andReturn('valueofcontenturl');
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('load_plugin_textdomain')->once()->with('tubepress', false, 'tubepress/src/main/resources/i18n');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('load_addon_textdomain')->once()->with('tubepress', false, 'tubepress/src/main/resources/i18n');
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_filter')->once()->with('the_content', array($this->_mockContentFilter, 'filterContent'), 10, 1);
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_action')->once()->with('wp_head', array($this->_mockJsAndCssInjector, 'printInHtmlHead'), 10, 1);
@@ -85,7 +85,7 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
 
     private function _verifyOption(tubepress_spi_options_OptionDescriptor $expectedOption)
     {
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(Mockery::on(function ($registeredOption) use ($expectedOption) {
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(ehough_mockery_Mockery::on(function ($registeredOption) use ($expectedOption) {
 
             return $registeredOption instanceof tubepress_spi_options_OptionDescriptor
                 && $registeredOption->getAcceptableValues() === $expectedOption->getAcceptableValues()

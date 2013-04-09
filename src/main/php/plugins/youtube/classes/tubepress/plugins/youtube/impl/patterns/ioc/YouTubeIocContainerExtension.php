@@ -12,17 +12,20 @@
 /**
  * Registers a few extensions to allow TubePress to work with YouTube.
  */
-class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtension implements ehough_iconic_api_extension_IExtension
+class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
 {
 
     /**
      * Loads a specific configuration.
      *
-     * @param ehough_iconic_impl_ContainerBuilder $container A ContainerBuilder instance
+     * @param array            $config    An array of configuration values
+     * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
      *
-     * @return void
+     * @throws ehough_iconic_exception_InvalidArgumentException When provided tag is not defined in this extension
+     *
+     * @api
      */
-    public final function load(ehough_iconic_impl_ContainerBuilder $container)
+    public final function load(array $config, ehough_iconic_ContainerBuilder $container)
     {
         $container->register(
 
@@ -42,7 +45,7 @@ class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtension i
             'tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService',
             'tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService'
 
-        )->addArgument(new ehough_iconic_impl_Reference('tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder'))
+        )->addArgument(new ehough_iconic_Reference('tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder'))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $container->register(
@@ -75,5 +78,29 @@ class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtension i
     public final function getAlias()
     {
         return 'youtube';
+    }
+
+    /**
+     * Returns the namespace to be used for this extension (XML namespace).
+     *
+     * @return string The XML namespace
+     *
+     * @api
+     */
+    public function getNamespace()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the base path for the XSD files.
+     *
+     * @return string The XSD base path
+     *
+     * @api
+     */
+    public function getXsdValidationBasePath()
+    {
+        return null;
     }
 }

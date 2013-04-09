@@ -16,7 +16,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
     private $_sut;
 
     /**
-     * @var ehough_iconic_impl_ContainerBuilder
+     * @var ehough_iconic_ContainerBuilder
      */
     private $_mockParentContainer;
 
@@ -24,7 +24,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtensi
     {
         $this->_sut = new tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerExtension();
 
-        $this->_mockParentContainer = new ehough_iconic_impl_ContainerBuilder();
+        $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
     }
 
     public function testGetAlias()

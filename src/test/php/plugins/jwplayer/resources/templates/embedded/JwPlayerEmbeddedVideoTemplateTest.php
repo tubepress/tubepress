@@ -46,7 +46,7 @@ EOT
         ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_FRONT} = 'front-color';
         ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_LIGHT} = 'light-color';
         ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_SCREEN} = 'screen-color';
-        ${org_tubepress_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
+        ${tubepress_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
 
         require TUBEPRESS_ROOT . '/src/main/php/plugins/jwplayer/resources/templates/embedded/longtail.tpl.php';
     }
