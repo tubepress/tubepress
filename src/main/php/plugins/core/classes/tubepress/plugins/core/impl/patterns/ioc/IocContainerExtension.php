@@ -167,12 +167,12 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
     {
         $container->register(
 
-            tubepress_spi_html_HeadHtmlGenerator::_,
+            tubepress_spi_html_CssAndJsGenerator::_,
             'tubepress_impl_html_DefaultHeadHtmlGenerator'
         );
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('tubepress_impl_html_DefaultHeadHtmlGenerator', tubepress_spi_html_HeadHtmlGenerator::_);
+        $container->setAlias('tubepress_impl_html_DefaultHeadHtmlGenerator', tubepress_spi_html_CssAndJsGenerator::_);
     }
 
     private function _registerHttpClient(ehough_iconic_ContainerBuilder $container)

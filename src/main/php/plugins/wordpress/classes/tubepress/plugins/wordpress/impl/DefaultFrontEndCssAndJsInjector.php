@@ -26,13 +26,13 @@ class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector implement
             return;
         }
 
-        $hh  = tubepress_impl_patterns_sl_ServiceLocator::getHeadHtmlGenerator();
+        $hh  = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsGenerator();
 
         /* this inline JS helps initialize TubePress */
         $inlineJs = $hh->getHeadInlineJs();
 
         /* this meta stuff prevents search engines from indexing gallery pages > 1 */
-        $meta = $hh->getHeadHtmlMeta();
+        $meta = $hh->getMetaTags();
 
         print <<<EOT
 $inlineJs

@@ -93,11 +93,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_HeadHtmlGenerator The head HTML generator.
+     * @return tubepress_spi_html_CssAndJsGenerator The head HTML generator.
      */
-    public static function getHeadHtmlGenerator()
+    public static function getCssAndJsGenerator()
     {
-        return self::getService(tubepress_spi_html_HeadHtmlGenerator::_);
+        return self::getService(tubepress_spi_html_CssAndJsGenerator::_);
     }
 
     /**
@@ -106,14 +106,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     public static function getHttpClient()
     {
         return self::getService('ehough_shortstop_api_HttpClientInterface');
-    }
-
-    /**
-     * @return ehough_shortstop_api_HttpResponseHandler The HTTP response handler.
-     */
-    public static function getHttpResponseHandler()
-    {
-        return self::getService('ehough_shortstop_api_HttpResponseHandler');
     }
 
     /**

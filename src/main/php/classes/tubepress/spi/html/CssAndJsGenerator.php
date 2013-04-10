@@ -12,17 +12,19 @@
 /**
  * Generates HTML for use in the <head>.
  */
-interface tubepress_spi_html_HeadHtmlGenerator
+interface tubepress_spi_html_CssAndJsGenerator
 {
-    const _ = 'tubepress_spi_html_HeadHtmlGenerator';
+    const _ = 'tubepress_spi_html_CssAndJsGenerator';
 
-    function getHeadJqueryInclusion();
+    function getJqueryScriptTag();
 
-    function getHeadInlineJs();
+    function getTubePressScriptTag();
 
-    function getHeadJsIncludeString();
+    function getTubePressCssTag();
 
-    function getHeadCssIncludeString();
+    function getMetaTags();
 
-    function getHeadHtmlMeta();
+    function getInlineCss();
+
+    function getInlineJs();
 }

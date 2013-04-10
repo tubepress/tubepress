@@ -23,7 +23,7 @@ class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest exten
         $this->_sut = new tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector();
 
         $this->_mockWpFunctionWrapper   = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_HeadHtmlGenerator::_);
+        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_CssAndJsGenerator::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
     }
 
@@ -32,7 +32,7 @@ class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest exten
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
 
         $this->_mockHeadHtmlGenerator->shouldReceive('getHeadInlineJs')->once()->andReturn('inline js');
-        $this->_mockHeadHtmlGenerator->shouldReceive('getHeadHtmlMeta')->once()->andReturn('html meta');
+        $this->_mockHeadHtmlGenerator->shouldReceive('getMetaTags')->once()->andReturn('html meta');
 
         ob_start();
 
