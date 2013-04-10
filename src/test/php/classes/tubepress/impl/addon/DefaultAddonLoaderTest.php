@@ -18,25 +18,56 @@ class tubepress_impl_player_DefaultAddonLoaderTest extends TubePressUnitTest
     public function onSetup()
     {
         $this->_sut = new tubepress_impl_addon_DefaultAddonLoader();
-
-        $this->_bell = false;
     }
 
-
-    public function testLoadGoodPlugin()
+    public function testBootstrapClass()
     {
         $plugin = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
 
-        $plugin->shouldReceive('getBootstrap')->once()->andReturn(realpath(dirname(__FILE__) . '/../../../../../resources/plugins/fakeBootstrap.php'));
+        $plugin->shouldReceive('getBootstrap')->once()->andReturn('ValidBootstrapper');
 
-        $this->_sut->load($plugin);
+        $result = $this->_sut->load($plugin);
 
-        $this->assertTrue(defined('GOOD_addon_LOADED'));
-        $this->assertTrue(GOOD_addon_LOADED === true);
+        $this->assertNull($result);
     }
+
+    public function testBootstrapFileThrowsException()
+    {
+        $plugin = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'tubepress-testBootstrapThrowsException');
+        $handle = fopen($tempFile, 'w');
+        fwrite($handle, '<?php throw new Exception("Hi");');
+        fclose($handle);
+
+        $plugin->shouldReceive('getBootstrap')->once()->andReturn($tempFile);
+        $plugin->shouldReceive('getName')->once()->andReturn('some plugin');
+
+        $result = $this->_sut->load($plugin);
+
+        $this->assertEquals('Hit exception when trying to load some plugin: Hi', $result);
+    }
+
+    public function testBootstrapFile()
+    {
+        $plugin = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'tubepress-testLoadGoodPlugin');
+
+        $plugin->shouldReceive('getBootstrap')->once()->andReturn($tempFile);
+
+        $result = $this->_sut->load($plugin);
+
+        $this->assertNull($result);
+    }
+}
+
+class ValidBootstrapper
+{
+    public $bell;
 
     public function boot()
     {
-
+        $this->bell = true;
     }
 }

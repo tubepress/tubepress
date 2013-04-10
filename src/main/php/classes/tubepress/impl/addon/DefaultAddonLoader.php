@@ -40,8 +40,6 @@ class tubepress_impl_addon_DefaultAddonLoader implements tubepress_spi_addon_Add
 
         } catch (Exception $e) {
 
-            $this->_isLoading = false;
-
             return 'Hit exception when trying to load ' . $addon->getName() . ': ' . $e->getMessage();
         }
 
@@ -53,13 +51,21 @@ class tubepress_impl_addon_DefaultAddonLoader implements tubepress_spi_addon_Add
         /**
          * First let's see if the service locator knows about it.
          */
-        $instance = tubepress_impl_patterns_sl_ServiceLocator::getService($bootstrap);
+        $instance = null;
+
+        try {
+
+            $instance = tubepress_impl_patterns_sl_ServiceLocator::getService($bootstrap);
+
+        } catch (Exception $e) {
+
+            //ignore for now
+        }
 
         if ($instance === null) {
 
             $ref      = new ReflectionClass($bootstrap);
             $instance = $ref->newInstance();
-
         }
 
         $instance->boot();
