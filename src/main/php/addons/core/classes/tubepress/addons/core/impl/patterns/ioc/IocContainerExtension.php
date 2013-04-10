@@ -40,6 +40,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         $this->_registerCssAndJsGenerator($container);
         $this->_registerHttpClient($container);
         $this->_registerHttpRequestParameterService($container);
+        $this->_registerHttpResponseCodeHandler($container);
         $this->_registerOptionDescriptorReference($container);
         $this->_registerOptionValidator($container);
         $this->_registerOptionsUiFieldBuilder($container);
@@ -294,6 +295,18 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
 
         /* Allows for convenient access to this definition by IOC extensions. */
         $container->setAlias('tubepress_impl_http_DefaultHttpRequestParameterService', tubepress_spi_http_HttpRequestParameterService::_);
+    }
+
+    private function _registerHttpResponseCodeHandler(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            tubepress_spi_http_ResponseCodeHandler::_,
+            'tubepress_impl_http_DefaultResponseCodeHandler'
+        );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_impl_http_DefaultResponseCodeHandler', tubepress_spi_http_ResponseCodeHandler::_);
     }
 
     private function _registerOptionDescriptorReference(ehough_iconic_ContainerBuilder $container)

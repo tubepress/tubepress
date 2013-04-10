@@ -133,6 +133,14 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
+     * @return tubepress_spi_http_ResponseCodeHandler The HTTP response code handler.
+     */
+    public static function getHttpResponseCodeHandler()
+    {
+        return self::getService(tubepress_spi_http_ResponseCodeHandler::_);
+    }
+
+    /**
      * @return tubepress_spi_message_MessageService The message service.
      */
     public static function getMessageService()
