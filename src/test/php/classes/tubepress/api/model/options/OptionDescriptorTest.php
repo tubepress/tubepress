@@ -13,12 +13,12 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
 
     private $_sut;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_spi_options_OptionDescriptor('name');
     }
 
-    function testSetAcceptableValues()
+    public function testSetAcceptableValues()
     {
         $this->assertFalse($this->_sut->hasDiscreteAcceptableValues());
         $this->_sut->setAcceptableValues(array('foo' => 'bar'));
@@ -26,7 +26,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
         $this->assertTrue($this->_sut->getAcceptableValues() === array('foo' => 'bar'));
     }
 
-    function testSetBoolean()
+    public function testSetBoolean()
     {
         $this->assertFalse($this->_sut->isBoolean());
 
@@ -35,7 +35,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
         $this->assertTrue($this->_sut->isBoolean());
     }
 
-    function testNonBoolShouldBePersisted()
+    public function testNonBoolShouldBePersisted()
     {
         $this->assertTrue($this->_sut->isMeantToBePersisted());
 
@@ -44,7 +44,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
         $this->assertFalse($this->_sut->isMeantToBePersisted());
     }
 
-    function testNonBoolCanBeSetViaShortcode()
+    public function testNonBoolCanBeSetViaShortcode()
     {
         $this->assertTrue($this->_sut->isAbleToBeSetViaShortcode());
 
@@ -56,7 +56,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testNonStringRegex()
+    public function testNonStringRegex()
     {
         $this->_sut->setValidValueRegex(1);
     }
@@ -64,13 +64,13 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testNullRegex()
+    public function testNullRegex()
     {
         $this->_sut->setValidValueRegex(null);
     }
 
 
-    function testNonBoolProOnly()
+    public function testNonBoolProOnly()
     {
         $this->assertFalse($this->_sut->isProOnly());
 
@@ -82,7 +82,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testNonStringDesc()
+    public function testNonStringDesc()
     {
         $this->_sut->setDescription(array());
     }
@@ -90,7 +90,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testNullDesc()
+    public function testNullDesc()
     {
         $this->_sut->setDescription(null);
     }
@@ -98,7 +98,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testNonStringLabel()
+    public function testNonStringLabel()
     {
         $this->_sut->setLabel(array());
     }
@@ -106,7 +106,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testNullLabel()
+    public function testNullLabel()
     {
         $this->_sut->setLabel(null);
     }
@@ -114,7 +114,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testNonStringName()
+    public function testNonStringName()
     {
         new tubepress_spi_options_OptionDescriptor(88);
     }
@@ -122,7 +122,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testNullName()
+    public function testNullName()
     {
         new tubepress_spi_options_OptionDescriptor(null);
     }
@@ -130,7 +130,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testSetRegexAlreadyBoolean()
+    public function testSetRegexAlreadyBoolean()
     {
         $this->_sut->setBoolean();
         $this->_sut->setValidValueRegex('/some/');
@@ -139,7 +139,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testSetRegexAlreadyDiscrete()
+    public function testSetRegexAlreadyDiscrete()
     {
         $this->_sut->setAcceptableValues(array('foo'));
         $this->_sut->setValidValueRegex('/some/');
@@ -148,7 +148,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testSetDiscreteAlreadyBoolean()
+    public function testSetDiscreteAlreadyBoolean()
     {
         $this->_sut->setBoolean();
         $this->_sut->setAcceptableValues(array('foo'));
@@ -157,7 +157,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testSetDiscreteAlreadyRegex()
+    public function testSetDiscreteAlreadyRegex()
     {
         $this->_sut->setValidValueRegex('/some/');
         $this->_sut->setAcceptableValues(array('foo'));
@@ -167,7 +167,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
      */
-    function testSetBooleanAlreadyDiscrete()
+    public function testSetBooleanAlreadyDiscrete()
     {
         $this->_sut->setAcceptableValues(array('foo'));
         $this->_sut->setBoolean();
@@ -176,13 +176,13 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     /**
     * @expectedException InvalidArgumentException
     */
-    function testSetBooleanAlreadyRegex()
+    public function testSetBooleanAlreadyRegex()
     {
         $this->_sut->setValidValueRegex('/some/');
         $this->_sut->setBoolean();
     }
 
-    function testGetShouldBePersisted()
+    public function testGetShouldBePersisted()
     {
         $this->assertTrue(true === $this->_sut->isMeantToBePersisted());
 
@@ -191,7 +191,7 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
         $this->assertFalse($this->_sut->isMeantToBePersisted());
     }
 
-    function testGetCanBeSetViaShortcode()
+    public function testGetCanBeSetViaShortcode()
     {
         $this->assertTrue($this->_sut->isAbleToBeSetViaShortcode());
 
@@ -200,20 +200,20 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
         $this->assertFalse($this->_sut->isAbleToBeSetViaShortcode());
     }
 
-    function testGetRegex()
+    public function testGetRegex()
     {
         $this->assertFalse($this->_sut->hasValidValueRegex());
         $this->_sut->setValidValueRegex('regex');
         $this->assertEquals('regex', $this->_sut->getValidValueRegex());
     }
 
-    function testGetAliases()
+    public function testGetAliases()
     {
         $this->_sut->setAliases(array('alias'));
         $this->assertTrue(array('alias') === $this->_sut->getAliases());
     }
 
-    function testGetProOnly()
+    public function testGetProOnly()
     {
         $this->assertFalse($this->_sut->isProOnly());
 
@@ -222,26 +222,26 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
         $this->assertTrue(true === $this->_sut->isProOnly());
     }
 
-    function testGetDescription()
+    public function testGetDescription()
     {
         $this->assertFalse($this->_sut->hasDescription());
         $this->_sut->setDescription('description');
         $this->assertEquals('description', $this->_sut->getDescription());
     }
 
-    function testGetName()
+    public function testGetName()
     {
         $this->assertEquals('name', $this->_sut->getName());
     }
 
-    function testGetLabel()
+    public function testGetLabel()
     {
         $this->assertFalse($this->_sut->hasLabel());
         $this->_sut->setLabel('label');
         $this->assertEquals('label', $this->_sut->getLabel());
     }
 
-    function testGetDefaultValue()
+    public function testGetDefaultValue()
     {
         $this->_sut->setDefaultValue('default value');
         $this->assertEquals('default value', $this->_sut->getDefaultValue());

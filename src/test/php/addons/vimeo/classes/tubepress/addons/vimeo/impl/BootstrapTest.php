@@ -23,13 +23,13 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
     }
 
-    function testInit()
+    public function testInit()
     {
         $this->_testOptions();
         $this->_testEventListenerRegistration();
@@ -39,7 +39,7 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
         $this->assertTrue(true);
     }
 
-    function testEventHandler()
+    public function testEventHandler()
     {
         $video = new tubepress_api_video_Video();
 

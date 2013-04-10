@@ -95,7 +95,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends TubePre
         );
     }
 
-    function testMultipleVideos()
+    public function testMultipleVideos()
     {
         $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(36)->andReturn('abc');
 
@@ -117,7 +117,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends TubePre
         $this->assertTrue($result instanceof tubepress_api_video_VideoGalleryPage);
     }
 
-    function testFetchSingleVideo()
+    public function testFetchSingleVideo()
     {
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('SJxBZgC29ts')->andReturn('abc');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
@@ -137,12 +137,12 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends TubePre
         $this->assertTrue($result instanceof tubepress_api_video_Video);
     }
 
-    function singleVideoXml()
+    public function singleVideoXml()
     {
         return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/youtube-single-video.xml');
     }
 
-    function galleryXml()
+    public function galleryXml()
     {
         return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/youtube-gallery.xml');
     }

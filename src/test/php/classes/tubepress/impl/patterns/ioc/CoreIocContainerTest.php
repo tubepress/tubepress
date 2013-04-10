@@ -15,7 +15,7 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
      */
     private $_sut;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_patterns_ioc_CoreIocContainer();
     }
@@ -28,12 +28,12 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
         require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';
     }
 
-    function testBuildsNormally()
+    public function testBuildsNormally()
     {
         $this->assertNotNull($this->_sut);
     }
 
-    function testServiceConstructions()
+    public function testServiceConstructions()
     {
         $toTest = array(
 

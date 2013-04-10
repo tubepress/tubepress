@@ -12,12 +12,12 @@ class tubepress_api_video_VideoGalleryPageTest extends TubePressUnitTest
 {
     private $_sut;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_api_video_VideoGalleryPage();
     }
 
-    function testSetNonIntegralTotal()
+    public function testSetNonIntegralTotal()
     {
         $this->_sut->setTotalResultCount('50.1');
         $this->assertEquals(50, $this->_sut->getTotalResultCount());
@@ -26,7 +26,7 @@ class tubepress_api_video_VideoGalleryPageTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testSetNonNumericTotal()
+    public function testSetNonNumericTotal()
     {
         $this->_sut->setTotalResultCount('something bad');
     }
@@ -34,19 +34,19 @@ class tubepress_api_video_VideoGalleryPageTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testSetNegativeTotal()
+    public function testSetNegativeTotal()
     {
         $this->_sut->setTotalResultCount(-1501);
     }
 
-    function testSetGetVideos()
+    public function testSetGetVideos()
     {
         $vids = array('hello');
         $this->_sut->setVideos($vids);
         $this->assertEquals($vids, $this->_sut->getVideos());
     }
 
-    function testSetGetTotal()
+    public function testSetGetTotal()
     {
         $this->_sut->setTotalResultCount(501);
         $this->assertEquals(501, $this->_sut->getTotalResultCount());

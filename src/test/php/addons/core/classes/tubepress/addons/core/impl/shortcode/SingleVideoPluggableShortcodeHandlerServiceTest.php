@@ -35,7 +35,7 @@ class tubepress_addons_core_impl_shortcode_commands_SingleVideoPluggableShortcod
      */
     private $_mockProvider;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
@@ -46,14 +46,14 @@ class tubepress_addons_core_impl_shortcode_commands_SingleVideoPluggableShortcod
         $this->_sut = new tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService();
     }
 
-    function testExecuteNoVideo()
+    public function testExecuteNoVideo()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::VIDEO)->andReturn('');
 
         $this->assertFalse($this->_sut->shouldExecute());
     }
 
-    function testExecute()
+    public function testExecute()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::VIDEO)->andReturn('video-id');
 

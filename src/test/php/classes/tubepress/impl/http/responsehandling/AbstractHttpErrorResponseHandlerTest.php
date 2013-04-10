@@ -16,7 +16,7 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
 
     private $_mockResponse;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = $this->buildSut();
 
@@ -25,7 +25,7 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
         //$this->_mockContext->put(ehough_shortstop_impl_HttpResponseHandlerChain::CHAIN_KEY_RESPONSE, $this->_mockResponse);
     }
 
-    function testWrongProvider()
+    public function testWrongProvider()
     {
         $this->assertFalse($this->_sut->execute($this->_mockContext));
     }

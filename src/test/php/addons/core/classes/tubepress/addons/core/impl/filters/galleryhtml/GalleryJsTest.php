@@ -30,7 +30,7 @@ class tubepress_addons_core_impl_filters_galleryhtml_GalleryJsTest extends TubeP
      */
     private $_mockEventDispatcher;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut                  = new tubepress_addons_core_impl_filters_galleryhtml_GalleryJs();
         $this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
@@ -38,7 +38,7 @@ class tubepress_addons_core_impl_filters_galleryhtml_GalleryJsTest extends TubeP
         $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
     }
 
-    function testAlterHtml()
+    public function testAlterHtml()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
@@ -67,7 +67,7 @@ class tubepress_addons_core_impl_filters_galleryhtml_GalleryJsTest extends TubeP
         $this->assertEquals($this->expectedAjax(), $event->getSubject());
     }
 
-    function expectedAjax()
+    public function expectedAjax()
     {
         return <<<EOT
 hello<script type="text/javascript">

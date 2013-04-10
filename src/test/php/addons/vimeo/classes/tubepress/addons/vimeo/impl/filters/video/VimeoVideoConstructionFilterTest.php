@@ -78,7 +78,7 @@ class tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilterTest
         $this->assertEquals('6', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT));
     }
 
-    function singleVideoXml()
+    public function singleVideoXml()
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-single-video.txt');
 
@@ -87,7 +87,7 @@ class tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilterTest
         return $out;
     }
 
-    function galleryXml()
+    public function galleryXml()
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-gallery.txt');
 

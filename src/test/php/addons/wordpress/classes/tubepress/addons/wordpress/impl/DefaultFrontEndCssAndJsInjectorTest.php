@@ -36,7 +36,7 @@ class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest extend
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
     }
 
-    function testHeadAction()
+    public function testHeadAction()
     {
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
 
@@ -54,7 +54,7 @@ class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest extend
 html meta', $contents);
     }
 
-    function testInitAction()
+    public function testInitAction()
     {
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
         $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with('tubepress/src/main/web/js/tubepress.js', 'tubepress')->andReturn('<tubepressjs>');

@@ -15,12 +15,12 @@ abstract class tubepress_addons_core_impl_filters_AbstractStringMagicFilterTest 
      */
     private $_sut;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = $this->_buildSut();
     }
 
-    function testBooleanVariations()
+    public function testBooleanVariations()
     {
         $this->_booleanConversion(true, 'true');
         $this->_booleanConversion(true, 'TRUE');

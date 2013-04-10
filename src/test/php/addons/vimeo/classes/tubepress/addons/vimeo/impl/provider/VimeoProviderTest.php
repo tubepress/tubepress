@@ -68,7 +68,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUn
         );
     }
 
-    function testMultipleVideos()
+    public function testMultipleVideos()
     {
         $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(36)->andReturn('abc');
 
@@ -90,7 +90,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUn
         $this->assertTrue($result instanceof tubepress_api_video_VideoGalleryPage);
     }
 
-    function testFetchSingleVideo()
+    public function testFetchSingleVideo()
     {
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('333383838')->andReturn('abc');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
@@ -111,7 +111,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUn
         $this->assertTrue($result instanceof tubepress_api_video_Video);
     }
 
-    function singleVideoXml()
+    public function singleVideoXml()
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-single-video.txt');
 
@@ -120,7 +120,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUn
         return $out;
     }
 
-    function galleryXml()
+    public function galleryXml()
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-gallery.txt');
 

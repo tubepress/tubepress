@@ -20,7 +20,7 @@ class tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerNameTest 
      */
     private $_mockExecutionContext;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerName();
 

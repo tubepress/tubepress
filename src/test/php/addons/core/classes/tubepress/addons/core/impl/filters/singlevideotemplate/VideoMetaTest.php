@@ -30,7 +30,7 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_VideoMetaTest exten
      */
     private $_mockOptionDescriptorReference;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
@@ -41,7 +41,7 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_VideoMetaTest exten
         $this->_sut = new tubepress_addons_core_impl_filters_singlevideotemplate_VideoMeta();
     }
 
-    function testYouTubeFavorites()
+    public function testYouTubeFavorites()
     {
         $this->_mockMessageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
               return "##$msg##";

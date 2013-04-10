@@ -37,7 +37,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
      */
     private $_mockEnvironmentDetector;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultWpAdminHandler();
 
@@ -49,7 +49,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
     }
 
 
-    function testSubmitThrowsException()
+    public function testSubmitThrowsException()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
 
@@ -68,7 +68,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
         $this->assertEquals('<div id="message" class="error fade"><p><strong>something!</strong></p></div>yo', $contents);
     }
 
-    function testSubmitValidValue()
+    public function testSubmitValidValue()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
 
@@ -87,7 +87,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
         $this->assertEquals('<div class="updated tubepress-options-updated"><p><strong>Options updated</strong></p></div>yo', $contents);
     }
 
-    function testSubmitInvalidValue()
+    public function testSubmitInvalidValue()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
 
@@ -104,7 +104,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
         $this->assertEquals('<div id="message" class="error fade"><p><strong>bad value!<br />another bad value!</strong></p></div>yo', $contents);
     }
 
-    function testDisplayOptionsPage()
+    public function testDisplayOptionsPage()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(false);
 
@@ -118,7 +118,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
         $this->assertEquals('yo', $contents);
     }
 
-    function testMenuAction()
+    public function testMenuAction()
     {
         $this->_mockWpFunctionWrapper->shouldReceive('add_options_page')->once()->with('TubePress Options', 'TubePress', 'manage_options', 'tubepress', array($this->_sut, 'printOptionsPageHtml'));
 
@@ -127,7 +127,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
         $this->assertTrue(true);
     }
 
-    function testInit()
+    public function testInit()
     {
         $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", "tubepress")->andReturn('y');
         $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/css/options-page.css", "tubepress")->andReturn('z');

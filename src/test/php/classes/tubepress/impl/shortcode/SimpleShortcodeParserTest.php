@@ -33,7 +33,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testMixedCommasWithAllSortsOfQuotes()
+    public function testMixedCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
@@ -55,7 +55,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoCommasWithAllSortsOfQuotes()
+    public function testNoCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
 
@@ -76,7 +76,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testCommasWithAllSortsOfQuotes()
+    public function testCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217, playlistValue=&#8242;foobar&#8242;, author="true", resultCountCap=\'200\', resultsPerPage=3]';
 
@@ -100,7 +100,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoCustomOptions()
+    public function testNoCustomOptions()
     {
         $shortcode = '[butters]';
 
@@ -112,7 +112,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testWeirdSingleQuotes()
+    public function testWeirdSingleQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242;]';
 
@@ -132,7 +132,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testWeirdDoubleQuotes()
+    public function testWeirdDoubleQuotes()
     {
         $shortcode = '[butters mode=&#34playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
 
@@ -150,7 +150,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoQuotes()
+    public function testNoQuotes()
     {
         $shortcode = '[butters mode=playlist    ]';
         $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
@@ -166,7 +166,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testSingleQuotes()
+    public function testSingleQuotes()
     {
         $shortcode = '[butters mode=\'playlist\']';
 
@@ -182,7 +182,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testDoubleQuotes()
+    public function testDoubleQuotes()
     {
         $shortcode = '[butters mode="playlist"]';
 
@@ -198,21 +198,21 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testMismatchedStartEndQuotes()
+    public function testMismatchedStartEndQuotes()
     {
         $this->_sut->parse('[butters mode=\'playlist"]');
 
         $this->assertTrue(true);
     }
 
-    function testNoClosingBracket()
+    public function testNoClosingBracket()
     {
         $this->_sut->parse('[butters mode=\'playlist\'');
 
         $this->assertTrue(true);
     }
 
-    function testNoOpeningBracket()
+    public function testNoOpeningBracket()
     {
         $content = "butters mode='playlist']";
 
@@ -221,7 +221,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testSpaceAroundAttributes()
+    public function testSpaceAroundAttributes()
     {
         $shortcode = "[butters mode='playlist']";
 
@@ -237,7 +237,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testSpaceAroundShortcode()
+    public function testSpaceAroundShortcode()
     {
         $shortcode = "sddf     [butters mode='playlist']    sdsdfsdf";
 
@@ -253,7 +253,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoSpaceAroundShortcode()
+    public function testNoSpaceAroundShortcode()
     {
         $shortcode = "sddf[butters mode='playlist']sdsdfsdf";
 

@@ -25,7 +25,7 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
      */
     private $_mockHttpResponseCodeService;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_http_DefaultAjaxHandler();
 
@@ -33,7 +33,7 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->_mockHttpResponseCodeService     = $this->createMockSingletonService(tubepress_spi_http_ResponseCodeHandler::_);
     }
 
-    function testNoAction()
+    public function testNoAction()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn(null);
         $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(400)->andReturn(400);
@@ -43,7 +43,7 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->_sut->handle();
     }
 
-    function testFoundSuitableCommand()
+    public function testFoundSuitableCommand()
     {
         $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('action');
@@ -59,7 +59,7 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->_sut->handle();
     }
 
-    function testHandleNoSuitableCommandHandler()
+    public function testHandleNoSuitableCommandHandler()
     {
         $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('x');
@@ -72,7 +72,7 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $this->assertTrue(true);
     }
 
-    function testHandleNoCommandHandlers()
+    public function testHandleNoCommandHandlers()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn('action');
         $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(500)->andReturn(500);

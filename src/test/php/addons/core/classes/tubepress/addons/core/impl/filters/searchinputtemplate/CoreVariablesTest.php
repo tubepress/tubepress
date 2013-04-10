@@ -35,7 +35,7 @@ class tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariablesTest e
      */
     private $_mockHttpRequestParameterService;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariables();
 
@@ -48,7 +48,7 @@ class tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariablesTest e
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
     }
 
-    function testYouTubeFavorites()
+    public function testYouTubeFavorites()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL)->andReturn('');
 

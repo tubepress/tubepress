@@ -28,7 +28,7 @@ class tubepress_addons_wordpress_impl_message_WordPressMessageServiceTest extend
         self::$_allTranslatableStrings = self::_getAllTranslatableStrings();
     }
 
-    function onSetup()
+    public function onSetup()
     {
         $wrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
         $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
@@ -39,7 +39,7 @@ class tubepress_addons_wordpress_impl_message_WordPressMessageServiceTest extend
         $this->_sut = new tubepress_addons_wordpress_impl_message_WordPressMessageService($wrapper);
     }
 
-    function testAllStringsPresent()
+    public function testAllStringsPresent()
     {
 
         foreach (self::$_poFiles as $poFile) {
@@ -66,7 +66,7 @@ class tubepress_addons_wordpress_impl_message_WordPressMessageServiceTest extend
         }
     }
 
-    function testPoCompiles()
+    public function testPoCompiles()
     {
         foreach (self::$_poFiles as $poFile) {
 
@@ -74,13 +74,13 @@ class tubepress_addons_wordpress_impl_message_WordPressMessageServiceTest extend
         }
     }
 
-    function testGetKeyNoExists()
+    public function testGetKeyNoExists()
     {
         $this->assertEquals('', $this->_sut->_(''));
         $this->assertEquals('', $this->_sut->_(null));
     }
 
-    function testGetKey()
+    public function testGetKey()
     {
         $result = $this->_sut->_('foo') === "[[foo]]";
 

@@ -15,12 +15,12 @@ class tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistP
      */
     private $_sut;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover();
     }
 
-    function testAlterDifferentVariable()
+    public function testAlterDifferentVariable()
     {
         $event = new tubepress_api_event_TubePressEvent('PLsomething');
         $event->setArgument('optionName', tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
@@ -30,7 +30,7 @@ class tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistP
         $this->assertEquals('PLsomething', $event->getSubject());
     }
 
-    function testAlterNonString()
+    public function testAlterNonString()
     {
         $event = new tubepress_api_event_TubePressEvent(array('hello'));
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
@@ -40,7 +40,7 @@ class tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistP
         $this->assertEquals(array('hello'), $event->getSubject());
     }
 
-    function testAlterHtmlNonPrefix()
+    public function testAlterHtmlNonPrefix()
     {
         $event = new tubepress_api_event_TubePressEvent('hello');
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
@@ -50,7 +50,7 @@ class tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistP
         $this->assertEquals('hello', $event->getSubject());
     }
 
-    function testAlterPrefix()
+    public function testAlterPrefix()
     {
         $event = new tubepress_api_event_TubePressEvent('PLhelloPL');
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);

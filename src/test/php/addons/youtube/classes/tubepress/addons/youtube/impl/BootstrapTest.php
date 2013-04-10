@@ -27,14 +27,14 @@ class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
     );
     private static $_regexWordChars          = '/\w+/';
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockFieldBuilder               = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
         $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
     }
 
-    function testLoad()
+    public function testLoad()
     {
         $this->_testOptions();
         $this->_testEventListenerRegistration();
@@ -44,7 +44,7 @@ class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
         $this->assertTrue(true);
     }
 
-    function testEventHandler()
+    public function testEventHandler()
     {
         $video = new tubepress_api_video_Video();
 

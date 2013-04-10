@@ -42,7 +42,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
     private $_messageService;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
@@ -55,7 +55,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
     }
 
 
-    function testExecuteGenerateGalleryId()
+    public function testExecuteGenerateGalleryId()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
@@ -87,7 +87,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $this->assertEquals('template-string', $this->_sut->getHtml());
     }
 
-    function testExecuteNoVids()
+    public function testExecuteNoVids()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
@@ -109,7 +109,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $this->assertEquals('<<No matching videos>>', $this->_sut->getHtml());
     }
 
-    function testExecute()
+    public function testExecute()
     {
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn('page-num');

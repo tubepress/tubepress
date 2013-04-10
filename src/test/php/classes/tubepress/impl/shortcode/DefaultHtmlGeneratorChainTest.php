@@ -15,7 +15,7 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
     private $_mockShortcodeParser;
     private $_mockEventDispatcher;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator();
 
@@ -25,7 +25,7 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
         $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('shortcode');
     }
 
-    function testOneHandlerCouldHandle()
+    public function testOneHandlerCouldHandle()
     {
         $mockHandler = $this->createMockPluggableService(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(true);
@@ -46,7 +46,7 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
     /**
      * @expectedException RuntimeException
      */
-    function testNoHandlersCouldHandle()
+    public function testNoHandlersCouldHandle()
     {
         $mockHandler = $this->createMockPluggableService(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(false);
@@ -57,7 +57,7 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
     /**
      * @expectedException RuntimeException
      */
-    function testNoHandlers()
+    public function testNoHandlers()
     {
         $this->_sut->getHtmlForShortcode('shortcode');
     }

@@ -45,7 +45,7 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
      */
     private $_mockWidgetHandler;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
@@ -56,7 +56,7 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
         $this->_mockWidgetHandler              = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WidgetHandler::_);
     }
 
-    function testCore()
+    public function testCore()
     {
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
 

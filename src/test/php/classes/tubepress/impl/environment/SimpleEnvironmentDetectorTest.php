@@ -13,12 +13,12 @@ class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePress
 {
     private $_sut;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_environment_SimpleEnvironmentDetector();
     }
 
-    function testVersion()
+    public function testVersion()
     {
         $latest = tubepress_spi_version_Version::parse('3.1.0');
 
@@ -29,12 +29,12 @@ class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePress
         $this->assertTrue($latest->compareTo($current) === 0, "Expected $latest but got $current");
     }
 
-    function testIsPro()
+    public function testIsPro()
     {
         $this->assertFalse($this->_sut->isPro());
     }
 
-    function testIsWordPress()
+    public function testIsWordPress()
     {
         $this->assertFalse($this->_sut->isWordPress());
     }

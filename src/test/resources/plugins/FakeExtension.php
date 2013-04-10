@@ -33,7 +33,7 @@ class FakeExtension implements ehough_iconic_extension_ExtensionInterface
      *
      * @return string The alias
      */
-    function getAlias()
+    public function getAlias()
     {
         return 'xyz';
     }

@@ -14,31 +14,31 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
 
     private $_mockEventDispatcher;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_sut = new tubepress_impl_http_DefaultHttpRequestParameterService();
     }
 
-    function testParamExists()
+    public function testParamExists()
     {
         $_GET['something'] = 5;
 
         $this->assertTrue($this->_sut->hasParam('something') === true);
     }
 
-    function testParamNotExists()
+    public function testParamNotExists()
     {
         $this->assertTrue($this->_sut->hasParam('something') === false);
     }
 
-    function testGetParamValueNoExist()
+    public function testGetParamValueNoExist()
     {
         $this->assertTrue($this->_sut->getParamValue('something') === null);
     }
 
-    function testGetParam()
+    public function testGetParam()
     {
         $_POST['something'] = array(1, 2, 3);
 
@@ -58,7 +58,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
         $this->assertTrue($result === 'yo');
     }
 
-    function testGetParamAsIntActuallyInt()
+    public function testGetParamAsIntActuallyInt()
     {
         $_POST['something'] = array(1, 2, 3);
 
@@ -78,7 +78,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePre
         $this->assertTrue($result === 44);
     }
 
-    function testGetParamAsIntNotActuallyInt()
+    public function testGetParamAsIntNotActuallyInt()
     {
         $_GET['something'] = array(1, 2, 3);
 

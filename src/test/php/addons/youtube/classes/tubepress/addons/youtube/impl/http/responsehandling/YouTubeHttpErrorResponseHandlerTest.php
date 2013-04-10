@@ -20,63 +20,63 @@ class tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorRespon
         return 'youtube';
     }
 
-    function test400()
+    public function test400()
     {
         $result = $this->_prepareMessage(400, 'yowza');
 
         $this->assertEquals('YouTube didn\'t like something about TubePress\'s request. - yowza', $result);
     }
 
-    function testHttp530()
+    public function testHttp530()
     {
         $result = $this->_prepareMessage(530, 'foobar');
 
         $this->assertEquals('YouTube responded to TubePress with an HTTP 530 - foobar', $result);
     }
 
-    function test503()
+    public function test503()
     {
         $result = $this->_prepareMessage(503, 'xyz');
 
         $this->assertEquals('YouTube\'s API cannot be reached at this time (likely due to overload or maintenance). Please try again later. - xyz', $result);
     }
 
-    function test403()
+    public function test403()
     {
         $result = $this->_prepareMessage(403, 'aabc');
 
         $this->assertEquals('YouTube determined that TubePress\'s request did not contain proper authentication. - aabc', $result);
     }
 
-    function test500()
+    public function test500()
     {
         $result = $this->_prepareMessage(500, 'wookie');
 
         $this->assertEquals('YouTube experienced an internal error while handling TubePress\'s request. Please try again later. - wookie', $result);
     }
 
-    function test501()
+    public function test501()
     {
         $result = $this->_prepareMessage(501, 'force');
 
         $this->assertEquals('The YouTube API does not implement the requested operation. - force', $result);
     }
 
-    function test401()
+    public function test401()
     {
         $result = $this->_prepareMessage(401, 'trek');
 
         $this->assertEquals('YouTube didn\'t authorize TubePress\'s request. - trek', $result);
     }
 
-    function testNoEntity()
+    public function testNoEntity()
     {
         $this->getResponse()->setStatusCode(200);
 
         $this->assertFalse($this->getSut()->execute($this->getContext()));
     }
 
-    function _prepareMessage($code, $message)
+    public function _prepareMessage($code, $message)
     {
         $this->getResponse()->setStatusCode($code);
         $this->getResponse()->setHeader('Content-Type', 'application/vnd.google.gdata.error+xml');

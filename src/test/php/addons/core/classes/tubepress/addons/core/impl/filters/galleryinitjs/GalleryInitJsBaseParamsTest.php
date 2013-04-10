@@ -25,7 +25,7 @@ class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParamsTe
      */
     private $_mockOptionDescriptorReference;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams();
 
@@ -40,7 +40,7 @@ class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParamsTe
         unset($tubepress_base_url);
     }
 
-    function testAlter()
+    public function testAlter()
     {
         global $tubepress_base_url;
 

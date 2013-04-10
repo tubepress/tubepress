@@ -105,12 +105,12 @@ class tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter
         $this->assertEquals('1,571,314', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
     }
 
-    function singleVideoXml()
+    public function singleVideoXml()
     {
         return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/youtube-single-video.xml');
     }
 
-    function galleryXml()
+    public function galleryXml()
     {
         return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/youtube-gallery.xml');
     }

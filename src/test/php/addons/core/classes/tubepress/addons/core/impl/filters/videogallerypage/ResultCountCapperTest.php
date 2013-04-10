@@ -20,14 +20,14 @@ class tubepress_addons_core_impl_filters_videogallerypage_ResultCountCapperTest 
      */
     private $_mockExecutionContext;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_sut = new tubepress_addons_core_impl_filters_videogallerypage_ResultCountCapper();
     }
 
-    function testYouTubeFavorites()
+    public function testYouTubeFavorites()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP)->andReturn(888);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES);

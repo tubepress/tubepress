@@ -49,7 +49,7 @@ class tubepress_addons_wordpress_impl_DefaultContentFilterTest extends TubePress
 
     }
 
-    function testContentFilter()
+    public function testContentFilter()
     {
         $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
 

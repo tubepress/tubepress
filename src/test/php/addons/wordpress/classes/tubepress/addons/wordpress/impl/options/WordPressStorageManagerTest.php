@@ -54,14 +54,14 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManagerTest extend
         $this->_sut = new tubepress_addons_wordpress_impl_options_WordPressStorageManager();
     }
 
-    function onTearDown()
+    public function onTearDown()
     {
         global $wpdb;
 
         unset($wpdb);
     }
 
-    function testSetDoNotPersist()
+    public function testSetDoNotPersist()
     {
         $od = new tubepress_spi_options_OptionDescriptor('something');
         $od->setDoNotPersist();
@@ -73,7 +73,7 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManagerTest extend
         $this->assertTrue($result);
     }
 
-    function testSetFailsValidation()
+    public function testSetFailsValidation()
     {
         $od = new tubepress_spi_options_OptionDescriptor('something');
 
@@ -87,7 +87,7 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManagerTest extend
         $this->assertEquals('xyz', $result);
     }
 
-    function testSetPassesValidation()
+    public function testSetPassesValidation()
     {
         $od = new tubepress_spi_options_OptionDescriptor('something');
 

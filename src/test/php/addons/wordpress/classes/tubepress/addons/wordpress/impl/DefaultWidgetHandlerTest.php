@@ -57,7 +57,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
      */
     private $_mockWpFunctionWrapper;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultWidgetHandler();
 
@@ -76,7 +76,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
         });
     }
 
-    function testPrintWidgetControl()
+    public function testPrintWidgetControl()
     {
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE, '<<Title>>');
@@ -101,7 +101,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
         $this->assertEquals('final result', $contents);
     }
 
-    function testPrintWidget()
+    public function testPrintWidget()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('theme');
@@ -139,7 +139,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
         $this->assertEquals('before_widgetbefore_titlewidget titleafter_titlehtml resultafter_widget', $contents);
     }
 
-    function testInitAction()
+    public function testInitAction()
     {
         $widgetOps = array('classname' => 'widget_tubepress', 'description' => '<<Displays YouTube or Vimeo videos with TubePress>>');
 

@@ -30,7 +30,7 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
      */
     private $_mockSingleVideoShortcodeHandler;
 
-    function onSetup()
+    public function onSetup()
     {
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
@@ -41,14 +41,14 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
         $this->_sut = new tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService($this->_mockSingleVideoShortcodeHandler);
     }
 
-    function testExecuteWrongPlayer()
+    public function testExecuteWrongPlayer()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('shadowbox');
 
         $this->assertFalse($this->_sut->shouldExecute());
     }
 
-    function testExecuteNoVideoId()
+    public function testExecuteNoVideoId()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('solo');
 
@@ -57,7 +57,7 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
         $this->assertFalse($this->_sut->shouldExecute());
     }
 
-    function testExecute()
+    public function testExecute()
     {
         $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Output::VIDEO, 'video-id')->andReturn(true);
 

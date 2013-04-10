@@ -10,7 +10,7 @@
  */
 class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
 {
-    function testLazyLookups()
+    public function testLazyLookups()
     {
         $gets       = $this->getGetterArray();
         $keys       = $this->getTestMap();

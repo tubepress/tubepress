@@ -20,7 +20,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
 
     private $_mockEventDispatcher;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockVideo            = new tubepress_api_video_Video();
         $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
@@ -32,7 +32,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
         $this->_sut = new tubepress_impl_player_DefaultPlayerHtmlGenerator();
     }
 
-    function testGetHtmlSuitablePlayerLocations()
+    public function testGetHtmlSuitablePlayerLocations()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 
@@ -94,7 +94,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
         $this->assertEquals('foobarr', $this->_sut->getHtml($this->_mockVideo));
     }
 
-    function testGetHtmlNoSuitablePlayerLocations()
+    public function testGetHtmlNoSuitablePlayerLocations()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 
@@ -106,7 +106,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
         $this->assertNull($html);
     }
 
-    function testGetHtmlNoPlayerLocations()
+    public function testGetHtmlNoPlayerLocations()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 

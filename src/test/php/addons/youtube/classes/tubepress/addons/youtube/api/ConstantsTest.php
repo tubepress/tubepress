@@ -10,7 +10,7 @@
  */
 class tubepress_addons_youtube_api_const_ConstantsTest extends TubePressUnitTest
 {
-    function testConstants()
+    public function testConstants()
     {
         $toTest = array(
 

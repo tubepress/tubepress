@@ -12,49 +12,49 @@
 class tubepress_spi_version_VersionTest extends TubePressUnitTest
 {
 
-    function testToStringNoQualifier()
+    public function testToStringNoQualifier()
     {
         $version = new tubepress_spi_version_Version(1, 2, 3);
 
         $this->assertTrue("$version" === '1.2.3');
     }
 
-    function testParseFull()
+    public function testParseFull()
     {
         $result = tubepress_spi_version_Version::parse('7.3.4.fuzzy');
 
         $this->assertTrue($result->compareTo(new tubepress_spi_version_Version(7, 3, 4, 'fuzzy')) === 0);
     }
 
-    function testParseTriple()
+    public function testParseTriple()
     {
         $result = tubepress_spi_version_Version::parse('7.3.4');
 
         $this->assertTrue($result->compareTo(new tubepress_spi_version_Version(7, 3, 4)) === 0);
     }
 
-    function testParseDouble()
+    public function testParseDouble()
     {
         $result = tubepress_spi_version_Version::parse('7.3');
 
         $this->assertTrue($result->compareTo(new tubepress_spi_version_Version(7, 3)) === 0);
     }
 
-    function testParseSingle()
+    public function testParseSingle()
     {
         $result = tubepress_spi_version_Version::parse('7');
 
         $this->assertTrue($result->compareTo(new tubepress_spi_version_Version(7)) === 0);
     }
 
-    function testParseEmpty()
+    public function testParseEmpty()
     {
         $result = tubepress_spi_version_Version::parse('');
 
         $this->assertTrue($result->compareTo(new tubepress_spi_version_Version(0)) === 0);
     }
 
-    function testCompareQualifiers()
+    public function testCompareQualifiers()
     {
         $firstOne  = new tubepress_spi_version_Version(1, 2, 80, 'bar');
         $secondOne = new tubepress_spi_version_Version(1, 2, 80, 'foo');
@@ -63,7 +63,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
         $this->assertTrue($secondOne->compareTo($firstOne) === strcmp('foo', 'bar'));
     }
 
-    function testCompareMicros()
+    public function testCompareMicros()
     {
         $firstOne  = new tubepress_spi_version_Version(1, 2, 80);
         $secondOne = new tubepress_spi_version_Version(1, 2, 15);
@@ -72,7 +72,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
         $this->assertTrue($secondOne->compareTo($firstOne) === -65);
     }
 
-    function testCompareMinors()
+    public function testCompareMinors()
     {
         $firstOne  = new tubepress_spi_version_Version(1, 30);
         $secondOne = new tubepress_spi_version_Version(1, 25);
@@ -81,7 +81,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
         $this->assertTrue($secondOne->compareTo($firstOne) === -5);
     }
 
-    function testCompareMajors()
+    public function testCompareMajors()
     {
         $firstOne  = new tubepress_spi_version_Version(100);
         $secondOne = new tubepress_spi_version_Version(50);
@@ -90,7 +90,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
         $this->assertTrue($secondOne->compareTo($firstOne) === -50);
     }
 
-    function testCompareTwoEqual()
+    public function testCompareTwoEqual()
     {
         $firstOne  = new tubepress_spi_version_Version(1);
         $secondOne = new tubepress_spi_version_Version(1);
@@ -99,7 +99,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
         $this->assertTrue($secondOne->compareTo($firstOne) === 0);
     }
 
-    function testCompareString()
+    public function testCompareString()
     {
         $firstOne  = new tubepress_spi_version_Version(1);
 
@@ -109,7 +109,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testParseNonString()
+    public function testParseNonString()
     {
         tubepress_spi_version_Version::parse(array());
     }
@@ -117,7 +117,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testConstructNegativeMicro()
+    public function testConstructNegativeMicro()
     {
         new tubepress_spi_version_Version(1, 1, -1);
     }
@@ -125,7 +125,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testConstructNegativeMinor()
+    public function testConstructNegativeMinor()
     {
         new tubepress_spi_version_Version(1, -1);
     }
@@ -133,7 +133,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testConstructNegativeMajor()
+    public function testConstructNegativeMajor()
     {
         new tubepress_spi_version_Version(-1);
     }
@@ -141,7 +141,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testConstructInvalidQualifier()
+    public function testConstructInvalidQualifier()
     {
         new tubepress_spi_version_Version(1, 2, 3, '**&&');
     }
@@ -149,19 +149,19 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
     /**
      * @expectedException InvalidArgumentException
      */
-    function testParseInvalid()
+    public function testParseInvalid()
     {
         tubepress_spi_version_Version::parse('1.2.3.4.5');
     }
 
-    function testToStringWithQualifier()
+    public function testToStringWithQualifier()
     {
         $version = new tubepress_spi_version_Version(1, 2, 3, 'boogy');
 
         $this->assertTrue("$version" === '1.2.3.boogy');
     }
 
-    function testGettersWithQualifier()
+    public function testGettersWithQualifier()
     {
         $version = new tubepress_spi_version_Version('3', '2', '1', 'foobar');
 
@@ -171,7 +171,7 @@ class tubepress_spi_version_VersionTest extends TubePressUnitTest
         $this->assertTrue('foobar' === $version->getQualifier());
     }
 
-    function testGettersNoQualifier()
+    public function testGettersNoQualifier()
     {
         $version = new tubepress_spi_version_Version('3', '2', '1');
 

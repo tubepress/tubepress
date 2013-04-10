@@ -10,17 +10,17 @@
  */
 class tubepress_impl_embedded_EmbeddedPlayerUtilsTest extends TubePressUnitTest
 {
-    function testBadColor()
+    public function testBadColor()
     {
         $this->assertEquals('ff88dd', tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue('badcolor', 'ff88dd'));
     }
 
-    function testGoodColor()
+    public function testGoodColor()
     {
         $this->assertEquals('eecc33', tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue('eecc33', 'ff88dd'));
     }
 
-    function testBooleanToOneOrZero()
+    public function testBooleanToOneOrZero()
     {
         $this->assertEquals('1', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero(true));
         $this->assertEquals('0', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero(false));
@@ -28,7 +28,7 @@ class tubepress_impl_embedded_EmbeddedPlayerUtilsTest extends TubePressUnitTest
         $this->assertEquals('0', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero('0'));
     }
 
-    function testBooleanToString()
+    public function testBooleanToString()
     {
         $this->assertEquals('true', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString(true));
         $this->assertEquals('false', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString(false));

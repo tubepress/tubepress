@@ -40,7 +40,7 @@ class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extend
      */
     private $_mockEnvironmentDetector;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockTabs                = $this->createMockSingletonService(tubepress_spi_options_ui_FormHandler::_);
         $this->_mockMessageService      = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
@@ -53,7 +53,7 @@ class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extend
     }
 
 
-    function testGetFailureMessagesOneError()
+    public function testGetFailureMessagesOneError()
     {
         $this->_mockTabs->shouldReceive('onSubmit')->once()->andReturn(array('holy smokes!'));
         $this->_mockFilter->shouldReceive('onSubmit')->once()->andReturn(null);
@@ -61,7 +61,7 @@ class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extend
         $this->assertEquals(array('holy smokes!'), $this->_sut->onSubmit());
     }
 
-    function testOnSubmit()
+    public function testOnSubmit()
     {
         $this->_mockTabs->shouldReceive('onSubmit')->once()->andReturn(null);
         $this->_mockFilter->shouldReceive('onSubmit')->once()->andReturn(null);
@@ -69,7 +69,7 @@ class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extend
         $this->assertNull($this->_sut->onSubmit());
     }
 
-    function testGetHtml()
+    public function testGetHtml()
     {
         $template       = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 

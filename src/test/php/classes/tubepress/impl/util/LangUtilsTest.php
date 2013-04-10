@@ -18,7 +18,7 @@ class tubepress_impl_util_LangUtilsTestFakeClass
 class tubepress_impl_util_LangUtilsTest extends TubePressUnitTest
 {
 
-    function testAssocArray()
+    public function testAssocArray()
     {
         $this->assertFalse(tubepress_impl_util_LangUtils::isAssociativeArray(array(1, 2)));
         $this->assertFalse(tubepress_impl_util_LangUtils::isAssociativeArray(array()));
@@ -26,7 +26,7 @@ class tubepress_impl_util_LangUtilsTest extends TubePressUnitTest
         $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray(array('foo' => 'bar', 'smack' => 'crack')));
     }
 
-    function testSerialized()
+    public function testSerialized()
     {
         $isSerialized = tubepress_impl_util_LangUtils::isSerialized('b:0;', $result);
 
@@ -50,7 +50,7 @@ class tubepress_impl_util_LangUtilsTest extends TubePressUnitTest
         $this->assertEquals($candidate, $result);
     }
 
-    function testNotSerialized()
+    public function testNotSerialized()
     {
         $isSerialized = tubepress_impl_util_LangUtils::isSerialized('sxx');
 
@@ -81,7 +81,7 @@ class tubepress_impl_util_LangUtilsTest extends TubePressUnitTest
         $this->assertTrue($isSerialized === false);
     }
 
-    function testGetDefinedConstantsNoSuchClass()
+    public function testGetDefinedConstantsNoSuchClass()
     {
         $result = tubepress_impl_util_LangUtils::getDefinedConstants('bla bla bla');
 
@@ -90,7 +90,7 @@ class tubepress_impl_util_LangUtilsTest extends TubePressUnitTest
         $this->assertEquals($expected, $result);
     }
 
-    function testGetDefinedConstants()
+    public function testGetDefinedConstants()
     {
         $result = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_impl_util_LangUtilsTestFakeClass');
 

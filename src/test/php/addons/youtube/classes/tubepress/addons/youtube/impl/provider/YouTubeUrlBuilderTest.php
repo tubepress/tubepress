@@ -20,7 +20,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
      */
     private $_mockExecutionContext;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
@@ -31,7 +31,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY)->andReturn('AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
     }
 
-    function testSingleVideoUrl()
+    public function testSingleVideoUrl()
     {
         $this->assertEquals(
 
@@ -40,7 +40,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
         );
     }
 
-    function testexecuteUserMode()
+    public function testexecuteUserMode()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -52,7 +52,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteTopRated()
+    public function testexecuteTopRated()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -64,7 +64,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecutePopular()
+    public function testexecutePopular()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -76,7 +76,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecutePlaylist()
+    public function testexecutePlaylist()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -89,7 +89,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteMostResponded()
+    public function testexecuteMostResponded()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -100,7 +100,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteMostRecent()
+    public function testexecuteMostRecent()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -111,7 +111,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteTopFavorites()
+    public function testexecuteTopFavorites()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -122,7 +122,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteMostDiscussed()
+    public function testexecuteMostDiscussed()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -133,7 +133,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteFavorites()
+    public function testexecuteFavorites()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -145,7 +145,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteTagWithDoubleQuotes()
+    public function testexecuteTagWithDoubleQuotes()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -158,7 +158,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteTagWithExclusion()
+    public function testexecuteTagWithExclusion()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -171,7 +171,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteTagWithPipes()
+    public function testexecuteTagWithPipes()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -184,7 +184,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteTag()
+    public function testexecuteTag()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -197,7 +197,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteTagWithUser()
+    public function testexecuteTagWithUser()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -210,7 +210,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testexecuteFeatured()
+    public function testexecuteFeatured()
     {
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
@@ -222,7 +222,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testNewestSortOrderNonPlaylist()
+    public function testNewestSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -234,7 +234,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testNewestSortOrderPlaylist()
+    public function testNewestSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -247,7 +247,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testViewsSortOrderNonPlaylist()
+    public function testViewsSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -259,7 +259,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testViewsSortOrderPlaylist()
+    public function testViewsSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -272,7 +272,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testRelevanceSortOrderNonPlaylist()
+    public function testRelevanceSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -284,7 +284,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testRelevanceSortOrderPlaylist()
+    public function testRelevanceSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -297,7 +297,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testRatingSortOrderNonPlaylist()
+    public function testRatingSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -309,7 +309,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testRatingSortOrderPlaylist()
+    public function testRatingSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -322,7 +322,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testPositionSortOrderNonPlaylist()
+    public function testPositionSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -334,7 +334,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testPositionSortOrderPlaylist()
+    public function testPositionSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -347,7 +347,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testCommentsSortOrderNonPlaylist()
+    public function testCommentsSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -359,7 +359,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testCommentsSortOrderPlaylist()
+    public function testCommentsSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -372,7 +372,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testDurationSortOrderNonPlaylist()
+    public function testDurationSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -384,7 +384,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testDurationSortOrderPlaylist()
+    public function testDurationSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -397,7 +397,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testRevPositionSortOrderNonPlaylist()
+    public function testRevPositionSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -409,7 +409,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testRevPositionSortOrderPlaylist()
+    public function testRevPositionSortOrderPlaylist()
     {
         $this->expectOptions(array(
 
@@ -422,7 +422,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testTitleSortOrderNonPlaylist()
+    public function testTitleSortOrderNonPlaylist()
     {
         $this->expectOptions(array(
 
@@ -434,7 +434,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
             $this->_sut->buildGalleryUrl(1));
     }
 
-    function testTitleSortOrderPlaylist()
+    public function testTitleSortOrderPlaylist()
     {
         $this->expectOptions(array(
 

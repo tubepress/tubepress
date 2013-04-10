@@ -20,7 +20,7 @@ class tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariablesTest exte
      */
     private $_mockExecutionContext;
 
-    function onSetup()
+    public function onSetup()
     {
         global $tubepress_base_url;
 
@@ -31,7 +31,7 @@ class tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariablesTest exte
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
     }
 
-    function testAlter()
+    public function testAlter()
     {
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 

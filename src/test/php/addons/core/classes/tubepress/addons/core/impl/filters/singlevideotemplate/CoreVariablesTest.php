@@ -25,7 +25,7 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariablesTest e
      */
     private $_mockEmbeddedHtmlGenerator;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariables();
 
@@ -33,7 +33,7 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariablesTest e
         $this->_mockEmbeddedHtmlGenerator = $this->createMockSingletonService(tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
     }
 
-    function testYouTubeFavorites()
+    public function testYouTubeFavorites()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(889);
 

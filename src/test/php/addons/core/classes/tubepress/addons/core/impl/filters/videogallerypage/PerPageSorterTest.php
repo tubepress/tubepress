@@ -23,7 +23,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
      */
     private $_mockExecutionContext;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
@@ -31,7 +31,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->_buildVideos();
     }
 
-    function testSortOrderNone()
+    public function testSortOrderNone()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
 
@@ -44,7 +44,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->assertEquals($providerResult, $event->getSubject());
     }
 
-    function testSortBothRandom()
+    public function testSortBothRandom()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);
@@ -58,7 +58,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->assertEquals($providerResult, $event->getSubject());
     }
 
-    function testCommentCount()
+    public function testCommentCount()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);
@@ -72,7 +72,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->_verifySort($event->getSubject()->getVideos(), 3, 2, 1);
     }
 
-    function testDuration()
+    public function testDuration()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);
@@ -86,7 +86,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->_verifySort($event->getSubject()->getVideos(), 2, 3, 1);
     }
 
-    function testNewest()
+    public function testNewest()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);
@@ -100,7 +100,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->_verifySort($event->getSubject()->getVideos(), 1, 2, 3);
     }
 
-    function testOldest()
+    public function testOldest()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);
@@ -114,7 +114,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->_verifySort($event->getSubject()->getVideos(), 3, 2, 1);
     }
 
-    function testRating()
+    public function testRating()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);
@@ -128,7 +128,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->_verifySort($event->getSubject()->getVideos(), 2, 3, 1);
     }
 
-    function testTitle()
+    public function testTitle()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);
@@ -142,7 +142,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest exte
         $this->_verifySort($event->getSubject()->getVideos(), 1, 3, 2);
     }
 
-    function testViewCount()
+    public function testViewCount()
     {
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($this->_videos);

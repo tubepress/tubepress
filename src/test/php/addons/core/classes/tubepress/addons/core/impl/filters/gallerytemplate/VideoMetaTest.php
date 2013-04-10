@@ -20,14 +20,14 @@ class tubepress_addons_core_impl_filters_gallerytemplate_VideoMetaTest extends T
      */
     private $_mockExecutionContext;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_filters_gallerytemplate_VideoMeta();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
     }
 
-    function testVideoMetaAboveAndBelow()
+    public function testVideoMetaAboveAndBelow()
     {
         $messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {

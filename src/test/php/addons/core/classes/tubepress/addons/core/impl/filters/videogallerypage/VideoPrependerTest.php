@@ -25,7 +25,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoPrependerTest ext
      */
     private $_mockHttpRequestParameterService;
 
-    function onSetup()
+    public function onSetup()
     {
 
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
@@ -54,7 +54,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoPrependerTest ext
         $this->assertEquals(array('x', $video), $event->getSubject()->getVideos());
     }
 
-    function testNoCustomVideo()
+    public function testNoCustomVideo()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::VIDEO)->andReturn('');
 

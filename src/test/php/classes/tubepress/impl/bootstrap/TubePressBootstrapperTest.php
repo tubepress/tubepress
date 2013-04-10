@@ -45,7 +45,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
      */
     private $_mockHttpRequestParameterService;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_bootstrap_TubePressBootstrapper();
 
@@ -59,7 +59,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_sut->setIocContainer($this->getMockIocContainer());
     }
 
-    function onTearDown()
+    public function onTearDown()
     {
         $nullHandler = new ehough_epilog_handler_NullHandler();
 
@@ -74,7 +74,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeExtension.php';
     }
 
-    function testBoot()
+    public function testBoot()
     {
         $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
         $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
