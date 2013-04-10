@@ -41,11 +41,11 @@ class tubepress_impl_player_DefaultAddonLoaderTest extends TubePressUnitTest
         fclose($handle);
 
         $addon->shouldReceive('getBootstrap')->once()->andReturn($tempFile);
-        $addon->shouldReceive('getName')->once()->andReturn('some plugin');
+        $addon->shouldReceive('getName')->once()->andReturn('some add-on');
 
         $result = $this->_sut->load($addon);
 
-        $this->assertEquals('Hit exception when trying to load some plugin: Hi', $result);
+        $this->assertEquals('Hit exception when trying to load some add-on: Hi', $result);
 
         unlink($tempFile);
     }
@@ -54,7 +54,7 @@ class tubepress_impl_player_DefaultAddonLoaderTest extends TubePressUnitTest
     {
         $addon = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
 
-        $tempFile = tempnam(sys_get_temp_dir(), 'tubepress-testLoadGoodPlugin');
+        $tempFile = tempnam(sys_get_temp_dir(), 'tubepress-testLoadGoodAddon');
 
         $addon->shouldReceive('getBootstrap')->once()->andReturn($tempFile);
 

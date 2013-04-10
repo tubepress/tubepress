@@ -24,8 +24,8 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
     {
         parent::setUpBeforeClass();
 
-        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeExtension.php';
-        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeCompilerPass.php';
     }
 
     public function testBuildsNormally()

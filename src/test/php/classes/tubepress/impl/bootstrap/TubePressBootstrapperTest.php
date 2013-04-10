@@ -70,16 +70,16 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
     {
         parent::setUpBeforeClass();
 
-        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';
-        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeExtension.php';
     }
 
     public function testBoot()
     {
         $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
         $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
-        $mockAddon1->shouldReceive('getName')->andReturn('mock plugin 1');
-        $mockAddon2->shouldReceive('getName')->andReturn('mock plugin 2');
+        $mockAddon1->shouldReceive('getName')->andReturn('mock add-on 1');
+        $mockAddon2->shouldReceive('getName')->andReturn('mock add-on 2');
 
         $mockAddon1IocContainerExtensions = array('FakeExtension', 'bogus class');
         $mockAddon2IocCompilerPasses = array('FakeCompilerPass', 'no such class');

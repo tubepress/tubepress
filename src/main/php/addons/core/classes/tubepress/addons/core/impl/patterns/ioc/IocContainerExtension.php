@@ -104,6 +104,18 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         $container->setAlias('ehough_stash_Pool', 'ehough_stash_PoolInterface');
     }
 
+    private function _registerCssAndJsGenerator(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            tubepress_spi_html_CssAndJsGenerator::_,
+            'tubepress_impl_html_DefaultCssAndJsGenerator'
+        );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $container->setAlias('tubepress_impl_html_DefaultCssAndJsGenerator', tubepress_spi_html_CssAndJsGenerator::_);
+    }
+
     private function _registerEmbeddedHtmlGenerator(ehough_iconic_ContainerBuilder $container)
     {
         /** @noinspection PhpUndefinedMethodInspection */
@@ -141,18 +153,6 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         $container->setAlias('tubepress_impl_context_MemoryExecutionContext', tubepress_spi_context_ExecutionContext::_);
     }
 
-    private function _registerFilesystem(ehough_iconic_ContainerBuilder $container)
-    {
-        $container->register(
-
-            'ehough_filesystem_FilesystemInterface',
-            'ehough_filesystem_Filesystem'
-        );
-
-        /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('ehough_filesystem_Filesystem', 'ehough_filesystem_FilesystemInterface');
-    }
-
     private function _registerFeedFetcher(ehough_iconic_ContainerBuilder $container)
     {
         $container->register(
@@ -165,16 +165,16 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         $container->setAlias('tubepress_impl_feed_CacheAwareFeedFetcher', tubepress_spi_feed_FeedFetcher::_);
     }
 
-    private function _registerCssAndJsGenerator(ehough_iconic_ContainerBuilder $container)
+    private function _registerFilesystem(ehough_iconic_ContainerBuilder $container)
     {
         $container->register(
 
-            tubepress_spi_html_CssAndJsGenerator::_,
-            'tubepress_impl_html_DefaultCssAndJsGenerator'
+            'ehough_filesystem_FilesystemInterface',
+            'ehough_filesystem_Filesystem'
         );
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('tubepress_impl_html_DefaultCssAndJsGenerator', tubepress_spi_html_CssAndJsGenerator::_);
+        $container->setAlias('ehough_filesystem_Filesystem', 'ehough_filesystem_FilesystemInterface');
     }
 
     private function _registerHttpClient(ehough_iconic_ContainerBuilder $container)

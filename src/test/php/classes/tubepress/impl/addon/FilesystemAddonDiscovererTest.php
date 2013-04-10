@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-require_once __DIR__ . '/../../../../../resources/plugins/FakeExtension.php';
+require_once __DIR__ . '/../../../../../resources/addons/FakeExtension.php';
 
 class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTest
 {
@@ -18,11 +18,17 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFilesystemFinderFactory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFinder;
 
-    private $_fakePluginRoot;
+    private $_fakeAddonRoot;
 
     private $_splInfoArray;
 
@@ -30,7 +36,7 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
     {
         $this->_sut = new tubepress_impl_addon_FilesystemAddonDiscoverer();
 
-        $this->_fakePluginRoot = realpath(__DIR__ . '/../../../../../resources/plugins');
+        $this->_fakeAddonRoot = realpath(__DIR__ . '/../../../../../resources/addons');
 
         $this->_mockFinder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
 
@@ -46,38 +52,38 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
 
     public function testBadManifest()
     {
-        $this->_splInfoArray[] = new SplFileInfo($this->_fakePluginRoot . '/bad_manifestsyntax/b.json');
-        $this->_mockFinder->shouldReceive('in')->with($this->_fakePluginRoot . '/bad_manifestsyntax')->andReturn($this->_mockFinder);
-        $result = $this->_sut->findAddonsInDirectory($this->_fakePluginRoot . '/bad_manifestsyntax');
+        $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/bad_manifestsyntax/b.json');
+        $this->_mockFinder->shouldReceive('in')->with($this->_fakeAddonRoot . '/bad_manifestsyntax')->andReturn($this->_mockFinder);
+        $result = $this->_sut->findAddonsInDirectory($this->_fakeAddonRoot . '/bad_manifestsyntax');
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
     }
 
     public function testBadVersion()
     {
-        $this->_splInfoArray[] = new SplFileInfo($this->_fakePluginRoot . '/bad_version/b.json');
-        $this->_mockFinder->shouldReceive('in')->with($this->_fakePluginRoot . '/bad_version')->andReturn($this->_mockFinder);
-        $result = $this->_sut->findAddonsInDirectory($this->_fakePluginRoot . '/bad_version');
+        $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/bad_version/b.json');
+        $this->_mockFinder->shouldReceive('in')->with($this->_fakeAddonRoot . '/bad_version')->andReturn($this->_mockFinder);
+        $result = $this->_sut->findAddonsInDirectory($this->_fakeAddonRoot . '/bad_version');
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
     }
 
     public function testBadName()
     {
-        $this->_splInfoArray[] = new SplFileInfo($this->_fakePluginRoot . '/bad_name/b.json');
-        $this->_mockFinder->shouldReceive('in')->with($this->_fakePluginRoot . '/bad_name')->andReturn($this->_mockFinder);
-        $result = $this->_sut->findAddonsInDirectory($this->_fakePluginRoot . '/bad_name');
+        $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/bad_name/b.json');
+        $this->_mockFinder->shouldReceive('in')->with($this->_fakeAddonRoot . '/bad_name')->andReturn($this->_mockFinder);
+        $result = $this->_sut->findAddonsInDirectory($this->_fakeAddonRoot . '/bad_name');
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
     }
 
-    public function testGoodPlugin()
+    public function testGoodAddon()
     {
-        $this->_splInfoArray[] = new SplFileInfo($this->_fakePluginRoot . '/good_plugin/b.json');
+        $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/good_addon/b.json');
 
-        $this->_mockFinder->shouldReceive('in')->with($this->_fakePluginRoot . '/good_plugin')->andReturn($this->_mockFinder);
+        $this->_mockFinder->shouldReceive('in')->with($this->_fakeAddonRoot . '/good_addon')->andReturn($this->_mockFinder);
 
-        $result = $this->_sut->findAddonsInDirectory($this->_fakePluginRoot . '/good_plugin');
+        $result = $this->_sut->findAddonsInDirectory($this->_fakeAddonRoot . '/good_addon');
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(!empty($result));
@@ -89,8 +95,8 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
          */
         $addon = $result[0];
 
-        $this->assertTrue($addon->getName() === 'plugin-b');
-        $this->assertTrue($addon->getTitle() === 'Title for Plugin B');
+        $this->assertTrue($addon->getName() === 'addon-b');
+        $this->assertTrue($addon->getTitle() === 'Title for Add-on B');
         $this->assertTrue($addon->getVersion() instanceof tubepress_spi_version_Version);
         $this->assertTrue((string) $addon->getVersion() === '3.2.1');
         $this->assertTrue(count($addon->getLicenses()) === 2);
@@ -105,8 +111,8 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
         $this->assertEquals('http://some.demo', $addon->getDemoUrl());
         $this->assertEquals('http://down.load', $addon->getDownloadUrl());
         $this->assertEquals('https://bug.tracker', $addon->getBugTrackerUrl());
-        $this->assertEquals(array('foobar' => TUBEPRESS_ROOT . '/src/test/resources/plugins/good_plugin//foo/bar',
-            'foozbaz' => TUBEPRESS_ROOT . '/src/test/resources/plugins/good_plugin//fooz/baz'), $addon->getPsr0ClassPathRoots());
+        $this->assertEquals(array('foobar' => TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon//foo/bar',
+            'foozbaz' => TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon//fooz/baz'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('yellow', 'orange'), $addon->getIocContainerCompilerPasses());
         $this->assertEquals(array('blue', 'black'), $addon->getIocContainerExtensions());
     }
