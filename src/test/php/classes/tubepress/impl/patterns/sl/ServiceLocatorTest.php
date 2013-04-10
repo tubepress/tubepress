@@ -39,7 +39,7 @@ class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
         return array(
 
             tubepress_spi_http_AjaxHandler::_,
-            'ehough_stash_api_Cache',
+            'ehough_stash_PoolInterface',
             tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
             tubepress_spi_environment_EnvironmentDetector::_,
             'ehough_tickertape_EventDispatcherInterface',
@@ -48,7 +48,7 @@ class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
             'ehough_filesystem_FilesystemInterface',
             'ehough_finder_FinderFactoryInterface',
             tubepress_spi_html_HeadHtmlGenerator::_,
-            'ehough_shortstop_api_HttpClient',
+            'ehough_shortstop_api_HttpClientInterface',
             'ehough_shortstop_api_HttpResponseHandler',
             tubepress_spi_http_HttpRequestParameterService::_,
             tubepress_spi_options_OptionDescriptorReference::_,

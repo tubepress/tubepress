@@ -29,11 +29,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_stash_api_Cache The cache service.
+     * @return ehough_stash_PoolInterface The cache service.
      */
     public static function getCacheService()
     {
-        return self::getService('ehough_stash_api_Cache');
+        return self::getService('ehough_stash_PoolInterface');
     }
 
     /**
@@ -101,11 +101,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_shortstop_api_HttpClient The HTTP client.
+     * @return ehough_shortstop_api_HttpClientInterface The HTTP client.
      */
     public static function getHttpClient()
     {
-        return self::getService('ehough_shortstop_api_HttpClient');
+        return self::getService('ehough_shortstop_api_HttpClientInterface');
     }
 
     /**
