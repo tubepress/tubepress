@@ -39,7 +39,7 @@ class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
         $this->_testOptions();
         $this->_testEventListenerRegistration();
 
-        require TUBEPRESS_ROOT . '/src/main/php/plugins/youtube/YouTube.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/youtube/classes/tubepress/addons/youtube/impl/Bootstrap.php';
 
         $this->assertTrue(true);
     }

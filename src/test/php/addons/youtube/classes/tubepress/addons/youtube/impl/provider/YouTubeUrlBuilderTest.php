@@ -15,6 +15,9 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
     function onSetup()

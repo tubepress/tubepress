@@ -11,7 +11,7 @@
 class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension
+     * @var tubepress_addons_core_impl_patterns_ioc_IocContainerExtension
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTes
 
     public function testLoad()
     {
-        $this->_sut->load($this->_mockParentContainer);
+        $this->_sut->load(array(), $this->_mockParentContainer);
 
         foreach ($this->_getExpectedServices() as $service) {
 

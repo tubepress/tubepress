@@ -37,7 +37,7 @@ class tubepress_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends T
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 
             'embedded/youtube.tpl.php',
-            TUBEPRESS_ROOT . '/src/main/php/plugins/youtube/resources/templates'
+            TUBEPRESS_ROOT . '/src/main/php/addons/youtube/resources/templates'
         )->andReturn('abc');
 
         $result = $this->_sut->getTemplate($mockThemeHandler);

@@ -1,0 +1,24 @@
+{
+    "name" : "tubepress-youtube-addon",
+    "version": "1.0.0",
+    "title" : "YouTube",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.org"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Allows TubePress work with YouTube",
+    "bootstrap" : "tubepress_addons_youtube_impl_Bootstrap",
+    "psr-0" : {
+
+        "tubepress_addons_youtube" : "classes"
+    },
+    "ioc-container-extensions" : [
+        "tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension"
+    ]
+}

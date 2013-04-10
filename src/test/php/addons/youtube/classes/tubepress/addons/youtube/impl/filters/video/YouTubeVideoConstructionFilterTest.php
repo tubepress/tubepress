@@ -22,6 +22,9 @@ class tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
     private $_timezoneReset;

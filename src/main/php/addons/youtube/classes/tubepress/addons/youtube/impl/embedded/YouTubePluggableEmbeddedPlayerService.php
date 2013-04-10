@@ -29,7 +29,7 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('embedded/youtube.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/youtube/resources/templates');
+        return $themeHandler->getTemplateInstance('embedded/youtube.tpl.php', TUBEPRESS_ROOT . '/src/main/php/addons/youtube/resources/templates');
     }
 
     /**

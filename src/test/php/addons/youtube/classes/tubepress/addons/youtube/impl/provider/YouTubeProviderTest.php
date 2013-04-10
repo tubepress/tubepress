@@ -15,14 +15,29 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends TubePre
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockUrlBuilder;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFeedFetcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
     public function onSetup()
