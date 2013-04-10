@@ -62,8 +62,8 @@ class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTes
                 tubepress_spi_provider_PluggableVideoProviderService::_),
             array('tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant', 'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant',
                 tubepress_spi_options_ui_PluggableOptionsPageParticipant::_),
-            array('tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter',
-                'tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter'),
+            array('tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
+                'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'),
 
             array('tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
                 'tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',

@@ -57,8 +57,8 @@ class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension im
 
         $container->register(
 
-            'tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter',
-            'tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter'
+            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
+            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
         );
 
         $container->register(

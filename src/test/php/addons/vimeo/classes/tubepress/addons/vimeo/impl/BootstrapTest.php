@@ -46,7 +46,7 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
         $event = new tubepress_api_event_TubePressEvent($video);
         $event->setName(tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION);
 
-        $mockFilter = $this->createMockSingletonService('tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter');
+        $mockFilter = $this->createMockSingletonService('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener');
         $mockFilter->shouldReceive('onVideoConstruction')->once()->with($event);
 
         tubepress_addons_vimeo_Vimeo::_callbackEventHandler($event);

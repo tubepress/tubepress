@@ -58,9 +58,9 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         $this->_registerPluggableServices($container);
 
         /**
-         * Filters
+         * Listeners
          */
-        $this->_registerFilters($container);
+        $this->_registerListeners($container);
     }
 
     /**
@@ -509,35 +509,35 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         )->addTag(tubepress_spi_options_ui_PluggableFieldBuilder::_);
     }
 
-    private function _registerFilters(ehough_iconic_ContainerBuilder $container)
+    private function _registerListeners(ehough_iconic_ContainerBuilder $container)
     {
-        $filterClasses = array(
+        $listenerClassNames = array(
 
-            'tubepress_addons_core_impl_filters_embeddedhtml_PlayerJavaScriptApi',
-            'tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariables',
-            'tubepress_addons_core_impl_filters_galleryhtml_GalleryJs',
-            'tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams',
-            'tubepress_addons_core_impl_filters_gallerytemplate_CoreVariables',
-            'tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerName',
-            'tubepress_addons_core_impl_filters_gallerytemplate_Pagination',
-            'tubepress_addons_core_impl_filters_gallerytemplate_Player',
-            'tubepress_addons_core_impl_filters_gallerytemplate_VideoMeta',
-            'tubepress_addons_core_impl_filters_playertemplate_CoreVariables',
-            'tubepress_addons_core_impl_filters_prevalidationoptionset_StringMagic',
-            'tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover',
-            'tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariables',
-            'tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariables',
-            'tubepress_addons_core_impl_filters_singlevideotemplate_VideoMeta',
-            'tubepress_addons_core_impl_filters_variablereadfromexternalinput_StringMagic',
-            'tubepress_addons_core_impl_filters_videogallerypage_PerPageSorter',
-            'tubepress_addons_core_impl_filters_videogallerypage_ResultCountCapper',
-            'tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklist',
-            'tubepress_addons_core_impl_filters_videogallerypage_VideoPrepender',
+            'tubepress_addons_core_impl_listeners_embeddedhtml_PlayerJavaScriptApi',
+            'tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables',
+            'tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs',
+            'tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams',
+            'tubepress_addons_core_impl_listeners_gallerytemplate_CoreVariables',
+            'tubepress_addons_core_impl_listeners_gallerytemplate_EmbeddedPlayerName',
+            'tubepress_addons_core_impl_listeners_gallerytemplate_Pagination',
+            'tubepress_addons_core_impl_listeners_gallerytemplate_Player',
+            'tubepress_addons_core_impl_listeners_gallerytemplate_VideoMeta',
+            'tubepress_addons_core_impl_listeners_playertemplate_CoreVariables',
+            'tubepress_addons_core_impl_listeners_prevalidationoptionset_StringMagic',
+            'tubepress_addons_core_impl_listeners_prevalidationoptionset_YouTubePlaylistPlPrefixRemover',
+            'tubepress_addons_core_impl_listeners_searchinputtemplate_CoreVariables',
+            'tubepress_addons_core_impl_listeners_singlevideotemplate_CoreVariables',
+            'tubepress_addons_core_impl_listeners_singlevideotemplate_VideoMeta',
+            'tubepress_addons_core_impl_listeners_variablereadfromexternalinput_StringMagic',
+            'tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter',
+            'tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper',
+            'tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist',
+            'tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender',
         );
 
-        foreach ($filterClasses as $filterClass) {
+        foreach ($listenerClassNames as $listenerClassName) {
 
-            $container->register($filterClass, $filterClass);
+            $container->register($listenerClassName, $listenerClassName);
         }
     }
 

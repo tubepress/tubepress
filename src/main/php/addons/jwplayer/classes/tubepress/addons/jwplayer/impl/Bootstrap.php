@@ -51,7 +51,7 @@ class tubepress_addons_jwplayer_JwPlayer
 
         $eventDispatcher->addListener(tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
 
-            array(new tubepress_addons_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateVars(), 'onEmbeddedTemplate')
+            array(new tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars(), 'onEmbeddedTemplate')
         );
     }
 }

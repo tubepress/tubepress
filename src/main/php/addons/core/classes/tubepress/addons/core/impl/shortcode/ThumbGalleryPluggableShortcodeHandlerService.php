@@ -87,7 +87,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
             return $ms->_('No matching videos');     //>(translatable)<
         }
 
-        /* send the template through the filters */
+        /* send the template through the listeners */
         if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION)) {
 
             $event = new tubepress_api_event_TubePressEvent($template, array(
@@ -107,7 +107,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
         $html = $template->toString();
 
-        /* send gallery HTML through the filters */
+        /* send gallery HTML through the listeners */
         if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION)) {
 
             $event = new tubepress_api_event_TubePressEvent($html, array(

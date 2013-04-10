@@ -70,8 +70,8 @@ class tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtensionTest ex
             array('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
                 'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'),
 
-            array('tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter',
-                'tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter'),
+            array('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
+                'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'),
         );
 
         $toReturn = array();

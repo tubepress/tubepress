@@ -67,7 +67,7 @@ class tubepress_addons_jwplayer_impl_BootstrapTest extends TubePressUnitTest
         $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
 
-                return is_array($arg) && $arg[0] instanceof tubepress_addons_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateVars
+                return is_array($arg) && $arg[0] instanceof tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars
                     && $arg[1] === 'onEmbeddedTemplate';
         }));
 

@@ -29,7 +29,7 @@ class tubepress_addons_youtube_YouTube
                 self::_call(
 
                     $event,
-                    'tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter', 'onVideoConstruction'
+                    'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener', 'onVideoConstruction'
                 );
         }
     }

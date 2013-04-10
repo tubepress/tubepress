@@ -32,7 +32,7 @@ final class tubepress_addons_vimeo_Vimeo
                 self::_call(
 
                     $event,
-                    'tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter', 'onVideoConstruction'
+                    'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener', 'onVideoConstruction'
                 );
         }
     }

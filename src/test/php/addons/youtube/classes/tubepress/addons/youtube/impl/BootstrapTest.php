@@ -51,7 +51,7 @@ class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
         $event = new tubepress_api_event_TubePressEvent($video);
         $event->setName(tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION);
 
-        $mockFilter = $this->createMockSingletonService('tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter');
+        $mockFilter = $this->createMockSingletonService('tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener');
         $mockFilter->shouldReceive('onVideoConstruction')->once()->with($event);
 
         tubepress_addons_youtube_YouTube::_callbackEventHandler($event);

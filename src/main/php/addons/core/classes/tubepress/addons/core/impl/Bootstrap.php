@@ -653,7 +653,7 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_variablereadfromexternalinput_StringMagic', 'onIncomingInput'
+                    'tubepress_addons_core_impl_listeners_variablereadfromexternalinput_StringMagic', 'onIncomingInput'
                 );
 
                 break;
@@ -663,13 +663,13 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_singlevideotemplate_VideoMeta', 'onSingleVideoTemplate'
+                    'tubepress_addons_core_impl_listeners_singlevideotemplate_VideoMeta', 'onSingleVideoTemplate'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariables', 'onSingleVideoTemplate'
+                    'tubepress_addons_core_impl_listeners_singlevideotemplate_CoreVariables', 'onSingleVideoTemplate'
                 );
 
                 break;
@@ -679,7 +679,7 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariables', 'onSearchInputTemplate'
+                    'tubepress_addons_core_impl_listeners_searchinputtemplate_CoreVariables', 'onSearchInputTemplate'
                 );
 
                 break;
@@ -689,25 +689,25 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_videogallerypage_PerPageSorter', 'onVideoGalleryPage'
+                    'tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter', 'onVideoGalleryPage'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_videogallerypage_ResultCountCapper', 'onVideoGalleryPage'
+                    'tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper', 'onVideoGalleryPage'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklist', 'onVideoGalleryPage'
+                    'tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist', 'onVideoGalleryPage'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_videogallerypage_VideoPrepender', 'onVideoGalleryPage'
+                    'tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender', 'onVideoGalleryPage'
                 );
 
                 break;
@@ -717,13 +717,13 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_prevalidationoptionset_StringMagic', 'onPreValidationOptionSet'
+                    'tubepress_addons_core_impl_listeners_prevalidationoptionset_StringMagic', 'onPreValidationOptionSet'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover', 'onPreValidationOptionSet'
+                    'tubepress_addons_core_impl_listeners_prevalidationoptionset_YouTubePlaylistPlPrefixRemover', 'onPreValidationOptionSet'
                 );
 
                 break;
@@ -733,7 +733,7 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_playertemplate_CoreVariables', 'onPlayerTemplate'
+                    'tubepress_addons_core_impl_listeners_playertemplate_CoreVariables', 'onPlayerTemplate'
                 );
 
                 break;
@@ -743,31 +743,31 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_gallerytemplate_CoreVariables', 'onGalleryTemplate'
+                    'tubepress_addons_core_impl_listeners_gallerytemplate_CoreVariables', 'onGalleryTemplate'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerName', 'onGalleryTemplate'
+                    'tubepress_addons_core_impl_listeners_gallerytemplate_EmbeddedPlayerName', 'onGalleryTemplate'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_gallerytemplate_Pagination', 'onGalleryTemplate'
+                    'tubepress_addons_core_impl_listeners_gallerytemplate_Pagination', 'onGalleryTemplate'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_gallerytemplate_Player', 'onGalleryTemplate'
+                    'tubepress_addons_core_impl_listeners_gallerytemplate_Player', 'onGalleryTemplate'
                 );
 
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_gallerytemplate_VideoMeta', 'onGalleryTemplate'
+                    'tubepress_addons_core_impl_listeners_gallerytemplate_VideoMeta', 'onGalleryTemplate'
                 );
 
                 break;
@@ -777,7 +777,7 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams', 'onGalleryInitJs'
+                    'tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams', 'onGalleryInitJs'
                 );
 
                 break;
@@ -787,7 +787,7 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_galleryhtml_GalleryJs', 'onGalleryHtml'
+                    'tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs', 'onGalleryHtml'
                 );
 
                 break;
@@ -797,7 +797,7 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariables', 'onEmbeddedTemplate'
+                    'tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables', 'onEmbeddedTemplate'
                 );
 
                 break;
@@ -807,7 +807,7 @@ class tubepress_addons_core_impl_Bootstrap
                 self::_call(
 
                     $event,
-                    'tubepress_addons_core_impl_filters_embeddedhtml_PlayerJavaScriptApi', 'onEmbeddedHtml'
+                    'tubepress_addons_core_impl_listeners_embeddedhtml_PlayerJavaScriptApi', 'onEmbeddedHtml'
                 );
         }
     }
