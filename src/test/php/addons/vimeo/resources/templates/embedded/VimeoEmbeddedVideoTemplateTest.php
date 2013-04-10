@@ -10,7 +10,7 @@
  */
 class tubepress_addons_vimeo_resources_templates_embedded_VimeoEmbeddedVideoTemplateTest extends TubePressUnitTest
 {
-	public function testTemplate()
+    public function testTemplate()
     {
         $this->expectOutputString('<iframe id="some-dom-id" data-videoid="video-id" data-playerimplementation="some-embedded-impl-name" data-videoprovidername="some-video-provider" src="data-url" width="99" height="88" frameborder="0"></iframe>');
 

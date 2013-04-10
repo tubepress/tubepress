@@ -25,16 +25,16 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariablesTest e
      */
     private $_mockEmbeddedHtmlGenerator;
 
-	function onSetup()
-	{
-		$this->_sut = new tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariables();
+    function onSetup()
+    {
+        $this->_sut = new tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariables();
 
         $this->_mockExecutionContext      = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEmbeddedHtmlGenerator = $this->createMockSingletonService(tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
-	}
+    }
 
-	function testYouTubeFavorites()
-	{
+    function testYouTubeFavorites()
+    {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(889);
 
         $video = new tubepress_api_video_Video();
@@ -54,6 +54,6 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_CoreVariablesTest e
         $this->_sut->onSingleVideoTemplate($event);
 
         $this->assertEquals($mockTemplate, $event->getSubject());
-	}
+    }
 }
 

@@ -10,30 +10,30 @@
  */
 class tubepress_api_video_VideoTest extends TubePressUnitTest
 {
-	private $_vid;
+    private $_vid;
 
-	function onSetup()
-	{
-		$this->_vid = new tubepress_api_video_Video();
-	}
+    function onSetup()
+    {
+        $this->_vid = new tubepress_api_video_Video();
+    }
 
-	function testSetGetAuthor()
-	{
-		$this->_vid->setAuthorUid('hough');
-		$this->assertEquals($this->_vid->getAuthorUid(), 'hough');
-	}
+    function testSetGetAuthor()
+    {
+        $this->_vid->setAuthorUid('hough');
+        $this->assertEquals($this->_vid->getAuthorUid(), 'hough');
+    }
 
-	function testSetGetAuthorDisplayName()
-	{
-		$this->_vid->setAuthorDisplayName('Eric Hough');
-		$this->assertEquals($this->_vid->getAuthorDisplayName(), 'Eric Hough');
-	}
+    function testSetGetAuthorDisplayName()
+    {
+        $this->_vid->setAuthorDisplayName('Eric Hough');
+        $this->assertEquals($this->_vid->getAuthorDisplayName(), 'Eric Hough');
+    }
 
-	function testSetGetCategory()
-	{
-		$this->_vid->setCategory('Sports');
-		$this->assertEquals($this->_vid->getCategory(), 'Sports');
-	}
+    function testSetGetCategory()
+    {
+        $this->_vid->setCategory('Sports');
+        $this->assertEquals($this->_vid->getCategory(), 'Sports');
+    }
 
    function testSetGetCommentCount()
     {
@@ -41,11 +41,11 @@ class tubepress_api_video_VideoTest extends TubePressUnitTest
         $this->assertEquals($this->_vid->getCommentCount(), 2);
     }
 
-	function testSetGetDescription()
-	{
-		$this->_vid->setDescription('fake');
-		$this->assertEquals($this->_vid->getDescription(), 'fake');
-	}
+    function testSetGetDescription()
+    {
+        $this->_vid->setDescription('fake');
+        $this->assertEquals($this->_vid->getDescription(), 'fake');
+    }
 
    function testSetGetDuration()
     {
@@ -59,11 +59,11 @@ class tubepress_api_video_VideoTest extends TubePressUnitTest
         $this->assertEquals($this->_vid->getHomeUrl('http://youtube.com'), 'http://youtube.com');
     }
 
-	function testSetGetId()
-	{
-		$this->_vid->setId('ERERKJKFF');
-		$this->assertEquals($this->_vid->getId(), 'ERERKJKFF');
-	}
+    function testSetGetId()
+    {
+        $this->_vid->setId('ERERKJKFF');
+        $this->assertEquals($this->_vid->getId(), 'ERERKJKFF');
+    }
 
    function testSetGetKeywords()
     {
@@ -78,17 +78,17 @@ class tubepress_api_video_VideoTest extends TubePressUnitTest
         $this->assertEquals($this->_vid->getLikesCount(), 564);
     }
 
-	function testSetGetRatingAverage()
-	{
-		$this->_vid->setRatingAverage('4.5');
-		$this->assertEquals($this->_vid->getRatingAverage(), '4.5');
-	}
+    function testSetGetRatingAverage()
+    {
+        $this->_vid->setRatingAverage('4.5');
+        $this->assertEquals($this->_vid->getRatingAverage(), '4.5');
+    }
 
-	function testSetGetRatingCount()
-	{
-		$this->_vid->setRatingCount('33000');
-		$this->assertEquals($this->_vid->getRatingCount(), '33000');
-	}
+    function testSetGetRatingCount()
+    {
+        $this->_vid->setRatingCount('33000');
+        $this->assertEquals($this->_vid->getRatingCount(), '33000');
+    }
 
     function testSetGetThumbnailUrl()
     {
@@ -108,15 +108,15 @@ class tubepress_api_video_VideoTest extends TubePressUnitTest
         $this->assertEquals($this->_vid->getTimePublished(), '112233');
     }
 
-	function testSetGetTitle()
-	{
-		$this->_vid->setTitle('Mr. Title');
-		$this->assertEquals($this->_vid->getTitle(), 'Mr. Title');
-	}
+    function testSetGetTitle()
+    {
+        $this->_vid->setTitle('Mr. Title');
+        $this->assertEquals($this->_vid->getTitle(), 'Mr. Title');
+    }
 
-	function testSetGetViewCount()
-	{
-		$this->_vid->setViewCount('12000');
-		$this->assertEquals($this->_vid->getViewCount(), '12000');
-	}
+    function testSetGetViewCount()
+    {
+        $this->_vid->setViewCount('12000');
+        $this->assertEquals($this->_vid->getViewCount(), '12000');
+    }
 }

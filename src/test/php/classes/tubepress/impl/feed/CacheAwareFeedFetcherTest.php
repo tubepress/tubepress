@@ -42,47 +42,47 @@ class tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTest
      */
     private $_mockEventDispatcher;
 
-	public function onSetup()
-	{
+    public function onSetup()
+    {
         $this->_mockCache            = $this->createMockSingletonService('ehough_stash_PoolInterface');
         $this->_mockHttpClient       = $this->createMockSingletonService('ehough_shortstop_api_HttpClientInterface');
         $this->_mockItem             = $this->createMockSingletonService('ehough_stash_ItemInterface');
         $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
-		$this->_sut = new tubepress_impl_feed_CacheAwareFeedFetcher();
-	}
+        $this->_sut = new tubepress_impl_feed_CacheAwareFeedFetcher();
+    }
 
-	public function testFetchCacheHit()
-	{
+    public function testFetchCacheHit()
+    {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
-	    $this->_mockCache->shouldReceive('getItem')->once()->with(self::$_fakeUrl)->andReturn($this->_mockItem);
+        $this->_mockCache->shouldReceive('getItem')->once()->with(self::$_fakeUrl)->andReturn($this->_mockItem);
         $this->_mockItem->shouldReceive('isValid')->once()->andReturn(true);
         $this->_mockItem->shouldReceive('get')->once()->andReturn('someValue');
 
-	    $this->assertEquals('someValue', $this->_sut->fetch(self::$_fakeUrl));
-	}
+        $this->assertEquals('someValue', $this->_sut->fetch(self::$_fakeUrl));
+    }
 
-	public function testFetchCacheMiss()
-	{
+    public function testFetchCacheMiss()
+    {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS)->andReturn(333);
         $this->_mockCache->shouldReceive('getItem')->once()->with(self::$_fakeUrl)->andReturn($this->_mockItem);
         $this->_mockItem->shouldReceive('isValid')->once()->andReturn(false);
         $this->_mockItem->shouldReceive('set')->once()->with('abc', 333);
         $this->_mockItem->shouldReceive('get')->once()->andReturn('someValue');
-	    $this->_setupHttpExecution();
+        $this->_setupHttpExecution();
 
-	    $this->assertEquals('someValue', $this->_sut->fetch(self::$_fakeUrl));
-	}
+        $this->assertEquals('someValue', $this->_sut->fetch(self::$_fakeUrl));
+    }
 
-	public function testFetchCacheDisabled()
-	{
+    public function testFetchCacheDisabled()
+    {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
         $this->_setupHttpExecution();
 
         $this->assertEquals('abc', $this->_sut->fetch(self::$_fakeUrl));
-	}
+    }
 
     public function _callbackCacheMiss($request)
     {

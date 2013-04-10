@@ -58,17 +58,17 @@ class tubepress_impl_html_DefaultCssAndJsGeneratorTest extends TubePressUnitTest
         $this->assertEquals('<link rel="stylesheet" href="<tubepress_base_url>/src/main/web/css/tubepress.css" type="text/css" />', $this->_sut->getTubePressCssTag());
     }
 
-	public function testHeadMetaPageOne()
-	{
+    public function testHeadMetaPageOne()
+    {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
 
-	    $this->assertEquals('', $this->_sut->getMetaTags());
-	}
+        $this->assertEquals('', $this->_sut->getMetaTags());
+    }
 
     public function testHeadMetaPageTwo()
-	{
+    {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(2);
 
-	    $this->assertEquals('<meta name="robots" content="noindex, nofollow" />', $this->_sut->getMetaTags());
-	}
+        $this->assertEquals('<meta name="robots" content="noindex, nofollow" />', $this->_sut->getMetaTags());
+    }
 }

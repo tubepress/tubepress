@@ -15,21 +15,21 @@ abstract class tubepress_addons_core_impl_filters_AbstractStringMagicFilterTest 
      */
     private $_sut;
 
-	function onSetup()
-	{
-		$this->_sut = $this->_buildSut();
-	}
+    function onSetup()
+    {
+        $this->_sut = $this->_buildSut();
+    }
 
-	function testBooleanVariations()
-	{
-	    $this->_booleanConversion(true, 'true');
-	    $this->_booleanConversion(true, 'TRUE');
-	    $this->_booleanConversion(true, ' TRuE  ');
+    function testBooleanVariations()
+    {
+        $this->_booleanConversion(true, 'true');
+        $this->_booleanConversion(true, 'TRUE');
+        $this->_booleanConversion(true, ' TRuE  ');
 
-	    $this->_booleanConversion(false, 'false  ');
-	    $this->_booleanConversion(false, 'FALSE');
-	    $this->_booleanConversion(false, ' faLSe  ');
-	}
+        $this->_booleanConversion(false, 'false  ');
+        $this->_booleanConversion(false, 'FALSE');
+        $this->_booleanConversion(false, ' faLSe  ');
+    }
 
     public function testInt()
     {

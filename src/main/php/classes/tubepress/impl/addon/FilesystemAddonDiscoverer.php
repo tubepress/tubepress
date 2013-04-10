@@ -43,16 +43,16 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
         foreach ($finder as $infoFile) {
 
-            $plugin = $this->_buildAddon($infoFile);
+            $addon = $this->_buildAddon($infoFile);
 
-            if ($plugin !== null) {
+            if ($addon !== null) {
 
                 if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                     $this->_logger->debug('Found valid add-on at ' . $infoFile->getRealpath());
                 }
 
-                $toReturn[] = $plugin;
+                $toReturn[] = $addon;
             }
         }
 

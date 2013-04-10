@@ -25,13 +25,13 @@ class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParamsTe
      */
     private $_mockOptionDescriptorReference;
 
-	function onSetup()
-	{
-		$this->_sut = new tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams();
+    function onSetup()
+    {
+        $this->_sut = new tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams();
 
         $this->_mockExecutionContext          = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
-	}
+    }
 
     public function onTearDown()
     {
@@ -40,8 +40,8 @@ class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParamsTe
         unset($tubepress_base_url);
     }
 
-	function testAlter()
-	{
+    function testAlter()
+    {
         global $tubepress_base_url;
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
@@ -76,9 +76,9 @@ class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParamsTe
 
         $this->_sut->onGalleryInitJs($event);
 
-	    $result = $event->getSubject();
+        $result = $event->getSubject();
 
-	    $this->assertEquals(array(
+        $this->assertEquals(array(
 
             'yo' => 'mamma',
 
@@ -99,6 +99,6 @@ class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParamsTe
                 'fluidThumbs' => false,
                 'httpMethod' => 'some-http-method',
             )
-	    ), $result);
-	}
+        ), $result);
+    }
 }

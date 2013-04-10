@@ -10,7 +10,7 @@
  */
 class tubepress_addons_core_CoreManifestValidityTest extends TubePressUnitTest
 {
-	public function testManifest()
+    public function testManifest()
     {
         $parsed = $this->getManifestDataAsAssociativeArray(dirname(__FILE__) . '/../../../../main/php/addons/core/core.json');
 

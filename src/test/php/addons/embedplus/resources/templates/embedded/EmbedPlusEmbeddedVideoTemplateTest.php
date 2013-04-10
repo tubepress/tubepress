@@ -10,7 +10,7 @@
  */
 class tubepress_addons_embedplus_resources_templates_embedded_EmbedPlusEmbeddedVideoTemplateTest extends TubePressUnitTest
 {
-	public function testTemplate()
+    public function testTemplate()
     {
         $this->expectOutputString(<<<EOT
 <object id="video-dom-id" type="application/x-shockwave-flash" width="99" height="120" data="http://getembedplus.com/embedplus.swf">

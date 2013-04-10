@@ -109,8 +109,8 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
      */
     private function _buildNameValuePairArray($match)
     {
-        $toReturn      = array();
-        $pluginManager = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $toReturn        = array();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         foreach ($match as $m) {
 
@@ -148,7 +148,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
                 array('optionName' => $name)
             );
 
-            $pluginManager->dispatch(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
                 $event

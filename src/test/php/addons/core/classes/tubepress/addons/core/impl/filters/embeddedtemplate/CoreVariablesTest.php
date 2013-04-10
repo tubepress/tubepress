@@ -20,20 +20,20 @@ class tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariablesTest exte
      */
     private $_mockExecutionContext;
 
-	function onSetup()
-	{
+    function onSetup()
+    {
         global $tubepress_base_url;
 
         $tubepress_base_url = '<tubepress_base_url>';
 
-		$this->_sut = new tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariables();
+        $this->_sut = new tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariables();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-	}
+    }
 
-	function testAlter()
-	{
-	    $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
+    function testAlter()
+    {
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(660);
@@ -62,8 +62,8 @@ class tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariablesTest exte
         ));
 
         $this->_sut->onEmbeddedTemplate($event);
-	    $this->assertEquals($mockTemplate, $event->getSubject());
-	}
+        $this->assertEquals($mockTemplate, $event->getSubject());
+    }
 
     public function onTearDown()
     {

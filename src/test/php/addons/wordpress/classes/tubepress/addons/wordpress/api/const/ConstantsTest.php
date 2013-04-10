@@ -14,7 +14,7 @@ class tubepress_addons_wordpress_api_const_ConstantsTest extends TubePressUnitTe
     {
         $toTest = array(
 
-            'tubepress_addons_wordpress_api_const_options_names_WordPress'	=> array('widget-tagstring', 'widget-title', 'wpPageWhitelist', 'wpPageBlacklist'),
+            'tubepress_addons_wordpress_api_const_options_names_WordPress'    => array('widget-tagstring', 'widget-title', 'wpPageWhitelist', 'wpPageBlacklist'),
         );
 
         foreach ($toTest as $className => $expected) {

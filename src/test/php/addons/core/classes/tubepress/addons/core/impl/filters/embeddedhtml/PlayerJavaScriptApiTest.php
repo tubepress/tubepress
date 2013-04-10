@@ -25,13 +25,13 @@ class tubepress_addons_core_impl_filters_embeddedhtml_PlayerJavaScriptApiTest ex
      */
     private $_mockEnvironmentDetector;
 
-	public function onSetup()
-	{
-		$this->_sut = new tubepress_addons_core_impl_filters_embeddedhtml_PlayerJavaScriptApi();
+    public function onSetup()
+    {
+        $this->_sut = new tubepress_addons_core_impl_filters_embeddedhtml_PlayerJavaScriptApi();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-	}
+    }
 
     public function testJsApiNotEnabled()
     {
@@ -45,8 +45,8 @@ class tubepress_addons_core_impl_filters_embeddedhtml_PlayerJavaScriptApiTest ex
         $this->assertEquals('hello', $event->getSubject());
     }
 
-	public function testJsApiEnabled()
-	{
+    public function testJsApiEnabled()
+    {
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
 
@@ -63,6 +63,6 @@ hello id="tubepress-video-object-47773745" <script type="text/javascript">
 </script>
 EOT;
 
-	    $this->assertEquals($expected, $event->getSubject());
-	}
+        $this->assertEquals($expected, $event->getSubject());
+    }
 }

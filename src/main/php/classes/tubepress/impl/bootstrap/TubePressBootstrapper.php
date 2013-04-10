@@ -20,12 +20,12 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     private static $_alreadyBooted = false;
 
     /**
-     * @var ehough_epilog_psr_LoggerInterface
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 
     /**
-     * @var ehough_epilog_handler_HandlerInterface
+     * @var tubepress_impl_log_TubePressLoggingHandler
      */
     private $_loggingHandler;
 
@@ -181,14 +181,18 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done compiling IoC container. Now loading plugins.');
+            $this->_logger->debug('Done compiling IoC container. Now loading add-ons.');
         }
 
         $index = 1;
         $count = count($allAddons);
 
         /**
-         * Load plugins.
+         * Load addons.
+         */
+
+        /**
+         * @var $addon tubepress_spi_addon_Addon
          */
         foreach ($allAddons as $addon) {
 
@@ -221,11 +225,14 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         self::$_alreadyBooted = true;
     }
 
-     private function _registerIocCompilerPasses($addons, $coreIocContainer)
+     private function _registerIocCompilerPasses(array $addons, $coreIocContainer)
      {
          $index = 1;
          $count = count($addons);
 
+         /**
+          * @var $addon tubepress_spi_addon_Addon
+          */
          foreach ($addons as $addon) {
 
              $compilerPasses = $addon->getIocContainerCompilerPasses();
@@ -278,11 +285,14 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          }
      }
 
-    private function _registerIocContainerExtensions($addons, $coreIocContainer)
+    private function _registerIocContainerExtensions(array $addons, $coreIocContainer)
     {
         $index = 1;
         $count = count($addons);
 
+        /**
+         * @var $addon tubepress_spi_addon_Addon
+         */
         foreach ($addons as $addon) {
 
             $extensions = $addon->getIocContainerExtensions();
@@ -312,7 +322,6 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                     $ref = new ReflectionClass($extension);
 
-                    /** @noinspection PhpParamsInspection */
                     $coreIocContainer->registerExtension($ref->newInstance());
 
                     if ($this->_shouldLog) {
@@ -340,6 +349,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         $index = 1;
         $count = count($addons);
 
+        /**
+         * @var $addon tubepress_spi_addon_Addon
+         */
         foreach ($addons as $addon) {
 
             $classPaths = $addon->getPsr0ClassPathRoots();
@@ -392,7 +404,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         $userContentDir = $environmentDetector->getUserContentDirectory();
-        $userAddonsDir = $userContentDir . '/plugins';
+        $userAddonsDir = $userContentDir . '/addons';
 
         return $this->_findAddonsInDirectory($userAddonsDir,
             $discoverer, true);
@@ -400,7 +412,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
     private function _findSystemAddons(tubepress_spi_addon_AddonDiscoverer $discoverer)
     {
-        $coreAddons = $this->_findAddonsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins',
+        $coreAddons = $this->_findAddonsInDirectory(TUBEPRESS_ROOT . '/src/main/php/addons',
             $discoverer, true);
 
         usort($coreAddons, array($this, '_coreAddonSorter'));

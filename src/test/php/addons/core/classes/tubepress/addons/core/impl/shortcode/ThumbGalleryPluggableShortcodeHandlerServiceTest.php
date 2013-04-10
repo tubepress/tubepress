@@ -42,8 +42,8 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
     private $_messageService;
 
-	function onSetup()
-	{
+    function onSetup()
+    {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
@@ -51,26 +51,26 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
-		$this->_sut = new tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService();
-	}
+        $this->_sut = new tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService();
+    }
 
 
-	function testExecuteGenerateGalleryId()
-	{
+    function testExecuteGenerateGalleryId()
+    {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
-	    $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
-	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-	    $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('');
         $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID, ehough_mockery_Mockery::type('integer'))->andReturn(true);
 
-	    $mockFeedResult = new tubepress_api_video_VideoGalleryPage();
-	    $mockFeedResult->setVideos(array('x', 'y'));
+        $mockFeedResult = new tubepress_api_video_VideoGalleryPage();
+        $mockFeedResult->setVideos(array('x', 'y'));
 
-	    $this->_mockProvider->shouldReceive('collectVideoGalleryPage')->once()->andReturn($mockFeedResult);
+        $this->_mockProvider->shouldReceive('collectVideoGalleryPage')->once()->andReturn($mockFeedResult);
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION)->andReturn(true);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
@@ -84,14 +84,14 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
             return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'template-string';
         }));
 
-	    $this->assertEquals('template-string', $this->_sut->getHtml());
-	}
+        $this->assertEquals('template-string', $this->_sut->getHtml());
+    }
 
-	function testExecuteNoVids()
-	{
+    function testExecuteNoVids()
+    {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
-	    $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
         $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
 
@@ -102,20 +102,20 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
         $this->_mockProvider->shouldReceive('collectVideoGalleryPage')->once()->andReturn($mockFeedResult);
 
-	    $this->_messageService->shouldReceive('_')->once()->andReturnUsing(function ($key) {
-	          return "<<$key>>";
-	    });
+        $this->_messageService->shouldReceive('_')->once()->andReturnUsing(function ($key) {
+              return "<<$key>>";
+        });
 
-	    $this->assertEquals('<<No matching videos>>', $this->_sut->getHtml());
-	}
+        $this->assertEquals('<<No matching videos>>', $this->_sut->getHtml());
+    }
 
-	function testExecute()
-	{
+    function testExecute()
+    {
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
-	    $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
-	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
         $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
 
@@ -138,6 +138,6 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
             return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'template-string';
         }));
 
-	    $this->assertEquals('template-string', $this->_sut->getHtml());
-	}
+        $this->assertEquals('template-string', $this->_sut->getHtml());
+    }
 }

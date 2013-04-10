@@ -10,7 +10,7 @@
  */
 
 /**
- * Simple implementation of a plugin.
+ * Simple implementation of an add-on.
  */
 class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
 {

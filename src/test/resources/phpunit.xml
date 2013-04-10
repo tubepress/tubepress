@@ -9,7 +9,7 @@
     bootstrap="../php/bootstrap.php">
 	<testsuites>
 	   <testsuite name="TubePress tests">
-	       <directory>../php/addons/wordpress</directory>
+	       <directory>../php</directory>
 	   </testsuite>
 	</testsuites>
     <filter>

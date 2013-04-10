@@ -20,15 +20,15 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklistTest ext
      */
     private $_mockExecutionContext;
 
-	function onSetup()
-	{
+    function onSetup()
+    {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
-		$this->_sut = new tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklist();
-	}
+        $this->_sut = new tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklist();
+    }
 
-	function testYouTubeFavorites()
-	{
+    function testYouTubeFavorites()
+    {
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST)->andReturn('xxx');
 
@@ -54,7 +54,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklistTest ext
         $this->_sut->onVideoGalleryPage($event);
 
         $this->assertEquals(array($mockVideo1, $mockVideo2, $mockVideo4), $event->getSubject()->getVideos());
-	}
+    }
 
 }
 

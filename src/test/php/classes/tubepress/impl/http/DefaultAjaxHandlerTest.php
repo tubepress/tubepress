@@ -15,40 +15,36 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockHttpResponseCodeService;
 
     function onSetup()
     {
         $this->_sut = new tubepress_impl_http_DefaultAjaxHandler();
 
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockHttpResponseCodeService     = $this->createMockSingletonService(tubepress_spi_http_ResponseCodeHandler::_);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     function testNoAction()
     {
-        //$this->setInIsolation(true);
-
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn(null);
+        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(400)->andReturn(400);
 
         $this->expectOutputString('Missing "action" parameter');
 
         $this->_sut->handle();
-
-        $actualResponse = http_response_code();
-
-        $this->assertEquals(400, $actualResponse);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     function testFoundSuitableCommand()
     {
-        $this->setInIsolation(true);
-
         $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('action');
         $mockHandler->shouldReceive('handle')->once();
@@ -56,61 +52,34 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
         $mockHandler->shouldReceive('getOutput')->once()->andReturn('hi');
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn('action');
+        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(300)->andReturn(300);
 
         $this->expectOutputString('hi');
 
         $this->_sut->handle();
-
-        $this->assertTrue(300 === http_response_code());
-
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     function testHandleNoSuitableCommandHandler()
     {
-        $this->setInIsolation(true);
-
         $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('x');
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn('action');
+        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(500)->andReturn(500);
 
         $this->_sut->handle();
 
-        $this->assertTrue(500 === http_response_code());
+        $this->assertTrue(true);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     function testHandleNoCommandHandlers()
     {
-        $this->setInIsolation(true);
-
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn('action');
+        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(500)->andReturn(500);
 
         $this->_sut->handle();
 
-        $this->assertTrue(500 === http_response_code());
-    }
-
-    /**
-     * @runInSeparateProcess
-     */
-    function testSetHttpStatusCode()
-    {
-        $this->setInIsolation(true);
-
-        tubepress_impl_http_DefaultAjaxHandler::simulatedHttpResponseCode(505);
-
-        $this->assertTrue(505 === http_response_code());
-    }
-
-    function testGetHttpStatusCode()
-    {
-        $this->assertTrue(200 === tubepress_impl_http_DefaultAjaxHandler::simulatedHttpResponseCode());
+        $this->assertTrue(true);
     }
 }
 

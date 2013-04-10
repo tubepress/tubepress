@@ -30,16 +30,16 @@ class tubepress_addons_core_impl_filters_galleryhtml_GalleryJsTest extends TubeP
      */
     private $_mockEventDispatcher;
 
-	function onSetup()
-	{
-		$this->_sut                  = new tubepress_addons_core_impl_filters_galleryhtml_GalleryJs();
-		$this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
+    function onSetup()
+    {
+        $this->_sut                  = new tubepress_addons_core_impl_filters_galleryhtml_GalleryJs();
+        $this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
-	}
+    }
 
-	function testAlterHtml()
-	{
+    function testAlterHtml()
+    {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
         $fakeArgs = array('yo' => 'mamma', 'is' => '"so fat"', 'x' => array('foo' => 500, 'html' => '<>\'"'));
@@ -64,17 +64,17 @@ class tubepress_addons_core_impl_filters_galleryhtml_GalleryJsTest extends TubeP
 
         $this->_sut->onGalleryHtml($event);
 
-	    $this->assertEquals($this->expectedAjax(), $event->getSubject());
-	}
+        $this->assertEquals($this->expectedAjax(), $event->getSubject());
+    }
 
-	function expectedAjax()
-	{
-	    return <<<EOT
+    function expectedAjax()
+    {
+        return <<<EOT
 hello<script type="text/javascript">
    var tubePressDomInjector = tubePressDomInjector || [], tubePressGalleryRegistrar = tubePressGalleryRegistrar || [];
        tubePressDomInjector.push(['loadGalleryJs']);
        tubePressGalleryRegistrar.push(['register', 'gallery-id', {"yo":"mamma","is":"\"so fat\"","x":{"foo":500,"html":"<>'\""}} ]);
 </script>
 EOT;
-	}
+    }
 }

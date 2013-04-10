@@ -27,48 +27,48 @@ class tubepress_impl_util_StringUtilsTest extends TubePressUnitTest
         $this->assertFalse(tubepress_impl_util_StringUtils::endsWith('some', array()));
     }
 
-	function testCanReplaceFirstOnlyFirstOccurence()
-	{
-		$this->assertEquals("zxx", tubepress_impl_util_StringUtils::replaceFirst("x", "z", "xxx"));
-	}
+    function testCanReplaceFirstOnlyFirstOccurence()
+    {
+        $this->assertEquals("zxx", tubepress_impl_util_StringUtils::replaceFirst("x", "z", "xxx"));
+    }
 
-	function testRemoveNewLines()
-	{
-	    $string = "this\r\n\r\n\n\n\nis\r\r\r\na\r\ntest\r\n\r\n";
+    function testRemoveNewLines()
+    {
+        $string = "this\r\n\r\n\n\n\nis\r\r\r\na\r\ntest\r\n\r\n";
 
-	    $this->assertEquals('thisisatest', tubepress_impl_util_StringUtils::removeNewLines($string));
-	}
+        $this->assertEquals('thisisatest', tubepress_impl_util_StringUtils::removeNewLines($string));
+    }
 
-	function testRemoveEmptyLines()
-	{
-		$val = "
+    function testRemoveEmptyLines()
+    {
+        $val = "
 
-		test
+        test
 
-		two
+        two
 
-		three
-		";
+        three
+        ";
 
-		$this->assertEquals("\n		test\n		two\n		three\n		", tubepress_impl_util_StringUtils::removeEmptyLines($val));
-	}
+        $this->assertEquals("\n        test\n        two\n        three\n        ", tubepress_impl_util_StringUtils::removeEmptyLines($val));
+    }
 
-	function testStripSlashesDeep()
-	{
-	    $testPatterns = array(
+    function testStripSlashesDeep()
+    {
+        $testPatterns = array(
 
             '\"Hello\"' => '"Hello"',
-	        '\\"Hi\\"'  => '"Hi"',
-	        "\\\\\\x"    => 'x',
-	        "\'you\\'"   => "'you'"
-	    );
+            '\\"Hi\\"'  => '"Hi"',
+            "\\\\\\x"    => 'x',
+            "\'you\\'"   => "'you'"
+        );
 
-	    foreach ($testPatterns as $input => $expected) {
+        foreach ($testPatterns as $input => $expected) {
 
-	        $actual = tubepress_impl_util_StringUtils::stripslashes_deep($input);
+            $actual = tubepress_impl_util_StringUtils::stripslashes_deep($input);
 
             $this->assertTrue($actual === $expected, "$actual did not equal expected $expected");
-	    }
-	}
+        }
+    }
 }
 

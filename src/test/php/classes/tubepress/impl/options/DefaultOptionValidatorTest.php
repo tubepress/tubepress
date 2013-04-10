@@ -11,70 +11,70 @@
 
 class tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUnitTest
 {
-	private $_sut;
+    private $_sut;
 
     private $_mockOptionsDescriptorReference;
 
-	public function onSetup()
-	{
+    public function onSetup()
+    {
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 
-		$this->_sut = new tubepress_impl_options_DefaultOptionValidator($this->_mockOptionsDescriptorReference);
-	}
+        $this->_sut = new tubepress_impl_options_DefaultOptionValidator($this->_mockOptionsDescriptorReference);
+    }
 
-	public function testNoConstraints()
-	{
-	    $od = new tubepress_spi_options_OptionDescriptor('name');
+    public function testNoConstraints()
+    {
+        $od = new tubepress_spi_options_OptionDescriptor('name');
 
-	    $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
 
-	    $this->assertTrue($this->_sut->isValid('name', 'poo') === true);
-	    $this->assertEquals(null, $this->_sut->getProblemMessage('name', 'poo'));
-	}
+        $this->assertTrue($this->_sut->isValid('name', 'poo') === true);
+        $this->assertEquals(null, $this->_sut->getProblemMessage('name', 'poo'));
+    }
 
-	public function testBoolean()
-	{
+    public function testBoolean()
+    {
         $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setBoolean();
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
-	    $this->assertTrue($this->_sut->isValid('name', 'poo') === false);
-	    $this->assertEquals('"name" can only accept true/false values. You supplied "poo".', $this->_sut->getProblemMessage('name', 'poo'));
-	    $this->assertTrue($this->_sut->isValid('name', true) === true);
-	}
+        $this->assertTrue($this->_sut->isValid('name', 'poo') === false);
+        $this->assertEquals('"name" can only accept true/false values. You supplied "poo".', $this->_sut->getProblemMessage('name', 'poo'));
+        $this->assertTrue($this->_sut->isValid('name', true) === true);
+    }
 
-	public function testDiscreteValues()
-	{
+    public function testDiscreteValues()
+    {
         $od = new tubepress_spi_options_OptionDescriptor('name');
 
-	    $od->setAcceptableValues(array('biz' => 'bar', 'butt' => 'two'));
+        $od->setAcceptableValues(array('biz' => 'bar', 'butt' => 'two'));
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
-	    $this->assertTrue($this->_sut->isValid('name', 'foo') === false);
-	    $this->assertEquals('"name" must be one of {biz, butt}. You supplied "foo".', $this->_sut->getProblemMessage('name', 'foo'));
-	    $this->assertTrue($this->_sut->isValid('name', 'biz') === true);
-	}
+        $this->assertTrue($this->_sut->isValid('name', 'foo') === false);
+        $this->assertEquals('"name" must be one of {biz, butt}. You supplied "foo".', $this->_sut->getProblemMessage('name', 'foo'));
+        $this->assertTrue($this->_sut->isValid('name', 'biz') === true);
+    }
 
-	public function testBadRegex()
+    public function testBadRegex()
     {
         $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setValidValueRegex('/t{5}/i');
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
-		$this->assertTrue($this->_sut->isValid('name', 90) === false);
-		$this->assertEquals('"name" must match the regular expression /t{5}/i. You supplied "90".', $this->_sut->getProblemMessage('name', 90));
-		$this->assertTrue($this->_sut->isValid('name', 'tTtTt') === true);
-	}
+        $this->assertTrue($this->_sut->isValid('name', 90) === false);
+        $this->assertEquals('"name" must match the regular expression /t{5}/i. You supplied "90".', $this->_sut->getProblemMessage('name', 90));
+        $this->assertTrue($this->_sut->isValid('name', 'tTtTt') === true);
+    }
 
 
-	public function testNotExists()
-	{
+    public function testNotExists()
+    {
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
 
-		$this->assertTrue($this->_sut->isValid('name', 120) === false);
-	}
+        $this->assertTrue($this->_sut->isValid('name', 120) === false);
+    }
 }
 

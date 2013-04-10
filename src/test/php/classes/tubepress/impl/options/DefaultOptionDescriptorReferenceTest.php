@@ -10,31 +10,31 @@
  */
 class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePressUnitTest
 {
-	private $_sut;
+    private $_sut;
 
     private $_storageManager;
 
-	public function onSetup()
-	{
-		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
+    public function onSetup()
+    {
+        $this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 
         $this->_storageManager = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
 
-	}
+    }
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
-	public function testRegisterDuplicate()
-	{
-	    $od = new tubepress_spi_options_OptionDescriptor('name');
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testRegisterDuplicate()
+    {
+        $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setDefaultValue('xyz');
 
         $this->_storageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
 
-	    $this->_sut->registerOptionDescriptor($od);
-	    $this->_sut->registerOptionDescriptor($od);
-	}
+        $this->_sut->registerOptionDescriptor($od);
+        $this->_sut->registerOptionDescriptor($od);
+    }
 
     public function testGetAll()
     {

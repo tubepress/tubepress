@@ -10,7 +10,7 @@
  */
 class tubepress_addons_jwplayer_resources_templates_embedded_JwPlayerEmbeddedVideoTemplateTest extends TubePressUnitTest
 {
-	public function testTemplate()
+    public function testTemplate()
     {
         $this->expectOutputString(<<<EOT
 <div id="video-dom-id">

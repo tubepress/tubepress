@@ -58,10 +58,10 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
     private function _getSingleVideoHtml($videoId)
     {
-        $pluginManager = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $provider      = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
-        $themeHandler  = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $template      = $themeHandler->getTemplateInstance('single_video.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $provider        = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
+        $themeHandler    = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $template        = $themeHandler->getTemplateInstance('single_video.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
 
         /* grab the video from the provider */
         if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
@@ -76,7 +76,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
             return sprintf('Video %s not found', $videoId);    //>(translatable)<
         }
 
-        if ($pluginManager->hasListeners(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION)) {
 
             $event = new tubepress_api_event_TubePressEvent(
 
@@ -87,7 +87,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
                 )
             );
 
-            $pluginManager->dispatch(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
                 $event
@@ -98,11 +98,11 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
         $html = $template->toString();
 
-        if ($pluginManager->hasListeners(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION)) {
 
             $event = new tubepress_api_event_TubePressEvent($html);
 
-            $pluginManager->dispatch(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION,
                 $event

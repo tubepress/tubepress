@@ -244,7 +244,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
             $video->setAttribute(tubepress_api_video_Video::ATTRIBUTE_PROVIDER_NAME, $this->getName());
 
             /*
-             * Let plugins build the rest of the video.
+             * Let add-ons build the rest of the video.
              */
             $event = new tubepress_api_event_TubePressEvent($video);
             $event->setArgument('zeroBasedFeedIndex', $index);

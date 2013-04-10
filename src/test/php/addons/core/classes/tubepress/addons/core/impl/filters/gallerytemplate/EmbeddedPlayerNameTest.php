@@ -20,12 +20,12 @@ class tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerNameTest 
      */
     private $_mockExecutionContext;
 
-	function onSetup()
-	{
-		$this->_sut = new tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerName();
+    function onSetup()
+    {
+        $this->_sut = new tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerName();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-	}
+    }
 
     public function testAlterTemplateLongtailYouTube()
     {

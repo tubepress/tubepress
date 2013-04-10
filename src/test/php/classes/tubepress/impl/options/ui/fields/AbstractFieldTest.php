@@ -10,7 +10,7 @@
  */
 abstract class tubepress_impl_options_ui_fields_AbstractFieldTest extends TubePressUnitTest
 {
-	private $_messageService;
+    private $_messageService;
 
     protected function doSetup(tubepress_spi_message_MessageService $messageService)
     {

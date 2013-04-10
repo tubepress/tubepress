@@ -82,6 +82,9 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         return $mockDescriptor->instance;
     }
 
+    /**
+     * @return ehough_mockery_mockery_MockInterface
+     */
     protected final function getMockIocContainer()
     {
         return $this->_mockIocContainer;

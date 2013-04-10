@@ -15,48 +15,48 @@ class tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistP
      */
     private $_sut;
 
-	function onSetup()
-	{
-		$this->_sut = new tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover();
-	}
+    function onSetup()
+    {
+        $this->_sut = new tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover();
+    }
 
-	function testAlterDifferentVariable()
-	{
+    function testAlterDifferentVariable()
+    {
         $event = new tubepress_api_event_TubePressEvent('PLsomething');
         $event->setArgument('optionName', tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 
-	    $this->assertEquals('PLsomething', $event->getSubject());
-	}
+        $this->assertEquals('PLsomething', $event->getSubject());
+    }
 
-	function testAlterNonString()
-	{
+    function testAlterNonString()
+    {
         $event = new tubepress_api_event_TubePressEvent(array('hello'));
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
-	    $this->_sut->onPreValidationOptionSet($event);
+        $this->_sut->onPreValidationOptionSet($event);
 
         $this->assertEquals(array('hello'), $event->getSubject());
-	}
+    }
 
-	function testAlterHtmlNonPrefix()
-	{
+    function testAlterHtmlNonPrefix()
+    {
         $event = new tubepress_api_event_TubePressEvent('hello');
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 
         $this->assertEquals('hello', $event->getSubject());
-	}
+    }
 
-	function testAlterPrefix()
-	{
+    function testAlterPrefix()
+    {
         $event = new tubepress_api_event_TubePressEvent('PLhelloPL');
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 
         $this->assertEquals('helloPL', $event->getSubject());
-	}
+    }
 }

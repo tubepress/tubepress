@@ -25,18 +25,18 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoPrependerTest ext
      */
     private $_mockHttpRequestParameterService;
 
-	function onSetup()
-	{
+    function onSetup()
+    {
 
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
         $this->_mockVideoProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
 
-		$this->_sut = new tubepress_addons_core_impl_filters_videogallerypage_VideoPrepender();
-	}
+        $this->_sut = new tubepress_addons_core_impl_filters_videogallerypage_VideoPrepender();
+    }
 
     public function testCustomVideo()
-	{
+    {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::VIDEO)->andReturn('custom-video');
 
         $video = new tubepress_api_video_Video();
@@ -52,10 +52,10 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoPrependerTest ext
         $this->_sut->onVideoGalleryPage($event);
 
         $this->assertEquals(array('x', $video), $event->getSubject()->getVideos());
-	}
+    }
 
-	function testNoCustomVideo()
-	{
+    function testNoCustomVideo()
+    {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::VIDEO)->andReturn('');
 
         $providerResult = new tubepress_api_video_VideoGalleryPage();
@@ -65,7 +65,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoPrependerTest ext
         $this->_sut->onVideoGalleryPage($event);
 
         $this->assertEquals(array(), $event->getSubject()->getVideos());
-	}
+    }
 
 }
 

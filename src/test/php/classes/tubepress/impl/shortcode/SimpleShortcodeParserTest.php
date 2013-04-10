@@ -152,7 +152,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
 
     function testNoQuotes()
     {
-        $shortcode = '[butters mode=playlist	]';
+        $shortcode = '[butters mode=playlist    ]';
         $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
@@ -239,7 +239,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
 
     function testSpaceAroundShortcode()
     {
-        $shortcode = "sddf	 [butters mode='playlist']	sdsdfsdf";
+        $shortcode = "sddf     [butters mode='playlist']    sdsdfsdf";
 
         $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 

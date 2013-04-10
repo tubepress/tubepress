@@ -80,12 +80,12 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
 
     public final function sortShortcodeHandlers($first, $second)
     {
-        if ($first instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+        if ($first instanceof tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
 
             return 1;
         }
 
-        if ($second instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+        if ($second instanceof tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
 
             return -1;
         }

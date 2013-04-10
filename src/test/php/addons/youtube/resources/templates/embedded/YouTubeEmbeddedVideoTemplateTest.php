@@ -10,7 +10,7 @@
  */
 class tubepress_addons_youtube_resources_templates_embedded_YouTubeEmbeddedVideoTemplateTest extends TubePressUnitTest
 {
-	public function testTemplate()
+    public function testTemplate()
     {
         $this->expectOutputString('<iframe id="some-dom-id" data-videoid="video-id" data-playerimplementation="some-embedded-impl-name" data-videoprovidername="some-video-provider" class="youtube-player" type="text/html" width="99" height="88" src="data-url" frameborder="0"></iframe>');
 

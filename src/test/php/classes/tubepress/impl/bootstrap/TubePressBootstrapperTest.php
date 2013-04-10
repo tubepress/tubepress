@@ -10,18 +10,39 @@
  */
 class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_bootstrap_TubePressBootstrapper
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockAddonDiscoverer;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockAddonRegistry;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
     function onSetup()
@@ -74,10 +95,10 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
 
         $this->_mockAddonDiscoverer->shouldReceive('findAddonsInDirectory')->once()
-            ->with(TUBEPRESS_ROOT . '/src/main/php/plugins')->andReturn(array($mockAddon1));
+            ->with(TUBEPRESS_ROOT . '/src/main/php/addons')->andReturn(array($mockAddon1));
 
         $this->_mockAddonDiscoverer->shouldReceive('findAddonsInDirectory')->once()
-            ->with(realpath('<<user-content-dir>>/plugins'))->andReturn(array($mockAddon2));
+            ->with(realpath('<<user-content-dir>>/addons'))->andReturn(array($mockAddon2));
 
         $this->_mockAddonRegistry->shouldReceive('load')->once()->with($mockAddon1);
         $this->_mockAddonRegistry->shouldReceive('load')->once()->with($mockAddon2);

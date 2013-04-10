@@ -85,30 +85,30 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
         $this->assertTrue($result[0] instanceof tubepress_spi_addon_Addon);
 
         /**
-         * @var $plugin tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_Addon
          */
-        $plugin = $result[0];
+        $addon = $result[0];
 
-        $this->assertTrue($plugin->getName() === 'plugin-b');
-        $this->assertTrue($plugin->getTitle() === 'Title for Plugin B');
-        $this->assertTrue($plugin->getVersion() instanceof tubepress_spi_version_Version);
-        $this->assertTrue((string) $plugin->getVersion() === '3.2.1');
-        $this->assertTrue(count($plugin->getLicenses()) === 2);
-        $this->assertEquals('http://foo.bar', $plugin->getLicenses()[0]['url']);
-        $this->assertEquals('http://foo.com', $plugin->getLicenses()[1]['url']);
-        $this->assertEquals('tubepress_impl_addon_FilesystemAddonDiscovererTest', $plugin->getBootstrap());
-        $this->assertEquals('Eric Hough', $plugin->getAuthor()['name']);
-        $this->assertEquals('This is a description', $plugin->getDescription());
-        $this->assertEquals(array('one', 'three', 'two'), $plugin->getKeywords());
-        $this->assertEquals('https://some.thing', $plugin->getHomepageUrl());
-        $this->assertEquals('http://hel.lo', $plugin->getDocumentationUrl());
-        $this->assertEquals('http://some.demo', $plugin->getDemoUrl());
-        $this->assertEquals('http://down.load', $plugin->getDownloadUrl());
-        $this->assertEquals('https://bug.tracker', $plugin->getBugTrackerUrl());
+        $this->assertTrue($addon->getName() === 'plugin-b');
+        $this->assertTrue($addon->getTitle() === 'Title for Plugin B');
+        $this->assertTrue($addon->getVersion() instanceof tubepress_spi_version_Version);
+        $this->assertTrue((string) $addon->getVersion() === '3.2.1');
+        $this->assertTrue(count($addon->getLicenses()) === 2);
+        $this->assertEquals('http://foo.bar', $addon->getLicenses()[0]['url']);
+        $this->assertEquals('http://foo.com', $addon->getLicenses()[1]['url']);
+        $this->assertEquals('tubepress_impl_addon_FilesystemAddonDiscovererTest', $addon->getBootstrap());
+        $this->assertEquals('Eric Hough', $addon->getAuthor()['name']);
+        $this->assertEquals('This is a description', $addon->getDescription());
+        $this->assertEquals(array('one', 'three', 'two'), $addon->getKeywords());
+        $this->assertEquals('https://some.thing', $addon->getHomepageUrl());
+        $this->assertEquals('http://hel.lo', $addon->getDocumentationUrl());
+        $this->assertEquals('http://some.demo', $addon->getDemoUrl());
+        $this->assertEquals('http://down.load', $addon->getDownloadUrl());
+        $this->assertEquals('https://bug.tracker', $addon->getBugTrackerUrl());
         $this->assertEquals(array('foobar' => TUBEPRESS_ROOT . '/src/test/resources/plugins/good_plugin//foo/bar',
-            'foozbaz' => TUBEPRESS_ROOT . '/src/test/resources/plugins/good_plugin//fooz/baz'), $plugin->getPsr0ClassPathRoots());
-        $this->assertEquals(array('yellow', 'orange'), $plugin->getIocContainerCompilerPasses());
-        $this->assertEquals(array('blue', 'black'), $plugin->getIocContainerExtensions());
+            'foozbaz' => TUBEPRESS_ROOT . '/src/test/resources/plugins/good_plugin//fooz/baz'), $addon->getPsr0ClassPathRoots());
+        $this->assertEquals(array('yellow', 'orange'), $addon->getIocContainerCompilerPasses());
+        $this->assertEquals(array('blue', 'black'), $addon->getIocContainerExtensions());
     }
 
     public function _callback()

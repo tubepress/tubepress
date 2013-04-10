@@ -27,14 +27,14 @@ class tubepress_addons_jwplayer_impl_BootstrapTest extends TubePressUnitTest
 
     private static $_regexColor = '/^([0-9a-f]{1,2}){3}$/i';
 
-	public function onSetup()
-	{
+    public function onSetup()
+    {
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockFieldBuilder               = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
         $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
-	}
+    }
 
-	public function testJwPlayer()
+    public function testJwPlayer()
     {
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
         $option->setDefaultValue('FFFFFF');

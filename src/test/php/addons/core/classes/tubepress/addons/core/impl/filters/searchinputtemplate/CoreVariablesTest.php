@@ -35,9 +35,9 @@ class tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariablesTest e
      */
     private $_mockHttpRequestParameterService;
 
-	function onSetup()
-	{
-		$this->_sut = new tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariables();
+    function onSetup()
+    {
+        $this->_sut = new tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariables();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
@@ -46,10 +46,10 @@ class tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariablesTest e
         $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-	}
+    }
 
-	function testYouTubeFavorites()
-	{
+    function testYouTubeFavorites()
+    {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL)->andReturn('');
 
         $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org?foo=bar&something=else');
@@ -71,7 +71,7 @@ class tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariablesTest e
         $this->_sut->onSearchInputTemplate($event);
 
         $this->assertEquals($mockTemplate, $event->getSubject());
-	}
+    }
 
 }
 

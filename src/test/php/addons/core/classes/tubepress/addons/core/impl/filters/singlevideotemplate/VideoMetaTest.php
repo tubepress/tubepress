@@ -30,24 +30,24 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_VideoMetaTest exten
      */
     private $_mockOptionDescriptorReference;
 
-	function onSetup()
-	{
+    function onSetup()
+    {
         $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 
-		$this->_sut = new tubepress_addons_core_impl_filters_singlevideotemplate_VideoMeta();
-	}
+        $this->_sut = new tubepress_addons_core_impl_filters_singlevideotemplate_VideoMeta();
+    }
 
-	function testYouTubeFavorites()
-	{
-	    $this->_mockMessageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
-	          return "##$msg##";
-	    });
+    function testYouTubeFavorites()
+    {
+        $this->_mockMessageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
+              return "##$msg##";
+        });
 
-	    $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
+        $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
         $shouldShow = array();
         $labels     = array();
 
@@ -81,7 +81,7 @@ class tubepress_addons_core_impl_filters_singlevideotemplate_VideoMetaTest exten
         $this->_sut->onSingleVideoTemplate($event);
 
         $this->assertEquals($mockTemplate, $event->getSubject());
-	}
+    }
 
 }
 

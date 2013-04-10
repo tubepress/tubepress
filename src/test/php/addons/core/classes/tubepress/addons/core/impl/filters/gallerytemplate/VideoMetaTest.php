@@ -20,21 +20,21 @@ class tubepress_addons_core_impl_filters_gallerytemplate_VideoMetaTest extends T
      */
     private $_mockExecutionContext;
 
-	function onSetup()
-	{
-		$this->_sut = new tubepress_addons_core_impl_filters_gallerytemplate_VideoMeta();
+    function onSetup()
+    {
+        $this->_sut = new tubepress_addons_core_impl_filters_gallerytemplate_VideoMeta();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-	}
+    }
 
-	function testVideoMetaAboveAndBelow()
-	{
+    function testVideoMetaAboveAndBelow()
+    {
         $messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
-	    $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
-	          return "##$msg##";
-	    });
+        $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
+              return "##$msg##";
+        });
 
-	    $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
+        $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
         $shouldShow = array();
         $labels     = array();
 
@@ -58,7 +58,7 @@ class tubepress_addons_core_impl_filters_gallerytemplate_VideoMetaTest extends T
         }
 
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
-	    $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_LABELS, $labels);
 
         $providerResult = new tubepress_api_video_VideoGalleryPage();
@@ -74,6 +74,6 @@ class tubepress_addons_core_impl_filters_gallerytemplate_VideoMetaTest extends T
         $this->_sut->onGalleryTemplate($event);
 
         $this->assertEquals($mockTemplate, $event->getSubject());
-	}
+    }
 }
 
