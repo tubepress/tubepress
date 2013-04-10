@@ -32,34 +32,20 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
     public function testInit()
     {
         $this->_testOptions();
-        $this->_testEventListenerRegistration();
+        $this->_testEventHandler();
 
         require TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/classes/tubepress/addons/vimeo/impl/Bootstrap.php';
 
         $this->assertTrue(true);
     }
 
-    public function testEventHandler()
+    private function _testEventHandler()
     {
-        $video = new tubepress_api_video_Video();
-
-        $event = new tubepress_api_event_TubePressEvent($video);
-        $event->setName(tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION);
-
-        $mockFilter = $this->createMockSingletonService('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener');
-        $mockFilter->shouldReceive('onVideoConstruction')->once()->with($event);
-
-        tubepress_addons_vimeo_Vimeo::_callbackEventHandler($event);
-
-        $this->assertTrue(true);
-    }
-
-    private function _testEventListenerRegistration()
-    {
-        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(
+        $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
 
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
-            array('tubepress_addons_vimeo_Vimeo', '_callbackEventHandler')
+            'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
+            'onVideoConstruction'
         );
     }
 

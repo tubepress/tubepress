@@ -44,27 +44,13 @@ class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
         $this->assertTrue(true);
     }
 
-    public function testEventHandler()
-    {
-        $video = new tubepress_api_video_Video();
-
-        $event = new tubepress_api_event_TubePressEvent($video);
-        $event->setName(tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION);
-
-        $mockFilter = $this->createMockSingletonService('tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener');
-        $mockFilter->shouldReceive('onVideoConstruction')->once()->with($event);
-
-        tubepress_addons_youtube_YouTube::_callbackEventHandler($event);
-
-        $this->assertTrue(true);
-    }
-
     private function _testEventListenerRegistration()
     {
-        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(
+        $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
 
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
-            array('tubepress_addons_youtube_YouTube', '_callbackEventHandler')
+            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
+            'onVideoConstruction'
         );
     }
 

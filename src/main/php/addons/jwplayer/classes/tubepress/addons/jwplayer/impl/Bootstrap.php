@@ -19,6 +19,10 @@ class tubepress_addons_jwplayer_JwPlayer
     public static function init()
     {
         $odr                        = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+
+        /**
+         * @var $eventDispatcher ehough_tickertape_ContainerAwareEventDispatcher
+         */
         $eventDispatcher            = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
@@ -49,9 +53,11 @@ class tubepress_addons_jwplayer_JwPlayer
         $option->setValidValueRegex(self::$_regexColor);
         $odr->registerOptionDescriptor($option);
 
-        $eventDispatcher->addListener(tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
+        $eventDispatcher->addListenerService(
 
-            array(new tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars(), 'onEmbeddedTemplate')
+            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
+            'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars',
+            'onEmbeddedTemplate'
         );
     }
 }

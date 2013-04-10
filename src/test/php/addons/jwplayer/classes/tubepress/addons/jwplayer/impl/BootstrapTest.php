@@ -64,12 +64,12 @@ class tubepress_addons_jwplayer_impl_BootstrapTest extends TubePressUnitTest
         $option->setValidValueRegex(self::$_regexColor);
         $this->_verifyOption($option);
 
-        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
-            ehough_mockery_Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
 
-                return is_array($arg) && $arg[0] instanceof tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars
-                    && $arg[1] === 'onEmbeddedTemplate';
-        }));
+            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
+            'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars',
+            'onEmbeddedTemplate'
+        );
 
         require TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/classes/tubepress/addons/jwplayer/impl/Bootstrap.php';
 
