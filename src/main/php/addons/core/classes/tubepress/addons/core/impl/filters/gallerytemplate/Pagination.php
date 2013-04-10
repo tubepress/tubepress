@@ -29,7 +29,7 @@ class tubepress_addons_core_impl_filters_gallerytemplate_Pagination
 
         $pm->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::PAGINATION_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::PAGINATION_HTML_CONSTRUCTION,
             $event
         );
 

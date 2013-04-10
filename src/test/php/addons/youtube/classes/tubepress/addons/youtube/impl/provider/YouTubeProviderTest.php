@@ -105,7 +105,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends TubePre
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->times(16)->with(
 
-            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
 
                 return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_Video;
@@ -125,7 +125,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends TubePre
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
 
                 return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_Video;

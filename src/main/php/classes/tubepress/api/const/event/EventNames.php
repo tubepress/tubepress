@@ -12,7 +12,7 @@
 /**
  * A list of the "core" TubePress events.
  */
-class tubepress_api_const_event_CoreEventNames
+class tubepress_api_const_event_EventNames
 {
     /**
      * This event is fired when TubePress builds the HTML for an embedded video player.

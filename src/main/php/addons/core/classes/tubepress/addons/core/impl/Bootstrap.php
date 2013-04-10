@@ -625,17 +625,17 @@ class tubepress_addons_core_impl_Bootstrap
         $callback        = array('tubepress_addons_core_impl_Bootstrap', '_callbackHandleEvent');
         $eventNames      = array(
 
-            tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::PLAYER_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET,
-            tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
-            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::EMBEDDED_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET,
+            tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
+            tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
         );
 
         foreach ($eventNames as $eventName) {
@@ -648,7 +648,7 @@ class tubepress_addons_core_impl_Bootstrap
     {
         switch ($event->getName()) {
 
-            case tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT:
+            case tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT:
 
                 self::_call(
 
@@ -658,7 +658,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION:
 
                 self::_call(
 
@@ -674,7 +674,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION:
 
                 self::_call(
 
@@ -684,7 +684,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION:
 
                 self::_call(
 
@@ -712,7 +712,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET:
+            case tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET:
 
                 self::_call(
 
@@ -728,7 +728,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::PLAYER_TEMPLATE_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION:
 
                 self::_call(
 
@@ -738,7 +738,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION:
 
                 self::_call(
 
@@ -772,7 +772,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION:
 
                 self::_call(
 
@@ -782,7 +782,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION:
 
                 self::_call(
 
@@ -792,7 +792,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION:
 
                 self::_call(
 
@@ -802,7 +802,7 @@ class tubepress_addons_core_impl_Bootstrap
 
                 break;
 
-            case tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::EMBEDDED_HTML_CONSTRUCTION:
 
                 self::_call(
 

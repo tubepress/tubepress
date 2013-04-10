@@ -27,7 +27,7 @@ final class tubepress_addons_vimeo_Vimeo
     {
         switch ($event->getName()) {
 
-            case tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION:
+            case tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION:
 
                 self::_call(
 
@@ -50,7 +50,7 @@ final class tubepress_addons_vimeo_Vimeo
 
         $eventDispatcher->addListener(
 
-            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             array('tubepress_addons_vimeo_Vimeo', '_callbackEventHandler')
         );
     }

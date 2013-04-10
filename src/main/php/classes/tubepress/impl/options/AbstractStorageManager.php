@@ -61,7 +61,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, $event);
+        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET, $event);
         $filteredValue = $event->getSubject();
 
         /** OK, let's see if it's valid. */

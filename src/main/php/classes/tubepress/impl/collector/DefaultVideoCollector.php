@@ -95,7 +95,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $eventDispatcher->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             $event
         );
 

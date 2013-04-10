@@ -108,6 +108,6 @@ class tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTest
 
         $this->_mockHttpClient->shouldReceive('execute')->once()->with(ehough_mockery_Mockery::on(array($this, '_callbackCacheMiss')))->andReturn($mockResponse);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::HTTP_RESPONSE, ehough_mockery_Mockery::on(array($this, '_callbackHttpResponse')));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTTP_RESPONSE, ehough_mockery_Mockery::on(array($this, '_callbackHttpResponse')));
     }
 }

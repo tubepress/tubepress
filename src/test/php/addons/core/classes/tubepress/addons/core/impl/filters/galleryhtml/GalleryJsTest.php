@@ -44,7 +44,7 @@ class tubepress_addons_core_impl_filters_galleryhtml_GalleryJsTest extends TubeP
 
         $fakeArgs = array('yo' => 'mamma', 'is' => '"so fat"', 'x' => array('foo' => 500, 'html' => '<>\'"'));
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) use ($fakeArgs) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) use ($fakeArgs) {
 
             $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array();
 

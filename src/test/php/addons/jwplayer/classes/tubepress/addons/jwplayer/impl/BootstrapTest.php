@@ -64,7 +64,7 @@ class tubepress_addons_jwplayer_impl_BootstrapTest extends TubePressUnitTest
         $option->setValidValueRegex(self::$_regexColor);
         $this->_verifyOption($option);
 
-        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
+        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
 
                 return is_array($arg) && $arg[0] instanceof tubepress_addons_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateVars

@@ -22,7 +22,7 @@ class tubepress_addons_core_impl_filters_galleryhtml_GalleryJs
 
         $jsEvent = new tubepress_api_event_TubePressEvent(array());
 
-        $filterManager->dispatch(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, $jsEvent);
+        $filterManager->dispatch(tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION, $jsEvent);
 
         $args   = $jsEvent->getSubject();
         $asJson = json_encode($args);

@@ -150,7 +150,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
+                tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
                 $event
             );
 

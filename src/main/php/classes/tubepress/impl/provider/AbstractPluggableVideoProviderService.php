@@ -257,7 +257,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
 
             $video = $this->_fireEventAndGetSubject(
 
-                tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
                 $event
             );
 

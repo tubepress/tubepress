@@ -56,7 +56,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_const_event_CoreEventNames::PLAYER_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate, $mockVideo) {
 
                 return $arg->getSubject() == $mockTemplate && $arg->getArgument('video') == $mockVideo
@@ -72,7 +72,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_const_event_CoreEventNames::PLAYER_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::PLAYER_HTML_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) use ($mockVideo) {
 
                 return $arg->getSubject() == 'foobarr' && $arg->getArgument('video') == $mockVideo
@@ -84,7 +84,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::HTML_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
 
                 return $arg->getSubject() === 'foobarr';

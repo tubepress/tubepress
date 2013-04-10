@@ -44,7 +44,7 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
         $video = new tubepress_api_video_Video();
 
         $event = new tubepress_api_event_TubePressEvent($video);
-        $event->setName(tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION);
+        $event->setName(tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION);
 
         $mockFilter = $this->createMockSingletonService('tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter');
         $mockFilter->shouldReceive('onVideoConstruction')->once()->with($event);
@@ -58,7 +58,7 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
     {
         $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(
 
-            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             array('tubepress_addons_vimeo_Vimeo', '_callbackEventHandler')
         );
     }

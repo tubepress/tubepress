@@ -87,7 +87,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, $event);
+        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET, $event);
         $filteredValue = $event->getSubject();
 
         if ($optionValidatorService->isValid($optionName, $filteredValue)) {

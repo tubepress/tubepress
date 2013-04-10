@@ -66,11 +66,11 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
         $event = new tubepress_api_event_TubePressEvent($html);
 
         /* send it through the filters */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_CONSTRUCTION)) {
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::HTML_CONSTRUCTION,
                 $event
             );
         }
