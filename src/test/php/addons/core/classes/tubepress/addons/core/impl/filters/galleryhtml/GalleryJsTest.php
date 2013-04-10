@@ -10,12 +10,24 @@
  */
 class tubepress_addons_core_impl_filters_galleryhtml_GalleryJsTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_galleryhtml_GalleryJs
+     */
+    private $_sut;
 
-	private $_providerResult;
+    /**
+     * @var tubepress_api_video_VideoGalleryPage
+     */
+    private $_providerResult;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
 	function onSetup()

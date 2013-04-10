@@ -10,8 +10,14 @@
  */
 class tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklistTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_videogallerypage_VideoBlacklist
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
 	function onSetup()

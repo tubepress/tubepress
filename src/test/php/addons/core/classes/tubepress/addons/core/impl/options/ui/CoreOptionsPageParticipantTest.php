@@ -15,6 +15,9 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipantTest exten
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFieldBuilder;
 
     public function onSetup()

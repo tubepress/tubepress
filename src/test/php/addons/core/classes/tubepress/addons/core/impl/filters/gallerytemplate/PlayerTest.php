@@ -10,13 +10,22 @@
  */
 class tubepress_addons_core_impl_filters_gallerytemplate_PlayerTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_core_impl_filters_gallerytemplate_Player
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockPlayerHtmlGenerator;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_filters_gallerytemplate_Player();
 
@@ -24,7 +33,7 @@ class tubepress_addons_core_impl_filters_gallerytemplate_PlayerTest extends Tube
         $this->_mockPlayerHtmlGenerator = $this->createMockSingletonService(tubepress_spi_player_PlayerHtmlGenerator::_);
     }
 
-    function testNonPlayerLoadOnPage()
+    public function testNonPlayerLoadOnPage()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-name');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
@@ -51,12 +60,12 @@ class tubepress_addons_core_impl_filters_gallerytemplate_PlayerTest extends Tube
         $this->assertEquals($mockTemplate, $event->getSubject());
     }
 
-    function testAlterTemplateStaticPlayer()
+    public function testAlterTemplateStaticPlayer()
     {
         $this->_testPlayerLoadOnPage('static');
     }
 
-    function testAlterTemplateNormalPlayer()
+    public function testAlterTemplateNormalPlayer()
     {
         $this->_testPlayerLoadOnPage('normal');
     }

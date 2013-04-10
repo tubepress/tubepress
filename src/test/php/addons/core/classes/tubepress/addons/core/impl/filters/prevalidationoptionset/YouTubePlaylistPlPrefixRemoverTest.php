@@ -10,7 +10,10 @@
  */
 class tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemoverTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover
+     */
+    private $_sut;
 
 	function onSetup()
 	{

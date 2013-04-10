@@ -10,10 +10,17 @@
  */
 class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorterTest extends TubePressUnitTest
 {
+    /** @var tubepress_addons_core_impl_filters_videogallerypage_PerPageSorter */
 	private $_sut;
 
-	private $_videos;
+    /**
+     * @var array
+     */
+    private $_videos;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
 	function onSetup()

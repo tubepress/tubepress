@@ -12,7 +12,6 @@ require_once __DIR__ . '/../AbstractStringMagicFilterTest.php';
 
 class tubepress_addons_core_impl_filters_prevalidationoptionset_StringMagicTest extends tubepress_addons_core_impl_filters_AbstractStringMagicFilterTest
 {
-
     protected function _buildSut()
     {
         return new tubepress_addons_core_impl_filters_prevalidationoptionset_StringMagic();

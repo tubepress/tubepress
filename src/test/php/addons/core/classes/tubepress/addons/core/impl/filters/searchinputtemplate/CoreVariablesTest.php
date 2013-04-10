@@ -10,14 +10,29 @@
  */
 class tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariablesTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_searchinputtemplate_CoreVariables
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockQueryStringService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
 	function onSetup()

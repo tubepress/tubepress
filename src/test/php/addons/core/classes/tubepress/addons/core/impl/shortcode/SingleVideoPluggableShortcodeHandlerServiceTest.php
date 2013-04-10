@@ -8,19 +8,31 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServiceTest extends TubePressUnitTest
+class tubepress_addons_core_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServiceTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockThemeHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockProvider;
 
 	function onSetup()
@@ -69,7 +81,7 @@ class tubepress_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServ
         $this->assertEquals('template-string', $this->_sut->getHtml());
 	}
 
-    function testGetName()
+    public function testGetName()
     {
         $this->assertEquals('single-video', $this->_sut->getName());
     }

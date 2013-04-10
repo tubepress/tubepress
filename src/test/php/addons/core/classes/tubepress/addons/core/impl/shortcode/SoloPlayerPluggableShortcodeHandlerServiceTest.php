@@ -15,10 +15,19 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockSingleVideoShortcodeHandler;
 
 	function onSetup()

@@ -15,12 +15,24 @@ class tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandServiceTest exte
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockPlayerHtmlGenerator;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockVideoCollector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
     public function onSetup()

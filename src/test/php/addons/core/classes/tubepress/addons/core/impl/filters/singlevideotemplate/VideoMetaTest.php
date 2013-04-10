@@ -10,12 +10,24 @@
  */
 class tubepress_addons_core_impl_filters_singlevideotemplate_VideoMetaTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_singlevideotemplate_VideoMeta
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionDescriptorReference;
 
 	function onSetup()

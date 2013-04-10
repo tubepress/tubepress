@@ -15,13 +15,22 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockThumbGalleryShortcodeHandler;
 
-    function onSetup()
+    public function onSetup()
     {
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
@@ -33,14 +42,14 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
     }
 
 
-    function testCantExecute()
+    public function testCantExecute()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::OUTPUT)->andReturn(tubepress_api_const_options_values_OutputValue::SEARCH_INPUT);
 
         $this->assertFalse($this->_sut->shouldExecute());
     }
 
-    function testExecuteVimeo()
+    public function testExecuteVimeo()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)->andReturn('vimeo');
         $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
@@ -54,7 +63,7 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
     }
 
 
-    function testExecuteYouTube()
+    public function testExecuteYouTube()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)->andReturn('youtube');
         $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
@@ -67,14 +76,14 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
         $this->assertEquals('xyz', $this->_sut->getHtml());
     }
 
-    function testExecuteHasToShowSearchResultsNotSearching()
+    public function testExecuteHasToShowSearchResultsNotSearching()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::SEARCH_TERMS)->andReturn("");
 
         $this->assertEquals('', $this->_sut->getHtml());
     }
 
-    function testExecuteDoesntHaveToShowSearchResultsNotSearching()
+    public function testExecuteDoesntHaveToShowSearchResultsNotSearching()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::OUTPUT)->andReturn(tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY)->andReturn(false);

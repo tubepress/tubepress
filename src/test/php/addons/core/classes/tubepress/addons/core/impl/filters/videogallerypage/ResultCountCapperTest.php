@@ -10,8 +10,14 @@
  */
 class tubepress_addons_core_impl_filters_videogallerypage_ResultCountCapperTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_videogallerypage_ResultCountCapper
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
 	function onSetup()

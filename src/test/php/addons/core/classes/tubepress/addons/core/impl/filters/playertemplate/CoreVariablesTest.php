@@ -10,10 +10,19 @@
  */
 class tubepress_addons_core_impl_filters_playertemplate_CoreVariablesTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_core_impl_filters_playertemplate_CoreVariables
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEmbeddedHtmlGenerator;
 
     public function onSetup()
@@ -25,7 +34,7 @@ class tubepress_addons_core_impl_filters_playertemplate_CoreVariablesTest extend
         $this->_mockEmbeddedHtmlGenerator = $this->createMockSingletonService(tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
     }
 
-    function testAlterTemplate()
+    public function testAlterTemplate()
     {
         $video = new tubepress_api_video_Video();
         $video->setId('video-id');

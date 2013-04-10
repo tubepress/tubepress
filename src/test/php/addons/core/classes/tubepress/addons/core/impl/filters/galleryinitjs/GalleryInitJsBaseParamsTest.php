@@ -8,12 +8,21 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_addon_filters_galleryinitjs_GalleryInitJsBaseParamsTest extends TubePressUnitTest
+class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParamsTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionDescriptorReference;
 
 	function onSetup()
@@ -24,7 +33,7 @@ class tubepress_impl_addon_filters_galleryinitjs_GalleryInitJsBaseParamsTest ext
         $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 	}
 
-    function onTearDown()
+    public function onTearDown()
     {
         global $tubepress_base_url;
 

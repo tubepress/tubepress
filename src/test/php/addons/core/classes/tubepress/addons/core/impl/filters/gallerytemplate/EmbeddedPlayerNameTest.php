@@ -10,8 +10,14 @@
  */
 class tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerNameTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerName
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
 	function onSetup()
@@ -21,17 +27,17 @@ class tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerNameTest 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 	}
 
-    function testAlterTemplateLongtailYouTube()
+    public function testAlterTemplateLongtailYouTube()
     {
         $this->_testCustomYouTube('longtail');
     }
 
-    function testAlterTemplateEmbedPlusYouTube()
+    public function testAlterTemplateEmbedPlusYouTube()
     {
         $this->_testCustomYouTube('embedplus');
     }
 
-    function testAlterTemplateProviderDefault()
+    public function testAlterTemplateProviderDefault()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('player-impl');
 

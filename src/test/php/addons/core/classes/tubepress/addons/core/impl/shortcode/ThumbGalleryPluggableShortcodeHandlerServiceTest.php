@@ -15,14 +15,29 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockThemeHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockProvider;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
     private $_messageService;

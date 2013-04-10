@@ -10,10 +10,19 @@
  */
 class tubepress_addons_core_impl_filters_videogallerypage_VideoPrependerTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_videogallerypage_VideoPrepender
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockVideoProvider;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
 	function onSetup()
@@ -26,7 +35,7 @@ class tubepress_addons_core_impl_filters_videogallerypage_VideoPrependerTest ext
 		$this->_sut = new tubepress_addons_core_impl_filters_videogallerypage_VideoPrepender();
 	}
 
-    function testCustomVideo()
+    public function testCustomVideo()
 	{
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::VIDEO)->andReturn('custom-video');
 

@@ -10,8 +10,14 @@
  */
 class tubepress_addons_core_impl_filters_gallerytemplate_CoreVariablesTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_core_impl_filters_gallerytemplate_CoreVariables
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
     public function onSetup()
@@ -21,7 +27,7 @@ class tubepress_addons_core_impl_filters_gallerytemplate_CoreVariablesTest exten
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
     }
 
-    function testAlterTemplate()
+    public function testAlterTemplate()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH)->andReturn(556);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT)->andReturn(984);

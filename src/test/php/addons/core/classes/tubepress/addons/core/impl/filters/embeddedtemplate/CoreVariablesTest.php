@@ -8,10 +8,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_addon_filters_embeddedtemplate_CoreVariablesTest extends TubePressUnitTest
+class tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariablesTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_embeddedtemplate_CoreVariables
+     */
+    private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
 	function onSetup()
@@ -59,7 +65,7 @@ class tubepress_impl_addon_filters_embeddedtemplate_CoreVariablesTest extends Tu
 	    $this->assertEquals($mockTemplate, $event->getSubject());
 	}
 
-    function onTearDown()
+    public function onTearDown()
     {
         global $tubepress_base_url;
 

@@ -10,7 +10,10 @@
  */
 abstract class tubepress_addons_core_impl_filters_AbstractStringMagicFilterTest extends TubePressUnitTest
 {
-	private $_sut;
+    /**
+     * @var tubepress_addons_core_impl_filters_AbstractStringMagicFilter
+     */
+    private $_sut;
 
 	function onSetup()
 	{
@@ -28,7 +31,7 @@ abstract class tubepress_addons_core_impl_filters_AbstractStringMagicFilterTest 
 	    $this->_booleanConversion(false, ' faLSe  ');
 	}
 
-    function testInt()
+    public function testInt()
     {
         $event = $this->buildEvent('name', 5);
 
@@ -37,7 +40,7 @@ abstract class tubepress_addons_core_impl_filters_AbstractStringMagicFilterTest 
         $this->assertEquals(5, $event->getSubject());
     }
 
-    function testDeepArray()
+    public function testDeepArray()
     {
         $val = array(array(array('name' => '  some <value> \\\\" ')));
 
@@ -60,7 +63,7 @@ abstract class tubepress_addons_core_impl_filters_AbstractStringMagicFilterTest 
 
         $this->_performAltering($this->_sut, $event);
 
-        return $this->assertEquals($expected, $event->getSubject());
+        $this->assertEquals($expected, $event->getSubject());
     }
 
     private function buildEvent($name, $value)

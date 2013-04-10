@@ -10,18 +10,39 @@
  */
 class tubepress_addons_core_impl_filters_gallerytemplate_PaginationTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_core_impl_filters_gallerytemplate_Pagination
+     */
     private $_sut;
 
+    /**
+     * @var tubepress_api_video_VideoGalleryPage
+     */
     private $_providerResult;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplate;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockQueryStringService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
     public function onSetup()

@@ -15,13 +15,22 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockThemeHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService();
 
@@ -31,14 +40,14 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
 
     }
 
-    function testShouldNotExecute()
+    public function testShouldNotExecute()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::OUTPUT)->andReturn(tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
 
         $this->assertFalse($this->_sut->shouldExecute());
     }
 
-    function testExecute()
+    public function testExecute()
     {
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
