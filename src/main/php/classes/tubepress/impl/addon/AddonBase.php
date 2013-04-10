@@ -97,15 +97,13 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         $version,
         $title,
         array $author,
-        array $licenses,
-        $bootstrap) {
+        array $licenses) {
 
         $this->_setName($name);
         $this->_setVersion($version);
         $this->_setTitle($title);
         $this->_setAuthor($author);
         $this->_setLicenses($licenses);
-        $this->_setBootstrap($bootstrap);
     }
 
     public function setDescription($description)
@@ -323,6 +321,11 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         return $this->_psr0ClassPathRoots;
     }
 
+    /**
+     * @return string Optional. Either the absolute path of a PHP file that will be included on bootup,
+     *                          or the fully-qualified class name of a class that has a public function
+     *                          named boot().
+     */
     public function getBootstrap()
     {
         return $this->_bootstrap;
@@ -424,7 +427,7 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         $this->_licenses = $licenses;
     }
 
-    private function _setBootstrap($bootstrap)
+    public function setBootstrap($bootstrap)
     {
         if (!is_string($bootstrap)) {
 
@@ -432,9 +435,9 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         }
 
         /**
-         * They gave us an absolute path.
+         * They gave us a file.
          */
-        if (is_file($bootstrap) && is_readable($bootstrap)) {
+        if (tubepress_impl_util_StringUtils::endsWith($bootstrap, '.php') && is_file($bootstrap) && is_readable($bootstrap)) {
 
             $this->_bootstrap = $bootstrap;
 

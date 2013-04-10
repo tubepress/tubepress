@@ -71,8 +71,9 @@ interface tubepress_spi_addon_Addon
     function getLicenses();
 
     /**
-     * @return string Either the absolute path of a script that will be included on bootup, or the fully-qualified
-     *                class name of a class that has a public function called boot().
+     * @return string Optional. Either the absolute path of a PHP file that will be included on bootup,
+     *                          or the fully-qualified class name of a class that has a public function
+     *                          named boot().
      */
     function getBootstrap();
 

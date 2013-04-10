@@ -215,94 +215,54 @@ class tubepress_impl_player_AddonBaseTest extends TubePressUnitTest
     {
         $this->setExpectedException('InvalidArgumentException', 'bootstrap class\'s boot() method must be public');
 
-        new tubepress_impl_addon_AddonBase(
+        $addon = $this->_buildValidAddon();
 
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar')),
-            'InValidBootstrapClassNonPublicBootFunction'
-        );
+        $addon->setBootstrap('InValidBootstrapClassNonPublicBootFunction');
     }
 
     public function testBootstrapClassWithExtraArgs()
     {
         $this->setExpectedException('InvalidArgumentException', 'bootstrap class\'s boot() method must not have any parameters');
 
-        new tubepress_impl_addon_AddonBase(
+        $addon = $this->_buildValidAddon();
 
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar')),
-            'InValidBootstrapClassExtraArgs'
-        );
+        $addon->setBootstrap('InValidBootstrapClassExtraArgs');
     }
 
     public function testBootstrapClassDoesNotHaveBootMethod()
     {
         $this->setExpectedException('InvalidArgumentException', 'bootstrap class must implement a boot() method');
 
-        new tubepress_impl_addon_AddonBase(
+        $addon = $this->_buildValidAddon();
 
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar')),
-            'InValidBootstrapClass'
-        );
+        $addon->setBootstrap('InValidBootstrapClass');
     }
 
     public function testNoSuchBootstrap()
     {
         $this->setExpectedException('InvalidArgumentException', 'bootstrap must either be a file or a PHP class');
 
-        new tubepress_impl_addon_AddonBase(
+        $addon = $this->_buildValidAddon();
 
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar')),
-            'foobar'
-        );
+        $addon->setBootstrap('foobar');
     }
 
     public function testAbsPathBootstrap()
     {
-        $tempFile = tempnam(sys_get_temp_dir(), 'tubepress-testing');
+        $addon = $this->_buildValidAddon();
 
-        $addon = new tubepress_impl_addon_AddonBase(
+        $addon->setBootstrap(__FILE__);
 
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar')),
-            $tempFile
-        );
-
-        $this->assertTrue($addon->getBootstrap() === $tempFile);
-
-        unlink($tempFile);
+        $this->assertTrue($addon->getBootstrap() === __FILE__);
     }
 
     public function testNonStringBootstrap()
     {
         $this->setExpectedException('InvalidArgumentException', 'bootstrap must be a string');
 
-        new tubepress_impl_addon_AddonBase(
+        $addon = $this->_buildValidAddon();
 
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar')),
-            array()
-        );
+        $addon->setBootstrap(array());
     }
 
     public function testInvalidLicenseAttribute()
@@ -524,8 +484,7 @@ class tubepress_impl_player_AddonBaseTest extends TubePressUnitTest
             tubepress_spi_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar')),
-            'ValidBootstrapClass'
+            array(array('url' => 'http://foo.bar'))
         );
     }
 }

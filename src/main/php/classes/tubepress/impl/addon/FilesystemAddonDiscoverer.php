@@ -100,8 +100,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
             tubepress_spi_addon_Addon::ATTRIBUTE_VERSION,
             tubepress_spi_addon_Addon::ATTRIBUTE_TITLE,
             tubepress_spi_addon_Addon::ATTRIBUTE_AUTHOR,
-            tubepress_spi_addon_Addon::ATTRIBUTE_LICENSES,
-            tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP
+            tubepress_spi_addon_Addon::ATTRIBUTE_LICENSES
         );
 
         foreach ($requiredAttributeNames as $requiredAttributeName) {
@@ -124,6 +123,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
         $optionalAttributeNames = array(
 
+            tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP           => 'Bootstrap',
             tubepress_spi_addon_Addon::ATTRIBUTE_DESCRIPTION         => 'Description',
             tubepress_spi_addon_Addon::ATTRIBUTE_KEYWORDS            => 'Keywords',
             tubepress_spi_addon_Addon::ATTRIBUTE_URL_HOMEPAGE        => 'HomepageUrl',
@@ -141,6 +141,14 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
             if ($optionalAttributeName === tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS) {
 
                 $manifest[$optionalAttributeName] = $this->_cleanPsr0Path($manifest[$optionalAttributeName], $path);
+            }
+
+            if ($optionalAttributeName === tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP) {
+
+                if (tubepress_impl_util_StringUtils::endsWith($manifest[$optionalAttributeName], '.php')) {
+
+                    $manifest[$optionalAttributeName] = $this->_cleanSinglePath($manifest[$optionalAttributeName], $path);
+                }
             }
 
             if (isset($manifest[$optionalAttributeName])) {
