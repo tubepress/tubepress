@@ -8,13 +8,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_jwplayer_impl_embedded_JwPlayerEmbeddedPlayerTest extends TubePressUnitTest
+class tubepress_addons_jwplayer_impl_embedded_JwPlayerEmbeddedPlayerTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService
+     */
     private $_sut;
 
     public function onSetup() {
 
-        $this->_sut = new tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService();
+        $this->_sut = new tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService();
     }
 
     public function testGetName()
@@ -34,7 +37,7 @@ class tubepress_plugins_jwplayer_impl_embedded_JwPlayerEmbeddedPlayerTest extend
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 
             'embedded/longtail.tpl.php',
-            TUBEPRESS_ROOT . '/src/main/php/plugins/jwplayer/resources/templates'
+            TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/resources/templates'
         )->andReturn('abc');
 
         $result = $this->_sut->getTemplate($mockThemeHandler);

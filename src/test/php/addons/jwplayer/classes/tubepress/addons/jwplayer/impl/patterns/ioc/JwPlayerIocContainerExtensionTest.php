@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtensionTest extends TubePressUnitTest
+class tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtensionTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension
+     * @var tubepress_addons_core_impl_patterns_ioc_IocContainerExtension
      */
     private $_sut;
 
@@ -22,7 +22,7 @@ class tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension();
+        $this->_sut = new tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension();
 
         $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
     }
@@ -34,7 +34,7 @@ class tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension
 
     public function testLoad()
     {
-        $this->_sut->load($this->_mockParentContainer);
+        $this->_sut->load(array(), $this->_mockParentContainer);
 
         foreach ($this->_getExpectedServices() as $service) {
 
@@ -55,13 +55,13 @@ class tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension
     {
         $map = array(
 
-          array('tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
-              'tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
+          array('tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
+              'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
               tubepress_spi_options_ui_PluggableOptionsPageParticipant::_),
 
 
-            array('tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
-                'tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
+            array('tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
+                'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
                 tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)
         );
 

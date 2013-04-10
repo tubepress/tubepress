@@ -12,7 +12,7 @@
 /**
  * Hooks JW Player into TubePress.
  */
-class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant implements tubepress_spi_options_ui_PluggableOptionsPageParticipant
+class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant implements tubepress_spi_options_ui_PluggableOptionsPageParticipant
 {
     /**
      * @return string The name that will be displayed in the options page filter (top right).
@@ -48,25 +48,25 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant 
 
             $fieldBuilder->build(
 
-                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             ),
 
             $fieldBuilder->build(
 
-                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             ),
 
             $fieldBuilder->build(
 
-                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             ),
 
             $fieldBuilder->build(
 
-                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
                 tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
             )
         );

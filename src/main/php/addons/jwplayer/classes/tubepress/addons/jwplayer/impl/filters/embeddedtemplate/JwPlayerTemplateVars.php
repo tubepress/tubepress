@@ -12,7 +12,7 @@
 /**
  * Adds a few JW Player template variables.
  */
-class tubepress_plugins_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateVars
+class tubepress_addons_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateVars
 {
     public function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
     {
@@ -28,17 +28,17 @@ class tubepress_plugins_jwplayer_impl_filters_embeddedtemplate_JwPlayerTemplateV
 
         $toSet = array(
 
-            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_FRONT =>
-            tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
+            tubepress_addons_jwplayer_api_const_template_Variable::COLOR_FRONT =>
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
 
-            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_LIGHT =>
-                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
+            tubepress_addons_jwplayer_api_const_template_Variable::COLOR_LIGHT =>
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
 
-            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_SCREEN =>
-                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
+            tubepress_addons_jwplayer_api_const_template_Variable::COLOR_SCREEN =>
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
 
-            tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_BACK =>
-                tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+            tubepress_addons_jwplayer_api_const_template_Variable::COLOR_BACK =>
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
         );
 
         foreach ($toSet as $templateVariableName => $optionName) {

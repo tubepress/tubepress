@@ -12,7 +12,7 @@
 /**
  * Registers a few extensions to allow TubePress to work with EmbedPlus.
  */
-class tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
+class tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
 {
     /**
      * Loads a specific configuration.
@@ -28,15 +28,15 @@ class tubepress_plugins_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension
     {
         $container->register(
 
-            'tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
-            'tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService'
+            'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
+            'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService'
 
         )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
         $container->register(
 
-            'tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
-            'tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant'
+            'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
+            'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant'
 
         )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
     }

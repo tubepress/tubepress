@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_jwplayer_resources_templates_embedded_JwPlayerEmbeddedVideoTemplateTest extends TubePressUnitTest
+class tubepress_addons_jwplayer_resources_templates_embedded_JwPlayerEmbeddedVideoTemplateTest extends TubePressUnitTest
 {
 	public function testTemplate()
     {
@@ -42,12 +42,12 @@ EOT
         ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT} = 88;
         ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL} = 'data-url';
         ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART} = 'starttt';
-        ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_BACK} = 'back-color';
-        ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_FRONT} = 'front-color';
-        ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_LIGHT} = 'light-color';
-        ${tubepress_plugins_jwplayer_api_const_template_Variable::COLOR_SCREEN} = 'screen-color';
+        ${tubepress_addons_jwplayer_api_const_template_Variable::COLOR_BACK} = 'back-color';
+        ${tubepress_addons_jwplayer_api_const_template_Variable::COLOR_FRONT} = 'front-color';
+        ${tubepress_addons_jwplayer_api_const_template_Variable::COLOR_LIGHT} = 'light-color';
+        ${tubepress_addons_jwplayer_api_const_template_Variable::COLOR_SCREEN} = 'screen-color';
         ${tubepress_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
 
-        require TUBEPRESS_ROOT . '/src/main/php/plugins/jwplayer/resources/templates/embedded/longtail.tpl.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/resources/templates/embedded/longtail.tpl.php';
     }
 }

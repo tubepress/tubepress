@@ -12,7 +12,7 @@
 /**
  * Plays videos with JW Player.
  */
-class tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
+class tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
@@ -47,7 +47,7 @@ class tubepress_plugins_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerSe
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('embedded/longtail.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/jwplayer/resources/templates');
+        return $themeHandler->getTemplateInstance('embedded/longtail.tpl.php', TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/resources/templates');
     }
 
     /**

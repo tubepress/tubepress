@@ -8,18 +8,21 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantTest extends TubePressUnitTest
+class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant
+     * @var tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFieldBuilder;
 
     public function onSetup() {
 
-        $this->_sut = new tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant();
+        $this->_sut = new tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant();
 
         $this->_mockFieldBuilder = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
 
@@ -52,10 +55,10 @@ class tubepress_plugins_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantT
 
         $optionNames = array(
 
-            tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
-            tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
-            tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
-            tubepress_plugins_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN
         );
 
         for ($x = 0; $x < 4; $x++) {

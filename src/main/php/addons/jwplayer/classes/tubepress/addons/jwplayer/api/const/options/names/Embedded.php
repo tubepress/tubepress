@@ -12,7 +12,7 @@
 /**
  * Option names for JW Player.
  */
-class tubepress_plugins_jwplayer_api_const_options_names_Embedded
+class tubepress_addons_jwplayer_api_const_options_names_Embedded
 {
     const COLOR_BACK   = 'jwPlayerBackColor';
     const COLOR_FRONT  = 'jwPlayerFrontColor';
