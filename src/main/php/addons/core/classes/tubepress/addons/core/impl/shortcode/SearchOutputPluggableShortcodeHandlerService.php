@@ -15,7 +15,7 @@
 class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
-     * @var ehough_epilog_psr_LoggerInterface
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 

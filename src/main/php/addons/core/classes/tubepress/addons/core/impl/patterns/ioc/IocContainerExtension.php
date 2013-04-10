@@ -122,11 +122,11 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         $container->register(
 
             'ehough_tickertape_EventDispatcherInterface',
-            'ehough_tickertape_EventDispatcher'
-        );
+            'ehough_tickertape_ContainerAwareEventDispatcher'
+        )->addArgument($container);
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('ehough_tickertape_EventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
+        $container->setAlias('ehough_tickertape_ContainerAwareEventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
     }
 
     private function _registerExecutionContext(ehough_iconic_ContainerBuilder $container)
