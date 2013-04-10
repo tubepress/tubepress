@@ -30,11 +30,6 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
      */
     public function findAddonsInDirectory($directory)
     {
-        return $this->_find($directory);
-    }
-
-    private function _find($directory)
-    {
         if (! is_dir($directory)) {
 
             return array();

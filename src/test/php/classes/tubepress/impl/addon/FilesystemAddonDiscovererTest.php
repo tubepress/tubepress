@@ -11,7 +11,7 @@
 
 require_once __DIR__ . '/../../../../../resources/plugins/FakeExtension.php';
 
-class tubepress_impl_player_FilesystemAddonDiscovererTest extends TubePressUnitTest
+class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_impl_addon_FilesystemAddonDiscoverer
@@ -30,7 +30,7 @@ class tubepress_impl_player_FilesystemAddonDiscovererTest extends TubePressUnitT
     {
         $this->_sut = new tubepress_impl_addon_FilesystemAddonDiscoverer();
 
-        $this->_fakePluginRoot = __DIR__ . '/../../../../../resources/plugins';
+        $this->_fakePluginRoot = realpath(__DIR__ . '/../../../../../resources/plugins');
 
         $this->_mockFinder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
 
@@ -42,7 +42,6 @@ class tubepress_impl_player_FilesystemAddonDiscovererTest extends TubePressUnitT
 
         $this->_mockFilesystemFinderFactory = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
         $this->_mockFilesystemFinderFactory->shouldReceive('createFinder')->andReturn($this->_mockFinder);
-
     }
 
     public function testBadManifest()
@@ -85,16 +84,39 @@ class tubepress_impl_player_FilesystemAddonDiscovererTest extends TubePressUnitT
 
         $this->assertTrue($result[0] instanceof tubepress_spi_addon_Addon);
 
+        /**
+         * @var $plugin tubepress_spi_addon_Addon
+         */
         $plugin = $result[0];
 
         $this->assertTrue($plugin->getName() === 'plugin-b');
         $this->assertTrue($plugin->getTitle() === 'Title for Plugin B');
         $this->assertTrue($plugin->getVersion() instanceof tubepress_spi_version_Version);
         $this->assertTrue((string) $plugin->getVersion() === '3.2.1');
+        $this->assertTrue(count($plugin->getLicenses()) === 2);
+        $this->assertEquals('http://foo.bar', $plugin->getLicenses()[0]['url']);
+        $this->assertEquals('http://foo.com', $plugin->getLicenses()[1]['url']);
+        $this->assertEquals('tubepress_impl_addon_FilesystemAddonDiscovererTest', $plugin->getBootstrap());
+        $this->assertEquals('Eric Hough', $plugin->getAuthor()['name']);
+        $this->assertEquals('This is a description', $plugin->getDescription());
+        $this->assertEquals(array('one', 'three', 'two'), $plugin->getKeywords());
+        $this->assertEquals('https://some.thing', $plugin->getHomepageUrl());
+        $this->assertEquals('http://hel.lo', $plugin->getDocumentationUrl());
+        $this->assertEquals('http://some.demo', $plugin->getDemoUrl());
+        $this->assertEquals('http://down.load', $plugin->getDownloadUrl());
+        $this->assertEquals('https://bug.tracker', $plugin->getBugTrackerUrl());
+        $this->assertEquals(array('/foo/bar', '/fooz/baz'), $plugin->getPsr0ClassPathRoots());
+        $this->assertEquals(array('yellow', 'orange'), $plugin->getIocContainerCompilerPasses());
+        $this->assertEquals(array('blue', 'black'), $plugin->getIocContainerExtensions());
     }
 
     public function _callback()
     {
         return $this->_splInfoArray;
+    }
+
+    public function boot()
+    {
+
     }
 }
