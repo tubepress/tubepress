@@ -34,7 +34,7 @@ class tubepress_addons_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends TubeP
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 
             'embedded/vimeo.tpl.php',
-            TUBEPRESS_ROOT . '/src/main/php/plugins/vimeo/resources/templates'
+            TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/resources/templates'
         )->andReturn('abc');
 
         $result = $this->_sut->getTemplate($mockThemeHandler);

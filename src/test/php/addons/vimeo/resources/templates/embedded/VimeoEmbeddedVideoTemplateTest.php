@@ -22,6 +22,6 @@ class tubepress_addons_vimeo_resources_templates_embedded_VimeoEmbeddedVideoTemp
         ${tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME} = 'some-embedded-impl-name';
         ${tubepress_api_const_template_Variable::VIDEO_PROVIDER_NAME} = 'some-video-provider';
 
-        require TUBEPRESS_ROOT . '/src/main/php/plugins/vimeo/resources/templates/embedded/vimeo.tpl.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/resources/templates/embedded/vimeo.tpl.php';
     }
 }

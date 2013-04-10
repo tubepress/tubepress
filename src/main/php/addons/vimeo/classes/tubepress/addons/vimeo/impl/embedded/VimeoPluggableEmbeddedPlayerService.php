@@ -38,7 +38,7 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('embedded/vimeo.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/vimeo/resources/templates');
+        return $themeHandler->getTemplateInstance('embedded/vimeo.tpl.php', TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/resources/templates');
     }
 
     /**

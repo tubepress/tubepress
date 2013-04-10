@@ -28,7 +28,7 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
         $this->_testOptions();
         $this->_testEventListenerRegistration();
 
-        require TUBEPRESS_ROOT . '/src/main/php/plugins/vimeo/Vimeo.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/classes/tubepress/addons/vimeo/impl/Bootstrap.php';
 
         $this->assertTrue(true);
     }
