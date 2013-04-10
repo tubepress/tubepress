@@ -55,73 +55,87 @@ class tubepress_addons_core_impl_BootstrapTest extends TubePressUnitTest
 
         $this->_testTubePressContentDirectory();
 
-        $this->_testEventListenerRegistration();
+        $this->_testEventListeners();
 
         require TUBEPRESS_ROOT . '/src/main/php/addons/core/classes/tubepress/addons/core/impl/Bootstrap.php';
-
-        $this->_testEventListeners();
     }
 
     private function _testEventListeners()
     {
-        $testMap = array(
+        $listenerList = array(
 
-            array('tubepress_addons_core_impl_listeners_variablereadfromexternalinput_StringMagic', 'onIncomingInput', tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT),
-            array('tubepress_addons_core_impl_listeners_singlevideotemplate_CoreVariables', 'onSingleVideoTemplate', tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_singlevideotemplate_VideoMeta', 'onSingleVideoTemplate', tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_searchinputtemplate_CoreVariables', 'onSearchInputTemplate', tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter', 'onVideoGalleryPage', tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper', 'onVideoGalleryPage', tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist', 'onVideoGalleryPage', tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender', 'onVideoGalleryPage', tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_prevalidationoptionset_StringMagic', 'onPreValidationOptionSet', tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET),
-            array('tubepress_addons_core_impl_listeners_prevalidationoptionset_YouTubePlaylistPlPrefixRemover', 'onPreValidationOptionSet', tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET),
-            array('tubepress_addons_core_impl_listeners_playertemplate_CoreVariables', 'onPlayerTemplate', tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_gallerytemplate_CoreVariables', 'onGalleryTemplate', tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_gallerytemplate_EmbeddedPlayerName', 'onGalleryTemplate', tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_gallerytemplate_Pagination', 'onGalleryTemplate', tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_gallerytemplate_Player', 'onGalleryTemplate', tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_gallerytemplate_VideoMeta', 'onGalleryTemplate', tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams', 'onGalleryInitJs', tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs', 'onGalleryHtml', tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables', 'onEmbeddedTemplate', tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION),
-            array('tubepress_addons_core_impl_listeners_embeddedhtml_PlayerJavaScriptApi', 'onEmbeddedHtml', tubepress_api_const_event_EventNames::EMBEDDED_HTML_CONSTRUCTION),
+            tubepress_api_const_event_EventNames::EMBEDDED_HTML_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_embeddedhtml_PlayerJavaScriptApi', 'onEmbeddedHtml')
+            ),
+
+            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables', 'onEmbeddedTemplate')
+            ),
+
+            tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams', 'onGalleryInitJs')
+            ),
+
+            tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_playertemplate_CoreVariables', 'onPlayerTemplate')
+            ),
+
+            tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET => array(
+
+                array('tubepress_addons_core_impl_listeners_prevalidationoptionset_StringMagic', 'onPreValidationOptionSet'),
+                array('tubepress_addons_core_impl_listeners_prevalidationoptionset_YouTubePlaylistPlPrefixRemover', 'onPreValidationOptionSet')
+            ),
+
+            tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_searchinputtemplate_CoreVariables', 'onSearchInputTemplate')
+            ),
+
+            tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_singlevideotemplate_VideoMeta', 'onSingleVideoTemplate'),
+                array('tubepress_addons_core_impl_listeners$listeners_singlevideotemplate_CoreVariables', 'onSingleVideoTemplate')
+            ),
+
+            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs', 'onGalleryHtml')
+            ),
+
+            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_gallerytemplate_CoreVariables', 'onGalleryTemplate'),
+                array('tubepress_addons_core_impl_listeners_gallerytemplate_EmbeddedPlayerName', 'onGalleryTemplate'),
+                array('tubepress_addons_core_impl_listeners_gallerytemplate_Pagination', 'onGalleryTemplate'),
+                array('tubepress_addons_core_impl_listeners_gallerytemplate_Player', 'onGalleryTemplate'),
+                array('tubepress_addons_core_impl_listeners_gallerytemplate_VideoMeta', 'onGalleryTemplate'),
+            ),
+
+            tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT => array(
+
+                array('tubepress_addons_core_impl_listeners_variablereadfromexternalinput_StringMagic', 'onIncomingInput')
+            ),
+
+            tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION => array(
+
+                array('tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter', 'onVideoGalleryPage'),
+                array('tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper', 'onVideoGalleryPage'),
+                array('tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist', 'onVideoGalleryPage'),
+                array('tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender', 'onVideoGalleryPage')
+            )
         );
 
-        $eventNames = array();
+        foreach ($listenerList as $eventName => $listeners) {
 
-        foreach ($testMap as $test) {
+            foreach ($listeners as $listenerData) {
 
-            $this->_setupCallback($test);
-
-            $eventNames[$test[2]] = true;
+                $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with($eventName, $listenerData[0], $listenerData[1]);
+            }
         }
-
-        $eventNames = array_keys($eventNames);
-
-        foreach ($eventNames as $eventName) {
-
-            $event = new tubepress_api_event_TubePressEvent('x');
-            $event->setName($eventName);
-
-            tubepress_addons_core_impl_Bootstrap::_callbackHandleEvent($event);
-        }
-
-        $this->assertTrue(true);
-    }
-
-    private function _setupCallback($test)
-    {
-        $event = new tubepress_api_event_TubePressEvent('x');
-        $event->setName($test[2]);
-        $callback = $this->createMockSingletonService($test[0]);
-        $callback->shouldReceive($test[1])->with(ehough_mockery_Mockery::on(function ($arg) use ($event) {
-
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getName() === $event->getName()
-                && $arg->getSubject() === $event->getSubject();
-        }));
-
-        return $event;
     }
 
     private function _testOptionsRegistration()
@@ -531,35 +545,7 @@ class tubepress_addons_core_impl_BootstrapTest extends TubePressUnitTest
 
     private function _testTubePressContentDirectory()
     {
-        $this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content', '/value-of-abspath/wp-content');
-    }
-
-    private function _testEventListenerRegistration()
-    {
-        $eventNames = array(
-
-            tubepress_api_const_event_EventNames::EMBEDDED_HTML_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET,
-            tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
-            tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
-            tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-        );
-
-        $this->_mockEventDispatcher->shouldReceive('addListener')->times(11)->with(
-
-            ehough_mockery_Mockery::on(function ($eventName) use ($eventNames) {
-
-                return in_array($eventName, $eventNames);
-            }),
-
-            array('tubepress_addons_core_impl_Bootstrap', '_callbackHandleEvent')
-        );
+        $this->_mockFileSystem->shouldReceive('mirror')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content', '/value-of-abspath/wp-content');
     }
 
     private function _verifySingleOptionRegistration(tubepress_spi_options_OptionDescriptor $expectedOption)
