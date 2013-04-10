@@ -12,9 +12,9 @@
 /**
  * Displays a WordPress-specific options form for TubePress.
  */
-class tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
+class tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
 {
-    const TEMPLATE_VAR_BOX_ARRAY = 'tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler__boxArray';
+    const TEMPLATE_VAR_BOX_ARRAY = 'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler__boxArray';
 
     protected function onPreTemplateToString(ehough_contemplate_api_Template $template)
     {
@@ -29,12 +29,12 @@ class tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler ex
         $toEncode[] = $this->_generateBox('TubePress News', 'http://tubepress.org/snippets/wordpress/latest-news.php');
         $toEncode[] = $this->_generateBox('Need Help?', 'http://tubepress.org/snippets/wordpress/need-help.php');
 
-        $template->setVariable(tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, json_encode($toEncode));
+        $template->setVariable(tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, json_encode($toEncode));
     }
 
     protected final function getRelativeTemplatePath()
     {
-        return 'src/main/php/plugins/wordpress/resources/templates/options_page.tpl.php';
+        return 'src/main/php/addons/wordpress/resources/templates/options_page.tpl.php';
     }
 
     private function _generateBox($title, $url) {

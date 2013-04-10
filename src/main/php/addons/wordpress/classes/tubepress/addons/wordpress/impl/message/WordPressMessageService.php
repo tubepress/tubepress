@@ -12,7 +12,7 @@
 /**
  * Message service that uses gettext (via WordPress).
  */
-class tubepress_plugins_wordpress_impl_message_WordPressMessageService implements tubepress_spi_message_MessageService
+class tubepress_addons_wordpress_impl_message_WordPressMessageService implements tubepress_spi_message_MessageService
 {
     /**
      * Retrieves a message for TubePress
@@ -23,7 +23,7 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageService implement
      */
     public final function _($message)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapperService = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         return $message == '' ? '' : $wordPressFunctionWrapperService->__($message, 'tubepress');
     }

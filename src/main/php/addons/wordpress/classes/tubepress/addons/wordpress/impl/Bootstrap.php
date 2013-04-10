@@ -12,7 +12,7 @@
 /**
  * Registers a few extensions to allow TubePress to work inside WordPress.
  */
-class tubepress_plugins_wordpress_WordPress
+class tubepress_addons_wordpress_WordPress
 {
     public static function init()
     {
@@ -34,7 +34,7 @@ class tubepress_plugins_wordpress_WordPress
 
         $baseName          = basename(TUBEPRESS_ROOT);
         $wpFunctionWrapper =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
         if (self::_isWordPressMuDomainMapped()) {
@@ -46,19 +46,19 @@ class tubepress_plugins_wordpress_WordPress
             $prefix = $wpFunctionWrapper->content_url();
         }
 
-        $tubepress_base_url = $prefix . "/plugins/$baseName";
+        $tubepress_base_url = $prefix . "/addons/$baseName";
 
         /* register the plugin's message bundles */
         $wpFunctionWrapper->load_addon_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");
 
         $contentFilter    =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_ContentFilter::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_ContentFilter::_);
         $jsAndCssInjector =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_);
         $wpAdminHandler   =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WpAdminHandler::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpAdminHandler::_);
         $widgetHandler    =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WidgetHandler::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WidgetHandler::_);
 
         $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'), 10, 1);
         $wpFunctionWrapper->add_action('wp_head',     array($jsAndCssInjector, 'printInHtmlHead'), 10, 1);
@@ -85,16 +85,16 @@ class tubepress_plugins_wordpress_WordPress
     {
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
         $option->setDefaultValue('TubePress');
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $odr->registerOptionDescriptor($option);
     }
 
-    private static function _getScheme(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper $wpFunctionWrapper)
+    private static function _getScheme(tubepress_addons_wordpress_spi_WordPressFunctionWrapper $wpFunctionWrapper)
     {
         if ($wpFunctionWrapper->is_ssl()) {
 
@@ -110,4 +110,4 @@ class tubepress_plugins_wordpress_WordPress
     }
 }
 
-tubepress_plugins_wordpress_WordPress::init();
+tubepress_addons_wordpress_WordPress::init();

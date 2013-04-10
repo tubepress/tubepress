@@ -41,7 +41,7 @@
 </div>
 
 <script type="text/javascript">
-    var TubePressBoxes = <?php echo ${tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY}; ?>;
+    var TubePressBoxes = <?php echo ${tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY}; ?>;
     var TubePressOptionFilter = (function () {
 
                 'use strict';

@@ -8,25 +8,40 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_wordpress_impl_DefaultWpAdminHandlerTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePressUnitTest
 {
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockWpFunctionWrapper;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFormHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
     function onSetup()
     {
-        $this->_sut = new tubepress_plugins_wordpress_impl_DefaultWpAdminHandler();
+        $this->_sut = new tubepress_addons_wordpress_impl_DefaultWpAdminHandler();
 
-        $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockFormHandler                 = $this->createMockSingletonService(tubepress_spi_options_ui_FormHandler::_);
@@ -114,12 +129,12 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandlerTest extends TubePre
 
     function testInit()
     {
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", "tubepress")->andReturn('y');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/css/options-page.css", "tubepress")->andReturn('z');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", "tubepress")->andReturn('x');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jscolor/jscolor.js", "tubepress")->andReturn('a');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", "tubepress")->andReturn('b');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", "tubepress")->andReturn('c');
+        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", "tubepress")->andReturn('y');
+        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/css/options-page.css", "tubepress")->andReturn('z');
+        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", "tubepress")->andReturn('x');
+        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jscolor/jscolor.js", "tubepress")->andReturn('a');
+        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", "tubepress")->andReturn('b');
+        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", "tubepress")->andReturn('c');
 
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with("jquery-ui-flick", "y");
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with("tubepress-options-page", "z");

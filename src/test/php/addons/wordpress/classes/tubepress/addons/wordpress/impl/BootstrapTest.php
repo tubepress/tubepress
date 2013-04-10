@@ -8,31 +8,52 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
 {
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionsDescriptorReference;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockWordPressFunctionWrapper;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockContentFilter;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockJsAndCssInjector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockWpAdminHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockWidgetHandler;
 
     function onSetup()
     {
         $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockWordPressFunctionWrapper   = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockContentFilter              = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_ContentFilter::_);
-        $this->_mockJsAndCssInjector           = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector::_);
-        $this->_mockWpAdminHandler             = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WpAdminHandler::_);
-        $this->_mockWidgetHandler              = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WidgetHandler::_);
+        $this->_mockWordPressFunctionWrapper   = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockContentFilter              = $this->createMockSingletonService(tubepress_addons_wordpress_spi_ContentFilter::_);
+        $this->_mockJsAndCssInjector           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_);
+        $this->_mockWpAdminHandler             = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpAdminHandler::_);
+        $this->_mockWidgetHandler              = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WidgetHandler::_);
     }
 
     function testCore()
@@ -43,11 +64,11 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
         $this->_testAdmin();
         $this->_testApi();
 
-        require TUBEPRESS_ROOT . '/src/main/php/plugins/wordpress/WordPress.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/classes/tubepress/addons/wordpress/impl/Bootstrap.php';
 
         global $tubepress_base_url;
 
-        $this->assertEquals('valueofcontenturl/plugins/tubepress', $tubepress_base_url);
+        $this->assertEquals('valueofcontenturl/addons/tubepress', $tubepress_base_url);
     }
 
     private function _testApi()
@@ -74,11 +95,11 @@ class tubepress_plugins_wordpress_WordPressTest extends TubePressUnitTest
 
     private function _testOptions()
     {
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
         $option->setDefaultValue('TubePress');
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $this->_verifyOption($option);
     }

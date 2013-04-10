@@ -8,13 +8,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_wordpress_api_const_ConstantsTest extends TubePressUnitTest
+class tubepress_addons_wordpress_api_const_ConstantsTest extends TubePressUnitTest
 {
     function testConstants()
     {
         $toTest = array(
 
-            'tubepress_plugins_wordpress_api_const_options_names_WordPress'	=> array('widget-tagstring', 'widget-title', 'wpPageWhitelist', 'wpPageBlacklist'),
+            'tubepress_addons_wordpress_api_const_options_names_WordPress'	=> array('widget-tagstring', 'widget-title', 'wpPageWhitelist', 'wpPageBlacklist'),
         );
 
         foreach ($toTest as $className => $expected) {

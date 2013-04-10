@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_message_WordPressMessageServiceTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -30,13 +30,13 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
 
     function onSetup()
     {
-        $wrapper = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
         $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
 
             return "[[$key]]";
         });
 
-        $this->_sut = new tubepress_plugins_wordpress_impl_message_WordPressMessageService($wrapper);
+        $this->_sut = new tubepress_addons_wordpress_impl_message_WordPressMessageService($wrapper);
     }
 
     function testAllStringsPresent()

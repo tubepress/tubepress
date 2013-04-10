@@ -13,7 +13,7 @@
  * Implementation of tubepress_spi_options_StorageManager that uses the
  * regular WordPress options API.
  */
-class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager
+class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager
 {
     /*
      * Prefix all our option names in the WordPress DB
@@ -32,7 +32,7 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
     protected final function create($optionName, $optionValue)
     {
         $wordPressFunctionWrapperService =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $optionName, $optionValue);
     }
@@ -47,7 +47,7 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
     public final function get($optionName)
     {
         $wordPressFunctionWrapperService =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         return $wordPressFunctionWrapperService->get_option(self::$_optionPrefix . $optionName);
     }
@@ -63,7 +63,7 @@ class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends t
     protected final function setOption($optionName, $optionValue)
     {
         $wordPressFunctionWrapperService =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wordPressFunctionWrapperService->update_option(self::$_optionPrefix . $optionName, $optionValue);
     }

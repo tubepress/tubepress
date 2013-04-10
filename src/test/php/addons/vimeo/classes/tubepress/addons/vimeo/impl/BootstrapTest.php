@@ -10,8 +10,14 @@
  */
 class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
 {
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionsDescriptorReference;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
     private static $_regexWordChars = '/\w+/';

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implements tubepress_plugins_wordpress_spi_WordPressFunctionWrapper
+class tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper implements tubepress_addons_wordpress_spi_WordPressFunctionWrapper
 {
     /**
      * Retrieves the translated string from WordPress's translate().
@@ -217,17 +217,17 @@ class tubepress_plugins_wordpress_impl_DefaultWordPressFunctionWrapper implement
     }
 
     /**
-     * The plugins_url template tag retrieves the url to the plugins directory or to a specific file within that directory.
+     * The addons_url template tag retrieves the url to the addons directory or to a specific file within that directory.
      *
-     * @param string $path   Path relative to the plugins URL.
+     * @param string $path   Path relative to the addons URL.
      * @param string $plugin The plugin file that you want to be relative to.
      *
-     * @return string Plugins url link with optional path appended.
+     * @return string addons url link with optional path appended.
      */
-    public final function plugins_url($path, $plugin)
+    public final function addons_url($path, $plugin)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return plugins_url($path, $plugin);
+        return addons_url($path, $plugin);
     }
 
     /**

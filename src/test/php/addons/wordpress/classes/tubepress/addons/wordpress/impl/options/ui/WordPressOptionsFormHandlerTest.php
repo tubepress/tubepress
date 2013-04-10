@@ -8,18 +8,36 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTabs;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFilter;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplateBuilder;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
     function onSetup()
@@ -31,7 +49,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
 
         $this->_mockFilter = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_Field');
 
-        $this->_sut = new tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
+        $this->_sut = new tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
     }
 
 
@@ -55,7 +73,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
     {
         $template       = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/plugins/wordpress/resources/templates/options_page.tpl.php')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/resources/templates/options_page.tpl.php')->andReturn($template);
 
         $this->_mockMessageService->shouldReceive('_')->once()->with('TubePress Options')->andReturn('<<title>>');
         $this->_mockMessageService->shouldReceive('_')->once()->with('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more information.')->andReturn('<<blurb>>');
@@ -71,7 +89,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS, '<<tabhtml>>');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER, $this->_mockFilter);
-        $template->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, 'encoded!');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, '[{"title":"You\'re Missing Out!","url":"http:\/\/tubepress.org\/snippets\/wordpress\/youre-missing-out.php"},{"title":"TubePress News","url":"http:\/\/tubepress.org\/snippets\/wordpress\/latest-news.php"},{"title":"Need Help?","url":"http:\/\/tubepress.org\/snippets\/wordpress\/need-help.php"}]');
         $template->shouldReceive('toString')->once()->andReturn('foo');
 
         $this->assertEquals('foo', $this->_sut->getHtml());

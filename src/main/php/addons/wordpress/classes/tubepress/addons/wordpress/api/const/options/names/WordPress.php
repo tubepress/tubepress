@@ -12,7 +12,7 @@
 /**
  * WordPress option names.
  */
-class tubepress_plugins_wordpress_api_const_options_names_WordPress
+class tubepress_addons_wordpress_api_const_options_names_WordPress
 {
     const WIDGET_SHORTCODE = 'widget-tagstring';
     const WIDGET_TITLE     = 'widget-title';

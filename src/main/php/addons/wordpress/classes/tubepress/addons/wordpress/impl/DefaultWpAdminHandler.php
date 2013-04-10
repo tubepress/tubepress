@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepress_plugins_wordpress_spi_WpAdminHandler
+class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress_addons_wordpress_spi_WpAdminHandler
 {
     /**
      * Registers all the styles and scripts for the front end.
@@ -26,14 +26,14 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
             return;
         }
 
-        $wpFunctionWrapper    = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctionWrapper    = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
         $baseName             = basename(TUBEPRESS_ROOT);
-        $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", $baseName);
-        $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/options-page.css", $baseName);
-        $jqueryMultiSelectCss = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
-        $jsColorUrl           = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jscolor/jscolor.js", $baseName);
-        $jqueryUiJsUrl        = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", $baseName);
-        $jqueryMultiSelectJs  = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName);
+        $jqueryUiCssUrl       = $wpFunctionWrapper->addons_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", $baseName);
+        $wpOptionsPageCss     = $wpFunctionWrapper->addons_url("$baseName/src/main/web/css/options-page.css", $baseName);
+        $jqueryMultiSelectCss = $wpFunctionWrapper->addons_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
+        $jsColorUrl           = $wpFunctionWrapper->addons_url("$baseName/src/main/web/vendor/jscolor/jscolor.js", $baseName);
+        $jqueryUiJsUrl        = $wpFunctionWrapper->addons_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", $baseName);
+        $jqueryMultiSelectJs  = $wpFunctionWrapper->addons_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName);
 
         $wpFunctionWrapper->wp_register_style('jquery-ui-flick', $jqueryUiCssUrl);
         $wpFunctionWrapper->wp_register_style('tubepress-options-page', $wpOptionsPageCss);
@@ -59,7 +59,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
      */
     public final function registerAdminMenuItem()
     {
-        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->add_options_page('TubePress Options', 'TubePress', 'manage_options',
             'tubepress', array($this, 'printOptionsPageHtml'));
@@ -109,7 +109,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
      */
     public final function modifyMetaRowLinks($links, $file)
     {
-        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $plugin = $wordPressFunctionWrapper->plugin_basename(basename(TUBEPRESS_ROOT) . '/tubepress.php');
 
@@ -128,7 +128,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
 
     private static function _verifyNonce()
     {
-        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->check_admin_referer('tubepress-save', 'tubepress-nonce');
     }

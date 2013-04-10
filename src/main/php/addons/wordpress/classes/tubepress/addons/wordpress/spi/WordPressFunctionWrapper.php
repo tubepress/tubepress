@@ -9,9 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-interface tubepress_plugins_wordpress_spi_WordPressFunctionWrapper
+interface tubepress_addons_wordpress_spi_WordPressFunctionWrapper
 {
-    const _ = 'tubepress_plugins_wordpress_spi_WordPressFunctionWrapper';
+    const _ = 'tubepress_addons_wordpress_spi_WordPressFunctionWrapper';
 
     /**
      * Retrieves the translated string from WordPress's translate().
@@ -190,14 +190,14 @@ interface tubepress_plugins_wordpress_spi_WordPressFunctionWrapper
     function plugin_basename($file);
 
     /**
-     * The plugins_url template tag retrieves the url to the plugins directory or to a specific file within that directory.
+     * The addons_url template tag retrieves the url to the addons directory or to a specific file within that directory.
      *
-     * @param string $path   Path relative to the plugins URL.
+     * @param string $path   Path relative to the addons URL.
      * @param string $plugin The plugin file that you want to be relative to.
      *
-     * @return string Plugins url link with optional path appended.
+     * @return string addons url link with optional path appended.
      */
-    function plugins_url($path, $path);
+    function addons_url($path, $path);
 
     /**
      * The site_url template tag retrieves the site url for the current site (where the WordPress core files reside)

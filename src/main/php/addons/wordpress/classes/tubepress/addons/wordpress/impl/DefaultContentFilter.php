@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_plugins_wordpress_impl_DefaultContentFilter implements tubepress_plugins_wordpress_spi_ContentFilter
+class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_addons_wordpress_spi_ContentFilter
 {
     /**
      * Filter the content (which may be empty).

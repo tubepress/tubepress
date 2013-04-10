@@ -14,7 +14,7 @@ if (! function_exists('wp_nonce_field')) {
     function wp_nonce_field() { echo 'nonce'; }
 }
 
-class tubepress_plugins_wordpress_resources_templates_OptionsPageTemplateTest extends TubePressUnitTest
+class tubepress_addons_wordpress_resources_templates_OptionsPageTemplateTest extends TubePressUnitTest
 {
     public function test()
     {
@@ -28,10 +28,10 @@ class tubepress_plugins_wordpress_resources_templates_OptionsPageTemplateTest ex
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
-        ${tubepress_plugins_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY} = '<<<boxes>>>';
+        ${tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY} = '<<<boxes>>>';
 
         ob_start();
-        include __DIR__ . '/../../../../../../main/php/plugins/wordpress/resources/templates/options_page.tpl.php';
+        include __DIR__ . '/../../../../../../main/php/addons/wordpress/resources/templates/options_page.tpl.php';
         $result = ob_get_contents();
         ob_end_clean();
 

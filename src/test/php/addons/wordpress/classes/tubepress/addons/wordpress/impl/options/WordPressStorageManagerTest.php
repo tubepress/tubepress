@@ -8,18 +8,33 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_options_WordPressStorageManagerTest extends TubePressUnitTest
 {
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionValidator;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionsReference;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockWordPressFunctionWrapper;
 
     public $options = 'xyz';
@@ -34,9 +49,9 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
         $this->_mockEventDispatcher          = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockOptionValidator          = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
         $this->_mockOptionsReference         = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
-        $this->_sut = new tubepress_plugins_wordpress_impl_options_WordPressStorageManager();
+        $this->_sut = new tubepress_addons_wordpress_impl_options_WordPressStorageManager();
     }
 
     function onTearDown()

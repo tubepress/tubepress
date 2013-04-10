@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector implements tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector
+class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector implements tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector
 {
     /**
      * Prints out HTML and CSS into the HTML <head>.
@@ -18,7 +18,7 @@ class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjector implement
      */
     public final function printInHtmlHead()
     {
-        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         /* no need to print anything in the head of the admin section */
         if ($wordPressFunctionWrapper->is_admin()) {
@@ -47,7 +47,7 @@ EOT;
      */
     public final function registerStylesAndScripts()
     {
-        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         /* no need to queue any of this stuff up in the admin section or login page */
         if ($wordPressFunctionWrapper->is_admin() || __FILE__ === 'wp-login.php') {
@@ -57,8 +57,8 @@ EOT;
 
         $baseName = basename(TUBEPRESS_ROOT);
 
-        $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/js/tubepress.js", $baseName);
-        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/css/tubepress.css", $baseName);
+        $jsUrl  = $wordPressFunctionWrapper->addons_url("$baseName/src/main/web/js/tubepress.js", $baseName);
+        $cssUrl = $wordPressFunctionWrapper->addons_url("$baseName/src/main/web/css/tubepress.css", $baseName);
 
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
         $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);

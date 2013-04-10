@@ -6,10 +6,10 @@
 	stopOnSkipped="false"
 	strict="true"
     processIsolation="false"
-    bootstrap="../../../vendor/autoload.php">
+    bootstrap="../php/bootstrap.php">
 	<testsuites>
 	   <testsuite name="TubePress tests">
-	       <directory>../php/</directory>
+	       <directory>../php/addons/wordpress</directory>
 	   </testsuite>
 	</testsuites>
     <filter>

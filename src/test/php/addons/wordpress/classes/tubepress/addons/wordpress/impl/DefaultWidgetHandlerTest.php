@@ -8,31 +8,58 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
 {
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplateBuilder;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockShortcodeParser;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockShortCodeHtmlGenerator;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockWpFunctionWrapper;
 
     function onSetup()
     {
-        $this->_sut = new tubepress_plugins_wordpress_impl_DefaultWidgetHandler();
+        $this->_sut = new tubepress_addons_wordpress_impl_DefaultWidgetHandler();
 
         $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
@@ -42,7 +69,7 @@ class tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockShortCodeHtmlGenerator      = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $this->_mockMessageService->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";
@@ -52,17 +79,17 @@ class tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
     function testPrintWidgetControl()
     {
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE, '<<Title>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_TITLE, 'value of widget title');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_SHORTCODE, 'value of widget shortcode');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG, tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE, '<<Title>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_TITLE, 'value of widget title');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SHORTCODE, 'value of widget shortcode');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG, tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG);
         $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');
 
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
+        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
+        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress-widget-submit')->andReturn(false);
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/plugins/wordpress/resources/templates/widget_controls.tpl.php')->andReturn($mockTemplate);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/resources/templates/widget_controls.tpl.php')->andReturn($mockTemplate);
 
         ob_start();
 
@@ -76,9 +103,9 @@ class tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
 
     function testPrintWidget()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('theme');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
         $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
         $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with(array(
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE    => 3,

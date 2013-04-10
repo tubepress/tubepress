@@ -8,23 +8,38 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_wordpress_impl_DefaultContentFilterTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_DefaultContentFilterTest extends TubePressUnitTest
 {
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockShortcodeParser;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockShortcodeHtmlGenerator;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockMessageService;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_wordpress_impl_DefaultContentFilter();
+        $this->_sut = new tubepress_addons_wordpress_impl_DefaultContentFilter();
 
         $this->_mockExecutionContext       = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockMessageService         = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);

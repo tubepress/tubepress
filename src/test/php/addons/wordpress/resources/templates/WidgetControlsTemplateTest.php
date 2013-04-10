@@ -8,19 +8,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_wordpress_resources_templates_WidgetControlsTemplateTest extends TubePressUnitTest
+class tubepress_addons_wordpress_resources_templates_WidgetControlsTemplateTest extends TubePressUnitTest
 {
     public function test()
     {
-        ${tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
-        ${tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_TITLE}         = '<<widget-title>>';
-        ${tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
-        ${tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_plugins_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
+        ${tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
+        ${tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_TITLE}         = '<<widget-title>>';
+        ${tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
+        ${tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
 
         ob_start();
-        include __DIR__ . '/../../../../../../main/php/plugins/wordpress/resources/templates/widget_controls.tpl.php';
+        include __DIR__ . '/../../../../../../main/php/addons/wordpress/resources/templates/widget_controls.tpl.php';
         $result = ob_get_contents();
         ob_end_clean();
 

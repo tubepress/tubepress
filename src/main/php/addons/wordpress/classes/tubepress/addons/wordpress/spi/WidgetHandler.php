@@ -9,9 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-interface tubepress_plugins_wordpress_spi_WidgetHandler
+interface tubepress_addons_wordpress_spi_WidgetHandler
 {
-    const _ = 'tubepress_plugins_wordpress_spi_WidgetHandler';
+    const _ = 'tubepress_addons_wordpress_spi_WidgetHandler';
 
     /**
      * Filter the content (which may be empty).

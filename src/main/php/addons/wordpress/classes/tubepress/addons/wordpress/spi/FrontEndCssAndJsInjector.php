@@ -9,9 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-interface tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector
+interface tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector
 {
-    const _ = 'tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector';
+    const _ = 'tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector';
 
     /**
      * Prints out HTML and CSS into the HTML <head>.

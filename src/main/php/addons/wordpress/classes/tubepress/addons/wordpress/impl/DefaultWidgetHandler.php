@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress_plugins_wordpress_spi_WidgetHandler
+class tubepress_addons_wordpress_impl_DefaultWidgetHandler implements tubepress_addons_wordpress_spi_WidgetHandler
 {
     const WIDGET_CONTROL_SHORTCODE = 'widgetControlShortcode';
     const WIDGET_CONTROL_TITLE     = 'widgetControlTitle';
@@ -25,7 +25,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
     public final function registerWidget()
     {
         $msg               = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
         $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
@@ -65,7 +65,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
         );
 
         /* now apply the user's options */
-        $rawTag    = $context->get(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $rawTag    = $context->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $widgetTag = tubepress_impl_util_StringUtils::removeNewLines($rawTag);
         $parser->parse($widgetTag);
 
@@ -90,7 +90,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
         /* do the standard WordPress widget dance */
         /** @noinspection PhpUndefinedVariableInspection */
         echo $before_widget . $before_title .
-            $context->get(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE) .
+            $context->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE) .
             $after_title . $out . $after_widget;
 
         /* reset the context for the next shortcode */
@@ -112,19 +112,19 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
 
             self::_verifyNonce();
 
-            $wpsm->set(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
-            $wpsm->set(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
+            $wpsm->set(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
+            $wpsm->set(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
         }
 
         /* load up the gallery template */
-        $templatePath = TUBEPRESS_ROOT . '/src/main/php/plugins/wordpress/resources/templates/widget_controls.tpl.php';
+        $templatePath = TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/resources/templates/widget_controls.tpl.php';
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */
-        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->get(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
+        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
         $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $msg->_('Title'));                                                                                                            //>(translatable)<
         $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_('TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.')); //>(translatable)<
-        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->get(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
+        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
         $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 
         /* get the template's output */
@@ -133,7 +133,7 @@ class tubepress_plugins_wordpress_impl_DefaultWidgetHandler implements tubepress
 
     private static function _verifyNonce() {
 
-        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
     }
