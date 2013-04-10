@@ -24,7 +24,7 @@ class tubepress_api_const_event_CoreEventNames
      * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
      * @arg string           'embeddedImplementationName' The name of the embedded implementation.
      */
-    const EMBEDDED_HTML_CONSTRUCTION = 'core.embeddedHtmlConstruction';
+    const EMBEDDED_HTML_CONSTRUCTION = 'tubepress.core.embeddedHtmlConstruction';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for an embedded
@@ -37,7 +37,7 @@ class tubepress_api_const_event_CoreEventNames
      * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
      * @arg string           'embeddedImplementationName' The name of the embedded implementation.
      */
-    const EMBEDDED_TEMPLATE_CONSTRUCTION = 'core.embeddedTemplateConstruction';
+    const EMBEDDED_TEMPLATE_CONSTRUCTION = 'tubepress.core.embeddedTemplateConstruction';
 
     /**
      * This event is fired when TubePress builds the gallery initialization JS code.
@@ -47,7 +47,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg None
      */
-    const GALLERY_INIT_JS_CONSTRUCTION = 'core.galleryInitJs';
+    const GALLERY_INIT_JS_CONSTRUCTION = 'tubepress.core.galleryInitJs';
 
     /**
      * This event is fired when TubePress builds *any* HTML. It is fired *after* any other
@@ -57,7 +57,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg None
      */
-    const HTML_CONSTRUCTION = 'core.htmlConstruction';
+    const HTML_CONSTRUCTION = 'tubepress.core.htmlConstruction';
 
     /**
      * This event is fired when a TubePress builds the HTML for pagination.
@@ -66,7 +66,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg None
      */
-    const PAGINATION_HTML_CONSTRUCTION = 'core.paginationHtmlConstruction';
+    const PAGINATION_HTML_CONSTRUCTION = 'tubepress.core.paginationHtmlConstruction';
 
     /**
      * This event is fired when a TubePress builds the HTML for a TubePress
@@ -77,7 +77,7 @@ class tubepress_api_const_event_CoreEventNames
      * @arg tubepress_api_video_Video 'video'      The video to be played.
      * @arg string                    'playerName' The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      */
-    const PLAYER_HTML_CONSTRUCTION = 'core.playerHtmlConstruction';
+    const PLAYER_HTML_CONSTRUCTION = 'tubepress.core.playerHtmlConstruction';
 
     /**
      * This event is fired when a TubePress builds the PHP/HTML template for a TubePress
@@ -88,7 +88,7 @@ class tubepress_api_const_event_CoreEventNames
      * @arg tubepress_api_video_Video 'video'      The video to be played.
      * @arg string                    'playerName' The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      */
-    const PLAYER_TEMPLATE_CONSTRUCTION = 'core.playerTemplateConstruction';
+    const PLAYER_TEMPLATE_CONSTRUCTION = 'tubepress.core.playerTemplateConstruction';
 
     /**
      * This event is fired when a TubePress option (a name-value pair) is being set. It is fired
@@ -98,7 +98,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg string 'optionName' The name of the option being set.
      */
-    const PRE_VALIDATION_OPTION_SET = 'core.preValidationOptionSet';
+    const PRE_VALIDATION_OPTION_SET = 'tubepress.core.preValidationOptionSet';
 
     /**
      * This event is fired when TubePress builds HTML for a standard (non-Ajax) search input form.
@@ -107,7 +107,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg None
      */
-    const SEARCH_INPUT_HTML_CONSTRUCTION = 'core.searchInputHtmlConstruction';
+    const SEARCH_INPUT_HTML_CONSTRUCTION = 'tubepress.core.searchInputHtmlConstruction';
 
     /**
      * This event is fired when TubePress builds the template for a standard (non-Ajax) search input form.
@@ -116,7 +116,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg None
      */
-    const SEARCH_INPUT_TEMPLATE_CONSTRUCTION = 'core.searchInputTemplateConstruction';
+    const SEARCH_INPUT_TEMPLATE_CONSTRUCTION = 'tubepress.core.searchInputTemplateConstruction';
 
     /**
      * This event is fired when TubePress builds HTML for a single video (not inside a gallery).
@@ -125,7 +125,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg None
      */
-    const SINGLE_VIDEO_HTML_CONSTRUCTION = 'core.searchInputHtmlConstruction';
+    const SINGLE_VIDEO_HTML_CONSTRUCTION = 'tubepress.core.searchInputHtmlConstruction';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for a single video (not inside a gallery)
@@ -134,7 +134,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg tubepress_api_video_Video 'video'        The video to be played.
      */
-    const SINGLE_VIDEO_TEMPLATE_CONSTRUCTION = 'core.singleVideoTemplateConstruction';
+    const SINGLE_VIDEO_TEMPLATE_CONSTRUCTION = 'tubepress.core.singleVideoTemplateConstruction';
 
     /**
      * This event is fired when TubePress builds the HTML for a thumbnail gallery.
@@ -144,7 +144,7 @@ class tubepress_api_const_event_CoreEventNames
      * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
      * @arg integer                              'page'             The page number.
      */
-    const THUMBNAIL_GALLERY_HTML_CONSTRUCTION = 'core.thumbnailGalleryHtmlConstruction';
+    const THUMBNAIL_GALLERY_HTML_CONSTRUCTION = 'tubepress.core.thumbnailGalleryHtmlConstruction';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for a thumbnail gallery.
@@ -154,7 +154,7 @@ class tubepress_api_const_event_CoreEventNames
      * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
      * @arg integer                              'page'             The page number.
      */
-    const THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION = 'core.thumbnailGalleryTemplateConstruction';
+    const THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION = 'tubepress.core.thumbnailGalleryTemplateConstruction';
 
     /**
      * This event is fired when a TubePress option (a name-value pair) is being read from external input.
@@ -163,7 +163,7 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @arg string 'optionName' The name of the option being set.
      */
-    const VARIABLE_READ_FROM_EXTERNAL_INPUT = 'core.variableReadFromExternalInput';
+    const VARIABLE_READ_FROM_EXTERNAL_INPUT = 'tubepress.core.variableReadFromExternalInput';
 
     /**
      * This event is fired when a TubePress builds a TubePress video. Some providers may add additional
@@ -174,12 +174,22 @@ class tubepress_api_const_event_CoreEventNames
      * @arg int   zeroBasedFeedIndex The zero-based index into the raw feed from which this video was built.
      * @arg mixed rawFeed            The "raw" unaltered feed from the provider.
      */
-    const VIDEO_CONSTRUCTION = 'core.videoConstruction';
+    const VIDEO_CONSTRUCTION = 'tubepress.core.videoConstruction';
 
     /**
      * This event is fired when a TubePress builds a tubepress_api_video_VideoGalleryPage.
      *
      * @subject tubepress_api_video_VideoGalleryPage The video gallery page being built.
      */
-    const VIDEO_GALLERY_PAGE_CONSTRUCTION = 'core.videoGalleryPageConstruction';
+    const VIDEO_GALLERY_PAGE_CONSTRUCTION = 'tubepress.core.videoGalleryPageConstruction';
+
+    /**
+     * This event is fired after TubePress fetches a HTTP response from the network.
+     *
+     * @subject string The HTTP body.
+     *
+     * @arg ehough_shortstop_api_HttpRequest  request  The HTTP request.
+     * @arg ehough_shortstop_api_HttpResponse response The HTTP response.
+     */
+    const HTTP_RESPONSE = 'tubepress.core.http.response';
 }

@@ -18,7 +18,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
 
     public function __construct()
     {
-        $this->_version = tubepress_spi_version_Version::parse('2.5.0');
+        $this->_version = tubepress_spi_version_Version::parse('3.1.0');
     }
 
     /**
@@ -48,7 +48,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
      *
      * @return string The absolute path of the user's content directory.
      */
-    function getUserContentDirectory()
+    public function getUserContentDirectory()
     {
         if ($this->isWordPress()) {
 

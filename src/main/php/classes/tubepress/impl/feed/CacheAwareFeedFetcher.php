@@ -15,7 +15,7 @@
 class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_FeedFetcher
 {
     /**
-     * @var ehough_epilog_psr_LoggerInterface
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 
@@ -28,60 +28,36 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
      * Fetches the feed from the remote provider
      *
      * @param string  $url      The URL to fetch.
-     * @param boolean $useCache Whether or not to use the network cache.
      *
      * @return mixed The raw feed from the provider, or null if there was a problem.
      */
-    public final function fetch($url, $useCache)
+    public final function fetch($url)
     {
-        $result = '';
-        if ($useCache) {
+        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $cacheEnabled   = $context->get(tubepress_api_const_options_names_Cache::CACHE_ENABLED);
+        $isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
-            $cache = tubepress_impl_patterns_sl_ServiceLocator::getCacheService();
+        if ($cacheEnabled) {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
-
-                $this->_logger->debug(sprintf('First asking cache for <a href="%s">URL</a>', $url));
-            }
-
-            $result = $cache->get($url);
-
-            if ($result !== false) {
-
-                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
-
-                    $this->_logger->debug(sprintf('Cache has <a href="%s">URL</a>. Sweet.', $url));
-                }
-
-            } else {
-
-                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
-
-                    $this->_logger->debug(sprintf('Cache does not have <a href="%s">URL</a>. We\'ll have to get it from the network.', $url));
-                }
-
-                $result = $this->_getFromNetwork($url);
-
-                $cache->save($url, $result);
-            }
+            $data = $this->_getFromCache($url, $context, $isDebugEnabled);
 
         } else {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($isDebugEnabled) {
 
                 $this->_logger->debug(sprintf('Skip cache check for <a href="%s">URL</a>', $url));
             }
 
-            $result = $this->_getFromNetwork($url);
+            $data = $this->_getFromNetwork($url);
         }
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($isDebugEnabled) {
 
             $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
-                $url, htmlspecialchars($result)));
+                $url, htmlspecialchars($data)));
         }
 
-        return $result;
+        return $data;
     }
 
     private function _getFromNetwork($url)
@@ -89,8 +65,53 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
         $u               = new ehough_curly_Url($url);
         $request         = new ehough_shortstop_api_HttpRequest(ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET, $u);
         $client          = tubepress_impl_patterns_sl_ServiceLocator::getHttpClient();
-        $responseHandler = tubepress_impl_patterns_sl_ServiceLocator::getHttpResponseHandler();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        return $client->executeAndHandleResponse($request, $responseHandler);
+        $response = $client->execute($request);
+
+        $event = new tubepress_api_event_TubePressEvent($response->getEntity()->getContent(), array(
+
+            'request'  => $request,
+            'response' => $response
+        ));
+        $eventDispatcher->dispatch(tubepress_api_const_event_CoreEventNames::HTTP_RESPONSE, $event);
+
+        return $event->getSubject();
+    }
+
+    private function _getFromCache($url, tubepress_spi_context_ExecutionContext $context, $isDebugEnabled)
+    {
+        /**
+         * @var $cache ehough_stash_PoolInterface
+         */
+        $cache = tubepress_impl_patterns_sl_ServiceLocator::getCacheService();
+
+        if ($isDebugEnabled) {
+
+            $this->_logger->debug(sprintf('First asking cache for <a href="%s">URL</a>', $url));
+        }
+
+        $result = $cache->getItem($url);
+
+        if ($result && $result->isValid()) {
+
+            if ($isDebugEnabled) {
+
+                $this->_logger->debug(sprintf('Cache has <a href="%s">URL</a>. Sweet.', $url));
+            }
+
+        } else {
+
+            if ($isDebugEnabled) {
+
+                $this->_logger->debug(sprintf('Cache does not have <a href="%s">URL</a>. We\'ll have to get it from the network.', $url));
+            }
+
+            $data = $this->_getFromNetwork($url);
+
+            $result->set($data, $context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
+        }
+
+        return $result->get();
     }
 }
