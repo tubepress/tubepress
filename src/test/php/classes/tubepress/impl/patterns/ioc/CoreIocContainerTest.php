@@ -22,6 +22,8 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
+
         require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeExtension.php';
         require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';
     }

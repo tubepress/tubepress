@@ -29,7 +29,7 @@ class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
      */
     function testNoAction()
     {
-        $this->setInIsolation(true);
+        //$this->setInIsolation(true);
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn(null);
 

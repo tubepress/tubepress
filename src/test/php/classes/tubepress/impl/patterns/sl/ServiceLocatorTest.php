@@ -38,6 +38,8 @@ class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
     {
         return array(
 
+            tubepress_spi_addon_AddonDiscoverer::_,
+            tubepress_spi_addon_AddonLoader::_,
             tubepress_spi_http_AjaxHandler::_,
             'ehough_stash_PoolInterface',
             tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
@@ -54,8 +56,6 @@ class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
             tubepress_spi_options_OptionValidator::_,
             tubepress_spi_options_ui_FieldBuilder::_,
             tubepress_spi_player_PlayerHtmlGenerator::_,
-            tubepress_spi_addon_AddonDiscoverer::_,
-            tubepress_spi_addon_AddonLoader::_,
             tubepress_spi_querystring_QueryStringService::_,
             tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
             tubepress_spi_shortcode_ShortcodeParser::_,
@@ -69,6 +69,8 @@ class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
     {
         return array(
 
+            'AddonDiscoverer',
+            'AddonLoader',
             'AjaxHandler',
             'CacheService',
             'EmbeddedHtmlGenerator',
@@ -78,15 +80,13 @@ class tubepress_impl_patterns_sl_ServiceLocatorTest extends TubePressUnitTest
             'FeedFetcher',
             'FileSystem',
             'FileSystemFinderFactory',
-            'HeadHtmlGenerator',
+            'CssAndJsGenerator',
             'HttpClient',
             'HttpRequestParameterService',
             'OptionDescriptorReference',
             'OptionValidator',
             'OptionsUiFieldBuilder',
             'PlayerHtmlGenerator',
-            'PluginDiscoverer',
-            'PluginRegistry',
             'QueryStringService',
             'ShortcodeHtmlGenerator',
             'ShortcodeParser',

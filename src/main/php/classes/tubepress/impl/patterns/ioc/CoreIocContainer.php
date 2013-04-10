@@ -34,8 +34,8 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
 
         $this->_registerEnvironmentDetector();
         $this->_registerFilesystemFinderFactory();
-        $this->_registerPluginDiscoverer();
-        $this->_registerPluginRegistry();
+        $this->_registerAddonDiscoverer();
+        $this->_registerAddonLoader();
     }
 
     /**
@@ -162,7 +162,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
         $this->_delegate->setAlias('ehough_finder_FinderFactory', 'ehough_finder_FinderFactoryInterface');
     }
 
-    private function _registerPluginDiscoverer()
+    private function _registerAddonDiscoverer()
     {
         $this->_delegate->register(
 
@@ -174,7 +174,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
         $this->_delegate->setAlias('tubepress_impl_addon_FilesystemAddonDiscoverer', tubepress_spi_addon_AddonDiscoverer::_);
     }
 
-    private function _registerPluginRegistry()
+    private function _registerAddonLoader()
     {
         $this->_delegate->register(
 
@@ -191,7 +191,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
      *
      * @param string $name
      *
-     * @api
+     * @throws BadMethodCallException On invocation.
      */
     public function enterScope($name)
     {
@@ -203,7 +203,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
      *
      * @param string $name
      *
-     * @api
+     * @throws BadMethodCallException On invocation.
      */
     public function leaveScope($name)
     {
@@ -215,7 +215,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
      *
      * @param ehough_iconic_ScopeInterface $scope
      *
-     * @api
+     * @throws BadMethodCallException On invocation.
      */
     public function addScope(ehough_iconic_ScopeInterface $scope)
     {
@@ -229,7 +229,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
      *
      * @return Boolean
      *
-     * @api
+     * @throws BadMethodCallException On invocation.
      */
     public function hasScope($name)
     {
@@ -245,7 +245,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
      *
      * @return Boolean
      *
-     * @api
+     * @throws BadMethodCallException On invocation.
      */
     public function isScopeActive($name)
     {

@@ -286,6 +286,8 @@ class tubepress_impl_player_AddonBaseTest extends TubePressUnitTest
         );
 
         $this->assertTrue($addon->getBootstrap() === $tempFile);
+
+        unlink($tempFile);
     }
 
     public function testNonStringBootstrap()

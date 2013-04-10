@@ -46,6 +46,8 @@ class tubepress_impl_player_DefaultAddonLoaderTest extends TubePressUnitTest
         $result = $this->_sut->load($plugin);
 
         $this->assertEquals('Hit exception when trying to load some plugin: Hi', $result);
+
+        unlink($tempFile);
     }
 
     public function testBootstrapFile()

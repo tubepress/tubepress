@@ -20,7 +20,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePress
 
     function testVersion()
     {
-        $latest = tubepress_spi_version_Version::parse('2.5.0');
+        $latest = tubepress_spi_version_Version::parse('3.1.0');
 
         $current = $this->_sut->getVersion();
 
