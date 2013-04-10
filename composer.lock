@@ -1,5 +1,5 @@
 {
-    "hash": "349891f70366cdb2dd3992722f586b46",
+    "hash": "1ac61f766c4ec68d3a6c857f6865ad57",
     "packages": [
         {
             "name": "ehough/chaingang",
@@ -333,16 +333,16 @@
         },
         {
             "name": "ehough/shortstop",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/shortstop.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/shortstop/zipball/2.0.0",
-                "reference": "2.0.0",
+                "url": "https://api.github.com/repos/ehough/shortstop/zipball/2.0.1",
+                "reference": "2.0.1",
                 "shasum": ""
             },
             "require": {
@@ -374,7 +374,7 @@
             ],
             "description": "Fast and flexible HTTP client for PHP 5.2+",
             "homepage": "https://github.com/ehough/shortstop",
-            "time": "2013-04-08 21:11:01"
+            "time": "2013-04-10 03:33:42"
         },
         {
             "name": "ehough/stash",

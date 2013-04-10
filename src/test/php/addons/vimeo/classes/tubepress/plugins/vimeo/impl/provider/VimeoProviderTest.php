@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressUnitTest
+class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService
+     * @var tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService
      */
     private $_sut;
 
@@ -33,7 +33,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressU
         $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
-        $this->_sut = new tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService($this->_mockUrlBuilder);
+        $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService($this->_mockUrlBuilder);
     }
 
     public function testGetName()
@@ -54,14 +54,14 @@ class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressU
 
             array(
 
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
-                tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY
             ),
 
             $this->_sut->getGallerySourceNames()

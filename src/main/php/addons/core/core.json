@@ -13,15 +13,15 @@
         }
     ],
     "description": "TubePress core functionality",
-    "bootstrap" : "tubepress_plugins_core_impl_Bootstrap",
+    "bootstrap" : "tubepress_addons_core_impl_Bootstrap",
     "psr-0" : {
 
-        "tubepress_plugins_core" : "classes"
+        "tubepress_addons_core" : "classes"
     },
     "ioc-container-extensions" : [
-        "tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension"
+        "tubepress_addons_core_impl_patterns_ioc_IocContainerExtension"
     ],
     "ioc-compiler-passes" : [
-        "tubepress_plugins_core_impl_patterns_ioc_CoreIocContainerCompilerPass"
+        "tubepress_addons_core_impl_patterns_ioc_CoreIocContainerCompilerPass"
     ]
 }

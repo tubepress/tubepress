@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTest extends TubePressUnitTest
+class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension
@@ -22,7 +22,7 @@ class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTe
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtension();
+        $this->_sut = new tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension();
 
         $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
     }
@@ -55,18 +55,18 @@ class tubepress_plugins_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTe
     {
         $map = array(
 
-            array('tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder', 'tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder'),
-            array('tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService', 'tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService',
+            array('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder', 'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'),
+            array('tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService', 'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService',
                 tubepress_spi_embedded_PluggableEmbeddedPlayerService::_),
-            array('tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService', 'tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService',
+            array('tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService', 'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService',
                 tubepress_spi_provider_PluggableVideoProviderService::_),
-            array('tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant', 'tubepress_plugins_youtube_impl_options_ui_YouTubeOptionsPageParticipant',
+            array('tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant', 'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant',
                 tubepress_spi_options_ui_PluggableOptionsPageParticipant::_),
-            array('tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter',
-                'tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter'),
+            array('tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter',
+                'tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter'),
 
-            array('tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
-                'tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
+            array('tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
+                'tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
                 'tubepress.impl.http.ResponseHandler'),
         );
 

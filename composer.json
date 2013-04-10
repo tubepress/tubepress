@@ -31,12 +31,13 @@
             "tubepress_api":  "src/main/php/classes",
             "tubepress_impl": "src/main/php/classes",
             "tubepress_spi":  "src/main/php/classes",
-            "tubepress_plugins_core": "src/main/php/plugins/core/classes",
-            "tubepress_plugins_embedplus": "src/main/php/plugins/embedplus/classes",
-            "tubepress_plugins_jwplayer": "src/main/php/plugins/jwplayer/classes",
-            "tubepress_plugins_vimeo": "src/main/php/plugins/vimeo/classes",
-            "tubepress_plugins_wordpress": "src/main/php/plugins/wordpress/classes",
-            "tubepress_plugins_youtube": "src/main/php/plugins/youtube/classes"
+            "tubepress_addons_core": "src/main/php/addons/core/classes",
+            "tubepress_addons_embedplus": "src/main/php/addons/embedplus/classes",
+            "tubepress_addons_jwplayer": "src/main/php/addons/jwplayer/classes",
+            "tubepress_addons_vimeo": "src/main/php/addons/vimeo/classes",
+            "tubepress_addons_wordpress": "src/main/php/addons/wordpress/classes",
+            "tubepress_addons_youtube": "src/main/php/addons/youtube/classes",
+            "tubepress_plugins": "src/main/php/deprecated/classes"
         }
     }
 }

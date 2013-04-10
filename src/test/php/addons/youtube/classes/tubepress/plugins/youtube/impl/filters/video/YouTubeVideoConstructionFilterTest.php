@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilterTest extends TubePressUnitTest
+class tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilterTest extends TubePressUnitTest
 {
     private static $_NAMESPACE_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     private static $_NAMESPACE_APP        = 'http://www.w3.org/2007/app';
@@ -18,7 +18,7 @@ class tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilte
     private static $_NAMESPACE_GD         = 'http://schemas.google.com/g/2005';
 
     /**
-     * @var tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter
+     * @var tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter
      */
     private $_sut;
 
@@ -28,7 +28,7 @@ class tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilte
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter();
+        $this->_sut = new tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(9);

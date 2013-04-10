@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtensionTest extends TubePressUnitTest
+class tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtensionTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension
@@ -22,7 +22,7 @@ class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtensionTest e
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtension();
+        $this->_sut = new tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension();
 
         $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
     }
@@ -55,23 +55,23 @@ class tubepress_plugins_vimeo_impl_patterns_ioc_VimeoIocContainerExtensionTest e
     {
         $map = array(
 
-            array('tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant',
-                'tubepress_plugins_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant',
+            array('tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant',
+                'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant',
                 tubepress_spi_options_ui_PluggableOptionsPageParticipant::_),
 
-            array('tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService',
-                'tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService',
+            array('tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService',
+                'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService',
                 tubepress_spi_embedded_PluggableEmbeddedPlayerService::_),
 
-            array('tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService',
-                'tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService',
+            array('tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService',
+                'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService',
                 tubepress_spi_provider_PluggableVideoProviderService::_),
 
-            array('tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder',
-                'tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder'),
+            array('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
+                'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'),
 
-            array('tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter',
-                'tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter'),
+            array('tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter',
+                'tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter'),
         );
 
         $toReturn = array();

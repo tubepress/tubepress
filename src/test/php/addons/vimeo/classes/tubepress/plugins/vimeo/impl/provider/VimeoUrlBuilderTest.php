@@ -8,13 +8,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePressUnitTest
+class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePressUnitTest
 {
     const PRE = "/http:\/\/vimeo.com\/api\/rest\/v2\?";
     const POST = "&format=php&oauth_consumer_key=vimeokey&oauth_nonce=[a-zA-Z0-9]+&oauth_signature_method=HMAC-SHA1&oauth_timestamp=[0-9]+&oauth_version=1.0&oauth_signature=[a-zA-Z0-9%]+/";
 
     /**
-     * @var tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder
+     * @var tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder
      */
     private $_sut;
 
@@ -22,7 +22,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
 
     function onSetup()
     {
-        $this->_sut = new tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder();
+        $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
@@ -35,8 +35,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testNoVimeoKeyGallery()
     {
         $this->expectOptions(array(
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => '',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => '',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $this->_sut->buildGalleryUrl(3);
@@ -48,8 +48,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testNoVimeoKeySingleVideo()
     {
         $this->expectOptions(array(
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => '',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => '',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $this->_sut->buildSingleVideoUrl('xyz');
@@ -61,8 +61,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testNoVimeoSecretGallery()
     {
         $this->expectOptions(array(
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => ''
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => ''
         ));
 
         $this->_sut->buildGalleryUrl(3);
@@ -74,8 +74,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testNoVimeoSecretSingleVideo()
     {
         $this->expectOptions(array(
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => ''
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => ''
         ));
 
         $this->_sut->buildSingleVideoUrl('xyz');
@@ -84,8 +84,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testSingleVideoUrl()
     {
         $this->expectOptions(array(
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildSingleVideoUrl('444333');
@@ -96,11 +96,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteGroup()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE => 'eric',
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE => 'eric',
            tubepress_api_const_options_names_Feed::ORDER_BY => 'random',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildGalleryUrl(1);
@@ -111,11 +111,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testExecuteCreditedTo()
     {
         $this->expectOptions(array(
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
-            tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE => 'eric',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
+            tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE => 'eric',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
             tubepress_api_const_options_names_Feed::ORDER_BY => 'random',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildGalleryUrl(1);
@@ -126,10 +126,10 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteAlbum()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE => 'eric',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE => 'eric',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildGalleryUrl(1);
@@ -140,10 +140,10 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteChannel()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE => 'eric',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE => 'eric',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildGalleryUrl(1);
@@ -155,11 +155,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteSearch()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => 'eric hough',
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => 'eric hough',
            tubepress_api_const_options_names_Feed::ORDER_BY => 'relevance',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret',
            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
 
@@ -171,11 +171,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteSearchWithUser()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => 'eric hough',
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => 'eric hough',
            tubepress_api_const_options_names_Feed::ORDER_BY => 'relevance',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret',
            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => 'ehough'
         ));
 
@@ -187,11 +187,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteAppearsIn()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE => 'eric',
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE => 'eric',
            tubepress_api_const_options_names_Feed::ORDER_BY => 'oldest',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildGalleryUrl(1);
@@ -202,11 +202,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteLikes()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE => 'eric',
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE => 'eric',
            tubepress_api_const_options_names_Feed::ORDER_BY => 'rating',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildGalleryUrl(1);
@@ -217,11 +217,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePres
     function testexecuteUploadedBy()
     {
         $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
-           tubepress_plugins_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE => 'eric',
+           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
+           tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE => 'eric',
            tubepress_api_const_options_names_Feed::ORDER_BY => 'commentCount',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-            tubepress_plugins_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+            tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
         $result = $this->_sut->buildGalleryUrl(1);

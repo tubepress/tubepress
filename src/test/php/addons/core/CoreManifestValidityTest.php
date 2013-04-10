@@ -8,11 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_core_CoreManifestValidityTest extends TubePressUnitTest
+class tubepress_addons_core_CoreManifestValidityTest extends TubePressUnitTest
 {
 	public function testManifest()
     {
-        $parsed = $this->getManifestDataAsAssociativeArray(dirname(__FILE__) . '/../../../../main/php/plugins/core/core.json');
+        $parsed = $this->getManifestDataAsAssociativeArray(dirname(__FILE__) . '/../../../../main/php/addons/core/core.json');
 
         $this->assertEquals('tubepress-core-addon', $parsed['name']);
         $this->assertEquals('1.0.0', $parsed['version']);
@@ -20,10 +20,10 @@ class tubepress_plugins_core_CoreManifestValidityTest extends TubePressUnitTest
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $parsed['author']);
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $parsed['licenses']);
         $this->assertEquals('TubePress core functionality', $parsed['description']);
-        $this->assertEquals('tubepress_plugins_core_impl_Bootstrap', $parsed['bootstrap']);
-        $this->assertEquals(array('tubepress_plugins_core' => 'classes'), $parsed['psr-0']);
-        $this->assertEquals(array('tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension'), $parsed['ioc-container-extensions']);
-        $this->assertEquals(array('tubepress_plugins_core_impl_patterns_ioc_CoreIocContainerCompilerPass'), $parsed['ioc-compiler-passes']);
+        $this->assertEquals('tubepress_addons_core_impl_Bootstrap', $parsed['bootstrap']);
+        $this->assertEquals(array('tubepress_addons_core' => 'classes'), $parsed['psr-0']);
+        $this->assertEquals(array('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension'), $parsed['ioc-container-extensions']);
+        $this->assertEquals(array('tubepress_addons_core_impl_patterns_ioc_CoreIocContainerCompilerPass'), $parsed['ioc-compiler-passes']);
     }
 
     protected function getManifestDataAsAssociativeArray($pathToManifest)

@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilterTest extends TubePressUnitTest
+class tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilterTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_youtube_impl_filters_video_YouTubeVideoConstructionFilter
+     * @var tubepress_addons_youtube_impl_filters_video_YouTubeVideoConstructionFilter
      */
     private $_sut;
 
@@ -19,7 +19,7 @@ class tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilterTes
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_vimeo_impl_filters_video_VimeoVideoConstructionFilter();
+        $this->_sut = new tubepress_addons_vimeo_impl_filters_video_VimeoVideoConstructionFilter();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(9);

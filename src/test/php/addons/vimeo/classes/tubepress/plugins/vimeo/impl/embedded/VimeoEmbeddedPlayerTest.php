@@ -8,13 +8,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends TubePressUnitTest
+class tubepress_addons_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends TubePressUnitTest
 {
     private $_sut;
 
     public function onSetup() {
 
-        $this->_sut = new tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService();
+        $this->_sut = new tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService();
     }
 
     public function testGetName()
@@ -51,7 +51,7 @@ class tubepress_plugins_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends Tube
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
 
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('ABCDEF');
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('ABCDEF');
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 

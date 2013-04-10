@@ -8,11 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest extends tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHandlerTest
+class tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest extends tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHandlerTest
 {
     protected function buildSut()
     {$this->markTestSkipped();
-        return new tubepress_plugins_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler();
+        return new tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler();
     }
 
     protected function getProviderName()

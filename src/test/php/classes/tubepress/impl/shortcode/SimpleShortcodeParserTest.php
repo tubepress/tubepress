@@ -38,8 +38,8 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $shortcode = '[butters mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
         $expected = array(
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE                => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE                => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             tubepress_api_const_options_names_Meta::AUTHOR                          => 'false',
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP                => 200,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE              => 3
@@ -59,8 +59,8 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             tubepress_api_const_options_names_Meta::AUTHOR => 'true',
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
@@ -82,8 +82,8 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
 
 
         $expected = array(
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             tubepress_api_const_options_names_Meta::AUTHOR => 'true',
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
@@ -117,8 +117,8 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242;]';
 
         $expected = array(
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         );
 
         $this->_setupExpectedFilters($expected);
@@ -136,8 +136,8 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $shortcode = '[butters mode=&#34playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         );
 
         $this->_setupExpectedFilters($expected);
@@ -153,7 +153,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     function testNoQuotes()
     {
         $shortcode = '[butters mode=playlist	]';
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 
@@ -170,7 +170,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $shortcode = '[butters mode=\'playlist\']';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 
@@ -186,7 +186,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $shortcode = '[butters mode="playlist"]';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters( $expected);
 
@@ -225,7 +225,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $shortcode = "[butters mode='playlist']";
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters( $expected);
 
@@ -241,7 +241,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $shortcode = "sddf	 [butters mode='playlist']	sdsdfsdf";
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 
@@ -257,7 +257,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $shortcode = "sddf[butters mode='playlist']sdsdfsdf";
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 

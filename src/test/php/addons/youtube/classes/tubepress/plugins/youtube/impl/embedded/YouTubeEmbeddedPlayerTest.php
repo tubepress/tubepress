@@ -8,16 +8,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends TubePressUnitTest
+class tubepress_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService
+     * @var tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService();
+        $this->_sut = new tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService();
     }
 
     public function testGetName()
@@ -52,11 +52,11 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE)->andReturn(tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BOTH);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE)->andReturn(tubepress_addons_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BOTH);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
@@ -71,11 +71,11 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE)->andReturn(tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_SHOW_BOTH);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE)->andReturn(tubepress_addons_youtube_api_const_options_values_YouTube::AUTOHIDE_SHOW_BOTH);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
@@ -90,11 +90,11 @@ class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE)->andReturn(tubepress_plugins_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE)->andReturn(tubepress_addons_youtube_api_const_options_values_YouTube::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
