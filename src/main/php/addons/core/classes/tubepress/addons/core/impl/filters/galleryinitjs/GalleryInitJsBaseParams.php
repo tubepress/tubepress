@@ -111,6 +111,9 @@ class tubepress_addons_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
         $playerLocations     = tubepress_impl_patterns_sl_ServiceLocator::getPlayerLocations();
         $requestedPlayerName = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
+        /**
+         * @var $playerLocation tubepress_spi_player_PluggablePlayerLocationService
+         */
         foreach ($playerLocations as $playerLocation) {
 
             if ($playerLocation->getName() === $requestedPlayerName) {

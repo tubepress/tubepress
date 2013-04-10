@@ -27,6 +27,10 @@ class tubepress_addons_core_impl_filters_gallerytemplate_EmbeddedPlayerName
         $context     = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $stored      = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $videoArray  = $page->getVideos();
+
+        /**
+         * @var $randomVideo tubepress_api_video_Video
+         */
         $randomVideo = $videoArray[array_rand($videoArray)];
         $provider    = $randomVideo->getAttribute(tubepress_api_video_Video::ATTRIBUTE_PROVIDER_NAME);
 

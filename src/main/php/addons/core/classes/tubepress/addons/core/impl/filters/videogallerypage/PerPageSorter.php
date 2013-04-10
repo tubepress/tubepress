@@ -14,6 +14,9 @@
  */
 class tubepress_addons_core_impl_filters_videogallerypage_PerPageSorter
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()

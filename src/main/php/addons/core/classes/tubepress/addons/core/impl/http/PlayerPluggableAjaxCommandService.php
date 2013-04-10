@@ -16,6 +16,9 @@
  */
 class tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService extends tubepress_impl_http_AbstractPluggableAjaxCommandService
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()

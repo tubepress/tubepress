@@ -239,6 +239,7 @@ class tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper implements
      */
     public final function plugin_basename($file)
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         return plugin_basename($file);
     }
 

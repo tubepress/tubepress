@@ -22,6 +22,8 @@ class tubepress_impl_util_TimeUtils
      * @param integer $timestamp The Unix timestamp.
      *
      * @return string The relative time of this timestamp.
+     *
+     * @throws LogicException
      */
     public static function getRelativeTime($timestamp)
     {
@@ -46,6 +48,8 @@ class tubepress_impl_util_TimeUtils
                 return $r . ' ' . $str . ($r > 1 ? 's' : '') . ' ago';
             }
         }
+
+        throw new LogicException();
     }
 
     /**
