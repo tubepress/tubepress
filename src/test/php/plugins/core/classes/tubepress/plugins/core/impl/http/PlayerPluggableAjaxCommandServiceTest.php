@@ -53,7 +53,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
         $this->_sut->handle();
 
         $this->assertEquals(200, $this->_sut->getHttpStatusCode());
-        $this->assertEquals('foobarr', $this->_sut->getOutput());
+        $this->assertEquals('{"title":"video title","html":"player-html"}', $this->_sut->getOutput());
     }
 
     public function testLazyPlay()

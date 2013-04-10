@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_core_Core
+class tubepress_plugins_core_impl_Bootstrap
 {
     public static function init()
     {
@@ -176,13 +176,13 @@ class tubepress_plugins_core_Core
         $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
         $option->setLabel('Implementation');                                                                                   //>(translatable)<
         $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
-        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_Core', '_callbackGetValidPlayerImplementations'));
+        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_impl_Bootstrap', '_callbackGetValidPlayerImplementations'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $option->setLabel('Play each video');                                                                                 //>(translatable)<
         $option->setDefaultValue('normal');
-        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_Core', '_callbackGetValidPlayerLocations'));
+        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_impl_Bootstrap', '_callbackGetValidPlayerLocations'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SEQUENCE);
@@ -262,7 +262,7 @@ class tubepress_plugins_core_Core
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
-        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_Core', '_callbackGetValidVideoProviderNames'));
+        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_impl_Bootstrap', '_callbackGetValidVideoProviderNames'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
@@ -441,7 +441,7 @@ class tubepress_plugins_core_Core
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THEME);
         $option->setLabel('Theme');                                                                                                                                               //>(translatable)<
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.'); //>(translatable)<
-        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_Core', '_callbackGetValidThemeOptions'));
+        $option->setAcceptableValuesCallback(array('tubepress_plugins_core_impl_Bootstrap', '_callbackGetValidThemeOptions'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
@@ -622,7 +622,7 @@ class tubepress_plugins_core_Core
     private static function _registerEventListeners()
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $callback        = array('tubepress_plugins_core_Core', '_callbackHandleEvent');
+        $callback        = array('tubepress_plugins_core_impl_Bootstrap', '_callbackHandleEvent');
         $eventNames      = array(
 
             tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
@@ -827,4 +827,4 @@ class tubepress_plugins_core_Core
      */
 }
 
-tubepress_plugins_core_Core::init();
+tubepress_plugins_core_impl_Bootstrap::init();

@@ -8,19 +8,34 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_core_CoreTest extends TubePressUnitTest
+class tubepress_plugins_core_impl_BootstrapTest extends TubePressUnitTest
 {
-	private $_mockEventDispatcher;
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionsDescriptorReference;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFileSystem;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFinderFactory;
 
-	function onSetup()
+	public function onSetup()
 	{
 		$this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
@@ -34,7 +49,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         }
     }
 
-    function testCore()
+    public function testCore()
     {
         $this->_testOptionsRegistration();
 
@@ -42,7 +57,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
 
         $this->_testEventListenerRegistration();
 
-        require TUBEPRESS_ROOT . '/src/main/php/plugins/core/Core.php';
+        require TUBEPRESS_ROOT . '/src/main/php/plugins/core/classes/tubepress/plugins/core/impl/Bootstrap.php';
 
         $this->_testEventListeners();
     }
@@ -89,7 +104,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
             $event = new tubepress_api_event_TubePressEvent('x');
             $event->setName($eventName);
 
-            tubepress_plugins_core_Core::_callbackHandleEvent($event);
+            tubepress_plugins_core_impl_Bootstrap::_callbackHandleEvent($event);
         }
 
         $this->assertTrue(true);
@@ -135,7 +150,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
         $fakeThemeDir        = ehough_mockery_Mockery::mock();
         $fakeThemeDir->shouldReceive('getBasename')->times(50)->andReturn('xyz');
 
-        $finder              = ehough_mockery_Mockery::mock('ehough_fimble_api_Finder');
+        $finder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $finder->shouldReceive('directories')->times(50)->andReturn($finder);
         $finder->shouldReceive('in')->times(50)->with(array('user-content-dir/themes'))->andReturn($finder);
         $finder->shouldReceive('depth')->times(50)->with(0);
@@ -543,7 +558,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
                 return in_array($eventName, $eventNames);
             }),
 
-            array('tubepress_plugins_core_Core', '_callbackHandleEvent')
+            array('tubepress_plugins_core_impl_Bootstrap', '_callbackHandleEvent')
         );
     }
 

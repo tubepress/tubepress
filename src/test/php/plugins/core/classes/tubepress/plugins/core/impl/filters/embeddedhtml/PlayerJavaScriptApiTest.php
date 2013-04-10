@@ -8,18 +8,24 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_addon_filters_embeddedhtml_PlayerJavaScriptApitTest extends TubePressUnitTest
+class tubepress_impl_addon_filters_embeddedhtml_PlayerJavaScriptApiTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
-	function onSetup()
+	public function onSetup()
 	{
 		$this->_sut = new tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi();
 
@@ -27,7 +33,7 @@ class tubepress_impl_addon_filters_embeddedhtml_PlayerJavaScriptApitTest extends
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 	}
 
-    function testJsApiNotEnabled()
+    public function testJsApiNotEnabled()
     {
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(false);
@@ -39,7 +45,7 @@ class tubepress_impl_addon_filters_embeddedhtml_PlayerJavaScriptApitTest extends
         $this->assertEquals('hello', $event->getSubject());
     }
 
-	function testJsApiEnabled()
+	public function testJsApiEnabled()
 	{
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);

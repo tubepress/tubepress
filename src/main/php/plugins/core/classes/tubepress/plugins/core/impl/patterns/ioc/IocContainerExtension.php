@@ -37,10 +37,9 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         $this->_registerExecutionContext($container);
         $this->_registerFeedFetcher($container);
         $this->_registerFilesystem($container);
-        $this->_registerHeadHtmlGenerator($container);
+        $this->_registerCssAndJsGenerator($container);
         $this->_registerHttpClient($container);
         $this->_registerHttpRequestParameterService($container);
-        $this->_registerJsonEncoderAndDecoder($container);
         $this->_registerOptionDescriptorReference($container);
         $this->_registerOptionValidator($container);
         $this->_registerOptionsUiFieldBuilder($container);
@@ -90,16 +89,18 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
 
     private function _registerCacheService(ehough_iconic_ContainerBuilder $container)
     {
+        $container->register('ehough_stash_driver_FileSystem', 'ehough_stash_driver_FileSystem');
+
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
             'ehough_stash_PoolInterface',
-            'ehough_stash_impl_PearCacheLiteCache'
+            'ehough_stash_Pool'
 
-        )->addArgument(new ehough_iconic_Reference('ehough_filesystem_FilesystemInterface'));
+        )->addArgument(new ehough_iconic_Reference('ehough_stash_driver_FileSystem'));
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('ehough_stash_impl_PearCacheLiteCache', 'ehough_stash_PoolInterface');
+        $container->setAlias('ehough_stash_Pool', 'ehough_stash_PoolInterface');
     }
 
     private function _registerEmbeddedHtmlGenerator(ehough_iconic_ContainerBuilder $container)
@@ -120,11 +121,11 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         $container->register(
 
             'ehough_tickertape_EventDispatcherInterface',
-            'ehough_tickertape_impl_StandardEventDispatcher'
+            'ehough_tickertape_EventDispatcher'
         );
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('ehough_tickertape_impl_StandardEventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
+        $container->setAlias('ehough_tickertape_EventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
     }
 
     private function _registerExecutionContext(ehough_iconic_ContainerBuilder $container)
@@ -144,11 +145,11 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         $container->register(
 
             'ehough_filesystem_FilesystemInterface',
-            'ehough_fimble_impl_StandardFilesystem'
+            'ehough_filesystem_Filesystem'
         );
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('ehough_fimble_impl_StandardFilesystem', 'ehough_filesystem_FilesystemInterface');
+        $container->setAlias('ehough_filesystem_Filesystem', 'ehough_filesystem_FilesystemInterface');
     }
 
     private function _registerFeedFetcher(ehough_iconic_ContainerBuilder $container)
@@ -163,16 +164,16 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         $container->setAlias('tubepress_impl_feed_CacheAwareFeedFetcher', tubepress_spi_feed_FeedFetcher::_);
     }
 
-    private function _registerHeadHtmlGenerator(ehough_iconic_ContainerBuilder $container)
+    private function _registerCssAndJsGenerator(ehough_iconic_ContainerBuilder $container)
     {
         $container->register(
 
             tubepress_spi_html_CssAndJsGenerator::_,
-            'tubepress_impl_html_DefaultHeadHtmlGenerator'
+            'tubepress_impl_html_DefaultCssAndJsGenerator'
         );
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('tubepress_impl_html_DefaultHeadHtmlGenerator', tubepress_spi_html_CssAndJsGenerator::_);
+        $container->setAlias('tubepress_impl_html_DefaultCssAndJsGenerator', tubepress_spi_html_CssAndJsGenerator::_);
     }
 
     private function _registerHttpClient(ehough_iconic_ContainerBuilder $container)
@@ -184,7 +185,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /**
          * Register the message parser.
          */
-        $messageParserId = 'ehough_shortstop_impl_DefaultHttpMessageParser';
+        $messageParserId = 'ehough_shortstop_impl_exec_DefaultHttpMessageParser';
         $container->register($messageParserId, $messageParserId);
 
 
@@ -193,11 +194,11 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
          */
         $transportClasses = array(
 
-            'ehough_shortstop_impl_transports_ExtHttpTransport',
-            'ehough_shortstop_impl_transports_CurlTransport',
-            'ehough_shortstop_impl_transports_StreamsTransport',
-            'ehough_shortstop_impl_transports_FsockOpenTransport',
-            'ehough_shortstop_impl_transports_FopenTransport'
+            'ehough_shortstop_impl_exec_command_ExtCommand',
+            'ehough_shortstop_impl_exec_command_CurlCommand',
+            'ehough_shortstop_impl_exec_command_StreamsCommand',
+            'ehough_shortstop_impl_exec_command_FsockOpenCommand',
+            'ehough_shortstop_impl_exec_command_FopenCommand'
         );
 
         $transportReferences = array();
@@ -206,12 +207,13 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
 
             /** @noinspection PhpUndefinedMethodInspection */
             $container->register($transportClass, $transportClass)
-                ->addArgument(new ehough_iconic_Reference($messageParserId));
+                ->addArgument(new ehough_iconic_Reference($messageParserId))
+                ->addArgument(new ehough_iconic_Reference('ehough_tickertape_EventDispatcherInterface'));
 
             array_push($transportReferences, new ehough_iconic_Reference($transportClass));
         }
 
-        $transportChainId = '_ehough_shortstop_impl_HttpClientChain_transportchain';
+        $transportChainId = '_ehough_shortstop_impl_DefaultHttpClient_transportchain';
 
         $this->_registerChainDefinitionByReferences($container, $transportChainId, $transportReferences);
 
@@ -220,13 +222,13 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
          */
         $contentDecoderCommands = array(
 
-            'ehough_shortstop_impl_contentencoding_NativeGzipDecompressor',
-            'ehough_shortstop_impl_contentencoding_SimulatedGzipDecompressor',
-            'ehough_shortstop_impl_contentencoding_NativeDeflateRfc1950Decompressor',
-            'ehough_shortstop_impl_contentencoding_NativeDeflateRfc1951Decompressor',
+            'ehough_shortstop_impl_decoding_content_command_NativeGzipDecompressingCommand',
+            'ehough_shortstop_impl_decoding_content_command_SimulatedGzipDecompressingCommand',
+            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1950DecompressingCommand',
+            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1951DecompressingCommand',
         );
 
-        $contentDecoderChainId = '_ehough_shortstop_impl_HttpClientChain_contentdecoderchain';
+        $contentDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain';
 
         $this->_registerChainDefinitionByClassNames($container, $contentDecoderChainId, $contentDecoderCommands);
 
@@ -236,10 +238,10 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
          */
         $transferDecoderCommands = array(
 
-            'ehough_shortstop_impl_transferencoding_ChunkedTransferDecoder'
+            'ehough_shortstop_impl_decoding_transfer_command_ChunkedTransferDecodingCommand'
         );
 
-        $transferDecoderChainId = '_ehough_shortstop_impl_HttpClientChain_transferdecoderchain';
+        $transferDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain';
 
         $this->_registerChainDefinitionByClassNames($container, $transferDecoderChainId, $transferDecoderCommands);
 
@@ -247,7 +249,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /**
          * Register the transfer decoder.
          */
-        $transferDecoderId = '_ehough_shortstop_impl_HttpClientChain_transferdecoder';
+        $transferDecoderId = '_ehough_shortstop_impl_DefaultHttpClient_transferdecoder';
 
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
@@ -260,7 +262,7 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
         /**
          * Register the content decoder.
          */
-        $contentDecoderId = '_ehough_shortstop_impl_HttpClientChain_contentdecoder';
+        $contentDecoderId = '_ehough_shortstop_impl_DefaultHttpClient_contentdecoder';
 
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
@@ -269,19 +271,17 @@ class tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension implements 
 
         )->addArgument(new ehough_iconic_Reference($contentDecoderChainId));
 
-
         /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
             'ehough_shortstop_api_HttpClientInterface',
-            'ehough_shortstop_impl_HttpClientChain'
+            'ehough_shortstop_impl_DefaultHttpClient'
 
-        )->addArgument(new ehough_iconic_Reference($transportChainId))
-            ->addArgument(new ehough_iconic_Reference($contentDecoderId))
-            ->addArgument(new ehough_iconic_Reference($transferDecoderId));
+        )->addArgument(new ehough_iconic_Reference('ehough_tickertape_EventDispatcherInterface'))
+         ->addArgument(new ehough_iconic_Reference($transportChainId));
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('ehough_shortstop_impl_HttpClientChain', 'ehough_shortstop_api_HttpClientInterface');
+        $container->setAlias('ehough_shortstop_impl_DefaultHttpClient', 'ehough_shortstop_api_HttpClientInterface');
     }
 
     private function _registerHttpRequestParameterService(ehough_iconic_ContainerBuilder $container)
