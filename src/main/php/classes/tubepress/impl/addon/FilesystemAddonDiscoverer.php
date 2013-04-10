@@ -82,7 +82,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
         try {
 
-            return $this->_constructAddonFromArray($infoFileContents);
+            return $this->_constructAddonFromArray($infoFileContents, $path);
 
         } catch (Exception $e) {
 
@@ -92,7 +92,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
         }
     }
 
-    private function _constructAddonFromArray($manifest)
+    private function _constructAddonFromArray($manifest, $path)
     {
         $requiredAttributeNames = array(
 
@@ -138,6 +138,11 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
         foreach ($optionalAttributeNames as $optionalAttributeName => $setterSuffix) {
 
+            if ($optionalAttributeName === tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS) {
+
+                $manifest[$optionalAttributeName] = $this->_cleanPsr0Path($manifest[$optionalAttributeName], $path);
+            }
+
             if (isset($manifest[$optionalAttributeName])) {
 
                 $method = 'set' . $setterSuffix;
@@ -147,5 +152,34 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
         }
 
         return $addon;
+    }
+
+    private function _cleanPsr0Path(array $paths, $manifestFilePath)
+    {
+        $toReturn = array();
+
+        foreach ($paths as $prefix => $path) {
+
+            if ($prefix) {
+
+                $toReturn[$prefix] = $this->_cleanSinglePath($path, $manifestFilePath);
+
+            } else {
+
+                $toReturn[] = $this->_cleanSinglePath($path, $manifestFilePath);
+            }
+        }
+
+        return $toReturn;
+    }
+
+    private function _cleanSinglePath($path, $manifestFilePath)
+    {
+        if (is_dir($path)) {
+
+            return $path;
+        }
+
+        return dirname($manifestFilePath) . DIRECTORY_SEPARATOR . $path;
     }
 }

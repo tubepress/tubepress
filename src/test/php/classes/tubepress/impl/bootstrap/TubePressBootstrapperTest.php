@@ -16,9 +16,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
     private $_mockStorageManager;
 
-    private $_mockPluginDiscoverer;
+    private $_mockAddonDiscoverer;
 
-    private $_mockPluginRegistry;
+    private $_mockAddonRegistry;
 
     private $_mockExecutionContext;
 
@@ -30,8 +30,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockPluginDiscoverer            = $this->createMockSingletonService(tubepress_spi_addon_AddonDiscoverer::_);
-        $this->_mockPluginRegistry              = $this->createMockSingletonService(tubepress_spi_addon_AddonLoader::_);
+        $this->_mockAddonDiscoverer             = $this->createMockSingletonService(tubepress_spi_addon_AddonDiscoverer::_);
+        $this->_mockAddonRegistry               = $this->createMockSingletonService(tubepress_spi_addon_AddonLoader::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
@@ -47,39 +47,40 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
+
         require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';
         require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeExtension.php';
     }
 
     function testBoot()
     {
-        $mockPlugin1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
-        $mockPlugin2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
-        $mockPlugin1->shouldReceive('getName')->andReturn('mock plugin 1');
-        $mockPlugin2->shouldReceive('getName')->andReturn('mock plugin 2');
-        $mockPlugin1->shouldReceive('getAbsolutePathOfDirectory')->once()->andReturn('xyz');
+        $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+        $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+        $mockAddon1->shouldReceive('getName')->andReturn('mock plugin 1');
+        $mockAddon2->shouldReceive('getName')->andReturn('mock plugin 2');
 
-        $mockPlugin1IocContainerExtensions = array('FakeExtension', 'bogus class');
-        $mockPlugin2IocCompilerPasses = array('FakeCompilerPass', 'no such class');
+        $mockAddon1IocContainerExtensions = array('FakeExtension', 'bogus class');
+        $mockAddon2IocCompilerPasses = array('FakeCompilerPass', 'no such class');
 
-        $mockPlugin1->shouldReceive('getIocContainerExtensions')->once()->andReturn($mockPlugin1IocContainerExtensions);
-        $mockPlugin1->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn(array());
-        $mockPlugin2->shouldReceive('getIocContainerExtensions')->once()->andReturn(array());
-        $mockPlugin2->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn($mockPlugin2IocCompilerPasses);
-        $mockPlugin1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('some root'));
-        $mockPlugin2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
+        $mockAddon1->shouldReceive('getIocContainerExtensions')->once()->andReturn($mockAddon1IocContainerExtensions);
+        $mockAddon1->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn(array());
+        $mockAddon2->shouldReceive('getIocContainerExtensions')->once()->andReturn(array());
+        $mockAddon2->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn($mockAddon2IocCompilerPasses);
+        $mockAddon1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('some root'));
+        $mockAddon2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
 
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
 
-        $this->_mockPluginDiscoverer->shouldReceive('findPluginsRecursivelyInDirectory')->once()
-            ->with(TUBEPRESS_ROOT . '/src/main/php/plugins')->andReturn(array($mockPlugin1));
+        $this->_mockAddonDiscoverer->shouldReceive('findAddonsInDirectory')->once()
+            ->with(TUBEPRESS_ROOT . '/src/main/php/plugins')->andReturn(array($mockAddon1));
 
-        $this->_mockPluginDiscoverer->shouldReceive('findPluginsRecursivelyInDirectory')->once()
-            ->with(realpath('<<user-content-dir>>/plugins'))->andReturn(array($mockPlugin2));
+        $this->_mockAddonDiscoverer->shouldReceive('findAddonsInDirectory')->once()
+            ->with(realpath('<<user-content-dir>>/plugins'))->andReturn(array($mockAddon2));
 
-        $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin1);
-        $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin2);
+        $this->_mockAddonRegistry->shouldReceive('load')->once()->with($mockAddon1);
+        $this->_mockAddonRegistry->shouldReceive('load')->once()->with($mockAddon2);
 
         $this->getMockIocContainer()->shouldReceive('addCompilerPass')->once()->with(ehough_mockery_Mockery::type('FakeCompilerPass'));
         $this->getMockIocContainer()->shouldReceive('registerExtension')->once()->with(ehough_mockery_Mockery::type('FakeExtension'));

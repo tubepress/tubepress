@@ -181,17 +181,17 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_addon_AddonDiscoverer The plugin discoverer.
+     * @return tubepress_spi_addon_AddonDiscoverer The add-on discoverer.
      */
-    public static function getPluginDiscoverer()
+    public static function getAddonDiscoverer()
     {
         return self::getService(tubepress_spi_addon_AddonDiscoverer::_);
     }
 
     /**
-     * @return tubepress_spi_addon_AddonLoader The plugin registry.
+     * @return tubepress_spi_addon_AddonLoader The add-on loader.
      */
-    public static function getPluginRegistry()
+    public static function getAddonLoader()
     {
         return self::getService(tubepress_spi_addon_AddonLoader::_);
     }

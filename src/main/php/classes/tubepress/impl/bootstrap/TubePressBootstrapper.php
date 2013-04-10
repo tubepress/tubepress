@@ -25,7 +25,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     private $_logger;
 
     /**
-     * @var ehough_epilog_api_IHandler
+     * @var ehough_epilog_handler_HandlerInterface
      */
     private $_loggingHandler;
 
@@ -123,50 +123,50 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $this->_logger->debug('Booting!');
         }
 
-        $pluginDiscoverer = tubepress_impl_patterns_sl_ServiceLocator::getPluginDiscoverer();
-        $pluginLoader     = tubepress_impl_patterns_sl_ServiceLocator::getPluginRegistry();
+        $addonDiscoverer = tubepress_impl_patterns_sl_ServiceLocator::getAddonDiscoverer();
+        $addonLoader     = tubepress_impl_patterns_sl_ServiceLocator::getAddonLoader();
 
-        /* load plugins */
-        $systemPlugins = $this->_findSystemPlugins($pluginDiscoverer);
-        $userPlugins   = $this->_findUserPlugins($pluginDiscoverer);
-        $allPlugins    = array_merge($systemPlugins, $userPlugins);
+        /* load add-ons */
+        $systemAddons = $this->_findSystemAddons($addonDiscoverer);
+        $userAddons   = $this->_findUserAddons($addonDiscoverer);
+        $allAddons    = array_merge($systemAddons, $userAddons);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Found %d plugins (%d system and %d user)',
-                count($allPlugins), count($systemPlugins), count($userPlugins)));
+            $this->_logger->debug(sprintf('Found %d add-ons (%d system and %d user)',
+                count($allAddons), count($systemAddons), count($userAddons)));
 
-            $this->_logger->debug('Now register plugin classloaders');
+            $this->_logger->debug('Now register add-on classloaders');
         }
 
         /**
          * Load classpaths.
          */
-        $this->_registerPluginClasspaths($allPlugins);
+        $this->_registerAddonClasspaths($allAddons);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done registering plugin classloaders. Now registering plugin IoC container extensions.');
+            $this->_logger->debug('Done registering add-on classloaders. Now registering add-on IoC container extensions.');
         }
 
         /**
          * Load IOC container extensions.
          */
-        $this->_registerIocContainerExtensions($allPlugins, $coreIocContainer);
+        $this->_registerIocContainerExtensions($allAddons, $coreIocContainer);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done registering plugin IoC container extensions. Now registering plugin IoC compiler passes.');
+            $this->_logger->debug('Done registering add-on IoC container extensions. Now registering add-on IoC compiler passes.');
         }
 
         /*
          * Load IOC compiler passes.
          */
-        $this->_registerIocCompilerPasses($allPlugins, $coreIocContainer);
+        $this->_registerIocCompilerPasses($allAddons, $coreIocContainer);
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done registering plugin IoC compiler passes. Now compiling IoC container.');
+            $this->_logger->debug('Done registering add-on IoC compiler passes. Now compiling IoC container.');
         }
 
         /**
@@ -185,25 +185,25 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         }
 
         $index = 1;
-        $count = count($allPlugins);
+        $count = count($allAddons);
 
         /**
          * Load plugins.
          */
-        foreach ($allPlugins as $plugin) {
+        foreach ($allAddons as $addon) {
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Attempting to load plugin %d of %d: %s',
-                    $index, $count, $plugin->getName()));
+                $this->_logger->debug(sprintf('Attempting to load add-on %d of %d: %s',
+                    $index, $count, $addon->getName()));
             }
 
-            $pluginLoader->load($plugin);
+            $addonLoader->load($addon);
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Done attempting to load plugin %d of %d: %s',
-                    $index, $count, $plugin->getName()));
+                $this->_logger->debug(sprintf('Done attempting to load add-on %d of %d: %s',
+                    $index, $count, $addon->getName()));
             }
 
             $index++;
@@ -221,21 +221,21 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         self::$_alreadyBooted = true;
     }
 
-     private function _registerIocCompilerPasses($plugins, $coreIocContainer)
+     private function _registerIocCompilerPasses($addons, $coreIocContainer)
      {
          $index = 1;
-         $count = count($plugins);
+         $count = count($addons);
 
-         foreach ($plugins as $plugin) {
+         foreach ($addons as $addon) {
 
-             $compilerPasses = $plugin->getIocContainerCompilerPasses();
+             $compilerPasses = $addon->getIocContainerCompilerPasses();
 
              if (count($compilerPasses) === 0) {
 
                  if ($this->_shouldLog) {
 
-                     $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Did not register any IoC compiler passes',
-                         $index, $count, $plugin->getName()));
+                     $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not register any IoC compiler passes',
+                         $index, $count, $addon->getName()));
                  }
 
                  $index++;
@@ -247,8 +247,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                  if ($this->_shouldLog) {
 
-                     $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Will attempt to load %s as an IoC compiler pass',
-                         $index, $count, $plugin->getName(), $compilerPass));
+                     $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Will attempt to load %s as an IoC compiler pass',
+                         $index, $count, $addon->getName(), $compilerPass));
                  }
 
                  try {
@@ -260,16 +260,16 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                      if ($this->_shouldLog) {
 
-                         $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Successfully loaded %s as an IoC compiler pass',
-                             $index, $count, $plugin->getName(), $compilerPass));
+                         $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Successfully loaded %s as an IoC compiler pass',
+                             $index, $count, $addon->getName(), $compilerPass));
                      }
 
                  } catch (Exception $e) {
 
                      if ($this->_shouldLog) {
 
-                         $this->_logger->warn(sprintf('(Plugin %d of %d: %s) Failed to load %s as an IoC compiler pass: %s',
-                             $index, $count, $plugin->getName(), $compilerPass, $e->getMessage()));
+                         $this->_logger->warn(sprintf('(Add-on %d of %d: %s) Failed to load %s as an IoC compiler pass: %s',
+                             $index, $count, $addon->getName(), $compilerPass, $e->getMessage()));
                      }
                  }
              }
@@ -278,21 +278,21 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          }
      }
 
-    private function _registerIocContainerExtensions($plugins, $coreIocContainer)
+    private function _registerIocContainerExtensions($addons, $coreIocContainer)
     {
         $index = 1;
-        $count = count($plugins);
+        $count = count($addons);
 
-        foreach ($plugins as $plugin) {
+        foreach ($addons as $addon) {
 
-            $extensions = $plugin->getIocContainerExtensions();
+            $extensions = $addon->getIocContainerExtensions();
 
             if (count($extensions) === 0) {
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Did not register any IoC container extensions',
-                        $index, $count, $plugin->getName()));
+                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not register any IoC container extensions',
+                        $index, $count, $addon->getName()));
                 }
 
                 $index++;
@@ -304,8 +304,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Will attempt to load %s as an IoC container extension',
-                        $index, $count, $plugin->getName(), $extension));
+                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Will attempt to load %s as an IoC container extension',
+                        $index, $count, $addon->getName(), $extension));
                 }
 
                 try {
@@ -317,16 +317,16 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                     if ($this->_shouldLog) {
 
-                        $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Successfully loaded %s as an IoC container extension',
-                            $index, $count, $plugin->getName(), $extension));
+                        $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Successfully loaded %s as an IoC container extension',
+                            $index, $count, $addon->getName(), $extension));
                     }
 
                 } catch (Exception $e) {
 
                     if ($this->_shouldLog) {
 
-                        $this->_logger->warn(sprintf('(Plugin %d of %d: %s) Failed to load %s as an IoC container extension: %s',
-                            $index, $count, $plugin->getName(), $extension, $e->getMessage()));
+                        $this->_logger->warn(sprintf('(Add-on %d of %d: %s) Failed to load %s as an IoC container extension: %s',
+                            $index, $count, $addon->getName(), $extension, $e->getMessage()));
                     }
                 }
             }
@@ -335,21 +335,21 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         }
     }
 
-    private function _registerPluginClasspaths(array $plugins)
+    private function _registerAddonClasspaths(array $addons)
     {
         $index = 1;
-        $count = count($plugins);
+        $count = count($addons);
 
-        foreach ($plugins as $plugin) {
+        foreach ($addons as $addon) {
 
-            $classPaths = $plugin->getPsr0ClassPathRoots();
+            $classPaths = $addon->getPsr0ClassPathRoots();
 
             if (count($classPaths) === 0) {
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Did not define any classpaths',
-                        $index, $count, $plugin->getName()));
+                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not define any classpaths',
+                        $index, $count, $addon->getName()));
                 }
 
                 $index++;
@@ -359,29 +359,27 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Creating classloader that has %d classpath(s)',
-                    $index, $count, $plugin->getName(), count($classPaths)));
+                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Creating classloader that has %d classpath(s)',
+                    $index, $count, $addon->getName(), count($classPaths)));
             }
 
-            foreach ($classPaths as $prefix => $classPath) {
-
-                $realDir = $plugin->getAbsolutePathOfDirectory() . DIRECTORY_SEPARATOR . $classPath;
+            foreach ($classPaths as $prefix => $path) {
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Plugin %d of %d: %s) Registering %s as a classpath',
-                        $index, $count, $plugin->getName(), $realDir));
+                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Registering %s as a classpath',
+                        $index, $count, $addon->getName(), $path));
                 }
 
                 if ($prefix) {
 
-                    $this->_classLoader->registerPrefix($prefix, $realDir);
-                    $this->_classLoader->registerNamespace($prefix, $realDir);
+                    $this->_classLoader->registerPrefix($prefix, $path);
+                    $this->_classLoader->registerNamespace($prefix, $path);
 
                 } else {
 
-                    $this->_classLoader->registerNamespaceFallback($realDir);
-                    $this->_classLoader->registerPrefixFallback($realDir);
+                    $this->_classLoader->registerNamespaceFallback($path);
+                    $this->_classLoader->registerPrefixFallback($path);
                 }
             }
 
@@ -389,41 +387,39 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         }
     }
 
-    private function _findUserPlugins(tubepress_spi_addon_AddonDiscoverer $discoverer)
+    private function _findUserAddons(tubepress_spi_addon_AddonDiscoverer $discoverer)
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         $userContentDir = $environmentDetector->getUserContentDirectory();
-        $userPluginsDir = $userContentDir . '/plugins';
+        $userAddonsDir = $userContentDir . '/plugins';
 
-        return $this->_findPluginsInDirectory($userPluginsDir,
+        return $this->_findAddonsInDirectory($userAddonsDir,
             $discoverer, true);
     }
 
-    private function _findSystemPlugins(tubepress_spi_addon_AddonDiscoverer $discoverer)
+    private function _findSystemAddons(tubepress_spi_addon_AddonDiscoverer $discoverer)
     {
-        $corePlugins = $this->_findPluginsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins',
+        $coreAddons = $this->_findAddonsInDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins',
             $discoverer, true);
 
-        usort($corePlugins, array($this, '_corePluginSorter'));
+        usort($coreAddons, array($this, '_coreAddonSorter'));
 
-        return $corePlugins;
+        return $coreAddons;
     }
 
-    private function _findPluginsInDirectory($directory,
-        tubepress_spi_addon_AddonDiscoverer $discoverer,
-        $recursive)
+    private function _findAddonsInDirectory($directory, tubepress_spi_addon_AddonDiscoverer $discoverer, $recursive)
     {
         if ($recursive) {
 
-            $plugins = $discoverer->findPluginsRecursivelyInDirectory(realpath($directory));
+            $addons = $discoverer->findAddonsInDirectory(realpath($directory));
 
         } else {
 
-            $plugins = $discoverer->findPluginsNonRecursivelyInDirectory(realpath($directory));
+            $addons = $discoverer->findAddonsInDirectory(realpath($directory));
         }
 
-        return $plugins;
+        return $addons;
     }
 
     private function _loggingSetupPhaseOne()
@@ -464,13 +460,13 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         $this->_shouldLog = $status;
     }
 
-    private function _corePluginSorter(tubepress_spi_addon_Addon $first, tubepress_spi_addon_Addon $second)
+    private function _coreAddonSorter(tubepress_spi_addon_Addon $first, tubepress_spi_addon_Addon $second)
     {
         $firstName  = $first->getName();
         $secondName = $second->getName();
 
         /*
-         * The core plugin always gets loaded first.
+         * The core add-on always gets loaded first.
          */
 
         if ($firstName === 'TubePress Core') {

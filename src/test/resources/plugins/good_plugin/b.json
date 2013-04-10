@@ -19,7 +19,7 @@
     "demo": "http://some.demo",
     "download": "http://down.load",
     "bugs": "https://bug.tracker",
-    "psr-0": [ "/foo/bar", "/fooz/baz" ],
+    "psr-0": { "foobar": "/foo/bar", "foozbaz": "/fooz/baz" },
     "ioc-compiler-passes": [ "yellow", "orange" ],
     "ioc-container-extensions": [ "blue", "black" ]
 }

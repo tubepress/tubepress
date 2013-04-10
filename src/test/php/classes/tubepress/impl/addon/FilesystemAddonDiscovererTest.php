@@ -105,7 +105,8 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
         $this->assertEquals('http://some.demo', $plugin->getDemoUrl());
         $this->assertEquals('http://down.load', $plugin->getDownloadUrl());
         $this->assertEquals('https://bug.tracker', $plugin->getBugTrackerUrl());
-        $this->assertEquals(array('/foo/bar', '/fooz/baz'), $plugin->getPsr0ClassPathRoots());
+        $this->assertEquals(array('foobar' => TUBEPRESS_ROOT . '/src/test/resources/plugins/good_plugin//foo/bar',
+            'foozbaz' => TUBEPRESS_ROOT . '/src/test/resources/plugins/good_plugin//fooz/baz'), $plugin->getPsr0ClassPathRoots());
         $this->assertEquals(array('yellow', 'orange'), $plugin->getIocContainerCompilerPasses());
         $this->assertEquals(array('blue', 'black'), $plugin->getIocContainerExtensions());
     }
