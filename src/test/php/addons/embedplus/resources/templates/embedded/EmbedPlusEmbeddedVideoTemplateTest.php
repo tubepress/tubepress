@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_embedplus_resources_templates_embedded_EmbedPlusEmbeddedVideoTemplateTest extends TubePressUnitTest
+class tubepress_addons_embedplus_resources_templates_embedded_EmbedPlusEmbeddedVideoTemplateTest extends TubePressUnitTest
 {
 	public function testTemplate()
     {
@@ -34,6 +34,6 @@ EOT
         ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL} = 'data-url';
         ${tubepress_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
 
-        require TUBEPRESS_ROOT . '/src/main/php/plugins/embedplus/resources/templates/embedded/embedplus.tpl.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/embedplus/resources/templates/embedded/embedplus.tpl.php';
     }
 }

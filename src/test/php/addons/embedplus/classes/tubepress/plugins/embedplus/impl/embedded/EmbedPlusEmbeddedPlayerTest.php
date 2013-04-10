@@ -8,13 +8,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest extends TubePressUnitTest
+class tubepress_addons_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService
+     */
     private $_sut;
 
     public function onSetup() {
 
-        $this->_sut = new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService();
+        $this->_sut = new tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService();
     }
 
     public function testGetName()
@@ -34,7 +37,7 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest exte
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 
             'embedded/embedplus.tpl.php',
-            TUBEPRESS_ROOT . '/src/main/php/plugins/embedplus/resources/templates'
+            TUBEPRESS_ROOT . '/src/main/php/addons/embedplus/resources/templates'
         )->andReturn('abc');
 
         $result = $this->_sut->getTemplate($mockThemeHandler);

@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensionTest extends TubePressUnitTest
+class tubepress_addons_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensionTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_core_impl_patterns_ioc_IocContainerExtension
+     * @var tubepress_addons_core_impl_patterns_ioc_IocContainerExtension
      */
     private $_sut;
 
@@ -22,7 +22,7 @@ class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensi
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension();
+        $this->_sut = new tubepress_addons_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension();
 
         $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
     }
@@ -30,6 +30,11 @@ class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensi
     public function testGetAlias()
     {
         $this->assertEquals('embedplus', $this->_sut->getAlias());
+    }
+
+    public function testNullNamespace()
+    {
+        $this->assertNull($this->_sut->getNamespace());
     }
 
     public function testLoad()
@@ -55,8 +60,8 @@ class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtensi
     {
         $map = array(
 
-            array('tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
-                'tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
+            array('tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
+                'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
                 tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)
         );
 

@@ -12,21 +12,24 @@
 /**
  * Registers a few extensions to allow TubePress to work with EmbedPlus.
  */
-class tubepress_plugins_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
+class tubepress_addons_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
 {
     /**
      * Loads a specific configuration.
      *
+     * @param array            $config    An array of configuration values
      * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
      *
-     * @return void
+     * @throws ehough_iconic_exception_InvalidArgumentException When provided tag is not defined in this extension
+     *
+     * @api
      */
     public final function load(array $config, ehough_iconic_ContainerBuilder $container)
     {
         $container->register(
 
-            'tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
-            'tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService'
+            'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
+            'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService'
 
         )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
     }

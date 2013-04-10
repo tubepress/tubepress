@@ -12,7 +12,7 @@
 /**
  * Plays videos with EmbedPlus.
  */
-class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
+class tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
@@ -29,7 +29,7 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('embedded/embedplus.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/embedplus/resources/templates');
+        return $themeHandler->getTemplateInstance('embedded/embedplus.tpl.php', TUBEPRESS_ROOT . '/src/main/php/addons/embedplus/resources/templates');
     }
 
     /**
