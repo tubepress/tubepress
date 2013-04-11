@@ -79,11 +79,25 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
 
     public function testGoodAddon()
     {
-        $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/good_addon/b.json');
+        $addon = $this->_verifyGoodAddon('good_addon');
 
-        $this->_mockFinder->shouldReceive('in')->with($this->_fakeAddonRoot . '/good_addon')->andReturn($this->_mockFinder);
+        $this->assertEquals('tubepress_impl_addon_FilesystemAddonDiscovererTest', $addon->getBootstrap());
+    }
 
-        $result = $this->_sut->findAddonsInDirectory($this->_fakeAddonRoot . '/good_addon');
+    public function testGoodAddon2()
+    {
+        $addon = $this->_verifyGoodAddon('good_addon2');
+
+        $this->assertEquals(TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon2/some/dir/boot.php', $addon->getBootstrap());
+    }
+
+    private function _verifyGoodAddon($dir)
+    {
+        $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/' . $dir . '/b.json');
+
+        $this->_mockFinder->shouldReceive('in')->with($this->_fakeAddonRoot . '/' . $dir)->andReturn($this->_mockFinder);
+
+        $result = $this->_sut->findAddonsInDirectory($this->_fakeAddonRoot . '/' . $dir);
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(!empty($result));
@@ -102,7 +116,6 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
         $this->assertTrue(count($addon->getLicenses()) === 2);
         $this->assertEquals('http://foo.bar', $addon->getLicenses()[0]['url']);
         $this->assertEquals('http://foo.com', $addon->getLicenses()[1]['url']);
-        $this->assertEquals('tubepress_impl_addon_FilesystemAddonDiscovererTest', $addon->getBootstrap());
         $this->assertEquals('Eric Hough', $addon->getAuthor()['name']);
         $this->assertEquals('This is a description', $addon->getDescription());
         $this->assertEquals(array('one', 'three', 'two'), $addon->getKeywords());
@@ -111,10 +124,12 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
         $this->assertEquals('http://some.demo', $addon->getDemoUrl());
         $this->assertEquals('http://down.load', $addon->getDownloadUrl());
         $this->assertEquals('https://bug.tracker', $addon->getBugTrackerUrl());
-        $this->assertEquals(array('foobar' => TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon//foo/bar',
-            'foozbaz' => TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon//fooz/baz'), $addon->getPsr0ClassPathRoots());
+        $this->assertEquals(array('foobar' => TUBEPRESS_ROOT . '/src/test/resources/addons/' . $dir . '//foo/bar',
+            'foozbaz' => TUBEPRESS_ROOT . '/src/test/resources/addons/' . $dir . '//fooz/baz'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('yellow', 'orange'), $addon->getIocContainerCompilerPasses());
         $this->assertEquals(array('blue', 'black'), $addon->getIocContainerExtensions());
+
+        return $addon;
     }
 
     public function _callback()
