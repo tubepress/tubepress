@@ -37,7 +37,7 @@ class tubepress_addons_youtube_YouTube
         $eventDispatcher->addListenerService(
 
             ehough_shortstop_api_Events::RESPONSE,
-            'tubepress_addons_youtube_impl_http_YouTubeHttpErrorResponseListener',
+            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
             'onResponse'
         );
     }

@@ -12,7 +12,7 @@
 /**
  * Handles errors from YouTube.
  */
-class tubepress_addons_youtube_impl_http_YouTubeHttpErrorResponseListener
+class tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener
 {
     /**
      * @var ehough_epilog_Logger
