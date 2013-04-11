@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
+class tubepress_addons_vimeo_impl_BootstrapTest extends TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -34,7 +34,7 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
         $this->_testOptions();
         $this->_testEventHandler();
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/classes/tubepress/addons/vimeo/impl/Bootstrap.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/scripts/bootstrap.php';
 
         $this->assertTrue(true);
     }

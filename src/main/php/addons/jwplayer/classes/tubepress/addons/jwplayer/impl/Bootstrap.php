@@ -12,7 +12,7 @@
 /**
  * Hooks JW Player into TubePress.
  */
-class tubepress_addons_jwplayer_JwPlayer
+class tubepress_addons_jwplayer_impl_Bootstrap
 {
     private static $_regexColor = '/^([0-9a-f]{1,2}){3}$/i';
 
@@ -61,5 +61,3 @@ class tubepress_addons_jwplayer_JwPlayer
         );
     }
 }
-
-tubepress_addons_jwplayer_JwPlayer::init();

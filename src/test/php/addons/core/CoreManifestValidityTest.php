@@ -20,7 +20,7 @@ class tubepress_addons_core_CoreManifestValidityTest extends TubePressUnitTest
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $parsed['author']);
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $parsed['licenses']);
         $this->assertEquals('TubePress core functionality', $parsed['description']);
-        $this->assertEquals('tubepress_addons_core_impl_Bootstrap', $parsed['bootstrap']);
+        $this->assertEquals('scripts/bootstrap.php', $parsed['bootstrap']);
         $this->assertEquals(array('tubepress_addons_core' => 'classes'), $parsed['psr-0']);
         $this->assertEquals(array('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension'), $parsed['ioc-container-extensions']);
         $this->assertEquals(array('tubepress_addons_core_impl_patterns_ioc_CoreIocContainerCompilerPass'), $parsed['ioc-compiler-passes']);

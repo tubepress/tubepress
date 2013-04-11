@@ -64,7 +64,7 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
         $this->_testAdmin();
         $this->_testApi();
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/classes/tubepress/addons/wordpress/impl/Bootstrap.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/scripts/bootstrap.php';
 
         global $tubepress_base_url;
 

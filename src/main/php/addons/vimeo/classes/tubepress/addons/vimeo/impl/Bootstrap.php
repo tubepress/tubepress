@@ -12,7 +12,7 @@
 /**
  * Registers a few extensions to allow TubePress to work with Vimeo.
  */
-final class tubepress_addons_vimeo_Vimeo
+final class tubepress_addons_vimeo_impl_Bootstrap
 {
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
@@ -139,5 +139,3 @@ final class tubepress_addons_vimeo_Vimeo
         $odr->registerOptionDescriptor($option);
     }
 }
-
-tubepress_addons_vimeo_Vimeo::init();

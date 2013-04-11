@@ -731,5 +731,3 @@ class tubepress_addons_core_impl_Bootstrap
      * 'in a "detached" location (see the documentation)'  //>(translatable)<
      */
 }
-
-tubepress_addons_core_impl_Bootstrap::init();

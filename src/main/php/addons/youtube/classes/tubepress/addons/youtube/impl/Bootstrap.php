@@ -12,7 +12,7 @@
 /**
  * Allows TubePress to work with YouTube.
  */
-class tubepress_addons_youtube_YouTube
+class tubepress_addons_youtube_impl_Bootstrap
 {
     public static function init()
     {
@@ -282,5 +282,3 @@ class tubepress_addons_youtube_YouTube
         $odr->registerOptionDescriptor($option);
     }
 }
-
-tubepress_addons_youtube_YouTube::init();

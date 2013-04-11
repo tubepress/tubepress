@@ -71,7 +71,7 @@ class tubepress_addons_jwplayer_impl_BootstrapTest extends TubePressUnitTest
             'onEmbeddedTemplate'
         );
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/classes/tubepress/addons/jwplayer/impl/Bootstrap.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/scripts/bootstrap.php';
 
         $this->assertTrue(true);
     }

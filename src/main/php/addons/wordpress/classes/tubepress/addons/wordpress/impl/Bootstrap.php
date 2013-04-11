@@ -12,7 +12,7 @@
 /**
  * Registers a few extensions to allow TubePress to work inside WordPress.
  */
-class tubepress_addons_wordpress_WordPress
+class tubepress_addons_wordpress_impl_Bootstrap
 {
     public static function init()
     {
@@ -109,5 +109,3 @@ class tubepress_addons_wordpress_WordPress
         return defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
     }
 }
-
-tubepress_addons_wordpress_WordPress::init();

@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
+class tubepress_addons_youtube_impl_BootstrapTest extends TubePressUnitTest
 {
     private $_mockOptionsDescriptorReference;
 
@@ -39,7 +39,7 @@ class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
         $this->_testOptions();
         $this->_testEventListenerRegistration();
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/youtube/classes/tubepress/addons/youtube/impl/Bootstrap.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/youtube/scripts/bootstrap.php';
 
         $this->assertTrue(true);
     }

@@ -13,7 +13,7 @@
         }
     ],
     "description": "Allows TubePress work with Vimeo",
-    "bootstrap" : "tubepress_addons_vimeo_impl_Bootstrap",
+    "bootstrap" : "scripts/bootstrap.php",
     "psr-0" : {
 
         "tubepress_addons_vimeo" : "classes"
