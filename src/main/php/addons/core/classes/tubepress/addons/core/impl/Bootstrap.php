@@ -717,9 +717,9 @@ class tubepress_addons_core_impl_Bootstrap
 
         foreach ($listenerList as $eventName => $listeners) {
 
-            foreach ($listeners as $listenerData) {
+            foreach ($listeners as $callback) {
 
-                $eventDispatcher->addListenerService($eventName, $listenerData[0], $listenerData[1]);
+                $eventDispatcher->addListenerService($eventName, $callback);
             }
         }
     }

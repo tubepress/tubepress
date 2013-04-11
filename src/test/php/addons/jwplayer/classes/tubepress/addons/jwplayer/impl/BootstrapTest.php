@@ -67,8 +67,8 @@ class tubepress_addons_jwplayer_impl_BootstrapTest extends TubePressUnitTest
         $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
 
             tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
-            'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars',
-            'onEmbeddedTemplate'
+            array('tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars',
+            'onEmbeddedTemplate')
         );
 
         require TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/scripts/bootstrap.php';

@@ -44,15 +44,15 @@ class tubepress_addons_vimeo_impl_BootstrapTest extends TubePressUnitTest
         $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
 
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
-            'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
-            'onVideoConstruction'
+            array('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
+            'onVideoConstruction')
         );
 
         $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
 
             ehough_shortstop_api_Events::RESPONSE,
-            'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
-            'onResponse'
+            array('tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
+            'onResponse')
         );
     }
 

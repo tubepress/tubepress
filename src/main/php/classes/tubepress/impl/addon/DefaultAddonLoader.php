@@ -15,6 +15,16 @@
 class tubepress_impl_addon_DefaultAddonLoader implements tubepress_spi_addon_AddonLoader
 {
     /**
+     * @var ehough_epilog_Logger
+     */
+    private $_logger;
+
+    public function __construct()
+    {
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Add-on Loader');
+    }
+
+    /**
      * Loads the given add-on into the system.
      *
      * @param tubepress_spi_addon_Addon $addon
@@ -23,13 +33,26 @@ class tubepress_impl_addon_DefaultAddonLoader implements tubepress_spi_addon_Add
      */
     public final function load(tubepress_spi_addon_Addon $addon)
     {
-        $bootstrap = $addon->getBootstrap();
+        $bootstrap          = $addon->getBootstrap();
+        $isDebuggingEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if (is_file($bootstrap) && is_readable($bootstrap)) {
+
+            if ($isDebuggingEnabled) {
+
+                $this->_logger->debug(sprintf('%s add-on\'s bootstrap (%s) is a readable file.',
+                    $addon->getName(), $bootstrap));
+            }
 
             $callback = array($this, '_callbackIncludeFile');
 
         } else {
+
+            if ($isDebuggingEnabled) {
+
+                $this->_logger->debug(sprintf('%s add-on\'s bootstrap (%s) is not a readable file. Assuming it\'s a class...',
+                    $addon->getName(), $bootstrap));
+            }
 
             $callback = array($this, '_callbackCallBootFunction');
         }
@@ -73,6 +96,11 @@ class tubepress_impl_addon_DefaultAddonLoader implements tubepress_spi_addon_Add
 
     public function _callbackIncludeFile($bootstrap)
     {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+
+            $this->_logger->debug(sprintf('Now including bootstrap (%s)', $bootstrap));
+        }
+
         /** @noinspection PhpIncludeInspection */
         include $bootstrap;
     }

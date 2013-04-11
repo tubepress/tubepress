@@ -41,6 +41,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
         $this->_registerFilesystemFinderFactory();
         $this->_registerAddonDiscoverer();
         $this->_registerAddonLoader();
+        $this->_registerEventDispatcher();
     }
 
     /**
@@ -166,6 +167,18 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
 
         /* Allows for convenient access to this definition by IOC extensions. */
         $this->_delegate->setAlias('ehough_finder_FinderFactory', 'ehough_finder_FinderFactoryInterface');
+    }
+
+    private function _registerEventDispatcher()
+    {
+        $this->_delegate->register(
+
+            'ehough_tickertape_EventDispatcherInterface',
+            'ehough_tickertape_ContainerAwareEventDispatcher'
+        )->addArgument($this->_delegate);
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $this->_delegate->setAlias('ehough_tickertape_ContainerAwareEventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
     }
 
     private function _registerAddonDiscoverer()

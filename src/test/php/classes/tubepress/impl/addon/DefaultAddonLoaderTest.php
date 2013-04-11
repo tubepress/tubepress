@@ -24,6 +24,8 @@ class tubepress_impl_player_DefaultAddonLoaderTest extends TubePressUnitTest
     {
         $addon = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
 
+        $addon->shouldReceive('getName')->once()->andReturn('fooey');
+
         $addon->shouldReceive('getBootstrap')->once()->andReturn('ValidBootstrapper');
 
         $result = $this->_sut->load($addon);
@@ -34,6 +36,8 @@ class tubepress_impl_player_DefaultAddonLoaderTest extends TubePressUnitTest
     public function testBootstrapFileThrowsException()
     {
         $addon = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+
+        $addon->shouldReceive('getName')->once()->andReturn('fooey');
 
         $tempFile = tempnam(sys_get_temp_dir(), 'tubepress-testBootstrapThrowsException');
         $handle = fopen($tempFile, 'w');
@@ -53,6 +57,8 @@ class tubepress_impl_player_DefaultAddonLoaderTest extends TubePressUnitTest
     public function testBootstrapFile()
     {
         $addon = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+
+        $addon->shouldReceive('getName')->once()->andReturn('fooey');
 
         $tempFile = tempnam(sys_get_temp_dir(), 'tubepress-testLoadGoodAddon');
 

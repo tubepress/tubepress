@@ -148,7 +148,7 @@ class tubepress_addons_core_impl_BootstrapTest extends TubePressUnitTest
 
             foreach ($listeners as $listenerData) {
 
-                $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with($eventName, $listenerData[0], $listenerData[1]);
+                $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with($eventName, $listenerData);
             }
         }
     }

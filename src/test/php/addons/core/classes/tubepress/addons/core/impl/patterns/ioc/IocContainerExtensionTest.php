@@ -25,6 +25,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
         $this->_sut = new tubepress_addons_core_impl_patterns_ioc_IocContainerExtension();
 
         $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
+        $this->_mockParentContainer->register('ehough_tickertape_EventDispatcherInterface', 'ehough_tickertape_EventDispatcher');
     }
 
     public function testGetAlias()
@@ -66,7 +67,6 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
             array(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler'),
             array('ehough_stash_PoolInterface', 'ehough_stash_Pool'),
             array(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'),
-            array('ehough_tickertape_EventDispatcherInterface', 'ehough_tickertape_ContainerAwareEventDispatcher'),
             array(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext'),
             array('ehough_filesystem_FilesystemInterface', 'ehough_filesystem_Filesystem'),
             array(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher'),
@@ -95,7 +95,6 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
             array(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler'),
             array('ehough_stash_PoolInterface', 'ehough_stash_Pool'),
             array(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'),
-            array('ehough_tickertape_EventDispatcherInterface', 'ehough_tickertape_ContainerAwareEventDispatcher'),
             array(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext'),
             array('ehough_filesystem_FilesystemInterface', 'ehough_filesystem_Filesystem'),
             array(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher'),

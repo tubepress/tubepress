@@ -65,9 +65,9 @@ class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtensionTes
             array('tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
                 'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'),
 
-            array('tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
-                'tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
-                'tubepress.impl.http.ResponseHandler'),
+            array('tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
+                'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener')
+
         );
 
         $toReturn = array();

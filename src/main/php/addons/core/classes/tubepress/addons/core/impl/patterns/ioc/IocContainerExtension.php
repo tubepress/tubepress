@@ -33,7 +33,6 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         $this->_registerAjaxHandler($container);
         $this->_registerCacheService($container);
         $this->_registerEmbeddedHtmlGenerator($container);
-        $this->_registerEventDispatcher($container);
         $this->_registerExecutionContext($container);
         $this->_registerFeedFetcher($container);
         $this->_registerFilesystem($container);
@@ -127,18 +126,6 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
 
         /* Allows for convenient access to this definition by IOC extensions. */
         $container->setAlias('tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator', tubepress_spi_embedded_EmbeddedHtmlGenerator::_);
-    }
-
-    private function _registerEventDispatcher(ehough_iconic_ContainerBuilder $container)
-    {
-        $container->register(
-
-            'ehough_tickertape_EventDispatcherInterface',
-            'ehough_tickertape_ContainerAwareEventDispatcher'
-        )->addArgument($container);
-
-        /* Allows for convenient access to this definition by IOC extensions. */
-        $container->setAlias('ehough_tickertape_ContainerAwareEventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
     }
 
     private function _registerExecutionContext(ehough_iconic_ContainerBuilder $container)
@@ -511,7 +498,8 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
 
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content',
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
-        )->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'));
+        )->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'))
+         ->addArgument('Content');
     }
 
     private function _registerHttpTransferDecodingListener(ehough_iconic_ContainerBuilder $container)
@@ -520,7 +508,8 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
 
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer',
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
-        )->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain'));
+        )->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain'))
+         ->addArgument('Transfer');
     }
 
     private function _registerHttpRequestLoggingListener(ehough_iconic_ContainerBuilder $container)

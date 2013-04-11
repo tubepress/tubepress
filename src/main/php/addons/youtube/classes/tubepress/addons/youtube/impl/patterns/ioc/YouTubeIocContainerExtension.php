@@ -63,9 +63,9 @@ class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension im
 
         $container->register(
 
-            'tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler',
-            'tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler'
-        )->addTag('tubepress.impl.http.ResponseHandler');
+            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
+            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
+        );
     }
 
     /**
