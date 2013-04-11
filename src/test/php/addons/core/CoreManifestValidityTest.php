@@ -23,7 +23,6 @@ class tubepress_addons_core_CoreManifestValidityTest extends TubePressUnitTest
         $this->assertEquals('scripts/bootstrap.php', $parsed['bootstrap']);
         $this->assertEquals(array('tubepress_addons_core' => 'classes'), $parsed['psr-0']);
         $this->assertEquals(array('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension'), $parsed['ioc-container-extensions']);
-        $this->assertEquals(array('tubepress_addons_core_impl_patterns_ioc_CoreIocContainerCompilerPass'), $parsed['ioc-compiler-passes']);
     }
 
     protected function getManifestDataAsAssociativeArray($pathToManifest)

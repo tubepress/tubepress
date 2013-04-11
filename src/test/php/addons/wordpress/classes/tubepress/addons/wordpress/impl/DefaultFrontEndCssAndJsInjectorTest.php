@@ -40,7 +40,7 @@ class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest extend
     {
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
 
-        $this->_mockHeadHtmlGenerator->shouldReceive('getHeadInlineJs')->once()->andReturn('inline js');
+        $this->_mockHeadHtmlGenerator->shouldReceive('getInlineJs')->once()->andReturn('inline js');
         $this->_mockHeadHtmlGenerator->shouldReceive('getMetaTags')->once()->andReturn('html meta');
 
         ob_start();
@@ -57,8 +57,8 @@ html meta', $contents);
     public function testInitAction()
     {
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with('tubepress/src/main/web/js/tubepress.js', 'tubepress')->andReturn('<tubepressjs>');
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with('tubepress/src/main/web/css/tubepress.css', 'tubepress')->andReturn('<tubepresscss>');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with('tubepress/src/main/web/js/tubepress.js', 'tubepress')->andReturn('<tubepressjs>');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with('tubepress/src/main/web/css/tubepress.css', 'tubepress')->andReturn('<tubepresscss>');
 
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress', '<tubepressjs>');
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with('tubepress', '<tubepresscss>');

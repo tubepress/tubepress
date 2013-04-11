@@ -217,17 +217,17 @@ class tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper implements
     }
 
     /**
-     * The addons_url template tag retrieves the url to the addons directory or to a specific file within that directory.
+     * The plugins_url template tag retrieves the url to the addons directory or to a specific file within that directory.
      *
      * @param string $path   Path relative to the addons URL.
      * @param string $plugin The plugin file that you want to be relative to.
      *
      * @return string addons url link with optional path appended.
      */
-    public final function addons_url($path, $plugin)
+    public final function plugins_url($path, $plugin)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return addons_url($path, $plugin);
+        return plugins_url($path, $plugin);
     }
 
     /**
@@ -392,10 +392,10 @@ class tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper implements
      *
      * @return void
      */
-    public final function load_addon_textdomain($domain, $absPath, $relPath)
+    public final function load_plugin_textdomain($domain, $absPath, $relPath)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        load_addon_textdomain($domain, $absPath, $relPath);
+        load_plugin_textdomain($domain, $absPath, $relPath);
     }
 
     /**

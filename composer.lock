@@ -184,7 +184,7 @@
                     "ehough_filesystem": "src/main/php"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -225,7 +225,7 @@
                     "ehough_finder": "src/main/php"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -270,7 +270,7 @@
                     "ehough_iconic": "src/main/php"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -317,7 +317,7 @@
             ],
             "authors": [
                 {
-                    "name": "Eric D. Hough",
+                    "name": "Eric Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }

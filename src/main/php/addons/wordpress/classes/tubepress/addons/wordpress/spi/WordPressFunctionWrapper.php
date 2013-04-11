@@ -178,7 +178,7 @@ interface tubepress_addons_wordpress_spi_WordPressFunctionWrapper
      *
      * @return void
      */
-    function load_addon_textdomain($domain, $absPath, $relPath);
+    function load_plugin_textdomain($domain, $absPath, $relPath);
 
     /**
      * Gets the basename of a plugin (extracts the name of a plugin from its filename).
@@ -190,14 +190,14 @@ interface tubepress_addons_wordpress_spi_WordPressFunctionWrapper
     function plugin_basename($file);
 
     /**
-     * The addons_url template tag retrieves the url to the addons directory or to a specific file within that directory.
+     * The plugins_url template tag retrieves the url to the addons directory or to a specific file within that directory.
      *
      * @param string $path   Path relative to the addons URL.
      * @param string $plugin The plugin file that you want to be relative to.
      *
      * @return string addons url link with optional path appended.
      */
-    function addons_url($path, $path);
+    function plugins_url($path, $path);
 
     /**
      * The site_url template tag retrieves the site url for the current site (where the WordPress core files reside)

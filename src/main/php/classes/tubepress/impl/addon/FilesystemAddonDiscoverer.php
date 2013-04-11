@@ -37,7 +37,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
         $finderFactory = tubepress_impl_patterns_sl_ServiceLocator::getFileSystemFinderFactory();
 
-        $finder = $finderFactory->createFinder()->files()->in($directory)->name('*.json')->depth(0);
+        $finder = $finderFactory->createFinder()->files()->in($directory)->name('*.json')->depth('< 2');
 
         $toReturn = array();
 
@@ -117,8 +117,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
             $manifest[tubepress_spi_addon_Addon::ATTRIBUTE_VERSION],
             $manifest[tubepress_spi_addon_Addon::ATTRIBUTE_TITLE],
             $manifest[tubepress_spi_addon_Addon::ATTRIBUTE_AUTHOR],
-            $manifest[tubepress_spi_addon_Addon::ATTRIBUTE_LICENSES],
-            $manifest[tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP]
+            $manifest[tubepress_spi_addon_Addon::ATTRIBUTE_LICENSES]
         );
 
         $optionalAttributeNames = array(
@@ -145,7 +144,8 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
             if ($optionalAttributeName === tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP) {
 
-                if (tubepress_impl_util_StringUtils::endsWith($manifest[$optionalAttributeName], '.php')) {
+                if (isset($manifest[$optionalAttributeName])
+                    && tubepress_impl_util_StringUtils::endsWith($manifest[$optionalAttributeName], '.php')) {
 
                     $manifest[$optionalAttributeName] = $this->_cleanSinglePath($manifest[$optionalAttributeName], $path);
                 }

@@ -129,12 +129,12 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandlerTest extends TubePres
 
     public function testInit()
     {
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", "tubepress")->andReturn('y');
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/css/options-page.css", "tubepress")->andReturn('z');
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", "tubepress")->andReturn('x');
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jscolor/jscolor.js", "tubepress")->andReturn('a');
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", "tubepress")->andReturn('b');
-        $this->_mockWpFunctionWrapper->shouldReceive('addons_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", "tubepress")->andReturn('c');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", "tubepress")->andReturn('y');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/css/options-page.css", "tubepress")->andReturn('z');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", "tubepress")->andReturn('x');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jscolor/jscolor.js", "tubepress")->andReturn('a');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", "tubepress")->andReturn('b');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with("tubepress/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", "tubepress")->andReturn('c');
 
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with("jquery-ui-flick", "y");
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with("tubepress-options-page", "z");

@@ -57,7 +57,7 @@ class tubepress_addons_core_impl_BootstrapTest extends TubePressUnitTest
 
         $this->_testEventListeners();
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/core/classes/tubepress/addons/core/impl/Bootstrap.php';
+        require TUBEPRESS_ROOT . '/src/main/php/addons/core/scripts/bootstrap.php';
 
         $this->assertTrue(true);
     }

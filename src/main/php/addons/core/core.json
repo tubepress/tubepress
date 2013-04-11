@@ -20,8 +20,5 @@
     },
     "ioc-container-extensions" : [
         "tubepress_addons_core_impl_patterns_ioc_IocContainerExtension"
-    ],
-    "ioc-compiler-passes" : [
-        "tubepress_addons_core_impl_patterns_ioc_CoreIocContainerCompilerPass"
     ]
 }

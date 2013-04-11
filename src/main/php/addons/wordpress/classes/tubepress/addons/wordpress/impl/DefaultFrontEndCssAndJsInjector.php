@@ -29,7 +29,7 @@ class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector implements
         $hh  = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsGenerator();
 
         /* this inline JS helps initialize TubePress */
-        $inlineJs = $hh->getHeadInlineJs();
+        $inlineJs = $hh->getInlineJs();
 
         /* this meta stuff prevents search engines from indexing gallery pages > 1 */
         $meta = $hh->getMetaTags();
@@ -57,8 +57,8 @@ EOT;
 
         $baseName = basename(TUBEPRESS_ROOT);
 
-        $jsUrl  = $wordPressFunctionWrapper->addons_url("$baseName/src/main/web/js/tubepress.js", $baseName);
-        $cssUrl = $wordPressFunctionWrapper->addons_url("$baseName/src/main/web/css/tubepress.css", $baseName);
+        $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/js/tubepress.js", $baseName);
+        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/css/tubepress.css", $baseName);
 
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
         $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);

@@ -77,7 +77,7 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->andReturn('valueofcontenturl');
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('load_addon_textdomain')->once()->with('tubepress', false, 'tubepress/src/main/resources/i18n');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('load_plugin_textdomain')->once()->with('tubepress', false, 'tubepress/src/main/resources/i18n');
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_filter')->once()->with('the_content', array($this->_mockContentFilter, 'filterContent'), 10, 1);
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_action')->once()->with('wp_head', array($this->_mockJsAndCssInjector, 'printInHtmlHead'), 10, 1);

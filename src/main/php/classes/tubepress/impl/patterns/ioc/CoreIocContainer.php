@@ -32,6 +32,11 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
         $compilerPassConfig->setOptimizationPasses(array());
         $compilerPassConfig->setRemovingPasses(array());
 
+        /**
+         * Turn off resource loading.
+         */
+        $this->_delegate->setResourceTracking(false);
+
         $this->_registerEnvironmentDetector();
         $this->_registerFilesystemFinderFactory();
         $this->_registerAddonDiscoverer();
@@ -126,6 +131,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
     public function registerExtension(ehough_iconic_extension_ExtensionInterface $extension)
     {
         $this->_delegate->registerExtension($extension);
+        $this->_delegate->loadFromExtension($extension->getAlias());
     }
 
     public function addCompilerPass(ehough_iconic_compiler_CompilerPassInterface $pass, $type = ehough_iconic_compiler_PassConfig::TYPE_BEFORE_OPTIMIZATION)
