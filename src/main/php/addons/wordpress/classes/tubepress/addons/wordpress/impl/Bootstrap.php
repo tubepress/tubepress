@@ -46,7 +46,7 @@ class tubepress_addons_wordpress_impl_Bootstrap
             $prefix = $wpFunctionWrapper->content_url();
         }
 
-        $tubepress_base_url = $prefix . "/addons/$baseName";
+        $tubepress_base_url = $prefix . "/plugins/$baseName";
 
         /* register the plugin's message bundles */
         $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");

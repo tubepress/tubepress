@@ -68,7 +68,7 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
 
         global $tubepress_base_url;
 
-        $this->assertEquals('valueofcontenturl/addons/tubepress', $tubepress_base_url);
+        $this->assertEquals('valueofcontenturl/plugins/tubepress', $tubepress_base_url);
     }
 
     private function _testApi()

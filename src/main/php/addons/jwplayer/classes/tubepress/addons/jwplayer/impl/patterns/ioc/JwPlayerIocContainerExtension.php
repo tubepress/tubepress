@@ -39,6 +39,12 @@ class tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension 
             'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant'
 
         )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+
+        $container->register(
+
+            'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars',
+            'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars'
+        );
     }
 
     /**
