@@ -22,6 +22,9 @@ class tubepress_addons_youtube_YouTube
 
     private static function _registerEventListeners()
     {
+        /**
+         * @var $eventDispatcher ehough_tickertape_ContainerAwareEventDispatcher
+         */
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $eventDispatcher->addListenerService(
@@ -29,6 +32,13 @@ class tubepress_addons_youtube_YouTube
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
             'onVideoConstruction'
+        );
+
+        $eventDispatcher->addListenerService(
+
+            ehough_shortstop_api_Events::RESPONSE,
+            'tubepress_addons_youtube_impl_http_YouTubeHttpErrorResponseListener',
+            'onResponse'
         );
     }
 

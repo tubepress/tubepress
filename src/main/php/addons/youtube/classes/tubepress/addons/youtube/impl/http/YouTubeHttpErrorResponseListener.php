@@ -12,8 +12,11 @@
 /**
  * Handles errors from YouTube.
  */
-class tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorResponseHandler extends tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHandler
+class tubepress_addons_youtube_impl_http_YouTubeHttpErrorResponseListener
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
@@ -21,18 +24,29 @@ class tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorRespon
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('YouTube Error Handler');
     }
 
-    /**
-     * Get a user-friendly response message for this HTTP response.
-     *
-     * @param ehough_shortstop_api_HttpResponse $response The HTTP response.
-     *
-     * @return string A user-friendly response message for this HTTP response.
-     */
-    protected final function getMessageForResponse(ehough_shortstop_api_HttpResponse $response)
+    public final function onResponse(ehough_tickertape_GenericEvent $event)
     {
-        $toReturn = '';
+        /**
+         * @var $request ehough_shortstop_api_HttpRequest
+         */
+        $request  = $event->getArgument('request');
+
+        /**
+         * @var $response ehough_shortstop_api_HttpResponse
+         */
+        $response = $event->getSubject();
+
+        if (!$this->_canHandle($request, $response)) {
+
+            //this is not a YouTube response
+            return;
+        }
 
         switch ($response->getStatusCode()) {
+
+            case 200:
+
+                return;
 
             case 400:
 
@@ -77,41 +91,19 @@ class tubepress_addons_youtube_impl_http_responsehandling_YouTubeHttpErrorRespon
             $toReturn .= ' - ' . $parsedError;
         }
 
-        return $toReturn;
+        throw new ehough_shortstop_api_exception_RuntimeException($toReturn);
     }
 
-    /**
-     * Get the name of the provider that this command handles.
-     *
-     * @return string youtube|vimeo
-     */
-    protected final function getProviderName()
+    private function _canHandle(ehough_shortstop_api_HttpRequest $request, ehough_shortstop_api_HttpResponse $response)
     {
-        return 'youtube';
-    }
+        $url  = $request->getUrl();
+        $host = $url->getHost();
 
-    /**
-     * Get a logging friendly name for this handler.
-     *
-     * @return string A logging friendly name for this handler.
-     */
-    protected final function getFriendlyProviderName()
-    {
-        return 'YouTube';
-    }
+        if (!tubepress_impl_util_StringUtils::endsWith($host, 'youtube.com')) {
 
-    /**
-     * Gets the logger.
-     *
-     * @return mixed ehough_epilog_psr_LoggerInterface
-     */
-    protected final function getLogger()
-    {
-        return $this->_logger;
-    }
+            return false;
+        }
 
-    protected final function canHandleResponse(ehough_shortstop_api_HttpResponse $response)
-    {
         $contentType = $response->getHeaderValue('Content-Type');
         $entity      = $response->getEntity();
 

@@ -52,6 +52,13 @@ class tubepress_addons_youtube_YouTubeTest extends TubePressUnitTest
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
             'onVideoConstruction'
         );
+
+        $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
+
+            ehough_shortstop_api_Events::RESPONSE,
+            'tubepress_addons_youtube_impl_http_YouTubeHttpErrorResponseListener',
+            'onResponse'
+        );
     }
 
     private function _testOptions()
