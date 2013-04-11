@@ -36,6 +36,13 @@ final class tubepress_addons_vimeo_Vimeo
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'onVideoConstruction'
         );
+
+        $eventDispatcher->addListenerService(
+
+            ehough_shortstop_api_Events::RESPONSE,
+            'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
+            'onResponse'
+        );
     }
 
     private static function _registerOptions()

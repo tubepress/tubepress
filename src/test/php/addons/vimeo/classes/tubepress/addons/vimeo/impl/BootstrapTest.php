@@ -47,6 +47,13 @@ class tubepress_addons_vimeo_VimeoTest extends TubePressUnitTest
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'onVideoConstruction'
         );
+
+        $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
+
+            ehough_shortstop_api_Events::RESPONSE,
+            'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
+            'onResponse'
+        );
     }
 
     private function _testOptions()
