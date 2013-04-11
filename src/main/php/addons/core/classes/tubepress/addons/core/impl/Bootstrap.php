@@ -699,6 +699,19 @@ class tubepress_addons_core_impl_Bootstrap
                 array('tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper', 'onVideoGalleryPage'),
                 array('tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist', 'onVideoGalleryPage'),
                 array('tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender', 'onVideoGalleryPage')
+            ),
+
+            ehough_shortstop_api_Events::REQUEST => array(
+
+                array('ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener', 'onPreRequest'),
+                array('ehough_shortstop_impl_listeners_request_RequestLoggingListener', 'onPreRequest')
+            ),
+
+            ehough_shortstop_api_Events::RESPONSE => array(
+
+                array('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer', 'onResponse'),
+                array('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content', 'onResponse'),
+                array('ehough_shortstop_impl_listeners_response_ResponseLoggingListener', 'onResponse')
             )
         );
 

@@ -179,107 +179,23 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
 
     private function _registerHttpClient(ehough_iconic_ContainerBuilder $container)
     {
-        /**
-         * This is a complicated function. Take your time!
-         */
+        $this->_registerHttpMessageParser($container);
+        $this->_registerHttpTransportChain($container);
+        $this->_registerHttpContentDecoder($container);
+        $this->_registerHttpTransferDecoder($container);
+        $this->_registerHttpRequestDefaultHeadersListener($container);
+        $this->_registerHttpRequestLoggingListener($container);
+        $this->_registerHttpTransferDecodingListener($container);
+        $this->_registerHttpContentDecodingListener($container);
+        $this->_registerHttpResponseLoggingListener($container);
 
-        /**
-         * Register the message parser.
-         */
-        $messageParserId = 'ehough_shortstop_impl_exec_DefaultHttpMessageParser';
-        $container->register($messageParserId, $messageParserId);
-
-
-        /**
-         * Register the transport commands and chain.
-         */
-        $transportClasses = array(
-
-            'ehough_shortstop_impl_exec_command_ExtCommand',
-            'ehough_shortstop_impl_exec_command_CurlCommand',
-            'ehough_shortstop_impl_exec_command_StreamsCommand',
-            'ehough_shortstop_impl_exec_command_FsockOpenCommand',
-            'ehough_shortstop_impl_exec_command_FopenCommand'
-        );
-
-        $transportReferences = array();
-
-        foreach ($transportClasses as $transportClass) {
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            $container->register($transportClass, $transportClass)
-                ->addArgument(new ehough_iconic_Reference($messageParserId))
-                ->addArgument(new ehough_iconic_Reference('ehough_tickertape_EventDispatcherInterface'));
-
-            array_push($transportReferences, new ehough_iconic_Reference($transportClass));
-        }
-
-        $transportChainId = '_ehough_shortstop_impl_DefaultHttpClient_transportchain';
-
-        $this->_registerChainDefinitionByReferences($container, $transportChainId, $transportReferences);
-
-        /**
-         * Register the content decoding commands and chain.
-         */
-        $contentDecoderCommands = array(
-
-            'ehough_shortstop_impl_decoding_content_command_NativeGzipDecompressingCommand',
-            'ehough_shortstop_impl_decoding_content_command_SimulatedGzipDecompressingCommand',
-            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1950DecompressingCommand',
-            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1951DecompressingCommand',
-        );
-
-        $contentDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain';
-
-        $this->_registerChainDefinitionByClassNames($container, $contentDecoderChainId, $contentDecoderCommands);
-
-
-        /**
-         * Register the transfer decoding command and chain.
-         */
-        $transferDecoderCommands = array(
-
-            'ehough_shortstop_impl_decoding_transfer_command_ChunkedTransferDecodingCommand'
-        );
-
-        $transferDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain';
-
-        $this->_registerChainDefinitionByClassNames($container, $transferDecoderChainId, $transferDecoderCommands);
-
-
-        /**
-         * Register the transfer decoder.
-         */
-        $transferDecoderId = '_ehough_shortstop_impl_DefaultHttpClient_transferdecoder';
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $container->register(
-
-            $transferDecoderId, 'ehough_shortstop_impl_HttpTransferDecoderChain'
-
-        )->addArgument(new ehough_iconic_Reference($transferDecoderChainId));
-
-
-        /**
-         * Register the content decoder.
-         */
-        $contentDecoderId = '_ehough_shortstop_impl_DefaultHttpClient_contentdecoder';
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        $container->register(
-
-            $contentDecoderId, 'ehough_shortstop_impl_HttpContentDecoderChain'
-
-        )->addArgument(new ehough_iconic_Reference($contentDecoderChainId));
-
-        /** @noinspection PhpUndefinedMethodInspection */
         $container->register(
 
             'ehough_shortstop_api_HttpClientInterface',
             'ehough_shortstop_impl_DefaultHttpClient'
 
         )->addArgument(new ehough_iconic_Reference('ehough_tickertape_EventDispatcherInterface'))
-         ->addArgument(new ehough_iconic_Reference($transportChainId));
+         ->addArgument(new ehough_iconic_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain'));
 
         /* Allows for convenient access to this definition by IOC extensions. */
         $container->setAlias('ehough_shortstop_impl_DefaultHttpClient', 'ehough_shortstop_api_HttpClientInterface');
@@ -541,18 +457,141 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         }
     }
 
-    private function _registerChainDefinitionByClassNames(ehough_iconic_ContainerBuilder $container, $chainName, array $classNames)
+    private function _registerHttpTransportChain(ehough_iconic_ContainerBuilder $container)
     {
-        $references = array();
+        /**
+         * Register the transport commands and chain.
+         */
+        $transportClasses = array(
 
-        foreach ($classNames as $className) {
+            'ehough_shortstop_impl_exec_command_ExtCommand',
+            'ehough_shortstop_impl_exec_command_CurlCommand',
+            'ehough_shortstop_impl_exec_command_StreamsCommand',
+            'ehough_shortstop_impl_exec_command_FsockOpenCommand',
+            'ehough_shortstop_impl_exec_command_FopenCommand'
+        );
 
-            $container->register($className, $className);
+        $transportReferences = array();
 
-            array_push($references, new ehough_iconic_Reference($className));
+        foreach ($transportClasses as $transportClass) {
+
+            $container->register($transportClass, $transportClass)
+                ->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_exec_DefaultHttpMessageParser'))
+                ->addArgument(new ehough_iconic_Reference('ehough_tickertape_EventDispatcherInterface'));
+
+            array_push($transportReferences, new ehough_iconic_Reference($transportClass));
         }
 
-        $this->_registerChainDefinitionByReferences($container, $chainName, $references);
+        $transportChainId = '_ehough_shortstop_impl_DefaultHttpClient_transportchain';
+
+        $this->_registerChainDefinitionByReferences($container, $transportChainId, $transportReferences);
+    }
+
+    private function _registerHttpMessageParser(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'ehough_shortstop_impl_exec_DefaultHttpMessageParser',
+            'ehough_shortstop_impl_exec_DefaultHttpMessageParser'
+        );
+    }
+
+    private function _registerHttpResponseLoggingListener(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'ehough_shortstop_impl_listeners_response_ResponseLoggingListener',
+            'ehough_shortstop_impl_listeners_response_ResponseLoggingListener'
+        );
+    }
+
+    private function _registerHttpContentDecodingListener(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content',
+            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
+        )->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'));
+    }
+
+    private function _registerHttpTransferDecodingListener(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer',
+            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
+        )->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain'));
+    }
+
+    private function _registerHttpRequestLoggingListener(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'ehough_shortstop_impl_listeners_request_RequestLoggingListener',
+            'ehough_shortstop_impl_listeners_request_RequestLoggingListener'
+        );
+    }
+
+    private function _registerHttpRequestDefaultHeadersListener(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener',
+            'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener'
+        )->addArgument(new ehough_iconic_Reference('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'));
+    }
+
+    private function _registerHttpContentDecoder(ehough_iconic_ContainerBuilder $container)
+    {
+        /**
+         * Register the content decoding commands and chain.
+         */
+        $contentDecoderCommands = array(
+
+            'ehough_shortstop_impl_decoding_content_command_NativeGzipDecompressingCommand',
+            'ehough_shortstop_impl_decoding_content_command_SimulatedGzipDecompressingCommand',
+            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1950DecompressingCommand',
+            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1951DecompressingCommand',
+        );
+
+        $contentDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain';
+
+        $this->_registerChainDefinitionByClassNames($container, $contentDecoderChainId, $contentDecoderCommands);
+
+        /**
+         * Register the content decoder.
+         */
+        $container->register(
+
+            'ehough_shortstop_impl_decoding_content_HttpContentDecodingChain',
+            'ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'
+
+        )->addArgument(new ehough_iconic_Reference($contentDecoderChainId));
+    }
+
+    private function _registerHttpTransferDecoder(ehough_iconic_ContainerBuilder $container)
+    {
+        /**
+         * Register the transfer decoding command and chain.
+         */
+        $transferDecoderCommands = array(
+
+            'ehough_shortstop_impl_decoding_transfer_command_ChunkedTransferDecodingCommand'
+        );
+
+        $transferDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain';
+
+        $this->_registerChainDefinitionByClassNames($container, $transferDecoderChainId, $transferDecoderCommands);
+
+        /**
+         * Register the transfer decoder.
+         */
+        $container->register(
+
+            'ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain',
+            'ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain'
+
+        )->addArgument(new ehough_iconic_Reference($transferDecoderChainId));
     }
 
     private function _registerChainDefinitionByReferences(ehough_iconic_ContainerBuilder $container, $chainName, array $references)
@@ -569,6 +608,20 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
 
         )->setFactoryClass('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension')
          ->setFactoryMethod('_buildChain');
+    }
+
+    private function _registerChainDefinitionByClassNames(ehough_iconic_ContainerBuilder $container, $chainName, array $classNames)
+    {
+        $references = array();
+
+        foreach ($classNames as $className) {
+
+            $container->register($className, $className);
+
+            array_push($references, new ehough_iconic_Reference($className));
+        }
+
+        $this->_registerChainDefinitionByReferences($container, $chainName, $references);
     }
 
     public static function _buildChain()

@@ -10,7 +10,9 @@
  */
 class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
 {
-
+    /**
+     * @var tubepress_spi_options_OptionDescriptor
+     */
     private $_sut;
 
     public function onSetup()
