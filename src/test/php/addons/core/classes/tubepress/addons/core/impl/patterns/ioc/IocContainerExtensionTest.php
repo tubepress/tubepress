@@ -20,12 +20,20 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
      */
     private $_mockParentContainer;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockFilesystem;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_patterns_ioc_IocContainerExtension();
 
         $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
         $this->_mockParentContainer->register('ehough_tickertape_EventDispatcherInterface', 'ehough_tickertape_EventDispatcher');
+
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockFilesystem       = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
     }
 
     public function testGetAlias()
@@ -50,42 +58,6 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
                 $this->assertTrue($definition->hasTag($service->tag));
             }
         }
-
-        foreach ($this->_getExpectedAliases() as $expectedAliasMap) {
-
-            $aliasedService = $this->_mockParentContainer->get($expectedAliasMap[1]);
-            $originalService = $this->_mockParentContainer->get($expectedAliasMap[0]);
-
-            $this->assertSame($originalService, $aliasedService);
-        }
-    }
-
-    private function _getExpectedAliases()
-    {
-        return array(
-
-            array(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler'),
-            array('ehough_stash_PoolInterface', 'ehough_stash_Pool'),
-            array(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'),
-            array(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext'),
-            array('ehough_filesystem_FilesystemInterface', 'ehough_filesystem_Filesystem'),
-            array(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher'),
-            array(tubepress_spi_html_CssAndJsGenerator::_, 'tubepress_impl_html_DefaultCssAndJsGenerator'),
-            array('ehough_shortstop_impl_exec_DefaultHttpMessageParser', 'ehough_shortstop_impl_exec_DefaultHttpMessageParser'),
-            array('ehough_shortstop_api_HttpClientInterface', 'ehough_shortstop_impl_DefaultHttpClient'),
-            array(tubepress_spi_http_HttpRequestParameterService::_, 'tubepress_impl_http_DefaultHttpRequestParameterService'),
-            array(tubepress_spi_http_ResponseCodeHandler::_, 'tubepress_impl_http_DefaultResponseCodeHandler'),
-            array(tubepress_spi_options_OptionDescriptorReference::_, 'tubepress_impl_options_DefaultOptionDescriptorReference'),
-            array(tubepress_spi_options_OptionValidator::_, 'tubepress_impl_options_DefaultOptionValidator'),
-            array(tubepress_spi_options_ui_FieldBuilder::_, 'tubepress_impl_options_ui_DefaultFieldBuilder'),
-            array(tubepress_spi_player_PlayerHtmlGenerator::_, 'tubepress_impl_player_DefaultPlayerHtmlGenerator'),
-            array(tubepress_spi_querystring_QueryStringService::_, 'tubepress_impl_querystring_SimpleQueryStringService'),
-            array(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_, 'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator'),
-            array(tubepress_spi_shortcode_ShortcodeParser::_, 'tubepress_impl_shortcode_SimpleShortcodeParser'),
-            array('ehough_contemplate_api_TemplateBuilder', 'ehough_contemplate_impl_SimpleTemplateBuilder'),
-            array(tubepress_spi_theme_ThemeHandler::_, 'tubepress_impl_theme_SimpleThemeHandler'),
-            array(tubepress_spi_collector_VideoCollector::_, 'tubepress_impl_collector_DefaultVideoCollector'),
-        );
     }
 
     private function _getExpectedServices()
@@ -93,7 +65,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
         $map = array(
 
             array(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler'),
-            array('ehough_stash_PoolInterface', 'ehough_stash_Pool'),
+            array('ehough_stash_PoolInterface', 'tubepress_impl_cache_PoolDecorator'),
             array(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator'),
             array(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext'),
             array('ehough_filesystem_FilesystemInterface', 'ehough_filesystem_Filesystem'),

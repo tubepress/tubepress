@@ -590,20 +590,6 @@ class tubepress_addons_core_impl_Bootstrap
                     TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content',
                     ABSPATH . 'wp-content');
             }
-
-        } else {
-
-            $basePath = TUBEPRESS_ROOT;
-
-            /* add the content directory if it's not already there */
-            if (!is_dir($basePath . '/tubepress-content')) {
-
-                self::_tryToMirror(
-
-                    $basePath . '/src/main/resources/user-content-skeleton/tubepress-content',
-                    $basePath
-                );
-            }
         }
     }
 
