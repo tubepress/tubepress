@@ -114,8 +114,11 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
         $this->assertTrue($addon->getVersion() instanceof tubepress_spi_version_Version);
         $this->assertTrue((string) $addon->getVersion() === '3.2.1');
         $this->assertTrue(count($addon->getLicenses()) === 2);
-        $this->assertEquals('http://foo.bar', $addon->getLicenses()[0]['url']);
-        $this->assertEquals('http://foo.com', $addon->getLicenses()[1]['url']);
+
+        $licenses = $addon->getLicenses();
+
+        $this->assertEquals('http://foo.bar', $licenses[0]['url']);
+        $this->assertEquals('http://foo.com', $licenses[1]['url']);
         $this->assertEquals('Eric Hough', $addon->getAuthor()['name']);
         $this->assertEquals('This is a description', $addon->getDescription());
         $this->assertEquals(array('one', 'three', 'two'), $addon->getKeywords());
