@@ -71,7 +71,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
             array('ehough_filesystem_FilesystemInterface', 'ehough_filesystem_Filesystem'),
             array(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher'),
             array(tubepress_spi_html_CssAndJsGenerator::_, 'tubepress_impl_html_DefaultCssAndJsGenerator'),
-            array('ehough_shortstop_impl_exec_DefaultHttpMessageParser', 'ehough_shortstop_impl_exec_DefaultHttpMessageParser'),
+            array('ehough_shortstop_spi_HttpMessageParser', 'ehough_shortstop_impl_exec_DefaultHttpMessageParser'),
             array('ehough_shortstop_impl_exec_command_ExtCommand', 'ehough_shortstop_impl_exec_command_ExtCommand'),
             array('ehough_shortstop_impl_exec_command_CurlCommand', 'ehough_shortstop_impl_exec_command_CurlCommand'),
             array('ehough_shortstop_impl_exec_command_StreamsCommand', 'ehough_shortstop_impl_exec_command_StreamsCommand'),
