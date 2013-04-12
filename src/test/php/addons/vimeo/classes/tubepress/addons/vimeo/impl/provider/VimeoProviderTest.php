@@ -15,14 +15,29 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUn
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockUrlBuilder;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFeedFetcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
     public function onSetup()
@@ -115,7 +130,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUn
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-single-video.txt');
 
-        $out = preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s',array('tubepress_addons_vimeo_impl_provider_VimeoProviderTest', '_callbackStrlen'), $serial_str );
 
         return $out;
     }
@@ -124,8 +139,15 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends TubePressUn
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-gallery.txt');
 
-        $out = preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_addons_vimeo_impl_provider_VimeoProviderTest', '_callbackStrlen'), $serial_str );
 
         return $out;
+    }
+
+    public function _callbackStrlen($matches)
+    {
+        $toReturn = "s:" . strlen($matches[2]) . ":\"" . $matches[2] . "\";";
+
+        return $toReturn;
     }
 }

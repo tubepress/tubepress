@@ -15,6 +15,9 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
     public function onSetup()
@@ -82,7 +85,7 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-single-video.txt');
 
-        $out = preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
 
         return $out;
     }
@@ -91,7 +94,7 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-gallery.txt');
 
-        $out = preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
 
         return $out;
     }
@@ -123,5 +126,12 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
         $event->setArgument('zeroBasedFeedIndex', $index);
 
         return $event;
+    }
+
+    public function _callbackStrlen($matches)
+    {
+        $toReturn = "s:" . strlen($matches[2]) . ":\"" . $matches[2] . "\";";
+
+        return $toReturn;
     }
 }
