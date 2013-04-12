@@ -119,7 +119,10 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
 
         $this->assertEquals('http://foo.bar', $licenses[0]['url']);
         $this->assertEquals('http://foo.com', $licenses[1]['url']);
-        $this->assertEquals('Eric Hough', $addon->getAuthor()['name']);
+
+        $author = $addon->getAuthor();
+
+        $this->assertEquals('Eric Hough', $author['name']);
         $this->assertEquals('This is a description', $addon->getDescription());
         $this->assertEquals(array('one', 'three', 'two'), $addon->getKeywords());
         $this->assertEquals('https://some.thing', $addon->getHomepageUrl());
