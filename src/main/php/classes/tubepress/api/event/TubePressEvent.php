@@ -12,7 +12,7 @@
 /**
  * A base class for events thrown around in TubePress.
  */
-class tubepress_api_event_TubePressEvent extends ehough_tickertape_impl_GenericEvent
+class tubepress_api_event_TubePressEvent extends ehough_tickertape_GenericEvent
 {
     /**
      * @var string The modifiable subject.

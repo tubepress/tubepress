@@ -39,7 +39,7 @@ class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTes
 
     public function testBuildFromPluggables()
     {
-        $mockField = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $mockField = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
 
         $this->_mockPluggableFieldBuilder1->shouldReceive('build')->once()->with('something awesome', 'FakeThingy2')->andReturn(null);
         $this->_mockPluggableFieldBuilder2->shouldReceive('build')->once()->with('something awesome', 'FakeThingy2')->andReturn($mockField);

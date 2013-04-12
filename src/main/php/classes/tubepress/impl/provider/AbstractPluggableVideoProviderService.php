@@ -15,7 +15,7 @@
 abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService implements tubepress_spi_provider_PluggableVideoProviderService
 {
     /**
-     * @var ehough_epilog_api_ILogger
+     * @var ehough_epilog_psr_LoggerInterface
      */
     private $_logger;
 
@@ -32,7 +32,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
         $this->_cacheLogger();
 
         $result       = new tubepress_api_video_VideoGalleryPage();
-        $debugEnabled = $this->_logger->isDebugEnabled();
+        $debugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($debugEnabled) {
 
@@ -93,7 +93,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
     {
         $this->_cacheLogger();
 
-        $isLoggerDebugEnabled = $this->_logger->isDebugEnabled();
+        $isLoggerDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($isLoggerDebugEnabled) {
 
@@ -151,7 +151,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
     /**
      *
      *
-     * @return ehough_epilog_api_ILogger
+     * @return ehough_epilog_psr_LoggerInterface
      */
     protected abstract function getLogger();
 
@@ -214,7 +214,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
     {
         $toReturn       = array();
         $total          = $this->countVideosInFeed($feed);
-        $isDebugEnabled = $this->_logger->isDebugEnabled();
+        $isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($isDebugEnabled) {
 
@@ -244,7 +244,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
             $video->setAttribute(tubepress_api_video_Video::ATTRIBUTE_PROVIDER_NAME, $this->getName());
 
             /*
-             * Let plugins build the rest of the video.
+             * Let add-ons build the rest of the video.
              */
             $event = new tubepress_api_event_TubePressEvent($video);
             $event->setArgument('zeroBasedFeedIndex', $index);
@@ -257,7 +257,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
 
             $video = $this->_fireEventAndGetSubject(
 
-                tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
                 $event
             );
 

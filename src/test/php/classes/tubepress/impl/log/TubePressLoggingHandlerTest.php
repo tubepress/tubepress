@@ -16,21 +16,21 @@ class tubepress_impl_log_TubePressLoggingHandlerTest extends TubePressUnitTest
     private $_sut;
 
     /**
-     * @var ehough_epilog_impl_StandardLogger
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_log_TubePressLoggingHandler();
 
-        $logger = new ehough_epilog_impl_StandardLogger('test');
+        $logger = new ehough_epilog_Logger('test');
         $logger->pushHandler($this->_sut);
 
         $this->_logger = $logger;
     }
 
-    function testLogNotEnabled()
+    public function testLogNotEnabled()
     {
         $this->_logger->critical('hey!!!');
         $this->_logger->warn('yoo!!');
@@ -38,7 +38,7 @@ class tubepress_impl_log_TubePressLoggingHandlerTest extends TubePressUnitTest
         $this->assertTrue(true);
     }
 
-    function testLogEnabled2()
+    public function testLogEnabled2()
     {
         $this->expectOutputRegex('/^\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[CRITICAL\] test: hello!!! <br \/>\\n\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[CRITICAL\] test: hey!!! <br \/>$/');
 
@@ -51,7 +51,7 @@ class tubepress_impl_log_TubePressLoggingHandlerTest extends TubePressUnitTest
         $this->assertTrue(true);
     }
 
-    function testLogEnabled1()
+    public function testLogEnabled1()
     {
         $this->expectOutputRegex('/^\[20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[CRITICAL\] test: hey!!! <br \/>$/');
 

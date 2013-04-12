@@ -21,6 +21,22 @@ class tubepress_impl_patterns_sl_ServiceLocator
     private static $_iocContainer;
 
     /**
+     * @return tubepress_spi_addon_AddonDiscoverer The add-on discoverer.
+     */
+    public static function getAddonDiscoverer()
+    {
+        return self::getService(tubepress_spi_addon_AddonDiscoverer::_);
+    }
+
+    /**
+     * @return tubepress_spi_addon_AddonLoader The add-on loader.
+     */
+    public static function getAddonLoader()
+    {
+        return self::getService(tubepress_spi_addon_AddonLoader::_);
+    }
+
+    /**
      * @return tubepress_spi_http_AjaxHandler
      */
     public static function getAjaxHandler()
@@ -29,11 +45,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_stash_api_Cache The cache service.
+     * @return ehough_stash_PoolInterface The cache service.
      */
     public static function getCacheService()
     {
-        return self::getService('ehough_stash_api_Cache');
+        return self::getService('ehough_stash_PoolInterface');
     }
 
     /**
@@ -53,11 +69,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_tickertape_api_IEventDispatcher The event dispatcher.
+     * @return ehough_tickertape_EventDispatcherInterface The event dispatcher.
      */
     public static function getEventDispatcher()
     {
-        return self::getService('ehough_tickertape_api_IEventDispatcher');
+        return self::getService('ehough_tickertape_EventDispatcherInterface');
     }
 
     /**
@@ -77,43 +93,35 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_fimble_api_FileSystem The filesystem service.
+     * @return ehough_filesystem_FilesystemInterface The filesystem service.
      */
     public static function getFileSystem()
     {
-        return self::getService('ehough_fimble_api_Filesystem');
+        return self::getService('ehough_filesystem_FilesystemInterface');
     }
 
     /**
-     * @return ehough_fimble_api_FinderFactory The finder factory.
+     * @return ehough_finder_FinderFactoryInterface The finder factory.
      */
     public static function getFileSystemFinderFactory()
     {
-        return self::getService('ehough_fimble_api_FinderFactory');
+        return self::getService('ehough_finder_FinderFactoryInterface');
     }
 
     /**
-     * @return tubepress_spi_html_HeadHtmlGenerator The head HTML generator.
+     * @return tubepress_spi_html_CssAndJsGenerator The head HTML generator.
      */
-    public static function getHeadHtmlGenerator()
+    public static function getCssAndJsGenerator()
     {
-        return self::getService(tubepress_spi_html_HeadHtmlGenerator::_);
+        return self::getService(tubepress_spi_html_CssAndJsGenerator::_);
     }
 
     /**
-     * @return ehough_shortstop_api_HttpClient The HTTP client.
+     * @return ehough_shortstop_api_HttpClientInterface The HTTP client.
      */
     public static function getHttpClient()
     {
-        return self::getService('ehough_shortstop_api_HttpClient');
-    }
-
-    /**
-     * @return ehough_shortstop_api_HttpResponseHandler The HTTP response handler.
-     */
-    public static function getHttpResponseHandler()
-    {
-        return self::getService('ehough_shortstop_api_HttpResponseHandler');
+        return self::getService('ehough_shortstop_api_HttpClientInterface');
     }
 
     /**
@@ -125,19 +133,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_jameson_api_IDecoder
+     * @return tubepress_spi_http_ResponseCodeHandler The HTTP response code handler.
      */
-    public static function getJsonDecoder()
+    public static function getHttpResponseCodeHandler()
     {
-        return self::getService('ehough_jameson_api_IDecoder');
-    }
-
-    /**
-     * @return ehough_jameson_api_IEncoder
-     */
-    public static function getJsonEncoder()
-    {
-        return self::getService('ehough_jameson_api_IEncoder');
+        return self::getService(tubepress_spi_http_ResponseCodeHandler::_);
     }
 
     /**
@@ -194,22 +194,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     public static function getPlayerHtmlGenerator()
     {
         return self::getService(tubepress_spi_player_PlayerHtmlGenerator::_);
-    }
-
-    /**
-     * @return tubepress_spi_plugin_PluginDiscoverer The plugin discoverer.
-     */
-    public static function getPluginDiscoverer()
-    {
-        return self::getService(tubepress_spi_plugin_PluginDiscoverer::_);
-    }
-
-    /**
-     * @return tubepress_spi_plugin_PluginRegistry The plugin registry.
-     */
-    public static function getPluginRegistry()
-    {
-        return self::getService(tubepress_spi_plugin_PluginRegistry::_);
     }
 
     /**
@@ -329,9 +313,9 @@ class tubepress_impl_patterns_sl_ServiceLocator
 
 
     /**
-     * @param ehough_iconic_api_IContainer $container The core IOC container.
+     * @param ehough_iconic_ContainerInterface $container The core IOC container.
      */
-    public static function setIocContainer(ehough_iconic_api_IContainer $container)
+    public static function setIocContainer(ehough_iconic_ContainerInterface $container)
     {
         self::$_iocContainer = $container;
     }

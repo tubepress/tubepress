@@ -10,7 +10,7 @@
  */
 
 /**
- * Advanced option names for the plugin.
+ * Advanced option names.
  */
 class tubepress_api_const_options_names_Advanced
 {

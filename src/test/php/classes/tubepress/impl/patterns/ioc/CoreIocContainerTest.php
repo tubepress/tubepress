@@ -15,30 +15,32 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
      */
     private $_sut;
 
-    function onSetup()
+    public function onSetup()
     {
         $this->_sut = new tubepress_impl_patterns_ioc_CoreIocContainer();
     }
 
     public static function setUpBeforeClass()
     {
-        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeExtension.php';
-        require_once TUBEPRESS_ROOT . '/src/test/resources/plugins/FakeCompilerPass.php';
+        parent::setUpBeforeClass();
+
+        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeCompilerPass.php';
     }
 
-    function testBuildsNormally()
+    public function testBuildsNormally()
     {
         $this->assertNotNull($this->_sut);
     }
 
-    function testServiceConstructions()
+    public function testServiceConstructions()
     {
         $toTest = array(
 
             tubepress_spi_environment_EnvironmentDetector::_ => tubepress_spi_environment_EnvironmentDetector::_,
-            'ehough_fimble_api_FinderFactory'                => 'ehough_fimble_api_FinderFactory',
-            tubepress_spi_plugin_PluginDiscoverer::_         => tubepress_spi_plugin_PluginDiscoverer::_,
-            tubepress_spi_plugin_PluginRegistry::_           => tubepress_spi_plugin_PluginRegistry::_,
+            tubepress_spi_addon_AddonDiscoverer::_           => tubepress_spi_addon_AddonDiscoverer::_,
+            tubepress_spi_addon_AddonLoader::_               => tubepress_spi_addon_AddonLoader::_,
+            'ehough_tickertape_EventDispatcherInterface'     => 'ehough_tickertape_EventDispatcherInterface'
         );
 
         foreach ($toTest as $key => $value) {
@@ -76,7 +78,7 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
 
     public function testHas()
     {
-        $this->assertTrue($this->_sut->has('ehough_fimble_api_FinderFactory'));
+        $this->assertTrue($this->_sut->has(tubepress_spi_environment_EnvironmentDetector::_));
         $this->assertFalse($this->_sut->has('x y z'));
     }
 
@@ -93,8 +95,6 @@ class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
         /** @noinspection PhpUndefinedMethodInspection */
         $obj = $this->_sut->get($id);
 
-        $this->assertTrue($obj instanceof $class, "Failed to build $id of type $class. Instead got " . gettype($obj) . var_export($obj, true));
+        $this->assertTrue($obj instanceof $class, "Failed to build $id of type $class.");
     }
-
-
 }

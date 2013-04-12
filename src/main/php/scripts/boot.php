@@ -36,8 +36,8 @@ if (! function_exists('bootTubePress')) {
          *
          * 1. Setup logging.
          * 2. Build and compile the core IOC container.
-         * 3. Load system plugins
-         * 4. Load user plugins
+         * 3. Load system add-ons
+         * 4. Load user add-ons
          */
         $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
         $bootStrapper->boot($loader);

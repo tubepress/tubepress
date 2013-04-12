@@ -10,44 +10,104 @@
  */
 class tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTest
 {
-	private $_sut;
+    private static $_fakeUrl = 'http://foo.bar/x/y/z/index.php?cat=dog#bird';
 
+    /**
+     * @var tubepress_impl_feed_CacheAwareFeedFetcher
+     */
+    private $_sut;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockCache;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpClient;
 
-    private $_mockHttpResponseHandler;
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockItem;
 
-	function onSetup()
-	{
-        $this->_mockCache               = $this->createMockSingletonService('ehough_stash_api_Cache');
-        $this->_mockHttpClient          = $this->createMockSingletonService('ehough_shortstop_api_HttpClient');
-        $this->_mockHttpResponseHandler = $this->createMockSingletonService('ehough_shortstop_api_HttpResponseHandler');
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockExecutionContext;
 
-		$this->_sut = new tubepress_impl_feed_CacheAwareFeedFetcher();
-	}
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
 
-	function testFetchGoodXmlCacheHit()
-	{
-	    $this->_mockCache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');
+    public function onSetup()
+    {
+        $this->_mockCache            = $this->createMockSingletonService('ehough_stash_PoolInterface');
+        $this->_mockHttpClient       = $this->createMockSingletonService('ehough_shortstop_api_HttpClientInterface');
+        $this->_mockItem             = $this->createMockSingletonService('ehough_stash_ItemInterface');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
-	    $this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", true));
-	}
+        $this->_sut = new tubepress_impl_feed_CacheAwareFeedFetcher();
+    }
 
-	function testFetchGoodXmlCacheMiss()
-	{
-        $this->_mockCache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn(false);
-        $this->_mockCache->shouldReceive('save')->once()->with("http://www.ietf.org/css/ietf.css", "someValue");
+    public function testFetchCacheHit()
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
+        $this->_mockCache->shouldReceive('getItem')->once()->with(self::$_fakeUrl)->andReturn($this->_mockItem);
+        $this->_mockItem->shouldReceive('isValid')->once()->andReturn(true);
+        $this->_mockItem->shouldReceive('get')->once()->andReturn('someValue');
 
-	    $this->_mockHttpClient->shouldReceive('executeAndHandleResponse')->once()->andReturn('someValue');
+        $this->assertEquals('someValue', $this->_sut->fetch(self::$_fakeUrl));
+    }
 
-	    $this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", true));
-	}
+    public function testFetchCacheMiss()
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS)->andReturn(333);
+        $this->_mockCache->shouldReceive('getItem')->once()->with(self::$_fakeUrl)->andReturn($this->_mockItem);
+        $this->_mockItem->shouldReceive('isValid')->once()->andReturn(false);
+        $this->_mockItem->shouldReceive('set')->once()->with('abc', 333);
+        $this->_mockItem->shouldReceive('get')->once()->andReturn('someValue');
+        $this->_setupHttpExecution();
 
-	function testFetchGoodXmlCacheDisabled()
-	{
-        $this->_mockHttpClient->shouldReceive('executeAndHandleResponse')->once()->andReturn('someValue');
+        $this->assertEquals('someValue', $this->_sut->fetch(self::$_fakeUrl));
+    }
 
-		$this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", false));
-	}
+    public function testFetchCacheDisabled()
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
+        $this->_setupHttpExecution();
+
+        $this->assertEquals('abc', $this->_sut->fetch(self::$_fakeUrl));
+    }
+
+    public function _callbackCacheMiss($request)
+    {
+        return $request instanceof ehough_shortstop_api_HttpRequest && "$request" === 'GET to ' . self::$_fakeUrl;
+    }
+
+    public function _callbackHttpResponse(tubepress_api_event_TubePressEvent $event)
+    {
+        $ok = $event->getSubject() === 'xyz' && $event->getArgument('request') instanceof ehough_shortstop_api_HttpRequest;
+
+        $event->setSubject('abc');
+
+        return $ok;
+    }
+
+    private function _setupHttpExecution()
+    {
+        $mockResponse = ehough_mockery_Mockery::mock();
+        $mockEntity   = ehough_mockery_Mockery::mock();
+
+        $mockResponse->shouldReceive('getEntity')->once()->andReturn($mockEntity);
+        $mockEntity->shouldReceive('getContent')->once()->andReturn('xyz');
+
+        $this->_mockHttpClient->shouldReceive('execute')->once()->with(ehough_mockery_Mockery::on(array($this, '_callbackCacheMiss')))->andReturn($mockResponse);
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTTP_RESPONSE, ehough_mockery_Mockery::on(array($this, '_callbackHttpResponse')));
+    }
 }

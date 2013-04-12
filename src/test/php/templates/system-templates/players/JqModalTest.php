@@ -10,7 +10,7 @@
  */
 class tubepress_resources_templates_JqModalTemplateTest extends TubePressUnitTest
 {
-    function testTemplate()
+    public function testTemplate()
     {
         $this->expectOutputString('hello!!!');
 

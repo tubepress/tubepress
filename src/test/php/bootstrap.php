@@ -9,16 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-require_once __DIR__ . '/../../../vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
+$loader = require_once __DIR__ . '/../../../vendor/autoload.php';
 
-$loader = new ehough_pulsar_ComposerClassLoader(__DIR__ . '/../../../vendor/');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/core/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/wordpress/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/youtube/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/vimeo/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/basicplayerlocations/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/embedplus/classes');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins/jwplayer/classes');
-$loader->registerFallbackDirectory(__DIR__);
-$loader->register();
+$loader->add(null, dirname(__FILE__) . '/classes');
+$loader->add(null, dirname(__FILE__));

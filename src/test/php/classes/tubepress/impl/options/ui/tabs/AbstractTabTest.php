@@ -58,7 +58,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
         $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array());
         $mockOptionsPageParticipant2->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array('x'));
 
-        $template = \Mockery::mock('ehough_contemplate_api_Template');
+        $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_PARTICIPANT_ARRAY, array($mockOptionsPageParticipant2));
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_TAB_NAME, $this->_sut->getName());
         $template->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, 'tubepress-base-url');
@@ -74,9 +74,9 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
         $mockOptionsPageParticipant1          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockOptionsPageParticipant2          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
 
-        $fakeField1 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $fakeField2 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
-        $fakeField3 = Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $fakeField1 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $fakeField2 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
+        $fakeField3 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
 
         $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField1));
         $mockOptionsPageParticipant2->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField2, $fakeField3));

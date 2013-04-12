@@ -53,7 +53,7 @@ class tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnitTest
 
     public function testGetHtml()
     {
-        $template = \Mockery::mock('ehough_contemplate_api_Template');
+        $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS, $this->_expectedTabs);
         $template->shouldReceive('toString')->once()->andReturn('foobar');
 

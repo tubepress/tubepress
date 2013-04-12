@@ -10,7 +10,7 @@
  */
 
 /**
- * Cache option names for the plugin.
+ * Cache option names.
  */
 class tubepress_api_const_options_names_Cache
 {

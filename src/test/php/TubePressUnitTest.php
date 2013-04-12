@@ -21,13 +21,15 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
      */
     public final function setUp()
     {
-        $this->_mockIocContainer = Mockery::mock('ehough_iconic_api_IContainer');
+        $this->_mockIocContainer = ehough_mockery_Mockery::mock('ehough_iconic_ContainerInterface');
 
         $this->_mockIocContainer->shouldReceive('get')->andReturnUsing(array($this, '_getMockServiceById'));
         $this->_mockIocContainer->shouldReceive('findTaggedServiceIds')->andReturnUsing(array($this, '_getMockServiceIdsByTag'));
 
         /** @noinspection PhpParamsInspection */
         tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($this->_mockIocContainer);
+
+        date_default_timezone_set('America/New_York');
 
         $this->onSetup();
     }
@@ -36,7 +38,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     {
         $this->onTearDown();
 
-        Mockery::close();
+        ehough_mockery_Mockery::close();
     }
 
     public static function setUpBeforeClass()
@@ -61,7 +63,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     {
         $mockDescriptor           = new stdClass();
         $mockDescriptor->id       = $type;
-        $mockDescriptor->instance = Mockery::mock($type);
+        $mockDescriptor->instance = ehough_mockery_Mockery::mock($type);
 
         $this->_mocks[] = $mockDescriptor;
 
@@ -73,13 +75,16 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $mockDescriptor           = new stdClass();
         $mockDescriptor->id       = mt_rand();
         $mockDescriptor->tag      = $type;
-        $mockDescriptor->instance = Mockery::mock($type);
+        $mockDescriptor->instance = ehough_mockery_Mockery::mock($type);
 
         $this->_mocks[] = $mockDescriptor;
 
         return $mockDescriptor->instance;
     }
 
+    /**
+     * @return ehough_mockery_mockery_MockInterface
+     */
     protected final function getMockIocContainer()
     {
         return $this->_mockIocContainer;

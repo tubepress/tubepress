@@ -15,13 +15,13 @@
 class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tubepress_spi_embedded_EmbeddedHtmlGenerator
 {
     /**
-     * @var ehough_epilog_api_ILogger Logger.
+     * @var ehough_epilog_psr_LoggerInterface Logger.
      */
     private $_logger;
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
     }
 
     /**
@@ -69,7 +69,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
          */
         $eventDispatcherService->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             $embeddedTemplateEvent
         );
 
@@ -96,7 +96,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
          */
         $eventDispatcherService->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::EMBEDDED_HTML_CONSTRUCTION,
             $embeddedHtmlEvent
         );
 

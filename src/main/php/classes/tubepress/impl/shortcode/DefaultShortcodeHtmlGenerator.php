@@ -18,7 +18,7 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Shortcode HTML Generator');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Shortcode HTML Generator');
     }
 
     /**
@@ -66,11 +66,11 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
         $event = new tubepress_api_event_TubePressEvent($html);
 
         /* send it through the filters */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_CONSTRUCTION)) {
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::HTML_CONSTRUCTION,
                 $event
             );
         }
@@ -80,12 +80,12 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
 
     public final function sortShortcodeHandlers($first, $second)
     {
-        if ($first instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+        if ($first instanceof tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
 
             return 1;
         }
 
-        if ($second instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+        if ($second instanceof tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
 
             return -1;
         }

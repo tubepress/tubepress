@@ -48,7 +48,7 @@ class tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
 
     public function testGetTemplateInstance()
     {
-        $template = Mockery::mock('ehough_contemplate_api_Template');
+        $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('something');
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');

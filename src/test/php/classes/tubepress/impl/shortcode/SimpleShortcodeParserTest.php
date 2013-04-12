@@ -18,7 +18,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
     {
         $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
     }
@@ -33,13 +33,13 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testMixedCommasWithAllSortsOfQuotes()
+    public function testMixedCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
         $expected = array(
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE                => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE                => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             tubepress_api_const_options_names_Meta::AUTHOR                          => 'false',
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP                => 200,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE              => 3
@@ -55,12 +55,12 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoCommasWithAllSortsOfQuotes()
+    public function testNoCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             tubepress_api_const_options_names_Meta::AUTHOR => 'true',
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
@@ -76,14 +76,14 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testCommasWithAllSortsOfQuotes()
+    public function testCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217, playlistValue=&#8242;foobar&#8242;, author="true", resultCountCap=\'200\', resultsPerPage=3]';
 
 
         $expected = array(
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             tubepress_api_const_options_names_Meta::AUTHOR => 'true',
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
@@ -100,7 +100,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoCustomOptions()
+    public function testNoCustomOptions()
     {
         $shortcode = '[butters]';
 
@@ -112,13 +112,13 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testWeirdSingleQuotes()
+    public function testWeirdSingleQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242;]';
 
         $expected = array(
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         );
 
         $this->_setupExpectedFilters($expected);
@@ -132,12 +132,12 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testWeirdDoubleQuotes()
+    public function testWeirdDoubleQuotes()
     {
         $shortcode = '[butters mode=&#34playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         );
 
         $this->_setupExpectedFilters($expected);
@@ -150,10 +150,10 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoQuotes()
+    public function testNoQuotes()
     {
-        $shortcode = '[butters mode=playlist	]';
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $shortcode = '[butters mode=playlist    ]';
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 
@@ -166,11 +166,11 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testSingleQuotes()
+    public function testSingleQuotes()
     {
         $shortcode = '[butters mode=\'playlist\']';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 
@@ -182,11 +182,11 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testDoubleQuotes()
+    public function testDoubleQuotes()
     {
         $shortcode = '[butters mode="playlist"]';
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters( $expected);
 
@@ -198,21 +198,21 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testMismatchedStartEndQuotes()
+    public function testMismatchedStartEndQuotes()
     {
         $this->_sut->parse('[butters mode=\'playlist"]');
 
         $this->assertTrue(true);
     }
 
-    function testNoClosingBracket()
+    public function testNoClosingBracket()
     {
         $this->_sut->parse('[butters mode=\'playlist\'');
 
         $this->assertTrue(true);
     }
 
-    function testNoOpeningBracket()
+    public function testNoOpeningBracket()
     {
         $content = "butters mode='playlist']";
 
@@ -221,11 +221,11 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testSpaceAroundAttributes()
+    public function testSpaceAroundAttributes()
     {
         $shortcode = "[butters mode='playlist']";
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters( $expected);
 
@@ -237,11 +237,11 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testSpaceAroundShortcode()
+    public function testSpaceAroundShortcode()
     {
-        $shortcode = "sddf	 [butters mode='playlist']	sdsdfsdf";
+        $shortcode = "sddf     [butters mode='playlist']    sdsdfsdf";
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 
@@ -253,11 +253,11 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
         $this->assertTrue(true);
     }
 
-    function testNoSpaceAroundShortcode()
+    public function testNoSpaceAroundShortcode()
     {
         $shortcode = "sddf[butters mode='playlist']sdsdfsdf";
 
-        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
         $this->_setupExpectedFilters($expected);
 
@@ -275,7 +275,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
 
         foreach ($expected as $name => $value) {
 
-            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) use ($name) {
+            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) use ($name) {
 
                 return $arg instanceof tubepress_api_event_TubePressEvent  && $arg->getArgument('optionName') === $name;
             }));

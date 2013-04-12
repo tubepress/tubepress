@@ -48,7 +48,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
 
     public function testGetHtml()
     {
-        $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(
 

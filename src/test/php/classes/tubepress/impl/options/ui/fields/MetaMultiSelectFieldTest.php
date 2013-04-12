@@ -92,7 +92,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
 
     public function testGetHtml()
     {
-        $template     = \Mockery::mock('ehough_contemplate_api_Template');
+        $template     = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME, 'metadropdown');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_DESCRIPTORS, $this->_mockOptionDescriptorArrary);
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_CURRENTVALUES, $this->_getOdNames());

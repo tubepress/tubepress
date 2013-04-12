@@ -15,7 +15,7 @@
 class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_collector_VideoCollector
 {
     /**
-     * @var ehough_epilog_api_ILogger Logger.
+     * @var ehough_epilog_Logger Logger.
      */
     private $_logger;
 
@@ -26,7 +26,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Video Collector');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Video Collector');
     }
 
     /**
@@ -36,7 +36,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
      */
     public final function collectVideoGalleryPage()
     {
-        $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
+        $this->_isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
         $executionContext      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $providers             = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
         $videoSource           = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
@@ -95,7 +95,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $eventDispatcher->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             $event
         );
 
@@ -111,7 +111,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
      */
     public final function collectSingleVideo($customVideoId)
     {
-        $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
+        $this->_isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($this->_isDebugEnabled) {
 
@@ -151,7 +151,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $page = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->debug(sprintf('Current page number is %d', $page));
         }

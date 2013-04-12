@@ -12,13 +12,13 @@ class tubepress_impl_template_templates_optionspage_TabTemplateTest extends Tube
 {
     public function test()
     {
-        $one = \Mockery::mock(tubepress_spi_options_ui_Field::_);
+        $one = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::_);
         $one->shouldReceive('getHtml')->once()->andReturn('one-html');
         $one->shouldReceive('getTitle')->once()->andReturn('one-title');
         $one->shouldReceive('getDescription')->once()->andReturn('one-description');
         $one->shouldReceive('isProOnly')->twice()->andReturn(true);
 
-        $two = \Mockery::mock(tubepress_spi_options_ui_Field::_);
+        $two = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::_);
         $two->shouldReceive('getHtml')->once()->andReturn('two-html');
         $two->shouldReceive('getTitle')->once()->andReturn('two-title');
         $two->shouldReceive('getDescription')->once()->andReturn('two-description');

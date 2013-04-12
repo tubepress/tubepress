@@ -115,7 +115,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
     public function testGetInputHtml()
     {
-        $template = \Mockery::mock('ehough_contemplate_api_Template');
+        $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME, 'name');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
         $template->shouldReceive('toString')->once()->andReturn('boogity');

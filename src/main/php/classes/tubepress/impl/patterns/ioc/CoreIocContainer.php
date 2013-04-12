@@ -13,16 +13,16 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconic_api_IContainer
+final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconic_ContainerInterface
 {
     /**
-     * @var ehough_iconic_impl_ContainerBuilder
+     * @var ehough_iconic_ContainerBuilder
      */
     private $_delegate;
 
     public function __construct()
     {
-        $this->_delegate = new ehough_iconic_impl_ContainerBuilder();
+        $this->_delegate = new ehough_iconic_ContainerBuilder();
 
         /**
          * Remove some advanced IOC container stuff that we don't use (yet). This makes TubePress boot about
@@ -32,10 +32,16 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
         $compilerPassConfig->setOptimizationPasses(array());
         $compilerPassConfig->setRemovingPasses(array());
 
+        /**
+         * Turn off resource loading.
+         */
+        $this->_delegate->setResourceTracking(false);
+
         $this->_registerEnvironmentDetector();
         $this->_registerFilesystemFinderFactory();
-        $this->_registerPluginDiscoverer();
-        $this->_registerPluginRegistry();
+        $this->_registerAddonDiscoverer();
+        $this->_registerAddonLoader();
+        $this->_registerEventDispatcher();
     }
 
     /**
@@ -123,12 +129,13 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
         return $this->_delegate->findTaggedServiceIds($tag);
     }
 
-    public function registerExtension(ehough_iconic_api_extension_IExtension $extension)
+    public function registerExtension(ehough_iconic_extension_ExtensionInterface $extension)
     {
         $this->_delegate->registerExtension($extension);
+        $this->_delegate->loadFromExtension($extension->getAlias());
     }
 
-    public function addCompilerPass(ehough_iconic_api_compiler_ICompilerPass $pass, $type = ehough_iconic_impl_compiler_PassConfig::TYPE_BEFORE_OPTIMIZATION)
+    public function addCompilerPass(ehough_iconic_compiler_CompilerPassInterface $pass, $type = ehough_iconic_compiler_PassConfig::TYPE_BEFORE_OPTIMIZATION)
     {
         $this->_delegate->addCompilerPass($pass, $type);
     }
@@ -154,35 +161,113 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
     {
         $this->_delegate->register(
 
-            'ehough_fimble_api_FinderFactory',
-            'ehough_fimble_impl_StandardFinderFactory'
+            'ehough_finder_FinderFactoryInterface',
+            'ehough_finder_FinderFactory'
         );
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $this->_delegate->setAlias('ehough_fimble_impl_StandardFinderFactory', 'ehough_fimble_api_FinderFactory');
+        $this->_delegate->setAlias('ehough_finder_FinderFactory', 'ehough_finder_FinderFactoryInterface');
     }
 
-    private function _registerPluginDiscoverer()
+    private function _registerEventDispatcher()
     {
         $this->_delegate->register(
 
-            tubepress_spi_plugin_PluginDiscoverer::_,
-            'tubepress_impl_plugin_FilesystemPluginDiscoverer'
-        );
+            'ehough_tickertape_EventDispatcherInterface',
+            'ehough_tickertape_ContainerAwareEventDispatcher'
+        )->addArgument($this->_delegate);
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $this->_delegate->setAlias('tubepress_impl_plugin_FilesystemPluginDiscoverer', tubepress_spi_plugin_PluginDiscoverer::_);
+        $this->_delegate->setAlias('ehough_tickertape_ContainerAwareEventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
     }
 
-    private function _registerPluginRegistry()
+    private function _registerAddonDiscoverer()
     {
         $this->_delegate->register(
 
-            tubepress_spi_plugin_PluginRegistry::_,
-            'tubepress_impl_plugin_DefaultPluginRegistry'
+            tubepress_spi_addon_AddonDiscoverer::_,
+            'tubepress_impl_addon_FilesystemAddonDiscoverer'
         );
 
         /* Allows for convenient access to this definition by IOC extensions. */
-        $this->_delegate->setAlias('tubepress_impl_plugin_DefaultPluginRegistry', tubepress_spi_plugin_PluginRegistry::_);
+        $this->_delegate->setAlias('tubepress_impl_addon_FilesystemAddonDiscoverer', tubepress_spi_addon_AddonDiscoverer::_);
+    }
+
+    private function _registerAddonLoader()
+    {
+        $this->_delegate->register(
+
+            tubepress_spi_addon_AddonLoader::_,
+            'tubepress_impl_addon_DefaultAddonLoader'
+        );
+
+        /* Allows for convenient access to this definition by IOC extensions. */
+        $this->_delegate->setAlias('tubepress_impl_addon_DefaultAddonLoader', tubepress_spi_addon_AddonLoader::_);
+    }
+
+    /**
+     * Enters the given scope
+     *
+     * @param string $name
+     *
+     * @throws BadMethodCallException On invocation.
+     */
+    public function enterScope($name)
+    {
+        throw new BadMethodCallException();
+    }
+
+    /**
+     * Leaves the current scope, and re-enters the parent scope
+     *
+     * @param string $name
+     *
+     * @throws BadMethodCallException On invocation.
+     */
+    public function leaveScope($name)
+    {
+        throw new BadMethodCallException();
+    }
+
+    /**
+     * Adds a scope to the container
+     *
+     * @param ehough_iconic_ScopeInterface $scope
+     *
+     * @throws BadMethodCallException On invocation.
+     */
+    public function addScope(ehough_iconic_ScopeInterface $scope)
+    {
+        throw new BadMethodCallException();
+    }
+
+    /**
+     * Whether this container has the given scope
+     *
+     * @param string $name
+     *
+     * @return Boolean
+     *
+     * @throws BadMethodCallException On invocation.
+     */
+    public function hasScope($name)
+    {
+        throw new BadMethodCallException();
+    }
+
+    /**
+     * Determines whether the given scope is currently active.
+     *
+     * It does however not check if the scope actually exists.
+     *
+     * @param string $name
+     *
+     * @return Boolean
+     *
+     * @throws BadMethodCallException On invocation.
+     */
+    public function isScopeActive($name)
+    {
+        throw new BadMethodCallException();
     }
 }

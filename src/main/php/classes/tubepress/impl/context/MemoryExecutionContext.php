@@ -34,7 +34,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Memory Execution Context');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Memory Execution Context');
     }
 
     /**
@@ -87,12 +87,12 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, $event);
+        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET, $event);
         $filteredValue = $event->getSubject();
 
         if ($optionValidatorService->isValid($optionName, $filteredValue)) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Accepted valid value: %s = %s', $optionName, $filteredValue));
             }
@@ -104,7 +104,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
         $problemMessage = $optionValidatorService->getProblemMessage($optionName, $filteredValue);
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->warn(sprintf('Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage));
         }
