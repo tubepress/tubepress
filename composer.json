@@ -37,7 +37,8 @@
             "tubepress_addons_vimeo": "src/main/php/addons/vimeo/classes",
             "tubepress_addons_wordpress": "src/main/php/addons/wordpress/classes",
             "tubepress_addons_youtube": "src/main/php/addons/youtube/classes",
-            "tubepress_plugins": "src/main/php/deprecated/classes"
+            "tubepress_plugins": "src/main/php/deprecated/classes",
+            "org_tubepress": "src/main/php/deprecated/classes"
         }
     }
 }
