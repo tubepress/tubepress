@@ -25,9 +25,9 @@ class tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder
             $dir = $fs->getSystemTempDirectory() . DIRECTORY_SEPARATOR . 'tubepress-api-cache';
         }
 
-        return new ehough_stash_driver_FileSystem(array(
+        return new ehough_stash_Pool(new ehough_stash_driver_FileSystem(array(
 
             'path' => $dir
-        ));
+        )));
     }
 }

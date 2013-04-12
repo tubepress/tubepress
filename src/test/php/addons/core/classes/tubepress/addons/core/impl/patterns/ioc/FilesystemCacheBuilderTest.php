@@ -39,7 +39,8 @@ class tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilderTest extends
 
         $result = $this->_sut->buildCache();
 
-        $this->assertTrue($result instanceof ehough_stash_driver_FileSystem);
+        $this->assertTrue($result instanceof ehough_stash_Pool);
+        $this->assertTrue($result->getDriver() instanceof ehough_stash_driver_FileSystem);
     }
 
     public function testBuildDefaultSettings()
@@ -49,6 +50,7 @@ class tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilderTest extends
 
         $result = $this->_sut->buildCache();
 
-        $this->assertTrue($result instanceof ehough_stash_driver_FileSystem);
+        $this->assertTrue($result instanceof ehough_stash_Pool);
+        $this->assertTrue($result->getDriver() instanceof ehough_stash_driver_FileSystem);
     }
 }
