@@ -14,44 +14,18 @@
  */
 class tubepress_addons_jwplayer_impl_Bootstrap
 {
-    private static $_regexColor = '/^([0-9a-f]{1,2}){3}$/i';
-
     public static function init()
     {
-        $odr                        = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
-
         /**
          * @var $eventDispatcher ehough_tickertape_ContainerAwareEventDispatcher
          */
         $eventDispatcher            = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
-        $option->setDefaultValue('FFFFFF');
-        $option->setLabel('Background color');                         //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is FFFFFF');                  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexColor);
-        $odr->registerOptionDescriptor($option);
+        $eventDispatcher->addListenerService(
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT);
-        $option->setDefaultValue('000000');
-        $option->setLabel('Front color');                              //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is 000000');                  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexColor);
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT);
-        $option->setDefaultValue('000000');
-        $option->setLabel('Light color');                              //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is 000000');                  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexColor);
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN);
-        $option->setDefaultValue('000000');
-        $option->setLabel('Screen color');                             //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is 000000');                  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexColor);
-        $odr->registerOptionDescriptor($option);
+            tubepress_api_const_event_EventNames::BOOT_COMPLETE,
+            array('tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar', 'onBoot')
+        );
 
         $eventDispatcher->addListenerService(
 
