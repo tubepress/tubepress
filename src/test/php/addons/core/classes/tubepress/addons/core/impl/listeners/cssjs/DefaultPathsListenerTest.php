@@ -20,19 +20,23 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
      */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironmentDetector;
+
     public function onSetup()
     {
-        global $tubepress_base_url;
-
-        $tubepress_base_url = '<tubepress_base_url>';
-
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
         $this->_sut = new tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener();
     }
 
     public function testJqueryScriptTag()
     {
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
+
         $event = new tubepress_api_event_TubePressEvent();
 
         $this->_sut->onJqueryScriptTag($event);
@@ -42,6 +46,8 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
 
     public function testTubePressScriptTag()
     {
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
+
         $event = new tubepress_api_event_TubePressEvent();
 
         $this->_sut->onTubePressScriptTag($event);
@@ -51,6 +57,8 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
 
     public function testTubePressCssTag()
     {
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
+
         $event = new tubepress_api_event_TubePressEvent();
 
         $this->_sut->onTubePressStylesheetTag($event);
