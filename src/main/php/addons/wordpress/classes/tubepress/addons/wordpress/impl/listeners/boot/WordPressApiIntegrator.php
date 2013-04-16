@@ -16,8 +16,6 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
 {
     public function onBoot(ehough_tickertape_Event $event)
     {
-        global $tubepress_base_url;
-
         $baseName = basename(TUBEPRESS_ROOT);
 
         /**
@@ -25,6 +23,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
          */
         $wpFunctionWrapper =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
         if (self::_isWordPressMuDomainMapped()) {
@@ -36,7 +35,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
             $prefix = $wpFunctionWrapper->content_url();
         }
 
-        $tubepress_base_url = $prefix . "/plugins/$baseName";
+        $environmentDetector->setBaseUrl($prefix . "/plugins/$baseName");
 
         /* register the plugin's message bundles */
         $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");

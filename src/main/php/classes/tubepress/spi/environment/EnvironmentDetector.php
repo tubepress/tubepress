@@ -49,4 +49,13 @@ interface tubepress_spi_environment_EnvironmentDetector
      * @return string The base TubePress URL.
      */
     function getBaseUrl();
+
+    /**
+     * Set the TubePress base URL.
+     *
+     * @param mixed $url The new base URL.
+     *
+     * @return void
+     */
+    function setBaseUrl($url);
 }

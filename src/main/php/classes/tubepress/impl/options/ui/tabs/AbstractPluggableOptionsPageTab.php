@@ -36,11 +36,10 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
      */
     public final function getHtml()
     {
-        global $tubepress_base_url;
-
         $templateBuilder         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $template                = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
         $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
+        $environmentDetector     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $tabParticipants         = array();
 
         foreach ($optionsPageParticipants as $optionsPageParticipant) {
@@ -53,7 +52,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
 
         $template->setVariable(self::TEMPLATE_VAR_PARTICIPANT_ARRAY, $tabParticipants);
         $template->setVariable(self::TEMPLATE_VAR_TAB_NAME, $this->getName());
-        $template->setVariable(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $environmentDetector->getBaseUrl());
 
         $this->addToTemplate($template);
 

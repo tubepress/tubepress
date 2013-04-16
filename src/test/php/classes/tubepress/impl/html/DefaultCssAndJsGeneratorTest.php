@@ -28,13 +28,6 @@ class tubepress_impl_html_DefaultCssAndJsGeneratorTest extends TubePressUnitTest
         $this->_sut = new tubepress_impl_html_DefaultCssAndJsGenerator();
     }
 
-    public function onTearDown()
-    {
-        global $tubepress_base_url;
-
-        unset($tubepress_base_url);
-    }
-
     public function testJqueryInclude()
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY, ehough_mockery_Mockery::on(function ($event) {

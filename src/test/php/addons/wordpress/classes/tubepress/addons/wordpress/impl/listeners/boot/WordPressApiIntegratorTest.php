@@ -37,17 +37,23 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest 
     private $_mockWidgetHandler;
 
     /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironmentDetector;
+
+    /**
      * @var tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_mockWordPressFunctionWrapper   = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockContentFilter              = $this->createMockSingletonService(tubepress_addons_wordpress_spi_ContentFilter::_);
-        $this->_mockJsAndCssInjector           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_);
-        $this->_mockWpAdminHandler             = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpAdminHandler::_);
-        $this->_mockWidgetHandler              = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WidgetHandler::_);
+        $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockContentFilter            = $this->createMockSingletonService(tubepress_addons_wordpress_spi_ContentFilter::_);
+        $this->_mockJsAndCssInjector         = $this->createMockSingletonService(tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_);
+        $this->_mockWpAdminHandler           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpAdminHandler::_);
+        $this->_mockWidgetHandler            = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WidgetHandler::_);
+        $this->_mockEnvironmentDetector      = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_sut                          = new tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator();
     }
 
@@ -57,9 +63,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest 
 
         $this->_sut->onBoot(new ehough_tickertape_Event());
 
-        global $tubepress_base_url;
-
-        $this->assertEquals('valueofcontenturl/plugins/tubepress', $tubepress_base_url);
+        $this->assertTrue(true);
     }
 
     private function _testApi()
@@ -79,5 +83,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest 
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_filter')->once()->with('plugin_row_meta', array($this->_mockWpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('register_activation_hook')->once()->with('tubepress/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
+
+        $this->_mockEnvironmentDetector->shouldReceive('setBaseUrl')->once()->with('valueofcontenturl/plugins/tubepress');
     }
 }

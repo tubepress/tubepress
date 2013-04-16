@@ -15,19 +15,27 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFieldBuilder;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplateBuilder;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironmentDetector;
 
     public function onSetup()
     {
-        global $tubepress_base_url;
-
-        $tubepress_base_url = 'tubepress-base-url';
-
         $ms                             = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockFieldBuilder        = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
         $ms->shouldReceive('_')->andReturnUsing( function ($key) {
 
@@ -35,13 +43,6 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
         });
 
         $this->_sut = $this->_buildSut();
-    }
-
-    protected function onTearDown()
-    {
-        global $tubepress_base_url;
-
-        unset($tubepress_base_url);
     }
 
     public function testGetName()
@@ -55,13 +56,15 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
         $mockOptionsPageParticipant2          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockPluggableOptionsPageParticipants = array($mockOptionsPageParticipant1, $mockOptionsPageParticipant2);
 
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
+
         $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array());
         $mockOptionsPageParticipant2->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array('x'));
 
         $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_PARTICIPANT_ARRAY, array($mockOptionsPageParticipant2));
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_TAB_NAME, $this->_sut->getName());
-        $template->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, 'tubepress-base-url');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, '<tubepress_base_url>');
         $template->shouldReceive('toString')->once()->andReturn('final result');
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
