@@ -119,10 +119,5 @@ class tubepress_addons_core_impl_Bootstrap
         }
     }
 
-    /**
-     * These are here to keep Pro strings translatable.
-     * 'with FancyBox'    //>(translatable)<
-     * 'with TinyBox'     //>(translatable)<
-     * 'in a "detached" location (see the documentation)'  //>(translatable)<
-     */
+
 }

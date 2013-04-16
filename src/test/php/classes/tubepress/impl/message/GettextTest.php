@@ -82,6 +82,11 @@ class tubepress_impl_message_GettextTest extends TubePressUnitTest
             $strings[] = str_replace("\'", "'", $matches[1][0]);
         }
 
+        $proStrings = file(TUBEPRESS_ROOT . '/src/test/resources/gettext/pro-strings.txt');
+        $proStrings = array_map(array('tubepress_impl_util_StringUtils', 'removeNewLines'), $proStrings);
+
+        $strings = array_merge($strings, $proStrings);
+
         return $strings;
     }
 
