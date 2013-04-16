@@ -14,45 +14,43 @@
  */
 class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html_CssAndJsGenerator
 {
-    private $_tubepressBaseUrl;
-
-    public function __construct()
-    {
-        global $tubepress_base_url;
-
-        $this->_tubepressBaseUrl = $tubepress_base_url;
-    }
-
     public function getJqueryScriptTag()
     {
-        return sprintf('<script type="text/javascript" src="%s/src/main/web/vendor/jquery-1.8.3.min.js"></script>', $this->_tubepressBaseUrl);
+        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY, '');
     }
 
     public function getTubePressScriptTag()
     {
-        return sprintf('<script type="text/javascript" src="%s/src/main/web/js/tubepress.js"></script>', $this->_tubepressBaseUrl);
+        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_TUBEPRESS, '');
     }
 
     public function getTubePressCssTag()
     {
-        return sprintf('<link rel="stylesheet" href="%s/src/main/web/css/tubepress.css" type="text/css" />', $this->_tubepressBaseUrl);
+        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEET_TAG_TUBEPRESS, '');
     }
 
     public function getMetaTags()
     {
-        $qss  = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $page = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
-
-        return $page > 1 ? '<meta name="robots" content="noindex, nofollow" />' : '';
+        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, '');
     }
 
     public function getInlineCss()
     {
-        return '';
+        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, '');
     }
 
     public function getInlineJs()
     {
-        return '';
+        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, '');
+    }
+
+    private function _fireEventAndReturnString($eventName, $raw)
+    {
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $event           = new tubepress_api_event_TubePressEvent($raw);
+
+        $eventDispatcher->dispatch($eventName, $event);
+
+        return $event->getSubject();
     }
 }

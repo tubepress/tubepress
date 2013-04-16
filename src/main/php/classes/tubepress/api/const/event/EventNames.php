@@ -22,6 +22,48 @@ class tubepress_api_const_event_EventNames
     const BOOT_COMPLETE = 'tubepress.core.boot.complete';
 
     /**
+     * This event is fired when TubePress generates inline CSS.
+     *
+     * @subject string The inline CSS.
+     */
+    const CSS_JS_INLINE_CSS = 'tubepress.core.cssAndJs.inlineCss';
+
+    /**
+     * This event is fired when TubePress generates inline JS.
+     *
+     * @subject string The inline JS.
+     */
+    const CSS_JS_INLINE_JS = 'tubepress.core.cssAndJs.inlineJs';
+
+    /**
+     * This event is fired when TubePress generates HTML <meta> tags.
+     *
+     * @subject string The HTML <meta> tags.
+     */
+    const CSS_JS_META_TAGS = 'tubepress.core.cssAndJs.metaTags';
+
+    /**
+     * This event is fired when TubePress generates the HTML <script> tag for jQuery.
+     *
+     * @subject string The HTML for the jQuery <script> tag.
+     */
+    const CSS_JS_SCRIPT_TAG_JQUERY = 'tubepress.core.cssAndJs.jQueryScriptTag';
+
+    /**
+     * This event is fired when TubePress generates the HTML <script> tag for tubepress.js.
+     *
+     * @subject string The HTML for the tubepress.js <script> tag.
+     */
+    const CSS_JS_SCRIPT_TAG_TUBEPRESS = 'tubepress.core.cssAndJs.tubePressScriptTag';
+
+    /**
+     * This event is fired when TubePress generates the HTML <link> tag for tubepress.css.
+     *
+     * @subject string The HTML for the tubepress.css <link> tag.
+     */
+    const CSS_JS_STYLESHEET_TAG_TUBEPRESS = 'tubepress.core.cssAndJs.tubePressStylesheetTag';
+
+    /**
      * This event is fired when TubePress builds the HTML for an embedded video player.
      *
      * @subject string The HTML for the embedded video player.

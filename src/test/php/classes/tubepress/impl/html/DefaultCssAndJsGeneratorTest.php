@@ -18,15 +18,12 @@ class tubepress_impl_html_DefaultCssAndJsGeneratorTest extends TubePressUnitTest
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockHttpRequestParameterService;
+    private $_mockEventDispatcher;
 
     public function onSetup()
     {
-        global $tubepress_base_url;
-
-        $tubepress_base_url = '<tubepress_base_url>';
-
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_sut = new tubepress_impl_html_DefaultCssAndJsGenerator();
     }
@@ -40,35 +37,83 @@ class tubepress_impl_html_DefaultCssAndJsGeneratorTest extends TubePressUnitTest
 
     public function testJqueryInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/vendor/jquery-1.8.3.min.js"></script>', $this->_sut->getJqueryScriptTag());
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY, ehough_mockery_Mockery::on(function ($event) {
+
+            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+
+            $event->setSubject('hello');
+
+            return $ok;
+        }));
+
+        $this->assertEquals('hello', $this->_sut->getJqueryScriptTag());
     }
 
     public function testJsInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/js/tubepress.js"></script>', $this->_sut->getTubePressScriptTag());
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
+
+            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+
+            $event->setSubject('yo');
+
+            return $ok;
+        }));
+
+        $this->assertEquals('yo', $this->_sut->getTubePressScriptTag());
     }
 
     public function testInlineJs()
     {
-        $this->assertEquals('', $this->_sut->getInlineJs());
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, ehough_mockery_Mockery::on(function ($event) {
+
+            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+
+            $event->setSubject('hi');
+
+            return $ok;
+        }));
+
+        $this->assertEquals('hi', $this->_sut->getInlineJs());
+    }
+
+    public function testInlineCss()
+    {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, ehough_mockery_Mockery::on(function ($event) {
+
+            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+
+            $event->setSubject('hi');
+
+            return $ok;
+        }));
+
+        $this->assertEquals('hi', $this->_sut->getInlineCss());
     }
 
     public function testCss()
     {
-        $this->assertEquals('<link rel="stylesheet" href="<tubepress_base_url>/src/main/web/css/tubepress.css" type="text/css" />', $this->_sut->getTubePressCssTag());
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEET_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
+
+            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+
+            $event->setSubject('blue');
+
+            return $ok;
+        }));
+        $this->assertEquals('blue', $this->_sut->getTubePressCssTag());
     }
 
-    public function testHeadMetaPageOne()
+    public function testMetaTags()
     {
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
 
-        $this->assertEquals('', $this->_sut->getMetaTags());
-    }
+            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
 
-    public function testHeadMetaPageTwo()
-    {
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(2);
+            $event->setSubject('orange');
 
-        $this->assertEquals('<meta name="robots" content="noindex, nofollow" />', $this->_sut->getMetaTags());
+            return $ok;
+        }));
+        $this->assertEquals('orange', $this->_sut->getMetaTags());
     }
 }
