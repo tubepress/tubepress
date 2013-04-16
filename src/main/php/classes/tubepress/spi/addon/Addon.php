@@ -39,6 +39,7 @@ interface tubepress_spi_addon_Addon
     const ATTRIBUTE_CLASSPATH_ROOTS     = 'psr-0';
     const ATTRIBUTE_IOC_COMPILER_PASSES = 'ioc-compiler-passes';
     const ATTRIBUTE_IOC_EXTENSIONS      = 'ioc-container-extensions';
+    const ATTRIBUTE_CLASSMAP            = 'classmap';
 
     /**
      * @return string The globally unique name of this add-on. Must be 100 characters or less,
@@ -127,4 +128,9 @@ interface tubepress_spi_addon_Addon
      * @return array Optional. An array of PSR-0 compliant class path roots. May be empty, never null.
      */
     function getPsr0ClassPathRoots();
+
+    /**
+     * @return array Optional. An associative array of class names to the absolute path of their file locations.
+     */
+    function getClassMap();
 }

@@ -89,6 +89,11 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
      */
     private $_iocContainerExtensions = array();
 
+    /**
+     * @var array
+     */
+    private $_classMap = array();
+
     private $_bootstrap;
 
     public function __construct(
@@ -119,6 +124,16 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         }
 
         $this->_description = $description;
+    }
+
+    public function setClassMap(array $map)
+    {
+        if (!tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
+
+            throw new InvalidArgumentException('Class map must be an associative array');
+        }
+
+        $this->_classMap = $map;
     }
 
     public function setKeywords(array $keywords)
@@ -319,6 +334,14 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
     public function getPsr0ClassPathRoots()
     {
         return $this->_psr0ClassPathRoots;
+    }
+
+    /**
+     * @return array Optional. An associative array of class names to the absolute path of their file locations.
+     */
+    public function getClassMap()
+    {
+        return $this->_classMap;
     }
 
     /**
