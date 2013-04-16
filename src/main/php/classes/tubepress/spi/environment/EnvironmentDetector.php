@@ -44,4 +44,9 @@ interface tubepress_spi_environment_EnvironmentDetector
      * @return tubepress_spi_version_Version The current version.
      */
     function getVersion();
+
+    /**
+     * @return string The base TubePress URL.
+     */
+    function getBaseUrl();
 }

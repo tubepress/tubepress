@@ -11,6 +11,9 @@
 
 class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_environment_SimpleEnvironmentDetector
+     */
     private $_sut;
 
     public function onSetup()
@@ -44,6 +47,13 @@ class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePress
         $dir = TUBEPRESS_ROOT;
 
         $this->assertEquals("$dir/tubepress-content", $this->_sut->getUserContentDirectory());
+    }
+
+    public function testBaseUrl()
+    {
+        $this->_sut->setBaseUrl('http://foo.com');
+
+        $this->assertEquals('http://foo.com', $this->_sut->getBaseUrl());
     }
 
 }

@@ -14,7 +14,15 @@
  */
 class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_spi_environment_EnvironmentDetector
 {
+    /**
+     * @var tubepress_spi_version_Version
+     */
     private $_version;
+
+    /**
+     * @var string
+     */
+    private $_baseUrl;
 
     public function __construct()
     {
@@ -73,5 +81,23 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
     public function getVersion()
     {
         return $this->_version;
+    }
+
+    /**
+     * @return string The base TubePress URL.
+     */
+    public function getBaseUrl()
+    {
+        return $this->_baseUrl;
+    }
+
+    public function setBaseUrl($url)
+    {
+        if (!($url instanceof ehough_curly_Url)) {
+
+            $url = new ehough_curly_Url($url);
+        }
+
+        $this->_baseUrl = $url->toString();
     }
 }
