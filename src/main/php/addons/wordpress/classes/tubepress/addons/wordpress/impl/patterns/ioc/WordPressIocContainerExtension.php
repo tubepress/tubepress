@@ -69,6 +69,8 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
 
             $container->register($tab, $tab)->addTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
         }
+
+        $this->_registerListeners($container);
     }
 
     /**
@@ -81,6 +83,21 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
     public final function getAlias()
     {
         return 'wordpress';
+    }
+
+    private function _registerListeners(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
+        );
+
+        $container->register(
+
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
+        );
     }
 
     private function _registerMessageService(ehough_iconic_ContainerBuilder $container)

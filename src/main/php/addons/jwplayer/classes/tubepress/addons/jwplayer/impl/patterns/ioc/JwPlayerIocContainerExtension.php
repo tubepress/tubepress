@@ -42,6 +42,12 @@ class tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension 
 
         $container->register(
 
+            'tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar',
+            'tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar'
+        );
+
+        $container->register(
+
             'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars',
             'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars'
         );

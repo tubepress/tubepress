@@ -59,7 +59,7 @@ class tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrarTest
         $option->setValidValueRegex(self::$_regexColor);
         $this->_verifyOption($option);
 
-        $this->_sut->onBoot(new ehough_tickertape_GenericEvent());
+        $this->_sut->onBoot(new ehough_tickertape_Event());
 
         $this->assertTrue(true);
     }

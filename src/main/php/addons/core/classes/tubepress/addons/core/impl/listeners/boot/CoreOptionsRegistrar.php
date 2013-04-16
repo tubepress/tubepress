@@ -10,7 +10,7 @@
  */
 class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
 {
-    public function onBootComplete(ehough_tickertape_GenericEvent $event)
+    public function onBootComplete(ehough_tickertape_Event $event)
     {
         $_regexPositiveInteger    = '/[1-9][0-9]{0,6}/';
         $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';

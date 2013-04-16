@@ -14,7 +14,7 @@
  */
 class tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar
 {
-    public function onBoot(ehough_tickertape_GenericEvent $event)
+    public function onBoot(ehough_tickertape_Event $event)
     {
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 

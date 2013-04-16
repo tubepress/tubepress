@@ -30,7 +30,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrarTe
     {
         $this->_testOptions();
 
-        $this->_sut->onBoot(new ehough_tickertape_GenericEvent());
+        $this->_sut->onBoot(new ehough_tickertape_Event());
 
         $this->assertTrue(true);
     }

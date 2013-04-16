@@ -111,6 +111,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
             array('tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService', tubepress_spi_shortcode_PluggableShortcodeHandlerService::_),
             array('tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService', tubepress_spi_shortcode_PluggableShortcodeHandlerService::_),
             array('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService', tubepress_spi_shortcode_PluggableShortcodeHandlerService::_),
+            array('tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar', 'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar'),
             array('tubepress_addons_core_impl_listeners_embeddedhtml_PlayerJavaScriptApi','tubepress_addons_core_impl_listeners_embeddedhtml_PlayerJavaScriptApi'),
             array('tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables', 'tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables'),
             array('tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs', 'tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs'),

@@ -14,7 +14,7 @@
  */
 class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
 {
-    public function onBoot(ehough_tickertape_GenericEvent $event)
+    public function onBoot(ehough_tickertape_Event $event)
     {
         global $tubepress_base_url;
 

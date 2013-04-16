@@ -54,6 +54,12 @@ class tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension implem
 
         $container->register(
 
+            'tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar',
+            'tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar'
+        );
+
+        $container->register(
+
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
         );

@@ -17,7 +17,7 @@ final class tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
-    public function onBoot(ehough_tickertape_GenericEvent $event)
+    public function onBoot(ehough_tickertape_Event $event)
     {
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 

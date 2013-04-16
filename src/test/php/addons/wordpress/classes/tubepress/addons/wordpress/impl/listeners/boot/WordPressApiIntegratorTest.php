@@ -55,7 +55,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest 
     {
         $this->_testApi();
 
-        $this->_sut->onBoot(new ehough_tickertape_GenericEvent());
+        $this->_sut->onBoot(new ehough_tickertape_Event());
 
         global $tubepress_base_url;
 
