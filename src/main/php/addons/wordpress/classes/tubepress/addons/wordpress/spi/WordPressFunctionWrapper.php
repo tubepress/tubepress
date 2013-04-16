@@ -200,6 +200,14 @@ interface tubepress_addons_wordpress_spi_WordPressFunctionWrapper
     function plugins_url($path, $path);
 
     /**
+     * The register_activation_hook function registers a plugin function to be run when the plugin is activated.
+     *
+     * @param string   $file     Path to the main plugin file inside the wp-content/plugins directory. A full path will work.
+     * @param callback $function The function to be run when the plugin is activated. Any of PHP's callback pseudo-types will work.
+     */
+    function register_activation_hook($file, $function);
+
+    /**
      * The site_url template tag retrieves the site url for the current site (where the WordPress core files reside)
      * with the appropriate protocol, 'https' if is_ssl() and 'http' otherwise.
      * If scheme is 'http' or 'https', is_ssl() is overridden.

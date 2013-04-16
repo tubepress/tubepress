@@ -86,6 +86,8 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_action')->once()->with('admin_enqueue_scripts', array($this->_mockWpAdminHandler, 'registerStylesAndScripts'), 10, 1);
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_action')->once()->with('widgets_init', array($this->_mockWidgetHandler, 'registerWidget'), 10, 1);
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_filter')->once()->with('plugin_row_meta', array($this->_mockWpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('register_activation_hook')->once()->with('tubepress/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
     }
     
     private function _testAdmin()

@@ -432,4 +432,16 @@ class tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper implements
 
         return $wp_version;
     }
+
+    /**
+     * The register_activation_hook function registers a plugin function to be run when the plugin is activated.
+     *
+     * @param string   $file     Path to the main plugin file inside the wp-content/plugins directory. A full path will work.
+     * @param callback $function The function to be run when the plugin is activated. Any of PHP's callback pseudo-types will work.
+     */
+    public final function register_activation_hook($file, $function)
+    {
+        /** @noinspection PhpVoidFunctionResultUsedInspection */
+        return register_activation_hook($file, $function);
+    }
 }

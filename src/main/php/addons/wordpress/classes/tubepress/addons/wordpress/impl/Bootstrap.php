@@ -33,6 +33,10 @@ class tubepress_addons_wordpress_impl_Bootstrap
         global $tubepress_base_url;
 
         $baseName          = basename(TUBEPRESS_ROOT);
+
+        /**
+         * @var $wpFunctionWrapper tubepress_addons_wordpress_spi_WordPressFunctionWrapper
+         */
         $wpFunctionWrapper =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
@@ -79,6 +83,8 @@ class tubepress_addons_wordpress_impl_Bootstrap
         }
 
         $wpFunctionWrapper->add_filter($filterPoint, array($wpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
+
+        $wpFunctionWrapper->register_activation_hook('tubepress/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
     }
 
     private static function _registerWpOptions()
@@ -107,5 +113,30 @@ class tubepress_addons_wordpress_impl_Bootstrap
     private static function _isWordPressMuDomainMapped()
     {
         return defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
+    }
+
+    public static function __callbackEnsureTubePressContentDirectoryExists()
+    {
+        /* add the content directory if it's not already there */
+        if (!is_dir(ABSPATH . 'wp-content/tubepress-content')) {
+
+            self::_tryToMirror(
+                TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content',
+                ABSPATH . 'wp-content');
+        }
+    }
+
+    private static function _tryToMirror($source, $dest)
+    {
+        $fs = tubepress_impl_patterns_sl_ServiceLocator::getFileSystem();
+
+        try {
+
+            $fs->mirror($source, $dest);
+
+        } catch (Exception $e) {
+
+            //ignore
+        }
     }
 }

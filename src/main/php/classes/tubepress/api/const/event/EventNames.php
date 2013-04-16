@@ -19,7 +19,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject null
      */
-    const ADDONS_ALL_LOADED = 'tubepress.core.addons.allLoaded';
+    const BOOT_COMPLETE = 'tubepress.core.boot.complete';
 
     /**
      * This event is fired when TubePress builds the HTML for an embedded video player.
