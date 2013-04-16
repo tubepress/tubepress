@@ -68,6 +68,14 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
             throw new InvalidArgumentException($optionDescriptor->getName() . ' is already registered as an option descriptor');
         }
 
+        $optionRegistrationEvent = new tubepress_api_event_TubePressEvent($optionDescriptor);
+        $eventDispatcher         = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $eventDispatcher->dispatch(
+
+            tubepress_api_const_event_EventNames::OPTIONDESCRIPTOR_REGISTRATION,
+            $optionRegistrationEvent
+        );
+
         $this->_nameToOptionDescriptorMap[$name] = $optionDescriptor;
 
         if (!isset($this->_storageManager)) {

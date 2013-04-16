@@ -67,6 +67,13 @@ class tubepress_api_const_event_EventNames
     const HTML_CONSTRUCTION = 'tubepress.core.htmlConstruction';
 
     /**
+     * This event is fired when an option descriptor is registered.
+     *
+     * @subject tubepress_spi_options_OptionDescriptor The option descriptor being registered.
+     */
+    const OPTIONDESCRIPTOR_REGISTRATION = 'tubepress.core.option.descriptor.registration';
+
+    /**
      * This event is fired when a TubePress builds the HTML for pagination.
      *
      * @subject string The pagination HTML.
