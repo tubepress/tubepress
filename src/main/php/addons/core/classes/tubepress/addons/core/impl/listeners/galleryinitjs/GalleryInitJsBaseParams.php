@@ -127,8 +127,8 @@ class tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams
 
     private function _getPlayerJsUrl(tubepress_spi_player_PluggablePlayerLocationService $player)
     {
-        global $tubepress_base_url;
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
-        return $tubepress_base_url . '/' . $player->getRelativePlayerJsUrl();
+        return $environmentDetector->getBaseUrl() . '/' . $player->getRelativePlayerJsUrl();
     }
 }

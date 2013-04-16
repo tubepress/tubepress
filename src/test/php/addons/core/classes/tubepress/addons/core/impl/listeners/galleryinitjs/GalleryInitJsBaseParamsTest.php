@@ -25,24 +25,23 @@ class tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams
      */
     private $_mockOptionDescriptorReference;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironmentDetector;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams();
 
         $this->_mockExecutionContext          = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
-    }
-
-    public function onTearDown()
-    {
-        global $tubepress_base_url;
-
-        unset($tubepress_base_url);
+        $this->_mockEnvironmentDetector       = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
     }
 
     public function testAlter()
     {
-        global $tubepress_base_url;
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(999);
@@ -72,8 +71,6 @@ class tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams
         $mockPlayer->shouldReceive('getRelativePlayerJsUrl')->andReturn('abc');
         $mockPlayer->shouldReceive('producesHtml')->once()->andReturn(true);
 
-        $tubepress_base_url = 'xyz';
-
         $this->_sut->onGalleryInitJs($event);
 
         $result = $event->getSubject();
@@ -93,7 +90,7 @@ class tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams
 
             'jsMap' => array(
 
-                'playerLocationJsUrl' => 'xyz/abc',
+                'playerLocationJsUrl' => '<tubepress_base_url>/abc',
                 'playerLocationProducesHtml' => true,
                 'ajaxPagination' => true,
                 'fluidThumbs' => false,
