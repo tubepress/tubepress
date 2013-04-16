@@ -213,6 +213,12 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $index++;
         }
 
+        /**
+         * Notify that we have loaded all plugins.
+         */
+        $eventDispatcher   = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::ADDONS_ALL_LOADED);
+
         if ($this->_shouldLog) {
 
             $now = microtime(true);

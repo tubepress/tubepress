@@ -45,6 +45,11 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
      */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_impl_bootstrap_TubePressBootstrapper();
@@ -55,6 +60,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $this->_mockAddonRegistry               = $this->createMockSingletonService(tubepress_spi_addon_AddonLoader::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_sut->setIocContainer($this->getMockIocContainer());
     }
@@ -111,6 +117,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn('false');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::ADDONS_ALL_LOADED);
 
         $this->_sut->boot(new ehough_pulsar_UniversalClassLoader());
 

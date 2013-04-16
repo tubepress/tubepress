@@ -15,6 +15,13 @@
 class tubepress_api_const_event_EventNames
 {
     /**
+     * This event is fired after TubePress loads all of the registered addons.
+     *
+     * @subject null
+     */
+    const ADDONS_ALL_LOADED = 'tubepress.core.addons.allLoaded';
+
+    /**
      * This event is fired when TubePress builds the HTML for an embedded video player.
      *
      * @subject string The HTML for the embedded video player.
