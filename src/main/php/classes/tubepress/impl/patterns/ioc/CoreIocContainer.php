@@ -153,7 +153,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             'tubepress_impl_environment_SimpleEnvironmentDetector'
         );
 
-        /* Allows for convenient access to this definition by IOC extensions. */
+        /* Allows for convenient access to this service for anyone else that needs to reference it. */
         $this->_delegate->setAlias('tubepress_impl_environment_SimpleEnvironmentDetector', tubepress_spi_environment_EnvironmentDetector::_);
     }
 
@@ -165,7 +165,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             'ehough_finder_FinderFactory'
         );
 
-        /* Allows for convenient access to this definition by IOC extensions. */
+        /* Allows for convenient access to this service for anyone else that needs to reference it. */
         $this->_delegate->setAlias('ehough_finder_FinderFactory', 'ehough_finder_FinderFactoryInterface');
     }
 
@@ -177,7 +177,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             'ehough_tickertape_ContainerAwareEventDispatcher'
         )->addArgument($this->_delegate);
 
-        /* Allows for convenient access to this definition by IOC extensions. */
+        /* Allows for convenient access to this service for anyone else that needs to reference it. */
         $this->_delegate->setAlias('ehough_tickertape_ContainerAwareEventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
     }
 
@@ -189,7 +189,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             'tubepress_impl_addon_FilesystemAddonDiscoverer'
         );
 
-        /* Allows for convenient access to this definition by IOC extensions. */
+        /* Allows for convenient access to this service for anyone else that needs to reference it. */
         $this->_delegate->setAlias('tubepress_impl_addon_FilesystemAddonDiscoverer', tubepress_spi_addon_AddonDiscoverer::_);
     }
 
@@ -201,7 +201,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
             'tubepress_impl_addon_DefaultAddonLoader'
         );
 
-        /* Allows for convenient access to this definition by IOC extensions. */
+        /* Allows for convenient access to this service for anyone else that needs to reference it. */
         $this->_delegate->setAlias('tubepress_impl_addon_DefaultAddonLoader', tubepress_spi_addon_AddonLoader::_);
     }
 
