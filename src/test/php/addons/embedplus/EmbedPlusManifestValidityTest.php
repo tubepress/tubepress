@@ -29,5 +29,14 @@ class tubepress_addons_core_EmbedPlusManifestValidityTest extends tubepress_impl
         $this->assertNull($addon->getBootstrap());
         $this->assertEquals(array('tubepress_addons_embedplus' => TUBEPRESS_ROOT . '/src/main/php/addons/embedplus/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
+    }
+    
+    private function _getExpectedClassMap()
+    {
+        return array(
+            'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService' => 'classes/tubepress/addons/embedplus/impl/embedded/EmbedPlusPluggableEmbeddedPlayerService.php',
+            'tubepress_addons_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension' => 'classes/tubepress/addons/embedplus/impl/patterns/ioc/EmbedPlusIocContainerExtension.php'
+        );
     }
 }

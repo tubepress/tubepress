@@ -29,5 +29,26 @@ class tubepress_addons_core_VimeoManifestValidityTest extends tubepress_impl_add
         $this->assertEquals(TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/scripts/bootstrap.php', $addon->getBootstrap());
         $this->assertEquals(array('tubepress_addons_vimeo' => TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
+    }
+
+    private function _getExpectedClassMap()
+    {
+        return array(
+            'tubepress_addons_vimeo_api_const_options_names_Embedded' => 'classes/tubepress/addons/vimeo/api/const/options/names/Embedded.php',
+            'tubepress_addons_vimeo_api_const_options_names_Feed' => 'classes/tubepress/addons/vimeo/api/const/options/names/Feed.php',
+            'tubepress_addons_vimeo_api_const_options_names_GallerySource' => 'classes/tubepress/addons/vimeo/api/const/options/names/GallerySource.php',
+            'tubepress_addons_vimeo_api_const_options_names_Meta' => 'classes/tubepress/addons/vimeo/api/const/options/names/Meta.php',
+            'tubepress_addons_vimeo_api_const_options_values_GallerySourceValue' => 'classes/tubepress/addons/vimeo/api/const/options/values/GallerySourceValue.php',
+            'tubepress_addons_vimeo_impl_Bootstrap' => 'classes/tubepress/addons/vimeo/impl/Bootstrap.php',
+            'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService' => 'classes/tubepress/addons/vimeo/impl/embedded/VimeoPluggableEmbeddedPlayerService.php',
+            'tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar' => 'classes/tubepress/addons/vimeo/impl/listeners/boot/VimeoOptionsRegistrar.php',
+            'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener' => 'classes/tubepress/addons/vimeo/impl/listeners/http/VimeoHttpErrorResponseListener.php',
+            'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener' => 'classes/tubepress/addons/vimeo/impl/listeners/video/VimeoVideoConstructionListener.php',
+            'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant' => 'classes/tubepress/addons/vimeo/impl/options/ui/VimeoPluggableOptionsPageParticipant.php',
+            'tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension' => 'classes/tubepress/addons/vimeo/impl/patterns/ioc/VimeoIocContainerExtension.php',
+            'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService' => 'classes/tubepress/addons/vimeo/impl/provider/VimeoPluggableVideoProviderService.php',
+            'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder' => 'classes/tubepress/addons/vimeo/impl/provider/VimeoUrlBuilder.php'
+        );
     }
 }

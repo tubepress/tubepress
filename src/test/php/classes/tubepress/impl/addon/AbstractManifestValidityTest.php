@@ -32,4 +32,32 @@ class tubepress_impl_addon_AbstractManifestValidityTest extends TubePressUnitTes
 
         return $addons[0];
     }
+
+    protected function validateClassMap($expectedClassMap, $actualClassMap)
+    {
+        $this->assertTrue(is_array($actualClassMap));
+
+        $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray($actualClassMap));
+
+        $this->assertTrue(count($expectedClassMap) === count($actualClassMap));
+
+        foreach ($actualClassMap as $className => $path) {
+
+            $this->assertTrue(is_readable($path) && is_file($path));
+
+            if (!class_exists($className) && !interface_exists($className)) {
+
+                require $path;
+
+                $this->assertTrue(class_exists($className) || interface_exists($className));
+            }
+        }
+
+        foreach ($expectedClassMap as $className => $abbreviatedPrefix) {
+
+            $this->assertTrue(isset($actualClassMap[$className]));
+
+            $this->assertTrue(tubepress_impl_util_StringUtils::endsWith($actualClassMap[$className], $abbreviatedPrefix));
+        }
+    }
 }

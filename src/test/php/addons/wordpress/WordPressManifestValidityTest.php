@@ -29,5 +29,30 @@ class tubepress_addons_core_WordPressManifestValidityTest extends tubepress_impl
         $this->assertEquals(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/scripts/bootstrap.php', $addon->getBootstrap());
         $this->assertEquals(array('tubepress_addons_wordpress' => TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
+    }
+
+    private function _getExpectedClassMap()
+    {
+        return array(
+            'tubepress_addons_wordpress_api_const_options_names_WordPress' => 'classes/tubepress/addons/wordpress/api/const/options/names/WordPress.php',
+            'tubepress_addons_wordpress_impl_Bootstrap' => 'classes/tubepress/addons/wordpress/impl/Bootstrap.php',
+            'tubepress_addons_wordpress_impl_DefaultContentFilter' => 'classes/tubepress/addons/wordpress/impl/DefaultContentFilter.php',
+            'tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector' => 'classes/tubepress/addons/wordpress/impl/DefaultFrontEndCssAndJsInjector.php',
+            'tubepress_addons_wordpress_impl_DefaultWidgetHandler' => 'classes/tubepress/addons/wordpress/impl/DefaultWidgetHandler.php',
+            'tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper' => 'classes/tubepress/addons/wordpress/impl/DefaultWordPressFunctionWrapper.php',
+            'tubepress_addons_wordpress_impl_DefaultWpAdminHandler' => 'classes/tubepress/addons/wordpress/impl/DefaultWpAdminHandler.php',
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator' => 'classes/tubepress/addons/wordpress/impl/listeners/boot/WordPressApiIntegrator.php',
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar' => 'classes/tubepress/addons/wordpress/impl/listeners/boot/WordPressOptionsRegistrar.php',
+            'tubepress_addons_wordpress_impl_message_WordPressMessageService' => 'classes/tubepress/addons/wordpress/impl/message/WordPressMessageService.php',
+            'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler' => 'classes/tubepress/addons/wordpress/impl/options/ui/WordPressOptionsFormHandler.php',
+            'tubepress_addons_wordpress_impl_options_WordPressStorageManager' => 'classes/tubepress/addons/wordpress/impl/options/WordPressStorageManager.php',
+            'tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension' => 'classes/tubepress/addons/wordpress/impl/patterns/ioc/WordPressIocContainerExtension.php',
+            'tubepress_addons_wordpress_spi_ContentFilter' => 'classes/tubepress/addons/wordpress/spi/ContentFilter.php',
+            'tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector' => 'classes/tubepress/addons/wordpress/spi/FrontEndCssAndJsInjector.php',
+            'tubepress_addons_wordpress_spi_WidgetHandler' => 'classes/tubepress/addons/wordpress/spi/WidgetHandler.php',
+            'tubepress_addons_wordpress_spi_WordPressFunctionWrapper' => 'classes/tubepress/addons/wordpress/spi/WordPressFunctionWrapper.php',
+            'tubepress_addons_wordpress_spi_WpAdminHandler' => 'classes/tubepress/addons/wordpress/spi/WpAdminHandler.php'
+        );
     }
 }

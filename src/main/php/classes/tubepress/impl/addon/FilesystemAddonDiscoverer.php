@@ -170,8 +170,9 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
         switch ($attributeName) {
 
             case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS:
+            case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSMAP:
 
-                return $this->_cleanPsr0Path($candidateValue, $manifestFileAbsPath);
+                return $this->_arrayValuesToAbsolutePaths($candidateValue, $manifestFileAbsPath);
 
             case tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP:
 
@@ -217,7 +218,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
         );
     }
 
-    private function _cleanPsr0Path(array $paths, $manifestFilePath)
+    private function _arrayValuesToAbsolutePaths(array $paths, $manifestFilePath)
     {
         $toReturn = array();
 
