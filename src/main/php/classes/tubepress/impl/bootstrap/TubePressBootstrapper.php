@@ -416,8 +416,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Registering %s as a PSR-0 classpath',
-                    $index, $count, $addon->getName(), $path));
+                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Registering %s => %s as a PSR-0 classpath',
+                    $index, $count, $addon->getName(), $prefix, $path));
             }
 
             if ($prefix) {
