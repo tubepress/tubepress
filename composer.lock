@@ -1,5 +1,5 @@
 {
-    "hash": "8a65d9ec2bd9499d486735ae21e78541",
+    "hash": "2bd88b541ae4995c46f8dced87504471",
     "packages": [
         {
             "name": "ehough/chaingang",
@@ -287,20 +287,20 @@
         },
         {
             "name": "ehough/pulsar",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/2.0.0",
-                "reference": "2.0.0",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/2.0.1",
+                "reference": "2.0.1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.1.3"
+                "php": ">=5.2"
             },
             "require-dev": {
                 "symfony/finder": ">=2.0,<3.0"
@@ -317,7 +317,7 @@
             ],
             "authors": [
                 {
-                    "name": "Eric Hough",
+                    "name": "Eric D. Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
@@ -329,7 +329,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2013-03-18 18:18:50"
+            "time": "2013-04-16 22:01:34"
         },
         {
             "name": "ehough/shortstop",

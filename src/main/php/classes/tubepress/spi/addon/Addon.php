@@ -37,9 +37,16 @@ interface tubepress_spi_addon_Addon
     const ATTRIBUTE_URL_DOWNLOAD        = 'download';
     const ATTRIBUTE_URL_BUGS            = 'bugs';
     const ATTRIBUTE_CLASSPATH_ROOTS     = 'psr-0';
-    const ATTRIBUTE_IOC_COMPILER_PASSES = 'ioc-compiler-passes';
-    const ATTRIBUTE_IOC_EXTENSIONS      = 'ioc-container-extensions';
     const ATTRIBUTE_CLASSMAP            = 'classmap';
+    const ATTRIBUTE_IOC_COMPILER_PASSES = 'compiler-passes';
+    const ATTRIBUTE_IOC_EXTENSIONS      = 'container-extensions';
+
+    /**
+     * Containers.
+     */
+    const CATEGORY_AUTOLOAD = 'autoload';
+    const CATEGORY_IOC      = 'inversion-of-control';
+    const CATEGORY_URLS     = 'urls';
 
     /**
      * @return string The globally unique name of this add-on. Must be 100 characters or less,

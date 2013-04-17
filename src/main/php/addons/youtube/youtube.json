@@ -14,11 +14,14 @@
     ],
     "description": "Allows TubePress work with YouTube",
     "bootstrap" : "scripts/bootstrap.php",
-    "psr-0" : {
-
-        "tubepress_addons_youtube" : "classes"
+    "autoload": {
+        "psr-0" : {
+            "tubepress_addons_youtube" : "classes"
+        }
     },
-    "ioc-container-extensions" : [
-        "tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension"
-    ]
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension"
+        ]
+    }
 }

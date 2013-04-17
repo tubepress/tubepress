@@ -14,11 +14,15 @@
     ],
     "description": "Allows TubePress to integrate with WordPress",
     "bootstrap" : "scripts/bootstrap.php",
-    "psr-0" : {
-
-        "tubepress_addons_wordpress" : "classes"
+    "autoload": {
+        "psr-0" : {
+            "tubepress_addons_wordpress" : "classes"
+        }
     },
-    "ioc-container-extensions" : [
-        "tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension"
-    ]
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension"
+        ]
+    }
+
 }

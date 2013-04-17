@@ -14,11 +14,14 @@
     ],
     "description": "Allows TubePress work with Vimeo",
     "bootstrap" : "scripts/bootstrap.php",
-    "psr-0" : {
-
-        "tubepress_addons_vimeo" : "classes"
+    "autoload": {
+        "psr-0" : {
+            "tubepress_addons_vimeo" : "classes"
+        }
     },
-    "ioc-container-extensions" : [
-        "tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension"
-    ]
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension"
+        ]
+    }
 }

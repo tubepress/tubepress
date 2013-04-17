@@ -14,11 +14,14 @@
     ],
     "description": "TubePress core functionality",
     "bootstrap" : "scripts/bootstrap.php",
-    "psr-0" : {
-
-        "tubepress_addons_core" : "classes"
+    "autoload":{
+        "psr-0" : {
+            "tubepress_addons_core" : "classes"
+        }
     },
-    "ioc-container-extensions" : [
-        "tubepress_addons_core_impl_patterns_ioc_IocContainerExtension"
-    ]
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_addons_core_impl_patterns_ioc_IocContainerExtension"
+        ]
+    }
 }
