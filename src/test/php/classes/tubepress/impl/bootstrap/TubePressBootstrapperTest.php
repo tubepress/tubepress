@@ -96,6 +96,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
         $mockAddon2->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn($mockAddon2IocCompilerPasses);
         $mockAddon1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('some root'));
         $mockAddon2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
+        $mockAddon1->shouldReceive('getClassMap')->once()->andReturn(array());
+        $mockAddon2->shouldReceive('getClassMap')->once()->andReturn(array('foo' => 'bar'));
 
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
@@ -120,12 +122,12 @@ class tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTe
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
 
-        $this->_sut->boot(new ehough_pulsar_UniversalClassLoader());
+        $this->_sut->boot(new ehough_pulsar_ComposerClassLoader(dirname(__FILE__) . '/../../../../../../../vendor'));
 
         /*
          * Try booting twice.
          */
-        $this->_sut->boot(new ehough_pulsar_UniversalClassLoader());
+        $this->_sut->boot(new ehough_pulsar_ComposerClassLoader(dirname(__FILE__) . '/../../../../../../../vendor'));
 
         $this->assertTrue(true);
     }

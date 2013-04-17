@@ -35,7 +35,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     private $_shouldLog = true;
 
     /**
-     * @var ehough_pulsar_UniversalClassLoader The classloader.
+     * @var ehough_pulsar_ComposerClassLoader The classloader.
      */
     private $_classLoader;
 
@@ -47,11 +47,11 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     /**
      * Performs TubePress-wide initialization.
      *
-     * @var ehough_pulsar_UniversalClassLoader $classLoader The TubePress classloader.
+     * @var ehough_pulsar_ComposerClassLoader $classLoader The TubePress classloader.
      *
      * @return null
      */
-    public final function boot(ehough_pulsar_UniversalClassLoader $classLoader)
+    public final function boot(ehough_pulsar_ComposerClassLoader $classLoader)
     {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
@@ -136,7 +136,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $this->_logger->debug(sprintf('Found %d add-ons (%d system and %d user)',
                 count($allAddons), count($systemAddons), count($userAddons)));
 
-            $this->_logger->debug('Now register add-on classloaders');
+            $this->_logger->debug('Now registering add-on class hints');
         }
 
         /**
@@ -146,7 +146,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Done registering add-on classloaders. Now registering add-on IoC container extensions.');
+            $this->_logger->debug('Done registering add-on class hints. Now registering add-on IoC container extensions.');
         }
 
         /**
@@ -360,48 +360,76 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          */
         foreach ($addons as $addon) {
 
-            $classPaths = $addon->getPsr0ClassPathRoots();
+            $this->_registerPsr0Paths($addon, $index, $count);
+            $this->_registerClassMap($addon, $index, $count);
 
-            if (count($classPaths) === 0) {
+            $index++;
+        }
+    }
 
-                if ($this->_shouldLog) {
+    private function _registerClassMap(tubepress_spi_addon_Addon $addon, $index, $count)
+    {
+        $classMap = $addon->getClassMap();
 
-                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not define any classpaths',
-                        $index, $count, $addon->getName()));
-                }
-
-                $index++;
-
-                continue;
-            }
+        if (count($classMap) === 0) {
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Creating classloader that has %d classpath(s)',
-                    $index, $count, $addon->getName(), count($classPaths)));
+                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not define a classmap',
+                    $index, $count, $addon->getName()));
             }
 
-            foreach ($classPaths as $prefix => $path) {
+            return;
+        }
 
-                if ($this->_shouldLog) {
+        if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Registering %s as a classpath',
-                        $index, $count, $addon->getName(), $path));
-                }
+            $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Adding classmap of size %d to classloader',
+                $index, $count, $addon->getName(), count($classMap)));
+        }
 
-                if ($prefix) {
+        $this->_classLoader->addToClassMap($classMap);
+    }
 
-                    $this->_classLoader->registerPrefix($prefix, $path);
-                    $this->_classLoader->registerNamespace($prefix, $path);
+    private function _registerPsr0Paths(tubepress_spi_addon_Addon $addon, $index, $count)
+    {
+        $classPaths = $addon->getPsr0ClassPathRoots();
 
-                } else {
+        if (count($classPaths) === 0) {
 
-                    $this->_classLoader->registerNamespaceFallback($path);
-                    $this->_classLoader->registerPrefixFallback($path);
-                }
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Did not define any PSR-0 classpaths',
+                    $index, $count, $addon->getName()));
             }
 
-            $index++;
+            return;
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Adding %d PSR-0 path(s) to classloader',
+                $index, $count, $addon->getName(), count($classPaths)));
+        }
+
+        foreach ($classPaths as $prefix => $path) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Registering %s as a PSR-0 classpath',
+                    $index, $count, $addon->getName(), $path));
+            }
+
+            if ($prefix) {
+
+                $this->_classLoader->registerPrefix($prefix, $path);
+                $this->_classLoader->registerNamespace($prefix, $path);
+
+            } else {
+
+                $this->_classLoader->registerNamespaceFallback($path);
+                $this->_classLoader->registerPrefixFallback($path);
+            }
         }
     }
 
