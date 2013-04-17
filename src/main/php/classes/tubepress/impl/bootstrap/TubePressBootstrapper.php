@@ -61,6 +61,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         $this->_classLoader = $classLoader;
 
+        $this->_addInitialClassMap();
+
         /*
          * Setup basic logging facilities.
          */
@@ -98,6 +100,8 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          * Keep track of how long this takes.
          */
         $then = microtime(true);
+
+        $this->_addFullClassMap();
 
         if ($this->_iocContainer) {
 
@@ -268,7 +272,6 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                      $ref = new ReflectionClass($compilerPass);
 
-                     /** @noinspection PhpParamsInspection */
                      $coreIocContainer->addCompilerPass($ref->newInstance());
 
                      if ($this->_shouldLog) {
@@ -540,5 +543,49 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         }
 
         return strcasecmp($firstName, $secondName);
+    }
+
+    private function _addInitialClassMap()
+    {
+        $epilogPrefix = TUBEPRESS_ROOT . '/vendor/ehough/epilog/src/main/php/ehough/epilog';
+
+        $this->_classLoader->addToClassMap(array(
+
+            'ehough_epilog_formatter_FormatterInterface'      => $epilogPrefix . '/formatter/FormatterInterface.php',
+            'ehough_epilog_formatter_LineFormatter'           => $epilogPrefix . '/formatter/LineFormatter.php',
+            'ehough_epilog_formatter_NormalizerFormatter'     => $epilogPrefix . '/formatter/NormalizerFormatter.php',
+            'ehough_epilog_handler_AbstractHandler'           => $epilogPrefix . '/handler/AbstractHandler.php',
+            'ehough_epilog_handler_AbstractProcessingHandler' => $epilogPrefix . '/handler/AbstractProcessingHandler.php',
+            'ehough_epilog_handler_HandlerInterface'          => $epilogPrefix . '/handler/HandlerInterface.php',
+            'ehough_epilog_handler_NullHandler'               => $epilogPrefix . '/handler/NullHandler.php',
+            'ehough_epilog_LoggerFactory'                     => $epilogPrefix . '/LoggerFactory.php',
+            'ehough_epilog_Logger'                            => $epilogPrefix . '/Logger.php',
+            'ehough_epilog_psr_AbstractLogger'                => $epilogPrefix . '/psr/AbstractLogger.php',
+            'ehough_epilog_psr_InvalidArgumentException'      => $epilogPrefix . '/psr/InvalidArgumentException.php',
+            'ehough_epilog_psr_LoggerAwareInterface'          => $epilogPrefix . '/psr/LoggerAwareInterface.php',
+            'ehough_epilog_psr_LoggerInterface'               => $epilogPrefix . '/psr/LoggerInterface.php',
+
+            'tubepress_impl_log_TubePressLoggingHandler' => TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl/log/TubePressLoggingHandler.php',
+        ));
+    }
+
+    private function _addFullClassMap()
+    {
+        $classMapFile = TUBEPRESS_ROOT . '/src/main/php/scripts/classMap.php';
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug('Now including classmap from ' . $classMapFile);
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        $classMap = require $classMapFile;
+
+        $this->_classLoader->addToClassMap($classMap);
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug('Done including classmap from ' . $classMapFile);
+        }
     }
 }
