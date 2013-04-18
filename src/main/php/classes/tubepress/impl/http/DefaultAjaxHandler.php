@@ -62,9 +62,11 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             $this->_logger->debug('There are ' . count($commandHandlers) . ' pluggable Ajax command service(s) registered');
         }
 
+        /**
+         * @var $commandHandler tubepress_spi_http_PluggableAjaxCommandService
+         */
         foreach ($commandHandlers as $commandHandler) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($commandHandler->getName() === $actionName) {
 
                 $chosenCommandHandler = $commandHandler;
@@ -95,12 +97,10 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             $this->_logger->debug($chosenCommandHandler->getName() . ' chose to handle action ' . $actionName);
         }
 
-        /** @noinspection PhpUndefinedMethodInspection */
         $chosenCommandHandler->handle();
 
         $httpResponseCodeHandler->setResponseCode($chosenCommandHandler->getHttpStatusCode());
 
-        /** @noinspection PhpUndefinedMethodInspection */
         echo $chosenCommandHandler->getOutput();
     }
 }

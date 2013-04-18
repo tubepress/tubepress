@@ -34,6 +34,7 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
             $toReturn[tubepress_api_video_Video::ATTRIBUTE_AUTHOR_DISPLAY_NAME];
 
         /* Category */
+        /** @noinspection PhpUndefinedMethodInspection */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_CATEGORY_DISPLAY_NAME] =
             trim($this->_relativeQuery($xpath, $index, 'media:group/media:category')->item(0)->getAttribute('label'));
 
@@ -42,12 +43,14 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
             $this->trimDescription($this->_relativeQuery($xpath, $index, 'media:group/media:description')->item(0)->nodeValue);
 
         /* Duration */
+        /** @noinspection PhpUndefinedMethodInspection */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_DURATION_SECONDS] =
             $this->_relativeQuery($xpath, $index, 'media:group/yt:duration')->item(0)->getAttribute('seconds');
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_DURATION_FORMATTED] =
             tubepress_impl_util_TimeUtils::secondsToHumanTime($toReturn[tubepress_api_video_Video::ATTRIBUTE_DURATION_SECONDS]);
 
         /* Home URL */
+        /** @noinspection PhpUndefinedMethodInspection */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_HOME_URL] =
             $this->_relativeQuery($xpath, $index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
 
@@ -129,6 +132,7 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
 
         foreach ($thumbs as $thumb) {
 
+            /** @noinspection PhpUndefinedMethodInspection */
             $url = $thumb->getAttribute('url');
 
             if (strpos($url, 'hqdefault') === false && strpos($url, 'mqdefault') === false) {
@@ -160,6 +164,7 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
 
         if ($stats != null) {
 
+            /** @noinspection PhpUndefinedMethodInspection */
             return $stats->getAttribute('viewCount');
         }
 

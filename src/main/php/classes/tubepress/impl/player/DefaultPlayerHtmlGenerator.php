@@ -31,7 +31,6 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
 
         foreach ($registeredPlayerLocations as $registeredPlayerLocation) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($registeredPlayerLocation->getName() === $requestedPlayerLocation) {
 
                 $playerLocation = $registeredPlayerLocation;
@@ -45,7 +44,9 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
             return null;
         }
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /**
+         * @var $playerLocation tubepress_spi_player_PluggablePlayerLocationService
+         */
         $template = $playerLocation->getTemplate($themeHandler);
 
         $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
@@ -53,7 +54,6 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
         /*
          * Run filters for the player template construction.
          */
-        /** @noinspection PhpUndefinedMethodInspection */
         $playerTemplateEvent = new tubepress_api_event_TubePressEvent(
 
             $template, array(
@@ -73,7 +73,6 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          */
         $html            = $playerTemplateEvent->getSubject()->toString();
 
-        /** @noinspection PhpUndefinedMethodInspection */
         $playerHtmlEvent = new tubepress_api_event_TubePressEvent($html, array(
 
             'video'        => $vid,

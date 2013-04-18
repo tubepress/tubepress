@@ -45,9 +45,11 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
 
         $html = null;
 
+        /**
+         * @var $handler tubepress_spi_shortcode_PluggableShortcodeHandlerService
+         */
         foreach ($handlers as $handler) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($handler->shouldExecute()) {
 
                 $html = $handler->getHtml();

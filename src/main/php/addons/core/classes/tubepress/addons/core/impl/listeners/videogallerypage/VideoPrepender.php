@@ -14,6 +14,9 @@
  */
 class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
@@ -62,9 +65,11 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender
 
     private function _videoArrayAlreadyHasVideo($videos, $id)
     {
+        /**
+         * @var $video tubepress_api_video_Video
+         */
         foreach ($videos as $video) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($video->getId() == $id) {
 
                 return true;

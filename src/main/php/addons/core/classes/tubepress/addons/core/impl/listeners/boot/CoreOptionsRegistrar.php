@@ -510,9 +510,11 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
 
         $themeNames = array();
 
+        /**
+         * @var $themeDirectory SplFileInfo
+         */
         foreach ($finder as $themeDirectory) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             $themeNames[] = basename($themeDirectory->getBasename());
         }
 

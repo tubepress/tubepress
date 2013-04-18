@@ -147,62 +147,57 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
 
     private function _registerEnvironmentDetector()
     {
-        $this->_delegate->register(
+        $definition = $this->_delegate->register(
 
             tubepress_spi_environment_EnvironmentDetector::_,
             'tubepress_impl_environment_SimpleEnvironmentDetector'
         );
 
-        /* Allows for convenient access to this service for anyone else that needs to reference it. */
-        $this->_delegate->setAlias('tubepress_impl_environment_SimpleEnvironmentDetector', tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_delegate->setDefinition('tubepress_impl_environment_SimpleEnvironmentDetector', $definition);
     }
 
     private function _registerFilesystemFinderFactory()
     {
-        $this->_delegate->register(
+        $definition = $this->_delegate->register(
 
             'ehough_finder_FinderFactoryInterface',
             'ehough_finder_FinderFactory'
         );
 
-        /* Allows for convenient access to this service for anyone else that needs to reference it. */
-        $this->_delegate->setAlias('ehough_finder_FinderFactory', 'ehough_finder_FinderFactoryInterface');
+        $this->_delegate->setDefinition('ehough_finder_FinderFactory', $definition);
     }
 
     private function _registerEventDispatcher()
     {
-        $this->_delegate->register(
+        $definition = $this->_delegate->register(
 
             'ehough_tickertape_EventDispatcherInterface',
             'ehough_tickertape_ContainerAwareEventDispatcher'
         )->addArgument($this->_delegate);
 
-        /* Allows for convenient access to this service for anyone else that needs to reference it. */
-        $this->_delegate->setAlias('ehough_tickertape_ContainerAwareEventDispatcher', 'ehough_tickertape_EventDispatcherInterface');
+        $this->_delegate->setDefinition('ehough_tickertape_ContainerAwareEventDispatcher', $definition);
     }
 
     private function _registerAddonDiscoverer()
     {
-        $this->_delegate->register(
+        $definition = $this->_delegate->register(
 
             tubepress_spi_addon_AddonDiscoverer::_,
             'tubepress_impl_addon_FilesystemAddonDiscoverer'
         );
 
-        /* Allows for convenient access to this service for anyone else that needs to reference it. */
-        $this->_delegate->setAlias('tubepress_impl_addon_FilesystemAddonDiscoverer', tubepress_spi_addon_AddonDiscoverer::_);
+        $this->_delegate->setDefinition('tubepress_impl_addon_FilesystemAddonDiscoverer', $definition);
     }
 
     private function _registerAddonLoader()
     {
-        $this->_delegate->register(
+        $definition = $this->_delegate->register(
 
             tubepress_spi_addon_AddonLoader::_,
             'tubepress_impl_addon_DefaultAddonLoader'
         );
 
-        /* Allows for convenient access to this service for anyone else that needs to reference it. */
-        $this->_delegate->setAlias('tubepress_impl_addon_DefaultAddonLoader', tubepress_spi_addon_AddonLoader::_);
+        $this->_delegate->setDefinition('tubepress_impl_addon_DefaultAddonLoader', $definition);
     }
 
     /**

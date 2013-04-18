@@ -26,6 +26,9 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
 
     public function __construct(array $optionDescriptors, $name)
     {
+        /**
+         * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
+         */
         foreach ($optionDescriptors as $optionDescriptor) {
 
             if (! $optionDescriptor instanceof tubepress_spi_options_OptionDescriptor) {
@@ -33,7 +36,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
                 throw new InvalidArgumentException('Non option descriptor detected');
             }
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if (! $optionDescriptor->isBoolean()) {
 
                 throw new InvalidArgumentException('Non-boolean option descriptor detected');
@@ -62,9 +64,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
         if (! $hrps->hasParam($this->_name)) {
 
             /* not submitted. */
+            /**
+             * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
+             */
             foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 $storageManager->set($optionDescriptor->getName(), false);
             }
 
@@ -82,9 +86,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
         $errors         = array();
 
 
+        /**
+         * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
+         */
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             $result = $storageManager->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
 
             if ($result !== true) {
@@ -113,12 +119,13 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
         $currentValues   = array();
         $storageManager  = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
+        /**
+         * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
+         */
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($storageManager->get($optionDescriptor->getName())) {
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 $currentValues[] = $optionDescriptor->getName();
             }
         }

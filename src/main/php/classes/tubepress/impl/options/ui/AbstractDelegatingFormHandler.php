@@ -33,9 +33,11 @@ abstract class tubepress_impl_options_ui_AbstractDelegatingFormHandler implement
 
         $failures = array();
 
+        /**
+         * @var $formHandlerInstance tubepress_spi_options_ui_FormHandler
+         */
         foreach ($formHandlerInstances as $formHandlerInstance) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             $result = $formHandlerInstance->onSubmit();
 
             if (is_array($result) && ! empty($result)) {

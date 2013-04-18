@@ -14,6 +14,9 @@
  */
 class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_shortcode_ShortcodeParser
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
@@ -111,6 +114,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
     {
         $toReturn        = array();
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $value           = null;
 
         foreach ($match as $m) {
 
@@ -137,11 +141,9 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
-                /** @noinspection PhpUndefinedVariableInspection */
                 $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (unfiltered)', $name, $value));
             }
 
-            /** @noinspection PhpUndefinedVariableInspection */
             $event = new tubepress_api_event_TubePressEvent(
 
                 $value,

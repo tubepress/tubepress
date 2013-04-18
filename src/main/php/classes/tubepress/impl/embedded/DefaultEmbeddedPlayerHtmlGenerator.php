@@ -15,7 +15,7 @@
 class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tubepress_spi_embedded_EmbeddedHtmlGenerator
 {
     /**
-     * @var ehough_epilog_psr_LoggerInterface Logger.
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 
@@ -120,9 +120,11 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
          */
         if ($requestedEmbeddedPlayerName !== tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED) {
 
+            /**
+             * @var $embeddedPlayer tubepress_spi_embedded_PluggableEmbeddedPlayerService
+             */
             foreach ($embeddedPlayers as $embeddedPlayer) {
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 if ($embeddedPlayer->getName() === $requestedEmbeddedPlayerName && $recognizingProvider !== null
                     && $recognizingProvider->getName() === $embeddedPlayer->getHandledProviderName()) {
 
@@ -174,6 +176,9 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
     {
         $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
 
+        /**
+         * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
+         */
         foreach ($videoProviders as $videoProvider) {
 
             if ($videoProvider->recognizesVideoId($videoId)) {

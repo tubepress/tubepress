@@ -51,21 +51,21 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
             $this->_logger->debug('Asking to see who wants to handle page ' . $currentPage . ' for gallery source "' . $videoSource . '"');
         }
 
+        /**
+         * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
+         */
         foreach ($providers as $videoProvider) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             $sources = $videoProvider->getGallerySourceNames();
 
             if (in_array($videoSource, $sources)) {
 
                 if ($this->_isDebugEnabled) {
 
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $this->_logger->debug($videoProvider->getName() . ' chosen to handle page ' . $currentPage
                         . ' for gallery source "' . $videoSource . '"');
                 }
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 $result = $videoProvider->fetchVideoGalleryPage($currentPage);
 
                 break;
@@ -73,7 +73,6 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
             if ($this->_isDebugEnabled) {
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 $this->_logger->debug($videoProvider->getName() . ' cannot handle ' . $currentPage
                     . ' for gallery source "' . $videoSource . '"');
             }
@@ -120,24 +119,23 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $providers = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
 
+        /**
+         * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
+         */
         foreach ($providers as $videoProvider) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($videoProvider->recognizesVideoId($customVideoId)) {
 
                 if ($this->_isDebugEnabled) {
 
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $this->_logger->debug($videoProvider->getName() . ' recognizes video ID ' . $customVideoId);
                 }
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 return $videoProvider->fetchSingleVideo($customVideoId);
             }
 
             if ($this->_isDebugEnabled) {
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 $this->_logger->debug($videoProvider->getName() . ' does not recognize video ID ' . $customVideoId);
             }
         }
