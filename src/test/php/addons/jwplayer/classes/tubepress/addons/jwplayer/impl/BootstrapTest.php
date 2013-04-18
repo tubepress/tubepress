@@ -31,7 +31,7 @@ class tubepress_addons_jwplayer_impl_BootstrapTest extends TubePressUnitTest
         $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
 
             tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
-            array('tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars',
+            array('tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars',
             'onEmbeddedTemplate')
         );
 

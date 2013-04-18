@@ -50,5 +50,11 @@ class tubepress_addons_youtube_impl_BootstrapTest extends TubePressUnitTest
             array('tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
             'onResponse')
         );
+
+        $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
+
+            tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET,
+            array('tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover', 'onPreValidationOptionSet')
+        );
     }
 }

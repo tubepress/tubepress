@@ -40,7 +40,7 @@ class tubepress_addons_core_JwPlayerManifestValidityTest extends tubepress_impl_
             'tubepress_addons_jwplayer_impl_Bootstrap' => 'classes/tubepress/addons/jwplayer/impl/Bootstrap.php',
             'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService' => 'classes/tubepress/addons/jwplayer/impl/embedded/JwPlayerPluggableEmbeddedPlayerService.php',
             'tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar' => 'classes/tubepress/addons/jwplayer/impl/listeners/boot/JwPlayerOptionsRegistrar.php',
-            'tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars' => 'classes/tubepress/addons/jwplayer/impl/listeners/embeddedtemplate/JwPlayerTemplateVars.php',
+            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars' => 'classes/tubepress/addons/jwplayer/impl/listeners/template/JwPlayerTemplateVars.php',
             'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant' => 'classes/tubepress/addons/jwplayer/impl/options/ui/JwPlayerOptionsPageParticipant.php',
             'tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension' => 'classes/tubepress/addons/jwplayer/impl/patterns/ioc/JwPlayerIocContainerExtension.php'
         );

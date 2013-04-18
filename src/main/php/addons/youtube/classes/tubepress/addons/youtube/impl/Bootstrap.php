@@ -43,5 +43,11 @@ class tubepress_addons_youtube_impl_Bootstrap
             ehough_shortstop_api_Events::RESPONSE,
             array('tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener', 'onResponse')
         );
+
+        $eventDispatcher->addListenerService(
+
+            tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET,
+            array('tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover', 'onPreValidationOptionSet')
+        );
     }
 }

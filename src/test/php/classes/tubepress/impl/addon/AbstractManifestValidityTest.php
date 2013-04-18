@@ -57,7 +57,8 @@ class tubepress_impl_addon_AbstractManifestValidityTest extends TubePressUnitTes
 
             $this->assertTrue(isset($actualClassMap[$className]));
 
-            $this->assertTrue(tubepress_impl_util_StringUtils::endsWith($actualClassMap[$className], $abbreviatedPrefix));
+            $this->assertTrue(tubepress_impl_util_StringUtils::endsWith($actualClassMap[$className], $abbreviatedPrefix),
+                $actualClassMap[$className] . ' does not end with ' . $abbreviatedPrefix);
         }
     }
 }
