@@ -97,39 +97,39 @@ class tubepress_addons_core_impl_BootstrapTest extends TubePressUnitTest
                 array('tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables', 'onEmbeddedTemplate')
             ),
 
-            tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT => array(
 
                 array('tubepress_addons_core_impl_listeners_galleryinitjs_GalleryInitJsBaseParams', 'onGalleryInitJs')
             ),
 
-            tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION => array(
 
                 array('tubepress_addons_core_impl_listeners_playertemplate_CoreVariables', 'onPlayerTemplate')
             ),
 
-            tubepress_api_const_event_EventNames::PRE_VALIDATION_OPTION_SET => array(
+            tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET => array(
 
                 array('tubepress_addons_core_impl_listeners_prevalidationoptionset_StringMagic', 'onPreValidationOptionSet'),
                 array('tubepress_addons_core_impl_listeners_prevalidationoptionset_YouTubePlaylistPlPrefixRemover', 'onPreValidationOptionSet')
             ),
 
-            tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT => array(
 
                 array('tubepress_addons_core_impl_listeners_searchinputtemplate_CoreVariables', 'onSearchInputTemplate')
             ),
 
-            tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO => array(
 
                 array('tubepress_addons_core_impl_listeners_singlevideotemplate_VideoMeta', 'onSingleVideoTemplate'),
                 array('tubepress_addons_core_impl_listeners$listeners_singlevideotemplate_CoreVariables', 'onSingleVideoTemplate')
             ),
 
-            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY => array(
 
                 array('tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs', 'onGalleryHtml')
             ),
 
-            tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY => array(
 
                 array('tubepress_addons_core_impl_listeners_gallerytemplate_CoreVariables', 'onGalleryTemplate'),
                 array('tubepress_addons_core_impl_listeners_gallerytemplate_EmbeddedPlayerName', 'onGalleryTemplate'),
@@ -138,12 +138,12 @@ class tubepress_addons_core_impl_BootstrapTest extends TubePressUnitTest
                 array('tubepress_addons_core_impl_listeners_gallerytemplate_VideoMeta', 'onGalleryTemplate'),
             ),
 
-            tubepress_api_const_event_EventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT => array(
+            tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL => array(
 
                 array('tubepress_addons_core_impl_listeners_variablereadfromexternalinput_StringMagic', 'onIncomingInput')
             ),
 
-            tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE => array(
 
                 array('tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter', 'onVideoGalleryPage'),
                 array('tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper', 'onVideoGalleryPage'),

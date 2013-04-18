@@ -89,7 +89,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePr
 
     private function _setupEventDispatcher(tubepress_spi_options_OptionDescriptor $od)
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONDESCRIPTOR_REGISTRATION,
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_DESCRIPTOR_REGISTRATION,
         ehough_mockery_Mockery::on(function ($event) use ($od) {
 
             return $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject()->getName() === $od->getName();

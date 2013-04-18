@@ -10,14 +10,29 @@
  */
 class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_player_DefaultPlayerHtmlGenerator
+     */
     private $_sut;
 
+    /**
+     * @var tubepress_api_video_Video
+     */
     private $_mockVideo;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockThemeHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
     public function onSetup()
@@ -56,7 +71,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate, $mockVideo) {
 
                 return $arg->getSubject() == $mockTemplate && $arg->getArgument('video') == $mockVideo
@@ -72,24 +87,13 @@ class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnit
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_const_event_EventNames::PLAYER_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::HTML_PLAYERLOCATION,
             ehough_mockery_Mockery::on(function ($arg) use ($mockVideo) {
 
                 return $arg->getSubject() == 'foobarr' && $arg->getArgument('video') == $mockVideo
                     && $arg->getArgument('playerName') === 'x';
             })
         )->andReturn($mockPlayerHtmlEvent);
-
-        $mockHtmlEvent = new tubepress_api_event_TubePressEvent('foobarr');
-
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-
-            tubepress_api_const_event_EventNames::HTML_CONSTRUCTION,
-            ehough_mockery_Mockery::on(function ($arg) {
-
-                return $arg->getSubject() === 'foobarr';
-            })
-        )->andReturn($mockHtmlEvent);
 
         $this->assertEquals('foobarr', $this->_sut->getHtml($this->_mockVideo));
     }

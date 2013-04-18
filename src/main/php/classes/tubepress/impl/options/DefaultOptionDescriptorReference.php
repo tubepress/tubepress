@@ -72,7 +72,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
         $eventDispatcher         = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $eventDispatcher->dispatch(
 
-            tubepress_api_const_event_EventNames::OPTIONDESCRIPTOR_REGISTRATION,
+            tubepress_api_const_event_EventNames::OPTIONS_DESCRIPTOR_REGISTRATION,
             $optionRegistrationEvent
         );
 

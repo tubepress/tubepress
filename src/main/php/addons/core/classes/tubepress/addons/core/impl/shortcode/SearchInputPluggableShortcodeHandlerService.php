@@ -38,13 +38,13 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
         $pm       = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template = $th->getTemplateInstance('search/search_input.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
 
-        if ($pm->hasListeners(tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION)) {
+        if ($pm->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT)) {
 
             $event = new tubepress_api_event_TubePressEvent($template);
 
             $pm->dispatch(
 
-                tubepress_api_const_event_EventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT,
                 $event
             );
 
@@ -53,13 +53,13 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
 
         $html = $template->toString();
 
-        if ($pm->hasListeners(tubepress_api_const_event_EventNames::SEARCH_INPUT_HTML_CONSTRUCTION)) {
+        if ($pm->hasListeners(tubepress_api_const_event_EventNames::HTML_SEARCH_INPUT)) {
 
             $event = new tubepress_api_event_TubePressEvent($html);
 
             $pm->dispatch(
 
-                tubepress_api_const_event_EventNames::SEARCH_INPUT_HTML_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::HTML_SEARCH_INPUT,
                 $event
             );
 

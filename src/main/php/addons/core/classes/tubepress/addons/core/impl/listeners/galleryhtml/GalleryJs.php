@@ -22,7 +22,7 @@ class tubepress_addons_core_impl_listeners_galleryhtml_GalleryJs
 
         $jsEvent = new tubepress_api_event_TubePressEvent(array());
 
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::GALLERY_INIT_JS_CONSTRUCTION, $jsEvent);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, $jsEvent);
 
         $args   = $jsEvent->getSubject();
         $asJson = json_encode($args);

@@ -64,7 +64,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
 
         $eventDispatcherService->dispatch(
 
-            tubepress_api_const_event_EventNames::PLAYER_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION,
             $playerTemplateEvent
         );
 
@@ -81,23 +81,10 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
 
         $eventDispatcherService->dispatch(
 
-            tubepress_api_const_event_EventNames::PLAYER_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::HTML_PLAYERLOCATION,
             $playerHtmlEvent
         );
 
-        /*
-         * Run filters for the HTML construction.
-         */
-        $html      = $playerHtmlEvent->getSubject();
-        $htmlEvent = new tubepress_api_event_TubePressEvent($html);
-        $eventDispatcherService->dispatch(
-
-            tubepress_api_const_event_EventNames::HTML_CONSTRUCTION,
-            $htmlEvent
-        );
-
-        $html = $htmlEvent->getSubject();
-
-        return $html;
+        return $playerHtmlEvent->getSubject();
     }
 }

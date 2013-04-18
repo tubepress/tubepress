@@ -76,7 +76,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
             return sprintf('Video %s not found', $videoId);    //>(translatable)<
         }
 
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO)) {
 
             $event = new tubepress_api_event_TubePressEvent(
 
@@ -89,7 +89,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_EventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO,
                 $event
             );
 
@@ -98,13 +98,13 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
         $html = $template->toString();
 
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::SINGLE_VIDEO_HTML_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_SINGLE_VIDEO)) {
 
             $event = new tubepress_api_event_TubePressEvent($html);
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_EventNames::SINGLE_VIDEO_HTML_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::HTML_SINGLE_VIDEO,
                 $event
             );
 

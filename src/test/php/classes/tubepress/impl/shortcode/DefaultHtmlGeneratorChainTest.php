@@ -10,9 +10,19 @@
  */
 class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockShortcodeParser;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
     public function onSetup()
@@ -30,13 +40,6 @@ class tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePressUn
         $mockHandler = $this->createMockPluggableService(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(true);
         $mockHandler->shouldReceive('getHtml')->once()->andReturn('foobar');
-
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->andReturn(true);
-
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_CONSTRUCTION, ehough_mockery_Mockery::on(function ($arg) {
-
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'foobar';
-        }));
 
         $result = $this->_sut->getHtmlForShortcode('shortcode');
 

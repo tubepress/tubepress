@@ -63,21 +63,7 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
             throw new RuntimeException('No shortcode handlers could generate HTML');
         }
 
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
-        $event = new tubepress_api_event_TubePressEvent($html);
-
-        /* send it through the filters */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_CONSTRUCTION)) {
-
-            $eventDispatcher->dispatch(
-
-                tubepress_api_const_event_EventNames::HTML_CONSTRUCTION,
-                $event
-            );
-        }
-
-        return $event->getSubject();
+        return $html;
     }
 
     public final function sortShortcodeHandlers($first, $second)

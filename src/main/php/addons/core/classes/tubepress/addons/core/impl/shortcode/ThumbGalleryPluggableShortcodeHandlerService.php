@@ -88,7 +88,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         }
 
         /* send the template through the listeners */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY)) {
 
             $event = new tubepress_api_event_TubePressEvent($template, array(
 
@@ -98,7 +98,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY,
                 $event
             );
 
@@ -108,7 +108,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $html = $template->toString();
 
         /* send gallery HTML through the listeners */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY)) {
 
             $event = new tubepress_api_event_TubePressEvent($html, array(
 
@@ -118,7 +118,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_EventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION,
+                tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY,
                 $event
             );
 
