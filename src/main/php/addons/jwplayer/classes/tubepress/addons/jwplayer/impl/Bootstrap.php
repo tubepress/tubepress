@@ -29,7 +29,7 @@ class tubepress_addons_jwplayer_impl_Bootstrap
 
         $eventDispatcher->addListenerService(
 
-            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             array('tubepress_addons_jwplayer_impl_listeners_embeddedtemplate_JwPlayerTemplateVars', 'onEmbeddedTemplate')
         );
     }

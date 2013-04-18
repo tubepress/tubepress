@@ -87,12 +87,12 @@ class tubepress_addons_core_impl_BootstrapTest extends TubePressUnitTest
                 array('tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener', 'onTubePressScriptTag')
             ),
 
-            tubepress_api_const_event_EventNames::EMBEDDED_HTML_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::HTML_EMBEDDED => array(
 
                 array('tubepress_addons_core_impl_listeners_embeddedhtml_PlayerJavaScriptApi', 'onEmbeddedHtml')
             ),
 
-            tubepress_api_const_event_EventNames::EMBEDDED_TEMPLATE_CONSTRUCTION => array(
+            tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED => array(
 
                 array('tubepress_addons_core_impl_listeners_embeddedtemplate_CoreVariables', 'onEmbeddedTemplate')
             ),

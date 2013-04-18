@@ -73,7 +73,7 @@ class tubepress_api_const_event_EventNames
      * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
      * @arg string           'embeddedImplementationName' The name of the embedded implementation.
      */
-    const EMBEDDED_HTML_CONSTRUCTION = 'tubepress.core.embeddedHtmlConstruction';
+    const HTML_EMBEDDED = 'tubepress.core.html.embedded';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for an embedded
@@ -86,7 +86,7 @@ class tubepress_api_const_event_EventNames
      * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
      * @arg string           'embeddedImplementationName' The name of the embedded implementation.
      */
-    const EMBEDDED_TEMPLATE_CONSTRUCTION = 'tubepress.core.embeddedTemplateConstruction';
+    const TEMPLATE_EMBEDDED = 'tubepress.core.template.embedded';
 
     /**
      * This event is fired when TubePress builds the gallery initialization JS code.
