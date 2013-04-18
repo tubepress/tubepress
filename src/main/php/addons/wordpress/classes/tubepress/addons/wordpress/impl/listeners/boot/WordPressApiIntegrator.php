@@ -69,7 +69,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
 
         $wpFunctionWrapper->add_filter($filterPoint, array($wpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
 
-        $wpFunctionWrapper->register_activation_hook('tubepress/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
+        $wpFunctionWrapper->register_activation_hook($baseName . '/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
     }
 
     private static function _getScheme(tubepress_addons_wordpress_spi_WordPressFunctionWrapper $wpFunctionWrapper)

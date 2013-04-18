@@ -188,7 +188,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The template.
      *
-     * @arg tubepress_api_video_Video 'video'        The video to be played.
+     * @arg tubepress_api_video_Video 'video' The video to be played.
      */
     const SINGLE_VIDEO_TEMPLATE_CONSTRUCTION = 'tubepress.core.singleVideoTemplateConstruction';
 
@@ -248,4 +248,11 @@ class tubepress_api_const_event_EventNames
      * @arg ehough_shortstop_api_HttpResponse response The HTTP response.
      */
     const HTTP_RESPONSE = 'tubepress.core.http.response';
+
+    /**
+     * This event is fired when TubePress generates the template for an options UI form.
+     *
+     * @subject ehough_contemplate_api_Template The options UI template.
+     */
+    const TEMPLATE_OPTIONS_UI_MAIN = 'tubepress.core.template.options.ui.main';
 }

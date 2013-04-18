@@ -28,7 +28,7 @@ class tubepress_addons_wordpress_resources_templates_OptionsPageTemplateTest ext
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
-        ${tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY} = '<<<boxes>>>';
+        ${tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener::TEMPLATE_VAR_BOX_ARRAY} = '<<<boxes>>>';
 
         ob_start();
         include __DIR__ . '/../../../../../../main/php/addons/wordpress/resources/templates/options_page.tpl.php';

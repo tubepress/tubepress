@@ -40,5 +40,11 @@ class tubepress_addons_wordpress_impl_Bootstrap
             tubepress_api_const_event_EventNames::BOOT_COMPLETE,
             array('tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator', 'onBoot')
         );
+
+        $eventDispatcher->addListenerService(
+
+            tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN,
+            array('tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener', 'onOptionsUiTemplate')
+        );
     }
 }

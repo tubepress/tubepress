@@ -25,7 +25,7 @@
         },
         "classmap" : {
             "tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService" : "classes/tubepress/addons/embedplus/impl/embedded/EmbedPlusPluggableEmbeddedPlayerService.php",
-            "tubepress_addons_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension" : "classes/tubepress/addons/embedplus/impl/patterns/ioc/EmbedPlusIocContainerExtension.php"
+            "tubepress_addons_embedplus_impl_patterns_ioc_EmbedPlusIocContainerExtension"      : "classes/tubepress/addons/embedplus/impl/patterns/ioc/EmbedPlusIocContainerExtension.php"
         }
     }
 }

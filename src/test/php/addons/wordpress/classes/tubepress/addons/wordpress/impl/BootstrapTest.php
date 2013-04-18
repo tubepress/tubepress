@@ -42,6 +42,12 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends TubePressUnitTest
             array('tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator', 'onBoot')
         );
 
+        $this->_mockEventDispatcher->shouldReceive('addListenerService')->once()->with(
+
+            tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN,
+            array('tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener', 'onOptionsUiTemplate')
+        );
+
         require TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/scripts/bootstrap.php';
 
         $this->assertTrue(true);

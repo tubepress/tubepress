@@ -14,31 +14,8 @@
  */
 class tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
 {
-    const TEMPLATE_VAR_BOX_ARRAY = 'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler__boxArray';
-
-    protected function onPreTemplateToString(ehough_contemplate_api_Template $template)
-    {
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $toEncode = array();
-
-        if (! $environmentDetector->isPro()) {
-
-            $toEncode[] = $this->_generateBox('You\'re Missing Out!', 'http://tubepress.org/snippets/wordpress/youre-missing-out.php');
-        }
-
-        $toEncode[] = $this->_generateBox('TubePress News', 'http://tubepress.org/snippets/wordpress/latest-news.php');
-        $toEncode[] = $this->_generateBox('Need Help?', 'http://tubepress.org/snippets/wordpress/need-help.php');
-
-        $template->setVariable(tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler::TEMPLATE_VAR_BOX_ARRAY, json_encode($toEncode));
-    }
-
     protected final function getRelativeTemplatePath()
     {
         return 'src/main/php/addons/wordpress/resources/templates/options_page.tpl.php';
-    }
-
-    private function _generateBox($title, $url) {
-
-        return array('title' => $title, 'url' => $url);
     }
 }

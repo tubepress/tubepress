@@ -49,18 +49,18 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
      */
     public function getHtml()
     {
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-        $templateBldr   = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $template       = $templateBldr->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getRelativeTemplatePath());
+        $messageService  = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $templateBldr    = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $template        = $templateBldr->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getRelativeTemplatePath());
 
-        $template->setVariable(self::TEMPLATE_VAR_TITLE, $messageService->_('TubePress Options'));                                                                                                                                                                                                                                                                                                                                 //>(translatable)<
-        $template->setVariable(self::TEMPLATE_VAR_INTRO, $messageService->_('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more information.')); //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_SAVE_TEXT, $messageService->_('Save'));                                                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
         $template->setVariable(self::TEMPLATE_VAR_TABS, $this->_tabs->getHtml());
         $template->setVariable(self::TEMPLATE_VAR_FILTER, $this->_filterField);
 
-        $this->onPreTemplateToString($template);
+        $templateEvent = new tubepress_api_event_TubePressEvent($template);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, $templateEvent);
 
         return $template->toString();
     }
@@ -71,10 +71,4 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
     }
 
     protected abstract function getRelativeTemplatePath();
-
-    //override point
-    protected function onPreTemplateToString(ehough_contemplate_api_Template $template)
-    {
-        return;
-    }
 }

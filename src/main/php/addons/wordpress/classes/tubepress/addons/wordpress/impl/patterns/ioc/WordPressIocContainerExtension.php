@@ -98,6 +98,12 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
         );
+
+        $container->register(
+
+            'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
+            'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
+        );
     }
 
     private function _registerMessageService(ehough_iconic_ContainerBuilder $container)
