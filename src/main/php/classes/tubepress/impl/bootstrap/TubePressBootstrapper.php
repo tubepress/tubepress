@@ -515,34 +515,20 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         $secondName = $second->getName();
 
         /*
-         * The core add-on always gets loaded first.
+         * The core add-on always gets loaded first, the pro-core always last.
          */
 
-        if ($firstName === 'TubePress Core') {
+        if ($firstName === 'tubepress-core-addon' || $secondName === 'tubepress-pro-core-addon') {
 
             return -1;
         }
 
-        if ($secondName === 'TubePress Core') {
+        if ($firstName === 'tubepress-pro-core-addon' || $secondName === 'tubepress-core-addon') {
 
             return 1;
         }
 
-        /*
-         * YouTube is more popular than Vimeo, so let's load them in that order.
-         */
-
-        if (strpos($firstName, 'YouTube') !== false && strpos($secondName, 'Vimeo') !== false) {
-
-            return -1;
-        }
-
-        if (strpos($firstName, 'Vimeo') !== false && strpos($secondName, 'YouTube') !== false) {
-
-            return 1;
-        }
-
-        return strcasecmp($firstName, $secondName);
+        return 0;
     }
 
     private function _addInitialClassMap()
