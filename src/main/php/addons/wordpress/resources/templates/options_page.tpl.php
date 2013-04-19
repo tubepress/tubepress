@@ -13,21 +13,21 @@
 
 	<form method="post">
 
-    	<h2><?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}; ?></h2>
+    	<h2><?php echo ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_TITLE}; ?></h2>
 
     	<div style="margin-bottom: 1em; width: 100%; float: left">
     	    <div style="float: left; width: 55%">
-    	        <?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}; ?>
+    	        <?php echo ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_INTRO}; ?>
     	    </div>
             <div style="float: right; width: 35%; text-align: right">
-				<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getTitle() ?> <?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getHtml(); ?>
+				<?php echo ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_FILTER}->getTitle() ?> <?php echo ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_FILTER}->getHtml(); ?>
     	    </div>
     	</div>
 
 
-    	<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}; ?>
+    	<?php echo ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_TABS}; ?>
 
-    	<input id="tubepress-submit-button" type="submit" name="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}; ?>" class="button-primary" value="<?php echo ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}; ?>" />
+    	<input id="tubepress-submit-button" type="submit" name="<?php echo ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_SAVE_ID}; ?>" class="button-primary" value="<?php echo ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_SAVE_TEXT}; ?>" />
 
         <div id="tubepress-box-holder"></div>
 

@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extends TubePressUnitTest
+class tubepress_impl_options_ui_DefaultFormHandlerTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler
+     * @var tubepress_impl_options_ui_DefaultFormHandler
      */
     private $_sut;
 
@@ -49,7 +49,7 @@ class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extend
 
         $this->_mockFilter = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_Field');
 
-        $this->_sut = new tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
+        $this->_sut = new tubepress_impl_options_ui_DefaultFormHandler($this->_mockTabs, $this->_mockFilter, 'some path');
     }
 
 
@@ -71,18 +71,18 @@ class tubepress_addons_wordpress_impl_options_ui_WordPressFormHandlerTest extend
 
     public function testGetHtml()
     {
-        $template       = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
+        $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/resources/templates/options_page.tpl.php')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/some path')->andReturn($template);
 
         $this->_mockMessageService->shouldReceive('_')->once()->with('Save')->andReturn('<<save>>');
 
         $this->_mockTabs->shouldReceive('getHtml')->once()->andReturn('<<tabhtml>>');
 
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT, '<<save>>');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS, '<<tabhtml>>');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER, $this->_mockFilter);
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_SAVE_TEXT, '<<save>>');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_TABS, '<<tabhtml>>');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_FILTER, $this->_mockFilter);
         $template->shouldReceive('toString')->once()->andReturn('foo');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, ehough_mockery_Mockery::on(function ($event) use ($template) {

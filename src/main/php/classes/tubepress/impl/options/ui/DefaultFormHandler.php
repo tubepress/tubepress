@@ -13,7 +13,7 @@
  * Displays a generic options form for TubePress
  *
  */
-abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_impl_options_ui_AbstractDelegatingFormHandler
+class tubepress_impl_options_ui_DefaultFormHandler extends tubepress_impl_options_ui_AbstractDelegatingFormHandler
 {
     const TEMPLATE_VAR_TITLE     = 'optionsPageTitle';
     const TEMPLATE_VAR_INTRO     = 'optionsPageIntro';
@@ -32,15 +32,21 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
      */
     private $_filterField;
 
+    /**
+     * @var string The path to the template for the form.
+     */
+    private $_templatePath;
+
     public function __construct(
 
         tubepress_spi_options_ui_FormHandler $tabs,
-        tubepress_spi_options_ui_Field       $filterField)
+        tubepress_spi_options_ui_Field       $filterField,
+        $templatePath)
     {
-        $this->_tabs        = $tabs;
-        $this->_filterField = $filterField;
+        $this->_tabs         = $tabs;
+        $this->_filterField  = $filterField;
+        $this->_templatePath = $templatePath;
     }
-
 
     /**
      * Displays all the TubePress options in HTML
@@ -52,7 +58,7 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
         $messageService  = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $templateBldr    = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $template        = $templateBldr->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getRelativeTemplatePath());
+        $template        = $templateBldr->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->_templatePath);
 
         $template->setVariable(self::TEMPLATE_VAR_SAVE_TEXT, $messageService->_('Save'));                                                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
@@ -69,6 +75,4 @@ abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_i
     {
         return array($this->_tabs, $this->_filterField);
     }
-
-    protected abstract function getRelativeTemplatePath();
 }

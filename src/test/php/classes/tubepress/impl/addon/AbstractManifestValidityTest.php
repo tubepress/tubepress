@@ -39,7 +39,7 @@ class tubepress_impl_addon_AbstractManifestValidityTest extends TubePressUnitTes
 
         $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray($actualClassMap));
 
-        $this->assertTrue(count($expectedClassMap) === count($actualClassMap));
+        $this->assertTrue(count($expectedClassMap) === count($actualClassMap), 'Expected and actual class map sizes differ');
 
         foreach ($actualClassMap as $className => $path) {
 

@@ -70,7 +70,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
             array(tubepress_spi_options_StorageManager::_, 'tubepress_addons_wordpress_impl_options_WordPressStorageManager'),
             array('tubepress_impl_options_ui_DefaultTabsHandler', 'tubepress_impl_options_ui_DefaultTabsHandler'),
             array('tubepress_impl_options_ui_fields_FilterMultiSelectField', 'tubepress_impl_options_ui_fields_FilterMultiSelectField'),
-            array(tubepress_spi_options_ui_FormHandler::_, 'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler'),
+            array(tubepress_spi_options_ui_FormHandler::_, 'tubepress_impl_options_ui_DefaultFormHandler'),
             array(tubepress_addons_wordpress_spi_ContentFilter::_, 'tubepress_addons_wordpress_impl_DefaultContentFilter'),
             array(tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_, 'tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector'),
             array(tubepress_addons_wordpress_spi_WidgetHandler::_, 'tubepress_addons_wordpress_impl_DefaultWidgetHandler'),

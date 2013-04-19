@@ -145,12 +145,13 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $definition = $container->register(
 
             tubepress_spi_options_ui_FormHandler::_,
-            'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler'
+            'tubepress_impl_options_ui_DefaultFormHandler'
 
         )->addArgument(new ehough_iconic_Reference($tabsId))
-         ->addArgument(new ehough_iconic_Reference($filterId));
+         ->addArgument(new ehough_iconic_Reference($filterId))
+         ->addArgument('src/main/php/addons/wordpress/resources/templates/options_page.tpl.php');
 
-        $container->setDefinition('tubepress_addons_wordpress_impl_options_ui_WordPressOptionsFormHandler', $definition);
+        $container->setDefinition('tubepress_impl_options_ui_DefaultFormHandler', $definition);
     }
 
     private function _registerContentFilter(ehough_iconic_ContainerBuilder $container)

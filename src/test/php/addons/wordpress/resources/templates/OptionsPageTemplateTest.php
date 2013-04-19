@@ -22,12 +22,12 @@ class tubepress_addons_wordpress_resources_templates_OptionsPageTemplateTest ext
         $filter->shouldReceive('getTitle')->once()->andReturn('filter-title');
         $filter->shouldReceive('getHtml')->once()->andReturn('filter-html');
 
-        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}    = '<<template-var-title>>';
-        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}    = $filter;
-        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}    = '<<template-var-intro>>';
-        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
-        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
-        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
+        ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_TITLE}    = '<<template-var-title>>';
+        ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_FILTER}    = $filter;
+        ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_INTRO}    = '<<template-var-intro>>';
+        ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
+        ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
+        ${tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
         ${tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener::TEMPLATE_VAR_BOX_ARRAY} = '<<<boxes>>>';
 
         ob_start();
