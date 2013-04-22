@@ -84,7 +84,7 @@ class tubepress_addons_wordpress_impl_DefaultWidgetHandler implements tubepress_
 
         } catch (Exception $e) {
 
-            $out = $e->getMessage();
+            $out = $this->_dispatchErrorAndGetMessage($e);
         }
 
         /* do the standard WordPress widget dance */
@@ -136,5 +136,18 @@ class tubepress_addons_wordpress_impl_DefaultWidgetHandler implements tubepress_
         $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
         $wpFunctionWrapper->check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
+    }
+
+    private function _dispatchErrorAndGetMessage(Exception $e)
+    {
+        $event = new tubepress_api_event_TubePressEvent($e, array(
+            'message' => $e->getMessage()
+        ));
+
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, $event);
+
+        return $event->getArgument('message');
     }
 }

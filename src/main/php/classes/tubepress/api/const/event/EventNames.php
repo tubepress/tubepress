@@ -80,6 +80,19 @@ class tubepress_api_const_event_EventNames
 
 
     /**
+     * This event is fired when TubePress encounters an error during processing and is
+     * about to return an error message to the screen.
+     *
+     * @subject Exception The caught error message.
+     *
+     * @arg string 'message' The message to be displayed to the user. May contain HTML.
+     */
+    const ERROR_EXCEPTION_CAUGHT = 'tubepress.core.error.exceptionCaught';
+
+
+
+
+    /**
      * This event is fired when TubePress builds the HTML for an embedded video player.
      *
      * @subject string The HTML for the embedded video player.

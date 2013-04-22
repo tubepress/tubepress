@@ -10,6 +10,9 @@
  */
 class tubepress_addons_wordpress_impl_DefaultContentFilterTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_wordpress_impl_DefaultContentFilter
+     */
     private $_sut;
 
     /**
@@ -37,6 +40,11 @@ class tubepress_addons_wordpress_impl_DefaultContentFilterTest extends TubePress
      */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultContentFilter();
@@ -46,10 +54,10 @@ class tubepress_addons_wordpress_impl_DefaultContentFilterTest extends TubePress
         $this->_mockShortcodeHtmlGenerator = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
         $this->_mockShortcodeParser        = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
         $this->_mockStorageManager         = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-
+        $this->_mockEventDispatcher        = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
     }
 
-    public function testContentFilter()
+    public function testNormalOperation()
     {
         $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
 
@@ -65,5 +73,26 @@ class tubepress_addons_wordpress_impl_DefaultContentFilterTest extends TubePress
         $this->assertEquals('html for shortcode', $this->_sut->filterContent('the content'));
     }
 
+    public function testErrorCondition()
+    {
+        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
 
+        $this->_mockShortcodeParser->shouldReceive('somethingToParse')->times(2)->with('the content', 'trigger word')->andReturn(true);
+        $this->_mockShortcodeParser->shouldReceive('somethingToParse')->once()->with('something bad happened', 'trigger word')->andReturn(false);
+
+        $exception = new Exception('something bad happened');
+
+        $this->_mockShortcodeHtmlGenerator->shouldReceive('getHtmlForShortcode')->once()->with('the content')->andThrow($exception);
+
+        $this->_mockExecutionContext->shouldReceive('getActualShortcodeUsed')->times(2)->andReturn('<current shortcode>');
+        $this->_mockExecutionContext->shouldReceive('reset')->once();
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, ehough_mockery_Mockery::on(function ($event) use ($exception) {
+
+            return $event instanceof tubepress_api_event_TubePressEvent && $event->getArgument('message') === $exception->getMessage()
+                && $event->getSubject() instanceof Exception;
+        }));
+
+        $this->assertEquals('something bad happened', $this->_sut->filterContent('the content'));
+    }
 }

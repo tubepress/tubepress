@@ -10,6 +10,9 @@
  */
 class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_wordpress_impl_DefaultWidgetHandler
+     */
     private $_sut;
 
     /**
@@ -57,6 +60,11 @@ class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
      */
     private $_mockWpFunctionWrapper;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultWidgetHandler();
@@ -70,6 +78,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
         $this->_mockShortCodeHtmlGenerator      = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_mockMessageService->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";
@@ -150,5 +159,49 @@ class tubepress_addons_wordpress_impl_WidgetTest extends TubePressUnitTest
         $this->_sut->registerWidget();
 
         $this->assertTrue(true);
+    }
+
+    public function testWidgetErrorCondition()
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('theme');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
+        $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with(array(
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE    => 3,
+            tubepress_api_const_options_names_Meta::VIEWS                  => false,
+            tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
+            tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'popup',
+            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT        => 105,
+            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH         => 22135,
+            tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE      => false,
+            tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW      => false,
+            tubepress_api_const_options_names_Thumbs::THEME               => 'sidebar',
+            tubepress_api_const_options_names_Thumbs::FLUID_THUMBS        => false
+        ));
+        $this->_mockExecutionContext->shouldReceive('reset')->once();
+
+        $this->_mockShortCodeHtmlGenerator->shouldReceive('getHtmlForShortcode')->once()->with('')->andThrow(new Exception('crazy stuff happened'));
+
+        $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('shortcode string');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, ehough_mockery_Mockery::on(function ($event) {
+
+            return $event instanceof tubepress_api_event_TubePressEvent && $event->getArgument('message') === 'crazy stuff happened'
+                && $event->getSubject() instanceof Exception;
+        }));
+
+        ob_start();
+        $this->_sut->printWidgetHtml(array(
+            'before_widget' => 'before_widget',
+            'before_title'  => 'before_title',
+            'after_title'   => 'after_title',
+            'after_widget'  => 'after_widget'
+        ));
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertEquals('before_widgetbefore_titlewidget titleafter_titlecrazy stuff happenedafter_widget', $contents);
     }
 }

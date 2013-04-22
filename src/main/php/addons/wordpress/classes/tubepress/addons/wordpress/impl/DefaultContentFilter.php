@@ -27,10 +27,10 @@ class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_
             return $content;
         }
 
-        return self::_getHtml($content, $trigger, $parser);
+        return $this->_getHtml($content, $trigger, $parser);
     }
 
-    private static function _getHtml($content, $trigger, tubepress_spi_shortcode_ShortcodeParser $parser)
+    private function _getHtml($content, $trigger, tubepress_spi_shortcode_ShortcodeParser $parser)
     {
         $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $gallery = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHtmlGenerator();
@@ -45,7 +45,7 @@ class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_
 
             } catch (Exception $e) {
 
-                $generatedHtml = $e->getMessage();
+                $generatedHtml = $this->_dispatchErrorAndGetMessage($e);
             }
 
             /* remove any leading/trailing <p> tags from the content */
@@ -64,6 +64,16 @@ class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_
         return $content;
     }
 
+    private function _dispatchErrorAndGetMessage(Exception $e)
+    {
+        $event = new tubepress_api_event_TubePressEvent($e, array(
+            'message' => $e->getMessage()
+        ));
 
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, $event);
+
+        return $event->getArgument('message');
+    }
 }
-
