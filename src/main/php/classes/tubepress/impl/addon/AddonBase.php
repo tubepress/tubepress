@@ -128,7 +128,7 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
 
     public function setClassMap(array $map)
     {
-        if (!tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
+        if (!empty($map) && !tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
 
             throw new InvalidArgumentException('Class map must be an associative array');
         }
