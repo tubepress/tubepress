@@ -15,7 +15,7 @@
 abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService implements tubepress_spi_provider_PluggableVideoProviderService
 {
     /**
-     * @var ehough_epilog_psr_LoggerInterface
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 
@@ -28,7 +28,6 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
      */
     public final function fetchVideoGalleryPage($currentPage)
     {
-        $this->_cacheLogger();
         $this->_cacheLogger();
 
         $result       = new tubepress_api_video_VideoGalleryPage();
