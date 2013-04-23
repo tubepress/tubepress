@@ -239,11 +239,6 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
     private function _getAbsolutePath($path, $manifestFilePath)
     {
-        if (is_dir($path)) {
-
-            return $path;
-        }
-
         return dirname($manifestFilePath) . DIRECTORY_SEPARATOR . $path;
     }
 }
