@@ -178,11 +178,6 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          */
         $coreIocContainer->compile();
 
-        /**
-         * Now that we have a storage manager, let's enable or disable logging permanently.
-         */
-        $this->_loggingSetupPhaseTwo();
-
         if ($this->_shouldLog) {
 
             $this->_logger->debug('Done compiling IoC container. Now loading add-ons.');
@@ -222,6 +217,11 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          */
         $eventDispatcher   = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
+
+        /**
+         * Now that we have a storage manager, let's enable or disable logging permanently.
+         */
+        $this->_loggingSetupPhaseTwo();
 
         if ($this->_shouldLog) {
 
@@ -502,7 +502,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
         $context          = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $hrps             = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $loggingEnabled   = $context->get(tubepress_api_const_options_names_Advanced::DEBUG_ON);
-        $loggingRequested = $hrps->hasParam('tubepress_debug') && strcasecmp($hrps->getParamValue('tubepress_debug'), 'true') === 0;
+        $loggingRequested = $hrps->hasParam('tubepress_debug') && $hrps->getParamValue('tubepress_debug') === true;
         $status           = $loggingEnabled && $loggingRequested;
 
         $this->_loggingHandler->setStatus($status);
