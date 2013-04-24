@@ -125,13 +125,13 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
                 break;
         }
 
-        $request = new ehough_curly_Url("http://gdata.youtube.com/feeds/api/$url");
+        $requestUrl = new ehough_curly_Url("http://gdata.youtube.com/feeds/api/$url");
 
-        $this->_urlPostProcessingCommon($execContext, $request);
+        $this->_urlPostProcessingCommon($execContext, $requestUrl);
 
-        $this->_urlPostProcessingGallery($execContext, $request, $currentPage);
+        $this->_urlPostProcessingGallery($execContext, $requestUrl, $currentPage);
 
-        return $request->toString();
+        return $this->_finishUrl($requestUrl, tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
     }
 
     /**
@@ -150,7 +150,22 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
         $this->_urlPostProcessingCommon($context, $requestURL);
 
-        return $requestURL->toString();
+        return $this->_finishUrl($requestURL, tubepress_addons_youtube_api_const_YouTubeEventNames::URL_SINGLE);
+    }
+
+    private function _finishUrl(ehough_curly_Url $url, $eventName)
+    {
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $event           = new tubepress_api_event_TubePressEvent($url);
+
+        $eventDispatcher->dispatch($eventName, $event);
+
+        /**
+         * @var $url ehough_curly_Url
+         */
+        $finalUrl = $event->getSubject();
+
+        return $finalUrl->toString();
     }
 
     private static function _replaceQuotes($text)

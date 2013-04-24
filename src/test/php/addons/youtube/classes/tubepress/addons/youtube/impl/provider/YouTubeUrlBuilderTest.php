@@ -20,10 +20,16 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
      */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
+
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder();
+        $this->_sut                  = new tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_addons_youtube_api_const_options_names_Feed::FILTER)->andReturn('moderate');
@@ -33,6 +39,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testSingleVideoUrl()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_SINGLE);
+
         $this->assertEquals(
 
             "http://gdata.youtube.com/feeds/api/videos/dfsdkjerufd?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg",
@@ -42,6 +50,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteUserMode()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -54,6 +64,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteTopRated()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -66,6 +78,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecutePopular()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -78,6 +92,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecutePlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -91,6 +107,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteMostResponded()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -102,6 +120,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteMostRecent()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -113,6 +133,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteTopFavorites()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -124,6 +146,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteMostDiscussed()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -135,6 +159,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteFavorites()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -147,6 +173,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteTagWithDoubleQuotes()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -160,6 +188,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteTagWithExclusion()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -173,6 +203,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteTagWithPipes()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -186,6 +218,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteTag()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -199,6 +233,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteTagWithUser()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -212,6 +248,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testexecuteFeatured()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
@@ -224,6 +262,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testNewestSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -236,6 +276,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testNewestSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -249,6 +291,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testViewsSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -261,6 +305,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testViewsSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -274,6 +320,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testRelevanceSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -286,6 +334,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testRelevanceSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -299,6 +349,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testRatingSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -311,6 +363,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testRatingSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -324,6 +378,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testPositionSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -336,6 +392,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testPositionSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -349,6 +407,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testCommentsSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -361,6 +421,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testCommentsSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -374,6 +436,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testDurationSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -386,6 +450,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testDurationSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -399,6 +465,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testRevPositionSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -411,6 +479,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testRevPositionSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -424,6 +494,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testTitleSortOrderNonPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
@@ -436,6 +508,8 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
     public function testTitleSortOrderPlaylist()
     {
+        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
+
         $this->expectOptions(array(
 
             tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
@@ -458,6 +532,14 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubeP
 
             $this->_mockExecutionContext->shouldReceive('get')->with($key)->andReturn($value);
         }
+    }
+
+    private function _setupEventDispatcher($evenName)
+    {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
+
+            return $event->getSubject() instanceof ehough_curly_Url;
+        }));
     }
 }
 

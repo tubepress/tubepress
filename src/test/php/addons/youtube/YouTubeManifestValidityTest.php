@@ -35,6 +35,7 @@ class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_impl_a
     private function _getExpectedClassMap()
     {
         return array(
+            'tubepress_addons_youtube_api_const_YouTubeEventNames' => 'classes/tubepress/addons/youtube/api/const/YouTubeEventNames.php',
             'tubepress_addons_youtube_api_const_options_names_Embedded' => 'classes/tubepress/addons/youtube/api/const/options/names/Embedded.php',
             'tubepress_addons_youtube_api_const_options_names_Feed' => 'classes/tubepress/addons/youtube/api/const/options/names/Feed.php',
             'tubepress_addons_youtube_api_const_options_names_GallerySource' => 'classes/tubepress/addons/youtube/api/const/options/names/GallerySource.php',
