@@ -15,10 +15,12 @@ class tubepress_impl_addon_AbstractManifestValidityTest extends TubePressUnitTes
         $mockFinderFactory = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
         $mockFinder        = $this->createMockSingletonService('ehough_finder_FinderInterface');
 
+        $mockFinder->shouldReceive('followLinks')->once()->andReturn($mockFinder);
         $mockFinder->shouldReceive('files')->once()->andReturn($mockFinder);
         $mockFinder->shouldReceive('in')->once()->with(dirname($pathToManifest))->andReturn($mockFinder);
         $mockFinder->shouldReceive('name')->once()->with('*.json')->andReturn($mockFinder);
         $mockFinder->shouldReceive('depth')->once()->with('< 2')->andReturn(array(new SplFileInfo($pathToManifest)));
+
 
         $mockFinderFactory->shouldReceive('createFinder')->once()->andReturn($mockFinder);
 

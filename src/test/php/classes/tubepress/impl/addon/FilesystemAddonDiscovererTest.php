@@ -42,6 +42,7 @@ class tubepress_impl_addon_FilesystemAddonDiscovererTest extends TubePressUnitTe
 
         $this->_splInfoArray = array();
 
+        $this->_mockFinder->shouldReceive('followLinks')->andReturn($this->_mockFinder);
         $this->_mockFinder->shouldReceive('files')->andReturn($this->_mockFinder);
         $this->_mockFinder->shouldReceive('name')->with('*.json')->andReturn($this->_mockFinder);
         $this->_mockFinder->shouldReceive('depth')->once()->with(0)->andReturnUsing(array($this, '_callback'));

@@ -40,7 +40,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
         $finderFactory = tubepress_impl_patterns_sl_ServiceLocator::getFileSystemFinderFactory();
 
-        $finder = $finderFactory->createFinder()->files()->in($directory)->name('*.json')->depth('< 2');
+        $finder = $finderFactory->createFinder()->followLinks()->files()->in($directory)->name('*.json')->depth('< 2');
 
         $toReturn = array();
 
