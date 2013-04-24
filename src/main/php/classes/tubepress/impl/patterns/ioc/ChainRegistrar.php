@@ -43,7 +43,7 @@ class tubepress_impl_patterns_ioc_ChainRegistrar
         self::registerChainDefinitionByReferences($container, $chainName, $references);
     }
 
-    public function buildChain()
+    public static function buildChain()
     {
         $chain    = new ehough_chaingang_impl_StandardChain();
         $commands = func_get_args();
