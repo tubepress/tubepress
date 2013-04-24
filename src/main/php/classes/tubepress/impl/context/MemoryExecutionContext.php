@@ -26,7 +26,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     private $_actualShortcodeUsed;
 
-    /** Logger. */
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     /**
@@ -94,7 +96,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
             if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
-                $this->_logger->debug(sprintf('Accepted valid value: %s = %s', $optionName, $filteredValue));
+                $this->_logger->debug(sprintf('Accepted valid value: %s = %s', $optionName, $this->_normalizeForStringOutput($filteredValue)));
             }
 
             $this->_customOptions[$optionName] = $filteredValue;
@@ -188,5 +190,15 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
         }
 
         return $map;
+    }
+
+    private function _normalizeForStringOutput($candidate)
+    {
+        if (is_array($candidate)) {
+
+            return json_encode($candidate);
+        }
+
+        return (string) $candidate;
     }
 }
