@@ -18,13 +18,22 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
 
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
     }
@@ -88,6 +97,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_SINGLE);
+
         $result = $this->_sut->buildSingleVideoUrl('444333');
         
         $this->assertTrue($this->urlMatches('method=vimeo.videos.getInfo&video_id=444333', $result));
@@ -102,6 +113,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
+
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
@@ -118,6 +131,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+
         $result = $this->_sut->buildGalleryUrl(1);
 
         $this->assertTrue($this->urlMatches('method=vimeo.videos.getAll&user_id=eric&full_response=true&page=1&per_page=20', $result));
@@ -132,6 +147,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+
         $result = $this->_sut->buildGalleryUrl(1);
 
         $this->assertTrue($this->urlMatches('method=vimeo.albums.getVideos&album_id=eric&full_response=true&page=1&per_page=20', $result));
@@ -145,6 +162,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
+
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
@@ -163,6 +182,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
 
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+
         $result = $this->_sut->buildGalleryUrl(1);
 
         $this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&full_response=true&page=1&per_page=20&sort=relevant', $result));
@@ -179,6 +200,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => 'ehough'
         ));
 
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+
         $result = $this->_sut->buildGalleryUrl(1);
 
         $this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&user_id=ehough&full_response=true&page=1&per_page=20&sort=relevant', $result));
@@ -193,6 +216,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
+
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
@@ -209,6 +234,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+
         $result = $this->_sut->buildGalleryUrl(1);
 
         $this->assertTrue($this->urlMatches('method=vimeo.videos.getLikes&user_id=eric&full_response=true&page=1&per_page=20&sort=most_liked', $result));
@@ -223,6 +250,8 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
             tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
+
+        $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
@@ -245,6 +274,14 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePress
 
             $this->_mockExecutionContext->shouldReceive('get')->with($key)->andReturn($value);
         }
+    }
+
+    private function _setupEventDispatcher($evenName)
+    {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
+
+            return $event->getSubject() instanceof ehough_curly_Url;
+        }));
     }
 }
 

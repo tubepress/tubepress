@@ -35,6 +35,7 @@ class tubepress_addons_core_VimeoManifestValidityTest extends tubepress_impl_add
     private function _getExpectedClassMap()
     {
         return array(
+            'tubepress_addons_vimeo_api_const_VimeoEventNames' => 'classes/tubepress/addons/vimeo/api/const/VimeoEventNames.php',
             'tubepress_addons_vimeo_api_const_options_names_Embedded' => 'classes/tubepress/addons/vimeo/api/const/options/names/Embedded.php',
             'tubepress_addons_vimeo_api_const_options_names_Feed' => 'classes/tubepress/addons/vimeo/api/const/options/names/Feed.php',
             'tubepress_addons_vimeo_api_const_options_names_GallerySource' => 'classes/tubepress/addons/vimeo/api/const/options/names/GallerySource.php',

@@ -51,7 +51,6 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
     private static $_SORT_RELEVANT      = 'relevant';
     private static $_SORT_NEWEST        = 'newest';
     private static $_SORT_OLDEST        = 'oldest';
-    private static $_SORT_RANDOM        = 'random';
 
     private static $_INI_ARG_SEPARATOR = 'arg_separator.input';
 
@@ -148,11 +147,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
             $params[self::$_PARAM_SORT] = $sort;
         }
 
-        $finalUrl = $this->_buildUrl($params, $execContext);
-
-        self::_restoreIniArgSeparator();
-
-        return $finalUrl;
+        return $this->_finishUrl($params, $execContext, tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
     }
 
     /**
@@ -176,11 +171,25 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         $params[self::$_PARAM_METHOD]   = self::$_METHOD_VIDEOS_GETINFO;
         $params[self::$_PARAM_VIDEO_ID] = $id;
 
-        $finalUrl = $this->_buildUrl($params, $execContext);
+        return $this->_finishUrl($params, $execContext, tubepress_addons_vimeo_api_const_VimeoEventNames::URL_SINGLE);
+    }
+
+    private function _finishUrl($params, tubepress_spi_context_ExecutionContext $execContext, $eventName)
+    {
+        $finalUrl        = $this->_buildUrl($params, $execContext);
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $event           = new tubepress_api_event_TubePressEvent(new ehough_curly_Url($finalUrl));
+
+        $eventDispatcher->dispatch($eventName, $event);
 
         self::_restoreIniArgSeparator();
 
-        return $finalUrl;
+        /**
+         * @var $url ehough_curly_Url
+         */
+        $url = $event->getSubject();
+
+        return $url->toString();
     }
 
     private function _getSort($mode, tubepress_spi_context_ExecutionContext $execContext)
