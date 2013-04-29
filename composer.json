@@ -24,7 +24,8 @@
         "ehough/tickertape":  "~2.0.0"
     },
     "require-dev": {
-        "ehough/mockery": "~1.0.0"
+        "ehough/mockery": "~1.0.0",
+        "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
         "psr-0": {

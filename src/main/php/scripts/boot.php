@@ -19,7 +19,10 @@ if (! function_exists('bootTubePress')) {
         /**
          * First, record the root path.
          */
-        define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+        if (!defined('TUBEPRESS_ROOT')) {
+
+            define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+        }
 
         /**
          * Second, we add our classloader.
@@ -41,13 +44,15 @@ if (! function_exists('bootTubePress')) {
          */
         $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
         $bootStrapper->boot($loader);
+
+        define('TUBEPRESS_BOOT_COMPLETE', true);
     }
 }
 
 /*
  * Don't boot twice.
  */
-if (!defined('TUBEPRESS_ROOT')) {
+if (!defined('TUBEPRESS_BOOT_COMPLETE')) {
 
     bootTubePress();
 }

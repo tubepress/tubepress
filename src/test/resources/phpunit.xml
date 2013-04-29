@@ -6,7 +6,7 @@
 	stopOnSkipped="false"
 	strict="true"
     processIsolation="false"
-    bootstrap="../php/bootstrap.php">
+    bootstrap="../../../vendor/autoload.php">
 	<testsuites>
 	   <testsuite name="TubePress tests">
 	       <directory>../php</directory>
