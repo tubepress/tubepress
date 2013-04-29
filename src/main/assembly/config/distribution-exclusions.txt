@@ -11,7 +11,6 @@ src/main/assembly/**
 tubepress.php
 vendor/autoload.php
 vendor/bin/**
-vendor/composer/**
 vendor/ehough/mockery/**
 vendor/phpunit/**
 vendor/symfony/**
