@@ -10,6 +10,8 @@ src/test/**
 src/main/assembly/**
 tubepress.php
 vendor/autoload.php
-vendor/composer/ClassLoader.php
-vendor/composer/installed*
-vendor/mockery/**
+vendor/bin/**
+vendor/composer/**
+vendor/ehough/mockery/**
+vendor/phpunit/**
+vendor/symfony/**
