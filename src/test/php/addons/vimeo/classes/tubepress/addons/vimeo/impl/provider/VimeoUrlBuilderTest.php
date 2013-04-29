@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends TubePressUnitTest
+class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tubepress_test_TubePressUnitTest
 {
     const PRE = "/http:\/\/vimeo.com\/api\/rest\/v2\?";
     const POST = "&format=php&oauth_consumer_key=vimeokey&oauth_nonce=[a-zA-Z0-9]+&oauth_signature_method=HMAC-SHA1&oauth_timestamp=[0-9]+&oauth_version=1.0&oauth_signature=[a-zA-Z0-9%]+/";

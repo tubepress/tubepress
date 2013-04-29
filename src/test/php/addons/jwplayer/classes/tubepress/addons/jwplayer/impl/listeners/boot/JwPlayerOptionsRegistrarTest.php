@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrarTest extends TubePressUnitTest
+class tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrarTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

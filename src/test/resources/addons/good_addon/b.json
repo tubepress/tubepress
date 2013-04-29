@@ -11,7 +11,7 @@
         { "url": "http://foo.bar" },
         { "url": "http://foo.com" }
     ],
-    "bootstrap": "tubepress_impl_addon_FilesystemAddonDiscovererTest",
+    "bootstrap": "tubepress_test_impl_addon_FilesystemAddonDiscovererTest",
     "description": "This is a description",
     "keywords": [ "one", "three", "two" ],
     "urls": {

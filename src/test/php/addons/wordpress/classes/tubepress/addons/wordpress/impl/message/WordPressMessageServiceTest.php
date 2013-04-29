@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_addons_wordpress_impl_message_WordPressMessageServiceTest extends TubePressUnitTest
+class tubepress_addons_wordpress_impl_message_WordPressMessageServiceTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_addons_wordpress_impl_message_WordPressMessageService

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f82a274d0ce43242e59bdd6fa40b2fd9",
+    "hash": "0109756baabf1d54b0c742008cb79281",
     "packages": [
         {
             "name": "ehough/chaingang",

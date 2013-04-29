@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_youtube_api_const_ConstantsTest extends TubePressUnitTest
+class tubepress_addons_youtube_api_const_ConstantsTest extends tubepress_test_TubePressUnitTest
 {
     public function testConstants()
     {

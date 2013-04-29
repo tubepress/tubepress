@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListenerTest extends TubePressUnitTest
+class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListenerTest extends tubepress_test_TubePressUnitTest
 {
     private static $_NAMESPACE_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     private static $_NAMESPACE_APP        = 'http://www.w3.org/2007/app';

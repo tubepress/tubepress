@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class_exists('tubepress_impl_addon_AbstractManifestValidityTest') ||
-    require dirname(__FILE__) . '/../../classes/tubepress/impl/addon/AbstractManifestValidityTest.php';
+class_exists('tubepress_test_impl_addon_AbstractManifestValidityTest') ||
+    require dirname(__FILE__) . '/../../classes/tubepress/test/impl/addon/AbstractManifestValidityTest.php';
 
-class tubepress_addons_core_EmbedPlusManifestValidityTest extends tubepress_impl_addon_AbstractManifestValidityTest
+class tubepress_addons_core_EmbedPlusManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
 {
     public function testManifest()
     {
