@@ -44,6 +44,7 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs' => 'classes/tubepress/addons/core/impl/listeners/html/EmbeddedPlayerApiJs.php',
             'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' => 'classes/tubepress/addons/core/impl/listeners/template/EmbeddedCoreVariables.php',
             'tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs' => 'classes/tubepress/addons/core/impl/listeners/html/ThumbGalleryBaseJs.php',
+            'tubepress_addons_core_impl_listeners_html_JsConfig' => 'classes/tubepress/addons/core/impl/listeners/html/JsConfig.php',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams' => 'classes/tubepress/addons/core/impl/listeners/cssjs/GalleryInitJsBaseParams.php',
             'tubepress_addons_core_impl_listeners_template_ThumbGalleryCoreVariables' => 'classes/tubepress/addons/core/impl/listeners/template/ThumbGalleryCoreVariables.php',
             'tubepress_addons_core_impl_listeners_template_ThumbGalleryEmbeddedImplName' => 'classes/tubepress/addons/core/impl/listeners/template/ThumbGalleryEmbeddedImplName.php',

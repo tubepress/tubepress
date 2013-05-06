@@ -132,6 +132,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
             array('tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper', 'tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper'),
             array('tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist', 'tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist'),
             array('tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender', 'tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender'),
+            array('tubepress_addons_core_impl_listeners_html_JsConfig','tubepress_addons_core_impl_listeners_html_JsConfig'),
         );
 
 

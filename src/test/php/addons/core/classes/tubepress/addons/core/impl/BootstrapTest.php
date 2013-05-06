@@ -150,6 +150,11 @@ class tubepress_addons_core_impl_BootstrapTest extends tubepress_test_TubePressU
                 array('tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender', 'onVideoGalleryPage')
             ),
 
+            tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS => array(
+
+                array('tubepress_addons_core_impl_listeners_html_JsConfig', 'onInlineJs')
+            ),
+
             ehough_shortstop_api_Events::REQUEST => array(
 
                 array('ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener', 'onPreRequest'),

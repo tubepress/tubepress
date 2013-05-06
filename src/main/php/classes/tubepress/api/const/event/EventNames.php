@@ -76,7 +76,15 @@ class tubepress_api_const_event_EventNames
      */
     const CSS_JS_STYLESHEET_TAG_TUBEPRESS = 'tubepress.core.cssjs.tubePressStylesheetTag';
 
-
+    /**
+     * This event is fired when TubePress builds the TubePressJsConfig object.
+     *
+     * @subject array An associative array of name => values that will be converted into JSON and applied as
+     *                global JS configuration for TubePress.
+     *
+     * @arg None
+     */
+    const CSS_JS_GLOBAL_JS_CONFIG = 'tubepress.core.cssjs.globalJsConfig';
 
 
     /**

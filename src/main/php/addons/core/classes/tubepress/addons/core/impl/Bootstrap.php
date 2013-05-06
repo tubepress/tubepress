@@ -115,6 +115,11 @@ class tubepress_addons_core_impl_Bootstrap
                 array('tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender', 'onVideoGalleryPage')
             ),
 
+            tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS => array(
+
+                array('tubepress_addons_core_impl_listeners_html_JsConfig', 'onInlineJs')
+            ),
+
             ehough_shortstop_api_Events::REQUEST => array(
 
                 array('ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener', 'onPreRequest'),

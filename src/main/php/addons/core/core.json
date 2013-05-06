@@ -31,6 +31,7 @@
             "tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener"                   : "classes/tubepress/addons/core/impl/listeners/cssjs/DefaultPathsListener.php",
             "tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams"                : "classes/tubepress/addons/core/impl/listeners/cssjs/GalleryInitJsBaseParams.php",
             "tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs"                     : "classes/tubepress/addons/core/impl/listeners/html/EmbeddedPlayerApiJs.php",
+            "tubepress_addons_core_impl_listeners_html_JsConfig"                                : "classes/tubepress/addons/core/impl/listeners/html/JsConfig.php",
             "tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs"                      : "classes/tubepress/addons/core/impl/listeners/html/ThumbGalleryBaseJs.php",
             "tubepress_addons_core_impl_listeners_options_ExternalInputStringMagic"             : "classes/tubepress/addons/core/impl/listeners/options/ExternalInputStringMagic.php",
             "tubepress_addons_core_impl_listeners_options_PreValidationOptionSetStringMagic"    : "classes/tubepress/addons/core/impl/listeners/options/PreValidationOptionSetStringMagic.php",

@@ -396,6 +396,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
             'tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener',
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs',
             'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables',
+            'tubepress_addons_core_impl_listeners_html_JsConfig',
             'tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
             'tubepress_addons_core_impl_listeners_template_ThumbGalleryCoreVariables',
