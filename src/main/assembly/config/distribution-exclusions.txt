@@ -11,6 +11,17 @@ src/main/assembly/**
 tubepress.php
 vendor/autoload.php
 vendor/bin/**
+vendor/ehough/chaingang/src/test/**
+vendor/ehough/contemplate/src/test/**
+vendor/ehough/curly/src/test/**
+vendor/ehough/epilog/src/test/**
+vendor/ehough/filesystem/src/test/**
+vendor/ehough/finder/src/test/**
+vendor/ehough/iconic/src/test/**
+vendor/ehough/pulsar/src/test/**
+vendor/ehough/shortstop/src/test/**
+vendor/ehough/stash/src/test/**
+vendor/ehough/tickertape/src/test/**
 vendor/ehough/mockery/**
 vendor/phpunit/**
 vendor/symfony/**
