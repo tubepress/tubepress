@@ -593,7 +593,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $this->_logger->debug(sprintf('Add-on blacklist: %s', TUBEPRESS_ADDON_BLACKLIST));
         }
 
-        $addOnBlacklistArray = preg_split('~\s*;\s*', TUBEPRESS_ADDON_BLACKLIST);
+        $addOnBlacklistArray = preg_split('~\s*;\s*~', TUBEPRESS_ADDON_BLACKLIST);
 
         for ($x = 0; $x < $addOnCount; $x++) {
 
@@ -611,7 +611,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('After blacklist processing, we now have %d add-on(s)', count($allAddons));
+            $this->_logger->debug(sprintf('After blacklist processing, we now have %d add-on(s)', count($allAddons)));
         }
 
         return $allAddons;
