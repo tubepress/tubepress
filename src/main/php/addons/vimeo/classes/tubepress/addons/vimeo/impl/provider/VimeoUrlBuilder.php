@@ -336,15 +336,15 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
 
     private static function _setIniArgSeparator()
     {
-    	/* Vimeo is sensitive to URL argument separators, so we have to set it to just '&' */
-    	if (ini_get(self::$_INI_ARG_SEPARATOR) !== '&') {
+        /* Vimeo is sensitive to URL argument separators, so we have to set it to just '&' */
+        if (ini_get(self::$_INI_ARG_SEPARATOR) !== '&') {
 
-    		@ini_set(self::$_INI_ARG_SEPARATOR, '&');
-    	}
+            @ini_set(self::$_INI_ARG_SEPARATOR, '&');
+        }
     }
 
     private static function _restoreIniArgSeparator()
     {
-    	@ini_restore(self::$_INI_ARG_SEPARATOR);
+        @ini_restore(self::$_INI_ARG_SEPARATOR);
     }
 }

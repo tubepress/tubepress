@@ -62,12 +62,12 @@ class tubepress_impl_util_LangUtils
      * <li>null: <code>N;</code></li>
      * </ul>
      *
-     * @author	Chris Smith <code+php@chris.cs278.org>, Frank Bültge <frank@bueltge.de>
-     * @copyright	Copyright (c) 2009 Chris Smith (http://www.cs278.org/), 2011 Frank Bültge (http://bueltge.de)
-     * @license	http://sam.zoy.org/wtfpl/ WTFPL
-     * @param	string	$value	Value to test for serialized form
-     * @param	mixed	$result	Result of unserialize() of the $value
-     * @return	boolean			True if $value is serialized data, otherwise false
+     * @author    Chris Smith <code+php@chris.cs278.org>, Frank Bültge <frank@bueltge.de>
+     * @copyright    Copyright (c) 2009 Chris Smith (http://www.cs278.org/), 2011 Frank Bültge (http://bueltge.de)
+     * @license    http://sam.zoy.org/wtfpl/ WTFPL
+     * @param    string    $value    Value to test for serialized form
+     * @param    mixed    $result    Result of unserialize() of the $value
+     * @return    boolean            True if $value is serialized data, otherwise false
      */
     public static function isSerialized($value, &$result = null)
     {
@@ -86,8 +86,8 @@ class tubepress_impl_util_LangUtils
             return true;
         }
 
-        $length	= strlen($value);
-        $end	= '';
+        $length    = strlen($value);
+        $end    = '';
 
         if (isset($value[0])) {
 

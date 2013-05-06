@@ -123,10 +123,10 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     public final function setCustomOptions(array $customOpts)
     {
-    	$this->_customOptions = array();
-    	$problemMessages      = array();
+        $this->_customOptions = array();
+        $problemMessages      = array();
 
-    	foreach ($customOpts as $key => $value) {
+        foreach ($customOpts as $key => $value) {
 
             $result = $this->set($key, $value);
 
@@ -136,9 +136,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
             }
 
             $problemMessages[] = $result;
-    	}
+        }
 
-    	return $problemMessages;
+        return $problemMessages;
     }
 
     /**

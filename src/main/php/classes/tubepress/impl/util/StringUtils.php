@@ -35,7 +35,7 @@ class tubepress_impl_util_StringUtils
 
     public static function removeNewLines($string)
     {
-    	return str_replace(array("\r\n", "\r", "\n"), '', $string);
+        return str_replace(array("\r\n", "\r", "\n"), '', $string);
     }
 
     /**

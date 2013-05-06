@@ -101,7 +101,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                 $pagination .= $this->_buildAnchorOpener($newurl, true, $prev);
                 $pagination .= "&laquo; " .
                     $messageService->_('prev') .                                     //>(translatable)<
-                	'</a>';
+                    '</a>';
             }
 
             if ($lastpage < 7 + ($adjacents * 2)) {
@@ -197,11 +197,11 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                 $newurl      = $url->toString();
                 $pagination .= $this->_buildAnchorOpener($newurl, true, $next);
                 $pagination .= $messageService->_('next') .             //>(translatable)<
-                	' &raquo;</a>';
+                    ' &raquo;</a>';
             } else {
                 $pagination .= '<span class="disabled">' .
                     $messageService->_('next') .             //>(translatable)<
-                	' &raquo;</span>';
+                    ' &raquo;</span>';
             }
             $pagination .= "</div>\n";
         }

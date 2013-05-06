@@ -26,7 +26,7 @@ class tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs
 
         if (! $context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)) {
 
-        	return;
+            return;
         }
 
         $html    = $event->getSubject();

@@ -21,41 +21,41 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Video Blacklister');
     }
 
-	public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
-	{
-		$videos         = $event->getSubject()->getVideos();
-		$context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-		$blacklist      = $context->get(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
-		$videosToKeep   = array();
-		$blacklistCount = 0;
+    public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
+    {
+        $videos         = $event->getSubject()->getVideos();
+        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $blacklist      = $context->get(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
+        $videosToKeep   = array();
+        $blacklistCount = 0;
 
-		foreach ($videos as $video) {
+        foreach ($videos as $video) {
 
-			$id = $video->getId();
+            $id = $video->getId();
 
-			/* keep videos without an ID or that aren't blacklisted */
-			if (!isset($id) || $this->_isNotBlacklisted($id, $blacklist)) {
-				$videosToKeep[] = $video;
-			} else {
-			    $blacklistCount++;
-			}
-		}
+            /* keep videos without an ID or that aren't blacklisted */
+            if (!isset($id) || $this->_isNotBlacklisted($id, $blacklist)) {
+                $videosToKeep[] = $video;
+            } else {
+                $blacklistCount++;
+            }
+        }
 
-		/* modify the feed result */
-		$event->getSubject()->setVideos($videosToKeep);
-	}
+        /* modify the feed result */
+        $event->getSubject()->setVideos($videosToKeep);
+    }
 
-	protected function _isNotBlacklisted($id, $blacklist)
-	{
-		if (strpos($blacklist, $id) !== false) {
+    protected function _isNotBlacklisted($id, $blacklist)
+    {
+        if (strpos($blacklist, $id) !== false) {
 
             if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
                 $this->_logger->debug(sprintf('Video with ID %s is blacklisted. Skipping it.', $id));
             }
 
-	        return false;
-	    }
-		return true;
-	}
+            return false;
+        }
+        return true;
+    }
 }

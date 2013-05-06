@@ -14,7 +14,7 @@
  */
 interface tubepress_spi_options_ui_FormHandler
 {
-	const _ = 'tubepress_spi_options_ui_FormHandler';
+    const _ = 'tubepress_spi_options_ui_FormHandler';
 
     /**
      * Generates the HTML for the options form.
