@@ -58,6 +58,11 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
      */
     public function getUserContentDirectory()
     {
+        if (defined('TUBEPRESS_CONTENT_DIRECTORY')) {
+
+            return TUBEPRESS_CONTENT_DIRECTORY;
+        }
+
         if ($this->isWordPress()) {
 
             if (! defined('WP_CONTENT_DIR' )) {
