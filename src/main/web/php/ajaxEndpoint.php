@@ -21,7 +21,7 @@ if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !
 /**
  * Boot tubepress.
  */
-require 'boot.php';
+require '../../php/scripts/boot.php';
 
 /**
  * Hand off the request to the Ajax handler.

@@ -562,7 +562,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                         'tubepress_video' : videoId
                     },
 
-                    url = environment.getBaseUrl() + 'src/main/php/scripts/ajaxEndpoint.php',
+                    url = environment.getBaseUrl() + 'src/main/web/php/ajaxEndpoint.php',
                     method;
 
                 /**
