@@ -127,18 +127,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $this->_logger->debug('Booting!');
         }
 
-        $addonDiscoverer = tubepress_impl_patterns_sl_ServiceLocator::getAddonDiscoverer();
-        $addonLoader     = tubepress_impl_patterns_sl_ServiceLocator::getAddonLoader();
-
-        /* load add-ons */
-        $systemAddons = $this->_findSystemAddons($addonDiscoverer);
-        $userAddons   = $this->_findUserAddons($addonDiscoverer);
-        $allAddons    = array_merge($systemAddons, $userAddons);
+        $allAddons = $this->_findAllAddons();
 
         if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Found %d add-ons (%d system and %d user)',
-                count($allAddons), count($systemAddons), count($userAddons)));
 
             $this->_logger->debug('Now registering add-on class hints');
         }
@@ -183,8 +174,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
             $this->_logger->debug('Done compiling IoC container. Now loading add-ons.');
         }
 
-        $index = 1;
-        $count = count($allAddons);
+        $index       = 1;
+        $count       = count($allAddons);
+        $addonLoader = tubepress_impl_patterns_sl_ServiceLocator::getAddonLoader();
 
         /**
          * Load addons.
@@ -573,5 +565,55 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
             $this->_logger->debug('Done including classmap from ' . $classMapFile);
         }
+    }
+
+    private function _findAllAddons()
+    {
+        $addonDiscoverer = tubepress_impl_patterns_sl_ServiceLocator::getAddonDiscoverer();
+
+        /* load add-ons */
+        $systemAddons = $this->_findSystemAddons($addonDiscoverer);
+        $userAddons   = $this->_findUserAddons($addonDiscoverer);
+        $allAddons    = array_merge($systemAddons, $userAddons);
+        $addOnCount   = count($allAddons);
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Found %d add-ons (%d system and %d user)',
+                $addOnCount, count($systemAddons), count($userAddons)));
+        }
+
+        if (!defined('TUBEPRESS_ADDON_BLACKLIST')) {
+
+            return $allAddons;
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Add-on blacklist: %s', TUBEPRESS_ADDON_BLACKLIST));
+        }
+
+        $addOnBlacklistArray = preg_split('~\s*;\s*', TUBEPRESS_ADDON_BLACKLIST);
+
+        for ($x = 0; $x < $addOnCount; $x++) {
+
+            /**
+             * @var $addon tubepress_spi_addon_Addon
+             */
+            $addon     = $allAddons[$x];
+            $addonName = $addon->getName();
+
+            if (in_array($addonName, $addOnBlacklistArray)) {
+
+                unset($allAddons[$x]);
+            }
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug('After blacklist processing, we now have %d add-on(s)', count($allAddons));
+        }
+
+        return $allAddons;
     }
 }
