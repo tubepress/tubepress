@@ -41,7 +41,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
 
         $this->_sut->onJqueryScriptTag($event);
 
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/vendor/jquery-1.8.3.min.js"></script>', $event->getSubject());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/vendor/jquery-1.9.1.min.js"></script>', $event->getSubject());
     }
 
     public function testTubePressScriptTag()

@@ -14,7 +14,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $baseUrl             = $environmentDetector->getBaseUrl();
-        $raw                 = sprintf('<script type="text/javascript" src="%s/src/main/web/vendor/jquery-1.8.3.min.js"></script>',
+        $raw                 = sprintf('<script type="text/javascript" src="%s/src/main/web/vendor/jquery-1.9.1.min.js"></script>',
             $baseUrl);
 
         $event->setSubject($raw);
