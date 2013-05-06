@@ -28,6 +28,13 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta
 
             $optionDescriptor = $optionDescriptorReference->findOneByName($metaName);
 
+            if (!$optionDescriptor) {
+
+                $shouldShow[$metaName] = false;
+                $labels[$metaName]     = '';
+                continue;
+            }
+
             $shouldShow[$metaName] = $context->get($metaName);
             $labels[$metaName]     = $messageService->_($optionDescriptor->getLabel());
         }
