@@ -10,7 +10,7 @@
  * @author Eric D. Hough (eric@tubepress.org)
  */
 
-/*global jQuery, TubePressGlobalJsConfig, YT, Froogaloop, console */
+/*global jQuery, console */
 /*jslint devel: true, browser: true, sloppy: false, white: true, maxerr: 50, indent: 4 */
 
 /**
@@ -30,11 +30,16 @@ var TubePress = (function (jquery, win) {
      * Let's start with some variable declarations to help us with compression.
      */
     var text_tubepress    = 'tubepress',
+        text_urls         = 'urls',
+        text_base         = 'base',
+        text_sys          = 'sys',
+        text_js           = 'js',
         windowLocation    = win.location,
         dokument          = win.document,
         troo              = true,
         coreJsPrefix      = 'src/main/web/js',
         jquery_isFunction = jquery.isFunction,
+        tubePressJsConfig = win.TubePressJsConfig,
 
         /**
          * Random language utilities.
@@ -85,14 +90,40 @@ var TubePress = (function (jquery, win) {
 
                     /** Keep waiting... */
                     setTimeout(func, delay);
+                },
+
+                //http://stackoverflow.com/questions/2631001/javascript-test-for-existence-of-nested-object-key
+                hasOwnNestedProperty = function (o) {
+
+                    if (!o) {
+
+                        return false;
+                    }
+
+                    var args = Array.prototype.slice.call(arguments),
+                        obj  = args.shift(),
+                        i;
+
+                    for (i = 0; i < args.length; i += 1) {
+
+                        if (!obj.hasOwnProperty(args[i])) {
+
+                            return false;
+                        }
+
+                        obj = obj[args[i]];
+                    }
+
+                    return true;
                 };
 
             return {
 
-                isDefined          : isDefined,
-                getParameterByName : getParameterByName,
-                parseIntOrZero     : parseIntOrZero,
-                callWhenTrue       : callWhenTrue
+                isDefined            : isDefined,
+                getParameterByName   : getParameterByName,
+                parseIntOrZero       : parseIntOrZero,
+                callWhenTrue         : callWhenTrue,
+                hasOwnNestedProperty : hasOwnNestedProperty
             };
         }()),
 
@@ -149,19 +180,26 @@ var TubePress = (function (jquery, win) {
 
                     if (!alreadyCalculatedBaseUrl) {
 
-                        //http://stackoverflow.com/questions/2161159/get-script-path
-                        var scripts = dokument.getElementsByTagName('script'),
-                            x       = 0,
-                            scriptSrc;
+                        if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_base)) {
 
-                        for (x; x < scripts.length; x += 1) {
+                            cachedBaseUrl = tubePressJsConfig[text_urls][text_base];
 
-                            scriptSrc = scripts[x].src;
+                        } else {
 
-                            if (scriptSrc.indexOf('/' + text_tubepress + '.js') !== -1) {
+                            //http://stackoverflow.com/questions/2161159/get-script-path
+                            var scripts = dokument.getElementsByTagName('script'),
+                                x       = 0,
+                                scriptSrc;
 
-                                cachedBaseUrl = scriptSrc.substr(0, scriptSrc.lastIndexOf('/')).split('?')[0].replace(coreJsPrefix, '');
-                                break;
+                            for (x; x < scripts.length; x += 1) {
+
+                                scriptSrc = scripts[x].src;
+
+                                if (scriptSrc.indexOf('/' + text_tubepress + '.js') !== -1) {
+
+                                    cachedBaseUrl = scriptSrc.substr(0, scriptSrc.lastIndexOf('/')).split('?')[0].replace(coreJsPrefix, '');
+                                    break;
+                                }
                             }
                         }
                     }
@@ -302,19 +340,31 @@ var TubePress = (function (jquery, win) {
                     dokument.getElementsByTagName('head')[0].appendChild(script);
                 },
 
+                loadSystemScript = function (scriptName) {
+
+                    if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_js, text_sys, scriptName)) {
+
+                        loadJs(tubePressJsConfig[text_urls][text_js][text_sys][scriptName]);
+
+                    } else {
+
+                        loadJs(coreJsPrefix + '/' + scriptName + '.js');
+                    }
+                },
+
                 loadGalleryJs = function () {
 
-                    loadJs(coreJsPrefix + '/gallery.js');
+                    loadSystemScript('gallery');
                 },
 
                 loadPlayerApiJs = function () {
 
-                    loadJs(coreJsPrefix + '/playerApi.js');
+                    loadSystemScript('playerApi');
                 },
 
                 loadAjaxSearchJs = function () {
 
-                    loadJs(coreJsPrefix + '/ajaxSearch.js');
+                    loadSystemScript('ajaxSearch');
                 };
 
             return {
