@@ -31,7 +31,7 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);
 
         $templateEvent = new tubepress_api_event_TubePressEvent($template);
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS, $templateEvent);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_ALL, $templateEvent);
 
         $template = $templateEvent->getSubject();
 

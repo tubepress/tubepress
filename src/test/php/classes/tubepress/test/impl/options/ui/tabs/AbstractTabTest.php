@@ -30,12 +30,18 @@ abstract class tubepress_test_impl_options_ui_tabs_AbstractTabTest extends tubep
      */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
+
     public function onSetup()
     {
         $ms                             = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockFieldBuilder        = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEventDispatcher     = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         $ms->shouldReceive('_')->andReturnUsing( function ($key) {
 
@@ -68,6 +74,13 @@ abstract class tubepress_test_impl_options_ui_tabs_AbstractTabTest extends tubep
         $template->shouldReceive('toString')->once()->andReturn('final result');
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
+
+        $tabName = $this->_sut->getName();
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_SINGLE, ehough_mockery_Mockery::on(function ($event) use ($tabName) {
+
+            return $event instanceof tubepress_api_event_TubePressEvent && $event->getArgument('tabName') === $tabName;
+        }));
 
         $this->assertEquals('final result', $this->_sut->getHtml());
     }

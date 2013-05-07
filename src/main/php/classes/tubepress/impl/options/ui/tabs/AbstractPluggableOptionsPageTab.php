@@ -37,11 +37,15 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     public final function getHtml()
     {
         $templateBuilder         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $eventDispatcher         = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template                = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
         $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
         $environmentDetector     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $tabParticipants         = array();
 
+        /**
+         * @var $optionsPageParticipant tubepress_spi_options_ui_PluggableOptionsPageParticipant
+         */
         foreach ($optionsPageParticipants as $optionsPageParticipant) {
 
             if (count($optionsPageParticipant->getFieldsForTab($this->getName())) > 0) {
@@ -55,6 +59,11 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
         $template->setVariable(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $environmentDetector->getBaseUrl());
 
         $this->addToTemplate($template);
+
+        $templateEvent = new tubepress_api_event_TubePressEvent($template, array('tabName' => $this->getName()));
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_SINGLE, $templateEvent);
+
+        $template = $templateEvent->getSubject();
 
         return $template->toString();
     }
@@ -70,6 +79,9 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
 
         $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
 
+        /**
+         * @var $optionsPageParticipant tubepress_spi_options_ui_PluggableOptionsPageParticipant
+         */
         foreach ($optionsPageParticipants as $optionsPageParticipant) {
 
             $fields = array_merge($fields, $optionsPageParticipant->getFieldsForTab($this->getName()));
