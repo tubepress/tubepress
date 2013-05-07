@@ -129,6 +129,6 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
-        return $environmentDetector->getBaseUrl() . '/' . $player->getRelativePlayerJsUrl();
+        return $environmentDetector->getBaseUrl() . '/' . trim($player->getRelativePlayerJsUrl(), '/');
     }
 }

@@ -115,6 +115,16 @@ var TubePress = (function (jquery, win) {
                     }
 
                     return true;
+                },
+
+                trimSlashes = function (haystack, leading) {
+
+                    if (leading) {
+
+                        return haystack.replace(/^\/+/, '');
+                    }
+
+                    return haystack.replace(/\/+$/, '');
                 };
 
             return {
@@ -123,7 +133,8 @@ var TubePress = (function (jquery, win) {
                 getParameterByName   : getParameterByName,
                 parseIntOrZero       : parseIntOrZero,
                 callWhenTrue         : callWhenTrue,
-                hasOwnNestedProperty : hasOwnNestedProperty
+                hasOwnNestedProperty : hasOwnNestedProperty,
+                trimSlashes          : trimSlashes
             };
         }()),
 
@@ -182,7 +193,7 @@ var TubePress = (function (jquery, win) {
 
                         if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_base)) {
 
-                            cachedBaseUrl = tubePressJsConfig[text_urls][text_base];
+                            cachedBaseUrl = langUtils.trimSlashes(tubePressJsConfig[text_urls][text_base], false);
 
                         } else {
 
@@ -197,7 +208,7 @@ var TubePress = (function (jquery, win) {
 
                                 if (scriptSrc.indexOf('/' + text_tubepress + '.js') !== -1) {
 
-                                    cachedBaseUrl = scriptSrc.substr(0, scriptSrc.lastIndexOf('/')).split('?')[0].replace(coreJsPrefix, '');
+                                    cachedBaseUrl = langUtils.trimSlashes(scriptSrc.substr(0, scriptSrc.lastIndexOf('/')).split('?')[0].replace(coreJsPrefix, ''), false);
                                     break;
                                 }
                             }
@@ -216,10 +227,9 @@ var TubePress = (function (jquery, win) {
 
                         return tubePressJsConfig[text_urls][text_php][text_sys][text_ajaxEndpoint];
 
-                    } else {
-
-                        return getBaseUrl() + 'src/main/web/php/' + text_ajaxEndpoint + '.php';
                     }
+
+                    return getBaseUrl() + '/src/main/web/php/' + text_ajaxEndpoint + '.php';
                 };
 
             return {
@@ -296,7 +306,7 @@ var TubePress = (function (jquery, win) {
                         return url;
                     }
 
-                    return environment.getBaseUrl() + url;
+                    return environment.getBaseUrl() + '/' + langUtils.trimSlashes(url, true);
                 },
 
                 doLog = function (path, type) {

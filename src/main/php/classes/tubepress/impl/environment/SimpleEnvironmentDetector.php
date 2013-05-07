@@ -60,7 +60,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
     {
         if (defined('TUBEPRESS_CONTENT_DIRECTORY')) {
 
-            return TUBEPRESS_CONTENT_DIRECTORY;
+            return rtrim(TUBEPRESS_CONTENT_DIRECTORY, DIRECTORY_SEPARATOR);
         }
 
         if ($this->isWordPress()) {
@@ -70,11 +70,11 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
                 define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
             }
 
-            return WP_CONTENT_DIR . '/tubepress-content';
+            return WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'tubepress-content';
 
         } else {
 
-            return TUBEPRESS_ROOT . '/tubepress-content';
+            return TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'tubepress-content';
         }
     }
 
@@ -103,6 +103,6 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
             $url = new ehough_curly_Url($url);
         }
 
-        $this->_baseUrl = $url->toString();
+        $this->_baseUrl = rtrim($url->toString(), '/');
     }
 }
