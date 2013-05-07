@@ -225,6 +225,13 @@ class tubepress_api_const_event_EventNames
     const TEMPLATE_OPTIONS_UI_MAIN = 'tubepress.core.template.options.ui.main';
 
     /**
+     * This event is fired when TubePress generates the template for the options UI tabs.
+     *
+     * @subject ehough_contemplate_api_Template The options UI tabs template.
+     */
+    const TEMPLATE_OPTIONS_UI_TABS = 'tubepress.core.template.options.ui.tabs';
+
+    /**
      * This event is fired when a TubePress builds the PHP/HTML template for a TubePress
      * "player".
      *

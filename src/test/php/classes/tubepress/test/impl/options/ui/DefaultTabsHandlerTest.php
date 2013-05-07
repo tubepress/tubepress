@@ -10,15 +10,27 @@
  */
 class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_test_TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_options_ui_DefaultTabsHandler
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplateBuilder;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
 
     private $_expectedTabs = array();
 
     public function onSetup()
     {
         $this->_mockTemplateBuilder = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
 
         for ($x = 0; $x < 8; $x++) {
 
@@ -31,6 +43,10 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
     public function testSubmitWithErrors()
     {
         $x = 1;
+
+        /**
+         * @var $tab ehough_mockery_mockery_MockInterface
+         */
         foreach ($this->_expectedTabs as $tab) {
 
             $tab->shouldReceive('onSubmit')->once()->andReturn(array($x++));
@@ -43,6 +59,9 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
 
     public function testSubmit()
     {
+        /**
+         * @var $tab ehough_mockery_mockery_MockInterface
+         */
         foreach ($this->_expectedTabs as $tab) {
 
             $tab->shouldReceive('onSubmit')->once();
@@ -56,6 +75,11 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
         $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS, $this->_expectedTabs);
         $template->shouldReceive('toString')->once()->andReturn('foobar');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS, ehough_mockery_Mockery::on(function ($event) {
+
+            return $event instanceof tubepress_api_event_TubePressEvent;
+        }));
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php')->andReturn($template);
 

@@ -24,10 +24,16 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
     public final function getHtml()
     {
         $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php');
         $tabs            = $this->getDelegateFormHandlers();
 
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);
+
+        $templateEvent = new tubepress_api_event_TubePressEvent($template);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS, $templateEvent);
+
+        $template = $templateEvent->getSubject();
 
         return $template->toString();
     }
