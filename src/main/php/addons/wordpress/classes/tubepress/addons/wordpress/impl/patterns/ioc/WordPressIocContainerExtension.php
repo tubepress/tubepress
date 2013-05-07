@@ -145,7 +145,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
 
             $tabsId, $tabsId
 
-        );
+        )->addArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php');
 
         $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
 

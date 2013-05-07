@@ -17,6 +17,16 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
     const TEMPLATE_VAR_TABS = 'tubepress_impl_options_ui_DefaultTabsHandler__tabs';
 
     /**
+     * @var string
+     */
+    private $_templatePath;
+
+    public function __construct($templatePath)
+    {
+        $this->_templatePath = $templatePath;
+    }
+
+    /**
      * Generates the HTML for the "meat" of the options form.
      *
      * @return string The HTML for the options form.
@@ -25,7 +35,7 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
     {
         $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php');
+        $template        = $templateBuilder->getNewTemplateInstance($this->_templatePath);
         $tabs            = $this->getDelegateFormHandlers();
 
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);

@@ -37,7 +37,7 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
             $this->_expectedTabs[] = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
         }
 
-        $this->_sut = new tubepress_impl_options_ui_DefaultTabsHandler();
+        $this->_sut = new tubepress_impl_options_ui_DefaultTabsHandler('some pathh');
     }
 
     public function testSubmitWithErrors()
@@ -81,7 +81,7 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
             return $event instanceof tubepress_api_event_TubePressEvent;
         }));
 
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('some pathh')->andReturn($template);
 
         $this->assertEquals('foobar', $this->_sut->getHtml());
     }
