@@ -32,7 +32,6 @@ var TubePressGallery = (function (jquery, win, tubepress) {
         text_urls                         = 'urls',
         text_sys                          = 'sys',
         text_js                           = 'js',
-        text_php                          = 'php',
         beacon                            = tubepress.Beacon,
         subscribe                         = beacon.subscribe,
         publish                           = beacon.publish,
@@ -575,18 +574,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                         'tubepress_video' : videoId
                     },
 
-                    text_ajaxEndpoint = 'ajaxEndpoint',
-                    ajaxEndpointUrl,
                     method;
-
-                if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_php, text_sys, text_ajaxEndpoint)) {
-
-                    ajaxEndpointUrl = tubePressJsConfig[text_urls][text_php][text_sys][text_ajaxEndpoint];
-
-                } else {
-
-                    ajaxEndpointUrl = environment.getBaseUrl() + 'src/main/web/php/' + text_ajaxEndpoint + '.php';
-                }
 
                 /**
                  * Add the NVPs for TubePress to the data.
@@ -602,7 +590,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                     method = galleryRegistry.getHttpMethod(galleryId);
 
                     /* ... and fetch the HTML for it */
-                    tubepress.Ajax.Executor.get(method, ajaxEndpointUrl, dataToSend, callback, 'json');
+                    tubepress.Ajax.Executor.get(method, environment.getAjaxEndpointUrl(), dataToSend, callback, 'json');
                 }
             };
 

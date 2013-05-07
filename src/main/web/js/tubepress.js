@@ -205,11 +205,27 @@ var TubePress = (function (jquery, win) {
                     }
 
                     return cachedBaseUrl;
+                },
+
+                getAjaxEndpointUrl = function () {
+
+                    var text_ajaxEndpoint = 'ajaxEndpoint',
+                        text_php          = 'php';
+
+                    if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_php, text_sys, text_ajaxEndpoint)) {
+
+                        return tubePressJsConfig[text_urls][text_php][text_sys][text_ajaxEndpoint];
+
+                    } else {
+
+                        return getBaseUrl() + 'src/main/web/php/' + text_ajaxEndpoint + '.php';
+                    }
                 };
 
             return {
 
-                getBaseUrl : getBaseUrl
+                getBaseUrl         : getBaseUrl,
+                getAjaxEndpointUrl : getAjaxEndpointUrl
             };
         }()),
 
