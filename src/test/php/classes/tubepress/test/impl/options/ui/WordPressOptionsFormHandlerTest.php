@@ -73,7 +73,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
     {
         $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/some path')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('some path')->andReturn($template);
 
         $this->_mockMessageService->shouldReceive('_')->once()->with('Save')->andReturn('<<save>>');
 

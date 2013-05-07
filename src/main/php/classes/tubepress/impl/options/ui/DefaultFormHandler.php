@@ -58,7 +58,7 @@ class tubepress_impl_options_ui_DefaultFormHandler extends tubepress_impl_option
         $messageService  = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $templateBldr    = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $template        = $templateBldr->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->_templatePath);
+        $template        = $templateBldr->getNewTemplateInstance($this->_templatePath);
 
         $template->setVariable(self::TEMPLATE_VAR_SAVE_TEXT, $messageService->_('Save'));                                                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');

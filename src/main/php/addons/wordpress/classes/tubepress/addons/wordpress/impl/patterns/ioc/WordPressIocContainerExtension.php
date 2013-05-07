@@ -149,7 +149,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
 
         )->addArgument(new ehough_iconic_Reference($tabsId))
          ->addArgument(new ehough_iconic_Reference($filterId))
-         ->addArgument('src/main/php/addons/wordpress/resources/templates/options_page.tpl.php');
+         ->addArgument(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/resources/templates/options_page.tpl.php');
 
         $container->setDefinition('tubepress_impl_options_ui_DefaultFormHandler', $definition);
     }
