@@ -20,11 +20,16 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipantTest exten
      */
     private $_mockFieldBuilder;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEventDispatcher;
+
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant();
-
-        $this->_mockFieldBuilder = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_sut                 = new tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant();
+        $this->_mockFieldBuilder    = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
     }
 
     public function testCacheTab()
@@ -153,6 +158,11 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipantTest exten
             $order[] = $val;
             $this->_mockFieldBuilder->shouldReceive('build')->once()->with($key, $value)->andReturn($val);
         }
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, ehough_mockery_Mockery::on(function ($event) {
+
+            return $event instanceof tubepress_api_event_TubePressEvent && is_array($event->getSubject()) && $event->getArgument('participant') instanceof tubepress_spi_options_ui_PluggableOptionsPageParticipant;
+        }));
 
         $result = $this->_sut->getFieldsForTab($tabName);
 

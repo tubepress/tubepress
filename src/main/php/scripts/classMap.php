@@ -252,6 +252,7 @@ return array(
     'tubepress_impl_options_DefaultOptionDescriptorReference'             => $implPrefix . '/options/DefaultOptionDescriptorReference.php',
     'tubepress_impl_options_DefaultOptionValidator'                       => $implPrefix . '/options/DefaultOptionValidator.php',
     'tubepress_impl_options_ui_AbstractDelegatingFormHandler'             => $implPrefix . '/options/ui/AbstractDelegatingFormHandler.php',
+    'tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant'   => $implPrefix . '/options/ui/AbstractPluggableOptionsPageParticipant.php',
     'tubepress_impl_options_ui_DefaultFormHandler'                        => $implPrefix . '/options/ui/DefaultFormHandler.php',
     'tubepress_impl_options_ui_DefaultFieldBuilder'                       => $implPrefix . '/options/ui/DefaultFieldBuilder.php',
     'tubepress_impl_options_ui_DefaultTabsHandler'                        => $implPrefix . '/options/ui/DefaultTabsHandler.php',

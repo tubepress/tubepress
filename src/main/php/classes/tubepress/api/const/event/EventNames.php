@@ -201,7 +201,16 @@ class tubepress_api_const_event_EventNames
      */
     const OPTIONS_NVP_PREVALIDATIONSET = 'tubepress.core.options.nvp.preValidationSet';
 
-
+    /**
+     * This event is fired when TubePress retrieves the fields that will be displayed
+     * on a tab.
+     *
+     * @subject array The array of fields for this tab.
+     *
+     * @arg tubepress_spi_options_ui_PluggableOptionsPageParticipant 'participant' The options page participant.
+     * @arg string                                                   'tabName'     The name of the tab.
+     */
+    const OPTIONS_UI_FIELDS_FOR_TAB = 'tubepress.core.options.ui.fieldsForTab';
 
 
     /**

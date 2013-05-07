@@ -12,14 +12,14 @@
 /**
  * Plugs Vimeo into the options page.
  */
-class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant implements tubepress_spi_options_ui_PluggableOptionsPageParticipant
+class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant extends tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
 {
     /**
      * @param string $tabName The name of the tab being built.
      *
      * @return array An array of fields that should be shown on the given tab. May be empty, never null.
      */
-    public final function getFieldsForTab($tabName)
+    public final function doGetFieldsForTab($tabName)
     {
         $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
 

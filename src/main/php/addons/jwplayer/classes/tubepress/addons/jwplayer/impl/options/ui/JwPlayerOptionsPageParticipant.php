@@ -12,7 +12,7 @@
 /**
  * Hooks JW Player into TubePress.
  */
-class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant implements tubepress_spi_options_ui_PluggableOptionsPageParticipant
+class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant extends tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
 {
     /**
      * @return string The name that will be displayed in the options page filter (top right).
@@ -35,7 +35,7 @@ class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant i
      *
      * @return array An array of fields that should be shown on the given tab. May be empty, never null.
      */
-    public final function getFieldsForTab($tabName)
+    public final function doGetFieldsForTab($tabName)
     {
         if ($tabName !== tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME) {
 

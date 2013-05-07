@@ -12,7 +12,7 @@
 /**
  * Registers the core options for use by the options page.
  */
-class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implements tubepress_spi_options_ui_PluggableOptionsPageParticipant
+class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant extends tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
 {
     /**
      * @return string The name that will be displayed in the options page filter (top right).
@@ -35,7 +35,7 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
      *
      * @return array An array of fields that should be shown on the given tab. May be empty, never null.
      */
-    public final function getFieldsForTab($tabName)
+    public final function doGetFieldsForTab($tabName)
     {
         switch ($tabName) {
 
