@@ -18,6 +18,6 @@ class tubepress_test_impl_options_ui_tabs_EmbeddedTabTest extends tubepress_test
 
     protected function _buildSut()
     {
-        return new tubepress_impl_options_ui_tabs_EmbeddedTab();
+        return new tubepress_impl_options_ui_tabs_EmbeddedTab('path to template');
     }
 }

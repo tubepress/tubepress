@@ -18,6 +18,16 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     const TEMPLATE_VAR_TAB_NAME          = 'tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab__tabName';
 
     /**
+     * @var string
+     */
+    private $_templatePath;
+
+    public function __construct($templatePath)
+    {
+        $this->_templatePath = $templatePath;
+    }
+
+    /**
      * Get the title of this tab.
      *
      * @return string The title of this tab.
@@ -38,7 +48,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         $templateBuilder         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $eventDispatcher         = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $template                = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
+        $template                = $templateBuilder->getNewTemplateInstance($this->_templatePath);
         $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
         $environmentDetector     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $tabParticipants         = array();
@@ -108,33 +118,4 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         //override point
     }
-
-    /**
-     * Override point.
-     *
-     * Allows subclasses to change the template path.
-     *
-     * @param $originaltemplatePath string The original template path.
-     *
-     * @return string The (possibly) modified template path.
-     */
-    protected function getModifiedTemplatePath($originaltemplatePath)
-    {
-        return $originaltemplatePath;
-    }
-
-    /**
-     * Get the path to the template for this field, relative
-     * to TubePress's root.
-     *
-     * @return string The path to the template for this field, relative
-     *                to TubePress's root.
-     */
-    protected final function getTemplatePath()
-    {
-        $original = 'src/main/resources/system-templates/options_page/tab.tpl.php';
-
-        return $this->getModifiedTemplatePath($original);
-    }
-
 }

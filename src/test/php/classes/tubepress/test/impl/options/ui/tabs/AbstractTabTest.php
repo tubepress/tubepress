@@ -73,7 +73,7 @@ abstract class tubepress_test_impl_options_ui_tabs_AbstractTabTest extends tubep
         $template->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, '<tubepress_base_url>');
         $template->shouldReceive('toString')->once()->andReturn('final result');
 
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('path to template')->andReturn($template);
 
         $tabName = $this->_sut->getName();
 

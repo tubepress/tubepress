@@ -17,6 +17,6 @@ class tubepress_test_impl_options_ui_tabs_ThumbsTabTest extends tubepress_test_i
 
     protected function _buildSut()
     {
-        return new tubepress_impl_options_ui_tabs_ThumbsTab();
+        return new tubepress_impl_options_ui_tabs_ThumbsTab('path to template');
     }
 }

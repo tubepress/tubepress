@@ -17,6 +17,6 @@ class tubepress_test_impl_options_ui_tabs_MetaTabTest extends tubepress_test_imp
 
     protected function _buildSut()
     {
-        return new tubepress_impl_options_ui_tabs_MetaTab();
+        return new tubepress_impl_options_ui_tabs_MetaTab('path to template');
     }
 }

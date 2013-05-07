@@ -55,7 +55,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
          */
         $tabs = array(
 
-            'tubepress_impl_options_ui_tabs_GallerySourceTab',
+            '',
             'tubepress_impl_options_ui_tabs_ThumbsTab',
             'tubepress_impl_options_ui_tabs_EmbeddedTab',
             'tubepress_impl_options_ui_tabs_MetaTab',
@@ -67,8 +67,17 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
 
         foreach ($tabs as $tab) {
 
-            $container->register($tab, $tab)->addTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
+            $container->register($tab, $tab)
+                ->addTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME)
+                ->addArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php');
         }
+
+        $container->register(
+
+            'tubepress_impl_options_ui_tabs_GallerySourceTab',
+            'tubepress_impl_options_ui_tabs_GallerySourceTab')
+            ->addTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME)
+            ->addArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php');
 
         $this->_registerListeners($container);
     }

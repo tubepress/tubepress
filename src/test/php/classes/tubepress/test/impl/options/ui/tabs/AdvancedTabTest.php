@@ -17,6 +17,6 @@ class tubepress_test_impl_options_ui_tabs_AdvancedTabTest extends tubepress_test
 
     protected function _buildSut()
     {
-        return new tubepress_impl_options_ui_tabs_AdvancedTab();
+        return new tubepress_impl_options_ui_tabs_AdvancedTab('path to template');
     }
 }

@@ -28,7 +28,7 @@ class tubepress_test_impl_options_ui_tabs_GallerySourceTabTest extends tubepress
             return "<<message: $key>>";
         });
 
-        $this->_sut = new tubepress_impl_options_ui_tabs_GallerySourceTab();
+        $this->_sut = new tubepress_impl_options_ui_tabs_GallerySourceTab('yello');
     }
 
     public function testGetName()

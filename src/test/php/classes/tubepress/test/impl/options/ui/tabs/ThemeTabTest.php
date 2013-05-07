@@ -17,6 +17,6 @@ class tubepress_test_impl_options_ui_tabs_ThemeTabTest extends tubepress_test_im
 
     protected function _buildSut()
     {
-        return new tubepress_impl_options_ui_tabs_ThemeTab();
+        return new tubepress_impl_options_ui_tabs_ThemeTab('path to template');
     }
 }

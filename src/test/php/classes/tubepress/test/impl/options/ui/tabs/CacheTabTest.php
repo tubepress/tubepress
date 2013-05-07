@@ -17,6 +17,6 @@ class tubepress_test_impl_options_ui_tabs_CacheTabTest extends tubepress_test_im
 
     protected function _buildSut()
     {
-        return new tubepress_impl_options_ui_tabs_CacheTab();
+        return new tubepress_impl_options_ui_tabs_CacheTab('path to template');
     }
 }

@@ -17,6 +17,6 @@ class tubepress_test_impl_options_ui_tabs_FeedTabTest extends tubepress_test_imp
 
     protected function _buildSut()
     {
-        return new tubepress_impl_options_ui_tabs_FeedTab( );
+        return new tubepress_impl_options_ui_tabs_FeedTab('path to template');
     }
 }
