@@ -13,7 +13,7 @@
         }
     ],
     "description": "TubePress core functionality",
-    "bootstrap" : "scripts/bootstrap.php",
+    "bootstrap" : "tubepress_addons_core_impl_Bootstrap",
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_core_impl_patterns_ioc_IocContainerExtension"

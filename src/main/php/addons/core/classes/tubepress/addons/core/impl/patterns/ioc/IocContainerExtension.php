@@ -59,6 +59,11 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
          * Listeners
          */
         $this->_registerListeners($container);
+
+        /**
+         * Bootstrap.
+         */
+        $this->_registerBootstrapper($container);
     }
 
     /**
@@ -565,6 +570,15 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
         )->addArgument(new ehough_iconic_Reference($transferDecoderChainId));
 
         $container->setDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $definition);
+    }
+
+    private function _registerBootstrapper(ehough_iconic_ContainerBuilder $container)
+    {
+        $container->register(
+
+            'tubepress_addons_core_impl_Bootstrap',
+            'tubepress_addons_core_impl_Bootstrap'
+        );
     }
 
     /**

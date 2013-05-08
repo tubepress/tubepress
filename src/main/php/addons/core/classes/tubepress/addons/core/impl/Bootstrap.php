@@ -10,7 +10,7 @@
  */
 class tubepress_addons_core_impl_Bootstrap
 {
-    public static function init()
+    public function boot()
     {
         /*
          * Register the core event handlers.

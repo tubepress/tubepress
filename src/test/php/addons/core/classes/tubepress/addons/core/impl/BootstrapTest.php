@@ -35,6 +35,11 @@ class tubepress_addons_core_impl_BootstrapTest extends tubepress_test_TubePressU
      */
     private $_mockFinderFactory;
 
+    /**
+     * @var tubepress_addons_core_impl_Bootstrap
+     */
+    private $_sut;
+
     public function onSetup()
     {
         $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
@@ -42,6 +47,8 @@ class tubepress_addons_core_impl_BootstrapTest extends tubepress_test_TubePressU
         $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
         $this->_mockFinderFactory              = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
+
+        $this->_sut = new tubepress_addons_core_impl_Bootstrap();
 
         if (!defined('ABSPATH')) {
 
@@ -53,7 +60,7 @@ class tubepress_addons_core_impl_BootstrapTest extends tubepress_test_TubePressU
     {
         $this->_testEventListeners();
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/core/scripts/bootstrap.php';
+        $this->_sut->boot();
 
         $this->assertTrue(true);
     }
