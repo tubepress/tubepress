@@ -213,7 +213,7 @@ class tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderServic
         return $this->_urlBuilder->buildSingleVideoUrl($id);
     }
 
-    protected final function onBeforeFiringVideoConstructionEvent(tubepress_api_event_TubePressEvent $event)
+    protected final function onBeforeFiringVideoConstructionEvent(tubepress_api_event_EventInterface $event)
     {
         $event->setArgument('domDocument', $this->_domDocument);
         $event->setArgument('xPath', $this->_xpath);

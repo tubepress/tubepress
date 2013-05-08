@@ -15,7 +15,7 @@
  * @api
  * @since 3.1.0
  */
-class tubepress_api_event_TubePressEvent extends ehough_tickertape_GenericEvent
+class tubepress_spi_event_EventBase extends ehough_tickertape_GenericEvent implements tubepress_api_event_EventInterface
 {
     /**
      * @var string The modifiable subject.

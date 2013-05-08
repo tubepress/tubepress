@@ -85,7 +85,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
         /** First run it through the filters. */
         /** Run it through the filters. */
-        $event = new tubepress_api_event_TubePressEvent($optionValue, array(
+        $event = new tubepress_spi_event_EventBase($optionValue, array(
 
             'optionName' => $optionName
         ));

@@ -13,7 +13,7 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
 {
     const TEMPLATE_VAR_BOX_ARRAY = 'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener__boxArray';
 
-    public function onOptionsUiTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onOptionsUiTemplate(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $template ehough_contemplate_api_Template

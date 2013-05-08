@@ -37,7 +37,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT, tubepress_api_const_options_values_PerPageSortValue::NONE);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -51,7 +51,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::RANDOM);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -65,7 +65,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -79,7 +79,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::DURATION);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -93,7 +93,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::NEWEST);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -107,7 +107,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::OLDEST);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -121,7 +121,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::RATING);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -135,7 +135,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::TITLE);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -149,7 +149,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorterTest ex
 
         $this->_setSortAndPerPageOrder(tubepress_api_const_options_values_OrderByValue::RANDOM, tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 

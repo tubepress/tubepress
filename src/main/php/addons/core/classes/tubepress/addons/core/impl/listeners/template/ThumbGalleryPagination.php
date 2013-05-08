@@ -16,7 +16,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
 {
     const DOTS = '<span class="tubepress_pagination_dots">...</span>';
 
-    public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
         $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $pm             = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
@@ -25,7 +25,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
 
         $pagination    = $this->_getHtml($providerResult->getTotalResultCount());
 
-        $event = new tubepress_api_event_TubePressEvent($pagination);
+        $event = new tubepress_spi_event_EventBase($pagination);
 
         $pm->dispatch(
 

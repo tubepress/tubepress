@@ -47,7 +47,7 @@ class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantTe
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, ehough_mockery_Mockery::on(function ($event) {
 
-            return $event instanceof tubepress_api_event_TubePressEvent && is_array($event->getSubject()) && $event->getArgument('participant') instanceof tubepress_spi_options_ui_PluggableOptionsPageParticipant;
+            return $event instanceof tubepress_api_event_EventInterface && is_array($event->getSubject()) && $event->getArgument('participant') instanceof tubepress_spi_options_ui_PluggableOptionsPageParticipant;
         }));
 
         $this->assertEquals(array(), $this->_sut->getFieldsForTab((string) mt_rand()));
@@ -83,7 +83,7 @@ class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantTe
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, ehough_mockery_Mockery::on(function ($event) {
 
-            return $event instanceof tubepress_api_event_TubePressEvent && is_array($event->getSubject()) && $event->getArgument('participant') instanceof tubepress_spi_options_ui_PluggableOptionsPageParticipant;
+            return $event instanceof tubepress_api_event_EventInterface && is_array($event->getSubject()) && $event->getArgument('participant') instanceof tubepress_spi_options_ui_PluggableOptionsPageParticipant;
         }));
 
         $result = $this->_sut->getFieldsForTab(tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME);

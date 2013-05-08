@@ -156,7 +156,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
     private function _finishUrl(ehough_curly_Url $url, $eventName)
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $event           = new tubepress_api_event_TubePressEvent($url);
+        $event           = new tubepress_spi_event_EventBase($url);
 
         $eventDispatcher->dispatch($eventName, $event);
 

@@ -78,7 +78,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
         if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO)) {
 
-            $event = new tubepress_api_event_TubePressEvent(
+            $event = new tubepress_spi_event_EventBase(
 
                 $template,
                 array(
@@ -100,7 +100,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
         if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_SINGLE_VIDEO)) {
 
-            $event = new tubepress_api_event_TubePressEvent($html);
+            $event = new tubepress_spi_event_EventBase($html);
 
             $eventDispatcher->dispatch(
 

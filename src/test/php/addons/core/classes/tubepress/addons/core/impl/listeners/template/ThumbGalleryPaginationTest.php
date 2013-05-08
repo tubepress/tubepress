@@ -82,7 +82,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
-            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $expectedHtml;
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $expectedHtml;
 
             if (!$good) {
 
@@ -105,7 +105,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
-            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $expectedHtml;
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $expectedHtml;
 
             if (!$good) {
 
@@ -128,7 +128,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
-            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $expectedHtml;
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $expectedHtml;
 
             if (!$good) {
 
@@ -146,7 +146,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
 
     private function _test()
     {
-        $event = new tubepress_api_event_TubePressEvent($this->_mockTemplate);
+        $event = new tubepress_spi_event_EventBase($this->_mockTemplate);
         $event->setArguments(array(
 
             'page' => 1,

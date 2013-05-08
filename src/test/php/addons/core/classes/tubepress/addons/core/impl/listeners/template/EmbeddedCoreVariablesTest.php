@@ -56,7 +56,7 @@ class tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariablesTest ex
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'embedded-impl-name');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_PROVIDER_NAME, 'video-provider-name');
 
-        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
+        $event = new tubepress_spi_event_EventBase($mockTemplate);
         $event->setArguments(array(
 
             'dataUrl' => new ehough_curly_Url('http://tubepress.org'),

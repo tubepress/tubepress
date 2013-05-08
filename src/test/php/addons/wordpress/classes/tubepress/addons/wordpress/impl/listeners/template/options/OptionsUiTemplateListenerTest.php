@@ -45,7 +45,7 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_INTRO, '<<blurb>>');
         $template->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener::TEMPLATE_VAR_BOX_ARRAY, '[{"title":"You\'re Missing Out!","url":"http:\/\/tubepress.org\/snippets\/wordpress\/youre-missing-out.php"},{"title":"TubePress News","url":"http:\/\/tubepress.org\/snippets\/wordpress\/latest-news.php"},{"title":"Need Help?","url":"http:\/\/tubepress.org\/snippets\/wordpress\/need-help.php"}]');
 
-        $event = new tubepress_api_event_TubePressEvent($template);
+        $event = new tubepress_spi_event_EventBase($template);
 
         $this->_sut->onOptionsUiTemplate($event);
 

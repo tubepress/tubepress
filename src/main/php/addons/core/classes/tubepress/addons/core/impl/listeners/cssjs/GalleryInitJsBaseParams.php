@@ -39,7 +39,7 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
      *
      * Otherwise, we simply set any "custom" options so they can be passed back in via Ajax operations.
      */
-    public function onGalleryInitJs(tubepress_api_event_TubePressEvent $event)
+    public function onGalleryInitJs(tubepress_api_event_EventInterface $event)
     {
         $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
 

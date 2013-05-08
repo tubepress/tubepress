@@ -50,7 +50,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryEmbeddedImplName
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'provider-name');
 
-        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
+        $event = new tubepress_spi_event_EventBase($mockTemplate);
         $event->setArguments(array(
 
             'page' => 1,
@@ -76,7 +76,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryEmbeddedImplName
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, $name);
 
-        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
+        $event = new tubepress_spi_event_EventBase($mockTemplate);
         $event->setArguments(array(
 
             'page' => 1,

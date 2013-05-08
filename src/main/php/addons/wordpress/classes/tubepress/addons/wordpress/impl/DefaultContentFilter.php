@@ -66,7 +66,7 @@ class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_
 
     private function _dispatchErrorAndGetMessage(Exception $e)
     {
-        $event = new tubepress_api_event_TubePressEvent($e, array(
+        $event = new tubepress_spi_event_EventBase($e, array(
             'message' => $e->getMessage()
         ));
 

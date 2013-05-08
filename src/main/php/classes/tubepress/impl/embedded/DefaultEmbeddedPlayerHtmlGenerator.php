@@ -54,7 +54,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         /**
          * Build the embedded template event.
          */
-        $embeddedTemplateEvent = new tubepress_api_event_TubePressEvent(
+        $embeddedTemplateEvent = new tubepress_spi_event_EventBase(
 
             $template,
             array(
@@ -81,7 +81,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         /**
          * Build the embedded HTML event.
          */
-        $embeddedHtmlEvent = new tubepress_api_event_TubePressEvent(
+        $embeddedHtmlEvent = new tubepress_spi_event_EventBase(
 
             $template->toString(),
             array(

@@ -55,7 +55,7 @@ abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilterTes
 
     protected abstract function _buildSut();
 
-    protected abstract function _performAltering($sut, tubepress_api_event_TubePressEvent $event);
+    protected abstract function _performAltering($sut, tubepress_api_event_EventInterface $event);
 
     private function _booleanConversion($expected, $val)
     {
@@ -68,7 +68,7 @@ abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilterTes
 
     private function buildEvent($name, $value)
     {
-        $event = new tubepress_api_event_TubePressEvent($value);
+        $event = new tubepress_spi_event_EventBase($value);
         $event->setArgument('optionName', $name);
         return $event;
     }

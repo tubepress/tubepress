@@ -226,7 +226,8 @@ return array(
     'tubepress_api_const_options_values_PerPageSortValue'          => $apiPrefix . '/const/options/values/PerPageSortValue.php',
     'tubepress_api_const_options_values_PlayerImplementationValue' => $apiPrefix . '/const/options/values/PlayerImplementationValue.php',
     'tubepress_api_const_template_Variable'                        => $apiPrefix . '/const/template/Variable.php',
-    'tubepress_api_event_TubePressEvent'                           => $apiPrefix . '/event/TubePressEvent.php',
+    'tubepress_api_event_EventDispatcherInterface'                 => $apiPrefix . '/event/EventDispatcherInterface.php',
+    'tubepress_api_event_EventInterface'                           => $apiPrefix . '/event/EventInterface.php',
     'tubepress_api_video_VideoGalleryPage'                         => $apiPrefix . '/video/VideoGalleryPage.php',
     'tubepress_api_video_Video'                                    => $apiPrefix . '/video/Video.php',
 
@@ -301,6 +302,7 @@ return array(
     'tubepress_spi_embedded_EmbeddedHtmlGenerator'             => $spiPrefix . '/embedded/EmbeddedHtmlGenerator.php',
     'tubepress_spi_embedded_PluggableEmbeddedPlayerService'    => $spiPrefix . '/embedded/PluggableEmbeddedPlayerService.php',
     'tubepress_spi_environment_EnvironmentDetector'            => $spiPrefix . '/environment/EnvironmentDetector.php',
+    'tubepress_spi_event_EventBase'                            => $spiPrefix . '/event/EventBase.php',
     'tubepress_spi_feed_FeedFetcher'                           => $spiPrefix . '/feed/FeedFetcher.php',
     'tubepress_spi_html_CssAndJsGenerator'                     => $spiPrefix . '/html/CssAndJsGenerator.php',
     'tubepress_spi_http_AjaxHandler'                           => $spiPrefix . '/http/AjaxHandler.php',

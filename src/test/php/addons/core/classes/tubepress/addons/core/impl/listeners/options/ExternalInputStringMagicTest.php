@@ -18,7 +18,7 @@ class tubepress_addons_core_impl_listeners_options_ExternalInputStringMagicTest 
         return new tubepress_addons_core_impl_listeners_options_ExternalInputStringMagic();
     }
 
-    protected function _performAltering($sut, tubepress_api_event_TubePressEvent $event)
+    protected function _performAltering($sut, tubepress_api_event_EventInterface $event)
     {
         $sut->onIncomingInput($event);
     }

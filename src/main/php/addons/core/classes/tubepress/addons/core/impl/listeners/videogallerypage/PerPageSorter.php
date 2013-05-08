@@ -24,7 +24,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Per-page Sorter');
     }
 
-    public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
+    public function onVideoGalleryPage(tubepress_api_event_EventInterface $event)
     {
         $context          = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $perPageSortOrder = $context->get(tubepress_api_const_options_names_Feed::PER_PAGE_SORT);

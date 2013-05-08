@@ -41,7 +41,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $event = new tubepress_api_event_TubePressEvent(
+        $event = new tubepress_spi_event_EventBase(
 
             $rawValue,
             array('optionName' => $name)

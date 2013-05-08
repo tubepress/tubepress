@@ -47,7 +47,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrependerTest e
 
         $this->_mockVideoProvider->shouldReceive('collectSingleVideo')->once()->with('custom-video')->andReturn('x');
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 
@@ -60,7 +60,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrependerTest e
 
         $providerResult = new tubepress_api_video_VideoGalleryPage();
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 

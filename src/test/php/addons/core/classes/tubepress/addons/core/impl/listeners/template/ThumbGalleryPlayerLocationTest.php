@@ -47,7 +47,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPlayerLocationTe
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_HTML, '');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_NAME, 'player-name');
 
-        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
+        $event = new tubepress_spi_event_EventBase($mockTemplate);
         $event->setArguments(array(
 
             'page' => 1,
@@ -86,7 +86,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPlayerLocationTe
 
         $this->_mockPlayerHtmlGenerator->shouldReceive('getHtml')->once()->with($fakeVideo, 'gallery-id')->andReturn('player-html');
 
-        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
+        $event = new tubepress_spi_event_EventBase($mockTemplate);
         $event->setArguments(array(
 
             'page' => 1,

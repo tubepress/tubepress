@@ -90,7 +90,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         /* send the template through the listeners */
         if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY)) {
 
-            $event = new tubepress_api_event_TubePressEvent($template, array(
+            $event = new tubepress_spi_event_EventBase($template, array(
 
                 'page'             => $page,
                 'videoGalleryPage' => $feedResult
@@ -110,7 +110,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         /* send gallery HTML through the listeners */
         if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY)) {
 
-            $event = new tubepress_api_event_TubePressEvent($html, array(
+            $event = new tubepress_spi_event_EventBase($html, array(
 
                 'page'             => $page,
                 'videoGalleryPage' => $feedResult

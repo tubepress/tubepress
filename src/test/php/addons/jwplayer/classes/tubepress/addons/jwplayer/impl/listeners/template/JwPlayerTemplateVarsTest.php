@@ -31,7 +31,7 @@ class tubepress_addons_jwplayer_impl_embedded_JwPlayerTemplateVarsTest extends t
     {
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
-        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
+        $event = new tubepress_spi_event_EventBase($mockTemplate);
 
         $event->setArgument('embeddedImplementationName', 'longtail');
 
@@ -67,7 +67,7 @@ class tubepress_addons_jwplayer_impl_embedded_JwPlayerTemplateVarsTest extends t
 
     public function testNonLongtail()
     {
-        $event = new tubepress_api_event_TubePressEvent();
+        $event = new tubepress_spi_event_EventBase();
 
         $event->setArgument('embeddedImplementationName', 'foobarr');
 

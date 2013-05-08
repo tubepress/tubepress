@@ -119,7 +119,7 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
             $videoArray = (array) $unserialized->videos->video;
         }
 
-        $event = new tubepress_api_event_TubePressEvent($video);
+        $event = new tubepress_spi_event_EventBase($video);
         $event->setArgument('unserializedFeed', $unserialized);
         $event->setArgument('videoArray', $videoArray);
         $event->setArgument('rawFeed', $feed);

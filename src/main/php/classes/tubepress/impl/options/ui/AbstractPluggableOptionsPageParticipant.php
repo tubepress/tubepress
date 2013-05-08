@@ -22,7 +22,7 @@ abstract class tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $fieldsEvent = new tubepress_api_event_TubePressEvent($raw,
+        $fieldsEvent = new tubepress_spi_event_EventBase($raw,
             array('tabName' => $tabName, 'participant' => $this));
         $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, $fieldsEvent);
 

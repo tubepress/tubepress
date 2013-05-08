@@ -89,7 +89,7 @@ class tubepress_addons_wordpress_impl_DefaultContentFilterTest extends tubepress
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, ehough_mockery_Mockery::on(function ($event) use ($exception) {
 
-            return $event instanceof tubepress_api_event_TubePressEvent && $event->getArgument('message') === $exception->getMessage()
+            return $event instanceof tubepress_api_event_EventInterface && $event->getArgument('message') === $exception->getMessage()
                 && $event->getSubject() instanceof Exception;
         }));
 

@@ -54,7 +54,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
         /*
          * Run filters for the player template construction.
          */
-        $playerTemplateEvent = new tubepress_api_event_TubePressEvent(
+        $playerTemplateEvent = new tubepress_spi_event_EventBase(
 
             $template, array(
 
@@ -73,7 +73,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          */
         $html            = $playerTemplateEvent->getSubject()->toString();
 
-        $playerHtmlEvent = new tubepress_api_event_TubePressEvent($html, array(
+        $playerHtmlEvent = new tubepress_spi_event_EventBase($html, array(
 
             'video'        => $vid,
             'playerName'   => $playerLocation->getName()

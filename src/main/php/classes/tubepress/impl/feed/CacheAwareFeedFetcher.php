@@ -69,7 +69,7 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
 
         $response = $client->execute($request);
 
-        $event = new tubepress_api_event_TubePressEvent($response->getEntity()->getContent(), array(
+        $event = new tubepress_spi_event_EventBase($response->getEntity()->getContent(), array(
 
             'request'  => $request,
             'response' => $response

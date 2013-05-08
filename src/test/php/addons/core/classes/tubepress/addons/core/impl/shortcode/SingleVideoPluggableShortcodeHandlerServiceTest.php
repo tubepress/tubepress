@@ -69,13 +69,13 @@ class tubepress_addons_core_impl_shortcode_commands_SingleVideoPluggableShortcod
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO)->andReturn(true);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $mockTemplate;
+            return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate;
         }));
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_EventNames::HTML_SINGLE_VIDEO)->andReturn(true);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_SINGLE_VIDEO, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'template-string';
+            return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'template-string';
         }));
 
         $this->assertEquals('template-string', $this->_sut->getHtml());

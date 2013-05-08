@@ -22,7 +22,7 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRem
     }
 
 
-    public function onPreValidationOptionSet(tubepress_api_event_TubePressEvent $event)
+    public function onPreValidationOptionSet(tubepress_api_event_EventInterface $event)
     {
         $name = $event->getArgument('optionName');
 

@@ -37,7 +37,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
     {
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
 
-        $event = new tubepress_api_event_TubePressEvent();
+        $event = new tubepress_spi_event_EventBase();
 
         $this->_sut->onJqueryScriptTag($event);
 
@@ -48,7 +48,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
     {
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
 
-        $event = new tubepress_api_event_TubePressEvent();
+        $event = new tubepress_spi_event_EventBase();
 
         $this->_sut->onTubePressScriptTag($event);
 
@@ -59,7 +59,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
     {
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
 
-        $event = new tubepress_api_event_TubePressEvent();
+        $event = new tubepress_spi_event_EventBase();
 
         $this->_sut->onTubePressStylesheetTag($event);
 
@@ -70,7 +70,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
 
-        $event = new tubepress_api_event_TubePressEvent();
+        $event = new tubepress_spi_event_EventBase();
 
         $this->_sut->onMetaTags($event);
 
@@ -81,7 +81,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListenerTest extend
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(2);
 
-        $event = new tubepress_api_event_TubePressEvent();
+        $event = new tubepress_spi_event_EventBase();
 
         $this->_sut->onMetaTags($event);
 

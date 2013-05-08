@@ -80,7 +80,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) use ($mockPage) {
 
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $mockPage;
+            return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockPage;
         }));
 
         $result = $this->_sut->collectVideoGalleryPage();
@@ -100,7 +100,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) {
 
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
+            return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
         }));
 
         $result = $this->_sut->collectVideoGalleryPage();
@@ -119,7 +119,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) {
 
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
+            return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
         }));
 
         $result = $this->_sut->collectVideoGalleryPage();

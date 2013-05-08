@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables
 {
-    public function onPlayerTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onPlayerTemplate(tubepress_api_event_EventInterface $event)
     {
         $embedded  = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedHtmlGenerator();
         $context   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();

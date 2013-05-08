@@ -14,7 +14,7 @@
  */
 abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilter
 {
-    protected function _magic(tubepress_api_event_TubePressEvent $event)
+    protected function _magic(tubepress_api_event_EventInterface $event)
     {
         $value = $event->getSubject();
 
@@ -23,7 +23,7 @@ abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilter
 
             foreach ($value as $key => $subValue) {
 
-                $subEvent = new tubepress_api_event_TubePressEvent($subValue);
+                $subEvent = new tubepress_spi_event_EventBase($subValue);
                 $subEvent->setArgument('optionName', $key);
 
                 $this->_magic($subEvent);

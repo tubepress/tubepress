@@ -22,7 +22,7 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRem
 
     public function testAlterDifferentVariable()
     {
-        $event = new tubepress_api_event_TubePressEvent('PLsomething');
+        $event = new tubepress_spi_event_EventBase('PLsomething');
         $event->setArgument('optionName', tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
@@ -32,7 +32,7 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRem
 
     public function testAlterNonString()
     {
-        $event = new tubepress_api_event_TubePressEvent(array('hello'));
+        $event = new tubepress_spi_event_EventBase(array('hello'));
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
@@ -42,7 +42,7 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRem
 
     public function testAlterHtmlNonPrefix()
     {
-        $event = new tubepress_api_event_TubePressEvent('hello');
+        $event = new tubepress_spi_event_EventBase('hello');
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
@@ -52,7 +52,7 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRem
 
     public function testAlterPrefix()
     {
-        $event = new tubepress_api_event_TubePressEvent('PLhelloPL');
+        $event = new tubepress_spi_event_EventBase('PLhelloPL');
         $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);

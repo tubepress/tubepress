@@ -40,7 +40,7 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
 
         if ($pm->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT)) {
 
-            $event = new tubepress_api_event_TubePressEvent($template);
+            $event = new tubepress_spi_event_EventBase($template);
 
             $pm->dispatch(
 
@@ -55,7 +55,7 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
 
         if ($pm->hasListeners(tubepress_api_const_event_EventNames::HTML_SEARCH_INPUT)) {
 
-            $event = new tubepress_api_event_TubePressEvent($html);
+            $event = new tubepress_spi_event_EventBase($html);
 
             $pm->dispatch(
 

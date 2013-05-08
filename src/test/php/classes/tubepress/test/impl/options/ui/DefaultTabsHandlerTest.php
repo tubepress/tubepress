@@ -78,7 +78,7 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_ALL, ehough_mockery_Mockery::on(function ($event) {
 
-            return $event instanceof tubepress_api_event_TubePressEvent;
+            return $event instanceof tubepress_api_event_EventInterface;
         }));
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('some pathh')->andReturn($template);

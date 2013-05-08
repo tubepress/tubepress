@@ -14,11 +14,11 @@
  */
 class tubepress_addons_core_impl_listeners_html_JsConfig
 {
-    public function onInlineJs(tubepress_api_event_TubePressEvent $event)
+    public function onInlineJs(tubepress_api_event_EventInterface $event)
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $jsEvent = new tubepress_api_event_TubePressEvent(array());
+        $jsEvent = new tubepress_spi_event_EventBase(array());
 
         $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, $jsEvent);
 

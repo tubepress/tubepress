@@ -14,7 +14,7 @@
  */
 abstract class tubepress_impl_listeners_video_AbstractVideoConstructionListener
 {
-    public function onVideoConstruction(tubepress_api_event_TubePressEvent $event)
+    public function onVideoConstruction(tubepress_api_event_EventInterface $event)
     {
         $video = $event->getSubject();
 
@@ -37,11 +37,11 @@ abstract class tubepress_impl_listeners_video_AbstractVideoConstructionListener
     /**
      * Build a map of attribute names => attribute values for the video construction event.
      *
-     * @param tubepress_api_event_TubePressEvent $event The video construction event.
+     * @param tubepress_api_event_EventInterface $event The video construction event.
      *
      * @return array An associative array of attribute names => attribute values
      */
-    protected abstract function buildAttributeMap(tubepress_api_event_TubePressEvent $event);
+    protected abstract function buildAttributeMap(tubepress_api_event_EventInterface $event);
 
     /**
      * @return string The name of the provider that this filter handles.

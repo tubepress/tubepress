@@ -17,11 +17,11 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
     /**
      * Build a map of attribute names => attribute values for the video construction event.
      *
-     * @param tubepress_api_event_TubePressEvent $event The video construction event.
+     * @param tubepress_api_event_EventInterface $event The video construction event.
      *
      * @return array An associative array of attribute names => attribute values
      */
-    protected final function buildAttributeMap(tubepress_api_event_TubePressEvent $event)
+    protected final function buildAttributeMap(tubepress_api_event_EventInterface $event)
     {
         $toReturn = array();
         $xpath    = $event->getArgument('xPath');

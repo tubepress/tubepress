@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta
 {
-    public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
         $context                   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $messageService            = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();

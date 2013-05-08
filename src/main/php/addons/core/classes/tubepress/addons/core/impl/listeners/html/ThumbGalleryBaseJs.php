@@ -14,13 +14,13 @@
  */
 class tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs
 {
-    public function onGalleryHtml(tubepress_api_event_TubePressEvent $event)
+    public function onGalleryHtml(tubepress_api_event_EventInterface $event)
     {
         $context         = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $galleryId       = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
-        $jsEvent = new tubepress_api_event_TubePressEvent(array());
+        $jsEvent = new tubepress_spi_event_EventBase(array());
 
         $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, $jsEvent);
 

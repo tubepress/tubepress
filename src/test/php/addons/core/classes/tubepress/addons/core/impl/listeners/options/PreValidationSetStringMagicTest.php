@@ -17,7 +17,7 @@ class tubepress_addons_core_impl_listeners_options_PreValidationOptionSetStringM
         return new tubepress_addons_core_impl_listeners_options_PreValidationOptionSetStringMagic();
     }
 
-    protected function _performAltering($sut, tubepress_api_event_TubePressEvent $event)
+    protected function _performAltering($sut, tubepress_api_event_EventInterface $event)
     {
         $sut->onPreValidationOptionSet($event);
     }

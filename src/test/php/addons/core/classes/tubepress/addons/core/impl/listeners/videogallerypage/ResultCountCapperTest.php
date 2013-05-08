@@ -38,7 +38,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapperTes
         $providerResult->setTotalResultCount(999);
         $providerResult->setVideos($videoArray);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 

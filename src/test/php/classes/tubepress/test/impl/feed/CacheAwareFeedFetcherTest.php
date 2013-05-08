@@ -89,7 +89,7 @@ class tubepress_test_impl_feed_CacheAwareFeedFetcherTest extends tubepress_test_
         return $request instanceof ehough_shortstop_api_HttpRequest && "$request" === 'GET to ' . self::$_fakeUrl;
     }
 
-    public function _callbackHttpResponse(tubepress_api_event_TubePressEvent $event)
+    public function _callbackHttpResponse(tubepress_api_event_EventInterface $event)
     {
         $ok = $event->getSubject() === 'xyz' && $event->getArgument('request') instanceof ehough_shortstop_api_HttpRequest;
 

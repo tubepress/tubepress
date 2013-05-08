@@ -21,7 +21,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Result Count Capper');
     }
 
-    public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
+    public function onVideoGalleryPage(tubepress_api_event_EventInterface $event)
     {
         $totalResults = $event->getSubject()->getTotalResultCount();
         $context      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();

@@ -45,7 +45,7 @@ class tubepress_test_impl_http_DefaultHttpRequestParameterServiceTest extends tu
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, ehough_mockery_Mockery::on(function ($arg) {
 
 
-            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === array(1, 2, 3)
                 && $arg->getArgument('optionName') === 'something';
 
             $arg->setSubject('yo');
@@ -65,7 +65,7 @@ class tubepress_test_impl_http_DefaultHttpRequestParameterServiceTest extends tu
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, ehough_mockery_Mockery::on(function ($arg) {
 
 
-            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === array(1, 2, 3)
                 && $arg->getArgument('optionName') === 'something';
 
             $arg->setSubject('44');
@@ -85,7 +85,7 @@ class tubepress_test_impl_http_DefaultHttpRequestParameterServiceTest extends tu
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, ehough_mockery_Mockery::on(function ($arg) {
 
 
-            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === array(1, 2, 3)
                 && $arg->getArgument('optionName') === 'something';
 
             $arg->setSubject('44vb');

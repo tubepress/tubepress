@@ -202,9 +202,9 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
     /**
      * Let's subclasses add arguments to the video construction event.
      *
-     * @param tubepress_api_event_TubePressEvent $event The event we're about to fire.
+     * @param tubepress_api_event_EventInterface $event The event we're about to fire.
      */
-    protected function onBeforeFiringVideoConstructionEvent(tubepress_api_event_TubePressEvent $event)
+    protected function onBeforeFiringVideoConstructionEvent(tubepress_api_event_EventInterface $event)
     {
         //override point
     }
@@ -245,7 +245,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
             /*
              * Let add-ons build the rest of the video.
              */
-            $event = new tubepress_api_event_TubePressEvent($video);
+            $event = new tubepress_spi_event_EventBase($video);
             $event->setArgument('zeroBasedFeedIndex', $index);
             $event->setArgument('rawFeed', $feed);
 
@@ -293,7 +293,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
         }
     }
 
-    private function _fireEventAndGetSubject($eventName, tubepress_api_event_TubePressEvent $event)
+    private function _fireEventAndGetSubject($eventName, tubepress_api_event_EventInterface $event)
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 

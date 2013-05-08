@@ -14,7 +14,7 @@
  */
 class tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars
 {
-    public function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onEmbeddedTemplate(tubepress_api_event_EventInterface $event)
     {
         $implName = $event->getArgument('embeddedImplementationName');
 

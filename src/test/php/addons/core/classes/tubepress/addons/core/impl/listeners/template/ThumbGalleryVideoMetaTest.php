@@ -63,7 +63,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMetaTest ex
 
         $providerResult = new tubepress_api_video_VideoGalleryPage();
 
-        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
+        $event = new tubepress_spi_event_EventBase($mockTemplate);
         $event->setArguments(array(
 
             'page' => 1,

@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_template_ThumbGalleryEmbeddedImplName
 {
-    public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
         $template = $event->getSubject();
         $page     = $event->getArgument('videoGalleryPage');

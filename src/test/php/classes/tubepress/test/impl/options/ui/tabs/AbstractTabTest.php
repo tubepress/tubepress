@@ -79,7 +79,7 @@ abstract class tubepress_test_impl_options_ui_tabs_AbstractTabTest extends tubep
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_SINGLE, ehough_mockery_Mockery::on(function ($event) use ($tabName) {
 
-            return $event instanceof tubepress_api_event_TubePressEvent && $event->getArgument('tabName') === $tabName;
+            return $event instanceof tubepress_api_event_EventInterface && $event->getArgument('tabName') === $tabName;
         }));
 
         $this->assertEquals('final result', $this->_sut->getHtml());

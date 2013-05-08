@@ -129,7 +129,7 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
         $xpath->registerNamespace('media', self::$_NAMESPACE_MEDIA);
         $xpath->registerNamespace('app', self::$_NAMESPACE_APP);
 
-        $event = new tubepress_api_event_TubePressEvent($video);
+        $event = new tubepress_spi_event_EventBase($video);
         $event->setArgument('domDocument', $doc);
         $event->setArgument('xPath', $xpath);
         $event->setArgument('rawFeed', $feed);

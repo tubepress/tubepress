@@ -49,7 +49,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklistTest e
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($videoArray);
 
-        $event = new tubepress_api_event_TubePressEvent($providerResult);
+        $event = new tubepress_spi_event_EventBase($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 

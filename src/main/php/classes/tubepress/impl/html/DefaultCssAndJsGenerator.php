@@ -47,7 +47,7 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
     private function _fireEventAndReturnString($eventName, $raw)
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $event           = new tubepress_api_event_TubePressEvent($raw);
+        $event           = new tubepress_spi_event_EventBase($raw);
 
         $eventDispatcher->dispatch($eventName, $event);
 

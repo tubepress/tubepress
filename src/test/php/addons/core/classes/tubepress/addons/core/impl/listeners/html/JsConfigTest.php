@@ -38,14 +38,14 @@ class tubepress_addons_core_impl_listeners_html_JsConfigTest extends tubepress_t
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, ehough_mockery_Mockery::on(function ($arg) use ($fakeArgs) {
 
-            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array();
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === array();
 
             $arg->setSubject($fakeArgs);
 
             return $good;
         }));
 
-        $event = new tubepress_api_event_TubePressEvent('hello');
+        $event = new tubepress_spi_event_EventBase('hello');
 
         $event->setArguments(array(
 

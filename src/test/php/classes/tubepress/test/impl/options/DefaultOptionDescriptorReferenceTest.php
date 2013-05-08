@@ -92,7 +92,7 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_DESCRIPTOR_REGISTRATION,
         ehough_mockery_Mockery::on(function ($event) use ($od) {
 
-            return $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject()->getName() === $od->getName();
+            return $event instanceof tubepress_api_event_EventInterface && $event->getSubject()->getName() === $od->getName();
         }));
     }
 }

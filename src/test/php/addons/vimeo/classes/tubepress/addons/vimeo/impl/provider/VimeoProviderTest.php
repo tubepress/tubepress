@@ -96,7 +96,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_t
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
 
-                return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_Video;
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_Video;
             })
         );
 
@@ -117,7 +117,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_t
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
 
-                return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() instanceof tubepress_api_video_Video;
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_Video;
             })
         );
 

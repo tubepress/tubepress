@@ -38,7 +38,7 @@ class tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJsTest extends 
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(false);
 
-        $event = new tubepress_api_event_TubePressEvent('hello');
+        $event = new tubepress_spi_event_EventBase('hello');
 
         $this->_sut->onEmbeddedHtml($event);
 
@@ -50,7 +50,7 @@ class tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJsTest extends 
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
 
-        $event = new tubepress_api_event_TubePressEvent('hello id="tubepress-video-object-47773745" ');
+        $event = new tubepress_spi_event_EventBase('hello id="tubepress-video-object-47773745" ');
         $event->setArgument('videoId', 'abc');
 
         $this->_sut->onEmbeddedHtml($event);

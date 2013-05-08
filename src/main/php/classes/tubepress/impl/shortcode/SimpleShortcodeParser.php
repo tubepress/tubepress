@@ -144,7 +144,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
                 $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (unfiltered)', $name, $value));
             }
 
-            $event = new tubepress_api_event_TubePressEvent(
+            $event = new tubepress_spi_event_EventBase(
 
                 $value,
                 array('optionName' => $name)

@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs
 {
-    public function onEmbeddedHtml(tubepress_api_event_TubePressEvent $event)
+    public function onEmbeddedHtml(tubepress_api_event_EventInterface $event)
     {
         $context             = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();

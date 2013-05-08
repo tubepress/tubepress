@@ -64,7 +64,7 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTest ext
             return null;
         });
 
-        $event = new tubepress_api_event_TubePressEvent(array('yo' => 'mamma'));
+        $event = new tubepress_spi_event_EventBase(array('yo' => 'mamma'));
 
         $mockPlayer = $this->createMockPluggableService(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayer->shouldReceive('getName')->andReturn('player-loc');

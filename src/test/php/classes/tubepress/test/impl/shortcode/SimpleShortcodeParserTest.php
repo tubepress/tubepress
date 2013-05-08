@@ -277,7 +277,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
             $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, ehough_mockery_Mockery::on(function ($arg) use ($name) {
 
-                return $arg instanceof tubepress_api_event_TubePressEvent  && $arg->getArgument('optionName') === $name;
+                return $arg instanceof tubepress_api_event_EventInterface  && $arg->getArgument('optionName') === $name;
             }));
         }
     }

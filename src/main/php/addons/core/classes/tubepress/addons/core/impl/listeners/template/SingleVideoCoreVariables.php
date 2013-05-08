@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_template_SingleVideoCoreVariables
 {
-    public function onSingleVideoTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onSingleVideoTemplate(tubepress_api_event_EventInterface $event)
     {
         $video    = $event->getArgument('video');
         $template = $event->getSubject();

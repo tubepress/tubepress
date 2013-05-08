@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_template_SingleVideoMeta
 {
-    public function onSingleVideoTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onSingleVideoTemplate(tubepress_api_event_EventInterface $event)
     {
         $template                  = $event->getSubject();
         $context                   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();

@@ -213,7 +213,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService ex
         return $this->_urlBuilder->buildSingleVideoUrl($id);
     }
 
-    protected final function onBeforeFiringVideoConstructionEvent(tubepress_api_event_TubePressEvent $event)
+    protected final function onBeforeFiringVideoConstructionEvent(tubepress_api_event_EventInterface $event)
     {
         $event->setArgument('unserializedFeed', $this->_unserialized);
         $event->setArgument('videoArray', $this->_videoArray);

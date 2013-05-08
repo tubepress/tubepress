@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables
 {
-    public function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
+    public function onEmbeddedTemplate(tubepress_api_event_EventInterface $event)
     {
         $context      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $environment  = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();

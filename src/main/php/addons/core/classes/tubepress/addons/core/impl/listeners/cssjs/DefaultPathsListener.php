@@ -10,7 +10,7 @@
  */
 class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener
 {
-    public function onJqueryScriptTag(tubepress_api_event_TubePressEvent $event)
+    public function onJqueryScriptTag(tubepress_api_event_EventInterface $event)
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $baseUrl             = $environmentDetector->getBaseUrl();
@@ -20,7 +20,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener
         $event->setSubject($raw);
     }
 
-    public function onTubePressScriptTag(tubepress_api_event_TubePressEvent $event)
+    public function onTubePressScriptTag(tubepress_api_event_EventInterface $event)
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $baseUrl             = $environmentDetector->getBaseUrl();
@@ -30,7 +30,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener
         $event->setSubject($raw);
     }
 
-    public function onTubePressStylesheetTag(tubepress_api_event_TubePressEvent $event)
+    public function onTubePressStylesheetTag(tubepress_api_event_EventInterface $event)
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $baseUrl             = $environmentDetector->getBaseUrl();
@@ -40,7 +40,7 @@ class tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener
         $event->setSubject($raw);
     }
 
-    public function onMetaTags(tubepress_api_event_TubePressEvent $event)
+    public function onMetaTags(tubepress_api_event_EventInterface $event)
     {
         $qss    = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $page   = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);

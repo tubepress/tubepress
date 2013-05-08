@@ -87,7 +87,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, ehough_mockery_Mockery::on(function ($event) use ($template) {
 
-            return $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === $template;
+            return $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $template;
         }));
 
         $this->assertEquals('foo', $this->_sut->getHtml());

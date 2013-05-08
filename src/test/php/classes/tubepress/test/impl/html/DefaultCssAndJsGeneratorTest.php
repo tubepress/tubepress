@@ -32,7 +32,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY, ehough_mockery_Mockery::on(function ($event) {
 
-            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+            $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
             $event->setSubject('hello');
 
@@ -46,7 +46,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
 
-            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+            $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
             $event->setSubject('yo');
 
@@ -60,7 +60,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, ehough_mockery_Mockery::on(function ($event) {
 
-            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+            $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
             $event->setSubject('hi');
 
@@ -74,7 +74,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, ehough_mockery_Mockery::on(function ($event) {
 
-            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+            $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
             $event->setSubject('hi');
 
@@ -88,7 +88,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEET_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
 
-            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+            $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
             $event->setSubject('blue');
 
@@ -101,7 +101,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
 
-            $ok = $event instanceof tubepress_api_event_TubePressEvent && $event->getSubject() === '';
+            $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
             $event->setSubject('orange');
 

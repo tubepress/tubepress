@@ -59,7 +59,7 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
 
         $mockPlayerLocation->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
-        $mockPlayerTemplateEvent = new tubepress_api_event_TubePressEvent(
+        $mockPlayerTemplateEvent = new tubepress_spi_event_EventBase(
 
             $mockTemplate, array(
                 'video' => $this->_mockVideo,
@@ -79,7 +79,7 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
             })
         )->andReturn($mockPlayerTemplateEvent);
 
-        $mockPlayerHtmlEvent = new tubepress_api_event_TubePressEvent('foobarr', array(
+        $mockPlayerHtmlEvent = new tubepress_spi_event_EventBase('foobarr', array(
 
             'video' => $mockVideo,
             'playerName' => 'current-player-name'
