@@ -14,7 +14,7 @@
  */
 class tubepress_addons_youtube_impl_Bootstrap
 {
-    public static function init()
+    public function boot()
     {
         self::_registerEventListeners();
     }

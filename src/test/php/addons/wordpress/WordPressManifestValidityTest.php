@@ -26,7 +26,7 @@ class tubepress_addons_core_WordPressManifestValidityTest extends tubepress_test
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress to integrate with WordPress', $addon->getDescription());
-        $this->assertEquals(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/scripts/bootstrap.php', $addon->getBootstrap());
+        $this->assertEquals('tubepress_addons_wordpress_impl_Bootstrap', $addon->getBootstrap());
         $this->assertEquals(array('tubepress_addons_wordpress' => TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());

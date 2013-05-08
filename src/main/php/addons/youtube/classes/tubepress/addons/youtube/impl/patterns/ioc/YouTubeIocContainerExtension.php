@@ -72,6 +72,12 @@ class tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension im
             'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar',
             'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar'
         );
+
+        $container->register(
+
+            'tubepress_addons_youtube_impl_Bootstrap',
+            'tubepress_addons_youtube_impl_Bootstrap'
+        );
     }
 
     /**

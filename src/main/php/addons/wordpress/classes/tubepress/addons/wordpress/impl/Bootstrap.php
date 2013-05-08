@@ -14,7 +14,7 @@
  */
 class tubepress_addons_wordpress_impl_Bootstrap
 {
-    public static function init()
+    public function boot()
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 

@@ -80,6 +80,12 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         }
 
         $this->_registerListeners($container);
+
+        $container->register(
+
+            'tubepress_addons_wordpress_impl_Bootstrap',
+            'tubepress_addons_wordpress_impl_Bootstrap'
+        );
     }
 
     /**

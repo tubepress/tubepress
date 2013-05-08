@@ -15,17 +15,23 @@ class tubepress_addons_vimeo_impl_BootstrapTest extends tubepress_test_TubePress
      */
     private $_mockEventDispatcher;
 
+    /**
+     * @var tubepress_addons_vimeo_impl_Bootstrap
+     */
+    private $_sut;
 
     public function onSetup()
     {
         $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+
+        $this->_sut = new tubepress_addons_vimeo_impl_Bootstrap();
     }
 
     public function testInit()
     {
         $this->_testEventHandler();
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/scripts/bootstrap.php';
+        $this->_sut->boot();
 
         $this->assertTrue(true);
     }

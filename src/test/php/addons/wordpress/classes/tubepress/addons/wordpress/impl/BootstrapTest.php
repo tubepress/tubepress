@@ -20,10 +20,17 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends tubepress_test_TubeP
      */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var tubepress_addons_wordpress_impl_Bootstrap
+     */
+    private $_sut;
+
     public function onSetup()
     {
         $this->_mockEventDispatcher     = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+
+        $this->_sut = new tubepress_addons_wordpress_impl_Bootstrap();
     }
 
     public function testBoot()
@@ -48,7 +55,7 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends tubepress_test_TubeP
             array('tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener', 'onOptionsUiTemplate')
         );
 
-        require TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/scripts/bootstrap.php';
+        $this->_sut->boot();
 
         $this->assertTrue(true);
     }

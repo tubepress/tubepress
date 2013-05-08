@@ -14,7 +14,7 @@
  */
 class tubepress_addons_jwplayer_impl_Bootstrap
 {
-    public static function init()
+    public function boot()
     {
         /**
          * @var $eventDispatcher ehough_tickertape_ContainerAwareEventDispatcher

@@ -13,7 +13,7 @@
         }
     ],
     "description": "Allows TubePress to integrate with WordPress",
-    "bootstrap" : "scripts/bootstrap.php",
+    "bootstrap" : "tubepress_addons_wordpress_impl_Bootstrap",
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension"

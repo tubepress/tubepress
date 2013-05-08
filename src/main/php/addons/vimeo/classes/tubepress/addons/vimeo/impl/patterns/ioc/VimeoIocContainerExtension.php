@@ -69,6 +69,12 @@ class tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension implem
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener'
         );
+
+        $container->register(
+
+            'tubepress_addons_vimeo_impl_Bootstrap',
+            'tubepress_addons_vimeo_impl_Bootstrap'
+        );
     }
 
     /**
