@@ -14,14 +14,63 @@
  */
 class tubepress_api_const_options_names_Thumbs
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const AJAX_PAGINATION  = 'ajaxPagination';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const FLUID_THUMBS     = 'fluidThumbs';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const HQ_THUMBS        = 'hqThumbs';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const PAGINATE_ABOVE   = 'paginationAbove';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const PAGINATE_BELOW   = 'paginationBelow';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const RANDOM_THUMBS    = 'randomize_thumbnails';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const RESULTS_PER_PAGE = 'resultsPerPage';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const THEME            = 'theme';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const THUMB_HEIGHT     = 'thumbHeight';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const THUMB_WIDTH      = 'thumbWidth';
 }

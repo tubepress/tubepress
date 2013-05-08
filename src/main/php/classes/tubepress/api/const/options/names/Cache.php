@@ -14,8 +14,27 @@
  */
 class tubepress_api_const_options_names_Cache
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const CACHE_CLEAN_FACTOR     = 'cacheCleaningFactor';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const CACHE_DIR              = 'cacheDirectory';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const CACHE_ENABLED          = 'cacheEnabled';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const CACHE_LIFETIME_SECONDS = 'cacheLifetimeSeconds';
 }

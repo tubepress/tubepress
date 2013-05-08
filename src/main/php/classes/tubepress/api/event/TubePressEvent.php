@@ -11,6 +11,9 @@
 
 /**
  * A base class for events thrown around in TubePress.
+ *
+ * @api
+ * @since 3.1.0
  */
 class tubepress_api_event_TubePressEvent extends ehough_tickertape_GenericEvent
 {

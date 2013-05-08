@@ -32,7 +32,7 @@ class tubepress_addons_youtube_impl_BootstrapTest extends tubepress_test_TubePre
         $this->_testEventListenerRegistration();
 
         $this->_sut->boot();
-        
+
         $this->assertTrue(true);
     }
 

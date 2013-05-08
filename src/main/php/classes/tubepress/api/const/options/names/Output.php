@@ -14,7 +14,21 @@
  */
 class tubepress_api_const_options_names_Output
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const GALLERY_SOURCE = 'mode';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const OUTPUT         = 'output';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const VIDEO          = 'video';
 }

@@ -14,5 +14,9 @@
  */
 class tubepress_api_const_options_names_OptionsUi
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const DISABLED_OPTIONS_PAGE_PARTICIPANTS = 'disabledOptionsPageParticipants';
 }

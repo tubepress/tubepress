@@ -15,9 +15,13 @@
 class tubepress_api_const_event_EventNames
 {
     /**
-     * This event is fired after TubePress loads all of the registered addons.
+     * This event is fired after TubePress loads all of the registered addons. If your add-on requires
+     * any initialization, this is where you should run it.
      *
      * @subject null
+     *
+     * @api
+     * @since 3.1.0
      */
     const BOOT_COMPLETE = 'tubepress.core.boot.complete';
 
@@ -25,16 +29,23 @@ class tubepress_api_const_event_EventNames
 
 
     /**
-     * This event is fired when TubePress generates inline CSS.
+     * This event is fired when TubePress generates inline CSS for the HTML <head>.
      *
      * @subject string The inline CSS.
+     *
+     * @api
+     * @since 3.1.0
      */
     const CSS_JS_INLINE_CSS = 'tubepress.core.cssjs.inlineCss';
 
     /**
-     * This event is fired when TubePress generates inline JS.
+     * This event is fired when TubePress generates inline JS. This may show up in either the HTML
+     * <head>, or lower in the DOM. It will be printed *before* the tubepress.js <script> tag.
      *
      * @subject string The inline JS.
+     *
+     * @api
+     * @since 3.1.0
      */
     const CSS_JS_INLINE_JS = 'tubepress.core.cssjs.inlineJs';
 
@@ -44,14 +55,18 @@ class tubepress_api_const_event_EventNames
      * @subject array An associative array of name => values that will be converted into JSON and applied as
      *                init code for the gallery in JavaScript.
      *
-     * @arg None
+     * @api
+     * @since 3.1.0
      */
     const CSS_JS_GALLERY_INIT = 'tubepress.core.cssjs.galleryInit';
 
     /**
-     * This event is fired when TubePress generates HTML <meta> tags.
+     * This event is fired when TubePress generates HTML <meta> tags for the HTML <head>.
      *
      * @subject string The HTML <meta> tags.
+     *
+     * @api
+     * @since 3.1.0
      */
     const CSS_JS_META_TAGS = 'tubepress.core.cssjs.metaTags';
 
@@ -59,6 +74,9 @@ class tubepress_api_const_event_EventNames
      * This event is fired when TubePress generates the HTML <script> tag for jQuery.
      *
      * @subject string The HTML for the jQuery <script> tag.
+     *
+     * @api
+     * @since 3.1.0
      */
     const CSS_JS_SCRIPT_TAG_JQUERY = 'tubepress.core.cssjs.jQueryScriptTag';
 
@@ -66,6 +84,9 @@ class tubepress_api_const_event_EventNames
      * This event is fired when TubePress generates the HTML <script> tag for tubepress.js.
      *
      * @subject string The HTML for the tubepress.js <script> tag.
+     *
+     * @api
+     * @since 3.1.0
      */
     const CSS_JS_SCRIPT_TAG_TUBEPRESS = 'tubepress.core.cssjs.tubePressScriptTag';
 
@@ -82,7 +103,8 @@ class tubepress_api_const_event_EventNames
      * @subject array An associative array of name => values that will be converted into JSON and applied as
      *                global JS configuration for TubePress.
      *
-     * @arg None
+     * @api
+     * @since 3.1.0
      */
     const CSS_JS_GLOBAL_JS_CONFIG = 'tubepress.core.cssjs.globalJsConfig';
 
@@ -94,6 +116,9 @@ class tubepress_api_const_event_EventNames
      * @subject Exception The caught error message.
      *
      * @arg string 'message' The message to be displayed to the user. May contain HTML.
+     *
+     * @api
+     * @since 3.1.0
      */
     const ERROR_EXCEPTION_CAUGHT = 'tubepress.core.error.exceptionCaught';
 
@@ -109,6 +134,9 @@ class tubepress_api_const_event_EventNames
      * @arg string           'providerName'               The name of the video provider (e.g. "vimeo" or "youtube").
      * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
      * @arg string           'embeddedImplementationName' The name of the embedded implementation.
+     *
+     * @api
+     * @since 3.1.0
      */
     const HTML_EMBEDDED = 'tubepress.core.html.embedded';
 
@@ -117,7 +145,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject string The pagination HTML.
      *
-     * @arg None
+     * @api
+     * @since 3.1.0
      */
     const HTML_PAGINATION = 'tubepress.core.html.pagination';
 
@@ -129,6 +158,9 @@ class tubepress_api_const_event_EventNames
      *
      * @arg tubepress_api_video_Video 'video'      The video to be played.
      * @arg string                    'playerName' The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
+     *
+     * @api
+     * @since 3.1.0
      */
     const HTML_PLAYERLOCATION = 'tubepress.core.html.playerLocation';
 
@@ -137,7 +169,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject string The HTML for the search input.
      *
-     * @arg None
+     * @api
+     * @since 3.1.0
      */
     const HTML_SEARCH_INPUT = 'tubepress.core.html.search.input';
 
@@ -146,7 +179,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject string The HTML for the single video.
      *
-     * @arg None
+     * @api
+     * @since 3.1.0
      */
     const HTML_SINGLE_VIDEO = 'tubepress.core.html.singleVideo';
 
@@ -157,6 +191,9 @@ class tubepress_api_const_event_EventNames
      *
      * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
      * @arg integer                              'page'             The page number.
+     *
+     * @api
+     * @since 3.1.0
      */
     const HTML_THUMBNAIL_GALLERY = 'tubepress.core.html.thumbnailGallery';
 
@@ -170,6 +207,9 @@ class tubepress_api_const_event_EventNames
      *
      * @arg ehough_shortstop_api_HttpRequest  request  The HTTP request.
      * @arg ehough_shortstop_api_HttpResponse response The HTTP response.
+     *
+     * @api
+     * @since 3.1.0
      */
     const HTTP_RESPONSE = 'tubepress.core.http.response';
 
@@ -181,6 +221,9 @@ class tubepress_api_const_event_EventNames
      * @subject mixed The incoming option value.
      *
      * @arg string 'optionName' The name of the option being set.
+     *
+     * @api
+     * @since 3.1.0
      */
     const OPTIONS_NVP_READFROMEXTERNAL = 'tubepress.core.options.nvp.readFromExternalInput';
 
@@ -188,6 +231,9 @@ class tubepress_api_const_event_EventNames
      * This event is fired when an option descriptor is registered.
      *
      * @subject tubepress_spi_options_OptionDescriptor The option descriptor being registered.
+     *
+     * @api
+     * @since 3.1.0
      */
     const OPTIONS_DESCRIPTOR_REGISTRATION = 'tubepress.core.options.descriptor.registration';
 
@@ -198,6 +244,9 @@ class tubepress_api_const_event_EventNames
      * @subject mixed The incoming option value.
      *
      * @arg string 'optionName' The name of the option being set.
+     *
+     * @api
+     * @since 3.1.0
      */
     const OPTIONS_NVP_PREVALIDATIONSET = 'tubepress.core.options.nvp.preValidationSet';
 
@@ -209,6 +258,9 @@ class tubepress_api_const_event_EventNames
      *
      * @arg tubepress_spi_options_ui_PluggableOptionsPageParticipant 'participant' The options page participant.
      * @arg string                                                   'tabName'     The name of the tab.
+     *
+     * @api
+     * @since 3.1.0
      */
     const OPTIONS_UI_FIELDS_FOR_TAB = 'tubepress.core.options.ui.fieldsForTab';
 
@@ -223,6 +275,9 @@ class tubepress_api_const_event_EventNames
      * @arg string           'providerName'               The name of the video provider (e.g. "vimeo" or "youtube").
      * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
      * @arg string           'embeddedImplementationName' The name of the embedded implementation.
+     *
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_EMBEDDED = 'tubepress.core.template.embedded';
 
@@ -230,6 +285,9 @@ class tubepress_api_const_event_EventNames
      * This event is fired when TubePress generates the template for an options UI form.
      *
      * @subject ehough_contemplate_api_Template The options UI template.
+     *
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_OPTIONS_UI_MAIN = 'tubepress.core.template.options.ui.main';
 
@@ -237,6 +295,9 @@ class tubepress_api_const_event_EventNames
      * This event is fired when TubePress generates the template for the options UI tabs.
      *
      * @subject ehough_contemplate_api_Template The options UI tabs template.
+     *
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_OPTIONS_UI_TABS_ALL = 'tubepress.core.template.options.ui.tabs.all';
 
@@ -246,6 +307,9 @@ class tubepress_api_const_event_EventNames
      * @subject ehough_contemplate_api_Template The options UI tabs template.
      *
      * @arg string 'tabName' The tab name.
+     *
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_OPTIONS_UI_TABS_SINGLE = 'tubepress.core.template.options.ui.tabs.single';
 
@@ -257,6 +321,9 @@ class tubepress_api_const_event_EventNames
      *
      * @arg tubepress_api_video_Video 'video'      The video to be played.
      * @arg string                    'playerName' The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
+     *
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_PLAYERLOCATION = 'tubepress.core.playerTemplateConstruction';
 
@@ -265,7 +332,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The template for the search input.
      *
-     * @arg None
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_SEARCH_INPUT = 'tubepress.core.searchInputTemplateConstruction';
 
@@ -275,6 +343,9 @@ class tubepress_api_const_event_EventNames
      * @subject ehough_contemplate_api_Template The template.
      *
      * @arg tubepress_api_video_Video 'video' The video to be played.
+     *
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_SINGLE_VIDEO = 'tubepress.core.singleVideoTemplateConstruction';
 
@@ -285,6 +356,9 @@ class tubepress_api_const_event_EventNames
      *
      * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
      * @arg integer                              'page'             The page number.
+     *
+     * @api
+     * @since 3.1.0
      */
     const TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.thumbnailGalleryTemplateConstruction';
 
@@ -299,6 +373,9 @@ class tubepress_api_const_event_EventNames
      *
      * @arg int   zeroBasedFeedIndex The zero-based index into the raw feed from which this video was built.
      * @arg mixed rawFeed            The "raw" unaltered feed from the provider.
+     *
+     * @api
+     * @since 3.1.0
      */
     const VIDEO_CONSTRUCTION = 'tubepress.core.videoConstruction';
 
@@ -306,6 +383,9 @@ class tubepress_api_const_event_EventNames
      * This event is fired when a TubePress builds a tubepress_api_video_VideoGalleryPage.
      *
      * @subject tubepress_api_video_VideoGalleryPage The video gallery page being built.
+     *
+     * @api
+     * @since 3.1.0
      */
     const VIDEO_GALLERY_PAGE = 'tubepress.core.videoGalleryPageConstruction';
 }
