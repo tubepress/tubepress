@@ -22,7 +22,7 @@ final class tubepress_addons_vimeo_impl_Bootstrap
     private static function _registerEventListeners()
     {
         /**
-         * @var $eventDispatcher ehough_tickertape_ContainerAwareEventDispatcher
+         * @var $eventDispatcher tubepress_api_event_EventDispatcherInterface
          */
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 

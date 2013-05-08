@@ -30,7 +30,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtensionTest extends 
         $this->_sut = new tubepress_addons_core_impl_patterns_ioc_IocContainerExtension();
 
         $this->_mockParentContainer = new ehough_iconic_ContainerBuilder();
-        $this->_mockParentContainer->register('ehough_tickertape_EventDispatcherInterface', 'ehough_tickertape_EventDispatcher');
+        $this->_mockParentContainer->register(tubepress_api_event_EventDispatcherInterface::_, 'ehough_tickertape_EventDispatcher');
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockFilesystem       = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');

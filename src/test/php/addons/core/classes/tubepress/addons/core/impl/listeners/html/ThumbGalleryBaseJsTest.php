@@ -35,7 +35,7 @@ class tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJsTest extends t
         $this->_sut                  = new tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs();
         $this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
     public function testAlterHtml()

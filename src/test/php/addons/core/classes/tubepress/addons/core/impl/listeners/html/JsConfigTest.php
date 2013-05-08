@@ -29,7 +29,7 @@ class tubepress_addons_core_impl_listeners_html_JsConfigTest extends tubepress_t
     {
         $this->_sut                  = new tubepress_addons_core_impl_listeners_html_JsConfig();
         $this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
     public function testAlterHtml()

@@ -187,7 +187,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
             'ehough_shortstop_api_HttpClientInterface',
             'ehough_shortstop_impl_DefaultHttpClient'
 
-        )->addArgument(new ehough_iconic_Reference('ehough_tickertape_EventDispatcherInterface'))
+        )->addArgument(new ehough_iconic_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addArgument(new ehough_iconic_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain'));
 
         $container->setDefinition('ehough_shortstop_impl_DefaultHttpClient', $definition);
@@ -448,7 +448,7 @@ class tubepress_addons_core_impl_patterns_ioc_IocContainerExtension implements e
 
             $container->register($transportClass, $transportClass)
                 ->addArgument(new ehough_iconic_Reference('ehough_shortstop_spi_HttpMessageParser'))
-                ->addArgument(new ehough_iconic_Reference('ehough_tickertape_EventDispatcherInterface'));
+                ->addArgument(new ehough_iconic_Reference(tubepress_api_event_EventDispatcherInterface::_));
 
             array_push($transportReferences, new ehough_iconic_Reference($transportClass));
         }

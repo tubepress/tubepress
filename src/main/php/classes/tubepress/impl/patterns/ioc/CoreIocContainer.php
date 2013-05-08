@@ -169,13 +169,19 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
 
     private function _registerEventDispatcher()
     {
-        $definition = $this->_delegate->register(
+        $delegate = $this->_delegate->register(
 
-            'ehough_tickertape_EventDispatcherInterface',
+            'ehough_tickertape_ContainerAwareEventDispatcher',
             'ehough_tickertape_ContainerAwareEventDispatcher'
         )->addArgument($this->_delegate);
 
-        $this->_delegate->setDefinition('ehough_tickertape_ContainerAwareEventDispatcher', $definition);
+        $definition = $this->_delegate->register(
+
+            tubepress_api_event_EventDispatcherInterface::_,
+            'tubepress_impl_event_DefaultEventDispatcher'
+        )->addArgument($delegate);
+
+        $this->_delegate->setDefinition('tubepress_impl_event_DefaultEventDispatcher', $definition);
     }
 
     private function _registerAddonDiscoverer()

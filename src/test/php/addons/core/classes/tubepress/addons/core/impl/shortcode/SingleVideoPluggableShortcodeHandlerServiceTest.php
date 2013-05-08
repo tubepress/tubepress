@@ -38,7 +38,7 @@ class tubepress_addons_core_impl_shortcode_commands_SingleVideoPluggableShortcod
     public function onSetup()
     {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
         $this->_mockProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
 

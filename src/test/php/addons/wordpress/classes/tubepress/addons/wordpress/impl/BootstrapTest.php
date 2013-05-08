@@ -27,7 +27,7 @@ class tubepress_addons_wordpress_impl_BootstrapTest extends tubepress_test_TubeP
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher     = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher     = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
         $this->_sut = new tubepress_addons_wordpress_impl_Bootstrap();

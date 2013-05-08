@@ -44,7 +44,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             'ehough_stash_PoolInterface',
             tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
             tubepress_spi_environment_EnvironmentDetector::_,
-            'ehough_tickertape_EventDispatcherInterface',
+            tubepress_api_event_EventDispatcherInterface::_,
             tubepress_spi_context_ExecutionContext::_,
             tubepress_spi_feed_FeedFetcher::_,
             'ehough_filesystem_FilesystemInterface',

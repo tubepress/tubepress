@@ -15,6 +15,8 @@
  */
 interface tubepress_api_event_EventDispatcherInterface
 {
+    const _ = 'tubepress_api_event_EventDispatcherInterface';
+
     /**
      * Adds an event listener that listens on the specified events.
      *

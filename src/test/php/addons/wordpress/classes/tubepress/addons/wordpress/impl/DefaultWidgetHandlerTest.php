@@ -78,7 +78,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends tubepress_test_TubePres
         $this->_mockShortCodeHtmlGenerator      = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_mockMessageService->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";

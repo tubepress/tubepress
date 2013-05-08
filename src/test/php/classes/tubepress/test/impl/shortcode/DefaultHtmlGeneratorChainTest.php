@@ -30,7 +30,7 @@ class tubepress_test_impl_shortcode_DefaultHtmlGeneratorChainTest extends tubepr
         $this->_sut = new tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator();
 
         $this->_mockShortcodeParser            = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
-        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher            = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('shortcode');
     }

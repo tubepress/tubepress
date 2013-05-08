@@ -40,7 +40,7 @@ class tubepress_test_impl_patterns_ioc_CoreIocContainerTest extends tubepress_te
             tubepress_spi_environment_EnvironmentDetector::_ => tubepress_spi_environment_EnvironmentDetector::_,
             tubepress_spi_addon_AddonDiscoverer::_           => tubepress_spi_addon_AddonDiscoverer::_,
             tubepress_spi_addon_AddonLoader::_               => tubepress_spi_addon_AddonLoader::_,
-            'ehough_tickertape_EventDispatcherInterface'     => 'ehough_tickertape_EventDispatcherInterface'
+            tubepress_api_event_EventDispatcherInterface::_  => tubepress_api_event_EventDispatcherInterface::_
         );
 
         foreach ($toTest as $key => $value) {

@@ -30,7 +30,7 @@ class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantTe
         $this->_sut = new tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant();
 
         $this->_mockFieldBuilder = $this->createMockSingletonService(tubepress_spi_options_ui_FieldBuilder::_);
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
     public function testGetName()

@@ -45,7 +45,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends tubepre
         $this->_mockUrlBuilder  = $this->createMockSingletonService(tubepress_spi_provider_UrlBuilder::_);
         $this->_mockFeedFetcher = $this->createMockSingletonService(tubepress_spi_feed_FeedFetcher::_);
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
         $this->_sut = new tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService($this->_mockUrlBuilder);

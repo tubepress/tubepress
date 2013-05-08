@@ -71,7 +71,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
            return "##$msg##";
         });
 
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
     public function testNoAjaxHighPage()

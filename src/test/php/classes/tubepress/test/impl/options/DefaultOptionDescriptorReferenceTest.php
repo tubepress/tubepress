@@ -30,7 +30,7 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
         $this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 
         $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
     /**

@@ -30,7 +30,7 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
     public function onSetup()
     {
         $this->_mockTemplateBuilder = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         for ($x = 0; $x < 8; $x++) {
 

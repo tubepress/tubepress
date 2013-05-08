@@ -47,7 +47,7 @@ class tubepress_test_impl_feed_CacheAwareFeedFetcherTest extends tubepress_test_
         $this->_mockCache            = $this->createMockSingletonService('ehough_stash_PoolInterface');
         $this->_mockHttpClient       = $this->createMockSingletonService('ehough_shortstop_api_HttpClientInterface');
         $this->_mockItem             = $this->createMockSingletonService('ehough_stash_ItemInterface');
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
 
         $this->_sut = new tubepress_impl_feed_CacheAwareFeedFetcher();

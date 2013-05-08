@@ -23,7 +23,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     public function onSetup()
     {
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_sut = new tubepress_impl_html_DefaultCssAndJsGenerator();
     }

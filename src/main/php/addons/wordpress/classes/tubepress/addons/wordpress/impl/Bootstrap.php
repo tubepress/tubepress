@@ -25,7 +25,7 @@ class tubepress_addons_wordpress_impl_Bootstrap
         }
 
         /**
-         * @var $eventDispatcher ehough_tickertape_ContainerAwareEventDispatcher
+         * @var $eventDispatcher tubepress_api_event_EventDispatcherInterface
          */
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 

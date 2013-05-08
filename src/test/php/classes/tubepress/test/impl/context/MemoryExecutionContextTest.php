@@ -20,7 +20,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher   = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher   = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockStorageManager    = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockValidationService = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
 

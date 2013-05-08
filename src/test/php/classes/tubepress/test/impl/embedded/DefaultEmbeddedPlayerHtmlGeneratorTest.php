@@ -26,7 +26,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $this->_sut = new tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher  = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
     }
 

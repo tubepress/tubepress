@@ -42,7 +42,7 @@ class tubepress_addons_core_impl_BootstrapTest extends tubepress_test_TubePressU
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher            = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher            = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');

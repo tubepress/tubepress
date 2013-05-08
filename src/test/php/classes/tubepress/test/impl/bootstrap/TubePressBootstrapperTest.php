@@ -60,7 +60,7 @@ class tubepress_test_impl_bootstrap_TubePressBootstrapperTest extends tubepress_
         $this->_mockAddonRegistry               = $this->createMockSingletonService(tubepress_spi_addon_AddonLoader::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockEventDispatcher             = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_sut->setIocContainer($this->getMockIocContainer());
     }

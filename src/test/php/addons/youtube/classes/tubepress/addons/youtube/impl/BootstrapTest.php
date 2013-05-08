@@ -22,7 +22,7 @@ class tubepress_addons_youtube_impl_BootstrapTest extends tubepress_test_TubePre
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher = $this->createMockSingletonService('ehough_tickertape_EventDispatcherInterface');
+        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_sut = new tubepress_addons_youtube_impl_Bootstrap();
     }

@@ -17,7 +17,7 @@ class tubepress_addons_jwplayer_impl_Bootstrap
     public function boot()
     {
         /**
-         * @var $eventDispatcher ehough_tickertape_ContainerAwareEventDispatcher
+         * @var $eventDispatcher tubepress_api_event_EventDispatcherInterface
          */
         $eventDispatcher            = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 

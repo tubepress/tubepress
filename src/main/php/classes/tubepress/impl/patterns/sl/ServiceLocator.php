@@ -73,7 +73,7 @@ class tubepress_impl_patterns_sl_ServiceLocator
      */
     public static function getEventDispatcher()
     {
-        return self::getService('ehough_tickertape_EventDispatcherInterface');
+        return self::getService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
     /**
