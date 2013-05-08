@@ -56,7 +56,7 @@ interface tubepress_api_event_EventDispatcherInterface
      * @param tubepress_api_event_EventInterface $event The event to pass to the event handlers/listeners.
      *                          If not supplied, an empty event instance is created.
      *
-     * @return ehough_tickertape_Event
+     * @return tubepress_api_event_EventInterface
      *
      * @api
      * @since 3.1.0

@@ -243,6 +243,7 @@ return array(
     'tubepress_impl_embedded_EmbeddedPlayerUtils'                         => $implPrefix . '/embedded/EmbeddedPlayerUtils.php',
     'tubepress_impl_environment_SimpleEnvironmentDetector'                => $implPrefix . '/environment/SimpleEnvironmentDetector.php',
     'tubepress_impl_event_DefaultEventDispatcher'                         => $implPrefix . '/event/DefaultEventDispatcher.php',
+    'tubepress_impl_event_TickertapeEventWrapper'                         => $implPrefix . '/event/TickertapeEventWrapper.php',
     'tubepress_impl_feed_CacheAwareFeedFetcher'                           => $implPrefix . '/feed/CacheAwareFeedFetcher.php',
     'tubepress_impl_html_DefaultCssAndJsGenerator'                        => $implPrefix . '/html/DefaultCssAndJsGenerator.php',
     'tubepress_impl_http_AbstractPluggableAjaxCommandService'             => $implPrefix . '/http/AbstractPluggableAjaxCommandService.php',

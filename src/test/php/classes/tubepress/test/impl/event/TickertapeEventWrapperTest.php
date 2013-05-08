@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+class tubepress_test_impl_event_TickertapeEventWrapperTest extends tubepress_test_TubePressUnitTest
+{
+    /**
+     * @var tubepress_impl_event_TickertapeEventWrapper
+     */
+    private $_sut;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEvent;
+
+    public function onSetup()
+    {
+        $this->_mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+
+        $this->_sut = new tubepress_impl_event_TickertapeEventWrapper($this->_mockEvent);
+    }
+
+    public function testSetSubject()
+    {
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with(array('y'));
+
+        $this->_sut->setSubject(array('y'));
+
+        $this->assertTrue(true);
+    }
+
+    public function testSetArguments()
+    {
+        $this->_mockEvent->shouldReceive('setArguments')->once()->with(array('y' => 'z'));
+
+        $this->_sut->setArguments(array('y' => 'z'));
+
+        $this->assertTrue(true);
+    }
+
+    public function testSetArgument()
+    {
+        $this->_mockEvent->shouldReceive('setArgument')->once()->with('foo', 'bar');
+
+        $this->_sut->setArgument('foo', 'bar');
+
+        $this->assertTrue(true);
+    }
+
+    public function testHasArgument()
+    {
+        $this->_mockEvent->shouldReceive('hasArgument')->once()->with('foo')->andReturn(true);
+
+        $this->assertTrue($this->_sut->hasArgument('foo'));
+    }
+
+    public function testGetSubject()
+    {
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn('xyz');
+
+        $this->assertEquals('xyz', $this->_sut->getSubject());
+    }
+
+    public function testGetArgument()
+    {
+        $this->_mockEvent->shouldReceive('getArgument')->once()->with('foo')->andReturn('xyz');
+
+        $this->assertEquals('xyz', $this->_sut->getArgument('foo'));
+    }
+
+    public function testGetArguments()
+    {
+        $this->_mockEvent->shouldReceive('getArguments')->once()->andReturn('xyz');
+
+        $this->assertEquals('xyz', $this->_sut->getArguments());
+    }
+}
