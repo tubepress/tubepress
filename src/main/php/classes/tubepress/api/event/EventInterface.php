@@ -95,7 +95,7 @@ interface tubepress_api_event_EventInterface
      * @param string $key   Argument name.
      * @param mixed  $value Value.
      *
-     * @return ehough_tickertape_GenericEvent
+     * @return tubepress_api_event_EventInterface
      *
      * @api
      * @since 3.1.0
@@ -107,7 +107,7 @@ interface tubepress_api_event_EventInterface
      *
      * @param array $args Arguments.
      *
-     * @return ehough_tickertape_GenericEvent
+     * @return tubepress_api_event_EventInterface
      *
      * @api
      * @since 3.1.0

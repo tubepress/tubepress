@@ -16,7 +16,7 @@ class tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar
 {
     private static $_regexColor = '/^([0-9a-f]{1,2}){3}$/i';
 
-    public function onBoot(ehough_tickertape_Event $event)
+    public function onBoot(tubepress_api_event_EventInterface $event)
     {
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 

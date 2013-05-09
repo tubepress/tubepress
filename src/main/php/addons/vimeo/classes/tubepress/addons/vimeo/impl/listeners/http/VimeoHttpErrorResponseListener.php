@@ -24,7 +24,7 @@ class tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Vimeo Error Handler');
     }
 
-    public final function onResponse(ehough_tickertape_Event $event)
+    public final function onResponse(ehough_tickertape_GenericEvent $event)
     {
         /**
          * @var $request ehough_shortstop_api_HttpRequest

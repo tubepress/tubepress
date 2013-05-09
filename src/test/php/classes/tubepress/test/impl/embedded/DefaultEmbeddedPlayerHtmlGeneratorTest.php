@@ -49,7 +49,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === $mockTemplate
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'some-provider'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -61,7 +61,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === 'templateAsString'
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'templateAsString'
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'some-provider'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -92,7 +92,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === $mockTemplate
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'xyz'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -104,7 +104,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === 'templateAsString'
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'templateAsString'
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'xyz'
                     && $arg->getArgument('dataUrl') === 'data-url'

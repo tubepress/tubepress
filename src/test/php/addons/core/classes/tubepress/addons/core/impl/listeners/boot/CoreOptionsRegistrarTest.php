@@ -453,7 +453,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrarTest extends
         $option->setAcceptableValues(array('provider_based' => 'Provider default', 'yy-embed-name-yy' => 'friendly embed name'));
         $this->_verifySingleOptionRegistration($option);
 
-        $this->_sut->onBootComplete(new ehough_tickertape_Event());
+        $this->_sut->onBootComplete(new tubepress_spi_event_EventBase());
 
         $this->assertTrue(true);
     }
