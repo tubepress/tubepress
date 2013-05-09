@@ -45,7 +45,7 @@ class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_t
 
         foreach ($actualClassMap as $className => $path) {
 
-            $this->assertTrue(is_readable($path) && is_file($path));
+            $this->assertTrue(is_readable($path) && is_file($path), "$path is not a readable file. Fix it!");
 
             if (!class_exists($className) && !interface_exists($className)) {
 

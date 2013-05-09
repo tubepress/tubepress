@@ -8,31 +8,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress_test_TubePressUnitTest
+class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
 {
-    /**
-     * @var tubepress_addons_core_impl_ioc_IocContainerExtension
-     */
-    private $_sut;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockContainer;
-
-    public function onSetup()
-    {
-        $this->_sut = new tubepress_addons_core_impl_ioc_IocContainerExtension();
-
-        $this->_mockContainer = ehough_mockery_Mockery::mock(tubepress_api_ioc_ContainerInterface::_);
-    }
-
-    public function testGetAlias()
-    {
-        $this->assertEquals('core', $this->_sut->getAlias());
-    }
-
-    public function testLoad()
+    protected function prepareForLoad()
     {
         $this->_ajaxHandler();
         $this->_cacheService();
@@ -57,15 +35,16 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $this->_pluggables();
         $this->_listeners();
         $this->_bootstrap();
+    }
 
-        $this->_sut->load($this->_mockContainer);
-
-        $this->assertTrue(true);
+    protected function buildSut()
+    {
+        return new tubepress_addons_core_impl_ioc_IocContainerExtension();
     }
 
     private function _bootstrap()
     {
-        $this->_expectRegistration('tubepress_addons_core_impl_Bootstrap', 'tubepress_addons_core_impl_Bootstrap');
+        $this->expectRegistration('tubepress_addons_core_impl_Bootstrap', 'tubepress_addons_core_impl_Bootstrap');
     }
 
     private function _listeners()
@@ -99,21 +78,17 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
         foreach ($listenerClassNames as $listenerClassName) {
 
-            $this->_expectRegistration($listenerClassName, $listenerClassName);
+            $this->expectRegistration($listenerClassName, $listenerClassName);
         }
     }
 
     private function _pluggables()
     {
-        $this->_expectTag(
-            $this->_expectRegistration('tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant', 'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant'),
-            tubepress_spi_options_ui_PluggableOptionsPageParticipant::_
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant', 'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant')
+            ->withTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
 
-        $this->_expectTag(
-            $this->_expectRegistration('tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService', 'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService'),
-            tubepress_spi_http_PluggableAjaxCommandService::_
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService', 'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService')
+            ->withTag(tubepress_spi_http_PluggableAjaxCommandService::_);
 
         $playerLocationClasses = array(
 
@@ -129,126 +104,121 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
         foreach ($playerLocationClasses as $playerLocationClass) {
 
-            $this->_expectTag(
-                $this->_expectRegistration($playerLocationClass, $playerLocationClass),
-                tubepress_spi_player_PluggablePlayerLocationService::_
-            );
+            $this->expectRegistration($playerLocationClass, $playerLocationClass)
+                ->withTag(tubepress_spi_player_PluggablePlayerLocationService::_);
         }
 
-        $this->_expectTag(
-            $this->_expectRegistration('tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService'),
-            tubepress_spi_shortcode_PluggableShortcodeHandlerService::_
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService')
+            ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
-        $this->_expectArgument(
-            $this->_expectTag(
-                $this->_expectRegistration('tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService'),
-                tubepress_spi_shortcode_PluggableShortcodeHandlerService::_
-            ),
-            new tubepress_api_ioc_Reference('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService')
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService')
+            ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_)
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'));
 
-        $this->_expectTag(
-            $this->_expectRegistration('tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService'),
-            tubepress_spi_shortcode_PluggableShortcodeHandlerService::_
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService')
+            ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
-        $this->_expectArgument(
-            $this->_expectTag(
-                $this->_expectRegistration('tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService'),
-                tubepress_spi_shortcode_PluggableShortcodeHandlerService::_
-            ),
-            new tubepress_api_ioc_Reference('tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService')
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService')
+             ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_)
+             ->withArgument(new tubepress_api_ioc_Reference('tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService'));
 
-        $this->_expectTag(
-            $this->_expectRegistration('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'),
-            tubepress_spi_shortcode_PluggableShortcodeHandlerService::_
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService')
+            ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
-        $this->_expectTag(
-            $this->_expectRegistration('tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder', 'tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder'),
-            tubepress_spi_options_ui_PluggableFieldBuilder::_
-        );
+        $this->expectRegistration('tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder', 'tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder')
+            ->withTag(tubepress_spi_options_ui_PluggableFieldBuilder::_);
     }
 
     private function _videoCollector()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_collector_VideoCollector::_,
-            'tubepress_impl_collector_DefaultVideoCollector');
+        $def = $this->expectRegistration(tubepress_spi_collector_VideoCollector::_,
+            'tubepress_impl_collector_DefaultVideoCollector')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_collector_DefaultVideoCollector', $def);
     }
 
     private function _themeHandler()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_theme_ThemeHandler::_,
-            'tubepress_impl_theme_SimpleThemeHandler');
+        $def = $this->expectRegistration(tubepress_spi_theme_ThemeHandler::_,
+            'tubepress_impl_theme_SimpleThemeHandler')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_theme_SimpleThemeHandler', $def);
     }
 
     private function _templateBuilder()
     {
-        $this->_expectRegistrationAndDefinition('ehough_contemplate_api_TemplateBuilder',
-            'ehough_contemplate_impl_SimpleTemplateBuilder');
+        $def = $this->expectRegistration('ehough_contemplate_api_TemplateBuilder',
+            'ehough_contemplate_impl_SimpleTemplateBuilder')->andReturnDefinition();
+        $this->expectDefinition('ehough_contemplate_impl_SimpleTemplateBuilder', $def);
     }
 
     private function _shortcodeParser()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_shortcode_ShortcodeParser::_,
-            'tubepress_impl_shortcode_SimpleShortcodeParser');
+        $def = $this->expectRegistration(tubepress_spi_shortcode_ShortcodeParser::_,
+            'tubepress_impl_shortcode_SimpleShortcodeParser')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_shortcode_SimpleShortcodeParser', $def);
     }
 
     private function _shortcode()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
-            'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator');
+        $def = $this->expectRegistration(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
+            'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator', $def);
     }
 
     private function _qss()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_querystring_QueryStringService::_,
-            'tubepress_impl_querystring_SimpleQueryStringService');
+        $def = $this->expectRegistration(tubepress_spi_querystring_QueryStringService::_,
+            'tubepress_impl_querystring_SimpleQueryStringService')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_querystring_SimpleQueryStringService', $def);
     }
 
     private function _registerPlayerHtml()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_player_PlayerHtmlGenerator::_,
-            'tubepress_impl_player_DefaultPlayerHtmlGenerator');
+        $def = $this->expectRegistration(tubepress_spi_player_PlayerHtmlGenerator::_,
+            'tubepress_impl_player_DefaultPlayerHtmlGenerator')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_player_DefaultPlayerHtmlGenerator', $def);
     }
 
     private function _fieldBuilder()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_options_ui_FieldBuilder::_,
-            'tubepress_impl_options_ui_DefaultFieldBuilder');
+        $def = $this->expectRegistration(tubepress_spi_options_ui_FieldBuilder::_,
+            'tubepress_impl_options_ui_DefaultFieldBuilder')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_options_ui_DefaultFieldBuilder', $def);
     }
 
     private function _optionValidator()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_options_OptionValidator::_,
-            'tubepress_impl_options_DefaultOptionValidator');
+        $def = $this->expectRegistration(tubepress_spi_options_OptionValidator::_,
+            'tubepress_impl_options_DefaultOptionValidator')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_options_DefaultOptionValidator', $def);
     }
 
     private function _odr()
     {
-        $this->_expectRegistrationAndDefinition(
+        $def = $this->expectRegistration(
             tubepress_spi_options_OptionDescriptorReference::_,
             'tubepress_impl_options_DefaultOptionDescriptorReference'
-        );
+        )->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_options_DefaultOptionDescriptorReference', $def);
     }
 
     private function _hrch()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_http_ResponseCodeHandler::_,
-            'tubepress_impl_http_DefaultResponseCodeHandler');
+        $def = $this->expectRegistration(tubepress_spi_http_ResponseCodeHandler::_,
+            'tubepress_impl_http_DefaultResponseCodeHandler')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_http_DefaultResponseCodeHandler', $def);
     }
 
     private function _hrps()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_http_HttpRequestParameterService::_,
-            'tubepress_impl_http_DefaultHttpRequestParameterService');
+        $def = $this->expectRegistration(tubepress_spi_http_HttpRequestParameterService::_,
+            'tubepress_impl_http_DefaultHttpRequestParameterService')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_http_DefaultHttpRequestParameterService', $def);
     }
 
     private function _http()
     {
-        $this->_expectRegistrationAndDefinition('ehough_shortstop_spi_HttpMessageParser', 'ehough_shortstop_impl_exec_DefaultHttpMessageParser');
+        $def = $this->expectRegistration('ehough_shortstop_spi_HttpMessageParser', 'ehough_shortstop_impl_exec_DefaultHttpMessageParser')->andReturnDefinition();
+        $this->expectDefinition('ehough_shortstop_impl_exec_DefaultHttpMessageParser', $def);
 
         $transportClasses = array(
 
@@ -263,9 +233,9 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
         foreach ($transportClasses as $transportClass) {
 
-            $def = $this->_expectRegistration($transportClass, $transportClass);
-            $def = $this->_expectArgument($def, new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpMessageParser'));
-            $def = $this->_expectArgument($def, new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
+            $def = $this->expectRegistration($transportClass, $transportClass)
+                ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpMessageParser'))
+                ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
 
             $transportReferences[] = $def;
         }
@@ -274,13 +244,9 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $transportChainDefinition->setFactoryClass('tubepress_impl_ioc_ChainRegistrar');
         $transportChainDefinition->setFactoryMethod('buildChain');
 
-        $this->_expectFactoryMethod(
-            $this->_expectFactoryClass(
-                $this->_expectDefinition('_ehough_shortstop_impl_DefaultHttpClient_transportchain', $transportChainDefinition),
-                'tubepress_impl_ioc_ChainRegistrar'
-            ),
-            'buildChain'
-        );
+        $this->expectDefinition('_ehough_shortstop_impl_DefaultHttpClient_transportchain', $transportChainDefinition)
+            ->withFactoryClass('tubepress_impl_ioc_ChainRegistrar')
+            ->withFactoryMethod('buildChain');
 
         $contentDecoderCommands = array(
 
@@ -294,7 +260,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
         foreach ($contentDecoderCommands as $command) {
 
-            $def = $this->_expectRegistration($command, $command);
+            $def = $this->expectRegistration($command, $command);
             $contentDecodingRefs[] = $def;
         }
 
@@ -302,19 +268,15 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $contentDecodingChainDef->setFactoryClass('tubepress_impl_ioc_ChainRegistrar');
         $contentDecodingChainDef->setFactoryMethod('buildChain');
 
-        $this->_expectFactoryMethod(
-            $this->_expectFactoryClass(
-                $this->_expectDefinition('_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain', $contentDecodingChainDef),
-                'tubepress_impl_ioc_ChainRegistrar'
-            ),
-            'buildChain'
-        );
+        $this->expectDefinition('_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain', $contentDecodingChainDef)
+            ->withFactoryClass('tubepress_impl_ioc_ChainRegistrar')
+            ->withFactoryMethod('buildChain');
 
-        $def = $this->_expectArgument($this->_expectRegistration('ehough_shortstop_spi_HttpContentDecoder',
-            'ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'),
-            new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain'));
+        $def = $this->expectRegistration('ehough_shortstop_spi_HttpContentDecoder', 'ehough_shortstop_impl_decoding_content_HttpContentDecodingChain')
+            ->withArgument(new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain'))
+            ->andReturnDefinition();
 
-        $this->_expectDefinition('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain', $def);
+        $this->expectDefinition('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain', $def);
 
         $transferDecoderCommands = array(
 
@@ -325,7 +287,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
         foreach ($transferDecoderCommands as $command) {
 
-            $def = $this->_expectRegistration($command, $command);
+            $def = $this->expectRegistration($command, $command);
             $transferDecoderRefs[] = $def;
         }
 
@@ -333,194 +295,88 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $transferDecodingChainDef->setFactoryClass('tubepress_impl_ioc_ChainRegistrar');
         $transferDecodingChainDef->setFactoryMethod('buildChain');
 
-        $this->_expectFactoryMethod(
-            $this->_expectFactoryClass(
-                $this->_expectDefinition('_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain', $transferDecodingChainDef),
-                'tubepress_impl_ioc_ChainRegistrar'
-            ),
-            'buildChain'
-        );
+        $this->expectDefinition('_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain', $transferDecodingChainDef)
+            ->withFactoryClass('tubepress_impl_ioc_ChainRegistrar')
+            ->withFactoryMethod('buildChain');
 
-        $def = $this->_expectArgument($this->_expectRegistration('ehough_shortstop_spi_HttpTransferDecoder',
-                'ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain'),
-            new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain'));
+        $def = $this->expectRegistration('ehough_shortstop_spi_HttpTransferDecoder', 'ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain')
+            ->withArgument(new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain'))
+            ->andReturnDefinition();
 
-        $this->_expectDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $def);
+        $this->expectDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $def);
 
-        $this->_expectRegistration('ehough_shortstop_impl_listeners_request_RequestLoggingListener', 'ehough_shortstop_impl_listeners_request_RequestLoggingListener');
+        $this->expectRegistration('ehough_shortstop_impl_listeners_request_RequestLoggingListener', 'ehough_shortstop_impl_listeners_request_RequestLoggingListener');
 
-        $this->_expectArgument(
-            $this->_expectRegistration('ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener', 'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener'),
-            new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'));
+        $this->expectRegistration('ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener', 'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener')
+            ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'));
 
-        $this->_expectArgument(
-            $this->_expectArgument(
-                $this->_expectRegistration('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer',
-                    'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'),
-                new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpTransferDecoder')
-            ),
-            'Transfer'
-        );
+        $this->expectRegistration('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer',
+                    'ehough_shortstop_impl_listeners_response_ResponseDecodingListener')
+            ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpTransferDecoder'))
+            ->withArgument('Transfer');
 
-        $this->_expectArgument(
-            $this->_expectArgument(
-                $this->_expectRegistration('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content',
-                    'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'),
-                new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder')
-            ),
-            'Content'
-        );
+        $this->expectRegistration('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content',
+            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener')
+            ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
+            ->withArgument('Content');
 
-        $this->_expectRegistration('ehough_shortstop_impl_listeners_response_ResponseLoggingListener', 'ehough_shortstop_impl_listeners_response_ResponseLoggingListener');
+        $this->expectRegistration('ehough_shortstop_impl_listeners_response_ResponseLoggingListener', 'ehough_shortstop_impl_listeners_response_ResponseLoggingListener');
 
-        $final = $this->_expectArgument(
-            $this->_expectArgument(
-                $this->_expectRegistration('ehough_shortstop_api_HttpClientInterface', 'ehough_shortstop_impl_DefaultHttpClient'),
-                new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_)
-            ),
-            new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain')
-        );
+        $final = $this->expectRegistration('ehough_shortstop_api_HttpClientInterface', 'ehough_shortstop_impl_DefaultHttpClient')
+             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+             ->withArgument(new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain'))
+             ->andReturnDefinition();
 
-        $this->_expectDefinition('ehough_shortstop_impl_DefaultHttpClient', $final);
+        $this->expectDefinition('ehough_shortstop_impl_DefaultHttpClient', $final);
     }
 
     private function _filesystem()
     {
-        $this->_expectRegistrationAndDefinition('ehough_filesystem_FilesystemInterface', 'ehough_filesystem_Filesystem');
+        $def = $this->expectRegistration('ehough_filesystem_FilesystemInterface', 'ehough_filesystem_Filesystem')->andReturnDefinition();
+        $this->expectDefinition('ehough_filesystem_Filesystem', $def);
     }
 
     private function _feedFetcher()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher');
+        $def = $this->expectRegistration(tubepress_spi_feed_FeedFetcher::_, 'tubepress_impl_feed_CacheAwareFeedFetcher')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_feed_CacheAwareFeedFetcher', $def);
     }
 
     private function _executionContext()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext');
+        $def = $this->expectRegistration(tubepress_spi_context_ExecutionContext::_, 'tubepress_impl_context_MemoryExecutionContext')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_context_MemoryExecutionContext', $def);
     }
 
     private function _embeddedGenerator()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator');
+        $def = $this->expectRegistration(tubepress_spi_embedded_EmbeddedHtmlGenerator::_, 'tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator', $def);
     }
 
     private function _cssAndJs()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_html_CssAndJsGenerator::_, 'tubepress_impl_html_DefaultCssAndJsGenerator');
+        $def = $this->expectRegistration(tubepress_spi_html_CssAndJsGenerator::_, 'tubepress_impl_html_DefaultCssAndJsGenerator')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_html_DefaultCssAndJsGenerator', $def);
     }
 
     private function _ajaxHandler()
     {
-        $this->_expectRegistrationAndDefinition(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler');
+        $def = $this->expectRegistration(tubepress_spi_http_AjaxHandler::_, 'tubepress_impl_http_DefaultAjaxHandler')->andReturnDefinition();
+        $this->expectDefinition('tubepress_impl_http_DefaultAjaxHandler', $def);
     }
 
     private function _cacheService()
     {
-        $this->_expectRegistration('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-builderServiceId', 'tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder');
+        $this->expectRegistration('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-builderServiceId', 'tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder');
 
         $def = new tubepress_api_ioc_Definition('ehough_stash_PoolInterface');
-        $this->_expectDefinition('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId', $def);
+        $this->expectDefinition('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId', $def);
 
-        $mockCacheDefinition = $this->_expectArgument(
-            $this->_expectRegistration('ehough_stash_PoolInterface', 'tubepress_impl_cache_PoolDecorator'),
-            new tubepress_api_ioc_Reference('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId')
-        );
+        $mockCacheDefinition = $this->expectRegistration('ehough_stash_PoolInterface', 'tubepress_impl_cache_PoolDecorator')
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId'))
+            ->andReturnDefinition();
 
-        $this->_mockContainer->shouldReceive('setDefinition')->once()->with('tubepress_impl_cache_PoolDecorator', $mockCacheDefinition);
-    }
-
-    private function _expectRegistration($id, $class)
-    {
-        $mockDefinition = ehough_mockery_Mockery::mock('tubepress_api_ioc_Definition');
-
-        $this->_mockContainer->shouldReceive('register')->once()->with($id, $class)->andReturn($mockDefinition);
-
-        $mockDefinition->shouldReceive('getClass')->andReturn($class);
-
-        return $mockDefinition;
-    }
-
-    private function _expectRegistrationAndDefinition($id, $class)
-    {
-        $mockDefinition = $this->_expectRegistration($id, $class);
-
-        $this->_mockContainer->shouldReceive('setDefinition')->once()->with($class, $mockDefinition);
-
-        return $mockDefinition;
-    }
-
-    private function _expectTag(ehough_mockery_mockery_MockInterface $mock, $tag)
-    {
-        $mock->shouldReceive('addTag')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($tag) {
-
-            return $actual === $tag;
-        }))->andReturn($mock);
-
-        return $mock;
-    }
-
-    private function _expectFactoryClass(ehough_mockery_mockery_MockInterface $mock, $class)
-    {
-        $mock->shouldReceive('setFactoryClass')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($class) {
-
-            return $actual === $class;
-        }))->andReturn($mock);
-
-        return $mock;
-    }
-
-    private function _expectFactoryMethod(ehough_mockery_mockery_MockInterface $mock, $method)
-    {
-        $mock->shouldReceive('setFactoryMethod')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($method) {
-
-            return $actual === $method;
-        }))->andReturn($mock);
-
-        return $mock;
-    }
-
-    private function _expectFactoryService(ehough_mockery_mockery_MockInterface $mock, $service)
-    {
-        $mock->shouldReceive('setFactoryService')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($service) {
-
-            echo "xxx";
-
-            return $actual === $service;
-        }))->andReturn($mock);
-
-        return $mock;
-    }
-
-    private function _expectDefinition($id, tubepress_api_ioc_Definition $definition)
-    {
-        $mockDefinition = ehough_mockery_Mockery::mock('tubepress_api_ioc_Definition');
-
-        $this->_mockContainer->shouldReceive('setDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
-
-            return $actualDefinition instanceof tubepress_api_ioc_Definition
-                && $actualDefinition->getClass() === $definition->getClass();
-
-        }))->andReturn($mockDefinition);
-
-        $mockDefinition->shouldReceive('getClass')->andReturn($definition->getClass());
-
-        return $mockDefinition;
-    }
-
-    private function _expectArgument(ehough_mockery_mockery_MockInterface $mock, $arg)
-    {
-        if ($arg instanceof tubepress_api_ioc_Reference || is_string($arg)) {
-
-            $mock->shouldReceive('addArgument')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($arg) {
-
-                return "$actual" === "$arg";
-            }))->andReturn($mock);
-
-        } else {
-
-            throw new RuntimeException();
-        }
-
-        return $mock;
+        $this->expectDefinition('tubepress_impl_cache_PoolDecorator', $mockCacheDefinition);
     }
 }

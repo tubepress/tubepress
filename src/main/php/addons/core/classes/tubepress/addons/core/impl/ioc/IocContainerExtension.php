@@ -66,18 +66,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerBootstrapper($container);
     }
 
-    /**
-     * Returns the recommended alias to use in XML.
-     *
-     * This alias is also the mandatory prefix to use when using YAML.
-     *
-     * @return string The alias
-     */
-    public final function getAlias()
-    {
-        return 'core';
-    }
-
     private function _registerAjaxHandler(tubepress_api_ioc_ContainerInterface $container)
     {
         $this->_registerSimpleService(
