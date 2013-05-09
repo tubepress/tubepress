@@ -28,7 +28,7 @@ class tubepress_addons_core_VimeoManifestValidityTest extends tubepress_test_imp
         $this->assertEquals('Allows TubePress work with Vimeo', $addon->getDescription());
         $this->assertEquals('tubepress_addons_vimeo_impl_Bootstrap', $addon->getBootstrap());
         $this->assertEquals(array('tubepress_addons_vimeo' => TUBEPRESS_ROOT . '/src/main/php/addons/vimeo/classes'), $addon->getPsr0ClassPathRoots());
-        $this->assertEquals(array('tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals(array('tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
 
@@ -47,7 +47,7 @@ class tubepress_addons_core_VimeoManifestValidityTest extends tubepress_test_imp
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener' => 'classes/tubepress/addons/vimeo/impl/listeners/http/VimeoHttpErrorResponseListener.php',
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener' => 'classes/tubepress/addons/vimeo/impl/listeners/video/VimeoVideoConstructionListener.php',
             'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant' => 'classes/tubepress/addons/vimeo/impl/options/ui/VimeoPluggableOptionsPageParticipant.php',
-            'tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension' => 'classes/tubepress/addons/vimeo/impl/patterns/ioc/VimeoIocContainerExtension.php',
+            'tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension' => 'classes/tubepress/addons/vimeo/impl/ioc/VimeoIocContainerExtension.php',
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService' => 'classes/tubepress/addons/vimeo/impl/provider/VimeoPluggableVideoProviderService.php',
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder' => 'classes/tubepress/addons/vimeo/impl/provider/VimeoUrlBuilder.php'
         );

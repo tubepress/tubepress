@@ -12,17 +12,19 @@
 /**
  * Registers a few extensions to allow TubePress to work with YouTube.
  */
-class tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
+class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
-
     /**
-     * Loads a specific configuration.
+     * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
+     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
      *
      * @return void
+     *
+     * @api
+     * @since 3.1.0
      */
-    public final function load(array $config, ehough_iconic_ContainerBuilder $container)
+    public function load(tubepress_api_ioc_ContainerInterface $container)
     {
         $container->register(
 
@@ -75,41 +77,5 @@ class tubepress_addons_vimeo_impl_patterns_ioc_VimeoIocContainerExtension implem
             'tubepress_addons_vimeo_impl_Bootstrap',
             'tubepress_addons_vimeo_impl_Bootstrap'
         );
-    }
-
-    /**
-     * Returns the recommended alias to use in XML.
-     *
-     * This alias is also the mandatory prefix to use when using YAML.
-     *
-     * @return string The alias
-     */
-    public final function getAlias()
-    {
-        return 'vimeo';
-    }
-
-    /**
-     * Returns the namespace to be used for this extension (XML namespace).
-     *
-     * @return string The XML namespace
-     *
-     * @api
-     */
-    public function getNamespace()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     *
-     * @api
-     */
-    public function getXsdValidationBasePath()
-    {
-        return null;
     }
 }
