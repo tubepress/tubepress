@@ -12,19 +12,19 @@
 /**
  * Registers a few extensions to allow TubePress to work with EmbedPlus.
  */
-class tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
+class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
     /**
-     * Loads a specific configuration.
+     * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param array            $config    An array of configuration values
-     * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
+     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
      *
-     * @throws ehough_iconic_exception_InvalidArgumentException When provided tag is not defined in this extension
+     * @return void
      *
      * @api
+     * @since 3.1.0
      */
-    public final function load(array $config, ehough_iconic_ContainerBuilder $container)
+    public function load(tubepress_api_ioc_ContainerInterface $container)
     {
         $container->register(
 
@@ -57,41 +57,5 @@ class tubepress_addons_jwplayer_impl_patterns_ioc_JwPlayerIocContainerExtension 
             'tubepress_addons_jwplayer_impl_Bootstrap',
             'tubepress_addons_jwplayer_impl_Bootstrap'
         );
-    }
-
-    /**
-     * Returns the recommended alias to use in XML.
-     *
-     * This alias is also the mandatory prefix to use when using YAML.
-     *
-     * @return string The alias
-     */
-    public final function getAlias()
-    {
-        return 'jwplayer';
-    }
-
-    /**
-     * Returns the namespace to be used for this extension (XML namespace).
-     *
-     * @return string The XML namespace
-     *
-     * @api
-     */
-    public function getNamespace()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     *
-     * @api
-     */
-    public function getXsdValidationBasePath()
-    {
-        return null;
     }
 }
