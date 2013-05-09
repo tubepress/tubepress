@@ -73,7 +73,7 @@ class tubepress_impl_event_DefaultEventDispatcher implements tubepress_api_event
      */
     public function publish($eventName, tubepress_api_event_EventInterface $event = null)
     {
-        if (!$event || $event instanceof ehough_tickertape_Event) {
+        if (!$event || (!($event instanceof ehough_tickertape_Event))) {
 
             $event = new tubepress_impl_event_TickertapeEventWrapper($event);
         }

@@ -479,9 +479,14 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
             }
         }
 
+        /**
+         * It's not a file and not a class, so it must be a service.
+         */
         if (!class_exists($bootstrap)) {
 
-            throw new InvalidArgumentException('bootstrap must either be a file or a PHP class');
+            $this->_bootstrap = $bootstrap;
+
+            return;
         }
 
         $ref = new ReflectionClass($bootstrap);

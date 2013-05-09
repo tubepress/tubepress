@@ -238,13 +238,13 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
         $addon->setBootstrap('InValidBootstrapClass');
     }
 
-    public function testNoSuchBootstrap()
+    public function testBootstrapIsService()
     {
-        $this->setExpectedException('InvalidArgumentException', 'bootstrap must either be a file or a PHP class');
-
         $addon = $this->_buildValidAddon();
 
         $addon->setBootstrap('foobar');
+
+        $this->assertEquals('foobar', $addon->getBootstrap());
     }
 
     public function testAbsPathBootstrap()
