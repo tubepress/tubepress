@@ -12,24 +12,24 @@
 /**
  * Builds instances of ehough_chaingang_api_Chain
  */
-class tubepress_impl_patterns_ioc_ChainRegistrar
+class tubepress_impl_ioc_ChainRegistrar
 {
-    public static function registerChainDefinitionByReferences(ehough_iconic_ContainerBuilder $container, $chainName, array $references)
+    public static function registerChainDefinitionByReferences(tubepress_api_ioc_ContainerInterface $container, $chainName, array $references)
     {
         $container->setDefinition(
 
             $chainName,
-            new ehough_iconic_Definition(
+            new tubepress_api_ioc_Definition(
 
                 'ehough_chaingang_api_Chain',
                 $references
             )
 
-        )->setFactoryClass('tubepress_impl_patterns_ioc_ChainRegistrar')
+        )->setFactoryClass('tubepress_impl_ioc_ChainRegistrar')
          ->setFactoryMethod('buildChain');
     }
 
-    public static function registerChainDefinitionByClassNames(ehough_iconic_ContainerBuilder $container, $chainName, array $classNames)
+    public static function registerChainDefinitionByClassNames(tubepress_api_ioc_ContainerInterface $container, $chainName, array $classNames)
     {
         $references = array();
 

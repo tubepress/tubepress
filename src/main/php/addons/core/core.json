@@ -16,7 +16,7 @@
     "bootstrap" : "tubepress_addons_core_impl_Bootstrap",
     "inversion-of-control": {
         "container-extensions" : [
-            "tubepress_addons_core_impl_patterns_ioc_IocContainerExtension"
+            "tubepress_addons_core_impl_ioc_IocContainerExtension"
         ]
     },
     "autoload":{
@@ -25,6 +25,8 @@
         },
         "classmap" : {
             "tubepress_addons_core_impl_Bootstrap"                                              : "classes/tubepress/addons/core/impl/Bootstrap.php",
+            "tubepress_addons_core_impl_ioc_FilesystemCacheBuilder"                             : "classes/tubepress/addons/core/impl/ioc/FilesystemCacheBuilder.php",
+            "tubepress_addons_core_impl_ioc_IocContainerExtension"                              : "classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php",
             "tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService"                 : "classes/tubepress/addons/core/impl/http/PlayerPluggableAjaxCommandService.php",
             "tubepress_addons_core_impl_listeners_AbstractStringMagicFilter"                    : "classes/tubepress/addons/core/impl/listeners/AbstractStringMagicFilter.php",
             "tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar"                    : "classes/tubepress/addons/core/impl/listeners/boot/CoreOptionsRegistrar.php",
@@ -51,8 +53,6 @@
             "tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender"              : "classes/tubepress/addons/core/impl/listeners/videogallerypage/VideoPrepender.php",
             "tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant"                  : "classes/tubepress/addons/core/impl/options/ui/CoreOptionsPageParticipant.php",
             "tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder"                   : "classes/tubepress/addons/core/impl/options/ui/CorePluggableFieldBuilder.php",
-            "tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder"                    : "classes/tubepress/addons/core/impl/patterns/ioc/FilesystemCacheBuilder.php",
-            "tubepress_addons_core_impl_patterns_ioc_IocContainerExtension"                     : "classes/tubepress/addons/core/impl/patterns/ioc/IocContainerExtension.php",
             "tubepress_addons_core_impl_player_JqModalPluggablePlayerLocationService"           : "classes/tubepress/addons/core/impl/player/JqModalPluggablePlayerLocationService.php",
             "tubepress_addons_core_impl_player_NormalPluggablePlayerLocationService"            : "classes/tubepress/addons/core/impl/player/NormalPluggablePlayerLocationService.php",
             "tubepress_addons_core_impl_player_PopupPluggablePlayerLocationService"             : "classes/tubepress/addons/core/impl/player/PopupPluggablePlayerLocationService.php",

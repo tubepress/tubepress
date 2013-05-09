@@ -8,16 +8,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_test_impl_patterns_ioc_CoreIocContainerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_patterns_ioc_CoreIocContainer
+     * @var tubepress_impl_ioc_CoreIocContainer
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_impl_patterns_ioc_CoreIocContainer();
+        $this->_sut = new tubepress_impl_ioc_CoreIocContainer();
     }
 
     public static function setUpBeforeClass()
@@ -40,7 +40,8 @@ class tubepress_test_impl_patterns_ioc_CoreIocContainerTest extends tubepress_te
             tubepress_spi_environment_EnvironmentDetector::_ => tubepress_spi_environment_EnvironmentDetector::_,
             tubepress_spi_addon_AddonDiscoverer::_           => tubepress_spi_addon_AddonDiscoverer::_,
             tubepress_spi_addon_AddonLoader::_               => tubepress_spi_addon_AddonLoader::_,
-            tubepress_api_event_EventDispatcherInterface::_  => tubepress_api_event_EventDispatcherInterface::_
+            tubepress_api_event_EventDispatcherInterface::_  => tubepress_api_event_EventDispatcherInterface::_,
+            'ehough_finder_FinderFactoryInterface'           => 'ehough_finder_FinderFactory'
         );
 
         foreach ($toTest as $key => $value) {
@@ -88,6 +89,11 @@ class tubepress_test_impl_patterns_ioc_CoreIocContainerTest extends tubepress_te
         $this->_sut->setParameter('some param', 'some value');
         $this->assertTrue($this->_sut->hasParameter('some param'));
         $this->assertEquals('some value', $this->_sut->getParameter('some param'));
+    }
+
+    public function testNoSuchService()
+    {
+        $this->assertNull($this->_sut->get('foo'));
     }
 
     private function _testServiceBuilt($id, $class)

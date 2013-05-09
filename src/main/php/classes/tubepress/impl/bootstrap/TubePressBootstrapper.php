@@ -109,7 +109,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         } else {
 
-            $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
+            $coreIocContainer = new tubepress_impl_ioc_CoreIocContainer();
         }
 
         tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($coreIocContainer);

@@ -12,7 +12,7 @@
 /**
  * Adds shortcode handlers to TubePress.
  */
-class tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder
+class tubepress_addons_core_impl_ioc_FilesystemCacheBuilder
 {
     public function buildCache()
     {

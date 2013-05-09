@@ -50,6 +50,31 @@ class tubepress_impl_event_TickertapeEventWrapper extends ehough_tickertape_Even
     }
 
     /**
+     * Returns the EventDispatcher that dispatches this Event
+     *
+     * @return tubepress_api_event_EventDispatcherInterface
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function getDispatcher()
+    {
+        return $this->_delegate->getDispatcher();
+    }
+
+    /**
+     * Gets the event's name.
+     *
+     * @return string
+     *
+     * @api
+     */
+    public function getName()
+    {
+        return $this->_delegate->getName();
+    }
+
+    /**
      * @return mixed The subject of the event.
      */
     public function getSubject()
@@ -68,6 +93,20 @@ class tubepress_impl_event_TickertapeEventWrapper extends ehough_tickertape_Even
     {
         return $this->_delegate->hasArgument($key);
     }
+
+    /**
+     * Returns whether further event listeners should be triggered.
+     *
+     * @see Event::stopPropagation
+     * @return Boolean Whether propagation was already stopped for this event.
+     *
+     * @api
+     */
+    public function isPropagationStopped()
+    {
+        return $this->_delegate->isPropagationStopped();
+    }
+
 
     /**
      * Add argument to event.
@@ -104,5 +143,34 @@ class tubepress_impl_event_TickertapeEventWrapper extends ehough_tickertape_Even
     public function setSubject($subject)
     {
         $this->_delegate->setSubject($subject);
+    }
+
+
+    /**
+     * Stops the propagation of the event to further event listeners.
+     *
+     * If multiple event listeners are connected to the same event, no
+     * further event listener will be triggered once any trigger calls
+     * stopPropagation().
+     *
+     * @api
+     */
+    public function stopPropagation()
+    {
+        $this->_delegate->stopPropagation();
+    }
+
+    /**
+     * Sets the event's name property.
+     *
+     * @param string $name The event name.
+     *
+     * @throws BadMethodCallException Always.
+     *
+     * @api
+     */
+    public function setName($name)
+    {
+        throw new BadMethodCallException('Cannot change the name of this type of event');
     }
 }

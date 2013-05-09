@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilderTest extends tubepress_test_TubePressUnitTest
+class tubepress_addons_core_impl_ioc_FilesystemCacheBuilderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder
+     * @var tubepress_addons_core_impl_ioc_FilesystemCacheBuilder
      */
     private $_sut;
 
@@ -27,7 +27,7 @@ class tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilderTest extends
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder();
+        $this->_sut = new tubepress_addons_core_impl_ioc_FilesystemCacheBuilder();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockFilesystem       = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
