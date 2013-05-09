@@ -16,7 +16,7 @@
     "bootstrap" : "tubepress_addons_wordpress_impl_Bootstrap",
     "inversion-of-control": {
         "container-extensions" : [
-            "tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension"
+            "tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension"
         ]
     },
     "autoload": {
@@ -36,7 +36,7 @@
             "tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener" : "classes/tubepress/addons/wordpress/impl/listeners/template/options/OptionsUiTemplateListener.php",
             "tubepress_addons_wordpress_impl_message_WordPressMessageService"                      : "classes/tubepress/addons/wordpress/impl/message/WordPressMessageService.php",
             "tubepress_addons_wordpress_impl_options_WordPressStorageManager"                      : "classes/tubepress/addons/wordpress/impl/options/WordPressStorageManager.php",
-            "tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension"          : "classes/tubepress/addons/wordpress/impl/patterns/ioc/WordPressIocContainerExtension.php",
+            "tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension"                   : "classes/tubepress/addons/wordpress/impl/ioc/WordPressIocContainerExtension.php",
             "tubepress_addons_wordpress_spi_ContentFilter"                                         : "classes/tubepress/addons/wordpress/spi/ContentFilter.php",
             "tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector"                              : "classes/tubepress/addons/wordpress/spi/FrontEndCssAndJsInjector.php",
             "tubepress_addons_wordpress_spi_WidgetHandler"                                         : "classes/tubepress/addons/wordpress/spi/WidgetHandler.php",

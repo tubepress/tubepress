@@ -12,19 +12,19 @@
 /**
  * Adds WordPress-specific services.
  */
-class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension implements ehough_iconic_extension_ExtensionInterface
+class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
     /**
-     * Loads a specific configuration.
+     * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param array            $config    An array of configuration values
-     * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
+     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
      *
-     * @throws ehough_iconic_exception_InvalidArgumentException When provided tag is not defined in this extension
+     * @return void
      *
      * @api
+     * @since 3.1.0
      */
-    public final function load(array $config, ehough_iconic_ContainerBuilder $container)
+    public function load(tubepress_api_ioc_ContainerInterface $container)
     {
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
@@ -88,19 +88,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         );
     }
 
-    /**
-     * Returns the recommended alias to use in XML.
-     *
-     * This alias is also the mandatory prefix to use when using YAML.
-     *
-     * @return string The alias
-     */
-    public final function getAlias()
-    {
-        return 'wordpress';
-    }
-
-    private function _registerListeners(ehough_iconic_ContainerBuilder $container)
+    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
     {
         $container->register(
 
@@ -121,7 +109,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         );
     }
 
-    private function _registerMessageService(ehough_iconic_ContainerBuilder $container)
+    private function _registerMessageService(tubepress_api_ioc_ContainerInterface $container)
     {
         $definition = $container->register(
 
@@ -132,7 +120,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $container->setDefinition('tubepress_addons_wordpress_impl_message_WordPressMessageService', $definition);
     }
 
-    private function _registerOptionsStorageManager(ehough_iconic_ContainerBuilder $container)
+    private function _registerOptionsStorageManager(tubepress_api_ioc_ContainerInterface $container)
     {
         $definition = $container->register(
 
@@ -143,7 +131,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $container->setDefinition('tubepress_addons_wordpress_impl_options_WordPressStorageManager', $definition);
     }
 
-    private function _registerOptionsUiFormHandler(ehough_iconic_ContainerBuilder $container)
+    private function _registerOptionsUiFormHandler(tubepress_api_ioc_ContainerInterface $container)
     {
         $tabsId = 'tubepress_impl_options_ui_DefaultTabsHandler';
 
@@ -169,7 +157,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $container->setDefinition('tubepress_impl_options_ui_DefaultFormHandler', $definition);
     }
 
-    private function _registerContentFilter(ehough_iconic_ContainerBuilder $container)
+    private function _registerContentFilter(tubepress_api_ioc_ContainerInterface $container)
     {
         $definition = $container->register(
 
@@ -180,7 +168,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $container->setDefinition('tubepress_addons_wordpress_impl_DefaultContentFilter', $definition);
     }
 
-    private function _registerCssAndJsInjector(ehough_iconic_ContainerBuilder $container)
+    private function _registerCssAndJsInjector(tubepress_api_ioc_ContainerInterface $container)
     {
         $definition = $container->register(
 
@@ -191,7 +179,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $container->setDefinition('tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector', $definition);
     }
 
-    private function _registerWidgetHandler(ehough_iconic_ContainerBuilder $container)
+    private function _registerWidgetHandler(tubepress_api_ioc_ContainerInterface $container)
     {
         $definition = $container->register(
 
@@ -202,7 +190,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $container->setDefinition('tubepress_addons_wordpress_impl_DefaultWidgetHandler', $definition);
     }
 
-    private function _registerWpAdminHandler(ehough_iconic_ContainerBuilder $container)
+    private function _registerWpAdminHandler(tubepress_api_ioc_ContainerInterface $container)
     {
         $definition = $container->register(
 
@@ -213,7 +201,7 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         $container->setDefinition('tubepress_addons_wordpress_impl_DefaultWpAdminHandler', $definition);
     }
 
-    private function _registerWpFunctionWrapper(ehough_iconic_ContainerBuilder $container)
+    private function _registerWpFunctionWrapper(tubepress_api_ioc_ContainerInterface $container)
     {
         $definition = $container->register(
 
@@ -222,29 +210,5 @@ class tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtensio
         );
 
         $container->setDefinition('tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper', $definition);
-    }
-
-    /**
-     * Returns the namespace to be used for this extension (XML namespace).
-     *
-     * @return string The XML namespace
-     *
-     * @api
-     */
-    public function getNamespace()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     *
-     * @api
-     */
-    public function getXsdValidationBasePath()
-    {
-        return null;
     }
 }
