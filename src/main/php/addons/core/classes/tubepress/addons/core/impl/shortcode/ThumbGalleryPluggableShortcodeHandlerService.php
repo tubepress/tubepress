@@ -11,6 +11,9 @@
 
 class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
@@ -96,7 +99,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
                 'videoGalleryPage' => $feedResult
             ));
 
-            $eventDispatcher->dispatch(
+            $eventDispatcher->publish(
 
                 tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY,
                 $event
@@ -116,7 +119,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
                 'videoGalleryPage' => $feedResult
             ));
 
-            $eventDispatcher->dispatch(
+            $eventDispatcher->publish(
 
                 tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY,
                 $event

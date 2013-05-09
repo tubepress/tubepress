@@ -34,7 +34,7 @@ class tubepress_impl_ioc_IconicCompilerPassWrapper implements ehough_iconic_comp
     {
         if (!($container instanceof tubepress_api_ioc_ContainerInterface)) {
 
-            throw new RuntimeException('Expected instance of ehough_iconic_ContainerInterface');
+            throw new RuntimeException('Compiler pass wrapper expected instance of tubepress_api_ioc_ContainerInterface');
         }
 
         /**

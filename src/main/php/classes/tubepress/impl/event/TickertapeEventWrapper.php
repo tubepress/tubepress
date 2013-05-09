@@ -20,8 +20,13 @@ class tubepress_impl_event_TickertapeEventWrapper extends ehough_tickertape_Even
      */
     private $_delegate;
 
-    public function __construct(tubepress_api_event_EventInterface $event)
+    public function __construct(tubepress_api_event_EventInterface $event = null)
     {
+        if (!$event) {
+
+            $event = new tubepress_spi_event_EventBase();
+        }
+
         $this->_delegate = $event;
     }
 
@@ -171,6 +176,6 @@ class tubepress_impl_event_TickertapeEventWrapper extends ehough_tickertape_Even
      */
     public function setName($name)
     {
-        throw new BadMethodCallException('Cannot change the name of this type of event');
+        $this->_delegate->setName($name);
     }
 }

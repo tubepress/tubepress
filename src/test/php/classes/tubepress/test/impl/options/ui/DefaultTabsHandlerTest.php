@@ -76,7 +76,7 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS, $this->_expectedTabs);
         $template->shouldReceive('toString')->once()->andReturn('foobar');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_ALL, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_ALL, ehough_mockery_Mockery::on(function ($event) {
 
             return $event instanceof tubepress_api_event_EventInterface;
         }));

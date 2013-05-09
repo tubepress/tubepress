@@ -37,7 +37,7 @@ class tubepress_impl_ioc_IconicContainerExtensionWrapper implements ehough_iconi
     {
         if (!($container instanceof tubepress_api_ioc_ContainerInterface)) {
 
-            throw new RuntimeException('Expected instance of ehough_iconic_ContainerInterface');
+            throw new RuntimeException('Container extension expected instance of tubepress_api_ioc_ContainerInterface');
         }
 
         $this->_delegate->load($container);

@@ -71,7 +71,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
         $this->addToTemplate($template);
 
         $templateEvent = new tubepress_spi_event_EventBase($template, array('tabName' => $this->getName()));
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_SINGLE, $templateEvent);
+        $eventDispatcher->publish(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_SINGLE, $templateEvent);
 
         $template = $templateEvent->getSubject();
 

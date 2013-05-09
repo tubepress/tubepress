@@ -180,7 +180,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase(new ehough_curly_Url($finalUrl));
 
-        $eventDispatcher->dispatch($eventName, $event);
+        $eventDispatcher->publish($eventName, $event);
 
         self::_restoreIniArgSeparator();
 

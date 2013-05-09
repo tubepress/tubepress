@@ -36,6 +36,16 @@ class tubepress_impl_addon_DefaultAddonLoader implements tubepress_spi_addon_Add
         $bootstrap          = $addon->getBootstrap();
         $isDebuggingEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
+        if (!$bootstrap) {
+
+            if ($isDebuggingEnabled) {
+
+                $this->_logger->debug(sprintf('%s did not define a bootstrap', $addon->getName()));
+            }
+
+            return null;
+        }
+
         if (is_file($bootstrap) && is_readable($bootstrap)) {
 
             if ($isDebuggingEnabled) {

@@ -29,6 +29,9 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
         $playerLocation            = null;
         $registeredPlayerLocations = tubepress_impl_patterns_sl_ServiceLocator::getPlayerLocations();
 
+        /**
+         * @var $registeredPlayerLocation tubepress_spi_player_PluggablePlayerLocationService
+         */
         foreach ($registeredPlayerLocations as $registeredPlayerLocation) {
 
             if ($registeredPlayerLocation->getName() === $requestedPlayerLocation) {
@@ -62,7 +65,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
                 'playerName' => $playerLocation->getName())
         );
 
-        $eventDispatcherService->dispatch(
+        $eventDispatcherService->publish(
 
             tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION,
             $playerTemplateEvent
@@ -79,7 +82,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
             'playerName'   => $playerLocation->getName()
         ));
 
-        $eventDispatcherService->dispatch(
+        $eventDispatcherService->publish(
 
             tubepress_api_const_event_EventNames::HTML_PLAYERLOCATION,
             $playerHtmlEvent

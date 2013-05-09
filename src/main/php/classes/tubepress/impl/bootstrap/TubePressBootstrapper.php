@@ -208,7 +208,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          * Notify that we have loaded all plugins.
          */
         $eventDispatcher   = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
+        $eventDispatcher->publish(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
 
         /**
          * Now that we have a storage manager, let's enable or disable logging permanently.

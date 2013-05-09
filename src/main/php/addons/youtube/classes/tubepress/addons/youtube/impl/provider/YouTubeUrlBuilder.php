@@ -158,7 +158,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase($url);
 
-        $eventDispatcher->dispatch($eventName, $event);
+        $eventDispatcher->publish($eventName, $event);
 
         /**
          * @var $url ehough_curly_Url

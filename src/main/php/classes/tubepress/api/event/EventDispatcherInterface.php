@@ -61,7 +61,7 @@ interface tubepress_api_event_EventDispatcherInterface
      * @api
      * @since 3.1.0
      */
-    function dispatch($eventName, tubepress_api_event_EventInterface $event = null);
+    function publish($eventName, tubepress_api_event_EventInterface $event = null);
 
     /**
      * Gets the listeners of a specific event or all listeners.

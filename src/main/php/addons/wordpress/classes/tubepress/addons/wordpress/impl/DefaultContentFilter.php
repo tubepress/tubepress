@@ -72,7 +72,7 @@ class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, $event);
+        $eventDispatcher->publish(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, $event);
 
         return $event->getArgument('message');
     }

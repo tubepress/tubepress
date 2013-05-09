@@ -19,7 +19,10 @@ if (! function_exists('bootTubePress')) {
         /**
          * First, record the root path.
          */
-        define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+        if (!defined('TUBEPRESS_ROOT')) {
+
+            define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+        }
 
         /**
          * Second, we add our classloader.

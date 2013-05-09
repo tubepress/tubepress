@@ -85,7 +85,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_FILTER, $this->_mockFilter);
         $template->shouldReceive('toString')->once()->andReturn('foo');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, ehough_mockery_Mockery::on(function ($event) use ($template) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, ehough_mockery_Mockery::on(function ($event) use ($template) {
 
             return $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $template;
         }));

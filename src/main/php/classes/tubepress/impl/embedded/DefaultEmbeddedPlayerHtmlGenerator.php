@@ -67,7 +67,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         /**
          * Dispatch the embedded template event.
          */
-        $eventDispatcherService->dispatch(
+        $eventDispatcherService->publish(
 
             tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             $embeddedTemplateEvent
@@ -94,7 +94,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         /**
          * Dispatche the embedded HTML event.
          */
-        $eventDispatcherService->dispatch(
+        $eventDispatcherService->publish(
 
             tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             $embeddedHtmlEvent

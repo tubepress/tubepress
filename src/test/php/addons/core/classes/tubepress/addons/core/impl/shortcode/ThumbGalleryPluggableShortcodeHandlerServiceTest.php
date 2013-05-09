@@ -73,13 +73,13 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $this->_mockProvider->shouldReceive('collectVideoGalleryPage')->once()->andReturn($mockFeedResult);
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate;
         }));
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'template-string';
         }));
@@ -127,13 +127,13 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $this->_mockProvider->shouldReceive('collectVideoGalleryPage')->once()->andReturn($mockFeedResult);
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate;
         }));
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'template-string';
         }));

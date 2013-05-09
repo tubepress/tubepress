@@ -14,6 +14,9 @@
  */
 class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
@@ -87,7 +90,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
                 )
             );
 
-            $eventDispatcher->dispatch(
+            $eventDispatcher->publish(
 
                 tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO,
                 $event
@@ -102,7 +105,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
             $event = new tubepress_spi_event_EventBase($html);
 
-            $eventDispatcher->dispatch(
+            $eventDispatcher->publish(
 
                 tubepress_api_const_event_EventNames::HTML_SINGLE_VIDEO,
                 $event

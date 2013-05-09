@@ -297,7 +297,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $eventDispatcher->dispatch($eventName, $event);
+        $eventDispatcher->publish($eventName, $event);
 
         return $event->getSubject();
     }

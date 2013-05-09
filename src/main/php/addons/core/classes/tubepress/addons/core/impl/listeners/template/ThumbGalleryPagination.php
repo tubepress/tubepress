@@ -27,7 +27,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
 
         $event = new tubepress_spi_event_EventBase($pagination);
 
-        $pm->dispatch(
+        $pm->publish(
 
             tubepress_api_const_event_EventNames::HTML_PAGINATION,
             $event
@@ -81,7 +81,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
      * @param string $targetpage The target page
      * @param string $pagestring The query parameter controlling the page number.
      *
-     * @return The HTML for the pagination
+     * @return string The HTML for the pagination
      */
     private function _diggStyle($totalitems, tubepress_spi_message_MessageService $messageService, $page = 1, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
     {
