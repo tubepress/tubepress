@@ -368,13 +368,13 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
     private function _cacheService()
     {
-        $this->expectRegistration('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-builderServiceId', 'tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder');
+        $this->expectRegistration('tubepress_addons_core_impl_ioc_IocContainerExtension-_registerCacheService-builderServiceId', 'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder');
 
         $def = new tubepress_api_ioc_Definition('ehough_stash_PoolInterface');
-        $this->expectDefinition('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId', $def);
+        $this->expectDefinition('tubepress_addons_core_impl_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId', $def);
 
         $mockCacheDefinition = $this->expectRegistration('ehough_stash_PoolInterface', 'tubepress_impl_cache_PoolDecorator')
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId'))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_addons_core_impl_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId'))
             ->andReturnDefinition();
 
         $this->expectDefinition('tubepress_impl_cache_PoolDecorator', $mockCacheDefinition);

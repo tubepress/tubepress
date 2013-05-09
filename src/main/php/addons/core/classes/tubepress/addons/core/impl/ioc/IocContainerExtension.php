@@ -81,8 +81,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         /**
          * Long, guaranteed unique service IDs (since they're anonymous)
          */
-        $actualPoolServiceId = 'tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId';
-        $builderServiceId    = 'tubepress_addons_core_impl_patterns_ioc_IocContainerExtension-_registerCacheService-builderServiceId';
+        $actualPoolServiceId = 'tubepress_addons_core_impl_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId';
+        $builderServiceId    = 'tubepress_addons_core_impl_ioc_IocContainerExtension-_registerCacheService-builderServiceId';
 
         /**
          * First register the default cache builder.
@@ -90,7 +90,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $container->register(
 
             $builderServiceId,
-            'tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder'
+            'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder'
         );
 
         $actualPoolDefinition = new tubepress_api_ioc_Definition('ehough_stash_PoolInterface');
