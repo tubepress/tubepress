@@ -60,7 +60,7 @@ class tubepress_impl_addon_DefaultAddonLoader implements tubepress_spi_addon_Add
 
             if ($isDebuggingEnabled) {
 
-                $this->_logger->debug(sprintf('%s add-on\'s bootstrap (%s) is not a readable file. Assuming it\'s a class...',
+                $this->_logger->debug(sprintf('%s add-on\'s bootstrap (%s) is not a readable file. Assuming it\'s a class name or service ID...',
                     $addon->getName(), $bootstrap));
             }
 
