@@ -35,7 +35,7 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
         $tubePressCssUrl = $this->_getRelativeUrl('/src/main/web/css/tubepress.css');
         $finalUrl        = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_CSS_URL_TUBEPRESS, $tubePressCssUrl);
 
-        return sprintf(sprintf('<link rel="stylesheet" href="%s/src/main/web/css/tubepress.css" type="text/css" />', $finalUrl));
+        return sprintf(sprintf('<link rel="stylesheet" href="%s" type="text/css" />', $finalUrl));
     }
 
     public function getMetaTags()

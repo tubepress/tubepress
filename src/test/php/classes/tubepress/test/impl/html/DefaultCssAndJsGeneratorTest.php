@@ -111,7 +111,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
             return $ok;
         }));
-        $this->assertEquals('<link rel="stylesheet" href="blue/src/main/web/css/tubepress.css" type="text/css" />', $this->_sut->getTubePressCssTag());
+        $this->assertEquals('<link rel="stylesheet" href="blue" type="text/css" />', $this->_sut->getTubePressCssTag());
     }
 
     public function testMetaTags1()
