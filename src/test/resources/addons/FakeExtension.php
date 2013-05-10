@@ -8,20 +8,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class FakeExtension implements ehough_iconic_extension_ExtensionInterface
+class FakeExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
 
     /**
      * Loads a specific configuration.
      *
-     * @param array            $config    An array of configuration values
-     * @param ehough_iconic_ContainerBuilder $container A ContainerBuilder instance
+     * @param tubepress_api_ioc_ContainerInterface $container A ContainerBuilder instance
      *
-     * @throws ehough_iconic_exception_InvalidArgumentException When provided tag is not defined in this extension
+     * @throws InvalidArgumentException When provided tag is not defined in this extension
      *
      * @api
      */
-    public function load(array $config, ehough_iconic_ContainerBuilder $container)
+    public function load(tubepress_api_ioc_ContainerInterface $container)
     {
         //do nothing
     }

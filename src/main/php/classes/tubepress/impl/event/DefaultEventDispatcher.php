@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_impl_event_DefaultEventDispatcher implements tubepress_api_event_EventDispatcherInterface
+class tubepress_impl_event_DefaultEventDispatcher implements tubepress_api_event_EventDispatcherInterface, ehough_tickertape_EventDispatcherInterface
 {
     /**
      * @var ehough_tickertape_ContainerAwareEventDispatcher
@@ -71,13 +71,31 @@ class tubepress_impl_event_DefaultEventDispatcher implements tubepress_api_event
      * @api
      * @since 3.1.0
      */
-    public function dispatch($eventName, tubepress_api_event_EventInterface $event = null)
+    public function publish($eventName, tubepress_api_event_EventInterface $event = null)
     {
-        if ($event && !($event instanceof ehough_tickertape_Event)) {
+        if (!$event || (!($event instanceof ehough_tickertape_Event))) {
 
             $event = new tubepress_impl_event_TickertapeEventWrapper($event);
         }
 
+        return $this->dispatch($eventName, $event);
+    }
+
+    /**
+     * Dispatches an event to all registered listeners.
+     *
+     * @param string                  $eventName The name of the event to dispatch. The name of
+     *                                           the event is the name of the method that is
+     *                                           invoked on listeners.
+     * @param ehough_tickertape_Event $event     The event to pass to the event handlers/listeners.
+     *                                           If not supplied, an empty Event instance is created.
+     *
+     * @return ehough_tickertape_Event
+     *
+     * @api
+     */
+    public function dispatch($eventName, ehough_tickertape_Event $event = null)
+    {
         return $this->_wrappedDispatcher->dispatch($eventName, $event);
     }
 
@@ -123,5 +141,30 @@ class tubepress_impl_event_DefaultEventDispatcher implements tubepress_api_event
     public function removeListener($eventName, $listener)
     {
         $this->_wrappedDispatcher->removeListener($eventName, $listener);
+    }
+
+    /**
+     * Adds an event subscriber.
+     *
+     * The subscriber is asked for all the events he is
+     * interested in and added as a listener for these events.
+     *
+     * @param ehough_tickertape_EventSubscriberInterface $subscriber The subscriber.
+     *
+     * @api
+     */
+    public function addSubscriber(ehough_tickertape_EventSubscriberInterface $subscriber)
+    {
+        $this->_wrappedDispatcher->addSubscriber($subscriber);
+    }
+
+    /**
+     * Removes an event subscriber.
+     *
+     * @param ehough_tickertape_EventSubscriberInterface $subscriber The subscriber
+     */
+    public function removeSubscriber(ehough_tickertape_EventSubscriberInterface $subscriber)
+    {
+        $this->_wrappedDispatcher->removeSubscriber($subscriber);
     }
 }

@@ -46,10 +46,10 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === $mockTemplate
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'some-provider'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -58,10 +58,10 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
 
         $mockTemplate->shouldReceive('toString')->once()->andReturn('templateAsString');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === 'templateAsString'
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'templateAsString'
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'some-provider'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -89,10 +89,10 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === $mockTemplate
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'xyz'
                     && $arg->getArgument('dataUrl') === 'data-url'
@@ -101,10 +101,10 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
 
         $mockTemplate->shouldReceive('toString')->once()->andReturn('templateAsString');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
-                return $arg instanceof ehough_tickertape_Event && $arg->getSubject() === 'templateAsString'
+                return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'templateAsString'
                     && $arg->getArgument('videoId') === 'video-id'
                     && $arg->getArgument('providerName') === 'xyz'
                     && $arg->getArgument('dataUrl') === 'data-url'

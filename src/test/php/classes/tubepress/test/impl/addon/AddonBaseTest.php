@@ -211,59 +211,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
         $addon->setDescription(array());
     }
 
-    public function testBootstrapClassWithNonPublicBootFunction()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'bootstrap class\'s boot() method must be public');
 
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrap('InValidBootstrapClassNonPublicBootFunction');
-    }
-
-    public function testBootstrapClassWithExtraArgs()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'bootstrap class\'s boot() method must not have any parameters');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrap('InValidBootstrapClassExtraArgs');
-    }
-
-    public function testBootstrapClassDoesNotHaveBootMethod()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'bootstrap class must implement a boot() method');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrap('InValidBootstrapClass');
-    }
-
-    public function testNoSuchBootstrap()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'bootstrap must either be a file or a PHP class');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrap('foobar');
-    }
-
-    public function testAbsPathBootstrap()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrap(__FILE__);
-
-        $this->assertTrue($addon->getBootstrap() === __FILE__);
-    }
-
-    public function testNonStringBootstrap()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'bootstrap must be a string');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrap(array());
-    }
 
     public function testInvalidLicenseAttribute()
     {
@@ -476,6 +424,42 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
         );
     }
 
+    /**
+     * tubepress_impl_addon_AddonBase::setBootstrapClasses
+     * tubepress_impl_addon_AddonBase::getBootstrapClasses
+     */
+    public function testGetSetBootClasses()
+    {
+        $addon = $this->_buildValidAddon();
+
+        $addon->setBootstrapClasses(array('1', 'e', '3'));
+        $this->assertEquals(array('1', 'e', '3'), $addon->getBootstrapClasses());
+    }
+
+    /**
+     * tubepress_impl_addon_AddonBase::setBootstrapServices
+     * tubepress_impl_addon_AddonBase::getBootstrapServices
+     */
+    public function testGetSetBootServices()
+    {
+        $addon = $this->_buildValidAddon();
+
+        $addon->setBootstrapServices(array('1', 'b', '3'));
+        $this->assertEquals(array('1', 'b', '3'), $addon->getBootstrapServices());
+    }
+
+    /**
+     * tubepress_impl_addon_AddonBase::setBootstrapFiles
+     * tubepress_impl_addon_AddonBase::getBootstrapFiles
+     */
+    public function testGetSetBootFiles()
+    {
+        $addon = $this->_buildValidAddon();
+
+        $addon->setBootstrapFiles(array('a', 'b', '3'));
+        $this->assertEquals(array('a', 'b', '3'), $addon->getBootstrapFiles());
+    }
+
     private function _buildValidAddon()
     {
         return new tubepress_impl_addon_AddonBase(
@@ -487,24 +471,4 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             array(array('url' => 'http://foo.bar'))
         );
     }
-}
-
-class InValidBootstrapClassNonPublicBootFunction
-{
-    private function boot() {}
-}
-
-class InValidBootstrapClassExtraArgs
-{
-    public function boot($arg) {}
-}
-
-class InValidBootstrapClass
-{
-
-}
-
-class ValidBootstrapClass
-{
-    public function boot() {}
 }

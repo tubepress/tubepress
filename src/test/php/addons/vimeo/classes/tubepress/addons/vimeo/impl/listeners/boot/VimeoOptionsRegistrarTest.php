@@ -102,7 +102,7 @@ class tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrarTest exten
         $option->setValidValueRegex(self::$_regexColor);
         $this->_verifyOption($option);
 
-        $this->_sut->onBoot(new ehough_tickertape_Event());
+        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
 
         $this->assertTrue(true);
     }

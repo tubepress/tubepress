@@ -82,14 +82,14 @@ class tubepress_test_impl_addon_FilesystemAddonDiscovererTest extends tubepress_
     {
         $addon = $this->_verifyGoodAddon('good_addon');
 
-        $this->assertEquals('tubepress_test_impl_addon_FilesystemAddonDiscovererTest', $addon->getBootstrap());
+        $this->assertEquals(array('tubepress_test_impl_addon_FilesystemAddonDiscovererTest'), $addon->getBootstrapClasses());
     }
 
     public function testGoodAddon2()
     {
         $addon = $this->_verifyGoodAddon('good_addon2');
 
-        $this->assertEquals(TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon2/some/dir/boot.php', $addon->getBootstrap());
+        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon2/some/dir/boot.php'), $addon->getBootstrapFiles());
     }
 
     private function _verifyGoodAddon($dir)

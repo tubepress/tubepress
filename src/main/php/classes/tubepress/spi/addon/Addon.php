@@ -24,11 +24,13 @@ interface tubepress_spi_addon_Addon
     const ATTRIBUTE_TITLE               = 'title';
     const ATTRIBUTE_AUTHOR              = 'author';
     const ATTRIBUTE_LICENSES            = 'licenses';
-    const ATTRIBUTE_BOOTSTRAP           = 'bootstrap';
 
     /**
      * Optional attributes.
      */
+    const ATTRIBUTE_BOOT_FILES          = 'files';
+    const ATTRIBUTE_BOOT_CLASSES        = 'classes';
+    const ATTRIBUTE_BOOT_SERVICES       = 'services';
     const ATTRIBUTE_DESCRIPTION         = 'description';
     const ATTRIBUTE_KEYWORDS            = 'keywords';
     const ATTRIBUTE_URL_HOMEPAGE        = 'homepage';
@@ -44,9 +46,10 @@ interface tubepress_spi_addon_Addon
     /**
      * Containers.
      */
-    const CATEGORY_AUTOLOAD = 'autoload';
-    const CATEGORY_IOC      = 'inversion-of-control';
-    const CATEGORY_URLS     = 'urls';
+    const CATEGORY_AUTOLOAD  = 'autoload';
+    const CATEGORY_BOOTSTRAP = 'bootstrap';
+    const CATEGORY_IOC       = 'inversion-of-control';
+    const CATEGORY_URLS      = 'urls';
 
     /**
      * @return string The globally unique name of this add-on. Must be 100 characters or less,
@@ -79,11 +82,22 @@ interface tubepress_spi_addon_Addon
     function getLicenses();
 
     /**
-     * @return string Optional. Either the absolute path of a PHP file that will be included on bootup,
-     *                          or the fully-qualified class name of a class that has a public function
-     *                          named boot().
+     * @return array Optional. An array of absolute paths of files that will be include'd when this add-on
+     *                         is loaded into the system.
      */
-    function getBootstrap();
+    function getBootstrapFiles();
+
+    /**
+     * @return array Optional. An array of service identifiers whose boot() function will be invoked
+     *                         when this add-on is loaded into the system.
+     */
+    function getBootstrapServices();
+
+    /**
+     * @return array Optional. An array of fully-qualified class names whose boot() function will be invoked
+     *                         when this add-on is loaded into the system.
+     */
+    function getBootstrapClasses();
 
     /**
      * @return string Optional. A longer description of this add-on. 1000 characters or less.

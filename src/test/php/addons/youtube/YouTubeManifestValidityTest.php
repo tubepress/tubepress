@@ -26,9 +26,9 @@ class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_test_i
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress work with YouTube', $addon->getDescription());
-        $this->assertEquals('tubepress_addons_youtube_impl_Bootstrap', $addon->getBootstrap());
+        $this->assertEquals(array('tubepress_addons_youtube_impl_Bootstrap'), $addon->getBootstrapServices());
         $this->assertEquals(array('tubepress_addons_youtube' => TUBEPRESS_ROOT . '/src/main/php/addons/youtube/classes'), $addon->getPsr0ClassPathRoots());
-        $this->assertEquals(array('tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals(array('tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
 
@@ -49,7 +49,7 @@ class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_test_i
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover' => 'classes/tubepress/addons/youtube/impl/listeners/options/YouTubePlaylistPlPrefixRemover.php',
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener' => 'classes/tubepress/addons/youtube/impl/listeners/video/YouTubeVideoConstructionListener.php',
             'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant' => 'classes/tubepress/addons/youtube/impl/options/ui/YouTubeOptionsPageParticipant.php',
-            'tubepress_addons_youtube_impl_patterns_ioc_YouTubeIocContainerExtension' => 'classes/tubepress/addons/youtube/impl/patterns/ioc/YouTubeIocContainerExtension.php',
+            'tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension' => 'classes/tubepress/addons/youtube/impl/ioc/YouTubeIocContainerExtension.php',
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService' => 'classes/tubepress/addons/youtube/impl/provider/YouTubePluggableVideoProviderService.php',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder' => 'classes/tubepress/addons/youtube/impl/provider/YouTubeUrlBuilder.php'
         );

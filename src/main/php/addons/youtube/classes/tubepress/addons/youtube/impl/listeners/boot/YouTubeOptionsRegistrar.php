@@ -14,7 +14,7 @@
  */
 class tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar
 {
-    public function onBoot(ehough_tickertape_Event $event)
+    public function onBoot(tubepress_api_event_EventInterface $event)
     {
         $_valueMapTime = array(
 

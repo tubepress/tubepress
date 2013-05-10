@@ -74,7 +74,7 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
             'request'  => $request,
             'response' => $response
         ));
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::HTTP_RESPONSE, $event);
+        $eventDispatcher->publish(tubepress_api_const_event_EventNames::HTTP_RESPONSE, $event);
 
         return $event->getSubject();
     }

@@ -120,7 +120,7 @@ class tubepress_test_impl_bootstrap_TubePressBootstrapperTest extends tubepress_
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn('false');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
 
         $this->_sut->boot(new ehough_pulsar_ComposerClassLoader(dirname(__FILE__) . '/../../../../../../../../vendor'));
 

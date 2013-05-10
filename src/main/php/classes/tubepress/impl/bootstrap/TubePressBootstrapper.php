@@ -109,7 +109,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
         } else {
 
-            $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
+            $coreIocContainer = new tubepress_impl_ioc_CoreIocContainer();
         }
 
         tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($coreIocContainer);
@@ -193,7 +193,15 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
                     $index, $count, $addon->getName()));
             }
 
-            $addonLoader->load($addon);
+            $errors = $addonLoader->load($addon);
+
+            if (count($errors) > 0) {
+
+                foreach ($errors as $error) {
+
+                    $this->_logger->warn($error);
+                }
+            }
 
             if ($this->_shouldLog) {
 
@@ -208,7 +216,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          * Notify that we have loaded all plugins.
          */
         $eventDispatcher   = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
+        $eventDispatcher->publish(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
 
         /**
          * Now that we have a storage manager, let's enable or disable logging permanently.

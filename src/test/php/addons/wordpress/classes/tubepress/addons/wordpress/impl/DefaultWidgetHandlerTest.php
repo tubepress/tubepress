@@ -186,7 +186,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends tubepress_test_TubePres
 
         $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('shortcode string');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, ehough_mockery_Mockery::on(function ($event) {
 
             return $event instanceof tubepress_api_event_EventInterface && $event->getArgument('message') === 'crazy stuff happened'
                 && $event->getSubject() instanceof Exception;

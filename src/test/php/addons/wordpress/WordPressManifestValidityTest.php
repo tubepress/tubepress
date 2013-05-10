@@ -26,9 +26,9 @@ class tubepress_addons_core_WordPressManifestValidityTest extends tubepress_test
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress to integrate with WordPress', $addon->getDescription());
-        $this->assertEquals('tubepress_addons_wordpress_impl_Bootstrap', $addon->getBootstrap());
+        $this->assertEquals(array('tubepress_addons_wordpress_impl_Bootstrap'), $addon->getBootstrapServices());
         $this->assertEquals(array('tubepress_addons_wordpress' => TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/classes'), $addon->getPsr0ClassPathRoots());
-        $this->assertEquals(array('tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals(array('tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
 
@@ -47,7 +47,7 @@ class tubepress_addons_core_WordPressManifestValidityTest extends tubepress_test
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener' => 'classes/tubepress/addons/wordpress/impl/listeners/template/options/OptionsUiTemplateListener.php',
             'tubepress_addons_wordpress_impl_message_WordPressMessageService' => 'classes/tubepress/addons/wordpress/impl/message/WordPressMessageService.php',
             'tubepress_addons_wordpress_impl_options_WordPressStorageManager' => 'classes/tubepress/addons/wordpress/impl/options/WordPressStorageManager.php',
-            'tubepress_addons_wordpress_impl_patterns_ioc_WordPressIocContainerExtension' => 'classes/tubepress/addons/wordpress/impl/patterns/ioc/WordPressIocContainerExtension.php',
+            'tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension' => 'classes/tubepress/addons/wordpress/impl/ioc/WordPressIocContainerExtension.php',
             'tubepress_addons_wordpress_spi_ContentFilter' => 'classes/tubepress/addons/wordpress/spi/ContentFilter.php',
             'tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector' => 'classes/tubepress/addons/wordpress/spi/FrontEndCssAndJsInjector.php',
             'tubepress_addons_wordpress_spi_WidgetHandler' => 'classes/tubepress/addons/wordpress/spi/WidgetHandler.php',

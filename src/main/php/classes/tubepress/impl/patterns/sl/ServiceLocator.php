@@ -69,7 +69,7 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_tickertape_EventDispatcherInterface The event dispatcher.
+     * @return tubepress_api_event_EventDispatcherInterface The event dispatcher.
      */
     public static function getEventDispatcher()
     {

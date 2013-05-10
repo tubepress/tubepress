@@ -11,7 +11,9 @@
         { "url": "http://foo.bar" },
         { "url": "http://foo.com" }
     ],
-    "bootstrap": "some/dir/boot.php",
+    "bootstrap": {
+        "files": [ "some/dir/boot.php" ]
+    },
     "description": "This is a description",
     "keywords": [ "one", "three", "two" ],
     "urls": {

@@ -159,7 +159,7 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipantTest exten
             $this->_mockFieldBuilder->shouldReceive('build')->once()->with($key, $value)->andReturn($val);
         }
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, ehough_mockery_Mockery::on(function ($event) {
 
             return $event instanceof tubepress_api_event_EventInterface && is_array($event->getSubject()) && $event->getArgument('participant') instanceof tubepress_spi_options_ui_PluggableOptionsPageParticipant;
         }));

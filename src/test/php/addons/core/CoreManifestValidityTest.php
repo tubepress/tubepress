@@ -26,9 +26,9 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('TubePress core functionality', $addon->getDescription());
-        $this->assertEquals('tubepress_addons_core_impl_Bootstrap', $addon->getBootstrap());
+        $this->assertEquals(array('tubepress_addons_core_impl_Bootstrap'), $addon->getBootstrapServices());
         $this->assertEquals(array('tubepress_addons_core' => TUBEPRESS_ROOT . '/src/main/php/addons/core/classes'), $addon->getPsr0ClassPathRoots());
-        $this->assertEquals(array('tubepress_addons_core_impl_patterns_ioc_IocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals(array('tubepress_addons_core_impl_ioc_IocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
     
@@ -38,6 +38,8 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
 
             'tubepress_addons_core_impl_Bootstrap' => 'classes/tubepress/addons/core/impl/Bootstrap.php',
             'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService' => 'classes/tubepress/addons/core/impl/http/PlayerPluggableAjaxCommandService.php',
+            'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder' => 'classes/tubepress/addons/core/impl/ioc/FilesystemCacheBuilder.php',
+            'tubepress_addons_core_impl_ioc_IocContainerExtension' => 'classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php',
             'tubepress_addons_core_impl_listeners_AbstractStringMagicFilter' => 'classes/tubepress/addons/core/impl/listeners/AbstractStringMagicFilter.php',
             'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar' => 'classes/tubepress/addons/core/impl/listeners/boot/CoreOptionsRegistrar.php',
             'tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener' => 'classes/tubepress/addons/core/impl/listeners/cssjs/DefaultPathsListener.php',
@@ -63,8 +65,6 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
             'tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender' => 'classes/tubepress/addons/core/impl/listeners/videogallerypage/VideoPrepender.php',
             'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant' => 'classes/tubepress/addons/core/impl/options/ui/CoreOptionsPageParticipant.php',
             'tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder' => 'classes/tubepress/addons/core/impl/options/ui/CorePluggableFieldBuilder.php',
-            'tubepress_addons_core_impl_patterns_ioc_FilesystemCacheBuilder' => 'classes/tubepress/addons/core/impl/patterns/ioc/FilesystemCacheBuilder.php',
-            'tubepress_addons_core_impl_patterns_ioc_IocContainerExtension' => 'classes/tubepress/addons/core/impl/patterns/ioc/IocContainerExtension.php',
             'tubepress_addons_core_impl_player_JqModalPluggablePlayerLocationService' => 'classes/tubepress/addons/core/impl/player/JqModalPluggablePlayerLocationService.php',
             'tubepress_addons_core_impl_player_NormalPluggablePlayerLocationService' => 'classes/tubepress/addons/core/impl/player/NormalPluggablePlayerLocationService.php',
             'tubepress_addons_core_impl_player_PopupPluggablePlayerLocationService' => 'classes/tubepress/addons/core/impl/player/PopupPluggablePlayerLocationService.php',

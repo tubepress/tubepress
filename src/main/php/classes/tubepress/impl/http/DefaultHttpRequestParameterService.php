@@ -47,7 +47,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
             array('optionName' => $name)
         );
 
-        $eventDispatcher->dispatch(
+        $eventDispatcher->publish(
 
             tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL,
             $event

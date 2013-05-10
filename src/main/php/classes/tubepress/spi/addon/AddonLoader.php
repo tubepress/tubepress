@@ -17,11 +17,16 @@ interface tubepress_spi_addon_AddonLoader
     const _ = 'tubepress_spi_addon_AddonLoader';
 
     /**
-     * Loads the given add-on into the system.
+     * Loads the given add-on into the system. This consists of including any defined
+     * bootstrap files, then calling boot() on any bootstrap services and classes.
+     *
+     * If errors are encountered, the loader will record them and make a best effort to continue
+     * loading the add-on.
      *
      * @param tubepress_spi_addon_Addon $addon
      *
-     * @return mixed Null if the add-on loaded normally, otherwise a string error message.
+     * @return mixed An array of string error messages encountered while loading the
+     *               add-on. May be empty, never null.
      */
     function load(tubepress_spi_addon_Addon $addon);
 }

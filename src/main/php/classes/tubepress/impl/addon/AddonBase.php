@@ -94,7 +94,20 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
      */
     private $_classMap = array();
 
-    private $_bootstrap;
+    /**
+     * @var array
+     */
+    private $_bootClasses = array();
+
+    /**
+     * @var array
+     */
+    private $_bootFiles = array();
+
+    /**
+     * @var array
+     */
+    private $_bootServices = array();
 
     public function __construct(
 
@@ -345,14 +358,33 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
     }
 
     /**
-     * @return string Optional. Either the absolute path of a PHP file that will be included on bootup,
-     *                          or the fully-qualified class name of a class that has a public function
-     *                          named boot().
+     * @return array Optional. An array of absolute paths of files that will be include'd when this add-on
+     *                         is loaded into the system.
      */
-    public function getBootstrap()
+    public function getBootstrapFiles()
     {
-        return $this->_bootstrap;
+        return $this->_bootFiles;
     }
+
+    /**
+     * @return array Optional. An array of service identifiers whose boot() function will be invoked
+     *                         when this add-on is loaded into the system.
+     */
+    public function getBootstrapServices()
+    {
+        return $this->_bootServices;
+    }
+
+    /**
+     * @return array Optional. An array of fully-qualified class names whose boot() function will be invoked
+     *                         when this add-on is loaded into the system.
+     */
+    public function getBootstrapClasses()
+    {
+        return $this->_bootClasses;
+    }
+
+
 
     private function _setName($name)
     {
@@ -450,60 +482,25 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         $this->_licenses = $licenses;
     }
 
-    public function setBootstrap($bootstrap)
+    public function setBootstrapFiles(array $files)
     {
-        if (!is_string($bootstrap)) {
+        $this->_validateArrayIsJustStrings($files, 'Bootstrap files must be an array of just strings');
 
-            throw new InvalidArgumentException('bootstrap must be a string');
-        }
+        $this->_bootFiles = $files;
+    }
 
-        /**
-         * They gave us a file.
-         */
-        if (tubepress_impl_util_StringUtils::endsWith($bootstrap, '.php') && is_file($bootstrap) && is_readable($bootstrap)) {
+    public function setBootstrapClasses(array $classes)
+    {
+        $this->_validateArrayIsJustStrings($classes, 'Bootstrap classes must be an array of just strings');
 
-            $this->_bootstrap = $bootstrap;
+        $this->_bootClasses = $classes;
+    }
 
-            return;
-        }
+    public function setBootstrapServices(array $services)
+    {
+        $this->_validateArrayIsJustStrings($services, 'Bootstrap services must be an array of just strings');
 
-        if (! class_exists($bootstrap)) {
-
-            try {
-
-                spl_autoload($bootstrap);
-
-            } catch (Exception $e) {
-
-                //ignore
-            }
-        }
-
-        if (!class_exists($bootstrap)) {
-
-            throw new InvalidArgumentException('bootstrap must either be a file or a PHP class');
-        }
-
-        $ref = new ReflectionClass($bootstrap);
-
-        if (!$ref->hasMethod('boot')) {
-
-            throw new InvalidArgumentException('bootstrap class must implement a boot() method');
-        }
-
-        $method = $ref->getMethod('boot');
-
-        if ($method->getNumberOfParameters() > 0) {
-
-            throw new InvalidArgumentException('bootstrap class\'s boot() method must not have any parameters');
-        }
-
-        if (!$method->isPublic()) {
-
-            throw new InvalidArgumentException('bootstrap class\'s boot() method must be public');
-        }
-
-        $this->_bootstrap = $bootstrap;
+        $this->_bootServices = $services;
     }
 
     private function _validateArrayIsJustStrings(array $array, $message)

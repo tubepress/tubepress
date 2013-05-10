@@ -14,6 +14,9 @@
  */
 abstract class tubepress_impl_options_AbstractStorageManager implements tubepress_spi_options_StorageManager
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     private $_knownOptionNames = array();
@@ -61,7 +64,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
+        $eventDispatcherService->publish(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
         $filteredValue = $event->getSubject();
 
         /** OK, let's see if it's valid. */

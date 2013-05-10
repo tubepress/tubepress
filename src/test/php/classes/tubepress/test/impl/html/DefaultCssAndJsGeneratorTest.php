@@ -30,7 +30,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testJqueryInclude()
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -44,7 +44,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testJsInclude()
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -58,7 +58,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testInlineJs()
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -72,7 +72,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testInlineCss()
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -86,7 +86,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testCss()
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEET_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEET_TAG_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -99,7 +99,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testMetaTags()
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 

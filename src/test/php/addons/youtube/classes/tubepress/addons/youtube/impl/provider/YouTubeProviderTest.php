@@ -103,7 +103,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends tubepre
 
         $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->galleryXml());
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->times(16)->with(
+        $this->_mockEventDispatcher->shouldReceive('publish')->times(16)->with(
 
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {
@@ -123,7 +123,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeProviderTest extends tubepre
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
         $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->singleVideoXml());
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(
 
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
             ehough_mockery_Mockery::on(function ($arg) {

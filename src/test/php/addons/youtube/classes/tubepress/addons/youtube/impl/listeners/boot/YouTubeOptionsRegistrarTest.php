@@ -42,7 +42,7 @@ class tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrarTest e
     {
         $this->_testOptions();
 
-        $this->_sut->onBoot(new ehough_tickertape_Event());
+        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
 
         $this->assertTrue(true);
     }
