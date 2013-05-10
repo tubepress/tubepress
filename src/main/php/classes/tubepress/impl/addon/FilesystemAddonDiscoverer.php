@@ -111,7 +111,6 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
     {
         $optionalAttributeMap = array(
 
-            tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP           => 'Bootstrap',
             tubepress_spi_addon_Addon::ATTRIBUTE_DESCRIPTION         => 'Description',
             tubepress_spi_addon_Addon::ATTRIBUTE_KEYWORDS            => 'Keywords',
             tubepress_spi_addon_Addon::CATEGORY_URLS                 => array(
@@ -132,6 +131,12 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
                 tubepress_spi_addon_Addon::ATTRIBUTE_IOC_COMPILER_PASSES => 'IocContainerCompilerPasses',
                 tubepress_spi_addon_Addon::ATTRIBUTE_IOC_EXTENSIONS      => 'IocContainerExtensions',
             ),
+            tubepress_spi_addon_Addon::CATEGORY_BOOTSTRAP            => array(
+
+                tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_CLASSES  => 'BootstrapClasses',
+                tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_FILES    => 'BootstrapFiles',
+                tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_SERVICES => 'BootstrapServices'
+            )
         );
 
         $this->_setOptionalAttributesFromMap($addon, $manifestContentsAsArray, $manifestFileAbsPath, $optionalAttributeMap);
@@ -171,17 +176,9 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
             case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS:
             case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSMAP:
+            case tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_FILES:
 
                 return $this->_arrayValuesToAbsolutePaths($candidateValue, $manifestFileAbsPath);
-
-            case tubepress_spi_addon_Addon::ATTRIBUTE_BOOTSTRAP:
-
-                if (tubepress_impl_util_StringUtils::endsWith($candidateValue, '.php')) {
-
-                    return $this->_getAbsolutePath($candidateValue, $manifestFileAbsPath);
-                }
-
-                return $candidateValue;
 
             default:
 

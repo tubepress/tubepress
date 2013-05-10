@@ -13,7 +13,9 @@
         }
     ],
     "description": "Allows TubePress work with YouTube",
-    "bootstrap" : "tubepress_addons_youtube_impl_Bootstrap",
+    "bootstrap" : {
+        "services": [ "tubepress_addons_youtube_impl_Bootstrap" ]
+    },
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension"

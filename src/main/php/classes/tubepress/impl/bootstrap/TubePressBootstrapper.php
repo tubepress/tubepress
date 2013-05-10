@@ -193,7 +193,15 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
                     $index, $count, $addon->getName()));
             }
 
-            $addonLoader->load($addon);
+            $errors = $addonLoader->load($addon);
+
+            if (count($errors) > 0) {
+
+                foreach ($errors as $error) {
+
+                    $this->_logger->warn($error);
+                }
+            }
 
             if ($this->_shouldLog) {
 

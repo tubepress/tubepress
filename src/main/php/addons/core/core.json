@@ -13,7 +13,9 @@
         }
     ],
     "description": "TubePress core functionality",
-    "bootstrap" : "tubepress_addons_core_impl_Bootstrap",
+    "bootstrap" : {
+        "services" : [ "tubepress_addons_core_impl_Bootstrap" ]
+    },
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_core_impl_ioc_IocContainerExtension"

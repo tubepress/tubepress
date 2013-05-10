@@ -13,7 +13,9 @@
         }
     ],
     "description": "Allows TubePress work with Vimeo",
-    "bootstrap" : "tubepress_addons_vimeo_impl_Bootstrap",
+    "bootstrap" : {
+        "services": [ "tubepress_addons_vimeo_impl_Bootstrap" ]
+    },
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension"

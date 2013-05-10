@@ -26,7 +26,7 @@ class tubepress_addons_core_JwPlayerManifestValidityTest extends tubepress_test_
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress to play YouTube videos with JW Player', $addon->getDescription());
-        $this->assertEquals('tubepress_addons_jwplayer_impl_Bootstrap', $addon->getBootstrap());
+        $this->assertEquals(array('tubepress_addons_jwplayer_impl_Bootstrap'), $addon->getBootstrapServices());
         $this->assertEquals(array('tubepress_addons_jwplayer' => TUBEPRESS_ROOT . '/src/main/php/addons/jwplayer/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
