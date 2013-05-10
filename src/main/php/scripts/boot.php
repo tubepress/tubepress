@@ -42,6 +42,7 @@ if (! function_exists('bootTubePress')) {
          * 3. Load system add-ons
          * 4. Load user add-ons
          */
+        require TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl/bootstrap/TubePressBootstrapper.php';
         $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
         $bootStrapper->boot($loader);
 
