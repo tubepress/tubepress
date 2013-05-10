@@ -74,6 +74,12 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         $container->register(
 
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
+        );
+
+        $container->register(
+
             'tubepress_addons_youtube_impl_Bootstrap',
             'tubepress_addons_youtube_impl_Bootstrap'
         );
