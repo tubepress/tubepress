@@ -96,7 +96,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $actualPoolDefinition = new tubepress_api_ioc_Definition('ehough_stash_PoolInterface');
         $actualPoolDefinition->setFactoryService($builderServiceId);
         $actualPoolDefinition->setFactoryMethod('buildCache');
-        $container->setDefinition($actualPoolServiceId, $actualPoolDefinition);
+        $container->addDefinition($actualPoolServiceId, $actualPoolDefinition);
 
         $definition = $container->register(
 
@@ -105,7 +105,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         )->addArgument(new tubepress_api_ioc_Reference($actualPoolServiceId));
 
-        $container->setDefinition('tubepress_impl_cache_PoolDecorator', $definition);
+        $container->addDefinition('tubepress_impl_cache_PoolDecorator', $definition);
     }
 
     private function _registerCssAndJsGenerator(tubepress_api_ioc_ContainerInterface $container)
@@ -178,7 +178,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain'));
 
-        $container->setDefinition('ehough_shortstop_impl_DefaultHttpClient', $definition);
+        $container->addDefinition('ehough_shortstop_impl_DefaultHttpClient', $definition);
     }
 
     private function _registerHttpRequestParameterService(tubepress_api_ioc_ContainerInterface $container)
@@ -528,7 +528,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         )->addArgument(new tubepress_api_ioc_Reference($contentDecoderChainId));
 
-        $container->setDefinition('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain', $definition);
+        $container->addDefinition('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain', $definition);
     }
 
     private function _registerHttpTransferDecoder(tubepress_api_ioc_ContainerInterface $container)
@@ -555,7 +555,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         )->addArgument(new tubepress_api_ioc_Reference($transferDecoderChainId));
 
-        $container->setDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $definition);
+        $container->addDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $definition);
     }
 
     private function _registerBootstrapper(tubepress_api_ioc_ContainerInterface $container)
@@ -571,6 +571,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $definition = $container->register($id, $class);
 
-        $container->setDefinition($class, $definition);
+        $container->addDefinition($class, $definition);
     }
 }

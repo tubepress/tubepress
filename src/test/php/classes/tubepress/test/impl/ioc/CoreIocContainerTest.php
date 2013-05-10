@@ -65,14 +65,14 @@ class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePr
 
     public function testRegisterExtension()
     {
-        $this->_sut->registerExtension(new FakeExtension());
+        $this->_sut->registerTubePressExtension(new FakeExtension());
 
         $this->assertTrue(true);
     }
 
     public function testAddCompilerPass()
     {
-        $this->_sut->addCompilerPass(new FakeCompilerPass());
+        $this->_sut->addTubePressCompilerPass(new FakeCompilerPass());
 
         $this->assertTrue(true);
     }

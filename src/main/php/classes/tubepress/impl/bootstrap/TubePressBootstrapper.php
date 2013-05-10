@@ -272,7 +272,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                      $ref = new ReflectionClass($compilerPass);
 
-                     $coreIocContainer->addCompilerPass($ref->newInstance());
+                     $coreIocContainer->addTubePressCompilerPass($ref->newInstance());
 
                      if ($this->_shouldLog) {
 
@@ -331,7 +331,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                     $ref = new ReflectionClass($extension);
 
-                    $coreIocContainer->registerExtension($ref->newInstance());
+                    $coreIocContainer->registerTubePressExtension($ref->newInstance());
 
                     if ($this->_shouldLog) {
 

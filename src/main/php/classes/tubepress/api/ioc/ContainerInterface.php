@@ -210,7 +210,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @api
      * @since 3.1.0
      */
-    function setDefinition($id, tubepress_api_ioc_Definition $definition);
+    function addDefinition($id, tubepress_api_ioc_Definition $definition);
 
     /**
      * Sets the service definitions.

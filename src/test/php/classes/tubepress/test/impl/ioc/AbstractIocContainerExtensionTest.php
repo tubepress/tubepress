@@ -54,7 +54,7 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
     {
         $this->_startChain($definition->getClass());
 
-        $this->_mockContainer->shouldReceive('setDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
+        $this->_mockContainer->shouldReceive('addDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
 
             return $actualDefinition instanceof tubepress_api_ioc_Definition
                 && $actualDefinition->getClass() === $definition->getClass();

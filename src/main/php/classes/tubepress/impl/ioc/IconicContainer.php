@@ -46,11 +46,11 @@ class tubepress_impl_ioc_IconicContainer extends ehough_iconic_ContainerBuilder 
      *
      * @param tubepress_api_ioc_ContainerExtensionInterface $extension
      */
-    public function registerExtension(tubepress_api_ioc_ContainerExtensionInterface $extension)
+    public function registerTubePressExtension(tubepress_api_ioc_ContainerExtensionInterface $extension)
     {
         $iconicExtension = new tubepress_impl_ioc_IconicContainerExtensionWrapper($extension);
 
-        parent::registerExtension($iconicExtension);
+        $this->registerExtension($iconicExtension);
         $this->loadFromExtension($iconicExtension->getAlias());
     }
 
@@ -61,9 +61,9 @@ class tubepress_impl_ioc_IconicContainer extends ehough_iconic_ContainerBuilder 
      *
      * @return tubepress_api_ioc_ContainerInterface The current instance.
      */
-    public function addCompilerPass(tubepress_api_ioc_CompilerPassInterface $pass)
+    public function addTubePressCompilerPass(tubepress_api_ioc_CompilerPassInterface $pass)
     {
-        return parent::addCompilerPass(new tubepress_impl_ioc_IconicCompilerPassWrapper($pass));
+        return $this->addCompilerPass(new tubepress_impl_ioc_IconicCompilerPassWrapper($pass));
     }
 
     /**
@@ -121,11 +121,11 @@ class tubepress_impl_ioc_IconicContainer extends ehough_iconic_ContainerBuilder 
      * @api
      * @since 3.1.0
      */
-    public function setDefinition($id, tubepress_api_ioc_Definition $definition)
+    public function addDefinition($id, tubepress_api_ioc_Definition $definition)
     {
         try {
 
-            return parent::setDefinition($id, $definition);
+            return $this->setDefinition($id, $definition);
 
         } catch (ehough_iconic_exception_BadMethodCallException $e) {
 
