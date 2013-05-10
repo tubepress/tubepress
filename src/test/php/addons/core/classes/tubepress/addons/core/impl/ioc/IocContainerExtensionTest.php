@@ -52,7 +52,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $listenerClassNames = array(
 
             'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar',
-            'tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener',
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs',
             'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables',
             'tubepress_addons_core_impl_listeners_html_JsConfig',

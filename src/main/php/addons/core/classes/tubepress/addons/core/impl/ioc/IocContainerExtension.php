@@ -386,7 +386,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $listenerClassNames = array(
 
             'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar',
-            'tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs',
             'tubepress_addons_core_impl_listeners_html_JsConfig',

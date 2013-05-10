@@ -73,29 +73,29 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when TubePress generates the HTML <script> tag for jQuery.
      *
-     * @subject string The HTML for the jQuery <script> tag.
+     * @subject ehough_curly_Url The URL for jQuery.
      *
      * @api
      * @since 3.1.0
      */
-    const CSS_JS_SCRIPT_TAG_JQUERY = 'tubepress.core.cssjs.jQueryScriptTag';
+    const CSS_JS_SCRIPT_URL_JQUERY = 'tubepress.core.cssjs.url.jQuery';
 
     /**
      * This event is fired when TubePress generates the HTML <script> tag for tubepress.js.
      *
-     * @subject string The HTML for the tubepress.js <script> tag.
+     * @subject ehough_curly_Url The URL to tubepress.js.
      *
      * @api
      * @since 3.1.0
      */
-    const CSS_JS_SCRIPT_TAG_TUBEPRESS = 'tubepress.core.cssjs.tubePressScriptTag';
+    const CSS_JS_SCRIPT_URL_TUBEPRESSJS = 'tubepress.core.cssjs.url.tubePressJs';
 
     /**
      * This event is fired when TubePress generates the HTML <link> tag for tubepress.css.
      *
-     * @subject string The HTML for the tubepress.css <link> tag.
+     * @subject ehough_curly_Url The URL to tubepress.css.
      */
-    const CSS_JS_STYLESHEET_TAG_TUBEPRESS = 'tubepress.core.cssjs.tubePressStylesheetTag';
+    const CSS_JS_CSS_URL_TUBEPRESS = 'tubepress.core.cssjs.url.tubePressCss';
 
     /**
      * This event is fired when TubePress builds the TubePressJsConfig object.

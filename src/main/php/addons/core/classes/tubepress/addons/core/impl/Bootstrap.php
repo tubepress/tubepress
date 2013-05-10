@@ -32,26 +32,6 @@ class tubepress_addons_core_impl_Bootstrap
                 array('tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar', 'onBootComplete')
             ),
 
-            tubepress_api_const_event_EventNames::CSS_JS_STYLESHEET_TAG_TUBEPRESS => array(
-
-                array('tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener', 'onTubePressStylesheetTag')
-            ),
-
-            tubepress_api_const_event_EventNames::CSS_JS_META_TAGS => array(
-
-                array('tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener', 'onMetaTags')
-            ),
-
-            tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY => array(
-
-                array('tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener', 'onJqueryScriptTag')
-            ),
-
-            tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_TUBEPRESS => array(
-
-                array('tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener', 'onTubePressScriptTag')
-            ),
-
             tubepress_api_const_event_EventNames::HTML_EMBEDDED => array(
 
                 array('tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs', 'onEmbeddedHtml')

@@ -16,35 +16,48 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
 {
     public function getJqueryScriptTag()
     {
-        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_JQUERY, '');
+        $jQueryUrl      = $this->_getRelativeUrl('/src/main/web/vendor/jquery-1.9.1.min.js');
+        $finalJQueryUrl = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_JQUERY, $jQueryUrl);
+
+        return $this->_getRealScriptTag($finalJQueryUrl);
     }
 
     public function getTubePressScriptTag()
     {
-        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_TAG_TUBEPRESS, '');
+        $tubePressJsUrl = $this->_getRelativeUrl('/src/main/web/js/tubepress.js');
+        $finalUrl       = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_TUBEPRESSJS, $tubePressJsUrl);
+
+        return $this->_getRealScriptTag($finalUrl);
     }
 
     public function getTubePressCssTag()
     {
-        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEET_TAG_TUBEPRESS, '');
+        $tubePressCssUrl = $this->_getRelativeUrl('/src/main/web/css/tubepress.css');
+        $finalUrl        = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_CSS_URL_TUBEPRESS, $tubePressCssUrl);
+
+        return sprintf(sprintf('<link rel="stylesheet" href="%s/src/main/web/css/tubepress.css" type="text/css" />', $finalUrl));
     }
 
     public function getMetaTags()
     {
-        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, '');
+        $qss    = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $page   = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
+        $result = $page > 1 ? '<meta name="robots" content="noindex, nofollow" />' : '';
+
+        return $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, $result);
     }
 
     public function getInlineCss()
     {
-        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, '');
+        return $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, '');
     }
 
     public function getInlineJs()
     {
-        return $this->_fireEventAndReturnString(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, '');
+        return $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, '');
     }
 
-    private function _fireEventAndReturnString($eventName, $raw)
+    private function _fireEventAndReturnSubject($eventName, $raw)
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase($raw);
@@ -52,5 +65,18 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
         $eventDispatcher->publish($eventName, $event);
 
         return $event->getSubject();
+    }
+
+    private function _getRealScriptTag($url)
+    {
+        return sprintf('<script type="text/javascript" src="%s"></script>', $url);
+    }
+
+    private function _getRelativeUrl($url)
+    {
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $baseUrl             = $environmentDetector->getBaseUrl();
+
+        return new ehough_curly_Url($baseUrl . $url);
     }
 }

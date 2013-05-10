@@ -32,7 +32,6 @@
             "tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService"                 : "classes/tubepress/addons/core/impl/http/PlayerPluggableAjaxCommandService.php",
             "tubepress_addons_core_impl_listeners_AbstractStringMagicFilter"                    : "classes/tubepress/addons/core/impl/listeners/AbstractStringMagicFilter.php",
             "tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar"                    : "classes/tubepress/addons/core/impl/listeners/boot/CoreOptionsRegistrar.php",
-            "tubepress_addons_core_impl_listeners_cssjs_DefaultPathsListener"                   : "classes/tubepress/addons/core/impl/listeners/cssjs/DefaultPathsListener.php",
             "tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams"                : "classes/tubepress/addons/core/impl/listeners/cssjs/GalleryInitJsBaseParams.php",
             "tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs"                     : "classes/tubepress/addons/core/impl/listeners/html/EmbeddedPlayerApiJs.php",
             "tubepress_addons_core_impl_listeners_html_JsConfig"                                : "classes/tubepress/addons/core/impl/listeners/html/JsConfig.php",
