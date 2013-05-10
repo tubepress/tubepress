@@ -97,6 +97,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
         return $this->_onSubmitSimple();
     }
 
+    public function getName()
+    {
+        return $this->_optionDescriptor->getName();
+    }
+
     /**
      * Get the path to the template for this field, relative
      * to TubePress's root.

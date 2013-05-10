@@ -32,6 +32,9 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
 
         $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
 
+        /**
+         * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
+         */
         foreach ($videoProviders as $videoProvider) {
 
             $metaNames = array_merge($metaNames, $videoProvider->getAdditionalMetaNames());
@@ -46,6 +49,11 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
         }
 
         parent::__construct($metas, 'metadropdown');
+    }
+
+    public function getName()
+    {
+        return 'tubepress_impl_options_ui_fields_MetaMultiSelectField';
     }
 
     /**

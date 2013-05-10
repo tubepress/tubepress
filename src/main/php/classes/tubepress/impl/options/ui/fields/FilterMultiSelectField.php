@@ -130,6 +130,16 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
     }
 
     /**
+     * Allows this form handler to be uniquely identified.
+     *
+     * @return string All lowercase alphanumerics.
+     */
+    public function getName()
+    {
+        return 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
+    }
+
+    /**
      * Get the untranslated title of this field.
      *
      * @return string The untranslated title of this field.

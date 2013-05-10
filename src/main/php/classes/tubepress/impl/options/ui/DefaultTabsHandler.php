@@ -49,6 +49,16 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
     }
 
     /**
+     * Allows this form handler to be uniquely identified.
+     *
+     * @return string All lowercase alphanumerics.
+     */
+    public function getName()
+    {
+        return 'tubepress_impl_options_ui_DefaultTabsHandler';
+    }
+
+    /**
      * Get the delegate form handlers.
      *
      * @return array An array of tubepress_spi_options_ui_FormHandler.

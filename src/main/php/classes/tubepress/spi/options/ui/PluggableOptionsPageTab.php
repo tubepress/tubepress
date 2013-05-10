@@ -22,6 +22,4 @@ interface tubepress_spi_options_ui_PluggableOptionsPageTab extends tubepress_spi
      * @return string The title of this tab.
      */
     function getTitle();
-
-    function getName();
 }

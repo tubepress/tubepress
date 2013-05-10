@@ -71,6 +71,16 @@ class tubepress_impl_options_ui_DefaultFormHandler extends tubepress_impl_option
         return $template->toString();
     }
 
+    /**
+     * Allows this form handler to be uniquely identified.
+     *
+     * @return string All lowercase alphanumerics.
+     */
+    public function getName()
+    {
+        return 'tubepress_impl_options_ui_DefaultFormHandler';
+    }
+
     protected function getDelegateFormHandlers()
     {
         return array($this->_tabs, $this->_filterField);
