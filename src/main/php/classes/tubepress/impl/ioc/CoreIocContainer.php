@@ -13,7 +13,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicContainer
+final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicContainer implements ehough_iconic_compiler_CompilerPassInterface
 {
     public function __construct()
     {
