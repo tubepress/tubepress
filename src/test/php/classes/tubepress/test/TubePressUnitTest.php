@@ -30,6 +30,7 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
         tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($this->_mockIocContainer);
 
         date_default_timezone_set('America/New_York');
+        error_reporting(E_ALL);
 
         $this->onSetup();
     }
