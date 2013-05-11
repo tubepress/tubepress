@@ -51,27 +51,21 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
 
         $this->expectRegistration(
 
-            'tubepress_addons_wordpress_impl_Bootstrap',
-            'tubepress_addons_wordpress_impl_Bootstrap'
-        );
-
-        $this->expectRegistration(
-
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));;
 
         $this->expectRegistration(
 
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));;
 
         $this->expectRegistration(
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, 'method' => 'onOptionsUiTemplate'));;
 
         $definition = $this->expectRegistration(
 

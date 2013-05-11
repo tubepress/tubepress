@@ -50,30 +50,28 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends
 
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG,
+                array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction'));;
 
         $this->expectRegistration(
 
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG,
+                array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));;
 
         $this->expectRegistration(
 
             'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar',
             'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar'
-        );
-
-        $this->expectRegistration(
-
-            'tubepress_addons_youtube_impl_Bootstrap',
-            'tubepress_addons_youtube_impl_Bootstrap'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG,
+                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
 
         $this->expectRegistration(
 
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG,
+                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet'));
     }
 }

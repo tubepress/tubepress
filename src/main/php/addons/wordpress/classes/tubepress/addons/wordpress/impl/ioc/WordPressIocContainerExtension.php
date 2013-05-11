@@ -80,33 +80,27 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
         }
 
         $this->_registerListeners($container);
-
-        $container->register(
-
-            'tubepress_addons_wordpress_impl_Bootstrap',
-            'tubepress_addons_wordpress_impl_Bootstrap'
-        );
     }
 
     private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
     {
         $container->register(
 
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
-        );
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
+        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
 
         $container->register(
 
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
-        );
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
+            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
+        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
 
         $container->register(
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        );
+        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, 'method' => 'onOptionsUiTemplate'));
     }
 
     private function _registerMessageService(tubepress_api_ioc_ContainerInterface $container)

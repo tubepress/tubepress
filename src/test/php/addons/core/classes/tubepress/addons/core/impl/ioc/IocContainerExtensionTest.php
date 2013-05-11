@@ -34,17 +34,11 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $this->_videoCollector();
         $this->_pluggables();
         $this->_listeners();
-        $this->_bootstrap();
     }
 
     protected function buildSut()
     {
         return new tubepress_addons_core_impl_ioc_IocContainerExtension();
-    }
-
-    private function _bootstrap()
-    {
-        $this->expectRegistration('tubepress_addons_core_impl_Bootstrap', 'tubepress_addons_core_impl_Bootstrap');
     }
 
     private function _listeners()

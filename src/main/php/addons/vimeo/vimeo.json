@@ -13,9 +13,6 @@
         }
     ],
     "description": "Allows TubePress work with Vimeo",
-    "bootstrap" : {
-        "services": [ "tubepress_addons_vimeo_impl_Bootstrap" ]
-    },
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension"
@@ -32,7 +29,6 @@
             "tubepress_addons_vimeo_api_const_options_names_GallerySource"                : "classes/tubepress/addons/vimeo/api/const/options/names/GallerySource.php",
             "tubepress_addons_vimeo_api_const_options_names_Meta"                         : "classes/tubepress/addons/vimeo/api/const/options/names/Meta.php",
             "tubepress_addons_vimeo_api_const_options_values_GallerySourceValue"          : "classes/tubepress/addons/vimeo/api/const/options/values/GallerySourceValue.php",
-            "tubepress_addons_vimeo_impl_Bootstrap"                                       : "classes/tubepress/addons/vimeo/impl/Bootstrap.php",
             "tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService"    : "classes/tubepress/addons/vimeo/impl/embedded/VimeoPluggableEmbeddedPlayerService.php",
             "tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar"            : "classes/tubepress/addons/vimeo/impl/listeners/boot/VimeoOptionsRegistrar.php",
             "tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener"   : "classes/tubepress/addons/vimeo/impl/listeners/http/VimeoHttpErrorResponseListener.php",

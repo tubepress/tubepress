@@ -53,24 +53,21 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extends tub
 
             'tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar',
             'tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG,
+            array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
 
         $this->expectRegistration(
 
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG,
+                array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction'));
 
         $this->expectRegistration(
 
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener'
-        );
-
-        $this->expectRegistration(
-
-            'tubepress_addons_vimeo_impl_Bootstrap',
-            'tubepress_addons_vimeo_impl_Bootstrap'
-        );
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG,
+                array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
     }
 }

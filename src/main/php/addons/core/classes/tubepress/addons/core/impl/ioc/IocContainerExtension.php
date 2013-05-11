@@ -59,11 +59,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
          * Listeners
          */
         $this->_registerListeners($container);
-
-        /**
-         * Bootstrap.
-         */
-        $this->_registerBootstrapper($container);
     }
 
     private function _registerAjaxHandler(tubepress_api_ioc_ContainerInterface $container)
@@ -388,14 +383,14 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar' =>
                 array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBootComplete'),
 
-            'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams' =>
-                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, 'method' => 'onGalleryInitJs'),
-
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs' =>
-                array('event' => tubepress_api_const_event_EventNames::HTML_EMBEDDED, 'method' => 'onEmbeddedHtml'),
+            array('event' => tubepress_api_const_event_EventNames::HTML_EMBEDDED, 'method' => 'onEmbeddedHtml'),
 
             'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate'),
+
+            'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams' =>
+                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, 'method' => 'onGalleryInitJs'),
 
             'tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION, 'method' => 'onPlayerTemplate'),
@@ -600,15 +595,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         )->addArgument(new tubepress_api_ioc_Reference($transferDecoderChainId));
 
         $container->addDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $definition);
-    }
-
-    private function _registerBootstrapper(tubepress_api_ioc_ContainerInterface $container)
-    {
-        $container->register(
-
-            'tubepress_addons_core_impl_Bootstrap',
-            'tubepress_addons_core_impl_Bootstrap'
-        );
     }
 
     private function _registerSimpleService(tubepress_api_ioc_ContainerInterface $container, $id, $class)

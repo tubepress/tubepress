@@ -44,18 +44,12 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
 
             'tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar',
             'tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar'
-        );
+        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
 
         $container->register(
 
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars',
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'
-        );
-
-        $container->register(
-
-            'tubepress_addons_jwplayer_impl_Bootstrap',
-            'tubepress_addons_jwplayer_impl_Bootstrap'
-        );
+        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate'));
     }
 }

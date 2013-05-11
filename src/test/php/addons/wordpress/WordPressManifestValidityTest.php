@@ -26,7 +26,6 @@ class tubepress_addons_core_WordPressManifestValidityTest extends tubepress_test
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress to integrate with WordPress', $addon->getDescription());
-        $this->assertEquals(array('tubepress_addons_wordpress_impl_Bootstrap'), $addon->getBootstrapServices());
         $this->assertEquals(array('tubepress_addons_wordpress' => TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
@@ -36,7 +35,6 @@ class tubepress_addons_core_WordPressManifestValidityTest extends tubepress_test
     {
         return array(
             'tubepress_addons_wordpress_api_const_options_names_WordPress' => 'classes/tubepress/addons/wordpress/api/const/options/names/WordPress.php',
-            'tubepress_addons_wordpress_impl_Bootstrap' => 'classes/tubepress/addons/wordpress/impl/Bootstrap.php',
             'tubepress_addons_wordpress_impl_DefaultContentFilter' => 'classes/tubepress/addons/wordpress/impl/DefaultContentFilter.php',
             'tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector' => 'classes/tubepress/addons/wordpress/impl/DefaultFrontEndCssAndJsInjector.php',
             'tubepress_addons_wordpress_impl_DefaultWidgetHandler' => 'classes/tubepress/addons/wordpress/impl/DefaultWidgetHandler.php',

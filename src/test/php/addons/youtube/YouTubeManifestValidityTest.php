@@ -26,7 +26,6 @@ class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_test_i
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress work with YouTube', $addon->getDescription());
-        $this->assertEquals(array('tubepress_addons_youtube_impl_Bootstrap'), $addon->getBootstrapServices());
         $this->assertEquals(array('tubepress_addons_youtube' => TUBEPRESS_ROOT . '/src/main/php/addons/youtube/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
@@ -42,7 +41,6 @@ class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_test_i
             'tubepress_addons_youtube_api_const_options_names_Meta' => 'classes/tubepress/addons/youtube/api/const/options/names/Meta.php',
             'tubepress_addons_youtube_api_const_options_values_GallerySourceValue' => 'classes/tubepress/addons/youtube/api/const/options/values/GallerySourceValue.php',
             'tubepress_addons_youtube_api_const_options_values_YouTube' => 'classes/tubepress/addons/youtube/api/const/options/values/YouTube.php',
-            'tubepress_addons_youtube_impl_Bootstrap' => 'classes/tubepress/addons/youtube/impl/Bootstrap.php',
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService' => 'classes/tubepress/addons/youtube/impl/embedded/YouTubePluggableEmbeddedPlayerService.php',
             'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar' => 'classes/tubepress/addons/youtube/impl/listeners/boot/YouTubeOptionsRegistrar.php',
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener' => 'classes/tubepress/addons/youtube/impl/listeners/http/YouTubeHttpErrorResponseListener.php',

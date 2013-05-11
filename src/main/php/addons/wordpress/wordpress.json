@@ -13,9 +13,6 @@
         }
     ],
     "description": "Allows TubePress to integrate with WordPress",
-    "bootstrap" : {
-        "services": [ "tubepress_addons_wordpress_impl_Bootstrap" ]
-    },
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension"
@@ -27,7 +24,6 @@
         },
         "classmap" : {
             "tubepress_addons_wordpress_api_const_options_names_WordPress"                         : "classes/tubepress/addons/wordpress/api/const/options/names/WordPress.php",
-            "tubepress_addons_wordpress_impl_Bootstrap"                                            : "classes/tubepress/addons/wordpress/impl/Bootstrap.php",
             "tubepress_addons_wordpress_impl_DefaultContentFilter"                                 : "classes/tubepress/addons/wordpress/impl/DefaultContentFilter.php",
             "tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector"                      : "classes/tubepress/addons/wordpress/impl/DefaultFrontEndCssAndJsInjector.php",
             "tubepress_addons_wordpress_impl_DefaultWidgetHandler"                                 : "classes/tubepress/addons/wordpress/impl/DefaultWidgetHandler.php",
