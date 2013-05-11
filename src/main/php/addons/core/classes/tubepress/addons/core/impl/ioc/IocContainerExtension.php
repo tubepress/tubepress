@@ -383,9 +383,19 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
     private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
     {
+        $listeners = array(
+
+            'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar' =>
+                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBootComplete')
+        );
+
+        foreach ($listeners as $className => $tagAttributes) {
+
+            $container->register($className, $className)->addTag(self::EVENT_LISTENER_TAG, $tagAttributes);
+        }
+
         $listenerClassNames = array(
 
-            'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs',
             'tubepress_addons_core_impl_listeners_html_JsConfig',

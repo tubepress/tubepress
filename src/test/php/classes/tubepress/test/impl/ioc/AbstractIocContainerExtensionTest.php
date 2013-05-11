@@ -109,13 +109,16 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
         return $this;
     }
 
-    protected function withTag($tag)
+    protected function withTag($tag, $tagAttributes = array())
     {
-        $this->_mockDefinition->shouldReceive('addTag')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($tag) {
+        if (empty($tagAttributes)) {
 
-            return $actual === $tag;
+            $this->_mockDefinition->shouldReceive('addTag')->once()->with($tag)->andReturn($this->_mockDefinition);
 
-        }))->andReturn($this->_mockDefinition);
+        } else {
+
+            $this->_mockDefinition->shouldReceive('addTag')->once()->with($tag, $tagAttributes)->andReturn($this->_mockDefinition);
+        }
 
         return $this;
     }

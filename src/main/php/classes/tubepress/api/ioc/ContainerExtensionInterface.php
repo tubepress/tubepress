@@ -13,6 +13,8 @@ interface tubepress_api_ioc_ContainerExtensionInterface
 {
     const _ = 'tubepress_api_ioc_ContainerExtensionInterface';
 
+    const EVENT_LISTENER_TAG = 'tubepress.event.listener';
+
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *

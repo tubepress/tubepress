@@ -40,6 +40,7 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
             'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService' => 'classes/tubepress/addons/core/impl/http/PlayerPluggableAjaxCommandService.php',
             'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder' => 'classes/tubepress/addons/core/impl/ioc/FilesystemCacheBuilder.php',
             'tubepress_addons_core_impl_ioc_IocContainerExtension' => 'classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php',
+            'tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass' => 'classes/tubepress/addons/core/impl/ioc/RegisterListenersCompilerPass.php',
             'tubepress_addons_core_impl_listeners_AbstractStringMagicFilter' => 'classes/tubepress/addons/core/impl/listeners/AbstractStringMagicFilter.php',
             'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar' => 'classes/tubepress/addons/core/impl/listeners/boot/CoreOptionsRegistrar.php',
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs' => 'classes/tubepress/addons/core/impl/listeners/html/EmbeddedPlayerApiJs.php',

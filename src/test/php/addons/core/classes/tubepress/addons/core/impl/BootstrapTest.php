@@ -69,11 +69,6 @@ class tubepress_addons_core_impl_BootstrapTest extends tubepress_test_TubePressU
     {
         $listenerList = array(
 
-            tubepress_api_const_event_EventNames::BOOT_COMPLETE => array(
-
-                array('tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar', 'onBootComplete')
-            ),
-
             tubepress_api_const_event_EventNames::HTML_EMBEDDED => array(
 
                 array('tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs', 'onEmbeddedHtml')
