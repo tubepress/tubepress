@@ -52,41 +52,72 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $listeners = array(
 
             'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar' =>
-                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBootComplete')
+                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBootComplete'),
+
+            'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams' =>
+                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, 'method' => 'onGalleryInitJs'),
+
+            'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs' =>
+                array('event' => tubepress_api_const_event_EventNames::HTML_EMBEDDED, 'method' => 'onEmbeddedHtml'),
+
+            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate'),
+
+            'tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION, 'method' => 'onPlayerTemplate'),
+
+            'tubepress_addons_core_impl_listeners_options_PreValidationOptionSetStringMagic' =>
+                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet'),
+
+            'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT, 'method' => 'onSearchInputTemplate'),
+
+            'tubepress_addons_core_impl_listeners_template_SingleVideoMeta' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO, 'method' => 'onSingleVideoTemplate'),
+
+            'tubepress_addons_core_impl_listeners_template_SingleVideoCoreVariables' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO, 'method' => 'onSingleVideoTemplate'),
+
+            'tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs' =>
+                array('event' => tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY, 'method' => 'onGalleryHtml'),
+
+            'tubepress_addons_core_impl_listeners_template_ThumbGalleryCoreVariables' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate'),
+
+            'tubepress_addons_core_impl_listeners_template_ThumbGalleryEmbeddedImplName' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate'),
+
+            'tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate'),
+
+            'tubepress_addons_core_impl_listeners_template_ThumbGalleryPlayerLocation' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate'),
+
+            'tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta' =>
+                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate'),
+
+            'tubepress_addons_core_impl_listeners_options_ExternalInputStringMagic' =>
+                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'onIncomingInput'),
+
+            'tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter' =>
+                array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage'),
+
+            'tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper' =>
+                array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage'),
+
+            'tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist' =>
+                array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage'),
+
+            'tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender' =>
+                array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage'),
+
+            'tubepress_addons_core_impl_listeners_html_JsConfig' =>
+                array('event' => tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, 'method' => 'onInlineJs')
         );
 
         foreach ($listeners as $className => $tagAttributes) {
 
             $this->expectRegistration($className, $className)->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, $tagAttributes);
-        }
-
-        $listenerClassNames = array(
-
-            'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs',
-            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables',
-            'tubepress_addons_core_impl_listeners_html_JsConfig',
-            'tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs',
-            'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
-            'tubepress_addons_core_impl_listeners_template_ThumbGalleryCoreVariables',
-            'tubepress_addons_core_impl_listeners_template_ThumbGalleryEmbeddedImplName',
-            'tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination',
-            'tubepress_addons_core_impl_listeners_template_ThumbGalleryPlayerLocation',
-            'tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta',
-            'tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables',
-            'tubepress_addons_core_impl_listeners_options_PreValidationOptionSetStringMagic',
-            'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables',
-            'tubepress_addons_core_impl_listeners_template_SingleVideoCoreVariables',
-            'tubepress_addons_core_impl_listeners_template_SingleVideoMeta',
-            'tubepress_addons_core_impl_listeners_options_ExternalInputStringMagic',
-            'tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter',
-            'tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper',
-            'tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist',
-            'tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender',
-        );
-
-        foreach ($listenerClassNames as $listenerClassName) {
-
-            $this->expectRegistration($listenerClassName, $listenerClassName);
         }
     }
 
@@ -313,22 +344,27 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
         $this->expectDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $def);
 
-        $this->expectRegistration('ehough_shortstop_impl_listeners_request_RequestLoggingListener', 'ehough_shortstop_impl_listeners_request_RequestLoggingListener');
+        $this->expectRegistration('ehough_shortstop_impl_listeners_request_RequestLoggingListener', 'ehough_shortstop_impl_listeners_request_RequestLoggingListener')
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onPreRequest'));
 
         $this->expectRegistration('ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener', 'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener')
-            ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'));
+            ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onPreRequest'));
 
         $this->expectRegistration('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer',
                     'ehough_shortstop_impl_listeners_response_ResponseDecodingListener')
             ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpTransferDecoder'))
-            ->withArgument('Transfer');
+            ->withArgument('Transfer')
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
 
         $this->expectRegistration('ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content',
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener')
             ->withArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
-            ->withArgument('Content');
+            ->withArgument('Content')
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
 
-        $this->expectRegistration('ehough_shortstop_impl_listeners_response_ResponseLoggingListener', 'ehough_shortstop_impl_listeners_response_ResponseLoggingListener');
+        $this->expectRegistration('ehough_shortstop_impl_listeners_response_ResponseLoggingListener', 'ehough_shortstop_impl_listeners_response_ResponseLoggingListener')
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
 
         $final = $this->expectRegistration('ehough_shortstop_api_HttpClientInterface', 'ehough_shortstop_impl_DefaultHttpClient')
              ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))

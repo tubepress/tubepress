@@ -13,9 +13,6 @@
         }
     ],
     "description": "TubePress core functionality",
-    "bootstrap" : {
-        "services" : [ "tubepress_addons_core_impl_Bootstrap" ]
-    },
     "inversion-of-control": {
         "container-extensions" : [
             "tubepress_addons_core_impl_ioc_IocContainerExtension"
@@ -29,7 +26,6 @@
             "tubepress_addons_core" : "classes"
         },
         "classmap" : {
-            "tubepress_addons_core_impl_Bootstrap"                                              : "classes/tubepress/addons/core/impl/Bootstrap.php",
             "tubepress_addons_core_impl_ioc_FilesystemCacheBuilder"                             : "classes/tubepress/addons/core/impl/ioc/FilesystemCacheBuilder.php",
             "tubepress_addons_core_impl_ioc_IocContainerExtension"                              : "classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php",
             "tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass"                      : "classes/tubepress/addons/core/impl/ioc/RegisterListenersCompilerPass.php",

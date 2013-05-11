@@ -26,7 +26,6 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('TubePress core functionality', $addon->getDescription());
-        $this->assertEquals(array('tubepress_addons_core_impl_Bootstrap'), $addon->getBootstrapServices());
         $this->assertEquals(array('tubepress_addons_core' => TUBEPRESS_ROOT . '/src/main/php/addons/core/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_core_impl_ioc_IocContainerExtension'), $addon->getIocContainerExtensions());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
@@ -36,7 +35,6 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
     {
         return array(
 
-            'tubepress_addons_core_impl_Bootstrap' => 'classes/tubepress/addons/core/impl/Bootstrap.php',
             'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService' => 'classes/tubepress/addons/core/impl/http/PlayerPluggableAjaxCommandService.php',
             'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder' => 'classes/tubepress/addons/core/impl/ioc/FilesystemCacheBuilder.php',
             'tubepress_addons_core_impl_ioc_IocContainerExtension' => 'classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php',
