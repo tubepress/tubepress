@@ -76,7 +76,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug('Caught exception while booting: '.  $e->getMessage());
+                $this->_logger->error('Caught exception while booting: '.  $e->getMessage());
 
                 //flush out log statements
                 $this->_loggingHandler->setStatus(true);
