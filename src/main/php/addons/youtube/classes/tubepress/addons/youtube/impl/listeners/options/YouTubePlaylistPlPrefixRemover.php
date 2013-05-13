@@ -14,6 +14,9 @@
  */
 class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
@@ -49,6 +52,8 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRem
             $newValue = tubepress_impl_util_StringUtils::replaceFirst('PL', '', $value);
 
             $event->setSubject($newValue);
+
+            return;
         }
 
         if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
