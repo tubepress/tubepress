@@ -67,6 +67,12 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
         )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, 'method' => 'onOptionsUiTemplate'));;
 
+        $this->expectRegistration(
+
+            'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter',
+            'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig'));
+
         $definition = $this->expectRegistration(
 
             tubepress_spi_message_MessageService::_,
