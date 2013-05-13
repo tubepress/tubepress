@@ -134,9 +134,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
     private function _onSubmitSimple()
     {
-        $name            = $this->_optionDescriptor->getName();
-        $hrps            = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $optionValidator = tubepress_impl_patterns_sl_ServiceLocator::getOptionValidator();
+        $name = $this->_optionDescriptor->getName();
+        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         if (! $hrps->hasParam($name)) {
 
@@ -144,15 +143,15 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
             return null;
         }
 
-        $value = $hrps->getParamValue($name);
+        $value  = $hrps->getParamValue($name);
+        $result = $this->_setToStorage($name, $value);
 
-        /* run it through validation. */
-        if (! $optionValidator->isValid($name, $value)) {
+        if ($result === true) {
 
-            return array($optionValidator->getProblemMessage($name, $value));
+            return null;
         }
 
-        return $this->_setToStorage($name, $value);
+        return $result;
     }
 
     private function _onSubmitBoolean()

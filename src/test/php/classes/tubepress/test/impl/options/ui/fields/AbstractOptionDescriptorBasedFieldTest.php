@@ -10,22 +10,44 @@
  */
 abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_test_impl_options_ui_fields_AbstractFieldTest
 {
+    /**
+     * @var tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+     */
     private $_sut;
 
+    /**
+     * @var tubepress_spi_options_OptionDescriptor
+     */
     private $_mockOptionDescriptor;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
-    private $_mockOptionsValidator;
-
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionDescriptorReference;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplateBuilder;
 
     public function onSetup()
@@ -38,7 +60,6 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
         $this->_mockStorageManager      = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockOptionsValidator    = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockMessageService      = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
@@ -52,8 +73,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
-        $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
-        $this->_mockOptionsValidator->shouldReceive('getProblemMessage')->once()->with('name', 'some-value')->andReturn('you suck');
+        $this->_mockStorageManager->shouldReceive('set')->once()->with('name', 'some-value')->andReturn('you suck');
 
         $this->assertEquals(array('you suck'), $this->_sut->onSubmit());
     }
@@ -82,7 +102,6 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
-        $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
         $this->_mockStorageManager->shouldReceive('set')->once()->with('name', 'some-value')->andReturn(true);
 
         $this->assertNull($this->_sut->onSubmit());
