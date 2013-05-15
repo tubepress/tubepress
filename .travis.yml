@@ -4,10 +4,8 @@ php:
   - 5.4
   - 5.5
 before_script:
-  - phpenv config-add src/test/resources/travis-ci/php-config.ini
-  - php --info
   - "mkdir -p ~/.composer"
   - cp src/test/resources/travis-ci/travis-composer-config.json ~/.composer/config.json
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev
-script: "phpunit -c src/test/resources/phpunit.xml"
+script: "phpunit -d memory_limit=1024M --verbose -c src/test/resources/phpunit.xml"
