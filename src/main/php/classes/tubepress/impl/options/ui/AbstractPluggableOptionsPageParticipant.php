@@ -24,7 +24,7 @@ abstract class tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
 
         $fieldsEvent = new tubepress_spi_event_EventBase($raw,
             array('tabName' => $tabName, 'participant' => $this));
-        $eventDispatcher->publish(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, $fieldsEvent);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_UI_FIELDS_FOR_TAB, $fieldsEvent);
 
         return $fieldsEvent->getSubject();
     }

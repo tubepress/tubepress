@@ -18,7 +18,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
 
         for ($x = 0; $x < count($gets); $x++) {
 
-            $mockIocContainer = ehough_mockery_Mockery::mock('ehough_iconic_ContainerInterface');
+            $mockIocContainer = ehough_mockery_Mockery::mock(tubepress_api_ioc_ContainerInterface::_);
 
             $mockService = ehough_mockery_Mockery::mock($interfaces[$x]);
 

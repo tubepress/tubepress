@@ -46,7 +46,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
                 return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate
@@ -58,7 +58,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
 
         $mockTemplate->shouldReceive('toString')->once()->andReturn('templateAsString');
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
                 return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'templateAsString'
@@ -89,7 +89,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
                 return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate
@@ -101,7 +101,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
 
         $mockTemplate->shouldReceive('toString')->once()->andReturn('templateAsString');
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
 
                 return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'templateAsString'

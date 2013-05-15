@@ -92,7 +92,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $eventDispatcher->publish(
+        $eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE,
             $event

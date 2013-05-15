@@ -44,7 +44,7 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService',
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService'
 
-        )->addArgument(new tubepress_api_ioc_Reference('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'))
+        )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $container->register(

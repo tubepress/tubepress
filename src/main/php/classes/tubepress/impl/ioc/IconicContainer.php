@@ -13,32 +13,52 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-class tubepress_impl_ioc_IconicContainer extends ehough_iconic_ContainerBuilder implements tubepress_api_ioc_ContainerInterface, ehough_iconic_compiler_CompilerPassInterface
+class tubepress_impl_ioc_IconicContainer implements tubepress_api_ioc_ContainerInterface, tubepress_api_ioc_CompilerPassInterface
 {
-    public function __construct(ehough_iconic_parameterbag_ParameterBagInterface $parameterBag = null)
-    {
-        parent::__construct($parameterBag);
+    /**
+     * @var ehough_iconic_ContainerBuilder
+     */
+    private $_delegate;
 
-        /**
-         * Remove some advanced IOC container stuff that we don't use (yet). This makes TubePress boot about
-         * 30% faster!
-         */
-        $compilerPassConfig = $this->getCompilerPassConfig();
-        $compilerPassConfig->setOptimizationPasses(array());
-        $compilerPassConfig->setRemovingPasses(array());
-        $compilerPassConfig->setMergePass($this);
+    /**
+     * @var array An array of tubepress_api_ioc_ContainerExtensionInterface instances
+     */
+    private $_extensions = array();
+
+    /**
+     * @var array An array of tubepress_api_ioc_CompilerPassInterface instances
+     */
+    private $_compilerPasses = array();
+
+    /**
+     * @var bool
+     */
+    private $_isFrozen = false;
+
+    public function __construct(ehough_iconic_parameterbag_ParameterBagInterface $params = null)
+    {
+        $this->_delegate = new ehough_iconic_ContainerBuilder($params);
+
+        $this->_compilerPasses[] = $this;
 
         /**
          * Turn off resource loading.
          */
-        $this->setResourceTracking(false);
+        $this->_delegate->setResourceTracking(false);
     }
 
     public function compile()
     {
-        $this->getCompiler()->compile($this);
+        /**
+         * @var $pass tubepress_api_ioc_CompilerPassInterface
+         */
+        foreach ($this->_compilerPasses as $pass) {
 
-        $this->getParameterBag()->resolve();
+            $pass->process($this);
+        }
+
+        $this->_delegate->getParameterBag()->resolve();
+        $this->_isFrozen = true;
     }
 
     /**
@@ -46,12 +66,9 @@ class tubepress_impl_ioc_IconicContainer extends ehough_iconic_ContainerBuilder 
      *
      * @param tubepress_api_ioc_ContainerExtensionInterface $extension
      */
-    public function registerTubePressExtension(tubepress_api_ioc_ContainerExtensionInterface $extension)
+    public function registerExtension(tubepress_api_ioc_ContainerExtensionInterface $extension)
     {
-        $iconicExtension = new tubepress_impl_ioc_IconicContainerExtensionWrapper($extension);
-
-        $this->registerExtension($iconicExtension);
-        $this->loadFromExtension($iconicExtension->getAlias());
+        $this->_extensions[] = $extension;
     }
 
     /**
@@ -61,76 +78,72 @@ class tubepress_impl_ioc_IconicContainer extends ehough_iconic_ContainerBuilder 
      *
      * @return tubepress_api_ioc_ContainerInterface The current instance.
      */
-    public function addTubePressCompilerPass(tubepress_api_ioc_CompilerPassInterface $pass)
+    public function addCompilerPass(tubepress_api_ioc_CompilerPassInterface $pass)
     {
-        return $this->addCompilerPass(new tubepress_impl_ioc_IconicCompilerPassWrapper($pass));
+        $this->_compilerPasses[] = $pass;
     }
 
     /**
-     * Gets a service definition.
+     * @return ehough_iconic_ContainerBuilder
+     */
+    public function getDelegateIconicContainerBuilder()
+    {
+        return $this->_delegate;
+    }
+
+    public function isFrozen()
+    {
+        return $this->_isFrozen;
+    }
+
+    /**
+     * Adds the service definitions.
      *
-     * @param string $id The service identifier
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *
-     * @return tubepress_api_ioc_Definition A tubepress_api_ioc_Definition instance, or null if the
-     *                                      service does not exist.
+     * @return void
      *
      * @api
      * @since 3.1.0
      */
-    public function getDefinition($id)
+    function addDefinitions(array $definitions)
     {
-        try {
+        if ($this->isFrozen()) {
 
-            return parent::getDefinition($id);
+            throw new BadMethodCallException('Cannot set definitions on a frozen container');
 
-        } catch (ehough_iconic_exception_InvalidArgumentException $e) {
-
-            return null;
         }
+        $iconicDefinitions = array_map(array($this, '_callbackConvertToIconicDefinition'), $definitions);
+
+        $this->_delegate->addDefinitions($iconicDefinitions);
     }
 
     /**
-     * Registers a service definition.
+     * Returns service ids for a given tag.
      *
-     * This methods allows for simple registration of service definition
-     * with a fluid interface.
+     * @param string $name The tag name
      *
-     * @param string $id    The service identifier
-     * @param string $class The service class
-     *
-     * @return tubepress_api_ioc_Definition A tubepress_api_ioc_Definition instance
+     * @return array An array of tags
      *
      * @api
      * @since 3.1.0
      */
-    public function register($id, $class = null)
+    function findTaggedServiceIds($name)
     {
-        return $this->setDefinition(strtolower($id), new tubepress_api_ioc_Definition($class));
+        return $this->_delegate->findTaggedServiceIds($name);
     }
 
     /**
-     * Sets a service definition.
+     * Returns all tags the defined services use.
      *
-     * @param string                       $id         The service identifier
-     * @param tubepress_api_ioc_Definition $definition A tubepress_api_ioc_Definition instance
-     *
-     * @return tubepress_api_ioc_Definition the service definition
-     *
-     * @throws BadMethodCallException When this ContainerBuilder is frozen
+     * @return array An array of tags
      *
      * @api
      * @since 3.1.0
      */
-    public function addDefinition($id, tubepress_api_ioc_Definition $definition)
+    function findTags()
     {
-        try {
-
-            return $this->setDefinition($id, $definition);
-
-        } catch (ehough_iconic_exception_BadMethodCallException $e) {
-
-            throw new BadMethodCallException($e);
-        }
+        return $this->_delegate->findTags();
     }
 
     /**
@@ -145,51 +158,379 @@ class tubepress_impl_ioc_IconicContainer extends ehough_iconic_ContainerBuilder 
      * @api
      * @since 3.1.0
      */
-    public function get($id, $invalidBehavior = ehough_iconic_ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get($id)
     {
-        if (!$this->has($id)) {
+        if (!$this->_delegate->has($id)) {
 
             return null;
         }
 
         try {
 
-            return parent::get($id);
+            return $this->_delegate->get($id);
 
         } catch (Exception $e) {
 
-            throw new RuntimeException($e);
+            throw new RuntimeException($e->getMessage());
         }
     }
 
-    public function process(ehough_iconic_ContainerBuilder $container)
+    /**
+     * Gets a service definition.
+     *
+     * @param string $id The service identifier
+     *
+     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance, or null if the
+     *                                               service does not exist.
+     *
+     * @api
+     * @since                                        3.1.0
+     */
+    public function getDefinition($id)
     {
-        $parameters = $container->getParameterBag()->all();
-        $definitions = $container->getDefinitions();
-        $aliases = $container->getAliases();
+        try {
 
-        foreach ($container->getExtensions() as $extension) {
-            if ($extension instanceof ehough_iconic_extension_PrependExtensionInterface) {
-                $extension->prepend($container);
-            }
+            /**
+             * @var $fromDelegate tubepress_impl_ioc_IconicDefinitionWrapper
+             */
+            $fromDelegate = $this->_delegate->getDefinition($id);
+
+            return $this->_callbackConvertToTubePressDefinition($fromDelegate);
+
+        } catch (ehough_iconic_exception_InvalidArgumentException $e) {
+
+            return null;
+        }
+    }
+
+    /**
+     * Gets all service definitions.
+     *
+     * @return tubepress_api_ioc_DefinitionInterface[] An array of tubepress_api_ioc_DefinitionInterface instances
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function getDefinitions()
+    {
+        $definitionsFromDelegate = $this->_delegate->getDefinitions();
+
+        return array_map(array($this, '_callbackConvertToTubePressDefinition'), $definitionsFromDelegate);
+    }
+
+    /**
+     * Gets a parameter.
+     *
+     * @param string $name The parameter name
+     *
+     * @return mixed  The parameter value
+     *
+     * @throws InvalidArgumentException if the parameter is not defined
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function getParameter($name)
+    {
+        try {
+
+            return $this->_delegate->getParameter($name);
+
+        } catch (Exception $e) {
+
+            throw new InvalidArgumentException('Parameter ' . $name . ' not found');
+        }
+    }
+
+    /**
+     * Gets all service ids.
+     *
+     * @return array An array of all defined service ids
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function getServiceIds()
+    {
+        return $this->_delegate->getServiceIds();
+    }
+
+    /**
+     * Returns true if the given service is defined.
+     *
+     * @param string $id The service identifier
+     *
+     * @return Boolean true if the service is defined, false otherwise
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function has($id)
+    {
+        return $this->_delegate->has($id);
+    }
+
+    /**
+     * Returns true if a service definition exists under the given identifier.
+     *
+     * @param string $id The service identifier
+     *
+     * @return Boolean true if the service definition exists, false otherwise
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function hasDefinition($id)
+    {
+        return $this->_delegate->hasDefinition($id);
+    }
+
+    /**
+     * Checks if a parameter exists.
+     *
+     * @param string $name The parameter name
+     *
+     * @return Boolean The presence of parameter in container
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function hasParameter($name)
+    {
+        return $this->_delegate->hasParameter($name);
+    }
+
+    /**
+     * Check for whether or not a service has been initialized.
+     *
+     * @param string $id
+     *
+     * @return Boolean true if the service has been initialized, false otherwise
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function initialized($id)
+    {
+        return $this->_delegate->initialized($id);
+    }
+
+    /**
+     * Registers a service definition.
+     *
+     * This methods allows for simple registration of service definition
+     * with a fluid interface.
+     *
+     * @param string $id    The service identifier
+     * @param string $class The service class
+     *
+     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function register($id, $class = null)
+    {
+        return $this->setDefinition(strtolower($id), new tubepress_impl_ioc_Definition($class));
+    }
+
+    /**
+     * Removes a service definition.
+     *
+     * @param string $id The service identifier
+     *
+     * @return void
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function removeDefinition($id)
+    {
+        $this->_delegate->removeDefinition($id);
+    }
+
+    /**
+     * Sets a service.
+     *
+     * @param string $id      The service identifier
+     * @param object $service The service instance
+     *
+     * @return void
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function set($id, $service)
+    {
+        if ($this->isFrozen()) {
+
+            throw new BadMethodCallException('Cannot set a service on a frozen container');
         }
 
-        foreach ($container->getExtensions() as $name => $extension) {
-            if (!$config = $container->getExtensionConfig($name)) {
-                // this extension was not called
-                continue;
-            }
-            $config = $container->getParameterBag()->resolveValue($config);
+        $this->_delegate->set($id, $service);
+    }
 
-            $tmpContainer = new tubepress_impl_ioc_IconicContainer($container->getParameterBag());
+    /**
+     * Sets a service definition.
+     *
+     * @param string                                $id         The service identifier
+     * @param tubepress_api_ioc_DefinitionInterface $definition A tubepress_api_ioc_DefinitionInterface instance
+     *
+     * @return tubepress_api_ioc_DefinitionInterface the service definition
+     *
+     * @throws BadMethodCallException When this ContainerBuilder is frozen
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function setDefinition($id, tubepress_api_ioc_DefinitionInterface $definition)
+    {
+        if ($this->_isFrozen) {
 
-            $extension->load($config, $tmpContainer);
-
-            $container->merge($tmpContainer);
+            throw new BadMethodCallException('Setting a definition on a frozen container is not allowed');
         }
 
-        $container->addDefinitions($definitions);
-        $container->addAliases($aliases);
-        $container->getParameterBag()->add($parameters);
+        $wrapped = new tubepress_impl_ioc_IconicDefinitionWrapper($definition);
+
+        try {
+
+            /**
+             * @var $fromParent tubepress_impl_ioc_IconicDefinitionWrapper
+             */
+            $fromParent = $this->_delegate->setDefinition($id, $wrapped);
+
+            return $fromParent->getTubePressDefinition();
+
+        } catch (ehough_iconic_exception_BadMethodCallException $e) {
+
+            throw new BadMethodCallException($e->getMessage());
+        }
+    }
+
+    /**
+     * Sets the service definitions.
+     *
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function setDefinitions(array $definitions)
+    {
+        if ($this->isFrozen()) {
+
+            throw new BadMethodCallException('Cannot set definitions on a frozen container');
+        }
+
+        $iconicDefinitions = array_map(array($this, '_callbackConvertToIconicDefinition'), $definitions);
+
+        $this->_delegate->setDefinitions($iconicDefinitions);
+    }
+
+    /**
+     * Sets a parameter.
+     *
+     * @param string $name  The parameter name
+     * @param mixed  $value The parameter value
+     *
+     * @return void
+     *
+     * @api
+     * @since 3.1.0
+     */
+    public function setParameter($name, $value)
+    {
+        if ($this->isFrozen()) {
+
+            throw new LogicException('Cannot set a parameter on a frozen container');
+        }
+
+        $this->_delegate->setParameter($name, $value);
+    }
+
+    /**
+     * You can modify the container here before it is dumped to PHP code.
+     *
+     * @param tubepress_api_ioc_ContainerInterface $self
+     *
+     * @api
+     */
+    public function process(tubepress_api_ioc_ContainerInterface $self)
+    {
+        $parameters = $this->_delegate->getParameterBag()->all();
+
+        /**
+         * These will all be tubepress_impl_ioc_IconicDefinitionWrapper instances
+         */
+        $definitions = $self->getDefinitions();
+
+        /**
+         * @var $extension tubepress_api_ioc_ContainerExtensionInterface
+         */
+        foreach ($this->_extensions as $extension) {
+
+            $tmpContainer = new tubepress_impl_ioc_IconicContainer($this->_delegate->getParameterBag());
+
+            $extension->load($tmpContainer);
+
+            $this->merge($tmpContainer);
+        }
+
+        $self->addDefinitions($definitions);
+        $this->_delegate->getParameterBag()->add($parameters);
+    }
+
+    /**
+     * @internal
+     */
+    public function getParameterBag()
+    {
+        return $this->_delegate->getParameterBag();
+    }
+
+    /**
+     * @internal
+     */
+    private function merge(tubepress_impl_ioc_IconicContainer $container)
+    {
+        if ($this->_isFrozen) {
+
+            throw new BadMethodCallException('Cannot merge on a frozen container.');
+        }
+
+        $this->addDefinitions($container->getDefinitions());
+        $this->getParameterBag()->add($container->getParameterBag()->all());
+    }
+
+    /**
+     * @internal
+     */
+    public function _callbackConvertToIconicDefinition($definition)
+    {
+        if ($definition instanceof tubepress_impl_ioc_IconicDefinitionWrapper) {
+
+            return $definition;
+        }
+
+        if (!($definition instanceof tubepress_api_ioc_DefinitionInterface)) {
+
+            throw new InvalidArgumentException('Can only add tubepress_api_ioc_DefinitionInterface instances to the ' .
+                'container. You supplied an instance of ' . get_class($definition));
+        }
+
+        return new tubepress_impl_ioc_IconicDefinitionWrapper($definition);
+    }
+
+    /**
+     * @internal
+     */
+    public function _callbackConvertToTubePressDefinition($definition)
+    {
+        if (!($definition instanceof tubepress_impl_ioc_IconicDefinitionWrapper)) {
+
+            throw new InvalidArgumentException('A non-tubepress_impl_ioc_IconicDefinitionWrapper made it\'s way into the container.');
+        }
+
+        return $definition->getTubePressDefinition();
     }
 }

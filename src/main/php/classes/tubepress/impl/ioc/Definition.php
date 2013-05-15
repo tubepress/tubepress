@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_api_ioc_Definition extends ehough_iconic_Definition
+class tubepress_impl_ioc_Definition extends ehough_iconic_Definition implements tubepress_api_ioc_DefinitionInterface
 {
     /**
      * Sets a specific argument
@@ -17,7 +17,7 @@ class tubepress_api_ioc_Definition extends ehough_iconic_Definition
      * @param integer $index
      * @param mixed   $argument
      *
-     * @return tubepress_api_ioc_Definition The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @throws OutOfBoundsException When the replaced argument does not exist
      *
@@ -67,7 +67,7 @@ class tubepress_api_ioc_Definition extends ehough_iconic_Definition
      * @param string $method    The method name to call
      * @param array  $arguments An array of arguments to pass to the method call
      *
-     * @return tubepress_api_ioc_Definition The current instance
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @throws InvalidArgumentException on empty $method param
      *

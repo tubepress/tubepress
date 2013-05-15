@@ -27,7 +27,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
 
         $event = new tubepress_spi_event_EventBase($pagination);
 
-        $pm->publish(
+        $pm->dispatch(
 
             tubepress_api_const_event_EventNames::HTML_PAGINATION,
             $event

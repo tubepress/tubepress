@@ -99,7 +99,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
                 'videoGalleryPage' => $feedResult
             ));
 
-            $eventDispatcher->publish(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY,
                 $event
@@ -119,7 +119,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
                 'videoGalleryPage' => $feedResult
             ));
 
-            $eventDispatcher->publish(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY,
                 $event

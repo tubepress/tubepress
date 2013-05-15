@@ -62,7 +62,7 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase($raw);
 
-        $eventDispatcher->publish($eventName, $event);
+        $eventDispatcher->dispatch($eventName, $event);
 
         return $event->getSubject();
     }

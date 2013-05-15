@@ -278,7 +278,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tubepress
 
     private function _setupEventDispatcher($evenName)
     {
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
 
             return $event->getSubject() instanceof ehough_curly_Url;
         }));

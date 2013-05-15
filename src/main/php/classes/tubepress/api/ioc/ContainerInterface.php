@@ -16,7 +16,7 @@ interface tubepress_api_ioc_ContainerInterface
     /**
      * Adds the service definitions.
      *
-     * @param tubepress_api_ioc_Definition[] $definitions An array of service definitions
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *
      * @return void
      *
@@ -66,8 +66,8 @@ interface tubepress_api_ioc_ContainerInterface
      *
      * @param string $id The service identifier
      *
-     * @return tubepress_api_ioc_Definition A tubepress_api_ioc_Definition instance, or null if the
-     *                                      service does not exist.
+     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance, or null if the
+     *                                               service does not exist.
      *
      * @api
      * @since 3.1.0
@@ -77,7 +77,7 @@ interface tubepress_api_ioc_ContainerInterface
     /**
      * Gets all service definitions.
      *
-     * @return tubepress_api_ioc_Definition[] An array of tubepress_api_ioc_Definition instances
+     * @return tubepress_api_ioc_DefinitionInterface[] An array of tubepress_api_ioc_DefinitionInterface instances
      *
      * @api
      * @since 3.1.0
@@ -165,7 +165,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @param string $id    The service identifier
      * @param string $class The service class
      *
-     * @return tubepress_api_ioc_Definition A tubepress_api_ioc_Definition instance
+     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance
      *
      * @api
      * @since 3.1.0
@@ -200,24 +200,24 @@ interface tubepress_api_ioc_ContainerInterface
     /**
      * Sets a service definition.
      *
-     * @param string                       $id         The service identifier
-     * @param tubepress_api_ioc_Definition $definition A tubepress_api_ioc_Definition instance
+     * @param string                                $id         The service identifier
+     * @param tubepress_api_ioc_DefinitionInterface $definition A tubepress_api_ioc_DefinitionInterface instance
      *
-     * @return tubepress_api_ioc_Definition the service definition
+     * @return tubepress_api_ioc_DefinitionInterface the service definition
      *
      * @throws BadMethodCallException When this ContainerBuilder is frozen
      *
      * @api
      * @since 3.1.0
      */
-    function addDefinition($id, tubepress_api_ioc_Definition $definition);
+    function setDefinition($id, tubepress_api_ioc_DefinitionInterface $definition);
 
     /**
      * Sets the service definitions.
      *
-     * @param tubepress_api_ioc_Definition[] $definitions An array of service definitions
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *
-     * @return
+     * @return void
      *
      * @api
      * @since 3.1.0

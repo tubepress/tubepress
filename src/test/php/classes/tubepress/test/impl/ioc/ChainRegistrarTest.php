@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_ioc_ChainRegistrar
+ */
 class tubepress_test_impl_ioc_ChainRegistrarTest extends tubepress_test_TubePressUnitTest implements ehough_chaingang_api_Command
 {
     private $_bell;

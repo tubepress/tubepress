@@ -90,7 +90,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
                 )
             );
 
-            $eventDispatcher->publish(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO,
                 $event
@@ -105,7 +105,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
 
             $event = new tubepress_spi_event_EventBase($html);
 
-            $eventDispatcher->publish(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::HTML_SINGLE_VIDEO,
                 $event

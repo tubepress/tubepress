@@ -150,7 +150,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
                 array('optionName' => $name)
             );
 
-            $eventDispatcher->publish(
+            $eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL,
                 $event

@@ -21,7 +21,7 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
      */
     public final function setUp()
     {
-        $this->_mockIocContainer = ehough_mockery_Mockery::mock('ehough_iconic_ContainerInterface');
+        $this->_mockIocContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerInterface');
 
         $this->_mockIocContainer->shouldReceive('get')->andReturnUsing(array($this, '_getMockServiceById'));
         $this->_mockIocContainer->shouldReceive('findTaggedServiceIds')->andReturnUsing(array($this, '_getMockServiceIdsByTag'));

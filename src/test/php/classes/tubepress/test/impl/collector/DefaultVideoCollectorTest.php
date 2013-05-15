@@ -78,7 +78,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) use ($mockPage) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) use ($mockPage) {
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockPage;
         }));
@@ -98,7 +98,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) {
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
         }));
@@ -117,7 +117,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(97);
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, ehough_mockery_Mockery::on(function ($arg) {
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
         }));

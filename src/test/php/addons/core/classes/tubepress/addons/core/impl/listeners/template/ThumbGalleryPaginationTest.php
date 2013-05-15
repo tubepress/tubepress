@@ -80,7 +80,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
         $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=24" data-page="24">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=24" data-page="24">24</a><span class="current">25</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=26" data-page="26">26</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=26" data-page="26">##next## &raquo;</a></div>
 ';
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
             $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $expectedHtml;
 
@@ -103,7 +103,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
         $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=11" data-page="11">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=11" data-page="11">11</a><span class="current">12</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=13" data-page="13">13</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=13" data-page="13">##next## &raquo;</a></div>
 ';
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
             $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $expectedHtml;
 
@@ -126,7 +126,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
         $expectedHtml = '<div class="pagination"><span class="current">1</span><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">2</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=3" data-page="3">3</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=4" data-page="4">4</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=5" data-page="5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124" data-page="124">124</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">##next## &raquo;</a></div>
 ';
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
             $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $expectedHtml;
 

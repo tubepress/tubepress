@@ -313,9 +313,9 @@ class tubepress_impl_patterns_sl_ServiceLocator
 
 
     /**
-     * @param ehough_iconic_ContainerInterface $container The core IOC container.
+     * @param tubepress_api_ioc_ContainerInterface $container The core IOC container.
      */
-    public static function setIocContainer(ehough_iconic_ContainerInterface $container)
+    public static function setIocContainer(tubepress_api_ioc_ContainerInterface $container)
     {
         self::$_iocContainer = $container;
     }

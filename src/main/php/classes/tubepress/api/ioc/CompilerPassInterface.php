@@ -11,8 +11,6 @@
 
 interface tubepress_api_ioc_CompilerPassInterface
 {
-    const _ = 'tubepress_api_ioc_CompilerPassInterface';
-
     /**
      * Provides add-ons with the ability to modify the TubePress IOC container
      * before it is put into production.

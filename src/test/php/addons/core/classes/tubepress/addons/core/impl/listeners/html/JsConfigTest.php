@@ -36,7 +36,7 @@ class tubepress_addons_core_impl_listeners_html_JsConfigTest extends tubepress_t
     {
         $fakeArgs = array('yo' => 'mamma', 'is' => '"so fat"', 'x' => array('foo' => 500, 'html' => '<>\'"'));
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, ehough_mockery_Mockery::on(function ($arg) use ($fakeArgs) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, ehough_mockery_Mockery::on(function ($arg) use ($fakeArgs) {
 
             $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === array();
 

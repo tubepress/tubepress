@@ -87,9 +87,9 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
     /**
      * This is here strictly for testing :/
      *
-     * @param ehough_iconic_ContainerInterface $iocContainer The IoC container.
+     * @param tubepress_api_ioc_ContainerInterface $iocContainer The IoC container.
      */
-    public final function setIocContainer(ehough_iconic_ContainerInterface $iocContainer)
+    public final function setIocContainer(tubepress_api_ioc_ContainerInterface $iocContainer)
     {
         $this->_iocContainer = $iocContainer;
     }
@@ -216,7 +216,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
          * Notify that we have loaded all plugins.
          */
         $eventDispatcher   = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $eventDispatcher->publish(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
 
         /**
          * Now that we have a storage manager, let's enable or disable logging permanently.
@@ -272,7 +272,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                      $ref = new ReflectionClass($compilerPass);
 
-                     $coreIocContainer->addTubePressCompilerPass($ref->newInstance());
+                     $coreIocContainer->addCompilerPass($ref->newInstance());
 
                      if ($this->_shouldLog) {
 
@@ -331,7 +331,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper
 
                     $ref = new ReflectionClass($extension);
 
-                    $coreIocContainer->registerTubePressExtension($ref->newInstance());
+                    $coreIocContainer->registerExtension($ref->newInstance());
 
                     if ($this->_shouldLog) {
 

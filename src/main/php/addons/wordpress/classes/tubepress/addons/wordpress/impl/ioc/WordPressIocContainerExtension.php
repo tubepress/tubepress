@@ -117,7 +117,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_message_WordPressMessageService'
         );
 
-        $container->addDefinition('tubepress_addons_wordpress_impl_message_WordPressMessageService', $definition);
+        $container->setDefinition('tubepress_addons_wordpress_impl_message_WordPressMessageService', $definition);
     }
 
     private function _registerOptionsStorageManager(tubepress_api_ioc_ContainerInterface $container)
@@ -128,7 +128,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_options_WordPressStorageManager'
         );
 
-        $container->addDefinition('tubepress_addons_wordpress_impl_options_WordPressStorageManager', $definition);
+        $container->setDefinition('tubepress_addons_wordpress_impl_options_WordPressStorageManager', $definition);
     }
 
     private function _registerOptionsUiFormHandler(tubepress_api_ioc_ContainerInterface $container)
@@ -150,11 +150,11 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             tubepress_spi_options_ui_FormHandler::_,
             'tubepress_impl_options_ui_DefaultFormHandler'
 
-        )->addArgument(new tubepress_api_ioc_Reference($tabsId))
-         ->addArgument(new tubepress_api_ioc_Reference($filterId))
+        )->addArgument(new tubepress_impl_ioc_Reference($tabsId))
+         ->addArgument(new tubepress_impl_ioc_Reference($filterId))
          ->addArgument(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/resources/templates/options_page.tpl.php');
 
-        $container->addDefinition('tubepress_impl_options_ui_DefaultFormHandler', $definition);
+        $container->setDefinition('tubepress_impl_options_ui_DefaultFormHandler', $definition);
     }
 
     private function _registerContentFilter(tubepress_api_ioc_ContainerInterface $container)
@@ -165,7 +165,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_DefaultContentFilter'
         );
 
-        $container->addDefinition('tubepress_addons_wordpress_impl_DefaultContentFilter', $definition);
+        $container->setDefinition('tubepress_addons_wordpress_impl_DefaultContentFilter', $definition);
     }
 
     private function _registerCssAndJsInjector(tubepress_api_ioc_ContainerInterface $container)
@@ -176,7 +176,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector'
         );
 
-        $container->addDefinition('tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector', $definition);
+        $container->setDefinition('tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector', $definition);
     }
 
     private function _registerWidgetHandler(tubepress_api_ioc_ContainerInterface $container)
@@ -187,7 +187,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_DefaultWidgetHandler'
         );
 
-        $container->addDefinition('tubepress_addons_wordpress_impl_DefaultWidgetHandler', $definition);
+        $container->setDefinition('tubepress_addons_wordpress_impl_DefaultWidgetHandler', $definition);
     }
 
     private function _registerWpAdminHandler(tubepress_api_ioc_ContainerInterface $container)
@@ -198,7 +198,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_DefaultWpAdminHandler'
         );
 
-        $container->addDefinition('tubepress_addons_wordpress_impl_DefaultWpAdminHandler', $definition);
+        $container->setDefinition('tubepress_addons_wordpress_impl_DefaultWpAdminHandler', $definition);
     }
 
     private function _registerWpFunctionWrapper(tubepress_api_ioc_ContainerInterface $container)
@@ -209,6 +209,6 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper'
         );
 
-        $container->addDefinition('tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper', $definition);
+        $container->setDefinition('tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper', $definition);
     }
 }

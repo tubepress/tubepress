@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_ioc_CoreIocContainer
+ */
 class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -65,14 +69,14 @@ class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePr
 
     public function testRegisterExtension()
     {
-        $this->_sut->registerTubePressExtension(new FakeExtension());
+        $this->_sut->registerExtension(new FakeExtension());
 
         $this->assertTrue(true);
     }
 
     public function testAddCompilerPass()
     {
-        $this->_sut->addTubePressCompilerPass(new FakeCompilerPass());
+        $this->_sut->addCompilerPass(new FakeCompilerPass());
 
         $this->assertTrue(true);
     }

@@ -20,7 +20,7 @@ class tubepress_addons_core_impl_listeners_html_JsConfig
 
         $jsEvent = new tubepress_spi_event_EventBase(array());
 
-        $eventDispatcher->publish(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, $jsEvent);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, $jsEvent);
 
         $args   = $jsEvent->getSubject();
         $asJson = json_encode($args);

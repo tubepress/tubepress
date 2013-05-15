@@ -44,7 +44,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService',
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService'
 
-        )->addArgument(new tubepress_api_ioc_Reference('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'))
+        )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $container->register(

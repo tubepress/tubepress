@@ -8,16 +8,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_test_api_ioc_DefinitionTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_impl_ioc_Definition
+ */
+class tubepress_test_impl_ioc_DefinitionTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_api_ioc_Definition
+     * @var tubepress_impl_ioc_Definition
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_api_ioc_Definition('foo', array('x', 'z'));
+        $this->_sut = new tubepress_impl_ioc_Definition('foo', array('x', 'z'));
     }
 
     public function testAddMethodCallBad()

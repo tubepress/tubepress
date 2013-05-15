@@ -13,7 +13,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicContainer implements ehough_iconic_compiler_CompilerPassInterface
+final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicContainer
 {
     public function __construct()
     {
@@ -54,7 +54,7 @@ final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_Iconi
 
             'ehough_tickertape_ContainerAwareEventDispatcher',
             'ehough_tickertape_ContainerAwareEventDispatcher'
-        )->addArgument($this);
+        )->addArgument($this->getDelegateIconicContainerBuilder());
 
         $definition = $this->register(
 

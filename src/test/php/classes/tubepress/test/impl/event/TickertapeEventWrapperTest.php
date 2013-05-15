@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_event_TickertapeEventWrapper
+ */
 class tubepress_test_impl_event_TickertapeEventWrapperTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -25,6 +29,36 @@ class tubepress_test_impl_event_TickertapeEventWrapperTest extends tubepress_tes
         $this->_mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
 
         $this->_sut = new tubepress_impl_event_TickertapeEventWrapper($this->_mockEvent);
+    }
+
+    public function testPropagation()
+    {
+        $this->_mockEvent->shouldReceive('isPropagationStopped')->twice()->andReturn(false, true);
+        $this->_mockEvent->shouldReceive('stopPropagation')->once();
+
+        $this->assertFalse($this->_sut->isPropagationStopped());
+
+        $this->_sut->stopPropagation();
+
+        $this->assertTrue($this->_sut->isPropagationStopped());
+    }
+
+    public function testGetDelegate()
+    {
+        $this->_sut = new tubepress_impl_event_TickertapeEventWrapper();
+
+        $disp = $this->_sut->getDispatcher();
+
+        $this->assertNull($disp);
+    }
+
+    public function testSetGetName()
+    {
+        $this->_mockEvent->shouldReceive('setName')->once()->with('xyz');
+        $this->_mockEvent->shouldReceive('getName')->once()->andReturn('xyz');
+
+        $this->_sut->setName('xyz');
+        $this->assertEquals('xyz', $this->_sut->getName());
     }
 
     public function testSetSubject()

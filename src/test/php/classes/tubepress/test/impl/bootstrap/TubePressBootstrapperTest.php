@@ -111,8 +111,8 @@ class tubepress_test_impl_bootstrap_TubePressBootstrapperTest extends tubepress_
         $this->_mockAddonRegistry->shouldReceive('load')->once()->with($mockAddon1);
         $this->_mockAddonRegistry->shouldReceive('load')->once()->with($mockAddon2);
 
-        $this->getMockIocContainer()->shouldReceive('addTubePressCompilerPass')->once()->with(ehough_mockery_Mockery::type('FakeCompilerPass'));
-        $this->getMockIocContainer()->shouldReceive('registerTubePressExtension')->once()->with(ehough_mockery_Mockery::type('FakeExtension'));
+        $this->getMockIocContainer()->shouldReceive('addCompilerPass')->once()->with(ehough_mockery_Mockery::type('FakeCompilerPass'));
+        $this->getMockIocContainer()->shouldReceive('registerExtension')->once()->with(ehough_mockery_Mockery::type('FakeExtension'));
         $this->getMockIocContainer()->shouldReceive('compile')->once();
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(true);
@@ -120,7 +120,7 @@ class tubepress_test_impl_bootstrap_TubePressBootstrapperTest extends tubepress_
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn('false');
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
 
         $this->_sut->boot(new ehough_pulsar_ComposerClassLoader(dirname(__FILE__) . '/../../../../../../../../vendor'));
 

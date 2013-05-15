@@ -66,7 +66,7 @@ class tubepress_impl_options_ui_DefaultFormHandler extends tubepress_impl_option
         $template->setVariable(self::TEMPLATE_VAR_FILTER, $this->_filterField);
 
         $templateEvent = new tubepress_spi_event_EventBase($template);
-        $eventDispatcher->publish(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, $templateEvent);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, $templateEvent);
 
         return $template->toString();
     }

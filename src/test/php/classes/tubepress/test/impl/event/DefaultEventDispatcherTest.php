@@ -78,7 +78,7 @@ class tubepress_test_impl_event_DefaultEventDispatcherTest extends tubepress_tes
 
         }))->andReturn(array('x'));
 
-        $result = $this->_sut->publish('some event', $event);
+        $result = $this->_sut->dispatch('some event', $event);
 
         $this->assertEquals(array('x'), $result);
     }
@@ -92,7 +92,7 @@ class tubepress_test_impl_event_DefaultEventDispatcherTest extends tubepress_tes
             return $event instanceof tubepress_spi_event_EventBase;
         }))->andReturn(array('x'));
 
-        $result = $this->_sut->publish('some event', $event);
+        $result = $this->_sut->dispatch('some event', $event);
 
         $this->assertEquals(array('x'), $result);
     }

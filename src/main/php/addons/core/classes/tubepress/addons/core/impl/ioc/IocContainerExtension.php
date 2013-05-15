@@ -88,19 +88,19 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder'
         );
 
-        $actualPoolDefinition = new tubepress_api_ioc_Definition('ehough_stash_PoolInterface');
+        $actualPoolDefinition = new tubepress_impl_ioc_Definition('ehough_stash_PoolInterface');
         $actualPoolDefinition->setFactoryService($builderServiceId);
         $actualPoolDefinition->setFactoryMethod('buildCache');
-        $container->addDefinition($actualPoolServiceId, $actualPoolDefinition);
+        $container->setDefinition($actualPoolServiceId, $actualPoolDefinition);
 
         $definition = $container->register(
 
             'ehough_stash_PoolInterface',
             'tubepress_impl_cache_PoolDecorator'
 
-        )->addArgument(new tubepress_api_ioc_Reference($actualPoolServiceId));
+        )->addArgument(new tubepress_impl_ioc_Reference($actualPoolServiceId));
 
-        $container->addDefinition('tubepress_impl_cache_PoolDecorator', $definition);
+        $container->setDefinition('tubepress_impl_cache_PoolDecorator', $definition);
     }
 
     private function _registerCssAndJsGenerator(tubepress_api_ioc_ContainerInterface $container)
@@ -170,10 +170,10 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_shortstop_api_HttpClientInterface',
             'ehough_shortstop_impl_DefaultHttpClient'
 
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain'));
+        )->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'))
+         ->addArgument(new tubepress_impl_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain'));
 
-        $container->addDefinition('ehough_shortstop_impl_DefaultHttpClient', $definition);
+        $container->setDefinition('ehough_shortstop_impl_DefaultHttpClient', $definition);
     }
 
     private function _registerHttpRequestParameterService(tubepress_api_ioc_ContainerInterface $container)
@@ -345,7 +345,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService',
             'tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService'
 
-        )->addArgument(new tubepress_api_ioc_Reference('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'))
+        )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'))
          ->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
         $container->register(
@@ -360,7 +360,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService',
             'tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService'
 
-        )->addArgument(new tubepress_api_ioc_Reference('tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService'))
+        )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService'))
          ->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
         $container->register(
@@ -469,10 +469,10 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         foreach ($transportClasses as $transportClass) {
 
             $container->register($transportClass, $transportClass)
-                ->addArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpMessageParser'))
-                ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
+                ->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpMessageParser'))
+                ->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
 
-            array_push($transportReferences, new tubepress_api_ioc_Reference($transportClass));
+            array_push($transportReferences, new tubepress_impl_ioc_Reference($transportClass));
         }
 
         $transportChainId = '_ehough_shortstop_impl_DefaultHttpClient_transportchain';
@@ -505,7 +505,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content',
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
-        )->addArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
+        )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
          ->addArgument('Content')
          ->addTag(self::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
     }
@@ -516,7 +516,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer',
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
-        )->addArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpTransferDecoder'))
+        )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpTransferDecoder'))
          ->addArgument('Transfer')
          ->addTag(self::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
     }
@@ -536,7 +536,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener',
             'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener'
-        )->addArgument(new tubepress_api_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
+        )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
          ->addTag(self::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onPreRequest'));
     }
 
@@ -565,9 +565,9 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_shortstop_spi_HttpContentDecoder',
             'ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'
 
-        )->addArgument(new tubepress_api_ioc_Reference($contentDecoderChainId));
+        )->addArgument(new tubepress_impl_ioc_Reference($contentDecoderChainId));
 
-        $container->addDefinition('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain', $definition);
+        $container->setDefinition('ehough_shortstop_impl_decoding_content_HttpContentDecodingChain', $definition);
     }
 
     private function _registerHttpTransferDecoder(tubepress_api_ioc_ContainerInterface $container)
@@ -592,15 +592,15 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_shortstop_spi_HttpTransferDecoder',
             'ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain'
 
-        )->addArgument(new tubepress_api_ioc_Reference($transferDecoderChainId));
+        )->addArgument(new tubepress_impl_ioc_Reference($transferDecoderChainId));
 
-        $container->addDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $definition);
+        $container->setDefinition('ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain', $definition);
     }
 
     private function _registerSimpleService(tubepress_api_ioc_ContainerInterface $container, $id, $class)
     {
         $definition = $container->register($id, $class);
 
-        $container->addDefinition($class, $definition);
+        $container->setDefinition($class, $definition);
     }
 }

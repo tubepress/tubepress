@@ -536,7 +536,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends tubep
 
     private function _setupEventDispatcher($evenName)
     {
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
 
             return $event->getSubject() instanceof ehough_curly_Url;
         }));

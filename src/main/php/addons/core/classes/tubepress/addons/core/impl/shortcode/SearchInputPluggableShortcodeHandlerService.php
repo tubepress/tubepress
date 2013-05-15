@@ -42,7 +42,7 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
 
             $event = new tubepress_spi_event_EventBase($template);
 
-            $pm->publish(
+            $pm->dispatch(
 
                 tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT,
                 $event
@@ -57,7 +57,7 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
 
             $event = new tubepress_spi_event_EventBase($html);
 
-            $pm->publish(
+            $pm->dispatch(
 
                 tubepress_api_const_event_EventNames::HTML_SEARCH_INPUT,
                 $event

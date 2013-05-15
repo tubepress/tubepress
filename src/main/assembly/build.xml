@@ -30,5 +30,16 @@ Builds the free WordPress plugin package of Tubepress.
         <antcall target="package" />
 
     </target>
+
+    <target name="quick" depends="init">
+
+        <antcall target="stage-self" />
+        <antcall target="add-wordpress-files" />
+        <antcall target="suppress-directory-listings" />
+        <antcall target="modify-wordpress-info" />
+        <antcall target="php-version-compatability-mods" />
+        <antcall target="package" />
+
+    </target>
 	
 </project>

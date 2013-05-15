@@ -89,7 +89,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->publish(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
+        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
         $filteredValue = $event->getSubject();
 
         if ($optionValidatorService->isValid($optionName, $filteredValue)) {

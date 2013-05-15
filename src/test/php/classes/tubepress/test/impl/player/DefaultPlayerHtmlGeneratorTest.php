@@ -69,7 +69,7 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
 
         $mockVideo = $this->_mockVideo;
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
             tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION,
             ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate, $mockVideo) {
@@ -85,7 +85,7 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
             'playerName' => 'current-player-name'
         ));
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
             tubepress_api_const_event_EventNames::HTML_PLAYERLOCATION,
             ehough_mockery_Mockery::on(function ($arg) use ($mockVideo) {

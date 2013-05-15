@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_api_ioc_Reference extends ehough_iconic_Reference
+class tubepress_impl_ioc_Reference extends ehough_iconic_Reference
 {
 
 }

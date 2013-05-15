@@ -29,7 +29,7 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
     {
         $this->_sut = $this->buildSut();
 
-        $this->_mockContainer = ehough_mockery_Mockery::mock(tubepress_api_ioc_ContainerInterface::_);
+        $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerInterface');
     }
 
     public function testLoad()
@@ -50,13 +50,13 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
         return $this;
     }
 
-    protected function expectDefinition($id, tubepress_api_ioc_Definition $definition)
+    protected function expectDefinition($id, tubepress_api_ioc_DefinitionInterface $definition)
     {
         $this->_startChain($definition->getClass());
 
-        $this->_mockContainer->shouldReceive('addDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
+        $this->_mockContainer->shouldReceive('setDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
 
-            return $actualDefinition instanceof tubepress_api_ioc_Definition
+            return $actualDefinition instanceof tubepress_api_ioc_DefinitionInterface
                 && $actualDefinition->getClass() === $definition->getClass();
 
         }))->andReturn($this->_mockDefinition);
@@ -137,7 +137,7 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
 
     private function _startChain($class)
     {
-        $this->_mockDefinition = ehough_mockery_Mockery::mock('tubepress_api_ioc_Definition');
+        $this->_mockDefinition = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
 
         $this->_mockDefinition->shouldReceive('getClass')->andReturn($class);
     }

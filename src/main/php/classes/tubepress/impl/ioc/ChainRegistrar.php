@@ -16,10 +16,10 @@ class tubepress_impl_ioc_ChainRegistrar
 {
     public static function registerChainDefinitionByReferences(tubepress_api_ioc_ContainerInterface $container, $chainName, array $references)
     {
-        $container->addDefinition(
+        $container->setDefinition(
 
             $chainName,
-            new tubepress_api_ioc_Definition(
+            new tubepress_impl_ioc_Definition(
 
                 'ehough_chaingang_api_Chain',
                 $references

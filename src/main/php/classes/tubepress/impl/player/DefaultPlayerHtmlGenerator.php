@@ -65,7 +65,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
                 'playerName' => $playerLocation->getName())
         );
 
-        $eventDispatcherService->publish(
+        $eventDispatcherService->dispatch(
 
             tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION,
             $playerTemplateEvent
@@ -82,7 +82,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
             'playerName'   => $playerLocation->getName()
         ));
 
-        $eventDispatcherService->publish(
+        $eventDispatcherService->dispatch(
 
             tubepress_api_const_event_EventNames::HTML_PLAYERLOCATION,
             $playerHtmlEvent

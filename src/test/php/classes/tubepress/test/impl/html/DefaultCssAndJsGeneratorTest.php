@@ -43,7 +43,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('http://foo.bar/some/thing');
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_JQUERY, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_JQUERY, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject()->toString() === 'http://foo.bar/some/thing/src/main/web/vendor/jquery-1.9.1.min.js';
 
@@ -59,7 +59,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('http://foo.bar/some/thing');
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_TUBEPRESSJS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_TUBEPRESSJS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject()->toString() === 'http://foo.bar/some/thing/src/main/web/js/tubepress.js';
 
@@ -73,7 +73,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testInlineJs()
     {
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -87,7 +87,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
 
     public function testInlineCss()
     {
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_INLINE_CSS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -103,7 +103,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('http://foo.bar/some/thing');
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_CSS_URL_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_CSS_URL_TUBEPRESS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject()->toString() === 'http://foo.bar/some/thing/src/main/web/css/tubepress.css';
 
@@ -118,7 +118,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '';
 
@@ -133,7 +133,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(2);
 
-        $this->_mockEventDispatcher->shouldReceive('publish')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::CSS_JS_META_TAGS, ehough_mockery_Mockery::on(function ($event) {
 
             $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === '<meta name="robots" content="noindex, nofollow" />';
 
