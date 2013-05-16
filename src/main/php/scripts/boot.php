@@ -24,16 +24,6 @@ if (! function_exists('bootTubePress')) {
             define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
         }
 
-        /**
-         * Second, we add our classloader.
-         */
-        if (! class_exists('ehough_pulsar_ComposerClassLoader')) {
-
-            require_once TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
-        }
-        $loader = new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor/');
-        $loader->register();
-
         /*
          * Finally, hand off control to the TubePress bootstrapper. This will
          *
@@ -44,7 +34,7 @@ if (! function_exists('bootTubePress')) {
          */
         require TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl/bootstrap/TubePressBootstrapper.php';
         $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
-        $bootStrapper->boot($loader);
+        $bootStrapper->boot();
 
         define('TUBEPRESS_BOOT_COMPLETE', true);
     }

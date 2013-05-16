@@ -1,0 +1,22 @@
+{
+    "cache" : {
+
+        "service-container" : {
+
+            "enabled" : false,
+            "dir"     : null
+        },
+
+        "addons" : {
+
+            "enabled" : false,
+            "dir"     : null
+        }
+    },
+
+    "addons" : {
+
+        "blacklist": []
+    }
+
+}

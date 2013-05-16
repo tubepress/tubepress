@@ -76,8 +76,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         /**
          * Long, guaranteed unique service IDs (since they're anonymous)
          */
-        $actualPoolServiceId = 'tubepress_addons_core_impl_ioc_IocContainerExtension-_registerCacheService-actualPoolServiceId';
-        $builderServiceId    = 'tubepress_addons_core_impl_ioc_IocContainerExtension-_registerCacheService-builderServiceId';
+        $actualPoolServiceId = 'tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_actualPoolServiceId';
+        $builderServiceId    = 'tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_builderServiceId';
 
         /**
          * First register the default cache builder.
@@ -503,7 +503,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $container->register(
 
-            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-content',
+            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener__content',
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
         )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
          ->addArgument('Content')
@@ -514,7 +514,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $container->register(
 
-            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener-transfer',
+            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener__transfer',
             'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
         )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpTransferDecoder'))
          ->addArgument('Transfer')

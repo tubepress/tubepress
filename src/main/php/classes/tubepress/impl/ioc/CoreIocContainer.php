@@ -50,17 +50,17 @@ final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_Iconi
 
     private function _registerEventDispatcher()
     {
-        $delegate = $this->register(
+        $this->register(
 
             'ehough_tickertape_ContainerAwareEventDispatcher',
             'ehough_tickertape_ContainerAwareEventDispatcher'
-        )->addArgument($this->getDelegateIconicContainerBuilder());
+        )->addArgument(new tubepress_impl_ioc_Reference('service_container'));
 
         $definition = $this->register(
 
             tubepress_api_event_EventDispatcherInterface::_,
             'tubepress_impl_event_DefaultEventDispatcher'
-        )->addArgument($delegate);
+        )->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
 
         $this->setDefinition('tubepress_impl_event_DefaultEventDispatcher', $definition);
     }
