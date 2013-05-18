@@ -24,6 +24,11 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
      */
     private $_isDebugEnabled;
 
+    /**
+     * @var tubepress_spi_provider_PluggableVideoProviderService[]
+     */
+    private $_videoProviders = array();
+
     public function __construct()
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Video Collector');
@@ -38,7 +43,6 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
     {
         $this->_isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
         $executionContext      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $providers             = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
         $videoSource           = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         $result                = null;
         $providerName          = null;
@@ -46,15 +50,12 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         if ($this->_isDebugEnabled) {
 
-            $this->_logger->debug('There are ' . count($providers) . ' pluggable video provider service(s) registered');
+            $this->_logger->debug('There are ' . count($this->_videoProviders) . ' pluggable video provider service(s) registered');
 
             $this->_logger->debug('Asking to see who wants to handle page ' . $currentPage . ' for gallery source "' . $videoSource . '"');
         }
 
-        /**
-         * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
-         */
-        foreach ($providers as $videoProvider) {
+        foreach ($this->_videoProviders as $videoProvider) {
 
             $sources = $videoProvider->getGallerySourceNames();
 
@@ -117,12 +118,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
             $this->_logger->debug(sprintf('Fetching video with ID <code>%s</code>', $customVideoId));
         }
 
-        $providers = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
-
-        /**
-         * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
-         */
-        foreach ($providers as $videoProvider) {
+        foreach ($this->_videoProviders as $videoProvider) {
 
             if ($videoProvider->recognizesVideoId($customVideoId)) {
 
@@ -141,6 +137,11 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
         }
 
         return null;
+    }
+
+    public function setPluggableVideoProviders(array $providers)
+    {
+        $this->_videoProviders = $providers;
     }
 
     private function _getCurrentPage()

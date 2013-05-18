@@ -10,11 +10,11 @@
  */
 
 /**
- * Registry of all add-ons.
+ * Handles loading add-ons into the system.
  */
-interface tubepress_spi_addon_AddonLoader
+interface tubepress_spi_boot_AddonBooter
 {
-    const _ = 'tubepress_spi_addon_AddonLoader';
+    const _ = 'tubepress_spi_boot_AddonBooter';
 
     /**
      * Loads the given add-on into the system. This consists of including any defined
@@ -23,10 +23,10 @@ interface tubepress_spi_addon_AddonLoader
      * If errors are encountered, the loader will record them and make a best effort to continue
      * loading the add-on.
      *
-     * @param tubepress_spi_addon_Addon $addon
+     * @param array $addons An array of tubepress_spi_addon_Addon instances.
      *
      * @return mixed An array of string error messages encountered while loading the
-     *               add-on. May be empty, never null.
+     *               add-ons. May be empty, never null.
      */
-    function load(tubepress_spi_addon_Addon $addon);
+    function boot(array $addons);
 }

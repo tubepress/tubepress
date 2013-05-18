@@ -10,6 +10,21 @@
  */
 class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
 {
+    /**
+     * @var array
+     */
+    private $_embeddedPlayers = array();
+
+    /**
+     * @var array
+     */
+    private $_videoProviders = array();
+
+    /**
+     * @var array
+     */
+    private $_playerLocations = array();
+
     public function onBootComplete(tubepress_api_event_EventInterface $event)
     {
         $_regexPositiveInteger    = '/[1-9][0-9]{0,6}/';
@@ -152,13 +167,13 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
         $option->setLabel('Implementation');                                                                                   //>(translatable)<
         $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
-        $option->setAcceptableValuesCallback(array('tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar', '_callbackGetValidPlayerImplementations'));
+        $option->setAcceptableValuesCallback(array($this, '_callbackGetValidPlayerImplementations'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $option->setLabel('Play each video');                                                                                 //>(translatable)<
         $option->setDefaultValue('normal');
-        $option->setAcceptableValuesCallback(array('tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar', '_callbackGetValidPlayerLocations'));
+        $option->setAcceptableValuesCallback(array($this, '_callbackGetValidPlayerLocations'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SEQUENCE);
@@ -238,7 +253,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
-        $option->setAcceptableValuesCallback(array('tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar', '_callbackGetValidVideoProviderNames'));
+        $option->setAcceptableValuesCallback(array($this, '_callbackGetValidVideoProviderNames'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
@@ -417,7 +432,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THEME);
         $option->setLabel('Theme');                                                                                                                                               //>(translatable)<
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.'); //>(translatable)<
-        $option->setAcceptableValuesCallback(array('tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar', '_callbackGetValidThemeOptions'));
+        $option->setAcceptableValuesCallback(array($this, '_callbackGetValidThemeOptions'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
@@ -435,16 +450,15 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $odr->registerOptionDescriptor($option);
     }
 
-    public static function _callbackGetValidPlayerImplementations()
+    public function _callbackGetValidPlayerImplementations()
     {
-        $embeddedImpls = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedPlayers();
         $providerNames = self::_callbackGetValidVideoProviderNames();
         $detected      = array();
 
         /**
          * @var $embeddedImpl tubepress_spi_embedded_PluggableEmbeddedPlayerService
          */
-        foreach ($embeddedImpls as $embeddedImpl) {
+        foreach ($this->_embeddedPlayers as $embeddedImpl) {
 
             /**
              * If the embedded player service's name does not match a registered provider name,
@@ -462,15 +476,14 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         ), $detected);
     }
 
-    public static function _callbackGetValidPlayerLocations()
+    public function _callbackGetValidPlayerLocations()
     {
-        $playerLocations = tubepress_impl_patterns_sl_ServiceLocator::getPlayerLocations();
-        $toReturn        = array();
+        $toReturn = array();
 
         /**
          * @var $playerLocation tubepress_spi_player_PluggablePlayerLocationService
          */
-        foreach ($playerLocations as $playerLocation) {
+        foreach ($this->_playerLocations as $playerLocation) {
 
             $toReturn[$playerLocation->getName()] = $playerLocation->getFriendlyName();
         }
@@ -478,12 +491,12 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         return $toReturn;
     }
 
-    public static function _callbackGetValidVideoProviderNames()
+    public function _callbackGetValidVideoProviderNames()
     {
-        return array_keys(self::_getValidProviderNamesToFriendlyNames());
+        return array_keys($this->_getValidProviderNamesToFriendlyNames());
     }
 
-    public static function _callbackGetValidThemeOptions()
+    public function _callbackGetValidThemeOptions()
     {
         $environmentDetectorService     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $fileSystemService              = tubepress_impl_patterns_sl_ServiceLocator::getFileSystem();
@@ -530,19 +543,33 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         return $toReturn;
     }
 
-    private static function _getValidProviderNamesToFriendlyNames()
+    private function _getValidProviderNamesToFriendlyNames()
     {
-        $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
-        $toReturn       = array();
+        $toReturn = array();
 
         /**
          * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
          */
-        foreach ($videoProviders as $videoProvider) {
+        foreach ($this->_videoProviders as $videoProvider) {
 
             $toReturn[$videoProvider->getName()] = $videoProvider->getFriendlyName();
         }
 
         return $toReturn;
+    }
+
+    public function setPluggablePlayerLocations(array $players)
+    {
+        $this->_playerLocations = $players;
+    }
+
+    public function setPluggableEmbeddedPlayers(array $embeds)
+    {
+        $this->_embeddedPlayers = $embeds;
+    }
+
+    public function setPluggableVideoProviders(array $providers)
+    {
+        $this->_videoProviders = $providers;
     }
 }

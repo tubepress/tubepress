@@ -66,10 +66,11 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTest ext
 
         $event = new tubepress_spi_event_EventBase(array('yo' => 'mamma'));
 
-        $mockPlayer = $this->createMockPluggableService(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $mockPlayer = ehough_mockery_Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayer->shouldReceive('getName')->andReturn('player-loc');
         $mockPlayer->shouldReceive('getRelativePlayerJsUrl')->andReturn('abc');
         $mockPlayer->shouldReceive('producesHtml')->once()->andReturn(true);
+        $this->_sut->setPluggablePlayerLocations(array($mockPlayer));
 
         $this->_sut->onGalleryInitJs($event);
 

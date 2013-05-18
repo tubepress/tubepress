@@ -8,22 +8,50 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_options_ui_fields_MetaMultiSelectField<extended>
+ */
 class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepress_test_impl_options_ui_fields_AbstractFieldTest
 {
+    /**
+     * @var tubepress_impl_options_ui_fields_MetaMultiSelectField
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionDescriptorArrary;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionDescriptorReference;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplateBuilder;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEnvironmentDetector;
 
     public function onSetup()
@@ -37,15 +65,15 @@ class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tub
         $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $mockProvider1 = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider1 = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('xyz'));
 
-        $mockProvider2 = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider2 = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('abc'));
 
         $this->doSetup($this->_mockMessageService);
 
-        $this->_sut = new tubepress_impl_options_ui_fields_MetaMultiSelectField();
+        $this->_sut = new tubepress_impl_options_ui_fields_MetaMultiSelectField(array($mockProvider1, $mockProvider2));
     }
 
     public function testGetTitle()

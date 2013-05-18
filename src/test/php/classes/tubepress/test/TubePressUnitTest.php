@@ -11,8 +11,14 @@
 
 abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var array
+     */
     private $_mocks;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockIocContainer;
 
     /**
@@ -64,18 +70,6 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
     {
         $mockDescriptor           = new stdClass();
         $mockDescriptor->id       = $type;
-        $mockDescriptor->instance = ehough_mockery_Mockery::mock($type);
-
-        $this->_mocks[] = $mockDescriptor;
-
-        return $mockDescriptor->instance;
-    }
-
-    protected final function createMockPluggableService($type)
-    {
-        $mockDescriptor           = new stdClass();
-        $mockDescriptor->id       = mt_rand();
-        $mockDescriptor->tag      = $type;
         $mockDescriptor->instance = ehough_mockery_Mockery::mock($type);
 
         $this->_mocks[] = $mockDescriptor;

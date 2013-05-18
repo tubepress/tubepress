@@ -14,6 +14,10 @@
  */
 class tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder implements tubepress_spi_options_ui_PluggableFieldBuilder
 {
+    /**
+     * @var tubepress_spi_provider_PluggableVideoProviderService[]
+     */
+    private $_videoProviders;
 
     /**
      * Build a single field with the given name and type.
@@ -31,6 +35,11 @@ class tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder implements
             return null;
         }
 
-        return new tubepress_impl_options_ui_fields_MetaMultiSelectField();
+        return new tubepress_impl_options_ui_fields_MetaMultiSelectField($this->_videoProviders);
+    }
+
+    public function setPluggableVideoProviders(array $providers)
+    {
+        $this->_videoProviders = $providers;
     }
 }

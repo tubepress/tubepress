@@ -1,0 +1,25 @@
+{
+    "cache" : {
+
+        "ioc-container" : {
+
+            "enabled" : false
+        },
+
+        "addons" : {
+
+            "enabled" : false
+        },
+
+        "killer-key" : "tubepress_boot_cache_kill",
+
+        "dir" : null
+    },
+
+    "addons" : {
+
+        "blacklist": []
+    },
+
+    "user-content-directory" : null
+}

@@ -58,18 +58,18 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
 
             'tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar',
             'tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar'
-        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
 
         $container->register(
 
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
-        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction'));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction'));
 
         $container->register(
 
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener'
-        )->addTag(self::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
     }
 }

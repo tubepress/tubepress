@@ -18,7 +18,8 @@
             "tubepress_addons_core_impl_ioc_IocContainerExtension"
         ],
         "compiler-passes" : [
-            "tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass"
+            "tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass",
+            "tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass"
         ]
     },
     "autoload":{
@@ -67,7 +68,6 @@
             "tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService"  : "classes/tubepress/addons/core/impl/shortcode/SingleVideoPluggableShortcodeHandlerService.php",
             "tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService"   : "classes/tubepress/addons/core/impl/shortcode/SoloPlayerPluggableShortcodeHandlerService.php",
             "tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService" : "classes/tubepress/addons/core/impl/shortcode/ThumbGalleryPluggableShortcodeHandlerService.php"
-
         }
     }
 }

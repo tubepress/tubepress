@@ -22,6 +22,11 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
      */
     private $_templatePath;
 
+    /**
+     * @var tubepress_spi_options_ui_PluggableOptionsPageParticipant[]
+     */
+    private $_optionsPageParticipants;
+
     public function __construct($templatePath)
     {
         $this->_templatePath = $templatePath;
@@ -46,17 +51,16 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
      */
     public final function getHtml()
     {
-        $templateBuilder         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $eventDispatcher         = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $template                = $templateBuilder->getNewTemplateInstance($this->_templatePath);
-        $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
-        $environmentDetector     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $tabParticipants         = array();
+        $templateBuilder     = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $eventDispatcher     = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $template            = $templateBuilder->getNewTemplateInstance($this->_templatePath);
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $tabParticipants     = array();
 
         /**
          * @var $optionsPageParticipant tubepress_spi_options_ui_PluggableOptionsPageParticipant
          */
-        foreach ($optionsPageParticipants as $optionsPageParticipant) {
+        foreach ($this->_optionsPageParticipants as $optionsPageParticipant) {
 
             if (count($optionsPageParticipant->getFieldsForTab($this->getName())) > 0) {
 
@@ -87,17 +91,20 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         $fields = array();
 
-        $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
-
         /**
          * @var $optionsPageParticipant tubepress_spi_options_ui_PluggableOptionsPageParticipant
          */
-        foreach ($optionsPageParticipants as $optionsPageParticipant) {
+        foreach ($this->_optionsPageParticipants as $optionsPageParticipant) {
 
             $fields = array_merge($fields, $optionsPageParticipant->getFieldsForTab($this->getName()));
         }
 
         return $fields;
+    }
+
+    public function setPluggableOptionsPageParticipants(array $participants)
+    {
+        $this->_optionsPageParticipants = $participants;
     }
 
     /**

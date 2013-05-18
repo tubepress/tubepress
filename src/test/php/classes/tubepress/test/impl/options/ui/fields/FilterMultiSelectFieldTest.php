@@ -15,6 +15,9 @@ class tubepress_test_impl_options_ui_fields_FilterMultiSelectFieldTest extends t
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockOptionDescriptorReference;
 
     /**
@@ -22,10 +25,19 @@ class tubepress_test_impl_options_ui_fields_FilterMultiSelectFieldTest extends t
      */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
-    
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockTemplateBuilder;
 
     public function onSetup()
@@ -71,6 +83,7 @@ class tubepress_test_impl_options_ui_fields_FilterMultiSelectFieldTest extends t
             'filter-name-2'
         ));
         $mockTemplate->shouldReceive('toString')->once()->andReturn('xyz');
+
 
         $result = $this->_sut->getHtml();
 
@@ -130,15 +143,17 @@ class tubepress_test_impl_options_ui_fields_FilterMultiSelectFieldTest extends t
 
     private function setupMockFilters()
     {
-        $mockFilter = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockFilter->shouldReceive('getName')->twice()->andReturn('filter-name');
-        $mockFilter->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name');
-        $mockFilter2 = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockFilter2->shouldReceive('getName')->twice()->andReturn('filter-name-2');
-        $mockFilter2->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-2');
-        $mockFilter3 = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockFilter3->shouldReceive('getName')->twice()->andReturn('filter-name-3');
-        $mockFilter3->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-3');
+        $mockOptionsPageParticipant = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant->shouldReceive('getName')->twice()->andReturn('filter-name');
+        $mockOptionsPageParticipant->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name');
+        $mockOptionsPageParticipant2 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant2->shouldReceive('getName')->twice()->andReturn('filter-name-2');
+        $mockOptionsPageParticipant2->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-2');
+        $mockOptionsPageParticipant3 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant3->shouldReceive('getName')->twice()->andReturn('filter-name-3');
+        $mockOptionsPageParticipant3->shouldReceive('getFriendlyName')->once()->andReturn('filter-friendly-name-3');
+
+        $this->_sut->setPluggableOptionsPageParticipants(array($mockOptionsPageParticipant, $mockOptionsPageParticipant2, $mockOptionsPageParticipant3));
     }
 }
 

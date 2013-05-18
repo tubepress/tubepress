@@ -24,9 +24,9 @@ class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_t
 
         $mockFinderFactory->shouldReceive('createFinder')->once()->andReturn($mockFinder);
 
-        $discoverer = new tubepress_impl_addon_FilesystemAddonDiscoverer();
+        $discoverer = new tubepress_impl_boot_DefaultAddonDiscoverer();
 
-        $addons = $discoverer->findAddonsInDirectory(dirname($pathToManifest));
+        $addons = $discoverer->_findAddonsInDirectory(dirname($pathToManifest));
 
         $this->assertTrue(count($addons) === 1, 'Expected 1 addon but got ' . count($addons));
 

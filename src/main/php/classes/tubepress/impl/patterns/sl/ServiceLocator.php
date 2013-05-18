@@ -21,19 +21,43 @@ class tubepress_impl_patterns_sl_ServiceLocator
     private static $_iocContainer;
 
     /**
-     * @return tubepress_spi_addon_AddonDiscoverer The add-on discoverer.
+     * @return tubepress_spi_boot_AddonBooter
      */
-    public static function getAddonDiscoverer()
+    public static function getBootHelperAddonBooter()
     {
-        return self::getService(tubepress_spi_addon_AddonDiscoverer::_);
+        return self::getService(tubepress_spi_boot_AddonBooter::_);
     }
 
     /**
-     * @return tubepress_spi_addon_AddonLoader The add-on loader.
+     * @return tubepress_spi_boot_AddonDiscoverer The add-on discoverer.
      */
-    public static function getAddonLoader()
+    public static function getBootHelperAddonDiscoverer()
     {
-        return self::getService(tubepress_spi_addon_AddonLoader::_);
+        return self::getService(tubepress_spi_boot_AddonDiscoverer::_);
+    }
+
+    /**
+     * @return tubepress_spi_boot_BootConfigService
+     */
+    public static function getBootHelperConfigService()
+    {
+        return self::getService(tubepress_spi_boot_BootConfigService::_);
+    }
+
+    /**
+     * @return tubepress_spi_boot_ClassLoadingHelper
+     */
+    public static function getBootHelperClassLoadingHelper()
+    {
+        return self::getService(tubepress_spi_boot_ClassLoadingHelper::_);
+    }
+
+    /**
+     * @return tubepress_spi_boot_IocContainerHelper
+     */
+    public static function getBootHelperIocContainer()
+    {
+        return self::getService(tubepress_spi_boot_IocContainerHelper::_);
     }
 
     /**
@@ -244,74 +268,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
         return self::getService(tubepress_spi_collector_VideoCollector::_);
     }
 
-
-
-    /**
-     * @return array An array of tubepress_spi_provider_PluggableVideoProviderService
-     */
-    public static function getVideoProviders()
-    {
-        return self::getServicesWithTag(tubepress_spi_provider_PluggableVideoProviderService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_embedded_PluggableEmbeddedPlayerService
-     */
-    public static function getEmbeddedPlayers()
-    {
-        return self::getServicesWithTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_http_PluggableAjaxCommandService
-     */
-    public static function getAjaxCommandHandlers()
-    {
-        return self::getServicesWithTag(tubepress_spi_http_PluggableAjaxCommandService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_options_ui_PluggableOptionsPageTab
-     */
-    public static function getOptionsPageTabs()
-    {
-        return self::getServicesWithTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_options_ui_PluggableOptionsPageParticipant
-     */
-    public static function getOptionsPageParticipants()
-    {
-        return self::getServicesWithTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_player_PluggablePlayerLocationService
-     */
-    public static function getPlayerLocations()
-    {
-        return self::getServicesWithTag(tubepress_spi_player_PluggablePlayerLocationService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_shortcode_PluggableShortcodeHandlerService
-     */
-    public static function getShortcodeHandlers()
-    {
-        return self::getServicesWithTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_options_ui_PluggableFieldBuilder
-     */
-    public static function getFieldBuilders()
-    {
-        return self::getServicesWithTag(tubepress_spi_options_ui_PluggableFieldBuilder::_);
-    }
-
-
-
     /**
      * @param tubepress_api_ioc_ContainerInterface $container The core IOC container.
      */
@@ -335,39 +291,5 @@ class tubepress_impl_patterns_sl_ServiceLocator
         }
 
         return self::$_iocContainer->get($serviceId);
-    }
-
-    /**
-     * Retrieve all services that have been registered with the given tag.
-     *
-     * @param string $tag The tag to retrieve.
-     *
-     * @return array An array of service instances that have been registered with the given tag.
-     *               May be empty, never null.
-     */
-    public static function getServicesWithTag($tag)
-    {
-        $toReturn = array();
-
-        if (! isset(self::$_iocContainer)) {
-
-            return array();
-        }
-
-        $matchingServiceIds = self::$_iocContainer->findTaggedServiceIds($tag);
-
-        if (! $matchingServiceIds) {
-
-            return $toReturn;
-        }
-
-        $matchingServiceIds = array_keys($matchingServiceIds);
-
-        foreach ($matchingServiceIds as $matchingServiceId) {
-
-            array_push($toReturn, self::getService($matchingServiceId));
-        }
-
-        return $toReturn;
     }
 }

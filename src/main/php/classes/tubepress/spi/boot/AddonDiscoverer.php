@@ -10,18 +10,16 @@
  */
 
 /**
- * Discovers add-ons in directories.
+ * Discovers add-ons for TubePress.
  */
-interface tubepress_spi_addon_AddonDiscoverer
+interface tubepress_spi_boot_AddonDiscoverer
 {
-    const _ = 'tubepress_spi_addon_AddonDiscoverer';
+    const _ = 'tubepress_spi_boot_AddonDiscoverer';
 
     /**
      * Discovers TubePress add-ons.
      *
-     * @param string $directory The absolute path of a directory to search for add-ons.
-     *
-     * @return array An array of TubePress add-ons, which may be empty. Never null.
+     * @return array An array of tubepress_spi_addon_Addon instances, which may be empty. Never null.
      */
-    function findAddonsInDirectory($directory);
+    function findAddons();
 }

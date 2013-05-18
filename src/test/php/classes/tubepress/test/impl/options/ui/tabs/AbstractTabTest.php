@@ -58,9 +58,11 @@ abstract class tubepress_test_impl_options_ui_tabs_AbstractTabTest extends tubep
 
     public function testGetHtml()
     {
-        $mockOptionsPageParticipant1          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockOptionsPageParticipant2          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant1          = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant2          = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockPluggableOptionsPageParticipants = array($mockOptionsPageParticipant1, $mockOptionsPageParticipant2);
+
+        $this->_sut->setPluggableOptionsPageParticipants($mockPluggableOptionsPageParticipants);
 
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
 
@@ -87,8 +89,8 @@ abstract class tubepress_test_impl_options_ui_tabs_AbstractTabTest extends tubep
 
     public function testGetDelegateFormHandlers()
     {
-        $mockOptionsPageParticipant1          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-        $mockOptionsPageParticipant2          = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant1          = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockOptionsPageParticipant2          = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
 
         $fakeField1 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
         $fakeField2 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME);
@@ -96,6 +98,8 @@ abstract class tubepress_test_impl_options_ui_tabs_AbstractTabTest extends tubep
 
         $mockOptionsPageParticipant1->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField1));
         $mockOptionsPageParticipant2->shouldReceive('getFieldsForTab')->once()->with($this->_sut->getName())->andReturn(array($fakeField2, $fakeField3));
+
+        $this->_sut->setPluggableOptionsPageParticipants(array($mockOptionsPageParticipant1, $mockOptionsPageParticipant2));
 
         $result = $this->_sut->getDelegateFormHandlers();
 

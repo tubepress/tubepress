@@ -21,6 +21,11 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     private $_templatePath;
 
+    /**
+     * @var tubepress_spi_options_ui_PluggableOptionsPageTab[]
+     */
+    private $_optionsTabs = array();
+
     public function __construct($templatePath)
     {
         $this->_templatePath = $templatePath;
@@ -58,6 +63,11 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
         return 'tubepress_impl_options_ui_DefaultTabsHandler';
     }
 
+    public function setPluggableOptionsPageTabs(array $tabs)
+    {
+        $this->_optionsTabs = $tabs;
+    }
+
     /**
      * Get the delegate form handlers.
      *
@@ -65,6 +75,6 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     protected final function getDelegateFormHandlers()
     {
-        return tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageTabs();
+        return $this->_optionsTabs;
     }
 }

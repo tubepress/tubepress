@@ -13,39 +13,39 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicContainer
+class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicContainer
 {
     public function __construct()
     {
         parent::__construct();
 
+        $this->_registerBootHelperAddonBooter();
+        $this->_registerBootHelperAddonDiscoverer();
+        $this->_registerBootHelperConfigService();
+        $this->_registerBootHelperClassLoadingHelper();
+        $this->_registerBootHelperIocContainerHelper();
+
         $this->_registerEnvironmentDetector();
-        $this->_registerFilesystemFinderFactory();
-        $this->_registerAddonDiscoverer();
-        $this->_registerAddonLoader();
         $this->_registerEventDispatcher();
+        $this->_registerFilesystemFinderFactory();
     }
 
     private function _registerEnvironmentDetector()
     {
-        $definition = $this->register(
+        $this->register(
 
             tubepress_spi_environment_EnvironmentDetector::_,
             'tubepress_impl_environment_SimpleEnvironmentDetector'
         );
-
-        $this->setDefinition('tubepress_impl_environment_SimpleEnvironmentDetector', $definition);
     }
 
     private function _registerFilesystemFinderFactory()
     {
-        $definition = $this->register(
+        $this->register(
 
             'ehough_finder_FinderFactoryInterface',
             'ehough_finder_FinderFactory'
         );
-
-        $this->setDefinition('ehough_finder_FinderFactory', $definition);
     }
 
     private function _registerEventDispatcher()
@@ -56,34 +56,55 @@ final class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_Iconi
             'ehough_tickertape_ContainerAwareEventDispatcher'
         )->addArgument(new tubepress_impl_ioc_Reference('service_container'));
 
-        $definition = $this->register(
+        $this->register(
 
             tubepress_api_event_EventDispatcherInterface::_,
             'tubepress_impl_event_DefaultEventDispatcher'
         )->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
-
-        $this->setDefinition('tubepress_impl_event_DefaultEventDispatcher', $definition);
     }
 
-    private function _registerAddonDiscoverer()
+    private function _registerBootHelperAddonBooter()
     {
-        $definition = $this->register(
+        $this->register(
 
-            tubepress_spi_addon_AddonDiscoverer::_,
-            'tubepress_impl_addon_FilesystemAddonDiscoverer'
+            tubepress_spi_boot_AddonBooter::_,
+            'tubepress_impl_boot_DefaultAddonBooter'
         );
-
-        $this->setDefinition('tubepress_impl_addon_FilesystemAddonDiscoverer', $definition);
     }
 
-    private function _registerAddonLoader()
+    private function _registerBootHelperAddonDiscoverer()
     {
-        $definition = $this->register(
+        $this->register(
 
-            tubepress_spi_addon_AddonLoader::_,
-            'tubepress_impl_addon_DefaultAddonLoader'
+            tubepress_spi_boot_AddonDiscoverer::_,
+            'tubepress_impl_boot_DefaultAddonDiscoverer'
         );
+    }
 
-        $this->setDefinition('tubepress_impl_addon_DefaultAddonLoader', $definition);
+    private function _registerBootHelperConfigService()
+    {
+        $this->register(
+
+            tubepress_spi_boot_BootConfigService::_,
+            'tubepress_impl_boot_DefaultBootConfigService'
+        );
+    }
+
+    private function _registerBootHelperClassLoadingHelper()
+    {
+        $this->register(
+
+            tubepress_spi_boot_ClassLoadingHelper::_,
+            'tubepress_impl_boot_DefaultClassLoadingHelper'
+        );
+    }
+
+    private function _registerBootHelperIocContainerHelper()
+    {
+        $this->register(
+
+            tubepress_spi_boot_IocContainerHelper::_,
+            'tubepress_impl_boot_DefaultIocContainerBootHelper'
+        );
     }
 }

@@ -14,7 +14,7 @@
  */
 class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
 {
-    public function __construct()
+    public function __construct(array $videoProviders)
     {
         $metaNames = array(
 
@@ -29,8 +29,6 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_im
             tubepress_api_const_options_names_Meta::URL,
             tubepress_api_const_options_names_Meta::VIEWS,
         );
-
-        $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
 
         /**
          * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService

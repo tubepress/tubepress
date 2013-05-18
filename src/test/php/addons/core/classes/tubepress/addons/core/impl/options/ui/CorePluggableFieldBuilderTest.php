@@ -61,11 +61,13 @@ class tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilderTest extend
     {
         $this->_setupOptionDescriptorReferenceForMetaMultiSelect();
 
-        $mockProvider1 = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider1 = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('xyz'));
 
-        $mockProvider2 = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider2 = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('abc'));
+
+        $this->_sut->setPluggableVideoProviders(array($mockProvider1, $mockProvider2));
 
         $result = $this->_sut->build('metadropdown', 'tubepress_impl_options_ui_fields_MetaMultiSelectField');
 

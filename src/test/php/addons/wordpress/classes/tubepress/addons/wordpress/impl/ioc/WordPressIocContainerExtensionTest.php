@@ -53,41 +53,37 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
 
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));;
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));;
 
         $this->expectRegistration(
 
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));;
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));;
 
         $this->expectRegistration(
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, 'method' => 'onOptionsUiTemplate'));;
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, 'method' => 'onOptionsUiTemplate'));;
 
         $this->expectRegistration(
 
             'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter',
             'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig'));
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig'));
 
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_spi_message_MessageService::_,
             'tubepress_addons_wordpress_impl_message_WordPressMessageService'
         )->andReturnDefinition();
 
-        $this->expectDefinition('tubepress_addons_wordpress_impl_message_WordPressMessageService', $definition);
-
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_spi_options_StorageManager::_,
             'tubepress_addons_wordpress_impl_options_WordPressStorageManager'
         )->andReturnDefinition();
-
-        $this->expectDefinition('tubepress_addons_wordpress_impl_options_WordPressStorageManager', $definition);
 
         $tabsId = 'tubepress_impl_options_ui_DefaultTabsHandler';
 
@@ -95,13 +91,15 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
 
             $tabsId, $tabsId
 
-        )->withArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php');
+        )->withArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php')
+         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageTab::_, 'method' => 'setPluggableOptionsPageTabs'))
+         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
 
         $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
 
         $this->expectRegistration($filterId, $filterId);
 
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_spi_options_ui_FormHandler::_,
             'tubepress_impl_options_ui_DefaultFormHandler'
@@ -111,46 +109,34 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
             ->withArgument(TUBEPRESS_ROOT . '/src/main/php/addons/wordpress/resources/templates/options_page.tpl.php')
             ->andReturnDefinition();
 
-        $this->expectDefinition('tubepress_impl_options_ui_DefaultFormHandler', $definition);
-
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_addons_wordpress_spi_ContentFilter::_,
             'tubepress_addons_wordpress_impl_DefaultContentFilter'
         )->andReturnDefinition();
 
-        $this->expectDefinition('tubepress_addons_wordpress_impl_DefaultContentFilter', $definition);
-
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_,
             'tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector'
         )->andReturnDefinition();
 
-        $this->expectDefinition('tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector', $definition);
-
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_addons_wordpress_spi_WidgetHandler::_,
             'tubepress_addons_wordpress_impl_DefaultWidgetHandler'
         )->andReturnDefinition();
 
-        $this->expectDefinition('tubepress_addons_wordpress_impl_DefaultWidgetHandler', $definition);
-
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_addons_wordpress_spi_WpAdminHandler::_,
             'tubepress_addons_wordpress_impl_DefaultWpAdminHandler'
         )->andReturnDefinition();
 
-        $this->expectDefinition('tubepress_addons_wordpress_impl_DefaultWpAdminHandler', $definition);
-
-        $definition = $this->expectRegistration(
+        $this->expectRegistration(
 
             tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_,
             'tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper'
         )->andReturnDefinition();
-
-        $this->expectDefinition('tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper', $definition);
     }
 }

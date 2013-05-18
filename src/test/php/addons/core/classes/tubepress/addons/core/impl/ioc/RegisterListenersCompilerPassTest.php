@@ -45,7 +45,7 @@ class tubepress_addons_core_impl_ioc_RegisterListenersCompilerPassTest extends t
 
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn($this->_mockEventDispatcherDefinition);
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG)->andReturn(array('foo' => array(array('method' => 'some method'))));
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER)->andReturn(array('foo' => array(array('method' => 'some method'))));
 
         $this->_sut->process($this->_mockContainer);
     }
@@ -54,7 +54,7 @@ class tubepress_addons_core_impl_ioc_RegisterListenersCompilerPassTest extends t
     {
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn($this->_mockEventDispatcherDefinition);
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG)->andReturn(array('foo' => array(array('event' => 'some event'))));
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER)->andReturn(array('foo' => array(array('event' => 'some event'))));
 
         $this->_mockEventDispatcherDefinition->shouldReceive('addMethodCall')->once()->with('addListenerService', array('some event', array('foo', 'onSomeEvent'), 0));
 
@@ -67,7 +67,7 @@ class tubepress_addons_core_impl_ioc_RegisterListenersCompilerPassTest extends t
     {
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn($this->_mockEventDispatcherDefinition);
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG)->andReturn(array('foo' => array(array('method' => 'some method', 'event' => 'some event'))));
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER)->andReturn(array('foo' => array(array('method' => 'some method', 'event' => 'some event'))));
 
         $this->_mockEventDispatcherDefinition->shouldReceive('addMethodCall')->once()->with('addListenerService', array('some event', array('foo', 'some method'), 0));
 
@@ -80,7 +80,7 @@ class tubepress_addons_core_impl_ioc_RegisterListenersCompilerPassTest extends t
     {
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with(tubepress_api_event_EventDispatcherInterface::_)->andReturn($this->_mockEventDispatcherDefinition);
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG)->andReturn(array('foo' => array(array('method' => 'some method', 'event' => 'some event', 'priority' => 5))));
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER)->andReturn(array('foo' => array(array('method' => 'some method', 'event' => 'some event', 'priority' => 5))));
 
         $this->_mockEventDispatcherDefinition->shouldReceive('addMethodCall')->once()->with('addListenerService', array('some event', array('foo', 'some method'), 5));
 

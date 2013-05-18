@@ -91,7 +91,7 @@ class tubepress_impl_ioc_IconicContainer implements tubepress_api_ioc_ContainerI
         return $this->_delegate;
     }
 
-    public function setDelegateIconicContainer(ehough_iconic_ContainerBuilder $builder)
+    public function setDelegateIconicContainerBuilder(ehough_iconic_ContainerBuilder $builder)
     {
         $this->_delegate = $builder;
     }

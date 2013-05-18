@@ -100,7 +100,7 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
         $this->assertEquals('35,077', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_RATING_COUNT));
         $this->assertRegExp('~^http://i\.ytimg\.com/vi/J5nyQLr2zjc/(?:1|2|3|default)\.jpg$~', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL));
         $this->assertEquals('1346785891', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('8 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
+        $this->assertEquals('9 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('SPAGHETTI AND MEAT BUGS PRANK', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
         $this->assertEquals('1,571,314', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
     }

@@ -22,6 +22,11 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
     private static $_NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
 
     /**
+     * @var array
+     */
+    private $_playerLocations = array();
+
+    /**
      * The following options are required by JS, so we explicity set them:
      *
      *  ajaxPagination
@@ -58,6 +63,11 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
         );
 
         $event->setSubject(array_merge($args, $newArgs));
+    }
+
+    public function setPluggablePlayerLocations(array $playerLocations)
+    {
+        $this->_playerLocations = $playerLocations;
     }
 
     private function _buildJsMap(tubepress_spi_context_ExecutionContext $context)
@@ -108,13 +118,12 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
 
     private function _findPlayerLocation(tubepress_spi_context_ExecutionContext $context)
     {
-        $playerLocations     = tubepress_impl_patterns_sl_ServiceLocator::getPlayerLocations();
         $requestedPlayerName = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
         /**
          * @var $playerLocation tubepress_spi_player_PluggablePlayerLocationService
          */
-        foreach ($playerLocations as $playerLocation) {
+        foreach ($this->_playerLocations as $playerLocation) {
 
             if ($playerLocation->getName() === $requestedPlayerName) {
 

@@ -24,6 +24,11 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
      */
     private $_isDebugEnabled;
 
+    /**
+     * @var tubepress_spi_http_PluggableAjaxCommandService[]
+     */
+    private $_commandHandlers = array();
+
     public function __construct()
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Ajax Handler');
@@ -54,18 +59,17 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             return;
         }
 
-        $commandHandlers      = tubepress_impl_patterns_sl_ServiceLocator::getAjaxCommandHandlers();
         $chosenCommandHandler = null;
 
         if ($this->_isDebugEnabled) {
 
-            $this->_logger->debug('There are ' . count($commandHandlers) . ' pluggable Ajax command service(s) registered');
+            $this->_logger->debug('There are ' . count($this->_commandHandlers) . ' pluggable Ajax command service(s) registered');
         }
 
         /**
          * @var $commandHandler tubepress_spi_http_PluggableAjaxCommandService
          */
-        foreach ($commandHandlers as $commandHandler) {
+        foreach ($this->_commandHandlers as $commandHandler) {
 
             if ($commandHandler->getName() === $actionName) {
 
@@ -102,5 +106,10 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
         $httpResponseCodeHandler->setResponseCode($chosenCommandHandler->getHttpStatusCode());
 
         echo $chosenCommandHandler->getOutput();
+    }
+
+    public function setPluggableAjaxCommandHandlers(array $handlers)
+    {
+        $this->_commandHandlers = $handlers;
     }
 }

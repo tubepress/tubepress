@@ -10,28 +10,135 @@
  */
 
 /**
- * Finds TubePress add-ons in the filesystem.
+ * Discovers add-ons for TubePress.
  */
-class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_addon_AddonDiscoverer
+class tubepress_impl_boot_DefaultAddonDiscoverer extends tubepress_impl_boot_AbstractCachingBootHelper implements tubepress_spi_boot_AddonDiscoverer
 {
     /**
      * @var ehough_epilog_Logger
      */
     private $_logger;
 
+    /**
+     * @var bool
+     */
+    private $_shouldLog = false;
+
     public function __construct()
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Filesystem Add-on Discoverer');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Add-on Discoverer');
     }
 
     /**
      * Discovers TubePress add-ons.
      *
-     * @param string $directory The absolute path of a directory to search for add-ons.
-     *
      * @return array An array of TubePress add-ons, which may be empty. Never null.
      */
-    public function findAddonsInDirectory($directory)
+    public function findAddons()
+    {
+        $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
+
+        $fromCache = $this->getCachedObject();
+
+        if ($fromCache !== null) {
+
+            return $fromCache;
+        }
+
+        $addons = $this->_discoverAddonsFromFilesystem();
+
+        $this->_performBlacklisting($addons);
+
+        $this->tryToCache($addons);
+
+        return $addons;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getBootCacheConfigElementName()
+    {
+        return 'add-ons';
+    }
+
+    /**
+     * @return ehough_epilog_Logger
+     */
+    protected function getLogger()
+    {
+        return $this->_logger;
+    }
+
+    /**
+     * @param string $string The contents of the cache file.
+     *
+     * @return object The hydrated object, or null if there was a problem.
+     */
+    protected function hydrate($string)
+    {
+        return $this->hydrateByDeserialization($string);
+    }
+
+    /**
+     * @param object $object The object to convert to a string for the cache.
+     *
+     * @return string The string representation of the object, or null if there was a problem.
+     */
+    protected function toString($object)
+    {
+        return $this->toStringBySerialization($object);
+    }
+
+    /**
+     * @return bool True if we should log, false otherwise.
+     */
+    protected function shouldLog()
+    {
+        return $this->_shouldLog;
+    }
+
+    private function _discoverAddonsFromFilesystem()
+    {
+        /* load add-ons */
+        $systemAddons = $this->_findSystemAddons();
+        $userAddons   = $this->_findUserAddons();
+        $allAddons    = array_merge($systemAddons, $userAddons);
+        $addOnCount   = count($allAddons);
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Found %d add-ons (%d system and %d user) on the filesystem',
+                $addOnCount, count($systemAddons), count($userAddons)));
+        }
+
+        return $allAddons;
+    }
+
+    private function _findSystemAddons()
+    {
+        $coreAddons = $this->_findAddonsInDirectory(TUBEPRESS_ROOT . '/src/main/php/addons');
+
+        usort($coreAddons, array($this, '__callbackSystemAddonSorter'));
+
+        return $coreAddons;
+    }
+
+    private function _findUserAddons()
+    {
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $userContentDir      = $environmentDetector->getUserContentDirectory();
+        $userAddonsDir       = $userContentDir . '/add-ons';
+
+        return $this->_findAddonsInDirectory($userAddonsDir);
+    }
+
+    /**
+     * This is public for test purposes only!
+     *
+     * @internal
+     */
+    public function _findAddonsInDirectory($directory)
     {
         if (! is_dir($directory)) {
 
@@ -39,8 +146,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
         }
 
         $finderFactory = tubepress_impl_patterns_sl_ServiceLocator::getFileSystemFinderFactory();
-
-        $finder = $finderFactory->createFinder()->followLinks()->files()->in($directory)->name('*.json')->depth('< 2');
+        $finder        = $finderFactory->createFinder()->followLinks()->files()->in($directory)->name('*.json')->depth('< 2');
 
         $toReturn = array();
 
@@ -53,7 +159,7 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
             if ($addon !== null) {
 
-                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+                if ($this->_shouldLog) {
 
                     $this->_logger->debug('Found valid add-on at ' . $infoFile->getRealpath());
                 }
@@ -62,12 +168,44 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
             }
         }
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Found %d valid add-on(s) from %s' , count($toReturn), $directory));
+            $this->_logger->debug(sprintf('Found %d add-on(s) from %s' , count($toReturn), $directory));
         }
 
         return $toReturn;
+    }
+
+    private function _performBlacklisting(array &$addons)
+    {
+        $bootConfigService = tubepress_impl_patterns_sl_ServiceLocator::getBootHelperConfigService();
+        $addonBlacklist    = $bootConfigService->getAddonBlacklistArray();
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Add-on blacklist: %s', json_encode($addonBlacklist)));
+        }
+
+        $addonCount = count($addons);
+
+        for ($x = 0; $x < $addonCount; $x++) {
+
+            /**
+             * @var $addon tubepress_spi_addon_Addon
+             */
+            $addon     = $addons[$x];
+            $addonName = $addon->getName();
+
+            if (in_array($addonName, $addonBlacklist)) {
+
+                unset($addons[$x]);
+            }
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('After blacklist processing, we now have %d add-on(s)', count($addons)));
+        }
     }
 
     private function _tryToBuildAddonFromFile(SplFileInfo $infoFile)
@@ -96,6 +234,28 @@ class tubepress_impl_addon_FilesystemAddonDiscoverer implements tubepress_spi_ad
 
             return null;
         }
+    }
+
+    public function __callbackSystemAddonSorter(tubepress_spi_addon_Addon $first, tubepress_spi_addon_Addon $second)
+    {
+        $firstName  = $first->getName();
+        $secondName = $second->getName();
+
+        /*
+         * The core add-on always gets loaded first, the pro-core always last.
+         */
+
+        if ($firstName === 'tubepress-core-addon' || $secondName === 'tubepress-pro-core-addon') {
+
+            return -1;
+        }
+
+        if ($firstName === 'tubepress-pro-core-addon' || $secondName === 'tubepress-core-addon') {
+
+            return 1;
+        }
+
+        return 0;
     }
 
     private function _constructAddonFromArray(array $manifestContentsAsArray, $manifestFileAbsPath)

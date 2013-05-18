@@ -58,24 +58,24 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
             'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar',
             'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar'
-        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
 
         $container->register(
 
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
-        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction'));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction'));
 
         $container->register(
 
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
-        )->addTag(self::EVENT_LISTENER_TAG, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
 
         $container->register(
 
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
-        )->addTag(self::EVENT_LISTENER_TAG, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet'));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet'));
     }
 }

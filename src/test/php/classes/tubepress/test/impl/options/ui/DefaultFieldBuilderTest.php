@@ -25,16 +25,24 @@ class tubepress_test_impl_options_ui_DefaultFieldBuilderTest extends tubepress_t
      */
     private $_sut;
 
+    /**
+     * ehough_mockery_mockery_MockInterface
+    */
     private $_mockPluggableFieldBuilder1;
 
+    /**
+     * ehough_mockery_mockery_MockInterface
+     */
     private $_mockPluggableFieldBuilder2;
 
     public function onSetup()
     {
         $this->_sut = new tubepress_impl_options_ui_DefaultFieldBuilder();
 
-        $this->_mockPluggableFieldBuilder1 = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableFieldBuilder::_);
-        $this->_mockPluggableFieldBuilder2 = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableFieldBuilder::_);
+        $this->_mockPluggableFieldBuilder1 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableFieldBuilder::_);
+        $this->_mockPluggableFieldBuilder2 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableFieldBuilder::_);
+
+        $this->_sut->setPluggableFieldBuilders(array($this->_mockPluggableFieldBuilder1, $this->_mockPluggableFieldBuilder2));
     }
 
     public function testBuildFromPluggables()

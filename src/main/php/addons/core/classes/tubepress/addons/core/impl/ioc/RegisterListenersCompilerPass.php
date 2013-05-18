@@ -33,7 +33,7 @@ class tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass implements tu
         }
 
         $eventDispatcherDefinition = $container->getDefinition(tubepress_api_event_EventDispatcherInterface::_);
-        $listenerServiceIds        = $container->findTaggedServiceIds(tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG);
+        $listenerServiceIds        = $container->findTaggedServiceIds(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER);
 
         foreach ($listenerServiceIds as $serviceId => $events) {
 
@@ -44,7 +44,7 @@ class tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass implements tu
                 if (!isset($event['event'])) {
 
                     throw new InvalidArgumentException(sprintf('Service "%s" must define the "event" attribute on "%s" tags.',
-                        $serviceId, tubepress_api_ioc_ContainerExtensionInterface::EVENT_LISTENER_TAG));
+                        $serviceId, tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER));
                 }
 
                 if (!isset($event['method'])) {

@@ -10,7 +10,6 @@
  */
 class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrarTest extends tubepress_test_TubePressUnitTest
 {
-
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
@@ -57,17 +56,21 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrarTest extends
         $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';
         $_regexWordChars          = '/\w+/';
         
-        $mockPlayer = $this->createMockPluggableService(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $mockPlayer = ehough_mockery_Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayer->shouldReceive('getName')->times(10)->andReturn('abc');
         $mockPlayer->shouldReceive('getFriendlyName')->times(10)->andReturn('friendly name');
 
-        $mockEmbedded = $this->createMockPluggableService(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        $mockEmbedded = ehough_mockery_Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
         $mockEmbedded->shouldReceive('getName')->times(110)->andReturn('yy-embed-name-yy');
         $mockEmbedded->shouldReceive('getFriendlyName')->times(55)->andReturn('friendly embed name');
 
-        $videoProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $videoProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $videoProvider->shouldReceive('getName')->times(80)->andReturn('xxvideo-provider-name-xx');
         $videoProvider->shouldReceive('getFriendlyName')->times(80)->andReturn('xx Friendly Provider Name xx');
+
+        $this->_sut->setPluggableEmbeddedPlayers(array($mockEmbedded));
+        $this->_sut->setPluggableVideoProviders(array($videoProvider));
+        $this->_sut->setPluggablePlayerLocations(array($mockPlayer));
 
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(50)->andReturn('user-content-dir');
 
