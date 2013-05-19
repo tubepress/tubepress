@@ -43,8 +43,8 @@ class tubepress_test_impl_boot_DefaultIocContainerBootHelperTest extends tubepre
     {
         parent::setUpBeforeClass();
 
-        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeCompilerPass.php';
-        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeExtension.php';
     }
 
     public function onTearDown()

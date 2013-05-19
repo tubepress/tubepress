@@ -57,7 +57,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
         $this->_mockFinderFactory       = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
         $this->_mockSystemFinder        = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $this->_mockUserFinder          = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
-        $this->_fakeAddonRoot           = realpath(__DIR__ . '/../../../../../../resources/addons');
+        $this->_fakeAddonRoot           = realpath(__DIR__ . '/../../../../../../resources/add-ons');
         $this->_splInfoArray            = array();
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
@@ -91,7 +91,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
 
         $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/good_addon/add-ons/something/b.json');
 
-        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/addons')->andReturn($this->_mockSystemFinder);
+        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/add-ons')->andReturn($this->_mockSystemFinder);
         $this->_mockUserFinder->shouldReceive('in')->once()->with($this->_fakeAddonRoot . '/good_addon/add-ons')->andReturn($this->_mockUserFinder);
 
         $results = $this->_sut->findAddons();
@@ -114,7 +114,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
 
         $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/good_addon/add-ons/something/b.json');
 
-        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/addons')->andReturn($this->_mockSystemFinder);
+        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/add-ons')->andReturn($this->_mockSystemFinder);
         $this->_mockUserFinder->shouldReceive('in')->once()->with($this->_fakeAddonRoot . '/good_addon/add-ons')->andReturn($this->_mockUserFinder);
 
         $results = $this->_sut->findAddons();
@@ -168,7 +168,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
     {
         $addon = $this->_verifyGoodAddon('good_addon2', $this->_fakeAddonRoot . '/good_addon2/add-ons');
 
-        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/test/resources/addons/good_addon2/add-ons/some/dir/boot.php'), $addon->getBootstrapFiles());
+        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/test/resources/add-ons/good_addon2/add-ons/some/dir/boot.php'), $addon->getBootstrapFiles());
     }
 
     public function _callback()
@@ -190,7 +190,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
 
         $this->_splInfoArray[] = new SplFileInfo($jsonFilePath . '/b.json');
 
-        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/addons')->andReturn($this->_mockSystemFinder);
+        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/add-ons')->andReturn($this->_mockSystemFinder);
         $this->_mockUserFinder->shouldReceive('in')->once()->with($this->_fakeAddonRoot . '/' . $dir . '/add-ons')->andReturn($this->_mockUserFinder);
 
         $result = $this->_sut->findAddons();
@@ -243,7 +243,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
 
         $this->_splInfoArray[] = new SplFileInfo($this->_fakeAddonRoot . '/' . $dir . '/b.json');
 
-        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/addons')->andReturn($this->_mockSystemFinder);
+        $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/add-ons')->andReturn($this->_mockSystemFinder);
         $this->_mockUserFinder->shouldReceive('in')->once()->with($this->_fakeAddonRoot . '/' . $dir . '/add-ons')->andReturn($this->_mockUserFinder);
 
         $result = $this->_sut->findAddons();

@@ -117,7 +117,7 @@ class tubepress_impl_boot_DefaultAddonDiscoverer extends tubepress_impl_boot_Abs
 
     private function _findSystemAddons()
     {
-        $coreAddons = $this->_findAddonsInDirectory(TUBEPRESS_ROOT . '/src/main/php/addons');
+        $coreAddons = $this->_findAddonsInDirectory(TUBEPRESS_ROOT . '/src/main/php/add-ons');
 
         usort($coreAddons, array($this, '__callbackSystemAddonSorter'));
 
