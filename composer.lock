@@ -124,16 +124,16 @@
         },
         {
             "name": "ehough/epilog",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/epilog.git",
-                "reference": "2.0.1"
+                "reference": "2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/epilog/zipball/2.0.1",
-                "reference": "2.0.1",
+                "url": "https://api.github.com/repos/ehough/epilog/zipball/2.0.2",
+                "reference": "2.0.2",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,9 @@
             },
             "require-dev": {
                 "doctrine/couchdb": "dev-master",
+                "ehough/pulsar": ">=2.0,<3.0",
                 "mlehner/gelf-php": "1.0.*",
+                "phpunit/phpunit": "3.7.*",
                 "raven/raven": "0.3.*"
             },
             "type": "library",
@@ -163,24 +165,27 @@
             ],
             "description": "Fork of seldaek/monolog compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/epilog",
-            "time": "2013-04-04 19:59:22"
+            "time": "2013-05-19 18:00:05"
         },
         {
             "name": "ehough/filesystem",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "1.0.0"
+                "reference": "1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/1.0.1",
+                "reference": "1.0.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -203,25 +208,28 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2013-03-28 22:01:59"
+            "time": "2013-05-19 17:50:31"
         },
         {
             "name": "ehough/finder",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/finder.git",
-                "reference": "1.0.1"
+                "reference": "1.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/1.0.1",
-                "reference": "1.0.1",
+                "url": "https://api.github.com/repos/ehough/finder/zipball/1.0.2",
+                "reference": "1.0.2",
                 "shasum": ""
             },
             "require": {
                 "ehough/filesystem": ">=1.0,<1.1",
                 "php": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -241,32 +249,34 @@
                 }
             ],
             "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2013-04-09 03:44:52"
+            "time": "2013-05-19 18:01:20"
         },
         {
             "name": "ehough/iconic",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/iconic.git",
-                "reference": "2.0.1"
+                "reference": "2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/2.0.1",
-                "reference": "2.0.1",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/2.0.2",
+                "reference": "2.0.2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
-                "symfony/config": ">=2.2,<2.4-dev",
+                "phpunit/phpunit": "3.7.*",
+                "symfony/config": ">=2.2,<3.0",
                 "symfony/yaml": ">=2.0,<3.0"
             },
             "suggest": {
-                "symfony/config": "2.2.*",
-                "symfony/yaml": "2.2.*"
+                "symfony/config": "",
+                "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
+                "symfony/yaml": ""
             },
             "type": "library",
             "autoload": {
@@ -287,7 +297,7 @@
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2013-04-08 21:14:32"
+            "time": "2013-05-19 18:03:06"
         },
         {
             "name": "ehough/pulsar",
@@ -382,16 +392,16 @@
         },
         {
             "name": "ehough/stash",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/stash.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/stash/zipball/2.0.0",
-                "reference": "2.0.0",
+                "url": "https://api.github.com/repos/ehough/stash/zipball/2.0.1",
+                "reference": "2.0.1",
                 "shasum": ""
             },
             "require": {
@@ -423,7 +433,7 @@
                 "scalability",
                 "sessions"
             ],
-            "time": "2013-04-08 23:58:37"
+            "time": "2013-05-19 18:17:19"
         },
         {
             "name": "ehough/tickertape",

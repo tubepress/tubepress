@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class classMapTest extends tubepress_test_TubePressUnitTest
+class fullClassMapTest extends tubepress_test_TubePressUnitTest
 {
     public function testClassMapValidity()
     {
@@ -21,13 +21,6 @@ class classMapTest extends tubepress_test_TubePressUnitTest
         foreach ($classMap as $className => $path) {
 
             $this->assertTrue(is_readable($path) && is_file($path), "$path is not readable. Fix it!");
-
-            if (!class_exists($className) && !interface_exists($className)) {
-
-                require $path;
-
-                $this->assertTrue(class_exists($className) || interface_exists($className));
-            }
         }
     }
 }

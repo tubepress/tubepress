@@ -21,13 +21,6 @@ class bootstrapClassMapTest extends tubepress_test_TubePressUnitTest
         foreach ($classMap as $className => $path) {
 
             $this->assertTrue(is_readable($path) && is_file($path), "$path is not readable. Fix it!");
-
-            if (!class_exists($className) && !interface_exists($className)) {
-
-                require $path;
-
-                $this->assertTrue(class_exists($className) || interface_exists($className));
-            }
         }
     }
 }
