@@ -25,13 +25,65 @@ class tubepress_impl_boot_DefaultClassLoadingHelper extends tubepress_impl_boot_
     private $_shouldLog = false;
 
     /**
-     * @var ehough_pulsar_ComposerClassLoader
+     * @var bool
      */
-    private $_classLoaderFromCache;
+    private $_retrievedFromCache = false;
 
     public function __construct()
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Class Loader Boot Helper');
+    }
+
+    /**
+     * Load the rest of the default classmap into this classloader.
+     *
+     * @param ehough_pulsar_ComposerClassLoader $classLoader
+     */
+    public function prime(ehough_pulsar_ComposerClassLoader &$classLoader)
+    {
+        $fromCache = $this->getCachedObject();
+
+        if ($fromCache !== null) {
+
+            /**
+             * Unregister the "initial" classloader.
+             */
+            spl_autoload_unregister(array($classLoader, 'loadClass'));
+
+            /**
+             * Register the cached classloader.
+             */
+            $fromCache->register();
+
+            /**
+             * Return it.
+             */
+            $classLoader = $fromCache;
+
+            /**
+             * Signal to later events that we pull from cache.
+             */
+            $this->_retrievedFromCache = true;
+
+            return;
+        }
+
+        $classMapFile = TUBEPRESS_ROOT . '/src/main/php/scripts/classmaps/full.php';
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug('Now including classmap from ' . $classMapFile);
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        $classMap = require $classMapFile;
+
+        $classLoader->addToClassMap($classMap);
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug('Done including classmap from ' . $classMapFile);
+        }
     }
 
     /**
@@ -45,16 +97,8 @@ class tubepress_impl_boot_DefaultClassLoadingHelper extends tubepress_impl_boot_
      */
     public function addClassHintsForAddons(array $addons, ehough_pulsar_ComposerClassLoader $classLoader)
     {
-        if (isset($this->_classLoaderFromCache)) {
+        if ($this->_retrievedFromCache) {
 
-            return;
-        }
-
-        $fromCache = $this->getCachedObject();
-
-        if ($fromCache !== null) {
-
-            $this->_classLoaderFromCache = $fromCache;
             return;
         }
 
@@ -74,39 +118,6 @@ class tubepress_impl_boot_DefaultClassLoadingHelper extends tubepress_impl_boot_
         if ($this->_shouldLog) {
 
             $this->_logger->debug('Done registering add-on class hints.');
-        }
-
-        $this->tryToCache($classLoader);
-    }
-
-    /**
-     * Load the rest of the default classmap into this classloader.
-     *
-     * @param ehough_pulsar_ComposerClassLoader $classLoader
-     */
-    public function prime(ehough_pulsar_ComposerClassLoader &$classLoader)
-    {
-        if (isset($this->_classLoaderFromCache)) {
-
-            $classLoader = $this->_classLoaderFromCache;
-            return;
-        }
-
-        $classMapFile = TUBEPRESS_ROOT . '/src/main/php/scripts/classMap.php';
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug('Now including classmap from ' . $classMapFile);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $classMap = require $classMapFile;
-
-        $classLoader->addToClassMap($classMap);
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug('Done including classmap from ' . $classMapFile);
         }
 
         $this->tryToCache($classLoader);

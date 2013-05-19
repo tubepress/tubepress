@@ -57,7 +57,7 @@ class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_t
 
         foreach ($expectedClassMap as $className => $abbreviatedPrefix) {
 
-            $this->assertTrue(isset($actualClassMap[$className]));
+            $this->assertTrue(isset($actualClassMap[$className]), "$className is missing from the classmap");
 
             $this->assertTrue(tubepress_impl_util_StringUtils::endsWith($actualClassMap[$className], $abbreviatedPrefix),
                 $actualClassMap[$className] . ' does not end with ' . $abbreviatedPrefix);

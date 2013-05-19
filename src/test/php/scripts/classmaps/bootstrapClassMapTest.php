@@ -8,11 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class classMapTest extends tubepress_test_TubePressUnitTest
+class bootstrapClassMapTest extends tubepress_test_TubePressUnitTest
 {
     public function testClassMapValidity()
     {
-        $classMap = require dirname(__FILE__) . '/../../../main/php/scripts/classMap.php';
+        $classMap = require dirname(__FILE__) . '/../../../../main/php/scripts/classmaps/bootstrap.php';
 
         $this->assertTrue(is_array($classMap));
 

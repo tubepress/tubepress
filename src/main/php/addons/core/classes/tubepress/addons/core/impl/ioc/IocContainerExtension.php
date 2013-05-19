@@ -164,7 +164,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_shortstop_impl_DefaultHttpClient'
 
         )->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'))
-         ->addArgument(new tubepress_impl_ioc_Reference('_ehough_shortstop_impl_DefaultHttpClient_transportchain'));
+         ->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_impl_DefaultHttpClient_transportchain'));
     }
 
     private function _registerHttpRequestParameterService(tubepress_api_ioc_ContainerInterface $container)
@@ -460,7 +460,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             array_push($transportReferences, new tubepress_impl_ioc_Reference($transportClass));
         }
 
-        $transportChainId = '_ehough_shortstop_impl_DefaultHttpClient_transportchain';
+        $transportChainId = 'ehough_shortstop_impl_DefaultHttpClient_transportchain';
 
         tubepress_impl_ioc_ChainRegistrar::registerChainDefinitionByReferences($container, $transportChainId, $transportReferences);
     }
@@ -537,7 +537,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1951DecompressingCommand',
         );
 
-        $contentDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain';
+        $contentDecoderChainId = 'ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain';
 
         tubepress_impl_ioc_ChainRegistrar::registerChainDefinitionByClassNames($container, $contentDecoderChainId, $contentDecoderCommands);
 
@@ -562,7 +562,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_shortstop_impl_decoding_transfer_command_ChunkedTransferDecodingCommand'
         );
 
-        $transferDecoderChainId = '_ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain';
+        $transferDecoderChainId = 'ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain';
 
         tubepress_impl_ioc_ChainRegistrar::registerChainDefinitionByClassNames($container, $transferDecoderChainId, $transferDecoderCommands);
 

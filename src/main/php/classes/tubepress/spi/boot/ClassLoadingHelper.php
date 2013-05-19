@@ -17,6 +17,13 @@ interface tubepress_spi_boot_ClassLoadingHelper
     const _ = 'tubepress_spi_boot_ClassLoadingHelper';
 
     /**
+     * Load the rest of the default classmap into this classloader.
+     *
+     * @param ehough_pulsar_ComposerClassLoader $classLoader
+     */
+    function prime(ehough_pulsar_ComposerClassLoader &$classLoader);
+
+    /**
      * Loads the PSR-0 class paths and any classmaps for this add-on into
      * the system's primary classloader.
      *
@@ -26,11 +33,4 @@ interface tubepress_spi_boot_ClassLoadingHelper
      * @return void
      */
     function addClassHintsForAddons(array $addons, ehough_pulsar_ComposerClassLoader $classLoader);
-
-    /**
-     * Load the rest of the default classmap into this classloader.
-     *
-     * @param ehough_pulsar_ComposerClassLoader $classLoader
-     */
-    function prime(ehough_pulsar_ComposerClassLoader &$classLoader);
 }

@@ -171,26 +171,9 @@ class tubepress_impl_boot_PrimaryBootstrapper
         $this->_classLoader = new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor/');
         $this->_classLoader->register();
 
-        $epilogPrefix = TUBEPRESS_ROOT . '/vendor/ehough/epilog/src/main/php/ehough/epilog';
+        $bootStrapClassMap = require_once TUBEPRESS_ROOT . '/src/main/php/scripts/classmaps/bootstrap.php';
 
-        $this->_classLoader->addToClassMap(array(
-
-            'ehough_epilog_formatter_FormatterInterface'      => $epilogPrefix . '/formatter/FormatterInterface.php',
-            'ehough_epilog_formatter_LineFormatter'           => $epilogPrefix . '/formatter/LineFormatter.php',
-            'ehough_epilog_formatter_NormalizerFormatter'     => $epilogPrefix . '/formatter/NormalizerFormatter.php',
-            'ehough_epilog_handler_AbstractHandler'           => $epilogPrefix . '/handler/AbstractHandler.php',
-            'ehough_epilog_handler_AbstractProcessingHandler' => $epilogPrefix . '/handler/AbstractProcessingHandler.php',
-            'ehough_epilog_handler_HandlerInterface'          => $epilogPrefix . '/handler/HandlerInterface.php',
-            'ehough_epilog_handler_NullHandler'               => $epilogPrefix . '/handler/NullHandler.php',
-            'ehough_epilog_LoggerFactory'                     => $epilogPrefix . '/LoggerFactory.php',
-            'ehough_epilog_Logger'                            => $epilogPrefix . '/Logger.php',
-            'ehough_epilog_psr_AbstractLogger'                => $epilogPrefix . '/psr/AbstractLogger.php',
-            'ehough_epilog_psr_InvalidArgumentException'      => $epilogPrefix . '/psr/InvalidArgumentException.php',
-            'ehough_epilog_psr_LoggerAwareInterface'          => $epilogPrefix . '/psr/LoggerAwareInterface.php',
-            'ehough_epilog_psr_LoggerInterface'               => $epilogPrefix . '/psr/LoggerInterface.php',
-
-            'tubepress_impl_log_TubePressLoggingHandler' => TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl/log/TubePressLoggingHandler.php',
-        ));
+        $this->_classLoader->addToClassMap($bootStrapClassMap);
     }
 
     private function _02_configureLogging()

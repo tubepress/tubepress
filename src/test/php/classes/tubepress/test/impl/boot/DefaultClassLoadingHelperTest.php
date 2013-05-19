@@ -53,14 +53,13 @@ class tubepress_test_impl_boot_DefaultClassLoadingHelperTest extends tubepress_t
         $mockAddon1->shouldReceive('getName')->andReturn('mock add-on 1');
         $mockAddon2->shouldReceive('getName')->andReturn('mock add-on 2');
 
-        $mockAddon1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('some root', 'prefix' => 'something'));
-        $mockAddon2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
-        $mockAddon1->shouldReceive('getClassMap')->once()->andReturn(array());
-        $mockAddon2->shouldReceive('getClassMap')->once()->andReturn(array('foo' => 'bar'));
+        $mockAddon1->shouldReceive('getPsr0ClassPathRoots')->twice()->andReturn(array('some root', 'prefix' => 'something'));
+        $mockAddon2->shouldReceive('getPsr0ClassPathRoots')->twice()->andReturn(array());
+        $mockAddon1->shouldReceive('getClassMap')->twice()->andReturn(array());
+        $mockAddon2->shouldReceive('getClassMap')->twice()->andReturn(array('foo' => 'bar'));
         $mockAddons = array($mockAddon1, $mockAddon2);
 
-        $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(3)->with('classloader')->andReturn(true);
-        $this->_mockBootConfigService->shouldReceive('isCacheKillerTurnedOn')->twice()->andReturn(false);
+        $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(2)->with('classloader')->andReturn(true);
         $this->_mockBootConfigService->shouldReceive('getAbsolutePathToCacheFileForElement')->with('classloader')->andReturn($this->_cacheDirectory . '/classloader.txt');
 
         $this->_sut->addClassHintsForAddons($mockAddons, new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor'));
@@ -80,6 +79,8 @@ class tubepress_test_impl_boot_DefaultClassLoadingHelperTest extends tubepress_t
 
     public function testPrime()
     {
+        $this->_mockBootConfigService->shouldReceive('isCacheKillerTurnedOn')->once()->andReturn(false);
+
         $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(1)->with('classloader')->andReturn(false);
 
         $this->_sut->prime($this->_mockClassLoader);
@@ -106,8 +107,7 @@ class tubepress_test_impl_boot_DefaultClassLoadingHelperTest extends tubepress_t
         $this->_mockClassLoader->shouldReceive('registerPrefix')->once()->with('prefix', 'something');
         $this->_mockClassLoader->shouldReceive('registerNamespace')->once()->with('prefix', 'something');
 
-        $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(2)->with('classloader')->andReturn(false);
-        $this->_mockBootConfigService->shouldReceive('isCacheKillerTurnedOn')->once()->andReturn(false);
+        $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(1)->with('classloader')->andReturn(false);
         $this->_mockBootConfigService->shouldReceive('getAbsolutePathToCacheFileForElement')->with('classloader')->andReturn($this->_cacheDirectory . '/classloader.txt');
 
         $this->_sut->addClassHintsForAddons($mockAddons, $this->_mockClassLoader);
