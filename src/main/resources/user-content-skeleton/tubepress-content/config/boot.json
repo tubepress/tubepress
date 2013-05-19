@@ -6,7 +6,12 @@
             "enabled" : false
         },
 
-        "addons" : {
+        "add-ons" : {
+
+            "enabled" : false
+        },
+
+        "classloader" : {
 
             "enabled" : false
         },
@@ -19,7 +24,5 @@
     "addons" : {
 
         "blacklist": []
-    },
-
-    "user-content-directory" : null
+    }
 }

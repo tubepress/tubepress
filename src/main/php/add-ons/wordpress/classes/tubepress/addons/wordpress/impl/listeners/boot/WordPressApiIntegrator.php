@@ -16,6 +16,14 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
 {
     public function onBoot(tubepress_api_event_EventInterface $event)
     {
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+
+        if (!$environmentDetector->isWordPress()) {
+
+            //short circuit
+            return;
+        }
+
         $baseName = basename(TUBEPRESS_ROOT);
 
         /**

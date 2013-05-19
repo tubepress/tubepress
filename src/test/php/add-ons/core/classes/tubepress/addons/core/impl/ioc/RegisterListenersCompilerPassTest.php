@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass<extended>
+ */
 class tubepress_addons_core_impl_ioc_RegisterListenersCompilerPassTest extends tubepress_test_TubePressUnitTest
 {
     /**

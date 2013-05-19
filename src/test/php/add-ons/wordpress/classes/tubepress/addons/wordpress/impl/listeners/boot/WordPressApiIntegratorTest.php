@@ -84,6 +84,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest 
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('register_activation_hook')->once()->with('tubepress/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
 
+        $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
         $this->_mockEnvironmentDetector->shouldReceive('setBaseUrl')->once()->with('valueofcontenturl/plugins/tubepress');
     }
 }

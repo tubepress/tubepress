@@ -16,6 +16,11 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrarTe
     private $_mockOptionsDescriptorReference;
 
     /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironmentDetector;
+
+    /**
      * @var tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar
      */
     private $_sut;
@@ -23,11 +28,15 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrarTe
     public function onSetup()
     {
         $this->_mockOptionsDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockEnvironmentDetector      = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+
         $this->_sut                            = new tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar();
     }
 
     public function testCore()
     {
+        $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
+
         $this->_testOptions();
 
         $this->_sut->onBoot(new tubepress_spi_event_EventBase());

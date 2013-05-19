@@ -16,6 +16,14 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar
 {
     public function onBoot(tubepress_api_event_EventInterface $event)
     {
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+
+        if (!$environmentDetector->isWordPress()) {
+
+            //short circuit
+            return;
+        }
+
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
