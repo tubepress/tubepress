@@ -15,7 +15,7 @@
 class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_options_ui_FieldBuilder
 {
     /**
-     * @var array Cached list of the available pluggable field builders.
+     * @var tubepress_spi_options_ui_PluggableFieldBuilder[]
      */
     private $_pluggableFieldBuilders;
 
@@ -29,8 +29,6 @@ class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_opt
      */
     public final function build($name, $type)
     {
-        $this->_initialize();
-
         $field = $this->_buildFromPluggables($name, $type);
 
         if ($field) {
@@ -48,6 +46,11 @@ class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_opt
         return $ref->newInstance($name);
     }
 
+    public function setPluggableFieldBuilders(array $builders)
+    {
+        $this->_pluggableFieldBuilders = $builders;
+    }
+
     private function _buildFromPluggables($name, $type)
     {
         foreach ($this->_pluggableFieldBuilders as $pluggableFieldBuilder)
@@ -61,15 +64,5 @@ class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_opt
         }
 
         return null;
-    }
-
-    private function _initialize()
-    {
-        if (isset($this->_pluggableFieldBuilders)) {
-
-            return;
-        }
-
-        $this->_pluggableFieldBuilders = tubepress_impl_patterns_sl_ServiceLocator::getFieldBuilders();
     }
 }

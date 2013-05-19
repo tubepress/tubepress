@@ -16,7 +16,7 @@
 class tubepress_impl_ioc_IconicContainer implements tubepress_api_ioc_ContainerInterface, tubepress_api_ioc_CompilerPassInterface
 {
     /**
-     * @var ehough_iconic_ContainerBuilder
+     * @var ehough_iconic_Container
      */
     private $_delegate;
 
@@ -89,6 +89,11 @@ class tubepress_impl_ioc_IconicContainer implements tubepress_api_ioc_ContainerI
     public function getDelegateIconicContainerBuilder()
     {
         return $this->_delegate;
+    }
+
+    public function setDelegateIconicContainerBuilder(ehough_iconic_ContainerBuilder $builder)
+    {
+        $this->_delegate = $builder;
     }
 
     public function isFrozen()

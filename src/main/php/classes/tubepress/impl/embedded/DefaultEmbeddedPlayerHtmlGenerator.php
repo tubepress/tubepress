@@ -19,6 +19,16 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
      */
     private $_logger;
 
+    /**
+     * @var tubepress_spi_provider_PluggableVideoProviderService[]
+     */
+    private $_videoProviders = array();
+
+    /**
+     * @var tubepress_spi_embedded_PluggableEmbeddedPlayerService[]
+     */
+    private $_embeddedPlayers = array();
+
     public function __construct()
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
@@ -103,6 +113,16 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         return $embeddedHtmlEvent->getSubject();
     }
 
+    public function setPluggableVideoProviders(array $providers)
+    {
+        $this->_videoProviders = $providers;
+    }
+
+    public function setPluggableEmbeddedPlayers(array $players)
+    {
+        $this->_embeddedPlayers = $players;
+    }
+
     /**
      * @param $videoId
      *
@@ -111,7 +131,6 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
     private function _getEmbeddedPlayer($videoId)
     {
         $executionContext            = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $embeddedPlayers             = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedPlayers();
         $requestedEmbeddedPlayerName = $executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $recognizingProvider         = $this->_findProviderThatRecognizesVideoId($videoId);
 
@@ -123,7 +142,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
             /**
              * @var $embeddedPlayer tubepress_spi_embedded_PluggableEmbeddedPlayerService
              */
-            foreach ($embeddedPlayers as $embeddedPlayer) {
+            foreach ($this->_embeddedPlayers as $embeddedPlayer) {
 
                 if ($embeddedPlayer->getName() === $requestedEmbeddedPlayerName && $recognizingProvider !== null
                     && $recognizingProvider->getName() === $embeddedPlayer->getHandledProviderName()) {
@@ -147,7 +166,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
          * Do we have an embedded provider whose name exactly matches the provider? If so, let's use that. This
          * should be the common case.
          */
-        foreach ($embeddedPlayers as $embeddedPlayer) {
+        foreach ($this->_embeddedPlayers as $embeddedPlayer) {
 
             if ($embeddedPlayer->getName() === $recognizingProvider->getName()) {
 
@@ -158,7 +177,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         /**
          * Running out of options. See if we can find *any* player that can handle videos from this provider.
          */
-        foreach ($embeddedPlayers as $embeddedPlayer) {
+        foreach ($this->_embeddedPlayers as $embeddedPlayer) {
 
             if ($embeddedPlayer->getHandledProviderName() === $recognizingProvider->getName()) {
 
@@ -174,12 +193,10 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
 
     private function _findProviderThatRecognizesVideoId($videoId)
     {
-        $videoProviders = tubepress_impl_patterns_sl_ServiceLocator::getVideoProviders();
-
         /**
          * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
          */
-        foreach ($videoProviders as $videoProvider) {
+        foreach ($this->_videoProviders as $videoProvider) {
 
             if ($videoProvider->recognizesVideoId($videoId)) {
 

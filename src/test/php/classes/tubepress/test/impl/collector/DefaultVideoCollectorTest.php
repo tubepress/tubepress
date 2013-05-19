@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_collector_DefaultVideoCollector<extended>
+ */
 class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -15,12 +19,24 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
-    
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockProvider;
 
     public function onSetup()
@@ -34,11 +50,13 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
     public function testGetSingle()
     {
-        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
         $this->_mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(true);
         $this->_mockProvider->shouldReceive('fetchSingleVideo')->once()->with('xyz')->andReturn('123');
+
+        $this->_sut->setPluggableVideoProviders(array($this->_mockProvider));
 
         $result = $this->_sut->collectSingleVideo('xyz');
 
@@ -47,10 +65,11 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
     public function testGetSingleNoProvidersRecognize()
     {
-        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
         $this->_mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(false);
+        $this->_sut->setPluggableVideoProviders(array($this->_mockProvider));
 
         $result = $this->_sut->collectSingleVideo('xyz');
 
@@ -68,7 +87,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
     {
         $mockPage = new tubepress_api_video_VideoGalleryPage();
 
-        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $this->_mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array('x'));
         $this->_mockProvider->shouldReceive('fetchVideoGalleryPage')->once()->with(97)->andReturn($mockPage);
@@ -83,6 +102,8 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockPage;
         }));
 
+        $this->_sut->setPluggableVideoProviders(array($this->_mockProvider));
+
         $result = $this->_sut->collectVideoGalleryPage();
 
         $this->assertSame($mockPage, $result);
@@ -90,7 +111,7 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
     public function testMultipleNoProvidersCouldHandle()
     {
-        $this->_mockProvider = $this->createMockPluggableService(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
         $this->_mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array());
 
@@ -102,6 +123,8 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
             return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_VideoGalleryPage;
         }));
+
+        $this->_sut->setPluggableVideoProviders(array($this->_mockProvider));
 
         $result = $this->_sut->collectVideoGalleryPage();
 

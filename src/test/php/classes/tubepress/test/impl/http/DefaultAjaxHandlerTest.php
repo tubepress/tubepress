@@ -45,7 +45,7 @@ class tubepress_test_impl_http_DefaultAjaxHandlerTest extends tubepress_test_Tub
 
     public function testFoundSuitableCommand()
     {
-        $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
+        $mockHandler = ehough_mockery_Mockery::mock(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('action');
         $mockHandler->shouldReceive('handle')->once();
         $mockHandler->shouldReceive('getHttpStatusCode')->once()->andReturn(300);
@@ -54,6 +54,8 @@ class tubepress_test_impl_http_DefaultAjaxHandlerTest extends tubepress_test_Tub
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn('action');
         $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(300)->andReturn(300);
 
+        $this->_sut->setPluggableAjaxCommandHandlers(array($mockHandler));
+
         $this->expectOutputString('hi');
 
         $this->_sut->handle();
@@ -61,11 +63,13 @@ class tubepress_test_impl_http_DefaultAjaxHandlerTest extends tubepress_test_Tub
 
     public function testHandleNoSuitableCommandHandler()
     {
-        $mockHandler = $this->createMockPluggableService(tubepress_spi_http_PluggableAjaxCommandService::_);
+        $mockHandler = ehough_mockery_Mockery::mock(tubepress_spi_http_PluggableAjaxCommandService::_);
         $mockHandler->shouldReceive('getName')->andReturn('x');
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::ACTION)->andReturn('action');
         $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(500)->andReturn(500);
+
+        $this->_sut->setPluggableAjaxCommandHandlers(array($mockHandler));
 
         $this->_sut->handle();
 

@@ -51,7 +51,7 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 
-        $mockPlayerLocation = $this->createMockPluggableService(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $mockPlayerLocation = ehough_mockery_Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayerLocation->shouldReceive('getName')->andReturn('x');
 
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
@@ -95,6 +95,8 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
             })
         )->andReturn($mockPlayerHtmlEvent);
 
+        $this->_sut->setPluggablePlayerLocations(array($mockPlayerLocation));
+
         $this->assertEquals('foobarr', $this->_sut->getHtml($this->_mockVideo));
     }
 
@@ -102,7 +104,7 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 
-        $mockPlayerLocation = $this->createMockPluggableService(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $mockPlayerLocation = ehough_mockery_Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayerLocation->shouldReceive('getName')->andReturn('z');
 
         $html = $this->_sut->getHtml($this->_mockVideo);

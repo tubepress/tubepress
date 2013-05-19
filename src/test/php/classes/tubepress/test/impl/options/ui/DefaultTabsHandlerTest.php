@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_options_ui_DefaultTabsHandler
+ */
 class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -34,10 +38,12 @@ class tubepress_test_impl_options_ui_DefaultTabsHandlerTest extends tubepress_te
 
         for ($x = 0; $x < 8; $x++) {
 
-            $this->_expectedTabs[] = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
+            $this->_expectedTabs[] = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
         }
 
         $this->_sut = new tubepress_impl_options_ui_DefaultTabsHandler('some pathh');
+
+        $this->_sut->setPluggableOptionsPageTabs($this->_expectedTabs);
     }
 
     public function testSubmitWithErrors()

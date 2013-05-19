@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_impl_ioc_CoreIocContainer
+ * @covers tubepress_impl_ioc_CoreIocContainer<extended>
  */
 class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePressUnitTest
 {
@@ -28,8 +28,8 @@ class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePr
     {
         parent::setUpBeforeClass();
 
-        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeExtension.php';
-        require_once TUBEPRESS_ROOT . '/src/test/resources/addons/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeCompilerPass.php';
     }
 
     public function testBuildsNormally()
@@ -41,9 +41,12 @@ class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePr
     {
         $toTest = array(
 
+            tubepress_spi_boot_AddonBooter::_                => tubepress_spi_boot_AddonBooter::_,
+            tubepress_spi_boot_AddonDiscoverer::_            => tubepress_spi_boot_AddonDiscoverer::_,
+            tubepress_spi_boot_BootConfigService::_          => tubepress_spi_boot_BootConfigService::_,
+            tubepress_spi_boot_ClassLoadingHelper::_         => tubepress_spi_boot_ClassLoadingHelper::_,
+            tubepress_spi_boot_IocContainerHelper::_         => tubepress_spi_boot_IocContainerHelper::_,
             tubepress_spi_environment_EnvironmentDetector::_ => tubepress_spi_environment_EnvironmentDetector::_,
-            tubepress_spi_addon_AddonDiscoverer::_           => tubepress_spi_addon_AddonDiscoverer::_,
-            tubepress_spi_addon_AddonLoader::_               => tubepress_spi_addon_AddonLoader::_,
             tubepress_api_event_EventDispatcherInterface::_  => tubepress_api_event_EventDispatcherInterface::_,
             'ehough_finder_FinderFactoryInterface'           => 'ehough_finder_FinderFactory'
         );

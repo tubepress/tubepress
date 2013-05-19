@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator<extended>
+ */
 class tubepress_test_impl_shortcode_DefaultHtmlGeneratorChainTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -37,9 +41,11 @@ class tubepress_test_impl_shortcode_DefaultHtmlGeneratorChainTest extends tubepr
 
     public function testOneHandlerCouldHandle()
     {
-        $mockHandler = $this->createMockPluggableService(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+        $mockHandler = ehough_mockery_Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(true);
         $mockHandler->shouldReceive('getHtml')->once()->andReturn('foobar');
+
+        $this->_sut->setPluggableShortcodeHandlers(array($mockHandler));
 
         $result = $this->_sut->getHtmlForShortcode('shortcode');
 
@@ -51,8 +57,10 @@ class tubepress_test_impl_shortcode_DefaultHtmlGeneratorChainTest extends tubepr
      */
     public function testNoHandlersCouldHandle()
     {
-        $mockHandler = $this->createMockPluggableService(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+        $mockHandler = ehough_mockery_Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(false);
+
+        $this->_sut->setPluggableShortcodeHandlers(array($mockHandler));
 
         $this->_sut->getHtmlForShortcode('shortcode');
     }

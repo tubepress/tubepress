@@ -63,7 +63,7 @@
 
         <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/index.php" />
         <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/index.php" />
-        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/addons/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/add-ons/index.php" />
         <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/themes/index.php" />
 
     </target>

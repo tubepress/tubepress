@@ -1,0 +1,17 @@
+{
+    "cache" : {
+
+        "dir" : "/foo",
+
+        "add-ons" : {
+
+            "enabled" : true
+        },
+
+        "killer-key" : "some-param"
+    },
+    "add-ons" : {
+
+        "blacklist" : [ "one", "two", "three" ]
+    }
+}

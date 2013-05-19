@@ -14,7 +14,15 @@
  */
 class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepress_spi_shortcode_ShortcodeHtmlGenerator
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
+
+    /**
+     * @var tubepress_spi_shortcode_PluggableShortcodeHandlerService[]
+     */
+    private $_shortcodeHandlers = array();
 
     public function __construct()
     {
@@ -39,16 +47,14 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
             $shortcodeParser->parse($shortCodeContent);
         }
 
-        $handlers = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHandlers();
-
-        usort($handlers, array($this, 'sortShortcodeHandlers'));
+        usort($this->_shortcodeHandlers, array($this, 'sortShortcodeHandlers'));
 
         $html = null;
 
         /**
          * @var $handler tubepress_spi_shortcode_PluggableShortcodeHandlerService
          */
-        foreach ($handlers as $handler) {
+        foreach ($this->_shortcodeHandlers as $handler) {
 
             if ($handler->shouldExecute()) {
 
@@ -79,5 +85,10 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
         }
 
         return 0;
+    }
+
+    public function setPluggableShortcodeHandlers(array $handlers)
+    {
+        $this->_shortcodeHandlers = $handlers;
     }
 }

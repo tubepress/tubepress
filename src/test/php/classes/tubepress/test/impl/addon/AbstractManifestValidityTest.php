@@ -24,9 +24,9 @@ class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_t
 
         $mockFinderFactory->shouldReceive('createFinder')->once()->andReturn($mockFinder);
 
-        $discoverer = new tubepress_impl_addon_FilesystemAddonDiscoverer();
+        $discoverer = new tubepress_impl_boot_DefaultAddonDiscoverer();
 
-        $addons = $discoverer->findAddonsInDirectory(dirname($pathToManifest));
+        $addons = $discoverer->_findAddonsInDirectory(dirname($pathToManifest));
 
         $this->assertTrue(count($addons) === 1, 'Expected 1 addon but got ' . count($addons));
 
@@ -57,7 +57,7 @@ class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_t
 
         foreach ($expectedClassMap as $className => $abbreviatedPrefix) {
 
-            $this->assertTrue(isset($actualClassMap[$className]));
+            $this->assertTrue(isset($actualClassMap[$className]), "$className is missing from the classmap");
 
             $this->assertTrue(tubepress_impl_util_StringUtils::endsWith($actualClassMap[$className], $abbreviatedPrefix),
                 $actualClassMap[$className] . ' does not end with ' . $abbreviatedPrefix);
