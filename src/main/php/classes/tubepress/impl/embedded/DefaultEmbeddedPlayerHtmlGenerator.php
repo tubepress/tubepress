@@ -47,7 +47,10 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
 
         if ($embeddedPlayer === null) {
 
-            $this->_logger->warn('Could not generate the embedded player HTML for ' . $videoId);
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+
+                $this->_logger->warn('Could not generate the embedded player HTML for ' . $videoId);
+            }
 
             return null;
         }

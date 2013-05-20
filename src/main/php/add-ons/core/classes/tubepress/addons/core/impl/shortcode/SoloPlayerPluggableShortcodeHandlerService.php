@@ -15,7 +15,7 @@
 class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
-     * @var ehough_epilog_psr_LoggerInterface
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 
@@ -45,13 +45,14 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
     {
         $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $playerName  = $execContext->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $shouldLog   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($playerName !== 'solo') {
 
             return false;
         }
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug('Solo player detected. Checking query string for video ID.');
         }
@@ -62,7 +63,7 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
 
         if ($videoId == '') {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($shouldLog) {
 
                 $this->_logger->debug('Solo player in use, but no video ID set in URL.');
             }
@@ -81,8 +82,9 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
         $qss         = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoId     = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);;
+        $shouldLog   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug(sprintf('Building single video with ID %s', $videoId));
         }
@@ -91,7 +93,7 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
 
         if ($result !== true) {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($shouldLog) {
 
                 $this->_logger->debug('Could not verify video ID.');
             }

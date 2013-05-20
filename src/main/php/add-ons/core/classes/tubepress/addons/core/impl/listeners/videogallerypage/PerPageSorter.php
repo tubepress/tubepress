@@ -29,11 +29,12 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter
         $context          = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $perPageSortOrder = $context->get(tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
         $feedSortOrder    = $context->get(tubepress_api_const_options_names_Feed::ORDER_BY);
+        $shouldLog        = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         /** No sort requested? */
         if ($perPageSortOrder === tubepress_api_const_options_values_PerPageSortValue::NONE) {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($shouldLog) {
                 
                 $this->_logger->debug('Requested per-page sort order is "none". Not applying per-page sorting.');
             }
@@ -46,7 +47,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter
 
         if ($perPageSortOrder === tubepress_api_const_options_values_PerPageSortValue::RANDOM) {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($shouldLog) {
 
                 $this->_logger->debug('Shuffling videos');
             }
@@ -61,7 +62,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter
             /** If we have a sorter, use it. */
             if (method_exists($this, $sortCallback)) {
 
-                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+                if ($shouldLog) {
 
                     $this->_logger->debug(sprintf('Now sorting %s videos on page (%s)', count($videos), $perPageSortOrder));
                 }
@@ -70,7 +71,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter
 
             } else {
 
-                if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+                if ($shouldLog) {
 
                     $this->_logger->debug(sprintf('No sort available for this page (%s)', $perPageSortOrder));
                 }

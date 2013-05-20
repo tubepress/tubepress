@@ -150,7 +150,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $page = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($this->_isDebugEnabled) {
 
             $this->_logger->debug(sprintf('Current page number is %d', $page));
         }

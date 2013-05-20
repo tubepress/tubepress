@@ -14,6 +14,9 @@
  */
 class tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
@@ -30,15 +33,16 @@ class tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper
         $secondCut    = min($firstCut, self::_calculateRealMax($context, $firstCut));
         $videos       = $event->getSubject()->getVideos();
         $resultCount  = count($videos);
+        $shouldLog    = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug(sprintf('Effective total result count (taking into account user-defined limit) is %d video(s)', $secondCut));
         }
 
         if ($resultCount > $secondCut) {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($shouldLog) {
 
                 $this->_logger->debug(sprintf('Result has %d video(s), limit is %d. So we\'re chopping it down.', $resultCount, $secondCut));
             }

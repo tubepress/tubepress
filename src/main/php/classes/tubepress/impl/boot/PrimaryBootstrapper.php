@@ -190,7 +190,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
 
         } else {
 
-            $loggingHandler->setLevel(ehough_epilog_Logger::WARNING);
+            $loggingHandler->setLevel(ehough_epilog_Logger::EMERGENCY);
         }
 
         $this->_shouldLog = $loggingRequested;

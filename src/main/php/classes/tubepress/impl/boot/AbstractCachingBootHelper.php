@@ -255,6 +255,11 @@ abstract class tubepress_impl_boot_AbstractCachingBootHelper
 
         $result = @unlink($filePath);
 
+        if (!$shouldLog) {
+
+            return;
+        }
+
         if ($result === true) {
 
             $logger->debug(sprintf('Successfully deleted cache file for %s at %s', $elementName, $filePath));

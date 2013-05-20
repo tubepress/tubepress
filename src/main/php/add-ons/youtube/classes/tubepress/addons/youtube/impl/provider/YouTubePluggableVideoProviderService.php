@@ -51,7 +51,7 @@ class tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderServic
     private $_xpath;
 
     /**
-     * @var ehough_epilog_psr_LoggerInterface Logger.
+     * @var ehough_epilog_Logger
      */
     private $_logger;
 

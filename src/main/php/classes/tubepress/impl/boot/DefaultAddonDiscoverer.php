@@ -211,12 +211,12 @@ class tubepress_impl_boot_DefaultAddonDiscoverer extends tubepress_impl_boot_Abs
     private function _tryToBuildAddonFromFile(SplFileInfo $infoFile)
     {
         $manifestFilePath = realpath("$infoFile");
-
         $infoFileContents = @json_decode(file_get_contents($manifestFilePath), true);
+        $shouldLog        = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($infoFileContents === null || $infoFileContents === false || empty($infoFileContents)) {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($shouldLog) {
 
                 $this->_logger->debug('Could not parse add-on manifest file at ' . $manifestFilePath);
             }
@@ -230,7 +230,10 @@ class tubepress_impl_boot_DefaultAddonDiscoverer extends tubepress_impl_boot_Abs
 
         } catch (Exception $e) {
 
-            $this->_logger->warn('Caught exception when parsing info file at ' . $infoFile->getRealpath() . ': ' . $e->getMessage());
+            if ($shouldLog) {
+
+                $this->_logger->warn('Caught exception when parsing info file at ' . $infoFile->getRealpath() . ': ' . $e->getMessage());
+            }
 
             return null;
         }

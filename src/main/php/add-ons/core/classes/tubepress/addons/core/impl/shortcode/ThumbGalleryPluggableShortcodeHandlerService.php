@@ -44,6 +44,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
     {
         $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $galleryId   = $execContext->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
+        $shouldLog   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($galleryId == '') {
 
@@ -57,7 +58,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
             }
         }
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug(sprintf('Starting to build thumbnail gallery %s', $galleryId));
         }
@@ -71,7 +72,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $page            = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 
         /* first grab the videos */
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug('Asking provider for videos');
         }
@@ -80,7 +81,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
         $numVideos  = sizeof($feedResult->getVideos());
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug(sprintf('Provider has delivered %d videos', $numVideos));
         }
@@ -129,7 +130,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         }
 
         /* we're done. tie up */
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug(sprintf('Done assembling gallery %d', $galleryId));
         }

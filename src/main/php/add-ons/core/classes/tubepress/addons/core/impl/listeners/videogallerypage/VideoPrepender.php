@@ -26,9 +26,9 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender
 
     public function onVideoGalleryPage(tubepress_api_event_EventInterface $event)
     {
-        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-
+        $hrps          = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $customVideoId = $hrps->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);
+        $shouldLog     = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         /* they didn't set a custom video id */
         if ($customVideoId == '') {
@@ -36,12 +36,12 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender
             return;
         }
 
-        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+        if ($shouldLog) {
 
             $this->_logger->debug(sprintf('Prepending video %s to the gallery', $customVideoId));
         }
 
-        self::_prependVideo($customVideoId, $event);
+        self::_prependVideo($customVideoId, $event, $shouldLog);
     }
 
     private static function _moveVideoUpFront($videos, $id)
@@ -78,7 +78,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender
         return false;
     }
 
-    private function _prependVideo($id, tubepress_api_event_EventInterface $event)
+    private function _prependVideo($id, tubepress_api_event_EventInterface $event, $shouldLog)
     {
         $videos = $event->getSubject()->getVideos();
 
@@ -102,7 +102,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender
 
         } catch (Exception $e) {
 
-            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
+            if ($shouldLog) {
 
                 $this->_logger->debug(sprintf('Could not prepend video %s to the gallery: %s', $id, $e->getMessage()));
             }

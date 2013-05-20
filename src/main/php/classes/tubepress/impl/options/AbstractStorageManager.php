@@ -39,13 +39,16 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
     public final function set($optionName, $optionValue)
     {
         $optionDescriptorReferenceService = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
-
-        $descriptor = $optionDescriptorReferenceService->findOneByName($optionName);
+        $descriptor                       = $optionDescriptorReferenceService->findOneByName($optionName);
+        $shouldLog                        = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         /** Do we even know about this option? */
         if ($descriptor === null) {
 
-            $this->_logger->warn("Could not find descriptor for option with name '$optionName''");
+            if ($shouldLog) {
+
+                $this->_logger->warn("Could not find descriptor for option with name '$optionName''");
+            }
 
             return true;
         }
@@ -70,7 +73,10 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         /** OK, let's see if it's valid. */
         if ($optionValidatorService->isValid($optionName, $filteredValue)) {
 
-            $this->_logger->info(sprintf("Accepted valid value: '%s' = '%s'", $optionName, $filteredValue));
+            if ($shouldLog) {
+
+                $this->_logger->info(sprintf("Accepted valid value: '%s' = '%s'", $optionName, $filteredValue));
+            }
 
             $this->setOption($optionName, $filteredValue);
 
@@ -79,7 +85,10 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
         $problemMessage = $optionValidatorService->getProblemMessage($optionName, $filteredValue);
 
-        $this->_logger->info(sprintf("Ignoring invalid value: '%s' = '%s'", $optionName, $filteredValue));
+        if ($shouldLog) {
+
+            $this->_logger->info(sprintf("Ignoring invalid value: '%s' = '%s'", $optionName, $filteredValue));
+        }
 
         return $problemMessage;
     }

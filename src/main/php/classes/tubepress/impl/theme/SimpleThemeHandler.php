@@ -14,6 +14,9 @@
  */
 class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_ThemeHandler
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
