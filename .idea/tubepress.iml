@@ -10,16 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jQuery-1.7.2" level="application" />
-    <orderEntry type="module-library">
-      <library name="PHARS">
-        <CLASSES>
-          <root url="phar://$MODULE_DIR$/vendor/ehough/iconic/src/test/php/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
-        </CLASSES>
-        <SOURCES>
-          <root url="phar://$MODULE_DIR$/vendor/ehough/iconic/src/test/php/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>
 
