@@ -12,14 +12,19 @@
 /**
  * Registers a few extensions to allow TubePress to work with Vimeo.
  */
-final class tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar
+class tubepress_addons_vimeo_impl_options_VimeoOptionsProvider implements tubepress_spi_options_PluggableOptionDescriptorProvider
 {
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
-    public function onBoot(tubepress_api_event_EventInterface $event)
+    /**
+     * Fetch all the option descriptors from this provider.
+     *
+     * @return tubepress_spi_options_OptionDescriptor[]
+     */
+    public function getOptionDescriptors()
     {
-        $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+        $toReturn = array();
 
         /**
          * EMBEDDED PLAYER OPTIONS
@@ -30,7 +35,7 @@ final class tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar
         $option->setLabel('Main color');                    //>(translatable)<
         $option->setDescription('Default is 999999.');      //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
         /**
@@ -40,12 +45,12 @@ final class tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY);
         $option->setLabel('Vimeo API "Consumer Key"');                                                                                        //>(translatable)<
         $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET);
         $option->setLabel('Vimeo API "Consumer Secret"');                                                                                     //>(translatable)<
         $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
         /**
@@ -56,48 +61,48 @@ final class tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar
         $option->setDefaultValue('140484');
         $option->setLabel('Videos from this Vimeo album');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE);
         $option->setDefaultValue('royksopp');
         $option->setLabel('Videos this Vimeo user appears in');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
         $option->setDefaultValue('splitscreenstuff');
         $option->setLabel('Videos in this Vimeo channel');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
         $option->setDefaultValue('patricklawler');
         $option->setLabel('Videos credited to this Vimeo user (either appears in or uploaded by)');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
         $option->setDefaultValue('hdxs');
         $option->setLabel('Videos from this Vimeo group');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
         $option->setDefaultValue('coiffier');
         $option->setLabel('Videos this Vimeo user likes');       //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
         $option->setDefaultValue('cats playing piano');
         $option->setLabel('Vimeo search for');                   //>(translatable)<
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
         $option->setDefaultValue('mattkaar');
         $option->setLabel('Videos uploaded by this Vimeo user'); //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
         /**
@@ -108,6 +113,8 @@ final class tubepress_addons_vimeo_impl_listeners_boot_VimeoOptionsRegistrar
         $option->setLabel('Number of "likes"');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
+        
+        return $toReturn;
     }
 }

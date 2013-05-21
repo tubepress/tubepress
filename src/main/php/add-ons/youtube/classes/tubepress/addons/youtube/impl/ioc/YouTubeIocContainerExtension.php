@@ -56,9 +56,9 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         $container->register(
 
-            'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar',
-            'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
+            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider',
+            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider'
+        )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
         $container->register(
 

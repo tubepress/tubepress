@@ -50,6 +50,12 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
         $this->_registerWpAdminHandler($container);
         $this->_registerWpFunctionWrapper($container);
 
+        $container->register(
+
+            'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider',
+            'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider'
+        )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+
         /**
          * Tabs.
          */
@@ -84,12 +90,6 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
     private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
     {
-        $container->register(
-
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
-
         $container->register(
 
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',

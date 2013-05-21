@@ -62,10 +62,9 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends
 
         $this->expectRegistration(
 
-            'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar',
-            'tubepress_addons_youtube_impl_listeners_boot_YouTubeOptionsRegistrar'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
+            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider',
+            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider'
+        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
         $this->expectRegistration(
 

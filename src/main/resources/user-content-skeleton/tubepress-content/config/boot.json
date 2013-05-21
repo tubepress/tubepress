@@ -16,6 +16,11 @@
             "enabled" : false
         },
 
+        "option-descriptors" : {
+
+            "enabled" : false
+        },
+
         "killer-key" : "tubepress_boot_cache_kill",
 
         "dir" : null

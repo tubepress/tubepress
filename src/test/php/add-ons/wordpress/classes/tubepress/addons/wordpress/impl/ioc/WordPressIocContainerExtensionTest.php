@@ -57,9 +57,9 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
 
         $this->expectRegistration(
 
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar',
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressOptionsRegistrar'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));;
+            'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider',
+            'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider'
+        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
         $this->expectRegistration(
 

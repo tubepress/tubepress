@@ -42,9 +42,9 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
 
         $container->register(
 
-            'tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar',
-            'tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsRegistrar'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
+            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider',
+            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider'
+        )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
         $container->register(
 
