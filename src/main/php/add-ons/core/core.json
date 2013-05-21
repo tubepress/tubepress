@@ -22,6 +22,9 @@
             "tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass"
         ]
     },
+    "bootstrap" : {
+        "services" : [ "tubepress_spi_options_OptionDescriptorReference" ]
+    },
     "autoload":{
         "psr-0" : {
             "tubepress_addons_core" : "classes"

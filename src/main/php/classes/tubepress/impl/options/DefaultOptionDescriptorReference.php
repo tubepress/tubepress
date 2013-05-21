@@ -71,7 +71,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
     }
 
 
-    public function onBoot(tubepress_api_event_EventInterface $event)
+    public function boot()
     {
         $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 

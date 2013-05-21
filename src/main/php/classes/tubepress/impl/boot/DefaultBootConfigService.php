@@ -134,6 +134,10 @@ class tubepress_impl_boot_DefaultBootConfigService implements tubepress_spi_boot
 
                 return $this->_calculateCacheFilePath('serialized-classloader.txt');
 
+            case 'option-descriptors':
+
+                return $this->_calculateCacheFilePath('serialized-option-descriptors.txt');
+
             default:
 
                 throw new InvalidArgumentException('Invalid boot config element: ' . $element);

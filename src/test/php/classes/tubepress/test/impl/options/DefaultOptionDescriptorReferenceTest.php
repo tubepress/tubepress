@@ -68,7 +68,7 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
 
         $this->_setupEventDispatcher($od);
 
-        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
+        $this->_sut->boot();
 
         $this->assertSame($od, $this->_sut->findOneByName('name'));
     }
@@ -85,7 +85,7 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
 
         $this->_setupEventDispatcher($od);
 
-        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
+        $this->_sut->boot();
 
         $result = $this->_sut->findAll();
 
@@ -109,7 +109,7 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
 
         $this->_setupEventDispatcher($od);
 
-        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
+        $this->_sut->boot();
 
         $result = $this->_sut->findOneByName('name');
 

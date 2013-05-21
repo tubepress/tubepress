@@ -28,6 +28,7 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
         $this->assertEquals('TubePress core functionality', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_core' => TUBEPRESS_ROOT . '/src/main/php/add-ons/core/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_core_impl_ioc_IocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals(array('tubepress_spi_options_OptionDescriptorReference'), $addon->getBootstrapServices());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
     

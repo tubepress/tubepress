@@ -192,8 +192,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             tubepress_spi_options_OptionDescriptorReference::_,
             'tubepress_impl_options_DefaultOptionDescriptorReference'
-        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_PluggableOptionDescriptorProvider::_, 'method' => 'setPluggableOptionDescriptorProviders'))
-         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
+        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_PluggableOptionDescriptorProvider::_, 'method' => 'setPluggableOptionDescriptorProviders'));
     }
 
     private function _registerCoreOptionsProvider(tubepress_api_ioc_ContainerInterface $container)
