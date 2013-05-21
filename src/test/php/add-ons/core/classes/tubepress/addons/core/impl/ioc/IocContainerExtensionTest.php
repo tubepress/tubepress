@@ -28,6 +28,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $this->_hrch();
         $this->_odr();
         $this->_optionValidator();
+        $this->_optionProvider();
         $this->_fieldBuilder();
         $this->_registerPlayerHtml();
         $this->_qss();
@@ -118,14 +119,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams'
             )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, 'method' => 'onGalleryInitJs'))
              ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'));
-
-        $this->expectRegistration(
-            'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar',
-            'tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBootComplete'))
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'))
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_embedded_PluggableEmbeddedPlayerService::_, 'method' => 'setPluggableEmbeddedPlayers'))
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
     }
 
     private function _pluggables()
@@ -227,6 +220,17 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
     }
 
+    private function _optionProvider()
+    {
+        $this->expectRegistration(
+            'tubepress_addons_core_impl_options_CoreOptionsProvider',
+            'tubepress_addons_core_impl_options_CoreOptionsProvider'
+        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_)
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_embedded_PluggableEmbeddedPlayerService::_, 'method' => 'setPluggableEmbeddedPlayers'))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
+    }
+
     private function _fieldBuilder()
     {
         $this->expectRegistration(tubepress_spi_options_ui_FieldBuilder::_,
@@ -245,9 +249,12 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
     private function _odr()
     {
         $this->expectRegistration(
+
             tubepress_spi_options_OptionDescriptorReference::_,
             'tubepress_impl_options_DefaultOptionDescriptorReference'
-        );
+
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_PluggableOptionDescriptorProvider::_, 'method' => 'setPluggableOptionDescriptorProviders'))
+         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot'));
     }
 
     private function _hrch()

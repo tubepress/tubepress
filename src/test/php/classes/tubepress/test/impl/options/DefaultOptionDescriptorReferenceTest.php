@@ -25,41 +25,67 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
      */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockProvider1;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockProvider2;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_bootConfigService;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 
         $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockProvider1       = ehough_mockery_Mockery::mock(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+        $this->_mockProvider2       = ehough_mockery_Mockery::mock(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+        $this->_bootConfigService   = $this->createMockSingletonService(tubepress_spi_boot_BootConfigService::_);
+
+        $this->_sut->setPluggableOptionDescriptorProviders(array($this->_mockProvider1, $this->_mockProvider2));
+
+        $this->_bootConfigService->shouldReceive('isCacheEnabledForElement')->twice()->with('option-descriptors')->andReturn(false);
+        $this->_bootConfigService->shouldReceive('isCacheKillerTurnedOn')->once()->andReturn(false);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testRegisterDuplicate()
     {
         $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setDefaultValue('xyz');
 
+        $this->_mockProvider1->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
+        $this->_mockProvider2->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
+
         $this->_mockStorageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
 
         $this->_setupEventDispatcher($od);
 
-        $this->_sut->registerOptionDescriptor($od);
-        $this->_sut->registerOptionDescriptor($od);
+        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
+
+        $this->assertSame($od, $this->_sut->findOneByName('name'));
     }
 
     public function testGetAll()
     {
         $od = new tubepress_spi_options_OptionDescriptor('name');
-
         $od->setDefaultValue('xyz');
+
+        $this->_mockProvider1->shouldReceive('getOptionDescriptors')->once()->andReturn(array());
+        $this->_mockProvider2->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
 
         $this->_mockStorageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
 
         $this->_setupEventDispatcher($od);
 
-        $this->_sut->registerOptionDescriptor($od);
+        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
 
         $result = $this->_sut->findAll();
 
@@ -76,11 +102,14 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
         $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setDefaultValue('xyz');
 
+        $this->_mockProvider1->shouldReceive('getOptionDescriptors')->once()->andReturn(array());
+        $this->_mockProvider2->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
+
         $this->_mockStorageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
 
         $this->_setupEventDispatcher($od);
 
-        $this->_sut->registerOptionDescriptor($od);
+        $this->_sut->onBoot(new tubepress_spi_event_EventBase());
 
         $result = $this->_sut->findOneByName('name');
 

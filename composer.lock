@@ -249,7 +249,7 @@
                 }
             ],
             "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2013-05-19 18:01:20"
+            "time": "2013-05-20 18:59:21"
         },
         {
             "name": "ehough/iconic",

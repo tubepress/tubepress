@@ -202,13 +202,6 @@ class tubepress_impl_boot_PrimaryBootstrapper
         $this->_loggingHandler = $loggingHandler;
     }
 
-    private function _05_primeClassMap()
-    {
-        $classLoadingHelper = tubepress_impl_patterns_sl_ServiceLocator::getBootHelperClassLoadingHelper();
-
-        $classLoadingHelper->prime($this->_classLoader);
-    }
-
     private function _03_recordStartTime()
     {
         if ($this->_shouldLog) {
@@ -228,6 +221,13 @@ class tubepress_impl_boot_PrimaryBootstrapper
 
             tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($this->_iocContainer);
         }
+    }
+
+    private function _05_primeClassMap()
+    {
+        $classLoadingHelper = tubepress_impl_patterns_sl_ServiceLocator::getBootHelperClassLoadingHelper();
+
+        $classLoadingHelper->prime($this->_classLoader);
     }
 
     private function _06_configureLoggingForWordPress()

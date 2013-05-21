@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
+class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepress_spi_options_PluggableOptionDescriptorProvider
 {
     /**
      * @var array
@@ -25,13 +25,13 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
      */
     private $_playerLocations = array();
 
-    public function onBootComplete(tubepress_api_event_EventInterface $event)
+    public function getOptionDescriptors()
     {
         $_regexPositiveInteger    = '/[1-9][0-9]{0,6}/';
         $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';
         $_regexWordChars          = '/\w+/';
 
-        $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+        $toReturn = array();
 
         /**
          * ADVANCED OPTIONS
@@ -42,7 +42,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setLabel('Enable debugging');                                                                                                                                                                                                                                                         //>(translatable)<
         $option->setDescription('If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.');  //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::HTTPS);
         $option->setDefaultValue(false);
@@ -50,12 +50,12 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setDescription('Serve thumbnails and embedded video player over a secure connection.');  //>(translatable)<
         $option->setBoolean();
         $option->setProOnly();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::GALLERY_ID);
         $option->setValidValueRegex($_regexWordChars);
         $option->setDoNotPersist();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::KEYWORD);
         $option->setDefaultValue('tubepress');
@@ -63,7 +63,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setDescription('The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.'); //>(translatable)<
         $option->setValidValueRegex($_regexWordChars);
         $option->setCannotBeSetViaShortcode();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::HTTP_METHOD);
         $option->setDefaultValue(ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET);
@@ -74,7 +74,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
             ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET => ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET,
             ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST => ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST,
         ));
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
 
@@ -87,26 +87,26 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setLabel('Cache cleaning factor');                                                                                             //>(translatable)<
         $option->setDescription('If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.'); //>(translatable)<
         $option->setValidValueRegex($_regexNonNegativeInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Cache::CACHE_DIR);
         $option->setLabel('Cache directory');                                                                                                                //>(translatable)<
         $option->setDescription('Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.'); //>(translatable)<
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Cache::CACHE_ENABLED);
         $option->setDefaultValue(false);
         $option->setLabel('Enable API cache');                                                                                                                    //>(translatable)<
         $option->setDescription('Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS);
         $option->setDefaultValue(3600);
         $option->setLabel('Cache expiration time (seconds)');                                                                                   //>(translatable)<
         $option->setDescription('Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour).');   //>(translatable)<
         $option->setValidValueRegex($_regexPositiveInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
 
@@ -120,71 +120,71 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setDefaultValue(true);
         $option->setBoolean();
         $option->setProOnly();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $option->setLabel('Auto-play all videos');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
         $option->setDefaultValue(350);
         $option->setLabel('Max height (px)');       //>(translatable)<
         $option->setDescription('Default is 350.'); //>(translatable)<
         $option->setValidValueRegex($_regexNonNegativeInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         $option->setDefaultValue(425);
         $option->setLabel('Max width (px)');        //>(translatable)<
         $option->setDescription('Default is 425.'); //>(translatable)<
         $option->setValidValueRegex($_regexNonNegativeInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
         $option->setDefaultValue(true);
         $option->setLabel('Enable JavaScript API');       //>(translatable)<
         $option->setDescription('Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::LAZYPLAY);
         $option->setDefaultValue(true);
         $option->setLabel('"Lazy" play videos');                                //>(translatable)<
         $option->setDescription('Auto-play each video after thumbnail click.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::LOOP);
         $option->setDefaultValue(false);
         $option->setLabel('Loop');                                                     //>(translatable)<
         $option->setDescription('Continue playing the video until the user stops it.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
         $option->setLabel('Implementation');                                                                                   //>(translatable)<
         $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
         $option->setAcceptableValuesCallback(array($this, '_callbackGetValidPlayerImplementations'));
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $option->setLabel('Play each video');                                                                                 //>(translatable)<
         $option->setDefaultValue('normal');
         $option->setAcceptableValuesCallback(array($this, '_callbackGetValidPlayerLocations'));
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SEQUENCE);
         $option->setDoNotPersist();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SHOW_INFO);
         $option->setLabel('Show title and rating before video starts');                                             //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
 
@@ -209,7 +209,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
             tubepress_api_const_options_values_OrderByValue::TITLE          => 'title',                           //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',                      //>(translatable)<
         ));
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
         $option->setDefaultValue(tubepress_api_const_options_values_PerPageSortValue::NONE);
@@ -226,25 +226,25 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
             tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',                         //>(translatable)<
             tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
         ));
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $option->setDefaultValue(300);
         $option->setLabel('Maximum total videos to retrieve');                                                                   //>(translatable)<
         $option->setDescription('This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.'); //>(translatable)<
         $option->setValidValueRegex($_regexNonNegativeInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
         $option->setLabel('Restrict search results to videos from author');                                    //>(translatable)<
         $option->setDescription('A YouTube or Vimeo user name. Only applies to search-based galleries.');      //>(translatable)<
         $option->setValidValueRegex('/\w*/');
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
         $option->setLabel('Video blacklist');                                            //>(translatable)<
         $option->setDescription('A list of video IDs that should never be displayed.');  //>(translatable)<
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
 
@@ -254,14 +254,14 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
         $option->setAcceptableValuesCallback(array($this, '_callbackGetValidVideoProviderNames'));
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
         /**
@@ -272,81 +272,81 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setLabel('Author');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::CATEGORY);
         $option->setLabel('Category');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DESCRIPTION);
         $option->setLabel('Description');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::ID);
         $option->setLabel('ID');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::KEYWORDS);
         $option->setLabel('Keywords');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::LENGTH);
         $option->setLabel('Runtime');  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::TITLE);
         $option->setLabel('Title');  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::UPLOADED);
         $option->setLabel('Date posted');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::URL);
         $option->setLabel('URL');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::VIEWS);
         $option->setLabel('View count');  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DATEFORMAT);
         $option->setDefaultValue('M j, Y');
         $option->setLabel('Date format');                                                                                                                    //>(translatable)<
         $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.');   //>(translatable)<
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DESC_LIMIT);
         $option->setDefaultValue(80);
         $option->setLabel('Maximum description length');                                                                  //>(translatable)<
         $option->setDescription('Maximum number of characters to display in video descriptions. Set to 0 for no limit.'); //>(translatable)<
         $option->setValidValueRegex($_regexNonNegativeInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::RELATIVE_DATES);
         $option->setDefaultValue(false);
         $option->setLabel('Use relative dates');                                    //>(translatable)<
         $option->setDescription('e.g. "yesterday" instead of "November 3, 1980".');  //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
         /**
@@ -354,7 +354,7 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
          */
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
         $option->setLabel('Only show options applicable to...');    //>(translatable)<
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
         /**
@@ -363,15 +363,15 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         $option->setDefaultValue('recently_featured');
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::OUTPUT);
         $option->setDoNotPersist();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::VIDEO);
         $option->setDoNotPersist();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
 
 
@@ -384,14 +384,14 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setDefaultValue(false);
         $option->setProOnly();
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS);
         $option->setDefaultValue(true);
         $option->setLabel('Use "fluid" thumbnails');                                                         //>(translatable)<
         $option->setDescription('Dynamically set thumbnail spacing based on the width of their container.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::HQ_THUMBS);
         $option->setDefaultValue(false);
@@ -399,55 +399,57 @@ class tubepress_addons_core_impl_listeners_boot_CoreOptionsRegistrar
         $option->setDescription('Note: this option cannot be used with the "randomize thumbnails" feature.'); //>(translatable)<
         $option->setProOnly();
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE);
         $option->setDefaultValue(true);
         $option->setLabel('Show pagination above thumbnails');                          //>(translatable)<
         $option->setDescription('Only applies to galleries that span multiple pages.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW);
         $option->setDefaultValue(true);
         $option->setLabel('Show pagination below thumbnails');                          //>(translatable)<
         $option->setDescription('Only applies to galleries that span multiple pages.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
         $option->setDefaultValue(true);
         $option->setLabel('Randomize thumbnail images');                                                                                                                                                                                                                                              //>(translatable)<
         $option->setDescription('Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.'); //>(translatable)<
         $option->setBoolean();
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
         $option->setDefaultValue(20);
         $option->setLabel('Thumbnails per page');                     //>(translatable)<
         $option->setDescription('Default is 20. Maximum is 50.');     //>(translatable)<
         $option->setValidValueRegex($_regexPositiveInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THEME);
         $option->setLabel('Theme');                                                                                                                                               //>(translatable)<
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.'); //>(translatable)<
         $option->setAcceptableValuesCallback(array($this, '_callbackGetValidThemeOptions'));
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
         $option->setDefaultValue(90);
         $option->setLabel('Height (px) of thumbs');  //>(translatable)<
         $option->setDescription('Default is 90.');   //>(translatable)<
         $option->setValidValueRegex($_regexPositiveInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH);
         $option->setDefaultValue(120);
         $option->setLabel('Width (px) of thumbs');   //>(translatable)<
         $option->setDescription('Default is 120.');  //>(translatable)<
         $option->setValidValueRegex($_regexPositiveInteger);
-        $odr->registerOptionDescriptor($option);
+        $toReturn[] = $option;
+
+        return $toReturn;
     }
 
     public function _callbackGetValidPlayerImplementations()
