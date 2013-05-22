@@ -327,6 +327,7 @@ return array(
     'tubepress_spi_options_OptionDescriptorReference'          => $spiPrefix . '/options/OptionDescriptorReference.php',
     'tubepress_spi_options_OptionValidator'                    => $spiPrefix . '/options/OptionValidator.php',
     'tubepress_spi_options_StorageManager'                     => $spiPrefix . '/options/StorageManager.php',
+    'tubepress_spi_options_PluggableOptionDescriptorProvider'  => $spiPrefix . '/options/PluggableOptionDescriptorProvider.php',
     'tubepress_spi_options_ui_FieldBuilder'                    => $spiPrefix . '/options/ui/FieldBuilder.php',
     'tubepress_spi_options_ui_Field'                           => $spiPrefix . '/options/ui/Field.php',
     'tubepress_spi_options_ui_FormHandler'                     => $spiPrefix . '/options/ui/FormHandler.php',
