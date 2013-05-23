@@ -61,10 +61,13 @@
 
     <target name="suppress-directory-listings" description="Adds empty index.php files to various areas">
 
+        <property name="user-content-root" value="${stagingdir}/src/main/resources/user-content-skeleton/tubepress-content" />
+
         <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/index.php" />
-        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/index.php" />
-        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/add-ons/index.php" />
-        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/src/main/resources/user-content/skeleton/themes/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${user-content-root}/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${user-content-root}/add-ons/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${user-content-root}/themes/index.php" />
+        <copy file="resources/directory-listing-suppressor.php" tofile="${user-content-root}/config/index.php" />
 
     </target>
 
