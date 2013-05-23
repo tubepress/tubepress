@@ -29,7 +29,9 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
             'tubepress_impl_options_ui_tabs_GallerySourceTab',
             'tubepress_impl_options_ui_tabs_GallerySourceTab')
             ->withTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME)
-            ->withArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php');
+            ->withArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php')
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
+
 
         $tabs = array(
 
@@ -46,7 +48,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
 
             $this->expectRegistration($tab, $tab)
                 ->withTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME)
-                ->withArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php');
+                ->withArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')
+                ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
         }
 
         $this->expectRegistration(
@@ -92,8 +95,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
             $tabsId, $tabsId
 
         )->withArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php')
-         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageTab::_, 'method' => 'setPluggableOptionsPageTabs'))
-         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
+         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME, 'method' => 'setPluggableOptionsPageTabs'));
 
         $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
 
