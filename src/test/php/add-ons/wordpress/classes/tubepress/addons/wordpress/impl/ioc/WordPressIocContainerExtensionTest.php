@@ -99,7 +99,9 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest ext
 
         $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
 
-        $this->expectRegistration($filterId, $filterId);
+        $this->expectRegistration($filterId, $filterId)
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
+
 
         $this->expectRegistration(
 

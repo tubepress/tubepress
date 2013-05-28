@@ -142,7 +142,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
         $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
 
-        $container->register($filterId, $filterId);
+        $container->register($filterId, $filterId)
+            ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
 
         $container->register(
 
