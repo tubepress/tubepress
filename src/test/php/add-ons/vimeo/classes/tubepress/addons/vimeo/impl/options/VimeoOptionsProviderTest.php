@@ -44,7 +44,7 @@ class tubepress_addons_vimeo_impl_options_VimeoOptionsProviderTest extends tubep
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
-        $option->setDefaultValue('mattkaar');
+        $option->setDefaultValue('AvantGardeDiaries');
         $option->setLabel('Videos uploaded by this Vimeo user');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $toReturn[] = $option;
