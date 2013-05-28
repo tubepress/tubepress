@@ -21,6 +21,11 @@ class tubepress_addons_core_impl_ioc_FilesystemCacheBuilder
 
         if (!$dir || !is_writable($dir)) {
 
+            @mkdir($dir, 0755, true);
+        }
+
+        if (!$dir || !is_writable($dir)) {
+
             $fs  = tubepress_impl_patterns_sl_ServiceLocator::getFileSystem();
             $dir = $fs->getSystemTempDirectory() . DIRECTORY_SEPARATOR . 'tubepress-api-cache';
         }
