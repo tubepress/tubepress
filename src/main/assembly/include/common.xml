@@ -106,12 +106,28 @@
 
     </target>
 
+    <target name="strip-phpunit-from-composer">
+
+        <exec dir="${stagingdir}" failonerror="true" searchpath="true" executable="sed" os="Linux">
+
+            <arg value="-i" />
+            <arg value="/\/phpunit\//d" />
+            <arg value="vendor/composer/autoload_classmap.php" />
+        </exec>
+
+        <exec dir="${stagingdir}" failonerror="true" searchpath="true" executable="sed" os="Mac OS X">
+
+            <arg value="-i" />
+            <arg value="''" />
+            <arg value="/\/phpunit\//d" />
+            <arg value="vendor/composer/autoload_classmap.php" />
+        </exec>
+    </target>
+
 	<target name="package">
 
 		<zip destfile="dist/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="stage" />
 
 	</target>
-	
 
-    
 </project>
