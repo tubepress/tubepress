@@ -121,7 +121,7 @@ abstract class tubepress_impl_boot_AbstractCachingBootHelper
 
         if ($shouldLog) {
 
-            $logger->debug(sprintf('Successfully hyrdated from cache file at %s', $filePath));
+            $logger->debug(sprintf('Successfully hydrated from cache file at %s', $filePath));
         }
 
         return $hydrated;
