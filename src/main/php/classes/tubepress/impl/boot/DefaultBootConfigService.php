@@ -144,6 +144,21 @@ class tubepress_impl_boot_DefaultBootConfigService implements tubepress_spi_boot
         }
     }
 
+    /**
+     * @return bool True if classloader registration is enabled.
+     */
+    function isClassLoaderEnabled()
+    {
+        $this->_init();
+
+        if (isset($this->_bootConfig['classloader']['enabled'])) {
+
+            return (bool) $this->_bootConfig['classloader']['enabled'];
+        }
+
+        return true;
+    }
+
     private function _init()
     {
         if ($this->_hasInitialized) {

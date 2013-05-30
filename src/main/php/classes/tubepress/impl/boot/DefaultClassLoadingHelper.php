@@ -41,6 +41,15 @@ class tubepress_impl_boot_DefaultClassLoadingHelper extends tubepress_impl_boot_
      */
     public function prime(ehough_pulsar_ComposerClassLoader &$classLoader)
     {
+        $bootConfigService = tubepress_impl_patterns_sl_ServiceLocator::getBootHelperConfigService();
+
+        if (!$bootConfigService->isClassLoaderEnabled()) {
+
+            spl_autoload_unregister(array($classLoader, 'loadClass'));
+
+            return;
+        }
+
         $fromCache = $this->getCachedObject();
 
         if ($fromCache !== null) {
@@ -98,6 +107,13 @@ class tubepress_impl_boot_DefaultClassLoadingHelper extends tubepress_impl_boot_
     public function addClassHintsForAddons(array $addons, ehough_pulsar_ComposerClassLoader $classLoader)
     {
         if ($this->_retrievedFromCache) {
+
+            return;
+        }
+
+        $bootConfigService = tubepress_impl_patterns_sl_ServiceLocator::getBootHelperConfigService();
+
+        if (!$bootConfigService->isClassLoaderEnabled()) {
 
             return;
         }

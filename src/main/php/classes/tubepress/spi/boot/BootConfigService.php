@@ -29,6 +29,11 @@ interface tubepress_spi_boot_BootConfigService
     function isCacheKillerTurnedOn();
 
     /**
+     * @return bool True if classloader registration is enabled.
+     */
+    function isClassLoaderEnabled();
+
+    /**
      * @param string $element The element to look up.
      *
      * @return string The absolute path of the element's cache file.

@@ -61,6 +61,7 @@ class tubepress_test_impl_boot_DefaultClassLoadingHelperTest extends tubepress_t
 
         $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(2)->with('classloader')->andReturn(true);
         $this->_mockBootConfigService->shouldReceive('getAbsolutePathToCacheFileForElement')->with('classloader')->andReturn($this->_cacheDirectory . '/classloader.txt');
+        $this->_mockBootConfigService->shouldReceive('isClassLoaderEnabled')->twice()->andReturn(true);
 
         $this->_sut->addClassHintsForAddons($mockAddons, new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor'));
 
@@ -80,7 +81,7 @@ class tubepress_test_impl_boot_DefaultClassLoadingHelperTest extends tubepress_t
     public function testPrime()
     {
         $this->_mockBootConfigService->shouldReceive('isCacheKillerTurnedOn')->once()->andReturn(false);
-
+        $this->_mockBootConfigService->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
         $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(1)->with('classloader')->andReturn(false);
 
         $this->_sut->prime($this->_mockClassLoader);
@@ -109,6 +110,7 @@ class tubepress_test_impl_boot_DefaultClassLoadingHelperTest extends tubepress_t
 
         $this->_mockBootConfigService->shouldReceive('isCacheEnabledForElement')->times(1)->with('classloader')->andReturn(false);
         $this->_mockBootConfigService->shouldReceive('getAbsolutePathToCacheFileForElement')->with('classloader')->andReturn($this->_cacheDirectory . '/classloader.txt');
+        $this->_mockBootConfigService->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
 
         $this->_sut->addClassHintsForAddons($mockAddons, $this->_mockClassLoader);
 
