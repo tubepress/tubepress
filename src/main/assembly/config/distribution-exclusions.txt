@@ -25,3 +25,4 @@ vendor/ehough/tickertape/src/test/**
 vendor/ehough/mockery/**
 vendor/phpunit/**
 vendor/symfony/**
+**/.idea/**
