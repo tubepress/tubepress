@@ -1,7 +1,7 @@
 {
-    "name": "ehough/tubepress",
+    "name": "tubepress/tubepress",
     "description": "Modern video galleries for the web.",
-    "homepage": "https://github.com/ehough/tubepress",
+    "homepage": "https://github.com/tubepress/tubepress",
     "license": "MPL-2.0",
     "authors": [
         {
