@@ -14,17 +14,16 @@
         "ehough/chaingang":   "~1.0.0",
         "ehough/contemplate": "~1.0.0",
         "ehough/curly":       "~1.0.0",
-        "ehough/epilog":      "~2.0.0",
-        "ehough/filesystem":  "~1.0.0",
-        "ehough/finder":      "~1.0.0",
-        "ehough/iconic":      "~2.0.0",
-        "ehough/pulsar":      "~2.0.0",
-        "ehough/shortstop":   "~2.0.0",
-        "ehough/stash":       "~2.0.0",
-        "ehough/tickertape":  "~2.0.0"
+        "ehough/epilog":      "~1.5",
+        "ehough/finder":      "~2.0",
+        "ehough/iconic":      "~2.3",
+        "ehough/pulsar":      "~2.3",
+        "ehough/shortstop":   "~2.0",
+        "ehough/stash":       "~0.10",
+        "ehough/tickertape":  "~2.3"
     },
     "require-dev": {
-        "ehough/mockery": "~1.0.0",
+        "ehough/mockery": "~0.8",
         "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
