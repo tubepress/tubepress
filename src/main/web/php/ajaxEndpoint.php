@@ -12,10 +12,12 @@
 /*
  * WordPress stubbornly will not load except from the global scope.
  */
-if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false) {
+$__typicalWordPressPath = 'wp-content' . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR;
+
+if (strpos(realpath(__FILE__), $__typicalWordPressPath) !== false) {
 
     /** @noinspection PhpIncludeInspection */
-    include substr(__FILE__, 0, strpos(__FILE__, 'wp-content/plugins/')) . 'wp-blog-header.php';
+    include substr(__FILE__, 0, strpos(__FILE__, $__typicalWordPressPath)) . 'wp-blog-header.php';
 }
 
 /**
