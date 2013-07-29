@@ -31,8 +31,11 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 
 == Changelog ==
 = 3.1.0 =
+**PHP 5.2 or higher is required for this version of TubePress!**
+
 * New Features
     * Major speed boost (up to 4x faster) via optional boot cache
+    * New Norwegian translation thanks to Andreas Lorentsen
 * Bug Fixes
     * Fixed Fancybox, TinyBox, and detached player locations (regression bug)
     * Fixed JW and EmbedPlus players (regression bug)
@@ -44,6 +47,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
     * Add-ons are now loaded via a JSON, instead of INI, manifest file.
     * Upgrade to jQuery 1.9.1
     * Deprecating use of $tubepress_base_url global
+    * Updated French translation
 
 = 3.0.1 =
 
