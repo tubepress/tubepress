@@ -8,23 +8,23 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_template_templates_optionspage_TabTemplateTest extends TubePressUnitTest
+class tubepress_impl_template_templates_optionspage_TabTemplateTest extends tubepress_test_TubePressUnitTest
 {
     public function test()
     {
-        $one = \Mockery::mock(tubepress_spi_options_ui_Field::_);
+        $one = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::_);
         $one->shouldReceive('getHtml')->once()->andReturn('one-html');
         $one->shouldReceive('getTitle')->once()->andReturn('one-title');
         $one->shouldReceive('getDescription')->once()->andReturn('one-description');
         $one->shouldReceive('isProOnly')->twice()->andReturn(true);
 
-        $two = \Mockery::mock(tubepress_spi_options_ui_Field::_);
+        $two = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::_);
         $two->shouldReceive('getHtml')->once()->andReturn('two-html');
         $two->shouldReceive('getTitle')->once()->andReturn('two-title');
         $two->shouldReceive('getDescription')->once()->andReturn('two-description');
         $two->shouldReceive('isProOnly')->twice()->andReturn(false);
 
-        $mockParticipant = $this->createMockPluggableService(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockParticipant = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
         $mockParticipant->shouldReceive('getName')->times(3)->andReturn('popp-name');
         $mockParticipant->shouldReceive('getFriendlyName')->once()->andReturn('friendly-popp-name');
         $mockParticipant->shouldReceive('getFieldsForTab')->once()->with('some-crazy-tab')->andReturn(array($one, $two));

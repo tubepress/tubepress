@@ -22,6 +22,8 @@ class tubepress_impl_util_TimeUtils
      * @param integer $timestamp The Unix timestamp.
      *
      * @return string The relative time of this timestamp.
+     *
+     * @throws LogicException
      */
     public static function getRelativeTime($timestamp)
     {
@@ -46,6 +48,8 @@ class tubepress_impl_util_TimeUtils
                 return $r . ' ' . $str . ($r > 1 ? 's' : '') . ' ago';
             }
         }
+
+        throw new LogicException();
     }
 
     /**
@@ -78,9 +82,23 @@ class tubepress_impl_util_TimeUtils
         $tmp      = str_replace('T', ' ', $rfcTime);
         $tmp      = preg_replace('/(\.[0-9]{1,})?/', '', $tmp);
         $datetime = substr($tmp, 0, 19);
+
+        if (tubepress_impl_util_StringUtils::endsWith($tmp, 'Z')) {
+
+            $reset = date_default_timezone_get();
+
+            date_default_timezone_set('UTC');
+
+            $toReturn = strtotime($datetime);
+
+            date_default_timezone_set($reset);
+
+            return $toReturn;
+        }
+
         $timezone = str_replace(':', '', substr($tmp, 19, 6));
 
-        return @strtotime($datetime . ' ' . $timezone);
+        return strtotime($datetime . ' ' . $timezone);
     }
 }
 

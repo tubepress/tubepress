@@ -27,7 +27,7 @@
     <table>
     <?php foreach ($participant->getFieldsForTab(${tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab::TEMPLATE_VAR_TAB_NAME}) as $field): ?>
 
-    <?php if (!($field instanceof tubepress_impl_options_ui_fields_GallerySourceField)) continue; $name = $field->getGallerySourceName(); ?>
+    <?php if (!($field instanceof tubepress_impl_options_ui_fields_GallerySourceField)) continue; $name = $field->getName(); ?>
 
 
 

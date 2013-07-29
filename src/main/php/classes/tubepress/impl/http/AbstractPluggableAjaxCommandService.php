@@ -10,7 +10,7 @@
  */
 
 /**
- * Base class for AjaxCommandHandler.
+ * Base class for PluggableAjaxCommandService instances.
  */
 abstract class tubepress_impl_http_AbstractPluggableAjaxCommandService implements tubepress_spi_http_PluggableAjaxCommandService
 {
@@ -18,6 +18,11 @@ abstract class tubepress_impl_http_AbstractPluggableAjaxCommandService implement
 
     private $_output = null;
 
+    /**
+     * Handle the Ajax request.
+     *
+     * @return void
+     */
     public final function handle()
     {
         $result = $this->getStatusCodeToHtmlMap();
@@ -29,11 +34,17 @@ abstract class tubepress_impl_http_AbstractPluggableAjaxCommandService implement
         }
     }
 
+    /**
+     * @return integer The HTTP status code after handling this request.
+     */
     public final function getHttpStatusCode()
     {
         return $this->_httpStatusCode;
     }
 
+    /**
+     * @return string The HTML output after handling this request.
+     */
     public final function getOutput()
     {
         return $this->_output;

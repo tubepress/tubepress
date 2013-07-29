@@ -10,13 +10,37 @@
  */
 
 /**
- * Advanced option names for the plugin.
+ * Advanced option names.
  */
 class tubepress_api_const_options_names_Advanced
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const DEBUG_ON    = 'debugging_enabled';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const GALLERY_ID  = 'galleryId';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const HTTP_METHOD = 'httpMethod';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const HTTPS       = 'https';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const KEYWORD     = 'keyword';
 }

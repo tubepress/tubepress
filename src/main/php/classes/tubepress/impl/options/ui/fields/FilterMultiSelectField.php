@@ -20,6 +20,11 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
     const TEMPLATE_VAR_CURRENTVALUES = 'tubepress_impl_options_ui_fields_FilterMultiSelectField__currentValues';
 
     /**
+     * @var tubepress_spi_options_ui_PluggableOptionsPageParticipant[]
+     */
+    private $_optionsPageParticipants = array();
+
+    /**
      * @var tubepress_spi_options_OptionDescriptor The underlying option descriptor.
      */
     private $_disabledParticipantsOptionDescriptor;
@@ -130,6 +135,21 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
     }
 
     /**
+     * Allows this form handler to be uniquely identified.
+     *
+     * @return string All lowercase alphanumerics.
+     */
+    public function getName()
+    {
+        return 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
+    }
+
+    public function setPluggableOptionsPageParticipants(array $participants)
+    {
+        $this->_optionsPageParticipants = $participants;
+    }
+
+    /**
      * Get the untranslated title of this field.
      *
      * @return string The untranslated title of this field.
@@ -151,11 +171,9 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField
 
     private function _getParticipantNamesToFriendlyNamesMap()
     {
-        $participants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
-
         $toReturn = array();
 
-        foreach ($participants as $participant) {
+        foreach ($this->_optionsPageParticipants as $participant) {
 
             if ($participant->getName() === 'core') {
 

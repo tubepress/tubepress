@@ -14,7 +14,21 @@
  */
 class tubepress_api_const_options_names_InteractiveSearch
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const SEARCH_PROVIDER       = 'searchProvider';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const SEARCH_RESULTS_ONLY   = 'searchResultsOnly';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const SEARCH_RESULTS_URL    = 'searchResultsUrl';
 }

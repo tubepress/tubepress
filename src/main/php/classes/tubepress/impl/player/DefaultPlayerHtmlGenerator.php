@@ -15,6 +15,11 @@
 class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_player_PlayerHtmlGenerator
 {
     /**
+     * @var array
+     */
+    private $_playerLocations = array();
+
+    /**
      * Get's the HTML for the TubePress "player"
      *
      * @param tubepress_api_video_Video $vid The video to display in the player.
@@ -23,15 +28,16 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
      */
     public final function getHtml(tubepress_api_video_Video $vid)
     {
-        $executionContextService   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $themeHandler              = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $requestedPlayerLocation   = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
-        $playerLocation            = null;
-        $registeredPlayerLocations = tubepress_impl_patterns_sl_ServiceLocator::getPlayerLocations();
+        $executionContextService  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $themeHandler             = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $requestedPlayerLocation  = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $playerLocation           = null;
 
-        foreach ($registeredPlayerLocations as $registeredPlayerLocation) {
+        /**
+         * @var $registeredPlayerLocation tubepress_spi_player_PluggablePlayerLocationService
+         */
+        foreach ($this->_playerLocations as $registeredPlayerLocation) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($registeredPlayerLocation->getName() === $requestedPlayerLocation) {
 
                 $playerLocation = $registeredPlayerLocation;
@@ -45,7 +51,9 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
             return null;
         }
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        /**
+         * @var $playerLocation tubepress_spi_player_PluggablePlayerLocationService
+         */
         $template = $playerLocation->getTemplate($themeHandler);
 
         $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
@@ -53,8 +61,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
         /*
          * Run filters for the player template construction.
          */
-        /** @noinspection PhpUndefinedMethodInspection */
-        $playerTemplateEvent = new tubepress_api_event_TubePressEvent(
+        $playerTemplateEvent = new tubepress_spi_event_EventBase(
 
             $template, array(
 
@@ -64,7 +71,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
 
         $eventDispatcherService->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::PLAYER_TEMPLATE_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION,
             $playerTemplateEvent
         );
 
@@ -73,8 +80,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          */
         $html            = $playerTemplateEvent->getSubject()->toString();
 
-        /** @noinspection PhpUndefinedMethodInspection */
-        $playerHtmlEvent = new tubepress_api_event_TubePressEvent($html, array(
+        $playerHtmlEvent = new tubepress_spi_event_EventBase($html, array(
 
             'video'        => $vid,
             'playerName'   => $playerLocation->getName()
@@ -82,23 +88,15 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
 
         $eventDispatcherService->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::PLAYER_HTML_CONSTRUCTION,
+            tubepress_api_const_event_EventNames::HTML_PLAYERLOCATION,
             $playerHtmlEvent
         );
 
-        /*
-         * Run filters for the HTML construction.
-         */
-        $html      = $playerHtmlEvent->getSubject();
-        $htmlEvent = new tubepress_api_event_TubePressEvent($html);
-        $eventDispatcherService->dispatch(
+        return $playerHtmlEvent->getSubject();
+    }
 
-            tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION,
-            $htmlEvent
-        );
-
-        $html = $htmlEvent->getSubject();
-
-        return $html;
+    public function setPluggablePlayerLocations(array $playerLocations)
+    {
+        $this->_playerLocations = $playerLocations;
     }
 }

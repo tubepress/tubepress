@@ -10,7 +10,7 @@
  */
 
 /**
- * Class for managing HTTP Transports and making HTTP requests.
+ * Pulls out info from $_GET or $_POST.
  */
 class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepress_spi_http_HttpRequestParameterService
 {
@@ -41,7 +41,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
-        $event = new tubepress_api_event_TubePressEvent(
+        $event = new tubepress_spi_event_EventBase(
 
             $rawValue,
             array('optionName' => $name)
@@ -49,7 +49,7 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
 
         $eventDispatcher->dispatch(
 
-            tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
+            tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL,
             $event
         );
 

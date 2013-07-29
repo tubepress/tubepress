@@ -30,6 +30,25 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 3.1.0 =
+**PHP 5.2 or higher is required for this version of TubePress!**
+
+* New Features
+    * Major speed boost (up to 4x faster) via optional boot cache
+    * New Norwegian translation thanks to Andreas Lorentsen
+* Bug Fixes
+    * Fixed Fancybox, TinyBox, and detached player locations (regression bug)
+    * Fixed JW and EmbedPlus players (regression bug)
+    * Fixed path to jQuery in standalone PHP environments
+    * Fixed possible incorrect detection of base URL in WordPress environments
+* Changed
+    * Minimum required version of PHP is now 5.2
+    * Major overhaul of underlying library dependencies
+    * Add-ons are now loaded via a JSON, instead of INI, manifest file.
+    * Upgrade to jQuery 1.9.1
+    * Deprecating use of $tubepress_base_url global
+    * Updated French translation
+
 = 3.0.1 =
 
 * New Features
@@ -39,8 +58,9 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
     * "cURL Failed" that affected some PHP installations
     * Ajax operations are broken in WordPress installations with Suhosin
     * Fatal error when updating settings in WordPress in certain situations
-    * Incompatability with Shadowbox.js, Fancybox, or NextGEN WordPress plugins (fixes issue 167)
+    * Incompatibility with Shadowbox.js, Fancybox, or NextGEN WordPress plugins (fixes issue 167)
     * Unable to configure custom directory for API cache
+    * Wrong timezone calculation when parsing dates from YouTube and Vimeo
 * Changed
     * Changed default cURL timeout from 5 to 15 seconds
     * YouTube iframe now uses wmode=opaque for Flash

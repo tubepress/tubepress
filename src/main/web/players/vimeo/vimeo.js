@@ -13,8 +13,8 @@
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
-	/* this stuff helps compression */
-	var invoke = function (e, playerName, height, width, videoId, galleryId) {
+    /* this stuff helps compression */
+    var invoke = function (e, playerName, height, width, videoId, galleryId) {
 
         if (playerName !== 'vimeo') {
 
@@ -24,6 +24,6 @@
         window.location = 'http://www.vimeo.com/' + videoId;
     };
 
-	TubePress.Beacon.subscribe('tubepress.playerlocation.invoke', invoke);
+    TubePress.Beacon.subscribe('tubepress.playerlocation.invoke', invoke);
 
 }());

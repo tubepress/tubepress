@@ -14,8 +14,27 @@
  */
 class tubepress_api_const_options_values_OutputValue
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const AJAX_SEARCH_INPUT = 'ajaxSearchInput';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const SEARCH_INPUT      = 'searchInput';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const SEARCH_RESULTS    = 'searchResults';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const PLAYER            = 'player';
 }

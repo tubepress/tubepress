@@ -17,10 +17,10 @@
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
-	/* this stuff helps compression */
+    /* this stuff helps compression */
 
-	var name                 = 'shadowbox',
-		url                  = 'src/main/web/players/' + name + '/',
+    var name                 = 'shadowbox',
+        url                  = 'src/main/web/players/' + name + '/',
         text_lib             = 'lib',
         text_html            = 'html',
         beacon               = tubePress.Beacon,
@@ -34,21 +34,21 @@
             return langUtils.isDefined(window.Shadowbox);
         },
 
-		initShadowbox = function () {
+        initShadowbox = function () {
 
-			Shadowbox.path = url + text_lib + '/';
+            Shadowbox.path = url + text_lib + '/';
 
-			Shadowbox.init({
+            Shadowbox.init({
 
-				initialHeight	: 160,
-				initialWidth	: 320,
-				skipSetup		: true,
-				players			: [text_html],
-				useSizzle		: false
-			});
+                initialHeight    : 160,
+                initialWidth    : 320,
+                skipSetup        : true,
+                players            : [text_html],
+                useSizzle        : false
+            });
 
-			Shadowbox.load();
-		},
+            Shadowbox.load();
+        },
 
         loadShadowboxIfNeeded = function () {
 
@@ -68,28 +68,28 @@
             }
         },
 
-		onPlayerInvoked = function (e, playerName, height, width, videoId, galleryId) {
+        onPlayerInvoked = function (e, playerName, height, width, videoId, galleryId) {
 
             if (playerName !== name) {
 
                 return;
             }
 
-			Shadowbox.open({
+            Shadowbox.open({
 
-				player:		text_html,
-				height:		height,
-				width:		width,
-				content:	'&nbsp;'
-			});
-		},
+                player:        text_html,
+                height:        height,
+                width:        width,
+                content:    '&nbsp;'
+            });
+        },
 
         doPopulate = function (html) {
 
             jquery('#sb-player').html(html);
         },
 
-		onPlayerPopulated = function (e, playerName, title, html, height, width, videoId, galleryId) {
+        onPlayerPopulated = function (e, playerName, title, html, height, width, videoId, galleryId) {
 
             var callback, test;
 
@@ -114,10 +114,10 @@
                 test,
                 200
             );
-		};
+        };
 
-	subscribe(event_prefix_players + 'invoke', onPlayerInvoked);
-	subscribe(event_prefix_players + 'populate', onPlayerPopulated);
+    subscribe(event_prefix_players + 'invoke', onPlayerInvoked);
+    subscribe(event_prefix_players + 'populate', onPlayerPopulated);
 
     loadShadowboxIfNeeded();
 

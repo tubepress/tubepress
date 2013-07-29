@@ -1,0 +1,38 @@
+{
+    "cache" : {
+
+        "ioc-container" : {
+
+            "enabled" : false
+        },
+
+        "add-ons" : {
+
+            "enabled" : false
+        },
+
+        "classloader" : {
+
+            "enabled" : false
+        },
+
+        "option-descriptors" : {
+
+            "enabled" : false
+        },
+
+        "killer-key" : "tubepress_boot_cache_kill",
+
+        "dir" : null
+    },
+
+    "add-ons" : {
+
+        "blacklist": []
+    },
+
+    "classloader" : {
+
+        "enabled" : true
+    }
+}

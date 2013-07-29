@@ -14,11 +14,19 @@
  */
 class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepress_spi_shortcode_ShortcodeHtmlGenerator
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
+
+    /**
+     * @var tubepress_spi_shortcode_PluggableShortcodeHandlerService[]
+     */
+    private $_shortcodeHandlers = array();
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Shortcode HTML Generator');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Shortcode HTML Generator');
     }
 
     /**
@@ -39,15 +47,15 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
             $shortcodeParser->parse($shortCodeContent);
         }
 
-        $handlers = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHandlers();
-
-        usort($handlers, array($this, 'sortShortcodeHandlers'));
+        usort($this->_shortcodeHandlers, array($this, 'sortShortcodeHandlers'));
 
         $html = null;
 
-        foreach ($handlers as $handler) {
+        /**
+         * @var $handler tubepress_spi_shortcode_PluggableShortcodeHandlerService
+         */
+        foreach ($this->_shortcodeHandlers as $handler) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($handler->shouldExecute()) {
 
                 $html = $handler->getHtml();
@@ -61,35 +69,26 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
             throw new RuntimeException('No shortcode handlers could generate HTML');
         }
 
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
-        $event = new tubepress_api_event_TubePressEvent($html);
-
-        /* send it through the filters */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION)) {
-
-            $eventDispatcher->dispatch(
-
-                tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION,
-                $event
-            );
-        }
-
-        return $event->getSubject();
+        return $html;
     }
 
     public final function sortShortcodeHandlers($first, $second)
     {
-        if ($first instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+        if ($first instanceof tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
 
             return 1;
         }
 
-        if ($second instanceof tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
+        if ($second instanceof tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService) {
 
             return -1;
         }
 
         return 0;
+    }
+
+    public function setPluggableShortcodeHandlers(array $handlers)
+    {
+        $this->_shortcodeHandlers = $handlers;
     }
 }

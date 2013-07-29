@@ -1,0 +1,14 @@
+{
+    "name": "Plugin B",
+    "title": "Title for Plugin B",
+    "version": "1.0.0",
+    "author": {
+
+        "name" : "Eric Hough"
+    },
+    "licenses": {
+
+        "url": "http://foo.bar"
+    },
+    "bootstrap": "tubepress_impl_player_DefaultAddonLoaderTest"
+}

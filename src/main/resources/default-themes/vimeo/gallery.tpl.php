@@ -7,9 +7,6 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * Uber simple/fast template for TubePress. Idea from here: http://seanhess.net/posts/simple_templating_system_in_php
- * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 ?>
 
@@ -61,25 +58,25 @@
           <dt class="tubepress_meta tubepress_meta_category"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::CATEGORY]; ?></dt><dd class="tubepress_meta tubepress_meta_category"><?php echo htmlspecialchars($video->getCategory(), ENT_QUOTES, "UTF-8"); ?></dd>
           <?php endif; ?>
 
-          <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS] &&
+          <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATINGS] &&
               $video->getRatingCount() != ""):
           ?>
 
-          <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_plugins_youtube_api_const_options_names_Meta::RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $video->getRatingCount(); ?></dd>
+          <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_addons_youtube_api_const_options_names_Meta::RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $video->getRatingCount(); ?></dd>
           <?php endif; ?>
 
-          <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES] &&
+          <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_vimeo_api_const_options_names_Meta::LIKES] &&
               $video->getLikesCount() != ""):
           ?>
 
-          <dt class="tubepress_meta tubepress_meta_likes"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_plugins_vimeo_api_const_options_names_Meta::LIKES]; ?></dt><dd class="tubepress_meta tubepress_meta_likes"><?php echo $video->getLikesCount(); ?></dd>
+          <dt class="tubepress_meta tubepress_meta_likes"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_addons_vimeo_api_const_options_names_Meta::LIKES]; ?></dt><dd class="tubepress_meta tubepress_meta_likes"><?php echo $video->getLikesCount(); ?></dd>
           <?php endif; ?>
 
-          <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_plugins_youtube_api_const_options_names_Meta::RATING] &&
+          <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATING] &&
               $video->getRatingAverage() != ""):
           ?>
 
-          <dt class="tubepress_meta tubepress_meta_rating"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_plugins_youtube_api_const_options_names_Meta::RATING]; ?></dt><dd class="tubepress_meta tubepress_meta_rating"><?php echo $video->getRatingAverage(); ?></dd>
+          <dt class="tubepress_meta tubepress_meta_rating"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_addons_youtube_api_const_options_names_Meta::RATING]; ?></dt><dd class="tubepress_meta tubepress_meta_rating"><?php echo $video->getRatingAverage(); ?></dd>
           <?php endif; ?>
 
           <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::ID]): ?>

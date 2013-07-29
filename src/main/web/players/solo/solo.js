@@ -12,7 +12,7 @@
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
-	/* this stuff helps compression */
+    /* this stuff helps compression */
     var tubePressLangUtils = tubePress.Lang.Utils,
         galleryRegistry    = tubePressGallery.Registry,
 
@@ -30,28 +30,28 @@
 
         scanAndModifyThumbs = function () {
 
-			jquery("a[id^='tubepress_']").each(function () {
+            jquery("a[id^='tubepress_']").each(function () {
 
-				var dis       = jquery(this),
+                var dis       = jquery(this),
                     rel_split = dis.attr('rel').split('_'),
-					page,
+                    page,
                     newId,
                     newUrl,
                     galleryId = rel_split[3];
 
-				if (galleryRegistry.getPlayerLocationName(galleryId) !== 'solo') {
+                if (galleryRegistry.getPlayerLocationName(galleryId) !== 'solo') {
 
-					return;
-				}
+                    return;
+                }
 
-				newId  = getVideoIdFromIdAttr(dis.attr('id'));
-				page   = galleryRegistry.getCurrentPageNumber(galleryId);
-				newUrl = jquery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
+                newId  = getVideoIdFromIdAttr(dis.attr('id'));
+                page   = galleryRegistry.getCurrentPageNumber(galleryId);
+                newUrl = jquery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
 
-				dis.attr('href', newUrl);
-				dis.unbind('click');
-			});
-		};
+                dis.attr('href', newUrl);
+                dis.unbind('click');
+            });
+        };
 
     if (isJqueryQueryAvailable()) {
 
@@ -68,6 +68,6 @@
         );
     }
 
-	tubePress.Beacon.subscribe('tubepress.gallery.newthumbs', scanAndModifyThumbs);
+    tubePress.Beacon.subscribe('tubepress.gallery.newthumbs', scanAndModifyThumbs);
 
 }(jQuery, TubePress, TubePressGallery));

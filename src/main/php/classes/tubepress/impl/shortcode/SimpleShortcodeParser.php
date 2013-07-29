@@ -14,11 +14,19 @@
  */
 class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_shortcode_ShortcodeParser
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
+
+    /**
+     * @var bool
+     */
+    private $_shouldLog = false;
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Shortcode Parser');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Shortcode Parser');
     }
 
     /**
@@ -30,13 +38,18 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
      */
     public function parse($content)
     {
+        $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
+
         try {
 
             $this->_wrappedParse($content);
 
         } catch (Exception $e) {
 
-            $this->_logger->error('Caught exception when parsing shortcode: ' . $e->getMessage());
+            if ($this->_shouldLog) {
+
+                $this->_logger->error('Caught exception when parsing shortcode: ' . $e->getMessage());
+            }
         }
     }
 
@@ -52,7 +65,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
         preg_match("/\[$keyword\b(.*)\]/", $content, $matches);
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_shouldLog) {
 
             $this->_logger->debug(sprintf('Found a shortcode: %s', $matches[0]));
         }
@@ -68,7 +81,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
 
-                if ($this->_logger->isDebugEnabled()) {
+                if ($this->_shouldLog) {
 
                     $this->_logger->debug(sprintf('Candidate options detected in shortcode: %s', $matches[0]));
                 }
@@ -80,7 +93,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
         } else {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_shouldLog) {
 
                 $this->_logger->debug(sprintf('No custom options detected in shortcode: %s', $matches[0]));
             }
@@ -109,8 +122,9 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
      */
     private function _buildNameValuePairArray($match)
     {
-        $toReturn      = array();
-        $pluginManager = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $toReturn        = array();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $value           = null;
 
         foreach ($match as $m) {
 
@@ -135,28 +149,26 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
                 continue;
             }
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_shouldLog) {
 
-                /** @noinspection PhpUndefinedVariableInspection */
                 $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (unfiltered)', $name, $value));
             }
 
-            /** @noinspection PhpUndefinedVariableInspection */
-            $event = new tubepress_api_event_TubePressEvent(
+            $event = new tubepress_spi_event_EventBase(
 
                 $value,
                 array('optionName' => $name)
             );
 
-            $pluginManager->dispatch(
+            $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
+                tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL,
                 $event
             );
 
             $filtered = $event->getSubject();
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_shouldLog) {
 
                 $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (filtered)', $name, $filtered));
             }

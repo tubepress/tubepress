@@ -14,9 +14,33 @@
  */
 class tubepress_api_const_options_names_Feed
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const ORDER_BY         = 'orderBy';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const PER_PAGE_SORT    = 'perPageSort';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const RESULT_COUNT_CAP = 'resultCountCap';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const VIDEO_BLACKLIST  = 'videoBlacklist';
 }

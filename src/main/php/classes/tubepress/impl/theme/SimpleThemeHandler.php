@@ -14,11 +14,14 @@
  */
 class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_ThemeHandler
 {
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Theme Handler');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Theme Handler');
     }
 
     /**
@@ -36,7 +39,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
      */
     function getTemplateInstance($pathToTemplate, $fallBackDirectory)
     {
-        $debugEnabled = $this->_logger->isDebugEnabled();
+        $debugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($debugEnabled) {
 

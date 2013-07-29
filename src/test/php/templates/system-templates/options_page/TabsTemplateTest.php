@@ -8,15 +8,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_template_templates_optionspage_TabsTemplateTest extends TubePressUnitTest
+class tubepress_impl_template_templates_optionspage_TabsTemplateTest extends tubepress_test_TubePressUnitTest
 {
     public function test()
     {
-        $tab1 = \Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageTab::_);
+        $tab1 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageTab::_);
         $tab1->shouldReceive('getTitle')->times(3)->andReturn('title1');
         $tab1->shouldReceive('getHtml')->once()->andReturn('html1');
 
-        $tab2 = \Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageTab::_);
+        $tab2 = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageTab::_);
         $tab2->shouldReceive('getTitle')->times(3)->andReturn('title2');
         $tab2->shouldReceive('getHtml')->once()->andReturn('html2');
 

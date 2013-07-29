@@ -15,6 +15,11 @@
 class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_options_ui_FieldBuilder
 {
     /**
+     * @var tubepress_spi_options_ui_PluggableFieldBuilder[]
+     */
+    private $_pluggableFieldBuilders;
+
+    /**
      * Build a single field with the given name and type.
      *
      * @param string $name            The name of the field to build.
@@ -24,18 +29,40 @@ class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_opt
      */
     public final function build($name, $type)
     {
+        $field = $this->_buildFromPluggables($name, $type);
+
+        if ($field) {
+
+            return $field;
+        }
+
+        if (! class_exists($type)) {
+
+            return null;
+        }
+
         $ref = new ReflectionClass($type);
 
         return $ref->newInstance($name);
     }
 
-    /**
-     * Builds the multi-select dropdown for meta display.
-     *
-     * @return tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
-     */
-    public final function buildMetaDisplayMultiSelectField()
+    public function setPluggableFieldBuilders(array $builders)
     {
-        return new tubepress_impl_options_ui_fields_MetaMultiSelectField();
+        $this->_pluggableFieldBuilders = $builders;
+    }
+
+    private function _buildFromPluggables($name, $type)
+    {
+        foreach ($this->_pluggableFieldBuilders as $pluggableFieldBuilder)
+        {
+            $field = $pluggableFieldBuilder->build($name, $type);
+
+            if ($field) {
+
+                return $field;
+            }
+        }
+
+        return null;
     }
 }

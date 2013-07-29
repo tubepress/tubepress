@@ -19,35 +19,31 @@ if (! function_exists('bootTubePress')) {
         /**
          * First, record the root path.
          */
-        define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+        if (!defined('TUBEPRESS_ROOT')) {
 
-        /**
-         * Second, we add our classloader.
-         */
-        if (! class_exists('ehough_pulsar_ComposerClassLoader')) {
-
-            require_once TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
+            define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
         }
-        $loader = new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor/');
-        $loader->register();
 
         /*
          * Finally, hand off control to the TubePress bootstrapper. This will
          *
          * 1. Setup logging.
          * 2. Build and compile the core IOC container.
-         * 3. Load system plugins
-         * 4. Load user plugins
+         * 3. Load system add-ons
+         * 4. Load user add-ons
          */
-        $bootStrapper = new tubepress_impl_bootstrap_TubePressBootstrapper();
-        $bootStrapper->boot($loader);
+        require TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl/boot/PrimaryBootstrapper.php';
+        $bootStrapper = new tubepress_impl_boot_PrimaryBootstrapper();
+        $bootStrapper->boot();
+
+        define('TUBEPRESS_BOOT_COMPLETE', true);
     }
 }
 
 /*
  * Don't boot twice.
  */
-if (!defined('TUBEPRESS_ROOT')) {
+if (!defined('TUBEPRESS_BOOT_COMPLETE')) {
 
     bootTubePress();
 }

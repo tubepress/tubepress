@@ -74,7 +74,7 @@ class tubepress_impl_options_ui_fields_GallerySourceField implements tubepress_s
         return $this->_field->isProOnly();
     }
 
-    public final function getGallerySourceName()
+    public final function getName()
     {
         return $this->_name;
     }

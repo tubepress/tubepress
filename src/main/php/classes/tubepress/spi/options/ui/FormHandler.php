@@ -14,7 +14,7 @@
  */
 interface tubepress_spi_options_ui_FormHandler
 {
-	const _ = 'tubepress_spi_options_ui_FormHandler';
+    const _ = 'tubepress_spi_options_ui_FormHandler';
 
     /**
      * Generates the HTML for the options form.
@@ -29,4 +29,11 @@ interface tubepress_spi_options_ui_FormHandler
      * @return array An array of failure messages if there's a problem, otherwise null.
      */
     function onSubmit();
+
+    /**
+     * Allows this form handler to be uniquely identified.
+     *
+     * @return string All lowercase alphanumerics.
+     */
+    function getName();
 }

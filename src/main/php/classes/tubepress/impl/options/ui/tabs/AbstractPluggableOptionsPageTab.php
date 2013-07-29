@@ -18,6 +18,21 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     const TEMPLATE_VAR_TAB_NAME          = 'tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab__tabName';
 
     /**
+     * @var string
+     */
+    private $_templatePath;
+
+    /**
+     * @var tubepress_spi_options_ui_PluggableOptionsPageParticipant[]
+     */
+    private $_optionsPageParticipants;
+
+    public function __construct($templatePath)
+    {
+        $this->_templatePath = $templatePath;
+    }
+
+    /**
      * Get the title of this tab.
      *
      * @return string The title of this tab.
@@ -36,14 +51,16 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
      */
     public final function getHtml()
     {
-        global $tubepress_base_url;
+        $templateBuilder     = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $eventDispatcher     = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $template            = $templateBuilder->getNewTemplateInstance($this->_templatePath);
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $tabParticipants     = array();
 
-        $templateBuilder         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $template                = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $this->getTemplatePath());
-        $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
-        $tabParticipants         = array();
-
-        foreach ($optionsPageParticipants as $optionsPageParticipant) {
+        /**
+         * @var $optionsPageParticipant tubepress_spi_options_ui_PluggableOptionsPageParticipant
+         */
+        foreach ($this->_optionsPageParticipants as $optionsPageParticipant) {
 
             if (count($optionsPageParticipant->getFieldsForTab($this->getName())) > 0) {
 
@@ -53,9 +70,14 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
 
         $template->setVariable(self::TEMPLATE_VAR_PARTICIPANT_ARRAY, $tabParticipants);
         $template->setVariable(self::TEMPLATE_VAR_TAB_NAME, $this->getName());
-        $template->setVariable(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $environmentDetector->getBaseUrl());
 
         $this->addToTemplate($template);
+
+        $templateEvent = new tubepress_spi_event_EventBase($template, array('tabName' => $this->getName()));
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_SINGLE, $templateEvent);
+
+        $template = $templateEvent->getSubject();
 
         return $template->toString();
     }
@@ -69,14 +91,20 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         $fields = array();
 
-        $optionsPageParticipants = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageParticipants();
-
-        foreach ($optionsPageParticipants as $optionsPageParticipant) {
+        /**
+         * @var $optionsPageParticipant tubepress_spi_options_ui_PluggableOptionsPageParticipant
+         */
+        foreach ($this->_optionsPageParticipants as $optionsPageParticipant) {
 
             $fields = array_merge($fields, $optionsPageParticipant->getFieldsForTab($this->getName()));
         }
 
         return $fields;
+    }
+
+    public function setPluggableOptionsPageParticipants(array $participants)
+    {
+        $this->_optionsPageParticipants = $participants;
     }
 
     /**
@@ -97,33 +125,4 @@ abstract class tubepress_impl_options_ui_tabs_AbstractPluggableOptionsPageTab ex
     {
         //override point
     }
-
-    /**
-     * Override point.
-     *
-     * Allows subclasses to change the template path.
-     *
-     * @param $originaltemplatePath string The original template path.
-     *
-     * @return string The (possibly) modified template path.
-     */
-    protected function getModifiedTemplatePath($originaltemplatePath)
-    {
-        return $originaltemplatePath;
-    }
-
-    /**
-     * Get the path to the template for this field, relative
-     * to TubePress's root.
-     *
-     * @return string The path to the template for this field, relative
-     *                to TubePress's root.
-     */
-    protected final function getTemplatePath()
-    {
-        $original = 'src/main/resources/system-templates/options_page/tab.tpl.php';
-
-        return $this->getModifiedTemplatePath($original);
-    }
-
 }

@@ -1,0 +1,3 @@
+with FancyBox
+with TinyBox
+in a "detached" location (see the documentation)

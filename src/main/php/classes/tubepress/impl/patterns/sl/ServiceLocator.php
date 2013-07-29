@@ -21,6 +21,46 @@ class tubepress_impl_patterns_sl_ServiceLocator
     private static $_iocContainer;
 
     /**
+     * @return tubepress_spi_boot_AddonBooter
+     */
+    public static function getBootHelperAddonBooter()
+    {
+        return self::getService(tubepress_spi_boot_AddonBooter::_);
+    }
+
+    /**
+     * @return tubepress_spi_boot_AddonDiscoverer The add-on discoverer.
+     */
+    public static function getBootHelperAddonDiscoverer()
+    {
+        return self::getService(tubepress_spi_boot_AddonDiscoverer::_);
+    }
+
+    /**
+     * @return tubepress_spi_boot_BootConfigService
+     */
+    public static function getBootHelperConfigService()
+    {
+        return self::getService(tubepress_spi_boot_BootConfigService::_);
+    }
+
+    /**
+     * @return tubepress_spi_boot_ClassLoadingHelper
+     */
+    public static function getBootHelperClassLoadingHelper()
+    {
+        return self::getService(tubepress_spi_boot_ClassLoadingHelper::_);
+    }
+
+    /**
+     * @return tubepress_spi_boot_IocContainerHelper
+     */
+    public static function getBootHelperIocContainer()
+    {
+        return self::getService(tubepress_spi_boot_IocContainerHelper::_);
+    }
+
+    /**
      * @return tubepress_spi_http_AjaxHandler
      */
     public static function getAjaxHandler()
@@ -29,11 +69,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_stash_api_Cache The cache service.
+     * @return ehough_stash_PoolInterface The cache service.
      */
     public static function getCacheService()
     {
-        return self::getService('ehough_stash_api_Cache');
+        return self::getService('ehough_stash_PoolInterface');
     }
 
     /**
@@ -53,11 +93,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_tickertape_api_IEventDispatcher The event dispatcher.
+     * @return tubepress_api_event_EventDispatcherInterface The event dispatcher.
      */
     public static function getEventDispatcher()
     {
-        return self::getService('ehough_tickertape_api_IEventDispatcher');
+        return self::getService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
     /**
@@ -77,43 +117,35 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_fimble_api_FileSystem The filesystem service.
+     * @return ehough_filesystem_FilesystemInterface The filesystem service.
      */
     public static function getFileSystem()
     {
-        return self::getService('ehough_fimble_api_Filesystem');
+        return self::getService('ehough_filesystem_FilesystemInterface');
     }
 
     /**
-     * @return ehough_fimble_api_FinderFactory The finder factory.
+     * @return ehough_finder_FinderFactoryInterface The finder factory.
      */
     public static function getFileSystemFinderFactory()
     {
-        return self::getService('ehough_fimble_api_FinderFactory');
+        return self::getService('ehough_finder_FinderFactoryInterface');
     }
 
     /**
-     * @return tubepress_spi_html_HeadHtmlGenerator The head HTML generator.
+     * @return tubepress_spi_html_CssAndJsGenerator The head HTML generator.
      */
-    public static function getHeadHtmlGenerator()
+    public static function getCssAndJsGenerator()
     {
-        return self::getService(tubepress_spi_html_HeadHtmlGenerator::_);
+        return self::getService(tubepress_spi_html_CssAndJsGenerator::_);
     }
 
     /**
-     * @return ehough_shortstop_api_HttpClient The HTTP client.
+     * @return ehough_shortstop_api_HttpClientInterface The HTTP client.
      */
     public static function getHttpClient()
     {
-        return self::getService('ehough_shortstop_api_HttpClient');
-    }
-
-    /**
-     * @return ehough_shortstop_api_HttpResponseHandler The HTTP response handler.
-     */
-    public static function getHttpResponseHandler()
-    {
-        return self::getService('ehough_shortstop_api_HttpResponseHandler');
+        return self::getService('ehough_shortstop_api_HttpClientInterface');
     }
 
     /**
@@ -125,19 +157,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_jameson_api_IDecoder
+     * @return tubepress_spi_http_ResponseCodeHandler The HTTP response code handler.
      */
-    public static function getJsonDecoder()
+    public static function getHttpResponseCodeHandler()
     {
-        return self::getService('ehough_jameson_api_IDecoder');
-    }
-
-    /**
-     * @return ehough_jameson_api_IEncoder
-     */
-    public static function getJsonEncoder()
-    {
-        return self::getService('ehough_jameson_api_IEncoder');
+        return self::getService(tubepress_spi_http_ResponseCodeHandler::_);
     }
 
     /**
@@ -197,22 +221,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_plugin_PluginDiscoverer The plugin discoverer.
-     */
-    public static function getPluginDiscoverer()
-    {
-        return self::getService(tubepress_spi_plugin_PluginDiscoverer::_);
-    }
-
-    /**
-     * @return tubepress_spi_plugin_PluginRegistry The plugin registry.
-     */
-    public static function getPluginRegistry()
-    {
-        return self::getService(tubepress_spi_plugin_PluginRegistry::_);
-    }
-
-    /**
      * @return tubepress_spi_querystring_QueryStringService The query string service.
      */
     public static function getQueryStringService()
@@ -260,70 +268,10 @@ class tubepress_impl_patterns_sl_ServiceLocator
         return self::getService(tubepress_spi_collector_VideoCollector::_);
     }
 
-
-
     /**
-     * @return array An array of tubepress_spi_provider_PluggableVideoProviderService
+     * @param tubepress_api_ioc_ContainerInterface $container The core IOC container.
      */
-    public static function getVideoProviders()
-    {
-        return self::getServicesWithTag(tubepress_spi_provider_PluggableVideoProviderService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_embedded_PluggableEmbeddedPlayerService
-     */
-    public static function getEmbeddedPlayers()
-    {
-        return self::getServicesWithTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_http_PluggableAjaxCommandService
-     */
-    public static function getAjaxCommandHandlers()
-    {
-        return self::getServicesWithTag(tubepress_spi_http_PluggableAjaxCommandService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_options_ui_PluggableOptionsPageTab
-     */
-    public static function getOptionsPageTabs()
-    {
-        return self::getServicesWithTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_options_ui_PluggableOptionsPageParticipant
-     */
-    public static function getOptionsPageParticipants()
-    {
-        return self::getServicesWithTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_player_PluggablePlayerLocationService
-     */
-    public static function getPlayerLocations()
-    {
-        return self::getServicesWithTag(tubepress_spi_player_PluggablePlayerLocationService::_);
-    }
-
-    /**
-     * @return array An array of tubepress_spi_shortcode_PluggableShortcodeHandlerService
-     */
-    public static function getShortcodeHandlers()
-    {
-        return self::getServicesWithTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
-    }
-
-
-
-    /**
-     * @param ehough_iconic_api_IContainer $container The core IOC container.
-     */
-    public static function setIocContainer(ehough_iconic_api_IContainer $container)
+    public static function setIocContainer(tubepress_api_ioc_ContainerInterface $container)
     {
         self::$_iocContainer = $container;
     }
@@ -343,39 +291,5 @@ class tubepress_impl_patterns_sl_ServiceLocator
         }
 
         return self::$_iocContainer->get($serviceId);
-    }
-
-    /**
-     * Retrieve all services that have been registered with the given tag.
-     *
-     * @param string $tag The tag to retrieve.
-     *
-     * @return array An array of service instances that have been registered with the given tag.
-     *               May be empty, never null.
-     */
-    public static function getServicesWithTag($tag)
-    {
-        $toReturn = array();
-
-        if (! isset(self::$_iocContainer)) {
-
-            return array();
-        }
-
-        $matchingServiceIds = self::$_iocContainer->findTaggedServiceIds($tag);
-
-        if (! $matchingServiceIds) {
-
-            return $toReturn;
-        }
-
-        $matchingServiceIds = array_keys($matchingServiceIds);
-
-        foreach ($matchingServiceIds as $matchingServiceId) {
-
-            array_push($toReturn, self::getService($matchingServiceId));
-        }
-
-        return $toReturn;
     }
 }

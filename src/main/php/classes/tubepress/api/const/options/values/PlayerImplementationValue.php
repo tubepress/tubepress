@@ -14,5 +14,9 @@
  */
 class tubepress_api_const_options_values_PlayerImplementationValue
 {
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const PROVIDER_BASED = 'provider_based';
 }

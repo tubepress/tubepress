@@ -15,36 +15,36 @@
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
-	var prefix  = 'tubepress_',
+    var prefix  = 'tubepress_',
         embedded = 'embedded_',
-	
-		getTitleId = function (gId) {
+    
+        getTitleId = function (gId) {
 
-			return '#' + prefix + embedded + 'title_' + gId;
-		},
-	
-		/* this stuff helps compression */
+            return '#' + prefix + embedded + 'title_' + gId;
+        },
+    
+        /* this stuff helps compression */
         beacon                   = tubePress.Beacon,
         subscribe                = beacon.subscribe,
-		name                     = 'normal',
+        name                     = 'normal',
         styler                   = tubePress.Ajax.LoadStyler,
         addStyle                 = styler.applyLoadingStyle,
         remStyle                 = styler.removeLoadingStyle,
         text_eventPrefix_players = 'tubepress.playerlocation.',
-	
-		getEmbedId = function (gId) {
+    
+        getEmbedId = function (gId) {
 
-			return '#' + prefix + embedded + 'object_' + gId;
-		},
+            return '#' + prefix + embedded + 'object_' + gId;
+        },
 
-		invoke = function (e, playerName, height, width, videoId, galleryId) {
+        invoke = function (e, playerName, height, width, videoId, galleryId) {
 
             if (playerName !== name) {
 
                 return;
             }
 
-			var titleDivId = getTitleId(galleryId),
+            var titleDivId = getTitleId(galleryId),
                 titleDiv   = jquery(titleDivId);
 
             addStyle(titleDivId);
@@ -54,22 +54,22 @@
 
                 titleDiv[0].scrollIntoView(true);
             }
-		},
-		
-		populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
+        },
+        
+        populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
 
             if (playerName !== name) {
 
                 return;
             }
 
-			jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_' + embedded + 'wrapper:first').replaceWith(html);
+            jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_' + embedded + 'wrapper:first').replaceWith(html);
 
             remStyle(getTitleId(galleryId));
             remStyle(getEmbedId(galleryId));
-		};
+        };
 
-	subscribe(text_eventPrefix_players + 'invoke', invoke);
+    subscribe(text_eventPrefix_players + 'invoke', invoke);
     subscribe(text_eventPrefix_players + 'populate', populate);
 
 }(jQuery, TubePress));

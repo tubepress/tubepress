@@ -12,7 +12,7 @@
 /**
  * epilog logging handler for TubePress.
  */
-class tubepress_impl_log_TubePressLoggingHandler extends ehough_epilog_impl_handler_AbstractProcessingHandler
+class tubepress_impl_log_TubePressLoggingHandler extends ehough_epilog_handler_AbstractProcessingHandler
 {
     /**
      * @var bool
@@ -33,8 +33,8 @@ class tubepress_impl_log_TubePressLoggingHandler extends ehough_epilog_impl_hand
     {
         parent::__construct();
 
-        $this->setFormatter(new ehough_epilog_impl_formatter_LineFormatter("[%time%] [%level_name%] %channel%: %message% <br />\n"));
-        $this->setLevel(ehough_epilog_api_ILogger::DEBUG);
+        $this->setFormatter(new ehough_epilog_formatter_LineFormatter("[%datetime%] [%level_name%] %channel%: %message% <br />\n"));
+        $this->setLevel(ehough_epilog_Logger::DEBUG);
     }
 
     /**
@@ -86,7 +86,7 @@ class tubepress_impl_log_TubePressLoggingHandler extends ehough_epilog_impl_hand
 
             $this->_shouldThrowAwayRecords = true;
 
-            $this->setLevel(ehough_epilog_api_ILogger::CRITICAL);
+            $this->setLevel(ehough_epilog_Logger::CRITICAL);
         }
 
         //clear up some memory

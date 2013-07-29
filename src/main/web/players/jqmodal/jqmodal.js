@@ -8,45 +8,45 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /* jslint browser: true, devel: true */
-/* global jQuery TubePressEvents TubePressCss TubePressGlobalJsConfig */
+/* global jQuery TubePress */
 (function (jquery, tubePress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
 
-	/* this stuff helps compression */
-	var name                 = 'jqmodal',
-		subscribe            = tubePress.Beacon.subscribe,
-		path                 = tubePress.Environment.getBaseUrl() + '/src/main/web/vendor/jqmodal/jqModal.',
+    /* this stuff helps compression */
+    var name                 = 'jqmodal',
+        subscribe            = tubePress.Beacon.subscribe,
+        path                 = tubePress.Environment.getBaseUrl() + '/src/main/web/vendor/jqmodal/jqModal.',
         domInjector          = tubePress.DomInjector,
         event_prefix_players = 'tubepress.playerlocation.',
 
-		invoke = function (e, playerName, height, width, videoId, galleryId) {
+        invoke = function (e, playerName, height, width, videoId, galleryId) {
 
             if (playerName !== name) {
 
                 return;
             }
 
-			var element = jquery('<div id="jqmodal' + galleryId + videoId + '" style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;"></div>').appendTo('body'),
-				hider = function (hash) {
-					hash.o.remove();
-					hash.w.remove();
-				};
+            var element = jquery('<div id="jqmodal' + galleryId + videoId + '" style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;"></div>').appendTo('body'),
+                hider = function (hash) {
+                    hash.o.remove();
+                    hash.w.remove();
+                };
 
-			element.addClass('jqmWindow');
-			element.jqm({ onHide : hider }).jqmShow();
-		},
+            element.addClass('jqmWindow');
+            element.jqm({ onHide : hider }).jqmShow();
+        },
 
-		populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
+        populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
 
             if (playerName !== name) {
 
                 return;
             }
 
-			jquery('#jqmodal' + galleryId + videoId).html(html);
-		};
+            jquery('#jqmodal' + galleryId + videoId).html(html);
+        };
 
     if (!jquery.isFunction(jquery.fn.jqm)) {
 
@@ -54,7 +54,7 @@
         domInjector.loadCss(path + 'css');
     }
 
-	subscribe(event_prefix_players + 'invoke', invoke);
-	subscribe(event_prefix_players + 'populate', populate);
+    subscribe(event_prefix_players + 'invoke', invoke);
+    subscribe(event_prefix_players + 'populate', populate);
 
 }(jQuery, TubePress));

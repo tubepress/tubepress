@@ -20,9 +20,8 @@ interface tubepress_spi_feed_FeedFetcher
      * Fetches the feed from the remote provider
      *
      * @param string  $url      The URL to fetch.
-     * @param boolean $useCache Whether or not to use the network cache.
      *
      * @return mixed The raw feed from the provider, or null if there was a problem.
      */
-    function fetch($url, $useCache);
+    function fetch($url);
 }

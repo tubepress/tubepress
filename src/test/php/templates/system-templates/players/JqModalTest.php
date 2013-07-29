@@ -8,9 +8,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_resources_templates_JqModalTemplateTest extends TubePressUnitTest
+class tubepress_resources_templates_JqModalTemplateTest extends tubepress_test_TubePressUnitTest
 {
-    function testTemplate()
+    public function testTemplate()
     {
         $this->expectOutputString('hello!!!');
 

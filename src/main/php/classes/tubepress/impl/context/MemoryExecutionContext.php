@@ -26,7 +26,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     private $_actualShortcodeUsed;
 
-    /** Logger. */
+    /**
+     * @var ehough_epilog_Logger
+     */
     private $_logger;
 
     /**
@@ -34,7 +36,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Memory Execution Context');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Memory Execution Context');
     }
 
     /**
@@ -83,18 +85,18 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
         /** First run it through the filters. */
         /** Run it through the filters. */
-        $event = new tubepress_api_event_TubePressEvent($optionValue, array(
+        $event = new tubepress_spi_event_EventBase($optionValue, array(
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, $event);
+        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
         $filteredValue = $event->getSubject();
 
         if ($optionValidatorService->isValid($optionName, $filteredValue)) {
 
-            if ($this->_logger->isDebugEnabled()) {
+            if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
-                $this->_logger->debug(sprintf('Accepted valid value: %s = %s', $optionName, $filteredValue));
+                $this->_logger->debug(sprintf('Accepted valid value: %s = %s', $optionName, $this->_normalizeForStringOutput($filteredValue)));
             }
 
             $this->_customOptions[$optionName] = $filteredValue;
@@ -104,7 +106,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
         $problemMessage = $optionValidatorService->getProblemMessage($optionName, $filteredValue);
 
-        if ($this->_logger->isDebugEnabled()) {
+        if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
             $this->_logger->warn(sprintf('Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage));
         }
@@ -121,10 +123,10 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     public final function setCustomOptions(array $customOpts)
     {
-    	$this->_customOptions = array();
-    	$problemMessages      = array();
+        $this->_customOptions = array();
+        $problemMessages      = array();
 
-    	foreach ($customOpts as $key => $value) {
+        foreach ($customOpts as $key => $value) {
 
             $result = $this->set($key, $value);
 
@@ -134,9 +136,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
             }
 
             $problemMessages[] = $result;
-    	}
+        }
 
-    	return $problemMessages;
+        return $problemMessages;
     }
 
     /**
@@ -188,5 +190,15 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
         }
 
         return $map;
+    }
+
+    private function _normalizeForStringOutput($candidate)
+    {
+        if (is_array($candidate)) {
+
+            return json_encode($candidate);
+        }
+
+        return (string) $candidate;
     }
 }

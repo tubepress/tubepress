@@ -17,6 +17,21 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
     const TEMPLATE_VAR_TABS = 'tubepress_impl_options_ui_DefaultTabsHandler__tabs';
 
     /**
+     * @var string
+     */
+    private $_templatePath;
+
+    /**
+     * @var tubepress_spi_options_ui_PluggableOptionsPageTab[]
+     */
+    private $_optionsTabs = array();
+
+    public function __construct($templatePath)
+    {
+        $this->_templatePath = $templatePath;
+    }
+
+    /**
      * Generates the HTML for the "meat" of the options form.
      *
      * @return string The HTML for the options form.
@@ -24,12 +39,33 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
     public final function getHtml()
     {
         $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php');
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $template        = $templateBuilder->getNewTemplateInstance($this->_templatePath);
         $tabs            = $this->getDelegateFormHandlers();
 
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);
 
+        $templateEvent = new tubepress_spi_event_EventBase($template);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_TABS_ALL, $templateEvent);
+
+        $template = $templateEvent->getSubject();
+
         return $template->toString();
+    }
+
+    /**
+     * Allows this form handler to be uniquely identified.
+     *
+     * @return string All lowercase alphanumerics.
+     */
+    public function getName()
+    {
+        return 'tubepress_impl_options_ui_DefaultTabsHandler';
+    }
+
+    public function setPluggableOptionsPageTabs(array $tabs)
+    {
+        $this->_optionsTabs = $tabs;
     }
 
     /**
@@ -39,6 +75,6 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     protected final function getDelegateFormHandlers()
     {
-        return tubepress_impl_patterns_sl_ServiceLocator::getOptionsPageTabs();
+        return $this->_optionsTabs;
     }
 }

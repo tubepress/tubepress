@@ -47,20 +47,6 @@ class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_opt
         $template->setVariable(self::TEMPLATE_VAR_CURRENT_MODE, $currentMode);
     }
 
-    /**
-     * Override point.
-     *
-     * Allows subclasses to change the template path.
-     *
-     * @param $originaltemplatePath string The original template path.
-     *
-     * @return string The (possibly) modified template path.
-     */
-    protected final function getModifiedTemplatePath($originaltemplatePath)
-    {
-        return 'src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php';
-    }
-
     public final function getName()
     {
         return self::TAB_NAME;

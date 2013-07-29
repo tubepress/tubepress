@@ -147,7 +147,8 @@ dd.tubepress_meta_description {
 }
 
 .tubepress_sidebar .tubepress_thumbnail_area {
-    margin-top: auto;   
+    margin-top: auto;
+    float: left;
 }
 
 .tubepress_sidebar .tubepress_thumb  {
@@ -156,6 +157,10 @@ dd.tubepress_meta_description {
 
 .tubepress_sidebar .tubepress_meta_group {
     padding: 0 2%;  
+}
+
+.tubepress_sidebar .tubepress_thumb a {
+    float: left;
 }
 
 .tubepress_container .pagination .disabled {

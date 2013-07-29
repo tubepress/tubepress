@@ -1,0 +1,42 @@
+{
+    "name" : "tubepress-vimeo-addon",
+    "version": "1.0.0",
+    "title" : "Vimeo",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.org"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Allows TubePress work with Vimeo",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension"
+        ]
+    },
+    "autoload": {
+        "psr-0" : {
+            "tubepress_addons_vimeo" : "classes"
+        },
+        "classmap" : {
+            "tubepress_addons_vimeo_api_const_VimeoEventNames"                            : "classes/tubepress/addons/vimeo/api/const/VimeoEventNames.php",
+            "tubepress_addons_vimeo_api_const_options_names_Embedded"                     : "classes/tubepress/addons/vimeo/api/const/options/names/Embedded.php",
+            "tubepress_addons_vimeo_api_const_options_names_Feed"                         : "classes/tubepress/addons/vimeo/api/const/options/names/Feed.php",
+            "tubepress_addons_vimeo_api_const_options_names_GallerySource"                : "classes/tubepress/addons/vimeo/api/const/options/names/GallerySource.php",
+            "tubepress_addons_vimeo_api_const_options_names_Meta"                         : "classes/tubepress/addons/vimeo/api/const/options/names/Meta.php",
+            "tubepress_addons_vimeo_api_const_options_values_GallerySourceValue"          : "classes/tubepress/addons/vimeo/api/const/options/values/GallerySourceValue.php",
+            "tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService"    : "classes/tubepress/addons/vimeo/impl/embedded/VimeoPluggableEmbeddedPlayerService.php",
+            "tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener"   : "classes/tubepress/addons/vimeo/impl/listeners/http/VimeoHttpErrorResponseListener.php",
+            "tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener"  : "classes/tubepress/addons/vimeo/impl/listeners/video/VimeoVideoConstructionListener.php",
+            "tubepress_addons_vimeo_impl_options_VimeoOptionsProvider"                    : "classes/tubepress/addons/vimeo/impl/options/VimeoOptionsProvider.php",
+            "tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant" : "classes/tubepress/addons/vimeo/impl/options/ui/VimeoPluggableOptionsPageParticipant.php",
+            "tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension"                  : "classes/tubepress/addons/vimeo/impl/ioc/VimeoIocContainerExtension.php",
+            "tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService"     : "classes/tubepress/addons/vimeo/impl/provider/VimeoPluggableVideoProviderService.php",
+            "tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder"                        : "classes/tubepress/addons/vimeo/impl/provider/VimeoUrlBuilder.php"
+        }
+    }
+}
