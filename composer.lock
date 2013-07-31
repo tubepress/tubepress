@@ -485,7 +485,7 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2013-07-17 20:32:08"
+            "time": "2013-07-30 04:59:25"
         }
     ],
     "packages-dev": [

@@ -19,8 +19,6 @@ vendor/ehough/epilog/src/main/php/ehough/epilog/psr/test/**
 vendor/ehough/filesystem/src/test/**
 vendor/ehough/finder/src/test/**
 vendor/ehough/iconic/src/test/**
-vendor/ehough/iconic/src/main/php/ehough/iconic/lazyproxy/**
-vendor/ehough/iconic/src/main/php/ehough/iconic/loader/schema/**
 vendor/ehough/mockery/**
 vendor/ehough/pulsar/src/test/**
 vendor/ehough/shortstop/src/test/**
