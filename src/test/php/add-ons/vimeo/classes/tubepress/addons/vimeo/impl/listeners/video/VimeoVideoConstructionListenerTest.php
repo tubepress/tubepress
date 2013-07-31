@@ -75,7 +75,7 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
         $this->assertEquals('49078748', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_ID));
         $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL));
         $this->assertEquals('1347129000', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('10 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
+        $this->assertEquals('11 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
         $this->assertEquals('96,321', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
         $this->assertEquals('6', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT));
