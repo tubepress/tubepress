@@ -787,11 +787,3 @@ msgstr "Απενεργοποιήστε το ξεθώριασμα - δείχνο�
 msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
 msgstr "Μετά την αναπαραγωγή βίντεο αρχίζει, να επιλέξουν ποια στοιχεία (αν υπάρχει) του ενσωματωμένο πρόγραμμα αναπαραγωγής βίντεο για την αυτόματη απόκρυψη."
 
-#: 
-msgid "Load TubePress's JavaScript at bottom of page"
-msgstr "Τοποθετήστε JavaScript TubePress του στο κάτω μέρος της σελίδας"
-
-#: 
-msgid "This will make your site load faster. See <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\">Yahoo!'s performance rules</a> for more information."
-msgstr "Αυτό θα κάνει το φορτίο το site σας πιο γρήγορα. Δείτε <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\"> Yahoo! 's κανόνες απόδοσης </ a> για περισσότερες πληροφορίες."
-

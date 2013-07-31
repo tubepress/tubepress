@@ -786,12 +786,3 @@ msgstr "Poista häipyminen - aina näyttää sekä"
 #: 
 msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
 msgstr "Jälkeen videon toisto alkaa, valita elementit (jos sellaisia ​​on) upotettu videosoitin automaattisesti piilottaa."
-
-#: 
-msgid "Load TubePress's JavaScript at bottom of page"
-msgstr "Load TubePress JavaScript-sivun alalaidassa"
-
-#: 
-msgid "This will make your site load faster. See <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\">Yahoo!'s performance rules</a> for more information."
-msgstr "Tämä tekee sivustosi latautuvat nopeammin. Katso <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\"> Yahoo! suorituskykyä säännöt </ a> lisätietoja."
-

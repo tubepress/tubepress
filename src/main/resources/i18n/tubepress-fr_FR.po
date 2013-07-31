@@ -786,12 +786,3 @@ msgstr "Désactiver la décoloration - montrer toujours aussi bien"
 #: 
 msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
 msgstr "Après la lecture de la vidéo commence, choisir quels éléments (le cas échéant) du lecteur vidéo intégré pour masquer automatiquement."
-
-#: 
-msgid "Load TubePress's JavaScript at bottom of page"
-msgstr "Charger de TubePress JavaScript en bas de page"
-
-#: 
-msgid "This will make your site load faster. See <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\">Yahoo!'s performance rules</a> for more information."
-msgstr "Cela rendra votre site charge rapidement. Voir les règles de performance de l '<a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\"> Yahoo! </ a> pour plus d'informations."
-
