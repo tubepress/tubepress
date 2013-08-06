@@ -786,12 +786,3 @@ msgstr "लुप्त होती अक्षम - हमेशा दोन
 #: 
 msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
 msgstr "वीडियो प्लेबैक के बाद शुरू होती है, जो एम्बेडेड वीडियो प्लेयर के तत्वों (यदि हो तो) अपने आप को छिपाने के लिए चुनते हैं."
-
-#: 
-msgid "Load TubePress's JavaScript at bottom of page"
-msgstr "पृष्ठ के तल पर TubePress के जावास्क्रिप्ट लोड"
-
-#: 
-msgid "This will make your site load faster. See <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\">Yahoo!'s performance rules</a> for more information."
-msgstr "यह आपकी साइट लोड तेजी से कर देगा. अधिक जानकारी के लिए </ a> <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\"> याहू के प्रदर्शन नियम देखें."
-

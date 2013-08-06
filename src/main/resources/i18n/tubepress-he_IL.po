@@ -786,12 +786,3 @@ msgstr "השבת דועכת - תמיד להראות גם"
 #: 
 msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
 msgstr "לאחר הפעלת וידאו מתחילה, לבחור איזה אלמנטים (אם בכלל) של נגן וידאו המוטבע להסתיר באופן אוטומטי."
-
-#: 
-msgid "Load TubePress's JavaScript at bottom of page"
-msgstr "טען JavaScript של TubePress בתחתית העמוד"
-
-#: 
-msgid "This will make your site load faster. See <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\">Yahoo!'s performance rules</a> for more information."
-msgstr "זה יגרום העומס באתר שלך מהר יותר. ראה כללי ביצועים של <a href=\"http://developer.yahoo.com/performance/rules.html#js_bottom\"> Yahoo! </ a> לקבלת מידע נוסף."
-
