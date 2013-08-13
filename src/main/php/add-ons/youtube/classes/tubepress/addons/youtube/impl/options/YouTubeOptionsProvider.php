@@ -236,7 +236,7 @@ class tubepress_addons_youtube_impl_options_YouTubeOptionsProvider implements tu
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE);
         $option->setDefaultValue('3hough');
         $option->setLabel('Videos from this YouTube user');  //>(translatable)<
-        $option->setValidValueRegex($_regexWordChars);
+        $option->setValidValueRegex('/[\w-]+/');
         $toReturn[] = $option;
 
 
