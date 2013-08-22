@@ -32,8 +32,8 @@ class tubepress_addons_vimeo_impl_options_VimeoOptionsProvider implements tubepr
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
         $option->setDefaultValue('999999');
-        $option->setLabel('Main color');                    //>(translatable)<
-        $option->setDescription('Default is 999999.');      //>(translatable)<
+        $option->setLabel('Main color');                             //>(translatable)<
+        $option->setDescription(sprintf('Default is %s', "999999")); //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $toReturn[] = $option;
 

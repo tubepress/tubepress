@@ -19,7 +19,7 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant extends t
      */
     public final function getFriendlyName()
     {
-        return 'Core';    //>(translatable)<
+        return 'Core';
     }
 
     /**
