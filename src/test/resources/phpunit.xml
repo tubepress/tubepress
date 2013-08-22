@@ -11,6 +11,7 @@
 	   <testsuite name="quick">
 	       <directory>../php</directory>
            <exclude>src/test/php/classes/tubepress/test/impl/i18n/</exclude>
+           <exclude>../php/classes/tubepress/test/impl/i18n/</exclude>
 	   </testsuite>
         <testsuite name="all">
             <directory>../php</directory>
