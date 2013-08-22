@@ -8,4 +8,4 @@ before_script:
   - cp src/test/resources/travis-ci/travis-composer-config.json ~/.composer/config.json
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev
-script: "phpunit -d memory_limit=1024M --verbose -c src/test/resources/phpunit.xml"
+script: "phpunit -d memory_limit=1024M --verbose -c src/test/resources/phpunit.xml --testsuite quick"
