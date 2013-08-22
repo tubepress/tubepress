@@ -8,9 +8,13 @@
     processIsolation="false"
     bootstrap="../../../vendor/autoload.php">
 	<testsuites>
-	   <testsuite name="TubePress tests">
+	   <testsuite name="quick">
 	       <directory>../php</directory>
+           <exclude>src/test/php/classes/tubepress/test/impl/i18n/</exclude>
 	   </testsuite>
+        <testsuite name="all">
+            <directory>../php</directory>
+        </testsuite>
 	</testsuites>
     <filter>
         <whitelist>
@@ -19,6 +23,5 @@
                 <file>../../main/web/php/ajaxEndpoint.php</file>
             </exclude>
         </whitelist>
-
     </filter>
 </phpunit>
