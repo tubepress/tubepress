@@ -12,6 +12,7 @@
     ],
     "require": {
         "ehough/chaingang":   "~1.0.0",
+        "ehough/coauthor":    "~1.0.0",
         "ehough/contemplate": "~1.0.0",
         "ehough/curly":       "~1.0.0",
         "ehough/epilog":      "~1.5",
