@@ -325,7 +325,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_PLAYERLOCATION = 'tubepress.core.playerTemplateConstruction';
+    const TEMPLATE_PLAYERLOCATION = 'tubepress.core.template.player';
 
     /**
      * This event is fired when TubePress builds the template for a standard (non-Ajax) search input form.
@@ -335,7 +335,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_SEARCH_INPUT = 'tubepress.core.searchInputTemplateConstruction';
+    const TEMPLATE_SEARCH_INPUT = 'tubepress.core.template.search.input';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for a single video (not inside a gallery)
@@ -347,7 +347,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_SINGLE_VIDEO = 'tubepress.core.singleVideoTemplateConstruction';
+    const TEMPLATE_SINGLE_VIDEO = 'tubepress.core.template.singleVideo';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for a thumbnail gallery.
@@ -360,7 +360,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.thumbnailGalleryTemplateConstruction';
+    const TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.template.thumbnailGallery';
 
 
 
