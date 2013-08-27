@@ -85,7 +85,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener'
         )->addArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_api_v1_ClientInterface'))
          ->addArgument(new tubepress_impl_ioc_Reference(tubepress_spi_context_ExecutionContext::_))
-         ->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onRequest', 'priority' => 10000));
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onRequest', 'priority' => 9000));
     }
 
     private function _registerOauthClient(tubepress_api_ioc_ContainerInterface $container)

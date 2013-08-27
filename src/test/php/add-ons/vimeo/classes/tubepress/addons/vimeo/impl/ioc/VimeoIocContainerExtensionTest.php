@@ -83,7 +83,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extends tub
         )->withArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_api_v1_ClientInterface'))
          ->withArgument(new tubepress_impl_ioc_Reference(tubepress_spi_context_ExecutionContext::_))
          ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onRequest', 'priority' => 10000));
+                array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onRequest', 'priority' => 9000));
     }
 
     private function _expectOauthClientRegistration()
