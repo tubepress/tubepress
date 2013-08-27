@@ -154,7 +154,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService ex
          */
         if ($this->_unserialized->stat !== 'ok') {
 
-            throw new RuntimeException('Vimeo returned an error');
+            throw new RuntimeException($this->_getErrorMessageFromVimeo());
         }
 
         /*
@@ -217,5 +217,17 @@ class tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService ex
     {
         $event->setArgument('unserializedFeed', $this->_unserialized);
         $event->setArgument('videoArray', $this->_videoArray);
+    }
+
+    private function _getErrorMessageFromVimeo()
+    {
+        $unserialized = $this->_unserialized;
+
+        if (!$unserialized || !isset($unserialized->stat) || $unserialized->stat !== 'fail') {
+
+            return 'Vimeo responded with an unknown error.';
+        }
+
+        return 'Vimeo responded to TubePress with an error: ' . $unserialized->err->msg;
     }
 }
