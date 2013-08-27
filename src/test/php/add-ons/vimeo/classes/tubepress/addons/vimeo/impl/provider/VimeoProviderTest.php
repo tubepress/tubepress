@@ -89,7 +89,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_t
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
 
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->galleryXml());
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->_gallerySerializedPhp());
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->times(16)->with(
 
@@ -110,7 +110,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_t
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('333383838')->andReturn('abc');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
 
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->singleVideoXml());
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->_singleVideoSerializedPhp());
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
@@ -126,18 +126,48 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_t
         $this->assertTrue($result instanceof tubepress_api_video_Video);
     }
 
-    public function singleVideoXml()
+    public function testMalformedData()
     {
-        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-single-video.txt');
+        $this->setExpectedException('RuntimeException', 'Unable to unserialize PHP from Vimeo');
 
-        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s',array('tubepress_addons_vimeo_impl_provider_VimeoProviderTest', '_callbackStrlen'), $serial_str );
+        $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('333383838')->andReturn('abc');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
-        return $out;
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', false)->andReturn('"xxxx');
+
+        $this->_sut->fetchSingleVideo('333383838');
     }
 
-    public function galleryXml()
+    public function testVimeoExplicitError()
     {
-        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-gallery.txt');
+        $this->setExpectedException('RuntimeException', 'Vimeo responded to TubePress with an error: Invalid consumer key');
+
+        $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('333383838')->andReturn('abc');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
+
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', false)->andReturn($this->_errorSerializedPhp());
+
+        $this->_sut->fetchSingleVideo('333383838');
+    }
+
+    private function _errorSerializedPhp()
+    {
+        return $this->_sanitizedSerialized('vimeo-error.txt');
+    }
+
+    private function _singleVideoSerializedPhp()
+    {
+        return $this->_sanitizedSerialized('vimeo-single-video.txt');
+    }
+
+    private function _gallerySerializedPhp()
+    {
+        return $this->_sanitizedSerialized('vimeo-gallery.txt');
+    }
+
+    private function _sanitizedSerialized($filename)
+    {
+        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/' . $filename);
 
         $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_addons_vimeo_impl_provider_VimeoProviderTest', '_callbackStrlen'), $serial_str );
 

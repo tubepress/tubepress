@@ -11,7 +11,7 @@
 class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tubepress_test_TubePressUnitTest
 {
     const PRE = "/http:\/\/vimeo.com\/api\/rest\/v2\?";
-    const POST = "&format=php&oauth_consumer_key=vimeokey&oauth_nonce=[a-zA-Z0-9]+&oauth_signature_method=HMAC-SHA1&oauth_timestamp=[0-9]+&oauth_version=1.0&oauth_signature=[a-zA-Z0-9%]+/";
+    const POST = "&format=php/";
 
     /**
      * @var tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder
