@@ -38,21 +38,12 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
     private static $_METHOD_VIDEOS_GETUPLOADED = 'vimeo.videos.getUploaded';
     private static $_METHOD_VIDEOS_SEARCH      = 'vimeo.videos.search';
 
-    private static $_OAUTH_CONSUMER_KEY     = 'oauth_consumer_key';
-    private static $_OAUTH_NONCE            = 'oauth_nonce';
-    private static $_OAUTH_SIGNATURE_METHOD = 'oauth_signature_method';
-    private static $_OAUTH_TIMESTAMP        = 'oauth_timestamp';
-    private static $_OAUTH_VERSION          = 'oauth_version';
-    private static $_OAUTH_SIGNATURE        = 'oauth_signature';
-
     private static $_SORT_MOST_COMMENTS = 'most_commented';
     private static $_SORT_MOST_LIKED    = 'most_liked';
     private static $_SORT_MOST_PLAYED   = 'most_played';
     private static $_SORT_RELEVANT      = 'relevant';
     private static $_SORT_NEWEST        = 'newest';
     private static $_SORT_OLDEST        = 'oldest';
-
-    private static $_INI_ARG_SEPARATOR = 'arg_separator.input';
 
     private static $_URL_BASE = 'http://vimeo.com/api/rest/v2';
 
@@ -70,8 +61,6 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         $mode         = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
         $this->_verifyKeyAndSecretExists($execContext);
-
-        self::_setIniArgSeparator();
 
         switch ($mode) {
 
@@ -165,8 +154,6 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
 
         $this->_verifyKeyAndSecretExists($execContext);
 
-        self::_setIniArgSeparator();
-
         $params                         = array();
         $params[self::$_PARAM_METHOD]   = self::$_METHOD_VIDEOS_GETINFO;
         $params[self::$_PARAM_VIDEO_ID] = $id;
@@ -176,13 +163,11 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
 
     private function _finishUrl($params, tubepress_spi_context_ExecutionContext $execContext, $eventName)
     {
-        $finalUrl        = $this->_buildUrl($params, $execContext);
+        $finalUrl        = $this->_buildUrl($params);
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase(new ehough_curly_Url($finalUrl));
 
         $eventDispatcher->dispatch($eventName, $event);
-
-        self::_restoreIniArgSeparator();
 
         /**
          * @var $url ehough_curly_Url
@@ -268,35 +253,11 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         }
     }
 
-    private function _buildUrl($params, tubepress_spi_context_ExecutionContext $execContext)
+    private function _buildUrl($params)
     {
-        $params[self::$_PARAM_FORMAT]           = 'php';
-        $params[self::$_OAUTH_CONSUMER_KEY]     = $execContext->get(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY);
-        $params[self::$_OAUTH_NONCE]            = md5(uniqid(mt_rand(), true));
-        $params[self::$_OAUTH_SIGNATURE_METHOD] = 'HMAC-SHA1';
-        $params[self::$_OAUTH_TIMESTAMP]        = time();
-        $params[self::$_OAUTH_VERSION]          ='1.0';
-        $params[self::$_OAUTH_SIGNATURE]        = $this->_generateSignature($params, self::$_URL_BASE, $execContext);
+        $params[self::$_PARAM_FORMAT] = 'php';
 
-        return self::$_URL_BASE . '?' . http_build_query($params);
-    }
-
-    private function _generateSignature($params, $base, tubepress_spi_context_ExecutionContext $execContext)
-    {
-        uksort($params, 'strcmp');
-        $params = $this->_url_encode_rfc3986($params);
-
-        $baseString = array('GET', $base, urldecode(http_build_query($params)));
-        $baseString = $this->_url_encode_rfc3986($baseString);
-        $baseString = implode('&', $baseString);
-
-        // Make the key
-        $keyParts = array($execContext->get(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET), '');
-        $keyParts = $this->_url_encode_rfc3986($keyParts);
-        $key      = implode('&', $keyParts);
-
-        // Generate signature
-        return base64_encode(hash_hmac('sha1', $baseString, $key, true));
+        return self::$_URL_BASE . '?' . http_build_query($params, '', '&');
     }
 
     private function _verifyKeyAndSecretExists(tubepress_spi_context_ExecutionContext $execContext)
@@ -309,42 +270,5 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
 
             throw new RuntimeException('Missing Vimeo API Consumer Secret.');
         }
-    }
-
-    /**
-     * URL encode a parameter or array of parameters.
-     *
-     * @param array/string $input A parameter or set of parameters to encode.
-     *
-     * @return array/string The URL encoded parameter or array of parameters.
-     */
-    private function _url_encode_rfc3986($input)
-    {
-        if (is_array($input)) {
-
-            return array_map(array($this, '_url_encode_rfc3986'), $input);
-
-        } elseif (is_scalar($input)) {
-
-            return str_replace(array('+', '%7E'), array(' ', '~'), rawurlencode($input));
-
-        } else {
-
-            return '';
-        }
-    }
-
-    private static function _setIniArgSeparator()
-    {
-        /* Vimeo is sensitive to URL argument separators, so we have to set it to just '&' */
-        if (ini_get(self::$_INI_ARG_SEPARATOR) !== '&') {
-
-            @ini_set(self::$_INI_ARG_SEPARATOR, '&');
-        }
-    }
-
-    private static function _restoreIniArgSeparator()
-    {
-        @ini_restore(self::$_INI_ARG_SEPARATOR);
     }
 }
