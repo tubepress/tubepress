@@ -172,16 +172,16 @@
         },
         {
             "name": "ehough/filesystem",
-            "version": "v2.3.1",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "v2.3.1"
+                "reference": "78e8fcb7232ceffb5507430f03a502d60d7345d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/v2.3.1",
-                "reference": "v2.3.1",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/78e8fcb7232ceffb5507430f03a502d60d7345d0",
+                "reference": "78e8fcb7232ceffb5507430f03a502d60d7345d0",
                 "shasum": ""
             },
             "require": {
@@ -211,7 +211,7 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2013-07-16 17:37:57"
+            "time": "2013-08-19 00:39:46"
         },
         {
             "name": "ehough/finder",
@@ -304,16 +304,16 @@
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "v2.3.2"
+                "reference": "268659204ab103517068d2ecbd2441f0840bdc62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/268659204ab103517068d2ecbd2441f0840bdc62",
+                "reference": "268659204ab103517068d2ecbd2441f0840bdc62",
                 "shasum": ""
             },
             "require": {
@@ -347,7 +347,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2013-07-17 20:01:04"
+            "time": "2013-08-18 23:48:22"
         },
         {
             "name": "ehough/shortstop",
@@ -915,17 +915,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.3.3",
+            "version": "v2.3.4",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.3.3"
+                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
+                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
                 "shasum": ""
             },
             "require": {
@@ -958,7 +958,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-21 12:12:18"
+            "time": "2013-08-24 15:26:22"
         }
     ],
     "aliases": [
