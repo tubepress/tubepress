@@ -71,5 +71,37 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse'));
+
+        $this->_registerOauthClients($container);
+    }
+
+    private function _registerOauthClients(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $container->register(
+
+            'ehough_coauthor_spi_v1_TemporaryCredentialsStorageInterface',
+            'ehough_coauthor_impl_v1_SessionCredentialsStorage'
+        );
+
+        $container->register(
+
+            'ehough_coauthor_spi_v1_SignerInterface',
+            'ehough_coauthor_impl_v1_Signer'
+        );
+
+        $container->register(
+
+            'ehough_coauthor_spi_v1_RemoteCredentialsFetcherInterface',
+            'ehough_coauthor_impl_v1_DefaultRemoteCredentialsFetcher'
+        )->addArgument('ehough_shortstop_api_HttpClientInterface')
+         ->addArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_SignerInterface'));
+
+        $container->register(
+
+            'ehough_coauthor_api_v1_ClientInterface',
+            'ehough_coauthor_impl_v1_DefaultV1Client'
+        )->addArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_TemporaryCredentialsStorageInterface'))
+         ->addArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_RemoteCredentialsFetcherInterface'))
+         ->addArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_SignerInterface'));
     }
 }
