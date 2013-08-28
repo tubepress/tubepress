@@ -30,6 +30,16 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 3.1.2 =
+* New Features
+    * Added Chinese, Greek, Hindi, Japanese, Korean, and Persian translations
+* Bug Fixes
+    * Now allowing hyphens in YouTube user/channel values
+    * Fixed missing classes that could cause a fatal error when using boot cache
+* Changed
+    * Vimeo API OAuth requests now use the Authentication HTTP header instead of GET parameters
+    * Updated Arabic, Finnish, French, German, Hebrew, Italian, Polish, Portuguese, Russian, Spanish, and Swedish translations
+
 = 3.1.1 =
 **PHP 5.2 or higher is required for this version of TubePress!**
 
