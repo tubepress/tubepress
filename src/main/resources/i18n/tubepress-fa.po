@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-22 16:51:33+0000\n"
+"PO-Revision-Date: 2013-08-28 17:34:11+0000\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,8 +206,8 @@ msgstr "اجرا"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "نام تجاری از پخش جاسازی شده است. پیش فرض از بازیکن ارائه دهنده (یوتیوب، Vimeo، و غیره) است."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr "تمام سفارشات مرتب سازی بر را می توان به انواع گالری استفاده شود. <a href=\"http://tubepress.org/documentation\"> شده مستندات </ A> برای اطلاعات بیشتر مراجعه کنید."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgstr "تمام سفارشات مرتب سازی بر را می توان به انواع گالری استفاده شود. <a href=\"http://tubepress.com/documentation\"> شده مستندات </ A> برای اطلاعات بیشتر مراجعه کنید."
 
 msgid "Cache directory"
 msgstr "دایرکتوری کش"
@@ -362,11 +362,11 @@ msgstr "کلمات کلیدی کوتاه"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "کلمه ای را وارد کنید (در متن، بین براکت مربع) به پستها / صفحات خود را به نمایش گالری."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
-msgstr "برای ویجت TubePress کوتاه. مشاهده <a href=\"http://tubepress.org/documentation\"> شده مستندات </ A>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgstr "برای ویجت TubePress کوتاه. مشاهده <a href=\"http://tubepress.com/documentation\"> شده مستندات </ A>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
-msgstr "در اینجا شما می توانید گزینه های پیش فرض برای TubePress تنظیم کنید. هر گزینه ای در اینجا می تواند بازنویسی شود بر روی صفحه / پست هر با TubePress کد کوتاه. <a href=\"http://tubepress.org/documentation\"> شده مستندات </ a> برای کسب اطلاعات بیشتر مراجعه کنید."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgstr "در اینجا شما می توانید گزینه های پیش فرض برای TubePress تنظیم کنید. هر گزینه ای در اینجا می تواند بازنویسی شود بر روی صفحه / پست هر با TubePress کد کوتاه. <a href=\"http://tubepress.com/documentation\"> شده مستندات </ a> برای کسب اطلاعات بیشتر مراجعه کنید."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "فیلم ها آپلود شده توسط این کاربر Vimeo"

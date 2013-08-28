@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -65,7 +65,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
 
-        $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org');
+        $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.com');
 
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
@@ -77,7 +77,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
     public function testNoAjaxHighPage()
     {
 
-        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=24" data-page="24">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=24" data-page="24">24</a><span class="current">25</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=26" data-page="26">26</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=26" data-page="26">##next## &raquo;</a></div>
+        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.com?tubepress_page=24" data-page="24">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=24" data-page="24">24</a><span class="current">25</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=26" data-page="26">26</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.com?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=26" data-page="26">##next## &raquo;</a></div>
 ';
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
@@ -100,7 +100,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
 
     public function testNoAjaxMiddlePage()
     {
-        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=11" data-page="11">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=11" data-page="11">11</a><span class="current">12</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=13" data-page="13">13</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=13" data-page="13">##next## &raquo;</a></div>
+        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.com?tubepress_page=11" data-page="11">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=11" data-page="11">11</a><span class="current">12</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=13" data-page="13">13</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.com?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=13" data-page="13">##next## &raquo;</a></div>
 ';
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
@@ -123,7 +123,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPaginationTest e
 
     public function testNoAjax()
     {
-        $expectedHtml = '<div class="pagination"><span class="current">1</span><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">2</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=3" data-page="3">3</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=4" data-page="4">4</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=5" data-page="5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124" data-page="124">124</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2" data-page="2">##next## &raquo;</a></div>
+        $expectedHtml = '<div class="pagination"><span class="current">1</span><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">2</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=3" data-page="3">3</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=4" data-page="4">4</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=5" data-page="5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=124" data-page="124">124</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">##next## &raquo;</a></div>
 ';
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {

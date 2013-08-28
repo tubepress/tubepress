@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-22 16:51:50+0000\n"
+"PO-Revision-Date: 2013-08-28 17:34:08+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,7 +206,7 @@ msgstr ""
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr ""
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
 msgstr ""
 
 msgid "Cache directory"
@@ -362,10 +362,10 @@ msgstr "Schl&uuml;sselwort"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Das Wort welches sie in ihre Seiten und Beitr&auml;ge einf�gen (im Klartext, zwischen eckigen Klammern) um eine Videogallerie anzuzeigen."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
-msgstr "TubePress Kurzcode f&uuml;r das Widget. Siehe <a href=\"http://tubepress.org/documentation\"> Dokumentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgstr "TubePress Kurzcode f&uuml;r das Widget. Siehe <a href=\"http://tubepress.com/documentation\"> Dokumentation</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
 msgstr ""
 
 msgid "Videos uploaded by this Vimeo user"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-22 16:51:32+0000\n"
+"PO-Revision-Date: 2013-08-28 17:34:18+0000\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,8 +206,8 @@ msgstr "実装"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "埋め込まれたプレーヤーのブランド。デフォルトでは、プロバイダのプレーヤー（YouTubeは、Vimeoの、など）です。"
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr "すべてのソート順序は、すべてのギャラリータイプに適用できるわけではありません。 <a href=\"http://tubepress.org/documentation\">マニュアルを参照してください</>詳細。"
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgstr "すべてのソート順序は、すべてのギャラリータイプに適用できるわけではありません。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</>詳細。"
 
 msgid "Cache directory"
 msgstr "キャッシュディレクトリ"
@@ -362,11 +362,11 @@ msgstr "ショートキーワード"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "言葉あなたはギャラリーを表示するには、あなたの記事/ページに（平文で、角括弧の間）に挿入します。"
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
-msgstr "ウィジェットのショートコードをTubePress。 <a href=\"http://tubepress.org/documentation\">マニュアルを参照してください</ a>を。"
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgstr "ウィジェットのショートコードをTubePress。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</ a>を。"
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
-msgstr "ここでは、TubePressのデフォルトオプションを設定することができます。ここで各オプションはTubePressのショートコードでページごと/ポストベースで上書きすることができます。 <a href=\"http://tubepress.org/documentation\">マニュアルを参照してください</>詳細については、。"
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgstr "ここでは、TubePressのデフォルトオプションを設定することができます。ここで各オプションはTubePressのショートコードでページごと/ポストベースで上書きすることができます。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</>詳細については、。"
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "このVimeoのユーザーがアップロードした動画"

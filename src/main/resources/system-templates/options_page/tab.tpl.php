@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,7 +30,7 @@
     <tr>
 
         <?php if ($field->isProOnly()): ?>
-        <td class="tubepress-pro-banner"><a href="http://tubepress.org/pro"><img src="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a></td>
+        <td class="tubepress-pro-banner"><a href="http://tubepress.com/pro"><img src="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a></td>
         <?php else: ?>
         <td style="margin: 0; padding: 0"></td>
         <?php endif; ?>

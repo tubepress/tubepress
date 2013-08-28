@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-22 16:51:45+0000\n"
+"PO-Revision-Date: 2013-08-28 17:34:14+0000\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,8 +206,8 @@ msgstr "יישום "
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "המותג של הנגן המוטבע. ברירת מחדל הוא השחקן של הספק (YouTube, Vimeo, וכו ')."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr "ניתן ליישם לא כל סדר המיון לכל סוגי הגלריה. ראה <a href=\"http://tubepress.org/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgstr "ניתן ליישם לא כל סדר המיון לכל סוגי הגלריה. ראה <a href=\"http://tubepress.com/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
 
 msgid "Cache directory"
 msgstr "ספריית מטמון"
@@ -362,11 +362,11 @@ msgstr "מילות מפתח Shortcode"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "המילה שהזנת (בטקסט, בין סוגריים מרובעים) לתוך הפוסטים  / דפים שלך כדי להציג גלריה."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
-msgstr "Shortcode TubePress עבור יישומון. צפה ב<a href=\"http://tubepress.org/documentation\"> תיעוד</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgstr "Shortcode TubePress עבור יישומון. צפה ב<a href=\"http://tubepress.com/documentation\"> תיעוד</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
-msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"http://tubepress.org/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"http://tubepress.com/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "סרטונים שהועלו על ידי משתמש זה Vimeo"

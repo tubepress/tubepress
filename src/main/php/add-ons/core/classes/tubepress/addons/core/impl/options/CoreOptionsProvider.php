@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -195,7 +195,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::ORDER_BY);
         $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::VIEW_COUNT);
         $option->setLabel('Order videos by');                                                                                                                                      //>(translatable)<
-        $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.'); //>(translatable)<
+        $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.com/documentation">documentation</a> for more info.'); //>(translatable)<
         $option->setAcceptableValues(array(
             tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',   //>(translatable)<

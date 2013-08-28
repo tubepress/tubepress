@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-22 16:51:46+0000\n"
+"PO-Revision-Date: 2013-08-28 17:34:13+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,8 +206,8 @@ msgstr "Implémentation"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "La marque du lecteur intégré. Défaut est le joueur du fournisseur (YouTube, Vimeo, etc.)"
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr "Pas tous les ordres de tri peuvent être appliquées à tous les types de galeries. Voir le <a href=\"http://tubepress.org/documentation\"> documentation </ a> pour plus d'informations."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgstr "Pas tous les ordres de tri peuvent être appliquées à tous les types de galeries. Voir le <a href=\"http://tubepress.com/documentation\"> documentation </ a> pour plus d'informations."
 
 msgid "Cache directory"
 msgstr "Répertoire du cache"
@@ -362,11 +362,11 @@ msgstr "Mot clé de shortcode"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Le mot à insérer (en texte et entre braquets) dans vos articles/pages pour afficher une galerie."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
-msgstr "Shortcode TubePress pour le widget. Voir la <a href=\"http://tubepress.org/documentation\"> documentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgstr "Shortcode TubePress pour le widget. Voir la <a href=\"http://tubepress.com/documentation\"> documentation</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
-msgstr "Ici vous pouvez définir les options par défaut pour TubePress. Chaque option ici peut être surchargé page / post base avec shortcodes TubePress. Voir le <a href=\"http://tubepress.org/documentation\"> documentation </ a> pour plus d'informations."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgstr "Ici vous pouvez définir les options par défaut pour TubePress. Chaque option ici peut être surchargé page / post base avec shortcodes TubePress. Voir le <a href=\"http://tubepress.com/documentation\"> documentation </ a> pour plus d'informations."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Vidéos téléchargées par cet utilisateur Vimeo"

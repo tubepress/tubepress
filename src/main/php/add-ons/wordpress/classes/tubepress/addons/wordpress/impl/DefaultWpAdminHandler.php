@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -121,8 +121,8 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
         return array_merge($links, array(
 
             sprintf('<a href="options-general.php?page=tubepress.php">%s</a>', $wordPressFunctionWrapper->__('Settings', 'tubepress')),
-            sprintf('<a href="http://tubepress.org/documentation/">Documentation</a>'),
-            sprintf('<a href="http://tubepress.org/forum/">Support</a>'),
+            sprintf('<a href="http://tubepress.com/documentation/">Documentation</a>'),
+            sprintf('<a href="http://tubepress.com/forum/">Support</a>'),
         ));
     }
 

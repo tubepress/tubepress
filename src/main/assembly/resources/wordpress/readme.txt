@@ -1,24 +1,24 @@
 === TubePress ===
 Contributors: k2eric
-Donate link: http://tubepress.org
+Donate link: http://tubepress.com
 Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
 Stable tag: trunk
 
-Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please visit tubepress.org for more info!
+Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please visit tubepress.com for more info!
 
 == Description ==
 
 **Demos**
 
-* [Simple gallery](http://tubepress.org/demo/)
-* [Feature showcase](http://tubepress.org/showcase/)
-* [Standalone PHP](http://tubepress.org/standalone_php_demo/)
+* [Simple gallery](http://tubepress.com/demo/)
+* [Feature showcase](http://tubepress.com/showcase/)
+* [Standalone PHP](http://tubepress.com/standalone_php_demo/)
 
 **Support**
 
-* [Documentation](http://tubepress.org/documentation/)
-* [Support forum](http://community.tubepress.org)
+* [Documentation](http://tubepress.com/documentation/)
+* [Support forum](http://community.tubepress.com)
 * [Bugs / Feature Requests](http://code.google.com/p/tubepress/issues/list)
 * [Source code](http://github.com/ehough/tubepress)
 
@@ -39,13 +39,14 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * Changed
     * Vimeo API OAuth requests now use the Authentication HTTP header instead of GET parameters
     * Updated Arabic, Finnish, French, German, Hebrew, Italian, Polish, Portuguese, Russian, Spanish, and Swedish translations
+    * tubepress.org is now tubepress.com
 
 = 3.1.1 =
-**PHP 5.2 or higher is required for this version of TubePress!**
-
 * Bug Fixes
     * Fixed bug with PHP 5.2.x: unexpected T_PAAMAYIM_NEKUDOTAYIM
+
 = 3.1.0 =
+**PHP 5.2 or higher is required for this version of TubePress!**
 * New Features
     * Major speed boost (up to 4x faster) via optional boot cache
     * New Norwegian translation thanks to Andreas Lorentsen

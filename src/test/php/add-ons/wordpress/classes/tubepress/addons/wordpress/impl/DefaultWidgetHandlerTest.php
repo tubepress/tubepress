@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -90,7 +90,7 @@ class tubepress_addons_wordpress_impl_WidgetTest extends tubepress_test_TubePres
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE, '<<Title>>');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_TITLE, 'value of widget title');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.com/documentation"> documentation</a>.>>');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SHORTCODE, 'value of widget shortcode');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG, tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG);
         $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');

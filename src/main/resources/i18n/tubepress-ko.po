@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-22 16:51:31+0000\n"
+"PO-Revision-Date: 2013-08-28 17:34:19+0000\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,8 +206,8 @@ msgstr "이행"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "내장 플레이어의 브랜드입니다. 기본값은 공급자의 선수 (유튜브, 비 메오 등)입니다."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr "모든 정렬 순서는 모든 갤러리 유형에 적용 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.org/documentation\"> 문서에 대한 추가 정보를 원하시면 </ a>를 참조하십시오."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgstr "모든 정렬 순서는 모든 갤러리 유형에 적용 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 문서에 대한 추가 정보를 원하시면 </ a>를 참조하십시오."
 
 msgid "Cache directory"
 msgstr "캐시 디렉토리"
@@ -362,11 +362,11 @@ msgstr "단축 코드 키워드"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "게시물 / 페이지에 당신이 삽입 단어 (일반 텍스트, 대괄호)는 갤러리를 표시합니다."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
-msgstr "위젯 단축 코드를 TubePress. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.org/documentation\"> 설명서를 참조하십시오 </ a>를 참조하십시오."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgstr "위젯 단축 코드를 TubePress. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 설명서를 참조하십시오 </ a>를 참조하십시오."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
-msgstr "여기 TubePress에 대한 기본 옵션을 설정할 수 있습니다. 여기에 각 옵션 TubePress의 단축 코드와 페이지 당 / 포스트 기준으로 재정의 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.org/documentation\"> 문서에 대한 자세한 내용은 </ a>를 참조하십시오."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgstr "여기 TubePress에 대한 기본 옵션을 설정할 수 있습니다. 여기에 각 옵션 TubePress의 단축 코드와 페이지 당 / 포스트 기준으로 재정의 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 문서에 대한 자세한 내용은 </ a>를 참조하십시오."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "이 비 메오를 사용자가 올린 동영상"

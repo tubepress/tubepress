@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2013 Eric D. Hough (eric@tubepress.org)
+ * Copyright 2013 Eric D. Hough (eric@tubepress.com)
  */
 
 class tubepress_test_impl_i18n_support_LocaleUtils

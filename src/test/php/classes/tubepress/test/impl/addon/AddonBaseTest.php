@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,7 +18,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.0.0',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'ValidBootstrapClass'
         );
 
@@ -26,7 +26,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
         $this->assertEquals('1.0.0', (string) $sut->getVersion());
         $this->assertEquals('description', $sut->getTitle());
         $this->assertEquals(array('name' => 'eric'), $sut->getAuthor());
-        $this->assertEquals(array(array('url' => 'http://tubepress.org')), $sut->getLicenses());
+        $this->assertEquals(array(array('url' => 'http://tubepress.com')), $sut->getLicenses());
     }
 
     public function testNormalConstruction2()
@@ -37,7 +37,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             tubepress_spi_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'ValidBootstrapClass'
         );
 
@@ -45,7 +45,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
         $this->assertEquals('2.3.1', (string) $sut->getVersion());
         $this->assertEquals('description', $sut->getTitle());
         $this->assertEquals(array('name' => 'eric', 'url' => 'http://foo.bar'), $sut->getAuthor());
-        $this->assertEquals(array(array('url' => 'http://tubepress.org')), $sut->getLicenses());
+        $this->assertEquals(array(array('url' => 'http://tubepress.com')), $sut->getLicenses());
     }
 
     public function testSetGetDescription()
@@ -56,7 +56,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.0.0',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'ValidBootstrapClass'
         );
 
@@ -283,7 +283,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.0.0',
             'description',
             array('name' => 'eric', 'url' => 'bar'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -298,7 +298,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.0.0',
             'description',
             array('name' => 'eric', 'foo' => 'bar'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -313,7 +313,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.0.0',
             'description',
             array('foo' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -329,7 +329,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             'wlkjwkljrwklejfwklfjsdklfjsdklfjsdgkljgkljdfkljsdfklaejerklwjfsklfjskldjskldfjsklfjsklgjwekltjsdklvjhxdjkvhsklfjsdjkfhsdjklfhsdfjhsdfsg'
                 . 'wlkjwkljrwklejfwklfjsdklfjsdklfjsdgkljgkljdfkljsdfklaejerklwjfsklfjskldjskldfjsklfjsklgjwekltjsdklvjhxdjkvhsklfjsdjkfhsdjklfhsdfjhsdfsg',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -344,7 +344,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.2.3',
             array(),
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -359,7 +359,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.2.3',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -374,7 +374,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.2.3',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -389,7 +389,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.2.3',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -404,7 +404,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.2.3',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }
@@ -419,7 +419,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             'x.y.z',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.org')),
+            array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
     }

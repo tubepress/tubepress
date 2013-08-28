@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-22 16:51:29+0000\n"
+"PO-Revision-Date: 2013-08-28 17:34:20+0000\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,8 +206,8 @@ msgstr "Implementasjon"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "Merkeidentiteten til den innebygde avspilleren. Standard er tjenestetilbyderens avspiller (YouTube, Vimeo etc)."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr "Ikke alle sorteringsrekkefølger kan benyttes på alle gallerityper. Vennligst se <a href=\"http://tubepress.org/documentation\">dokumentasjonen</a>  for mer info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgstr "Ikke alle sorteringsrekkefølger kan benyttes på alle gallerityper. Vennligst se <a href=\"http://tubepress.com/documentation\">dokumentasjonen</a>  for mer info."
 
 msgid "Cache directory"
 msgstr "Mappe for bufferminne"
@@ -362,11 +362,11 @@ msgstr "Nøkkelord for Enkelkode (shortcode)"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Ordet du setter inn (i klartekst, mellom hakeparantes) i innlegget/siden for å vise et galleri."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
-msgstr "TubePress EnkelKode for widgeten. Se <a href=\"http://tubepress.org/documentation\"> dokumentasjonen</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgstr "TubePress EnkelKode for widgeten. Se <a href=\"http://tubepress.com/documentation\"> dokumentasjonen</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more information."
-msgstr "Her kan du sette standardvalgene for TubePress. Hvert valg her kan overstyres på side-til-side/post-til-post basis med TubePress Enkelkoder (shortcodes). Vennligst se <a href=\"http://tubepress.org/documentation\">dokumentasjonen</a> for mer informasjon."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgstr "Her kan du sette standardvalgene for TubePress. Hvert valg her kan overstyres på side-til-side/post-til-post basis med TubePress Enkelkoder (shortcodes). Vennligst se <a href=\"http://tubepress.com/documentation\">dokumentasjonen</a> for mer informasjon."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Videoene lastet opp av denne Vimeo-brukeren"

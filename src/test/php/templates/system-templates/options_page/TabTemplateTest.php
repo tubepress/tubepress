@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -51,7 +51,7 @@ class tubepress_impl_template_templates_optionspage_TabTemplateTest extends tube
         </div>
     <table>
     <tr>
-                <td class="tubepress-pro-banner"><a href="http://tubepress.org/pro"><img src="tubepress-base-url/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a></td>
+                <td class="tubepress-pro-banner"><a href="http://tubepress.com/pro"><img src="tubepress-base-url/src/main/web/images/pro_tag.png" alt="TubePress Pro only" /></a></td>
 		<th class="tubepress-field-header tubepress-pro-field-header"><span>one-title</span></th>
 		<td>
 		    one-html			<br />
