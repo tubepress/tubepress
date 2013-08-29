@@ -12,9 +12,9 @@
 /**
  * An HTML input field or some sort.
  */
-interface tubepress_spi_options_ui_Field extends tubepress_spi_options_ui_FormHandler
+interface tubepress_spi_options_ui_FieldInterface extends tubepress_spi_options_ui_FormHandler
 {
-    const CLASS_NAME = 'tubepress_spi_options_ui_Field';
+    const CLASS_NAME = 'tubepress_spi_options_ui_FieldInterface';
 
     /**
      * Gets the title of this field, usually consumed by humans.

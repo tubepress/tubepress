@@ -47,7 +47,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEventDispatcher     = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
-        $this->_mockFilter = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_Field');
+        $this->_mockFilter = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_FieldInterface');
 
         $this->_sut = new tubepress_impl_options_ui_DefaultFormHandler($this->_mockTabs, $this->_mockFilter, 'some path');
     }

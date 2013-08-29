@@ -22,7 +22,7 @@ interface tubepress_spi_options_ui_PluggableFieldBuilder
      * @param string $name            The name of the field to build.
      * @param string $type            The name of the class to construct to represent this field.
      *
-     * @return tubepress_spi_options_ui_Field The constructed field, or null if unable to build a field
+     * @return tubepress_spi_options_ui_FieldInterface The constructed field, or null if unable to build a field
      *                                        with this name or type.
      */
     public function build($name, $type);

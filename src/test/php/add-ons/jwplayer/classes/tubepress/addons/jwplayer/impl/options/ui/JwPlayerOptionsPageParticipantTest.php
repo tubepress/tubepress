@@ -57,10 +57,10 @@ class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipantTe
     {
         $mockFields = array(
 
-            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME),
-            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME),
-            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME),
-            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_Field::CLASS_NAME)
+            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_FieldInterface::CLASS_NAME),
+            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_FieldInterface::CLASS_NAME),
+            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_FieldInterface::CLASS_NAME),
+            ehough_mockery_Mockery::mock(tubepress_spi_options_ui_FieldInterface::CLASS_NAME)
         );
 
         $optionNames = array(

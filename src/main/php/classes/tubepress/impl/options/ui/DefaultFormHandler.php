@@ -28,7 +28,7 @@ class tubepress_impl_options_ui_DefaultFormHandler extends tubepress_impl_option
     private $_tabs;
 
     /**
-     * @var tubepress_spi_options_ui_Field
+     * @var tubepress_spi_options_ui_FieldInterface
      */
     private $_filterField;
 
@@ -40,7 +40,7 @@ class tubepress_impl_options_ui_DefaultFormHandler extends tubepress_impl_option
     public function __construct(
 
         tubepress_spi_options_ui_FormHandler $tabs,
-        tubepress_spi_options_ui_Field       $filterField,
+        tubepress_spi_options_ui_FieldInterface       $filterField,
         $templatePath)
     {
         $this->_tabs         = $tabs;
