@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_test_impl_options_ui_fields_AbstractFieldTest
+abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
@@ -43,29 +43,31 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockEnvironmentDetector;
+    private $_mockTemplateBuilder;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockTemplateBuilder;
+    private $_mockEventDispatcher;
 
     public function onSetup()
     {
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockOptionDescriptorReference   = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockOptionDescriptor            = new tubepress_spi_options_OptionDescriptor('name');
 
-        $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_mockOptionDescriptor);
+        $this->_mockOptionDescriptor->setLabel('the label');
+        $this->_mockOptionDescriptor->setDescription('the description');
 
-        $this->_mockStorageManager      = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockMessageService      = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockMessageService->shouldReceive('_')->once()->with('the label')->andReturn('translated label');
+        $this->_mockMessageService->shouldReceive('_')->once()->with('the description')->andReturn('translated description');
 
-        parent::doSetup($this->_mockMessageService);
-
-        $this->_sut = $this->_buildSut('name');
+        $this->_sut = $this->buildSut('name');
     }
 
     public function testSubmitSimpleInvalid()
@@ -75,7 +77,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
         $this->_mockStorageManager->shouldReceive('set')->once()->with('name', 'some-value')->andReturn('you suck');
 
-        $this->assertEquals(array('you suck'), $this->_sut->onSubmit());
+        $this->assertEquals('you suck', $this->_sut->onSubmit());
     }
 
     public function testSubmitNoExist()
@@ -98,7 +100,6 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
     public function testSubmitSimple()
     {
-
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
@@ -107,20 +108,6 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
         $this->assertNull($this->_sut->onSubmit());
     }
 
-    protected function getSut()
-    {
-        return $this->_sut;
-    }
-
-    protected function getMockOptionDescriptor()
-    {
-        return $this->_mockOptionDescriptor;
-    }
-
-    protected function getMockEnvironmentDetector()
-    {
-        return $this->_mockEnvironmentDetector;
-    }
 
     /**
      * @expectedException InvalidArgumentException
@@ -129,38 +116,29 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
     {
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
 
-        $this->_sut = new tubepress_impl_options_ui_fields_TextField('name', 'someTab');
+        $this->_sut = new tubepress_impl_options_ui_fields_TextField('name');
     }
 
-    public function testGetInputHtml()
+    public function testGetWidgetHtml()
     {
         $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME, 'name');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
+        $template->shouldReceive('setVariable')->once()->with('name', 'name');
+        $template->shouldReceive('setVariable')->once()->with('value', '<<currentvalue>>');
         $template->shouldReceive('toString')->once()->andReturn('boogity');
 
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/' . $this->getTemplatePath())->andReturn($template);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE_LOAD, ehough_mockery_Mockery::on(array($this, '__callbackVerifyIsTemplate')));
+
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with($this->getAbsolutePathToTemplate())->andReturn($template);
 
         $this->_mockStorageManager->shouldReceive('get')->once()->with('name')->andReturn('<<currentvalue>>');
 
-        $this->_performAdditionToStringTestSetup($template);
+        $this->setupTemplateForWidgetHTML($template);
 
-        $this->assertEquals('boogity', $this->_sut->getHtml());
-    }
-
-    protected function _performAdditionToStringTestSetup($template)
-    {
-        //override point
-    }
-
-    protected function _performAdditionGetDescriptionSetup()
-    {
-        //override point
+        $this->assertEquals('boogity', $this->_sut->getWidgetHTML());
     }
 
     public function testGetProOnlyNo()
     {
-
         $this->assertTrue($this->_sut->isProOnly() === false);
     }
 
@@ -173,21 +151,49 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
     public function testGetDescription()
     {
-        $this->_mockOptionDescriptor->setDescription('some-desc');
-
-        $this->_performAdditionGetDescriptionSetup();
-
-        $this->assertTrue($this->_sut->getDescription() === '<<message: some-desc>>');
+        $this->assertTrue($this->_sut->getTranslatedDescription() === 'translated description');
     }
 
     public function testGetTitle()
     {
-        $this->_mockOptionDescriptor->setLabel('some-label');
-
-        $this->assertTrue($this->_sut->getTitle() === '<<message: some-label>>');
+        $this->assertTrue($this->_sut->getTranslatedDisplayName() === 'translated label');
     }
 
-    protected abstract function getTemplatePath();
+    public function __callbackVerifyIsTemplate($template)
+    {
+        return $template instanceof tubepress_api_event_EventInterface;
+    }
 
-    protected abstract function _buildSut($name);
+    protected function setupTemplateForWidgetHTML(ehough_mockery_mockery_MockInterface $template)
+    {
+        //override point
+    }
+
+    /**
+     * @return tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+     */
+    protected function getSut()
+    {
+        return $this->_sut;
+    }
+
+    /**
+     * @return tubepress_spi_options_OptionDescriptor
+     */
+    protected function getMockOptionDescriptor()
+    {
+        return $this->_mockOptionDescriptor;
+    }
+
+    /**
+     * @return ehough_mockery_mockery_MockInterface
+     */
+    protected function getMockMessageService()
+    {
+        return $this->_mockMessageService;
+    }
+
+    protected abstract function getAbsolutePathToTemplate();
+
+    protected abstract function buildSut($name);
 }

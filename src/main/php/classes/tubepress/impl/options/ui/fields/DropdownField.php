@@ -14,36 +14,12 @@
  */
 class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
-    const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_DropdownField';
-
-    const TEMPLATE_VAR_ACCEPTABLE_VALUES = 'tubepress_impl_options_ui_fields_DropdownField__options';
-
-    /**
-     * Get the path to the template for this field, relative
-     * to TubePress's root.
-     *
-     * @return string The path to the template for this field, relative
-     *                to TubePress's root.
-     */
-    protected final function getTemplatePath()
+    protected final function getAbsolutePathToTemplate()
     {
-        return 'src/main/resources/system-templates/options_page/fields/dropdown.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/dropdown.tpl.php';
     }
 
-    /**
-     * Override point.
-     *
-     * Allows subclasses to perform additional modifications to this
-     * field's template.
-     *
-     * @param ehough_contemplate_api_Template $template     The field's template.
-     * @param string                          $currentValue The current value of this field.
-     *
-     * @throws InvalidArgumentException If a non-associative array is set for its value map.
-     *
-     * @return void
-     */
-    protected final function populateTemplate($template, $currentValue)
+    protected function getAdditionalTemplateVariables()
     {
         $values = array();
         $map    = $this->getOptionDescriptor()->getAcceptableValues();
@@ -60,6 +36,6 @@ class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_opti
             $values[$key] = $messageService->_($value);
         }
 
-        $template->setVariable(self::TEMPLATE_VAR_ACCEPTABLE_VALUES, $values);
+        return array('choices' => $values);
     }
 }

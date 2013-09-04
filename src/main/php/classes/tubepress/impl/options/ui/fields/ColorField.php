@@ -14,17 +14,8 @@
  */
 class tubepress_impl_options_ui_fields_ColorField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
-    const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_ColorField';
-
-    /**
-     * Get the path to the template for this field, relative
-     * to TubePress's root.
-     *
-     * @return string The path to the template for this field, relative
-     *                to TubePress's root.
-     */
-    protected final function getTemplatePath()
+    protected final function getAbsolutePathToTemplate()
     {
-        return 'src/main/resources/system-templates/options_page/fields/color.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/color.tpl.php';
     }
 }

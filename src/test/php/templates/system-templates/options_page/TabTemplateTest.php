@@ -24,7 +24,7 @@ class tubepress_impl_template_templates_optionspage_TabTemplateTest extends tube
         $two->shouldReceive('getDescription')->once()->andReturn('two-description');
         $two->shouldReceive('isProOnly')->twice()->andReturn(false);
 
-        $mockParticipant = ehough_mockery_Mockery::mock(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        $mockParticipant = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
         $mockParticipant->shouldReceive('getName')->times(3)->andReturn('popp-name');
         $mockParticipant->shouldReceive('getFriendlyName')->once()->andReturn('friendly-popp-name');
         $mockParticipant->shouldReceive('getFieldsForTab')->once()->with('some-crazy-tab')->andReturn(array($one, $two));

@@ -42,7 +42,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerOptionDescriptorReference($container);
         $this->_registerOptionValidator($container);
         $this->_registerCoreOptionsProvider($container);
-        $this->_registerOptionsUiFieldBuilder($container);
         $this->_registerPlayerHtmlGenerator($container);
         $this->_registerQueryStringService($container);
         $this->_registerShortcodeHtmlGenerator($container);
@@ -215,15 +214,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         );
     }
 
-    private function _registerOptionsUiFieldBuilder(tubepress_api_ioc_ContainerInterface $container)
-    {
-        $container->register(
-
-            tubepress_spi_options_ui_FieldBuilder::_,
-            'tubepress_impl_options_ui_DefaultFieldBuilder'
-        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableFieldBuilder::_, 'method' => 'setPluggableFieldBuilders'));
-    }
-
     private function _registerPlayerHtmlGenerator(tubepress_api_ioc_ContainerInterface $container)
     {
         $container->register(
@@ -295,7 +285,9 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant',
             'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant'
 
-        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        )->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface')
+         ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'))
+         ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface', 'method' => 'setOptionsPageParticipants'));
 
         $container->register(
 
@@ -360,13 +352,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService',
             'tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService'
         )->addTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
-
-        $container->register(
-
-            'tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder',
-            'tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder'
-        )->addTag(tubepress_spi_options_ui_PluggableFieldBuilder::_)
-         ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
     }
 
     private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)

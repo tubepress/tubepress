@@ -64,7 +64,6 @@ class tubepress_addons_core_CoreManifestValidityTest extends tubepress_test_impl
             'tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender' => 'classes/tubepress/addons/core/impl/listeners/videogallerypage/VideoPrepender.php',
             'tubepress_addons_core_impl_options_CoreOptionsProvider' => 'classes/tubepress/addons/core/impl/options/CoreOptionsProvider.php',
             'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant' => 'classes/tubepress/addons/core/impl/options/ui/CoreOptionsPageParticipant.php',
-            'tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder' => 'classes/tubepress/addons/core/impl/options/ui/CorePluggableFieldBuilder.php',
             'tubepress_addons_core_impl_player_JqModalPluggablePlayerLocationService' => 'classes/tubepress/addons/core/impl/player/JqModalPluggablePlayerLocationService.php',
             'tubepress_addons_core_impl_player_NormalPluggablePlayerLocationService' => 'classes/tubepress/addons/core/impl/player/NormalPluggablePlayerLocationService.php',
             'tubepress_addons_core_impl_player_PopupPluggablePlayerLocationService' => 'classes/tubepress/addons/core/impl/player/PopupPluggablePlayerLocationService.php',

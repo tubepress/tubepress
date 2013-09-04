@@ -48,14 +48,10 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
         /* register the plugin's message bundles */
         $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");
 
-        $contentFilter    =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_ContentFilter::_);
-        $jsAndCssInjector =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_);
-        $wpAdminHandler   =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpAdminHandler::_);
-        $widgetHandler    =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WidgetHandler::_);
+        $contentFilter    = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_ContentFilter::_);
+        $jsAndCssInjector = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_);
+        $wpAdminHandler   = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpAdminHandler::_);
+        $widgetHandler    = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WidgetHandler::_);
 
         $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'), 10, 1);
         $wpFunctionWrapper->add_action('wp_head',     array($jsAndCssInjector, 'printInHtmlHead'), 10, 1);
@@ -63,6 +59,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
 
         $wpFunctionWrapper->add_action('admin_menu',            array($wpAdminHandler, 'registerAdminMenuItem'), 10, 1);
         $wpFunctionWrapper->add_action('admin_enqueue_scripts', array($wpAdminHandler, 'registerStylesAndScripts'), 10, 1);
+        $wpFunctionWrapper->add_action('admin_head',            array($wpAdminHandler, 'printHeadMeta'), 10, 1);
 
         $wpFunctionWrapper->add_action('widgets_init', array($widgetHandler, 'registerWidget'), 10, 1);
 

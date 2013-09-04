@@ -14,17 +14,31 @@
  */
 class tubepress_impl_options_ui_fields_TextField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
-    const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_TextField';
-
     /**
-     * Get the path to the template for this field, relative
-     * to TubePress's root.
-     *
-     * @return string The path to the template for this field, relative
-     *                to TubePress's root.
+     * @var int The size of this text field.
      */
-    protected final function getTemplatePath()
+    private $_size = 20;
+
+    public function setSize($size)
     {
-        return 'src/main/resources/system-templates/options_page/fields/text.tpl.php';
+        if (intval($size) < 1) {
+
+            throw new InvalidArgumentException('Text fields must have a non-negative size.');
+        }
+
+        $this->_size = intval($size);
+    }
+
+    protected function getAdditionalTemplateVariables()
+    {
+        return array(
+
+            'size' => $this->_size,
+        );
+    }
+
+    protected function getAbsolutePathToTemplate()
+    {
+        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/text.tpl.php';
     }
 }

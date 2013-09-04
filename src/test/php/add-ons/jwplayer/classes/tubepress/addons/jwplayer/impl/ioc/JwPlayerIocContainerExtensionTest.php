@@ -29,7 +29,7 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest exten
             'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
             'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant'
 
-        )->withTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        )->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $this->expectRegistration(
 

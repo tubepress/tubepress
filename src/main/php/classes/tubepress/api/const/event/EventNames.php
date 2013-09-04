@@ -214,19 +214,6 @@ class tubepress_api_const_event_EventNames
     const HTTP_RESPONSE = 'tubepress.core.http.response';
 
 
-
-    /**
-     * This event is fired when a TubePress option (a name-value pair) is being read from external input.
-     *
-     * @subject mixed The incoming option value.
-     *
-     * @arg string 'optionName' The name of the option being set.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const OPTIONS_NVP_READFROMEXTERNAL = 'tubepress.core.options.nvp.readFromExternalInput';
-
     /**
      * This event is fired when an option descriptor is registered.
      *
@@ -251,18 +238,37 @@ class tubepress_api_const_event_EventNames
     const OPTIONS_NVP_PREVALIDATIONSET = 'tubepress.core.options.nvp.preValidationSet';
 
     /**
-     * This event is fired when TubePress retrieves the fields that will be displayed
-     * on a tab.
+     * This event is fired when a TubePress option (a name-value pair) is being read from external input.
      *
-     * @subject array The array of fields for this tab.
+     * @subject mixed The incoming option value.
      *
-     * @arg tubepress_spi_options_ui_PluggableOptionsPageParticipant 'participant' The options page participant.
-     * @arg string                                                   'tabName'     The name of the tab.
+     * @arg string 'optionName' The name of the option being set.
      *
      * @api
      * @since 3.1.0
      */
-    const OPTIONS_UI_FIELDS_FOR_TAB = 'tubepress.core.options.ui.fieldsForTab';
+    const OPTIONS_NVP_READFROMEXTERNAL = 'tubepress.core.options.nvp.readFromExternalInput';
+
+    /**
+     * This event is fired when TubePress builds the PHP/HTML template for the TubePress options page.
+     *
+     * @subject ehough_contemplate_api_Template The options page template.
+     *
+     * @api
+     * @since 3.1.2
+     */
+    const OPTIONS_PAGE_TEMPLATE_TOSTRING = 'tubepress.core.options.page.templateToString';
+
+    /**
+     * This event is fired when TubePress loads an options page template.
+     *
+     * @subject string The absolute path of the template that is being loaded.
+     *
+     * @api
+     * @since 3.1.2
+     */
+    const OPTIONS_PAGE_TEMPLATE_LOAD = 'tubepress.core.options.page.templateLoad';
+
 
 
     /**
@@ -280,38 +286,6 @@ class tubepress_api_const_event_EventNames
      * @since 3.1.0
      */
     const TEMPLATE_EMBEDDED = 'tubepress.core.template.embedded';
-
-    /**
-     * This event is fired when TubePress generates the template for an options UI form.
-     *
-     * @subject ehough_contemplate_api_Template The options UI template.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const TEMPLATE_OPTIONS_UI_MAIN = 'tubepress.core.template.options.ui.main';
-
-    /**
-     * This event is fired when TubePress generates the template for the options UI tabs.
-     *
-     * @subject ehough_contemplate_api_Template The options UI tabs template.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const TEMPLATE_OPTIONS_UI_TABS_ALL = 'tubepress.core.template.options.ui.tabs.all';
-
-    /**
-     * This event is fired when TubePress generates the template for the options UI tabs.
-     *
-     * @subject ehough_contemplate_api_Template The options UI tabs template.
-     *
-     * @arg string 'tabName' The tab name.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const TEMPLATE_OPTIONS_UI_TABS_SINGLE = 'tubepress.core.template.options.ui.tabs.single';
 
     /**
      * This event is fired when a TubePress builds the PHP/HTML template for a TubePress

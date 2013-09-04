@@ -38,7 +38,7 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
             'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
             'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant'
 
-        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        )->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $container->register(
 

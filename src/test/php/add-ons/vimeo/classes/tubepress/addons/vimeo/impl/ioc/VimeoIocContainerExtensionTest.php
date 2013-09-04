@@ -47,7 +47,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extends tub
             'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant',
             'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant'
 
-        )->withTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        )->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $this->expectRegistration(
 

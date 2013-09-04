@@ -12,222 +12,157 @@
 /**
  * Plugs YouTube into the options page.
  */
-class tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant extends tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
+class tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant extends tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface
 {
-    /**
-     * @param string $tabName The name of the tab being built.
-     *
-     * @return array An array of fields that should be shown on the given tab. May be empty, never null.
-     */
-    public final function doGetFieldsForTab($tabName)
+    private static $_PARTICIPANT_ID = 'youtube-participant';
+
+    private $_cachedFields;
+
+    public function __construct()
     {
-        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
+        parent::__construct(self::$_PARTICIPANT_ID, 'YouTube');     //>(translatable)<
+    }
 
-        switch ($tabName) {
+    /**
+     * @return tubepress_spi_options_ui_OptionsPageItemInterface[] The categories that this participant supplies.
+     */
+    public function getCategories()
+    {
+        return array();
+    }
 
-            case tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME:
+    /**
+     * @return tubepress_spi_options_ui_OptionsPageFieldInterface[] The fields that this options page participant provides.
+     */
+    public function getFields()
+    {
+        if (!isset($this->_cachedFields)) {
 
-                return $this->getFieldsForEmbeddedTab($fieldBuilder);
+            $this->_cachedFields = array(
 
-            case tubepress_impl_options_ui_tabs_FeedTab::TAB_NAME:
+                //Gallery source fields
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE)),
 
-                return $this->getFieldsForFeedTab($fieldBuilder);
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE)),
 
-            case tubepress_impl_options_ui_tabs_GallerySourceTab::TAB_NAME:
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE)),
 
-                return $this->getFieldsForGallerySourceTab($fieldBuilder);
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE)),
 
-            default:
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE)),
 
-                return array();
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
+                    new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE)),
+
+
+                //Player fields
+                new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE),
+                new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS),
+                new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD),
+                new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN),
+                new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING),
+                new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS),
+                new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED),
+                new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_Embedded::THEME),
+                new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_CONTROLS),
+
+                //Feed fields
+                new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_Feed::FILTER),
+                new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY),
+                new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY),
+            );
         }
+
+        return $this->_cachedFields;
     }
 
     /**
-     * @return string The name that will be displayed in the options page filter (top right).
+     * @return array An associative array, which may be empty, where the keys are category IDs and the values
+     *               are arrays of field IDs that belong in the category.
      */
-    public final function getFriendlyName()
-    {
-        return 'YouTube';
-    }
-
-    /**
-     * @return string All lowercase alphanumerics.
-     */
-    public final function getName()
-    {
-        return 'youtube';
-    }
-
-    private function getFieldsForEmbeddedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
-    {
-        $toReturn = array(
-
-            $fieldBuilder->build(
-
-                tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
-            )
-        );
-
-        $embeddedBooleans = array(
-
-            tubepress_addons_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
-            tubepress_addons_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD,
-            tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN,
-            tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING,
-            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS,
-            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED,
-        );
-
-        $toReturn[] = $fieldBuilder->build(
-
-            tubepress_addons_youtube_api_const_options_names_Embedded::THEME,
-            tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
-        );
-
-        foreach ($embeddedBooleans as $embeddedBoolean) {
-
-            $toReturn[] = $fieldBuilder->build($embeddedBoolean, tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME);
-        }
-
-        $toReturn[] = $fieldBuilder->build(
-
-            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
-            tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
-        );
-
-        return $toReturn;
-    }
-
-    private function getFieldsForFeedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
+    public function getCategoryIdsToFieldIdsMap()
     {
         return array(
 
-            $fieldBuilder->build(
+            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE => array(
+
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
+            ),
+
+            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_PLAYER => array(
+
+                tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE,
+                tubepress_addons_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
+                tubepress_addons_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD,
+                tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN,
+                tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING,
+                tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS,
+                tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED,
+                tubepress_addons_youtube_api_const_options_names_Embedded::THEME,
+                tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
+            ),
+
+            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_FEED => array(
 
                 tubepress_addons_youtube_api_const_options_names_Feed::FILTER,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME
-            ),
-
-            $fieldBuilder->build(
-
                 tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME
-            ),
-
-            $fieldBuilder->build(
-
                 tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY,
-                tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME
-            ),
+            )
         );
     }
 
-    private function getFieldsForGallerySourceTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
+    /**
+     * @return string JavaScript to run *below* the elements on the options page. Make sure to enclose the script with
+     *                <script type="text/javascrip> and close it with </script>!
+     */
+    public function getInlineJs()
     {
-        $gallerySources = array(
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE,
-                tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            array(
-
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-        );
-
-        $toReturn = array();
-
-        foreach ($gallerySources as $gallerySource) {
-
-            $field = $fieldBuilder->build($gallerySource[1], $gallerySource[2]);
-
-            $toReturn[] = new tubepress_impl_options_ui_fields_GallerySourceField($gallerySource[0], $field);
-        }
-
-        return $toReturn;
+        return '';
     }
 }

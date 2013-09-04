@@ -52,7 +52,7 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
             'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant',
             'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant'
 
-        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        )->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $container->register(
 

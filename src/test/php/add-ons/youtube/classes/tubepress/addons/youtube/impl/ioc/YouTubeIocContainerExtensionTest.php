@@ -44,7 +44,7 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends
             'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant',
             'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant'
 
-        )->withTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        )->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $this->expectRegistration(
 

@@ -12,63 +12,68 @@
 /**
  * Hooks JW Player into TubePress.
  */
-class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant extends tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
+class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant extends tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface
 {
-    /**
-     * @return string The name that will be displayed in the options page filter (top right).
-     */
-    public final function getFriendlyName()
+    private static $_PARTICIPANT_ID = 'jwplayer-participant';
+
+    private $_cachedFields;
+
+    public function __construct()
     {
-        return 'JW Player';     //>(translatable)<
+        parent::__construct(self::$_PARTICIPANT_ID, 'JW Player');     //>(translatable)<
     }
 
     /**
-     * @return string All lowercase alphanumerics.
+     * @return tubepress_spi_options_ui_OptionsPageItemInterface[] The categories that this participant supplies.
      */
-    public final function getName()
+    public function getCategories()
     {
-        return 'jwplayer';
+        return array();
     }
 
     /**
-     * @param string $tabName The name of the tab being built.
-     *
-     * @return array An array of fields that should be shown on the given tab. May be empty, never null.
+     * @return tubepress_spi_options_ui_OptionsPageFieldInterface[] The fields that this options page participant provides.
      */
-    public final function doGetFieldsForTab($tabName)
+    public function getFields()
     {
-        if ($tabName !== tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME) {
+        if (!isset($this->_cachedFields)) {
 
-            return array();
+            $this->_cachedFields = array(
+
+                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK),
+                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT),
+                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT),
+                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN),
+
+            );
         }
 
-        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
+        return $this->_cachedFields;
+    }
 
+    /**
+     * @return array An associative array, which may be empty, where the keys are category IDs and the values
+     *               are arrays of field IDs that belong in the category.
+     */
+    public function getCategoryIdsToFieldIdsMap()
+    {
         return array(
 
-            $fieldBuilder->build(
+            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_PLAYER => array(
 
                 tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
-            ),
-
-            $fieldBuilder->build(
-
                 tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
-            ),
-
-            $fieldBuilder->build(
-
                 tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
-            ),
-
-            $fieldBuilder->build(
-
-                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
-            )
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN)
         );
+    }
+
+    /**
+     * @return string JavaScript to run *below* the elements on the options page. Make sure to enclose the script with
+     *                <script type="text/javascrip> and close it with </script>!
+     */
+    public function getInlineJs()
+    {
+        return '';
     }
 }

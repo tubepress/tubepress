@@ -12,121 +12,113 @@
 /**
  * Plugs Vimeo into the options page.
  */
-class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant extends tubepress_impl_options_ui_AbstractPluggableOptionsPageParticipant
+class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant extends tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface
 {
+    private static $_PARTICIPANT_ID = 'vimeo-participant';
+
     /**
-     * @param string $tabName The name of the tab being built.
-     *
-     * @return array An array of fields that should be shown on the given tab. May be empty, never null.
+     * @var tubepress_spi_options_ui_OptionsPageFieldInterface[]
      */
-    public final function doGetFieldsForTab($tabName)
+    private $_cachedFields;
+
+    public function __construct()
     {
-        $fieldBuilder = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFieldBuilder();
+        parent::__construct(self::$_PARTICIPANT_ID, 'Vimeo');   //>(translatable)<
+    }
 
-        switch ($tabName) {
+    /**
+     * @return tubepress_spi_options_ui_OptionsPageItemInterface[] The categories that this participant supplies.
+     */
+    public function getCategories()
+    {
+        return array();
+    }
 
-            case tubepress_impl_options_ui_tabs_EmbeddedTab::TAB_NAME:
+    /**
+     * @return tubepress_spi_options_ui_OptionsPageFieldInterface[] The fields that this options page participant provides.
+     */
+    public function getFields()
+    {
+        if (!isset($this->_cachedFields)) {
 
-                return $this->getFieldsForEmbeddedTab($fieldBuilder);
+            $this->_cachedFields = array(
 
-            case tubepress_impl_options_ui_tabs_FeedTab::TAB_NAME:
+                //Gallery source fields
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE)),
 
-                return $this->getFieldsForFeedTab($fieldBuilder);
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE)),
 
-            case tubepress_impl_options_ui_tabs_GallerySourceTab::TAB_NAME:
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE)),
 
-                return $this->getFieldsForGallerySourceTab($fieldBuilder);
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE)),
 
-            default:
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE)),
 
-                return array();
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE)),
+
+                new tubepress_impl_options_ui_fields_GallerySourceRadioField(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
+                    new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE)),
+
+                //Player fields
+                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR),
+
+                //Feed fields
+                new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY),
+                new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET),
+            );
         }
+
+        return $this->_cachedFields;
     }
 
     /**
-     * @return string The name that will be displayed in the options page filter (top right).
+     * @return array An associative array, which may be empty, where the keys are category IDs and the values
+     *               are arrays of field IDs that belong in the category.
      */
-    public final function getFriendlyName()
-    {
-        return 'Vimeo';    //>(translatable)<
-    }
-
-    /**
-     * @return string All lowercase alphanumerics.
-     */
-    public final function getName()
-    {
-        return 'vimeo';
-    }
-
-    private function getFieldsForEmbeddedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
+    public function getCategoryIdsToFieldIdsMap()
     {
         return array(
 
-            $fieldBuilder->build(
+            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE => array(
+
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
+            ),
+
+            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_PLAYER => array(
 
                 tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,
-                tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME
-            )
-        );
-    }
+            ),
 
-    private function getFieldsForFeedTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
-    {
-        return array(
-
-            $fieldBuilder->build(
+            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_FEED => array(
 
                 tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME
-            ),
-
-            $fieldBuilder->build(
-
                 tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET,
-                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME
             ),
         );
     }
 
-    private function getFieldsForGallerySourceTab(tubepress_spi_options_ui_FieldBuilder $fieldBuilder)
+    /**
+     * @return string JavaScript to run *below* the elements on the options page. Make sure to enclose the script with
+     *                <script type="text/javascrip> and close it with </script>!
+     */
+    public function getInlineJs()
     {
-        $gallerySources = array(
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE,
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE,
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE,
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE,
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE,
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE,
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE,
-
-            tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
-                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE
-        );
-
-        $toReturn = array();
-
-        foreach ($gallerySources as $name => $value) {
-
-            $field = $fieldBuilder->build($value, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME);
-
-            $toReturn[] = new tubepress_impl_options_ui_fields_GallerySourceField($name, $field);
-        }
-
-        return $toReturn;
+        return '';
     }
 }

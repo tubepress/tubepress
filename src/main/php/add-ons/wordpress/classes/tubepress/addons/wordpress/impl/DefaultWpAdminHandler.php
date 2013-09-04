@@ -26,30 +26,29 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
             return;
         }
 
-        $wpFunctionWrapper    = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-        $baseName             = basename(TUBEPRESS_ROOT);
-        $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", $baseName);
-        $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/options-page.css", $baseName);
-        $jqueryMultiSelectCss = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
-        $jsColorUrl           = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jscolor/jscolor.js", $baseName);
-        $jqueryUiJsUrl        = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", $baseName);
-        $jqueryMultiSelectJs  = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName);
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $baseName          = basename(TUBEPRESS_ROOT);
 
-        $wpFunctionWrapper->wp_register_style('jquery-ui-flick', $jqueryUiCssUrl);
-        $wpFunctionWrapper->wp_register_style('tubepress-options-page', $wpOptionsPageCss);
-        $wpFunctionWrapper->wp_register_style('jquery-ui-multiselect-widget', $jqueryMultiSelectCss);
+        foreach ($this->_getCssMap() as $cssName => $cssRelativePath) {
 
-        $wpFunctionWrapper->wp_enqueue_style('jquery-ui-flick');
-        $wpFunctionWrapper->wp_enqueue_style('tubepress-options-page');
-        $wpFunctionWrapper->wp_enqueue_style('jquery-ui-multiselect-widget');
+            $url = $wpFunctionWrapper->plugins_url($baseName . '/src/main/web/' . $cssRelativePath, $baseName);
 
-        $wpFunctionWrapper->wp_register_script('jscolor-tubepress', $jsColorUrl);
-        $wpFunctionWrapper->wp_register_script('jquery-ui-tubepress', $jqueryUiJsUrl);
-        $wpFunctionWrapper->wp_register_script('jquery-ui-multiselect-widget', $jqueryMultiSelectJs);
+            $wpFunctionWrapper->wp_register_style($cssName, $url);
+            $wpFunctionWrapper->wp_enqueue_style($cssName);
+        }
 
-        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-tubepress', false, array(), false, false);
-        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-multiselect-widget', false, array(), false, false);
-        $wpFunctionWrapper->wp_enqueue_script('jscolor-tubepress', false, array(), false, false);
+        foreach ($this->_getJsMap() as $jsName => $jsRelativePath) {
+
+            $url = $wpFunctionWrapper->plugins_url($baseName . '/src/main/web/' . $jsRelativePath, $baseName);
+
+            $wpFunctionWrapper->wp_register_script($jsName, $url);
+            $wpFunctionWrapper->wp_enqueue_script($jsName, false, array(), false, false);
+        }
+    }
+
+    public function printHeadMeta()
+    {
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">';
     }
 
     /**
@@ -71,7 +70,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
     public final function printOptionsPageHtml()
     {
         /* get the form handler */
-        $optionsForm = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFormHandler();
+        $optionsForm = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPage();
         $hrps        = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         /* are we updating? */
@@ -141,5 +140,25 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
         }
 
         echo '<div id="message" class="error fade"><p><strong>' . $message . '</strong></p></div>';
+    }
+
+    private function _getCssMap()
+    {
+        return array(
+
+            'bootstrap-3.0.0'       => 'vendor/bootstrap-3.0.0/css/bootstrap.min.css',
+            'bootstrap-theme'       => 'vendor/bootstrap-3.0.0/css/bootstrap-theme.min.css',
+            'bootstrap-multiselect' => 'vendor/bootstrap-multiselect-0.9/css/bootstrap-multiselect.css',
+            'tubepress-extra'       => 'css/options-page.css',
+        );
+    }
+
+    private function _getJsMap()
+    {
+        return array(
+
+            'bootstrap-3.0.0'       => 'vendor/bootstrap-3.0.0/js/bootstrap.min.js',
+            'bootstrap-multiselect' => 'vendor/bootstrap-multiselect-0.9/js/bootstrap-multiselect.js',
+        );
     }
 }

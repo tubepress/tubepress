@@ -10,72 +10,48 @@
  */
 
 /**
- * Displays a multi-select drop-down input.
+ * Base class for multi-select fields.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField
+abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractOptionsPageField
 {
-    const TEMPLATE_VAR_DESCRIPTORS = 'tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
-
-    const TEMPLATE_VAR_CURRENTVALUES = 'tubepress_impl_options_ui_fields_AbstractMultiSelectField__currentValues';
-
-    /** Array of option descriptors. */
-    private $_optionDescriptors;
-
-    /** Name. */
-    private $_name;
-
-    public function __construct(array $optionDescriptors, $name)
+    /**
+     * @return string The absolute path to the template for this field.
+     */
+    protected function getAbsolutePathToTemplate()
     {
-        /**
-         * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
-         */
-        foreach ($optionDescriptors as $optionDescriptor) {
-
-            if (! $optionDescriptor instanceof tubepress_spi_options_OptionDescriptor) {
-
-                throw new InvalidArgumentException('Non option descriptor detected');
-            }
-
-            if (! $optionDescriptor->isBoolean()) {
-
-                throw new InvalidArgumentException('Non-boolean option descriptor detected');
-            }
-        }
-
-        if (! is_string($name)) {
-
-            throw new InvalidArgumentException('Label must be a string');
-        }
-
-        $this->_optionDescriptors = $optionDescriptors;
-        $this->_name              = $name;
+        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/multiselect.tpl.php';
     }
 
     /**
-     * Handles form submission.
-     *
-     * @return array An array of failure messages if there's a problem, otherwise null.
+     * @return array An associative array of template variables for this field.
      */
-    public final function onSubmit()
+    protected function getTemplateVariables()
     {
-        $hrps           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+        return array(
 
-        if (! $hrps->hasParam($this->_name)) {
+            'name'                    => $this->getId(),
+            'currentlySelectedValues' => $this->getCurrentlySelectedValues(),
+            'ungroupedChoices'        => $this->getUngroupedTranslatedChoicesArray(),
+            'groupedChoices'          => $this->getGroupedTranslatedChoicesArray(),
+        );
+    }
 
-            /* not submitted. */
-            /**
-             * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
-             */
-            foreach ($this->_optionDescriptors as $optionDescriptor) {
+    /**
+     * Invoked when the element is submitted by the user.
+     *
+     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     */
+    public function onSubmit()
+    {
+        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $id   = $this->getId();
 
-                $storageManager->set($optionDescriptor->getName(), false);
-            }
+        if (! $hrps->hasParam($id)) {
 
-            return null;
+            return $this->onSubmitAllMissing();
         }
 
-        $vals = $hrps->getParamValue($this->_name);
+        $vals = $hrps->getParamValue($id);
 
         if (! is_array($vals)) {
 
@@ -83,67 +59,36 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
             return null;
         }
 
-        $errors         = array();
-
-
-        /**
-         * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
-         */
-        foreach ($this->_optionDescriptors as $optionDescriptor) {
-
-            $result = $storageManager->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
-
-            if ($result !== true) {
-
-                $errors[] = $result;
-            }
-        }
-
-        if (count($errors) === 0) {
-
-            return null;
-        }
-
-        return $errors;
+        return $this->onSubmitMixed();
     }
 
     /**
-     * Generates the HTML for the options form.
-     *
-     * @return string The HTML for the options form.
+     * @return string[] An array of currently selected values, which may be empty.
      */
-    public final function getHtml()
-    {
-        $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $template        = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php');
-        $currentValues   = array();
-        $storageManager  = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-
-        /**
-         * @var $optionDescriptor tubepress_spi_options_OptionDescriptor
-         */
-        foreach ($this->_optionDescriptors as $optionDescriptor) {
-
-            if ($storageManager->get($optionDescriptor->getName())) {
-
-                $currentValues[] = $optionDescriptor->getName();
-            }
-        }
-
-        $template->setVariable(self::TEMPLATE_VAR_NAME,          $this->_name);
-        $template->setVariable(self::TEMPLATE_VAR_DESCRIPTORS,   $this->_optionDescriptors);
-        $template->setVariable(self::TEMPLATE_VAR_CURRENTVALUES, $currentValues);
-
-        return $template->toString();
-    }
+    protected abstract function getCurrentlySelectedValues();
 
     /**
-     * Gets whether or not this field is TubePress Pro only.
-     *
-     * @return boolean True if this field is TubePress Pro only. False otherwise.
+     * @return array An associative array of value => translated display names
      */
-    public final function isProOnly()
+    protected abstract function getUngroupedTranslatedChoicesArray();
+
+    /**
+     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     */
+    protected abstract function onSubmitAllMissing();
+
+    /**
+     * @return string|null A string error message to be displayed to the user, or null if no problem.
+     */
+    protected abstract function onSubmitMixed();
+
+    /**
+     * @return array An associative array of translated group names to associative array of
+     *               value => translated display names
+     */
+    protected function getGroupedTranslatedChoicesArray()
     {
-        return false;
+        //override point
+        return array();
     }
 }

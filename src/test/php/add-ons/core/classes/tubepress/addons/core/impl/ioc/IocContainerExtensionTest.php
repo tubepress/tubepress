@@ -29,7 +29,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $this->_odr();
         $this->_optionValidator();
         $this->_optionProvider();
-        $this->_fieldBuilder();
         $this->_registerPlayerHtml();
         $this->_qss();
         $this->_shortcode();
@@ -124,7 +123,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
     private function _pluggables()
     {
         $this->expectRegistration('tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant', 'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant')
-            ->withTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+            ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $this->expectRegistration('tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService', 'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService')
             ->withTag(tubepress_spi_http_PluggableAjaxCommandService::_);
@@ -163,11 +162,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
         $this->expectRegistration('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService')
             ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
-
-        $this->expectRegistration('tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder', 'tubepress_addons_core_impl_options_ui_CorePluggableFieldBuilder')
-            ->withTag(tubepress_spi_options_ui_PluggableFieldBuilder::_)
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
-                array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
 
     }
 
@@ -229,15 +223,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'))
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_embedded_PluggableEmbeddedPlayerService::_, 'method' => 'setPluggableEmbeddedPlayers'))
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
-    }
-
-    private function _fieldBuilder()
-    {
-        $this->expectRegistration(tubepress_spi_options_ui_FieldBuilder::_,
-            'tubepress_impl_options_ui_DefaultFieldBuilder')
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
-                array('tag' => tubepress_spi_options_ui_PluggableFieldBuilder::_, 'method' => 'setPluggableFieldBuilders'));
-
     }
 
     private function _optionValidator()

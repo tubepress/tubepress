@@ -52,7 +52,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant',
             'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant'
 
-        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+        )->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $container->register(
 
