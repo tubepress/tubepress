@@ -12,9 +12,9 @@
 /**
  * Performs filtering on potentially malicious or typo'd string input.
  */
-abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilter
+class tubepress_addons_core_impl_listeners_StringMagicFilter
 {
-    protected function _magic(tubepress_api_event_EventInterface $event)
+    public function magic(tubepress_api_event_EventInterface $event)
     {
         $value = $event->getSubject();
 
@@ -26,7 +26,7 @@ abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilter
                 $subEvent = new tubepress_spi_event_EventBase($subValue);
                 $subEvent->setArgument('optionName', $key);
 
-                $this->_magic($subEvent);
+                $this->magic($subEvent);
 
                 $value[$key] = $subEvent->getSubject();
             }

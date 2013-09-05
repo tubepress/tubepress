@@ -31,11 +31,9 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     private $_cachedProvidedOptionDescriptors;
 
-    public function __construct(array $videoProviders)
+    public function __construct()
     {
         parent::__construct(self::FIELD_ID, 'Show each video\'s...');   //>(translatable)<
-
-        $this->_videoProviders = $videoProviders;
     }
 
     /**
@@ -46,6 +44,11 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     public function isProOnly()
     {
         return false;
+    }
+
+    public function setVideoProviders(array $providers)
+    {
+        $this->_videoProviders = $providers;
     }
 
     /**

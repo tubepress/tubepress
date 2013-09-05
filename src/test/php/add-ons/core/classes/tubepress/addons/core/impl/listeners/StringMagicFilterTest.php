@@ -8,16 +8,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilterTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_addons_core_impl_listeners_StringMagicFilter
+ */
+class tubepress_addons_core_impl_listeners_StringMagicFilterTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_core_impl_listeners_AbstractStringMagicFilter
+     * @var tubepress_addons_core_impl_listeners_StringMagicFilter
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = $this->_buildSut();
+        $this->_sut = new tubepress_addons_core_impl_listeners_StringMagicFilter();
     }
 
     public function testBooleanVariations()
@@ -35,7 +39,7 @@ abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilterTes
     {
         $event = $this->buildEvent('name', 5);
 
-        $result = $this->_performAltering($this->_sut, $event);
+        $this->_sut->magic($event);
 
         $this->assertEquals(5, $event->getSubject());
     }
@@ -48,20 +52,16 @@ abstract class tubepress_addons_core_impl_listeners_AbstractStringMagicFilterTes
 
         $event = $this->buildEvent('otherName', $val);
 
-        $this->_performAltering($this->_sut, $event);
+        $this->_sut->magic($event);
 
         $this->assertEquals($expected, $event->getSubject(), var_export($event->getSubject(), true));
     }
-
-    protected abstract function _buildSut();
-
-    protected abstract function _performAltering($sut, tubepress_api_event_EventInterface $event);
 
     private function _booleanConversion($expected, $val)
     {
         $event = $this->buildEvent('name', $val);
 
-        $this->_performAltering($this->_sut, $event);
+        $this->_sut->magic($event);
 
         $this->assertEquals($expected, $event->getSubject());
     }

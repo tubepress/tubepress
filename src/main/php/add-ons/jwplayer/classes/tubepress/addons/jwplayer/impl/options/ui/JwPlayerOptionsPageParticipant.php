@@ -59,7 +59,7 @@ class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant e
     {
         return array(
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_PLAYER => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(
 
                 tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
                 tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,

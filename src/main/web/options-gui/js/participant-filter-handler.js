@@ -22,7 +22,7 @@ var TubePressParticipantFilterHandler = (function () {
                     elements.hide();
 
                 } else {
-                    
+
                     elements.show();
                 }
             });

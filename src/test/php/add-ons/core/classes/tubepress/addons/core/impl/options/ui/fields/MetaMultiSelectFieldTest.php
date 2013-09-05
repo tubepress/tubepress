@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_options_ui_fields_MetaMultiSelectField<extended>
+ * @covers tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField<extended>
  */
-class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepress_test_impl_options_ui_fields_AbstractFieldTest
+class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_options_ui_fields_MetaMultiSelectField
+     * @var tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField
      */
     private $_sut;
 
@@ -71,9 +71,8 @@ class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tub
         $mockProvider2 = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('abc'));
 
-        $this->doSetup($this->_mockMessageService);
 
-        $this->_sut = new tubepress_impl_options_ui_fields_MetaMultiSelectField(array($mockProvider1, $mockProvider2));
+        $this->_sut = new tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField(array($mockProvider1, $mockProvider2));
     }
 
     public function testGetTitle()

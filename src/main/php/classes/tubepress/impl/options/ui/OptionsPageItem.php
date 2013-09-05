@@ -22,7 +22,7 @@ class tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options
     /**
      * @var string The display name (untranslated).
      */
-    private $_displayName;
+    private $_untranslatedDisplayName;
 
     public function __construct($id, $untranslatedDisplayName = null)
     {
@@ -44,12 +44,12 @@ class tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options
      */
     public function getTranslatedDisplayName()
     {
-        if (!isset($this->_displayName)) {
+        if (!isset($this->_untranslatedDisplayName)) {
 
             return '';
         }
 
-        return $this->_displayName;
+        return $this->translate($this->_untranslatedDisplayName);
     }
 
     /**
@@ -62,7 +62,7 @@ class tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options
 
     public function setUntranslatedDisplayName($untranslatedDisplayName)
     {
-        $this->_displayName = $this->translate($untranslatedDisplayName);
+        $this->_untranslatedDisplayName = $untranslatedDisplayName;
     }
 
     protected function translate($message)

@@ -58,9 +58,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
             'tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION, 'method' => 'onPlayerTemplate', 'priority' => 10000),
 
-            'tubepress_addons_core_impl_listeners_options_PreValidationOptionSetStringMagic' =>
-                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10100),
-
             'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT, 'method' => 'onSearchInputTemplate', 'priority' => 10000),
 
@@ -88,9 +85,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
             'tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10000),
 
-            'tubepress_addons_core_impl_listeners_options_ExternalInputStringMagic' =>
-                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'onIncomingInput', 'priority' => 10000),
-
             'tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter' =>
                 array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage', 'priority' => 10000),
 
@@ -113,6 +107,16 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         }
 
         $this->expectRegistration(
+            'tubepress_addons_core_impl_listeners_StringMagicFilter-preValidation',
+            'tubepress_addons_core_impl_listeners_StringMagicFilter'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'magic', 'priority' => 10100));
+
+        $this->expectRegistration(
+            'tubepress_addons_core_impl_listeners_StringMagicFilter-readFromExternal',
+            'tubepress_addons_core_impl_listeners_StringMagicFilter'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'magic', 'priority' => 10000));
+
+        $this->expectRegistration(
 
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams'
@@ -123,6 +127,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
     private function _pluggables()
     {
         $this->expectRegistration('tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant', 'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant')
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface', 'method' => 'setOptionsPageParticipants'))
             ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
 
         $this->expectRegistration('tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService', 'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService')

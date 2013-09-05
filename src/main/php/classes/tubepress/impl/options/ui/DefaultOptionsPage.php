@@ -46,9 +46,19 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
         $categoryIdToParticipantIdToFieldsMap = $this->_buildCategoryIdToParticipantIdToFieldsMap($categories);
         $participants                         = $this->_buildParticipantsArray();
 
+        if (isset($fields[tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField::FIELD_ID])) {
+
+            /**
+             * @var $filterField tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField
+             */
+            $filterField = $fields[tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField::FIELD_ID];
+
+            $filterField->setOptionsPageParticipants($this->_optionsPageParticipants);
+        }
+
         $templateVariables = array(
 
-            'activeCategoryId'                     => tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE,
+            'activeCategoryId'                     => tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE,
             'categories'                           => $categories,
             'categoryIdToParticipantIdToFieldsMap' => $categoryIdToParticipantIdToFieldsMap,
             'errors'                               => $errors,
@@ -193,12 +203,12 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
 
     public function __participantSorter($first, $second)
     {
-        if ($first === tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::PARTICIPANT_ID) {
+        if ($first === tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::PARTICIPANT_ID) {
 
             return -1;
         }
 
-        if ($second === tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::PARTICIPANT_ID) {
+        if ($second === tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::PARTICIPANT_ID) {
 
             return 1;
         }

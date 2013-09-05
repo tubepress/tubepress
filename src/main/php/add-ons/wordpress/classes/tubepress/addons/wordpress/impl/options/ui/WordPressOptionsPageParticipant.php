@@ -67,7 +67,7 @@ class tubepress_addons_wordpress_impl_options_ui_WordPressOptionsPageParticipant
     {
         return array(
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_ADVANCED => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED => array(
 
                 tubepress_api_const_options_names_Advanced::KEYWORD
             )

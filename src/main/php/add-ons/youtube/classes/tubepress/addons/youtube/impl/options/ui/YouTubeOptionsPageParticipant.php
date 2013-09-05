@@ -119,7 +119,7 @@ class tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant ext
     {
         return array(
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => array(
 
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
@@ -138,7 +138,7 @@ class tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant ext
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
             ),
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_PLAYER => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(
 
                 tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE,
                 tubepress_addons_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
@@ -151,7 +151,7 @@ class tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant ext
                 tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
             ),
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_FEED => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED => array(
 
                 tubepress_addons_youtube_api_const_options_names_Feed::FILTER,
                 tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY,

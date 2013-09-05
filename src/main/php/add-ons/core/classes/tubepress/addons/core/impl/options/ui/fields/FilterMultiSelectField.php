@@ -26,9 +26,8 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
      */
     private $_disabledParticipantsOptionDescriptor;
 
-    public function __construct(array $optionsPageParticipants)
+    public function __construct()
     {
-        $this->_optionsPageParticipants              = $optionsPageParticipants;
         $odr                                         = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
         $this->_disabledParticipantsOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
 
@@ -50,6 +49,11 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
     public final function isProOnly()
     {
         return false;
+    }
+
+    public function setOptionsPageParticipants(array $participants)
+    {
+        $this->_optionsPageParticipants = $participants;
     }
 
     /**
@@ -152,7 +156,7 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
 
         foreach ($this->_optionsPageParticipants as $participant) {
 
-            if ($participant->getId() === tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::PARTICIPANT_ID) {
+            if ($participant->getId() === tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::PARTICIPANT_ID) {
 
                 continue;
             }

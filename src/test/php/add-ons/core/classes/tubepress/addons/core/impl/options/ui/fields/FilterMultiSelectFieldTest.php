@@ -8,10 +8,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField<extended>
+ */
 class tubepress_test_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_options_ui_fields_FilterMultiSelectField
+     * @var tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField
      */
     private $_sut;
 
@@ -53,9 +57,7 @@ class tubepress_test_impl_options_ui_fields_FilterMultiSelectFieldTest extends t
 
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn($mockOption);
 
-        parent::doSetup($this->_mockMessageService);
-
-        $this->_sut = new tubepress_impl_options_ui_fields_FilterMultiSelectField();
+        $this->_sut = new tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField(array());
     }
 
     public function testGetHtml()

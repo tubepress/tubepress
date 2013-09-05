@@ -94,7 +94,7 @@ class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipan
     {
         return array(
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => array(
 
                 tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
                 tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
@@ -106,12 +106,12 @@ class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipan
                 tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
             ),
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_PLAYER => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(
 
                 tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,
             ),
 
-            tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_FEED => array(
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED => array(
 
                 tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY,
                 tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET,
