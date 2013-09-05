@@ -13,7 +13,7 @@
 
 <?php if ($participantId !== tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::PARTICIPANT_ID): ?>
 
-<div class="panel panel-default">
+<div class="panel panel-default tubepress-participant-<?php echo $participantId; ?>">
 
     <div class="panel-heading">
 

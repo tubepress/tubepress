@@ -116,7 +116,7 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
         $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
         $allParticipantNames = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
 
-        $vals = $hrps->getParamValue($optionName);
+        $vals = $hrps->getParamValue(self::FIELD_ID);
 
         $toHide = array();
 

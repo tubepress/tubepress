@@ -137,8 +137,8 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
             'bootstrap-3.0.0'               => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/js/bootstrap.min.js',
             'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/js/bootstrap-multiselect.js',
             'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.1.1/spectrum.js',
-            'bootstrap-multiselect-invoker' => '/src/main/web/options-gui/js/bootstrap-multiselect-invoker.js',
             'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
+            'participant-filter-handler'    => '/src/main/web/options-gui/js/participant-filter-handler.js',
             'iframe-loader'                 => '/src/main/php/add-ons/wordpress/web/options-gui/js/iframe-loader.js',
         );
     }

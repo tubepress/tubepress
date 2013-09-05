@@ -29,10 +29,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     {
         return array(
 
-            'name'                    => $this->getId(),
+            'id'                      => $this->getId(),
             'currentlySelectedValues' => $this->getCurrentlySelectedValues(),
             'ungroupedChoices'        => $this->getUngroupedTranslatedChoicesArray(),
             'groupedChoices'          => $this->getGroupedTranslatedChoicesArray(),
+            "selectText"              => 'select ...',     //>translatable<
         );
     }
 

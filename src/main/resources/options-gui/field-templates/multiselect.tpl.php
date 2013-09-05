@@ -10,7 +10,7 @@
  */
 ?>
 
-<select id="<?php echo $name; ?>" name="<?php echo $name; ?>[]" multiple="multiple" class="form-control multiselect">
+<select id="<?php echo $id; ?>" name="<?php echo $id; ?>[]" multiple="multiple" class="form-control multiselect">
 
     <?php foreach ($ungroupedChoices as $choiceValue => $choiceDisplayName): ?>
 
@@ -32,3 +32,16 @@
 
     <?php endforeach; ?>
 </select>
+
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery('#<?php echo $id; ?>').multiselect({
+
+            buttonClass : 'btn btn-default btn-sm',
+            dropRight   : true,
+            buttonText  : function (options, select) { return '<?php echo $selectText; ?>'; }
+
+        });
+    });
+
+</script>
