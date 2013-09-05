@@ -16,6 +16,6 @@ class tubepress_impl_options_ui_fields_ColorField extends tubepress_impl_options
 {
     protected final function getAbsolutePathToTemplate()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/color.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/color.tpl.php';
     }
 }

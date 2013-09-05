@@ -84,7 +84,7 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
 
     protected function getAbsolutePathToTemplate()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/multiselect.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/multiselect.tpl.php';
     }
 
     /**

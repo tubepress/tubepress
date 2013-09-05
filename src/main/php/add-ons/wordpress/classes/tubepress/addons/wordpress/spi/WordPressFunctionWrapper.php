@@ -268,6 +268,19 @@ interface tubepress_addons_wordpress_spi_WordPressFunctionWrapper
     function wp_enqueue_style($handle);
 
     /**
+     * Retrieves or displays the nonce hidden form field.
+     *
+     * @param string  $action   Action name. Should give the context to what is taking place. Optional but recommended.
+     * @param string  $name     Nonce name. This is the name of the nonce hidden form field to be created.
+     *                                      Once the form is submitted, you can access the generated nonce via $_POST[$name].
+     * @param boolean $referrer Whether also the referer hidden form field should be created with the wp_referer_field()
+     * @param boolean $echo     Whether to display or return the nonce hidden form field, and also the referer hidden form field if the $referer argument is set to true.
+     *
+     * @return string The nonce hidden form field, optionally followed by the referer hidden form field if the $referer argument is set to true.
+     */
+    function wp_nonce_field($action, $name, $referrer, $echo);
+
+    /**
      * A safe way of regisetring javascripts in WordPress for later use with wp_enqueue_script().
      *
      * @param string $handle Name of the script.
@@ -308,6 +321,18 @@ interface tubepress_addons_wordpress_spi_WordPressFunctionWrapper
      * @return void
      */
     function wp_register_widget_control($id, $name, $callback);
+
+    /**
+     * Verify that a nonce is correct and unexpired with the respect to a specified action.
+     *
+     * @param string $nonce  Nonce to verify.
+     * @param string $action Action name. Should give the context to what is taking place and be the same when the nonce was created.
+     *
+     * @return boolean|integer False if the nonce is invalid. Otherwise returns an integer with the value of
+     *                         1 if the nonce has been generated in the past 12 hours or less.
+     *                         2 if the nonce was generated between 12 and 24 hours ago.
+     */
+    function wp_verify_nonce($nonce, $action);
 
     /**
      * Use the function update_option() to update a named option/value pair to the options database table.

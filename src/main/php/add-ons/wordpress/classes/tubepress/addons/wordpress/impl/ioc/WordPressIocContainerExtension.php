@@ -56,6 +56,12 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
+        $container->register(
+
+            'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsPageParticipant',
+            'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsPageParticipant'
+        )->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
+
         $this->_registerListeners($container);
     }
 

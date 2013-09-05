@@ -16,6 +16,6 @@ class tubepress_impl_options_ui_fields_BooleanField extends tubepress_impl_optio
 {
     protected final function getAbsolutePathToTemplate()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/checkbox.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/checkbox.tpl.php';
     }
 }

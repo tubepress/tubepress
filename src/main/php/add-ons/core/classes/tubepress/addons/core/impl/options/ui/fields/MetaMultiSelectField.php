@@ -73,15 +73,18 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function getUngroupedTranslatedChoicesArray()
     {
-        $optionDescriptors = $this->_getOptionDescriptors();
+        //prime cache
+        $this->_getOptionDescriptors();
 
         $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $toReturn       = array();
 
-        foreach ($optionDescriptors as $metaOptionDescriptor) {
+        foreach ($this->_cachedCoreOptionDescriptors as $metaOptionDescriptor) {
 
             $toReturn[$metaOptionDescriptor->getName()] = $messageService->_($metaOptionDescriptor->getLabel());
         }
+
+        asort($toReturn);
 
         return $toReturn;
     }
@@ -110,8 +113,12 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
                 $values[$optionDescriptor->getName()] = $messageService->_($optionDescriptor->getLabel());
             }
 
+            asort($values);
+
             $toReturn[$friendlyName] = $values;
         }
+
+        ksort($toReturn);
 
         return $toReturn;
     }

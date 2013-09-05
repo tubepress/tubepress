@@ -119,19 +119,4 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
         //override point
         return $storageData;
     }
-
-    /**
-     * Override point.
-     *
-     * Allows subclasses to further modify the description for this field.
-     *
-     * @param $originalDescription string The original description as calculated by AbstractField.php.
-     *
-     * @return string The (possibly) modified description for this field.
-     */
-    protected function getModifiedDescription($originalDescription)
-    {
-        //override point
-        return $originalDescription;
-    }
 }

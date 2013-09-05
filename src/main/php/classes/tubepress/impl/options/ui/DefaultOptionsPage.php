@@ -38,6 +38,7 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
     {
         $templateBldr                         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $eventDispatcher                      = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $environmentDetector                  = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $template                             = $templateBldr->getNewTemplateInstance($this->_templatePath);
         $fields                               = $this->_buildFieldsArray();
         $categories                           = $this->_buildCategoriesArray();
@@ -46,10 +47,12 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
 
         $template->setVariable('errors', $errors);
         $template->setVariable('fields', $fields);
-        $template->setVariable('inlineJS', $this->_getInlineJS());
         $template->setVariable('categories', $categories);
         $template->setVariable('participants', $participants);
         $template->setVariable('categoryIdToParticipantIdToFieldsMap', $categoryIdToParticipantIdToFieldsMap);
+        $template->setVariable('activeCategoryId', tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE);
+        $template->setVariable('tubePressBaseUrl', $environmentDetector->getBaseUrl());
+        $template->setVariable("correctErrorsMessage", 'Please correct the errors and try again.');    //>(translatable)<
 
         $templateEvent = new tubepress_spi_event_EventBase($template);
         $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE_TOSTRING, $templateEvent);
@@ -65,7 +68,7 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
     public function onSubmit()
     {
         /**
-         * @var tubepress_spi_options_ui_OptionsPageFieldInterfaOptionsPageItce[] $fields
+         * @var tubepress_spi_options_ui_OptionsPageFieldInterface[] $fields
          */
         $fields = $this->_buildFieldsArray();
         $errors = array();
@@ -156,18 +159,8 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
 
                 $toReturn[$categoryId][$participant->getId()] = $map[$categoryId];
             }
-        }
 
-        return $toReturn;
-    }
-
-    private function _getInlineJS()
-    {
-        $toReturn = '';
-
-        foreach ($this->_optionsPageParticipants as $participant) {
-
-            $toReturn .= $participant->getInlineJs();
+            uksort($toReturn[$categoryId], array($this, '__participantSorter'));
         }
 
         return $toReturn;
@@ -182,7 +175,24 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
             $toReturn[$participant->getId()] = $participant;
         }
 
+        uksort($toReturn, array($this, '__participantSorter'));
+
         return $toReturn;
+    }
+
+    public function __participantSorter($first, $second)
+    {
+        if ($first === tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::PARTICIPANT_ID) {
+
+            return -1;
+        }
+
+        if ($second === tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::PARTICIPANT_ID) {
+
+            return 1;
+        }
+
+        return strcmp($first, $second);
     }
 
 }

@@ -22,7 +22,6 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
     const CATEGORY_ID_GALLERYSOURCE = 'gallerysource-category';
     const CATEGORY_ID_META          = 'meta-category';
     const CATEGORY_ID_PLAYER        = 'player-category';
-    const CATEGORY_ID_THEME         = 'theme-category';
     const CATEGORY_ID_THUMBS        = 'thumbs-category';
 
     /**
@@ -67,7 +66,6 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
             new tubepress_impl_options_ui_OptionsPageItem(self::CATEGORY_ID_THUMBS,        'Thumbnails'),     //>(translatable)<')
             new tubepress_impl_options_ui_OptionsPageItem(self::CATEGORY_ID_PLAYER,        'Player'),         //>(translatable)<)
             new tubepress_impl_options_ui_OptionsPageItem(self::CATEGORY_ID_META,          'Meta'),           //>(translatable)<)
-            new tubepress_impl_options_ui_OptionsPageItem(self::CATEGORY_ID_THEME,         'Theme'),          //>(translatable)<)
             new tubepress_impl_options_ui_OptionsPageItem(self::CATEGORY_ID_FEED,          'Feed'),           //>(translatable)<)
             new tubepress_impl_options_ui_OptionsPageItem(self::CATEGORY_ID_CACHE,         'Cache'),          //>(translatable)<)
             new tubepress_impl_options_ui_OptionsPageItem(self::CATEGORY_ID_ADVANCED,      'Advanced'),       //>(translatable)<)
@@ -90,6 +88,7 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
             new tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField($this->_optionsPageParticipants),
 
             //Thumbnail fields
+            new tubepress_addons_core_impl_options_ui_fields_ThemeField(),
             new tubepress_impl_options_ui_fields_TextField(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT),
             new tubepress_impl_options_ui_fields_TextField(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH),
             new tubepress_impl_options_ui_fields_BooleanField(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION),
@@ -117,9 +116,6 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
             new tubepress_impl_options_ui_fields_TextField(org_tubepress_api_const_options_names_Meta::DATEFORMAT),
             new tubepress_impl_options_ui_fields_BooleanField(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES),
             new tubepress_impl_options_ui_fields_TextField(org_tubepress_api_const_options_names_Meta::DESC_LIMIT),
-
-            //Theme fields
-            new tubepress_addons_core_impl_options_ui_fields_ThemeField(),
 
             //Feed fields
             new tubepress_impl_options_ui_fields_DropdownField(tubepress_api_const_options_names_Feed::ORDER_BY),
@@ -151,6 +147,7 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
 
             self::CATEGORY_ID_THUMBS => array(
 
+                tubepress_api_const_options_names_Thumbs::THEME,
                 tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,
                 tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,
                 tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
@@ -182,11 +179,6 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
                 org_tubepress_api_const_options_names_Meta::DATEFORMAT,
                 org_tubepress_api_const_options_names_Meta::RELATIVE_DATES,
                 org_tubepress_api_const_options_names_Meta::DESC_LIMIT,
-            ),
-
-            self::CATEGORY_ID_THEME => array(
-
-                tubepress_api_const_options_names_Thumbs::THEME,
             ),
 
             self::CATEGORY_ID_FEED => array(

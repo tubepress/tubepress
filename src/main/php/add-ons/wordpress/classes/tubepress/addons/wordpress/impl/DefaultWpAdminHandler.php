@@ -31,7 +31,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
 
         foreach ($this->_getCssMap() as $cssName => $cssRelativePath) {
 
-            $url = $wpFunctionWrapper->plugins_url($baseName . '/src/main/web/' . $cssRelativePath, $baseName);
+            $url = $wpFunctionWrapper->plugins_url($baseName . $cssRelativePath, $baseName);
 
             $wpFunctionWrapper->wp_register_style($cssName, $url);
             $wpFunctionWrapper->wp_enqueue_style($cssName);
@@ -39,7 +39,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
 
         foreach ($this->_getJsMap() as $jsName => $jsRelativePath) {
 
-            $url = $wpFunctionWrapper->plugins_url($baseName . '/src/main/web/' . $jsRelativePath, $baseName);
+            $url = $wpFunctionWrapper->plugins_url($baseName . $jsRelativePath, $baseName);
 
             $wpFunctionWrapper->wp_register_script($jsName, $url);
             $wpFunctionWrapper->wp_enqueue_script($jsName, false, array(), false, false);
@@ -146,10 +146,10 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
     {
         return array(
 
-            'bootstrap-3.0.0'       => 'vendor/bootstrap-3.0.0/css/bootstrap.min.css',
-            'bootstrap-theme'       => 'vendor/bootstrap-3.0.0/css/bootstrap-theme.min.css',
-            'bootstrap-multiselect' => 'vendor/bootstrap-multiselect-0.9/css/bootstrap-multiselect.css',
-            'tubepress-extra'       => 'css/options-page.css',
+            'bootstrap-3.0.0'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-restricted.min.css',
+            'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-restricted-theme.min.css',
+            'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/css/bootstrap-multiselect.css',
+            'tubepress-extra'       => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
         );
     }
 
@@ -157,8 +157,10 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
     {
         return array(
 
-            'bootstrap-3.0.0'       => 'vendor/bootstrap-3.0.0/js/bootstrap.min.js',
-            'bootstrap-multiselect' => 'vendor/bootstrap-multiselect-0.9/js/bootstrap-multiselect.js',
+            'bootstrap-3.0.0'               => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/js/bootstrap.min.js',
+            'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/js/bootstrap-multiselect.js',
+            'bootstrap-multiselect-invoker' => '/src/main/web/options-gui/js/bootstrap-multiselect-invoker.js',
+            'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
         );
     }
 }

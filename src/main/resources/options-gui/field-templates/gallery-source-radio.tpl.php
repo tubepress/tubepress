@@ -9,4 +9,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<input id="<?php echo $id; ?>" type="text" name="<?php echo $id ?>" size="<?php echo $size; ?>" value="<?php echo $value; ?>" />
+<div class="input-group">
+
+    <span class="input-group-addon">
+
+        <input type="radio" name="mode" id="<?php echo $modeName; ?>" value="<?php echo $modeName; ?>" <?php if ($currentMode === $modeName) { echo 'CHECKED'; } ?> />
+
+    </span>
+
+    <?php echo $additionalFieldWidgetHtml; ?>
+</div><!-- /input-group -->
+

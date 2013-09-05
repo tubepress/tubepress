@@ -472,9 +472,12 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
             }
         }
 
+        asort($detected);
+
         return array_merge(array(
 
             tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED => 'Provider default',  //>(translatable)<
+
         ), $detected);
     }
 
@@ -490,12 +493,18 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
             $toReturn[$playerLocation->getName()] = $playerLocation->getFriendlyName();
         }
 
+        asort($toReturn);
+
         return $toReturn;
     }
 
     public function _callbackGetValidVideoProviderNames()
     {
-        return array_keys($this->_getValidProviderNamesToFriendlyNames());
+        $toReturn = array_keys($this->_getValidProviderNamesToFriendlyNames());
+
+        asort($toReturn);
+
+        return $toReturn;
     }
 
     public function _callbackGetValidThemeOptions()
@@ -541,6 +550,8 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
 
             $toReturn[$themeName] = $themeName;
         }
+
+        ksort($toReturn);
 
         return $toReturn;
     }

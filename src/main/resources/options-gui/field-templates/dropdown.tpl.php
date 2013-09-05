@@ -9,5 +9,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<input type="radio" name="mode" id="<?php echo $modeName; ?>" value="<?php echo $modeName; ?>" <?php if ($currentMode === $modeName) { echo 'CHECKED'; } ?> />
-<?php echo $additionalFieldWidgetHtml; ?>
+<select class="form-control" id="<?php echo $id; ?>" name="<?php echo $id; ?>">
+
+	<?php foreach ($choices as $choiceValue => $choiceDisplayName): ?>
+
+	    <option value="<?php echo $choiceValue; ?>" <?php if ($value === $choiceValue) { echo 'SELECTED'; } ?>><?php echo $choiceDisplayName; ?></option>
+
+    <?php endforeach; ?>
+
+</select>

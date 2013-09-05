@@ -37,7 +37,7 @@ class tubepress_impl_options_ui_fields_GallerySourceRadioField extends tubepress
      */
     protected function getAbsolutePathToTemplate()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/gallery-source-radio.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/gallery-source-radio.tpl.php';
     }
 
     /**

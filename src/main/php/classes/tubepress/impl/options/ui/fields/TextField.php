@@ -39,6 +39,6 @@ class tubepress_impl_options_ui_fields_TextField extends tubepress_impl_options_
 
     protected function getAbsolutePathToTemplate()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/text.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/text.tpl.php';
     }
 }

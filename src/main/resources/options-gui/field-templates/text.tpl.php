@@ -1,3 +1,4 @@
+<?php
 /**
  * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
@@ -7,21 +8,5 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-var TubePressParticipantFilterField  = (function () {
-
-    var init = function () {
-
-        jQuery('#participant-filter-field').multiselect();
-    };
-
-    return {
-
-        'init' : init
-    };
-
-}());
-
-jQuery(function() {
-
-    TubePressParticipantFilterField.init();
-});
+?>
+<input class="form-control" id="<?php echo $id; ?>" type="text" name="<?php echo $id ?>" size="<?php echo $size; ?>" value="<?php echo $value; ?>" />
