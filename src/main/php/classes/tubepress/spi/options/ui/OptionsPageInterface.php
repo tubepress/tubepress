@@ -15,11 +15,12 @@
 interface tubepress_spi_options_ui_OptionsPageInterface
 {
     /**
-     * @param array $errors An associative array, which may be empty, of field IDs to error messages.
+     * @param array   $errors        An associative array, which may be empty, of field IDs to error messages.
+     * @param boolean $justSubmitted True if the form was just submitted, false otherwise.
      *
      * @return string The HTML for the options page.
      */
-    function getHTML(array $errors = array());
+    function getHTML(array $errors = array(), $justSubmitted = false);
 
     /**
      * Invoked when the page is submitted by the user.

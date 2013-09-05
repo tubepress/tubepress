@@ -12,11 +12,13 @@
 
 <div class="form-group">
 
-    <label for="<?php echo $field->getId(); ?>" class="col-md-3 control-label">
+    <label for="<?php echo $field->getId(); ?>" class="col-md-2 control-label">
 
-        <?php if ($field->isProOnly()) : ?>
+        <?php if (!$isPro && $field->isProOnly()) : ?>
 
-            <a href="http://tubepress.com/pro"><span class="label label-primary">Pro</span></a>
+            <a href="http://tubepress.com/pro">
+                    <span class="label label-primary" style="font-size: 100%">Pro</span>
+            </a>
 
         <?php endif; ?>
 
@@ -25,14 +27,13 @@
     </label>
 
 
-    <div class="col-md-9">
+    <div class="col-md-10">
 
         <?php echo $field->getWidgetHTML(); ?>
 
         <span class="help-block">
-            <small>
-                <?php echo $field->getTranslatedDescription(); ?>
-            </small>
+            <?php echo $field->getTranslatedDescription(); ?>
         </span>
+
     </div>
 </div>

@@ -10,40 +10,45 @@
  */
 ?>
 
-<div class="tabbable">
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable">
 
-    <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs">
 
-        <?php
-            /**
-             * @var $categories tubepress_spi_options_ui_OptionsPageItemInterface[]
-             */
-            foreach ($categories as $category): ?>
+                <?php
+                /**
+                 * @var $categories tubepress_spi_options_ui_OptionsPageItemInterface[]
+                 */
+                foreach ($categories as $category): ?>
 
-                <li<?php if ($activeCategoryId === $category->getId()): ?> class="active"<?php endif; ?>>
+                    <li<?php if ($activeCategoryId === $category->getId()): ?> class="active"<?php endif; ?>>
 
-                    <a href="#<?php echo $category->getId(); ?>" data-toggle="tab">
+                        <a href="#<?php echo $category->getId(); ?>" data-toggle="tab">
 
-                        <?php echo $category->getTranslatedDisplayName(); ?>
+                            <?php echo $category->getTranslatedDisplayName(); ?>
 
-                    </a>
+                        </a>
 
-                </li>
+                    </li>
 
-            <?php endforeach; ?>
-    </ul>
+                <?php endforeach; ?>
+            </ul>
 
-    <div class="tab-content">
+            <div class="tab-content">
 
-        <?php
-            $categoryIndex = 0;
+                <?php
+                $categoryIndex = 0;
 
-            foreach ($categories as $category) {
+                foreach ($categories as $category) {
 
-                require 'single-category.tpl.php';
-            }
-        ?>
+                    require 'single-category.tpl.php';
+                }
+                ?>
 
+            </div>
+        </div>
     </div>
 </div>
+
 

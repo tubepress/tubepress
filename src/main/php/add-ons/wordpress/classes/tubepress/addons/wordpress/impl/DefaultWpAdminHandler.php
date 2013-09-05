@@ -70,34 +70,27 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
     public final function printOptionsPageHtml()
     {
         /* get the form handler */
-        $optionsForm = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPage();
-        $hrps        = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $optionsForm   = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPage();
+        $hrps          = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $errors        = array();
+        $justSubmitted = false;
 
         /* are we updating? */
-        if ($hrps->hasParam('tubepress_save')) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $hrps->hasParam('tubepress_save')) {
 
-            self::_verifyNonce();
+            $justSubmitted = true;
 
             try {
 
-                $result = $optionsForm->onSubmit();
-
-                if ($result === null) {
-
-                    echo '<div class="updated tubepress-options-updated"><p><strong>Options updated</strong></p></div>';
-
-                } else {
-
-                    self::_error($result);
-                }
+                $errors = $optionsForm->onSubmit();
 
             } catch (Exception $error) {
 
-                self::_error($error->getMessage());
+                $errors = array($error->getMessage());
             }
         }
 
-        print $optionsForm->getHtml();
+        print $optionsForm->getHtml($errors, $justSubmitted);
     }
 
     /**
@@ -125,29 +118,12 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
         ));
     }
 
-    private static function _verifyNonce()
-    {
-        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-
-        $wpFunctionWrapper->check_admin_referer('tubepress-save', 'tubepress-nonce');
-    }
-
-    private static function _error($message)
-    {
-        if (is_array($message)) {
-
-            $message = implode($message, '<br />');
-        }
-
-        echo '<div id="message" class="error fade"><p><strong>' . $message . '</strong></p></div>';
-    }
-
     private function _getCssMap()
     {
         return array(
 
-            'bootstrap-3.0.0'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-restricted.min.css',
-            'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-restricted-theme.min.css',
+            'bootstrap-3.0.0'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-custom.css',
+            'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-custom-theme.css',
             'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/css/bootstrap-multiselect.css',
             'tubepress-extra'       => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
             'spectrum'              => '/src/main/web/options-gui/vendor/spectrum-1.1.1/spectrum.css',
@@ -163,6 +139,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
             'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.1.1/spectrum.js',
             'bootstrap-multiselect-invoker' => '/src/main/web/options-gui/js/bootstrap-multiselect-invoker.js',
             'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
+            'iframe-loader'                 => '/src/main/php/add-ons/wordpress/web/options-gui/js/iframe-loader.js',
         );
     }
 }

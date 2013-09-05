@@ -13,17 +13,18 @@ var BootstrapFieldErrorHandler = (function (win) {
 
             jQuery('html, body').animate({
 
-                scrollTop: jQuery(selector).offset().top
-            }, 2000);
+                scrollTop: jQuery(selector).offset().top - 40
+            }, 800);
         },
 
         applyErrorToField = function (fieldId, message) {
 
-            var fieldSelector = '#' + fieldId;
+            var fieldSelector    = '#' + fieldId,
+                closestFormGroup = jQuery(fieldSelector).closest('div.form-group');
 
-            jQuery(fieldSelector).closest('div.form-group').addClass('has-error');
+            closestFormGroup.addClass('has-error');
 
-            jQuery(fieldSelector).next('span.help-block').before('<div class="help-block tubepress-field-error"><strong>' + message + '</strong></div>');
+            closestFormGroup.find('span.help-block:first').before('<div class="help-block tubepress-field-error"><strong>' + message + '</strong></div>');
         },
 
         applyErrorsToFields = function (errors) {

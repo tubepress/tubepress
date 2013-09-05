@@ -66,6 +66,15 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
 
+        $container->register(
+
+            'vimeo-color-sanitizer',
+            'tubepress_impl_listeners_options_ColorSanitizingListener'
+        )->addMethodCall('setApplicableOptionNames', array(array(
+                tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR
+            )))
+            ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 9500));
+
         $this->_registerHttpListeners($container);
 
         $this->_registerOauthClient($container);

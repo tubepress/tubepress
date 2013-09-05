@@ -97,7 +97,7 @@ class tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant implement
             new tubepress_impl_options_ui_fields_BooleanField(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW),
             new tubepress_impl_options_ui_fields_BooleanField(tubepress_api_const_options_names_Thumbs::HQ_THUMBS),
             new tubepress_impl_options_ui_fields_BooleanField(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS),
-            new tubepress_impl_options_ui_fields_BooleanField(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE),
+            new tubepress_impl_options_ui_fields_TextField(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE),
 
             //Player fields
             new tubepress_impl_options_ui_fields_DropdownField(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION),

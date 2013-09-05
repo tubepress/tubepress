@@ -30,11 +30,12 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
     }
 
     /**
-     * @param array $errors An associative array, which may be empty, of field IDs to error messages.
+     * @param array   $errors        An associative array, which may be empty, of field IDs to error messages.
+     * @param boolean $justSubmitted True if the form was just submitted, false otherwise.
      *
      * @return string The HTML for the options page.
      */
-    public function getHTML(array $errors = array())
+    public function getHTML(array $errors = array(), $justSubmitted = false)
     {
         $templateBldr                         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $eventDispatcher                      = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
@@ -45,14 +46,24 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
         $categoryIdToParticipantIdToFieldsMap = $this->_buildCategoryIdToParticipantIdToFieldsMap($categories);
         $participants                         = $this->_buildParticipantsArray();
 
-        $template->setVariable('errors', $errors);
-        $template->setVariable('fields', $fields);
-        $template->setVariable('categories', $categories);
-        $template->setVariable('participants', $participants);
-        $template->setVariable('categoryIdToParticipantIdToFieldsMap', $categoryIdToParticipantIdToFieldsMap);
-        $template->setVariable('activeCategoryId', tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE);
-        $template->setVariable('tubePressBaseUrl', $environmentDetector->getBaseUrl());
-        $template->setVariable("correctErrorsMessage", 'Please correct the errors and try again.');    //>(translatable)<
+        $templateVariables = array(
+
+            'activeCategoryId'                     => tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant::CATEGORY_ID_GALLERYSOURCE,
+            'categories'                           => $categories,
+            'categoryIdToParticipantIdToFieldsMap' => $categoryIdToParticipantIdToFieldsMap,
+            'errors'                               => $errors,
+            'fields'                               => $fields,
+            'isPro'                                => $environmentDetector->isPro(),
+            'justSubmitted'                        => $justSubmitted,
+            'participants'                         => $participants,
+            "successMessage"                       => 'Options updated.',                     //>translatable<
+            'tubePressBaseUrl'                     => $environmentDetector->getBaseUrl(),
+        );
+
+        foreach ($templateVariables as $key => $val) {
+
+            $template->setVariable($key, $val);
+        }
 
         $templateEvent = new tubepress_spi_event_EventBase($template);
         $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE_TOSTRING, $templateEvent);

@@ -46,12 +46,7 @@ class tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField extends tub
     {
         $wpFunctions = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
-        $result = $wpFunctions->wp_verify_nonce('tubepress-save', 'tubepress-nonce');
-
-        if ($result !== 1) {
-
-            return 'Invalid nonce.';      //>(translatable)<
-        }
+        $wpFunctions->check_admin_referer('tubepress-save', 'tubepress-nonce');
 
         return null;
     }

@@ -38,6 +38,9 @@ class tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant ext
     {
         if (!isset($this->_cachedFields)) {
 
+            $keyField = new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY);
+            $keyField->setSize(120);
+
             $this->_cachedFields = array(
 
                 //Gallery source fields
@@ -100,7 +103,7 @@ class tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant ext
 
                 //Feed fields
                 new tubepress_impl_options_ui_fields_DropdownField(tubepress_addons_youtube_api_const_options_names_Feed::FILTER),
-                new tubepress_impl_options_ui_fields_TextField(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY),
+                $keyField,
                 new tubepress_impl_options_ui_fields_BooleanField(tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY),
             );
         }

@@ -41,6 +41,12 @@ class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipan
     {
         if (!isset($this->_cachedFields)) {
 
+            $keyField    = new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY);
+            $secretField = new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET);
+
+            $keyField->setSize(40);
+            $secretField->setSize(40);
+
             $this->_cachedFields = array(
 
                 //Gallery source fields
@@ -72,8 +78,8 @@ class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipan
                 new tubepress_impl_options_ui_fields_SpectrumColorField(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR),
 
                 //Feed fields
-                new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY),
-                new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET),
+                $keyField,
+                $secretField,
             );
         }
 

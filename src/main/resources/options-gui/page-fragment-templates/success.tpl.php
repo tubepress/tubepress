@@ -10,21 +10,15 @@
  */
 ?>
 
-<div class="tab-pane<?php if ($activeCategoryId === $category->getId()): ?> active<?php endif; ?>" id="<?php echo $category->getId(); ?>">
+<?php if (count($errors) === 0 && $justSubmitted): ?>
 
     <div class="row">
-
         <div class="col-md-12">
-            <?php
-            foreach ($categoryIdToParticipantIdToFieldsMap[$category->getId()] as $participantId => $fieldIds) {
-
-                $participant = $participants[$participantId];
-
-                require 'single-participant.tpl.php';
-
-            }
-            ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong><?php echo $successMessage; ?></strong>
+            </div>
         </div>
     </div>
-</div>
 
+<?php endif; ?>
