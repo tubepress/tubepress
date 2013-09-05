@@ -69,7 +69,7 @@ class tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipan
                     new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE)),
 
                 //Player fields
-                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR),
+                new tubepress_impl_options_ui_fields_SpectrumColorField(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR),
 
                 //Feed fields
                 new tubepress_impl_options_ui_fields_TextField(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY),

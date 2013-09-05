@@ -40,10 +40,10 @@ class tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant e
 
             $this->_cachedFields = array(
 
-                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK),
-                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT),
-                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT),
-                new tubepress_impl_options_ui_fields_ColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN),
+                new tubepress_impl_options_ui_fields_SpectrumColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK),
+                new tubepress_impl_options_ui_fields_SpectrumColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT),
+                new tubepress_impl_options_ui_fields_SpectrumColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT),
+                new tubepress_impl_options_ui_fields_SpectrumColorField(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN),
 
             );
         }
