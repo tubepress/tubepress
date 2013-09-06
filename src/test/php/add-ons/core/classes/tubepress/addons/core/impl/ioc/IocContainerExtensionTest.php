@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_core_impl_ioc_IocContainerExtension<extended>
  */
-class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
+class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
 {
     protected function prepareForLoad()
     {
@@ -27,8 +27,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $this->_hrps();
         $this->_hrch();
         $this->_odr();
-        $this->_optionValidator();
         $this->_optionProvider();
+        $this->_optionValidator();
         $this->_registerPlayerHtml();
         $this->_qss();
         $this->_shortcode();
@@ -36,7 +36,9 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
         $this->_templateBuilder();
         $this->_themeHandler();
         $this->_videoCollector();
+
         $this->_pluggables();
+
         $this->_listeners();
     }
 
@@ -126,14 +128,216 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
 
     private function _pluggables()
     {
-        $this->expectRegistration('tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant', 'tubepress_addons_core_impl_options_ui_CoreOptionsPageParticipant')
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'))
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface', 'method' => 'setOptionsPageParticipants'))
-            ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
+        $this->_pluggableOptionsPageParticipant();
 
+        $this->_pluggableAjaxHandlers();
+
+        $this->_pluggablePlayerLocations();
+
+        $this->_pluggableShortcodeHandlers();
+    }
+
+    private function _pluggableOptionsPageParticipant()
+    {
+        $categoryMap = array(
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => 'Which videos?',  //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS        => 'Thumbnails',     //>(translatable)<')
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER        => 'Player',         //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META          => 'Meta',           //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED          => 'Feed',           //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE         => 'Cache',          //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED      => 'Advanced',       //>(translatable)<)
+        );
+
+        $categoryIndex = 0;
+
+        foreach ($categoryMap as $id => $displayName) {
+
+            $this->expectRegistration(
+
+                'core-options-category-' . $categoryIndex++,
+                'tubepress_impl_options_ui_OptionsPageItem'
+            )->withArgument($id)
+             ->withArgument($displayName);
+        }
+
+        $categoryReferences = array();
+
+        for ($x = 0 ; $x < $categoryIndex; $x++) {
+
+            $categoryReferences[] = new tubepress_impl_ioc_Reference('core-options-category-' . $x);
+        }
+
+        $fieldIndex = 0;
+
+        //Filter field
+        $this->expectRegistration(
+
+            'core-options-field-' . $fieldIndex++,
+            'tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField'
+        );
+
+        //Meta multi-select
+        $this->expectRegistration(
+
+            'core-options-field-' . $fieldIndex++,
+            'tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
+                array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'));
+
+        //Theme field
+        $this->expectRegistration(
+
+            'core-options-field-' . $fieldIndex++,
+            'tubepress_addons_core_impl_options_ui_fields_ThemeField'
+        );
+
+        $fieldMap = array(
+
+            //Thumbnail fields
+            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION  => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Thumbs::FLUID_THUMBS     => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE   => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW   => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Thumbs::HQ_THUMBS        => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS    => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 'tubepress_impl_options_ui_fields_TextField',
+
+            //Player fields
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'tubepress_impl_options_ui_fields_DropdownField',
+            tubepress_api_const_options_names_Embedded::PLAYER_IMPL     => 'tubepress_impl_options_ui_fields_DropdownField',
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH  => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Embedded::LAZYPLAY        => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Embedded::SHOW_INFO       => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Embedded::AUTONEXT        => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Embedded::AUTOPLAY        => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Embedded::LOOP            => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Embedded::ENABLE_JS_API   => 'tubepress_impl_options_ui_fields_BooleanField',
+
+            //Meta fields
+            org_tubepress_api_const_options_names_Meta::DATEFORMAT     => 'tubepress_impl_options_ui_fields_TextField',
+            org_tubepress_api_const_options_names_Meta::RELATIVE_DATES => 'tubepress_impl_options_ui_fields_BooleanField',
+            org_tubepress_api_const_options_names_Meta::DESC_LIMIT     => 'tubepress_impl_options_ui_fields_TextField',
+
+            //Feed fields
+            tubepress_api_const_options_names_Feed::ORDER_BY         => 'tubepress_impl_options_ui_fields_DropdownField',
+            tubepress_api_const_options_names_Feed::PER_PAGE_SORT    => 'tubepress_impl_options_ui_fields_DropdownField',
+            tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => 'tubepress_impl_options_ui_fields_TextField',
+
+            //Cache fields
+            tubepress_api_const_options_names_Cache::CACHE_ENABLED          => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Cache::CACHE_DIR              => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR     => 'tubepress_impl_options_ui_fields_TextField',
+
+            //Advanced fields
+            tubepress_api_const_options_names_Advanced::DEBUG_ON    => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Advanced::HTTPS       => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Advanced::HTTP_METHOD => 'tubepress_impl_options_ui_fields_DropdownField',
+        );
+
+        foreach ($fieldMap as $id => $class) {
+
+            $this->expectRegistration('core-options-field-' . $fieldIndex++, $class)->withArgument($id);
+        }
+
+        $fieldReferences = array();
+
+        for ($x = 0 ; $x < $fieldIndex; $x++) {
+
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('core-options-field-' . $x);
+        }
+
+        $map = array(
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS => array(
+
+                tubepress_api_const_options_names_Thumbs::THEME,
+                tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,
+                tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,
+                tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
+                tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,
+                tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE,
+                tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW,
+                tubepress_api_const_options_names_Thumbs::HQ_THUMBS,
+                tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS,
+                tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(
+
+                tubepress_api_const_options_names_Embedded::PLAYER_LOCATION,
+                tubepress_api_const_options_names_Embedded::PLAYER_IMPL,
+                tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,
+                tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,
+                tubepress_api_const_options_names_Embedded::LAZYPLAY,
+                tubepress_api_const_options_names_Embedded::SHOW_INFO,
+                tubepress_api_const_options_names_Embedded::AUTONEXT,
+                tubepress_api_const_options_names_Embedded::AUTOPLAY,
+                tubepress_api_const_options_names_Embedded::LOOP,
+                tubepress_api_const_options_names_Embedded::ENABLE_JS_API,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META => array(
+
+                tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField::FIELD_ID,
+                org_tubepress_api_const_options_names_Meta::DATEFORMAT,
+                org_tubepress_api_const_options_names_Meta::RELATIVE_DATES,
+                org_tubepress_api_const_options_names_Meta::DESC_LIMIT,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED => array(
+
+                tubepress_api_const_options_names_Feed::ORDER_BY,
+                tubepress_api_const_options_names_Feed::PER_PAGE_SORT,
+                tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP,
+                tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST,
+                tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE => array(
+
+                tubepress_api_const_options_names_Cache::CACHE_ENABLED,
+                tubepress_api_const_options_names_Cache::CACHE_DIR,
+                tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS,
+                tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED => array(
+
+                tubepress_api_const_options_names_Advanced::DEBUG_ON,
+                tubepress_api_const_options_names_Advanced::HTTPS,
+                tubepress_api_const_options_names_Advanced::HTTP_METHOD
+            )
+        );
+
+        $this->expectRegistration(
+
+            'core-options-page-participant',
+            'tubepress_impl_options_ui_BaseOptionsPageParticipant'
+
+        )->withArgument('core')
+         ->withArgument('Core')  //this will never be shown, so don't translate
+         ->withArgument($categoryReferences)
+         ->withArgument($fieldReferences)
+         ->withArgument($map)
+         ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
+    }
+
+    private function _pluggableAjaxHandlers()
+    {
         $this->expectRegistration('tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService', 'tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService')
             ->withTag(tubepress_spi_http_PluggableAjaxCommandService::_);
+    }
 
+    private function _pluggablePlayerLocations()
+    {
         $playerLocationClasses = array(
 
             'tubepress_addons_core_impl_player_JqModalPluggablePlayerLocationService',
@@ -151,7 +355,10 @@ class tubepress_addons_core_impl_ioc_IocContainerExtensionTest extends tubepress
             $this->expectRegistration($playerLocationClass, $playerLocationClass)
                 ->withTag(tubepress_spi_player_PluggablePlayerLocationService::_);
         }
+    }
 
+    private function _pluggableShortcodeHandlers()
+    {
         $this->expectRegistration('tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService')
             ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 

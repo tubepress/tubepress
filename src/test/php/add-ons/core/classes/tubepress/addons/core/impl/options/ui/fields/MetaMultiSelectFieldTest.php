@@ -12,136 +12,28 @@
 /**
  * @covers tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField<extended>
  */
-class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepress_test_impl_options_ui_fields_AbstractMultiSelectFieldTest
 {
-    /**
-     * @var tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField
-     */
-    private $_sut;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockOptionDescriptorArrary;
-
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
     private $_mockOptionDescriptorReference;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface
+     * @var ehough_mockery_mockery_MockInterface[]
      */
-    private $_mockMessageService;
+    private $_mockVideoProviders;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockStorageManager;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockHttpRequestParameterService;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockTemplateBuilder;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockEnvironmentDetector;
-
-    public function onSetup()
+    protected function doOnSetup()
     {
         $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockOptionDescriptorArrary    = $this->_buildMockOptionDescriptorArray();
-        $this->_mockMessageService            = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
-
-        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-
-        $mockProvider1 = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('xyz'));
-
-        $mockProvider2 = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
-        $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('abc'));
-
-
-        $this->_sut = new tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField(array($mockProvider1, $mockProvider2));
     }
 
-    public function testGetTitle()
-    {
-        $this->assertEquals('<<message: Show each video\'s...>>', $this->_sut->getTitle());
-    }
-
-    public function testGetDesc()
-    {
-        $this->assertEquals('', $this->_sut->getDescription());
-    }
-
-    public function testIsProOnly()
-    {
-        $this->assertFalse($this->_sut->isProOnly());
-    }
-
-    public function testOnSubmit()
-    {
-
-        $odNames      = $this->_getOdNames();
-        $indexOfFalse = array_rand($odNames);
-        $postVars     = array();
-
-        for ($x = 0; $x < count($odNames); $x++) {
-
-            $keep = $x !== $indexOfFalse;
-
-            $this->_mockStorageManager->shouldReceive('set')->once()->with($odNames[$x], $keep);
-
-            if ($keep) {
-
-                $postVars[] = $odNames[$x];
-            }
-        }
-
-        $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('metadropdown')->andReturn(true);
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('metadropdown')->andReturn($postVars);
-
-        $this->_sut->onSubmit(array('metadropdown' => $postVars));
-
-        $this->assertTrue(true);
-    }
-
-    public function testGetHtml()
-    {
-        $template     = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME, 'metadropdown');
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_DESCRIPTORS, $this->_mockOptionDescriptorArrary);
-        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_CURRENTVALUES, $this->_getOdNames());
-        $template->shouldReceive('toString')->once()->andReturn('boogity');
-        $odNames = $this->_getOdNames();
-
-        foreach ($odNames as $odName) {
-
-            $this->_mockStorageManager->shouldReceive('get')->once()->with($odName)->andReturn(true);
-        }
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php')->andReturn($template);
-
-        $this->assertEquals('boogity', $this->_sut->getHtml());
-    }
-
-    protected function _getOdNames()
+    protected function _getCoreOdNames()
     {
         return array(
 
             tubepress_api_const_options_names_Meta::AUTHOR,
-
             tubepress_api_const_options_names_Meta::CATEGORY,
             tubepress_api_const_options_names_Meta::UPLOADED,
             tubepress_api_const_options_names_Meta::DESCRIPTION,
@@ -151,22 +43,36 @@ class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tub
             tubepress_api_const_options_names_Meta::TITLE,
             tubepress_api_const_options_names_Meta::URL,
             tubepress_api_const_options_names_Meta::VIEWS,
-            'xyz',
-            'abc',
         );
     }
 
-    private function _buildMockOptionDescriptorArray()
+    private function _buildMockVideoProviders()
     {
+        $this->_mockVideoProviders = array();
 
-        $names = $this->_getOdNames();
+        $mockProvider1 = ehough_mockery_Mockery::mock('tubepress_spi_provider_PluggableVideoProviderService');
+        $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('a', 'b', 'c'));
+        $mockProvider1->shouldReceive('getFriendlyName')->once()->andReturn('Mock 1');
+        $this->_expectMockOptionDescriptors(array('a', 'b', 'c'));
 
+        $mockProvider2 = ehough_mockery_Mockery::mock('tubepress_spi_provider_PluggableVideoProviderService');
+        $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('x', 'y', 'z'));
+        $mockProvider2->shouldReceive('getFriendlyName')->once()->andReturn('Mock 2');
+        $this->_expectMockOptionDescriptors(array('x', 'y', 'z'));
+
+        $this->_mockVideoProviders[] = $mockProvider1;
+        $this->_mockVideoProviders[] = $mockProvider2;
+    }
+
+    private function _expectMockOptionDescriptors($names)
+    {
         $ods = array();
 
         foreach ($names as $name) {
 
             $od = new tubepress_spi_options_OptionDescriptor($name);
             $od->setBoolean();
+            $od->setLabel(strtoupper($name));
 
             $ods[] = $od;
 
@@ -174,5 +80,93 @@ class tubepress_test_impl_options_ui_fields_MetaMultiSelectFieldTest extends tub
         }
 
         return $ods;
+    }
+
+    protected function doPrepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $mockTemplate)
+    {
+        $this->_setupOds();
+
+        $all      = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c', 'x', 'y', 'z'));
+        $selected = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c',      'y', 'z'));
+
+        foreach ($all as $odName) {
+
+            $this->getMockStorageManager()->shouldReceive('get')->once()->with($odName)->andReturn($odName !== 'x');
+
+            $this->getMockMessageService()->shouldReceive('_')->once()->with(strtoupper($odName))->andReturn('<<' . $odName . '>>');
+        }
+
+        $coreOds = array(
+
+            tubepress_api_const_options_names_Meta::AUTHOR => '<<author>>',
+            tubepress_api_const_options_names_Meta::CATEGORY => '<<category>>',
+            tubepress_api_const_options_names_Meta::UPLOADED => '<<uploaded>>',
+            tubepress_api_const_options_names_Meta::DESCRIPTION => '<<description>>',
+            tubepress_api_const_options_names_Meta::ID => '<<id>>',
+            tubepress_api_const_options_names_Meta::KEYWORDS => '<<tags>>',
+            tubepress_api_const_options_names_Meta::LENGTH => '<<length>>',
+            tubepress_api_const_options_names_Meta::TITLE => '<<title>>',
+            tubepress_api_const_options_names_Meta::URL => '<<url>>',
+            tubepress_api_const_options_names_Meta::VIEWS => '<<views>>',
+        );
+
+        asort($coreOds);
+
+        $mockTemplate->shouldReceive('setVariable')->once()->with('currentlySelectedValues', $selected);
+        $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', $coreOds);
+        $mockTemplate->shouldReceive('setVariable')->once()->with('groupedChoices', array('Mock 1' => array('a' => '<<a>>', 'b' => '<<b>>', 'c' => '<<c>>'), 'Mock 2' => array('x' => '<<x>>', 'y' => '<<y>>', 'z' => '<<z>>')));
+    }
+
+    protected function setupExpectationsForFailedStorageWhenAllMissing($errorMessage)
+    {
+        $this->_setupOds();
+
+        $this->getMockStorageManager()->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Meta::AUTHOR, false)->andReturn($errorMessage);
+    }
+
+    protected function setupExpectationsForGoodStorageWhenAllMissing()
+    {
+        $this->_setupOds();
+
+        $all = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c', 'x', 'y', 'z'));
+
+        foreach ($all as $odName) {
+
+            $this->getMockStorageManager()->shouldReceive('set')->once()->with($odName, false)->andReturn(true);
+        }
+    }
+
+    /**
+     * @return tubepress_impl_options_ui_fields_AbstractOptionsPageField
+     */
+    protected function buildSut()
+    {
+        $sut = new tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField();
+
+        return $sut;
+    }
+
+    protected function getExpectedFieldId()
+    {
+        return 'meta-dropdown';
+    }
+
+    protected function getExpectedUntranslatedFieldLabel()
+    {
+        return 'Show each video\'s...';
+    }
+
+    protected function getExpectedUntranslatedFieldDescription()
+    {
+        return '';
+    }
+
+    private function _setupOds()
+    {
+        $this->_expectMockOptionDescriptors($this->_getCoreOdNames());
+
+        $this->_buildMockVideoProviders();
+
+        $this->getSut()->setVideoProviders($this->_mockVideoProviders);
     }
 }

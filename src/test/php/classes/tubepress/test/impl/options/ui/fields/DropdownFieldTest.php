@@ -14,17 +14,23 @@
  */
 class tubepress_test_impl_options_ui_fields_DropdownFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest
 {
-    protected function buildSut($name)
+    protected function buildSut()
     {
-        return new tubepress_impl_options_ui_fields_DropdownField($name);
+        return new tubepress_impl_options_ui_fields_DropdownField('name');
     }
 
-    protected function getAbsolutePathToTemplate()
+    /**
+     * @return string
+     */
+    protected function getExpectedTemplatePath()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/dropdown.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/dropdown.tpl.php';
     }
 
-    protected function setupTemplateForWidgetHTML(ehough_mockery_mockery_MockInterface $template)
+    /**
+     * @return void
+     */
+    protected function doAdditionalPrepForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
     {
         $od = $this->getMockOptionDescriptor();
 
@@ -35,5 +41,28 @@ class tubepress_test_impl_options_ui_fields_DropdownFieldTest extends tubepress_
 
         $template->shouldReceive('setVariable')->once()->with('choices',
             array('foo' => 'abc', 'smack' => 'xyz'));
+    }
+
+    /**
+     * @return string
+     */
+    protected function getOptionName()
+    {
+        return 'name';
+    }
+
+    protected function getExpectedFieldId()
+    {
+        return 'name';
+    }
+
+    protected function getExpectedUntranslatedFieldLabel()
+    {
+        return 'some label';
+    }
+
+    protected function getExpectedUntranslatedFieldDescription()
+    {
+        return 'xyz';
     }
 }

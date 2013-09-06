@@ -162,7 +162,7 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
             }
         }
 
-        $toReturn = array_values($this->_cachedCoreOptionDescriptors);
+        $toReturn = $this->_cachedCoreOptionDescriptors;
 
         foreach ($this->_cachedProvidedOptionDescriptors as $friendlyName => $optionDescriptorArray) {
 

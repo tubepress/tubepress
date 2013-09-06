@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService<extended>
  */
-class tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandServiceTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_core_impl_http_PlayerPluggableAjaxCommandServiceTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService

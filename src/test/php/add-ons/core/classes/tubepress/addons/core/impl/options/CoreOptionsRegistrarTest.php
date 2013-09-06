@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_core_impl_options_CoreOptionsProvider<extended>
  */
-class tubepress_addons_core_impl_options_CoreOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
+class tubepress_test_addons_core_impl_options_CoreOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

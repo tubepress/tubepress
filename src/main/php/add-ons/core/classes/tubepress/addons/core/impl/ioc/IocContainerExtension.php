@@ -292,16 +292,35 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
     private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
     {
-        $categories = array(
+        $categoryMap = array(
 
-            new tubepress_impl_options_ui_OptionsPageItem(tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE, 'Which videos?'),  //>(translatable)<)
-            new tubepress_impl_options_ui_OptionsPageItem(tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS,        'Thumbnails'),     //>(translatable)<')
-            new tubepress_impl_options_ui_OptionsPageItem(tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER,        'Player'),         //>(translatable)<)
-            new tubepress_impl_options_ui_OptionsPageItem(tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META,          'Meta'),           //>(translatable)<)
-            new tubepress_impl_options_ui_OptionsPageItem(tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED,          'Feed'),           //>(translatable)<)
-            new tubepress_impl_options_ui_OptionsPageItem(tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE,         'Cache'),          //>(translatable)<)
-            new tubepress_impl_options_ui_OptionsPageItem(tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED,      'Advanced'),       //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => 'Which videos?',  //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS        => 'Thumbnails',     //>(translatable)<')
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER        => 'Player',         //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META          => 'Meta',           //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED          => 'Feed',           //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE         => 'Cache',          //>(translatable)<)
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED      => 'Advanced',       //>(translatable)<)
         );
+
+        $categoryIndex = 0;
+
+        foreach ($categoryMap as $id => $displayName) {
+
+            $container->register(
+
+                'core-options-category-' . $categoryIndex++,
+                'tubepress_impl_options_ui_OptionsPageItem'
+            )->addArgument($id)
+             ->addArgument($displayName);
+        }
+
+        $categoryReferences = array();
+
+        for ($x = 0 ; $x < $categoryIndex; $x++) {
+
+            $categoryReferences[] = new tubepress_impl_ioc_Reference('core-options-category-' . $x);
+        }
 
         $fieldIndex = 0;
 
@@ -458,7 +477,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         )->addArgument('core')
          ->addArgument('Core')  //this will never be shown, so don't translate
-         ->addArgument($categories)
+         ->addArgument($categoryReferences)
          ->addArgument($fieldReferences)
          ->addArgument($map)
          ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');

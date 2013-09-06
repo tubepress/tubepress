@@ -250,24 +250,14 @@ class tubepress_api_const_event_EventNames
     const OPTIONS_NVP_READFROMEXTERNAL = 'tubepress.core.options.nvp.readFromExternalInput';
 
     /**
-     * This event is fired when TubePress builds the PHP/HTML template for the TubePress options page.
+     * This event is fired when TubePress loads a PHP/HTML template for a field on the options page.
      *
-     * @subject ehough_contemplate_api_Template The options page template.
-     *
-     * @api
-     * @since 3.1.2
-     */
-    const OPTIONS_PAGE_TEMPLATE_TOSTRING = 'tubepress.core.options.page.templateToString';
-
-    /**
-     * This event is fired when TubePress loads an options page template.
-     *
-     * @subject string The absolute path of the template that is being loaded.
+     * @subject ehough_contemplate_api_Template The template for the field.
      *
      * @api
      * @since 3.1.2
      */
-    const OPTIONS_PAGE_TEMPLATE_LOAD = 'tubepress.core.options.page.templateLoad';
+    const OPTIONS_PAGE_FIELDTEMPLATE = 'tubepress.core.options.page.fieldTemplate';
 
 
 

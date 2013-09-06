@@ -30,10 +30,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
             throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $optionDescriptorName));
         }
 
-        parent::__construct($optionDescriptorName);
-
-        $this->setUntranslatedDisplayName($this->_optionDescriptor->getLabel());
-        $this->setUntranslatedDescription($this->_optionDescriptor->getDescription());
+        parent::__construct($optionDescriptorName, $this->_optionDescriptor->getLabel(), $this->_optionDescriptor->getDescription());
     }
 
     /**

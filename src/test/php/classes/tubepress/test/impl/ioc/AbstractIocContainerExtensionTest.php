@@ -64,17 +64,22 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
         return $this;
     }
 
-    protected function withArgument($arg)
+    protected function withArgument($expected)
     {
-        $this->_mockDefinition->shouldReceive('addArgument')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($arg) {
+        $argumentComparator = function ($actual) use ($expected) {
 
-            return "$actual" === "$arg";
+            if (is_array($actual)) {
 
-        }))->andReturn($this->_mockDefinition);
+                return is_array($expected) && $actual == $expected;
+            }
+
+            return "$actual" === "$expected";
+        };
+
+        $this->_mockDefinition->shouldReceive('addArgument')->once()->with(ehough_mockery_Mockery::on($argumentComparator))->andReturn($this->_mockDefinition);
 
         return $this;
     }
-
 
     protected function withFactoryService($service)
     {

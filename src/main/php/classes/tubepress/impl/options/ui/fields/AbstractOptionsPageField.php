@@ -17,7 +17,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
     /**
      * @var string Translated description.
      */
-    private $_description;
+    private $_untranslatedDescription;
 
     public function __construct($id, $untranslatedDisplayName = null, $untranslatedDescription = null)
     {
@@ -34,12 +34,12 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
      */
     public function getTranslatedDescription()
     {
-        if (!isset($this->_description)) {
+        if (!isset($this->_untranslatedDescription)) {
 
             return '';
         }
 
-        return $this->getModifiedDescription($this->_description);
+        return $this->getModifiedDescription($this->translate($this->_untranslatedDescription));
     }
 
     /**
@@ -47,13 +47,13 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
      */
     public function getWidgetHTML()
     {
-        $templateBuilder   = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $eventDispatcher   = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $templatePathEvent = new tubepress_spi_event_EventBase($this->getAbsolutePathToTemplate());
+        $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $template        = $templateBuilder->getNewTemplateInstance($this->getAbsolutePathToTemplate());
+        $templateEvent   = new tubepress_spi_event_EventBase($template);
 
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE_LOAD, $templatePathEvent);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, $templateEvent);
 
-        $template          = $templateBuilder->getNewTemplateInstance($templatePathEvent->getSubject());
         $templateVariables = $this->getTemplateVariables();
 
         foreach ($templateVariables as $name => $value) {
@@ -66,7 +66,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
 
     public function setUntranslatedDescription($untranslatedDescription)
     {
-        $this->_description = $this->translate($untranslatedDescription);
+        $this->_untranslatedDescription = $untranslatedDescription;
     }
 
     /**

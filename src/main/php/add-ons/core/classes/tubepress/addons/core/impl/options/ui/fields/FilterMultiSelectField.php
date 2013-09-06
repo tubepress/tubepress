@@ -51,6 +51,9 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
         return false;
     }
 
+    /**
+     * @param tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface[] $participants
+     */
     public function setOptionsPageParticipants(array $participants)
     {
         $this->_optionsPageParticipants = $participants;
@@ -61,7 +64,7 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
      */
     protected function getCurrentlySelectedValues()
     {
-        $storageManager       = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+        $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
         $currentHides        = explode(';', $storageManager->get($optionName));
         $participantsNameMap = $this->_getParticipantNamesToFriendlyNamesMap();
@@ -84,11 +87,6 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
     protected function getUngroupedTranslatedChoicesArray()
     {
         return $this->_getParticipantNamesToFriendlyNamesMap();
-    }
-
-    protected function getAbsolutePathToTemplate()
-    {
-        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/multiselect.tpl.php';
     }
 
     /**
