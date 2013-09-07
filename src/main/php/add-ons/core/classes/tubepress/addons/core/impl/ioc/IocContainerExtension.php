@@ -324,6 +324,13 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         $fieldIndex = 0;
 
+        //Gallery source field
+        $container->register(
+
+            'core-options-field-' . $fieldIndex++,
+            'tubepress_addons_core_impl_options_ui_fields_GallerySourceField'
+        );
+
         //Filter field
         $container->register(
 

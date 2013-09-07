@@ -171,6 +171,13 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
         $fieldIndex = 0;
 
+        //Gallery source field
+        $this->expectRegistration(
+
+            'core-options-field-' . $fieldIndex++,
+            'tubepress_addons_core_impl_options_ui_fields_GallerySourceField'
+        );
+
         //Filter field
         $this->expectRegistration(
 
