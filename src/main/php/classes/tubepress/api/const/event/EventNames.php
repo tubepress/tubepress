@@ -259,7 +259,15 @@ class tubepress_api_const_event_EventNames
      */
     const OPTIONS_PAGE_FIELDTEMPLATE = 'tubepress.core.options.page.fieldTemplate';
 
-
+    /**
+     * This event is fired when TubePress loads a PHP/HTML template for the options page.
+     *
+     * @subject ehough_contemplate_api_Template The template for the page.
+     *
+     * @api
+     * @since 3.1.2
+     */
+    const OPTIONS_PAGE_TEMPLATE = 'tubepress.core.options.page.finalTemplate';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for an embedded

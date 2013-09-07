@@ -50,19 +50,54 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
         $this->_registerWpAdminHandler($container);
         $this->_registerWpFunctionWrapper($container);
 
+        $this->_registerPluggables($container);
+        $this->_registerListeners($container);
+    }
+
+    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    {
         $container->register(
 
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider',
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
+        $this->_registerOptionsPageParticipant($container);
+    }
+
+    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $fieldIndex = 0;
+        $container->register('wordpress-options-field-' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
+        $container->register('wordpress-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+            ->addArgument(tubepress_api_const_options_names_Advanced::KEYWORD);
+
+        $fieldReferences = array();
+
+        for ($x = 0 ; $x < $fieldIndex; $x++) {
+
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('vimeo-options-field-' . $x);
+        }
+
+        $map = array(
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED => array(
+
+                tubepress_api_const_options_names_Advanced::KEYWORD
+            )
+        );
+
         $container->register(
 
-            'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsPageParticipant',
-            'tubepress_addons_wordpress_impl_options_ui_WordPressOptionsPageParticipant'
-        )->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
+            'wordpress-options-page-participant',
+            'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        $this->_registerListeners($container);
+        )->addArgument('wordpress-participant')
+            ->addArgument('WordPress')   //>(translatable)<
+            ->addArgument(array())
+            ->addArgument($fieldReferences)
+            ->addArgument($map)
+            ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 
     private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
@@ -77,7 +112,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE_TOSTRING, 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
+                'method' => 'onOptionsUiTemplate', 'priority' => 10000));
 
         $container->register(
 
@@ -112,7 +148,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_impl_options_ui_DefaultOptionsPage'
 
         )->addArgument(TUBEPRESS_ROOT . '/src/main/php/add-ons/wordpress/resources/templates/options_page.tpl.php')
-         ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface', 'method' => 'setOptionsPageParticipants'));
+         ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface',
+                'method' => 'setOptionsPageParticipants'));
     }
 
     private function _registerContentFilter(tubepress_api_ioc_ContainerInterface $container)

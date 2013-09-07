@@ -14,7 +14,7 @@ interface tubepress_addons_wordpress_spi_WpAdminHandler
     const _ = 'tubepress_addons_wordpress_spi_WpAdminHandler';
 
     /**
-     * Filter the content (which may be empty).
+     * Prints the options page.
      */
     function printOptionsPageHtml();
 

@@ -8,8 +8,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_wordpress_impl_options_WordPressStorageManagerTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_addons_wordpress_impl_options_WordPressStorageManager<extended>
+ */
+class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest extends tubepress_test_TubePressUnitTest
 {
+    /**
+     * @var tubepress_addons_wordpress_impl_options_WordPressStorageManager
+     */
     private $_sut;
 
     /**
@@ -59,6 +66,22 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManagerTest extend
         global $wpdb;
 
         unset($wpdb);
+    }
+
+    public function testGet()
+    {
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-a')->andReturn('b');
+
+        $result = $this->_sut->get('a');
+
+        $this->assertEquals('b', $result);
+    }
+
+    public function testCreate()
+    {
+        $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-a', 'b');
+
+        $this->_sut->createIfNotExists('a', 'b');
     }
 
     public function testSetDoNotPersist()

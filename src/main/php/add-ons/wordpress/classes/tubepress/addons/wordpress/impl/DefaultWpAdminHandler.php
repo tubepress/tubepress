@@ -80,14 +80,7 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
 
             $justSubmitted = true;
 
-            try {
-
-                $errors = $optionsForm->onSubmit();
-
-            } catch (Exception $error) {
-
-                $errors = array($error->getMessage());
-            }
+            $errors = $optionsForm->onSubmit();
         }
 
         print $optionsForm->getHtml($errors, $justSubmitted);

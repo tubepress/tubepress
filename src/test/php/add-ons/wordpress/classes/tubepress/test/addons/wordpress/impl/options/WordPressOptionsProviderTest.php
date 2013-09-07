@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_wordpress_impl_options_WordPressOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
+class tubepress_test_addons_wordpress_impl_options_WordPressOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

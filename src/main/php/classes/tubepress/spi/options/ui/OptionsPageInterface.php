@@ -20,7 +20,7 @@ interface tubepress_spi_options_ui_OptionsPageInterface
      *
      * @return string The HTML for the options page.
      */
-    function getHTML(array $errors = array(), $justSubmitted = false);
+    function getHtml(array $errors = array(), $justSubmitted = false);
 
     /**
      * Invoked when the page is submitted by the user.

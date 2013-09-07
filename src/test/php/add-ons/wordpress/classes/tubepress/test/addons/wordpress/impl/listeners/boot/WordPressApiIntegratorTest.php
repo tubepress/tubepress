@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest extends tubepress_test_TubePressUnitTest
 {
 
     /**
@@ -81,6 +81,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegratorTest 
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_action')->once()->with('admin_enqueue_scripts', array($this->_mockWpAdminHandler, 'registerStylesAndScripts'), 10, 1);
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_action')->once()->with('widgets_init', array($this->_mockWidgetHandler, 'registerWidget'), 10, 1);
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_filter')->once()->with('plugin_row_meta', array($this->_mockWpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
+        $this->_mockWordPressFunctionWrapper->shouldReceive('add_action')->once()->with('admin_head', array($this->_mockWpAdminHandler, 'printHeadMeta'), 10, 1);
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('register_activation_hook')->once()->with('tubepress/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
 
