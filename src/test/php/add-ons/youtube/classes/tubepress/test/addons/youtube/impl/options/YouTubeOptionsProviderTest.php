@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_youtube_impl_options_YouTubeOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
+class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
 {
     private static $_youTubeVideo = '/[a-zA-Z0-9_-]{11}/';
 

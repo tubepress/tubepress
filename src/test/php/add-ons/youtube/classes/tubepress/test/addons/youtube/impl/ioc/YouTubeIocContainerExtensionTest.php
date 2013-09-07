@@ -8,90 +8,83 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
-/**
- * Registers a few extensions to allow TubePress to work with YouTube.
- */
-class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
+class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
 {
-    /**
-     * Allows extensions to load services into the TubePress IOC container.
-     *
-     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
-     *
-     * @return void
-     *
-     * @api
-     * @since 3.1.0
-     */
-    public function load(tubepress_api_ioc_ContainerInterface $container)
+    protected function buildSut()
     {
-        $this->_registerPluggables($container);
-
-        $this->_registerListeners($container);
+        return new tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension();
     }
 
-    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    protected function prepareForLoad()
     {
-        $container->register(
+        $this->_expectPluggables();
 
-            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
-            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
-
-        $container->register(
-
-            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
-            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));
-
-        $container->register(
-
-            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
-            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
+        $this->_expectListeners();
     }
 
-    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    private function _expectPluggables()
     {
-
-        $container->register(
+        $this->expectRegistration(
 
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'
         );
 
-        $container->register(
+        $this->expectRegistration(
 
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService',
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService'
 
-        )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        )->withTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
-        $container->register(
+        $this->expectRegistration(
 
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService',
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService'
 
-        )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'))
-         ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
+        )->withArgument(new ehough_iconic_Reference('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'))
+            ->withTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $container->register(
+        $this->expectRegistration(
 
             'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider',
             'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider'
-        )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
-        $this->_registerOptionsPageParticipant($container);
+        $this->_expectOptionsPageParticipant();
     }
 
-    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    private function _expectListeners()
+    {
+        $this->expectRegistration(
+
+            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
+            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
+                array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));;
+
+        $this->expectRegistration(
+
+            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
+            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
+                array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));;
+
+        $this->expectRegistration(
+
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
+                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
+    }
+
+    private function _expectOptionsPageParticipant()
     {
         $fieldIndex = 0;
 
-        $container->register('youtube-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
-            ->addArgument(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY)
-            ->addMethodCall('setSize', array(120));
+        $this->expectRegistration('youtube-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+            ->withArgument(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY)
+            ->withMethodCall('setSize', array(120));
 
         $gallerySourceMap = array(
 
@@ -159,11 +152,11 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $container->register('youtube-options-field-' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
+            $this->expectRegistration('youtube-options-field-' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
 
-            $container->register('youtube-options-field-' . ($fieldIndex + 1), 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
-                ->addArgument($gallerySourceFieldArray[0])
-                ->addArgument(new tubepress_impl_ioc_Reference('youtube-options-field-' . $fieldIndex++));
+            $this->expectRegistration('youtube-options-field-' . ($fieldIndex + 1), 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+                ->withArgument($gallerySourceFieldArray[0])
+                ->withArgument(new tubepress_impl_ioc_Reference('youtube-options-field-' . $fieldIndex++));
         }
 
         $fieldMap = array(
@@ -183,9 +176,10 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
             tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY      => 'tubepress_impl_options_ui_fields_BooleanField',
         );
 
+
         foreach ($fieldMap as $id => $class) {
 
-            $container->register('youtube-options-field-' . $fieldIndex++, $class)->addArgument($id);
+            $this->expectRegistration('youtube-options-field-' . $fieldIndex++, $class)->withArgument($id);
         }
 
         $fieldReferences = array();
@@ -237,16 +231,16 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
             )
         );
 
-        $container->register(
+        $this->expectRegistration(
 
             'youtube-options-page-participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        )->addArgument('youtube-participant')
-            ->addArgument('YouTube')   //>(translatable)<
-            ->addArgument(array())
-            ->addArgument($fieldReferences)
-            ->addArgument($map)
-            ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
+        )->withArgument('youtube-participant')
+            ->withArgument('YouTube')   //>(translatable)<
+            ->withArgument(array())
+            ->withArgument($fieldReferences)
+            ->withArgument($map)
+            ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 }

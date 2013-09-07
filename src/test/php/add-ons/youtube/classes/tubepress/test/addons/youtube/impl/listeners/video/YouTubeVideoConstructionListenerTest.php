@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListenerTest extends tubepress_test_TubePressUnitTest
 {
     private static $_NAMESPACE_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     private static $_NAMESPACE_APP        = 'http://www.w3.org/2007/app';
@@ -100,7 +100,7 @@ class tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionList
         $this->assertEquals('35,077', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_RATING_COUNT));
         $this->assertRegExp('~^http://i\.ytimg\.com/vi/J5nyQLr2zjc/(?:1|2|3|default)\.jpg$~', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL));
         $this->assertEquals('1346785891', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('12 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
+        $this->assertEquals('1 year ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('SPAGHETTI AND MEAT BUGS PRANK', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
         $this->assertEquals('1,571,314', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
     }
