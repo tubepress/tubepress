@@ -9,7 +9,7 @@
     bootstrap="../../../vendor/autoload.php">
 	<testsuites>
 	   <testsuite name="quick">
-	       <directory>../php/add-ons/core/classes/tubepress/addons/core/impl/options</directory>
+	       <directory>../php</directory>
            <exclude>src/test/php/classes/tubepress/test/impl/i18n/</exclude>
            <exclude>../php/classes/tubepress/test/impl/i18n/</exclude>
 	   </testsuite>
@@ -21,7 +21,7 @@
         <whitelist>
            <directory suffix=".php">../../main/php</directory>
             <exclude>
-                <file>../../main/web/php/ajaxEndpoint.php</file>
+                <file>../../main/web/php/ajaxjobsEndpoint.php</file>
             </exclude>
         </whitelist>
     </filter>

@@ -43,26 +43,4 @@ class tubepress_test_impl_options_ui_fields_DropdownFieldTest extends tubepress_
             array('foo' => 'abc', 'smack' => 'xyz'));
     }
 
-    /**
-     * @return string
-     */
-    protected function getOptionName()
-    {
-        return 'name';
-    }
-
-    protected function getExpectedFieldId()
-    {
-        return 'name';
-    }
-
-    protected function getExpectedUntranslatedFieldLabel()
-    {
-        return 'some label';
-    }
-
-    protected function getExpectedUntranslatedFieldDescription()
-    {
-        return 'xyz';
-    }
 }

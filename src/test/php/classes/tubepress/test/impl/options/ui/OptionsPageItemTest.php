@@ -28,8 +28,6 @@ class tubepress_test_impl_options_ui_OptionsPageItemTest extends tubepress_test_
     {
         $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
-        $this->_mockMessageService->shouldReceive('_')->once()->with('display name')->andReturn('foobar');
-
         $this->_sut = new tubepress_impl_options_ui_OptionsPageItem('id', 'display name');
     }
 
@@ -40,6 +38,8 @@ class tubepress_test_impl_options_ui_OptionsPageItemTest extends tubepress_test_
 
     public function testGetDisplayName()
     {
+        $this->_mockMessageService->shouldReceive('_')->once()->with('display name')->andReturn('foobar');
+
         $this->assertEquals('foobar', $this->_sut->getTranslatedDisplayName());
     }
 }

@@ -26,21 +26,21 @@ class tubepress_test_impl_options_ui_fields_TextFieldTest extends tubepress_test
         $field->setSize(-1);
     }
 
-    protected function buildSut($name)
+    protected function buildSut()
     {
-        $field = new tubepress_impl_options_ui_fields_TextField($name);
+        $field = new tubepress_impl_options_ui_fields_TextField($this->getOptionName());
 
         $field->setSize(99);
 
         return $field;
     }
 
-    protected function getAbsolutePathToTemplate()
+    protected function getExpectedTemplatePath()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/text.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/text.tpl.php';
     }
 
-    protected function setupTemplateForWidgetHTML(ehough_mockery_mockery_MockInterface $template)
+    protected function doAdditionalPrepForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
     {
         $template->shouldReceive('setVariable')->once()->with('size', 99);
     }

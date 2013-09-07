@@ -24,19 +24,55 @@ class tubepress_test_impl_options_ui_BaseOptionsPageParticipantTest extends tube
      */
     private $_mockMessageService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockCategories;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockFields;
+
     public function onSetup()
     {
         $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
 
-        $this->_mockMessageService->shouldReceive('_')->once()->with('display name')->andReturn('foobar');
+        $mockCategory = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageItemInterface');
+        $this->_mockCategories = array($mockCategory);
+
+        $mockField = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
+        $this->_mockFields = array($mockField);
+
+        $map = array(
+
+            'category1' => array('field1')
+        );
 
         $this->_sut = new tubepress_impl_options_ui_BaseOptionsPageParticipant(
 
             'id',
             'display name',
-            $categories,
-            $fields,
+            $this->_mockCategories,
+            $this->_mockFields,
             $map
         );
+    }
+
+    public function testGetMap()
+    {
+        $result = $this->_sut->getCategoryIdsToFieldIdsMap();
+
+        $this->assertEquals(array('category1' => array('field1')), $result);
+    }
+
+    public function testGetCategories()
+    {
+        $this->assertEquals($this->_mockCategories, $this->_sut->getCategories());
+    }
+
+    public function testGetFields()
+    {
+        $this->assertEquals($this->_mockFields, $this->_sut->getFields());
     }
 }

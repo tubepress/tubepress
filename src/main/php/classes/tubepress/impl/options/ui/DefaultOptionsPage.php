@@ -58,7 +58,6 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
 
         $templateVariables = array(
 
-            'activeCategoryId'                     => tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE,
             'categories'                           => $categories,
             'categoryIdToParticipantIdToFieldsMap' => $categoryIdToParticipantIdToFieldsMap,
             'errors'                               => $errors,
@@ -76,7 +75,7 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
         }
 
         $templateEvent = new tubepress_spi_event_EventBase($template);
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE_TOSTRING, $templateEvent);
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE, $templateEvent);
 
         return $template->toString();
     }

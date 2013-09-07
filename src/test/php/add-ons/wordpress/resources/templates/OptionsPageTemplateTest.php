@@ -9,12 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-if (! function_exists('wp_nonce_field')) {
-
-    function wp_nonce_field() { echo 'nonce'; }
-}
-
-class tubepress_addons_wordpress_resources_templates_OptionsPageTemplateTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_wordpress_resources_templates_OptionsPageTemplateTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

@@ -8,7 +8,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_wordpress_resources_templates_WidgetControlsTemplateTest extends tubepress_test_TubePressUnitTest
+
+if (! function_exists('wp_nonce_field')) {
+
+    function wp_nonce_field() { echo 'nonce'; }
+}
+
+class tubepress_test_addons_wordpress_resources_templates_WidgetControlsTemplateTest extends tubepress_test_TubePressUnitTest
 {
     public function test()
     {

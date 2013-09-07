@@ -35,6 +35,11 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
     private $_mockParticipants;
 
     /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironmentDetector;
+
+    /**
      * @var ehough_mockery_mockery_MockInterface[]
      */
     private $_mockFields;
@@ -43,6 +48,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
     {
         $this->_mockTemplateBuilder = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
         $mockFieldA        = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
         $mockFieldB        = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
@@ -63,7 +69,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
 
         foreach ($this->_mockFields as $mockField) {
 
-            $mockField->shouldReceive('getId')->once()->andReturn('field' . $index++);
+            $mockField->shouldReceive('getId')->twice()->andReturn('field' . $index++);
             $mockField->shouldReceive('onSubmit')->once()->andReturn('yikes');
         }
 
@@ -74,8 +80,11 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
 
     public function testSubmitNoErrors()
     {
+        $index = 0;
+
         foreach ($this->_mockFields as $mockField) {
 
+            $mockField->shouldReceive('getId')->once()->andReturn('field' . $index++);
             $mockField->shouldReceive('onSubmit')->once()->andReturn(null);
         }
 
@@ -89,24 +98,47 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
         $mockTemplate   = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockCategory   = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageItemInterface');
         $mockCategories = array($mockCategory);
-        $mockMap        = array('foo' => array('a', 'b'));
+        $mockMap        = array('categoryid' => array('field0', 'field1'));
+
+        $mockCategory->shouldReceive('getId')->once()->andReturn('categoryid');
 
         $this->_mockParticipants[0]->shouldReceive('getCategories')->once()->andReturn($mockCategories);
-        $this->_mockParticipants[0]->shouldReceive('getCategoryToFieldIdsMap')->once()->andReturn($mockMap);
+        $this->_mockParticipants[0]->shouldReceive('getCategoryIdsToFieldIdsMap')->once()->andReturn($mockMap);
+        $this->_mockParticipants[0]->shouldReceive('getId')->twice()->andReturn('participantid');
 
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('some path')->andReturn($mockTemplate);
 
         $mockTemplate->shouldReceive('setVariable')->once()->with('errors', array('some error'));
-        $mockTemplate->shouldReceive('setVariable')->once()->with('fields', $this->_mockFields);
+        $mockTemplate->shouldReceive('setVariable')->once()->with('fields', ehough_mockery_Mockery::on(array($this, '__callbackVerifyFields')));
         $mockTemplate->shouldReceive('setVariable')->once()->with('categories', $mockCategories);
-        $mockTemplate->shouldReceive('setVariable')->once()->with('categoryToFieldMap', $mockMap);
+        $mockTemplate->shouldReceive('setVariable')->once()->with('isPro', true);
+        $mockTemplate->shouldReceive('setVariable')->once()->with('justSubmitted', false);
+        $mockTemplate->shouldReceive('setVariable')->once()->with('participants', ehough_mockery_Mockery::on(array($this, '__callbackVerifyFields')));
+        $mockTemplate->shouldReceive('setVariable')->once()->with('tubePressBaseUrl', 'syz');
+        $mockTemplate->shouldReceive('setVariable')->once()->with('successMessage', 'Options updated.');
+        $mockTemplate->shouldReceive('setVariable')->once()->with('categoryIdToParticipantIdToFieldsMap', array('categoryid' => array('participantid' => array('field0', 'field1'))));
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobaz');
 
+        $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('syz');
+
+        $index = 0;
+
+        foreach ($this->_mockFields as $mockField) {
+
+            $mockField->shouldReceive('getId')->once()->andReturn('field' . $index++);
+        }
+
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
-            ->with(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE_TOSTRING,
+            ->with(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
                 ehough_mockery_Mockery::on(array($this, '__callbackVerifyTemplateDispatch')));
 
         $this->assertEquals('foobaz', $this->_sut->getHTML(array('some error')));
+    }
+
+    public function __callbackVerifyFields($fields)
+    {
+        return is_array($fields);
     }
 
     public function __callbackVerifyTemplateDispatch($template)

@@ -105,6 +105,29 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
         return $this->_mockOptionDescriptor;
     }
 
+    /**
+     * @return string
+     */
+    protected function getOptionName()
+    {
+        return 'name';
+    }
+
+    protected function getExpectedFieldId()
+    {
+        return $this->_mockOptionDescriptor->getName();
+    }
+
+    protected function getExpectedUntranslatedFieldLabel()
+    {
+        return $this->_mockOptionDescriptor->getLabel();
+    }
+
+    protected function getExpectedUntranslatedFieldDescription()
+    {
+        return $this->_mockOptionDescriptor->getDescription();
+    }
+
     protected final function prepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
     {
         $this->getMockStorageManager()->shouldReceive('get')->once()->with($this->getOptionName())->andReturn('some value');
@@ -119,9 +142,4 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
     {
         //override point
     }
-
-    /**
-     * @return string
-     */
-    protected abstract function getOptionName();
 }

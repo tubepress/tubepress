@@ -8,24 +8,24 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_impl_template_templates_optionspage_fields_CheckboxFieldTemplateTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_template_templates_optionspage_fields_CheckboxFieldTemplateTest extends tubepress_test_TubePressUnitTest
 {
     public function test()
     {
-        ${tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME} = 'some-name';
-        ${tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE} = true;
+        $id = 'some-name';
+        $value = true;
 
         ob_start();
-        include __DIR__ . '/../../../../../../main/resources/system-templates/options_page/fields/checkbox.tpl.php';
+        include TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/checkbox.tpl.php';
         $result = ob_get_contents();
         ob_end_clean();
 
         $this->assertEquals(tubepress_impl_util_StringUtils::removeEmptyLines($this->_expected(true)), tubepress_impl_util_StringUtils::removeEmptyLines($result));
 
-        ${tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE} = false;
+        $value = false;
 
         ob_start();
-        include __DIR__ . '/../../../../../../main/resources/system-templates/options_page/fields/checkbox.tpl.php';
+        include TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/checkbox.tpl.php';
         $result = ob_get_contents();
         ob_end_clean();
 
@@ -36,10 +36,10 @@ class tubepress_impl_template_templates_optionspage_fields_CheckboxFieldTemplate
     {
         if ($checked) {
 
-            return '<input type="checkbox" name="some-name" value="some-name" CHECKED />';
+            return '<input id="some-name" type="checkbox" name="some-name" CHECKED />';
         }
 
-        return '<input type="checkbox" name="some-name" value="some-name"  />';
+        return '<input id="some-name" type="checkbox" name="some-name"  />';
     }
 
 }

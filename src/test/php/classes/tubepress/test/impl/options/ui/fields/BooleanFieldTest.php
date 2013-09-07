@@ -14,13 +14,16 @@
  */
 class tubepress_test_impl_options_ui_fields_BooleanFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest
 {
-    protected function buildSut($name)
+    protected function buildSut()
     {
-        return new tubepress_impl_options_ui_fields_BooleanField($name);
+        return new tubepress_impl_options_ui_fields_BooleanField($this->getOptionName());
     }
 
-    protected function getAbsolutePathToTemplate()
+    /**
+     * @return string
+     */
+    protected function getExpectedTemplatePath()
     {
-        return TUBEPRESS_ROOT . '/src/main/resources/admin-page-templates/fields/checkbox.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/checkbox.tpl.php';
     }
 }
