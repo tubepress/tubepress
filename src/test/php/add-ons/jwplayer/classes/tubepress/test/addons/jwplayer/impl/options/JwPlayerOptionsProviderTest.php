@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider
  */
-class tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
+class tubepress_test_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
 {
     private static $_regexColor = '/^([0-9a-f]{1,2}){3}$/i';
 

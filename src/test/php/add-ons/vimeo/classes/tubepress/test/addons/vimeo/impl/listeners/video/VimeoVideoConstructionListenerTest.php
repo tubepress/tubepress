@@ -8,7 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener
+ */
+class tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener
@@ -75,7 +79,7 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
         $this->assertEquals('49078748', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_ID));
         $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL));
         $this->assertEquals('1347129000', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('12 months ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
+        $this->assertEquals('1 year ago', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
         $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_TITLE));
         $this->assertEquals('96,321', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT));
         $this->assertEquals('6', $video->getAttribute(tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT));
@@ -85,7 +89,7 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-single-video.txt');
 
-        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
 
         return $out;
     }
@@ -94,7 +98,7 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-gallery.txt');
 
-        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
 
         return $out;
     }

@@ -11,7 +11,7 @@
 class_exists('tubepress_test_impl_addon_AbstractManifestValidityTest') ||
     require dirname(__FILE__) . '/../../classes/tubepress/test/impl/addon/AbstractManifestValidityTest.php';
 
-class tubepress_addons_core_EmbedPlusManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
+class tubepress_test_addons_core_EmbedPlusManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
 {
     public function testManifest()
     {

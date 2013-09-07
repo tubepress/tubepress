@@ -92,6 +92,13 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
         return $this;
     }
 
+    protected function withMethodCall($methodName, array $arguments)
+    {
+        $this->_mockDefinition->shouldReceive('addMethodCall')->once()->with($methodName, $arguments)->andReturn($this->_mockDefinition);
+
+        return $this;
+    }
+
     protected function withFactoryClass($class)
     {
         $this->_mockDefinition->shouldReceive('setFactoryClass')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($class) {

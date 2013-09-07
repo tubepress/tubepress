@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension<extended>
  */
-class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
+class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
 {
     protected function buildSut()
     {

@@ -8,7 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService
+ */
+class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService
@@ -169,7 +173,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoProviderTest extends tubepress_t
     {
         $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/' . $filename);
 
-        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_addons_vimeo_impl_provider_VimeoProviderTest', '_callbackStrlen'), $serial_str );
+        $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest', '_callbackStrlen'), $serial_str );
 
         return $out;
     }

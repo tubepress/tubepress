@@ -8,7 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListenerTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener
+ */
+class tubepress_test_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener

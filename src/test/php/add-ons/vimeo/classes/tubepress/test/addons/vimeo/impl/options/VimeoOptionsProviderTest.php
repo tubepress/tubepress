@@ -8,7 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_vimeo_impl_options_VimeoOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
+
+/**
+ * @covers tubepress_addons_vimeo_impl_options_VimeoOptionsProvider
+ */
+class tubepress_test_addons_vimeo_impl_options_VimeoOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
 {
     private static $_regexWordChars = '/\w+/';
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';

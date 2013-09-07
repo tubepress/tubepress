@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService
  */
-class tubepress_addons_jwplayer_impl_embedded_JwPlayerEmbeddedPlayerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_jwplayer_impl_embedded_JwPlayerEmbeddedPlayerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService
