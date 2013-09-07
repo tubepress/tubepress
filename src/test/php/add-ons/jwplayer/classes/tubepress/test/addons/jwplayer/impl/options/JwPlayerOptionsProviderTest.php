@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider
+ */
 class tubepress_addons_jwplayer_impl_listeners_boot_JwPlayerOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionDescriptorProviderTest
 {
     private static $_regexColor = '/^([0-9a-f]{1,2}){3}$/i';

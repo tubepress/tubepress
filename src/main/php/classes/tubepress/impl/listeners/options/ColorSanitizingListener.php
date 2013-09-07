@@ -16,6 +16,11 @@ class tubepress_impl_listeners_options_ColorSanitizingListener
 {
     private $_applicableOptionNames = array();
 
+    public function __construct(array $applicableOptionNames)
+    {
+        $this->_applicableOptionNames = $applicableOptionNames;
+    }
+
     public function onPreValidationOptionSet(tubepress_api_event_EventInterface $event)
     {
         $name = $event->getArgument('optionName');
@@ -30,11 +35,6 @@ class tubepress_impl_listeners_options_ColorSanitizingListener
         $value = $this->_stripLeadingHash($value);
 
         $event->setSubject($value);
-    }
-
-    public function setApplicableOptionNames(array $optionNames)
-    {
-        $this->_applicableOptionNames = $optionNames;
     }
 
     private function _stripLeadingHash($value)
