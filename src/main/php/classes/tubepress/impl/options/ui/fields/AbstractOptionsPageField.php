@@ -42,28 +42,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
         return $this->getModifiedDescription($this->translate($this->_untranslatedDescription));
     }
 
-    /**
-     * @return string The widget HTML for this form element.
-     */
-    public function getWidgetHTML()
-    {
-        $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $template        = $templateBuilder->getNewTemplateInstance($this->getAbsolutePathToTemplate());
-        $templateEvent   = new tubepress_spi_event_EventBase($template);
-
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, $templateEvent);
-
-        $templateVariables = $this->getTemplateVariables();
-
-        foreach ($templateVariables as $name => $value) {
-
-            $template->setVariable($name, $value);
-        }
-
-        return $template->toString();
-    }
-
     public function setUntranslatedDescription($untranslatedDescription)
     {
         $this->_untranslatedDescription = $untranslatedDescription;
@@ -103,14 +81,4 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
         //override point
         return $originalDescription;
     }
-
-    /**
-     * @return string The absolute path to the template for this field.
-     */
-    protected abstract function getAbsolutePathToTemplate();
-
-    /**
-     * @return array An associative array of template variables for this field.
-     */
-    protected abstract function getTemplateVariables();
 }

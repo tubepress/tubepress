@@ -12,7 +12,7 @@
 /**
  * Displays a single radio input.
  */
-class tubepress_impl_options_ui_fields_GallerySourceRadioField extends tubepress_impl_options_ui_fields_AbstractOptionsPageField
+class tubepress_impl_options_ui_fields_GallerySourceRadioField extends tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField
 {
     /**
      * @var string

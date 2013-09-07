@@ -12,7 +12,7 @@
 /**
  * Displays a multi-select drop-down input for video meta.
  */
-class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
+class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
 {
     const FIELD_ID = 'participant-filter-field';
 
@@ -109,16 +109,15 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
     }
 
     /**
+     * @param array $values The incoming values for this field.
+     *
      * @return string|null A string error message to be displayed to the user, or null if no problem.
      */
-    protected function onSubmitMixed()
+    protected function onSubmitMixed(array $values)
     {
-        $hrps                = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
         $allParticipantNames = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
-
-        $vals = $hrps->getParamValue(self::FIELD_ID);
 
         $toHide = array();
 
@@ -127,7 +126,7 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
             /*
              * They checked the box, which means they want to show it.
              */
-            if (in_array($participantName, $vals)) {
+            if (in_array($participantName, $values)) {
 
                 continue;
             }
@@ -142,7 +141,7 @@ class tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField extend
 
         if ($result !== true) {
 
-            return array($result);
+            return $result;
         }
 
         return null;

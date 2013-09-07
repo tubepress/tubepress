@@ -12,23 +12,11 @@
 /**
  * Displays a drop-down input for the TubePress theme.
  */
-class tubepress_impl_options_ui_fields_GallerySourceField extends tubepress_impl_options_ui_fields_AbstractOptionsPageField
+class tubepress_addons_core_impl_options_ui_fields_GallerySourceField extends tubepress_impl_options_ui_fields_AbstractOptionsPageField
 {
-
-    /**
-     * @return string The absolute path to the template for this field.
-     */
-    protected function getAbsolutePathToTemplate()
+    public function __construct()
     {
-        return '';
-    }
-
-    /**
-     * @return array An associative array of template variables for this field.
-     */
-    protected function getTemplateVariables()
-    {
-        return array();
+        parent::__construct(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
     }
 
     /**
@@ -57,5 +45,10 @@ class tubepress_impl_options_ui_fields_GallerySourceField extends tubepress_impl
     public function isProOnly()
     {
         return false;
+    }
+
+    public function getWidgetHTML()
+    {
+        return '';
     }
 }

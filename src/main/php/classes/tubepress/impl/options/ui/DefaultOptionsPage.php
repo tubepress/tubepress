@@ -46,12 +46,12 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
         $categoryIdToParticipantIdToFieldsMap = $this->_buildCategoryIdToParticipantIdToFieldsMap($categories);
         $participants                         = $this->_buildParticipantsArray();
 
-        if (isset($fields[tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField::FIELD_ID])) {
+        if (isset($fields[tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField::FIELD_ID])) {
 
             /**
-             * @var $filterField tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField
+             * @var $filterField tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField
              */
-            $filterField = $fields[tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField::FIELD_ID];
+            $filterField = $fields[tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField::FIELD_ID];
 
             $filterField->setOptionsPageParticipants($this->_optionsPageParticipants);
         }

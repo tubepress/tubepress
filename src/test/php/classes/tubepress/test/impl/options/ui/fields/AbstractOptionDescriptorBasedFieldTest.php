@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTest
+abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_test_impl_options_ui_fields_AbstractTemplateBasedOptionsPageFieldTest
 {
     /**
      * @var tubepress_spi_options_OptionDescriptor
@@ -20,7 +20,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
      */
     private $_mockOptionDescriptorReference;
 
-    public final function doOnSetup()
+    public final function doMoreSetup()
     {
         $this->_mockOptionDescriptorReference   = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockOptionDescriptor            = new tubepress_spi_options_OptionDescriptor($this->getOptionName());

@@ -195,18 +195,18 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     }
 
     /**
+     * @param array $values The incoming values for this field.
+     *
      * @return string|null A string error message to be displayed to the user, or null if no problem.
      */
-    protected function onSubmitMixed()
+    protected function onSubmitMixed(array $values)
     {
         $storage     = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $hrps        = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $optionNames = array_keys($this->_getOptionDescriptors());
-        $vals        = $hrps->getParamValue(self::FIELD_ID);
 
         foreach ($optionNames as $optionName) {
 
-            $message = $storage->set($optionName, in_array($optionName, $vals));
+            $message = $storage->set($optionName, in_array($optionName, $values));
 
             if ($message !== true) {
 

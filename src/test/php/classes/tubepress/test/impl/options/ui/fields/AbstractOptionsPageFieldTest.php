@@ -34,29 +34,12 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTes
      */
     private $_mockStorageManager;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockTemplateBuilder;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockEventDispatcher;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockTemplate;
 
     public final function onSetup()
     {
         $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockEventDispatcher             = $this->createMockSingletonService('tubepress_api_event_EventDispatcherInterface');
-        $this->_mockTemplate                    = $this->createMockSingletonService('ehough_contemplate_api_Template');
 
         $this->doOnSetup();
 
@@ -70,18 +53,27 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTes
         $this->assertEquals($this->getExpectedFieldId(), $result);
     }
 
-    public function testGetLabel()
+    public function testGetTranslatedDisplayName()
     {
-        $expected = '<<' . $this->getExpectedUntranslatedFieldLabel() . '>>';
+        $expected = $this->getExpectedUntranslatedFieldLabel();
 
-        $this->_mockMessageService->shouldReceive('_')->once()->with($this->getExpectedUntranslatedFieldLabel())->andReturn($expected);
+        if ($expected) {
+
+            $expected = '<<' . $this->getExpectedUntranslatedFieldLabel() . '>>';
+
+            $this->_mockMessageService->shouldReceive('_')->once()->with($this->getExpectedUntranslatedFieldLabel())->andReturn($expected);
+
+        } else {
+
+            $expected = '';
+        }
 
         $result = $this->_sut->getTranslatedDisplayName();
 
         $this->assertEquals($expected, $result);
     }
 
-    public function testGetDescription()
+    public function testGetTranslatedDescription()
     {
         $expected = $this->getExpectedUntranslatedFieldDescription();
 
@@ -100,22 +92,6 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTes
         $result = $this->_sut->getTranslatedDescription();
 
         $this->assertEquals($expected, $result);
-    }
-
-    public function testGetWidgetHtml()
-    {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
-            ->with(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, ehough_mockery_Mockery::on(array($this, '__verifyTemplateEvent')));
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with($this->getExpectedTemplatePath())->andReturn($this->_mockTemplate);
-
-        $this->prepareForGetWidgetHtml($this->_mockTemplate);
-
-        $this->_mockTemplate->shouldReceive('toString')->once()->andReturn('abc');
-
-        $html = $this->getSut()->getWidgetHTML();
-
-        $this->assertEquals('abc', $html);
     }
 
     /**
@@ -165,24 +141,9 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTes
      */
     protected abstract function buildSut();
 
-    /**
-     * @return string
-     */
-    protected abstract function getExpectedTemplatePath();
-
-    /**
-     * @return void
-     */
-    protected abstract function prepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template);
-
     protected abstract function getExpectedFieldId();
 
     protected abstract function getExpectedUntranslatedFieldLabel();
 
     protected abstract function getExpectedUntranslatedFieldDescription();
-
-    public function __verifyTemplateEvent($event)
-    {
-        return $event instanceof tubepress_api_event_EventInterface && $event->getSubject() instanceof ehough_contemplate_api_Template;
-    }
 }

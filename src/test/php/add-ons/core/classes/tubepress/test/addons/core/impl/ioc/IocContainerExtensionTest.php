@@ -175,7 +175,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->expectRegistration(
 
             'core-options-field-' . $fieldIndex++,
-            'tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField'
+            'tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField'
         );
 
         //Meta multi-select

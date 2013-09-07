@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField<extended>
+ * @covers tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField<extended>
  */
-class tubepress_test_addons_core_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepress_test_impl_options_ui_fields_AbstractMultiSelectFieldTest
+class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTest extends tubepress_test_impl_options_ui_fields_AbstractMultiSelectFieldTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -29,7 +29,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_FilterMultiSelectFieldTe
      */
     protected function buildSut()
     {
-        $sut = new tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField();
+        $sut = new tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField();
 
         $sut->setOptionsPageParticipants($this->_mockOptionsPageParticipants);
 
@@ -48,7 +48,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_FilterMultiSelectFieldTe
         $this->assertFalse($this->getSut()->isProOnly());
     }
 
-    protected function doOnSetup()
+    protected function doMoreSetup()
     {
         $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
 
@@ -104,6 +104,20 @@ class tubepress_test_addons_core_impl_options_ui_fields_FilterMultiSelectFieldTe
     protected function getExpectedUntranslatedFieldDescription()
     {
         return 'mock desc';
+    }
+
+    protected function setupExpectationsForFailedStorageWhenMixed($errorMessage)
+    {
+        $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
+
+        $this->getMockStorageManager()->shouldReceive('set')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'c;d')->andReturn($errorMessage);
+    }
+
+    protected function setupExpectationsForGoodStorageWhenMixed()
+    {
+        $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
+
+        $this->getMockStorageManager()->shouldReceive('set')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'c;d')->andReturn(true);
     }
 }
 

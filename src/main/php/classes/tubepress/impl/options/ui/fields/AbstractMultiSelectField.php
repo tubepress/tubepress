@@ -12,7 +12,7 @@
 /**
  * Base class for multi-select fields.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractOptionsPageField
+abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField
 {
     /**
      * @return string The absolute path to the template for this field.
@@ -60,7 +60,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
             return null;
         }
 
-        return $this->onSubmitMixed();
+        return $this->onSubmitMixed($vals);
     }
 
     /**
@@ -79,9 +79,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     protected abstract function onSubmitAllMissing();
 
     /**
+     * @param array $values The incoming values for this field.
+     *
      * @return string|null A string error message to be displayed to the user, or null if no problem.
      */
-    protected abstract function onSubmitMixed();
+    protected abstract function onSubmitMixed(array $values);
 
     /**
      * @return array An associative array of translated group names to associative array of

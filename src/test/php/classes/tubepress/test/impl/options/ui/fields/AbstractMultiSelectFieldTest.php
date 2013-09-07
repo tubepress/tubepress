@@ -14,8 +14,26 @@ class_exists('tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTest
 /**
  *
  */
-abstract class tubepress_test_impl_options_ui_fields_AbstractMultiSelectFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTest
+abstract class tubepress_test_impl_options_ui_fields_AbstractMultiSelectFieldTest extends tubepress_test_impl_options_ui_fields_AbstractTemplateBasedOptionsPageFieldTest
 {
+    public function testOnSubmitMixedWithStorageProblem()
+    {
+        $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getSut()->getId())->andReturn(true);
+
+        $this->setupExpectationsForFailedStorageWhenMixed('some error message');
+
+        $this->assertEquals('some error message', $this->getSut()->onSubmit());
+    }
+
+    public function testOnSubmitMixedNoStorageProblem()
+    {
+        $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getSut()->getId())->andReturn(true);
+
+        $this->setupExpectationsForGoodStorageWhenMixed();
+
+        $this->assertNull($this->getSut()->onSubmit());
+    }
+
     public function testOnSubmitAllMissingWithStorageProblem()
     {
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getSut()->getId())->andReturn(false);
@@ -54,6 +72,10 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractMultiSelectFieldTes
     }
 
     protected abstract function doPrepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $mockTemplate);
+
+    protected abstract function setupExpectationsForFailedStorageWhenMixed($errorMessage);
+
+    protected abstract function setupExpectationsForGoodStorageWhenMixed();
 
     protected abstract function setupExpectationsForFailedStorageWhenAllMissing($errorMessage);
 

@@ -24,7 +24,12 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
      */
     private $_mockVideoProviders;
 
-    protected function doOnSetup()
+    public function testIsPro()
+    {
+        $this->assertFalse($this->getSut()->isProOnly());
+    }
+
+    protected function doMoreSetup()
     {
         $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
     }
@@ -168,5 +173,28 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
         $this->_buildMockVideoProviders();
 
         $this->getSut()->setVideoProviders($this->_mockVideoProviders);
+    }
+
+    protected function setupExpectationsForFailedStorageWhenMixed($errorMessage)
+    {
+        $this->_setupOds();
+
+        $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
+
+        $this->getMockStorageManager()->shouldReceive('set')->once()->with('author', false)->andReturn($errorMessage);
+    }
+
+    protected function setupExpectationsForGoodStorageWhenMixed()
+    {
+        $this->_setupOds();
+
+        $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
+
+        $all = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c', 'x', 'y', 'z'));
+
+        foreach ($all as $odName) {
+
+            $this->getMockStorageManager()->shouldReceive('set')->once()->with($odName, in_array($odName, array('a', 'b')))->andReturn(true);
+        }
     }
 }

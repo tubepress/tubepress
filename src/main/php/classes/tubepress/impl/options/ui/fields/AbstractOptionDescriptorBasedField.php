@@ -12,7 +12,7 @@
 /**
  * Base class for fields that are directly modeled by an option descriptor.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractOptionsPageField
+abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField
 {
     /**
      * @var tubepress_spi_options_OptionDescriptor

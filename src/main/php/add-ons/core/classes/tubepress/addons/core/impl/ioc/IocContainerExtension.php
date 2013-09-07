@@ -328,7 +328,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $container->register(
 
             'core-options-field-' . $fieldIndex++,
-            'tubepress_addons_core_impl_options_ui_fields_FilterMultiSelectField'
+            'tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField'
         );
 
         //Meta multi-select
