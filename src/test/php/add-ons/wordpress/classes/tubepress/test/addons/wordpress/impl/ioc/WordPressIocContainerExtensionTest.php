@@ -77,7 +77,7 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('vimeo-options-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('wordpress-options-field-' . $x);
         }
 
         $map = array(

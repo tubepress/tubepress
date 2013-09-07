@@ -113,11 +113,11 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $this->expectRegistration('vimeo-options-field-' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
+            $this->expectRegistration('vimeo-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
 
-            $this->expectRegistration('vimeo-options-field-' . ($fieldIndex + 1), 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $this->expectRegistration('vimeo-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->withArgument($gallerySourceFieldArray[0])
-                ->withArgument(new tubepress_impl_ioc_Reference('vimeo-options-field-' . $fieldIndex++));
+                ->withArgument(new tubepress_impl_ioc_Reference('vimeo-options-subfield-' . $fieldIndex++));
         }
 
         $this->expectRegistration('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_SpectrumColorField')

@@ -114,11 +114,11 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $container->register('vimeo-options-field-' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
+            $container->register('vimeo-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
 
-            $container->register('vimeo-options-field-' . ($fieldIndex + 1), 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $container->register('vimeo-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->addArgument($gallerySourceFieldArray[0])
-                ->addArgument(new tubepress_impl_ioc_Reference('vimeo-options-field-' . $fieldIndex++));
+                ->addArgument(new tubepress_impl_ioc_Reference('vimeo-options-subfield-' . $fieldIndex++));
         }
 
         $container->register('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_SpectrumColorField')

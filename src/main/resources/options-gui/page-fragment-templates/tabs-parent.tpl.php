@@ -17,12 +17,14 @@
             <ul class="nav nav-tabs">
 
                 <?php
+                $tabIndex = 0;
+
                 /**
                  * @var $categories tubepress_spi_options_ui_OptionsPageItemInterface[]
                  */
                 foreach ($categories as $category): ?>
 
-                    <li<?php if ($activeCategoryId === $category->getId()): ?> class="active"<?php endif; ?>>
+                    <li<?php if ($tabIndex++ === 0): ?> class="active"<?php endif; ?>>
 
                         <a href="#<?php echo $category->getId(); ?>" data-toggle="tab">
 

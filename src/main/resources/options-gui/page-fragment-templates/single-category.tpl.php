@@ -10,7 +10,7 @@
  */
 ?>
 
-<div class="tab-pane<?php if ($activeCategoryId === $category->getId()): ?> active<?php endif; ?>" id="<?php echo $category->getId(); ?>">
+<div class="tab-pane<?php if ($categoryIndex++ === 0): ?> active<?php endif; ?>" id="<?php echo $category->getId(); ?>">
 
     <div class="row">
 

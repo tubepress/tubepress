@@ -44,10 +44,10 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
         $fieldIndex = 0;
         $fieldMap = array(
 
-            'tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK'   => 'tubepress_impl_options_ui_fields_SpectrumColorField',
-            'tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT'  => 'tubepress_impl_options_ui_fields_SpectrumColorField',
-            'tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT'  => 'tubepress_impl_options_ui_fields_SpectrumColorField',
-            'tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN' => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK   => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT  => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT  => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN => 'tubepress_impl_options_ui_fields_SpectrumColorField',
         );
 
         foreach ($fieldMap as $name => $class) {

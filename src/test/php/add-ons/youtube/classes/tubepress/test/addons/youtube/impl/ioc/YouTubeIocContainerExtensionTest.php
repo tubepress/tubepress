@@ -152,11 +152,11 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $this->expectRegistration('youtube-options-field-' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
+            $this->expectRegistration('youtube-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
 
-            $this->expectRegistration('youtube-options-field-' . ($fieldIndex + 1), 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $this->expectRegistration('youtube-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->withArgument($gallerySourceFieldArray[0])
-                ->withArgument(new tubepress_impl_ioc_Reference('youtube-options-field-' . $fieldIndex++));
+                ->withArgument(new tubepress_impl_ioc_Reference('youtube-options-subfield-' . $fieldIndex++));
         }
 
         $fieldMap = array(

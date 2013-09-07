@@ -159,11 +159,11 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $container->register('youtube-options-field-' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
+            $container->register('youtube-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
 
-            $container->register('youtube-options-field-' . ($fieldIndex + 1), 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $container->register('youtube-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->addArgument($gallerySourceFieldArray[0])
-                ->addArgument(new tubepress_impl_ioc_Reference('youtube-options-field-' . $fieldIndex++));
+                ->addArgument(new tubepress_impl_ioc_Reference('youtube-options-subfield-' . $fieldIndex++));
         }
 
         $fieldMap = array(
