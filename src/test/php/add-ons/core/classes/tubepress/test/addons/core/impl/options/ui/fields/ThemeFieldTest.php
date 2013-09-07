@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_core_impl_options_ui_fields_ThemeField<extended>
+ */
 class tubepress_test_addons_core_impl_options_ui_fields_ThemeFieldTest extends tubepress_test_impl_options_ui_fields_DropdownFieldTest
 {
     /**

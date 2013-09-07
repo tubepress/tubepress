@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper
+ */
 class tubepress_test_addons_core_impl_listeners_videogallerypage_ResultCountCapperTest extends tubepress_test_TubePressUnitTest
 {
     /**
