@@ -11,7 +11,7 @@
 class_exists('tubepress_test_impl_addon_AbstractManifestValidityTest') ||
     require dirname(__FILE__) . '/../../classes/tubepress/test/impl/addon/AbstractManifestValidityTest.php';
 
-class tubepress_addons_core_JwPlayerManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
+class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
 {
     public function testManifest()
     {
@@ -39,7 +39,6 @@ class tubepress_addons_core_JwPlayerManifestValidityTest extends tubepress_test_
             'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService' => 'classes/tubepress/addons/jwplayer/impl/embedded/JwPlayerPluggableEmbeddedPlayerService.php',
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars' => 'classes/tubepress/addons/jwplayer/impl/listeners/template/JwPlayerTemplateVars.php',
             'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider' => 'classes/tubepress/addons/jwplayer/impl/options/JwPlayerOptionsProvider.php',
-            'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant' => 'classes/tubepress/addons/jwplayer/impl/options/ui/JwPlayerOptionsPageParticipant.php',
             'tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension' => 'classes/tubepress/addons/jwplayer/impl/ioc/JwPlayerIocContainerExtension.php'
         );
     }

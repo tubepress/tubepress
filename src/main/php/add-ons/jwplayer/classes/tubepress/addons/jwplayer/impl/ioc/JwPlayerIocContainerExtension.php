@@ -26,6 +26,36 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
      */
     public function load(tubepress_api_ioc_ContainerInterface $container)
     {
+        $this->_registerPluggables($container);
+
+        $this->_registerListeners($container);
+    }
+
+    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $container->register(
+
+            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars',
+            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10000));
+
+        $container->register(
+
+            'jw-color-sanitizer',
+            'tubepress_impl_listeners_options_ColorSanitizingListener'
+        )->addArgument(array(
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
+            ))
+            ->addTag(self::TAG_EVENT_LISTENER,
+                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET,
+                    'method' => 'onPreValidationOptionSet', 'priority' => 9500));
+    }
+
+    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    {
         $container->register(
 
             'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
@@ -35,21 +65,50 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
 
         $container->register(
 
-            'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant',
-            'tubepress_addons_jwplayer_impl_options_ui_JwPlayerOptionsPageParticipant'
-
-        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-
-        $container->register(
-
             'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider',
             'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
+        $fieldIndex = 0;
+        $fieldMap = array(
+
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK   => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT  => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT  => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN => 'tubepress_impl_options_ui_fields_SpectrumColorField',
+        );
+
+        foreach ($fieldMap as $name => $class) {
+
+            $container->register('jwplayer-field-' . $fieldIndex++, $class)->addArgument($name);
+        }
+
+        $fieldReferences = array();
+
+        for ($x = 0 ; $x < $fieldIndex; $x++) {
+
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('jwplayer-field-' . $x);
+        }
+
+        $map = array(
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(
+
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
+                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN)
+        );
+
         $container->register(
 
-            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars',
-            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10000));
+            'jw-player-options-page-participant',
+            'tubepress_impl_options_ui_BaseOptionsPageParticipant'
+        )->addArgument('jwplayer-participant')
+         ->addArgument('JW Player')     //>(translatable)<)
+         ->addArgument(array())
+         ->addArgument($fieldReferences)
+         ->addArgument($map)
+         ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 }

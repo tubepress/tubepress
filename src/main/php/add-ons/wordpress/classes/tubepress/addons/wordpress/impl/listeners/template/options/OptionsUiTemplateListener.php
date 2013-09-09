@@ -21,8 +21,8 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
         $template        = $event->getSubject();
         $messageService  = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
 
-        $template->setVariable(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_TITLE, $messageService->_('TubePress Options'));                                                                                                                                                                                                                                                                                                                                 //>(translatable)<
-        $template->setVariable(tubepress_impl_options_ui_DefaultFormHandler::TEMPLATE_VAR_INTRO, $messageService->_('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.com/documentation">documentation</a> for more information.')); //>(translatable)<
+        $template->setVariable("pageTitle", $messageService->_('TubePress Options'));                                                                                                                                                                                                                       //>(translatable)<                                                                                                                                                                                                                                                                                                      //>(translatable)<
+        $template->setVariable("introBlurb", $messageService->_('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.com/documentation">documentation</a> for more information.')); //>(translatable)<
 
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $toEncode = array();

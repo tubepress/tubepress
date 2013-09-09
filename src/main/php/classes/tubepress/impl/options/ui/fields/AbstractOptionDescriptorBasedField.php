@@ -10,45 +10,27 @@
  */
 
 /**
- * Base class for HTML fields.
+ * Base class for fields that are directly modeled by an option descriptor.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractPluggableOptionsPageField
+abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField
 {
-    const TEMPLATE_VAR_VALUE = 'tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField__value';
-
-    /** Option descriptor. */
+    /**
+     * @var tubepress_spi_options_OptionDescriptor
+     */
     private $_optionDescriptor;
 
-    public function __construct($name)
+    public function __construct($optionDescriptorName)
     {
         $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
 
-        $this->_optionDescriptor = $odr->findOneByName($name);
+        $this->_optionDescriptor = $odr->findOneByName($optionDescriptorName);
 
         if ($this->_optionDescriptor === null) {
 
-            throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $name));
+            throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $optionDescriptorName));
         }
-    }
 
-    /**
-     * Get the untranslated title of this field.
-     *
-     * @return string The untranslated title of this field.
-     */
-    public final function getRawTitle()
-    {
-        return $this->_optionDescriptor->getLabel();
-    }
-
-    /**
-     * Get the untranslated description of this field.
-     *
-     * @return string The untranslated description of this field.
-     */
-    public final function getRawDescription()
-    {
-        return $this->_optionDescriptor->getDescription();
+        parent::__construct($optionDescriptorName, $this->_optionDescriptor->getLabel(), $this->_optionDescriptor->getDescription());
     }
 
     /**
@@ -62,69 +44,46 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     }
 
     /**
-     * Generates the HTML for the options form.
-     *
-     * @return string The HTML for the options form.
-     */
-    public final function getHtml()
-    {
-        $templateBuilder     = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-
-        $template     = $templateBuilder->getNewTemplateInstance(TUBEPRESS_ROOT . '/' . $this->getTemplatePath());
-        $currentValue = $storageManager->get($this->_optionDescriptor->getName());
-
-        $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_optionDescriptor->getName());
-        $template->setVariable(self::TEMPLATE_VAR_VALUE, $currentValue);
-
-        $this->populateTemplate($template, $currentValue);
-
-        return $template->toString();
-    }
-
-    /**
      * Handles form submission.
      *
      * @return array An array of failure messages if there's a problem, otherwise null.
      */
     public final function onSubmit()
     {
+        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $id   = $this->getId();
+
         if ($this->_optionDescriptor->isBoolean()) {
 
-            return $this->_onSubmitBoolean();
+            return $this->sendToStorage($id, $hrps->hasParam($id));
         }
 
-        return $this->_onSubmitSimple();
-    }
+        if (! $hrps->hasParam($id)) {
 
-    public function getName()
-    {
-        return $this->_optionDescriptor->getName();
+            /* not submitted. */
+            return null;
+        }
+
+        $value = $hrps->getParamValue($id);
+
+        return $this->sendToStorage($id, $this->convertIncomingStringValueToStorageFormat($value));
     }
 
     /**
-     * Get the path to the template for this field, relative
-     * to TubePress's root.
-     *
-     * @return string The path to the template for this field, relative
-     *                to TubePress's root.
+     * @return array An associative array of template variables for this field.
      */
-    protected abstract function getTemplatePath();
-
-    /**
-     * Override point.
-     *
-     * Allows subclasses to perform additional modifications to this
-     * field's template.
-     *
-     * @param ehough_contemplate_api_Template $template     The field's template.
-     * @param string                          $currentValue The current value of this field.
-     *
-     * @return void
-     */
-    protected function populateTemplate($template, $currentValue)
+    protected function getTemplateVariables()
     {
-        //override point
+        $storage = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+        $id      = $this->getId();
+        $value   = $this->convertStorageFormatToStringValueForHTML($storage->get($id));
+
+        return array_merge(array(
+
+            'id'    => $id,
+            'value' => $value,
+
+        ), $this->getAdditionalTemplateVariables());
     }
 
     protected final function getOptionDescriptor()
@@ -132,48 +91,29 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
         return $this->_optionDescriptor;
     }
 
-    private function _onSubmitSimple()
+    /**
+     * @return array An associative array of additional template variables for this field (besides name and value)
+     */
+    protected function getAdditionalTemplateVariables()
     {
-        $name = $this->_optionDescriptor->getName();
-        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-
-        if (! $hrps->hasParam($name)) {
-
-            /* not submitted. */
-            return null;
-        }
-
-        $value  = $hrps->getParamValue($name);
-        $result = $this->_setToStorage($name, $value);
-
-        if ($result === true) {
-
-            return null;
-        }
-
-        return $result;
+        //override point
+        return array();
     }
 
-    private function _onSubmitBoolean()
+    protected function convertIncomingStringValueToStorageFormat($incomingStringValue)
     {
-        $name = $this->_optionDescriptor->getName();
-        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-
-        /* if the user checked the box, the option name will appear in the POST vars */
-        return $this->_setToStorage($name, $hrps->hasParam($name));
+        //override point
+        return $incomingStringValue;
     }
 
-    private function _setToStorage($name, $value)
+    /**
+     * @param mixed $storageData The
+     *
+     * @return string The data suitable for display in an HTML field.
+     */
+    protected function convertStorageFormatToStringValueForHTML($storageData)
     {
-        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-
-        $result = $storageManager->set($name, $value);
-
-        if ($result === true) {
-
-            return null;
-        }
-
-        return array($result);
+        //override point
+        return $storageData;
     }
 }

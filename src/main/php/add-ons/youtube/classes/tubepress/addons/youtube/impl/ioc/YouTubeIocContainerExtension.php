@@ -26,6 +26,35 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
      */
     public function load(tubepress_api_ioc_ContainerInterface $container)
     {
+        $this->_registerPluggables($container);
+
+        $this->_registerListeners($container);
+    }
+
+    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $container->register(
+
+            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
+            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
+
+        $container->register(
+
+            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
+            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));
+
+        $container->register(
+
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
+    }
+
+    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    {
+
         $container->register(
 
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder',
@@ -49,33 +78,175 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         $container->register(
 
-            'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant',
-            'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant'
-
-        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
-
-        $container->register(
-
             'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider',
             'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
+        $this->_registerOptionsPageParticipant($container);
+    }
+
+    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $fieldIndex = 0;
+
+        $container->register('youtube-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+            ->addArgument(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY)
+            ->addMethodCall('setSize', array(120));
+
+        $gallerySourceMap = array(
+
+            array(
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
+                'tubepress_impl_options_ui_fields_DropdownField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE),
+
+            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE),
+        );
+
+        foreach ($gallerySourceMap as $gallerySourceFieldArray) {
+
+            $container->register('youtube-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
+
+            $container->register('youtube-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+                ->addArgument($gallerySourceFieldArray[0])
+                ->addArgument(new tubepress_impl_ioc_Reference('youtube-options-subfield-' . $fieldIndex++));
+        }
+
+        $fieldMap = array(
+
+            tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE         => 'tubepress_impl_options_ui_fields_DropdownField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS  => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN       => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING  => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED     => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::THEME            => 'tubepress_impl_options_ui_fields_DropdownField',
+            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_CONTROLS    => 'tubepress_impl_options_ui_fields_DropdownField',
+
+            //Feed fields
+            tubepress_addons_youtube_api_const_options_names_Feed::FILTER               => 'tubepress_impl_options_ui_fields_DropdownField',
+            tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY      => 'tubepress_impl_options_ui_fields_BooleanField',
+        );
+
+        foreach ($fieldMap as $id => $class) {
+
+            $container->register('youtube-options-field-' . $fieldIndex++, $class)->addArgument($id);
+        }
+
+        $fieldReferences = array();
+
+        for ($x = 0 ; $x < $fieldIndex; $x++) {
+
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('youtube-options-field-' . $x);
+        }
+
+        $map = array(
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => array(
+
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
+                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(
+
+                tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE,
+                tubepress_addons_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
+                tubepress_addons_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD,
+                tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN,
+                tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING,
+                tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS,
+                tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED,
+                tubepress_addons_youtube_api_const_options_names_Embedded::THEME,
+                tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED => array(
+
+                tubepress_addons_youtube_api_const_options_names_Feed::FILTER,
+                tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY,
+                tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY,
+            )
+        );
+
         $container->register(
 
-            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
-            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
+            'youtube-options-page-participant',
+            'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        $container->register(
-
-            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
-            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));
-
-        $container->register(
-
-            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
-            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
+        )->addArgument('youtube-participant')
+            ->addArgument('YouTube')   //>(translatable)<
+            ->addArgument(array())
+            ->addArgument($fieldReferences)
+            ->addArgument($map)
+            ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 }

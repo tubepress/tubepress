@@ -14,17 +14,8 @@
  */
 class tubepress_impl_options_ui_fields_BooleanField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
-    const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_BooleanField';
-
-    /**
-     * Get the path to the template for this field, relative
-     * to TubePress's root.
-     *
-     * @return string The path to the template for this field, relative
-     *                to TubePress's root.
-     */
-    protected final function getTemplatePath()
+    protected final function getAbsolutePathToTemplate()
     {
-        return 'src/main/resources/system-templates/options_page/fields/checkbox.tpl.php';
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/checkbox.tpl.php';
     }
 }

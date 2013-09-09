@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-28 17:34:15+0000\n"
+"PO-Revision-Date: 2013-09-09 19:45:10+0000\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,6 +88,24 @@ msgstr "कोई मेल खाता वीडियो"
 
 msgid "Search"
 msgstr "खोज"
+
+msgid "No option with name \"%s\"."
+msgstr ""
+
+msgid "Invalid value supplied for \"%s\"."
+msgstr ""
+
+msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
+msgstr ""
+
+msgid "\"%s\" can only be \"true\" or \"false\". You supplied \"%s\"."
+msgstr ""
+
+msgid "select ..."
+msgstr ""
+
+msgid "Settings updated."
+msgstr ""
 
 msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
 msgstr "वीडियो वर्णन में प्रदर्शित करने के लिए वर्णों की अधिकतम संख्या. कोई सीमा के लिए 0 पर सेट करें."
@@ -353,6 +371,9 @@ msgstr "अधिकतम चौड़ाई (पिक्सेल)"
 msgid "random"
 msgstr "यादृच्छिक"
 
+msgid "WordPress"
+msgstr ""
+
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr "TubePress साथ यूट्यूब या Vimeo वीडियो प्रदर्शित करता है"
 
@@ -409,6 +430,9 @@ msgstr "Vimeo"
 
 msgid "Number of \"likes\""
 msgstr "पसंद \" की संख्य"
+
+msgid "YouTube"
+msgstr ""
 
 msgid "Videos related to this YouTube video"
 msgstr "इस यूट्यूब वीडियो से संबंधित वीडियो"

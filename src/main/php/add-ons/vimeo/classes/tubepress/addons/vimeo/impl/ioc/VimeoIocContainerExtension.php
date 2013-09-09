@@ -26,12 +26,15 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
      */
     public function load(tubepress_api_ioc_ContainerInterface $container)
     {
-        $container->register(
+        $this->_registerPluggables($container);
 
-            'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
-            'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'
-        );
+        $this->_registerListeners($container);
 
+        $this->_registerOauthClient($container);
+    }
+
+    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    {
         $container->register(
 
             'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService',
@@ -41,18 +44,16 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
 
         $container->register(
 
+            'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
+            'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'
+        );
+        $container->register(
+
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService',
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService'
 
         )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'))
-            ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
-
-        $container->register(
-
-            'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant',
-            'tubepress_addons_vimeo_impl_options_ui_VimeoPluggableOptionsPageParticipant'
-
-        )->addTag(tubepress_spi_options_ui_PluggableOptionsPageParticipant::_);
+         ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $container->register(
 
@@ -60,15 +61,134 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_options_VimeoOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
+        $this->_registerOptionsPageParticipant($container);
+    }
+
+    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $fieldIndex = 0;
+
+        $container->register('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+            ->addArgument(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY)
+            ->addMethodCall('setSize', array(40));
+
+        $container->register('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+            ->addArgument(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET)
+            ->addMethodCall('setSize', array(40));
+
+        $gallerySourceMap = array(
+
+            array(
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE),
+
+            array(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE),
+
+            array(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE),
+
+            array(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE),
+
+            array(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE),
+
+            array(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE),
+
+            array(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE),
+
+            array(tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
+                'tubepress_impl_options_ui_fields_TextField',
+                tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE),
+        );
+
+        foreach ($gallerySourceMap as $gallerySourceFieldArray) {
+
+            $container->register('vimeo-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
+
+            $container->register('vimeo-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+                ->addArgument($gallerySourceFieldArray[0])
+                ->addArgument(new tubepress_impl_ioc_Reference('vimeo-options-subfield-' . $fieldIndex++));
+        }
+
+        $container->register('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_SpectrumColorField')
+            ->addArgument(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
+
+        $fieldReferences = array();
+
+        for ($x = 0 ; $x < $fieldIndex; $x++) {
+
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('vimeo-options-field-' . $x);
+        }
+
+        $map = array(
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => array(
+
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
+                tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(
+
+                tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED => array(
+
+                tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY,
+                tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET,
+            ),
+        );
+
+        $container->register(
+
+            'vimeo-options-page-participant',
+            'tubepress_impl_options_ui_BaseOptionsPageParticipant'
+
+        )->addArgument('vimeo-participant')
+            ->addArgument('Vimeo')   //>(translatable)<
+            ->addArgument(array())
+            ->addArgument($fieldReferences)
+            ->addArgument($map)
+            ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
+    }
+
+    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    {
         $container->register(
 
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
 
-        $this->_registerHttpListeners($container);
+        $container->register(
 
-        $this->_registerOauthClient($container);
+            'vimeo-color-sanitizer',
+            'tubepress_impl_listeners_options_ColorSanitizingListener'
+
+        )->addArgument(array(
+                tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR
+            ))
+            ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 9500));
+
+        $this->_registerHttpListeners($container);
     }
 
     private function _registerHttpListeners(tubepress_api_ioc_ContainerInterface $container)

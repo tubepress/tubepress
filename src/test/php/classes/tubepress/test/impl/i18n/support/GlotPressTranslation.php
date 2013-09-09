@@ -104,12 +104,15 @@ class tubepress_test_impl_i18n_support_GlotPressTranslation
 
         $response = curl_exec($handle);
 
-        if (curl_getinfo($handle, CURLINFO_HTTP_CODE) !== 200) {
+        if ($response === false) {
+
+            $e = new RuntimeException("Attempt to fetch $url failed:" . curl_error($handle));
 
             curl_close($handle);
             fclose($fp);
             unlink($tmpFile);
-            throw new RuntimeException("$url didn't return an HTTP 200");
+
+            throw $e;
         }
 
         curl_close($handle);

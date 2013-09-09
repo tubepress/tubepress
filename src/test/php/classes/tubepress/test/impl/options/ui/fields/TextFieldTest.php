@@ -8,15 +8,40 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_options_ui_fields_TextField<extended>
+ */
 class tubepress_test_impl_options_ui_fields_TextFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest
 {
-    protected function _buildSut($name)
+    public function testInvalidSize()
     {
-        return new tubepress_impl_options_ui_fields_TextField($name, 'someTab');
+        $this->setExpectedException('InvalidArgumentException', 'Text fields must have a non-negative size.');
+
+        /**
+         * @var $field tubepress_impl_options_ui_fields_TextField
+         */
+        $field = $this->getSut();
+
+        $field->setSize(-1);
     }
 
-    protected function getTemplatePath()
+    protected function buildSut()
     {
-        return 'src/main/resources/system-templates/options_page/fields/text.tpl.php';
+        $field = new tubepress_impl_options_ui_fields_TextField($this->getOptionName());
+
+        $field->setSize(99);
+
+        return $field;
+    }
+
+    protected function getExpectedTemplatePath()
+    {
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/text.tpl.php';
+    }
+
+    protected function doAdditionalPrepForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
+    {
+        $template->shouldReceive('setVariable')->once()->with('size', 99);
     }
 }

@@ -1,0 +1,76 @@
+/**
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+div.tp-bs form.form-horizontal {
+
+    margin-left: -15px;
+}
+
+.tp-bs .row {
+
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tp-bs label {
+
+    background-color: transparent;
+}
+
+.tp-bs li {
+
+    margin-bottom: 0;
+}
+
+.tp-bs .multiselect-container label {
+
+    height: 20px;
+    margin: 10px 0 10px 0;
+    padding: 0 0 0 20px ! important;
+    border: none;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+.tp-bs .multiselect-container label.multiselect-group {
+    font-weight: bold;
+}
+
+#filter-wrapper {
+
+    padding-top: 48px;
+}
+
+.tp-bs .tab-content {
+
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding-top: 24px;
+    margin-bottom: 24px;
+}
+
+.tp-bs .form-control,
+.tp-bs .input-group .form-control {
+
+    width: auto;
+}
+
+button.close {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+div.has-iframe iframe body {
+
+    padding: 0;
+}

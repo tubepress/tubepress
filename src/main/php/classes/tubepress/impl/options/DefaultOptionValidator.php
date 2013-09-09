@@ -38,12 +38,13 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
     public final function getProblemMessage($optionName, $candidate)
     {
         $optionDescriptorReferenceService = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+        $messageService                   = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
 
         $descriptor = $optionDescriptorReferenceService->findOneByName($optionName);
 
         if ($descriptor === null) {
 
-            return sprintf('No option with name %s', $optionName);
+            return sprintf('No option with name "%s".', $optionName);                          //>(translatable)<
         }
 
         if ($descriptor->hasValidValueRegex()) {
@@ -53,7 +54,7 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
                 return null;
             }
 
-            return sprintf('"%s" must match the regular expression %s. You supplied "%s".', $optionName, $descriptor->getValidValueRegex(), $candidate);
+            return sprintf('Invalid value supplied for "%s".', $messageService->_($descriptor->getLabel()));      //>(translatable)<
         }
 
         if ($descriptor->hasDiscreteAcceptableValues()) {
@@ -74,7 +75,8 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
                 return null;
             }
 
-            return sprintf('"%s" must be one of {%s}. You supplied "%s".', $optionName, implode(', ', $values), $candidate);
+            return sprintf('"%s" must be one of "%s". You supplied "%s".',                               //>(translatable)<
+                $messageService->_($descriptor->getLabel()), implode(', ', $values), $candidate);
         }
 
         if ($descriptor->isBoolean()) {
@@ -84,7 +86,7 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
                 return null;
             }
 
-            return sprintf('"%s" can only accept true/false values. You supplied "%s".', $optionName, $candidate);
+            return sprintf('"%s" can only be "true" or "false". You supplied "%s".', $optionName, $candidate);  //>(translatable)<
         }
 
         return null;

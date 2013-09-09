@@ -26,30 +26,29 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
             return;
         }
 
-        $wpFunctionWrapper    = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-        $baseName             = basename(TUBEPRESS_ROOT);
-        $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-flick-theme/jquery-ui-1.8.24.custom.css", $baseName);
-        $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/options-page.css", $baseName);
-        $jqueryMultiSelectCss = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
-        $jsColorUrl           = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jscolor/jscolor.js", $baseName);
-        $jqueryUiJsUrl        = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js", $baseName);
-        $jqueryMultiSelectJs  = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/vendor/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName);
+        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $baseName          = basename(TUBEPRESS_ROOT);
 
-        $wpFunctionWrapper->wp_register_style('jquery-ui-flick', $jqueryUiCssUrl);
-        $wpFunctionWrapper->wp_register_style('tubepress-options-page', $wpOptionsPageCss);
-        $wpFunctionWrapper->wp_register_style('jquery-ui-multiselect-widget', $jqueryMultiSelectCss);
+        foreach ($this->_getCssMap() as $cssName => $cssRelativePath) {
 
-        $wpFunctionWrapper->wp_enqueue_style('jquery-ui-flick');
-        $wpFunctionWrapper->wp_enqueue_style('tubepress-options-page');
-        $wpFunctionWrapper->wp_enqueue_style('jquery-ui-multiselect-widget');
+            $url = $wpFunctionWrapper->plugins_url($baseName . $cssRelativePath, $baseName);
 
-        $wpFunctionWrapper->wp_register_script('jscolor-tubepress', $jsColorUrl);
-        $wpFunctionWrapper->wp_register_script('jquery-ui-tubepress', $jqueryUiJsUrl);
-        $wpFunctionWrapper->wp_register_script('jquery-ui-multiselect-widget', $jqueryMultiSelectJs);
+            $wpFunctionWrapper->wp_register_style($cssName, $url);
+            $wpFunctionWrapper->wp_enqueue_style($cssName);
+        }
 
-        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-tubepress', false, array(), false, false);
-        $wpFunctionWrapper->wp_enqueue_script('jquery-ui-multiselect-widget', false, array(), false, false);
-        $wpFunctionWrapper->wp_enqueue_script('jscolor-tubepress', false, array(), false, false);
+        foreach ($this->_getJsMap() as $jsName => $jsRelativePath) {
+
+            $url = $wpFunctionWrapper->plugins_url($baseName . $jsRelativePath, $baseName);
+
+            $wpFunctionWrapper->wp_register_script($jsName, $url);
+            $wpFunctionWrapper->wp_enqueue_script($jsName, false, array(), false, false);
+        }
+    }
+
+    public function printHeadMeta()
+    {
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">';
     }
 
     /**
@@ -71,34 +70,20 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
     public final function printOptionsPageHtml()
     {
         /* get the form handler */
-        $optionsForm = tubepress_impl_patterns_sl_ServiceLocator::getOptionsUiFormHandler();
-        $hrps        = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $optionsForm   = tubepress_impl_patterns_sl_ServiceLocator::getOptionsPage();
+        $hrps          = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $errors        = array();
+        $justSubmitted = false;
 
         /* are we updating? */
-        if ($hrps->hasParam('tubepress_save')) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $hrps->hasParam('tubepress_save')) {
 
-            self::_verifyNonce();
+            $justSubmitted = true;
 
-            try {
-
-                $result = $optionsForm->onSubmit();
-
-                if ($result === null) {
-
-                    echo '<div class="updated tubepress-options-updated"><p><strong>Options updated</strong></p></div>';
-
-                } else {
-
-                    self::_error($result);
-                }
-
-            } catch (Exception $error) {
-
-                self::_error($error->getMessage());
-            }
+            $errors = $optionsForm->onSubmit();
         }
 
-        print $optionsForm->getHtml();
+        print $optionsForm->getHtml($errors, $justSubmitted);
     }
 
     /**
@@ -126,20 +111,28 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
         ));
     }
 
-    private static function _verifyNonce()
+    private function _getCssMap()
     {
-        $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        return array(
 
-        $wpFunctionWrapper->check_admin_referer('tubepress-save', 'tubepress-nonce');
+            'bootstrap-3.0.0'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-custom.css',
+            'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/css/bootstrap-custom-theme.css',
+            'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/css/bootstrap-multiselect.css',
+            'tubepress-extra'       => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
+            'spectrum'              => '/src/main/web/options-gui/vendor/spectrum-1.1.1/spectrum.css',
+        );
     }
 
-    private static function _error($message)
+    private function _getJsMap()
     {
-        if (is_array($message)) {
+        return array(
 
-            $message = implode($message, '<br />');
-        }
-
-        echo '<div id="message" class="error fade"><p><strong>' . $message . '</strong></p></div>';
+            'bootstrap-3.0.0'               => '/src/main/web/options-gui/vendor/bootstrap-3.0.0/js/bootstrap.min.js',
+            'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/js/bootstrap-multiselect.js',
+            'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.1.1/spectrum.js',
+            'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
+            'participant-filter-handler'    => '/src/main/web/options-gui/js/participant-filter-handler.js',
+            'iframe-loader'                 => '/src/main/php/add-ons/wordpress/web/options-gui/js/iframe-loader.js',
+        );
     }
 }

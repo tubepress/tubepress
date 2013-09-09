@@ -38,7 +38,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
          * Core stuff.
          */
         $this->_registerMessageService($container);
-        $this->_registerOptionsUiFormHandler($container);
+        $this->_registerOptionsPage($container);
         $this->_registerOptionsStorageManager($container);
 
         /**
@@ -50,44 +50,54 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
         $this->_registerWpAdminHandler($container);
         $this->_registerWpFunctionWrapper($container);
 
+        $this->_registerPluggables($container);
+        $this->_registerListeners($container);
+    }
+
+    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    {
         $container->register(
 
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider',
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
-        /**
-         * Tabs.
-         */
+        $this->_registerOptionsPageParticipant($container);
+    }
+
+    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $fieldIndex = 0;
+        $container->register('wordpress-options-field-' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
+        $container->register('wordpress-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+            ->addArgument(tubepress_api_const_options_names_Advanced::KEYWORD);
+
+        $fieldReferences = array();
+
+        for ($x = 0 ; $x < $fieldIndex; $x++) {
+
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('wordpress-options-field-' . $x);
+        }
+
+        $map = array(
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED => array(
+
+                tubepress_api_const_options_names_Advanced::KEYWORD
+            )
+        );
 
         $container->register(
 
-            'tubepress_impl_options_ui_tabs_GallerySourceTab',
-            'tubepress_impl_options_ui_tabs_GallerySourceTab')
-            ->addTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME)
-            ->addArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php')
-            ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
+            'wordpress-options-page-participant',
+            'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        $tabs = array(
-
-            'tubepress_impl_options_ui_tabs_ThumbsTab',
-            'tubepress_impl_options_ui_tabs_EmbeddedTab',
-            'tubepress_impl_options_ui_tabs_MetaTab',
-            'tubepress_impl_options_ui_tabs_ThemeTab',
-            'tubepress_impl_options_ui_tabs_FeedTab',
-            'tubepress_impl_options_ui_tabs_CacheTab',
-            'tubepress_impl_options_ui_tabs_AdvancedTab',
-        );
-
-        foreach ($tabs as $tab) {
-
-            $container->register($tab, $tab)
-                ->addTag(tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME)
-                ->addArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tab.tpl.php')
-                ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
-        }
-
-        $this->_registerListeners($container);
+        )->addArgument('wordpress-participant')
+            ->addArgument('WordPress')   //>(translatable)<
+            ->addArgument(array())
+            ->addArgument($fieldReferences)
+            ->addArgument($map)
+            ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 
     private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
@@ -102,7 +112,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_OPTIONS_UI_MAIN, 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
+                'method' => 'onOptionsUiTemplate', 'priority' => 10000));
 
         $container->register(
 
@@ -129,30 +140,16 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
         );
     }
 
-    private function _registerOptionsUiFormHandler(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerOptionsPage(tubepress_api_ioc_ContainerInterface $container)
     {
-        $tabsId = 'tubepress_impl_options_ui_DefaultTabsHandler';
-
         $container->register(
 
-            $tabsId, $tabsId
+            'tubepress_spi_options_ui_OptionsPageInterface',
+            'tubepress_impl_options_ui_DefaultOptionsPage'
 
-        )->addArgument(TUBEPRESS_ROOT . '/src/main/resources/system-templates/options_page/tabs.tpl.php')
-         ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageTab::CLASS_NAME, 'method' => 'setPluggableOptionsPageTabs'));
-
-        $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
-
-        $container->register($filterId, $filterId)
-            ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_ui_PluggableOptionsPageParticipant::_, 'method' => 'setPluggableOptionsPageParticipants'));
-
-        $container->register(
-
-            tubepress_spi_options_ui_FormHandler::_,
-            'tubepress_impl_options_ui_DefaultFormHandler'
-
-        )->addArgument(new tubepress_impl_ioc_Reference($tabsId))
-         ->addArgument(new tubepress_impl_ioc_Reference($filterId))
-         ->addArgument(TUBEPRESS_ROOT . '/src/main/php/add-ons/wordpress/resources/templates/options_page.tpl.php');
+        )->addArgument(TUBEPRESS_ROOT . '/src/main/php/add-ons/wordpress/resources/templates/options_page.tpl.php')
+         ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface',
+                'method' => 'setOptionsPageParticipants'));
     }
 
     private function _registerContentFilter(tubepress_api_ioc_ContainerInterface $container)
