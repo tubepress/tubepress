@@ -65,8 +65,9 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
             'isPro'                                => $environmentDetector->isPro(),
             'justSubmitted'                        => $justSubmitted,
             'participants'                         => $participants,
-            "successMessage"                       => 'Options updated.',                     //>translatable<
+            "successMessage"                       => 'Options updated.',                     //>(translatable)<
             'tubePressBaseUrl'                     => $environmentDetector->getBaseUrl(),
+            "saveText"                             => 'Save'                                  //>(translatable)<
         );
 
         foreach ($templateVariables as $key => $val) {

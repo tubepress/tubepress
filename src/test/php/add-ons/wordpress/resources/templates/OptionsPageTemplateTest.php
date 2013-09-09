@@ -78,12 +78,13 @@ class tubepress_test_addons_wordpress_resources_templates_OptionsPageTemplateTes
             'isPro'          => false,
             'categories'     => array(),
             'justSubmitted'  => true,
+            'saveText'       => 'Save me',
         );
     }
 
     private function _expected($fileName)
     {
-        return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/add-ons/wordpress/resources/templates/' . $fileName);
+        return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/wordpress/resources/templates/' . $fileName);
     }
 
     private function _sanitize($string)

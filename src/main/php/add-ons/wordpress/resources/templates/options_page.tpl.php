@@ -42,7 +42,7 @@
 
         <div class="row">
             <div class="col-md-3">
-                <button type="submit" class="btn btn-primary" name="tubepress_save">Save</button>
+                <button type="submit" class="btn btn-primary" name="tubepress_save"><?php echo $saveText; ?></button>
             </div>
 
             <div class="col-md-3">
