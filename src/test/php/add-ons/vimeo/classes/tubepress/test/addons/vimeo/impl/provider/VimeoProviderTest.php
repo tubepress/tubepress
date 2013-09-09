@@ -171,7 +171,7 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
 
     private function _sanitizedSerialized($filename)
     {
-        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/' . $filename);
+        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/vimeo/' . $filename);
 
         $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest', '_callbackStrlen'), $serial_str );
 

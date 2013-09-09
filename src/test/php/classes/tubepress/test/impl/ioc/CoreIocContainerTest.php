@@ -28,8 +28,8 @@ class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePr
     {
         parent::setUpBeforeClass();
 
-        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeExtension.php';
-        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/ioc/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/ioc/FakeCompilerPass.php';
     }
 
     public function testBuildsNormally()

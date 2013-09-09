@@ -87,7 +87,7 @@ class tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionLis
 
     public function singleVideoXml()
     {
-        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-single-video.txt');
+        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/vimeo/vimeo-single-video.txt');
 
         $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
 
@@ -96,7 +96,7 @@ class tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionLis
 
     public function galleryXml()
     {
-        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/vimeo-gallery.txt');
+        $serial_str = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/vimeo/vimeo-gallery.txt');
 
         $out = preg_replace_callback('!s:(\d+):"(.*?)";!s', array('tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTest', '_callbackStrlen'), $serial_str );
 

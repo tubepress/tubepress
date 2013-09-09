@@ -21,7 +21,7 @@
         <whitelist>
            <directory suffix=".php">../../main/php</directory>
             <exclude>
-                <file>../../main/web/php/ajaxjobsEndpoint.php</file>
+                <file>../../main/web/php/ajaxEndpoint.php</file>
             </exclude>
         </whitelist>
     </filter>

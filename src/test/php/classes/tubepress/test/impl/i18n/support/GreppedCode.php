@@ -26,7 +26,7 @@ class tubepress_test_impl_i18n_support_GreppedCode extends tubepress_test_impl_i
             TUBEPRESS_ROOT . '/src/main/php',
         );
 
-        $toReturn = array_map('rtrim', file(TUBEPRESS_ROOT . '/src/test/resources/gettext/extra-strings.txt'));
+        $toReturn = array_map('rtrim', file(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/i18n/extra-strings.txt'));
 
         foreach ($codeBaseDirectories as $codeBaseDirectory) {
 

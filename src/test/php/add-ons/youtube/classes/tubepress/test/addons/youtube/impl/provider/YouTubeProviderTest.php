@@ -139,11 +139,11 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
 
     public function singleVideoXml()
     {
-        return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/youtube-single-video.xml');
+        return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/youtube/youtube-single-video.xml');
     }
 
     public function galleryXml()
     {
-        return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/feeds/youtube-gallery.xml');
+        return file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/youtube/youtube-gallery.xml');
     }
 }
