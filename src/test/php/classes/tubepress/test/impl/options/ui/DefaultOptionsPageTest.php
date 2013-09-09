@@ -115,7 +115,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
         $mockTemplate->shouldReceive('setVariable')->once()->with('justSubmitted', false);
         $mockTemplate->shouldReceive('setVariable')->once()->with('participants', ehough_mockery_Mockery::on(array($this, '__callbackVerifyFields')));
         $mockTemplate->shouldReceive('setVariable')->once()->with('tubePressBaseUrl', 'syz');
-        $mockTemplate->shouldReceive('setVariable')->once()->with('successMessage', 'Options updated.');
+        $mockTemplate->shouldReceive('setVariable')->once()->with('successMessage', 'Settings updated.');
         $mockTemplate->shouldReceive('setVariable')->once()->with('categoryIdToParticipantIdToFieldsMap', array('categoryid' => array('participantid' => array('field0', 'field1'))));
         $mockTemplate->shouldReceive('setVariable')->once()->with('saveText', 'Save');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobaz');
