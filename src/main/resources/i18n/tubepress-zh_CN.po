@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-08-28 17:34:27+0000\n"
+"PO-Revision-Date: 2013-09-09 19:45:18+0000\n"
 "Language: zh-cn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,6 +88,24 @@ msgstr "没有匹配的视频"
 
 msgid "Search"
 msgstr "搜索"
+
+msgid "No option with name \"%s\"."
+msgstr ""
+
+msgid "Invalid value supplied for \"%s\"."
+msgstr ""
+
+msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
+msgstr ""
+
+msgid "\"%s\" can only be \"true\" or \"false\". You supplied \"%s\"."
+msgstr ""
+
+msgid "select ..."
+msgstr ""
+
+msgid "Settings updated."
+msgstr ""
 
 msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
 msgstr "最大数量的字符显示在视频描述。设置为0表示没有限制。"
@@ -353,6 +371,9 @@ msgstr "最大宽度（PX）"
 msgid "random"
 msgstr "随机"
 
+msgid "WordPress"
+msgstr ""
+
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr "显示YouTube或Vimeo与TubePress视频"
 
@@ -409,6 +430,9 @@ msgstr "或是Vimeo"
 
 msgid "Number of \"likes\""
 msgstr "喜欢\""
+
+msgid "YouTube"
+msgstr ""
 
 msgid "Videos related to this YouTube video"
 msgstr "此YouTube视频相关视频"
