@@ -19,13 +19,9 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      */
     private $_logger;
 
-    private $_knownOptionNames = array();
-
     public function __construct()
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
-
-        $this->_knownOptionNames = $this->getAllOptionNames();
     }
 
     /**
@@ -78,7 +74,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
                 $this->_logger->info(sprintf("Accepted valid value: '%s' = '%s'", $optionName, $filteredValue));
             }
 
-            $this->setOption($optionName, $filteredValue);
+            $this->saveValidatedOption($optionName, $filteredValue);
 
             return true;
         }
@@ -101,32 +97,5 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return void
      */
-    protected abstract function setOption($optionName, $optionValue);
-
-    /**
-     * @return array All the option names currently in this storage manager.
-     */
-    protected abstract function getAllOptionNames();
-
-    protected abstract function create($optionName, $optionValue);
-
-    /**
-     * Creates an option in storage
-     *
-     * @param mixed $optionName  The name of the option to create
-     * @param mixed $optionValue The default value of the new option
-     *
-     * @return void
-     */
-    public final function createIfNotExists($optionName, $optionValue)
-    {
-        if (in_array($optionName, $this->_knownOptionNames)) {
-
-            return;
-        }
-
-        $this->create($optionName, $optionValue);
-
-        $this->_knownOptionNames[] = $optionName;
-    }
+    protected abstract function saveValidatedOption($optionName, $optionValue);
 }

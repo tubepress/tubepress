@@ -15,12 +15,7 @@
 class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_impl_boot_AbstractCachingBootHelper implements tubepress_spi_options_OptionDescriptorReference
 {
     /** Provides fast lookup by name. */
-    private $_nameToOptionDescriptorMap = array();
-
-    /**
-     * @var tubepress_spi_options_StorageManager Cache of the storage manager.
-     */
-    private $_storageManager;
+    private $_nameToOptionDescriptorMap;
 
     /**
      * @var ehough_epilog_Logger
@@ -49,6 +44,8 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
      */
     public final function findAll()
     {
+        $this->_primeCache();
+
         return array_values($this->_nameToOptionDescriptorMap);
     }
 
@@ -62,6 +59,8 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
      */
     public final function findOneByName($name)
     {
+        $this->_primeCache();
+
         if (! array_key_exists($name, $this->_nameToOptionDescriptorMap)) {
 
             return null;
@@ -70,9 +69,13 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
         return $this->_nameToOptionDescriptorMap[$name];
     }
 
-
-    public function boot()
+    public function _primeCache()
     {
+        if (isset($this->_nameToOptionDescriptorMap)) {
+
+            return;
+        }
+
         $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         $fromCache = $this->getCachedObject();
@@ -83,7 +86,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
             return;
         }
 
-        $this->_findOptions();
+        $this->_cacheOds();
 
         $this->tryToCache($this->_nameToOptionDescriptorMap);
     }
@@ -137,8 +140,10 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
         return $this->_shouldLog;
     }
 
-    private function _findOptions()
+    private function _cacheOds()
     {
+        $this->_nameToOptionDescriptorMap = array();
+
         foreach ($this->_optionDescriptorProviders as $optionDescriptorProvider) {
 
             $descriptors = $optionDescriptorProvider->getOptionDescriptors();
@@ -180,15 +185,5 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
         );
 
         $this->_nameToOptionDescriptorMap[$name] = $optionDescriptor;
-
-        if (!isset($this->_storageManager)) {
-
-            $this->_storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        }
-
-        if ($optionDescriptor->isMeantToBePersisted()) {
-
-            $this->_storageManager->createIfNotExists($name, $optionDescriptor->getDefaultValue());
-        }
     }
 }

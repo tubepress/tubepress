@@ -37,12 +37,12 @@ interface tubepress_spi_options_StorageManager
     function set($optionName, $optionValue);
 
     /**
-     * Creates an option in storage
+     * Creates multiple options in storage.
      *
-     * @param mixed $optionName  The name of the option to create
-     * @param mixed $optionValue The default value of the new option
+     * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
+     *                                      element in the array, we will call createIfNotExists($name, $value)
      *
      * @return void
      */
-    function createIfNotExists($optionName, $optionValue);
+    function createEachIfNotExists(array $optionNamesToValuesMap);
 }

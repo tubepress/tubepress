@@ -81,7 +81,7 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
     {
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-a', 'b');
 
-        $this->_sut->createIfNotExists('a', 'b');
+        $this->_sut->createEachIfNotExists(array('a' => 'b'));
     }
 
     public function testSetDoNotPersist()

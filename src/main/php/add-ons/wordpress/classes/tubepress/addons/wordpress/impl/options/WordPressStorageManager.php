@@ -22,19 +22,32 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
     private static $_optionPrefix = "tubepress-";
 
     /**
-     * Creates an option in storage
+     * Creates multiple options in storage.
      *
-     * @param mixed $optionName  The name of the option to create
-     * @param mixed $optionValue The default value of the new option.
+     * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
+     *                                      element in the array, we will call createIfNotExists($name, $value)
      *
      * @return void
      */
-    protected final function create($optionName, $optionValue)
+    public function createEachIfNotExists(array $optionNamesToValuesMap)
     {
+        $allKnowOptionNames  = $this->_getAllOptionNames();
+        $incomingOptionNames = array_keys($optionNamesToValuesMap);
+        $missingOptionNames  = array_diff($incomingOptionNames, $allKnowOptionNames);
+
+        if (count($missingOptionNames) === 0) {
+
+            //common case
+            return;
+        }
+
         $wordPressFunctionWrapperService =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
-        $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $optionName, $optionValue);
+        foreach ($missingOptionNames as $missingOptionName) {
+
+            $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $missingOptionName, $optionNamesToValuesMap[$missingOptionName]);
+        }
     }
 
     /**
@@ -60,7 +73,7 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
      *
      * @return void
      */
-    protected final function setOption($optionName, $optionValue)
+    protected final function saveValidatedOption($optionName, $optionValue)
     {
         $wordPressFunctionWrapperService =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
@@ -71,7 +84,7 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
     /**
      * @return array All the option names currently in this storage manager.
      */
-    protected final function getAllOptionNames()
+    private final function _getAllOptionNames()
     {
         global $wpdb;
 

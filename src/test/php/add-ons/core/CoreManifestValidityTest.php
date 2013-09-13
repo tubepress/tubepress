@@ -28,7 +28,6 @@ class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test
         $this->assertEquals('TubePress core functionality', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_core' => TUBEPRESS_ROOT . '/src/main/php/add-ons/core/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_core_impl_ioc_IocContainerExtension'), $addon->getIocContainerExtensions());
-        $this->assertEquals(array('tubepress_spi_options_OptionDescriptorReference'), $addon->getBootstrapServices());
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
     
@@ -42,6 +41,7 @@ class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test
             'tubepress_addons_core_impl_ioc_IocContainerExtension'                              => 'classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php',
             'tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass'                      => 'classes/tubepress/addons/core/impl/ioc/RegisterListenersCompilerPass.php',
             'tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass'                 => 'classes/tubepress/addons/core/impl/ioc/RegisterTaggedServicesConsumerPass.php',
+            'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener'              => 'classes/tubepress/addons/core/impl/listeners/boot/OptionsStorageInitListener.php',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams'                => 'classes/tubepress/addons/core/impl/listeners/cssjs/GalleryInitJsBaseParams.php',
             'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs'                     => 'classes/tubepress/addons/core/impl/listeners/html/EmbeddedPlayerApiJs.php',
             'tubepress_addons_core_impl_listeners_html_JsConfig'                                => 'classes/tubepress/addons/core/impl/listeners/html/JsConfig.php',
