@@ -104,7 +104,20 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
             }
         }
 
-        return $errors;
+        if (count($errors) > 0) {
+
+            return $errors;
+        }
+
+        /**
+         * No errors. Let's save!
+         */
+
+        $optionStorage = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+
+        $optionStorage->flushSaveQueue();
+
+        return array();
     }
 
     /**

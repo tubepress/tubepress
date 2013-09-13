@@ -70,18 +70,36 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testGet()
     {
-        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-a')->andReturn('b');
+        $result = $this->_sut->fetch('abc123');
 
-        $result = $this->_sut->get('a');
+        $this->assertEquals('xyz789', $result);
+    }
 
-        $this->assertEquals('b', $result);
+    public function testFlushSaveQueue()
+    {
+        $od1 = new tubepress_spi_options_OptionDescriptor('name1');
+        $od2 = new tubepress_spi_options_OptionDescriptor('name2');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->twice()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('name1', 'value1')->andReturn(true);
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('name2', 'value2')->andReturn(true);
+        $this->_mockOptionsReference->shouldReceive('findOneByName')->once()->with('name1')->andReturn($od1);
+        $this->_mockOptionsReference->shouldReceive('findOneByName')->once()->with('name2')->andReturn($od2);
+        $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-name1', 'value1');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-name2', 'value2');
+
+        $this->_sut->queueForSave('name1', 'value1');
+        $this->_sut->queueForSave('name2', 'value2');
+
+        $this->assertNull($this->_sut->flushSaveQueue());
     }
 
     public function testCreate()
     {
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-a', 'b');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-c', 'd');
 
-        $this->_sut->createEachIfNotExists(array('a' => 'b'));
+        $this->_sut->createEachIfNotExists(array('a' => 'b', 'c' => 'd'));
     }
 
     public function testSetDoNotPersist()
@@ -89,11 +107,13 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
         $od = new tubepress_spi_options_OptionDescriptor('something');
         $od->setDoNotPersist();
 
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
 
-        $result = $this->_sut->set('something', 'value');
+        $result = $this->_sut->queueForSave('something', 'value');
 
-        $this->assertTrue($result);
+        $this->assertNull($result);
     }
 
     public function testSetFailsValidation()
@@ -105,7 +125,7 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
         $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(false);
         $this->_mockOptionValidator->shouldReceive('getProblemMessage')->once()->with('something', 'value')->andReturn('xyz');
 
-        $result = $this->_sut->set('something', 'value');
+        $result = $this->_sut->queueForSave('something', 'value');
 
         $this->assertEquals('xyz', $result);
     }
@@ -117,20 +137,20 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
         $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
-        $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-something', 'value');
 
-        $result = $this->_sut->set('something', 'value');
+        $result = $this->_sut->queueForSave('something', 'value');
 
-        $this->assertTrue($result);
+        $this->assertNull($result);
     }
 
     public function get_results($query)
     {
-        $this->assertEquals("SELECT option_name FROM xyz WHERE option_name LIKE 'tubepress-%'", $query);
+        $this->assertEquals("SELECT option_name, option_value FROM xyz WHERE option_name LIKE 'tubepress-%'", $query);
 
         $fake = new stdClass();
 
         $fake->option_name = 'abc123';
+        $fake->option_value = 'xyz789';
 
         return array($fake);
     }

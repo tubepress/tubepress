@@ -10,37 +10,51 @@
  */
 
 /**
- * Handles persistent storage of TubePress options
- *
+ * Handles persistent storage of TubePress options.
  */
 interface tubepress_spi_options_StorageManager
 {
     const _ = 'tubepress_spi_options_StorageManager';
 
     /**
-     * Retrieve the current value of an option
+     * Retrieve the current value of an option from this storage manager.
      *
      * @param string $optionName The name of the option
      *
-     * @return mixed The option's value
+     * @return mixed|null The option's stored value, or null if no such option.
      */
-    function get($optionName);
+    function fetch($optionName);
 
     /**
-     * Sets an option value
-     *
-     * @param string $optionName  The option name
-     * @param mixed  $optionValue The option value
-     *
-     * @return boolean True on success, otherwise a string error message.
+     * @return array An associative array of all the options known by this manager. The keys are option
+     *               names and the values are the stored option values.
      */
-    function set($optionName, $optionValue);
+    function fetchAll();
 
     /**
-     * Creates multiple options in storage.
+     * Queue a name-value pair for storage.
+     *
+     * @param string $optionName  The option name.
+     * @param mixed  $optionValue The option value.
+     *
+     * @return string|null Null if the option was accepted for storage, otherwise a string error message.
+     */
+    function queueForSave($optionName, $optionValue);
+
+    /**
+     * Flush the save queue. This function will empty the queue regardless of whether or not an error occurred during
+     * save.
+     *
+     * @return null|string Null if the flush succeeded and all queued options were saved, otherwise a string error message.
+     */
+    function flushSaveQueue();
+
+    /**
+     * Creates one or more options in storage, if they don't already exist. This function is called on TubePress's boot.
      *
      * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
-     *                                      element in the array, we will call createIfNotExists($name, $value)
+     *                                      element in the array, the storage manager will create the option if it does
+     *                                      not already exist.
      *
      * @return void
      */

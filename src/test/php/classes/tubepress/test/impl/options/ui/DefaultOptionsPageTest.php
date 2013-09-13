@@ -40,15 +40,21 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
     private $_mockEnvironmentDetector;
 
     /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockStorageManager;
+
+    /**
      * @var ehough_mockery_mockery_MockInterface[]
      */
     private $_mockFields;
 
     public function onSetup()
     {
-        $this->_mockTemplateBuilder = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockEventDispatcher     = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockStorageManager      = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
 
         $mockFieldA        = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
         $mockFieldB        = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
@@ -87,6 +93,8 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
             $mockField->shouldReceive('getId')->once()->andReturn('field' . $index++);
             $mockField->shouldReceive('onSubmit')->once()->andReturn(null);
         }
+
+        $this->_mockStorageManager->shouldReceive('flushSaveQueue')->once()->andReturn(null);
 
         $result = $this->_sut->onSubmit();
 

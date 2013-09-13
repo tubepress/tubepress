@@ -96,7 +96,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
         foreach ($all as $odName) {
 
-            $this->getMockStorageManager()->shouldReceive('get')->once()->with($odName)->andReturn($odName !== 'x');
+            $this->getMockStorageManager()->shouldReceive('fetch')->once()->with($odName)->andReturn($odName !== 'x');
 
             $this->getMockMessageService()->shouldReceive('_')->once()->with(strtoupper($odName))->andReturn('<<' . $odName . '>>');
         }
@@ -126,7 +126,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
     {
         $this->_setupOds();
 
-        $this->getMockStorageManager()->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Meta::AUTHOR, false)->andReturn($errorMessage);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_Meta::AUTHOR, false)->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenAllMissing()
@@ -137,7 +137,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
         foreach ($all as $odName) {
 
-            $this->getMockStorageManager()->shouldReceive('set')->once()->with($odName, false)->andReturn(true);
+            $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with($odName, false)->andReturn(null);
         }
     }
 
@@ -181,7 +181,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
 
-        $this->getMockStorageManager()->shouldReceive('set')->once()->with('author', false)->andReturn($errorMessage);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with('author', false)->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenMixed()
@@ -194,7 +194,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
         foreach ($all as $odName) {
 
-            $this->getMockStorageManager()->shouldReceive('set')->once()->with($odName, in_array($odName, array('a', 'b')))->andReturn(true);
+            $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with($odName, in_array($odName, array('a', 'b')))->andReturn(null);
         }
     }
 }

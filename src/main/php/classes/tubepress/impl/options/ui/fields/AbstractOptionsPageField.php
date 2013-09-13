@@ -57,14 +57,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
     {
         $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
-        $result = $storageManager->set($name, $value);
-
-        if ($result === true) {
-
-            return null;
-        }
-
-        return $result;
+        return $storageManager->queueForSave($name, $value);
     }
 
     /**

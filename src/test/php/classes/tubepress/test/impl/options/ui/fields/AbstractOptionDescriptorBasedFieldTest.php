@@ -37,7 +37,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getOptionName())->andReturn(true);
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getOptionName())->andReturn('some-value');
 
-        $this->getMockStorageManager()->shouldReceive('set')->once()->with($this->getOptionName(), 'some-value')->andReturn('you suck');
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with($this->getOptionName(), 'some-value')->andReturn('you suck');
 
         $this->assertEquals('you suck', $this->getSut()->onSubmit());
     }
@@ -55,7 +55,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getOptionName())->andReturn(true);
 
-        $this->getMockStorageManager()->shouldReceive('set')->once()->with($this->getOptionName(), true)->andReturn(true);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with($this->getOptionName(), true)->andReturn(null);
 
         $this->assertNull($this->getSut()->onSubmit());
     }
@@ -65,7 +65,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getOptionName())->andReturn(true);
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getOptionName())->andReturn('some-value');
 
-        $this->getMockStorageManager()->shouldReceive('set')->once()->with($this->getOptionName(), 'some-value')->andReturn(true);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with($this->getOptionName(), 'some-value')->andReturn(null);
 
         $this->assertNull($this->getSut()->onSubmit());
     }

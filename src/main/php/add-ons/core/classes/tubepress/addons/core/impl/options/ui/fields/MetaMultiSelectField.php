@@ -62,7 +62,7 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
 
         foreach ($optionDescriptors as $metaOptionDescriptor) {
 
-            if ($storageManager->get($metaOptionDescriptor->getName())) {
+            if ($storageManager->fetch($metaOptionDescriptor->getName())) {
 
                 $toReturn[] = $metaOptionDescriptor->getName();
             }
@@ -183,9 +183,9 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
         //they unchecked everything
         foreach ($optionNames as $optionName) {
 
-            $message = $storage->set($optionName, false);
+            $message = $storage->queueForSave($optionName, false);
 
-            if ($message !== true) {
+            if ($message !== null) {
 
                 return $message;
             }
@@ -206,9 +206,9 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
 
         foreach ($optionNames as $optionName) {
 
-            $message = $storage->set($optionName, in_array($optionName, $values));
+            $message = $storage->queueForSave($optionName, in_array($optionName, $values));
 
-            if ($message !== true) {
+            if ($message !== null) {
 
                 return $message;
             }

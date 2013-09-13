@@ -29,7 +29,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_GallerySourceFieldTest e
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn(true);
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('a');
 
-        $this->getMockStorageManager()->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE, 'a')->andReturn('some problem');
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE, 'a')->andReturn('some problem');
 
         $result = $this->getSut()->onSubmit();
 
@@ -41,7 +41,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_GallerySourceFieldTest e
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn(true);
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('a');
 
-        $this->getMockStorageManager()->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE, 'a')->andReturn(true);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE, 'a')->andReturn(null);
 
         $result = $this->getSut()->onSubmit();
 
