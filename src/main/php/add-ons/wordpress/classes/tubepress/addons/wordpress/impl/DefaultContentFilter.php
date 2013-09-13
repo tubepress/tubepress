@@ -18,7 +18,7 @@ class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_
     {
         /* do as little work as possible here 'cause we might not even run */
         $wpsm    = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $trigger = $wpsm->get(tubepress_api_const_options_names_Advanced::KEYWORD);
+        $trigger = $wpsm->fetch(tubepress_api_const_options_names_Advanced::KEYWORD);
         $parser  = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
 
         /* no shortcode? get out */

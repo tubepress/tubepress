@@ -76,7 +76,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     {
         $storage = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $id      = $this->getId();
-        $value   = $this->convertStorageFormatToStringValueForHTML($storage->get($id));
+        $value   = $this->convertStorageFormatToStringValueForHTML($storage->fetch($id));
 
         return array_merge(array(
 

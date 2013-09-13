@@ -67,7 +67,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
         $optionStorageManagerService = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
 
-        return $optionStorageManagerService->get($optionName);
+        return $optionStorageManagerService->fetch($optionName);
     }
 
     /**

@@ -59,7 +59,7 @@ class tubepress_test_addons_wordpress_impl_DefaultContentFilterTest extends tube
 
     public function testNormalOperation()
     {
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
+        $this->_mockStorageManager->shouldReceive('fetch')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
 
         $this->_mockShortcodeParser->shouldReceive('somethingToParse')->times(2)->with('the content', 'trigger word')->andReturn(true);
         $this->_mockShortcodeParser->shouldReceive('somethingToParse')->times(2)->with('html for shortcode', 'trigger word')->andReturn(true, false);
@@ -75,7 +75,7 @@ class tubepress_test_addons_wordpress_impl_DefaultContentFilterTest extends tube
 
     public function testErrorCondition()
     {
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
+        $this->_mockStorageManager->shouldReceive('fetch')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
 
         $this->_mockShortcodeParser->shouldReceive('somethingToParse')->times(2)->with('the content', 'trigger word')->andReturn(true);
         $this->_mockShortcodeParser->shouldReceive('somethingToParse')->once()->with('something bad happened', 'trigger word')->andReturn(false);

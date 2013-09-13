@@ -130,7 +130,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
     protected final function prepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
     {
-        $this->getMockStorageManager()->shouldReceive('get')->once()->with($this->getOptionName())->andReturn('some value');
+        $this->getMockStorageManager()->shouldReceive('fetch')->once()->with($this->getOptionName())->andReturn('some value');
 
         $template->shouldReceive('setVariable')->once()->with('id', $this->getOptionName());
         $template->shouldReceive('setVariable')->once()->with('value', 'some value');

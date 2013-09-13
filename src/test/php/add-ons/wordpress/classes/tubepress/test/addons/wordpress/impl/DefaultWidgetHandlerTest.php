@@ -95,8 +95,8 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG, tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG);
         $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');
 
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
+        $this->_mockStorageManager->shouldReceive('fetch')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
+        $this->_mockStorageManager->shouldReceive('fetch')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress-widget-submit')->andReturn(false);
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/php/add-ons/wordpress/resources/templates/widget_controls.tpl.php')->andReturn($mockTemplate);
 

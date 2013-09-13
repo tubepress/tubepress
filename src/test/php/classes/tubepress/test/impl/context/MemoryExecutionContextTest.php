@@ -8,14 +8,30 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_context_MemoryExecutionContext<extended>
+ */
 class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test_TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_context_MemoryExecutionContext
+     */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockValidationService;
 
     public function onSetup()
@@ -100,7 +116,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
 
     public function testGetCustomOptionFallback()
     {
-        $this->_mockStorageManager->shouldReceive('get')->once()->with('nonexistent')->andReturn('something');
+        $this->_mockStorageManager->shouldReceive('fetch')->once()->with('nonexistent')->andReturn('something');
 
         $result = $this->_sut->get("nonexistent");
 
