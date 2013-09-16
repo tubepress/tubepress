@@ -9,22 +9,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<input id="<?php echo $id; ?>" type="text" name="<?php echo $id; ?>" size="6" class="color" value="<?php echo $value; ?>" />
-
-<script type="text/javascript">
-    jQuery(function() {
-
-        jQuery('#<?php echo $id; ?>').spectrum({
-
-            showInitial : true,
-            preferredFormat : "<?php echo $preferredFormat; ?>",
-            showAlpha : <?php echo $showAlpha ? 'true' : 'false'; ?>,
-            showInput : <?php echo $showInput ? 'true' : 'false'; ?>,
-            showPalette : <?php echo $showPalette ? 'true' : 'false'; ?>,
-            showSelectionPalette : <?php echo $showPalette ? 'true' : 'false'; ?>,
-            cancelText : "<?php echo $cancelText; ?>",
-            chooseText : "<?php echo $chooseText; ?>",
-            localStorageKey : "tubepress.spectrum"
-        });
-    });
-</script>
+<input id="<?php echo $id; ?>" type="text" name="<?php echo $id; ?>" size="6" class="tubepress-spectrum-field" value="<?php echo $value; ?>"
+    data-preferredformat="<?php echo $preferredFormat; ?>"
+    data-showalpha="<?php echo $showAlpha ? 'true' : 'false'; ?>"
+    data-showinput="<?php echo $showInput ? 'true' : 'false'; ?>"
+    data-showpalette="<?php echo $showPalette ? 'true' : 'false'; ?>"
+    data-canceltext="<?php echo htmlspecialchars($cancelText); ?>"
+    data-choosetext="<?php echo htmlspecialchars($chooseText); ?>"
+    />

@@ -112,12 +112,12 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         }
 
         $this->expectRegistration(
-            'tubepress_addons_core_impl_listeners_StringMagicFilter-preValidation',
+            'tubepress_addons_core_impl_listeners_StringMagicFilter_preValidation',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
         )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'magic', 'priority' => 10100));
 
         $this->expectRegistration(
-            'tubepress_addons_core_impl_listeners_StringMagicFilter-readFromExternal',
+            'tubepress_addons_core_impl_listeners_StringMagicFilter_readFromExternal',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
         )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'magic', 'priority' => 10000));
 
@@ -159,7 +159,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             $this->expectRegistration(
 
-                'core-options-category-' . $categoryIndex++,
+                'core_options_category_' . $categoryIndex++,
                 'tubepress_impl_options_ui_OptionsPageItem'
             )->withArgument($id)
              ->withArgument($displayName);
@@ -169,7 +169,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
         for ($x = 0 ; $x < $categoryIndex; $x++) {
 
-            $categoryReferences[] = new tubepress_impl_ioc_Reference('core-options-category-' . $x);
+            $categoryReferences[] = new tubepress_impl_ioc_Reference('core_options_category_' . $x);
         }
 
         $fieldIndex = 0;
@@ -177,21 +177,21 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         //Gallery source field
         $this->expectRegistration(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_GallerySourceField'
         );
 
         //Filter field
         $this->expectRegistration(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField'
         );
 
         //Meta multi-select
         $this->expectRegistration(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField'
         )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
                 array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'));
@@ -199,7 +199,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         //Theme field
         $this->expectRegistration(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_ThemeField'
         );
 
@@ -254,14 +254,14 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
         foreach ($fieldMap as $id => $class) {
 
-            $this->expectRegistration('core-options-field-' . $fieldIndex++, $class)->withArgument($id);
+            $this->expectRegistration('core_options_field_' . $fieldIndex++, $class)->withArgument($id);
         }
 
         $fieldReferences = array();
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('core-options-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('core_options_field_' . $x);
         }
 
         $map = array(
@@ -329,7 +329,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
         $this->expectRegistration(
 
-            'core-options-page-participant',
+            'core_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
         )->withArgument('core')

@@ -29,24 +29,14 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
      *
      * @return void
      */
-    public function createEachIfNecessary(array $optionNamesToValuesMap)
+    public function createEach(array $optionNamesToValuesMap)
     {
-        $allKnowOptionNames  = array_keys($this->fetchAll());
-        $incomingOptionNames = array_keys($optionNamesToValuesMap);
-        $missingOptionNames  = array_diff($incomingOptionNames, $allKnowOptionNames);
-
-        if (count($missingOptionNames) === 0) {
-
-            //common case
-            return;
-        }
-
         $wordPressFunctionWrapperService =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
-        foreach ($missingOptionNames as $missingOptionName) {
+        foreach ($optionNamesToValuesMap as $missingOptionName => $defaultValue) {
 
-            $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $missingOptionName, $optionNamesToValuesMap[$missingOptionName]);
+            $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $missingOptionName, $defaultValue);
         }
     }
 

@@ -52,14 +52,14 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
 
         foreach ($fieldMap as $name => $class) {
 
-            $this->expectRegistration('jwplayer-field-' . $fieldIndex++, $class)->withArgument($name);
+            $this->expectRegistration('jwplayer_field_' . $fieldIndex++, $class)->withArgument($name);
         }
 
         $fieldReferences = array();
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('jwplayer-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('jwplayer_field_' . $x);
         }
 
         $map = array(
@@ -74,9 +74,9 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
 
         $this->expectRegistration(
 
-            'jw-player-options-page-participant',
+            'jw_player_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
-        )->withArgument('jwplayer-participant')
+        )->withArgument('jwplayer_participant')
             ->withArgument('JW Player')
             ->withArgument(array())
             ->withArgument($fieldReferences)
@@ -95,7 +95,7 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
 
         $this->expectRegistration(
 
-            'jw-color-sanitizer',
+            'jw_color_sanitizer',
             'tubepress_impl_listeners_options_ColorSanitizingListener'
         )->withArgument(array(
                 tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,

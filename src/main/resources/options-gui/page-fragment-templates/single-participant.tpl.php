@@ -29,6 +29,11 @@
 
         foreach ($fieldIds as $fieldId) {
 
+            if (!isset($fields[$fieldId])) {
+
+                continue;
+            }
+
             $field = $fields[$fieldId];
 
             require 'single-field.tpl.php';

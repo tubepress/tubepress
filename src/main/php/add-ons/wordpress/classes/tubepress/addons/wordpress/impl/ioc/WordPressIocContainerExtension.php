@@ -68,15 +68,15 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
     private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
     {
         $fieldIndex = 0;
-        $container->register('wordpress-options-field-' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
-        $container->register('wordpress-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $container->register('wordpress_options_field_' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
+        $container->register('wordpress_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->addArgument(tubepress_api_const_options_names_Advanced::KEYWORD);
 
         $fieldReferences = array();
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('wordpress-options-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('wordpress_options_field_' . $x);
         }
 
         $map = array(
@@ -89,10 +89,10 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
         $container->register(
 
-            'wordpress-options-page-participant',
+            'wordpress_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        )->addArgument('wordpress-participant')
+        )->addArgument('wordpress_participant')
             ->addArgument('WordPress')   //>(translatable)<
             ->addArgument(array())
             ->addArgument($fieldReferences)

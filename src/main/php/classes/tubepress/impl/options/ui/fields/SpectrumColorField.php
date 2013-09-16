@@ -34,7 +34,6 @@ class tubepress_impl_options_ui_fields_SpectrumColorField extends tubepress_impl
      */
     private $_showSelectionPalette = true;
 
-
     protected function getAdditionalTemplateVariables()
     {
         $ms = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
@@ -56,5 +55,44 @@ class tubepress_impl_options_ui_fields_SpectrumColorField extends tubepress_impl
     protected final function getAbsolutePathToTemplate()
     {
         return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/spectrum-color.tpl.php';
+    }
+
+    public function setPreferredFormatToName()
+    {
+        $this->_preferredFormat = 'name';
+    }
+
+    public function setPreferredFormatToRgb()
+    {
+        $this->_preferredFormat = 'rgb';
+    }
+
+    public function setPreferredFormatToHex()
+    {
+        $this->_preferredFormat = 'hex';
+    }
+
+    /**
+     * @param boolean $showAlpha
+     */
+    public function setShowAlpha($showAlpha)
+    {
+        $this->_showAlpha = (boolean) $showAlpha;
+    }
+
+    /**
+     * @param boolean $showInput
+     */
+    public function setShowInput($showInput)
+    {
+        $this->_showInput = (boolean) $showInput;
+    }
+
+    /**
+     * @param boolean $showSelectionPalette
+     */
+    public function setShowSelectionPalette($showSelectionPalette)
+    {
+        $this->_showSelectionPalette = (boolean) $showSelectionPalette;
     }
 }

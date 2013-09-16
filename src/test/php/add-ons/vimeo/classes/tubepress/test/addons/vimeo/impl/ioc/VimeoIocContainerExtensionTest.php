@@ -67,11 +67,11 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
     {
         $fieldIndex = 0;
 
-        $this->expectRegistration('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $this->expectRegistration('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->withArgument(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY)
             ->withMethodCall('setSize', array(40));
 
-        $this->expectRegistration('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $this->expectRegistration('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->withArgument(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET)
             ->withMethodCall('setSize', array(40));
 
@@ -113,21 +113,21 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $this->expectRegistration('vimeo-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
+            $this->expectRegistration('vimeo_options_subfield_' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
 
-            $this->expectRegistration('vimeo-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $this->expectRegistration('vimeo_options_field_' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->withArgument($gallerySourceFieldArray[0])
-                ->withArgument(new tubepress_impl_ioc_Reference('vimeo-options-subfield-' . $fieldIndex++));
+                ->withArgument(new tubepress_impl_ioc_Reference('vimeo_options_subfield_' . $fieldIndex++));
         }
 
-        $this->expectRegistration('vimeo-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_SpectrumColorField')
+        $this->expectRegistration('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_SpectrumColorField')
             ->withArgument(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
 
         $fieldReferences = array();
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('vimeo-options-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('vimeo_options_field_' . $x);
         }
 
         $map = array(
@@ -158,10 +158,10 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
         $this->expectRegistration(
 
-            'vimeo-options-page-participant',
+            'vimeo_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        )->withArgument('vimeo-participant')
+        )->withArgument('vimeo_participant')
             ->withArgument('Vimeo')   //>(translatable)<
             ->withArgument(array())
             ->withArgument($fieldReferences)
@@ -180,7 +180,7 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
         $this->expectRegistration(
 
-            'vimeo-color-sanitizer',
+            'vimeo_color_sanitizer',
             'tubepress_impl_listeners_options_ColorSanitizingListener'
 
         )->withArgument(array(

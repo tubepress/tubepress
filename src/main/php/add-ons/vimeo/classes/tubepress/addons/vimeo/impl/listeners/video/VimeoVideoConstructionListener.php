@@ -57,8 +57,11 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
             $this->_gatherArrayOfContent($videoArray[$index], 'tags', 'tag');
 
         /* Likes. */
-        $toReturn[tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT] =
-            $videoArray[$index]->number_of_likes;
+        if (isset($videoArray[$index]->number_of_likes)) {
+
+            $toReturn[tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT] =
+                $videoArray[$index]->number_of_likes;
+        }
 
         /* Thumbnail. */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL] =
@@ -78,8 +81,10 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
             $videoArray[$index]->title;
 
         /* Views. */
-        $toReturn[tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT] =
-            number_format($videoArray[$index]->number_of_plays);
+        if (isset($videoArray[$index]->number_of_plays)) {
+            $toReturn[tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT] =
+                number_format($videoArray[$index]->number_of_plays);
+        }
 
         return $toReturn;
     }

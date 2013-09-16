@@ -69,15 +69,15 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
     private function _expectOptionsPageParticipant()
     {
         $fieldIndex = 0;
-        $this->expectRegistration('wordpress-options-field-' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
-        $this->expectRegistration('wordpress-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $this->expectRegistration('wordpress_options_field_' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
+        $this->expectRegistration('wordpress_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->withArgument(tubepress_api_const_options_names_Advanced::KEYWORD);
 
         $fieldReferences = array();
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('wordpress-options-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('wordpress_options_field_' . $x);
         }
 
         $map = array(
@@ -90,10 +90,10 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
         $this->expectRegistration(
 
-            'wordpress-options-page-participant',
+            'wordpress_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        )->withArgument('wordpress-participant')
+        )->withArgument('wordpress_participant')
             ->withArgument('WordPress')
             ->withArgument(array())
             ->withArgument($fieldReferences)

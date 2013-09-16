@@ -155,7 +155,18 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      */
     public final function createEachIfNotExists(array $optionNamesToValuesMap)
     {
-        $this->createEachIfNecessary($optionNamesToValuesMap);
+        $options             = $this->fetchAll();
+        $allKnowOptionNames  = array_keys($options);
+        $incomingOptionNames = array_keys($optionNamesToValuesMap);
+        $missingOptionNames  = array_diff($incomingOptionNames, $allKnowOptionNames);
+
+            if (count($missingOptionNames) === 0) {
+
+                //common case
+                return;
+            }
+
+        $this->createEach($optionNamesToValuesMap);
 
         $this->_forceReloadOfOptionsCache();
     }
@@ -175,7 +186,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return void
      */
-    protected abstract function createEachIfNecessary(array $optionNamesToValuesMap);
+    protected abstract function createEach(array $optionNamesToValuesMap);
 
     /**
      * @param array $optionNamesToValues An associative array of option names to values.

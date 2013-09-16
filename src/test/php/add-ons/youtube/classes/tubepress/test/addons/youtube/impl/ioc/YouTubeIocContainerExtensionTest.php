@@ -82,7 +82,7 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
     {
         $fieldIndex = 0;
 
-        $this->expectRegistration('youtube-options-field-' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $this->expectRegistration('youtube_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->withArgument(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY)
             ->withMethodCall('setSize', array(120));
 
@@ -152,11 +152,11 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $this->expectRegistration('youtube-options-subfield-' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
+            $this->expectRegistration('youtube_options_subfield_' . $fieldIndex, $gallerySourceFieldArray[1])->withArgument($gallerySourceFieldArray[2]);
 
-            $this->expectRegistration('youtube-options-field-' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $this->expectRegistration('youtube_options_field_' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->withArgument($gallerySourceFieldArray[0])
-                ->withArgument(new tubepress_impl_ioc_Reference('youtube-options-subfield-' . $fieldIndex++));
+                ->withArgument(new tubepress_impl_ioc_Reference('youtube_options_subfield_' . $fieldIndex++));
         }
 
         $fieldMap = array(
@@ -179,14 +179,14 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
 
         foreach ($fieldMap as $id => $class) {
 
-            $this->expectRegistration('youtube-options-field-' . $fieldIndex++, $class)->withArgument($id);
+            $this->expectRegistration('youtube_options_field_' . $fieldIndex++, $class)->withArgument($id);
         }
 
         $fieldReferences = array();
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('youtube-options-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('youtube_options_field_' . $x);
         }
 
         $map = array(
@@ -233,10 +233,10 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
 
         $this->expectRegistration(
 
-            'youtube-options-page-participant',
+            'youtube_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
-        )->withArgument('youtube-participant')
+        )->withArgument('youtube_participant')
             ->withArgument('YouTube')   //>(translatable)<
             ->withArgument(array())
             ->withArgument($fieldReferences)

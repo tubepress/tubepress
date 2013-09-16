@@ -18,6 +18,12 @@
             <?php
             foreach ($categoryIdToParticipantIdToFieldsMap[$category->getId()] as $participantId => $fieldIds) {
 
+                if (count($fieldIds) === 0) {
+
+                    //no fields in this participant - move on
+                    continue;
+                }
+
                 $participant = $participants[$participantId];
 
                 require 'single-participant.tpl.php';

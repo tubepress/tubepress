@@ -41,22 +41,13 @@ class tubepress_test_impl_template_templates_optionspage_fields_MultiSelectTempl
     {
         return <<<EOT
 
-<select id="some-name" name="some-name[]" multiple="multiple" class="form-control multiselect">
+<select id="some-name" name="some-name[]" multiple="multiple" class="form-control multiselect tubepress-bootstrap-multiselect-field" data-selecttext="yells">
         <option value="0" selected="selected">foo</option>
         <option value="1" >bar</option>
         <optgroup label="x">
                 <option value="0" selected="selected">y</option>
         </optgroup>
     </select>
-<script type="text/javascript">
-    jQuery(function() {
-        jQuery('#some-name').multiselect({
-            buttonClass : 'btn btn-default btn-sm',
-            dropRight   : true,
-            buttonText  : function (options, select) { return 'yells'; }
-        });
-    });
-</script>
 EOT;
     }
 

@@ -309,7 +309,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             $container->register(
 
-                'core-options-category-' . $categoryIndex++,
+                'core_options_category_' . $categoryIndex++,
                 'tubepress_impl_options_ui_OptionsPageItem'
             )->addArgument($id)
              ->addArgument($displayName);
@@ -319,7 +319,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         for ($x = 0 ; $x < $categoryIndex; $x++) {
 
-            $categoryReferences[] = new tubepress_impl_ioc_Reference('core-options-category-' . $x);
+            $categoryReferences[] = new tubepress_impl_ioc_Reference('core_options_category_' . $x);
         }
 
         $fieldIndex = 0;
@@ -327,21 +327,21 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         //Gallery source field
         $container->register(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_GallerySourceField'
         );
 
         //Filter field
         $container->register(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField'
         );
 
         //Meta multi-select
         $container->register(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField'
         )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER,
                 array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'));
@@ -349,7 +349,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         //Theme field
         $container->register(
 
-            'core-options-field-' . $fieldIndex++,
+            'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_ThemeField'
         );
 
@@ -404,14 +404,14 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         foreach ($fieldMap as $id => $class) {
 
-            $container->register('core-options-field-' . $fieldIndex++, $class)->addArgument($id);
+            $container->register('core_options_field_' . $fieldIndex++, $class)->addArgument($id);
         }
 
         $fieldReferences = array();
 
         for ($x = 0 ; $x < $fieldIndex; $x++) {
 
-            $fieldReferences[] = new tubepress_impl_ioc_Reference('core-options-field-' . $x);
+            $fieldReferences[] = new tubepress_impl_ioc_Reference('core_options_field_' . $x);
         }
 
         $map = array(
@@ -479,7 +479,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         $container->register(
 
-            'core-options-page-participant',
+            'core_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
 
         )->addArgument('core')
@@ -628,12 +628,12 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         }
 
         $container->register(
-            'tubepress_addons_core_impl_listeners_StringMagicFilter-preValidation',
+            'tubepress_addons_core_impl_listeners_StringMagicFilter_preValidation',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'magic', 'priority' => 10100));
 
         $container->register(
-            'tubepress_addons_core_impl_listeners_StringMagicFilter-readFromExternal',
+            'tubepress_addons_core_impl_listeners_StringMagicFilter_readFromExternal',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
         )->addTag(self::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'magic', 'priority' => 10000));
 

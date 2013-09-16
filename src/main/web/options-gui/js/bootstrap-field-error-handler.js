@@ -13,7 +13,7 @@ var BootstrapFieldErrorHandler = (function (win) {
 
             jQuery('html, body').animate({
 
-                scrollTop: jQuery(selector).offset().top - 40
+                scrollTop: jQuery(selector).offset().top -80
             }, 800);
         },
 

@@ -34,22 +34,14 @@ class tubepress_test_impl_template_templates_optionspage_fields_SpectrumColorFie
     private function _expected()
     {
         return <<<EOT
-<input id="some-name" type="text" name="some-name" size="6" class="color" value="444554" />
-<script type="text/javascript">
-    jQuery(function() {
-        jQuery('#some-name').spectrum({
-            showInitial : true,
-            preferredFormat : "hex",
-            showAlpha : false,
-            showInput : true,
-            showPalette : true,
-            showSelectionPalette : true,
-            cancelText : "yikes",
-            chooseText : "foo",
-            localStorageKey : "tubepress.spectrum"
-        });
-    });
-</script>
+<input id="some-name" type="text" name="some-name" size="6" class="tubepress-spectrum-field" value="444554"
+    data-preferredformat="hex"
+    data-showalpha="false"
+    data-showinput="true"
+    data-showpalette="true"
+    data-canceltext="yikes"
+    data-choosetext="foo"
+    />
 EOT;
     }
 

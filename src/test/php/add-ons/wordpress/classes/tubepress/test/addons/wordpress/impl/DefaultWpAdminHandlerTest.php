@@ -184,6 +184,8 @@ class tubepress_test_addons_wordpress_impl_DefaultWpAdminHandlerTest extends tub
             'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.1.1/spectrum.js',
             'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
             'participant-filter-handler'    => '/src/main/web/options-gui/js/participant-filter-handler.js',
+            'spectrum-js-initializer'       => '/src/main/web/options-gui/js/spectrum-js-initializer.js',
+            'bootstrap-multiselect-init'    => '/src/main/web/options-gui/js/bootstrap-multiselect-initializer.js',
             'iframe-loader'                 => '/src/main/php/add-ons/wordpress/web/options-gui/js/iframe-loader.js',
         );
     }
