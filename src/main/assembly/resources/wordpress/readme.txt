@@ -18,9 +18,8 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 **Support**
 
 * [Documentation](http://tubepress.com/documentation/)
-* [Support forum](http://community.tubepress.com)
-* [Bugs / Feature Requests](http://code.google.com/p/tubepress/issues/list)
-* [Source code](http://github.com/ehough/tubepress)
+* [Support forum](http://community.tubepress.com/)
+* [GitHub page](http://github.com/tubepress/tubepress)
 
 == Installation ==
 
@@ -32,6 +31,7 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 == Changelog ==
 = 3.1.2 =
 * New Features
+    * Refreshed design of WordPress settings page
     * Added Chinese, Greek, Hindi, Japanese, Korean, and Persian translations
 * Bug Fixes
     * Now allowing hyphens in YouTube user/channel values
