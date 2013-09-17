@@ -16,7 +16,7 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
 {
     public function getJqueryScriptTag()
     {
-        $jQueryUrl      = $this->_getRelativeUrl('/src/main/web/vendor/jquery-1.9.1.min.js');
+        $jQueryUrl      = $this->_getRelativeUrl('/src/main/web/vendor/jquery/jquery.min.js');
         $finalJQueryUrl = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_JQUERY, $jQueryUrl);
 
         return $this->_getRealScriptTag($finalJQueryUrl);
