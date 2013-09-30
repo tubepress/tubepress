@@ -23,6 +23,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPage
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template        = $templateBuilder->getNewTemplateInstance($this->getAbsolutePathToTemplate());
         $templateEvent   = new tubepress_spi_event_EventBase($template);
+        $templateEvent->setArgument('field', $this);
 
         $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, $templateEvent);
 
