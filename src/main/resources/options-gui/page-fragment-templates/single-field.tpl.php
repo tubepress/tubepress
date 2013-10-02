@@ -12,7 +12,7 @@
 
 <div class="form-group">
 
-    <label for="<?php echo $field->getId(); ?>" class="col-md-2 control-label">
+    <label for="<?php echo $field->getId(); ?>" class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">
 
         <?php if (!$isPro && $field->isProOnly()) : ?>
 
@@ -27,7 +27,7 @@
     </label>
 
 
-    <div class="col-md-10">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
 
         <?php echo $field->getWidgetHTML(); ?>
 
