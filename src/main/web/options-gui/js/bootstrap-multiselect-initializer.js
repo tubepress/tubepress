@@ -11,15 +11,23 @@ var TubePressBootstrapMultiselectInitializer = (function () {
 
     'use strict';
 
-    var init = function () {
+    var multiSelectIt = function (index, val) {
 
-        jQuery('.tubepress-bootstrap-multiselect-field').multiselect({
+            var field      = jQuery(val),
+                selectText = field.data('selecttext');
 
-            buttonClass : 'btn btn-default btn-sm',
-            dropRight   : true,
-            buttonText  : jQuery(this).data('selectText')
-        });
-    };
+            field.multiselect({
+
+                buttonClass : 'btn btn-default btn-sm',
+                dropRight   : true,
+                buttonText  : function () { return selectText; }
+            });
+        },
+
+        init = function () {
+
+            jQuery('.tubepress-bootstrap-multiselect-field').each(multiSelectIt);
+        };
 
     return {
 
