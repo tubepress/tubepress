@@ -79,6 +79,8 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
             $mockField->shouldReceive('onSubmit')->once()->andReturn('yikes');
         }
 
+        $this->_mockStorageManager->shouldReceive('flushSaveQueue')->once()->andReturn(null);
+
         $result = $this->_sut->onSubmit();
 
         $this->assertEquals(array('field0' => 'yikes', 'field1' => 'yikes'), $result);
