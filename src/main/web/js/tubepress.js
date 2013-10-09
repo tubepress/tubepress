@@ -40,6 +40,7 @@ var TubePress = (function (jquery, win) {
         coreJsPrefix      = 'src/main/web/js',
         jquery_isFunction = jquery.isFunction,
         tubePressJsConfig = win.TubePressJsConfig,
+        nulll             = null,
 
         /**
          * Random language utilities.
@@ -59,7 +60,7 @@ var TubePress = (function (jquery, win) {
                         regex   = new RegExp(regexS),
                         results = regex.exec(windowLocation.search);
 
-                    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+                    return results === nulll ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
                 },
 
                 parseIntOrZero = function (candidate) {
@@ -488,7 +489,7 @@ var TubePress = (function (jquery, win) {
 
                     if (typeof data !== 'string' || !data) {
 
-                        return null;
+                        return nulll;
                     }
 
                     data = jquery.trim(data);
@@ -638,7 +639,139 @@ var TubePress = (function (jquery, win) {
                 loadAndStyle : loadAndStyle,
                 get          : get
             };
+        }()),
+
+        browserDetector = (function () {
+
+            var browser,
+                text_navigator = 'navigator',
+                text_userAgent = 'userAgent',
+                text_navigator_userAgent = text_navigator + '.' + text_userAgent,
+                text_Chrome = 'Chrome',
+                text_Netscape = 'Netscape',
+                text_Firefox = 'Firefox',
+
+                dataElement = function (string, subString, prop, identity) {
+
+                    var toReturn = {
+
+                        identity : identity
+                    };
+
+                    if (string) {
+
+                        toReturn.string = string;
+                    }
+
+                    if (subString) {
+
+                        toReturn.subString = subString;
+                    }
+
+                    if (prop) {
+
+                        toReturn.prop = prop;
+                    }
+
+                    return toReturn;
+                },
+
+                dataBrowser = [
+                    dataElement(text_navigator_userAgent, text_Chrome, nulll, text_Chrome),
+                    dataElement(text_navigator + '.vendor', 'Apple', nulll, 'Safari'),
+                    dataElement(nulll, nulll, win.opera, 'Opera'),
+                    dataElement(text_navigator_userAgent, text_Firefox, nulll, text_Firefox),
+                    dataElement(text_navigator_userAgent, text_Netscape, nulll, text_Netscape),
+                    dataElement(text_navigator_userAgent, 'MSIE', nulll, 'Explorer'),
+                    dataElement(text_navigator_userAgent, 'Mozilla', nulll, text_Netscape)
+                ],
+
+                searchString = function (data) {
+
+                    var i = 0, dataString, dataProp,
+                        text_identity = 'identity';
+
+                    for (i; i < data.length; i += 1) {
+
+                        dataString = data[i].string;
+                        dataProp = data[i].prop;
+
+                        if (dataString) {
+
+                            if (dataString.indexOf(data[i].subString) !== -1) {
+
+                                return data[i][text_identity];
+                            }
+
+                        } else if (dataProp) {
+
+                            return data[i][text_identity];
+                        }
+                    }
+
+                    return nulll;
+                },
+
+                getBrowser = function () {
+
+                    return browser;
+                };
+
+                browser = searchString(dataBrowser);
+
+                return {
+
+                    getBrowser : getBrowser
+                };
         }());
+
+    /**
+     * Handle window resize events.
+     */
+    (function () {
+
+        var timeout,
+            fullScreenFlag = false,
+
+            isFullScreen = function () {
+
+                var skreen            = screen,
+                    screenHeight      = skreen.height,
+                    screenWidth       = skreen.width,
+                    clientMatch       = dokument.clientHeight === screenHeight && dokument.clientWidth === screenWidth,
+                    windowOuterHeight = win.outerHeight,
+                    windowOuterWidth  = win.outerWidth,
+                    outerMatch        = windowOuterHeight === screenHeight && windowOuterWidth === screenWidth,
+                    safariMatch       = browserDetector.getBrowser() === 'Safari' && windowOuterHeight === (screenHeight - 40) && windowOuterWidth === screenWidth;
+
+                return clientMatch ||  win.fullScreen || outerMatch || safariMatch;
+            },
+
+            publishResizeEvent = function () {
+
+                var isCurrentlyFullScreen = isFullScreen(),
+                    wasFullScreen         = fullScreenFlag;
+
+                fullScreenFlag = isCurrentlyFullScreen;
+
+                beacon.publish(text_tubepress + '.window.resize', [ isCurrentlyFullScreen, wasFullScreen ]);
+            },
+
+            onBrowserResize = function () {
+
+                clearTimeout(timeout);
+
+                timeout = setTimeout(publishResizeEvent, 150);
+            },
+
+            init = function () {
+
+                jquery(win).resize(onBrowserResize);
+            };
+
+        jquery(init);
+
+    }());
 
     /**
      * Convert any queued calls to their real counterparts.
