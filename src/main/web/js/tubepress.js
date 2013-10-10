@@ -41,6 +41,7 @@ var TubePress = (function (jquery, win) {
         jquery_isFunction = jquery.isFunction,
         tubePressJsConfig = win.TubePressJsConfig,
         nulll             = null,
+        fawlse            = false,
 
         /**
          * Random language utilities.
@@ -98,7 +99,7 @@ var TubePress = (function (jquery, win) {
 
                     if (!o) {
 
-                        return false;
+                        return fawlse;
                     }
 
                     var args = Array.prototype.slice.call(arguments),
@@ -109,7 +110,7 @@ var TubePress = (function (jquery, win) {
 
                         if (!obj.hasOwnProperty(args[i])) {
 
-                            return false;
+                            return fawlse;
                         }
 
                         obj = obj[args[i]];
@@ -185,7 +186,7 @@ var TubePress = (function (jquery, win) {
          */
         environment = (function () {
 
-            var alreadyCalculatedBaseUrl = false,
+            var alreadyCalculatedBaseUrl = fawlse,
                 cachedBaseUrl,
 
                 getBaseUrl = function () {
@@ -194,7 +195,7 @@ var TubePress = (function (jquery, win) {
 
                         if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_base)) {
 
-                            cachedBaseUrl = langUtils.trimSlashes(tubePressJsConfig[text_urls][text_base], false);
+                            cachedBaseUrl = langUtils.trimSlashes(tubePressJsConfig[text_urls][text_base], fawlse);
 
                         } else {
 
@@ -209,7 +210,7 @@ var TubePress = (function (jquery, win) {
 
                                 if (scriptSrc.indexOf('/' + text_tubepress + '.js') !== -1) {
 
-                                    cachedBaseUrl = langUtils.trimSlashes(scriptSrc.substr(0, scriptSrc.lastIndexOf('/')).split('?')[0].replace(coreJsPrefix, ''), false);
+                                    cachedBaseUrl = langUtils.trimSlashes(scriptSrc.substr(0, scriptSrc.lastIndexOf('/')).split('?')[0].replace(coreJsPrefix, ''), fawlse);
                                     break;
                                 }
                             }
@@ -469,7 +470,7 @@ var TubePress = (function (jquery, win) {
         jsonParser = (function () {
 
             var version      = jquery.fn.jquery,
-                modernJquery = /1\.6|7|8|9\.[0-9]+/.test(version) !== false,
+                modernJquery = /1\.6|7|8|9\.[0-9]+/.test(version) !== fawlse,
                 parser,
                 parse = function (msg) {
 
@@ -639,90 +640,6 @@ var TubePress = (function (jquery, win) {
                 loadAndStyle : loadAndStyle,
                 get          : get
             };
-        }()),
-
-        browserDetector = (function () {
-
-            var browser,
-                text_navigator = 'navigator',
-                text_userAgent = 'userAgent',
-                text_navigator_userAgent = text_navigator + '.' + text_userAgent,
-                text_Chrome = 'Chrome',
-                text_Netscape = 'Netscape',
-                text_Firefox = 'Firefox',
-
-                dataElement = function (string, subString, prop, identity) {
-
-                    var toReturn = {
-
-                        identity : identity
-                    };
-
-                    if (string) {
-
-                        toReturn.string = string;
-                    }
-
-                    if (subString) {
-
-                        toReturn.subString = subString;
-                    }
-
-                    if (prop) {
-
-                        toReturn.prop = prop;
-                    }
-
-                    return toReturn;
-                },
-
-                dataBrowser = [
-                    dataElement(text_navigator_userAgent, text_Chrome, nulll, text_Chrome),
-                    dataElement(text_navigator + '.vendor', 'Apple', nulll, 'Safari'),
-                    dataElement(nulll, nulll, win.opera, 'Opera'),
-                    dataElement(text_navigator_userAgent, text_Firefox, nulll, text_Firefox),
-                    dataElement(text_navigator_userAgent, text_Netscape, nulll, text_Netscape),
-                    dataElement(text_navigator_userAgent, 'MSIE', nulll, 'Explorer'),
-                    dataElement(text_navigator_userAgent, 'Mozilla', nulll, text_Netscape)
-                ],
-
-                searchString = function (data) {
-
-                    var i = 0, dataString, dataProp,
-                        text_identity = 'identity';
-
-                    for (i; i < data.length; i += 1) {
-
-                        dataString = data[i].string;
-                        dataProp = data[i].prop;
-
-                        if (dataString) {
-
-                            if (dataString.indexOf(data[i].subString) !== -1) {
-
-                                return data[i][text_identity];
-                            }
-
-                        } else if (dataProp) {
-
-                            return data[i][text_identity];
-                        }
-                    }
-
-                    return nulll;
-                },
-
-                getBrowser = function () {
-
-                    return browser;
-                };
-
-                browser = searchString(dataBrowser);
-
-                return {
-
-                    getBrowser : getBrowser
-                };
         }());
 
     /**
@@ -731,30 +648,10 @@ var TubePress = (function (jquery, win) {
     (function () {
 
         var timeout,
-            fullScreenFlag = false,
-
-            isFullScreen = function () {
-
-                var skreen            = screen,
-                    screenHeight      = skreen.height,
-                    screenWidth       = skreen.width,
-                    clientMatch       = dokument.clientHeight === screenHeight && dokument.clientWidth === screenWidth,
-                    windowOuterHeight = win.outerHeight,
-                    windowOuterWidth  = win.outerWidth,
-                    outerMatch        = windowOuterHeight === screenHeight && windowOuterWidth === screenWidth,
-                    safariMatch       = browserDetector.getBrowser() === 'Safari' && windowOuterHeight === (screenHeight - 40) && windowOuterWidth === screenWidth;
-
-                return clientMatch ||  win.fullScreen || outerMatch || safariMatch;
-            },
 
             publishResizeEvent = function () {
 
-                var isCurrentlyFullScreen = isFullScreen(),
-                    wasFullScreen         = fullScreenFlag;
-
-                fullScreenFlag = isCurrentlyFullScreen;
-
-                beacon.publish(text_tubepress + '.window.resize', [ isCurrentlyFullScreen, wasFullScreen ]);
+                beacon.publish(text_tubepress + '.window.resize');
             },
 
             onBrowserResize = function () {

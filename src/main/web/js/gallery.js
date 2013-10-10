@@ -350,6 +350,21 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
                         internalRegistry[galleryId][text_currentVideoId] = videoId;
                     }
+                },
+
+                findAllGalleryIds = function () {
+
+                    var ids = [],
+                        id;
+
+                    //noinspection JSLint
+                    for (id in internalRegistry) {
+
+                        //noinspection JSUnfilteredForInLoop
+                        ids.push(id);
+                    }
+
+                    return ids;
                 };
 
             subscribe(text_event_galleryLoad, onGalleryLoad);
@@ -369,6 +384,7 @@ var TubePressGallery = (function (jquery, win, tubepress) {
                 isCurrentlyPlayingVideo         : isCurrentlyPlayingVideo,
                 isFluidThumbs                   : isFluidThumbs,
                 isRegistered                    : isRegistered,
+                findAllGalleryIds               : findAllGalleryIds,
                 findGalleryContainingVideoDomId : findGalleryContainingVideoDomId,
                 getCurrentPageNumber            : getCurrentPageNumber,
                 getCurrentVideoId               : getCurrentVideoId,
@@ -478,9 +494,25 @@ var TubePressGallery = (function (jquery, win, tubepress) {
 
                     makeThumbsFluid(galleryId);
                 }
+            },
+
+            /**
+             * On window resize.
+             */
+            onWindowResize = function (e) {
+
+                var ids    = galleryRegistry.findAllGalleryIds(),
+                    index  = 0,
+                    length = ids.length;
+
+                for (index; index < length; index += 1) {
+
+                    onNewGalleryOrThumbs(e, ids[index]);
+                }
             };
 
         subscribe(text_event_galleryNewThumbs + ' ' + text_event_galleryLoad, onNewGalleryOrThumbs);
+        subscribe(text_tubepress + '.window.resize', onWindowResize);
     }());
 
     /**
