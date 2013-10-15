@@ -7,20 +7,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-var BootstrapFieldErrorHandler = (function (win) {
+(function (jquery, win) {
+
+    'use strict';
 
     var scrollTo = function (selector) {
 
-            jQuery('html, body').animate({
+            jquery('html, body').animate({
 
-                scrollTop: jQuery(selector).offset().top -80
+                scrollTop: jquery(selector).offset().top - 80
             }, 800);
         },
 
         applyErrorToField = function (fieldId, message) {
 
             var fieldSelector    = '#' + fieldId,
-                closestFormGroup = jQuery(fieldSelector).closest('div.form-group');
+                closestFormGroup = jquery(fieldSelector).closest('div.form-group');
 
             closestFormGroup.addClass('has-error');
 
@@ -34,15 +36,15 @@ var BootstrapFieldErrorHandler = (function (win) {
                 applyErrorToField(value[0], value[1]);
             };
 
-            jQuery.each(errors, callback);
+            jquery.each(errors, callback);
         },
 
         showFirstError = function (errors) {
 
             var firstErrorId = errors[0][0],
-                tabId = jQuery('#' + firstErrorId).closest('.tab-pane').attr('id');
+                tabId = jquery('#' + firstErrorId).closest('.tab-pane').attr('id');
 
-            jQuery('.nav a[href="#' + tabId + '"]').tab('show');
+            jquery('.nav a[href="#' + tabId + '"]').tab('show');
             scrollTo('#' + firstErrorId);
         },
 
@@ -59,15 +61,6 @@ var BootstrapFieldErrorHandler = (function (win) {
             showFirstError(errors);
         };
 
-    return {
+    jquery(init);
 
-        init              : init,
-        applyErrorToField : applyErrorToField
-    };
-
-}(window));
-
-jQuery(function() {
-
-    BootstrapFieldErrorHandler.init();
-});
+}(jQuery, window));

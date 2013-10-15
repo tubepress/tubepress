@@ -7,13 +7,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-var TubePressBootstrapMultiselectInitializer = (function () {
+(function (jquery) {
 
     'use strict';
 
     var multiSelectIt = function (index, val) {
 
-            var field      = jQuery(val),
+            var field      = jquery(val),
                 selectText = field.data('selecttext');
 
             field.multiselect({
@@ -26,19 +26,9 @@ var TubePressBootstrapMultiselectInitializer = (function () {
 
         init = function () {
 
-            jQuery('.tubepress-bootstrap-multiselect-field').each(multiSelectIt);
+            jquery('.tubepress-bootstrap-multiselect-field').each(multiSelectIt);
         };
 
-    return {
+    jquery(init);
 
-        init : init
-    };
-
-}());
-
-jQuery(function () {
-
-    'use strict';
-
-    TubePressBootstrapMultiselectInitializer.init();
-});
+}(jQuery));

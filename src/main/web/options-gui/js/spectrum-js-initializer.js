@@ -7,13 +7,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-var TubePressSpectrumJsInitializer = (function () {
+(function (jquery) {
 
     'use strict';
 
     var getDataAttr = function (element, name, fallback) {
 
-            var elem = jQuery(element),
+            var elem = jquery(element),
                 val = elem.data(name);
 
             return val === undefined ? fallback : val;
@@ -40,24 +40,14 @@ var TubePressSpectrumJsInitializer = (function () {
                     localStorageKey      : "tubepress.spectrum"
                 };
 
-            jQuery(this).spectrum(spectrumOptions);
+            jquery(this).spectrum(spectrumOptions);
         },
 
         init = function () {
 
-            jQuery('.tubepress-spectrum-field').each(initSpectrum);
+            jquery('.tubepress-spectrum-field').each(initSpectrum);
         };
 
-    return {
+    jquery(init);
 
-        init : init
-    };
-
-}());
-
-jQuery(function () {
-
-    'use strict';
-
-    TubePressSpectrumJsInitializer.init();
-});
+}(jQuery));
