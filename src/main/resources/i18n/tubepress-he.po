@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-09-09 19:45:09+0000\n"
+"PO-Revision-Date: 2013-10-15 22:22:33+0000\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10,6 +10,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: TubePress\n"
+
+msgid "default"
+msgstr ""
 
 msgid "next"
 msgstr "הבא"
@@ -437,17 +440,8 @@ msgstr ""
 msgid "Videos related to this YouTube video"
 msgstr "קטעי וידאו הקשורים לסרטון ב-YouTube זה"
 
-msgid "Videos responses to this YouTube video"
-msgstr "תגובות לסרטוני וידאו ב-YouTube זה"
-
 msgid "today"
 msgstr "היום "
-
-msgid "this week"
-msgstr "השבוע"
-
-msgid "this month"
-msgstr "החודש"
 
 msgid "all time"
 msgstr "כל הזמן"
@@ -554,14 +548,8 @@ msgstr "יש כמה קטעי וידאו לא מאופשרים לשיבוץ. סי
 msgid "Allow fullscreen playback."
 msgstr "אפשר תצוגה במסך מלא"
 
-msgid "Top-rated YouTube videos from"
-msgstr "קטעי וידאו מדורגים מ"
-
 msgid "This YouTube user's \"favorites\""
 msgstr "\"מועדפים\" של משתמש YouTube זה"
-
-msgid "The latest \"featured\" videos on YouTube's homepage from"
-msgstr "קטעי וידאו אחרונים מ \"featured\" בדף הבית של YouTube"
 
 msgid "This YouTube playlist"
 msgstr "playlist רשימת השמעה זאת"
@@ -569,29 +557,11 @@ msgstr "playlist רשימת השמעה זאת"
 msgid "Most-viewed YouTube videos from"
 msgstr "קטעי וידאו הנצפים ביותר מ"
 
-msgid "Most-favorited YouTube videos from"
-msgstr "קטעי וידאו הכי מועדפים מYouTube"
-
-msgid "Most-recently added YouTube videos from"
-msgstr "קטעי וידאו שנוספו לאחרונה"
-
-msgid "Most-discussed YouTube videos from"
-msgstr "קטעי וידאו הכי מדוברים"
-
-msgid "Most-responded to YouTube videos from"
-msgstr "קטעי וידאו הכי מוגבים"
-
 msgid "YouTube search for"
 msgstr "חיפוש YouTube עבור"
 
 msgid "Videos from this YouTube user"
 msgstr "וידאו ממשתמש YouTube זה"
-
-msgid "YouTube videos most-shared on Facebook and Twitter from"
-msgstr "קטעי וידאו משותף ביותר בפייסבוק וטוויטר מ"
-
-msgid "Popular videos on <a href=\"http://www.youtube.com/trends\">YouTube Trends</a> from"
-msgstr "קטעי וידאו פופולריים ב<a מגמות href=\"http://www.youtube.com/trends\"> YouTube </ a> מ"
 
 msgid "JW Player (by Longtail Video)"
 msgstr "ג\"ו נגן (וידאו על ידי longtail)"

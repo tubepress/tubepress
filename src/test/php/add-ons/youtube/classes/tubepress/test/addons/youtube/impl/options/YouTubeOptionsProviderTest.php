@@ -15,8 +15,6 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
     private static $_valueMapTime = array(
 
         tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_ALL_TIME   => 'all time',
-        tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_THIS_MONTH => 'this month',
-        tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_THIS_WEEK  => 'this week',
         tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY      => 'today',
     );
 
@@ -136,18 +134,6 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
         $option->setLabel('YouTube search for');
         $toReturn[] = $option;
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setLabel('Top-rated YouTube videos from');
-        $toReturn[] = $option;
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setLabel('Most-favorited YouTube videos from');
-        $toReturn[] = $option;
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE);
         $option->setDefaultValue('3hough');
         $option->setLabel('Videos from this YouTube user');
@@ -173,30 +159,6 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
         $option->setValidValueRegex('/[\w-]+/');
         $toReturn[] = $option;
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE);
-        $option->setLabel('The latest "featured" videos on YouTube\'s homepage from');
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $toReturn[] = $option;
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE);
-        $option->setLabel('Most-discussed YouTube videos from');
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $toReturn[] = $option;
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
-        $option->setLabel('Most-recently added YouTube videos from');
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $toReturn[] = $option;
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
-        $option->setLabel('Most-responded to YouTube videos from');
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $toReturn[] = $option;
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_Meta::RATING);
         $option->setLabel('Average rating');
         $option->setDefaultValue(false);
@@ -209,28 +171,10 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
         $option->setBoolean();
         $toReturn[] = $option;
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE);
-        $option->setLabel('YouTube videos most-shared on Facebook and Twitter from');
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $toReturn[] = $option;
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE);
-        $option->setLabel('Popular videos on <a href="http://www.youtube.com/trends">YouTube Trends</a> from');
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_YouTube::TIMEFRAME_TODAY);
-        $toReturn[] = $option;
-
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE);
         $option->setLabel('Videos related to this YouTube video');
         $option->setValidValueRegex(self::$_youTubeVideo);
         $option->setDefaultValue('P9M__yYbsZ4');
-        $toReturn[] = $option;
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE);
-        $option->setLabel('Videos responses to this YouTube video');
-        $option->setValidValueRegex(self::$_youTubeVideo);
-        $option->setDefaultValue('9bZkp7q19f0');
         $toReturn[] = $option;
         
         return $toReturn;

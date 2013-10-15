@@ -42,12 +42,6 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
                 break;
 
-            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED:
-
-                $url = 'standardfeeds/top_rated?time=' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
-
-                break;
-
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR:
 
                 $url = 'standardfeeds/most_popular?time=' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE);
@@ -60,39 +54,9 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
                 break;
 
-            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED:
-
-                $url = 'standardfeeds/most_responded';
-
-                break;
-
-            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT:
-
-                $url = 'standardfeeds/most_recent';
-
-                break;
-
-            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES:
-
-                $url = 'standardfeeds/top_favorites';
-
-                break;
-
-            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED:
-
-                $url = 'standardfeeds/most_discussed';
-
-                break;
-
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED:
 
                 $url = 'videos/' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE) . '/related';
-
-                break;
-
-            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES:
-
-                $url = 'videos/' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE) . '/responses';
 
                 break;
 
@@ -120,9 +84,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
             default:
 
-                $url = 'standardfeeds/recently_featured';
-
-                break;
+                throw new Exception('Invalid source supplied to YouTube');
         }
 
         $requestUrl = new ehough_curly_Url("http://gdata.youtube.com/feeds/api/$url");
@@ -202,6 +164,8 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
     private function _urlProcessingOrderBy(tubepress_spi_context_ExecutionContext $execContext, ehough_curly_Url $url)
     {
         /*
+         * In a request for a video feed, the following values are valid for this parameter:
+         *
          * relevance – Entries are ordered by their relevance to a search query. This is the default setting for video search results feeds.
          * published – Entries are returned in reverse chronological order. This is the default value for video feeds other than search results feeds.
          * viewCount – Entries are ordered from most views to least views.
@@ -220,6 +184,12 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
         $requestedSortOrder   = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
         $currentGallerySource = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+
+        if ($requestedSortOrder === tubepress_api_const_options_values_OrderByValue::DEFAULTT) {
+
+            $url->setQueryVariable(self::$_URL_PARAM_ORDER, $this->_calculateDefaultSearchOrder($currentGallerySource));
+            return;
+        }
 
         if ($requestedSortOrder === tubepress_api_const_options_values_OrderByValue::NEWEST) {
 
@@ -256,6 +226,30 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
                 $url->setQueryVariable(self::$_URL_PARAM_ORDER, $requestedSortOrder);
             }
+        }
+    }
+
+    private function _calculateDefaultSearchOrder($currentGallerySource)
+    {
+        switch ($currentGallerySource) {
+
+            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR:
+
+                return tubepress_api_const_options_values_OrderByValue::VIEW_COUNT;
+
+            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
+
+                return tubepress_api_const_options_values_OrderByValue::POSITION;
+
+            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
+            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED:
+
+                return tubepress_api_const_options_values_OrderByValue::RELEVANCE;
+
+            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER:
+            case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
+
+                return 'published';
         }
     }
 }

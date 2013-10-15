@@ -74,17 +74,8 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
 
             array(
 
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,

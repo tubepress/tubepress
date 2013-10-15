@@ -19,21 +19,12 @@ class tubepress_addons_youtube_api_const_options_names_GallerySource
      *
      * https://developers.google.com/youtube/2.0/reference#Standard_feeds
      */
-    const YOUTUBE_TOP_RATED_VALUE      = 'top_ratedValue';
-    const YOUTUBE_TOP_FAVORITES_VALUE  = 'youtubeTopFavoritesValue';
-    const YOUTUBE_MOST_SHARED_VALUE    = 'youtubeMostSharedValue';
     const YOUTUBE_MOST_POPULAR_VALUE   = 'youtubeMostPopularValue';
-    const YOUTUBE_MOST_RECENT_VALUE    = 'most_recentValue';
-    const YOUTUBE_MOST_DISCUSSED_VALUE = 'most_discussedValue';
-    const YOUTUBE_MOST_RESPONDED_VALUE = 'most_respondedValue';
-    const YOUTUBE_FEATURED_VALUE       = 'recently_featuredValue';
-    const YOUTUBE_TRENDING_VALUE       = 'youtubeTrendingValue';
 
     /**
      * Related/responses.
      */
     const YOUTUBE_RELATED_VALUE   = 'youtubeRelatedValue';
-    const YOUTUBE_RESPONSES_VALUE = 'youtubeResponsesValue';
 
     /**
      * Users/playlist/search/favorites etc.

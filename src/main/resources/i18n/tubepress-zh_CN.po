@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-09-09 19:45:18+0000\n"
+"PO-Revision-Date: 2013-10-15 22:22:42+0000\n"
 "Language: zh-cn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10,6 +10,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: TubePress\n"
+
+msgid "default"
+msgstr ""
 
 msgid "next"
 msgstr "因为下一步"
@@ -437,17 +440,8 @@ msgstr ""
 msgid "Videos related to this YouTube video"
 msgstr "此YouTube视频相关视频"
 
-msgid "Videos responses to this YouTube video"
-msgstr "影片回应此YouTube视频"
-
 msgid "today"
 msgstr "现在"
-
-msgid "this week"
-msgstr "本周..."
-
-msgid "this month"
-msgstr "本月"
 
 msgid "all time"
 msgstr "一直以来"
@@ -554,14 +548,8 @@ msgstr "一些视频嵌入禁用。勾选这个选项将会排除这些视频从
 msgid "Allow fullscreen playback."
 msgstr "允许全屏播放。"
 
-msgid "Top-rated YouTube videos from"
-msgstr "最热门的YouTube视频"
-
 msgid "This YouTube user's \"favorites\""
 msgstr "此YouTube用户的\"收藏夹\""
-
-msgid "The latest \"featured\" videos on YouTube's homepage from"
-msgstr "最新的\"特色\"的视频在YouTube的主页"
 
 msgid "This YouTube playlist"
 msgstr "这个YouTube播放列表"
@@ -569,29 +557,11 @@ msgstr "这个YouTube播放列表"
 msgid "Most-viewed YouTube videos from"
 msgstr "查看次数最多的YouTube视频"
 
-msgid "Most-favorited YouTube videos from"
-msgstr "最最爱的YouTube视频"
-
-msgid "Most-recently added YouTube videos from"
-msgstr "最最近添加YouTube视频"
-
-msgid "Most-discussed YouTube videos from"
-msgstr "大多数讨论的YouTube视频"
-
-msgid "Most-responded to YouTube videos from"
-msgstr "大多数回应YouTube视频"
-
 msgid "YouTube search for"
 msgstr "YouTube的搜索"
 
 msgid "Videos from this YouTube user"
 msgstr "影片从YouTube用户"
-
-msgid "YouTube videos most-shared on Facebook and Twitter from"
-msgstr "YouTube视频最Facebook和Twitter上共享"
-
-msgid "Popular videos on <a href=\"http://www.youtube.com/trends\">YouTube Trends</a> from"
-msgstr "<a href=\"http://www.youtube.com/trends\"> YouTube趋势</ a>的热门视频"
 
 msgid "JW Player (by Longtail Video)"
 msgstr "JW播放器（长尾影片）"

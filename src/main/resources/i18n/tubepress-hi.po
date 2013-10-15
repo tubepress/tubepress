@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-09-09 19:45:10+0000\n"
+"PO-Revision-Date: 2013-10-15 22:22:34+0000\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10,6 +10,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: TubePress\n"
+
+msgid "default"
+msgstr ""
 
 msgid "next"
 msgstr "अगला"
@@ -437,17 +440,8 @@ msgstr ""
 msgid "Videos related to this YouTube video"
 msgstr "इस यूट्यूब वीडियो से संबंधित वीडियो"
 
-msgid "Videos responses to this YouTube video"
-msgstr "इस यूट्यूब वीडियो के लिए वीडियो प्रतिक्रियाएं"
-
 msgid "today"
 msgstr "आज"
-
-msgid "this week"
-msgstr "इस सप्ताह"
-
-msgid "this month"
-msgstr "इस महीने"
 
 msgid "all time"
 msgstr "सभी समय"
@@ -554,14 +548,8 @@ msgstr "कुछ वीडियो को निष्क्रिय कर �
 msgid "Allow fullscreen playback."
 msgstr "पूर्ण स्क्रीन प्लेबैक की अनुमति दें."
 
-msgid "Top-rated YouTube videos from"
-msgstr "से टॉप रेटेड यूट्यूब वीडियो"
-
 msgid "This YouTube user's \"favorites\""
 msgstr "इस यूट्यूब उपयोगकर्ता के \"पसंदीदा \""
-
-msgid "The latest \"featured\" videos on YouTube's homepage from"
-msgstr "नवीनतम \"विशेष रुप से \" वीडियो से यूट्यूब के होमपेज पर"
 
 msgid "This YouTube playlist"
 msgstr "इस प्लेलिस्ट"
@@ -569,29 +557,11 @@ msgstr "इस प्लेलिस्ट"
 msgid "Most-viewed YouTube videos from"
 msgstr "से सर्वाधिक देखे यूट्यूब वीडियो"
 
-msgid "Most-favorited YouTube videos from"
-msgstr "से सबसे पसंदीदा यूट्यूब वीडियो"
-
-msgid "Most-recently added YouTube videos from"
-msgstr "सबसे हाल ही में यूट्यूब वीडियो से जोड़ा"
-
-msgid "Most-discussed YouTube videos from"
-msgstr "से सबसे अधिक चर्चा की यूट्यूब वीडियो"
-
-msgid "Most-responded to YouTube videos from"
-msgstr "से यूट्यूब वीडियो को सबसे जवाब दिया"
-
 msgid "YouTube search for"
 msgstr "यूट्यूब के लिए खोज"
 
 msgid "Videos from this YouTube user"
 msgstr "इस यूट्यूब उपयोगकर्ता से वीडियो"
-
-msgid "YouTube videos most-shared on Facebook and Twitter from"
-msgstr "यूट्यूब वीडियो से फेसबुक और ट्विटर पर सबसे साझा"
-
-msgid "Popular videos on <a href=\"http://www.youtube.com/trends\">YouTube Trends</a> from"
-msgstr "<a Href=\"http://www.youtube.com/trends\"> यूट्यूब ट्रेंड्स </ a> से पर लोकप्रिय वीडियो"
 
 msgid "JW Player (by Longtail Video)"
 msgstr "जेडब्ल्यू प्लेयर (Longtail वीडियो से)"

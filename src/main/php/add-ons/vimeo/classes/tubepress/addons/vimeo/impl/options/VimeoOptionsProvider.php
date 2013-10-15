@@ -94,7 +94,7 @@ class tubepress_addons_vimeo_impl_options_VimeoOptionsProvider implements tubepr
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
-        $option->setDefaultValue('cats playing piano');
+        $option->setDefaultValue('glacier national park');
         $option->setLabel('Vimeo search for');                   //>(translatable)<
         $toReturn[] = $option;
 

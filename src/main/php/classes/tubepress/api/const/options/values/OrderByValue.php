@@ -16,6 +16,12 @@ class tubepress_api_const_options_values_OrderByValue
 {
     /**
      * @api
+     * @since 3.1.2
+     */
+    const DEFAULTT = 'default';
+
+    /**
+     * @api
      * @since 3.1.0
      */
     const COMMENT_COUNT = 'commentCount';

@@ -23,8 +23,6 @@ class tubepress_addons_youtube_api_const_options_values_YouTube
     const CONTROLS_SHOW_DELAYED_FLASH   = 'showDelayed';
 
     const TIMEFRAME_TODAY      = 'today';
-    const TIMEFRAME_THIS_WEEK  = 'this_week';
-    const TIMEFRAME_THIS_MONTH = 'this_month';
     const TIMEFRAME_ALL_TIME   = 'all_time';
 
     const PLAYER_THEME_DARK  = 'dark';

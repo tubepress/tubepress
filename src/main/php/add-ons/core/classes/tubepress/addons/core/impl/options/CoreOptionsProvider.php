@@ -193,10 +193,11 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::ORDER_BY);
-        $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::VIEW_COUNT);
+        $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::DEFAULTT);
         $option->setLabel('Order videos by');                                                                                                                                      //>(translatable)<
         $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.com/documentation">documentation</a> for more info.'); //>(translatable)<
         $option->setAcceptableValues(array(
+            tubepress_api_const_options_values_OrderByValue::DEFAULTT       => 'default',                         //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',   //>(translatable)<
@@ -362,7 +363,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
-        $option->setDefaultValue('recently_featured');
+        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR);
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::OUTPUT);

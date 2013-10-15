@@ -112,49 +112,13 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
                 'tubepress_impl_options_ui_fields_TextField',
                 tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE),
 
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE),
-
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TRENDING_VALUE),
-
             array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
                 'tubepress_impl_options_ui_fields_DropdownField',
                 tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE),
 
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE),
-
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE),
-
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_SHARED_VALUE),
-
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE),
-
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE),
-
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-                'tubepress_impl_options_ui_fields_DropdownField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE),
-
             array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
                 'tubepress_impl_options_ui_fields_TextField',
                 tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE),
-
-            array(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
-                'tubepress_impl_options_ui_fields_TextField',
-                tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RESPONSES_VALUE),
         );
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
@@ -203,17 +167,8 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
                 tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
-                tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
             ),
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER => array(

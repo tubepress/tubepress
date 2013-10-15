@@ -66,20 +66,6 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             $this->_sut->buildGalleryUrl(1));
     }
 
-    public function testexecuteTopRated()
-    {
-        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
-
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
-
-        $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-           'top_ratedValue' => 'today'
-        ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?time=today&" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
-    }
-
     public function testexecutePopular()
     {
         $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
@@ -106,58 +92,6 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            'playlistValue' => 'D2B04665B213AE35'
         ));
         $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&orderby=viewCount&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
-    }
-
-    public function testexecuteMostResponded()
-    {
-        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
-
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
-
-        $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED
-        ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_responded?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
-    }
-
-    public function testexecuteMostRecent()
-    {
-        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
-
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
-
-        $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT
-        ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_recent?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
-    }
-
-    public function testexecuteTopFavorites()
-    {
-        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
-
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
-
-        $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES
-        ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_favorites?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
-    }
-
-    public function testexecuteMostDiscussed()
-    {
-        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
-
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
-
-        $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED
-        ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_discussed?" . $this->_standardPostProcessingStuff(),
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -250,19 +184,6 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             $this->_sut->buildGalleryUrl(1));
     }
 
-    public function testexecuteFeatured()
-    {
-        $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
-
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn('viewCount');
-
-        $this->expectOptions(array(
-           tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED
-        ));
-
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
-    }
 
     public function testNewestSortOrderNonPlaylist()
     {
@@ -270,11 +191,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::NEWEST
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff('published'),
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff('published'),
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -299,11 +221,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::VIEW_COUNT
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff(),
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff(),
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -328,11 +251,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::RELEVANCE
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff('relevance'),
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff('relevance'),
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -357,11 +281,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::RATING
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff('rating'),
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff('rating'),
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -386,11 +311,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::POSITION
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -415,11 +341,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -444,11 +371,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::DURATION
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -473,11 +401,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::REV_POSITION
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
             $this->_sut->buildGalleryUrl(1));
     }
 
@@ -502,11 +431,12 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
 
         $this->expectOptions(array(
 
-            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => '3hough',
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::TITLE
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
             $this->_sut->buildGalleryUrl(1));
     }
 

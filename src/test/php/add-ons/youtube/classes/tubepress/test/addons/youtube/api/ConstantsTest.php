@@ -14,9 +14,9 @@ class tubepress_test_addons_youtube_api_const_ConstantsTest extends tubepress_te
     {
         $toTest = array(
 
-            'tubepress_addons_youtube_api_const_options_names_GallerySource'        => array('youtubeMostSharedValue', 'youtubeTrendingValue', 'youtubeRelatedValue', 'favoritesValue', 'youtubeMostPopularValue', 'playlistValue', 'tagValue', 'youtubeTopFavoritesValue', 'top_ratedValue', 'userValue', 'most_discussedValue', 'youtubeResponsesValue', 'most_recentValue', 'most_respondedValue', 'recently_featuredValue'),
-            'tubepress_addons_youtube_api_const_options_values_GallerySourceValue'    => array('favorites', 'most_discussed', 'most_recent', 'most_responded', 'youtubeMostPopular', 'playlist', 'recently_featured', 'tag', 'top_rated', 'user', 'youtubeTopFavorites', 'youtubeMostShared', 'youtubeRelated', 'youtubeTrending', 'youtubeResponses'),
-            'tubepress_addons_youtube_api_const_options_values_YouTube'            => array('moderate', 'none', 'strict', 'dark', 'light', 'fadeNone', 'fadeBoth', 'fadeOnlyProgressBar', 'hide', 'showImmediate', 'showDelayed', 'all_time', 'this_month', 'this_week', 'today'),
+            'tubepress_addons_youtube_api_const_options_names_GallerySource'        => array('youtubeRelatedValue', 'favoritesValue', 'playlistValue', 'tagValue', 'userValue', 'youtubeMostPopularValue'),
+            'tubepress_addons_youtube_api_const_options_values_GallerySourceValue'    => array('favorites', 'youtubeMostPopular', 'playlist', 'tag', 'user', 'youtubeRelated'),
+            'tubepress_addons_youtube_api_const_options_values_YouTube'            => array('moderate', 'none', 'strict', 'dark', 'light', 'fadeNone', 'fadeBoth', 'fadeOnlyProgressBar', 'hide', 'showImmediate', 'showDelayed', 'all_time', 'today'),
 
         );
 

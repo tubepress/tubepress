@@ -211,6 +211,11 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
 
         $order = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
 
+        if ($order === tubepress_api_const_options_values_OrderByValue::DEFAULTT) {
+
+            return $this->_calculateDefaultSortOrder($mode);
+        }
+
         /* handle "relevance" sort */
         if ($mode == tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH
             && $order == tubepress_api_const_options_values_OrderByValue::RELEVANCE) {
@@ -269,6 +274,20 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         if ($execContext->get(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET) === '') {
 
             throw new RuntimeException('Missing Vimeo API Consumer Secret.');
+        }
+    }
+
+    private function _calculateDefaultSortOrder($currentMode)
+    {
+        switch ($currentMode) {
+
+            case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH:
+
+                return self::$_SORT_RELEVANT;
+
+            default:
+
+                return self::$_SORT_NEWEST;
         }
     }
 }
