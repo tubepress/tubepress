@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/**
+ * Hidden field.
+ */
+class tubepress_impl_options_ui_fields_HiddenField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+{
+    protected final function getAbsolutePathToTemplate()
+    {
+        return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/hidden.tpl.php';
+    }
+}

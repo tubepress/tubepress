@@ -275,6 +275,7 @@ return array(
     'tubepress_impl_options_ui_fields_AbstractOptionsPageField'           => $implPrefix . '/options/ui/fields/AbstractOptionsPageField.php',
     'tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField' => $implPrefix . '/options/ui/fields/AbstractTemplateBasedOptionsPageField.php',
     'tubepress_impl_options_ui_fields_BooleanField'                       => $implPrefix . '/options/ui/fields/BooleanField.php',
+    'tubepress_impl_options_ui_fields_HiddenField'                        => $implPrefix . '/options/ui/fields/HiddenField.php',
     'tubepress_impl_options_ui_fields_SpectrumColorField'                 => $implPrefix . '/options/ui/fields/SpectrumColorField.php',
     'tubepress_impl_options_ui_fields_DropdownField'                      => $implPrefix . '/options/ui/fields/DropdownField.php',
     'tubepress_impl_options_ui_fields_TextField'                          => $implPrefix . '/options/ui/fields/TextField.php',
