@@ -75,6 +75,19 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
         $this->assertEquals('xyz789', $result);
     }
 
+    public function testFlushSaveQueueNoChangesNonBoolean()
+    {
+        $od1 = new tubepress_spi_options_OptionDescriptor('abc123');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('abc123', 'xyz789')->andReturn(true);
+        $this->_mockOptionsReference->shouldReceive('findOneByName')->once()->with('abc123')->andReturn($od1);
+
+        $this->_sut->queueForSave('abc123', 'xyz789');
+
+        $this->assertNull($this->_sut->flushSaveQueue());
+    }
+
     public function testFlushSaveQueue()
     {
         $od1 = new tubepress_spi_options_OptionDescriptor('name1');

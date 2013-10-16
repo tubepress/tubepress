@@ -111,6 +111,14 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             return null;
         }
 
+        if ($this->_noChangeBetweenIncomingAndCurrent($filteredValue, $optionDescriptor)) {
+
+            /**
+             * No change. Ignore.
+             */
+            return null;
+        }
+
         /**
          * Option passed validation and is meant to be persisted.
          */
@@ -160,11 +168,11 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         $incomingOptionNames = array_keys($optionNamesToValuesMap);
         $missingOptionNames  = array_diff($incomingOptionNames, $allKnowOptionNames);
 
-            if (count($missingOptionNames) === 0) {
+        if (count($missingOptionNames) === 0) {
 
-                //common case
-                return;
-            }
+            //common case
+            return;
+        }
 
         $this->createEach($optionNamesToValuesMap);
 
@@ -244,5 +252,18 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
 
         return $event->getSubject();
+    }
+
+    private function _noChangeBetweenIncomingAndCurrent($filteredValue, tubepress_spi_options_OptionDescriptor $descriptor)
+    {
+        $boolean      = $descriptor->isBoolean();
+        $currentValue = $this->fetch($descriptor->getName());
+
+        if ($boolean) {
+
+            return ((boolean) $filteredValue) === ((boolean) $currentValue);
+        }
+
+        return $currentValue == $filteredValue;
     }
 }
