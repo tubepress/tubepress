@@ -434,6 +434,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
         $option->setLabel('Theme');                                                                                                                                               //>(translatable)<
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.'); //>(translatable)<
         $option->setAcceptableValuesCallback(array($this, '_callbackGetValidThemeOptions'));
+        $option->setDefaultValue('default');
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);

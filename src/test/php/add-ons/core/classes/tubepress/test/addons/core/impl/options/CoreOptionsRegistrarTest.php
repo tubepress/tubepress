@@ -430,6 +430,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionsProviderTest extends tu
         $option->setLabel('Theme');
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.');
         $option->setAcceptableValues(array('xyz' => 'xyz'));
+        $option->setDefaultValue('default');
         $expected[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
