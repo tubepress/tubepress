@@ -10,7 +10,7 @@
  */
 ?>
 
-<div class="form-group">
+<div class="form-group" <?php if ($field instanceof tubepress_impl_options_ui_fields_HiddenField) : ?>style="display:none"<?php endif; ?>>
 
     <label for="<?php echo $field->getId(); ?>" class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">
 
