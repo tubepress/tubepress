@@ -250,7 +250,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionsProviderTest extends tu
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::ORDER_BY);
         $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::DEFAULTT);
         $option->setLabel('Order videos by');
-        $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.com/documentation">documentation</a> for more info.');
+        $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.com/documentation" target="_blank">documentation</a> for more info.');
         $option->setAcceptableValues(array(
             tubepress_api_const_options_values_OrderByValue::DEFAULTT       => 'default',
             tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',
@@ -294,7 +294,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionsProviderTest extends tu
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DATEFORMAT);
         $option->setDefaultValue('M j, Y');
         $option->setLabel('Date format');
-        $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.');
+        $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date" target="_blank">date</a> for examples.');
         $expected[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DESC_LIMIT);
@@ -384,7 +384,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionsProviderTest extends tu
         $expected[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION);
-        $option->setLabel('<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination');
+        $option->setLabel('<a href="http://wikipedia.org/wiki/Ajax_(programming)" target="_blank">Ajax</a>-enabled pagination');
         $option->setDefaultValue(false);
         $option->setProOnly();
         $option->setBoolean();

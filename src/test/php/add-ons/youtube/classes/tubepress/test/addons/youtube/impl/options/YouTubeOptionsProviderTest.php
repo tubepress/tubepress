@@ -106,7 +106,7 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY);
         $option->setDefaultValue('AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
         $option->setLabel('YouTube API Developer Key');
-        $option->setDescription('YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="http://code.google.com/apis/youtube/dashboard/">here</a>. Don\'t change this unless you know what you\'re doing.');
+        $option->setDescription('YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="http://code.google.com/apis/youtube/dashboard/" target="_blank">here</a>. Don\'t change this unless you know what you\'re doing.');
         $option->setValidValueRegex('/[\w-]+/');
         $toReturn[] = $option;
 
@@ -154,7 +154,7 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
         $option->setDefaultValue('F679CB240DD4C112');
-        $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: <a href="http://www.youtube.com/playlist?p=F679CB240DD4C112">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>');  //>(translatable)<
+        $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: <a href="http://www.youtube.com/playlist?p=F679CB240DD4C112" target="_blank">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>');  //>(translatable)<
         $option->setLabel('This YouTube playlist');
         $option->setValidValueRegex('/[\w-]+/');
         $toReturn[] = $option;

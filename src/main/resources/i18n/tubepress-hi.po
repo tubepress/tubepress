@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-10-16 19:52:08+0000\n"
+"PO-Revision-Date: 2013-10-25 01:52:13+0000\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgstr "उन्नत"
 msgid "Date format"
 msgstr "दिनांक स्वरूप"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
+msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
 msgstr "वीडियो के लिए तारीख की जानकारी के शाब्दिक स्वरूपण निर्धारित करें. उदाहरण के लिए </ a> <a href=\"http://us.php.net/date\"> तारीख देखें."
 
 msgid "Video blacklist"
@@ -167,7 +167,7 @@ msgstr "थंबनेल नीचे पृष्ठ पर अंक लग�
 msgid "Use high-quality thumbnails"
 msgstr "उच्च गुणवत्ता वाले थंबनेल का प्रयोग करें"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
+msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
 msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> अजाक्स </ a> सक्षम पृष्ठांकन"
 
 msgid "Only applies to galleries that span multiple pages."
@@ -227,7 +227,7 @@ msgstr "कार्यान्वयन"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "एम्बेडेड खिलाड़ी की ब्रांड. डिफ़ॉल्ट प्रदाता के खिलाड़ी (यूट्यूब, Vimeo, आदि) है."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
 msgstr "नहीं सभी तरह के आदेश सभी गैलरी प्रकार के लिए लागू किया जा सकता है. <a Href=\"http://tubepress.com/documentation\"> प्रलेखन अधिक जानकारी के लिए </ a> देखें."
 
 msgid "Cache directory"
@@ -386,10 +386,10 @@ msgstr "शोर्ट कीवर्ड"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "अपने पदों / पृष्ठों में आप सम्मिलित शब्द (प्लेन टेक्स्ट में, वर्ग कोष्ठक के बीच) एक गैलरी प्रदर्शित करने के लिए."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
 msgstr "विजेट के लिए शोर्ट TubePress. <a Href=\"http://tubepress.com/documentation\"> दस्तावेज़ीकरण देखें </ a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
 msgstr "यहाँ आप TubePress के लिए निर्धारित विकल्पों को सेट कर सकते हैं. यहाँ प्रत्येक विकल्प TubePress लघुकोड साथ एक प्रति पृष्ठ / पोस्ट आधार पर अधिरोहित जा सकता है. <a Href=\"http://tubepress.com/documentation\"> प्रलेखन अधिक जानकारी के लिए </ a> देखें."
 
 msgid "Videos uploaded by this Vimeo user"
@@ -419,7 +419,7 @@ msgstr "इस vimeo के समूह से वीडियो"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo एपीआई \"उपभोक्ता कुंजी \""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
+msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
 msgstr "<a href=\"http://vimeo.com/api/applications/new\"> यहां क्लिक करें </ a> उपभोक्ता कुंजी और रहस्य के लिए रजिस्टर करने के लिए."
 
 msgid "Vimeo API \"Consumer Secret\""
@@ -467,7 +467,7 @@ msgstr "वीडियो प्लेबैक के बाद शुरू �
 msgid "YouTube API Developer Key"
 msgstr "यूट्यूब एपीआई डेवलपर कुंजी"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
 msgstr "आप अपने अंत पर एक सेवा समस्या का अनुभव अगर यूट्यूब प्रयोजनों के प्रवेश और डीबगिंग के लिए इस डेवलपर कुंजी का प्रयोग करेंगे. आप एक नए ग्राहक आईडी और डेवलपर कुंजी <a रजिस्टर कर सकते हैं href=\"http://code.google.com/apis/youtube/dashboard/\"> यहां </ a>. आप क्या कर रहे हैं जब तक यह न बदलें."
 
 msgid "Filter \"racy\" content"
@@ -491,7 +491,7 @@ msgstr "संबंधित वीडियो दिखाएं"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "एक वीडियो पूर्ण होने के बाद संबंधित वीडियो का प्रदर्शन टॉगल करता है."
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
+msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\" target=\"_blank\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
 msgstr "प्लेलिस्ट प्रति 200 वीडियो के लिए सीमित. PLF679CB240DD4C112: कुछ इस तरह लग आमतौर पर होगा. अपने ब्राउज़र की पता पट्टी में URL के अंत से प्लेलिस्ट आईडी (प्लेलिस्ट को देख जबकि) को कॉपी करें. यह सही \"पी = \" के बाद आता है. उदाहरण के लिए: <एक"
 
 msgid "\"Modest\" branding"

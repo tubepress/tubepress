@@ -44,12 +44,12 @@ class tubepress_addons_vimeo_impl_options_VimeoOptionsProvider implements tubepr
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY);
         $option->setLabel('Vimeo API "Consumer Key"');                                                                                        //>(translatable)<
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
+        $option->setDescription('<a href="http://vimeo.com/api/applications/new" target="_blank">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET);
         $option->setLabel('Vimeo API "Consumer Secret"');                                                                                     //>(translatable)<
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
+        $option->setDescription('<a href="http://vimeo.com/api/applications/new" target="_blank">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
         $toReturn[] = $option;
 
 

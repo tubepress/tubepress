@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-10-16 19:52:10+0000\n"
+"PO-Revision-Date: 2013-10-25 01:52:16+0000\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgstr "고급"
 msgid "Date format"
 msgstr "날짜 형식"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
+msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
 msgstr "동영상 최신 정보의 텍스트 서식을 설정합니다. 예제 </ a>를 참조 href=\"http://us.php.net/date\"> 날짜를 참조하십시오."
 
 msgid "Video blacklist"
@@ -167,7 +167,7 @@ msgstr "미리보기 아래의 페이지 매김보기"
 msgid "Use high-quality thumbnails"
 msgstr "고품질 축소판을 사용하여"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
+msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
 msgstr "만약 당신이 좋아하면 것인지 href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> 아약스 </ a>를 사용 매김"
 
 msgid "Only applies to galleries that span multiple pages."
@@ -227,7 +227,7 @@ msgstr "이행"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "내장 플레이어의 브랜드입니다. 기본값은 공급자의 선수 (유튜브, 비 메오 등)입니다."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
 msgstr "모든 정렬 순서는 모든 갤러리 유형에 적용 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 문서에 대한 추가 정보를 원하시면 </ a>를 참조하십시오."
 
 msgid "Cache directory"
@@ -386,10 +386,10 @@ msgstr "단축 코드 키워드"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "게시물 / 페이지에 당신이 삽입 단어 (일반 텍스트, 대괄호)는 갤러리를 표시합니다."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
 msgstr "위젯 단축 코드를 TubePress. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 설명서를 참조하십시오 </ a>를 참조하십시오."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
 msgstr "여기 TubePress에 대한 기본 옵션을 설정할 수 있습니다. 여기에 각 옵션 TubePress의 단축 코드와 페이지 당 / 포스트 기준으로 재정의 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 문서에 대한 자세한 내용은 </ a>를 참조하십시오."
 
 msgid "Videos uploaded by this Vimeo user"
@@ -419,7 +419,7 @@ msgstr "이 비 메오 그룹 동영상"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "메오 API \"소비자 키 \""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
+msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
 msgstr "만약 당신이 좋아하면 것인지의 href=\"http://vimeo.com/api/applications/new\"> 여기를 클릭 </ a> 소비자 키와 비밀을 등록합니다."
 
 msgid "Vimeo API \"Consumer Secret\""
@@ -467,7 +467,7 @@ msgstr "비디오 재생이 시작되면, 이는 내장 된 비디오 플레이�
 msgid "YouTube API Developer Key"
 msgstr "유튜브 API 개발자 키"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
 msgstr "당신은 그들의 말에 서비스 문제가 발생하는 경우 YouTube는 목적 로깅 및 디버깅이 개발자 키를 사용합니다. 당신은 새 클라이언트 ID와 개발자 키 - 만약 당신이 좋아하면 것인지를 등록 할 수 있습니다 href=\"http://code.google.com/apis/youtube/dashboard/\"> 여기 </ a>. 당신이 무슨 일을하는지 알지 못한다면이 설정을 변경하지 마십시오."
 
 msgid "Filter \"racy\" content"
@@ -491,7 +491,7 @@ msgstr "관련 동영상보기"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "비디오가 끝나면 관련 동영상의 표시를 토글합니다."
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
+msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\" target=\"_blank\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
 msgstr "재생 목록 당 200 비디오에 제한됩니다. PLF679CB240DD4C112이 같을 일반적으로 것입니다. 브라우저의 주소 표시 줄에 URL의 끝에서 재생 목록 ID를 (유튜브 재생 목록을 보면서) 복사합니다. 그것은 바로 \"p = \"다음에 온다. 예를 들어 <"
 
 msgid "\"Modest\" branding"

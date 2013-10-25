@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-10-16 19:52:14+0000\n"
+"PO-Revision-Date: 2013-10-25 01:52:19+0000\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgstr "Дополнительно"
 msgid "Date format"
 msgstr "Формат даты"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
+msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
 msgstr "Установить форматирование даты для видео. См. <a href=\"http://us.php.net/date\"> форматы даты </a> для примера."
 
 msgid "Video blacklist"
@@ -167,7 +167,7 @@ msgstr "Показать номера страниц под миниатюрам
 msgid "Use high-quality thumbnails"
 msgstr "Использовать миниатюры лучшего качества"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
+msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
 msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-переключение страниц"
 
 msgid "Only applies to galleries that span multiple pages."
@@ -227,7 +227,7 @@ msgstr "Реализация"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "Стиль встроенного проигрывателя. Стандартный плеер видеохостера (YouTube, Vimeo, и тд.)"
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
 msgstr "Не все порядки сортировки могут быть применены для всех типов галлерей. Смотри <a href=\"http://tubepress.com/documentation\">документацию</a> для дополнительной информации."
 
 msgid "Cache directory"
@@ -386,10 +386,10 @@ msgstr "Ключевое слово для вставки TubePress"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Ключевое слово (в квадратных скобках) для вставки галереи TubePress в свои заметки/страницы."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\"> documentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
 msgstr "Специальные команды TubePress для виджета. Смотрите <a href=\"http://tubepress.com/documentation\"> документацию </a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
 msgstr "Тут вы можете настроить опции по умолчанию для TubePress. Каждая опция может быть изменена индивидуально на ваших страницах/постах с помощью шорткодов. Смотри <a href=\"http://tubepress.com/documentation\">документацию</a> для дополнительной информации."
 
 msgid "Videos uploaded by this Vimeo user"
@@ -419,7 +419,7 @@ msgstr "Видео из этой Vimeo группы"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API \"Consumer Key\""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
+msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
 msgstr "<a href=\"http://vimeo.com/api/applications/new\">Нажмите здесь</a> для регистрации и получения consumer key и secret."
 
 msgid "Vimeo API \"Consumer Secret\""
@@ -467,7 +467,7 @@ msgstr "После начала воспроизведения видео, вы�
 msgid "YouTube API Developer Key"
 msgstr "Ключ разработчика YouTube API"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
 msgstr "YouTube будет использовать этот ключ разработчика для протоколирования и отладки, если вы столкнетесь с проблемой, связанной с их сервисом. Вы можете зарегистрировать новый идентификатор клиента и ключ разработчика <a href=\"http://code.google.com/apis/youtube/dashboard/\"> здесь </a>. Не изменяйте его, если вы не знаете, зачем это нужно."
 
 msgid "Filter \"racy\" content"
@@ -491,7 +491,7 @@ msgstr "Показывать похожие видео"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Показывать похожие видео после окончания воспроизведения исходного видео."
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
+msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\" target=\"_blank\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
 msgstr "Ограничено 200-ми видео в плейлисте. Для примера <a href=\"http://www.youtube.com/playlist?p=PLF679CB240DD4C112\">http://www.youtube.com/playlist?p=PLF679CB240DD4C112</a> Как правило id выглядит как: PLF679CB240DD4C112. Скопируйте id плейлиста, из адресной строки браузера, начинающегося после \"p=\"."
 
 msgid "\"Modest\" branding"

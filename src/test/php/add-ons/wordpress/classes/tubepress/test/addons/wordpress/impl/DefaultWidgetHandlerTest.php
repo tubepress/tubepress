@@ -90,7 +90,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE, '<<Title>>');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_TITLE, 'value of widget title');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.com/documentation"> documentation</a>.>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.com/documentation" target="_blank">documentation</a>.>>');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SHORTCODE, 'value of widget shortcode');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG, tubepress_addons_wordpress_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG);
         $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');
