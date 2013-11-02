@@ -69,7 +69,7 @@ class tubepress_test_impl_feed_CacheAwareFeedFetcherTest extends tubepress_test_
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS)->andReturn(333);
         $this->_mockCache->shouldReceive('getItem')->once()->with(self::$_fakeUrl)->andReturn($this->_mockItem);
         $this->_mockItem->shouldReceive('isValid')->once()->andReturn(false);
-        $this->_mockItem->shouldReceive('set')->once()->with('abc', 333);
+        $this->_mockItem->shouldReceive('set')->once()->with('abc', 333)->andReturn(true);
         $this->_mockItem->shouldReceive('get')->once()->andReturn('someValue');
         $this->_setupHttpExecution();
 

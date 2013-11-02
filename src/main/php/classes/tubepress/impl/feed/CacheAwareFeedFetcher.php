@@ -109,7 +109,17 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
 
             $data = $this->_getFromNetwork($url);
 
-            $result->set($data, $context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
+            $storedSuccessfully = $result->set($data, $context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
+
+            if (!$storedSuccessfully) {
+
+                if ($isDebugEnabled) {
+
+                    $this->_logger->debug('Unable to store data to cache');
+                }
+
+                return $data;
+            }
         }
 
         return $result->get();
