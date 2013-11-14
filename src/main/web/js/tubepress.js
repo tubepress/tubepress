@@ -21,7 +21,15 @@
  *  3. Functions to asychronously load other TubePress scripts as needed.
  */
 
-var TubePress = (function (jquery, win) {
+/**
+ * IE8 and below forces us to declare these now.
+ *
+ * http://tobyho.com/2013/03/13/window-prop-vs-global-var/
+ */
+var tubePressDomInjector,
+    tubePressBeacon,
+
+    TubePress = (function (jquery, win) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
