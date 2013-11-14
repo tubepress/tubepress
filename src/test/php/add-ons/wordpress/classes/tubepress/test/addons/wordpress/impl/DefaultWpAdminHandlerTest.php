@@ -169,7 +169,7 @@ class tubepress_test_addons_wordpress_impl_DefaultWpAdminHandlerTest extends tub
 
             'bootstrap-3.0.2'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/css/bootstrap-custom.css',
             'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/css/bootstrap-custom-theme.css',
-            'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/css/bootstrap-multiselect.css',
+            'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.1/css/bootstrap-multiselect.css',
             'tubepress-extra'       => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
             'spectrum'              => '/src/main/web/options-gui/vendor/spectrum-1.1.2/spectrum.css',
         );
@@ -180,7 +180,7 @@ class tubepress_test_addons_wordpress_impl_DefaultWpAdminHandlerTest extends tub
         return array(
 
             'bootstrap-3.0.2'               => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/js/bootstrap.min.js',
-            'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9/js/bootstrap-multiselect.js',
+            'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.1/js/bootstrap-multiselect.js',
             'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.1.2/spectrum.js',
             'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
             'participant-filter-handler'    => '/src/main/web/options-gui/js/participant-filter-handler.js',
