@@ -215,7 +215,7 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
             'ehough_coauthor_spi_v1_TemporaryCredentialsStorageInterface',
             'ehough_coauthor_impl_v1_SessionCredentialsStorage'
-        );
+        )->withArgument(false);
 
         $this->expectRegistration(
 

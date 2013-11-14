@@ -214,7 +214,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
 
             'ehough_coauthor_spi_v1_TemporaryCredentialsStorageInterface',
             'ehough_coauthor_impl_v1_SessionCredentialsStorage'
-        );
+        )->addArgument(false);
 
         $container->register(
 
