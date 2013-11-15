@@ -33,10 +33,15 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 * New Features
     * Refreshed design of WordPress settings page
     * Added Chinese, Greek, Hindi, Japanese, Korean, and Persian translations
+    * Added "default" option to "orderBy". Applies most logical sort order based on the video source.
 * Bug Fixes
     * Now allowing hyphens in YouTube user/channel values
     * Fixed missing classes that could cause a fatal error when using boot cache
+    * Fixed broken galleries in IE 8 and below
+    * Fixed incorrect handling of API cache failures
 * Changed
+    * Removed deprecated YouTube "standard feeds" (see YouTube API changelog)
+    * Options GUI now saves all valid options, even if invalid options were submitted alongside
     * Vimeo API OAuth requests now use the Authentication HTTP header instead of GET parameters
     * Updated Arabic, Finnish, French, German, Hebrew, Italian, Polish, Portuguese, Russian, Spanish, and Swedish translations
     * tubepress.org is now tubepress.com
