@@ -125,9 +125,22 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
 
     private function _getJsMap()
     {
-        return array(
+        $toReturn = array(
 
-            'bootstrap-3.0.2'               => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/js/bootstrap.min.js',
+            'bootstrap-3.0.2' => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/js/bootstrap.min.js',
+        );
+
+        if ($this->_isIE8orLower()) {
+
+            $toReturn = array_merge($toReturn, array(
+
+                'html5-shiv-3.7.0' => '/src/main/web/options-gui/vendor/html5-shiv-3.7.0/html5shiv.js',
+                'respond-1.3.0'    => '/src/main/web/options-gui/vendor/respond-1.3.0/respond.min.js',
+            ));
+        }
+
+        $toReturn = array_merge($toReturn, array(
+
             'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.1/js/bootstrap-multiselect.js',
             'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.1.2/spectrum.js',
             'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
@@ -135,6 +148,41 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
             'spectrum-js-initializer'       => '/src/main/web/options-gui/js/spectrum-js-initializer.js',
             'bootstrap-multiselect-init'    => '/src/main/web/options-gui/js/bootstrap-multiselect-initializer.js',
             'iframe-loader'                 => '/src/main/php/add-ons/wordpress/web/options-gui/js/iframe-loader.js',
-        );
+        ));
+
+        return $toReturn;
+    }
+
+    private function _isIE8orLower()
+    {
+        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+
+            //no user agent for some reason
+            return false;
+        }
+
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+        if (stristr($userAgent, 'MSIE') === false) {
+
+            //shortcut - MSIE is not in user-agent header
+            return false;
+        }
+
+        if (!preg_match('/MSIE (.*?);/i', $userAgent, $m)) {
+
+            //not IE
+            return false;
+        }
+
+        if (!isset($m[1]) || !is_numeric($m[1])) {
+
+            //couldn't parse version for some reason
+            return false;
+        }
+
+        $version = (int) $m[1];
+
+        return $version <= 8;
     }
 }
