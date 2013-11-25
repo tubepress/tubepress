@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -57,8 +57,11 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
             $this->_gatherArrayOfContent($videoArray[$index], 'tags', 'tag');
 
         /* Likes. */
-        $toReturn[tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT] =
-            $videoArray[$index]->number_of_likes;
+        if (isset($videoArray[$index]->number_of_likes)) {
+
+            $toReturn[tubepress_api_video_Video::ATTRIBUTE_LIKES_COUNT] =
+                $videoArray[$index]->number_of_likes;
+        }
 
         /* Thumbnail. */
         $toReturn[tubepress_api_video_Video::ATTRIBUTE_THUMBNAIL_URL] =
@@ -78,8 +81,10 @@ class tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener
             $videoArray[$index]->title;
 
         /* Views. */
-        $toReturn[tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT] =
-            number_format($videoArray[$index]->number_of_plays);
+        if (isset($videoArray[$index]->number_of_plays)) {
+            $toReturn[tubepress_api_video_Video::ATTRIBUTE_VIEW_COUNT] =
+                number_format($videoArray[$index]->number_of_plays);
+        }
 
         return $toReturn;
     }

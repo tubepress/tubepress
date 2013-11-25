@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  * 
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,8 +23,6 @@ class tubepress_addons_youtube_api_const_options_values_YouTube
     const CONTROLS_SHOW_DELAYED_FLASH   = 'showDelayed';
 
     const TIMEFRAME_TODAY      = 'today';
-    const TIMEFRAME_THIS_WEEK  = 'this_week';
-    const TIMEFRAME_THIS_MONTH = 'this_month';
     const TIMEFRAME_ALL_TIME   = 'all_time';
 
     const PLAYER_THEME_DARK  = 'dark';

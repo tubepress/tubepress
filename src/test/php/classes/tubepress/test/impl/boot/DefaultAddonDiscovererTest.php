@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -57,7 +57,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
         $this->_mockFinderFactory       = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
         $this->_mockSystemFinder        = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $this->_mockUserFinder          = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
-        $this->_fakeAddonRoot           = realpath(__DIR__ . '/../../../../../../resources/add-ons');
+        $this->_fakeAddonRoot           = realpath(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultaddondiscoverer/add-ons');
         $this->_splInfoArray            = array();
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
@@ -168,7 +168,7 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
     {
         $addon = $this->_verifyGoodAddon('good_addon2', $this->_fakeAddonRoot . '/good_addon2/add-ons');
 
-        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/test/resources/add-ons/good_addon2/add-ons/some/dir/boot.php'), $addon->getBootstrapFiles());
+        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultaddondiscoverer/add-ons/good_addon2/add-ons/some/dir/boot.php'), $addon->getBootstrapFiles());
     }
 
     public function _callback()

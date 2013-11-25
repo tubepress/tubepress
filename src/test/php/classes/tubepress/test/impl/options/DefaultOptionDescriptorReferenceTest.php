@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,11 +14,6 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
      * @var tubepress_impl_options_DefaultOptionDescriptorReference
      */
     private $_sut;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockStorageManager;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -44,7 +39,6 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
     {
         $this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 
-        $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockProvider1       = ehough_mockery_Mockery::mock(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
         $this->_mockProvider2       = ehough_mockery_Mockery::mock(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
@@ -64,11 +58,7 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
         $this->_mockProvider1->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
         $this->_mockProvider2->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
 
-        $this->_mockStorageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
-
         $this->_setupEventDispatcher($od);
-
-        $this->_sut->boot();
 
         $this->assertSame($od, $this->_sut->findOneByName('name'));
     }
@@ -81,11 +71,7 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
         $this->_mockProvider1->shouldReceive('getOptionDescriptors')->once()->andReturn(array());
         $this->_mockProvider2->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
 
-        $this->_mockStorageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
-
         $this->_setupEventDispatcher($od);
-
-        $this->_sut->boot();
 
         $result = $this->_sut->findAll();
 
@@ -95,21 +81,13 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
 
     public function testFindOne()
     {
-        $result = $this->_sut->findOneByName('x');
-
-        $this->assertNull($result);
-
         $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setDefaultValue('xyz');
 
         $this->_mockProvider1->shouldReceive('getOptionDescriptors')->once()->andReturn(array());
         $this->_mockProvider2->shouldReceive('getOptionDescriptors')->once()->andReturn(array($od));
 
-        $this->_mockStorageManager->shouldReceive('createIfNotExists')->once()->with('name', 'xyz');
-
         $this->_setupEventDispatcher($od);
-
-        $this->_sut->boot();
 
         $result = $this->_sut->findOneByName('name');
 

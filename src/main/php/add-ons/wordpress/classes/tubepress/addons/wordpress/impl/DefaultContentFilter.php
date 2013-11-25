@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,7 +18,7 @@ class tubepress_addons_wordpress_impl_DefaultContentFilter implements tubepress_
     {
         /* do as little work as possible here 'cause we might not even run */
         $wpsm    = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $trigger = $wpsm->get(tubepress_api_const_options_names_Advanced::KEYWORD);
+        $trigger = $wpsm->fetch(tubepress_api_const_options_names_Advanced::KEYWORD);
         $parser  = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
 
         /* no shortcode? get out */

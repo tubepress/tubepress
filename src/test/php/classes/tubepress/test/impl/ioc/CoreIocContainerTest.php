@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -28,8 +28,8 @@ class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePr
     {
         parent::setUpBeforeClass();
 
-        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeExtension.php';
-        require_once TUBEPRESS_ROOT . '/src/test/resources/add-ons/FakeCompilerPass.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/ioc/FakeExtension.php';
+        require_once TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/ioc/FakeCompilerPass.php';
     }
 
     public function testBuildsNormally()

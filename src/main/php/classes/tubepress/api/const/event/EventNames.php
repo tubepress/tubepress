@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -214,19 +214,6 @@ class tubepress_api_const_event_EventNames
     const HTTP_RESPONSE = 'tubepress.core.http.response';
 
 
-
-    /**
-     * This event is fired when a TubePress option (a name-value pair) is being read from external input.
-     *
-     * @subject mixed The incoming option value.
-     *
-     * @arg string 'optionName' The name of the option being set.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const OPTIONS_NVP_READFROMEXTERNAL = 'tubepress.core.options.nvp.readFromExternalInput';
-
     /**
      * This event is fired when an option descriptor is registered.
      *
@@ -251,19 +238,36 @@ class tubepress_api_const_event_EventNames
     const OPTIONS_NVP_PREVALIDATIONSET = 'tubepress.core.options.nvp.preValidationSet';
 
     /**
-     * This event is fired when TubePress retrieves the fields that will be displayed
-     * on a tab.
+     * This event is fired when a TubePress option (a name-value pair) is being read from external input.
      *
-     * @subject array The array of fields for this tab.
+     * @subject mixed The incoming option value.
      *
-     * @arg tubepress_spi_options_ui_PluggableOptionsPageParticipant 'participant' The options page participant.
-     * @arg string                                                   'tabName'     The name of the tab.
+     * @arg string 'optionName' The name of the option being set.
      *
      * @api
      * @since 3.1.0
      */
-    const OPTIONS_UI_FIELDS_FOR_TAB = 'tubepress.core.options.ui.fieldsForTab';
+    const OPTIONS_NVP_READFROMEXTERNAL = 'tubepress.core.options.nvp.readFromExternalInput';
 
+    /**
+     * This event is fired when TubePress loads a PHP/HTML template for a field on the options page.
+     *
+     * @subject ehough_contemplate_api_Template The template for the field.
+     *
+     * @api
+     * @since 3.1.2
+     */
+    const OPTIONS_PAGE_FIELDTEMPLATE = 'tubepress.core.options.page.fieldTemplate';
+
+    /**
+     * This event is fired when TubePress loads a PHP/HTML template for the options page.
+     *
+     * @subject ehough_contemplate_api_Template The template for the page.
+     *
+     * @api
+     * @since 3.1.2
+     */
+    const OPTIONS_PAGE_TEMPLATE = 'tubepress.core.options.page.finalTemplate';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for an embedded
@@ -282,38 +286,6 @@ class tubepress_api_const_event_EventNames
     const TEMPLATE_EMBEDDED = 'tubepress.core.template.embedded';
 
     /**
-     * This event is fired when TubePress generates the template for an options UI form.
-     *
-     * @subject ehough_contemplate_api_Template The options UI template.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const TEMPLATE_OPTIONS_UI_MAIN = 'tubepress.core.template.options.ui.main';
-
-    /**
-     * This event is fired when TubePress generates the template for the options UI tabs.
-     *
-     * @subject ehough_contemplate_api_Template The options UI tabs template.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const TEMPLATE_OPTIONS_UI_TABS_ALL = 'tubepress.core.template.options.ui.tabs.all';
-
-    /**
-     * This event is fired when TubePress generates the template for the options UI tabs.
-     *
-     * @subject ehough_contemplate_api_Template The options UI tabs template.
-     *
-     * @arg string 'tabName' The tab name.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const TEMPLATE_OPTIONS_UI_TABS_SINGLE = 'tubepress.core.template.options.ui.tabs.single';
-
-    /**
      * This event is fired when a TubePress builds the PHP/HTML template for a TubePress
      * "player".
      *
@@ -325,7 +297,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_PLAYERLOCATION = 'tubepress.core.playerTemplateConstruction';
+    const TEMPLATE_PLAYERLOCATION = 'tubepress.core.template.player';
 
     /**
      * This event is fired when TubePress builds the template for a standard (non-Ajax) search input form.
@@ -335,7 +307,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_SEARCH_INPUT = 'tubepress.core.searchInputTemplateConstruction';
+    const TEMPLATE_SEARCH_INPUT = 'tubepress.core.template.search.input';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for a single video (not inside a gallery)
@@ -347,7 +319,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_SINGLE_VIDEO = 'tubepress.core.singleVideoTemplateConstruction';
+    const TEMPLATE_SINGLE_VIDEO = 'tubepress.core.template.singleVideo';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for a thumbnail gallery.
@@ -360,7 +332,7 @@ class tubepress_api_const_event_EventNames
      * @api
      * @since 3.1.0
      */
-    const TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.thumbnailGalleryTemplateConstruction';
+    const TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.template.thumbnailGallery';
 
 
 

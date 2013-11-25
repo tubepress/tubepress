@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,73 +22,68 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
     private static $_optionPrefix = "tubepress-";
 
     /**
-     * Creates an option in storage
+     * Creates multiple options in storage.
      *
-     * @param mixed $optionName  The name of the option to create
-     * @param mixed $optionValue The default value of the new option.
-     *
-     * @return void
-     */
-    protected final function create($optionName, $optionValue)
-    {
-        $wordPressFunctionWrapperService =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-
-        $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $optionName, $optionValue);
-    }
-
-    /**
-     * Retrieve the current value of an option
-     *
-     * @param string $optionName The name of the option
-     *
-     * @return mixed The option's value
-     */
-    public final function get($optionName)
-    {
-        $wordPressFunctionWrapperService =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-
-        return $wordPressFunctionWrapperService->get_option(self::$_optionPrefix . $optionName);
-    }
-
-    /**
-     * Sets an option to a new value, without validation
-     *
-     * @param string $optionName  The name of the option to update
-     * @param mixed  $optionValue The new option value
+     * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
+     *                                      element in the array, we will call createIfNotExists($name, $value)
      *
      * @return void
      */
-    protected final function setOption($optionName, $optionValue)
+    public function createEach(array $optionNamesToValuesMap)
     {
         $wordPressFunctionWrapperService =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
-        $wordPressFunctionWrapperService->update_option(self::$_optionPrefix . $optionName, $optionValue);
+        foreach ($optionNamesToValuesMap as $missingOptionName => $defaultValue) {
+
+            $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $missingOptionName, $defaultValue);
+        }
     }
 
     /**
-     * @return array All the option names currently in this storage manager.
+     * @return array An associative array of all option names to values.
      */
-    protected final function getAllOptionNames()
+    protected function fetchAllCurrentlyKnownOptionNamesToValues()
     {
         global $wpdb;
 
-        $raw = $wpdb->get_results("SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'tubepress-%'");
+        $raw = $wpdb->get_results("SELECT option_name, option_value FROM $wpdb->options WHERE option_name LIKE 'tubepress-%'");
 
-        if (! $raw || ! is_array($raw)) {
+        if (!$raw || !is_array($raw)) {
 
             return array();
         }
 
         $toReturn = array();
 
-        foreach ($raw as $optionName) {
+        foreach ($raw as $option) {
 
-            $toReturn[] = str_replace(self::$_optionPrefix, '', $optionName->option_name);
+            $toReturn[str_replace(self::$_optionPrefix, '', $option->option_name)] = $option->option_value;
         }
 
         return $toReturn;
+    }
+
+    /**
+     * @param array $optionNamesToValues An associative array of option names to values.
+     *
+     * @return null|string Null if the save succeeded and all queued options were saved, otherwise a string error message.
+     */
+    protected function saveAll(array $optionNamesToValues)
+    {
+        $wordPressFunctionWrapperService =
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+
+        foreach ($optionNamesToValues as $optionName => $optionValue) {
+
+            $wordPressFunctionWrapperService->update_option(self::$_optionPrefix . $optionName, $optionValue);
+        }
+
+        /**
+         * WordPress API is silly.
+         *
+         * http://codex.wordpress.org/Function_Reference/update_option
+         */
+        return null;
     }
 }

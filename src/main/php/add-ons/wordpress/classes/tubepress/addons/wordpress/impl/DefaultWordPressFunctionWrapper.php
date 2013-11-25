@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -443,5 +443,36 @@ class tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper implements
     {
         /** @noinspection PhpVoidFunctionResultUsedInspection */
         return register_activation_hook($file, $function);
+    }
+
+    /**
+     * Retrieves or displays the nonce hidden form field.
+     *
+     * @param string  $action   Action name. Should give the context to what is taking place. Optional but recommended.
+     * @param string  $name     Nonce name. This is the name of the nonce hidden form field to be created.
+     *                                      Once the form is submitted, you can access the generated nonce via $_POST[$name].
+     * @param boolean $referrer Whether also the referer hidden form field should be created with the wp_referer_field()
+     * @param boolean $echo     Whether to display or return the nonce hidden form field, and also the referer hidden form field if the $referer argument is set to true.
+     *
+     * @return mixed
+     */
+    public final function wp_nonce_field($action, $name, $referrer, $echo)
+    {
+        return wp_nonce_field($action, $name, $referrer, $echo);
+    }
+
+    /**
+     * Verify that a nonce is correct and unexpired with the respect to a specified action.
+     *
+     * @param string $nonce  Nonce to verify.
+     * @param string $action Action name. Should give the context to what is taking place and be the same when the nonce was created.
+     *
+     * @return boolean|integer False if the nonce is invalid. Otherwise returns an integer with the value of
+     *                         1 if the nonce has been generated in the past 12 hours or less.
+     *                         2 if the nonce was generated between 12 and 24 hours ago.
+     */
+    function wp_verify_nonce($nonce, $action)
+    {
+        return wp_verify_nonce($nonce, $action);
     }
 }

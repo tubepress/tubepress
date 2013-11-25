@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -193,10 +193,11 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::ORDER_BY);
-        $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::VIEW_COUNT);
+        $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::DEFAULTT);
         $option->setLabel('Order videos by');                                                                                                                                      //>(translatable)<
-        $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.'); //>(translatable)<
+        $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.com/documentation" target="_blank">documentation</a> for more info.'); //>(translatable)<
         $option->setAcceptableValues(array(
+            tubepress_api_const_options_values_OrderByValue::DEFAULTT       => 'default',                         //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',   //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',   //>(translatable)<
@@ -331,7 +332,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DATEFORMAT);
         $option->setDefaultValue('M j, Y');
         $option->setLabel('Date format');                                                                                                                    //>(translatable)<
-        $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.');   //>(translatable)<
+        $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date" target="_blank">date</a> for examples.');   //>(translatable)<
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DESC_LIMIT);
@@ -362,7 +363,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
-        $option->setDefaultValue('recently_featured');
+        $option->setDefaultValue(tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR);
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Output::OUTPUT);
@@ -380,7 +381,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION);
-        $option->setLabel('<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination'); //>(translatable)<
+        $option->setLabel('<a href="http://wikipedia.org/wiki/Ajax_(programming)" target="_blank">Ajax</a>-enabled pagination'); //>(translatable)<
         $option->setDefaultValue(false);
         $option->setProOnly();
         $option->setBoolean();
@@ -433,6 +434,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
         $option->setLabel('Theme');                                                                                                                                               //>(translatable)<
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.'); //>(translatable)<
         $option->setAcceptableValuesCallback(array($this, '_callbackGetValidThemeOptions'));
+        $option->setDefaultValue('default');
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
@@ -472,9 +474,12 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
             }
         }
 
+        asort($detected);
+
         return array_merge(array(
 
             tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED => 'Provider default',  //>(translatable)<
+
         ), $detected);
     }
 
@@ -490,12 +495,18 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
             $toReturn[$playerLocation->getName()] = $playerLocation->getFriendlyName();
         }
 
+        asort($toReturn);
+
         return $toReturn;
     }
 
     public function _callbackGetValidVideoProviderNames()
     {
-        return array_keys($this->_getValidProviderNamesToFriendlyNames());
+        $toReturn = array_keys($this->_getValidProviderNamesToFriendlyNames());
+
+        asort($toReturn);
+
+        return $toReturn;
     }
 
     public function _callbackGetValidThemeOptions()
@@ -541,6 +552,8 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
 
             $toReturn[$themeName] = $themeName;
         }
+
+        ksort($toReturn);
 
         return $toReturn;
     }

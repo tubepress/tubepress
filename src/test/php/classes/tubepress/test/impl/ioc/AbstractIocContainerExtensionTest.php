@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -64,17 +64,22 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
         return $this;
     }
 
-    protected function withArgument($arg)
+    protected function withArgument($expected)
     {
-        $this->_mockDefinition->shouldReceive('addArgument')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($arg) {
+        $argumentComparator = function ($actual) use ($expected) {
 
-            return "$actual" === "$arg";
+            if (is_array($actual)) {
 
-        }))->andReturn($this->_mockDefinition);
+                return is_array($expected) && $actual == $expected;
+            }
+
+            return "$actual" === "$expected";
+        };
+
+        $this->_mockDefinition->shouldReceive('addArgument')->once()->with(ehough_mockery_Mockery::on($argumentComparator))->andReturn($this->_mockDefinition);
 
         return $this;
     }
-
 
     protected function withFactoryService($service)
     {
@@ -83,6 +88,13 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
             return $actual === $service;
 
         }))->andReturn($this->_mockDefinition);
+
+        return $this;
+    }
+
+    protected function withMethodCall($methodName, array $arguments)
+    {
+        $this->_mockDefinition->shouldReceive('addMethodCall')->once()->with($methodName, $arguments)->andReturn($this->_mockDefinition);
 
         return $this;
     }

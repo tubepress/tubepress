@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -109,7 +109,17 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
 
             $data = $this->_getFromNetwork($url);
 
-            $result->set($data, $context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
+            $storedSuccessfully = $result->set($data, $context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
+
+            if (!$storedSuccessfully) {
+
+                if ($isDebugEnabled) {
+
+                    $this->_logger->debug('Unable to store data to cache');
+                }
+
+                return $data;
+            }
         }
 
         return $result->get();

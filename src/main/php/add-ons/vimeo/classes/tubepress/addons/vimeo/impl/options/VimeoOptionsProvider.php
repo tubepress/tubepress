@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -32,8 +32,8 @@ class tubepress_addons_vimeo_impl_options_VimeoOptionsProvider implements tubepr
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
         $option->setDefaultValue('999999');
-        $option->setLabel('Main color');                    //>(translatable)<
-        $option->setDescription('Default is 999999.');      //>(translatable)<
+        $option->setLabel('Main color');                             //>(translatable)<
+        $option->setDescription(sprintf('Default is %s', "999999")); //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $toReturn[] = $option;
 
@@ -44,12 +44,12 @@ class tubepress_addons_vimeo_impl_options_VimeoOptionsProvider implements tubepr
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY);
         $option->setLabel('Vimeo API "Consumer Key"');                                                                                        //>(translatable)<
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
+        $option->setDescription('<a href="http://vimeo.com/api/applications/new" target="_blank">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET);
         $option->setLabel('Vimeo API "Consumer Secret"');                                                                                     //>(translatable)<
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
+        $option->setDescription('<a href="http://vimeo.com/api/applications/new" target="_blank">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
         $toReturn[] = $option;
 
 
@@ -94,7 +94,7 @@ class tubepress_addons_vimeo_impl_options_VimeoOptionsProvider implements tubepr
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
-        $option->setDefaultValue('cats playing piano');
+        $option->setDefaultValue('glacier national park');
         $option->setLabel('Vimeo search for');                   //>(translatable)<
         $toReturn[] = $option;
 

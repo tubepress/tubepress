@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -37,7 +37,7 @@ class tubepress_test_impl_boot_DefaultBootConfigServiceTest extends tubepress_te
 
     public function testInvalidElement()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/boot-configs/one');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultbootconfigservice/boot-configs/one');
 
         $this->setExpectedException('InvalidArgumentException', 'Invalid boot config element: xyz');
 
@@ -46,7 +46,7 @@ class tubepress_test_impl_boot_DefaultBootConfigServiceTest extends tubepress_te
 
     public function testCacheKiller()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/boot-configs/one');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultbootconfigservice/boot-configs/one');
 
         $this->assertFalse($this->_sut->isCacheKillerTurnedOn());
 
@@ -57,21 +57,21 @@ class tubepress_test_impl_boot_DefaultBootConfigServiceTest extends tubepress_te
 
     public function testMissing()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/boot-configs/three');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultbootconfigservice/boot-configs/three');
 
         $this->assertDefaults();
     }
 
     public function testBad()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/boot-configs/two');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultbootconfigservice/boot-configs/two');
 
         $this->assertDefaults();
     }
 
     public function testNormal()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/boot-configs/one');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultbootconfigservice/boot-configs/one');
 
         $result = $this->_sut->getAbsolutePathToCacheFileForElement('add-ons');
         $this->assertEquals('/foo/serialized-addons.txt', $result);

@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,7 +16,7 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
 {
     public function getJqueryScriptTag()
     {
-        $jQueryUrl      = $this->_getRelativeUrl('/src/main/web/vendor/jquery-1.9.1.min.js');
+        $jQueryUrl      = $this->_getRelativeUrl('/src/main/web/vendor/jquery/jquery.min.js');
         $finalJQueryUrl = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_SCRIPT_URL_JQUERY, $jQueryUrl);
 
         return $this->_getRealScriptTag($finalJQueryUrl);

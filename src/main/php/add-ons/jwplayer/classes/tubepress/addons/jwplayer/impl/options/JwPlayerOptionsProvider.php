@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -28,28 +28,28 @@ class tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider implements 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK);
         $option->setDefaultValue('FFFFFF');
         $option->setLabel('Background color');                         //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is FFFFFF');                  //>(translatable)<
+        $option->setDescription(sprintf('Default is %s', "FFFFFF"));   //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT);
         $option->setDefaultValue('000000');
         $option->setLabel('Front color');                              //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is 000000');                  //>(translatable)<
+        $option->setDescription(sprintf('Default is %s', "000000"));   //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT);
         $option->setDefaultValue('000000');
         $option->setLabel('Light color');                              //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is 000000');                  //>(translatable)<
+        $option->setDescription(sprintf('Default is %s', "000000"));   //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN);
         $option->setDefaultValue('000000');
         $option->setLabel('Screen color');                             //>(translatable)<                                                                                                                                                                                                                                 //>(translatable)<
-        $option->setDescription('Default is 000000');                  //>(translatable)<
+        $option->setDescription(sprintf('Default is %s', "000000"));   //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $toReturn[] = $option;
 

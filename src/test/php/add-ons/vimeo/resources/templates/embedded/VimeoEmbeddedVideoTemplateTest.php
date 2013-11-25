@@ -1,14 +1,14 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_vimeo_resources_templates_embedded_VimeoEmbeddedVideoTemplateTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_vimeo_resources_templates_embedded_VimeoEmbeddedVideoTemplateTest extends tubepress_test_TubePressUnitTest
 {
     public function testTemplate()
     {

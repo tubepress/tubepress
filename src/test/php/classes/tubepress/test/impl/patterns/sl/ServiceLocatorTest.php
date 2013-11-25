@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -55,7 +55,6 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             tubepress_spi_http_ResponseCodeHandler::_,
             tubepress_spi_options_OptionDescriptorReference::_,
             tubepress_spi_options_OptionValidator::_,
-            tubepress_spi_options_ui_FieldBuilder::_,
             tubepress_spi_player_PlayerHtmlGenerator::_,
             tubepress_spi_querystring_QueryStringService::_,
             tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
@@ -87,7 +86,6 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             'HttpResponseCodeHandler',
             'OptionDescriptorReference',
             'OptionValidator',
-            'OptionsUiFieldBuilder',
             'PlayerHtmlGenerator',
             'QueryStringService',
             'ShortcodeHtmlGenerator',

@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,17 +23,8 @@ class tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderServic
 
     private static $_sources = array(
 
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
         tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
         tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
-        tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
         tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
         tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
         tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,

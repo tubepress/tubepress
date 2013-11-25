@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -112,8 +112,10 @@ class tubepress_addons_wordpress_impl_DefaultWidgetHandler implements tubepress_
 
             self::_verifyNonce();
 
-            $wpsm->set(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
-            $wpsm->set(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
+            $wpsm->queueForSave(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
+            $wpsm->queueForSave(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
+
+            $wpsm->flushSaveQueue();
         }
 
         /* load up the gallery template */
@@ -121,10 +123,10 @@ class tubepress_addons_wordpress_impl_DefaultWidgetHandler implements tubepress_
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */
-        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
+        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
         $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $msg->_('Title'));                                                                                                            //>(translatable)<
-        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_('TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.')); //>(translatable)<
-        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
+        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_('TubePress shortcode for the widget. See the <a href="http://tubepress.com/documentation" target="_blank">documentation</a>.')); //>(translatable)<
+        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
         $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 
         /* get the template's output */

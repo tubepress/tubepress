@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "80d23c583d92483e367b3cf97e079e59",
+    "hash": "2f00a300a0b9397d92d49e1c7e5e54aa",
     "packages": [
         {
             "name": "ehough/chaingang",
@@ -45,6 +45,49 @@
             "description": "Chain-of-Responsibility / Chain-of-Command pattern in PHP.",
             "homepage": "https://github.com/ehough/chaingang",
             "time": "2013-03-28 18:28:21"
+        },
+        {
+            "name": "ehough/coauthor",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/coauthor.git",
+                "reference": "69d0859b809761fe1734b9c08069a3cf16b61dac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ehough/coauthor/zipball/69d0859b809761fe1734b9c08069a3cf16b61dac",
+                "reference": "69d0859b809761fe1734b9c08069a3cf16b61dac",
+                "shasum": ""
+            },
+            "require": {
+                "ehough/shortstop": "~2.0.0",
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "ehough/mockery": "~0.8",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_coauthor": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "OAuth client backed by ehough/shortstop",
+            "homepage": "https://github.com/ehough/coauthor",
+            "time": "2013-08-27 20:35:58"
         },
         {
             "name": "ehough/contemplate",
@@ -127,16 +170,16 @@
         },
         {
             "name": "ehough/epilog",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/epilog.git",
-                "reference": "1.5.0"
+                "reference": "1.6.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/epilog/zipball/1.5.0",
-                "reference": "1.5.0",
+                "url": "https://api.github.com/repos/ehough/epilog/zipball/1.6.0",
+                "reference": "1.6.0",
                 "shasum": ""
             },
             "require": {
@@ -144,8 +187,10 @@
             },
             "require-dev": {
                 "doctrine/couchdb": "dev-master",
+                "ehough/pulsar": "~2.3",
                 "mlehner/gelf-php": "1.0.*",
-                "raven/raven": "0.3.*"
+                "phpunit/phpunit": "3.7.*",
+                "raven/raven": "0.5.*"
             },
             "type": "library",
             "autoload": {
@@ -166,20 +211,20 @@
             ],
             "description": "Fork of seldaek/monolog compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/epilog",
-            "time": "2013-04-24 02:38:41"
+            "time": "2013-08-18 22:31:34"
         },
         {
             "name": "ehough/filesystem",
-            "version": "1.0.1",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "1.0.1"
+                "reference": "78e8fcb7232ceffb5507430f03a502d60d7345d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/1.0.1",
-                "reference": "1.0.1",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/78e8fcb7232ceffb5507430f03a502d60d7345d0",
+                "reference": "78e8fcb7232ceffb5507430f03a502d60d7345d0",
                 "shasum": ""
             },
             "require": {
@@ -209,24 +254,24 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2013-05-19 17:50:31"
+            "time": "2013-08-19 00:39:46"
         },
         {
             "name": "ehough/finder",
-            "version": "v2.3.1",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/finder.git",
-                "reference": "v2.3.1"
+                "reference": "v2.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/v2.3.1",
-                "reference": "v2.3.1",
+                "url": "https://api.github.com/repos/ehough/finder/zipball/v2.3.3",
+                "reference": "v2.3.3",
                 "shasum": ""
             },
             "require": {
-                "ehough/filesystem": "~1.0.0",
+                "ehough/filesystem": "~2.0",
                 "php": ">=5.2"
             },
             "require-dev": {
@@ -250,20 +295,20 @@
                 }
             ],
             "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2013-07-16 17:06:53"
+            "time": "2013-08-19 00:33:33"
         },
         {
             "name": "ehough/iconic",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/iconic.git",
-                "reference": "v2.3.2"
+                "reference": "v2.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/v2.3.3",
+                "reference": "v2.3.3",
                 "shasum": ""
             },
             "require": {
@@ -298,20 +343,20 @@
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2013-07-17 20:23:31"
+            "time": "2013-08-19 00:25:21"
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "v2.3.2"
+                "reference": "268659204ab103517068d2ecbd2441f0840bdc62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/268659204ab103517068d2ecbd2441f0840bdc62",
+                "reference": "268659204ab103517068d2ecbd2441f0840bdc62",
                 "shasum": ""
             },
             "require": {
@@ -345,7 +390,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2013-07-17 20:01:04"
+            "time": "2013-08-18 23:48:22"
         },
         {
             "name": "ehough/shortstop",
@@ -485,7 +530,7 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2013-07-17 20:32:08"
+            "time": "2013-07-30 04:59:25"
         }
     ],
     "packages-dev": [
@@ -696,16 +741,16 @@
         },
         {
             "name": "phpunit/php-timer",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
-                "url": "git://github.com/sebastianbergmann/php-timer.git",
-                "reference": "1.0.4"
+                "url": "https://github.com/sebastianbergmann/php-timer.git",
+                "reference": "1.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sebastianbergmann/php-timer/zipball/1.0.4",
-                "reference": "1.0.4",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/1.0.5",
+                "reference": "1.0.5",
                 "shasum": ""
             },
             "require": {
@@ -732,24 +777,24 @@
                 }
             ],
             "description": "Utility class for timing",
-            "homepage": "http://www.phpunit.de/",
+            "homepage": "https://github.com/sebastianbergmann/php-timer/",
             "keywords": [
                 "timer"
             ],
-            "time": "2012-10-11 04:45:58"
+            "time": "2013-08-02 07:42:54"
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.1.7",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "1.1.7"
+                "reference": "1.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/1.1.7",
-                "reference": "1.1.7",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/1.2.0",
+                "reference": "1.2.0",
                 "shasum": ""
             },
             "require": {
@@ -757,6 +802,11 @@
                 "php": ">=5.3.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "PHP/"
@@ -781,20 +831,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-07-29 14:27:06"
+            "time": "2013-08-04 05:57:48"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.22",
+            "version": "3.7.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3.7.22"
+                "reference": "3.7.24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3.7.22",
-                "reference": "3.7.22",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3.7.24",
+                "reference": "3.7.24",
                 "shasum": ""
             },
             "require": {
@@ -806,7 +856,7 @@
                 "phpunit/php-code-coverage": "~1.2.1",
                 "phpunit/php-file-iterator": ">=1.3.1",
                 "phpunit/php-text-template": ">=1.1.1",
-                "phpunit/php-timer": "~1.0.2",
+                "phpunit/php-timer": ">=1.0.4",
                 "phpunit/phpunit-mock-objects": "~1.2.0",
                 "symfony/yaml": "~2.0"
             },
@@ -855,7 +905,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-07-06 06:29:15"
+            "time": "2013-08-09 06:58:24"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -908,17 +958,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.3.2",
+            "version": "v2.3.4",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.3.2"
+                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
+                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
                 "shasum": ""
             },
             "require": {
@@ -951,7 +1001,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-11 19:36:36"
+            "time": "2013-08-24 15:26:22"
         }
     ],
     "aliases": [

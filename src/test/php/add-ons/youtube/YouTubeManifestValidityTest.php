@@ -1,8 +1,8 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.org)
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
  *
- * This file is part of TubePress (http://tubepress.org)
+ * This file is part of TubePress (http://tubepress.com)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,7 +11,7 @@
 class_exists('tubepress_test_impl_addon_AbstractManifestValidityTest') ||
     require dirname(__FILE__) . '/../../classes/tubepress/test/impl/addon/AbstractManifestValidityTest.php';
 
-class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
+class tubepress_test_addons_core_YouTubeManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
 {
     public function testManifest()
     {
@@ -23,7 +23,7 @@ class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_test_i
         $this->assertEquals('tubepress-youtube-addon', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('YouTube', $addon->getTitle());
-        $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.org'), $addon->getAuthor());
+        $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress work with YouTube', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_youtube' => TUBEPRESS_ROOT . '/src/main/php/add-ons/youtube/classes'), $addon->getPsr0ClassPathRoots());
@@ -46,7 +46,6 @@ class tubepress_addons_core_YouTubeManifestValidityTest extends tubepress_test_i
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover' => 'classes/tubepress/addons/youtube/impl/listeners/options/YouTubePlaylistPlPrefixRemover.php',
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener' => 'classes/tubepress/addons/youtube/impl/listeners/video/YouTubeVideoConstructionListener.php',
             'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider' => 'classes/tubepress/addons/youtube/impl/options/YouTubeOptionsProvider.php',
-            'tubepress_addons_youtube_impl_options_ui_YouTubeOptionsPageParticipant' => 'classes/tubepress/addons/youtube/impl/options/ui/YouTubeOptionsPageParticipant.php',
             'tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension' => 'classes/tubepress/addons/youtube/impl/ioc/YouTubeIocContainerExtension.php',
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService' => 'classes/tubepress/addons/youtube/impl/provider/YouTubePluggableVideoProviderService.php',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder' => 'classes/tubepress/addons/youtube/impl/provider/YouTubeUrlBuilder.php'
