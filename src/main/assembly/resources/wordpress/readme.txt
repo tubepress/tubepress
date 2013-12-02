@@ -29,6 +29,12 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 3.1.3 =
+* Bug Fixes
+    * Fixed regression bug with auto-next playback
+* Changed
+    * YouTube <iframe>'s are now always loaded via HTTPS
+
 = 3.1.2 =
 * New Features
     * Refreshed design of WordPress settings page
