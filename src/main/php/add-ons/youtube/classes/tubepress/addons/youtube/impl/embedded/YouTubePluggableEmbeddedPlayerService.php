@@ -39,9 +39,9 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
      */
     public final function getDataUrlForVideo($videoId)
     {
-        $link  = new ehough_curly_Url('http://www.youtube.com/embed/' . $videoId);
-
         $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $link    = new ehough_curly_Url('https://www.youtube.com/embed/' . $videoId);
+
 
         $autoPlay        = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $loop            = $context->get(tubepress_api_const_options_names_Embedded::LOOP);
