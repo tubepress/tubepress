@@ -59,13 +59,17 @@ interface tubepress_spi_environment_EnvironmentDetector
      */
     function setBaseUrl($url);
 
-//    /**
-//     * Find the absolute path of the boot cache directory. This directory will contains two files:
-//     *
-//     *  1. bootCache.php (the dumped service container)
-//     *  2. addons.php (a cached representation of the addons for TubePress)
-//     *
-//     * @return string The absolute path of the boot cache directory.
-//     */
-//    function getBootcacheDirectory();
+    /**
+     * @return string The user content URL.
+     */
+    function getUserContentUrl();
+
+    /**
+     * Set the user content URL.
+     *
+     * @param mixed $url The user content URL.
+     *
+     * @return void
+     */
+    function setUserContentUrl($url);
 }
