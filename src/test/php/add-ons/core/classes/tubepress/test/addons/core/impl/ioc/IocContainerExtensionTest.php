@@ -19,6 +19,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_ajaxHandler();
         $this->_cacheService();
         $this->_cssAndJs();
+        $this->_cssAndJsRegistry();
         $this->_embeddedGenerator();
         $this->_executionContext();
         $this->_feedFetcher();
@@ -101,6 +102,9 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             'tubepress_addons_core_impl_listeners_html_JsConfig' =>
                 array('event' => tubepress_api_const_event_EventNames::HTML_SCRIPTS_PRE, 'method' => 'onPreScriptsHtml', 'priority' => 10000),
+
+            'tubepress_addons_core_impl_listeners_html_PreCssHtmlListener' =>
+                array('event' => tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, 'method' => 'onBeforeCssHtml', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener' =>
                 array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000)
@@ -612,7 +616,16 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
     private function _cssAndJs()
     {
-        $this->expectRegistration(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_, 'tubepress_impl_html_DefaultCssAndJsGenerator');
+        $this->expectRegistration(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_, 'tubepress_impl_html_CssAndJsHtmlGenerator');
+    }
+
+    private function _cssAndJsRegistry()
+    {
+        $this->expectRegistration(
+
+            tubepress_spi_html_CssAndJsRegistryInterface::_,
+            'tubepress_impl_html_CssAndJsRegistry'
+        );
     }
 
     private function _ajaxHandler()

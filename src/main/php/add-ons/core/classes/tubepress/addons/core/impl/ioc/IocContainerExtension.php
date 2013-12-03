@@ -32,6 +32,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerAjaxHandler($container);
         $this->_registerCacheService($container);
         $this->_registerCssAndJsGenerator($container);
+        $this->_registerCssAndJsRegistry($container);
         $this->_registerEmbeddedHtmlGenerator($container);
         $this->_registerExecutionContext($container);
         $this->_registerFeedFetcher($container);
@@ -101,12 +102,21 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         )->addArgument(new tubepress_impl_ioc_Reference($actualPoolServiceId));
     }
 
+    private function _registerCssAndJsRegistry(tubepress_api_ioc_ContainerInterface $container)
+    {
+        $container->register(
+
+            tubepress_spi_html_CssAndJsRegistryInterface::_,
+            'tubepress_impl_html_CssAndJsRegistry'
+        );
+    }
+
     private function _registerCssAndJsGenerator(tubepress_api_ioc_ContainerInterface $container)
     {
         $container->register(
 
             tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_,
-            'tubepress_impl_html_DefaultCssAndJsGenerator'
+            'tubepress_impl_html_CssAndJsHtmlGenerator'
         );
     }
 
@@ -617,6 +627,9 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'tubepress_addons_core_impl_listeners_html_JsConfig' =>
                 array('event' => tubepress_api_const_event_EventNames::HTML_SCRIPTS_PRE, 'method' => 'onPreScriptsHtml', 'priority' => 10000),
+
+            'tubepress_addons_core_impl_listeners_html_PreCssHtmlListener' =>
+                array('event' => tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, 'method' => 'onBeforeCssHtml', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener' =>
                 array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000)
