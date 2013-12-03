@@ -77,11 +77,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_CssRegistryInterface The CSS registry.
+     * @return tubepress_spi_html_CssAndJsRegistryInterface The CSS registry.
      */
-    public static function getCssRegistry()
+    public static function getCssAndJsRegistry()
     {
-        return self::getService(tubepress_spi_html_CssRegistryInterface::_);
+        return self::getService(tubepress_spi_html_CssAndJsRegistryInterface::_);
     }
 
     /**

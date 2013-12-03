@@ -12,9 +12,9 @@
 /**
  * Collects CSS files to be loaded.
  */
-interface tubepress_spi_html_CssRegistryInterface
+interface tubepress_spi_html_CssAndJsRegistryInterface
 {
-    const _ = 'tubepress_spi_html_CssRegistryInterface';
+    const _ = 'tubepress_spi_html_CssAndJsRegistryInterface';
 
     /**
      * Enqueue a CSS file for TubePress to display.
@@ -50,4 +50,38 @@ interface tubepress_spi_html_CssRegistryInterface
      *                    "url", "dependencies", and "media".
      */
     function getStyle($handle);
+
+    /**
+     * Enqueue a JS file for TubePress to display.
+     *
+     * @param string $handle The unique handle for this script.
+     * @param string $url    The absolute URL to the script.
+     * @param array  $deps   (Optional). Array of dependencies, specified by script handles.
+     *
+     * @return bool True if script successfully registered, false otherwise.
+     */
+    function enqueueScript($handle, $url, array $deps = array());
+
+    /**
+     * Dequeue a JS file for TubePress to display.
+     *
+     * @param string $handle The unique handle for the script.
+     *
+     * @return bool True if script successfully deregistered. False if no matching handle.
+     */
+    function dequeueScript($handle);
+
+    /**
+     * @return array An array of all registered script handles. May be empty, never null. Handles are given in order
+     *               of correct dependency. i.e. JS files with no dependencies are loaded first.
+     */
+    function getScriptHandlesForDisplay();
+
+    /**
+     * @param string $handle The unique handle for the script.
+     *
+     * @return array|null Null if no script registered with that handle. Otherwise an associative array with keys
+     *                    "url", "dependencies", and "media".
+     */
+    function getScript($handle);
 }

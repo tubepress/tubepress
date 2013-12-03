@@ -12,9 +12,11 @@
 /**
  * Collects CSS files to be loaded.
  */
-class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryInterface
+class tubepress_impl_html_CssAndJsRegistry implements tubepress_spi_html_CssAndJsRegistryInterface
 {
     private $_styles = array();
+
+    private $_scripts = array();
 
     private $_isDebugLoggingEnabled = false;
 
@@ -26,7 +28,12 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
     /**
      * @var null|array
      */
-    private $_handleCache;
+    private $_styleHandleCache;
+
+    /**
+     * @var null|array
+     */
+    private $_scriptHandleCache;
 
     /**
      * Enqueue a CSS file for TubePress to display.
@@ -42,7 +49,12 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
     {
         $this->_initLogging();
 
-        if (!$this->_checkStyle($handle, $url, $deps, $media)) {
+        if (!$this->_checkHandleAndUrl($handle, $url, 'CSS')) {
+
+            return false;
+        }
+
+        if (!$this->_isNonEmptyString($media, 'media')) {
 
             return false;
         }
@@ -54,7 +66,7 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
             'media'        => $media
         );
 
-        unset($this->_handleCache);
+        unset($this->_styleHandleCache);
 
         return true;
     }
@@ -76,7 +88,7 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
         }
 
         unset($this->_styles[$handle]);
-        unset($this->_handleCache);
+        unset($this->_styleHandleCache);
 
         return true;
     }
@@ -89,12 +101,12 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
     {
         $this->_initLogging();
 
-        if (!isset($this->_handleCache)) {
+        if (!isset($this->_styleHandleCache)) {
 
-            $this->_handleCache = $this->_calculateHandlesForDisplay();
+            $this->_styleHandleCache = $this->_calculateHandlesForDisplay($this->_styles);
         }
 
-        return $this->_handleCache;
+        return $this->_styleHandleCache;
     }
 
     /**
@@ -113,19 +125,97 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
         return $this->_styles[$handle];
     }
 
-    private function _checkStyle($handle, $url, $deps, $media)
+    /**
+     * Enqueue a JS file for TubePress to display.
+     *
+     * @param string $handle The unique handle for this script.
+     * @param string $url    The absolute URL to the script.
+     * @param array  $deps   (Optional). Array of dependencies, specified by script handles.
+     *
+     * @return bool True if script successfully registered, false otherwise.
+     */
+    public function enqueueScript($handle, $url, array $deps = array())
     {
-        if (!$this->_isNonEmptyString($handle, 'handle')) {
+        $this->_initLogging();
+
+        if (!$this->_checkHandleAndUrl($handle, $url, 'JS')) {
 
             return false;
         }
 
-        if (!$this->_isNonEmptyString($url, 'url')) {
+        $this->_scripts[(string) $handle] = array(
+
+            'url'          => $url,
+            'dependencies' => $deps,
+        );
+
+        unset($this->_scriptHandleCache);
+
+        return true;
+    }
+
+    /**
+     * Dequeue a JS file for TubePress to display.
+     *
+     * @param string $handle The unique handle for the script.
+     *
+     * @return bool True if script successfully deregistered. False if no matching handle.
+     */
+    public function dequeueScript($handle)
+    {
+        $this->_initLogging();
+
+        if (!isset($this->_scripts[$handle])) {
 
             return false;
         }
 
-        if (!$this->_isNonEmptyString($media, 'media')) {
+        unset($this->_scripts[$handle]);
+        unset($this->_scriptHandleCache);
+
+        return true;
+    }
+
+    /**
+     * @return array An array of all registered script handles. May be empty, never null. Handles are given in order
+     *               of correct dependency. i.e. JS files with no dependencies are loaded first.
+     */
+    public function getScriptHandlesForDisplay()
+    {
+        $this->_initLogging();
+
+        if (!isset($this->_scriptHandleCache)) {
+
+            $this->_scriptHandleCache = $this->_calculateHandlesForDisplay($this->_scripts);
+        }
+
+        return $this->_scriptHandleCache;
+    }
+
+    /**
+     * @param string $handle The unique handle for the script.
+     *
+     * @return array|null Null if no script registered with that handle. Otherwise an associative array with keys
+     *                    "url", "dependencies", and "media".
+     */
+    public function getScript($handle)
+    {
+        if (!isset($this->_scripts[$handle])) {
+
+            return null;
+        }
+
+        return $this->_scripts[$handle];
+    }
+
+    private function _checkHandleAndUrl($handle, $url, $name)
+    {
+        if (!$this->_isNonEmptyString($handle, $name . ' handle')) {
+
+            return false;
+        }
+
+        if (!$this->_isNonEmptyString($url, $name . ' URL')) {
 
             return false;
         }
@@ -138,7 +228,7 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
 
             if ($this->_isDebugLoggingEnabled) {
 
-                $this->_logger->warning('Invalid URL supplied for CSS handle ' . $handle);
+                $this->_logger->warning(sprintf('Invalid URL supplied for %s handle %s', $name, $handle));
             }
 
             return false;
@@ -146,7 +236,7 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
 
         if ($this->_isDebugLoggingEnabled) {
 
-            $this->_logger->debug(sprintf('%s accepted as a CSS file with URL %s', $handle, $url));
+            $this->_logger->debug(sprintf('%s accepted as a $s file with URL %s', $handle, $name, $url));
         }
 
         return true;
@@ -158,7 +248,7 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
 
             if ($this->_isDebugLoggingEnabled) {
 
-                $this->_logger->warning("CSS $name must be a string");
+                $this->_logger->warning("$name must be a string");
 
                 return false;
             }
@@ -168,7 +258,7 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
 
             if ($this->_isDebugLoggingEnabled) {
 
-                $this->_logger->warning("CSS $name must be a non-empty string");
+                $this->_logger->warning("$name must be a non-empty string");
 
                 return false;
             }
@@ -184,14 +274,14 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
             return;
         }
 
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('CSS Registry');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('CSS and JS Registry');
 
         $this->_isDebugLoggingEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
     }
 
-    private function _calculateHandlesForDisplay()
+    private function _calculateHandlesForDisplay(array $arr)
     {
-        $handles     = array_keys($this->_styles);
+        $handles     = array_keys($arr);
         $handleCount = count($handles);
 
         /**
@@ -199,17 +289,17 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
          */
         for ($x = 0; $x < $handleCount; $x++) {
 
-            $style = $this->_styles[$handles[$x]];
+            $file = $arr[$handles[$x]];
 
-            if (empty($style['dependencies'])) {
+            if (empty($file['dependencies'])) {
 
                 //no deps
                 continue;
             }
 
-            foreach ($style['dependencies'] as $styleDep) {
+            foreach ($file['dependencies'] as $dep) {
 
-                if (array_search($styleDep, $handles) === false) {
+                if (array_search($dep, $handles) === false) {
 
                     //missing dependency, start over
                     unset($handles[$x]);
@@ -220,20 +310,20 @@ class tubepress_impl_html_CssRegistry implements tubepress_spi_html_CssRegistryI
             }
         }
 
-        $edges = $this->_buildEdgeMap($handles);
+        $edges = $this->_buildEdgeMap($handles, $arr);
 
         $sorted = tubepress_impl_patterns_toposort_TopologicalSort::sort($handles, $edges);
 
         return array_reverse($sorted);
     }
 
-    private function _buildEdgeMap($handles)
+    private function _buildEdgeMap($handles, array $arr)
     {
         $edges = array();
 
         foreach ($handles as $handle) {
 
-            $info     = $this->_styles[$handle];
+            $info     = $arr[$handle];
             $nodeDeps = $info['dependencies'];
 
             foreach ($nodeDeps as $nodeDep) {

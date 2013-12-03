@@ -16,15 +16,13 @@ interface tubepress_spi_html_CssAndJsGenerator
 {
     const _ = 'tubepress_spi_html_CssAndJsGenerator';
 
-    function getJqueryScriptTag();
+    /**
+     * @return string The HTML that should be displayed in the HTML <head>.
+     */
+    function getHtmlForHead();
 
-    function getTubePressScriptTag();
-
-    function getTubePressCssTag();
-
-    function getMetaTags();
-
-    function getInlineCss();
-
-    function getInlineJs();
+    /**
+     * @return string The HTML that should be displayed in the HTML footer (just before </html>)
+     */
+    function getHtmlForFooter();
 }

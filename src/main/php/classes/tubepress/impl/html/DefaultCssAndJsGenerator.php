@@ -79,4 +79,20 @@ class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html
 
         return new ehough_curly_Url($baseUrl . $url);
     }
+
+    /**
+     * @return string The HTML that should be displayed in the HTML <head>.
+     */
+    function getHtmlForHead()
+    {
+        // TODO: Implement getHtmlForHead() method.
+    }
+
+    /**
+     * @return string The HTML that should be displayed in the HTML footer (just before </html>)
+     */
+    function getHtmlForFooter()
+    {
+        // TODO: Implement getHtmlForFooter() method.
+    }
 }
