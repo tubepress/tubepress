@@ -38,6 +38,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
     {
         return array(
 
+            tubepress_spi_html_CssRegistryInterface::_,
             tubepress_spi_boot_AddonDiscoverer::_,
             tubepress_spi_boot_AddonBooter::_,
             tubepress_spi_http_AjaxHandler::_,
@@ -69,6 +70,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
     {
         return array(
 
+            'CssRegistry',
             'BootHelperAddonDiscoverer',
             'BootHelperAddonBooter',
             'AjaxHandler',
