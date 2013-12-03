@@ -45,8 +45,6 @@ class tubepress_test_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTes
 
     public function testAlter()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
-
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(999);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(888);
@@ -72,7 +70,7 @@ class tubepress_test_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTes
 
         $mockPlayer = ehough_mockery_Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayer->shouldReceive('getName')->andReturn('player-loc');
-        $mockPlayer->shouldReceive('getRelativePlayerJsUrl')->andReturn('abc');
+        $mockPlayer->shouldReceive('getPlayerJsUrl')->andReturn('/abc/');
         $mockPlayer->shouldReceive('producesHtml')->once()->andReturn(true);
         $this->_sut->setPluggablePlayerLocations(array($mockPlayer));
 
@@ -95,7 +93,7 @@ class tubepress_test_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTes
 
             'jsMap' => array(
 
-                'playerLocationJsUrl' => '<tubepress_base_url>/abc',
+                'playerLocationJsUrl' => 'abc',
                 'playerLocationProducesHtml' => true,
                 'ajaxPagination' => true,
                 'fluidThumbs' => false,
