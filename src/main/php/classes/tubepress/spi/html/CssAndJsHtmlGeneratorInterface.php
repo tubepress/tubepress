@@ -12,17 +12,17 @@
 /**
  * Generates HTML for use in the <head>.
  */
-interface tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface
+interface tubepress_spi_html_CssAndJsHtmlGeneratorInterface
 {
-    const _ = 'tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface';
+    const _ = 'tubepress_spi_html_CssAndJsHtmlGeneratorInterface';
 
     /**
      * @return string The HTML that should be displayed in the HTML <head>.
      */
-    function getHtmlForHead();
+    function getCssHtml();
 
     /**
      * @return string The HTML that should be displayed in the HTML footer (just before </html>)
      */
-    function getHtmlForFooter();
+    function getJsHtml();
 }

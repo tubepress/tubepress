@@ -81,7 +81,7 @@ interface tubepress_spi_html_CssAndJsRegistryInterface
      * @param string $handle The unique handle for the script.
      *
      * @return array|null Null if no script registered with that handle. Otherwise an associative array with keys
-     *                    "url", "dependencies", and "media".
+     *                    "url", "dependencies".
      */
     function getScript($handle);
 }

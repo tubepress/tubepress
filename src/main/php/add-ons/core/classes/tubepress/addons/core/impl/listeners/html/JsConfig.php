@@ -14,7 +14,7 @@
  */
 class tubepress_addons_core_impl_listeners_html_JsConfig
 {
-    public function onInlineJs(tubepress_api_event_EventInterface $event)
+    public function onPreScriptsHtml(tubepress_api_event_EventInterface $event)
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 

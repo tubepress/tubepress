@@ -141,11 +141,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface The head HTML generator.
+     * @return tubepress_spi_html_CssAndJsHtmlGeneratorInterface The head HTML generator.
      */
-    public static function getHeaderAndFooterHtmlGenerator()
+    public static function getCssAndJsHtmlGenerator()
     {
-        return self::getService(tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface::_);
+        return self::getService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
     }
 
     /**

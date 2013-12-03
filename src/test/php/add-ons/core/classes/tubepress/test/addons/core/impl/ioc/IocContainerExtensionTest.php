@@ -100,7 +100,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
                 array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage', 'priority' => 10300),
 
             'tubepress_addons_core_impl_listeners_html_JsConfig' =>
-                array('event' => tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, 'method' => 'onInlineJs', 'priority' => 10000),
+                array('event' => tubepress_api_const_event_EventNames::HTML_SCRIPTS_PRE, 'method' => 'onPreScriptsHtml', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener' =>
                 array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000)
@@ -612,7 +612,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
     private function _cssAndJs()
     {
-        $this->expectRegistration(tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface::_, 'tubepress_impl_html_DefaultCssAndJsGenerator');
+        $this->expectRegistration(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_, 'tubepress_impl_html_DefaultCssAndJsGenerator');
     }
 
     private function _ajaxHandler()

@@ -105,7 +105,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $container->register(
 
-            tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface::_,
+            tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_,
             'tubepress_impl_html_DefaultCssAndJsGenerator'
         );
     }
@@ -616,7 +616,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
                 array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage', 'priority' => 10300),
 
             'tubepress_addons_core_impl_listeners_html_JsConfig' =>
-                array('event' => tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, 'method' => 'onInlineJs', 'priority' => 10000),
+                array('event' => tubepress_api_const_event_EventNames::HTML_SCRIPTS_PRE, 'method' => 'onPreScriptsHtml', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener' =>
                 array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000)

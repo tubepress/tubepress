@@ -26,10 +26,11 @@ class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector implements
             return;
         }
 
-        $hh  = tubepress_impl_patterns_sl_ServiceLocator::getHeaderAndFooterHtmlGenerator();
+        $hh = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsHtmlGenerator();
 
         /* this inline JS helps initialize TubePress */
-        print $hh->getHtmlForHead();
+        print $hh->getCssHtml();
+        print $hh->getJsHtml();
     }
 
     /**

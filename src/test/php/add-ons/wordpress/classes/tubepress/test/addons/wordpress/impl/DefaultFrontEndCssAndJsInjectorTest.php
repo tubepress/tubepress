@@ -39,7 +39,7 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector();
 
         $this->_mockWpFunctionWrapper   = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface::_);
+        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
     }
 
@@ -47,7 +47,8 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
     {
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
 
-        $this->_mockHeadHtmlGenerator->shouldReceive('getHtmlForHead')->once()->andReturn('inline js');
+        $this->_mockHeadHtmlGenerator->shouldReceive('getJsHtml')->once()->andReturn('inline js');
+        $this->_mockHeadHtmlGenerator->shouldReceive('getCssHtml')->once()->andReturn('inline css');
 
         ob_start();
 
@@ -56,7 +57,7 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
         $contents = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals('inline js', $contents);
+        $this->assertEquals('inline cssinline js', $contents);
     }
 
     public function testInitAction()
