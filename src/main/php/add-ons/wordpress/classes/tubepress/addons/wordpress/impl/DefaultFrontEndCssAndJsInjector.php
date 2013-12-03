@@ -26,18 +26,10 @@ class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector implements
             return;
         }
 
-        $hh  = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsGenerator();
+        $hh  = tubepress_impl_patterns_sl_ServiceLocator::getHeaderAndFooterHtmlGenerator();
 
         /* this inline JS helps initialize TubePress */
-        $inlineJs = $hh->getInlineJs();
-
-        /* this meta stuff prevents search engines from indexing gallery pages > 1 */
-        $meta = $hh->getMetaTags();
-
-        print <<<EOT
-$inlineJs
-$meta
-EOT;
+        print $hh->getHtmlForHead();
     }
 
     /**

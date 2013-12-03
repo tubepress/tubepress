@@ -8,10 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_html_HeaderAndFooterHtmlGeneratorTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_html_DefaultCssAndJsGenerator
+     * @var tubepress_impl_html_HeaderAndFooterHtmlGenerator
      */
     private $_sut;
 
@@ -36,7 +36,7 @@ class tubepress_test_impl_html_DefaultCssAndJsGeneratorTest extends tubepress_te
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $this->_sut = new tubepress_impl_html_DefaultCssAndJsGenerator();
+        $this->_sut = new tubepress_impl_html_HeaderAndFooterHtmlGenerator();
     }
 
     public function testJqueryInclude()

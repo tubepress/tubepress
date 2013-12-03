@@ -105,7 +105,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $container->register(
 
-            tubepress_spi_html_CssAndJsGenerator::_,
+            tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface::_,
             'tubepress_impl_html_DefaultCssAndJsGenerator'
         );
     }

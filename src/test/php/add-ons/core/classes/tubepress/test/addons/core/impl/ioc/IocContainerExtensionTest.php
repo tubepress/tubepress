@@ -612,7 +612,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
     private function _cssAndJs()
     {
-        $this->expectRegistration(tubepress_spi_html_CssAndJsGenerator::_, 'tubepress_impl_html_DefaultCssAndJsGenerator');
+        $this->expectRegistration(tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface::_, 'tubepress_impl_html_DefaultCssAndJsGenerator');
     }
 
     private function _ajaxHandler()

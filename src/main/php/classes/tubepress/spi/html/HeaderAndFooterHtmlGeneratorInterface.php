@@ -12,9 +12,9 @@
 /**
  * Generates HTML for use in the <head>.
  */
-interface tubepress_spi_html_CssAndJsGenerator
+interface tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface
 {
-    const _ = 'tubepress_spi_html_CssAndJsGenerator';
+    const _ = 'tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface';
 
     /**
      * @return string The HTML that should be displayed in the HTML <head>.

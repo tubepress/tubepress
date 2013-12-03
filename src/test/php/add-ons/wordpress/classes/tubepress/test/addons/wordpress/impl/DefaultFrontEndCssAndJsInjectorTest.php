@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector
+ */
 class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -15,6 +19,9 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
      */
     private $_mockWpFunctionWrapper;
 
+    /**
+     * @var tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector
+     */
     private $_sut;
 
     /**
@@ -32,7 +39,7 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector();
 
         $this->_mockWpFunctionWrapper   = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_CssAndJsGenerator::_);
+        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
     }
 
@@ -40,8 +47,7 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
     {
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
 
-        $this->_mockHeadHtmlGenerator->shouldReceive('getInlineJs')->once()->andReturn('inline js');
-        $this->_mockHeadHtmlGenerator->shouldReceive('getMetaTags')->once()->andReturn('html meta');
+        $this->_mockHeadHtmlGenerator->shouldReceive('getHtmlForHead')->once()->andReturn('inline js');
 
         ob_start();
 
@@ -50,8 +56,7 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
         $contents = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals('inline js
-html meta', $contents);
+        $this->assertEquals('inline js', $contents);
     }
 
     public function testInitAction()

@@ -12,7 +12,7 @@
 /**
  * Generates HTML for use in the <head>.
  */
-class tubepress_impl_html_DefaultCssAndJsGenerator implements tubepress_spi_html_CssAndJsGenerator
+class tubepress_impl_html_HeaderAndFooterHtmlGenerator implements tubepress_spi_html_HeaderAndFooterHtmlGeneratorInterface
 {
     public function getJqueryScriptTag()
     {
