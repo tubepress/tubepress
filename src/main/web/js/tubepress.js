@@ -195,6 +195,7 @@ var tubePressDomInjector,
         environment = (function () {
 
             var alreadyCalculatedBaseUrl = fawlse,
+                text_usr                 = 'usr',
                 cachedBaseUrl,
 
                 getBaseUrl = function () {
@@ -240,12 +241,23 @@ var tubePressDomInjector,
                     }
 
                     return getBaseUrl() + '/src/main/web/php/' + text_ajaxEndpoint + '.php';
+                },
+
+                getUserContentUrl = function () {
+
+                    if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_usr)) {
+
+                        return tubePressJsConfig[text_urls][text_usr];
+                    }
+
+                    return getBaseUrl() + '/' + text_tubepress + '-content';
                 };
 
             return {
 
                 getBaseUrl         : getBaseUrl,
-                getAjaxEndpointUrl : getAjaxEndpointUrl
+                getAjaxEndpointUrl : getAjaxEndpointUrl,
+                getUserContentUrl  : getUserContentUrl
             };
         }()),
 
@@ -308,7 +320,7 @@ var tubePressDomInjector,
                     return filesAlreadyLoaded[path] === troo;
                 },
 
-                convertToAbsoluteUrl = function (url) {
+                convertToAbsoluteUrl = function (url, isSystem) {
 
                     if (url.indexOf('http') === 0) {
 
@@ -316,7 +328,18 @@ var tubePressDomInjector,
                         return url;
                     }
 
-                    return environment.getBaseUrl() + '/' + langUtils.trimSlashes(url, true);
+                    var prefix;
+
+                    if (isSystem) {
+
+                        prefix = environment.getBaseUrl();
+
+                    } else {
+
+                        prefix = environment.getUserContentUrl();
+                    }
+
+                    return prefix + '/' + langUtils.trimSlashes(url, true);
                 },
 
                 doLog = function (path, type) {
@@ -354,9 +377,11 @@ var tubePressDomInjector,
                     appendToHead(fileref);
                 },
 
-                loadJs = function (path) {
+                loadJs = function (path, isSystem) {
 
-                    path = convertToAbsoluteUrl(path);
+                    isSystem = langUtils.isDefined(isSystem) ? isSystem : true;
+
+                    path = convertToAbsoluteUrl(path, isSystem);
 
                     if (alreadyLoaded(path)) {
 
