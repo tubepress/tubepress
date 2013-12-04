@@ -104,7 +104,10 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
                 array('event' => tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, 'method' => 'onBeforeCssHtml', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener' =>
-                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000)
+                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000),
+
+            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter' =>
+                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000),
         );
 
         foreach ($listeners as $className => $tagAttributes) {
