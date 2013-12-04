@@ -26,7 +26,14 @@ class tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector implements
             return;
         }
 
-        $hh = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsHtmlGenerator();
+        $hh            = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsHtmlGenerator();
+        $cssJsRegistry = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsRegistry();
+
+        /**
+         * These are taken care of by WP, instead.
+         */
+        $cssJsRegistry->dequeueStyle('tubepress');
+        $cssJsRegistry->dequeueScript('tubepress');
 
         /* this inline JS helps initialize TubePress */
         print $hh->getCssHtml();

@@ -34,6 +34,11 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
      */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockCssAndJsRegistry;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector();
@@ -41,6 +46,7 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
         $this->_mockWpFunctionWrapper   = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
         $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockCssAndJsRegistry    = $this->createMockSingletonService(tubepress_spi_html_CssAndJsRegistryInterface::_);
     }
 
     public function testHeadAction()
@@ -49,6 +55,9 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
 
         $this->_mockHeadHtmlGenerator->shouldReceive('getJsHtml')->once()->andReturn('inline js');
         $this->_mockHeadHtmlGenerator->shouldReceive('getCssHtml')->once()->andReturn('inline css');
+
+        $this->_mockCssAndJsRegistry->shouldReceive('dequeueScript')->once()->with('tubepress');
+        $this->_mockCssAndJsRegistry->shouldReceive('dequeueStyle')->once()->with('tubepress');
 
         ob_start();
 
