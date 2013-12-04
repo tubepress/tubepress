@@ -28,6 +28,7 @@ class tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter
         }
 
         $config['urls']['base'] = $environmentDetector->getBaseUrl();
+        $config['urls']['usr']  = $environmentDetector->getUserContentUrl();
 
         $event->setSubject($config);
     }

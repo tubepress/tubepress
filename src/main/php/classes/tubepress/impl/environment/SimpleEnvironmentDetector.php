@@ -143,6 +143,25 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
      */
     public function getUserContentUrl()
     {
+        if (!isset($this->_userContentUrl)) {
+
+            if ($this->isWordPress()) {
+
+                /**
+                 * @var $wordPressFunctionWrapper tubepress_addons_wordpress_spi_WordPressFunctionWrapper
+                 */
+                $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+
+                $prefix = $wordPressFunctionWrapper->content_url();
+
+            } else {
+
+                $prefix = $this->getBaseUrl();
+            }
+
+            $this->_userContentUrl = $this->_urlToString($prefix . '/tubepress-content');
+        }
+
         return $this->_userContentUrl;
     }
 

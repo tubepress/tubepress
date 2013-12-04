@@ -65,4 +65,10 @@ class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tube
         $this->assertEquals($u, $this->_sut->getUserContentUrl());
     }
 
+    public function testGetUserContentUrlNonWordPress()
+    {
+        $this->_sut->setUserContentUrl('http://foo.bar/x');
+
+        $this->assertEquals('http://foo.bar/x', $this->_sut->getUserContentUrl());
+    }
 }

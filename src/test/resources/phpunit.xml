@@ -9,7 +9,7 @@
     bootstrap="../../../vendor/autoload.php">
 	<testsuites>
 	   <testsuite name="quick">
-	       <directory>../php</directory>
+	       <directory>../php/classes/tubepress/test/impl/environment</directory>
            <exclude>src/test/php/classes/tubepress/test/impl/i18n/</exclude>
            <exclude>../php/classes/tubepress/test/impl/i18n/</exclude>
 	   </testsuite>
