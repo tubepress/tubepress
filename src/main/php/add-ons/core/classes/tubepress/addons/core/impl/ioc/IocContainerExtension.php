@@ -577,9 +577,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $listeners = array(
 
-            'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs' =>
-                array('event' => tubepress_api_const_event_EventNames::HTML_EMBEDDED, 'method' => 'onEmbeddedHtml', 'priority' => 10000),
-
             'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10100),
 
