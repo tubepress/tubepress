@@ -228,7 +228,7 @@ class tubepress_impl_html_CssAndJsRegistry implements tubepress_spi_html_CssAndJ
 
             if ($this->_isDebugLoggingEnabled) {
 
-                $this->_logger->warning(sprintf('Invalid URL supplied for %s handle %s', $name, $handle));
+                $this->_logger->warning(sprintf('Invalid URL supplied for %s handle "%s"', $name, $handle));
             }
 
             return false;
@@ -236,7 +236,7 @@ class tubepress_impl_html_CssAndJsRegistry implements tubepress_spi_html_CssAndJ
 
         if ($this->_isDebugLoggingEnabled) {
 
-            $this->_logger->debug(sprintf('%s accepted as a $s file with URL %s', $handle, $name, $url));
+            $this->_logger->debug(sprintf('"%s" accepted as a %s file with URL %s', $handle, $name, $url));
         }
 
         return true;

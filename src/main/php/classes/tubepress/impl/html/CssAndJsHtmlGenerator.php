@@ -19,6 +19,8 @@ class tubepress_impl_html_CssAndJsHtmlGenerator implements tubepress_spi_html_Cs
      */
     public function getCssHtml()
     {
+        $cssHtml = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, '') . "\n";
+
         $cssAndJsRegistry = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsRegistry();
         $styleHandles     = $cssAndJsRegistry->getStyleHandlesForDisplay();
         $styles           = array();
@@ -33,7 +35,6 @@ class tubepress_impl_html_CssAndJsHtmlGenerator implements tubepress_spi_html_Cs
             }
         }
 
-        $cssHtml        = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, '') . "\n";
         $filteredStyles = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEETS, $styles);
 
         foreach ($filteredStyles as $handle => $info) {
