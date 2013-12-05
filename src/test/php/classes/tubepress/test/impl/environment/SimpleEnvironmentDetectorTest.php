@@ -23,7 +23,7 @@ class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tube
 
     public function testVersion()
     {
-        $latest = tubepress_spi_version_Version::parse('3.1.0');
+        $latest = tubepress_spi_version_Version::parse('3.1.3');
 
         $current = $this->_sut->getVersion();
 
@@ -56,4 +56,19 @@ class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tube
         $this->assertEquals('http://foo.com', $this->_sut->getBaseUrl());
     }
 
+    public function testUserContentUrl()
+    {
+        $u = 'https://bar.com/xyz/test.php?some=thing#x';
+
+        $this->_sut->setUserContentUrl(new ehough_curly_Url($u));
+
+        $this->assertEquals($u, $this->_sut->getUserContentUrl());
+    }
+
+    public function testGetUserContentUrlNonWordPress()
+    {
+        $this->_sut->setUserContentUrl('http://foo.bar/x');
+
+        $this->assertEquals('http://foo.bar/x', $this->_sut->getUserContentUrl());
+    }
 }

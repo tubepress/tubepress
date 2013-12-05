@@ -69,11 +69,19 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_stash_PoolInterface The cache service.
+     * @return ehough_stash_interfaces_PoolInterface The cache service.
      */
     public static function getCacheService()
     {
-        return self::getService('ehough_stash_PoolInterface');
+        return self::getService('ehough_stash_interfaces_PoolInterface');
+    }
+
+    /**
+     * @return tubepress_spi_html_CssAndJsRegistryInterface The CSS registry.
+     */
+    public static function getCssAndJsRegistry()
+    {
+        return self::getService(tubepress_spi_html_CssAndJsRegistryInterface::_);
     }
 
     /**
@@ -133,11 +141,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_CssAndJsGenerator The head HTML generator.
+     * @return tubepress_spi_html_CssAndJsHtmlGeneratorInterface The head HTML generator.
      */
-    public static function getCssAndJsGenerator()
+    public static function getCssAndJsHtmlGenerator()
     {
-        return self::getService(tubepress_spi_html_CssAndJsGenerator::_);
+        return self::getService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
     }
 
     /**

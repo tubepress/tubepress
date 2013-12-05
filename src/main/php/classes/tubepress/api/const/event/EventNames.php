@@ -25,29 +25,27 @@ class tubepress_api_const_event_EventNames
      */
     const BOOT_COMPLETE = 'tubepress.core.boot.complete';
 
-
-
-
     /**
-     * This event is fired when TubePress generates inline CSS for the HTML <head>.
+     * This event is fied when TubePress is about to print its JS files (either in <head> or near </body>).
      *
-     * @subject string The inline CSS.
+     * @subject array An associative array where keys are script handles and values are script details.
+     *                See tubepress_spi_html_CssAndJsRegistryInterface::getScript() for details on array values.
      *
      * @api
-     * @since 3.1.0
+     * @since 3.1.3
      */
-    const CSS_JS_INLINE_CSS = 'tubepress.core.cssjs.inlineCss';
+    const CSS_JS_STYLESHEETS = 'tubepress.core.cssjs.stylesheets';
 
     /**
-     * This event is fired when TubePress generates inline JS. This may show up in either the HTML
-     * <head>, or lower in the DOM. It will be printed *before* the tubepress.js <script> tag.
+     * This event is fied when TubePress is about to print its stylesheets to the HTML head.
      *
-     * @subject string The inline JS.
+     * @subject array An associative array where keys are style handles and values are style details.
+     *                See tubepress_spi_html_CssAndJsRegistryInterface::getStyle() for details on array values.
      *
      * @api
-     * @since 3.1.0
+     * @since 3.1.3
      */
-    const CSS_JS_INLINE_JS = 'tubepress.core.cssjs.inlineJs';
+    const CSS_JS_SCRIPTS = 'tubepress.core.cssjs.scripts';
 
     /**
      * This event is fired when TubePress builds the gallery initialization JS code.
@@ -61,43 +59,6 @@ class tubepress_api_const_event_EventNames
     const CSS_JS_GALLERY_INIT = 'tubepress.core.cssjs.galleryInit';
 
     /**
-     * This event is fired when TubePress generates HTML <meta> tags for the HTML <head>.
-     *
-     * @subject string The HTML <meta> tags.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const CSS_JS_META_TAGS = 'tubepress.core.cssjs.metaTags';
-
-    /**
-     * This event is fired when TubePress generates the HTML <script> tag for jQuery.
-     *
-     * @subject ehough_curly_Url The URL for jQuery.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const CSS_JS_SCRIPT_URL_JQUERY = 'tubepress.core.cssjs.url.jQuery';
-
-    /**
-     * This event is fired when TubePress generates the HTML <script> tag for tubepress.js.
-     *
-     * @subject ehough_curly_Url The URL to tubepress.js.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const CSS_JS_SCRIPT_URL_TUBEPRESSJS = 'tubepress.core.cssjs.url.tubePressJs';
-
-    /**
-     * This event is fired when TubePress generates the HTML <link> tag for tubepress.css.
-     *
-     * @subject ehough_curly_Url The URL to tubepress.css.
-     */
-    const CSS_JS_CSS_URL_TUBEPRESS = 'tubepress.core.cssjs.url.tubePressCss';
-
-    /**
      * This event is fired when TubePress builds the TubePressJsConfig object.
      *
      * @subject array An associative array of name => values that will be converted into JSON and applied as
@@ -107,7 +68,6 @@ class tubepress_api_const_event_EventNames
      * @since 3.1.0
      */
     const CSS_JS_GLOBAL_JS_CONFIG = 'tubepress.core.cssjs.globalJsConfig';
-
 
     /**
      * This event is fired when TubePress encounters an error during processing and is
@@ -121,9 +81,6 @@ class tubepress_api_const_event_EventNames
      * @since 3.1.0
      */
     const ERROR_EXCEPTION_CAUGHT = 'tubepress.core.error.exceptionCaught';
-
-
-
 
     /**
      * This event is fired when TubePress builds the HTML for an embedded video player.
@@ -197,8 +154,45 @@ class tubepress_api_const_event_EventNames
      */
     const HTML_THUMBNAIL_GALLERY = 'tubepress.core.html.thumbnailGallery';
 
+    /**
+     * This event is fired immediately before TubePress prints out the HTML for its stylesheets.
+     *
+     * @subject string The HTML for TubePress's stylesheets.
+     *
+     * @api
+     * @since 3.1.3
+     */
+    const HTML_STYLESHEETS_PRE = 'tubepress.core.html.stylesheets.pre';
 
+    /**
+     * This event is fired immediately after TubePress prints out the HTML for its stylesheets.
+     *
+     * @subject string The HTML for TubePress's stylesheets.
+     *
+     * @api
+     * @since 3.1.3
+     */
+    const HTML_STYLESHEETS_POST = 'tubepress.core.html.stylesheets.post';
 
+    /**
+     * This event is fired immediately before TubePress prints out the HTML for its scripts.
+     *
+     * @subject string The HTML for TubePress's scripts.
+     *
+     * @api
+     * @since 3.1.3
+     */
+    const HTML_SCRIPTS_PRE = 'tubepress.core.html.scripts.pre';
+
+    /**
+     * This event is fired immediately after TubePress prints out the HTML for its scripts.
+     *
+     * @subject string The HTML for TubePress's scripts.
+     *
+     * @api
+     * @since 3.1.3
+     */
+    const HTML_SCRIPTS_POST = 'tubepress.core.html.scripts.post';
 
     /**
      * This event is fired after TubePress fetches a HTTP response from the network.
@@ -212,7 +206,6 @@ class tubepress_api_const_event_EventNames
      * @since 3.1.0
      */
     const HTTP_RESPONSE = 'tubepress.core.http.response';
-
 
     /**
      * This event is fired when an option descriptor is registered.
@@ -333,9 +326,6 @@ class tubepress_api_const_event_EventNames
      * @since 3.1.0
      */
     const TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.template.thumbnailGallery';
-
-
-
 
     /**
      * This event is fired when a TubePress builds a TubePress video. Some providers may add additional

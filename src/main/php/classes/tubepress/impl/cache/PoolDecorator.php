@@ -12,14 +12,14 @@
 /**
  * Basic cache functionality.
  */
-class tubepress_impl_cache_PoolDecorator implements ehough_stash_PoolInterface
+class tubepress_impl_cache_PoolDecorator implements ehough_stash_interfaces_PoolInterface
 {
     /**
-     * @var ehough_stash_PoolInterface
+     * @var ehough_stash_interfaces_PoolInterface
      */
     private $_delegate;
 
-    public function __construct(ehough_stash_PoolInterface $delegate)
+    public function __construct(ehough_stash_interfaces_PoolInterface $delegate)
     {
         $this->_delegate = $delegate;
     }
@@ -32,14 +32,12 @@ class tubepress_impl_cache_PoolDecorator implements ehough_stash_PoolInterface
      * backends, but must be able to supply the original key if needed. Keys
      * should not contain the special characters listed:
      *  {}()/\@
-     *
-     * @param string $key
-     *
-     * @return ehough_stash_ItemInterface
+     *     *
+     * @return ehough_stash_interfaces_ItemInterface
      */
-    public function getItem($key)
+    public function getItem()
     {
-        return $this->_toDecoratedItem($this->_delegate->getItem($key));
+        return $this->_toDecoratedItem($this->_delegate->getItem(func_get_args()));
     }
 
     /**
@@ -63,18 +61,33 @@ class tubepress_impl_cache_PoolDecorator implements ehough_stash_PoolInterface
         return new ArrayIterator($items);
     }
 
-    /**
-     * Clears the cache pool of all items.
-     *
-     * @return bool
-     */
-    public function clear()
-    {
-        return $this->_delegate->clear();
-    }
-
-    private function _toDecoratedItem(ehough_stash_ItemInterface $item)
+    private function _toDecoratedItem(ehough_stash_interfaces_ItemInterface $item)
     {
         return new tubepress_impl_cache_ItemDecorator($item, $this);
+    }
+
+    public function flush()
+    {
+        return $this->_delegate->flush();
+    }
+
+    public function purge()
+    {
+        return $this->_delegate->purge();
+    }
+
+    public function setDriver(ehough_stash_interfaces_DriverInterface $driver)
+    {
+        $this->_delegate->setDriver($driver);
+    }
+
+    public function getDriver()
+    {
+        return $this->_delegate->getDriver();
+    }
+
+    public function setLogger($logger)
+    {
+        $this->_delegate->setLogger($logger);
     }
 }

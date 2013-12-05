@@ -15,13 +15,13 @@
         "ehough/coauthor":    "~1.0.0",
         "ehough/contemplate": "~1.0.0",
         "ehough/curly":       "~1.0.0",
-        "ehough/epilog":      "~1.5",
-        "ehough/finder":      "~2.0",
-        "ehough/iconic":      "~2.3",
-        "ehough/pulsar":      "~2.3",
+        "ehough/epilog":      "~1.7",
+        "ehough/finder":      "~2.4.0",
+        "ehough/iconic":      "~2.4.0",
+        "ehough/pulsar":      "~2.4.0",
         "ehough/shortstop":   "~2.0",
         "ehough/stash":       "~0.10",
-        "ehough/tickertape":  "~2.3"
+        "ehough/tickertape":  "~2.4.0"
     },
     "require-dev": {
         "ehough/mockery": "~0.8",

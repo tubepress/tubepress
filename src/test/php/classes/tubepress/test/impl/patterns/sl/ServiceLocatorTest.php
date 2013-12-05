@@ -38,10 +38,11 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
     {
         return array(
 
+            tubepress_spi_html_CssAndJsRegistryInterface::_,
             tubepress_spi_boot_AddonDiscoverer::_,
             tubepress_spi_boot_AddonBooter::_,
             tubepress_spi_http_AjaxHandler::_,
-            'ehough_stash_PoolInterface',
+            'ehough_stash_interfaces_PoolInterface',
             tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
             tubepress_spi_environment_EnvironmentDetector::_,
             tubepress_api_event_EventDispatcherInterface::_,
@@ -49,7 +50,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             tubepress_spi_feed_FeedFetcher::_,
             'ehough_filesystem_FilesystemInterface',
             'ehough_finder_FinderFactoryInterface',
-            tubepress_spi_html_CssAndJsGenerator::_,
+            tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_,
             'ehough_shortstop_api_HttpClientInterface',
             tubepress_spi_http_HttpRequestParameterService::_,
             tubepress_spi_http_ResponseCodeHandler::_,
@@ -69,6 +70,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
     {
         return array(
 
+            'CssAndJsRegistry',
             'BootHelperAddonDiscoverer',
             'BootHelperAddonBooter',
             'AjaxHandler',
@@ -80,7 +82,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             'FeedFetcher',
             'FileSystem',
             'FileSystemFinderFactory',
-            'CssAndJsGenerator',
+            'CssAndJsHtmlGenerator',
             'HttpClient',
             'HttpRequestParameterService',
             'HttpResponseCodeHandler',

@@ -105,13 +105,6 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
     {
         $this->expectRegistration(
 
-            'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter',
-            'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000));
-
-        $this->expectRegistration(
-
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
         )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,

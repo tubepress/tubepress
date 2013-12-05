@@ -10,9 +10,9 @@
  */
 
 /**
- * Registers a few extensions to allow TubePress to work inside WordPress.
+ *
  */
-class tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter
+class tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter
 {
     public function onJsConfig(tubepress_api_event_EventInterface $event)
     {
@@ -28,6 +28,7 @@ class tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter
         }
 
         $config['urls']['base'] = $environmentDetector->getBaseUrl();
+        $config['urls']['usr']  = $environmentDetector->getUserContentUrl();
 
         $event->setSubject($config);
     }

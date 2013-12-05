@@ -88,11 +88,13 @@ class tubepress_test_impl_boot_DefaultBootConfigServiceTest extends tubepress_te
 
     private function assertDefaults()
     {
+        $tmpDir = sys_get_temp_dir();
+
         $result = $this->_sut->getAbsolutePathToCacheFileForElement('add-ons');
-        $this->assertRegExp('~^/tmp/[^/]+/serialized-addons\.txt$~', $result);
+        $this->assertRegExp('~^' . $tmpDir . '/[^/]+/serialized-addons\.txt$~', $result);
 
         $result = $this->_sut->getAbsolutePathToCacheFileForElement('ioc-container');
-        $this->assertRegExp('~^/tmp/[^/]+/cached-ioc-container\.php~', $result);
+        $this->assertRegExp('~^' . $tmpDir . '/[^/]+/cached-ioc-container\.php~', $result);
 
         $result = $this->_sut->getAddonBlacklistArray();
         $this->assertEquals(array(), $result);

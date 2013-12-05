@@ -19,6 +19,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_ajaxHandler();
         $this->_cacheService();
         $this->_cssAndJs();
+        $this->_cssAndJsRegistry();
         $this->_embeddedGenerator();
         $this->_executionContext();
         $this->_feedFetcher();
@@ -50,9 +51,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     private function _listeners()
     {
         $listeners = array(
-
-            'tubepress_addons_core_impl_listeners_html_EmbeddedPlayerApiJs' =>
-                array('event' => tubepress_api_const_event_EventNames::HTML_EMBEDDED, 'method' => 'onEmbeddedHtml', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10100),
@@ -100,10 +98,16 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
                 array('event' => tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE, 'method' => 'onVideoGalleryPage', 'priority' => 10300),
 
             'tubepress_addons_core_impl_listeners_html_JsConfig' =>
-                array('event' => tubepress_api_const_event_EventNames::CSS_JS_INLINE_JS, 'method' => 'onInlineJs', 'priority' => 10000),
+                array('event' => tubepress_api_const_event_EventNames::HTML_SCRIPTS_PRE, 'method' => 'onPreScriptsHtml', 'priority' => 10000),
+
+            'tubepress_addons_core_impl_listeners_html_PreCssHtmlListener' =>
+                array('event' => tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, 'method' => 'onBeforeCssHtml', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener' =>
-                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000)
+                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000),
+
+            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter' =>
+                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000),
         );
 
         foreach ($listeners as $className => $tagAttributes) {
@@ -612,7 +616,16 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
     private function _cssAndJs()
     {
-        $this->expectRegistration(tubepress_spi_html_CssAndJsGenerator::_, 'tubepress_impl_html_DefaultCssAndJsGenerator');
+        $this->expectRegistration(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_, 'tubepress_impl_html_CssAndJsHtmlGenerator');
+    }
+
+    private function _cssAndJsRegistry()
+    {
+        $this->expectRegistration(
+
+            tubepress_spi_html_CssAndJsRegistryInterface::_,
+            'tubepress_impl_html_CssAndJsRegistry'
+        );
     }
 
     private function _ajaxHandler()
@@ -626,10 +639,10 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     {
         $this->expectRegistration('tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_builderServiceId', 'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder');
 
-        $def = new tubepress_impl_ioc_Definition('ehough_stash_PoolInterface');
+        $def = new tubepress_impl_ioc_Definition('ehough_stash_interfaces_PoolInterface');
         $this->expectDefinition('tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_actualPoolServiceId', $def);
 
-        $this->expectRegistration('ehough_stash_PoolInterface', 'tubepress_impl_cache_PoolDecorator')
+        $this->expectRegistration('ehough_stash_interfaces_PoolInterface', 'tubepress_impl_cache_PoolDecorator')
             ->withArgument(new tubepress_impl_ioc_Reference('tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_actualPoolServiceId'))
             ;
     }

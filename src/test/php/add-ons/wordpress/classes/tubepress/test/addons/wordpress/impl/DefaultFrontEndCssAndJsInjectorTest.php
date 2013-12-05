@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector
+ */
 class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -15,6 +19,9 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
      */
     private $_mockWpFunctionWrapper;
 
+    /**
+     * @var tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector
+     */
     private $_sut;
 
     /**
@@ -27,21 +34,30 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
      */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockCssAndJsRegistry;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector();
 
         $this->_mockWpFunctionWrapper   = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
-        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_CssAndJsGenerator::_);
+        $this->_mockHeadHtmlGenerator   = $this->createMockSingletonService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockCssAndJsRegistry    = $this->createMockSingletonService(tubepress_spi_html_CssAndJsRegistryInterface::_);
     }
 
     public function testHeadAction()
     {
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
 
-        $this->_mockHeadHtmlGenerator->shouldReceive('getInlineJs')->once()->andReturn('inline js');
-        $this->_mockHeadHtmlGenerator->shouldReceive('getMetaTags')->once()->andReturn('html meta');
+        $this->_mockHeadHtmlGenerator->shouldReceive('getJsHtml')->once()->andReturn('inline js');
+        $this->_mockHeadHtmlGenerator->shouldReceive('getCssHtml')->once()->andReturn('inline css');
+
+        $this->_mockCssAndJsRegistry->shouldReceive('dequeueScript')->once()->with('tubepress');
+        $this->_mockCssAndJsRegistry->shouldReceive('dequeueStyle')->once()->with('tubepress');
 
         ob_start();
 
@@ -50,8 +66,7 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
         $contents = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals('inline js
-html meta', $contents);
+        $this->assertEquals('inline cssinline js', $contents);
     }
 
     public function testInitAction()
