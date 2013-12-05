@@ -5,7 +5,7 @@ Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
 Stable tag: trunk
 
-Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please visit tubepress.com for more info!
+Modern video galleries for the web. Visit us at tubepress.com for more!
 
 == Description ==
 
@@ -31,9 +31,12 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 == Changelog ==
 = 3.1.3 =
 * Bug Fixes
-    * Fixed regression bug with auto-next playback
+    * Fixed regression bug with auto-next playback.
+    * Now able to use HQ thumbnails over HTTPS.
 * Changed
-    * YouTube <iframe>'s are now always loaded via HTTPS
+    * YouTube <iframe>'s are now always loaded via HTTPS.
+    * Minor improvements to JavaScript features.
+    * Updated underlying libraries: epilog, finder, iconic, pulsar, stash, and tickertape
 
 = 3.1.2 =
 * New Features
