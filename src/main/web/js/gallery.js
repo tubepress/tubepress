@@ -1,13 +1,9 @@
-/**!
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
- *
- * This file is part of TubePress (http://tubepress.com)
- *
+/*!
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com).
+ * This file is part of TubePress (http://tubepress.com).
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * @author Eric D. Hough (eric@tubepress.com)
  */
 
 /**
@@ -155,6 +151,11 @@ var tubePressGalleryRegistrar;
                 getHttpMethod = function (galleryId) {
 
                     return internalGet(galleryId, text_jsMap, 'httpMethod');
+                },
+
+                getJsMap = function (galleryId) {
+
+                    return internalRegistry[galleryId][text_jsMap];
                 },
 
                 getNvpMap = function (galleryId) {
@@ -398,6 +399,7 @@ var tubePressGalleryRegistrar;
                 getEmbeddedHeight               : getEmbeddedHeight,
                 getEmbeddedWidth                : getEmbeddedWidth,
                 getHttpMethod                   : getHttpMethod,
+                getJsMap                        : getJsMap,
                 getNvpMap                       : getNvpMap,
                 getPlayerLocationName           : getPlayerLocationName,
                 getPlayerLocationProducesHtml   : getPlayerLocationProducesHtml,
@@ -481,14 +483,17 @@ var tubePressGalleryRegistrar;
                 var gallerySelector = getThumbAreaSelector(galleryId),
                     columnWidth     = getThumbWidth(galleryId),
                     gallery         = jquery(gallerySelector),
-                    colWrap         = gallery.width(),
-                    colNum          = floor(colWrap / columnWidth),
-                    colFixed        = floor(colWrap / colNum),
+                    galleryWidth    = gallery.width(),
+                    colNum          = floor(galleryWidth / columnWidth),
+                    newThumbWidth   = floor(galleryWidth / colNum),
                     thumbs          = jquery(gallerySelector + ' div.' + text_tubepress + '_thumb');
 
                 gallery.css({ 'width' : '100%'});
-                gallery.css({ 'width' : colWrap });
-                thumbs.css({ 'width' : colFixed});
+                gallery.css({ 'width' : galleryWidth });
+                thumbs.css({ 'width' : newThumbWidth});
+
+                gallery.data('fluid_thumbs_applied', true);
+                beacon.publish(text_eventPrefix_gallery + 'fluidThumbs', [ galleryId, newThumbWidth ]);
             },
 
             /**
