@@ -32,8 +32,8 @@ class tubepress_test_impl_cache_ItemDecoratorTest extends tubepress_test_TubePre
 
     public function onSetup()
     {
-        $this->_mockPool = ehough_mockery_Mockery::mock('ehough_stash_PoolInterface');
-        $this->_mockItem = ehough_mockery_Mockery::mock('ehough_stash_ItemInterface');
+        $this->_mockPool = ehough_mockery_Mockery::mock('ehough_stash_interfaces_PoolInterface');
+        $this->_mockItem = ehough_mockery_Mockery::mock('ehough_stash_interfaces_ItemInterface');
 
         $this->_sut = new tubepress_impl_cache_ItemDecorator($this->_mockItem, $this->_mockPool);
 
@@ -43,7 +43,7 @@ class tubepress_test_impl_cache_ItemDecoratorTest extends tubepress_test_TubePre
     public function testCacheCleaningFactor()
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR)->andReturn('1');
-        $this->_mockPool->shouldReceive('clear')->once();
+        $this->_mockPool->shouldReceive('flush')->once();
 
         $this->_mockItem->shouldReceive('set')->once()->with(array(55), 88)->andReturn(true);
 
@@ -77,9 +77,9 @@ class tubepress_test_impl_cache_ItemDecoratorTest extends tubepress_test_TubePre
 
     public function testRemove()
     {
-        $this->_mockItem->shouldReceive('remove')->once()->andReturn(false);
+        $this->_mockItem->shouldReceive('clear')->once()->andReturn(false);
 
-        $result = $this->_sut->remove();
+        $result = $this->_sut->clear();
 
         $this->assertFalse($result);
     }
@@ -104,9 +104,9 @@ class tubepress_test_impl_cache_ItemDecoratorTest extends tubepress_test_TubePre
 
     public function testIsValid()
     {
-        $this->_mockItem->shouldReceive('isValid')->once()->andReturn(true);
+        $this->_mockItem->shouldReceive('isMiss')->once()->andReturn(true);
 
-        $result = $this->_sut->isValid();
+        $result = $this->_sut->isMiss();
 
         $this->assertTrue($result);
     }

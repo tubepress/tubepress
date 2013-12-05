@@ -69,11 +69,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return ehough_stash_PoolInterface The cache service.
+     * @return ehough_stash_interfaces_PoolInterface The cache service.
      */
     public static function getCacheService()
     {
-        return self::getService('ehough_stash_PoolInterface');
+        return self::getService('ehough_stash_interfaces_PoolInterface');
     }
 
     /**

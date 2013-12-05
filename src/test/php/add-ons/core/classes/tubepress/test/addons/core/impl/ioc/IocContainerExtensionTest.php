@@ -639,10 +639,10 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     {
         $this->expectRegistration('tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_builderServiceId', 'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder');
 
-        $def = new tubepress_impl_ioc_Definition('ehough_stash_PoolInterface');
+        $def = new tubepress_impl_ioc_Definition('ehough_stash_interfaces_PoolInterface');
         $this->expectDefinition('tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_actualPoolServiceId', $def);
 
-        $this->expectRegistration('ehough_stash_PoolInterface', 'tubepress_impl_cache_PoolDecorator')
+        $this->expectRegistration('ehough_stash_interfaces_PoolInterface', 'tubepress_impl_cache_PoolDecorator')
             ->withArgument(new tubepress_impl_ioc_Reference('tubepress_addons_core_impl_ioc_IocContainerExtension__registerCacheService_actualPoolServiceId'))
             ;
     }

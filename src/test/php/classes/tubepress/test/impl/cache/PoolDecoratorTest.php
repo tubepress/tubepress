@@ -27,7 +27,7 @@ class tubepress_test_impl_cache_PoolDecoratorTest extends tubepress_test_TubePre
 
     public function onSetup()
     {
-        $this->_mockPool = ehough_mockery_Mockery::mock('ehough_stash_PoolInterface');
+        $this->_mockPool = ehough_mockery_Mockery::mock('ehough_stash_interfaces_PoolInterface');
 
         $this->_sut = new tubepress_impl_cache_PoolDecorator($this->_mockPool);
 
@@ -36,7 +36,7 @@ class tubepress_test_impl_cache_PoolDecoratorTest extends tubepress_test_TubePre
 
     public function testGetItemIterator()
     {
-        $this->_mockPool->shouldReceive('getItem')->once()->with('foo')->andReturn(ehough_mockery_Mockery::mock('ehough_stash_ItemInterface'));
+        $this->_mockPool->shouldReceive('getItem')->once()->andReturn(ehough_mockery_Mockery::mock('ehough_stash_interfaces_ItemInterface'));
 
         $item = $this->_sut->getItemIterator(array('foo'));
 
@@ -46,7 +46,7 @@ class tubepress_test_impl_cache_PoolDecoratorTest extends tubepress_test_TubePre
 
     public function testGetItem()
     {
-        $this->_mockPool->shouldReceive('getItem')->once()->with('foo')->andReturn(ehough_mockery_Mockery::mock('ehough_stash_ItemInterface'));
+        $this->_mockPool->shouldReceive('getItem')->once()->andReturn(ehough_mockery_Mockery::mock('ehough_stash_interfaces_ItemInterface'));
 
         $item = $this->_sut->getItem('foo');
 
@@ -55,8 +55,8 @@ class tubepress_test_impl_cache_PoolDecoratorTest extends tubepress_test_TubePre
 
     public function testClear()
     {
-        $this->_mockPool->shouldReceive('clear')->once()->andReturn(true);
+        $this->_mockPool->shouldReceive('flush')->once()->andReturn(true);
 
-        $this->assertTrue($this->_sut->clear());
+        $this->assertTrue($this->_sut->flush());
     }
 }

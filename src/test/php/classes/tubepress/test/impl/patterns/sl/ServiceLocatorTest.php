@@ -42,7 +42,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             tubepress_spi_boot_AddonDiscoverer::_,
             tubepress_spi_boot_AddonBooter::_,
             tubepress_spi_http_AjaxHandler::_,
-            'ehough_stash_PoolInterface',
+            'ehough_stash_interfaces_PoolInterface',
             tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
             tubepress_spi_environment_EnvironmentDetector::_,
             tubepress_api_event_EventDispatcherInterface::_,

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1db24eaf9e8467d58e89b8de89769802",
+    "hash": "7f5c4ab1675e95de6ddf1cdf6fe1378a",
     "packages": [
         {
             "name": "ehough/chaingang",
@@ -11,19 +11,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/chaingang.git",
-                "reference": "1.0.3"
+                "reference": "a94a458bdd468d85231984454508bf3049052157"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/chaingang/zipball/1.0.3",
-                "reference": "1.0.3",
+                "url": "https://api.github.com/repos/ehough/chaingang/zipball/a94a458bdd468d85231984454508bf3049052157",
+                "reference": "a94a458bdd468d85231984454508bf3049052157",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
-                "ehough/mockery": ">=1.0,<1.1"
+                "ehough/mockery": "~1.0.0"
             },
             "type": "library",
             "autoload": {
@@ -95,12 +95,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/contemplate.git",
-                "reference": "1.0.4"
+                "reference": "15f8dc18c40e68fa354993fb8406791ccab134db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/contemplate/zipball/1.0.4",
-                "reference": "1.0.4",
+                "url": "https://api.github.com/repos/ehough/contemplate/zipball/15f8dc18c40e68fa354993fb8406791ccab134db",
+                "reference": "15f8dc18c40e68fa354993fb8406791ccab134db",
                 "shasum": ""
             },
             "require": {
@@ -136,12 +136,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/curly.git",
-                "reference": "1.0.3"
+                "reference": "abd70d9ccaf774caa7496e77ae27d5c2eb66d2ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/curly/zipball/1.0.3",
-                "reference": "1.0.3",
+                "url": "https://api.github.com/repos/ehough/curly/zipball/abd70d9ccaf774caa7496e77ae27d5c2eb66d2ce",
+                "reference": "abd70d9ccaf774caa7496e77ae27d5c2eb66d2ce",
                 "shasum": ""
             },
             "require": {
@@ -170,27 +170,29 @@
         },
         {
             "name": "ehough/epilog",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/epilog.git",
-                "reference": "1.6.0"
+                "reference": "dbdb5edb126d5e09fb6cb05aab11451e584f8cbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/epilog/zipball/1.6.0",
-                "reference": "1.6.0",
+                "url": "https://api.github.com/repos/ehough/epilog/zipball/dbdb5edb126d5e09fb6cb05aab11451e584f8cbd",
+                "reference": "dbdb5edb126d5e09fb6cb05aab11451e584f8cbd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
+                "aws/aws-sdk-php": "~2.4.8",
                 "doctrine/couchdb": "dev-master",
                 "ehough/pulsar": "~2.3",
                 "mlehner/gelf-php": "1.0.*",
-                "phpunit/phpunit": "3.7.*",
-                "raven/raven": "0.5.*"
+                "phpunit/phpunit": "~3.7.0",
+                "raven/raven": "0.5.*",
+                "ruflin/elastica": "0.90.*"
             },
             "type": "library",
             "autoload": {
@@ -211,35 +213,32 @@
             ],
             "description": "Fork of seldaek/monolog compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/epilog",
-            "time": "2013-08-18 22:31:34"
+            "time": "2013-12-05 02:07:00"
         },
         {
-            "name": "ehough/finder",
-            "version": "v2.3.5",
-            "target-dir": "Symfony/Component/Finder",
+            "name": "ehough/filesystem",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ehough/finder.git",
-                "reference": "a175521f680b178e63c5d0ab87c6b046c0990c3f"
+                "url": "https://github.com/ehough/filesystem.git",
+                "reference": "8efba59e82f6fc4c855acdf09387ef6aaef9f235"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/a175521f680b178e63c5d0ab87c6b046c0990c3f",
-                "reference": "a175521f680b178e63c5d0ab87c6b046c0990c3f",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/8efba59e82f6fc4c855acdf09387ef6aaef9f235",
+                "reference": "8efba59e82f6fc4c855acdf09387ef6aaef9f235",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
             "autoload": {
                 "psr-0": {
-                    "Symfony\\Component\\Finder\\": ""
+                    "ehough_filesystem": "src/main/php"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -248,30 +247,70 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
                 }
             ],
-            "description": "Symfony Finder Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:45:20"
+            "description": "Fork of Symfony's Filesystem Component compatible with PHP 5.2+",
+            "keywords": [
+                "filesystem"
+            ],
+            "time": "2013-12-04 20:26:38"
         },
         {
-            "name": "ehough/iconic",
-            "version": "v2.3.3",
+            "name": "ehough/finder",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ehough/iconic.git",
-                "reference": "v2.3.3"
+                "url": "https://github.com/ehough/finder.git",
+                "reference": "6070a85d73d38be99411861adfddead706833a34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/ehough/finder/zipball/6070a85d73d38be99411861adfddead706833a34",
+                "reference": "6070a85d73d38be99411861adfddead706833a34",
+                "shasum": ""
+            },
+            "require": {
+                "ehough/filesystem": "~2.0",
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ehough_finder": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@ehough.com",
+                    "homepage": "http://ehough.com"
+                }
+            ],
+            "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
+            "time": "2013-12-05 00:28:26"
+        },
+        {
+            "name": "ehough/iconic",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/iconic.git",
+                "reference": "6f8008253cb525d97c283b0a7809b483ce0db43f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/6f8008253cb525d97c283b0a7809b483ce0db43f",
+                "reference": "6f8008253cb525d97c283b0a7809b483ce0db43f",
                 "shasum": ""
             },
             "require": {
@@ -280,6 +319,7 @@
             "require-dev": {
                 "phpunit/phpunit": "3.7.*",
                 "symfony/config": "~2.2",
+                "symfony/expression-language": "~2.4",
                 "symfony/yaml": "~2.0"
             },
             "suggest": {
@@ -306,20 +346,20 @@
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2013-08-19 00:25:21"
+            "time": "2013-12-05 00:04:34"
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.3.3",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "268659204ab103517068d2ecbd2441f0840bdc62"
+                "reference": "cbc89cafa739146111dfc8127ebe318bb64c159a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/268659204ab103517068d2ecbd2441f0840bdc62",
-                "reference": "268659204ab103517068d2ecbd2441f0840bdc62",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/cbc89cafa739146111dfc8127ebe318bb64c159a",
+                "reference": "cbc89cafa739146111dfc8127ebe318bb64c159a",
                 "shasum": ""
             },
             "require": {
@@ -353,7 +393,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2013-08-18 23:48:22"
+            "time": "2013-12-04 22:08:10"
         },
         {
             "name": "ehough/shortstop",
@@ -361,12 +401,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/shortstop.git",
-                "reference": "2.0.2"
+                "reference": "1014368f357322968d37b90f0beacfab973f6d78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/shortstop/zipball/2.0.2",
-                "reference": "2.0.2",
+                "url": "https://api.github.com/repos/ehough/shortstop/zipball/1014368f357322968d37b90f0beacfab973f6d78",
+                "reference": "1014368f357322968d37b90f0beacfab973f6d78",
                 "shasum": ""
             },
             "require": {
@@ -403,16 +443,16 @@
         },
         {
             "name": "ehough/stash",
-            "version": "v0.10.5",
+            "version": "v0.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/stash.git",
-                "reference": "v0.10.5"
+                "reference": "677f6f8bded32345541fc127ae2b3bbef224f643"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/stash/zipball/v0.10.5",
-                "reference": "v0.10.5",
+                "url": "https://api.github.com/repos/ehough/stash/zipball/677f6f8bded32345541fc127ae2b3bbef224f643",
+                "reference": "677f6f8bded32345541fc127ae2b3bbef224f643",
                 "shasum": ""
             },
             "require": {
@@ -446,25 +486,23 @@
                 "cache",
                 "caching",
                 "memcached",
-                "performance",
                 "redis",
-                "scalability",
                 "sessions"
             ],
-            "time": "2013-07-17 20:40:08"
+            "time": "2013-12-05 17:30:58"
         },
         {
             "name": "ehough/tickertape",
-            "version": "v2.3.2",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/tickertape.git",
-                "reference": "v2.3.2"
+                "reference": "d096f5591755ebc64fe67504243c413ccac79ceb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/tickertape/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/ehough/tickertape/zipball/d096f5591755ebc64fe67504243c413ccac79ceb",
+                "reference": "d096f5591755ebc64fe67504243c413ccac79ceb",
                 "shasum": ""
             },
             "require": {
@@ -493,7 +531,7 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2013-07-30 04:59:25"
+            "time": "2013-12-04 21:04:42"
         }
     ],
     "packages-dev": [
@@ -503,12 +541,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/mockery.git",
-                "reference": "0.8.0"
+                "reference": "baeb890e7335f2cca6362cb72e20cbdeaa35d968"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/mockery/zipball/0.8.0",
-                "reference": "0.8.0",
+                "url": "https://api.github.com/repos/ehough/mockery/zipball/baeb890e7335f2cca6362cb72e20cbdeaa35d968",
+                "reference": "baeb890e7335f2cca6362cb72e20cbdeaa35d968",
                 "shasum": ""
             },
             "require": {
@@ -663,13 +701,13 @@
             "version": "1.1.4",
             "source": {
                 "type": "git",
-                "url": "git://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "1.1.4"
+                "url": "https://github.com/sebastianbergmann/php-text-template.git",
+                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sebastianbergmann/php-text-template/zipball/1.1.4",
-                "reference": "1.1.4",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/5180896f51c5b3648ac946b05f9ec02be78a0b23",
+                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23",
                 "shasum": ""
             },
             "require": {
@@ -700,7 +738,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2012-10-31 11:15:28"
+            "time": "2012-10-31 18:15:28"
         },
         {
             "name": "phpunit/php-timer",
@@ -708,12 +746,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
-                "reference": "1.0.5"
+                "reference": "19689d4354b295ee3d8c54b4f42c3efb69cbc17c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/1.0.5",
-                "reference": "1.0.5",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
+                "reference": "19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
                 "shasum": ""
             },
             "require": {
@@ -875,13 +913,13 @@
             "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "git://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "1.2.3"
+                "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
+                "reference": "5794e3c5c5ba0fb037b11d8151add2a07fa82875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sebastianbergmann/phpunit-mock-objects/archive/1.2.3.zip",
-                "reference": "1.2.3",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5794e3c5c5ba0fb037b11d8151add2a07fa82875",
+                "reference": "5794e3c5c5ba0fb037b11d8151add2a07fa82875",
                 "shasum": ""
             },
             "require": {

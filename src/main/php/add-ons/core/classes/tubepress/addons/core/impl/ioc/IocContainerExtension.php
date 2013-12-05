@@ -89,14 +89,14 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_ioc_FilesystemCacheBuilder'
         );
 
-        $actualPoolDefinition = new tubepress_impl_ioc_Definition('ehough_stash_PoolInterface');
+        $actualPoolDefinition = new tubepress_impl_ioc_Definition('ehough_stash_interfaces_PoolInterface');
         $actualPoolDefinition->setFactoryService($builderServiceId);
         $actualPoolDefinition->setFactoryMethod('buildCache');
         $container->setDefinition($actualPoolServiceId, $actualPoolDefinition);
 
         $container->register(
 
-            'ehough_stash_PoolInterface',
+            'ehough_stash_interfaces_PoolInterface',
             'tubepress_impl_cache_PoolDecorator'
 
         )->addArgument(new tubepress_impl_ioc_Reference($actualPoolServiceId));
