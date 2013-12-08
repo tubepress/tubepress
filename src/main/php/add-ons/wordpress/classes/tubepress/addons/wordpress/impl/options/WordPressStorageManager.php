@@ -34,7 +34,16 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
         $wordPressFunctionWrapperService =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
 
-        foreach ($optionNamesToValuesMap as $missingOptionName => $defaultValue) {
+        $existingOptions = array_keys($this->fetchAllCurrentlyKnownOptionNamesToValues());
+        $incomingOptions = array_keys($optionNamesToValuesMap);
+        $newOptionNames  = array_diff($incomingOptions, $existingOptions);
+        $toCreate        = array();
+        foreach ($newOptionNames as $newOptionName) {
+
+            $toCreate[$newOptionName] = $optionNamesToValuesMap[$newOptionName];
+        }
+
+        foreach ($toCreate as $missingOptionName => $defaultValue) {
 
             $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $missingOptionName, $defaultValue);
         }

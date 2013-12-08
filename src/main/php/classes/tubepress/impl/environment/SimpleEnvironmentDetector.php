@@ -145,6 +145,13 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
     {
         if (!isset($this->_userContentUrl)) {
 
+            if (defined('TUBEPRESS_CONTENT_URL')) {
+
+                $this->_userContentUrl = rtrim(TUBEPRESS_CONTENT_URL, DIRECTORY_SEPARATOR);
+
+                return $this->_userContentUrl;
+            }
+
             if ($this->isWordPress()) {
 
                 /**
