@@ -79,6 +79,22 @@
 
     </target>
 
+    <target name="compress-private-js" description="Compresses JS files">
+
+        <echo message="Compressing JS. This may take a moment..." />
+
+        <apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
+            <fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
+            <arg line="-jar"/>
+            <arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.6.jar"/>
+            <srcfile />
+            <arg line="-o" />
+            <mapper type="identity" />
+            <targetfile />
+        </apply>
+
+    </target>
+
 	<target name="compress-js" description="Compresses JS files">
 
 		<copy todir="${stagingdir}">
@@ -86,18 +102,7 @@
 			<mapper type="glob" from="*.js" to="*-dev.js" />
 		</copy>
 
-		<echo message="Compressing JS. This may take a moment..." />
-
-		<apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
-			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
-			<arg line="-jar"/>
-			<arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.6.jar"/>
-			<srcfile />
-			<arg line="-o" />
-			<mapper type="identity" />
-			<targetfile />
-		</apply>
-
+        <antcall target="compress-private-js" />
 	</target>
 
     <target name="php-version-compatability-mods">
