@@ -169,7 +169,7 @@ var tubePressDomInjector,
                  */
                 log = function (msg) {
 
-                    windowConsole.log(msg);
+                    windowConsole.log(text_tubepress + ': ' + msg);
                 },
 
                 dir = function (obj) {
@@ -289,8 +289,12 @@ var tubePressDomInjector,
 
                         var args = arguments;
 
-                        logger.log('Firing "' + args[0]);
-                        logger.dir(args[1]);
+                        logger.log('firing event ' + args[0]);
+
+                        if (args.length > 1) {
+
+                            logger.dir(args[1]);
+                        }
                     }
 
                     bus.trigger.apply(bus, arguments);

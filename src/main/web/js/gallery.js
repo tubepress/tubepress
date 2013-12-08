@@ -738,11 +738,9 @@ var tubePressGalleryRegistrar;
         /**
          * A video on the page has stopped.
          */
-        var logger = tubepress.Logger,
+        var onVideoStop = function (e, video) {
 
-            onVideoStop = function (e, videoId, domId, providerName, playerImplementationName) {
-
-                var galleryId = galleryRegistry.findGalleryContainingVideoDomId(domId);
+                var galleryId = galleryRegistry.findGalleryContainingVideoDomId(video.domId);
 
                 if (!galleryId) {
 
@@ -750,11 +748,6 @@ var tubePressGalleryRegistrar;
                 }
 
                 if (galleryRegistry.isAutoNext(galleryId) && galleryRegistry.getSequence(galleryId)) {
-
-                    if (logger.on()) {
-
-                        logger.log('Auto-starting next for gallery ' + galleryId);
-                    }
 
                     /** Go to the next one! */
                     beacon.publish(text_event_galleryNextVideo, [ galleryId ]);
