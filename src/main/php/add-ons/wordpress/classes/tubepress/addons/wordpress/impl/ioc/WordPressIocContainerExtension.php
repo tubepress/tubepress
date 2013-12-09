@@ -114,6 +114,15 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
                 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
+
+        $container->register(
+
+            'tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer',
+            'tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer'
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_STYLESHEETS,
+                'method' => 'onCss', 'priority' => 10000))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_SCRIPTS,
+                'method' => 'onJs', 'priority' => 10000));
     }
 
     private function _registerMessageService(tubepress_api_ioc_ContainerInterface $container)

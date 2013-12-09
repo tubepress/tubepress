@@ -56,9 +56,6 @@ class tubepress_test_addons_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest e
         $this->_mockHeadHtmlGenerator->shouldReceive('getJsHtml')->once()->andReturn('inline js');
         $this->_mockHeadHtmlGenerator->shouldReceive('getCssHtml')->once()->andReturn('inline css');
 
-        $this->_mockCssAndJsRegistry->shouldReceive('dequeueScript')->once()->with('tubepress');
-        $this->_mockCssAndJsRegistry->shouldReceive('dequeueStyle')->once()->with('tubepress');
-
         ob_start();
 
         $this->_sut->printInHtmlHead();

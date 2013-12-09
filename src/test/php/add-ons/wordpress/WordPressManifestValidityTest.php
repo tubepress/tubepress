@@ -41,6 +41,7 @@ class tubepress_test_addons_core_WordPressManifestValidityTest extends tubepress
             'tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper' => 'classes/tubepress/addons/wordpress/impl/DefaultWordPressFunctionWrapper.php',
             'tubepress_addons_wordpress_impl_DefaultWpAdminHandler' => 'classes/tubepress/addons/wordpress/impl/DefaultWpAdminHandler.php',
             'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator' => 'classes/tubepress/addons/wordpress/impl/listeners/boot/WordPressApiIntegrator.php',
+            'tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer' => 'classes/tubepress/addons/wordpress/impl/listeners/html/CssJsDequerer.php',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener' => 'classes/tubepress/addons/wordpress/impl/listeners/template/options/OptionsUiTemplateListener.php',
             'tubepress_addons_wordpress_impl_message_WordPressMessageService' => 'classes/tubepress/addons/wordpress/impl/message/WordPressMessageService.php',
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider' => 'classes/tubepress/addons/wordpress/impl/options/WordPressOptionsProvider.php',
