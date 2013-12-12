@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService
+ */
 class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -15,8 +19,15 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockQss;
+
     public function onSetup()
     {
+        $this->_mockQss = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
+
         $this->_sut = new tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService();
     }
 
@@ -58,10 +69,12 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
+        $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('http://xyz.com/foo.bar?yes=no#boo');
+
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
+        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1&origin=http%3A%2F%2Fxyz.com', $result->toString());
     }
 
     public function testGetDataUrlAutoShowBoth()
@@ -77,10 +90,13 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
+        $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('https://xyz.com/foo.bar?yes=no#boo');
+
+
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=0&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
+        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=0&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1&origin=https%3A%2F%2Fxyz.com', $result->toString());
     }
 
     public function testGetDataUrlAutoHideBarShowControls()
@@ -96,9 +112,12 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
+        $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('https://xyz.com/foo.bar?yes=no#boo');
+
+
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=2&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1', $result->toString());
+        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=2&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1&origin=https%3A%2F%2Fxyz.com', $result->toString());
     }
 }
