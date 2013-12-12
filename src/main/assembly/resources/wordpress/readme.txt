@@ -34,9 +34,11 @@ Modern video galleries for the web. Visit us at tubepress.com for more!
     * Fixed regression bug with auto-next playback.
     * Now able to use HQ thumbnails over HTTPS.
 * Changed
-    * YouTube <iframe>'s are now always loaded via HTTPS.
+    * Vimeo doesn't support HTTPS thumbnails, so that capability has been removed.
+    * YouTube <iframe>'s are now loaded via HTTPS.
+    * YouTube <iframe>'s are now loaded with "origin" parameter.
     * Minor improvements to JavaScript features.
-    * Updated underlying libraries: epilog, finder, iconic, pulsar, stash, and tickertape
+    * Updated underlying libraries: epilog, finder, iconic, pulsar, stash, and tickertape.
 
 = 3.1.2 =
 * New Features
