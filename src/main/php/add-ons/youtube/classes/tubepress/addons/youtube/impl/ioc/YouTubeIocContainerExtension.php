@@ -47,8 +47,8 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         $container->register(
 
-            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover',
-            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistPlPrefixRemover'
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler',
+            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
     }
 
