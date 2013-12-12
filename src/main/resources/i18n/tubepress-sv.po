@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-10-25 01:52:20+0000\n"
+"PO-Revision-Date: 2013-12-12 17:38:09+0000\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -491,8 +491,8 @@ msgstr "Visa relaterade videos"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Anger om relaterade videos ska visas efter att videon slutat spela."
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\" target=\"_blank\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
-msgstr "Begränsad till 200 videos per spellista. Kommer brukar se ut så här: PLF679CB240DD4C112. Kopiera spellistan ID från slutet av URL i webbläsarens adressfält (medan du tittar på en YouTube spellista). Den kommer direkt efter \"p=\". Till exempel: <a href=\"http://www.youtube.com/playlist?p=PLF679CB240DD4C112\">http://www.youtube.com/playlist?p=PLF679CB240DD4C112</a>"
+msgid "The URL to any YouTube playlist (e.g. <a href=\"%s\" target=\"_blank\">%s</a>) or just the playlist identifier (e.g. %s)."
+msgstr ""
 
 msgid "\"Modest\" branding"
 msgstr "\"Blygsamma\" branding"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-10-25 01:52:09+0000\n"
+"PO-Revision-Date: 2013-12-12 17:37:53+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -491,8 +491,8 @@ msgstr "Mostrar videos relacionados"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Abrir/cerrar el desplegado de videos relacionados al terminar de reproducir el video."
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: <a href=\"http://www.youtube.com/playlist?p=F679CB240DD4C112\" target=\"_blank\">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>"
-msgstr "Limitado a 200 vídeos por lista de reproducción. Se suele ser algo como esto: PLF679CB240DD4C112. Copie la lista de reproducción Identificación de la final de la URL en la barra de direcciones de tu navegador (mientras mira a una lista de reproducción de YouTube). Viene justo después de la \"p = \". Por ejemplo: <a"
+msgid "The URL to any YouTube playlist (e.g. <a href=\"%s\" target=\"_blank\">%s</a>) or just the playlist identifier (e.g. %s)."
+msgstr ""
 
 msgid "\"Modest\" branding"
 msgstr "Modest \" brandin"
