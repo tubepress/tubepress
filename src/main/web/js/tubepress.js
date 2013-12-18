@@ -355,9 +355,11 @@ var tubePressDomInjector,
                     dokument.getElementsByTagName('head')[0].appendChild(element);
                 },
 
-                loadCss = function (path) {
+                loadCss = function (path, isSystem) {
 
-                    path = convertToAbsoluteUrl(path);
+                    isSystem = langUtils.isDefined(isSystem) ? isSystem : true;
+
+                    path = convertToAbsoluteUrl(path, isSystem);
 
                     if (alreadyLoaded(path)) {
 
