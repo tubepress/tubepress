@@ -3,11 +3,19 @@ Contributors: k2eric
 Donate link: http://tubepress.com
 Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
-Stable tag: trunk
+Tested up to: 3.8
+License: Mozilla Public License v2.0
+Stable tag: @stableversion@
 
 Modern video galleries for the web. Visit us at tubepress.com for more!
 
 == Description ==
+
+Rather not host your own copy of TubePress? [TubePress Express](http://express.tubepress.com) is now available!
+TubePress Express is a cloud-hosted version of TubePress with zero installation, maximum performance, and full
+compatability with *any* website or device. Enjoy a risk free 30-day trial and flexible pricing plans.
+
+For a limited time, use coupon code `WELCOME2EXPRESS` to lock in **50% off any TubePress Express plan!**
 
 **Demos**
 
@@ -24,8 +32,8 @@ Modern video galleries for the web. Visit us at tubepress.com for more!
 == Installation ==
 
 1. Unzip into your plugins directory at `(wp-content/plugins)`
-1. Activate TubePress from Site Admin > Plugins
-1. Configure from Site Admin > Settings > TubePress
+1. Activate TubePress from `Site Admin > Plugins`
+1. Configure from `Site Admin > Settings > TubePress`
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
@@ -34,10 +42,10 @@ Modern video galleries for the web. Visit us at tubepress.com for more!
     * Fixed regression bug with auto-next playback.
     * Now able to use HQ thumbnails over HTTPS.
 * Changed
+    * YouTube iframe's are now loaded via HTTPS.
+    * YouTube iframe's are now loaded with "origin" parameter.
     * Vimeo doesn't support HTTPS thumbnails, so that capability has been removed.
-    * YouTube <iframe>'s are now loaded via HTTPS.
-    * YouTube <iframe>'s are now loaded with "origin" parameter.
-    * Minor improvements to JavaScript features.
+    * Minor improvements to JavaScript capabilities and performance.
     * Updated underlying libraries: epilog, finder, iconic, pulsar, stash, and tickertape.
 
 = 3.1.2 =

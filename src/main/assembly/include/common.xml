@@ -73,9 +73,10 @@
 
     <target name="modify-wordpress-info">
 
-        <replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.desc.suffix}" />
-        <replace file="${stagingdir}/tubepress.php" token="@TubePress@" value="${wordpress.desc.appname}" />
+        <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
+        <replace file="${stagingdir}/tubepress.php" token="@description@"   value="${wordpress.desc.suffix}" />
+        <replace file="${stagingdir}/tubepress.php" token="@TubePress@"     value="${wordpress.desc.appname}" />
+        <replace file="${stagingdir}/readme.txt"    token="@stableversion@" value="${version.major}.${version.minor}.${version.micro}" />
 
     </target>
 
