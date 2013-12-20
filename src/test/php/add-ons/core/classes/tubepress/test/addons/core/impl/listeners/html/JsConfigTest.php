@@ -58,7 +58,7 @@ class tubepress_test_addons_core_impl_listeners_html_JsConfigTest extends tubepr
             'videoGalleryPage' => $this->_providerResult
         ));
 
-        $this->_sut->onInlineJs($event);
+        $this->_sut->onPreScriptsHtml($event);
 
         $this->assertEquals($this->expectedAjax(), $event->getSubject());
     }

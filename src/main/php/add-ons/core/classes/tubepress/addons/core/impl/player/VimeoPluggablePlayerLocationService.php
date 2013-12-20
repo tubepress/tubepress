@@ -35,9 +35,12 @@ class tubepress_addons_core_impl_player_VimeoPluggablePlayerLocationService impl
     /**
      * @return string Gets the relative path to this player location's JS init script.
      */
-    public final function getRelativePlayerJsUrl()
+    public final function getPlayerJsUrl()
     {
-        return '/src/main/web/players/vimeo/vimeo.js';
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $sysUrl              = $environmentDetector->getBaseUrl();
+
+        return "$sysUrl/src/main/web/players/vimeo/vimeo.js";
     }
 
     /**

@@ -73,9 +73,26 @@
 
     <target name="modify-wordpress-info">
 
-        <replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.desc.suffix}" />
-        <replace file="${stagingdir}/tubepress.php" token="@TubePress@" value="${wordpress.desc.appname}" />
+        <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
+        <replace file="${stagingdir}/tubepress.php" token="@description@"   value="${wordpress.desc.suffix}" />
+        <replace file="${stagingdir}/tubepress.php" token="@TubePress@"     value="${wordpress.desc.appname}" />
+        <replace file="${stagingdir}/readme.txt"    token="@stableversion@" value="${version.major}.${version.minor}.${version.micro}" />
+
+    </target>
+
+    <target name="compress-private-js" description="Compresses JS files">
+
+        <echo message="Compressing JS. This may take a moment..." />
+
+        <apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
+            <fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
+            <arg line="-jar"/>
+            <arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.6.jar"/>
+            <srcfile />
+            <arg line="-o" />
+            <mapper type="identity" />
+            <targetfile />
+        </apply>
 
     </target>
 
@@ -86,18 +103,7 @@
 			<mapper type="glob" from="*.js" to="*-dev.js" />
 		</copy>
 
-		<echo message="Compressing JS. This may take a moment..." />
-
-		<apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
-			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
-			<arg line="-jar"/>
-			<arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.6.jar"/>
-			<srcfile />
-			<arg line="-o" />
-			<mapper type="identity" />
-			<targetfile />
-		</apply>
-
+        <antcall target="compress-private-js" />
 	</target>
 
     <target name="php-version-compatability-mods">

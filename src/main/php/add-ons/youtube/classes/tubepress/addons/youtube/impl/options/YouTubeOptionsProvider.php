@@ -160,7 +160,8 @@ class tubepress_addons_youtube_impl_options_YouTubeOptionsProvider implements tu
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
         $option->setDefaultValue('F679CB240DD4C112');
-        $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: F679CB240DD4C112. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: <a href="http://www.youtube.com/playlist?p=F679CB240DD4C112" target="_blank">http://www.youtube.com/playlist?p=F679CB240DD4C112</a>');  //>(translatable)<
+        $option->setDescription(sprintf('The URL to any YouTube playlist (e.g. <a href="%s" target="_blank">%s</a>) or just the playlist identifier (e.g. %s).',  //>(translatable)<
+            'http://youtube.com/playlist?list=48A83AD3506C9D36', 'http://youtube.com/playlist?list=48A83AD3506C9D36', '48A83AD3506C9D36'));
         $option->setLabel('This YouTube playlist');                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $option->setValidValueRegex('/[\w-]+/');
         $toReturn[] = $option;

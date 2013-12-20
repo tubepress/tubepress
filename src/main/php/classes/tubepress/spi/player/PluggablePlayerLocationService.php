@@ -29,9 +29,9 @@ interface tubepress_spi_player_PluggablePlayerLocationService
     function getName();
 
     /**
-     * @return string Gets the relative path to this player location's JS init script.
+     * @return string Gets the URL to this player location's JS init script.
      */
-    function getRelativePlayerJsUrl();
+    function getPlayerJsUrl();
 
     /**
      * @return boolean True if this player location produces HTML, false otherwise.

@@ -117,9 +117,12 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
         $container->register(
 
-            'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter',
-            'tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000));
+            'tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer',
+            'tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer'
+        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_STYLESHEETS,
+                'method' => 'onCss', 'priority' => 10000))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_SCRIPTS,
+                'method' => 'onJs', 'priority' => 10000));
     }
 
     private function _registerMessageService(tubepress_api_ioc_ContainerInterface $container)

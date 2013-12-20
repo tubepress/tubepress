@@ -8,7 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_test_addons_wordpress_impl_listeners_cssjs_BaseUrlSetterTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter
+ */
+class tubepress_test_addons_core_impl_listeners_cssjs_BaseUrlSetterTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -16,19 +20,20 @@ class tubepress_test_addons_wordpress_impl_listeners_cssjs_BaseUrlSetterTest ext
     private $_mockEnvironmentDetector;
 
     /**
-     * @var tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter
+     * @var tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter
      */
     private $_sut;
 
     public function onSetup()
     {
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_sut                     = new tubepress_addons_wordpress_impl_listeners_cssjs_BaseUrlSetter();
+        $this->_sut                     = new tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter();
     }
 
     public function testOnJsConfig()
     {
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('foobar');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn('barfoo');
 
         $event = new tubepress_spi_event_EventBase(array());
 
@@ -39,6 +44,8 @@ class tubepress_test_addons_wordpress_impl_listeners_cssjs_BaseUrlSetterTest ext
         $this->assertTrue(is_array($result));
         $this->assertTrue(isset($result['urls']));
         $this->assertTrue(isset($result['urls']['base']));
+        $this->assertTrue(isset($result['urls']['usr']));
         $this->assertEquals('foobar', $result['urls']['base']);
+        $this->assertEquals('barfoo', $result['urls']['usr']);
     }
 }

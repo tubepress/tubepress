@@ -1,13 +1,9 @@
-/**!
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
- *
- * This file is part of TubePress (http://tubepress.com)
- *
+/*!
+ * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com).
+ * This file is part of TubePress (http://tubepress.com).
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * @author Eric D. Hough (eric@tubepress.com)
  */
 
 /*global jQuery, console */
@@ -173,7 +169,7 @@ var tubePressDomInjector,
                  */
                 log = function (msg) {
 
-                    windowConsole.log(msg);
+                    windowConsole.log(text_tubepress + ': ' + msg);
                 },
 
                 dir = function (obj) {
@@ -195,6 +191,7 @@ var tubePressDomInjector,
         environment = (function () {
 
             var alreadyCalculatedBaseUrl = fawlse,
+                text_usr                 = 'usr',
                 cachedBaseUrl,
 
                 getBaseUrl = function () {
@@ -240,12 +237,23 @@ var tubePressDomInjector,
                     }
 
                     return getBaseUrl() + '/src/main/web/php/' + text_ajaxEndpoint + '.php';
+                },
+
+                getUserContentUrl = function () {
+
+                    if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_usr)) {
+
+                        return tubePressJsConfig[text_urls][text_usr];
+                    }
+
+                    return getBaseUrl() + '/' + text_tubepress + '-content';
                 };
 
             return {
 
                 getBaseUrl         : getBaseUrl,
-                getAjaxEndpointUrl : getAjaxEndpointUrl
+                getAjaxEndpointUrl : getAjaxEndpointUrl,
+                getUserContentUrl  : getUserContentUrl
             };
         }()),
 
@@ -281,8 +289,12 @@ var tubePressDomInjector,
 
                         var args = arguments;
 
-                        logger.log('Firing "' + args[0]);
-                        logger.dir(args[1]);
+                        logger.log('firing event ' + args[0]);
+
+                        if (args.length > 1) {
+
+                            logger.dir(args[1]);
+                        }
                     }
 
                     bus.trigger.apply(bus, arguments);
@@ -308,7 +320,7 @@ var tubePressDomInjector,
                     return filesAlreadyLoaded[path] === troo;
                 },
 
-                convertToAbsoluteUrl = function (url) {
+                convertToAbsoluteUrl = function (url, isSystem) {
 
                     if (url.indexOf('http') === 0) {
 
@@ -316,7 +328,18 @@ var tubePressDomInjector,
                         return url;
                     }
 
-                    return environment.getBaseUrl() + '/' + langUtils.trimSlashes(url, true);
+                    var prefix;
+
+                    if (isSystem) {
+
+                        prefix = environment.getBaseUrl();
+
+                    } else {
+
+                        prefix = environment.getUserContentUrl();
+                    }
+
+                    return prefix + '/' + langUtils.trimSlashes(url, true);
                 },
 
                 doLog = function (path, type) {
@@ -332,9 +355,11 @@ var tubePressDomInjector,
                     dokument.getElementsByTagName('head')[0].appendChild(element);
                 },
 
-                loadCss = function (path) {
+                loadCss = function (path, isSystem) {
 
-                    path = convertToAbsoluteUrl(path);
+                    isSystem = langUtils.isDefined(isSystem) ? isSystem : true;
+
+                    path = convertToAbsoluteUrl(path, isSystem);
 
                     if (alreadyLoaded(path)) {
 
@@ -354,9 +379,11 @@ var tubePressDomInjector,
                     appendToHead(fileref);
                 },
 
-                loadJs = function (path) {
+                loadJs = function (path, isSystem) {
 
-                    path = convertToAbsoluteUrl(path);
+                    isSystem = langUtils.isDefined(isSystem) ? isSystem : true;
+
+                    path = convertToAbsoluteUrl(path, isSystem);
 
                     if (alreadyLoaded(path)) {
 
@@ -433,6 +460,11 @@ var tubePressDomInjector,
 
                         delegate[method].apply(this, args);
                     };
+
+                if (!(queue instanceof Array)) {
+
+                    return;
+                }
 
                 if (langUtils.isDefined(queue)) {
 

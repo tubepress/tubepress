@@ -25,14 +25,14 @@ abstract class tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPage
         $templateEvent   = new tubepress_spi_event_EventBase($template);
         $templateEvent->setArgument('field', $this);
 
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, $templateEvent);
-
         $templateVariables = $this->getTemplateVariables();
 
         foreach ($templateVariables as $name => $value) {
 
             $template->setVariable($name, $value);
         }
+
+        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, $templateEvent);
 
         return $template->toString();
     }

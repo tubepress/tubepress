@@ -471,8 +471,42 @@ class tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper implements
      *                         1 if the nonce has been generated in the past 12 hours or less.
      *                         2 if the nonce was generated between 12 and 24 hours ago.
      */
-    function wp_verify_nonce($nonce, $action)
+    public function wp_verify_nonce($nonce, $action)
     {
         return wp_verify_nonce($nonce, $action);
+    }
+
+    /**
+     * Localizes a script, but only if script has already been added. Can also be used to include arbitrary Javascript data in a page.
+     *
+     * @param string $handle     The script handle you are attaching the data for.
+     * @param string $objectName The name for the Javascript object which will contain the data. Note that this should
+     *                           be unique to both the script and to the plugin or theme. Thus, the value here should
+     *                           be properly prefixed with the slug or another unique value, to prevent conflicts.
+     *                           However, as this is a Javascript object name, it cannot contain dashes.
+     *                           Use underscores or camelCasing.
+     * @param array $l10n        The data itself. The data can be either a single or multi (as of 3.3) dimensional array.
+     *
+     * @return void
+     */
+    public function wp_localize_script($handle, $objectName, array $l10n)
+    {
+        wp_localize_script($handle, $objectName, $l10n);
+    }
+
+    /**
+     * The admin_url template tag retrieves the url to the admin area for the current site with the appropriate
+     * protocol, 'https' if is_ssl() and 'http' otherwise. If scheme is 'http' or 'https', is_ssl() is overridden.
+     *
+     * @param string $path   Path relative to the admin url.
+     * @param string $scheme The scheme to use. Default is 'admin', which obeys force_ssl_admin() and is_ssl(). 'http'
+     *                       or 'https' can be passed to force those schemes. The function uses get_site_url(), so
+     *                       allowed values include any accepted by that function.
+     *
+     * @return string Admin url link with optional path appended.
+     */
+    public function admin_url($path = null, $scheme = 'admin')
+    {
+        return admin_url($path, $scheme);
     }
 }

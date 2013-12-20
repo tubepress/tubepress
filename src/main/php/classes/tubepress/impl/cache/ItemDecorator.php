@@ -12,19 +12,19 @@
 /**
  * Decorates ehough_stash_Item to handle cache cleaning and TTL.
  */
-class tubepress_impl_cache_ItemDecorator implements ehough_stash_ItemInterface
+class tubepress_impl_cache_ItemDecorator implements ehough_stash_interfaces_ItemInterface
 {
     /**
-     * @var ehough_stash_ItemInterface
+     * @var ehough_stash_interfaces_ItemInterface
      */
     private $_delegate;
 
     /**
-     * @var ehough_stash_PoolInterface
+     * @var ehough_stash_interfaces_PoolInterface
      */
     private $_parentCache;
 
-    public function __construct(ehough_stash_ItemInterface $delegate, ehough_stash_PoolInterface $parentCache)
+    public function __construct(ehough_stash_interfaces_ItemInterface $delegate, ehough_stash_interfaces_PoolInterface $parentCache)
     {
         $this->_delegate    = $delegate;
         $this->_parentCache = $parentCache;
@@ -54,9 +54,9 @@ class tubepress_impl_cache_ItemDecorator implements ehough_stash_ItemInterface
      *
      * @return mixed
      */
-    public function get()
+    public function get($invalidation = 0, $arg = null, $arg2 = null)
     {
-        return $this->_delegate->get();
+        return $this->_delegate->get($invalidation, $arg, $arg2);
     }
 
     /**
@@ -93,7 +93,7 @@ class tubepress_impl_cache_ItemDecorator implements ehough_stash_ItemInterface
          */
         if ($cleaningFactor > 0 && rand(1, $cleaningFactor) === 1) {
 
-            $this->_parentCache->clear();
+            $this->_parentCache->flush();
         }
 
         if ($ttl === null) {
@@ -104,30 +104,38 @@ class tubepress_impl_cache_ItemDecorator implements ehough_stash_ItemInterface
         return $this->_delegate->set($value, $ttl);
     }
 
-    /**
-     * Validates the current state of the item in the cache.
-     *
-     * Checks the validity of a cache result. If the object is good (is not a
-     * miss, and meets all the standards set by the Implementing Library) then
-     * this function returns true.
-     *
-     * @return bool
-     */
-    public function isValid()
+    public function disable()
     {
-        return $this->_delegate->isValid();
+        return $this->_delegate->disable();
     }
 
-    /**
-     * Removes the current key from the cache.
-     *
-     * Returns true if the item is no longer present (either because it was
-     * removed or was not present to begin with).
-     *
-     * @return bool
-     */
-    public function remove()
+    public function clear()
     {
-        return $this->_delegate->remove();
+        return $this->_delegate->clear();
+    }
+
+    public function isMiss()
+    {
+        return $this->_delegate->isMiss();
+    }
+
+    public function lock($ttl = null)
+    {
+        return $this->_delegate->lock($ttl);
+    }
+
+    public function extend($ttl = null)
+    {
+        return $this->_delegate->extend($ttl);
+    }
+
+    public function isDisabled()
+    {
+        return $this->_delegate->isDisabled();
+    }
+
+    public function setLogger($logger)
+    {
+        $this->_delegate->setLogger($logger);
     }
 }
