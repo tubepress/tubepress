@@ -461,11 +461,6 @@ var tubePressDomInjector,
                         delegate[method].apply(this, args);
                     };
 
-                if (!(queue instanceof Array)) {
-
-                    return;
-                }
-
                 if (langUtils.isDefined(queue)) {
 
                     queueLength = queue.length;
