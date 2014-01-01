@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2013 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -82,7 +82,7 @@ class tubepress_impl_cache_ItemDecorator implements ehough_stash_interfaces_Item
      *
      * @return bool
      */
-    public function set($value = null, $ttl = null)
+    public function set($value, $ttl = null)
     {
         $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $cleaningFactor = $context->get(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR);

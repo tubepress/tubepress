@@ -443,16 +443,16 @@
         },
         {
             "name": "ehough/stash",
-            "version": "v0.11.2",
+            "version": "v0.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/stash.git",
-                "reference": "677f6f8bded32345541fc127ae2b3bbef224f643"
+                "reference": "199a06cced0e8ba5441f2d09b9fc0fa1e1a83d6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/stash/zipball/677f6f8bded32345541fc127ae2b3bbef224f643",
-                "reference": "677f6f8bded32345541fc127ae2b3bbef224f643",
+                "url": "https://api.github.com/repos/ehough/stash/zipball/199a06cced0e8ba5441f2d09b9fc0fa1e1a83d6c",
+                "reference": "199a06cced0e8ba5441f2d09b9fc0fa1e1a83d6c",
                 "shasum": ""
             },
             "require": {
@@ -489,7 +489,7 @@
                 "redis",
                 "sessions"
             ],
-            "time": "2013-12-05 17:30:58"
+            "time": "2013-12-29 23:18:35"
         },
         {
             "name": "ehough/tickertape",

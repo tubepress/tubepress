@@ -37,6 +37,13 @@ For a limited time, use coupon code `WELCOME2EXPRESS` to lock in **50% off any T
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 3.1.5 =
+* Bug Fixes
+    * Fixed bug in static and solo player locations.
+    * Fixed possible fatal error in some PHP 5.2.x installations. Fixes issue #583.
+* Changed
+    * Updated underlying library: stash
+
 = 3.1.4 =
 * Bug Fixes
     * Fixed JavaScript bug that could lead to unresponsive thumbails in certain situations.
