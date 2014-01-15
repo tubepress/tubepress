@@ -1,5 +1,9 @@
-TubePress [![Build Status](https://secure.travis-ci.org/ehough/tubepress.png)](http://travis-ci.org/ehough/tubepress)
+TubePress [![Build Status](https://secure.travis-ci.org/tubepress/tubepress.png)](http://travis-ci.org/tubepress/tubepress)
 =====
 
-TubePress is an open source PHP library that displays gorgeous YouTube and Vimeo videos and galleries in your blog.
-It's available as a WordPress plugin or as a stand-alone PHP library. Please visit http://tubepress.com for more information.
+TubePress adds dynamic and interactive video features to websites. It’s highly configurable and designed for website
+builders and users of any skill level. A typical use of TubePress is to embed a video gallery into a web page.
+
+TubePress is available both as a downloadable package and via several cloud-hosted, zero-installation services.
+The software is largely open sourced, and it’s designed and maintained by [TubePress LLC](http://tubepress.com/),
+a software company based in Pittsburgh, Pennsylvania.
