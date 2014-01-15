@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:38:04+0000\n"
+"PO-Revision-Date: 2014-01-15 19:13:12+0000\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "Avansert"
 msgid "Date format"
 msgstr "Datoformat"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "Gjør typografiske innstillinger i forhold til formatering av dato for videoene. Se <a href=\"http://us.php.net/date\">dato</a> for eksempler."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "Gjør typografiske innstillinger i forhold til formatering av dato for videoene. Se <a href=\"%s\">dato</a> for eksempler."
 
 msgid "Video blacklist"
 msgstr "Videosvarteliste"
@@ -167,8 +167,8 @@ msgstr "Vis navigering under miniatyrbildene"
 msgid "Use high-quality thumbnails"
 msgstr "Benytt Høykvalitets miniatyrbilder"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-klargjort sidenavigering"
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "<a href=\"%s\">Ajax</a>-klargjort sidenavigering"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "Gjelder kun gallerier som strekker seg over flere sider"
@@ -227,8 +227,8 @@ msgstr "Implementasjon"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "Merkeidentiteten til den innebygde avspilleren. Standard er tjenestetilbyderens avspiller (YouTube, Vimeo etc)."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "Ikke alle sorteringsrekkefølger kan benyttes på alle gallerityper. Vennligst se <a href=\"http://tubepress.com/documentation\">dokumentasjonen</a>  for mer info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr "Ikke alle sorteringsrekkefølger kan benyttes på alle gallerityper. Vennligst se <a href=\"%s\">dokumentasjonen</a>  for mer info."
 
 msgid "Cache directory"
 msgstr "Mappe for bufferminne"
@@ -386,11 +386,11 @@ msgstr "Nøkkelord for Enkelkode (shortcode)"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Ordet du setter inn (i klartekst, mellom hakeparantes) i innlegget/siden for å vise et galleri."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress EnkelKode for widgeten. Se <a href=\"http://tubepress.com/documentation\"> dokumentasjonen</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "TubePress EnkelKode for widgeten. Se <a href=\"%s\"> dokumentasjonen</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "Her kan du sette standardvalgene for TubePress. Hvert valg her kan overstyres på side-til-side/post-til-post basis med TubePress Enkelkoder (shortcodes). Vennligst se <a href=\"http://tubepress.com/documentation\">dokumentasjonen</a> for mer informasjon."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "Her kan du sette standardvalgene for TubePress. Hvert valg her kan overstyres på side-til-side/post-til-post basis med TubePress Enkelkoder (shortcodes). Vennligst se <a href=\"%s\">dokumentasjonen</a> for mer informasjon."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Videoene lastet opp av denne Vimeo-brukeren"
@@ -419,8 +419,8 @@ msgstr "Videoer fra denne Vimeo-gruppen"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Video API \"Forbrukernøkkel\""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\">Klikk her</a> for å registrere deg for en forbrukernøkkel og passord"
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "<a href=\"%s\">Klikk her</a> for å registrere deg for en forbrukernøkkel og passord"
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API \"Hemmelighet for Bruker\""
@@ -467,8 +467,8 @@ msgstr "Etter at videoavspillingen begynner, velg hvilke elementer (om noen) som
 msgid "YouTube API Developer Key"
 msgstr "YouTube API-utviklernøkkel"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube vil benytte denne utviklernøkkelen for logging og feilsøking, om du opplever et tjenesteproblem på deres side. Du kan registrere en ny klient-ID og utviklernøkkel <a href=\"http://code.google.com/apis/youtube/dashboard/\">her</a>. Ikke endre denne såfremt du ikke vet nøyaktig hva du gjør."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "YouTube vil benytte denne utviklernøkkelen for logging og feilsøking, om du opplever et tjenesteproblem på deres side. Du kan registrere en ny klient-ID og utviklernøkkel <a href=\"%s\">her</a>. Ikke endre denne såfremt du ikke vet nøyaktig hva du gjør."
 
 msgid "Filter \"racy\" content"
 msgstr "Filtrer \"på kanten\"-innhold"

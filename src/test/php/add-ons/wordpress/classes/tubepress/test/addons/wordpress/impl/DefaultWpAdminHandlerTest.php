@@ -67,8 +67,8 @@ class tubepress_test_addons_wordpress_impl_DefaultWpAdminHandlerTest extends tub
         $expected = array(
 
             '<a href="options-general.php?page=tubepress.php">aaa</a>',
-            '<a href="http://tubepress.com/documentation/">Documentation</a>',
-            '<a href="http://tubepress.com/forum/">Support</a>',
+            '<a href="http://docs.tubepress.com/">Documentation</a>',
+            '<a href="http://community.tubepress.com/">Support</a>',
         );
 
         $this->assertEquals($expected, $result);

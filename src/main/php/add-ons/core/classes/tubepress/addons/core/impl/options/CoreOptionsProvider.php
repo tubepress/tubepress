@@ -195,7 +195,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Feed::ORDER_BY);
         $option->setDefaultValue(tubepress_api_const_options_values_OrderByValue::DEFAULTT);
         $option->setLabel('Order videos by');                                                                                                                                      //>(translatable)<
-        $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.com/documentation" target="_blank">documentation</a> for more info.'); //>(translatable)<
+        $option->setDescription(sprintf('Not all sort orders can be applied to all gallery types. See the <a href="%s" target="_blank">documentation</a> for more info.', "http://docs.tubepress.com/page/reference/options/core.html#orderby")); //>(translatable)<
         $option->setAcceptableValues(array(
             tubepress_api_const_options_values_OrderByValue::DEFAULTT       => 'default',                         //>(translatable)<
             tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                   //>(translatable)<
@@ -332,7 +332,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DATEFORMAT);
         $option->setDefaultValue('M j, Y');
         $option->setLabel('Date format');                                                                                                                    //>(translatable)<
-        $option->setDescription('Set the textual formatting of date information for videos. See <a href="http://us.php.net/date" target="_blank">date</a> for examples.');   //>(translatable)<
+        $option->setDescription(sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"));   //>(translatable)<
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Meta::DESC_LIMIT);
@@ -381,7 +381,7 @@ class tubepress_addons_core_impl_options_CoreOptionsProvider implements tubepres
          */
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION);
-        $option->setLabel('<a href="http://wikipedia.org/wiki/Ajax_(programming)" target="_blank">Ajax</a>-enabled pagination'); //>(translatable)<
+        $option->setLabel(sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)")); //>(translatable)<
         $option->setDefaultValue(false);
         $option->setProOnly();
         $option->setBoolean();

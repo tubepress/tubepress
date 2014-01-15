@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:38:06+0000\n"
+"PO-Revision-Date: 2014-01-15 19:13:15+0000\n"
 "Language: pt-br\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "Avançado"
 msgid "Date format"
 msgstr "Formato da data"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "Configurar a formatação textual para as datas dos vídeos. Veja <a href=\"http://us.php.net/date\">data</ a> para obter exemplos."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "Configurar a formatação textual para as datas dos vídeos. Veja <a href=\"%s\">data</ a> para obter exemplos."
 
 msgid "Video blacklist"
 msgstr "Lista negra de vídeos"
@@ -167,8 +167,8 @@ msgstr "Mostrar a paginação abaixo das miniaturas"
 msgid "Use high-quality thumbnails"
 msgstr "Usar miniaturas de alta qualidade"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "Paginação com suporte a <a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a> "
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "Paginação com suporte a <a href=\"%s\">Ajax</a> "
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "Só se aplica às galerias que geram muitas páginas."
@@ -227,8 +227,8 @@ msgstr "Implementação"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "A marca do player incorporado. O padrão é o player provedor (Youtube, Vimeo, etc)"
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "Nem todas as ordens de classificação podem ser aplicadas a todos os tipos de galeria. Veja a <a href=\"http://tubepress.com/documentation\">documentação</a> para mais informações."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr "Nem todas as ordens de classificação podem ser aplicadas a todos os tipos de galeria. Veja a <a href=\"%s\">documentação</a> para mais informações."
 
 msgid "Cache directory"
 msgstr "Diretório de cache"
@@ -386,11 +386,11 @@ msgstr "Palavra-chave do \"shortcode\""
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "A palavra que você insere (em texto simples, entre colchetes) em seus posts/páginas para exibir uma galeria."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress shortcode para widget. Veja a <a href=\"http://tubepress.com/documentation\"> documentação</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "TubePress shortcode para widget. Veja a <a href=\"%s\"> documentação</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "Aqui poderar encontrar as Opções para o Tubepress. Cada opçao pode ser anulada pela a pagina or pelo o post com a base do TubePress atalho. Veja <a href=\"http://tubepress.com/documentation\">documentation</a> for more information."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "Aqui poderar encontrar as Opções para o Tubepress. Cada opçao pode ser anulada pela a pagina or pelo o post com a base do TubePress atalho. Veja <a href=\"%s\">documentation</a> for more information."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Vídeos enviados deste usuário Vimeo"
@@ -419,8 +419,8 @@ msgstr "Vídeos deste grupo Vimeo"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "API Vimeo \"Consumer Key\""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\">Clique aqui</a> para registrar sua \"consumer key\" e \"secret key\""
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "<a href=\"%s\">Clique aqui</a> para registrar sua \"consumer key\" e \"secret key\""
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "API Vimeo \"Consumer Secret\""
@@ -467,8 +467,8 @@ msgstr "Após a reprodução de vídeo começa, escolher quais elementos (se hou
 msgid "YouTube API Developer Key"
 msgstr "Chave de desenvolvedor de API do YouTube"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "O YouTube usará esta chave de desenvolvedor para login e depuração se você tiver algum problema com o serviço deles. Você pode registrar uma nova ID e chave de desenvolvedor <a href=\"http://code.google.com/apis/youtube/dashboard/\">aqui</a>. Não mude isto a menos que você saiba o que está fazendo."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "O YouTube usará esta chave de desenvolvedor para login e depuração se você tiver algum problema com o serviço deles. Você pode registrar uma nova ID e chave de desenvolvedor <a href=\"%s\">aqui</a>. Não mude isto a menos que você saiba o que está fazendo."
 
 msgid "Filter \"racy\" content"
 msgstr "Filtra conteúdo \"adulto\""

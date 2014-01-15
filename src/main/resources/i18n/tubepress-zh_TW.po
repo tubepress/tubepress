@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:38:11+0000\n"
+"PO-Revision-Date: 2014-01-15 19:13:19+0000\n"
 "Language: zh-tw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "先進"
 msgid "Date format"
 msgstr "日期格式"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "設置文本格式的視頻的最新信息。見<a href=\"http://us.php.net/date\">日</ a>的例子。"
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "設置文本格式的視頻的最新信息。見<a href=\"%s\">日</ a>的例子。"
 
 msgid "Video blacklist"
 msgstr "視頻黑名單"
@@ -167,8 +167,8 @@ msgstr "下面的縮略圖顯示分頁"
 msgid "Use high-quality thumbnails"
 msgstr "使用高品質的縮略圖"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">阿賈克斯</ A>  - 啟用分頁"
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "<a href=\"%s\">阿賈克斯</ A>  - 啟用分頁"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "僅適用於跨越多個頁面的畫廊。"
@@ -227,8 +227,8 @@ msgstr "履行"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "該品牌的嵌入播放器。默認是提供商的播放器（YouTube上，或是Vimeo等）。"
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "並非所有排序順序，可以適用於所有類型的畫廊。參見<a href=\"http://tubepress.com/documentation\">文檔</ ​​a>，以了解更多信息。"
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr "並非所有排序順序，可以適用於所有類型的畫廊。參見<a href=\"%s\">文檔</ ​​a>，以了解更多信息。"
 
 msgid "Cache directory"
 msgstr "緩存目錄"
@@ -386,11 +386,11 @@ msgstr "簡碼關鍵字"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "字插入到您的文章/頁（明文，在方括號中），顯示一個畫廊。"
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress短代碼的插件。 <a href=\"http://tubepress.com/documentation\">文檔</ ​​A>。"
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "TubePress短代碼的插件。 <a href=\"%s\">文檔</ ​​A>。"
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "在這裡，你可以設置的默認選項TubePress。這裡的每個選項可以覆蓋每一個頁面/後根據與TubePress簡。參見<a href=\"http://tubepress.com/documentation\">文檔</ ​​a>，以了解更多信息。"
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "在這裡，你可以設置的默認選項TubePress。這裡的每個選項可以覆蓋每一個頁面/後根據與TubePress簡。參見<a href=\"%s\">文檔</ ​​a>，以了解更多信息。"
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "這或是Vimeo用戶上傳的視頻"
@@ -419,8 +419,8 @@ msgstr "影片從這個VIMEO組"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "或是Vimeo API  “消費者鍵 ”"
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\">點擊此處</ a>的消費者密鑰和秘密註冊。"
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "<a href=\"%s\">點擊此處</ a>的消費者密鑰和秘密註冊。"
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "或是Vimeo API  “消費者的秘密 ”"
@@ -467,8 +467,8 @@ msgstr "視頻開始播放後，選擇“自動隱藏的元素（如果有的話
 msgid "YouTube API Developer Key"
 msgstr "YouTube的API開發重點"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube將使用此開發關鍵日誌和調試的目的，如果你遇到的服務問題在他們那一端。你可以註冊一個新的客戶端ID和開發關鍵<a href=\"http://code.google.com/apis/youtube/dashboard/\">這裡</ a>。不要改變，除非你知道你在做什麼。"
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "YouTube將使用此開發關鍵日誌和調試的目的，如果你遇到的服務問題在他們那一端。你可以註冊一個新的客戶端ID和開發關鍵<a href=\"%s\">這裡</ a>。不要改變，除非你知道你在做什麼。"
 
 msgid "Filter \"racy\" content"
 msgstr "過濾器 “活潑 ”的內容"

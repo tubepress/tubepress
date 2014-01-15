@@ -106,8 +106,8 @@ class tubepress_addons_wordpress_impl_DefaultWpAdminHandler implements tubepress
         return array_merge($links, array(
 
             sprintf('<a href="options-general.php?page=tubepress.php">%s</a>', $wordPressFunctionWrapper->__('Settings', 'tubepress')),
-            sprintf('<a href="http://tubepress.com/documentation/">Documentation</a>'),
-            sprintf('<a href="http://tubepress.com/forum/">Support</a>'),
+            sprintf('<a href="http://docs.tubepress.com/">Documentation</a>'),
+            sprintf('<a href="http://community.tubepress.com/">Support</a>'),
         ));
     }
 

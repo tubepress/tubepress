@@ -22,7 +22,7 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
         $messageService  = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
 
         $template->setVariable("pageTitle", $messageService->_('TubePress Options'));                                                                                                                                                                                                                       //>(translatable)<                                                                                                                                                                                                                                                                                                      //>(translatable)<
-        $template->setVariable("introBlurb", $messageService->_('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.com/documentation" target="_blank">documentation</a> for more information.')); //>(translatable)<
+        $template->setVariable("introBlurb", $messageService->_(sprintf('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="%s" target="_blank">documentation</a> for more information.', "http://docs.tubepress.com/"))); //>(translatable)<
 
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $toEncode = array();

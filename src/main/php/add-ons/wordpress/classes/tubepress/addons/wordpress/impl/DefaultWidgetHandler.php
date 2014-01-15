@@ -125,7 +125,7 @@ class tubepress_addons_wordpress_impl_DefaultWidgetHandler implements tubepress_
         /* set up the template */
         $tpl->setVariable(self::WIDGET_TITLE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
         $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $msg->_('Title'));                                                                                                            //>(translatable)<
-        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_('TubePress shortcode for the widget. See the <a href="http://tubepress.com/documentation" target="_blank">documentation</a>.')); //>(translatable)<
+        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"))); //>(translatable)<
         $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
         $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 

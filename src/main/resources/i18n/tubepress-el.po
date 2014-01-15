@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:37:52+0000\n"
+"PO-Revision-Date: 2014-01-15 19:12:59+0000\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "Προηγμένο"
 msgid "Date format"
 msgstr "Μορφή ημερομηνίας"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "Ρυθμίστε το κείμενο μορφοποίηση των πληροφοριών ημερομηνίας για βίντεο. Δείτε <a ημερομηνία href=\"http://us.php.net/date\"> </ a> για παραδείγματα."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "Ρυθμίστε το κείμενο μορφοποίηση των πληροφοριών ημερομηνίας για βίντεο. Δείτε <a ημερομηνία href=\"%s\"> </ a> για παραδείγματα."
 
 msgid "Video blacklist"
 msgstr "Βίντεο μαύρη λίστα"
@@ -167,8 +167,8 @@ msgstr "Εμφάνιση σελιδοποίηση παρακάτω μικρογ�
 msgid "Use high-quality thumbnails"
 msgstr "Χρήση υψηλής ποιότητας μικρογραφίες"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> Ajax </ a>-enabled σελιδοποίηση"
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "<a href=\"%s\"> Ajax </ a>-enabled σελιδοποίηση"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "Ισχύει μόνο για στοές που εκτείνονται σε πολλές σελίδες."
@@ -227,8 +227,8 @@ msgstr "Υλοποίηση"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "Η μάρκα του ενσωματωμένου player. Η προεπιλογή είναι παίκτης του παρόχου (YouTube, Vimeo, κλπ)."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "Δεν είναι όλες οι παραγγελίες του είδους μπορεί να εφαρμοστεί σε όλους τους τύπους γκαλερί. Δείτε το <a τεκμηρίωση href=\"http://tubepress.com/documentation\"> </ a> για περισσότερες πληροφορίες."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr "Δεν είναι όλες οι παραγγελίες του είδους μπορεί να εφαρμοστεί σε όλους τους τύπους γκαλερί. Δείτε το <a τεκμηρίωση href=\"%s\"> </ a> για περισσότερες πληροφορίες."
 
 msgid "Cache directory"
 msgstr "Κατάλογος Cache"
@@ -386,11 +386,11 @@ msgstr "Λέξη-κλειδί Shortcode"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Η λέξη που εισάγετε (σε απλό κείμενο, μέσα σε αγκύλες) σε θέσεις / σελίδες σας για να εμφανιστεί μια συλλογή."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress shortcode για το widget. Δείτε το <a τεκμηρίωση href=\"http://tubepress.com/documentation\"> </ a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "TubePress shortcode για το widget. Δείτε το <a τεκμηρίωση href=\"%s\"> </ a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "Εδώ μπορείτε να ορίσετε τις προεπιλεγμένες επιλογές για TubePress. Κάθε επιλογή εδώ μπορεί να αγνοηθεί σε μια βάση ανά σελίδα / post με TubePress ΣΥΝΤΟΜΟΙ. Δείτε το <a τεκμηρίωση href=\"http://tubepress.com/documentation\"> </ a> για περισσότερες πληροφορίες."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "Εδώ μπορείτε να ορίσετε τις προεπιλεγμένες επιλογές για TubePress. Κάθε επιλογή εδώ μπορεί να αγνοηθεί σε μια βάση ανά σελίδα / post με TubePress ΣΥΝΤΟΜΟΙ. Δείτε το <a τεκμηρίωση href=\"%s\"> </ a> για περισσότερες πληροφορίες."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Βίντεο μεταφόρτωση από αυτόν τον χρήστη Vimeo"
@@ -419,8 +419,8 @@ msgstr "Βίντεο από αυτή την ομάδα Vimeo"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API  \"Κλειδί καταναλωτή \""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "href=\"http://vimeo.com/api/applications/new\"> <a Κάντε κλικ εδώ </ a> για να εγγραφείτε για ένα βασικό καταναλωτικό και το μυστικό."
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "href=\"%s\"> <a Κάντε κλικ εδώ </ a> για να εγγραφείτε για ένα βασικό καταναλωτικό και το μυστικό."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API  \"Secret Καταναλωτών \""
@@ -467,8 +467,8 @@ msgstr "Μετά την αναπαραγωγή βίντεο αρχίζει, να
 msgid "YouTube API Developer Key"
 msgstr "YouTube API Developer Key"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "Το YouTube θα χρησιμοποιήσετε αυτό το κλειδί για την ανάπτυξη για την καταγραφή και τον εντοπισμό σφαλμάτων σκοπούς εάν αντιμετωπίζετε κάποιο πρόβλημα εξυπηρέτησης στο τέλος τους. Μπορείτε να καταχωρήσετε ένα νέο αναγνωριστικό πελάτη και προγραμματιστή <a κλειδί href=\"http://code.google.com/apis/youtube/dashboard/\"> εδώ </ a>. Μην αλλάξετε αυτό αν δεν ξέρετε τι κάνετε."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "Το YouTube θα χρησιμοποιήσετε αυτό το κλειδί για την ανάπτυξη για την καταγραφή και τον εντοπισμό σφαλμάτων σκοπούς εάν αντιμετωπίζετε κάποιο πρόβλημα εξυπηρέτησης στο τέλος τους. Μπορείτε να καταχωρήσετε ένα νέο αναγνωριστικό πελάτη και προγραμματιστή <a κλειδί href=\"%s\"> εδώ </ a>. Μην αλλάξετε αυτό αν δεν ξέρετε τι κάνετε."
 
 msgid "Filter \"racy\" content"
 msgstr "Φίλτρο  \"δημοκρατία \" περιεχόμενο"

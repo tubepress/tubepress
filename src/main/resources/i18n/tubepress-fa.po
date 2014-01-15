@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:37:55+0000\n"
+"PO-Revision-Date: 2014-01-15 19:13:01+0000\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "پیشرفته"
 msgid "Date format"
 msgstr "فرمت تاریخ"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "تنظیم قالب بندی متنی اطلاعات تاریخ برای ویدیوها. </ a> برای نمونه <a href=\"http://us.php.net/date\"> تاریخ."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "تنظیم قالب بندی متنی اطلاعات تاریخ برای ویدیوها. </ a> برای نمونه <a href=\"%s\"> تاریخ."
 
 msgid "Video blacklist"
 msgstr "ویدئو لیست سیاه"
@@ -167,8 +167,8 @@ msgstr "نمایش صفحه بندی در زیر عکسها"
 msgid "Use high-quality thumbnails"
 msgstr "استفاده از عکسها با کیفیت بالا"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> آژاکس </> صفحه بندی را فعال کنید"
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "<a href=\"%s\"> آژاکس </> صفحه بندی را فعال کنید"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "فقط به گالری که اندازهشان چند صفحه صدق می کند."
@@ -227,8 +227,8 @@ msgstr "اجرا"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "نام تجاری از پخش جاسازی شده است. پیش فرض از بازیکن ارائه دهنده (یوتیوب، Vimeo، و غیره) است."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "تمام سفارشات مرتب سازی بر را می توان به انواع گالری استفاده شود. <a href=\"http://tubepress.com/documentation\"> شده مستندات </ A> برای اطلاعات بیشتر مراجعه کنید."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr "تمام سفارشات مرتب سازی بر را می توان به انواع گالری استفاده شود. <a href=\"%s\"> شده مستندات </ A> برای اطلاعات بیشتر مراجعه کنید."
 
 msgid "Cache directory"
 msgstr "دایرکتوری کش"
@@ -386,11 +386,11 @@ msgstr "کلمات کلیدی کوتاه"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "کلمه ای را وارد کنید (در متن، بین براکت مربع) به پستها / صفحات خود را به نمایش گالری."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "برای ویجت TubePress کوتاه. مشاهده <a href=\"http://tubepress.com/documentation\"> شده مستندات </ A>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "برای ویجت TubePress کوتاه. مشاهده <a href=\"%s\"> شده مستندات </ A>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "در اینجا شما می توانید گزینه های پیش فرض برای TubePress تنظیم کنید. هر گزینه ای در اینجا می تواند بازنویسی شود بر روی صفحه / پست هر با TubePress کد کوتاه. <a href=\"http://tubepress.com/documentation\"> شده مستندات </ a> برای کسب اطلاعات بیشتر مراجعه کنید."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "در اینجا شما می توانید گزینه های پیش فرض برای TubePress تنظیم کنید. هر گزینه ای در اینجا می تواند بازنویسی شود بر روی صفحه / پست هر با TubePress کد کوتاه. <a href=\"%s\"> شده مستندات </ a> برای کسب اطلاعات بیشتر مراجعه کنید."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "فیلم ها آپلود شده توسط این کاربر Vimeo"
@@ -419,8 +419,8 @@ msgstr "فیلم ها را از این گروه Vimeo"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API  \"کلید مصرف کننده \""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\"> اینجا را کلیک کنید </> برای یک کلید مصرف کنندگان و راز ثبت نام کنید."
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "<a href=\"%s\"> اینجا را کلیک کنید </> برای یک کلید مصرف کنندگان و راز ثبت نام کنید."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API  \"راز مصرف کننده \""
@@ -467,8 +467,8 @@ msgstr "پس از پخش ویدئو آغاز می شود، را انتخاب ک�
 msgid "YouTube API Developer Key"
 msgstr "یوتیوب API توسعهدهنده کلید"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "یوتیوب این کلید توسعهدهنده برای ورود به سیستم و اشکال زدائی اهداف استفاده از اگر شما تجربه مشکل سرویس در پایان خود. شما می توانید یک شناسه مشتری جدید و کلید توسعه <a برای ثبت نام اینجا و href=\"http://code.google.com/apis/youtube/dashboard/\"> اینجا </ A>. آیا این را تغییر نمی دهد مگر اینکه شما می دانید آنچه شما انجام می دهند."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "یوتیوب این کلید توسعهدهنده برای ورود به سیستم و اشکال زدائی اهداف استفاده از اگر شما تجربه مشکل سرویس در پایان خود. شما می توانید یک شناسه مشتری جدید و کلید توسعه <a برای ثبت نام اینجا و href=\"%s\"> اینجا </ A>. آیا این را تغییر نمی دهد مگر اینکه شما می دانید آنچه شما انجام می دهند."
 
 msgid "Filter \"racy\" content"
 msgstr "فیلتر  \"با نشاط \" محتوا"

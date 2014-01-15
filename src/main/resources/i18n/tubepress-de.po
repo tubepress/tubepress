@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:37:51+0000\n"
+"PO-Revision-Date: 2014-01-15 19:12:58+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "Erweitert"
 msgid "Date format"
 msgstr "Datumsformat"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "Setzt das Datumsformat. Siehe <a href=\"http://de.php.net/date\">hier</a> für Beispiele."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "Setzt das Datumsformat. Siehe <a href=\"%s\">hier</a> für Beispiele."
 
 msgid "Video blacklist"
 msgstr "Video blacklist"
@@ -167,8 +167,8 @@ msgstr "Seitenzahlen unter den Vorschaubildern"
 msgid "Use high-quality thumbnails"
 msgstr "Benutze Vorschaubilder hoher Qualität"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "Seitennummerierung mit <a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>."
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "Seitennummerierung mit <a href=\"%s\">Ajax</a>."
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "Wird nur auf Galerien angewendet, die sich über mehrere Seiten erstrecken."
@@ -227,7 +227,7 @@ msgstr "Einbindung"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "Die Art des in die Seite eingebunden Players. Standard ist der Player des Videodienstes (YouTube, Vimeo etc.)."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
 msgstr ""
 
 msgid "Cache directory"
@@ -386,11 +386,11 @@ msgstr "Schlüsselwort"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Das Wort, das sie in ihren Seiten und Beiträge einf�gen (im Klartext, zwischen eckigen Klammern) um eine Videogallerie anzuzeigen."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress Kurzcode für das Widget. Siehe <a href=\"http://tubepress.org/documentation\">Dokumentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "TubePress Kurzcode für das Widget. Siehe <a href=\"%s\">Dokumentation</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "Hier können Sie die Standardeinstellungen für TubePress ändern. Jede Einstellung kann auf page/post basis mit TubePress shortcodes überschrieben werden. Für weitere Informationen lesen Sie die <a href=\"http://tubepress.com/documentation\">Dokumentation</a>."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "Hier können Sie die Standardeinstellungen für TubePress ändern. Jede Einstellung kann auf page/post basis mit TubePress shortcodes überschrieben werden. Für weitere Informationen lesen Sie die <a href=\"%s\">Dokumentation</a>."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Von diesem Vimeo User hochgeladene Videos"
@@ -419,8 +419,8 @@ msgstr "Videos aus dieser Vimeo-Gruppe"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API \"Consumer Key\""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\">Hier klicken</a>, um sich fuer einen consumer key und secret zu registrieren."
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "<a href=\"%s\">Hier klicken</a>, um sich fuer einen consumer key und secret zu registrieren."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API \"Consumer Secret\""
@@ -467,8 +467,8 @@ msgstr ""
 msgid "YouTube API Developer Key"
 msgstr "YouTube API Developer Key"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube benutzt diesen Schlüssel bei einem Problem für Protokoll und Debug Zwecke. Sie können sich <a href=\"http://code.google.com/apis/youtube/dashboard/\">hier</a> registrieren und eine neue Client ID und einen neuen Developer Key beantragen. ändern sie diese Einstellung nicht ausser Sie wissen was Sie tun."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "YouTube benutzt diesen Schlüssel bei einem Problem für Protokoll und Debug Zwecke. Sie können sich <a href=\"%s\">hier</a> registrieren und eine neue Client ID und einen neuen Developer Key beantragen. ändern sie diese Einstellung nicht ausser Sie wissen was Sie tun."
 
 msgid "Filter \"racy\" content"
 msgstr "Jugendschutzfilter"

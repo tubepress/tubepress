@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:38:09+0000\n"
+"PO-Revision-Date: 2014-01-15 19:13:17+0000\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "Avancerad"
 msgid "Date format"
 msgstr "Datumformat"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "Bestämmer hur datum formateras för videos. Se <a href=\"http://us.php.net/date\">date</a> för exempel."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "Bestämmer hur datum formateras för videos. Se <a href=\"%s\">date</a> för exempel."
 
 msgid "Video blacklist"
 msgstr "Video svartlista"
@@ -167,8 +167,8 @@ msgstr "Visa paginering nedan miniatyrer"
 msgid "Use high-quality thumbnails"
 msgstr "Använd högkvalitativa miniatyrer"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</ a>-aktiverad sidnumrering"
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "<a href=\"%s\">Ajax</ a>-aktiverad sidnumrering"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "Gäller endast gallerier som sträcker sig över flera sidor."
@@ -227,8 +227,8 @@ msgstr "Genomförande"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "Märket på den inbäddade spelaren. Standard är leverantörens spelaren (YouTube, Vimeo, osv)."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "Inte alla slags beställningar kan tillämpas på alla typer galleri. Se <a href=\"http://tubepress.com/documentation\">dokumentationen </ a> för mer info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr "Inte alla slags beställningar kan tillämpas på alla typer galleri. Se <a href=\"%s\">dokumentationen </ a> för mer info."
 
 msgid "Cache directory"
 msgstr "Cache directory"
@@ -386,11 +386,11 @@ msgstr "Nyckelord"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Ordet som du använder (i vanlig text eller inom klammer) där du vill visa ett galleri på dina sidor och inlägg."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress kortkod för widgeten. Se <a href=\"http://tubepress.com/documentation\"> dokumentationen </ a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "TubePress kortkod för widgeten. Se <a href=\"%s\"> dokumentationen </ a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "Här kan du ställa in standardalternativ för TubePress. Varje alternativ här kan åsidosättas på en per sida/post basis med TubePress kortkoder. Se <a href=\"http://tubepress.com/documentation\">dokumentationen </ a> för mer information."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "Här kan du ställa in standardalternativ för TubePress. Varje alternativ här kan åsidosättas på en per sida/post basis med TubePress kortkoder. Se <a href=\"%s\">dokumentationen </ a> för mer information."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Videos uppladdade av denna Vimeo användare"
@@ -419,8 +419,8 @@ msgstr "Videoklipp från denna Vimeo grupp"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API \"Consumer Key\""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\">Klicka här </ a> för att registrera dig för en konsument nyckel och hemlighet."
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "<a href=\"%s\">Klicka här </ a> för att registrera dig för en konsument nyckel och hemlighet."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API \"Consumer Secret\""
@@ -467,8 +467,8 @@ msgstr "Efter videouppspelning börjar välja vilka element (om någon) av inbä
 msgid "YouTube API Developer Key"
 msgstr "YouTube API Developer Key"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube kommer att använda den här utvecklaren nyckel för loggning och felsökning om du får en tjänst problem på slutet. Du kan registrera en ny klient-ID och utvecklarnyckel <a href=\"http://code.google.com/apis/youtube/dashboard/\">här</a>. Ändra inte detta om du inte vet vad du gör."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "YouTube kommer att använda den här utvecklaren nyckel för loggning och felsökning om du får en tjänst problem på slutet. Du kan registrera en ny klient-ID och utvecklarnyckel <a href=\"%s\">här</a>. Ändra inte detta om du inte vet vad du gör."
 
 msgid "Filter \"racy\" content"
 msgstr "Filtrera innehåll"

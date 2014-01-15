@@ -119,7 +119,7 @@ class tubepress_addons_youtube_impl_options_YouTubeOptionsProvider implements tu
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY);
         $option->setDefaultValue('AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
         $option->setLabel('YouTube API Developer Key');                                                                                                                                                                                                                                                                                   //>(translatable)<
-        $option->setDescription('YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="http://code.google.com/apis/youtube/dashboard/" target="_blank">here</a>. Don\'t change this unless you know what you\'re doing.'); //>(translatable)<
+        $option->setDescription(sprintf('YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="%s" target="_blank">here</a>. Don\'t change this unless you know what you\'re doing.', "http://code.google.com/apis/youtube/dashboard/")); //>(translatable)<
         $option->setValidValueRegex('/[\w-]+/');
         $toReturn[] = $option;
 

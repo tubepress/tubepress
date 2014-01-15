@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:37:50+0000\n"
+"PO-Revision-Date: 2014-01-15 19:12:57+0000\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgstr "متقدمة"
 msgid "Date format"
 msgstr "تنسيق التاريخ"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
 msgstr "نسق نص التاريخ كما هو متعارف عليه في php"
 
 msgid "Video blacklist"
@@ -167,7 +167,7 @@ msgstr "اظهر ارقام الصفحات و التصفح في أسفل صور 
 msgid "Use high-quality thumbnails"
 msgstr "استعمل صور معاينة عالية الدقة"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
 msgstr "استعمل ارقام تصفح باستخدام ajax"
 
 msgid "Only applies to galleries that span multiple pages."
@@ -227,7 +227,7 @@ msgstr "التطبيق"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "العلامة التجارية من لاعب المضمنة. الافتراضي هو لاعب الموفر (يوتيوب، فيميو، الخ)."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
 msgstr "ليس كل أنواع الترتيب متاحة لجميع أنواع العروض"
 
 msgid "Cache directory"
@@ -386,11 +386,11 @@ msgstr "كلمات مفتاحية لShortcode"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "الكلمة التي تضعها في النص لعرض الفيديوهات"
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
 msgstr "الshortcode للقوائم الجانبية"
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "هنا يمكنك تعيين الخيارات الافتراضية للTubePress. كل خيار هنا يمكن تجاوزها في الصفحة / آخر في أساس الهاتفية القصيرة مع TubePress. راجع <a href=\"http://tubepress.com/documentation\"> الوثائق </ a> للحصول على مزيد من المعلومات."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "هنا يمكنك تعيين الخيارات الافتراضية للTubePress. كل خيار هنا يمكن تجاوزها في الصفحة / آخر في أساس الهاتفية القصيرة مع TubePress. راجع <a href=\"%s\"> الوثائق </ a> للحصول على مزيد من المعلومات."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "الفيديوهات هذا المستخدم في فيميو"
@@ -419,8 +419,8 @@ msgstr "الفيديوهات في مجموعة فيميو هذه"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "فيميو API \"مفتاح المستهلك \""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "href=\"http://vimeo.com/api/applications/new\"> <a اضغط هنا </ a> للتسجيل للحصول على مفتاح المستهلك وسرية."
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "href=\"%s\"> <a اضغط هنا </ a> للتسجيل للحصول على مفتاح المستهلك وسرية."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "فيميو API \"سرية المستهلك \""
@@ -467,7 +467,7 @@ msgstr "بعد بدء تشغيل الفيديو، واختيار العناصر 
 msgid "YouTube API Developer Key"
 msgstr "مفتاح المطور عند يوتوب"
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
 msgstr "ضع مفتاح الAPI لدى يوتوب في حالة ارادتك لتعقب المشاكل لدى يوتوب"
 
 msgid "Filter \"racy\" content"

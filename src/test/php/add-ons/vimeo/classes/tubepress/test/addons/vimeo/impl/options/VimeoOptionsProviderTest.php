@@ -39,12 +39,12 @@ class tubepress_test_addons_vimeo_impl_options_VimeoOptionsProviderTest extends 
         
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY);
         $option->setLabel('Vimeo API "Consumer Key"');
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new" target="_blank">Click here</a> to register for a consumer key and secret.');
+        $option->setDescription(sprintf('<a href="%s" target="_blank">Click here</a> to register for a consumer key and secret.', "https://developer.vimeo.com/apps/new")); //>(translatable)<
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET);
         $option->setLabel('Vimeo API "Consumer Secret"');
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new" target="_blank">Click here</a> to register for a consumer key and secret.');
+        $option->setDescription(sprintf('<a href="%s" target="_blank">Click here</a> to register for a consumer key and secret.', "https://developer.vimeo.com/apps/new")); //>(translatable)<
         $toReturn[] = $option;
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);

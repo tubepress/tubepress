@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-12-12 17:37:58+0000\n"
+"PO-Revision-Date: 2014-01-15 19:13:06+0000\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,8 +137,8 @@ msgstr "מתקדם"
 msgid "Date format"
 msgstr "פורמט תאריך"
 
-msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "קבע את עיצוב טקסטואלי של מידע עדכני עבור קטעי וידאו. ראה  <a href=\"http://us.php.net/date\">תאריך</a> לדוגמאות."
+msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
+msgstr "קבע את עיצוב טקסטואלי של מידע עדכני עבור קטעי וידאו. ראה  <a href=\"%s\">תאריך</a> לדוגמאות."
 
 msgid "Video blacklist"
 msgstr "וידאו רשימה שחורה"
@@ -167,8 +167,8 @@ msgstr "הצג מעבר עמודים מתחת תמונות ממוזערות"
 msgid "Use high-quality thumbnails"
 msgstr "השתמש בתמונות ממוזערות באיכות גבוהה"
 
-msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</ a> במעבר בין עמודים"
+msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
+msgstr "<a href=\"%s\">Ajax</ a> במעבר בין עמודים"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "חל רק על הגלריות עם עמודים מרובים"
@@ -227,8 +227,8 @@ msgstr "יישום "
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr "המותג של הנגן המוטבע. ברירת מחדל הוא השחקן של הספק (YouTube, Vimeo, וכו ')."
 
-msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "ניתן ליישם לא כל סדר המיון לכל סוגי הגלריה. ראה <a href=\"http://tubepress.com/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
+msgstr "ניתן ליישם לא כל סדר המיון לכל סוגי הגלריה. ראה <a href=\"%s\"> תיעוד </ a> לקבלת מידע נוסף."
 
 msgid "Cache directory"
 msgstr "ספריית מטמון"
@@ -386,11 +386,11 @@ msgstr "מילות מפתח Shortcode"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "המילה שהזנת (בטקסט, בין סוגריים מרובעים) לתוך הפוסטים  / דפים שלך כדי להציג גלריה."
 
-msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "Shortcode TubePress עבור יישומון. צפה ב<a href=\"http://tubepress.com/documentation\"> תיעוד</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
+msgstr "Shortcode TubePress עבור יישומון. צפה ב<a href=\"%s\"> תיעוד</a>."
 
-msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"http://tubepress.com/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
+msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"%s\"> תיעוד </ a> לקבלת מידע נוסף."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "סרטונים שהועלו על ידי משתמש זה Vimeo"
@@ -419,8 +419,8 @@ msgstr "קטעי וידאו מ-Vimeo קבוצה זו"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API  \"מפתח לצרכן \""
 
-msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "href=\"http://vimeo.com/api/applications/new\"> <a לחץ כאן </ a> כדי להירשם לצרכן ומפתח סודי."
+msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "href=\"%s\"> <a לחץ כאן </ a> כדי להירשם לצרכן ומפתח סודי."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API  \"סוד לצרכן \""
@@ -467,8 +467,8 @@ msgstr "לאחר הפעלת וידאו מתחילה, לבחור איזה אלמ�
 msgid "YouTube API Developer Key"
 msgstr "מפתח API למפתחים ב YouTube "
 
-msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube ישתמשו במפתח המפתחים לרישום באגים אם אתה נתקל בבעיה. אתה יכול להרשם עם מזהה לקוח חדש <a  href=\"http://code.google.com/apis/youtube/dashboard/\">כאן</ a>. אל תשנה את זה אלא אם כן אתה יודע מה אתה עושה."
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
+msgstr "YouTube ישתמשו במפתח המפתחים לרישום באגים אם אתה נתקל בבעיה. אתה יכול להרשם עם מזהה לקוח חדש <a  href=\"%s\">כאן</ a>. אל תשנה את זה אלא אם כן אתה יודע מה אתה עושה."
 
 msgid "Filter \"racy\" content"
 msgstr "מסנן תוכן \"בעייתי\" "
