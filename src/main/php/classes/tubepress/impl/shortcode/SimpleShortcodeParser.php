@@ -67,7 +67,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Found a shortcode: %s', $matches[0]));
+            $this->_logger->debug(sprintf('Found a shortcode: %s', tubepress_impl_util_StringUtils::redactSecrets($matches[0])));
         }
 
         $context->setActualShortcodeUsed($matches[0]);
@@ -83,7 +83,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Candidate options detected in shortcode: %s', $matches[0]));
+                    $this->_logger->debug(sprintf('Candidate options detected in shortcode: %s', tubepress_impl_util_StringUtils::redactSecrets($matches[0])));
                 }
 
                 $toReturn = $this->_buildNameValuePairArray($match);
@@ -95,7 +95,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('No custom options detected in shortcode: %s', $matches[0]));
+                $this->_logger->debug(sprintf('No custom options detected in shortcode: %s', tubepress_impl_util_StringUtils::redactSecrets($matches[0])));
             }
         }
     }
@@ -151,7 +151,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (unfiltered)', $name, $value));
+                $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (unfiltered)', $name, tubepress_impl_util_StringUtils::redactSecrets($value)));
             }
 
             $event = new tubepress_spi_event_EventBase(
@@ -170,7 +170,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (filtered)', $name, $filtered));
+                $this->_logger->debug(sprintf('Name-value pair detected: %s = "%s" (filtered)', $name, tubepress_impl_util_StringUtils::redactSecrets($filtered)));
             }
 
             $toReturn[$name] = $filtered;

@@ -108,7 +108,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
         if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
-            $this->_logger->warn(sprintf('Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage));
+            $this->_logger->warn(sprintf('Ignoring invalid value for "%s" (%s)', $optionName, $this->_normalizeForStringOutput($problemMessage)));
         }
 
         return $problemMessage;
@@ -196,9 +196,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     {
         if (is_array($candidate)) {
 
-            return json_encode($candidate);
+            $candidate = json_encode($candidate);
         }
 
-        return (string) $candidate;
+        return tubepress_impl_util_StringUtils::redactSecrets((string) $candidate);
     }
 }

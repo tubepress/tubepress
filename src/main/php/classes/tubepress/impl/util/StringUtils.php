@@ -91,4 +91,9 @@ class tubepress_impl_util_StringUtils
 
         return $text;
     }
+
+    public static function redactSecrets($string)
+    {
+        return preg_replace('/[0-9a-fA-F]{12,}/', 'XXXXXX', $string);
+    }
 }

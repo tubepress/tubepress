@@ -70,5 +70,12 @@ class tubepress_test_impl_util_StringUtilsTest extends tubepress_test_TubePressU
             $this->assertTrue($actual === $expected, "$actual did not equal expected $expected");
         }
     }
-}
 
+    public function testRedactSecrets()
+    {
+        $this->assertEquals('XXXXXX', tubepress_impl_util_StringUtils::redactSecrets('abdcefabcdef'));
+        $this->assertEquals('XXXXXX', tubepress_impl_util_StringUtils::redactSecrets('123456789012'));
+        $this->assertEquals('XXXXXX', tubepress_impl_util_StringUtils::redactSecrets('abCDEF789012'));
+        $this->assertEquals('abCDEF78901', tubepress_impl_util_StringUtils::redactSecrets('abCDEF78901'));
+    }
+}

@@ -224,7 +224,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
             if ($shouldLog) {
 
-                $this->_logger->info(sprintf("Accepted valid value: '%s' = '%s'", $optionName, $optionValue));
+                $this->_logger->info(sprintf("Accepted valid value: '%s' = '%s'", $optionName, tubepress_impl_util_StringUtils::redactSecrets($optionValue)));
             }
 
             return true;
@@ -234,7 +234,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
         if ($shouldLog) {
 
-            $this->_logger->info(sprintf("Ignoring invalid value: '%s' = '%s'", $optionName, $optionValue));
+            $this->_logger->info(sprintf("Ignoring invalid value: '%s' = '%s'", $optionName, tubepress_impl_util_StringUtils::redactSecrets($optionValue)));
         }
 
         return $problemMessage;
