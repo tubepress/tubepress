@@ -10,10 +10,19 @@
  */
 
 /**
- * Retrieves options for boot from a JSON file.
+ * Retrieves options for boot from a PHP file.
  */
 class tubepress_impl_boot_DefaultBootConfigService implements tubepress_spi_boot_BootConfigService
 {
+    private static $_TOP_LEVEL_KEY_CLASSLOADER = 'classloader';
+    private static $_TOP_LEVEL_KEY_CACHE       = 'cache';
+    private static $_TOP_LEVEL_KEY_ADDONS      = 'add-ons';
+
+    private static $_2ND_LEVEL_KEY_CLASSLOADER_ENABLED = 'enabled';
+    private static $_2ND_LEVEL_KEY_CACHE_INSTANCE      = 'instance';
+    private static $_2ND_LEVEL_KEY_CACHE_KILLERKEY     = 'killerKey';
+    private static $_2ND_LEVEL_KEY_ADDONS_BLACKLIST    = 'blacklist';
+
     /**
      * @var ehough_epilog_Logger
      */
@@ -30,19 +39,14 @@ class tubepress_impl_boot_DefaultBootConfigService implements tubepress_spi_boot
     private $_shouldLog = false;
 
     /**
+     * @var tubepress_spi_environment_EnvironmentDetector
+     */
+    private $_environmentDetector;
+
+    /**
      * @var array
      */
     private $_bootConfig = array();
-
-    /**
-     * @var string
-     */
-    private $_cachedBootCacheDirectory;
-
-    public function __construct()
-    {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Boot Config Service');
-    }
 
     /**
      * @return array An array of names of add-ons that have been blacklisted.
@@ -51,113 +55,39 @@ class tubepress_impl_boot_DefaultBootConfigService implements tubepress_spi_boot
     {
         $this->_init();
 
-        if (!isset($this->_bootConfig['add-ons']['blacklist'])) {
-
-            return array();
-        }
-
-        $blackList = $this->_bootConfig['add-ons']['blacklist'];
-
-        if (!is_array($blackList)) {
-
-            return array();
-        }
-
-        return $blackList;
-    }
-
-    /**
-     * @param string $element The element to look up.
-     *
-     * @return bool True if caching is enabled for this element, false otherwise.
-     */
-    public function isCacheEnabledForElement($element)
-    {
-        $this->_init();
-
-        if (!isset($this->_bootConfig['cache'][$element]['enabled']) || !$this->_bootConfig['cache'][$element]['enabled']) {
-
-            $toReturn = false;
-
-        } else {
-
-            $toReturn = true;
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('%s caching is%s enabled', $element, $toReturn ? '' : ' not'));
-        }
-
-        return $toReturn;
-    }
-
-    /**
-     * @return bool True if the cache killer is on, false otherwise.
-     */
-    public function isCacheKillerTurnedOn()
-    {
-        $this->_init();
-
-        if (isset($this->_bootConfig['cache']['killer-key'])) {
-
-            $key = (string) $this->_bootConfig['cache']['killer-key'];
-
-        } else {
-
-            $key = 'tubepress_boot_cache_kill';
-        }
-
-        return isset($_GET[$key]) && $_GET[$key] === 'true';
-    }
-
-    /**
-     * @param string $element The element to look up.
-     *
-     * @return string The absolute path of the element's cache file.
-     */
-    public function getAbsolutePathToCacheFileForElement($element)
-    {
-        $this->_init();
-
-        switch ($element) {
-
-            case 'ioc-container':
-
-                return $this->_calculateCacheFilePath('cached-ioc-container.php');
-
-            case 'add-ons':
-
-                return $this->_calculateCacheFilePath('serialized-addons.txt');
-
-            case 'classloader':
-
-                return $this->_calculateCacheFilePath('serialized-classloader.txt');
-
-            case 'option-descriptors':
-
-                return $this->_calculateCacheFilePath('serialized-option-descriptors.txt');
-
-            default:
-
-                throw new InvalidArgumentException('Invalid boot config element: ' . $element);
-        }
+        return $this->_bootConfig[self::$_TOP_LEVEL_KEY_ADDONS][self::$_2ND_LEVEL_KEY_ADDONS_BLACKLIST];
     }
 
     /**
      * @return bool True if classloader registration is enabled.
      */
-    function isClassLoaderEnabled()
+    public function isClassLoaderEnabled()
     {
         $this->_init();
 
-        if (isset($this->_bootConfig['classloader']['enabled'])) {
-
-            return (bool) $this->_bootConfig['classloader']['enabled'];
-        }
-
-        return true;
+        return $this->_bootConfig[self::$_TOP_LEVEL_KEY_CLASSLOADER][self::$_2ND_LEVEL_KEY_CLASSLOADER_ENABLED];
     }
+
+    /**
+     * @return ehough_stash_interfaces_PoolInterface A functioning boot cache.
+     */
+    public function getBootCache()
+    {
+        $this->_init();
+
+        return $this->_bootConfig[self::$_TOP_LEVEL_KEY_CACHE][self::$_2ND_LEVEL_KEY_CACHE_INSTANCE];
+    }
+
+    /**
+     * This function should NOT be use outside of testing.
+     *
+     * @param tubepress_spi_environment_EnvironmentDetector $environmentDetector
+     */
+    public function __setEnvironmentDetector(tubepress_spi_environment_EnvironmentDetector $environmentDetector)
+    {
+        $this->_environmentDetector = $environmentDetector;
+    }
+
 
     private function _init()
     {
@@ -166,86 +96,143 @@ class tubepress_impl_boot_DefaultBootConfigService implements tubepress_spi_boot
             return;
         }
 
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Boot Config Service');
+
         $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         $this->_readConfig();
 
         $this->_hasInitialized = true;
+
+        $this->_clearCacheIfRequested();
     }
 
     private function _readConfig()
     {
-        $envDetector          = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $userContentDirectory = $envDetector->getUserContentDirectory();
-        $configFileLocation   = $userContentDirectory . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'boot.json';
+        if (!isset($this->_environmentDetector)) {
 
-        if (!is_file($configFileLocation) || !is_readable($configFileLocation)) {
+            $this->_environmentDetector = new tubepress_impl_environment_SimpleEnvironmentDetector();
+        }
+
+        $userContentDirectory = $this->_environmentDetector->getUserContentDirectory();
+        $bootConfigFile       = $userContentDirectory . '/config/boot.php';
+
+        /**
+         * The user has their own boot config file.
+         */
+        if (is_readable($bootConfigFile)) {
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('No readable config file at %s', $configFileLocation));
+                $this->_logger->debug(sprintf('Candidate boot config file at %s', $bootConfigFile));
             }
 
-            return;
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Attempting to read boot config from %s', $configFileLocation));
-        }
-
-        $contents = file_get_contents($configFileLocation);
-
-        if ($contents === false) {
-
-            if ($this->_shouldLog) {
-
-                $this->_logger->warn(sprintf('Failed to read file contents of %s', $configFileLocation));
-            }
-
-            return;
-        }
-
-        $decoded = @json_decode($contents, true);
-
-        if ($decoded === false || !is_array($decoded)) {
-
-            if ($this->_shouldLog) {
-
-                $this->_logger->warn(sprintf('Failed to parse %s', $configFileLocation));
-            }
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Successfully read boot config from %s', $configFileLocation));
-        }
-
-        $this->_bootConfig = $decoded;
-    }
-
-    private function _calculateCacheFilePath($fileName)
-    {
-        if (!isset($this->_cachedBootCacheDirectory)) {
-
-            $dir = null;
-
-            if (isset($this->_bootConfig['cache']['dir'])) {
-
-                $dir = $this->_bootConfig['cache']['dir'];
-            }
-
-            if (!$dir) {
+            try {
 
                 /**
-                 * The md5 stuff ensures that this cache doesn't clobber over other installations present on the server.
+                 * Turn on output buffering to capture any accidental output from the boot file.
                  */
-                $dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'tubepress-boot-cache-' . md5(realpath(dirname(__FILE__)));
-            }
+                ob_start();
+                /** @noinspection PhpIncludeInspection */
+                $config = include $bootConfigFile;
+                $output = ob_get_clean();
 
-            $this->_cachedBootCacheDirectory = $dir;
+                $this->_validateConfig($config, $output);
+                $this->_bootConfig = $config;
+                return;
+
+            } catch (Exception $e) {
+
+                if ($this->_shouldLog) {
+
+                    $this->_logger->warning(sprintf('Could not read boot config file from %s: %s',
+                        $bootConfigFile, $e->getMessage()));
+                }
+            }
         }
 
-        return $this->_cachedBootCacheDirectory . DIRECTORY_SEPARATOR . $fileName;
+        $defaultBootConfigFile = TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content/config/boot.php';
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->warning(sprintf('Falling back to default boot config file at %s', $defaultBootConfigFile));
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        $this->_bootConfig = include $defaultBootConfigFile;
+    }
+
+    private function _validateConfig($bootConfig, $output)
+    {
+        if (trim($output) != '') {
+
+            throw new RuntimeException('Boot config produced printable output.');
+        }
+
+        if (!is_array($bootConfig)) {
+
+            throw new RuntimeException('Boot config is not an array. Did you forget to add a return statement to your boot.php?');
+        }
+
+        $expectedKeys = array(
+
+            self::$_TOP_LEVEL_KEY_ADDONS      => array(self::$_2ND_LEVEL_KEY_ADDONS_BLACKLIST),
+            self::$_TOP_LEVEL_KEY_CACHE       => array(self::$_2ND_LEVEL_KEY_CACHE_INSTANCE, self::$_2ND_LEVEL_KEY_CACHE_KILLERKEY),
+            self::$_TOP_LEVEL_KEY_CLASSLOADER => array(self::$_2ND_LEVEL_KEY_CLASSLOADER_ENABLED),
+        );
+
+        foreach ($expectedKeys as $topLevel => $keys) {
+
+            if (!isset($bootConfig[$topLevel])) {
+
+                throw new RuntimeException(sprintf('Boot config is missing "%s" configuration.', $topLevel));
+            }
+
+            if (!is_array($bootConfig[$topLevel])) {
+
+                throw new RuntimeException(sprintf('Boot config "%s" configuration is not an array', $topLevel));
+            }
+
+            foreach ($expectedKeys[$topLevel] as $key) {
+
+                if (!isset($bootConfig[$topLevel][$key])) {
+
+                    throw new RuntimeException(sprintf('Boot config "%s" configuration is missing "%s" key', $topLevel, $key));
+                }
+            }
+        }
+
+        $killerKey = $bootConfig[self::$_TOP_LEVEL_KEY_CACHE][self::$_2ND_LEVEL_KEY_CACHE_KILLERKEY];
+        if (!is_string($killerKey)) {
+
+            throw new RuntimeException('Boot config cache killer key is not a string');
+        }
+
+        $cache = $bootConfig[self::$_TOP_LEVEL_KEY_CACHE][self::$_2ND_LEVEL_KEY_CACHE_INSTANCE];
+        if (!($cache instanceof ehough_stash_interfaces_PoolInterface)) {
+
+            throw new RuntimeException('Boot config did not provide an instance of ehough_stash_interfaces_PoolInterface');
+        }
+
+        $blacklist = $bootConfig[self::$_TOP_LEVEL_KEY_ADDONS][self::$_2ND_LEVEL_KEY_ADDONS_BLACKLIST];
+        if (!is_array($blacklist)) {
+
+            throw new RuntimeException('Add-ons blacklist is not an array');
+        }
+
+        if (!is_bool($bootConfig[self::$_TOP_LEVEL_KEY_CLASSLOADER][self::$_2ND_LEVEL_KEY_CLASSLOADER_ENABLED])) {
+
+            throw new RuntimeException('Classloader enablement is not boolean.');
+        }
+    }
+
+    private function _clearCacheIfRequested()
+    {
+        $killer = $this->_bootConfig[self::$_TOP_LEVEL_KEY_CACHE][self::$_2ND_LEVEL_KEY_CACHE_KILLERKEY];
+
+        if (isset($_GET[$killer]) && $_GET[$killer] === 'true') {
+
+            $this->getBootCache()->flush();
+        }
     }
 }

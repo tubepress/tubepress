@@ -17,31 +17,17 @@ interface tubepress_spi_boot_BootConfigService
     const _ = 'tubepress_spi_boot_BootConfigService';
 
     /**
-     * @param string $element The element to look up.
-     *
-     * @return bool True if caching is enabled for this element, false otherwise.
-     */
-    function isCacheEnabledForElement($element);
-
-    /**
-     * @return bool True if the cache killer is on, false otherwise.
-     */
-    function isCacheKillerTurnedOn();
-
-    /**
      * @return bool True if classloader registration is enabled.
      */
     function isClassLoaderEnabled();
 
     /**
-     * @param string $element The element to look up.
-     *
-     * @return string The absolute path of the element's cache file.
-     */
-    function getAbsolutePathToCacheFileForElement($element);
-
-    /**
      * @return array An array of names of add-ons that have been blacklisted.
      */
     function getAddonBlacklistArray();
+
+    /**
+     * @return ehough_stash_interfaces_PoolInterface A functioning boot cache.
+     */
+    function getBootCache();
 }
