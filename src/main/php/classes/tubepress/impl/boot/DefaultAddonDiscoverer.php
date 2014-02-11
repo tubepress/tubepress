@@ -293,12 +293,6 @@ class tubepress_impl_boot_DefaultAddonDiscoverer extends tubepress_impl_boot_Abs
 
                 tubepress_spi_addon_Addon::ATTRIBUTE_IOC_COMPILER_PASSES => 'IocContainerCompilerPasses',
                 tubepress_spi_addon_Addon::ATTRIBUTE_IOC_EXTENSIONS      => 'IocContainerExtensions',
-            ),
-            tubepress_spi_addon_Addon::CATEGORY_BOOTSTRAP            => array(
-
-                tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_CLASSES  => 'BootstrapClasses',
-                tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_FILES    => 'BootstrapFiles',
-                tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_SERVICES => 'BootstrapServices'
             )
         );
 
@@ -339,7 +333,6 @@ class tubepress_impl_boot_DefaultAddonDiscoverer extends tubepress_impl_boot_Abs
 
             case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS:
             case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSMAP:
-            case tubepress_spi_addon_Addon::ATTRIBUTE_BOOT_FILES:
 
                 return $this->_arrayValuesToAbsolutePaths($candidateValue, $manifestFileAbsPath);
 

@@ -159,16 +159,12 @@ class tubepress_test_impl_boot_DefaultAddonDiscovererTest extends tubepress_test
 
     public function testGoodAddon()
     {
-        $addon = $this->_verifyGoodAddon('good_addon', $this->_fakeAddonRoot . '/good_addon/add-ons/something');
-
-        $this->assertEquals(array('tubepress_test_impl_addon_FilesystemAddonDiscovererTest'), $addon->getBootstrapClasses());
+        $this->_verifyGoodAddon('good_addon', $this->_fakeAddonRoot . '/good_addon/add-ons/something');
     }
 
     public function testGoodAddon2()
     {
-        $addon = $this->_verifyGoodAddon('good_addon2', $this->_fakeAddonRoot . '/good_addon2/add-ons');
-
-        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultaddondiscoverer/add-ons/good_addon2/add-ons/some/dir/boot.php'), $addon->getBootstrapFiles());
+        $this->_verifyGoodAddon('good_addon2', $this->_fakeAddonRoot . '/good_addon2/add-ons');
     }
 
     public function _callback()

@@ -19,7 +19,6 @@ class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicConta
     {
         parent::__construct();
 
-        $this->_registerBootHelperAddonBooter();
         $this->_registerBootHelperAddonDiscoverer();
         $this->_registerBootHelperConfigService();
         $this->_registerBootHelperClassLoadingHelper();
@@ -61,15 +60,6 @@ class tubepress_impl_ioc_CoreIocContainer extends tubepress_impl_ioc_IconicConta
             tubepress_api_event_EventDispatcherInterface::_,
             'tubepress_impl_event_DefaultEventDispatcher'
         )->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
-    }
-
-    private function _registerBootHelperAddonBooter()
-    {
-        $this->register(
-
-            tubepress_spi_boot_AddonBooter::_,
-            'tubepress_impl_boot_DefaultAddonBooter'
-        );
     }
 
     private function _registerBootHelperAddonDiscoverer()

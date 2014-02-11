@@ -21,14 +21,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     private static $_iocContainer;
 
     /**
-     * @return tubepress_spi_boot_AddonBooter
-     */
-    public static function getBootHelperAddonBooter()
-    {
-        return self::getService(tubepress_spi_boot_AddonBooter::_);
-    }
-
-    /**
      * @return tubepress_spi_boot_AddonDiscoverer The add-on discoverer.
      */
     public static function getBootHelperAddonDiscoverer()

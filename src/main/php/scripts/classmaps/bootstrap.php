@@ -62,7 +62,6 @@ return array(
     'tubepress_impl_ioc_Reference'                         => $_bootStrapClassMapSysPrefix . '/impl/ioc/Reference.php',
     'tubepress_impl_log_TubePressLoggingHandler'           => $_bootStrapClassMapSysPrefix . '/impl/log/TubePressLoggingHandler.php',
     'tubepress_impl_patterns_sl_ServiceLocator'            => $_bootStrapClassMapSysPrefix . '/impl/patterns/sl/ServiceLocator.php',
-    'tubepress_spi_boot_AddonBooter'                       => $_bootStrapClassMapSysPrefix . '/spi/boot/AddonBooter.php',
     'tubepress_spi_boot_AddonDiscoverer'                   => $_bootStrapClassMapSysPrefix . '/spi/boot/AddonDiscoverer.php',
     'tubepress_spi_boot_BootConfigService'                 => $_bootStrapClassMapSysPrefix . '/spi/boot/BootConfigService.php',
     'tubepress_spi_boot_ClassLoadingHelper'                => $_bootStrapClassMapSysPrefix . '/spi/boot/ClassLoadingHelper.php',

@@ -82,7 +82,6 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
         $this->_mockAddonDiscoverer             = $this->createMockSingletonService(tubepress_spi_boot_AddonDiscoverer::_);
         $this->_mockIocContainerBootHelper      = $this->createMockSingletonService(tubepress_spi_boot_IocContainerHelper::_);
         $this->_mockCoreIocContainer            = ehough_mockery_Mockery::mock('tubepress_impl_ioc_CoreIocContainer');
-        $this->_mockAddonBooter                 = $this->createMockSingletonService(tubepress_spi_boot_AddonBooter::_);
 
         $this->_sut->setIocContainer($this->_mockCoreIocContainer);
     }
@@ -101,7 +100,6 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
         $this->_mockAddonDiscoverer->shouldReceive('findAddons')->once()->andReturn(array('x'));
         $this->_mockIocContainerBootHelper->shouldReceive('compile')->once()->with($this->_mockCoreIocContainer, array('x'));
-        $this->_mockAddonBooter->shouldReceive('boot')->once()->with(array('x'));
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::BOOT_COMPLETE);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);

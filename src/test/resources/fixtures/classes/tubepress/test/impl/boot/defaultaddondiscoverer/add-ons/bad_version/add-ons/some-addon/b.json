@@ -9,6 +9,5 @@
     "licenses": {
 
         "url": "http://foo.bar"
-    },
-    "bootstrap": "tubepress_impl_player_DefaultAddonLoaderTest"
+    }
 }

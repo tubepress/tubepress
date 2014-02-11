@@ -56,11 +56,6 @@ class tubepress_impl_boot_PrimaryBootstrapper
     private $_classLoader;
 
     /**
-     * @var tubepress_spi_boot_AddonBooter
-     */
-    private $_bootHelperAddonBooter;
-
-    /**
      * @var tubepress_spi_boot_AddonDiscoverer
      */
     private $_bootHelperAddonDiscoverer;
@@ -123,8 +118,6 @@ class tubepress_impl_boot_PrimaryBootstrapper
             $this->_08_registerAddonClassHints();
 
             $this->_09_compileIocContainer();
-
-            $this->_10_bootAddons();
 
             $this->_11_dispatchBootCompleteEvent();
 
@@ -260,13 +253,6 @@ class tubepress_impl_boot_PrimaryBootstrapper
         $helper = tubepress_impl_patterns_sl_ServiceLocator::getBootHelperIocContainer();
 
         $helper->compile($this->_iocContainer, $this->_addons);
-    }
-
-    private function _10_bootAddons()
-    {
-        $addonBooter = tubepress_impl_patterns_sl_ServiceLocator::getBootHelperAddonBooter();
-
-        $addonBooter->boot($this->_addons);
     }
 
     private function _11_dispatchBootCompleteEvent()

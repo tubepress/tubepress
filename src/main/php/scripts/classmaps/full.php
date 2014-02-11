@@ -249,7 +249,6 @@ return array(
 
     'tubepress_impl_addon_AddonBase'                                      => $implPrefix . '/addon/AddonBase.php',
     'tubepress_impl_boot_AbstractCachingBootHelper'                       => $implPrefix . '/boot/AbstractCachingBootHelper.php',
-    'tubepress_impl_boot_DefaultAddonBooter'                              => $implPrefix . '/boot/DefaultAddonBooter.php',
     'tubepress_impl_boot_DefaultAddonDiscoverer'                          => $implPrefix . '/boot/DefaultAddonDiscoverer.php',
     'tubepress_impl_boot_DefaultBootConfigService'                        => $implPrefix . '/boot/DefaultBootConfigService.php',
     'tubepress_impl_boot_DefaultClassLoadingHelper'                       => $implPrefix . '/boot/DefaultClassLoadingHelper.php',
@@ -307,7 +306,6 @@ return array(
     'tubepress_plugins_youtube_api_const_options_names_Meta' => $oldPrefix2 . '/youtube/api/const/options/names/Meta.php',
 
     'tubepress_spi_addon_Addon'                                => $spiPrefix . '/addon/Addon.php',
-    'tubepress_spi_boot_AddonBooter'                           => $spiPrefix . '/boot/AddonBooter.php',
     'tubepress_spi_boot_AddonDiscoverer'                       => $spiPrefix . '/boot/AddonDiscoverer.php',
     'tubepress_spi_collector_VideoCollector'                   => $spiPrefix . '/collector/VideoCollector.php',
     'tubepress_spi_const_http_ParamName'                       => $spiPrefix . '/const/http/ParamName.php',

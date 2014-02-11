@@ -41,7 +41,6 @@ class tubepress_test_impl_ioc_CoreIocContainerTest extends tubepress_test_TubePr
     {
         $toTest = array(
 
-            tubepress_spi_boot_AddonBooter::_                => tubepress_spi_boot_AddonBooter::_,
             tubepress_spi_boot_AddonDiscoverer::_            => tubepress_spi_boot_AddonDiscoverer::_,
             tubepress_spi_boot_BootConfigService::_          => tubepress_spi_boot_BootConfigService::_,
             tubepress_spi_boot_ClassLoadingHelper::_         => tubepress_spi_boot_ClassLoadingHelper::_,
