@@ -26,7 +26,7 @@ class tubepress_api_const_event_EventNames
     const BOOT_COMPLETE = 'tubepress.core.boot.complete';
 
     /**
-     * This event is fied when TubePress is about to print its JS files (either in <head> or near </body>).
+     * This event is fired when TubePress is about to print its JS files (either in <head> or near </body>).
      *
      * @subject array An associative array where keys are script handles and values are script details.
      *                See tubepress_spi_html_CssAndJsRegistryInterface::getScript() for details on array values.
@@ -37,7 +37,7 @@ class tubepress_api_const_event_EventNames
     const CSS_JS_STYLESHEETS = 'tubepress.core.cssjs.stylesheets';
 
     /**
-     * This event is fied when TubePress is about to print its stylesheets to the HTML head.
+     * This event is fired when TubePress is about to print its stylesheets to the HTML head.
      *
      * @subject array An associative array where keys are style handles and values are style details.
      *                See tubepress_spi_html_CssAndJsRegistryInterface::getStyle() for details on array values.
