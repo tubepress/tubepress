@@ -22,10 +22,8 @@ $iconicPrefix      = TUBEPRESS_ROOT . '/vendor/ehough/iconic/src/main/php/ehough
 $shortstopPrefix   = TUBEPRESS_ROOT . '/vendor/ehough/shortstop/src/main/php/ehough/shortstop';
 $stashPrefix       = TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash';
 $tickerTapePrefix  = TUBEPRESS_ROOT . '/vendor/ehough/tickertape/src/main/php/ehough/tickertape';
-$oldPrefix1        = TUBEPRESS_ROOT . '/src/main/php/deprecated/classes/org';
 $apiPrefix         = TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/api';
 $implPrefix        = TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl';
-$oldPrefix2        = TUBEPRESS_ROOT . '/src/main/php/deprecated/classes/tubepress/plugins';
 $spiPrefix         = TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/spi';
 
 return array(
@@ -230,10 +228,6 @@ return array(
     'ehough_tickertape_Event'                         => $tickerTapePrefix . '/Event.php',
     'ehough_tickertape_GenericEvent'                  => $tickerTapePrefix . '/GenericEvent.php',
 
-    'org_tubepress_api_const_options_names_Meta' => $oldPrefix1 . '/tubepress/api/const/options/names/Meta.php',
-    'org_tubepress_api_const_template_Variable'  => $oldPrefix1 . '/tubepress/api/const/template/Variable.php',
-    'org_tubepress_template_Template'            => $oldPrefix1 . '/tubepress/template/Template.php',
-
     'tubepress_api_const_event_EventNames'                         => $apiPrefix . '/const/event/EventNames.php',
     'tubepress_api_const_options_names_Advanced'                   => $apiPrefix . '/const/options/names/Advanced.php',
     'tubepress_api_const_options_names_Cache'                      => $apiPrefix . '/const/options/names/Cache.php',
@@ -313,9 +307,6 @@ return array(
     'tubepress_impl_util_LangUtils'                                       => $implPrefix . '/util/LangUtils.php',
     'tubepress_impl_util_StringUtils'                                     => $implPrefix . '/util/StringUtils.php',
     'tubepress_impl_util_TimeUtils'                                       => $implPrefix . '/util/TimeUtils.php',
-
-    'tubepress_plugins_vimeo_api_const_options_names_Meta'   => $oldPrefix2 . '/vimeo/api/const/options/names/Meta.php',
-    'tubepress_plugins_youtube_api_const_options_names_Meta' => $oldPrefix2 . '/youtube/api/const/options/names/Meta.php',
 
     'tubepress_spi_addon_Addon'                                => $spiPrefix . '/addon/Addon.php',
     'tubepress_spi_boot_SettingsFileReaderInterface'           => $spiPrefix . '/boot/SettingsFileReaderInterface.php',

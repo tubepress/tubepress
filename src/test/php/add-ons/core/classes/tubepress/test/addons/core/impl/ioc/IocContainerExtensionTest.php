@@ -233,9 +233,9 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             tubepress_api_const_options_names_Embedded::ENABLE_JS_API   => 'tubepress_impl_options_ui_fields_BooleanField',
 
             //Meta fields
-            org_tubepress_api_const_options_names_Meta::DATEFORMAT     => 'tubepress_impl_options_ui_fields_TextField',
-            org_tubepress_api_const_options_names_Meta::RELATIVE_DATES => 'tubepress_impl_options_ui_fields_BooleanField',
-            org_tubepress_api_const_options_names_Meta::DESC_LIMIT     => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Meta::DATEFORMAT     => 'tubepress_impl_options_ui_fields_TextField',
+            tubepress_api_const_options_names_Meta::RELATIVE_DATES => 'tubepress_impl_options_ui_fields_BooleanField',
+            tubepress_api_const_options_names_Meta::DESC_LIMIT     => 'tubepress_impl_options_ui_fields_TextField',
 
             //Feed fields
             tubepress_api_const_options_names_Feed::ORDER_BY         => 'tubepress_impl_options_ui_fields_DropdownField',
@@ -301,9 +301,9 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META => array(
 
                 tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField::FIELD_ID,
-                org_tubepress_api_const_options_names_Meta::DATEFORMAT,
-                org_tubepress_api_const_options_names_Meta::RELATIVE_DATES,
-                org_tubepress_api_const_options_names_Meta::DESC_LIMIT,
+                tubepress_api_const_options_names_Meta::DATEFORMAT,
+                tubepress_api_const_options_names_Meta::RELATIVE_DATES,
+                tubepress_api_const_options_names_Meta::DESC_LIMIT,
             ),
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED => array(
