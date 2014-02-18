@@ -24,6 +24,7 @@ Builds the free WordPress plugin package of Tubepress.
         <antcall target="stage-self" />
     	<antcall target="add-wordpress-files" />
         <antcall target="suppress-directory-listings" />
+        <antcall target="update-version-in-php-code" />
         <antcall target="modify-wordpress-info" />
         <antcall target="php-version-compatability-mods" />
         <antcall target="compress-js" />
@@ -37,6 +38,7 @@ Builds the free WordPress plugin package of Tubepress.
         <antcall target="stage-self" />
         <antcall target="add-wordpress-files" />
         <antcall target="suppress-directory-listings" />
+        <antcall target="update-version-in-php-code" />
         <antcall target="modify-wordpress-info" />
         <antcall target="php-version-compatability-mods" />
         <antcall target="strip-phpunit-from-composer" />

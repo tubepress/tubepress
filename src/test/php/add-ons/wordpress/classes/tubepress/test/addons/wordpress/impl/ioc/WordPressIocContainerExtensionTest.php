@@ -21,12 +21,11 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
     protected function prepareForLoad()
     {
-        $envDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $envDetector->shouldReceive('isWordPress')->once()->andReturn(true);
-
         $this->_expectSingletons();
-        $this->_expectPluggables();
+        $this->_expectActions();
+        $this->_expectFilters();
         $this->_expectWpSpecific();
+        $this->_expectPluggables();
         $this->_expectListeners();
     }
 
@@ -105,13 +104,6 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
     {
         $this->expectRegistration(
 
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 10000));;
-
-        $this->expectRegistration(
-
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
         )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
@@ -129,37 +121,61 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
     private function _expectWpSpecific()
     {
-
         $this->expectRegistration(
 
-            tubepress_addons_wordpress_spi_ContentFilter::_,
-            'tubepress_addons_wordpress_impl_DefaultContentFilter'
+            tubepress_addons_wordpress_spi_WpFunctionsInterface::_,
+            'tubepress_addons_wordpress_impl_WpFunctions'
         )->andReturnDefinition();
 
         $this->expectRegistration(
 
-            tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_,
-            'tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector'
-        )->andReturnDefinition();
+            'wordpress.optionsPage',
+            'tubepress_addons_wordpress_impl_OptionsPage'
+        );
 
         $this->expectRegistration(
 
-            tubepress_addons_wordpress_spi_WidgetHandler::_,
-            'tubepress_addons_wordpress_impl_DefaultWidgetHandler'
-        )->andReturnDefinition();
+            'wordpress.widget',
+            'tubepress_addons_wordpress_impl_Widget'
+        );
 
         $this->expectRegistration(
 
-            tubepress_addons_wordpress_spi_WpAdminHandler::_,
-            'tubepress_addons_wordpress_impl_DefaultWpAdminHandler'
-        )->andReturnDefinition();
+            'wordpress.pluginActivator',
+            'tubepress_addons_wordpress_impl_ActivationHook'
+        );
+    }
 
-        $this->expectRegistration(
+    private function _expectActions()
+    {
+        $map = array(
 
-            tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_,
-            'tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper'
-        )->andReturnDefinition();
+            'admin_enqueue_scripts' => 'AdminEnqueueScripts',
+            'admin_head'            => 'AdminHead',
+            'admin_menu'            => 'AdminMenu',
+            'init'                  => 'Init',
+            'widgets_init'          => 'WidgetsInit',
+            'wp_head'               => 'WpHead'
+        );
 
+        foreach ($map as $filter => $class) {
 
+            $this->expectRegistration("wordpress.action.$filter", "tubepress_addons_wordpress_impl_actions_$class");
+        }
+    }
+
+    private function _expectFilters()
+    {
+        $map = array(
+
+            'the_content'         => 'Content',
+            'plugin_row_meta'     => 'RowMeta',
+            'plugin_action_links' => 'RowMeta',
+        );
+
+        foreach ($map as $filter => $class) {
+
+            $this->expectRegistration("wordpress.filter.$filter", "tubepress_addons_wordpress_impl_filters_$class");
+        }
     }
 }

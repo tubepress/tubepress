@@ -94,21 +94,6 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
      */
     private $_classMap = array();
 
-    /**
-     * @var array
-     */
-    private $_bootClasses = array();
-
-    /**
-     * @var array
-     */
-    private $_bootFiles = array();
-
-    /**
-     * @var array
-     */
-    private $_bootServices = array();
-
     public function __construct(
 
         $name,
@@ -357,33 +342,6 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         return $this->_classMap;
     }
 
-    /**
-     * @return array Optional. An array of absolute paths of files that will be include'd when this add-on
-     *                         is loaded into the system.
-     */
-    public function getBootstrapFiles()
-    {
-        return $this->_bootFiles;
-    }
-
-    /**
-     * @return array Optional. An array of service identifiers whose boot() function will be invoked
-     *                         when this add-on is loaded into the system.
-     */
-    public function getBootstrapServices()
-    {
-        return $this->_bootServices;
-    }
-
-    /**
-     * @return array Optional. An array of fully-qualified class names whose boot() function will be invoked
-     *                         when this add-on is loaded into the system.
-     */
-    public function getBootstrapClasses()
-    {
-        return $this->_bootClasses;
-    }
-
 
 
     private function _setName($name)
@@ -480,27 +438,6 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         }
 
         $this->_licenses = $licenses;
-    }
-
-    public function setBootstrapFiles(array $files)
-    {
-        $this->_validateArrayIsJustStrings($files, 'Bootstrap files must be an array of just strings');
-
-        $this->_bootFiles = $files;
-    }
-
-    public function setBootstrapClasses(array $classes)
-    {
-        $this->_validateArrayIsJustStrings($classes, 'Bootstrap classes must be an array of just strings');
-
-        $this->_bootClasses = $classes;
-    }
-
-    public function setBootstrapServices(array $services)
-    {
-        $this->_validateArrayIsJustStrings($services, 'Bootstrap services must be an array of just strings');
-
-        $this->_bootServices = $services;
     }
 
     private function _validateArrayIsJustStrings(array $array, $message)

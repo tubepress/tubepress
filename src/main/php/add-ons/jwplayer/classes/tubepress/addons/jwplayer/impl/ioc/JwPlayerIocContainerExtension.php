@@ -17,29 +17,29 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
      *
      * @return void
      *
      * @api
      * @since 3.1.0
      */
-    public function load(tubepress_api_ioc_ContainerInterface $container)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerPluggables($container);
+        $this->_registerPluggables($containerBuilder);
 
-        $this->_registerListeners($container);
+        $this->_registerListeners($containerBuilder);
     }
 
-    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars',
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10000));
 
-        $container->register(
+        $containerBuilder->register(
 
             'jw_color_sanitizer',
             'tubepress_impl_listeners_options_ColorSanitizingListener'
@@ -54,16 +54,16 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
                     'method' => 'onPreValidationOptionSet', 'priority' => 9500));
     }
 
-    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerPluggables(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService',
             'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService'
 
         )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider',
             'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider'
@@ -80,7 +80,7 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
 
         foreach ($fieldMap as $name => $class) {
 
-            $container->register('jwplayer_field_' . $fieldIndex++, $class)->addArgument($name);
+            $containerBuilder->register('jwplayer_field_' . $fieldIndex++, $class)->addArgument($name);
         }
 
         $fieldReferences = array();
@@ -100,7 +100,7 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
                 tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN)
         );
 
-        $container->register(
+        $containerBuilder->register(
 
             'jw_player_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'

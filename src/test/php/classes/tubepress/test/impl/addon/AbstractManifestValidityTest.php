@@ -12,19 +12,10 @@ class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_t
 {
     protected function getAddonFromManifest($pathToManifest)
     {
-        $mockFinderFactory = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
-        $mockFinder        = $this->createMockSingletonService('ehough_finder_FinderInterface');
-
-        $mockFinder->shouldReceive('followLinks')->once()->andReturn($mockFinder);
-        $mockFinder->shouldReceive('files')->once()->andReturn($mockFinder);
-        $mockFinder->shouldReceive('in')->once()->with(dirname($pathToManifest))->andReturn($mockFinder);
-        $mockFinder->shouldReceive('name')->once()->with('*.json')->andReturn($mockFinder);
-        $mockFinder->shouldReceive('depth')->once()->with('< 2')->andReturn(array(new SplFileInfo($pathToManifest)));
-
-
-        $mockFinderFactory->shouldReceive('createFinder')->once()->andReturn($mockFinder);
-
-        $discoverer = new tubepress_impl_boot_DefaultAddonDiscoverer();
+        $discoverer = new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
+            new tubepress_impl_environment_SimpleEnvironmentDetector(),
+            new ehough_finder_FinderFactory()
+        );
 
         $addons = $discoverer->_findAddonsInDirectory(dirname($pathToManifest));
 

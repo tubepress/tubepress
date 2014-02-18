@@ -14,13 +14,13 @@ class FakeExtension implements tubepress_api_ioc_ContainerExtensionInterface
     /**
      * Loads a specific configuration.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container A ContainerBuilder instance
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A ContainerBuilder instance
      *
      * @throws InvalidArgumentException When provided tag is not defined in this extension
      *
      * @api
      */
-    public function load(tubepress_api_ioc_ContainerInterface $container)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         //do nothing
     }

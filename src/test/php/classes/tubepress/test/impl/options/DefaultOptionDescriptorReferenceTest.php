@@ -30,11 +30,6 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
      */
     private $_mockProvider2;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_bootConfigService;
-
     public function onSetup()
     {
         $this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
@@ -42,12 +37,9 @@ class tubepress_test_impl_options_DefaultOptionDescriptorReferenceTest extends t
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockProvider1       = ehough_mockery_Mockery::mock(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
         $this->_mockProvider2       = ehough_mockery_Mockery::mock(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
-        $this->_bootConfigService   = $this->createMockSingletonService(tubepress_spi_boot_BootConfigService::_);
+        $this->_bootConfigService   = $this->createMockSingletonService(tubepress_spi_boot_SettingsFileReaderInterface::_);
 
         $this->_sut->setPluggableOptionDescriptorProviders(array($this->_mockProvider1, $this->_mockProvider2));
-
-        $this->_bootConfigService->shouldReceive('isCacheEnabledForElement')->twice()->with('option-descriptors')->andReturn(false);
-        $this->_bootConfigService->shouldReceive('isCacheKillerTurnedOn')->once()->andReturn(false);
     }
 
     public function testRegisterDuplicate()

@@ -16,6 +16,9 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 {
     protected function prepareForLoad()
     {
+        $this->_environmentDetector();
+        $this->_eventDispatcher();
+        $this->_filesystemFinderFactory();
         $this->_ajaxHandler();
         $this->_cacheService();
         $this->_cssAndJs();
@@ -102,9 +105,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             'tubepress_addons_core_impl_listeners_html_PreCssHtmlListener' =>
                 array('event' => tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, 'method' => 'onBeforeCssHtml', 'priority' => 10000),
-
-            'tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener' =>
-                array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 30000),
 
             'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter' =>
                 array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000),
@@ -390,6 +390,39 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->expectRegistration('tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService', 'tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService')
             ->withTag(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
+    }
+
+    private function _environmentDetector()
+    {
+        $this->expectRegistration(
+
+            tubepress_spi_environment_EnvironmentDetector::_,
+            'tubepress_impl_environment_SimpleEnvironmentDetector'
+        );
+    }
+
+    private function _eventDispatcher()
+    {
+        $this->expectRegistration(
+
+            'ehough_tickertape_ContainerAwareEventDispatcher',
+            'ehough_tickertape_ContainerAwareEventDispatcher'
+        )->withArgument(new tubepress_impl_ioc_Reference('service_container'));
+
+        $this->expectRegistration(
+
+            tubepress_api_event_EventDispatcherInterface::_,
+            'tubepress_impl_event_DefaultEventDispatcher'
+        )->withArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
+    }
+
+    private function _filesystemFinderFactory()
+    {
+        $this->expectRegistration(
+
+            'ehough_finder_FinderFactoryInterface',
+            'ehough_finder_FinderFactory'
+        );
     }
 
     private function _videoCollector()

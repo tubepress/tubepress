@@ -14,9 +14,9 @@
  */
 class tubepress_impl_ioc_ChainRegistrar
 {
-    public static function registerChainDefinitionByReferences(tubepress_api_ioc_ContainerInterface $container, $chainName, array $references)
+    public static function registerChainDefinitionByReferences(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder, $chainName, array $references)
     {
-        $container->setDefinition(
+        $containerBuilder->setDefinition(
 
             $chainName,
             new tubepress_impl_ioc_Definition(
@@ -29,18 +29,19 @@ class tubepress_impl_ioc_ChainRegistrar
          ->setFactoryMethod('buildChain');
     }
 
-    public static function registerChainDefinitionByClassNames(tubepress_api_ioc_ContainerInterface $container, $chainName, array $classNames)
+    public static function registerChainDefinitionByClassNames(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder,
+                                                               $chainName, array $classNames)
     {
         $references = array();
 
         foreach ($classNames as $className) {
 
-            $container->register($className, $className);
+            $containerBuilder->register($className, $className);
 
             array_push($references, new ehough_iconic_Reference($className));
         }
 
-        self::registerChainDefinitionByReferences($container, $chainName, $references);
+        self::registerChainDefinitionByReferences($containerBuilder, $chainName, $references);
     }
 
     public static function buildChain()

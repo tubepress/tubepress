@@ -15,17 +15,6 @@
 class tubepress_api_const_event_EventNames
 {
     /**
-     * This event is fired after TubePress loads all of the registered addons. If your add-on requires
-     * any initialization, this is where you should run it.
-     *
-     * @subject null
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const BOOT_COMPLETE = 'tubepress.core.boot.complete';
-
-    /**
      * This event is fied when TubePress is about to print its JS files (either in <head> or near </body>).
      *
      * @subject array An associative array where keys are script handles and values are script details.

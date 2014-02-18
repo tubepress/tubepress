@@ -15,6 +15,7 @@
 
 $chainPrefix       = TUBEPRESS_ROOT . '/vendor/ehough/chaingang/src/main/php/ehough/chaingang';
 $contemplatePrefix = TUBEPRESS_ROOT . '/vendor/ehough/contemplate/src/main/php/ehough/contemplate';
+$epilogPrefix      = TUBEPRESS_ROOT . '/vendor/ehough/epilog/src/main/php/ehough/epilog';
 $fsPrefix          = TUBEPRESS_ROOT . '/vendor/ehough/filesystem/src/main/php/ehough/filesystem';
 $finderPrefix      = TUBEPRESS_ROOT . '/vendor/ehough/finder/src/main/php/ehough/finder';
 $iconicPrefix      = TUBEPRESS_ROOT . '/vendor/ehough/iconic/src/main/php/ehough/iconic';
@@ -44,6 +45,16 @@ return array(
     'ehough_contemplate_impl_SimpleTemplate'                    => $contemplatePrefix . '/impl/SimpleTemplate.php',
 
     'ehough_curly_Url' => TUBEPRESS_ROOT . '/vendor/ehough/curly/src/main/php/ehough/curly/Url.php',
+
+    'ehough_epilog_handler_AbstractHandler'           => $epilogPrefix . '/handler/AbstractHandler.php',
+    'ehough_epilog_handler_AbstractProcessingHandler' => $epilogPrefix . '/handler/AbstractProcessingHandler.php',
+    'ehough_epilog_handler_HandlerInterface'          => $epilogPrefix . '/handler/HandlerInterface.php',
+    'ehough_epilog_Logger'                            => $epilogPrefix . '/Logger.php',
+    'ehough_epilog_psr_LoggerInterface'               => $epilogPrefix . '/psr/LoggerInterface.php',
+    'ehough_epilog_formatter_LineFormatter'           => $epilogPrefix . '/formatter/LineFormatter.php',
+    'ehough_epilog_formatter_NormalizerFormatter'     => $epilogPrefix . '/formatter/NormalizerFormatter.php',
+    'ehough_epilog_formatter_FormatterInterface'      => $epilogPrefix . '/formatter/FormatterInterface.php',
+    'ehough_epilog_LoggerFactory'                     => $epilogPrefix . '/LoggerFactory.php',
 
     'ehough_filesystem_exception_ExceptionInterface'                => $fsPrefix . '/exception/ExceptionInterface.php',
     'ehough_filesystem_exception_IOException'                       => $fsPrefix . '/exception/IOException.php',
@@ -242,17 +253,16 @@ return array(
     'tubepress_api_event_EventInterface'                           => $apiPrefix . '/event/EventInterface.php',
     'tubepress_api_ioc_CompilerPassInterface'                      => $apiPrefix . '/ioc/CompilerPassInterface.php',
     'tubepress_api_ioc_ContainerExtensionInterface'                => $apiPrefix . '/ioc/ContainerExtensionInterface.php',
-    'tubepress_api_ioc_ContainerInterface'                         => $apiPrefix . '/ioc/ContainerInterface.php',
+    'tubepress_api_ioc_ContainerBuilderInterface'                  => $apiPrefix . '/ioc/ContainerBuilderInterface.php',
     'tubepress_api_ioc_DefinitionInterface'                        => $apiPrefix . '/ioc/DefinitionInterface.php',
     'tubepress_api_video_VideoGalleryPage'                         => $apiPrefix . '/video/VideoGalleryPage.php',
     'tubepress_api_video_Video'                                    => $apiPrefix . '/video/Video.php',
 
     'tubepress_impl_addon_AddonBase'                                      => $implPrefix . '/addon/AddonBase.php',
-    'tubepress_impl_boot_AbstractCachingBootHelper'                       => $implPrefix . '/boot/AbstractCachingBootHelper.php',
-    'tubepress_impl_boot_DefaultAddonDiscoverer'                          => $implPrefix . '/boot/DefaultAddonDiscoverer.php',
-    'tubepress_impl_boot_DefaultBootConfigService'                        => $implPrefix . '/boot/DefaultBootConfigService.php',
-    'tubepress_impl_boot_DefaultClassLoadingHelper'                       => $implPrefix . '/boot/DefaultClassLoadingHelper.php',
-    'tubepress_impl_boot_DefaultIocContainerBootHelper'                   => $implPrefix . '/boot/DefaultIocContainerBootHelper.php',
+    'tubepress_impl_boot_secondary_DefaultAddonDiscoverer'                => $implPrefix . '/boot/secondary/DefaultAddonDiscoverer.php',
+    'tubepress_impl_boot_SettingsFileReader'                              => $implPrefix . '/boot/SettingsFileReader.php',
+    'tubepress_impl_boot_secondary_DefaultClassLoadingHelper'             => $implPrefix . '/boot/secondary/DefaultClassLoadingHelper.php',
+    'tubepress_impl_boot_secondary_DefaultIocContainerBootHelper'         => $implPrefix . '/boot/secondary/DefaultIocContainerBootHelper.php',
     'tubepress_impl_cache_ItemDecorator'                                  => $implPrefix . '/cache/ItemDecorator.php',
     'tubepress_impl_cache_PoolDecorator'                                  => $implPrefix . '/cache/PoolDecorator.php',
     'tubepress_impl_collector_DefaultVideoCollector'                      => $implPrefix . '/collector/DefaultVideoCollector.php',
@@ -270,12 +280,13 @@ return array(
     'tubepress_impl_http_DefaultHttpRequestParameterService'              => $implPrefix . '/http/DefaultHttpRequestParameterService.php',
     'tubepress_impl_http_DefaultResponseCodeHandler'                      => $implPrefix . '/http/DefaultResponseCodeHandler.php',
     'tubepress_impl_ioc_ChainRegistrar'                                   => $implPrefix . '/ioc/ChainRegistrar.php',
-    'tubepress_impl_ioc_CoreIocContainer'                                 => $implPrefix . '/ioc/CoreIocContainer.php',
     'tubepress_impl_ioc_Definition'                                       => $implPrefix . '/ioc/Definition.php',
-    'tubepress_impl_ioc_IconicContainer'                                  => $implPrefix . '/ioc/IconicContainer.php',
+    'tubepress_impl_ioc_IconicContainerBuilder'                           => $implPrefix . '/ioc/IconicContainerBuilder.php',
     'tubepress_impl_ioc_IconicDefinitionWrapper'                          => $implPrefix . '/ioc/IconicDefinitionWrapper.php',
     'tubepress_impl_ioc_Reference'                                        => $implPrefix . '/ioc/Reference.php',
     'tubepress_impl_listeners_video_AbstractVideoConstructionListener'    => $implPrefix . '/listeners/video/AbstractVideoConstructionListener.php',
+    'tubepress_impl_listeners_options_ColorSanitizingListener'            => $implPrefix . '/listeners/options/ColorSanitizingListener.php',
+    'tubepress_impl_log_TubePressLoggingHandler'                          => $implPrefix . '/log/TubePressLoggingHandler.php',
     'tubepress_impl_options_AbstractStorageManager'                       => $implPrefix . '/options/AbstractStorageManager.php',
     'tubepress_impl_options_DefaultOptionDescriptorReference'             => $implPrefix . '/options/DefaultOptionDescriptorReference.php',
     'tubepress_impl_options_DefaultOptionValidator'                       => $implPrefix . '/options/DefaultOptionValidator.php',
@@ -292,6 +303,7 @@ return array(
     'tubepress_impl_options_ui_fields_DropdownField'                      => $implPrefix . '/options/ui/fields/DropdownField.php',
     'tubepress_impl_options_ui_fields_TextField'                          => $implPrefix . '/options/ui/fields/TextField.php',
     'tubepress_impl_patterns_sl_ServiceLocator'                           => $implPrefix . '/patterns/sl/ServiceLocator.php',
+    'tubepress_impl_patterns_toposort_TopologicalSort'                    => $implPrefix . '/patterns/toposort/TopologicalSort.php',
     'tubepress_impl_player_DefaultPlayerHtmlGenerator'                    => $implPrefix . '/player/DefaultPlayerHtmlGenerator.php',
     'tubepress_impl_provider_AbstractPluggableVideoProviderService'       => $implPrefix . '/provider/AbstractPluggableVideoProviderService.php',
     'tubepress_impl_querystring_SimpleQueryStringService'                 => $implPrefix . '/querystring/SimpleQueryStringService.php',
@@ -306,7 +318,10 @@ return array(
     'tubepress_plugins_youtube_api_const_options_names_Meta' => $oldPrefix2 . '/youtube/api/const/options/names/Meta.php',
 
     'tubepress_spi_addon_Addon'                                => $spiPrefix . '/addon/Addon.php',
-    'tubepress_spi_boot_AddonDiscoverer'                       => $spiPrefix . '/boot/AddonDiscoverer.php',
+    'tubepress_spi_boot_SettingsFileReaderInterface'           => $spiPrefix . '/boot/SettingsFileReaderInterface.php',
+    'tubepress_spi_boot_secondary_AddonDiscoveryInterface'     => $spiPrefix . '/boot/secondary/AddonDiscoveryInterface.php',
+    'tubepress_spi_boot_secondary_ClassLoaderSetupInterface'   => $spiPrefix . '/boot/secondary/ClassLoaderSetupInterface.php',
+    'tubepress_spi_boot_secondary_IocCompilingInterface'       => $spiPrefix . '/boot/secondary/IocCompilingInterface.php',
     'tubepress_spi_collector_VideoCollector'                   => $spiPrefix . '/collector/VideoCollector.php',
     'tubepress_spi_const_http_ParamName'                       => $spiPrefix . '/const/http/ParamName.php',
     'tubepress_spi_context_ExecutionContext'                   => $spiPrefix . '/context/ExecutionContext.php',

@@ -301,16 +301,16 @@
         },
         {
             "name": "ehough/iconic",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/iconic.git",
-                "reference": "6f8008253cb525d97c283b0a7809b483ce0db43f"
+                "reference": "18cfbca071ecf9c5c366b7bce56b38ec5cb9790d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/6f8008253cb525d97c283b0a7809b483ce0db43f",
-                "reference": "6f8008253cb525d97c283b0a7809b483ce0db43f",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/18cfbca071ecf9c5c366b7bce56b38ec5cb9790d",
+                "reference": "18cfbca071ecf9c5c366b7bce56b38ec5cb9790d",
                 "shasum": ""
             },
             "require": {
@@ -346,20 +346,20 @@
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2013-12-05 00:04:34"
+            "time": "2014-02-06 21:00:24"
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "cbc89cafa739146111dfc8127ebe318bb64c159a"
+                "reference": "65ad9836f19a0743f05963d8c1f1fb031e045cd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/cbc89cafa739146111dfc8127ebe318bb64c159a",
-                "reference": "cbc89cafa739146111dfc8127ebe318bb64c159a",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/65ad9836f19a0743f05963d8c1f1fb031e045cd4",
+                "reference": "65ad9836f19a0743f05963d8c1f1fb031e045cd4",
                 "shasum": ""
             },
             "require": {
@@ -381,7 +381,7 @@
             ],
             "authors": [
                 {
-                    "name": "Eric D. Hough",
+                    "name": "Eric Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
@@ -393,7 +393,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2013-12-04 22:08:10"
+            "time": "2014-02-06 19:45:09"
         },
         {
             "name": "ehough/shortstop",
@@ -493,16 +493,16 @@
         },
         {
             "name": "ehough/tickertape",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/tickertape.git",
-                "reference": "d096f5591755ebc64fe67504243c413ccac79ceb"
+                "reference": "5e1d381263f17ac2df94c71c115397abe35d9149"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/tickertape/zipball/d096f5591755ebc64fe67504243c413ccac79ceb",
-                "reference": "d096f5591755ebc64fe67504243c413ccac79ceb",
+                "url": "https://api.github.com/repos/ehough/tickertape/zipball/5e1d381263f17ac2df94c71c115397abe35d9149",
+                "reference": "5e1d381263f17ac2df94c71c115397abe35d9149",
                 "shasum": ""
             },
             "require": {
@@ -510,7 +510,12 @@
             },
             "require-dev": {
                 "ehough/iconic": "~2.3",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "~1.0",
+                "symfony/stopwatch": "~2.2"
+            },
+            "suggest": {
+                "symfony/http-kernel": ""
             },
             "type": "library",
             "autoload": {
@@ -531,7 +536,7 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2013-12-04 21:04:42"
+            "time": "2014-02-06 22:01:52"
         }
     ],
     "packages-dev": [
@@ -836,16 +841,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.30",
+            "version": "3.7.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b"
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2f33258fa5a0c330515b7deba2bc040fa5c3953b",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d24e9877331039582497052cc3c4d9f465b88210",
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210",
                 "shasum": ""
             },
             "require": {
@@ -906,7 +911,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-01-31 08:54:33"
+            "time": "2014-02-03 07:46:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -959,17 +964,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.4.1",
+            "version": "v2.4.2",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "4e1a237fc48145fae114b96458d799746ad89aa0"
+                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4e1a237fc48145fae114b96458d799746ad89aa0",
-                "reference": "4e1a237fc48145fae114b96458d799746ad89aa0",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
+                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
                 "shasum": ""
             },
             "require": {
@@ -993,7 +998,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -1002,7 +1009,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-12-28 08:12:03"
+            "time": "2014-01-07 13:28:54"
         }
     ],
     "aliases": [

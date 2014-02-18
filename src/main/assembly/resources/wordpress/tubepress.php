@@ -16,4 +16,135 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-include 'src/main/php/scripts/boot.php';
+class tubepress_impl_addons_wordpress_ApiIntegrator
+{
+    /**
+     * @var bool Flag to prevent duplicate boot.
+     */
+    private static $_FLAG_TUBEPRESS_BOOTED = false;
+
+    /**
+     * @var string The base plugin directory.
+     */
+    private $_baseName;
+
+    /**
+     * Called when TubePress is loaded as a plugin. Adds the appropriate
+     * filter and action callbacks.
+     */
+    public function load()
+    {
+        $this->_init();
+        $this->_loadPluginTextDomain();
+        $this->_addFilters();
+        $this->_addActions();
+        $this->_addActivationHooks();
+    }
+
+    private function _init()
+    {
+        $this->_baseName = basename(dirname(__FILE__));
+    }
+
+    private function _loadPluginTextDomain()
+    {
+        load_plugin_textdomain('tubepress', false, $this->_baseName . '/src/main/resources/i18n');
+    }
+
+    private function _addFilters()
+    {
+        $filterCallback = array($this, '__handlerFilter');
+
+        add_filter('the_content', $filterCallback);
+        add_filter($this->_calculateMetaRowsFilterPoint(), $filterCallback, 10, 2);
+    }
+
+    private function _addActions()
+    {
+        $actionCallback = array($this, '__handlerAction');
+
+        add_action('wp_head',     			$actionCallback);
+        add_action('init',        			$actionCallback);
+        add_action('admin_menu',            $actionCallback);
+        add_action('admin_enqueue_scripts', $actionCallback);
+        add_action('admin_head',            $actionCallback);
+        add_action('widgets_init', 			$actionCallback);
+    }
+
+    private function _addActivationHooks()
+    {
+        register_activation_hook($this->_baseName . '/tubepress.php', array($this, '__handlerActivationHook'));
+    }
+
+    public function __handlerFilter()
+    {
+        try {
+
+            $this->_bootTubePress();
+
+            return tubepress_addons_wordpress_impl_Callback::onFilter(current_filter(), func_get_args());
+
+        } catch (Exception $e) {
+
+            return func_get_args(0);
+        }
+    }
+
+    public function __handlerAction()
+    {
+        try {
+
+            $this->_bootTubePress();
+
+            tubepress_addons_wordpress_impl_Callback::onAction(current_filter(), func_get_args());
+
+        } catch (Exception $e) {
+
+            //fail silently so we don't take down the whole site
+        }
+    }
+
+    public function __handlerActivationHook()
+    {
+        try {
+
+            $this->_bootTubePress();
+
+            tubepress_addons_wordpress_impl_Callback::onPluginActivation(func_get_args());
+
+        } catch (Exception $e) {
+
+            //fail silently so we don't take down the whole site
+        }
+    }
+
+    private function _calculateMetaRowsFilterPoint()
+    {
+        global $wp_version;
+
+        if (version_compare($wp_version, '2.8.alpha', '>')) {
+
+            return 'plugin_row_meta';
+        }
+
+        return 'plugin_action_links';
+    }
+
+    private function _bootTubePress()
+    {
+        if (self::$_FLAG_TUBEPRESS_BOOTED) {
+
+            return;
+        }
+
+        if (!defined('TUBEPRESS_ROOT')) {
+
+            require 'src/main/php/scripts/boot.php';
+        }
+
+        self::$_FLAG_TUBEPRESS_BOOTED = true;
+    }
+}
+
+$apiIntegrator = new tubepress_impl_addons_wordpress_ApiIntegrator();
+$apiIntegrator->load();

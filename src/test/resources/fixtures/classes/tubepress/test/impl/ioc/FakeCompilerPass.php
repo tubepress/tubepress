@@ -13,11 +13,11 @@ class FakeCompilerPass implements tubepress_api_ioc_CompilerPassInterface
     /**
      * You can modify the container here before it is dumped to PHP code.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder
      *
      * @return void
      */
-    public final function process(tubepress_api_ioc_ContainerInterface $container)
+    public final function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         //do nothing
     }

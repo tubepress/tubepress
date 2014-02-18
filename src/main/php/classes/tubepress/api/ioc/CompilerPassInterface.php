@@ -12,13 +12,13 @@
 interface tubepress_api_ioc_CompilerPassInterface
 {
     /**
-     * Provides add-ons with the ability to modify the TubePress IOC container
-     * before it is put into production.
+     * Provides add-ons with the ability to modify the TubePress IOC container builder
+     * before it is compiled for production.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container The core IOC container.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The core IOC container builder.
      *
      * @api
      * @since 3.1.0
      */
-    function process(tubepress_api_ioc_ContainerInterface $container);
+    function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder);
 }

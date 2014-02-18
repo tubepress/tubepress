@@ -15,23 +15,23 @@
 class tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass implements tubepress_api_ioc_CompilerPassInterface
 {
     /**
-     * Provides add-ons with the ability to modify the TubePress IOC container
-     * before it is put into production.
+     * Provides add-ons with the ability to modify the TubePress IOC container builder
+     * before it is compiled for production.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container The core IOC container.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The core IOC container builder.
      *
      * @throws InvalidArgumentException If a service tag doesn't include the event attribute.
      *
      * @api
      * @since 3.1.0
      */
-    public function process(tubepress_api_ioc_ContainerInterface $container)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $consumerIds = $container->findTaggedServiceIds(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER);
+        $consumerIds = $containerBuilder->findTaggedServiceIds(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER);
 
         foreach ($consumerIds as $consumerId => $tags) {
 
-            $consumerDefinition = $container->getDefinition($consumerId);
+            $consumerDefinition = $containerBuilder->getDefinition($consumerId);
 
             foreach ($tags as $tagData) {
 
@@ -40,7 +40,7 @@ class tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass implemen
                     throw new InvalidArgumentException('Tagged set consumers must specify which tagged services they would like to consume');
                 }
 
-                $matchingServiceIds = $container->findTaggedServiceIds($tagData['tag']);
+                $matchingServiceIds = $containerBuilder->findTaggedServiceIds($tagData['tag']);
 
                 if (empty($matchingServiceIds)) {
 

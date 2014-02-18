@@ -17,59 +17,52 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
      *
      * @return void
      *
      * @api
      * @since 3.1.0
      */
-    public function load(tubepress_api_ioc_ContainerInterface $container)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-
-        if (! $environmentDetector->isWordPress()) {
-
-            //short circuit
-            return;
-        }
-
         /**
          * Core stuff.
          */
-        $this->_registerMessageService($container);
-        $this->_registerOptionsPage($container);
-        $this->_registerOptionsStorageManager($container);
+        $this->_registerMessageService($containerBuilder);
+        $this->_registerOptionsPage($containerBuilder);
+        $this->_registerOptionsStorageManager($containerBuilder);
 
         /**
          * WordPress specific stuff.
          */
-        $this->_registerContentFilter($container);
-        $this->_registerCssAndJsInjector($container);
-        $this->_registerWidgetHandler($container);
-        $this->_registerWpAdminHandler($container);
-        $this->_registerWpFunctionWrapper($container);
+        $this->_registerActions($containerBuilder);
+        $this->_registerFilters($containerBuilder);
+        $this->_registerWpFunctionWrapper($containerBuilder);
+        $this->_registerWpOptionsPage($containerBuilder);
+        $this->_registerWidget($containerBuilder);
+        $this->_registerActivator($containerBuilder);
 
-        $this->_registerPluggables($container);
-        $this->_registerListeners($container);
+        $this->_registerPluggables($containerBuilder);
+        $this->_registerListeners($containerBuilder);
     }
 
-    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerPluggables(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider',
             'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
-        $this->_registerOptionsPageParticipant($container);
+        $this->_registerOptionsPageParticipant($containerBuilder);
     }
 
-    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldIndex = 0;
-        $container->register('wordpress_options_field_' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
-        $container->register('wordpress_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $containerBuilder->register('wordpress_options_field_' . $fieldIndex++, 'tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField');
+        $containerBuilder->register('wordpress_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->addArgument(tubepress_api_const_options_names_Advanced::KEYWORD);
 
         $fieldReferences = array();
@@ -87,7 +80,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             )
         );
 
-        $container->register(
+        $containerBuilder->register(
 
             'wordpress_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
@@ -100,22 +93,16 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 
-    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
-
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator',
-            'tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::BOOT_COMPLETE, 'method' => 'onBoot', 'priority' => 10000));
-
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
                 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer',
             'tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer'
@@ -125,27 +112,27 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
                 'method' => 'onJs', 'priority' => 10000));
     }
 
-    private function _registerMessageService(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerMessageService(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             tubepress_spi_message_MessageService::_,
             'tubepress_addons_wordpress_impl_message_WordPressMessageService'
         );
     }
 
-    private function _registerOptionsStorageManager(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerOptionsStorageManager(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             tubepress_spi_options_StorageManager::_,
             'tubepress_addons_wordpress_impl_options_WordPressStorageManager'
         );
     }
 
-    private function _registerOptionsPage(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerOptionsPage(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_spi_options_ui_OptionsPageInterface',
             'tubepress_impl_options_ui_DefaultOptionsPage'
@@ -155,48 +142,72 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
                 'method' => 'setOptionsPageParticipants'));
     }
 
-    private function _registerContentFilter(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerWpOptionsPage(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
-            tubepress_addons_wordpress_spi_ContentFilter::_,
-            'tubepress_addons_wordpress_impl_DefaultContentFilter'
+            'wordpress.optionsPage',
+            'tubepress_addons_wordpress_impl_OptionsPage'
         );
     }
 
-    private function _registerCssAndJsInjector(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerWidget(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
-            tubepress_addons_wordpress_spi_FrontEndCssAndJsInjector::_,
-            'tubepress_addons_wordpress_impl_DefaultFrontEndCssAndJsInjector'
+            'wordpress.widget',
+            'tubepress_addons_wordpress_impl_Widget'
         );
     }
 
-    private function _registerWidgetHandler(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerWpFunctionWrapper(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
-            tubepress_addons_wordpress_spi_WidgetHandler::_,
-            'tubepress_addons_wordpress_impl_DefaultWidgetHandler'
+            tubepress_addons_wordpress_spi_WpFunctionsInterface::_,
+            'tubepress_addons_wordpress_impl_WpFunctions'
         );
     }
 
-    private function _registerWpAdminHandler(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerFilters(tubepress_api_ioc_ContainerBuilderInterface $builder)
     {
-        $container->register(
+        $map = array(
 
-            tubepress_addons_wordpress_spi_WpAdminHandler::_,
-            'tubepress_addons_wordpress_impl_DefaultWpAdminHandler'
+            'the_content'         => 'Content',
+            'plugin_row_meta'     => 'RowMeta',
+            'plugin_action_links' => 'RowMeta',
         );
+
+        foreach ($map as $filter => $class) {
+
+            $builder->register("wordpress.filter.$filter", "tubepress_addons_wordpress_impl_filters_$class");
+        }
     }
 
-    private function _registerWpFunctionWrapper(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerActions(tubepress_api_ioc_ContainerBuilderInterface $builder)
     {
-        $container->register(
+        $map = array(
 
-            tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_,
-            'tubepress_addons_wordpress_impl_DefaultWordPressFunctionWrapper'
+            'admin_enqueue_scripts' => 'AdminEnqueueScripts',
+            'admin_head'            => 'AdminHead',
+            'admin_menu'            => 'AdminMenu',
+            'init'                  => 'Init',
+            'widgets_init'          => 'WidgetsInit',
+            'wp_head'               => 'WpHead'
+        );
+
+        foreach ($map as $filter => $class) {
+
+            $builder->register("wordpress.action.$filter", "tubepress_addons_wordpress_impl_actions_$class");
+        }
+    }
+
+    private function _registerActivator(tubepress_api_ioc_ContainerBuilderInterface $builder)
+    {
+        $builder->register(
+
+            'wordpress.pluginActivator',
+            'tubepress_addons_wordpress_impl_ActivationHook'
         );
     }
 }

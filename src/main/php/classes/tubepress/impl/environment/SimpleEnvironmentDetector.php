@@ -46,7 +46,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
 
     public function __construct()
     {
-        $this->_version = tubepress_spi_version_Version::parse('3.1.3');
+        $this->_version = tubepress_spi_version_Version::parse('9.9.9');
     }
 
     /**
@@ -155,9 +155,9 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
             if ($this->isWordPress()) {
 
                 /**
-                 * @var $wordPressFunctionWrapper tubepress_addons_wordpress_spi_WordPressFunctionWrapper
+                 * @var $wordPressFunctionWrapper tubepress_addons_wordpress_spi_WpFunctionsInterface
                  */
-                $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+                $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
                 $prefix = $wordPressFunctionWrapper->content_url();
 

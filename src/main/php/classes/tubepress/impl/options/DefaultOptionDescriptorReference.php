@@ -12,7 +12,7 @@
 /**
  * Holds all the option descriptors for TubePress. This implementation just holds them in memory.
  */
-class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_impl_boot_AbstractCachingBootHelper implements tubepress_spi_options_OptionDescriptorReference
+class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepress_spi_options_OptionDescriptorReference
 {
     /** Provides fast lookup by name. */
     private $_nameToOptionDescriptorMap;
@@ -78,66 +78,12 @@ class tubepress_impl_options_DefaultOptionDescriptorReference extends tubepress_
 
         $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
-        $fromCache = $this->getCachedObject();
-
-        if ($fromCache !== null) {
-
-            $this->_nameToOptionDescriptorMap = $fromCache;
-            return;
-        }
-
         $this->_cacheOds();
-
-        $this->tryToCache($this->_nameToOptionDescriptorMap);
     }
 
     public function setPluggableOptionDescriptorProviders(array $providers)
     {
         $this->_optionDescriptorProviders = $providers;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getBootCacheConfigElementName()
-    {
-        return 'option-descriptors';
-    }
-
-    /**
-     * @return ehough_epilog_Logger
-     */
-    protected function getLogger()
-    {
-        return $this->_logger;
-    }
-
-    /**
-     * @param string $string The contents of the cache file, or the cache file path.
-     *
-     * @return object The hydrated object, or null if there was a problem.
-     */
-    protected function hydrate($string)
-    {
-        return $this->hydrateByDeserialization($string);
-    }
-
-    /**
-     * @param object $object The object to convert to a string for the cache.
-     *
-     * @return string The string representation of the object, or null if there was a problem.
-     */
-    protected function toString($object)
-    {
-        return $this->toStringBySerialization($object);
-    }
-
-    /**
-     * @return bool True if we should log, false otherwise.
-     */
-    protected function shouldLog()
-    {
-        return $this->_shouldLog;
     }
 
     private function _cacheOds()

@@ -18,7 +18,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
 
         for ($x = 0; $x < count($gets); $x++) {
 
-            $mockIocContainer = ehough_mockery_Mockery::mock(tubepress_api_ioc_ContainerInterface::_);
+            $mockIocContainer = ehough_mockery_Mockery::mock('ehough_iconic_ContainerInterface');
 
             $mockService = ehough_mockery_Mockery::mock($interfaces[$x]);
 
@@ -26,7 +26,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
 
             $getMethod = 'get' . $gets[$x];
 
-            tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($mockIocContainer);
+            tubepress_impl_patterns_sl_ServiceLocator::setBackingIconicContainer($mockIocContainer);
 
             $result = tubepress_impl_patterns_sl_ServiceLocator::$getMethod();
 
@@ -39,7 +39,6 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
         return array(
 
             tubepress_spi_html_CssAndJsRegistryInterface::_,
-            tubepress_spi_boot_AddonDiscoverer::_,
             tubepress_spi_http_AjaxHandler::_,
             'ehough_stash_interfaces_PoolInterface',
             tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
@@ -70,7 +69,6 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
         return array(
 
             'CssAndJsRegistry',
-            'BootHelperAddonDiscoverer',
             'AjaxHandler',
             'CacheService',
             'EmbeddedHtmlGenerator',

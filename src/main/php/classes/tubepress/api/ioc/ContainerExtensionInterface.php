@@ -13,18 +13,18 @@ interface tubepress_api_ioc_ContainerExtensionInterface
 {
     const _ = 'tubepress_api_ioc_ContainerExtensionInterface';
 
-    const TAG_EVENT_LISTENER             = 'tubepress.event.listener';
-    const TAG_TAGGED_SERVICES_CONSUMER   = 'tubepress.consumer.taggedServices';
+    const TAG_EVENT_LISTENER           = 'tubepress.event.listener';
+    const TAG_TAGGED_SERVICES_CONSUMER = 'tubepress.consumer.taggedServices';
 
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
      *
      * @return void
      *
      * @api
      * @since 3.1.0
      */
-    function load(tubepress_api_ioc_ContainerInterface $container);
+    function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder);
 }

@@ -17,37 +17,37 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
      *
      * @return void
      *
      * @api
      * @since 3.1.0
      */
-    public function load(tubepress_api_ioc_ContainerInterface $container)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerPluggables($container);
+        $this->_registerPluggables($containerBuilder);
 
-        $this->_registerListeners($container);
+        $this->_registerListeners($containerBuilder);
 
-        $this->_registerOauthClient($container);
+        $this->_registerOauthClient($containerBuilder);
     }
 
-    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerPluggables(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService',
             'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService'
 
         )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'
         );
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService',
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService'
@@ -55,24 +55,24 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
         )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_options_VimeoOptionsProvider',
             'tubepress_addons_vimeo_impl_options_VimeoOptionsProvider'
         )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
 
-        $this->_registerOptionsPageParticipant($container);
+        $this->_registerOptionsPageParticipant($containerBuilder);
     }
 
-    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldIndex = 0;
 
-        $container->register('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $containerBuilder->register('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->addArgument(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY)
             ->addMethodCall('setSize', array(40));
 
-        $container->register('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $containerBuilder->register('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->addArgument(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET)
             ->addMethodCall('setSize', array(40));
 
@@ -114,14 +114,14 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $container->register('vimeo_options_subfield_' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
+            $containerBuilder->register('vimeo_options_subfield_' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
 
-            $container->register('vimeo_options_field_' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $containerBuilder->register('vimeo_options_field_' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->addArgument($gallerySourceFieldArray[0])
                 ->addArgument(new tubepress_impl_ioc_Reference('vimeo_options_subfield_' . $fieldIndex++));
         }
 
-        $container->register('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_SpectrumColorField')
+        $containerBuilder->register('vimeo_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_SpectrumColorField')
             ->addArgument(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
 
         $fieldReferences = array();
@@ -157,7 +157,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             ),
         );
 
-        $container->register(
+        $containerBuilder->register(
 
             'vimeo_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'
@@ -170,15 +170,15 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 
-    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
 
-        $container->register(
+        $containerBuilder->register(
 
             'vimeo_color_sanitizer',
             'tubepress_impl_listeners_options_ColorSanitizingListener'
@@ -188,18 +188,18 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             ))
             ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 9500));
 
-        $this->_registerHttpListeners($container);
+        $this->_registerHttpListeners($containerBuilder);
     }
 
-    private function _registerHttpListeners(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerHttpListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
             'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener',
             'tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener'
@@ -208,28 +208,28 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
          ->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onRequest', 'priority' => 9000));
     }
 
-    private function _registerOauthClient(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerOauthClient(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'ehough_coauthor_spi_v1_TemporaryCredentialsStorageInterface',
             'ehough_coauthor_impl_v1_SessionCredentialsStorage'
         )->addArgument(false);
 
-        $container->register(
+        $containerBuilder->register(
 
             'ehough_coauthor_spi_v1_SignerInterface',
             'ehough_coauthor_impl_v1_Signer'
         );
 
-        $container->register(
+        $containerBuilder->register(
 
             'ehough_coauthor_spi_v1_RemoteCredentialsFetcherInterface',
             'ehough_coauthor_impl_v1_DefaultRemoteCredentialsFetcher'
         )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_api_HttpClientInterface'))
          ->addArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_SignerInterface'));
 
-        $container->register(
+        $containerBuilder->register(
 
             'ehough_coauthor_api_v1_ClientInterface',
             'ehough_coauthor_impl_v1_DefaultV1Client'

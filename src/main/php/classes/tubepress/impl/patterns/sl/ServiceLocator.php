@@ -15,42 +15,10 @@
 class tubepress_impl_patterns_sl_ServiceLocator
 {
     /**
-     * @var mixed This is a special member that is a reference to the core IOC service.
+     * @var ehough_iconic_ContainerInterface This is a special member that is a reference to the core IOC service.
      *            It lets us perform lazy lookups for core services.
      */
     private static $_iocContainer;
-
-    /**
-     * @return tubepress_spi_boot_AddonDiscoverer The add-on discoverer.
-     */
-    public static function getBootHelperAddonDiscoverer()
-    {
-        return self::getService(tubepress_spi_boot_AddonDiscoverer::_);
-    }
-
-    /**
-     * @return tubepress_spi_boot_BootConfigService
-     */
-    public static function getBootHelperConfigService()
-    {
-        return self::getService(tubepress_spi_boot_BootConfigService::_);
-    }
-
-    /**
-     * @return tubepress_spi_boot_ClassLoadingHelper
-     */
-    public static function getBootHelperClassLoadingHelper()
-    {
-        return self::getService(tubepress_spi_boot_ClassLoadingHelper::_);
-    }
-
-    /**
-     * @return tubepress_spi_boot_IocContainerHelper
-     */
-    public static function getBootHelperIocContainer()
-    {
-        return self::getService(tubepress_spi_boot_IocContainerHelper::_);
-    }
 
     /**
      * @return tubepress_spi_http_AjaxHandler
@@ -261,9 +229,9 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @param tubepress_api_ioc_ContainerInterface $container The core IOC container.
+     * @param ehough_iconic_ContainerInterface $container The core IOC container.
      */
-    public static function setIocContainer(tubepress_api_ioc_ContainerInterface $container)
+    public static function setBackingIconicContainer(ehough_iconic_ContainerInterface $container)
     {
         self::$_iocContainer = $container;
     }
@@ -273,7 +241,7 @@ class tubepress_impl_patterns_sl_ServiceLocator
      *
      * @param string $serviceId The ID of the service to retrieve.
      *
-     * @return object The service instance, or null if not registered.
+     * @return object The service instance.
      */
     public static function getService($serviceId)
     {
