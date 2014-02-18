@@ -85,7 +85,6 @@ class fullClassMapTest extends tubepress_test_TubePressUnitTest
         '.+_iconic_loader_.+',
         '.*Test$',
         '^ehough_finder_iterator_Mock.+',
-        '^ehough_iconic_lazyproxy_.+',
         '^ehough_finder_fakeadapter_.+',
         '^ehough_iconic_Scope.*',
         '.+TestCase$',
