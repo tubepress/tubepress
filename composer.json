@@ -1,31 +1,32 @@
 {
-    "name": "tubepress/tubepress",
-    "description": "Modern video galleries for the web.",
-    "homepage": "https://github.com/tubepress/tubepress",
-    "license": "MPL-2.0",
-    "authors": [
+    "name"        : "tubepress/tubepress",
+    "description" : "Modern video galleries for the web.",
+    "homepage"    : "https://github.com/tubepress/tubepress",
+    "license"     : "MPL-2.0",
+    "authors" : [
         {
-            "name": "TubePress LLC",
-            "email": "eric@tubepress.org",
-            "homepage": "http://tubepress.com"
+            "name"     : "TubePress LLC",
+            "email"    : "eric@tubepress.org",
+            "homepage" : "http://tubepress.com"
         }
     ],
     "require": {
-        "ehough/chaingang":   "~1.0.0",
-        "ehough/coauthor":    "~1.0.0",
-        "ehough/contemplate": "~1.0.0",
-        "ehough/curly":       "~1.0.0",
-        "ehough/epilog":      "~1.7",
-        "ehough/finder":      "~2.4.0",
-        "ehough/iconic":      "~2.4.0",
-        "ehough/pulsar":      "~2.4.0",
-        "ehough/shortstop":   "~2.0",
-        "ehough/stash":       "~0.10",
-        "ehough/tickertape":  "~2.4.0"
+        "ehough/chaingang"   : "~1.0.0",
+        "ehough/coauthor"    : "~1.0.0",
+        "ehough/contemplate" : "~1.0.0",
+        "ehough/curly"       : "~1.0.0",
+        "ehough/epilog"      : "~1.7",
+        "ehough/finder"      : "~2.4.0",
+        "ehough/iconic"      : "~2.4.0",
+        "ehough/pulsar"      : "~2.4.0",
+        "ehough/shortstop"   : "~2.0",
+        "ehough/stash"       : "~0.10",
+        "ehough/tickertape"  : "~2.4.0"
     },
     "require-dev": {
-        "ehough/mockery": "~0.8",
-        "phpunit/phpunit": "3.7.*"
+        "ehough/mockery"       : "~0.8",
+        "phpunit/phpunit"      : "3.7.*",
+        "symfony/class-loader" : "dev-master"
     },
     "autoload": {
         "psr-0": {
