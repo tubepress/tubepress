@@ -30,7 +30,6 @@
     },
     "autoload": {
         "psr-0": {
-            "org_tubepress"              : "src/main/php/deprecated/classes",
             "tubepress_addons_core"      : "src/main/php/add-ons/core/classes",
             "tubepress_addons_embedplus" : "src/main/php/add-ons/embedplus/classes",
             "tubepress_addons_jwplayer"  : "src/main/php/add-ons/jwplayer/classes",
