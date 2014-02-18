@@ -68,9 +68,9 @@ class tubepress_test_addons_wordpress_impl_actions_WidgetInitTest extends tubepr
     {
         $mock = $this->createMockSingletonService('wordpress.widget');
 
-        $mock->shouldReceive('printWidgetHtml')->once();
+        $mock->shouldReceive('printWidgetHtml')->once()->with(array(1));
 
-        $this->_sut->printWidgetHtml();
+        $this->_sut->printWidgetHtml(array(1));
 
         $this->assertTrue(true);
     }

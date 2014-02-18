@@ -26,11 +26,11 @@ class tubepress_addons_wordpress_impl_actions_WidgetsInit
         $wpFunctionWrapper->wp_register_widget_control('tubepress', 'TubePress', array($this, 'printControlHtml'));
     }
 
-    public function printWidgetHtml()
+    public function printWidgetHtml($widgetOpts)
     {
         $widget = tubepress_impl_patterns_sl_ServiceLocator::getService('wordpress.widget');
 
-        $widget->printWidgetHtml();
+        $widget->printWidgetHtml($widgetOpts);
     }
 
     public function printControlHtml()
