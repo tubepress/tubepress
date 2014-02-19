@@ -58,9 +58,9 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
     {
         $this->expectRegistration(
 
-            'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider',
-            'tubepress_addons_wordpress_impl_options_WordPressOptionsProvider'
-        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+            'tubepress_addons_wordpress_impl_options_WordPressOptionProvider',
+            'tubepress_addons_wordpress_impl_options_WordPressOptionProvider'
+        )->withTag(tubepress_spi_options_OptionProvider::_);
 
         $this->_expectOptionsPageParticipant();
     }

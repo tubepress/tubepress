@@ -10,27 +10,28 @@
  */
 
 /**
- * Base class for fields that are directly modeled by an option descriptor.
+ * Base class for fields that are directly modeled by an option provider.
  */
-abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField
+abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField extends tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField
 {
     /**
-     * @var tubepress_spi_options_OptionDescriptor
+     * @var tubepress_spi_options_OptionProvider
      */
-    private $_optionDescriptor;
+    private $_optionProvider;
 
-    public function __construct($optionDescriptorName)
+    public function __construct($optionName)
     {
-        $odr = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+        $this->_optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
-        $this->_optionDescriptor = $odr->findOneByName($optionDescriptorName);
+        if (!$this->_optionProvider->hasOption($optionName)) {
 
-        if ($this->_optionDescriptor === null) {
-
-            throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $optionDescriptorName));
+            throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $optionName));
         }
 
-        parent::__construct($optionDescriptorName, $this->_optionDescriptor->getLabel(), $this->_optionDescriptor->getDescription());
+        $label       = $this->_optionProvider->getLabel($optionName);
+        $description = $this->_optionProvider->getDescription($optionName);
+
+        parent::__construct($optionName, $label, $description);
     }
 
     /**
@@ -40,7 +41,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
      */
     public final function isProOnly()
     {
-        return $this->_optionDescriptor->isProOnly();
+        return $this->_optionProvider->isProOnly($this->getId());
     }
 
     /**
@@ -50,10 +51,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
      */
     public final function onSubmit()
     {
-        $hrps = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $id   = $this->getId();
+        $hrps      = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $id        = $this->getId();
+        $isBoolean = $this->_optionProvider->isBoolean($this->getId());
 
-        if ($this->_optionDescriptor->isBoolean()) {
+        if ($isBoolean) {
 
             return $this->sendToStorage($id, $hrps->hasParam($id));
         }
@@ -86,9 +88,12 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
         ), $this->getAdditionalTemplateVariables());
     }
 
-    protected final function getOptionDescriptor()
+    /**
+     * @return tubepress_spi_options_OptionProvider
+     */
+    protected function getOptionProvider()
     {
-        return $this->_optionDescriptor;
+        return $this->_optionProvider;
     }
 
     /**

@@ -197,16 +197,6 @@ class tubepress_api_const_event_EventNames
     const HTTP_RESPONSE = 'tubepress.core.http.response';
 
     /**
-     * This event is fired when an option descriptor is registered.
-     *
-     * @subject tubepress_spi_options_OptionDescriptor The option descriptor being registered.
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const OPTIONS_DESCRIPTOR_REGISTRATION = 'tubepress.core.options.descriptor.registration';
-
-    /**
      * This event is fired when a TubePress option (a name-value pair) is being set. It is fired
      * *before* any validation takes place, so use caution when handling these values.
      *

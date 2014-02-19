@@ -45,7 +45,7 @@ class tubepress_test_addons_core_YouTubeManifestValidityTest extends tubepress_t
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener' => 'classes/tubepress/addons/youtube/impl/listeners/http/YouTubeHttpErrorResponseListener.php',
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler' => 'classes/tubepress/addons/youtube/impl/listeners/options/YouTubePlaylistHandler.php',
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener' => 'classes/tubepress/addons/youtube/impl/listeners/video/YouTubeVideoConstructionListener.php',
-            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider' => 'classes/tubepress/addons/youtube/impl/options/YouTubeOptionsProvider.php',
+            'tubepress_addons_youtube_impl_options_YouTubeOptionProvider' => 'classes/tubepress/addons/youtube/impl/options/YouTubeOptionProvider.php',
             'tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension' => 'classes/tubepress/addons/youtube/impl/ioc/YouTubeIocContainerExtension.php',
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService' => 'classes/tubepress/addons/youtube/impl/provider/YouTubePluggableVideoProviderService.php',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder' => 'classes/tubepress/addons/youtube/impl/provider/YouTubeUrlBuilder.php'

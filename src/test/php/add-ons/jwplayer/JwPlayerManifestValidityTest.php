@@ -34,12 +34,12 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
     private function _getExpectedClassMap()
     {
         return array(
-            'tubepress_addons_jwplayer_api_const_options_names_Embedded' => 'classes/tubepress/addons/jwplayer/api/const/options/names/Embedded.php',
-            'tubepress_addons_jwplayer_api_const_template_Variable' => 'classes/tubepress/addons/jwplayer/api/const/template/Variable.php',
+            'tubepress_addons_jwplayer_api_const_options_names_Embedded'                     => 'classes/tubepress/addons/jwplayer/api/const/options/names/Embedded.php',
+            'tubepress_addons_jwplayer_api_const_template_Variable'                          => 'classes/tubepress/addons/jwplayer/api/const/template/Variable.php',
             'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService' => 'classes/tubepress/addons/jwplayer/impl/embedded/JwPlayerPluggableEmbeddedPlayerService.php',
-            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars' => 'classes/tubepress/addons/jwplayer/impl/listeners/template/JwPlayerTemplateVars.php',
-            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider' => 'classes/tubepress/addons/jwplayer/impl/options/JwPlayerOptionsProvider.php',
-            'tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension' => 'classes/tubepress/addons/jwplayer/impl/ioc/JwPlayerIocContainerExtension.php'
+            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'         => 'classes/tubepress/addons/jwplayer/impl/listeners/template/JwPlayerTemplateVars.php',
+            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider'                  => 'classes/tubepress/addons/jwplayer/impl/options/JwPlayerOptionProvider.php',
+            'tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension'               => 'classes/tubepress/addons/jwplayer/impl/ioc/JwPlayerIocContainerExtension.php'
         );
     }
 }

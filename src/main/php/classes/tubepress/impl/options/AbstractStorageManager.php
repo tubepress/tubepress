@@ -29,6 +29,11 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      */
     private $_cachedOptions;
 
+    /**
+     * @var bool
+     */
+    private $_flagCheckedForMissingOptions = false;
+
     public function __construct()
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
@@ -43,6 +48,8 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         if (!isset($this->_cachedOptions)) {
 
             $this->_cachedOptions = $this->fetchAllCurrentlyKnownOptionNamesToValues();
+
+            $this->_addAnyMissingOptions($this->_cachedOptions);
         }
 
         return $this->_cachedOptions;
@@ -90,20 +97,19 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
          */
         $filteredValue = $this->_getFilteredValue($optionName, $optionValue);
 
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+
         /**
          * Now validate it.
          */
-        $validationResult = $this->_validateOneForStorage($optionName, $filteredValue);
+        $validationResult = $this->_validateOneForStorage($optionProvider, $optionName, $filteredValue);
 
         if ($validationResult !== true) {
 
             return $validationResult;
         }
 
-        $optionDescriptorReferenceService = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
-        $optionDescriptor                 = $optionDescriptorReferenceService->findOneByName($optionName);
-
-        if (!$optionDescriptor->isMeantToBePersisted()) {
+        if (!$optionProvider->isMeantToBePersisted($optionName)) {
 
             /**
              * Not meant to be persisted. Just ignore.
@@ -111,7 +117,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             return null;
         }
 
-        if ($this->_noChangeBetweenIncomingAndCurrent($filteredValue, $optionDescriptor)) {
+        if ($this->_noChangeBetweenIncomingAndCurrent($optionProvider, $optionName, $filteredValue)) {
 
             /**
              * No change. Ignore.
@@ -152,33 +158,6 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         return $result;
     }
 
-    /**
-     * Creates one or more options in storage, if they don't already exist. This function is called on TubePress's boot.
-     *
-     * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
-     *                                      element in the array, the storage manager will create the option if it does
-     *                                      not already exist.
-     *
-     * @return void
-     */
-    public final function createEachIfNotExists(array $optionNamesToValuesMap)
-    {
-        $options             = $this->fetchAll();
-        $allKnowOptionNames  = array_keys($options);
-        $incomingOptionNames = array_keys($optionNamesToValuesMap);
-        $missingOptionNames  = array_diff($incomingOptionNames, $allKnowOptionNames);
-
-        if (count($missingOptionNames) === 0) {
-
-            //common case
-            return;
-        }
-
-        $this->createEach($optionNamesToValuesMap);
-
-        $this->_forceReloadOfOptionsCache();
-    }
-
     private function _forceReloadOfOptionsCache()
     {
         unset($this->_cachedOptions);
@@ -214,13 +193,12 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return bool True if the option is OK for storage, otherwise a string error message.
      */
-    private function _validateOneForStorage($optionName, $optionValue)
+    private function _validateOneForStorage(tubepress_spi_options_OptionProvider $optionProvider, $optionName, $optionValue)
     {
-        $optionValidatorService = tubepress_impl_patterns_sl_ServiceLocator::getOptionValidator();
-        $shouldLog              = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
+        $shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         /** OK, let's see if it's valid. */
-        if ($optionValidatorService->isValid($optionName, $optionValue)) {
+        if ($optionProvider->isValid($optionName, $optionValue)) {
 
             if ($shouldLog) {
 
@@ -230,7 +208,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             return true;
         }
 
-        $problemMessage = $optionValidatorService->getProblemMessage($optionName, $optionValue);
+        $problemMessage = $optionProvider->getProblemMessage($optionName, $optionValue);
 
         if ($shouldLog) {
 
@@ -254,10 +232,10 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         return $event->getSubject();
     }
 
-    private function _noChangeBetweenIncomingAndCurrent($filteredValue, tubepress_spi_options_OptionDescriptor $descriptor)
+    private function _noChangeBetweenIncomingAndCurrent(tubepress_spi_options_OptionProvider $optionProvider, $optionName, $filteredValue)
     {
-        $boolean      = $descriptor->isBoolean();
-        $currentValue = $this->fetch($descriptor->getName());
+        $boolean      = $optionProvider->isBoolean($optionName);
+        $currentValue = $this->fetch($optionName);
 
         if ($boolean) {
 
@@ -265,5 +243,37 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         }
 
         return $currentValue == $filteredValue;
+    }
+
+    private function _addAnyMissingOptions(array $optionsInThisStorageManager)
+    {
+        if ($this->_flagCheckedForMissingOptions) {
+
+            return;
+        }
+
+        $optionProvider          = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $optionNamesFromProvider = $optionProvider->getAllOptionNames();
+        $toPersist               = array();
+        $missingOptions          = array_diff($optionNamesFromProvider, array_keys($optionsInThisStorageManager));
+
+        /**
+         * @var $optionName string
+         */
+        foreach ($missingOptions as $optionName) {
+
+            if ($optionProvider->isMeantToBePersisted($optionName)) {
+
+                $toPersist[$optionName] = $optionProvider->getDefaultValue($optionName);
+            }
+        }
+
+        if (!empty($toPersist)) {
+
+            $this->createEach($toPersist);
+            $this->_forceReloadOfOptionsCache();
+        }
+
+        $this->_flagCheckedForMissingOptions = true;
     }
 }

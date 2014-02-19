@@ -48,15 +48,4 @@ interface tubepress_spi_options_StorageManager
      * @return null|string Null if the flush succeeded and all queued options were saved, otherwise a string error message.
      */
     function flushSaveQueue();
-
-    /**
-     * Creates one or more options in storage, if they don't already exist. This function is called on TubePress's boot.
-     *
-     * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
-     *                                      element in the array, the storage manager will create the option if it does
-     *                                      not already exist.
-     *
-     * @return void
-     */
-    function createEachIfNotExists(array $optionNamesToValuesMap);
 }

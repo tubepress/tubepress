@@ -37,9 +37,9 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
 
         $this->expectRegistration(
 
-            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider',
-            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionsProvider'
-        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider',
+            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider'
+        )->withTag(tubepress_spi_options_OptionProvider::_);
 
         $fieldIndex = 0;
         $fieldMap = array(

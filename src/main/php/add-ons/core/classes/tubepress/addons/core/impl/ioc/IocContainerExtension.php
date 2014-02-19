@@ -43,9 +43,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerHttpClient($containerBuilder);
         $this->_registerHttpRequestParameterService($containerBuilder);
         $this->_registerHttpResponseCodeHandler($containerBuilder);
-        $this->_registerOptionDescriptorReference($containerBuilder);
-        $this->_registerOptionsProvider($containerBuilder);
-        $this->_registerOptionValidator($containerBuilder);
+        $this->_registerAggregateOptionProvider($containerBuilder);
+        $this->_registerCoreOptionProvider($containerBuilder);
         $this->_registerPlayerHtmlGenerator($containerBuilder);
         $this->_registerQueryStringService($containerBuilder);
         $this->_registerShortcodeHtmlGenerator($containerBuilder);
@@ -199,33 +198,25 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         );
     }
 
-    private function _registerOptionDescriptorReference(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerAggregateOptionProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
 
-            tubepress_spi_options_OptionDescriptorReference::_,
-            'tubepress_impl_options_DefaultOptionDescriptorReference'
-        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_PluggableOptionDescriptorProvider::_, 'method' => 'setPluggableOptionDescriptorProviders'));
+            tubepress_spi_options_OptionProvider::_,
+            'tubepress_impl_options_OptionProviderAggregate'
+        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_OptionProvider::_, 'method' => 'setAddonOptionProviders'))
+         ->addMethodCall('setRegisteredOptionNames', array('%tubePressOptionNames%'));
     }
 
-    private function _registerOptionsProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerCoreOptionProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_addons_core_impl_options_CoreOptionsProvider',
-            'tubepress_addons_core_impl_options_CoreOptionsProvider'
-        )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_)
+            'tubepress_addons_core_impl_options_CoreOptionProvider',
+            'tubepress_addons_core_impl_options_CoreOptionProvider'
+        )->addTag(tubepress_spi_options_OptionProvider::_)
             ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'))
             ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_embedded_PluggableEmbeddedPlayerService::_, 'method' => 'setPluggableEmbeddedPlayers'))
             ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
-    }
-
-    private function _registerOptionValidator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_options_OptionValidator::_,
-            'tubepress_impl_options_DefaultOptionValidator'
-        );
     }
 
     private function _registerPlayerHtmlGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

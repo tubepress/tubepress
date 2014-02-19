@@ -12,7 +12,7 @@
 /**
  * Displays a checkbox input.
  */
-class tubepress_impl_options_ui_fields_BooleanField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+class tubepress_impl_options_ui_fields_BooleanField extends tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
 {
     protected final function getAbsolutePathToTemplate()
     {

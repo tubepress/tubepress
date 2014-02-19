@@ -37,13 +37,21 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOptionsReference;
+    private $_mockOptionProvider;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
     private $_mockWordPressFunctionWrapper;
 
+    /**
+     * @var array[]
+     */
+    private $_existingStoredOptions;
+
+    /**
+     * Leave this here for the tests.
+     */
     public $options = 'xyz';
 
     public function onSetup()
@@ -54,8 +62,7 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
         $this->_mockEnvironmentDetector      = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockEventDispatcher          = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockOptionValidator          = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
-        $this->_mockOptionsReference         = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionProvider           = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
         $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         $this->_sut = new tubepress_addons_wordpress_impl_options_WordPressStorageManager();
@@ -70,6 +77,10 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testGet()
     {
+        $this->_existingStoredOptions = array('abc123' => 'xyz789');
+
+        $this->_mockOptionProvider->shouldReceive('getAllOptionNames')->once()->andReturn(array('abc123'));
+
         $result = $this->_sut->fetch('abc123');
 
         $this->assertEquals('xyz789', $result);
@@ -77,11 +88,13 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testFlushSaveQueueNoChangesNonBoolean()
     {
-        $od1 = new tubepress_spi_options_OptionDescriptor('abc123');
+        $this->_existingStoredOptions = array('abc123' => 'xyz789');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
-        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('abc123', 'xyz789')->andReturn(true);
-        $this->_mockOptionsReference->shouldReceive('findOneByName')->once()->with('abc123')->andReturn($od1);
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('abc123', 'xyz789')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('abc123')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with('abc123')->andReturn(false);
+        $this->_mockOptionProvider->shouldReceive('getAllOptionNames')->once()->andReturn(array('abc123'));
 
         $this->_sut->queueForSave('abc123', 'xyz789');
 
@@ -90,14 +103,17 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testFlushSaveQueue()
     {
-        $od1 = new tubepress_spi_options_OptionDescriptor('name1');
-        $od2 = new tubepress_spi_options_OptionDescriptor('name2');
+        $this->_existingStoredOptions = array('name1' => 'yello', 'name2' => 'blue');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->twice()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
-        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('name1', 'value1')->andReturn(true);
-        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('name2', 'value2')->andReturn(true);
-        $this->_mockOptionsReference->shouldReceive('findOneByName')->once()->with('name1')->andReturn($od1);
-        $this->_mockOptionsReference->shouldReceive('findOneByName')->once()->with('name2')->andReturn($od2);
+        $this->_mockOptionProvider->shouldReceive('getAllOptionNames')->once()->andReturn(array('name1', 'name2'));
+        $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('name1')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('name2')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with('name1')->andReturn(false);
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with('name2')->andReturn(false);
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('name1', 'value1')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('name2', 'value2')->andReturn(true);
+
         $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-name1', 'value1');
         $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-name2', 'value2');
 
@@ -109,20 +125,20 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testCreate()
     {
+        $this->_existingStoredOptions = array();
+
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-a', 'b');
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-c', 'd');
 
-        $this->_sut->createEachIfNotExists(array('a' => 'b', 'c' => 'd'));
+        $this->_sut->createEach(array('a' => 'b', 'c' => 'd'));
     }
 
     public function testSetDoNotPersist()
     {
-        $od = new tubepress_spi_options_OptionDescriptor('something');
-        $od->setDoNotPersist();
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
-        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
-        $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('something')->andReturn(false);
 
         $result = $this->_sut->queueForSave('something', 'value');
 
@@ -131,12 +147,9 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testSetFailsValidation()
     {
-        $od = new tubepress_spi_options_OptionDescriptor('something');
-
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
-        $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
-        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(false);
-        $this->_mockOptionValidator->shouldReceive('getProblemMessage')->once()->with('something', 'value')->andReturn('xyz');
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(false);
+        $this->_mockOptionProvider->shouldReceive('getProblemMessage')->once()->with('something', 'value')->andReturn('xyz');
 
         $result = $this->_sut->queueForSave('something', 'value');
 
@@ -145,11 +158,13 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testSetPassesValidation()
     {
-        $od = new tubepress_spi_options_OptionDescriptor('something');
+        $this->_mockOptionProvider->shouldReceive('getAllOptionNames')->once()->andReturn(array('something'));
+        $this->_existingStoredOptions = array('something' => 'else');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
-        $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
-        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('something')->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with('something')->andReturn(false);
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
 
         $result = $this->_sut->queueForSave('something', 'value');
 
@@ -160,12 +175,19 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
     {
         $this->assertEquals("SELECT option_name, option_value FROM xyz WHERE option_name LIKE 'tubepress-%'", $query);
 
-        $fake = new stdClass();
+        $toReturn = array();
 
-        $fake->option_name = 'abc123';
-        $fake->option_value = 'xyz789';
+        foreach ($this->_existingStoredOptions as $name => $value) {
 
-        return array($fake);
+            $fake = new stdClass();
+
+            $fake->option_name  = $name;
+            $fake->option_value = $value;
+
+            $toReturn[] = $fake;
+        }
+
+        return $toReturn;
     }
 }
 

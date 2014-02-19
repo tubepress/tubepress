@@ -17,7 +17,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOptionDescriptorReference;
+    private $_mockOptionProvider;
 
     /**
      * @var ehough_mockery_mockery_MockInterface[]
@@ -31,7 +31,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
     protected function doMoreSetup()
     {
-        $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
     }
 
     protected function _getCoreOdNames()
@@ -58,33 +58,13 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
         $mockProvider1 = ehough_mockery_Mockery::mock('tubepress_spi_provider_PluggableVideoProviderService');
         $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('a', 'b', 'c'));
         $mockProvider1->shouldReceive('getFriendlyName')->once()->andReturn('Mock 1');
-        $this->_expectMockOptionDescriptors(array('a', 'b', 'c'));
 
         $mockProvider2 = ehough_mockery_Mockery::mock('tubepress_spi_provider_PluggableVideoProviderService');
         $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('x', 'y', 'z'));
         $mockProvider2->shouldReceive('getFriendlyName')->once()->andReturn('Mock 2');
-        $this->_expectMockOptionDescriptors(array('x', 'y', 'z'));
 
         $this->_mockVideoProviders[] = $mockProvider1;
         $this->_mockVideoProviders[] = $mockProvider2;
-    }
-
-    private function _expectMockOptionDescriptors($names)
-    {
-        $ods = array();
-
-        foreach ($names as $name) {
-
-            $od = new tubepress_spi_options_OptionDescriptor($name);
-            $od->setBoolean();
-            $od->setLabel(strtoupper($name));
-
-            $ods[] = $od;
-
-            $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->with($name)->once()->andReturn($od);
-        }
-
-        return $ods;
     }
 
     protected function doPrepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $mockTemplate)
@@ -117,9 +97,28 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
         asort($coreOds);
 
+        $groupedChoicesArray = array(
+
+            'Mock 1' => array('a' => '<<a>>', 'b' => '<<b>>', 'c' => '<<c>>'),
+            'Mock 2' => array('x' => '<<x>>', 'y' => '<<y>>', 'z' => '<<z>>')
+        );
+
         $mockTemplate->shouldReceive('setVariable')->once()->with('currentlySelectedValues', $selected);
         $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', $coreOds);
-        $mockTemplate->shouldReceive('setVariable')->once()->with('groupedChoices', array('Mock 1' => array('a' => '<<a>>', 'b' => '<<b>>', 'c' => '<<c>>'), 'Mock 2' => array('x' => '<<x>>', 'y' => '<<y>>', 'z' => '<<z>>')));
+        $mockTemplate->shouldReceive('setVariable')->once()->with('groupedChoices', $groupedChoicesArray);
+
+        foreach (array_keys($coreOds) as $metaOptionName) {
+
+            $this->_mockOptionProvider->shouldReceive('getLabel')->with($metaOptionName)->once()->andReturn(strtoupper($metaOptionName));
+        }
+
+        foreach ($groupedChoicesArray as $g) {
+
+            foreach ($g as $value => $label) {
+
+                $this->_mockOptionProvider->shouldReceive('getLabel')->with($value)->once()->andReturn(strtoupper($value));
+            }
+        }
     }
 
     protected function setupExpectationsForFailedStorageWhenAllMissing($errorMessage)
@@ -168,8 +167,6 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
     private function _setupOds()
     {
-        $this->_expectMockOptionDescriptors($this->_getCoreOdNames());
-
         $this->_buildMockVideoProviders();
 
         $this->getSut()->setVideoProviders($this->_mockVideoProviders);

@@ -12,7 +12,7 @@
 /**
  * Displays a standard text input.
  */
-class tubepress_impl_options_ui_fields_TextField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+class tubepress_impl_options_ui_fields_TextField extends tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
 {
     /**
      * @var int The size of this text field.
