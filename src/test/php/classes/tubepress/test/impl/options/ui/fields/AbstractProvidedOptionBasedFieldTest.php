@@ -8,32 +8,29 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_test_impl_options_ui_fields_AbstractTemplateBasedOptionsPageFieldTest
+abstract class tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBasedFieldTest extends tubepress_test_impl_options_ui_fields_AbstractTemplateBasedOptionsPageFieldTest
 {
-    /**
-     * @var tubepress_spi_options_OptionDescriptor
-     */
-    private $_mockOptionDescriptor;
-
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOptionDescriptorReference;
+    private $_mockOptionProvider;
 
     public final function doMoreSetup()
     {
-        $this->_mockOptionDescriptorReference   = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockOptionDescriptor            = new tubepress_spi_options_OptionDescriptor($this->getOptionName());
+        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $optionName                = $this->getOptionName();
 
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with($this->getOptionName())->andReturn($this->_mockOptionDescriptor);
-        $this->_mockOptionDescriptor->setLabel('the label');
-        $this->_mockOptionDescriptor->setDescription('the description');
+        $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with($optionName)->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('getLabel')->once()->with($optionName)->andReturn('the label');
+        $this->_mockOptionProvider->shouldReceive('getDescription')->once()->with($optionName)->andReturn('the description');
 
         $this->performAdditionalSetup();
     }
 
     public function testSubmitSimpleInvalid()
     {
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with($this->getOptionName())->andReturn(false);
+
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getOptionName())->andReturn(true);
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getOptionName())->andReturn('some-value');
 
@@ -44,6 +41,8 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
     public function testSubmitNoExist()
     {
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with($this->getOptionName())->andReturn(false);
+
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getOptionName())->andReturn(false);
 
         $this->assertNull($this->getSut()->onSubmit());
@@ -51,7 +50,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
     public function testSubmitBoolean()
     {
-        $this->_mockOptionDescriptor->setBoolean();
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with($this->getOptionName())->andReturn(true);
 
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getOptionName())->andReturn(true);
 
@@ -62,6 +61,8 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
     public function testSubmitSimple()
     {
+        $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with($this->getOptionName())->andReturn(false);
+
         $this->getMockHttpRequestParameterService()->shouldReceive('hasParam')->once()->with($this->getOptionName())->andReturn(true);
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getOptionName())->andReturn('some-value');
 
@@ -75,19 +76,21 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
      */
     public function testBadOptionName()
     {
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with($this->getOptionName())->andReturn(null);
+        $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with($this->getOptionName())->andReturn(false);
 
         new tubepress_impl_options_ui_fields_TextField($this->getOptionName());
     }
 
     public function testGetProOnlyNo()
     {
+        $this->_mockOptionProvider->shouldReceive('isProOnly')->once()->with($this->getOptionName())->andReturn(false);
+
         $this->assertTrue($this->getSut()->isProOnly() === false);
     }
 
     public function testGetProOnlyYes()
     {
-        $this->_mockOptionDescriptor->setProOnly();
+        $this->_mockOptionProvider->shouldReceive('isProOnly')->once()->with($this->getOptionName())->andReturn(true);
 
         $this->assertTrue($this->getSut()->isProOnly() === true);
     }
@@ -95,14 +98,6 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
     protected function performAdditionalSetup()
     {
         //override point
-    }
-
-    /**
-     * @return tubepress_spi_options_OptionDescriptor
-     */
-    protected function getMockOptionDescriptor()
-    {
-        return $this->_mockOptionDescriptor;
     }
 
     /**
@@ -115,17 +110,17 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
 
     protected function getExpectedFieldId()
     {
-        return $this->_mockOptionDescriptor->getName();
+        return $this->getOptionName();
     }
 
     protected function getExpectedUntranslatedFieldLabel()
     {
-        return $this->_mockOptionDescriptor->getLabel();
+        return 'the label';
     }
 
     protected function getExpectedUntranslatedFieldDescription()
     {
-        return $this->_mockOptionDescriptor->getDescription();
+        return 'the description';
     }
 
     protected final function prepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
@@ -136,6 +131,11 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBas
         $template->shouldReceive('setVariable')->once()->with('value', 'some value');
 
         $this->doAdditionalPrepForGetWidgetHtml($template);
+    }
+
+    protected function getMockOptionProvider()
+    {
+        return $this->_mockOptionProvider;
     }
 
     protected function doAdditionalPrepForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)

@@ -16,20 +16,18 @@ class tubepress_addons_core_impl_listeners_template_SingleVideoMeta
 {
     public function onSingleVideoTemplate(tubepress_api_event_EventInterface $event)
     {
-        $template                  = $event->getSubject();
-        $context                   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $messageService            = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-        $optionDescriptorReference = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
-        $metaNames                 = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
-        $shouldShow                = array();
-        $labels                    = array();
+        $template       = $event->getSubject();
+        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $metaNames      = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
+        $shouldShow     = array();
+        $labels         = array();
 
         foreach ($metaNames as $metaName) {
 
-            $optionDescriptor = $optionDescriptorReference->findOneByName($metaName);
-
             $shouldShow[$metaName] = $context->get($metaName);
-            $labels[$metaName]     = $messageService->_($optionDescriptor->getLabel());
+            $labels[$metaName]     = $messageService->_($optionProvider->getLabel($metaName));
         }
 
         $template->setVariable(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);

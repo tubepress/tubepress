@@ -12,7 +12,7 @@
 /**
  * Hidden field.
  */
-class tubepress_impl_options_ui_fields_HiddenField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+class tubepress_impl_options_ui_fields_HiddenField extends tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
 {
     protected final function getAbsolutePathToTemplate()
     {

@@ -28,15 +28,13 @@ class tubepress_test_addons_core_impl_listeners_template_SingleVideoMetaTest ext
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOptionDescriptorReference;
+    private $_mockOptionProvider;
 
     public function onSetup()
     {
-        $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
-
+        $this->_mockMessageService   = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-
-        $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionProvider   = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
 
         $this->_sut = new tubepress_addons_core_impl_listeners_template_SingleVideoMeta();
     }
@@ -51,21 +49,13 @@ class tubepress_test_addons_core_impl_listeners_template_SingleVideoMetaTest ext
         $shouldShow = array();
         $labels     = array();
 
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
-
-             $mock = new tubepress_spi_options_OptionDescriptor($m);
-             $mock->setLabel('video-' . $m);
-             return $mock;
-        });
-
         foreach ($metaNames as $metaName) {
 
             $shouldShow[$metaName] = "<<value of $metaName>>";
             $labels[$metaName]     = '##video-' . $metaName . '##';
 
-            $this->_mockExecutionContext->shouldReceive('get')->once()->with($metaName)->andReturnUsing(function ($m) {
-                   return "<<value of $m>>";
-            });
+            $this->_mockExecutionContext->shouldReceive('get')->once()->with($metaName)->andReturn("<<value of $metaName>>");
+            $this->_mockOptionProvider->shouldReceive('getLabel')->once()->with($metaName)->andReturn("video-$metaName");
         }
 
         $video = new tubepress_api_video_Video();
@@ -82,6 +72,4 @@ class tubepress_test_addons_core_impl_listeners_template_SingleVideoMetaTest ext
 
         $this->assertEquals($mockTemplate, $event->getSubject());
     }
-
 }
-

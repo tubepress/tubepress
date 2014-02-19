@@ -12,18 +12,10 @@ class tubepress_test_impl_template_templates_optionspage_fields_MultiSelectTempl
 {
     public function test()
     {
-        $one   = new tubepress_spi_options_OptionDescriptor('name-one');
-        $two   = new tubepress_spi_options_OptionDescriptor('name-two');
-        $three = new tubepress_spi_options_OptionDescriptor('name-three');
-
-        $one->setLabel('label-one');
-        $two->setLabel('label-two');
-        $three->setLabel('label-three');
-
-        $descriptors = array($one, $two, $three);
+        $optionNames = array('name-one', 'name-two', 'name-three');
 
         $id = 'some-name';
-        $foo = $descriptors;
+        $foo = $optionNames;
         $currentlySelectedValues = array('one', 'two', 'foo');
         $ungroupedChoices = array('foo', 'bar');
         $groupedChoices = array('x' => array('y'));

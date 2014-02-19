@@ -149,11 +149,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_options_OptionDescriptorReference The option descriptor reference.
+     * @return tubepress_spi_options_OptionProvider The options provider.
      */
-    public static function getOptionDescriptorReference()
+    public static function getOptionProvider()
     {
-        return self::getService(tubepress_spi_options_OptionDescriptorReference::_);
+        return self::getService(tubepress_spi_options_OptionProvider::_);
     }
 
     /**
@@ -162,14 +162,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     public static function getOptionStorageManager()
     {
         return self::getService(tubepress_spi_options_StorageManager::_);
-    }
-
-    /**
-     * @return tubepress_spi_options_OptionValidator The option validator.
-     */
-    public static function getOptionValidator()
-    {
-        return self::getService(tubepress_spi_options_OptionValidator::_);
     }
 
     /**

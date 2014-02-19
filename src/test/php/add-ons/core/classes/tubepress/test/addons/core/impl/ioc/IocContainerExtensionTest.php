@@ -30,9 +30,8 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_http();
         $this->_hrps();
         $this->_hrch();
-        $this->_odr();
+        $this->_optionAggregate();
         $this->_optionProvider();
-        $this->_optionValidator();
         $this->_registerPlayerHtml();
         $this->_qss();
         $this->_shortcode();
@@ -474,31 +473,25 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
     }
 
+    private function _optionAggregate()
+    {
+        $this->expectRegistration(
+
+            tubepress_spi_options_OptionProvider::_,
+            'tubepress_impl_options_OptionProviderAggregate'
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_OptionProvider::_, 'method' => 'setAddonOptionProviders'))
+         ->withMethodCall('setRegisteredOptionNames', array('%tubePressOptionNames%'));
+    }
+
     private function _optionProvider()
     {
         $this->expectRegistration(
-            'tubepress_addons_core_impl_options_CoreOptionsProvider',
-            'tubepress_addons_core_impl_options_CoreOptionsProvider'
-        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_)
+            'tubepress_addons_core_impl_options_CoreOptionProvider',
+            'tubepress_addons_core_impl_options_CoreOptionProvider'
+        )->withTag(tubepress_spi_options_OptionProvider::_)
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'))
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_embedded_PluggableEmbeddedPlayerService::_, 'method' => 'setPluggableEmbeddedPlayers'))
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
-    }
-
-    private function _optionValidator()
-    {
-        $this->expectRegistration(tubepress_spi_options_OptionValidator::_,
-            'tubepress_impl_options_DefaultOptionValidator');
-    }
-
-    private function _odr()
-    {
-        $this->expectRegistration(
-
-            tubepress_spi_options_OptionDescriptorReference::_,
-            'tubepress_impl_options_DefaultOptionDescriptorReference'
-
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_PluggableOptionDescriptorProvider::_, 'method' => 'setPluggableOptionDescriptorProviders'));
     }
 
     private function _hrch()

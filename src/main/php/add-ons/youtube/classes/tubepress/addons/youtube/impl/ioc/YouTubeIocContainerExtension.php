@@ -78,9 +78,9 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         $containerBuilder->register(
 
-            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider',
-            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider'
-        )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+            'tubepress_addons_youtube_impl_options_YouTubeOptionProvider',
+            'tubepress_addons_youtube_impl_options_YouTubeOptionProvider'
+        )->addTag(tubepress_spi_options_OptionProvider::_);
 
         $this->_registerOptionsPageParticipant($containerBuilder);
     }

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_impl_options_ui_fields_BooleanField<extended>
  */
-class tubepress_test_impl_options_ui_fields_BooleanFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest
+class tubepress_test_impl_options_ui_fields_BooleanFieldTest extends tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBasedFieldTest
 {
     protected function buildSut()
     {

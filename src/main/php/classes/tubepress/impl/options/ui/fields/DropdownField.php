@@ -12,7 +12,7 @@
 /**
  * Displays a drop-down input.
  */
-class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
 {
     protected final function getAbsolutePathToTemplate()
     {
@@ -22,11 +22,11 @@ class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_opti
     protected function getAdditionalTemplateVariables()
     {
         $values = array();
-        $map    = $this->getOptionDescriptor()->getAcceptableValues();
+        $map    = $this->getOptionProvider()->getDiscreteAcceptableValues($this->getId());
 
         if (! tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
 
-            throw new InvalidArgumentException(sprintf('"%s" has a non-associative array set for its value map', $this->getOptionDescriptor()->getName()));
+            throw new InvalidArgumentException(sprintf('"%s" has a non-associative array set for its value map', $this->getId()));
         }
 
         $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
