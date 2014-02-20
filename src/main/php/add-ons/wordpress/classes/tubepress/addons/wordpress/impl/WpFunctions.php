@@ -441,7 +441,7 @@ class tubepress_addons_wordpress_impl_WpFunctions implements tubepress_addons_wo
      */
     public final function register_activation_hook($file, $function)
     {
-        /** @noinspection PhpVoidFunctionResultUsedInspection */
+        /** @noinspection PhpUndefinedFunctionInspection */
         return register_activation_hook($file, $function);
     }
 
@@ -458,6 +458,7 @@ class tubepress_addons_wordpress_impl_WpFunctions implements tubepress_addons_wo
      */
     public final function wp_nonce_field($action, $name, $referrer, $echo)
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         return wp_nonce_field($action, $name, $referrer, $echo);
     }
 
@@ -473,6 +474,7 @@ class tubepress_addons_wordpress_impl_WpFunctions implements tubepress_addons_wo
      */
     public function wp_verify_nonce($nonce, $action)
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         return wp_verify_nonce($nonce, $action);
     }
 
@@ -491,6 +493,7 @@ class tubepress_addons_wordpress_impl_WpFunctions implements tubepress_addons_wo
      */
     public function wp_localize_script($handle, $objectName, array $l10n)
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         wp_localize_script($handle, $objectName, $l10n);
     }
 
@@ -507,6 +510,79 @@ class tubepress_addons_wordpress_impl_WpFunctions implements tubepress_addons_wo
      */
     public function admin_url($path = null, $scheme = 'admin')
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         return admin_url($path, $scheme);
+    }
+
+    /**
+     * Determine whether the current user has a certain capability.
+     *
+     * @param $capability string A capability. This is case-sensitive, and should be all lowercase.
+     * @param $args       mixed  Any additional arguments that may be needed, such as a post ID.
+     *                           Some capability checks (like 'edit_post' or 'delete_page') require this be provided.
+     *
+     * @return mixed
+     */
+    public function current_user_can($capability, $args = null)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return current_user_can($capability, $args);
+    }
+
+    /**
+     * Generates and returns a nonce. The nonce is generated based on the current time, the $action argument, and
+     * the current user ID.
+     *
+     * @param $action string Action name. Should give the context to what is taking place. Optional but recommended.
+     *
+     * @return string The one use form token.
+     */
+    public function wp_create_nonce($action = null)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return wp_create_nonce($action);
+    }
+
+    /**
+     * Get the value of a transient.
+     *
+     * @param $transient string Transient name. Expected to not be SQL-escaped.
+     *
+     * @return mixed Value of transient. If the transient does not exist, does not have a value, or has expired,
+     *               then get_transient will return false. This should be checked using the identity operator ( === )
+     *               instead of the normal equality operator, because an integer value of zero (or other "empty" data)
+     *               could be the data you're wanting to store. Because of this "false" value, transients should not
+     *               be used to hold plain boolean values. Put them into an array or convert them to integers instead.
+     */
+    public function get_transient($transient)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_transient($transient);
+    }
+
+    /**
+     * Set/update the value of a transient.
+     *
+     * @param $transient  string Transient name. Expected to not be SQL-escaped. Should be 45 characters or less in length.
+     * @param $value      mixed  Transient value. Expected to not be SQL-escaped.
+     * @param $expiration int    Time until expiration in seconds from now, or 0 for never expires.
+     *
+     * @return boolean False if value was not set and true if value was set.
+     */
+    public function set_transient($transient, $value, $expiration = 0)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        set_transient($transient, $value, $expiration);
+    }
+
+    /**
+     * Retrieve the current user object (WP_User). Wrapper of get_currentuserinfo() using the global variable $current_user.
+     *
+     * @return WP_User WP_User object where it can be retrieved using member variables.
+     */
+    public function wp_get_current_user()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return wp_get_current_user();
     }
 }

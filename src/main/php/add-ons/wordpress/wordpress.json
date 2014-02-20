@@ -26,6 +26,8 @@
             "tubepress_addons_wordpress_api_const_options_names_WordPress"       : "classes/tubepress/addons/wordpress/api/const/options/names/WordPress.php",
             "tubepress_addons_wordpress_impl_actions_AdminEnqueueScripts"        : "classes/tubepress/addons/wordpress/impl/actions/AdminEnqueueScripts.php",
             "tubepress_addons_wordpress_impl_actions_AdminHead"                  : "classes/tubepress/addons/wordpress/impl/actions/AdminHead.php",
+            "tubepress_addons_wordpress_impl_actions_AdminMenu"                  : "classes/tubepress/addons/wordpress/impl/actions/AdminMenu.php",
+            "tubepress_addons_wordpress_impl_actions_AdminNotices"               : "classes/tubepress/addons/wordpress/impl/actions/AdminNotices.php",
             "tubepress_addons_wordpress_impl_actions_Init"                       : "classes/tubepress/addons/wordpress/impl/actions/Init.php",
             "tubepress_addons_wordpress_impl_actions_WidgetsInit"                : "classes/tubepress/addons/wordpress/impl/actions/WidgetsInit.php",
             "tubepress_addons_wordpress_impl_actions_WpHead"                     : "classes/tubepress/addons/wordpress/impl/actions/WpHead.php",

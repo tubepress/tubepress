@@ -155,7 +155,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
             'admin_menu'            => 'AdminMenu',
             'init'                  => 'Init',
             'widgets_init'          => 'WidgetsInit',
-            'wp_head'               => 'WpHead'
+            'wp_head'               => 'WpHead',
+            'admin_notices'         => 'AdminNotices',
         );
 
         foreach ($map as $filter => $class) {

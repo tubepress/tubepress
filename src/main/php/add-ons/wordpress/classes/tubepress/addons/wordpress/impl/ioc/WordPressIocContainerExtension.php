@@ -193,7 +193,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'admin_menu'            => 'AdminMenu',
             'init'                  => 'Init',
             'widgets_init'          => 'WidgetsInit',
-            'wp_head'               => 'WpHead'
+            'wp_head'               => 'WpHead',
+            'admin_notices'         => 'AdminNotices',
         );
 
         foreach ($map as $filter => $class) {

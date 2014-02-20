@@ -63,12 +63,13 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
     {
         $actionCallback = array($this, '__handlerAction');
 
-        add_action('wp_head',     			$actionCallback);
         add_action('init',        			$actionCallback);
         add_action('admin_menu',            $actionCallback);
+        add_action('admin_notices',         $actionCallback);
         add_action('admin_enqueue_scripts', $actionCallback);
         add_action('admin_head',            $actionCallback);
         add_action('widgets_init', 			$actionCallback);
+        add_action('wp_head',     			$actionCallback);
     }
 
     private function _addActivationHooks()

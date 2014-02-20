@@ -110,6 +110,17 @@ interface tubepress_addons_wordpress_spi_WpFunctionsInterface
     function content_url();
 
     /**
+     * Determine whether the current user has a certain capability.
+     *
+     * @param $capability string A capability. This is case-sensitive, and should be all lowercase.
+     * @param $args       mixed  Any additional arguments that may be needed, such as a post ID.
+     *                           Some capability checks (like 'edit_post' or 'delete_page') require this be provided.
+     *
+     * @return mixed
+     */
+    function current_user_can($capability, $args = null);
+
+    /**
      * A safe way of removing a named option/value pair from the options database table.
      *
      * @param string $name Name of the option to be deleted.
@@ -161,6 +172,19 @@ interface tubepress_addons_wordpress_spi_WpFunctionsInterface
      * @return integer The ID of the current post.
      */
     function get_the_ID();
+
+    /**
+     * Get the value of a transient.
+     *
+     * @param $transient string Transient name. Expected to not be SQL-escaped.
+     *
+     * @return mixed Value of transient. If the transient does not exist, does not have a value, or has expired,
+     *               then get_transient will return false. This should be checked using the identity operator ( === )
+     *               instead of the normal equality operator, because an integer value of zero (or other "empty" data)
+     *               could be the data you're wanting to store. Because of this "false" value, transients should not
+     *               be used to hold plain boolean values. Put them into an array or convert them to integers instead.
+     */
+    function get_transient($transient);
 
     /**
      * @return string The current WP version.
@@ -221,6 +245,17 @@ interface tubepress_addons_wordpress_spi_WpFunctionsInterface
     function register_activation_hook($file, $function);
 
     /**
+     * Set/update the value of a transient.
+     *
+     * @param $transient  string Transient name. Expected to not be SQL-escaped. Should be 45 characters or less in length.
+     * @param $value      mixed  Transient value. Expected to not be SQL-escaped.
+     * @param $expiration int    Time until expiration in seconds from now, or 0 for never expires.
+     *
+     * @return boolean False if value was not set and true if value was set.
+     */
+    function set_transient($transient, $value, $expiration = 0);
+
+    /**
      * The site_url template tag retrieves the site url for the current site (where the WordPress core files reside)
      * with the appropriate protocol, 'https' if is_ssl() and 'http' otherwise.
      * If scheme is 'http' or 'https', is_ssl() is overridden.
@@ -228,6 +263,16 @@ interface tubepress_addons_wordpress_spi_WpFunctionsInterface
      * @return string The site URL link.
      */
     function site_url();
+
+    /**
+     * Generates and returns a nonce. The nonce is generated based on the current time, the $action argument, and
+     * the current user ID.
+     *
+     * @param $action string Action name. Should give the context to what is taking place. Optional but recommended.
+     *
+     * @return string The one use form token.
+     */
+    function wp_create_nonce($action = null);
 
     /**
      * Remove an enqueued script.
@@ -279,6 +324,13 @@ interface tubepress_addons_wordpress_spi_WpFunctionsInterface
      * @return void
      */
     function wp_enqueue_style($handle);
+
+    /**
+     * Retrieve the current user object (WP_User). Wrapper of get_currentuserinfo() using the global variable $current_user.
+     *
+     * @return WP_User WP_User object where it can be retrieved using member variables.
+     */
+    function wp_get_current_user();
 
     /**
      * Localizes a script, but only if script has already been added. Can also be used to include arbitrary Javascript data in a page.
