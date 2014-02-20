@@ -210,10 +210,16 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
             return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
         }
 
-        $path      = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_CSP];
+        $path = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_CSP];
+
+        if (is_dir($path) && is_writable($path)) {
+
+            return rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tubepress-service-container.php';
+        }
+
         $parentDir = dirname($path);
 
-        if ($parentDir === '.' || !is_dir($parentDir) || !is_writable($parentDir || is_dir($path))) {
+        if ($parentDir === '.' || !is_dir($parentDir) || !is_writable($parentDir)) {
 
             return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
         }
