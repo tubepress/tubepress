@@ -142,7 +142,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
     {
         if (!isset($this->_classLoader)) {
 
-            if (! class_exists('ehough_pulsar_ComposerClassLoader')) {
+            if (! class_exists('ehough_pulsar_ComposerClassLoader', false)) {
 
                 require_once TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
             }
@@ -310,7 +310,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
             $this->_logger->debug('Determining if we can boot from the cache.');
         }
 
-        if (class_exists('TubePressServiceContainer')) {
+        if (class_exists('TubePressServiceContainer', false)) {
 
             return true;
         }
@@ -335,7 +335,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         /** @noinspection PhpIncludeInspection */
         require $file;
 
-        $iocContainerHit = class_exists('TubePressServiceContainer');
+        $iocContainerHit = class_exists('TubePressServiceContainer', false);
 
         if ($this->_shouldLog) {
 

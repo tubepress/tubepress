@@ -124,7 +124,7 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
                 $this->_logger->debug(sprintf('Saved service container to %s. Now including it.', $storagePath));
             }
 
-            if (!class_exists('TubePressServiceContainer')) {
+            if (!class_exists('TubePressServiceContainer', false)) {
 
                 /** @noinspection PhpIncludeInspection */
                 require $storagePath;

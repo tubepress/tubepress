@@ -59,7 +59,7 @@ class tubepress_impl_boot_secondary_CachedSecondaryBootstrapper implements tubep
 
     private function _readCachedContainerIfNecessary(tubepress_spi_boot_SettingsFileReaderInterface $sfri)
     {
-        if (class_exists('TubePressServiceContainer')) {
+        if (class_exists('TubePressServiceContainer', false)) {
 
             return;
         }
