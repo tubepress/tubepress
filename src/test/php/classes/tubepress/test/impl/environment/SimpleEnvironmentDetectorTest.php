@@ -9,6 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/**
+ * @covers tubepress_impl_environment_SimpleEnvironmentDetector<extended>
+ */
 class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tubepress_test_TubePressUnitTest
 {
     /**

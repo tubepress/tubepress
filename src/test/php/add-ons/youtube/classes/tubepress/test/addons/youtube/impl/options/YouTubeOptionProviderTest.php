@@ -99,4 +99,19 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE          => 'YouTube limits this to 1,000 results.',                    //>(translatable)<
         );
     }
+
+    /**
+     * @return string[] An array, which may be empty but not null, of Pro option names from this provider.
+     */
+    protected function getAllProOptionNames()
+    {
+        return array(
+
+            tubepress_addons_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS,
+            tubepress_addons_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD,
+            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS,
+            tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_CONTROLS,
+            tubepress_addons_youtube_api_const_options_names_Embedded::THEME,
+        );
+    }
 }

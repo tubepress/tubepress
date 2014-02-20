@@ -252,4 +252,37 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => 'Default is 120.',  //>(translatable)<
         );
     }
+
+    /**
+     * @return string[] An array, which may be empty but not null, of Pro option names from this provider.
+     */
+    protected function getAllProOptionNames()
+    {
+        return array(
+
+            tubepress_api_const_options_names_Advanced::HTTPS,
+            tubepress_api_const_options_names_Embedded::AUTONEXT,
+            tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
+            tubepress_api_const_options_names_Thumbs::HQ_THUMBS,
+        );
+    }
+
+    protected function getOptionsNamesThatShouldNotBePersisted()
+    {
+        return array(
+
+            tubepress_api_const_options_names_Advanced::GALLERY_ID,
+            tubepress_api_const_options_names_Embedded::SEQUENCE,
+            tubepress_api_const_options_names_Output::OUTPUT,
+            tubepress_api_const_options_names_Output::VIDEO,
+        );
+    }
+
+    protected function getOptionNamesThatCannotBeSetViaShortcode()
+    {
+        return array(
+
+            tubepress_api_const_options_names_Advanced::KEYWORD
+        );
+    }
 }

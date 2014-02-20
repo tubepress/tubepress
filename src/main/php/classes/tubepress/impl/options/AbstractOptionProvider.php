@@ -97,7 +97,7 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
             $this->_cacheOfOptionNamesWithDynamicAcceptableValues = $this->getOptionNamesWithDynamicDiscreteAcceptableValues();
         }
 
-        if (isset($this->_cacheOfOptionNamesWithDynamicAcceptableValues[$optionName])) {
+        if (in_array($optionName, $this->_cacheOfOptionNamesWithDynamicAcceptableValues)) {
 
             return $this->getDynamicDiscreteAcceptableValuesForOption($optionName);
         }
@@ -250,7 +250,7 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
             $this->_cacheOfOptionNamesUnsuitableForShortcode = $this->getOptionNamesThatCannotBeSetViaShortcode();
         }
 
-        return !isset($this->_cacheOfOptionNamesUnsuitableForShortcode[$optionName]);
+        return !in_array($optionName, $this->_cacheOfOptionNamesUnsuitableForShortcode);
     }
 
     /**
@@ -277,7 +277,7 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
             $this->_cacheOfOptionNamesUnsuitableForPersistence = $this->getOptionsNamesThatShouldNotBePersisted();
         }
 
-        return !isset($this->_cacheOfOptionNamesUnsuitableForPersistence[$optionName]);
+        return !in_array($optionName, $this->_cacheOfOptionNamesUnsuitableForPersistence);
     }
 
     /**
@@ -292,7 +292,7 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
             $this->_cacheOfProOptionNames = $this->getAllProOptionNames();
         }
 
-        return isset($this->_cacheOfProOptionNames[$optionName]);
+        return in_array($optionName, $this->_cacheOfProOptionNames);
     }
 
     /**

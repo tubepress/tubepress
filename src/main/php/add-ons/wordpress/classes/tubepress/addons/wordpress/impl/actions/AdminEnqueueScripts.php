@@ -48,11 +48,11 @@ class tubepress_addons_wordpress_impl_actions_AdminEnqueueScripts
     {
         return array(
 
-            'bootstrap-3.0.2'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/css/bootstrap-custom.css',
-            'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/css/bootstrap-custom-theme.css',
-            'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.1/css/bootstrap-multiselect.css',
+            'bootstrap-3.1.1'       => '/src/main/web/options-gui/vendor/bootstrap-3.1.1/css/bootstrap-custom.css',
+            'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css',
+            'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.2/css/bootstrap-multiselect.css',
             'tubepress-extra'       => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
-            'spectrum'              => '/src/main/web/options-gui/vendor/spectrum-1.1.2/spectrum.css',
+            'spectrum'              => '/src/main/web/options-gui/vendor/spectrum-1.3.1/spectrum.css',
         );
     }
 
@@ -60,7 +60,7 @@ class tubepress_addons_wordpress_impl_actions_AdminEnqueueScripts
     {
         $toReturn = array(
 
-            'bootstrap-3.0.2' => '/src/main/web/options-gui/vendor/bootstrap-3.0.2/js/bootstrap.min.js',
+            'bootstrap-3.1.1' => '/src/main/web/options-gui/vendor/bootstrap-3.1.1/js/bootstrap.min.js',
         );
 
         if ($this->_isIE8orLower()) {
@@ -68,14 +68,14 @@ class tubepress_addons_wordpress_impl_actions_AdminEnqueueScripts
             $toReturn = array_merge($toReturn, array(
 
                 'html5-shiv-3.7.0' => '/src/main/web/options-gui/vendor/html5-shiv-3.7.0/html5shiv.js',
-                'respond-1.3.0'    => '/src/main/web/options-gui/vendor/respond-1.3.0/respond.min.js',
+                'respond-1.4.2'    => '/src/main/web/options-gui/vendor/respond-1.4.2/respond.min.js',
             ));
         }
 
         $toReturn = array_merge($toReturn, array(
 
-            'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.1/js/bootstrap-multiselect.js',
-            'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.1.2/spectrum.js',
+            'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.2/js/bootstrap-multiselect.js',
+            'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.3.1/spectrum.js',
             'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
             'participant-filter-handler'    => '/src/main/web/options-gui/js/participant-filter-handler.js',
             'spectrum-js-initializer'       => '/src/main/web/options-gui/js/spectrum-js-initializer.js',
