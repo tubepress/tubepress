@@ -97,7 +97,7 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
         $this->_mockBootHelperSettingsFileReader->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
         $this->_mockSecondaryBootstrapper->shouldReceive('getServiceContainer')->once()->andReturn($this->_mockContainer);
         $this->_mockContainer->shouldReceive('getParameter')->once()->with('classMap')->andReturn(array('s'));
-        $this->_mockContainer->shouldReceive('set')->once()->with('sys.settingsFileReader', $this->_mockBootHelperSettingsFileReader);
+        $this->_mockContainer->shouldReceive('set')->once()->with('tubepress.settingsFileReader', $this->_mockBootHelperSettingsFileReader);
 
         $mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(true);

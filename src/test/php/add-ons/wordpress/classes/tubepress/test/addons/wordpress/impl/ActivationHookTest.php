@@ -27,6 +27,11 @@ class tubepress_test_addons_wordpress_impl_ActivationHookTest extends tubepress_
     private $_mockFilesystemInterface;
 
     /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockSettingsFileReader;
+
+    /**
      * @var string
      */
     private $_userContentDirectory;
@@ -47,6 +52,7 @@ class tubepress_test_addons_wordpress_impl_ActivationHookTest extends tubepress_
         define('WP_CONTENT_DIR', $this->_userContentDirectory);
 
         $this->_mockFilesystemInterface = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
+        $this->_mockSettingsFileReader  = $this->createMockSingletonService('tubepress.settingsFileReader');
     }
 
     public function onTearDown()
@@ -62,8 +68,17 @@ class tubepress_test_addons_wordpress_impl_ActivationHookTest extends tubepress_
             $this->_userContentDirectory . '/tubepress-content'
         );
 
+        $file = tempnam(sys_get_temp_dir(), 'activationHookTest');
+
+        if ($file === false) {
+
+            $this->fail('Failed to create temporary file.');
+        }
+
+        $this->_mockSettingsFileReader->shouldReceive('getCachedContainerStoragePath')->once()->andReturn($file);
+
         $this->_sut->execute();
 
-        $this->assertTrue(true);
+        $this->assertFalse(is_file($file));
     }
 }

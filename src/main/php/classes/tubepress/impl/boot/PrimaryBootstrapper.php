@@ -259,7 +259,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         /**
          * Keep this around for later.
          */
-        $container->set('sys.settingsFileReader', $this->_bootHelperSettingsFileReader);
+        $container->set('tubepress.settingsFileReader', $this->_bootHelperSettingsFileReader);
 
         /**
          * Remember that we booted.

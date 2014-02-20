@@ -20,6 +20,19 @@ class tubepress_addons_wordpress_impl_ActivationHook
                 TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content',
                 WP_CONTENT_DIR . '/tubepress-content');
         }
+
+        $this->_clearCachedContainer();
+    }
+
+    private function _clearCachedContainer()
+    {
+        /**
+         * @var $settingsFileReader tubepress_spi_boot_SettingsFileReaderInterface
+         */
+        $settingsFileReader = tubepress_impl_patterns_sl_ServiceLocator::getService('tubepress.settingsFileReader');
+        $containerLocation  = $settingsFileReader->getCachedContainerStoragePath();
+
+        @unlink($containerLocation);
     }
 
     private function _tryToMirror($source, $dest)
