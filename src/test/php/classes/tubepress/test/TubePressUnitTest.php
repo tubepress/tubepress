@@ -27,13 +27,12 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
      */
     public final function setUp()
     {
-        $this->_mockIocContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerInterface');
+        $this->_mockIocContainer = ehough_mockery_Mockery::mock('ehough_iconic_ContainerInterface');
 
         $this->_mockIocContainer->shouldReceive('get')->andReturnUsing(array($this, '_getMockServiceById'));
-        $this->_mockIocContainer->shouldReceive('findTaggedServiceIds')->andReturnUsing(array($this, '_getMockServiceIdsByTag'));
 
         /** @noinspection PhpParamsInspection */
-        tubepress_impl_patterns_sl_ServiceLocator::setIocContainer($this->_mockIocContainer);
+        tubepress_impl_patterns_sl_ServiceLocator::setBackingIconicContainer($this->_mockIocContainer);
 
         date_default_timezone_set('America/New_York');
         error_reporting(E_ALL);
@@ -66,10 +65,24 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
         //override point
     }
 
-    protected final function createMockSingletonService($type)
+    protected final function createMockSingletonService($id)
     {
+        if (!class_exists($id) && !interface_exists($id)) {
+
+            spl_autoload_call($id);
+        }
+
+        if (!class_exists($id) && !interface_exists($id)) {
+
+            $type = 'stdClass';
+
+        } else {
+
+            $type = $id;
+        }
+
         $mockDescriptor           = new stdClass();
-        $mockDescriptor->id       = $type;
+        $mockDescriptor->id       = $id;
         $mockDescriptor->instance = ehough_mockery_Mockery::mock($type);
 
         $this->_mocks[] = $mockDescriptor;
@@ -103,18 +116,33 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
         throw new RuntimeException("Failed to find singleton service with ID $id. Did you forget to call createMockSingletonService()?");
     }
 
-    public final function _getMockServiceIdsByTag($tag)
+    protected function recursivelyDeleteDirectory($dir)
     {
-        $toReturn = array();
+        if (!is_dir($dir)) {
 
-        foreach ($this->_mocks as $mock) {
+            return;
+        }
 
-            if (isset($mock->tag) && $mock->tag === $tag) {
+        $objects = scandir($dir);
 
-                $toReturn[$mock->id] = array();
+        foreach ($objects as $object) {
+
+            if ($object != '.' && $object != '..') {
+
+                $x = $dir . DIRECTORY_SEPARATOR . $object;
+
+                if (filetype($x) == 'dir') {
+
+                    $this->recursivelyDeleteDirectory($x);
+
+                } else  {
+
+                    unlink($x);
+                }
             }
-        };
+        }
 
-        return $toReturn;
+        reset($objects);
+        rmdir($dir);
     }
 }

@@ -19,7 +19,8 @@
         ],
         "compiler-passes" : [
             "tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass",
-            "tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass"
+            "tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass",
+            "tubepress_addons_core_impl_ioc_BuildOptionNamesParameterCompilerPass"
         ]
     },
     "autoload":{
@@ -29,11 +30,11 @@
         "classmap" : {
             "tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants"        : "classes/tubepress/addons/core/api/const/options/ui/OptionsPageParticipantConstants.php",
             "tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService"                 : "classes/tubepress/addons/core/impl/http/PlayerPluggableAjaxCommandService.php",
+            "tubepress_addons_core_impl_ioc_BuildOptionNamesParameterCompilerPass"              : "classes/tubepress/addons/core/impl/ioc/BuildOptionNamesParameterCompilerPass.php",
             "tubepress_addons_core_impl_ioc_FilesystemCacheBuilder"                             : "classes/tubepress/addons/core/impl/ioc/FilesystemCacheBuilder.php",
             "tubepress_addons_core_impl_ioc_IocContainerExtension"                              : "classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php",
             "tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass"                      : "classes/tubepress/addons/core/impl/ioc/RegisterListenersCompilerPass.php",
             "tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass"                 : "classes/tubepress/addons/core/impl/ioc/RegisterTaggedServicesConsumerPass.php",
-            "tubepress_addons_core_impl_listeners_boot_OptionsStorageInitListener"              : "classes/tubepress/addons/core/impl/listeners/boot/OptionsStorageInitListener.php",
             "tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter"                          : "classes/tubepress/addons/core/impl/listeners/cssjs/BaseUrlSetter.php",
             "tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams"                : "classes/tubepress/addons/core/impl/listeners/cssjs/GalleryInitJsBaseParams.php",
             "tubepress_addons_core_impl_listeners_html_JsConfig"                                : "classes/tubepress/addons/core/impl/listeners/html/JsConfig.php",
@@ -54,7 +55,8 @@
             "tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper"           : "classes/tubepress/addons/core/impl/listeners/videogallerypage/ResultCountCapper.php",
             "tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist"              : "classes/tubepress/addons/core/impl/listeners/videogallerypage/VideoBlacklist.php",
             "tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender"              : "classes/tubepress/addons/core/impl/listeners/videogallerypage/VideoPrepender.php",
-            "tubepress_addons_core_impl_options_CoreOptionsProvider"                            : "classes/tubepress/addons/core/impl/options/CoreOptionsProvider.php",
+            "tubepress_addons_core_impl_options_CoreOptionProvider"                             : "classes/tubepress/addons/core/impl/options/CoreOptionProvider.php",
+            "tubepress_addons_core_impl_options_MetaOptionNameService"                          : "classes/tubepress/addons/core/impl/options/MetaOptionNameService.php",
             "tubepress_addons_core_impl_options_ui_fields_GallerySourceField"                   : "classes/tubepress/addons/core/impl/options/ui/fields/GallerySourceField.php",
             "tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField"                 : "classes/tubepress/addons/core/impl/options/ui/fields/MetaMultiSelectField.php",
             "tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField"               : "classes/tubepress/addons/core/impl/options/ui/fields/ParticipantFilterField.php",

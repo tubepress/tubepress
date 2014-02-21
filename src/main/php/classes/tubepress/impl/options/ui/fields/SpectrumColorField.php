@@ -12,7 +12,7 @@
 /**
  * Displays a color-chooser input.
  */
-class tubepress_impl_options_ui_fields_SpectrumColorField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+class tubepress_impl_options_ui_fields_SpectrumColorField extends tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
 {
     /**
      * @var string

@@ -28,18 +28,15 @@ div.tp-bs form.form-horizontal {
     margin-bottom: 0;
 }
 
-.tp-bs .multiselect-container label {
+.tp-bs .multiselect-container input {
 
-    height: 20px;
-    margin: 10px 0 10px 0;
-    padding: 0 0 0 20px ! important;
-    border: none;
-    vertical-align: middle;
-    font-weight: normal;
+    margin-top: 0;
 }
 
-.tp-bs .multiselect-container label.multiselect-group {
-    font-weight: bold;
+input[type=checkbox]:checked:before {
+
+    font-size: 23px;
+    margin: -4px 0 0 -5px;
 }
 
 #filter-wrapper {
@@ -54,6 +51,7 @@ div.tp-bs form.form-horizontal {
     border-bottom: 1px solid #dddddd;
     padding-top: 24px;
     margin-bottom: 24px;
+    background-color: white;
 }
 
 .tp-bs .form-control,
@@ -73,4 +71,28 @@ button.close {
 div.has-iframe iframe body {
 
     padding: 0;
+}
+
+@media screen and ( max-width: 782px ) {
+
+    input[type=radio], input[type=checkbox] {
+
+        height: 16px;
+        width: 16px;
+    }
+
+    input[type=radio]:checked:before {
+
+        margin: 2px;
+    }
+}
+
+.tp-bs .form-horizontal .control-label, .tp-bs .form-horizontal .radio, .tp-bs .form-horizontal .checkbox, .tp-bs .form-horizontal .radio-inline, .tp-bs .form-horizontal .checkbox-inline {
+
+    padding-top: 4px;
+}
+
+.wp-admin p .multiselect-container label input[type=checkbox] {
+
+    margin-top: 0;
 }

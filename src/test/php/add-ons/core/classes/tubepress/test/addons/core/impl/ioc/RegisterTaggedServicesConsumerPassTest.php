@@ -27,7 +27,7 @@ class tubepress_test_addons_core_impl_ioc_RegisterTaggedServicesConsumerPassTest
     public function onSetup()
     {
         $this->_sut           = new tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass();
-        $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerInterface');
+        $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerBuilderInterface');
     }
 
     public function testProcess()

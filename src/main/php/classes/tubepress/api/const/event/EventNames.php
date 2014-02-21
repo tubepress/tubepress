@@ -15,17 +15,6 @@
 class tubepress_api_const_event_EventNames
 {
     /**
-     * This event is fired after TubePress loads all of the registered addons. If your add-on requires
-     * any initialization, this is where you should run it.
-     *
-     * @subject null
-     *
-     * @api
-     * @since 3.1.0
-     */
-    const BOOT_COMPLETE = 'tubepress.core.boot.complete';
-
-    /**
      * This event is fied when TubePress is about to print its JS files (either in <head> or near </body>).
      *
      * @subject array An associative array where keys are script handles and values are script details.
@@ -208,14 +197,48 @@ class tubepress_api_const_event_EventNames
     const HTTP_RESPONSE = 'tubepress.core.http.response';
 
     /**
-     * This event is fired when an option descriptor is registered.
+     * This event is fired when TubePress looks up the default value for an option. Typically
+     * this only happens the first time TubePress is used on a system.
      *
-     * @subject tubepress_spi_options_OptionDescriptor The option descriptor being registered.
+     * @subject mixed The default value of an option.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
-    const OPTIONS_DESCRIPTOR_REGISTRATION = 'tubepress.core.options.descriptor.registration';
+    const OPTION_GET_DEFAULT_VALUE = 'tubepress.core.option.getDefaultValue';
+
+    /**
+     * This event is fired when TubePress looks up the label for an option.
+     *
+     * @subject string The untranslated (i.e. in English) option label.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_GET_LABEL = 'tubepress.core.option.getLabel';
+
+    /**
+     * This event is fired when TubePress looks up the description for an option.
+     *
+     * @subject string The untranslated (i.e. in English) option description.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_GET_DESCRIPTION = 'tubepress.core.option.getDescription';
+
+    /**
+     * This event is fired when TubePress looks the acceptable values for an option. This
+     * only applies, obviously, to options that take on discrete values.
+     *
+     * @subject array The acceptable values for this option. This *may* be an associative array
+     *                where the keys are values and the values are untranslated labels. You can use
+     *                tubepress_impl_util_LangUtils::isAssociativeArray() to check the type of array.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_GET_DISCRETE_ACCEPTABLE_VALUES = 'tubepress.core.option.getDiscreteAcceptableValues';
 
     /**
      * This event is fired when a TubePress option (a name-value pair) is being set. It is fired

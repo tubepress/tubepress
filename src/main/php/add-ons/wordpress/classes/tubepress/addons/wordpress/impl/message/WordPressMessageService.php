@@ -23,7 +23,7 @@ class tubepress_addons_wordpress_impl_message_WordPressMessageService implements
      */
     public final function _($message)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $wordPressFunctionWrapperService = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         return $message == '' ? '' : $wordPressFunctionWrapperService->__($message, 'tubepress');
     }

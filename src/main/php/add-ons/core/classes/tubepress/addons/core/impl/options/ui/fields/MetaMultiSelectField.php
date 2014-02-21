@@ -17,20 +17,10 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     const FIELD_ID = 'meta-dropdown';
 
     /**
-     * @var tubepress_spi_provider_PluggableVideoProviderService[]
+     * @var tubepress_addons_core_impl_options_MetaOptionNameService
      */
-    private $_videoProviders;
-
-    /**
-     * @var $metas tubepress_spi_options_OptionDescriptor[]
-     */
-    private $_cachedCoreOptionDescriptors;
-
-    /**
-     * @var tubepress_spi_options_OptionDescriptor[]
-     */
-    private $_cachedProvidedOptionDescriptors;
-
+    private $_metaOptionNameService;
+    
     public function __construct()
     {
         parent::__construct(self::FIELD_ID, 'Show each video\'s...');   //>(translatable)<
@@ -46,25 +36,20 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
         return false;
     }
 
-    public function setVideoProviders(array $providers)
-    {
-        $this->_videoProviders = $providers;
-    }
-
     /**
      * @return string[] An array of currently selected values, which may be empty.
      */
     protected function getCurrentlySelectedValues()
     {
-        $optionDescriptors = $this->_getOptionDescriptors();
-        $storageManager    = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $toReturn          = array();
+        $metaNames      = $this->_getAllMetaOptionNames();
+        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
+        $toReturn       = array();
 
-        foreach ($optionDescriptors as $metaOptionDescriptor) {
+        foreach ($metaNames as $metaName) {
 
-            if ($storageManager->fetch($metaOptionDescriptor->getName())) {
+            if ($storageManager->fetch($metaName)) {
 
-                $toReturn[] = $metaOptionDescriptor->getName();
+                $toReturn[] = $metaName;
             }
         }
 
@@ -76,20 +61,9 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function getUngroupedTranslatedChoicesArray()
     {
-        //prime cache
-        $this->_getOptionDescriptors();
+        $coreMetaOptionNames = $this->_metaOptionNameService->getCoreMetaOptionNames();
 
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-        $toReturn       = array();
-
-        foreach ($this->_cachedCoreOptionDescriptors as $metaOptionDescriptor) {
-
-            $toReturn[$metaOptionDescriptor->getName()] = $messageService->_($metaOptionDescriptor->getLabel());
-        }
-
-        asort($toReturn);
-
-        return $toReturn;
+        return $this->_labelAndAssociate($coreMetaOptionNames);
     }
 
     /**
@@ -98,76 +72,16 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function getGroupedTranslatedChoicesArray()
     {
-        $toReturn       = array();
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $toReturn = array();
+        $map      = $this->_metaOptionNameService->getMapOfFriendlyProviderNameToMetaOptionNames();
 
-        //prime cache
-        $this->_getOptionDescriptors();
+        foreach ($map as $friendlyName => $metaOptionNames) {
 
-        foreach ($this->_cachedProvidedOptionDescriptors as $friendlyName => $optionDescriptorArray) {
-
-            $values = array();
-
-            /**
-             * @var $optionDescriptorArray tubepress_spi_options_OptionDescriptor[]
-             */
-            foreach ($optionDescriptorArray as $optionDescriptor) {
-
-                $values[$optionDescriptor->getName()] = $messageService->_($optionDescriptor->getLabel());
-            }
-
-            asort($values);
-
+            $values                  = $this->_labelAndAssociate($metaOptionNames);
             $toReturn[$friendlyName] = $values;
         }
 
         ksort($toReturn);
-
-        return $toReturn;
-    }
-
-    private function _getOptionDescriptors()
-    {
-        if (!isset($this->_cachedCoreOptionDescriptors)) {
-
-            $metaNames = array(
-
-                tubepress_api_const_options_names_Meta::AUTHOR,
-                tubepress_api_const_options_names_Meta::CATEGORY,
-                tubepress_api_const_options_names_Meta::UPLOADED,
-                tubepress_api_const_options_names_Meta::DESCRIPTION,
-                tubepress_api_const_options_names_Meta::ID,
-                tubepress_api_const_options_names_Meta::KEYWORDS,
-                tubepress_api_const_options_names_Meta::LENGTH,
-                tubepress_api_const_options_names_Meta::TITLE,
-                tubepress_api_const_options_names_Meta::URL,
-                tubepress_api_const_options_names_Meta::VIEWS,
-            );
-
-            $this->_cachedCoreOptionDescriptors = $this->_lookupOptionDescriptors($metaNames);
-        }
-
-        if (!isset($this->_cachedProvidedOptionDescriptors)) {
-
-            $this->_cachedProvidedOptionDescriptors = array();
-
-            /**
-             * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
-             */
-            foreach ($this->_videoProviders as $videoProvider) {
-
-                $providedOptionDescriptors = $this->_lookupOptionDescriptors($videoProvider->getAdditionalMetaNames());
-
-                $this->_cachedProvidedOptionDescriptors[$videoProvider->getFriendlyName()] = $providedOptionDescriptors;
-            }
-        }
-
-        $toReturn = $this->_cachedCoreOptionDescriptors;
-
-        foreach ($this->_cachedProvidedOptionDescriptors as $friendlyName => $optionDescriptorArray) {
-
-            $toReturn = array_merge($toReturn, $optionDescriptorArray);
-        }
 
         return $toReturn;
     }
@@ -178,7 +92,7 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     protected function onSubmitAllMissing()
     {
         $storage     = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $optionNames = array_keys($this->_getOptionDescriptors());
+        $optionNames = $this->_getAllMetaOptionNames();
 
         //they unchecked everything
         foreach ($optionNames as $optionName) {
@@ -202,7 +116,7 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     protected function onSubmitMixed(array $values)
     {
         $storage     = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $optionNames = array_keys($this->_getOptionDescriptors());
+        $optionNames = $this->_getAllMetaOptionNames();
 
         foreach ($optionNames as $optionName) {
 
@@ -217,24 +131,29 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
         return null;
     }
 
-    /**
-     * @param string[] $names
-     *
-     * @return tubepress_spi_options_OptionDescriptor[]
-     */
-    private function _lookupOptionDescriptors(array $names)
+    private function _getAllMetaOptionNames()
     {
-        /**
-         * @var $metas tubepress_spi_options_OptionDescriptor[]
-         */
-        $toReturn  = array();
-        $reference = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+        if (!isset($this->_metaOptionNameService)) {
 
-        foreach ($names as $metaName) {
-
-            $toReturn[$metaName] = $reference->findOneByName($metaName);
+            $this->_metaOptionNameService = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
         }
 
-        return $toReturn;
+        return $this->_metaOptionNameService->getAllMetaOptionNames();
+    }
+
+    private function _labelAndAssociate($metaOptionNames)
+    {
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+
+        foreach ($metaOptionNames as $metaOptionName) {
+
+            $label                   = $optionProvider->getLabel($metaOptionName);
+            $values[$metaOptionName] = $messageService->_($label);
+        }
+
+        asort($values);
+
+        return $values;
     }
 }

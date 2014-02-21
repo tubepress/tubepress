@@ -9,6 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/**
+ * @covers tubepress_impl_environment_SimpleEnvironmentDetector<extended>
+ */
 class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -23,7 +26,7 @@ class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tube
 
     public function testVersion()
     {
-        $latest = tubepress_spi_version_Version::parse('3.1.3');
+        $latest = tubepress_spi_version_Version::parse('9.9.9');
 
         $current = $this->_sut->getVersion();
 

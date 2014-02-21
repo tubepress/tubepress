@@ -10,7 +10,7 @@
  */
 ?>
 
-<div class="tab-pane<?php if ($categoryIndex++ === 0): ?> active<?php endif; ?>" id="<?php echo $category->getId(); ?>">
+<div class="tab-pane fade<?php if ($categoryIndex++ === 0): ?> in active<?php endif; ?>" id="<?php echo $category->getId(); ?>">
 
     <div class="row">
 

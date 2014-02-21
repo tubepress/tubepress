@@ -5,16 +5,16 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
     /**
      * @var tubepress_api_ioc_DefinitionInterface
      */
-    private $_delegate;
+    private $_delegateDefinition;
 
     public function __construct(tubepress_api_ioc_DefinitionInterface $tubePressDefinition)
     {
-        $this->_delegate = $tubePressDefinition;
+        $this->_delegateDefinition = $tubePressDefinition;
 
         parent::__construct($tubePressDefinition->getClass(), $tubePressDefinition->getArguments());
 
-        $this->setClass($this->_delegate->getClass());
-        $this->setArguments($this->_delegate->getArguments());
+        $this->setClass($this->_delegateDefinition->getClass());
+        $this->setArguments($this->_delegateDefinition->getArguments());
     }
 
     /**
@@ -29,7 +29,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setFactoryClass($factoryClass)
     {
-        $this->_delegate->setFactoryClass($factoryClass);
+        $this->_delegateDefinition->setFactoryClass($factoryClass);
 
         return parent::setFactoryClass($factoryClass);
     }
@@ -43,7 +43,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getFactoryClass()
     {
-        return $this->_delegate->getFactoryClass();
+        return $this->_delegateDefinition->getFactoryClass();
     }
 
     /**
@@ -57,7 +57,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setFactoryMethod($factoryMethod)
     {
-        $this->_delegate->setFactoryMethod($factoryMethod);
+        $this->_delegateDefinition->setFactoryMethod($factoryMethod);
 
         return parent::setFactoryMethod($factoryMethod);
     }
@@ -71,7 +71,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getFactoryMethod()
     {
-        return $this->_delegate->getFactoryMethod();
+        return $this->_delegateDefinition->getFactoryMethod();
     }
 
     /**
@@ -85,7 +85,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setFactoryService($factoryService)
     {
-        $this->_delegate->setFactoryService($factoryService);
+        $this->_delegateDefinition->setFactoryService($factoryService);
 
         return parent::setFactoryService($factoryService);
     }
@@ -99,7 +99,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getFactoryService()
     {
-        return $this->_delegate->getFactoryService();
+        return $this->_delegateDefinition->getFactoryService();
     }
 
     /**
@@ -113,7 +113,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setClass($class)
     {
-        $this->_delegate->setClass($class);
+        $this->_delegateDefinition->setClass($class);
 
         return parent::setClass($class);
     }
@@ -127,7 +127,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getClass()
     {
-        return $this->_delegate->getClass();
+        return $this->_delegateDefinition->getClass();
     }
 
     /**
@@ -141,7 +141,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setArguments(array $arguments)
     {
-        $this->_delegate->setArguments($arguments);
+        $this->_delegateDefinition->setArguments($arguments);
 
         return parent::setArguments($arguments);
     }
@@ -151,7 +151,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setProperties(array $properties)
     {
-        $this->_delegate->setProperties($properties);
+        $this->_delegateDefinition->setProperties($properties);
 
         return parent::setProperties($properties);
     }
@@ -161,7 +161,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getProperties()
     {
-        return $this->_delegate->getProperties();
+        return $this->_delegateDefinition->getProperties();
     }
 
     /**
@@ -169,7 +169,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setProperty($name, $value)
     {
-        $this->_delegate->setProperty($name, $value);
+        $this->_delegateDefinition->setProperty($name, $value);
 
         return parent::setProperty($name, $value);
     }
@@ -185,7 +185,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function addArgument($argument)
     {
-        $this->_delegate->addArgument($argument);
+        $this->_delegateDefinition->addArgument($argument);
 
         return parent::addArgument($argument);
     }
@@ -206,7 +206,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
     {
         try {
 
-            $this->_delegate->replaceArgument($index, $argument);
+            $this->_delegateDefinition->replaceArgument($index, $argument);
 
         } catch (OutOfBoundsException $e) {
 
@@ -225,7 +225,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getArguments()
     {
-        return $this->_delegate->getArguments();
+        return $this->_delegateDefinition->getArguments();
     }
 
     /**
@@ -243,7 +243,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
     {
         try {
 
-            return $this->_delegate->getArgument($index);
+            return $this->_delegateDefinition->getArgument($index);
 
         } catch (OutOfBoundsException $e) {
 
@@ -262,7 +262,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setMethodCalls(array $calls = array())
     {
-        $this->_delegate->setMethodCalls($calls);
+        $this->_delegateDefinition->setMethodCalls($calls);
 
         return parent::setMethodCalls($calls);
     }
@@ -283,7 +283,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
     {
         try {
 
-            $this->_delegate->addMethodCall($method, $arguments);
+            $this->_delegateDefinition->addMethodCall($method, $arguments);
 
         } catch (InvalidArgumentException $e) {
 
@@ -304,7 +304,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function removeMethodCall($method)
     {
-        $this->_delegate->removeMethodCall($method);
+        $this->_delegateDefinition->removeMethodCall($method);
 
         return parent::removeMethodCall($method);
     }
@@ -320,7 +320,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function hasMethodCall($method)
     {
-        return $this->_delegate->hasMethodCall($method);
+        return $this->_delegateDefinition->hasMethodCall($method);
     }
 
     /**
@@ -332,7 +332,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getMethodCalls()
     {
-        return $this->_delegate->getMethodCalls();
+        return $this->_delegateDefinition->getMethodCalls();
     }
 
     /**
@@ -346,7 +346,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setTags(array $tags)
     {
-        $this->_delegate->setTags($tags);
+        $this->_delegateDefinition->setTags($tags);
 
         return parent::setTags($tags);
     }
@@ -360,7 +360,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getTags()
     {
-        return $this->_delegate->getTags();
+        return $this->_delegateDefinition->getTags();
     }
 
     /**
@@ -374,7 +374,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getTag($name)
     {
-        return $this->_delegate->getTag($name);
+        return $this->_delegateDefinition->getTag($name);
     }
 
     /**
@@ -389,7 +389,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function addTag($name, array $attributes = array())
     {
-        $this->_delegate->addTag($name, $attributes);
+        $this->_delegateDefinition->addTag($name, $attributes);
 
         return parent::addTag($name, $attributes);
     }
@@ -405,7 +405,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function hasTag($name)
     {
-        return $this->_delegate->hasTag($name);
+        return $this->_delegateDefinition->hasTag($name);
     }
 
     /**
@@ -417,7 +417,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function clearTag($name)
     {
-       $this->_delegate->clearTag($name);
+       $this->_delegateDefinition->clearTag($name);
 
         return parent::clearTag($name);
     }
@@ -431,7 +431,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function clearTags()
     {
-        $this->_delegate->clearTags();
+        $this->_delegateDefinition->clearTags();
 
         return parent::clearTags();
     }
@@ -447,7 +447,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setFile($file)
     {
-        $this->_delegate->setFile($file);
+        $this->_delegateDefinition->setFile($file);
 
         return parent::setFile($file);
     }
@@ -461,7 +461,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getFile()
     {
-        return $this->_delegate->getFile();
+        return $this->_delegateDefinition->getFile();
     }
 
     /**
@@ -475,7 +475,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function setConfigurator($callable)
     {
-        $this->_delegate->setConfigurator($callable);
+        $this->_delegateDefinition->setConfigurator($callable);
 
         return parent::setConfigurator($callable);
     }
@@ -489,7 +489,7 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getConfigurator()
     {
-        return $this->_delegate->getConfigurator();
+        return $this->_delegateDefinition->getConfigurator();
     }
 
     /**
@@ -497,6 +497,6 @@ class tubepress_impl_ioc_IconicDefinitionWrapper extends ehough_iconic_Definitio
      */
     public function getTubePressDefinition()
     {
-        return $this->_delegate;
+        return $this->_delegateDefinition;
     }
 }

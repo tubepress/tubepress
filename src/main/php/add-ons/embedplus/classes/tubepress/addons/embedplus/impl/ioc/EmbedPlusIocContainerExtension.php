@@ -17,16 +17,16 @@ class tubepress_addons_embedplus_impl_ioc_EmbedPlusIocContainerExtension impleme
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
      *
      * @return void
      *
      * @api
      * @since 3.1.0
      */
-    public final function load(tubepress_api_ioc_ContainerInterface $container)
+    public final function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
             'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService'

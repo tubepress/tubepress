@@ -32,13 +32,13 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockValidationService;
+    private $_mockOptionProvider;
 
     public function onSetup()
     {
-        $this->_mockEventDispatcher   = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockStorageManager    = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
-        $this->_mockValidationService = $this->createMockSingletonService(tubepress_spi_options_OptionValidator::_);
+        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
 
         $this->_sut = new tubepress_impl_context_MemoryExecutionContext();
     }
@@ -125,9 +125,9 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
 
     private function _setupValidationServiceToFail($name, $value)
     {
-        $this->_mockValidationService->shouldReceive('isValid')->once()->with($name, $value)->andReturn(false);
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with($name, $value)->andReturn(false);
 
-        $this->_mockValidationService->shouldReceive('getProblemMessage')->once()->with($name, $value)->andReturnUsing(function ($n, $v) {
+        $this->_mockOptionProvider->shouldReceive('getProblemMessage')->once()->with($name, $value)->andReturnUsing(function ($n, $v) {
 
             return "$v was a bad value";
         });
@@ -135,7 +135,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
 
     private function _setupValidationServiceToPass($name, $value)
     {
-        $this->_mockValidationService->shouldReceive('isValid')->once()->with($name, $value)->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('isValid')->once()->with($name, $value)->andReturn(true);
     }
 
     private function _setupFilters($name, $value)

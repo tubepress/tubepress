@@ -32,7 +32,7 @@ class tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField extends tub
      */
     public function getWidgetHTML()
     {
-        $wpFunctions = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctions = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         return $wpFunctions->wp_nonce_field('tubepress-save', 'tubepress-nonce', true, false);
     }
@@ -44,7 +44,7 @@ class tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField extends tub
      */
     public function onSubmit()
     {
-        $wpFunctions = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $wpFunctions = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         $wpFunctions->check_admin_referer('tubepress-save', 'tubepress-nonce');
 

@@ -29,7 +29,7 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
     {
         $this->_sut = $this->buildSut();
 
-        $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerInterface');
+        $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerBuilderInterface');
     }
 
     public function testLoad()

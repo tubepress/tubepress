@@ -21,24 +21,19 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
      */
     private $_optionsPageParticipants = array();
 
-    /**
-     * @var tubepress_spi_options_OptionDescriptor The underlying option descriptor.
-     */
-    private $_disabledParticipantsOptionDescriptor;
-
     public function __construct()
     {
-        $odr                                         = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
-        $this->_disabledParticipantsOptionDescriptor = $odr->findOneByName(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $optionName     = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
 
         parent::__construct(
 
             self::FIELD_ID,
-            $this->_disabledParticipantsOptionDescriptor->getName(),
-            $this->_disabledParticipantsOptionDescriptor->getDescription()
+            $optionName,
+            $optionProvider->getDescription($optionName)
         );
 
-        $this->setUntranslatedDisplayName($this->_disabledParticipantsOptionDescriptor->getLabel());
+        $this->setUntranslatedDisplayName($optionProvider->getLabel($optionName));
     }
 
     /**
@@ -65,7 +60,7 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
     protected function getCurrentlySelectedValues()
     {
         $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
+        $optionName          = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
         $currentHides        = explode(';', $storageManager->fetch($optionName));
         $participantsNameMap = $this->_getParticipantNamesToFriendlyNamesMap();
         $currentShows        = array();
@@ -98,7 +93,7 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
         $participantIds = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
         $newValue       = implode(';', $participantIds);
 
-        return $storageManager->queueForSave($this->_disabledParticipantsOptionDescriptor->getName(), $newValue);
+        return $storageManager->queueForSave(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, $newValue);
     }
 
     /**
@@ -109,7 +104,7 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
     protected function onSubmitMixed(array $values)
     {
         $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $optionName          = $this->_disabledParticipantsOptionDescriptor->getName();
+        $optionName          = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
         $allParticipantNames = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
 
         $toHide = array();

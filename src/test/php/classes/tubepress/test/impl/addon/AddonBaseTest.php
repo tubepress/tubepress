@@ -18,8 +18,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.0.0',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'ValidBootstrapClass'
+            array(array('url' => 'http://tubepress.com'))
         );
 
         $this->assertEquals('name', $sut->getName());
@@ -37,8 +36,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             tubepress_spi_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://tubepress.com')),
-            'ValidBootstrapClass'
+            array(array('url' => 'http://tubepress.com'))
         );
 
         $this->assertEquals('name', $sut->getName());
@@ -56,8 +54,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             '1.0.0',
             'description',
             array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'ValidBootstrapClass'
+            array(array('url' => 'http://tubepress.com'))
         );
 
         $sut->setDescription('something');
@@ -422,42 +419,6 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
             array(array('url' => 'http://tubepress.com')),
             'tubepress_impl_player_AddonBaseTest'
         );
-    }
-
-    /**
-     * tubepress_impl_addon_AddonBase::setBootstrapClasses
-     * tubepress_impl_addon_AddonBase::getBootstrapClasses
-     */
-    public function testGetSetBootClasses()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrapClasses(array('1', 'e', '3'));
-        $this->assertEquals(array('1', 'e', '3'), $addon->getBootstrapClasses());
-    }
-
-    /**
-     * tubepress_impl_addon_AddonBase::setBootstrapServices
-     * tubepress_impl_addon_AddonBase::getBootstrapServices
-     */
-    public function testGetSetBootServices()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrapServices(array('1', 'b', '3'));
-        $this->assertEquals(array('1', 'b', '3'), $addon->getBootstrapServices());
-    }
-
-    /**
-     * tubepress_impl_addon_AddonBase::setBootstrapFiles
-     * tubepress_impl_addon_AddonBase::getBootstrapFiles
-     */
-    public function testGetSetBootFiles()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setBootstrapFiles(array('a', 'b', '3'));
-        $this->assertEquals(array('a', 'b', '3'), $addon->getBootstrapFiles());
     }
 
     private function _buildValidAddon()

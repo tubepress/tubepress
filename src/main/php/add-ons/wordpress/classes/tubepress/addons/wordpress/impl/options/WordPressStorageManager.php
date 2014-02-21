@@ -32,7 +32,7 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
     public function createEach(array $optionNamesToValuesMap)
     {
         $wordPressFunctionWrapperService =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         $existingOptions = array_keys($this->fetchAllCurrentlyKnownOptionNamesToValues());
         $incomingOptions = array_keys($optionNamesToValuesMap);
@@ -81,7 +81,7 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
     protected function saveAll(array $optionNamesToValues)
     {
         $wordPressFunctionWrapperService =
-            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+            tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         foreach ($optionNamesToValues as $optionName => $optionValue) {
 

@@ -71,6 +71,12 @@
 
     </target>
 
+    <target name="update-version-in-php-code">
+
+        <replace file="${stagingdir}/src/main/php/classes/tubepress/impl/environment/SimpleEnvironmentDetector.php" token="9.9.9" value="${version.major}.${version.minor}.${version.micro}" />
+
+    </target>
+
     <target name="modify-wordpress-info">
 
         <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />

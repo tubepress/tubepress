@@ -18,7 +18,7 @@ class tubepress_test_addons_wordpress_impl_message_WordPressMessageServiceTest e
 
     public function onSetup()
     {
-        $wrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $wrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
         $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
 
             return "[[$key]]";

@@ -26,7 +26,7 @@ class tubepress_test_addons_wordpress_impl_options_ui_fields_WpNonceFieldTest ex
 
     public function onSetup()
     {
-        $this->_mockWpFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WordPressFunctionWrapper::_);
+        $this->_mockWpFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         $this->_sut = new tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField();
     }

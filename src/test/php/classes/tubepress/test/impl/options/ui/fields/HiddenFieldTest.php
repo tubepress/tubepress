@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_impl_options_ui_fields_HiddenField<extended>
  */
-class tubepress_test_impl_options_ui_fields_HiddenFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest
+class tubepress_test_impl_options_ui_fields_HiddenFieldTest extends tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBasedFieldTest
 {
     protected function buildSut()
     {

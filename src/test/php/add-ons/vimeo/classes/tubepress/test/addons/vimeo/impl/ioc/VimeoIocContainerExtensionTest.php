@@ -56,9 +56,9 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
         $this->expectRegistration(
 
-            'tubepress_addons_vimeo_impl_options_VimeoOptionsProvider',
-            'tubepress_addons_vimeo_impl_options_VimeoOptionsProvider'
-        )->withTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+            'tubepress_addons_vimeo_impl_options_VimeoOptionProvider',
+            'tubepress_addons_vimeo_impl_options_VimeoOptionProvider'
+        )->withTag(tubepress_spi_options_OptionProvider::_);
 
         $this->_expectOptionsPageParticipant();
     }

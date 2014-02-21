@@ -7,7 +7,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-var TubePressIframeLoader = (function () {
+(function (jquery) {
 
     'use strict';
 
@@ -18,6 +18,8 @@ var TubePressIframeLoader = (function () {
                 iframes = jQuery('<iframe />'),
                 iframe  = iframes[0],
                 doc     = null;
+
+            iframes.css('width', '100%');
 
             box.append(iframe);
 
@@ -38,13 +40,6 @@ var TubePressIframeLoader = (function () {
             });
         };
 
-    return { init : init };
+    jquery(init);
 
-}());
-
-jQuery(function () {
-
-    'use strict';
-
-    TubePressIframeLoader.init();
-});
+}(jQuery));

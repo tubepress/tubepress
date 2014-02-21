@@ -17,58 +17,58 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param tubepress_api_ioc_ContainerInterface $container A tubepress_api_ioc_ContainerInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
      *
      * @return void
      *
      * @api
      * @since 3.1.0
      */
-    public function load(tubepress_api_ioc_ContainerInterface $container)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerPluggables($container);
+        $this->_registerPluggables($containerBuilder);
 
-        $this->_registerListeners($container);
+        $this->_registerListeners($containerBuilder);
     }
 
-    private function _registerListeners(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
             'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler',
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler'
         )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
     }
 
-    private function _registerPluggables(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerPluggables(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'
         );
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService',
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService'
 
         )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
-        $container->register(
+        $containerBuilder->register(
 
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService',
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService'
@@ -76,20 +76,20 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
         )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $container->register(
+        $containerBuilder->register(
 
-            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider',
-            'tubepress_addons_youtube_impl_options_YouTubeOptionsProvider'
-        )->addTag(tubepress_spi_options_PluggableOptionDescriptorProvider::_);
+            'tubepress_addons_youtube_impl_options_YouTubeOptionProvider',
+            'tubepress_addons_youtube_impl_options_YouTubeOptionProvider'
+        )->addTag(tubepress_spi_options_OptionProvider::_);
 
-        $this->_registerOptionsPageParticipant($container);
+        $this->_registerOptionsPageParticipant($containerBuilder);
     }
 
-    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerInterface $container)
+    private function _registerOptionsPageParticipant(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $fieldIndex = 0;
 
-        $container->register('youtube_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
+        $containerBuilder->register('youtube_options_field_' . $fieldIndex++, 'tubepress_impl_options_ui_fields_TextField')
             ->addArgument(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY)
             ->addMethodCall('setSize', array(120));
 
@@ -123,9 +123,9 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $container->register('youtube_options_subfield_' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
+            $containerBuilder->register('youtube_options_subfield_' . $fieldIndex, $gallerySourceFieldArray[1])->addArgument($gallerySourceFieldArray[2]);
 
-            $container->register('youtube_options_field_' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
+            $containerBuilder->register('youtube_options_field_' . $fieldIndex, 'tubepress_impl_options_ui_fields_GallerySourceRadioField')
                 ->addArgument($gallerySourceFieldArray[0])
                 ->addArgument(new tubepress_impl_ioc_Reference('youtube_options_subfield_' . $fieldIndex++));
         }
@@ -149,7 +149,7 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         foreach ($fieldMap as $id => $class) {
 
-            $container->register('youtube_options_field_' . $fieldIndex++, $class)->addArgument($id);
+            $containerBuilder->register('youtube_options_field_' . $fieldIndex++, $class)->addArgument($id);
         }
 
         $fieldReferences = array();
@@ -192,7 +192,7 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
             )
         );
 
-        $container->register(
+        $containerBuilder->register(
 
             'youtube_options_page_participant',
             'tubepress_impl_options_ui_BaseOptionsPageParticipant'

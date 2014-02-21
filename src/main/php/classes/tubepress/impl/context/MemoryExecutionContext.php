@@ -81,7 +81,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     public final function set($optionName, $optionValue)
     {
         $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $optionValidatorService = tubepress_impl_patterns_sl_ServiceLocator::getOptionValidator();
+        $optionProvider         = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
         /** First run it through the filters. */
         /** Run it through the filters. */
@@ -92,7 +92,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
         $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
         $filteredValue = $event->getSubject();
 
-        if ($optionValidatorService->isValid($optionName, $filteredValue)) {
+        if ($optionProvider->isValid($optionName, $filteredValue)) {
 
             if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
@@ -104,7 +104,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
             return true;
         }
 
-        $problemMessage = $optionValidatorService->getProblemMessage($optionName, $filteredValue);
+        $problemMessage = $optionProvider->getProblemMessage($optionName, $filteredValue);
 
         if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
@@ -175,13 +175,11 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
 
     public static function convertBooleans($map)
     {
-        $optionDescriptorReference = tubepress_impl_patterns_sl_ServiceLocator::getOptionDescriptorReference();
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
         foreach ($map as $key => $value) {
 
-            $optionDescriptor = $optionDescriptorReference->findOneByName($key);
-
-            if ($optionDescriptor === null || !$optionDescriptor->isBoolean()) {
+            if (!$optionProvider->hasOption($key) || !$optionProvider->isBoolean($key)) {
 
                 continue;
             }

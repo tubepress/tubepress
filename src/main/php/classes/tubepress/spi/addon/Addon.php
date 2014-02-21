@@ -28,9 +28,6 @@ interface tubepress_spi_addon_Addon
     /**
      * Optional attributes.
      */
-    const ATTRIBUTE_BOOT_FILES          = 'files';
-    const ATTRIBUTE_BOOT_CLASSES        = 'classes';
-    const ATTRIBUTE_BOOT_SERVICES       = 'services';
     const ATTRIBUTE_DESCRIPTION         = 'description';
     const ATTRIBUTE_KEYWORDS            = 'keywords';
     const ATTRIBUTE_URL_HOMEPAGE        = 'homepage';
@@ -47,7 +44,6 @@ interface tubepress_spi_addon_Addon
      * Containers.
      */
     const CATEGORY_AUTOLOAD  = 'autoload';
-    const CATEGORY_BOOTSTRAP = 'bootstrap';
     const CATEGORY_IOC       = 'inversion-of-control';
     const CATEGORY_URLS      = 'urls';
 
@@ -80,24 +76,6 @@ interface tubepress_spi_addon_Addon
      *               at http://www.opensource.org/licenses/alphabetical
      */
     function getLicenses();
-
-    /**
-     * @return array Optional. An array of absolute paths of files that will be include'd when this add-on
-     *                         is loaded into the system.
-     */
-    function getBootstrapFiles();
-
-    /**
-     * @return array Optional. An array of service identifiers whose boot() function will be invoked
-     *                         when this add-on is loaded into the system.
-     */
-    function getBootstrapServices();
-
-    /**
-     * @return array Optional. An array of fully-qualified class names whose boot() function will be invoked
-     *                         when this add-on is loaded into the system.
-     */
-    function getBootstrapClasses();
 
     /**
      * @return string Optional. A longer description of this add-on. 1000 characters or less.

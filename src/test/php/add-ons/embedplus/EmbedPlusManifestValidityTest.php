@@ -18,7 +18,7 @@ class tubepress_test_addons_core_EmbedPlusManifestValidityTest extends tubepress
         /**
          * @var $addon tubepress_spi_addon_Addon
          */
-        $addon = $this->getAddonFromManifest(dirname(__FILE__) . '/../../../../main/php/add-ons/embedplus/embedplus.json');
+        $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
         $this->assertEquals('tubepress-embedplus-addon', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
@@ -26,19 +26,12 @@ class tubepress_test_addons_core_EmbedPlusManifestValidityTest extends tubepress
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress to play YouTube videos with EmbedPlus', $addon->getDescription());
-        $this->assertEmpty($addon->getBootstrapClasses());
-        $this->assertEmpty($addon->getBootstrapServices());
-        $this->assertEmpty($addon->getBootstrapFiles());
         $this->assertEquals(array('tubepress_addons_embedplus' => TUBEPRESS_ROOT . '/src/main/php/add-ons/embedplus/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_embedplus_impl_ioc_EmbedPlusIocContainerExtension'), $addon->getIocContainerExtensions());
-        $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
-    
-    private function _getExpectedClassMap()
+
+    protected function getPathToManifest()
     {
-        return array(
-            'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService' => 'classes/tubepress/addons/embedplus/impl/embedded/EmbedPlusPluggableEmbeddedPlayerService.php',
-            'tubepress_addons_embedplus_impl_ioc_EmbedPlusIocContainerExtension' => 'classes/tubepress/addons/embedplus/impl/ioc/EmbedPlusIocContainerExtension.php'
-        );
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/embedplus/embedplus.json');
     }
 }

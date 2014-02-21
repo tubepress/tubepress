@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_impl_options_ui_fields_DropdownField<extended>
  */
-class tubepress_test_impl_options_ui_fields_DropdownFieldTest extends tubepress_test_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest
+class tubepress_test_impl_options_ui_fields_DropdownFieldTest extends tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBasedFieldTest
 {
     protected function buildSut()
     {
@@ -32,9 +32,10 @@ class tubepress_test_impl_options_ui_fields_DropdownFieldTest extends tubepress_
      */
     protected function doAdditionalPrepForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
     {
-        $od = $this->getMockOptionDescriptor();
+        $this->getMockOptionProvider()->shouldReceive('getDiscreteAcceptableValues')->once()->with($this->getOptionName())->andReturn(array(
 
-        $od->setAcceptableValues(array('foo' => 'bar', 'smack' => 'rock'));
+            'foo' => 'bar', 'smack' => 'rock'
+        ));
 
         $this->getMockMessageService()->shouldReceive('_')->once()->with('bar')->andReturn('abc');
         $this->getMockMessageService()->shouldReceive('_')->once()->with('rock')->andReturn('xyz');

@@ -17,7 +17,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOptionDescriptorReference;
+    private $_mockOptionProvider;
 
     /**
      * @var tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface[]
@@ -50,13 +50,10 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
 
     protected function doMoreSetup()
     {
-        $this->_mockOptionDescriptorReference = $this->createMockSingletonService(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
 
-        $mockOd = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS);
-        $mockOd->setLabel('mock label');
-        $mockOd->setDescription('mock desc');
-
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn($mockOd);
+        $this->_mockOptionProvider->shouldReceive('getLabel')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock label');
+        $this->_mockOptionProvider->shouldReceive('getDescription')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock desc');
 
         $this->_mockOptionsPageParticipants = array();
 
