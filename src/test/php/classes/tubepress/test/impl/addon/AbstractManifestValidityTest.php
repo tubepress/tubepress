@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_test_TubePressUnitTest
+abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_test_TubePressUnitTest
 {
     protected function getAddonFromManifest($pathToManifest)
     {
@@ -54,4 +54,56 @@ class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_t
                 $actualClassMap[$className] . ' does not end with ' . $abbreviatedPrefix);
         }
     }
+
+    public function testClassMapIntegrity()
+    {
+        $map      = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(dirname($this->getPathToManifest()));
+        $missing  = array();
+        $manifest = $this->_decodeManifest();
+
+        foreach ($map as $className => $path) {
+
+            if (!array_key_exists($className, $manifest['autoload']['classmap'])) {
+
+                $missing[] = $className;
+            }
+        }
+
+        if (!empty($missing)) {
+
+            $missing = array_unique($missing);
+            sort($missing);
+
+            $message = "The following classes are missing from the manifest's classmap: \n\n" . implode("\n", $missing);
+            $this->fail($message);
+            return;
+        }
+
+        $extra = array_diff(array_keys($manifest['autoload']['classmap']), array_keys($map));
+
+        if (!empty($extra)) {
+
+            $message = "The following extra classes are in the manifest's classmap: \n\n" . implode("\n", $extra);
+            $this->fail($message);
+            return;
+        }
+
+        foreach ($manifest['autoload']['classmap'] as $className => $path) {
+
+            if (!is_file(dirname($this->getPathToManifest()) . DIRECTORY_SEPARATOR . $path)) {
+
+                $this->fail(dirname($this->getPathToManifest()) . DIRECTORY_SEPARATOR . $path . ' does not exist');
+                return;
+            }
+        }
+
+        $this->assertTrue(true);
+    }
+
+    private function _decodeManifest()
+    {
+        return json_decode(file_get_contents($this->getPathToManifest()), true);
+    }
+
+    protected abstract function getPathToManifest();
 }

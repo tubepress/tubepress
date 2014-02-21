@@ -31,6 +31,11 @@ class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_tes
         $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
 
+    protected function getPathToManifest()
+    {
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/vimeo.json');
+    }
+
     private function _getExpectedClassMap()
     {
         return array(

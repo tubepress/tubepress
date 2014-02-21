@@ -18,7 +18,7 @@ class tubepress_test_addons_core_YouTubeManifestValidityTest extends tubepress_t
         /**
          * @var $addon tubepress_spi_addon_Addon
          */
-        $addon = $this->getAddonFromManifest(dirname(__FILE__) . '/../../../../main/php/add-ons/youtube/youtube.json');
+        $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
         $this->assertEquals('tubepress-youtube-addon', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
@@ -28,27 +28,10 @@ class tubepress_test_addons_core_YouTubeManifestValidityTest extends tubepress_t
         $this->assertEquals('Allows TubePress work with YouTube', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_youtube' => TUBEPRESS_ROOT . '/src/main/php/add-ons/youtube/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension'), $addon->getIocContainerExtensions());
-        $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
 
-    private function _getExpectedClassMap()
+    protected function getPathToManifest()
     {
-        return array(
-            'tubepress_addons_youtube_api_const_YouTubeEventNames' => 'classes/tubepress/addons/youtube/api/const/YouTubeEventNames.php',
-            'tubepress_addons_youtube_api_const_options_names_Embedded' => 'classes/tubepress/addons/youtube/api/const/options/names/Embedded.php',
-            'tubepress_addons_youtube_api_const_options_names_Feed' => 'classes/tubepress/addons/youtube/api/const/options/names/Feed.php',
-            'tubepress_addons_youtube_api_const_options_names_GallerySource' => 'classes/tubepress/addons/youtube/api/const/options/names/GallerySource.php',
-            'tubepress_addons_youtube_api_const_options_names_Meta' => 'classes/tubepress/addons/youtube/api/const/options/names/Meta.php',
-            'tubepress_addons_youtube_api_const_options_values_GallerySourceValue' => 'classes/tubepress/addons/youtube/api/const/options/values/GallerySourceValue.php',
-            'tubepress_addons_youtube_api_const_options_values_YouTube' => 'classes/tubepress/addons/youtube/api/const/options/values/YouTube.php',
-            'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService' => 'classes/tubepress/addons/youtube/impl/embedded/YouTubePluggableEmbeddedPlayerService.php',
-            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener' => 'classes/tubepress/addons/youtube/impl/listeners/http/YouTubeHttpErrorResponseListener.php',
-            'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler' => 'classes/tubepress/addons/youtube/impl/listeners/options/YouTubePlaylistHandler.php',
-            'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener' => 'classes/tubepress/addons/youtube/impl/listeners/video/YouTubeVideoConstructionListener.php',
-            'tubepress_addons_youtube_impl_options_YouTubeOptionProvider' => 'classes/tubepress/addons/youtube/impl/options/YouTubeOptionProvider.php',
-            'tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension' => 'classes/tubepress/addons/youtube/impl/ioc/YouTubeIocContainerExtension.php',
-            'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService' => 'classes/tubepress/addons/youtube/impl/provider/YouTubePluggableVideoProviderService.php',
-            'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder' => 'classes/tubepress/addons/youtube/impl/provider/YouTubeUrlBuilder.php'
-        );
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/youtube/youtube.json');
     }
 }

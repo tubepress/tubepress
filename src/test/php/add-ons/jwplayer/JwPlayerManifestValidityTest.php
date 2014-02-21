@@ -18,7 +18,7 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
         /**
          * @var $addon tubepress_spi_addon_Addon
          */
-        $addon = $this->getAddonFromManifest(dirname(__FILE__) . '/../../../../main/php/add-ons/jwplayer/jwplayer.json');
+        $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
         $this->assertEquals('tubepress-jwplayer-addon', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
@@ -28,18 +28,10 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
         $this->assertEquals('Allows TubePress to play YouTube videos with JW Player', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_jwplayer' => TUBEPRESS_ROOT . '/src/main/php/add-ons/jwplayer/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension'), $addon->getIocContainerExtensions());
-        $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
 
-    private function _getExpectedClassMap()
+    protected function getPathToManifest()
     {
-        return array(
-            'tubepress_addons_jwplayer_api_const_options_names_Embedded'                     => 'classes/tubepress/addons/jwplayer/api/const/options/names/Embedded.php',
-            'tubepress_addons_jwplayer_api_const_template_Variable'                          => 'classes/tubepress/addons/jwplayer/api/const/template/Variable.php',
-            'tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService' => 'classes/tubepress/addons/jwplayer/impl/embedded/JwPlayerPluggableEmbeddedPlayerService.php',
-            'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'         => 'classes/tubepress/addons/jwplayer/impl/listeners/template/JwPlayerTemplateVars.php',
-            'tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider'                  => 'classes/tubepress/addons/jwplayer/impl/options/JwPlayerOptionProvider.php',
-            'tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension'               => 'classes/tubepress/addons/jwplayer/impl/ioc/JwPlayerIocContainerExtension.php'
-        );
+        return dirname(__FILE__) . '/../../../../main/php/add-ons/jwplayer/jwplayer.json';
     }
 }
