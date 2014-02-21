@@ -310,6 +310,16 @@ class tubepress_impl_boot_PrimaryBootstrapper
             $this->_logger->debug('Determining if we can boot from the cache.');
         }
 
+        if (!$this->_bootHelperSettingsFileReader->isContainerCacheEnabled()) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug('Boot cache is disabled by user settings.php');
+            }
+
+            return false;
+        }
+
         if (class_exists('TubePressServiceContainer', false)) {
 
             return true;

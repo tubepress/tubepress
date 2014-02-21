@@ -37,6 +37,12 @@ return array(
              * its compiled service container.
              */
             //'containerStoragePath' => '/some/directory',
+
+            /**
+             * "enabled" turns on or off the entire boot cache. This is useful if you are developing
+             * themes or add-ons for TubePress.
+             */
+            //'enabled' => true,
         ),
 
         /**

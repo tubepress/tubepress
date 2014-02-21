@@ -22,6 +22,7 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
 
     private static $_3RD_LEVEL_KEY_CLASSLOADER_ENABLED = 'enabled';
     private static $_3RD_LEVEL_KEY_CACHE_KILLERKEY     = 'killerKey';
+    private static $_3RD_LEVEL_KEY_CACHE_ENABLED       = 'enabled';
     private static $_3RD_LEVEL_KEY_CACHE_CSP           = 'containerStoragePath';
     private static $_3RD_LEVEL_KEY_ADDONS_BLACKLIST    = 'blacklist';
 
@@ -54,6 +55,11 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
      * @var boolean
      */
     private $_isClassLoaderEnabled;
+
+    /**
+     * @var boolean
+     */
+    private $_isCacheEnabled;
 
     /**
      * @var string
@@ -93,6 +99,16 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
         $this->_init();
 
         return $this->_isClassLoaderEnabled;
+    }
+
+    /**
+     * @return bool True if the container cache is enabled. False otherwise.
+     */
+    public function isContainerCacheEnabled()
+    {
+        $this->_init();
+
+        return $this->_isCacheEnabled;
     }
 
     /**
@@ -200,6 +216,7 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
         $this->_isClassLoaderEnabled = $this->_getClassLoaderEnablement($config);
         $this->_systemCacheKillerKey = $this->_getCacheKillerKey($config);
         $this->_containerStoragePath = $this->_getContainerStoragePath($config);
+        $this->_isCacheEnabled       = $this->_getContainerCacheEnablement($config);
     }
 
     private function _getContainerStoragePath(array $config)
@@ -259,7 +276,28 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
         }
 
         $enabled = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CLASSLOADER]
-            [self::$_3RD_LEVEL_KEY_CLASSLOADER_ENABLED];
+        [self::$_3RD_LEVEL_KEY_CLASSLOADER_ENABLED];
+
+        if (!is_bool($enabled)) {
+
+            return $default;
+        }
+
+        return (boolean) $enabled;
+    }
+
+    private function _getContainerCacheEnablement(array $config)
+    {
+        $default = true;
+
+        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_CLASSLOADER,
+            self::$_3RD_LEVEL_KEY_CACHE_ENABLED)) {
+
+            return $default;
+        }
+
+        $enabled = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CLASSLOADER]
+            [self::$_3RD_LEVEL_KEY_CACHE_ENABLED];
 
         if (!is_bool($enabled)) {
 

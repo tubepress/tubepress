@@ -22,6 +22,11 @@ interface tubepress_spi_boot_SettingsFileReaderInterface
     function shouldClearCache();
 
     /**
+     * @return bool True if the container cache is enabled. False otherwise.
+     */
+    function isContainerCacheEnabled();
+
+    /**
      * @return bool True if classloader registration is enabled.
      */
     function isClassLoaderEnabled();

@@ -372,5 +372,8 @@ EOF
         $result = $this->_sut->getCachedContainerStoragePath();
         $this->assertTrue(is_writable(dirname($result)));
         $this->assertTrue(!is_dir($result));
+
+        $result = $this->_sut->isContainerCacheEnabled();
+        $this->assertTrue($result);
     }
 }
