@@ -82,6 +82,8 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
      */
     public function getDiscreteAcceptableValues($optionName)
     {
+        $unfiltered = null;
+
         if (!isset($this->_cacheOfOptionNamesToFixedAcceptableValues)) {
 
             $this->_cacheOfOptionNamesToFixedAcceptableValues = $this->getMapOfOptionNamesToFixedAcceptableValues();
@@ -89,20 +91,27 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
 
         if (isset($this->_cacheOfOptionNamesToFixedAcceptableValues[$optionName])) {
 
-            return $this->_cacheOfOptionNamesToFixedAcceptableValues[$optionName];
+            $unfiltered = $this->_cacheOfOptionNamesToFixedAcceptableValues[$optionName];
+
+        } else {
+
+            if (!isset($this->_cacheOfOptionNamesWithDynamicAcceptableValues)) {
+
+                $this->_cacheOfOptionNamesWithDynamicAcceptableValues = $this->getOptionNamesWithDynamicDiscreteAcceptableValues();
+            }
+
+            if (in_array($optionName, $this->_cacheOfOptionNamesWithDynamicAcceptableValues)) {
+
+                $unfiltered = $this->getDynamicDiscreteAcceptableValuesForOption($optionName);
+            }
         }
 
-        if (!isset($this->_cacheOfOptionNamesWithDynamicAcceptableValues)) {
+        return $this->_dispatchAndGetResult(
 
-            $this->_cacheOfOptionNamesWithDynamicAcceptableValues = $this->getOptionNamesWithDynamicDiscreteAcceptableValues();
-        }
-
-        if (in_array($optionName, $this->_cacheOfOptionNamesWithDynamicAcceptableValues)) {
-
-            return $this->getDynamicDiscreteAcceptableValuesForOption($optionName);
-        }
-
-        return null;
+            $optionName,
+            $unfiltered,
+            tubepress_api_const_event_EventNames::OPTION_GET_DISCRETE_ACCEPTABLE_VALUES
+        );
     }
 
     /**
@@ -114,7 +123,14 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
     {
         $this->_primeDefaultValuesCache();
 
-        return $this->_cacheOfOptionNamesToDefaultValues[$optionName];
+        $unfiltered = $this->_cacheOfOptionNamesToDefaultValues[$optionName];
+
+        return $this->_dispatchAndGetResult(
+
+            $optionName,
+            $unfiltered,
+            tubepress_api_const_event_EventNames::OPTION_GET_DEFAULT_VALUE
+        );
     }
 
     /**
@@ -129,7 +145,12 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
             $this->_cacheOfOptionNamesToDescriptions = $this->getMapOfOptionNamesToUntranslatedDescriptions();
         }
 
-        return $this->_inArrayOrNull($optionName, $this->_cacheOfOptionNamesToDescriptions);
+        return $this->_dispatchText(
+
+            $optionName,
+            $this->_cacheOfOptionNamesToDescriptions,
+            tubepress_api_const_event_EventNames::OPTION_GET_DESCRIPTION
+        );
     }
 
     /**
@@ -144,7 +165,12 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
             $this->_cacheOfOptionNamesToLabels = $this->getMapOfOptionNamesToUntranslatedLabels();
         }
 
-        return $this->_inArrayOrNull($optionName, $this->_cacheOfOptionNamesToLabels);
+        return $this->_dispatchText(
+
+            $optionName,
+            $this->_cacheOfOptionNamesToLabels,
+            tubepress_api_const_event_EventNames::OPTION_GET_LABEL
+        );
     }
 
     /**
@@ -417,21 +443,35 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
      */
     protected abstract function getMapOfOptionNamesToDefaultValues();
 
-    private function _inArrayOrNull($key, array $array)
-    {
-        if (isset($array[$key])) {
-
-            return $array[$key];
-        }
-
-        return null;
-    }
-
     private function _primeDefaultValuesCache()
     {
         if (!isset($this->_cacheOfOptionNamesToDefaultValues)) {
 
             $this->_cacheOfOptionNamesToDefaultValues = $this->getMapOfOptionNamesToDefaultValues();
         }
+    }
+
+    private function _dispatchText($optionName, array $arrayToSearch, $eventName)
+    {
+        if (isset($arrayToSearch[$optionName])) {
+
+            $unfiltered = $arrayToSearch[$optionName];
+
+        } else {
+
+            $unfiltered = null;
+        }
+
+        return $this->_dispatchAndGetResult($optionName, $unfiltered, $eventName);
+    }
+
+    private function _dispatchAndGetResult($optionName, $value, $eventName)
+    {
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $event           = new tubepress_spi_event_EventBase($value);
+
+        $eventDispatcher->dispatch($eventName . ".$optionName", $event);
+
+        return $event->getSubject();
     }
 }

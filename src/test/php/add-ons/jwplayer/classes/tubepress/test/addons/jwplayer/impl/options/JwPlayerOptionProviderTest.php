@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider<extended>
  */
-class tubepress_test_addons_jwplayer_impl_listeners_boot_JwPlayerOptionProviderTest extends tubepress_test_impl_options_AbstractOptionProviderTest
+class tubepress_test_addons_jwplayer_impl_options_JwPlayerOptionProviderTest extends tubepress_test_impl_options_AbstractOptionProviderTest
 {
     public function buildSut()
     {
@@ -21,9 +21,26 @@ class tubepress_test_addons_jwplayer_impl_listeners_boot_JwPlayerOptionProviderT
 
     public function testBadColor()
     {
-        $this->getMockMessageService()->shouldReceive('_')->twice()->with('Background color')->andReturn('boo');
+        $this->getMockMessageService()->shouldReceive('_')->twice()->with('XYZ')->andReturn('boo');
+
+        $this->getMockEventDispatcher()->shouldReceive('dispatch')->twice()->with(
+
+            tubepress_api_const_event_EventNames::OPTION_GET_LABEL . "." . tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+            ehough_mockery_Mockery::on(function ($event) {
+
+                $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === 'Background color';
+
+                $event->setSubject('XYZ');
+
+                return $ok;
+            })
+        );
+
         $this->assertFalse($this->getSut()->isValid(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK, 'wrong!'));
-        $this->assertEquals('Invalid value supplied for "boo".', $this->getSut()->getProblemMessage(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK, 'wrong!'));
+
+        $actual = $this->getSut()->getProblemMessage(tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK, 'wrong!');
+
+        $this->assertEquals('Invalid value supplied for "boo".', $actual);
     }
 
     protected function getMapOfOptionNamesToUntranslatedLabels()

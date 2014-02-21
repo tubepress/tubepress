@@ -197,6 +197,50 @@ class tubepress_api_const_event_EventNames
     const HTTP_RESPONSE = 'tubepress.core.http.response';
 
     /**
+     * This event is fired when TubePress looks up the default value for an option. Typically
+     * this only happens the first time TubePress is used on a system.
+     *
+     * @subject mixed The default value of an option.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_GET_DEFAULT_VALUE = 'tubepress.core.option.getDefaultValue';
+
+    /**
+     * This event is fired when TubePress looks up the label for an option.
+     *
+     * @subject string The untranslated (i.e. in English) option label.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_GET_LABEL = 'tubepress.core.option.getLabel';
+
+    /**
+     * This event is fired when TubePress looks up the description for an option.
+     *
+     * @subject string The untranslated (i.e. in English) option description.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_GET_DESCRIPTION = 'tubepress.core.option.getDescription';
+
+    /**
+     * This event is fired when TubePress looks the acceptable values for an option. This
+     * only applies, obviously, to options that take on discrete values.
+     *
+     * @subject array The acceptable values for this option. This *may* be an associative array
+     *                where the keys are values and the values are untranslated labels. You can use
+     *                tubepress_impl_util_LangUtils::isAssociativeArray() to check the type of array.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_GET_DISCRETE_ACCEPTABLE_VALUES = 'tubepress.core.option.getDiscreteAcceptableValues';
+
+    /**
      * This event is fired when a TubePress option (a name-value pair) is being set. It is fired
      * *before* any validation takes place, so use caution when handling these values.
      *
