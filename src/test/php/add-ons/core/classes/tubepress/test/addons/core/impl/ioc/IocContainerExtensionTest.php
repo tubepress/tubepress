@@ -32,6 +32,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_hrch();
         $this->_optionAggregate();
         $this->_optionProvider();
+        $this->_optionMetaNameService();
         $this->_registerPlayerHtml();
         $this->_qss();
         $this->_shortcode();
@@ -196,8 +197,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
-                array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'));
+        );
 
         //Theme field
         $this->expectRegistration(
@@ -462,6 +462,16 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     {
         $this->expectRegistration(tubepress_spi_querystring_QueryStringService::_,
             'tubepress_impl_querystring_SimpleQueryStringService');
+    }
+
+    private function _optionMetaNameService()
+    {
+        $this->expectRegistration(
+
+            tubepress_addons_core_impl_options_MetaOptionNameService::_,
+            tubepress_addons_core_impl_options_MetaOptionNameService::_
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
+                array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setVideoProviders'));
     }
 
     private function _registerPlayerHtml()

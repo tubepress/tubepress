@@ -45,6 +45,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerHttpResponseCodeHandler($containerBuilder);
         $this->_registerAggregateOptionProvider($containerBuilder);
         $this->_registerCoreOptionProvider($containerBuilder);
+        $this->_registerMetaOptionNameService($containerBuilder);
         $this->_registerPlayerHtmlGenerator($containerBuilder);
         $this->_registerQueryStringService($containerBuilder);
         $this->_registerShortcodeHtmlGenerator($containerBuilder);
@@ -219,6 +220,16 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
     }
 
+    private function _registerMetaOptionNameService(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_addons_core_impl_options_MetaOptionNameService::_,
+            tubepress_addons_core_impl_options_MetaOptionNameService::_
+        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER,
+                array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setVideoProviders'));
+    }
+
     private function _registerPlayerHtmlGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
@@ -347,8 +358,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField'
-        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER,
-                array('tag' => 'tubepress_spi_provider_PluggableVideoProviderService', 'method' => 'setVideoProviders'));
+        );
 
         //Theme field
         $containerBuilder->register(

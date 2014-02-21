@@ -17,20 +17,10 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     const FIELD_ID = 'meta-dropdown';
 
     /**
-     * @var tubepress_spi_provider_PluggableVideoProviderService[]
+     * @var tubepress_addons_core_impl_options_MetaOptionNameService
      */
-    private $_videoProviders;
-
-    /**
-     * @var string[]
-     */
-    private $_cachedCoreMetaOptionNames;
-
-    /**
-     * @var array
-     */
-    private $_cachedProvidedMetaOptionNames;
-
+    private $_metaOptionNameService;
+    
     public function __construct()
     {
         parent::__construct(self::FIELD_ID, 'Show each video\'s...');   //>(translatable)<
@@ -44,11 +34,6 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     public function isProOnly()
     {
         return false;
-    }
-
-    public function setVideoProviders(array $providers)
-    {
-        $this->_videoProviders = $providers;
     }
 
     /**
@@ -76,21 +61,9 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function getUngroupedTranslatedChoicesArray()
     {
-        //prime cache
-        $this->_getAllMetaOptionNames();
+        $coreMetaOptionNames = $this->_metaOptionNameService->getCoreMetaOptionNames();
 
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-        $toReturn       = array();
-
-        foreach ($this->_cachedCoreMetaOptionNames as $metaOptionName) {
-
-            $toReturn[$metaOptionName] = $messageService->_($optionProvider->getLabel($metaOptionName));
-        }
-
-        asort($toReturn);
-
-        return $toReturn;
+        return $this->_labelAndAssociate($coreMetaOptionNames);
     }
 
     /**
@@ -99,70 +72,16 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function getGroupedTranslatedChoicesArray()
     {
-        $toReturn       = array();
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $toReturn = array();
+        $map      = $this->_metaOptionNameService->getMapOfFriendlyProviderNameToMetaOptionNames();
 
-        //prime cache
-        $this->_getAllMetaOptionNames();
+        foreach ($map as $friendlyName => $metaOptionNames) {
 
-        foreach ($this->_cachedProvidedMetaOptionNames as $friendlyName => $metaOptionNames) {
-
-            $values = array();
-
-            foreach ($metaOptionNames as $metaOptionName) {
-
-                $values[$metaOptionName] = $messageService->_($optionProvider->getLabel($metaOptionName));
-            }
-
-            asort($values);
-
+            $values                  = $this->_labelAndAssociate($metaOptionNames);
             $toReturn[$friendlyName] = $values;
         }
 
         ksort($toReturn);
-
-        return $toReturn;
-    }
-
-    private function _getAllMetaOptionNames()
-    {
-        if (!isset($this->_cachedCoreMetaOptionNames)) {
-
-            $this->_cachedCoreMetaOptionNames = array(
-
-                tubepress_api_const_options_names_Meta::AUTHOR,
-                tubepress_api_const_options_names_Meta::CATEGORY,
-                tubepress_api_const_options_names_Meta::UPLOADED,
-                tubepress_api_const_options_names_Meta::DESCRIPTION,
-                tubepress_api_const_options_names_Meta::ID,
-                tubepress_api_const_options_names_Meta::KEYWORDS,
-                tubepress_api_const_options_names_Meta::LENGTH,
-                tubepress_api_const_options_names_Meta::TITLE,
-                tubepress_api_const_options_names_Meta::URL,
-                tubepress_api_const_options_names_Meta::VIEWS,
-            );
-        }
-
-        if (!isset($this->_cachedProvidedMetaOptionNames)) {
-
-            $this->_cachedProvidedMetaOptionNames = array();
-
-            /**
-             * @var $videoProvider tubepress_spi_provider_PluggableVideoProviderService
-             */
-            foreach ($this->_videoProviders as $videoProvider) {
-
-                $this->_cachedProvidedMetaOptionNames[$videoProvider->getFriendlyName()] = $videoProvider->getAdditionalMetaNames();
-            }
-        }
-
-        $toReturn = $this->_cachedCoreMetaOptionNames;
-
-        foreach ($this->_cachedProvidedMetaOptionNames as $friendlyName => $metaOptionNames) {
-
-            $toReturn = array_merge($toReturn, $metaOptionNames);
-        }
 
         return $toReturn;
     }
@@ -210,5 +129,31 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
         }
 
         return null;
+    }
+
+    private function _getAllMetaOptionNames()
+    {
+        if (!isset($this->_metaOptionNameService)) {
+
+            $this->_metaOptionNameService = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
+        }
+
+        return $this->_metaOptionNameService->getAllMetaOptionNames();
+    }
+
+    private function _labelAndAssociate($metaOptionNames)
+    {
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+
+        foreach ($metaOptionNames as $metaOptionName) {
+
+            $label                   = $optionProvider->getLabel($metaOptionName);
+            $values[$metaOptionName] = $messageService->_($label);
+        }
+
+        asort($values);
+
+        return $values;
     }
 }

@@ -20,9 +20,9 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
     private $_mockOptionProvider;
 
     /**
-     * @var ehough_mockery_mockery_MockInterface[]
+     * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockVideoProviders;
+    private $_mockMetaNameService;
 
     public function testIsPro()
     {
@@ -31,71 +31,29 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
     protected function doMoreSetup()
     {
-        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
-    }
-
-    protected function _getCoreOdNames()
-    {
-        return array(
-
-            tubepress_api_const_options_names_Meta::AUTHOR,
-            tubepress_api_const_options_names_Meta::CATEGORY,
-            tubepress_api_const_options_names_Meta::UPLOADED,
-            tubepress_api_const_options_names_Meta::DESCRIPTION,
-            tubepress_api_const_options_names_Meta::ID,
-            tubepress_api_const_options_names_Meta::KEYWORDS,
-            tubepress_api_const_options_names_Meta::LENGTH,
-            tubepress_api_const_options_names_Meta::TITLE,
-            tubepress_api_const_options_names_Meta::URL,
-            tubepress_api_const_options_names_Meta::VIEWS,
-        );
-    }
-
-    private function _buildMockVideoProviders()
-    {
-        $this->_mockVideoProviders = array();
-
-        $mockProvider1 = ehough_mockery_Mockery::mock('tubepress_spi_provider_PluggableVideoProviderService');
-        $mockProvider1->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('a', 'b', 'c'));
-        $mockProvider1->shouldReceive('getFriendlyName')->once()->andReturn('Mock 1');
-
-        $mockProvider2 = ehough_mockery_Mockery::mock('tubepress_spi_provider_PluggableVideoProviderService');
-        $mockProvider2->shouldReceive('getAdditionalMetaNames')->once()->andReturn(array('x', 'y', 'z'));
-        $mockProvider2->shouldReceive('getFriendlyName')->once()->andReturn('Mock 2');
-
-        $this->_mockVideoProviders[] = $mockProvider1;
-        $this->_mockVideoProviders[] = $mockProvider2;
+        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockMetaNameService = $this->createMockSingletonService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
     }
 
     protected function doPrepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $mockTemplate)
     {
-        $this->_setupOds();
+        $all      = array('a', 'b', 'c', 'x', 'y', 'z', 'hello');
+        $selected = array('a', 'b', 'c',      'y', 'z', 'hello');
 
-        $all      = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c', 'x', 'y', 'z'));
-        $selected = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c',      'y', 'z'));
+        $this->_mockMetaNameService->shouldReceive('getAllMetaOptionNames')->once()->andReturn($all);
+        $this->_mockMetaNameService->shouldReceive('getCoreMetaOptionNames')->once()->andReturn(array('hello'));
+        $this->_mockMetaNameService->shouldReceive('getMapOfFriendlyProviderNameToMetaOptionNames')->once()->andReturn(array(
 
-        foreach ($all as $odName) {
+            'Mock 1' => array('a', 'b', 'c'),
+            'Mock 2' => array('x', 'y', 'z')
+         ));
 
-            $this->getMockStorageManager()->shouldReceive('fetch')->once()->with($odName)->andReturn($odName !== 'x');
+        foreach ($all as $metaOptionName) {
 
-            $this->getMockMessageService()->shouldReceive('_')->once()->with(strtoupper($odName))->andReturn('<<' . $odName . '>>');
+            $this->getMockStorageManager()->shouldReceive('fetch')->once()->with($metaOptionName)->andReturn($metaOptionName !== 'x');
+
+            $this->getMockMessageService()->shouldReceive('_')->once()->with(strtoupper($metaOptionName))->andReturn('<<' . $metaOptionName . '>>');
         }
-
-        $coreOds = array(
-
-            tubepress_api_const_options_names_Meta::AUTHOR => '<<author>>',
-            tubepress_api_const_options_names_Meta::CATEGORY => '<<category>>',
-            tubepress_api_const_options_names_Meta::UPLOADED => '<<uploaded>>',
-            tubepress_api_const_options_names_Meta::DESCRIPTION => '<<description>>',
-            tubepress_api_const_options_names_Meta::ID => '<<id>>',
-            tubepress_api_const_options_names_Meta::KEYWORDS => '<<tags>>',
-            tubepress_api_const_options_names_Meta::LENGTH => '<<length>>',
-            tubepress_api_const_options_names_Meta::TITLE => '<<title>>',
-            tubepress_api_const_options_names_Meta::URL => '<<url>>',
-            tubepress_api_const_options_names_Meta::VIEWS => '<<views>>',
-        );
-
-        asort($coreOds);
 
         $groupedChoicesArray = array(
 
@@ -104,13 +62,11 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
         );
 
         $mockTemplate->shouldReceive('setVariable')->once()->with('currentlySelectedValues', $selected);
-        $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', $coreOds);
+        $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', array('hello' => '<<hello>>'));
         $mockTemplate->shouldReceive('setVariable')->once()->with('groupedChoices', $groupedChoicesArray);
 
-        foreach (array_keys($coreOds) as $metaOptionName) {
+        $this->_mockOptionProvider->shouldReceive('getLabel')->with('hello')->once()->andReturn('HELLO');
 
-            $this->_mockOptionProvider->shouldReceive('getLabel')->with($metaOptionName)->once()->andReturn(strtoupper($metaOptionName));
-        }
 
         foreach ($groupedChoicesArray as $g) {
 
@@ -123,16 +79,16 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
     protected function setupExpectationsForFailedStorageWhenAllMissing($errorMessage)
     {
-        $this->_setupOds();
+        $this->_mockMetaNameService->shouldReceive('getAllMetaOptionNames')->once()->andReturn(array('abc'));
 
-        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_Meta::AUTHOR, false)->andReturn($errorMessage);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with('abc', false)->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenAllMissing()
     {
-        $this->_setupOds();
+        $all = array('a', 'b', 'c', 'x', 'y', 'z');
+        $this->_mockMetaNameService->shouldReceive('getAllMetaOptionNames')->once()->andReturn($all);
 
-        $all = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c', 'x', 'y', 'z'));
 
         foreach ($all as $odName) {
 
@@ -165,29 +121,21 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
         return '';
     }
 
-    private function _setupOds()
-    {
-        $this->_buildMockVideoProviders();
-
-        $this->getSut()->setVideoProviders($this->_mockVideoProviders);
-    }
-
     protected function setupExpectationsForFailedStorageWhenMixed($errorMessage)
     {
-        $this->_setupOds();
+        $this->_mockMetaNameService->shouldReceive('getAllMetaOptionNames')->once()->andReturn(array('abc'));
 
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
 
-        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with('author', false)->andReturn($errorMessage);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with('abc', false)->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenMixed()
     {
-        $this->_setupOds();
-
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
 
-        $all = array_merge($this->_getCoreOdNames(), array('a', 'b', 'c', 'x', 'y', 'z'));
+        $all = array('a', 'b', 'c', 'x', 'y', 'z');
+        $this->_mockMetaNameService->shouldReceive('getAllMetaOptionNames')->once()->andReturn($all);
 
         foreach ($all as $odName) {
 

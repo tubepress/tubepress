@@ -56,6 +56,7 @@
             "tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist"              : "classes/tubepress/addons/core/impl/listeners/videogallerypage/VideoBlacklist.php",
             "tubepress_addons_core_impl_listeners_videogallerypage_VideoPrepender"              : "classes/tubepress/addons/core/impl/listeners/videogallerypage/VideoPrepender.php",
             "tubepress_addons_core_impl_options_CoreOptionProvider"                             : "classes/tubepress/addons/core/impl/options/CoreOptionProvider.php",
+            "tubepress_addons_core_impl_options_MetaOptionNameService"                          : "classes/tubepress/addons/core/impl/options/MetaOptionNameService.php",
             "tubepress_addons_core_impl_options_ui_fields_GallerySourceField"                   : "classes/tubepress/addons/core/impl/options/ui/fields/GallerySourceField.php",
             "tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField"                 : "classes/tubepress/addons/core/impl/options/ui/fields/MetaMultiSelectField.php",
             "tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField"               : "classes/tubepress/addons/core/impl/options/ui/fields/ParticipantFilterField.php",

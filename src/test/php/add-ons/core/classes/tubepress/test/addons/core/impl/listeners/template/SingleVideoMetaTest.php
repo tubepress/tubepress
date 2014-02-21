@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_core_impl_listeners_template_SingleVideoMeta<extended>
+ */
 class tubepress_test_addons_core_impl_listeners_template_SingleVideoMetaTest extends tubepress_test_TubePressUnitTest
 {
     /**
@@ -30,22 +34,29 @@ class tubepress_test_addons_core_impl_listeners_template_SingleVideoMetaTest ext
      */
     private $_mockOptionProvider;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockMetaNameProvider;
+
     public function onSetup()
     {
         $this->_mockMessageService   = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockOptionProvider   = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockMetaNameProvider = $this->createMockSingletonService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
 
         $this->_sut = new tubepress_addons_core_impl_listeners_template_SingleVideoMeta();
     }
 
-    public function testYouTubeFavorites()
+    public function testSingleVideoTemplate()
     {
         $this->_mockMessageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
               return "##$msg##";
         });
 
-        $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
+        $metaNames  = array('x', 'y', 'z');
+        $this->_mockMetaNameProvider->shouldReceive('getAllMetaOptionNames')->once()->andReturn($metaNames);
         $shouldShow = array();
         $labels     = array();
 

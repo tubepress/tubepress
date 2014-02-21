@@ -29,18 +29,25 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryVideoMetaTe
      */
     private $_mockOptionProvider;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockMetaNameProvider;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockOptionProvider   = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockMetaNameProvider = $this->createMockSingletonService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
     }
 
     public function testVideoMetaAboveAndBelow()
     {
         $messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
-        $metaNames      = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_api_const_options_names_Meta');
+        $metaNames      = array('x', 'y', 'z');
+        $this->_mockMetaNameProvider->shouldReceive('getAllMetaOptionNames')->once()->andReturn($metaNames);
         $shouldShow     = array();
         $labels         = array();
 
