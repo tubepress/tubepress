@@ -300,8 +300,10 @@ return array(
     'tubepress_api_video_VideoGalleryPage'                         => $apiPrefix . '/video/VideoGalleryPage.php',
 
     'tubepress_impl_addon_AddonBase'                                         => $implPrefix . '/addon/AddonBase.php',
+    'tubepress_impl_addon_ContributableBase'                                 => $implPrefix . '/addon/ContributableBase.php',
     'tubepress_impl_boot_PrimaryBootstrapper'                                => $implPrefix . '/boot/PrimaryBootstrapper.php',
     'tubepress_impl_boot_SettingsFileReader'                                 => $implPrefix . '/boot/SettingsFileReader.php',
+    'tubepress_impl_boot_secondary_AbstractManifestReadingDiscoverer'        => $implPrefix . '/boot/secondary/AbstractManifestReadingDiscoverer.php',
     'tubepress_impl_boot_secondary_CachedSecondaryBootstrapper'              => $implPrefix . '/boot/secondary/CachedSecondaryBootstrapper.php',
     'tubepress_impl_boot_secondary_DefaultAddonDiscoverer'                   => $implPrefix . '/boot/secondary/DefaultAddonDiscoverer.php',
     'tubepress_impl_boot_secondary_DefaultClassLoadingHelper'                => $implPrefix . '/boot/secondary/DefaultClassLoadingHelper.php',
@@ -360,6 +362,7 @@ return array(
     'tubepress_impl_util_TimeUtils'                                          => $implPrefix . '/util/TimeUtils.php',
 
     'tubepress_spi_addon_Addon'                                         => $spiPrefix . '/addon/Addon.php',
+    'tubepress_spi_addon_Contributable'                                 => $spiPrefix . '/addon/Contributable.php',
     'tubepress_spi_boot_SettingsFileReaderInterface'                    => $spiPrefix . '/boot/SettingsFileReaderInterface.php',
     'tubepress_spi_boot_secondary_AddonDiscoveryInterface'              => $spiPrefix . '/boot/secondary/AddonDiscoveryInterface.php',
     'tubepress_spi_boot_secondary_ClassLoaderSetupInterface'            => $spiPrefix . '/boot/secondary/ClassLoaderSetupInterface.php',

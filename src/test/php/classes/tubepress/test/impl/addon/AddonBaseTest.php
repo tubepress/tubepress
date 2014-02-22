@@ -201,7 +201,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function testSetNonStringDescription()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on description must be a string');
+        $this->setExpectedException('InvalidArgumentException', 'Description must be a string');
 
         $addon = $this->_buildValidAddon();
 
@@ -317,7 +317,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function testInvalidTitleTooLong()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on titles must be 255 characters or less');
+        $this->setExpectedException('InvalidArgumentException', 'Titles must be 255 characters or less');
 
         new tubepress_impl_addon_AddonBase(
 
@@ -333,7 +333,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function testInvalidTitleNonString()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on title must be a string');
+        $this->setExpectedException('InvalidArgumentException', 'Title must be a string');
 
         new tubepress_impl_addon_AddonBase(
 
@@ -348,7 +348,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function testInvalidNameBadChars()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid add-on name.');
+        $this->setExpectedException('InvalidArgumentException', 'Invalid name.');
 
         new tubepress_impl_addon_AddonBase(
 
@@ -363,7 +363,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function testInvalidNameTooLong()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid add-on name.');
+        $this->setExpectedException('InvalidArgumentException', 'Invalid name.');
 
         new tubepress_impl_addon_AddonBase(
 
@@ -378,7 +378,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function testInvalidNameTooShort()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid add-on name.');
+        $this->setExpectedException('InvalidArgumentException', 'Invalid name.');
 
         new tubepress_impl_addon_AddonBase(
 
@@ -393,7 +393,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function testNonStringName()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on name must be a string');
+        $this->setExpectedException('InvalidArgumentException', 'Name must be a string');
 
         new tubepress_impl_addon_AddonBase(
 
