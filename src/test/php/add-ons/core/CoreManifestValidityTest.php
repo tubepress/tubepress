@@ -32,6 +32,6 @@ class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test
 
     protected function getPathToManifest()
     {
-        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/core/core.json');
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/core/manifest.json');
     }
 }

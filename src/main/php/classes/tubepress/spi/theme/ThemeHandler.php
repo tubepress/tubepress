@@ -21,8 +21,8 @@ interface tubepress_spi_theme_ThemeHandler
      *
      * @param string $pathToTemplate    The relative path (from the root of the user's theme directory,
      *                                  or the fallback directory) to the template.
-     * @param string $fallBackDirectory The absolute path to a directory where this template (defined by the relative
-     *                                  path, can be found). You should make sure that the template will *always* exist
+     * @param string $fallBackDirectory The absolute path to a directory where this template, defined by the relative
+     *                                  path, can be found. You should make sure that the template will *always* exist
      *                                  here.
      *
      * @throws RuntimeException If the template could not be found.
@@ -32,9 +32,27 @@ interface tubepress_spi_theme_ThemeHandler
     function getTemplateInstance($pathToTemplate, $fallBackDirectory);
 
     /**
-     * Returns the name of the current TubePress theme in use.
-     *
-     * @return string The current theme name, or 'default' if the default theme is in use or if there was a problem.
+     * @return string[] An associative array of strings, which may be empty but never null, of all known theme
+     *                  names to their untranslated titles.
      */
-    function calculateCurrentThemeName();
+    function getMapOfAllThemeNamesToTitles();
+
+    /**
+     * @param string|null $themeName The theme name. If null, TubePress will use the theme stored in the DB.
+     *
+     * @throws RuntimeException If there is a problem building this theme instance.
+     *
+     * @return tubepress_spi_theme_ThemeInterface The theme, never null.
+     */
+    function getThemeInstance($themeName = null);
+
+    /**
+     * @return string[] URLs of CSS stylesheets required for the current theme. May be empty but never null.
+     */
+    function getStyles();
+
+    /**
+     * @return string[] URLs of JS scripts required for the current theme. May be empty but never null.
+     */
+    function getScripts();
 }

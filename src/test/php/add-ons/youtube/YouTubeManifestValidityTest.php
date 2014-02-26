@@ -32,6 +32,6 @@ class tubepress_test_addons_core_YouTubeManifestValidityTest extends tubepress_t
 
     protected function getPathToManifest()
     {
-        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/youtube/youtube.json');
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/youtube/manifest.json');
     }
 }

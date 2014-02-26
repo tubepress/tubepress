@@ -237,6 +237,47 @@ abstract class tubepress_test_impl_options_AbstractOptionProviderTest extends tu
         $this->assertEquals('No option with name "no such option".', $this->_sut->getProblemMessage('no such option', 'some candidate'));
     }
 
+    protected function ensureInvalidValueByRegex($optionName, $value)
+    {
+        $labelMap      = $this->getMapOfOptionNamesToUntranslatedLabels();
+        $expectedLabel = $labelMap[$optionName];
+
+        $this->_mockMessageService->shouldReceive('_')->once()->with('XYZ')->andReturn('abc');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+
+            tubepress_api_const_event_EventNames::OPTION_GET_LABEL . ".$optionName",
+            ehough_mockery_Mockery::on(function ($event) use ($expectedLabel) {
+
+                $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $expectedLabel;
+
+                $event->setSubject('XYZ');
+
+                return $ok;
+            })
+        );
+
+        $this->assertFalse($this->_sut->isValid($optionName, $value));
+    }
+
+    protected function doTestGetDiscreteAcceptableValues($optionName, $expected)
+    {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+
+            tubepress_api_const_event_EventNames::OPTION_GET_DISCRETE_ACCEPTABLE_VALUES . ".$optionName",
+            ehough_mockery_Mockery::on(function ($event) use ($expected) {
+
+                $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $expected;
+
+                $event->setSubject('XYZ');
+
+                return $ok;
+            })
+        );
+
+        $this->assertEquals('XYZ', $this->_sut->getDiscreteAcceptableValues($optionName));
+    }
+
     protected abstract function getMapOfOptionNamesToDefaultValues();
 
     protected abstract function getMapOfOptionNamesToUntranslatedLabels();

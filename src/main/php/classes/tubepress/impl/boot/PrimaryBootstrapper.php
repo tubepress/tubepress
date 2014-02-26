@@ -228,14 +228,15 @@ class tubepress_impl_boot_PrimaryBootstrapper
                 $this->_logger->debug('We cannot boot from cache. Will perform a full boot instead.');
             }
 
+            $finderFactory       = new ehough_finder_FinderFactory();
+            $environmentDetector = new tubepress_impl_environment_SimpleEnvironmentDetector();
+
             $this->_secondaryBootstrapper = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
 
                 $this->_shouldLog,
                 new tubepress_impl_boot_secondary_DefaultClassLoadingHelper(),
-                new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
-                    new tubepress_impl_environment_SimpleEnvironmentDetector(),
-                    new ehough_finder_FinderFactory()
-                ),
+                new tubepress_impl_boot_secondary_DefaultAddonDiscoverer($finderFactory, $environmentDetector),
+                new tubepress_impl_boot_secondary_ThemeDiscoverer($finderFactory, $environmentDetector),
                 new tubepress_impl_boot_secondary_DefaultIocContainerBootHelper()
             );
         }

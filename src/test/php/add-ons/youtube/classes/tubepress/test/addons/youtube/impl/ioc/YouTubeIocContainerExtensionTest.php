@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension<extended>
+ */
 class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
 {
     protected function buildSut()
@@ -74,8 +78,11 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
 
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler',
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
+            'method'   => 'onPreValidationOptionSet',
+            'priority' => 10000
+        ));
     }
 
     private function _expectOptionsPageParticipant()

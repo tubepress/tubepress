@@ -54,8 +54,8 @@ class tubepress_test_impl_boot_secondary_DefaultAddonDiscovererTest extends tube
 
         $this->_sut                     = new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
 
-            $this->_mockEnvironmentDetector,
-            $this->_mockFinderFactory
+            $this->_mockFinderFactory,
+            $this->_mockEnvironmentDetector
         );
 
         $this->_mockUserFinder->name = 'user finder';
@@ -65,12 +65,12 @@ class tubepress_test_impl_boot_secondary_DefaultAddonDiscovererTest extends tube
 
         $this->_mockSystemFinder->shouldReceive('followLinks')->andReturn($this->_mockSystemFinder);
         $this->_mockSystemFinder->shouldReceive('files')->andReturn($this->_mockSystemFinder);
-        $this->_mockSystemFinder->shouldReceive('name')->with('*.json')->andReturn($this->_mockSystemFinder);
+        $this->_mockSystemFinder->shouldReceive('name')->with('manifest.json')->andReturn($this->_mockSystemFinder);
         $this->_mockSystemFinder->shouldReceive('depth')->once()->with('< 2')->andReturn(array());
         $this->_mockUserFinder->shouldReceive('followLinks')->andReturn($this->_mockUserFinder);
 
         $this->_mockUserFinder->shouldReceive('files')->andReturn($this->_mockUserFinder);
-        $this->_mockUserFinder->shouldReceive('name')->with('*.json')->andReturn($this->_mockUserFinder);
+        $this->_mockUserFinder->shouldReceive('name')->with('manifest.json')->andReturn($this->_mockUserFinder);
         $this->_mockUserFinder->shouldReceive('depth')->once()->with('< 2')->andReturnUsing(array($this, '_callback'));
     }
 
@@ -184,18 +184,5 @@ class tubepress_test_impl_boot_secondary_DefaultAddonDiscovererTest extends tube
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
-    }
-
-    private function deleteDirectory($dir) {
-        if (!file_exists($dir)) return true;
-        if (!is_dir($dir) || is_link($dir)) return unlink($dir);
-        foreach (scandir($dir) as $item) {
-            if ($item == '.' || $item == '..') continue;
-            if (!$this->deleteDirectory($dir . "/" . $item)) {
-                chmod($dir . "/" . $item, 0777);
-                if (!$this->deleteDirectory($dir . "/" . $item)) return false;
-            };
-        }
-        return rmdir($dir);
     }
 }

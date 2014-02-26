@@ -1,0 +1,16 @@
+{
+    "name" : "tubepress/legacy-sidebar",
+    "version": "1.0.0",
+    "title" : "Sidebar (legacy)",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Legacy sidebar theme."
+}

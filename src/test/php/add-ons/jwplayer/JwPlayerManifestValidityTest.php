@@ -32,6 +32,6 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
 
     protected function getPathToManifest()
     {
-        return dirname(__FILE__) . '/../../../../main/php/add-ons/jwplayer/jwplayer.json';
+        return dirname(__FILE__) . '/../../../../main/php/add-ons/jwplayer/manifest.json';
     }
 }

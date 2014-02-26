@@ -13,11 +13,11 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
     protected function getAddonFromManifest($pathToManifest)
     {
         $discoverer = new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
-            new tubepress_impl_environment_SimpleEnvironmentDetector(),
-            new ehough_finder_FinderFactory()
+            new ehough_finder_FinderFactory(),
+            new tubepress_impl_environment_SimpleEnvironmentDetector()
         );
 
-        $addons = $discoverer->_findAddonsInDirectory(dirname($pathToManifest));
+        $addons = $discoverer->_findContributablesInDirectory(dirname($pathToManifest));
 
         $this->assertTrue(count($addons) === 1, 'Expected 1 addon but got ' . count($addons));
 

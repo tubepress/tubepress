@@ -32,6 +32,6 @@ class tubepress_test_addons_core_EmbedPlusManifestValidityTest extends tubepress
 
     protected function getPathToManifest()
     {
-        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/embedplus/embedplus.json');
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/embedplus/manifest.json');
     }
 }

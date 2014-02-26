@@ -32,6 +32,6 @@ class tubepress_test_addons_core_WordPressManifestValidityTest extends tubepress
 
     protected function getPathToManifest()
     {
-        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/wordpress/wordpress.json');
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/wordpress/manifest.json');
     }
 }

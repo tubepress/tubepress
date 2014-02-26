@@ -8,10 +8,25 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_shortcode_SimpleShortcodeParser<extended>
+ */
 class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_test_TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_shortcode_SimpleShortcodeParser
+     */
     private $_sut;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockExecutionContext;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockEventDispatcher;
 
     public function onSetup()
@@ -275,9 +290,14 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         foreach ($expected as $name => $value) {
 
-            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, ehough_mockery_Mockery::on(function ($arg) use ($name) {
+            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) use ($name) {
 
                 return $arg instanceof tubepress_api_event_EventInterface  && $arg->getArgument('optionName') === $name;
+            }));
+
+            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT . ".$name", ehough_mockery_Mockery::on(function ($arg) use ($name) {
+
+                return $arg instanceof tubepress_api_event_EventInterface;
             }));
         }
     }

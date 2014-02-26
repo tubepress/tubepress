@@ -84,12 +84,15 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
         $optionProvider         = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
         /** First run it through the filters. */
-        /** Run it through the filters. */
         $event = new tubepress_spi_event_EventBase($optionValue, array(
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, $event);
+        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, $event);
+        $filteredValue = $event->getSubject();
+
+        $event = new tubepress_spi_event_EventBase($filteredValue);
+        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . ".$optionName", $event);
         $filteredValue = $event->getSubject();
 
         if ($optionProvider->isValid($optionName, $filteredValue)) {

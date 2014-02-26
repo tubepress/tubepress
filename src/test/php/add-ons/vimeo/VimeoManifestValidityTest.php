@@ -18,7 +18,7 @@ class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_tes
         /**
          * @var $addon tubepress_spi_addon_Addon
          */
-        $addon = $this->getAddonFromManifest(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/vimeo.json');
+        $addon = $this->getAddonFromManifest(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/manifest.json');
 
         $this->assertEquals('tubepress-vimeo-addon', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
@@ -33,7 +33,7 @@ class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_tes
 
     protected function getPathToManifest()
     {
-        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/vimeo.json');
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/manifest.json');
     }
 
     private function _getExpectedClassMap()

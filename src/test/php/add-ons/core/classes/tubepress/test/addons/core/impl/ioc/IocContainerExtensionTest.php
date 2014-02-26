@@ -108,6 +108,10 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter' =>
                 array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000),
+
+            'tubepress_addons_core_impl_listeners_options_LegacyThemeListener' =>
+                array('event' => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_api_const_options_names_Thumbs::THEME,
+                    'method' => 'onPreValidationSet', 'priority' => 300000),
         );
 
         foreach ($listeners as $className => $tagAttributes) {
@@ -118,12 +122,12 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->expectRegistration(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_preValidation',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'magic', 'priority' => 10100));
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, 'method' => 'magic', 'priority' => 10100));
 
         $this->expectRegistration(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_readFromExternal',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'magic', 'priority' => 10000));
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT, 'method' => 'magic', 'priority' => 10000));
 
         $this->expectRegistration(
 
@@ -435,8 +439,10 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
     private function _themeHandler()
     {
-        $this->expectRegistration(tubepress_spi_theme_ThemeHandler::_,
-            'tubepress_impl_theme_SimpleThemeHandler');
+        $this->expectRegistration(
+            tubepress_spi_theme_ThemeHandler::_,
+            'tubepress_impl_theme_SimpleThemeHandler'
+        )->withArgument('%themes%');
     }
 
     private function _templateBuilder()

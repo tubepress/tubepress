@@ -49,7 +49,14 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
 
         $eventDispatcher->dispatch(
 
-            tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL,
+            tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT,
+            $event
+        );
+
+        $event = new tubepress_spi_event_EventBase($event->getSubject());
+        $eventDispatcher->dispatch(
+
+            tubepress_api_const_event_EventNames::OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT . ".$name",
             $event
         );
 

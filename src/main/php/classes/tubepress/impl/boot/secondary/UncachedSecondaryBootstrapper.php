@@ -40,6 +40,11 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
     private $_bootHelperAddonDiscoverer;
 
     /**
+     * @var tubepress_spi_boot_secondary_ThemeDiscoveryInterface
+     */
+    private $_bootHelperThemeDiscoverer;
+
+    /**
      * @var tubepress_impl_ioc_IconicContainerBuilder
      */
     private $_containerBuilder;
@@ -53,6 +58,7 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
         $shouldLog,
         tubepress_spi_boot_secondary_ClassLoaderSetupInterface $clsi,
         tubepress_spi_boot_secondary_AddonDiscoveryInterface $adi,
+        tubepress_spi_boot_secondary_ThemeDiscoveryInterface $tdi,
         tubepress_spi_boot_secondary_IocCompilingInterface $ici)
     {
         $this->_logger                       = ehough_epilog_LoggerFactory::getLogger('Uncached Secondary Bootstrapper');
@@ -60,6 +66,7 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
         $this->_bootHelperClassLoadingHelper = $clsi;
         $this->_bootHelperAddonDiscoverer    = $adi;
         $this->_bootHelperIocHelper          = $ici;
+        $this->_bootHelperThemeDiscoverer    = $tdi;
     }
 
     public function getServiceContainer(
@@ -84,6 +91,7 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
             $this->_containerBuilder = new tubepress_impl_ioc_IconicContainerBuilder();
         }
 
+        $this->_containerBuilder->setParameter('themes',   $this->_bootHelperThemeDiscoverer->getThemesContainerParameterValue());
         $this->_containerBuilder->setParameter('classMap', $classLoader->getClassMap());
 
         $this->_bootHelperIocHelper->compile($this->_containerBuilder, $addons);

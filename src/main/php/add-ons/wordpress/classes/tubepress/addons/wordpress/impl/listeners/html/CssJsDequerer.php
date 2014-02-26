@@ -18,7 +18,7 @@ class tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer
     {
         $styles = $event->getSubject();
 
-        unset($styles['tubepress']);
+        $this->_filter($styles);
 
         $event->setSubject($styles);
     }
@@ -27,8 +27,24 @@ class tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer
     {
         $scripts = $event->getSubject();
 
-        unset($scripts['tubepress']);
+        $this->_filter($scripts);
 
         $event->setSubject($scripts);
+    }
+
+    private function _filter(array &$resources)
+    {
+        foreach ($resources as $handle => $url) {
+
+            if ($handle === 'tubepress') {
+
+                unset($resources[$handle]);
+            }
+
+            if (strpos($handle, 'tubepress-theme-') === 0) {
+
+                unset($resources[$handle]);
+            }
+        }
     }
 }

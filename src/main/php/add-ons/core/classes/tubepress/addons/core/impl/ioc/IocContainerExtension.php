@@ -282,7 +282,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             tubepress_spi_theme_ThemeHandler::_,
             'tubepress_impl_theme_SimpleThemeHandler'
-        );
+        )->addArgument('%themes%');
     }
 
     private function _registerVideoCollector(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -644,19 +644,41 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $containerBuilder->register(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_preValidation',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'magic', 'priority' => 10100));
+        )->addTag(self::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET,
+                'method'   => 'magic',
+                'priority' => 10100
+        ));
 
         $containerBuilder->register(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_readFromExternal',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->addTag(self::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'magic', 'priority' => 10000));
+        )->addTag(self::TAG_EVENT_LISTENER,  array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT,
+                'method'   => 'magic',
+                'priority' => 10000));
+
+        $containerBuilder->register(
+            'tubepress_addons_core_impl_listeners_options_LegacyThemeListener',
+            'tubepress_addons_core_impl_listeners_options_LegacyThemeListener'
+        )->addTag(self::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_api_const_options_names_Thumbs::THEME,
+                'method'   => 'onPreValidationSet',
+                'priority' => 300000
+        ));
 
         $containerBuilder->register(
 
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, 'method' => 'onGalleryInitJs', 'priority' => 10000))
-            ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'));
+        )->addTag(self::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT,
+                'method'   => 'onGalleryInitJs',
+                'priority' => 10000)
+        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_spi_player_PluggablePlayerLocationService::_,
+                'method' => 'setPluggablePlayerLocations'
+        ));
     }
 
     private function _registerHttpTransportChain(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

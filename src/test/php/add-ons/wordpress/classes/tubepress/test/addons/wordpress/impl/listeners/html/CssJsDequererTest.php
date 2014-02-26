@@ -28,8 +28,9 @@ class tubepress_test_addons_wordpress_impl_listeners_html_CssJsDequererTest exte
     {
         $styles = array(
 
-            'foo' => 'bar',
-            'tubepress' => 'something'
+            'foo'                     => 'bar',
+            'tubepress'               => 'something',
+            'tubepress-theme-style-5' => 'xyz'
         );
 
         $mockEvent = new tubepress_spi_event_EventBase($styles);
@@ -43,8 +44,9 @@ class tubepress_test_addons_wordpress_impl_listeners_html_CssJsDequererTest exte
     {
         $scripts = array(
 
-            'foo' => 'bar',
-            'tubepress' => 'something'
+            'foo'                      => 'bar',
+            'tubepress'                => 'something',
+            'tubepress-theme-script-3' => 'abc',
         );
 
         $mockEvent = new tubepress_spi_event_EventBase($scripts);

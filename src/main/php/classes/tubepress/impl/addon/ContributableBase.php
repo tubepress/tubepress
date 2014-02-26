@@ -268,7 +268,7 @@ class tubepress_impl_addon_ContributableBase implements tubepress_spi_addon_Cont
             throw new InvalidArgumentException('Name must be a string');
         }
 
-        if (preg_match('~^[A-Za-z0-9-_\.]{1,100}$~', $name, $matches) !== 1) {
+        if (preg_match('~^[A-Za-z0-9-_\./]{1,100}$~', $name, $matches) !== 1) {
 
             throw new InvalidArgumentException('Invalid name.');
         }

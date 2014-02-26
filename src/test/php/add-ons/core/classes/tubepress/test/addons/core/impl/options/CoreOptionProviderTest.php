@@ -29,6 +29,126 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
      */
     private $_mockFinderFactory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockPlayerLocations;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockEmbeddedPlayers;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockVideoProviders;
+
+    public function testBadThumbHeight()
+    {
+        $this->ensureInvalidValueByRegex(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH, 0);
+    }
+
+    public function testGetThemeValues()
+    {
+        $themeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $themeHandler->shouldReceive('getMapOfAllThemeNamesToTitles')->once()->andReturn(array(
+
+            'xyz' => 'XZY Theme',
+            'abc' => 'ABC Theme',
+        ));
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Thumbs::THEME, array(
+
+            'abc' => 'ABC Theme',
+            'xyz' => 'XZY Theme',
+        ));
+    }
+
+    public function testGetValuesForVideoProviders()
+    {
+        $mockVideoProvider = $this->_mockVideoProviders[0];
+        $mockVideoProvider->shouldReceive('getName')->once()->andReturn('provider name');
+        $mockVideoProvider->shouldReceive('getFriendlyName')->once()->andReturn('provider friendly name');
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER, array(
+
+            'provider name',
+        ));
+    }
+
+    public function testGetValuesForEmbeddedPlayers()
+    {
+        $mockEmbeddedPlayer = $this->_mockEmbeddedPlayers[0];
+        $mockEmbeddedPlayer->shouldReceive('getName')->twice()->andReturn('embedded name');
+        $mockEmbeddedPlayer->shouldReceive('getFriendlyName')->once()->andReturn('player friendly name');
+
+        $mockVideoProvider = $this->_mockVideoProviders[0];
+        $mockVideoProvider->shouldReceive('getName')->once()->andReturn('provider name');
+        $mockVideoProvider->shouldReceive('getFriendlyName')->once()->andReturn('provider friendly name');
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Embedded::PLAYER_IMPL, array(
+
+            'provider_based' => 'Provider default',
+            'embedded name' => 'player friendly name',
+        ));
+    }
+
+    public function testGetValuesForPlayerLocation()
+    {
+        $mockPlayerLocation = $this->_mockPlayerLocations[0];
+        $mockPlayerLocation->shouldReceive('getName')->once()->andReturn('player name');
+        $mockPlayerLocation->shouldReceive('getFriendlyName')->once()->andReturn('player friendly name');
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION, array(
+
+            'player name' => 'player friendly name',
+        ));
+    }
+
+    public function testGetValuesForPerPageSort()
+    {
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Feed::PER_PAGE_SORT, array(
+                tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::NEWEST         => 'date published (newest first)', //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::OLDEST         => 'date published (oldest first)', //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::DURATION       => 'length',                        //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::NONE           => 'none',                          //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::RANDOM         => 'random',                        //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::RATING         => 'rating',                        //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',                         //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
+        ));
+    }
+
+    public function testGetValuesForHttpMethod()
+    {
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Advanced::HTTP_METHOD, array(
+
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET  => ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET,
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST => ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST,
+        ));
+    }
+
+    public function testGetValuesForOrderBy()
+    {
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Feed::ORDER_BY, array(
+
+            tubepress_api_const_options_values_OrderByValue::DEFAULTT       => 'default',                         //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::DURATION       => 'length',                          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::REV_POSITION   => 'reversed position in a playlist', //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',                        //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',                          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',                       //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::TITLE          => 'title',                           //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',                      //>(translatable)<
+        ));
+    }
+
     protected function prepare(tubepress_spi_options_OptionProvider $sut)
     {
         $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
@@ -78,7 +198,22 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
 
     protected function buildSut()
     {
-        return new tubepress_addons_core_impl_options_CoreOptionProvider();
+        $mockPlayerLocation = ehough_mockery_Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $this->_mockPlayerLocations = array($mockPlayerLocation);
+
+        $mockEmbeddedPlayer = ehough_mockery_Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        $this->_mockEmbeddedPlayers = array($mockEmbeddedPlayer);
+
+        $mockVideoProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockVideoProviders = array($mockVideoProvider);
+
+        $sut = new tubepress_addons_core_impl_options_CoreOptionProvider();
+
+        $sut->setPluggablePlayerLocations($this->_mockPlayerLocations);
+        $sut->setPluggableEmbeddedPlayers($this->_mockEmbeddedPlayers);
+        $sut->setPluggableVideoProviders($this->_mockVideoProviders);
+
+        return $sut;
     }
 
 

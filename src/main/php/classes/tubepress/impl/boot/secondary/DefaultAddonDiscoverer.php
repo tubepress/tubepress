@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_impl_boot_secondary_DefaultAddonDiscoverer implements tubepress_spi_boot_secondary_AddonDiscoveryInterface
+class tubepress_impl_boot_secondary_DefaultAddonDiscoverer extends tubepress_impl_boot_secondary_AbstractContributableDiscoverer implements tubepress_spi_boot_secondary_AddonDiscoveryInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -20,26 +20,9 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer implements tubepress_
     private $_logger;
 
     /**
-     * @var bool
+     * @var string[]
      */
-    private $_shouldLog = false;
-
-    /**
-     * @var tubepress_spi_environment_EnvironmentDetector
-     */
-    private $_environmentDetector;
-
-    /**
-     * @var ehough_finder_FinderFactoryInterface
-     */
-    private $_finderFactory;
-
-    public function __construct(tubepress_spi_environment_EnvironmentDetector $environmentDetector, ehough_finder_FinderFactoryInterface $finderFactory)
-    {
-        $this->_logger              = ehough_epilog_LoggerFactory::getLogger('Default Add-on Discoverer');
-        $this->_environmentDetector = $environmentDetector;
-        $this->_finderFactory       = $finderFactory;
-    }
+    private $_blacklist;
 
     /**
      * Discovers TubePress add-ons.
@@ -50,149 +33,9 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer implements tubepress_
      */
     public function findAddons(array $blacklist)
     {
-        $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
+        $this->_blacklist = $blacklist;
 
-        $addons = $this->_discoverAddonsFromFilesystem();
-
-        $this->_performBlacklisting($addons, $blacklist);
-
-        return $addons;
-    }
-
-    private function _discoverAddonsFromFilesystem()
-    {
-        /* load add-ons */
-        $systemAddons = $this->_findSystemAddons();
-        $userAddons   = $this->_findUserAddons();
-        $allAddons    = array_merge($systemAddons, $userAddons);
-        $addOnCount   = count($allAddons);
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Found %d add-ons (%d system and %d user) on the filesystem',
-                $addOnCount, count($systemAddons), count($userAddons)));
-        }
-
-        return $allAddons;
-    }
-
-    private function _findSystemAddons()
-    {
-        $coreAddons = $this->_findAddonsInDirectory(TUBEPRESS_ROOT . '/src/main/php/add-ons');
-
-        usort($coreAddons, array($this, '__callbackSystemAddonSorter'));
-
-        return $coreAddons;
-    }
-
-    private function _findUserAddons()
-    {
-        $userContentDir      = $this->_environmentDetector->getUserContentDirectory();
-        $userAddonsDir       = $userContentDir . '/add-ons';
-
-        return $this->_findAddonsInDirectory($userAddonsDir);
-    }
-
-    /**
-     * This is public for test purposes only!
-     *
-     * @internal
-     */
-    public function _findAddonsInDirectory($directory)
-    {
-        if (! is_dir($directory)) {
-
-            return array();
-        }
-
-        $finder = $this->_finderFactory->createFinder()->followLinks()->files()->in($directory)->name('*.json')->depth('< 2');
-
-        $toReturn = array();
-
-        /**
-         * @var $infoFile SplFileInfo
-         */
-        foreach ($finder as $infoFile) {
-
-            $addon = $this->_tryToBuildAddonFromFile($infoFile);
-
-            if ($addon !== null) {
-
-                if ($this->_shouldLog) {
-
-                    $this->_logger->debug('Found valid add-on at ' . $infoFile->getRealpath());
-                }
-
-                $toReturn[] = $addon;
-            }
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Found %d add-on(s) from %s' , count($toReturn), $directory));
-        }
-
-        return $toReturn;
-    }
-
-    private function _performBlacklisting(array &$addons, array $blacklist)
-    {
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Add-on blacklist: %s', json_encode($blacklist)));
-        }
-
-        $addonCount = count($addons);
-
-        for ($x = 0; $x < $addonCount; $x++) {
-
-            /**
-             * @var $addon tubepress_spi_addon_Addon
-             */
-            $addon     = $addons[$x];
-            $addonName = $addon->getName();
-
-            if (in_array($addonName, $blacklist)) {
-
-                unset($addons[$x]);
-            }
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('After blacklist processing, we now have %d add-on(s)', count($addons)));
-        }
-    }
-
-    private function _tryToBuildAddonFromFile(SplFileInfo $infoFile)
-    {
-        $manifestFilePath = realpath("$infoFile");
-        $infoFileContents = @json_decode(file_get_contents($manifestFilePath), true);
-        $shouldLog        = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
-
-        if ($infoFileContents === null || $infoFileContents === false || empty($infoFileContents)) {
-
-            if ($shouldLog) {
-
-                $this->_logger->debug('Could not parse add-on manifest file at ' . $manifestFilePath);
-            }
-
-            return null;
-        }
-
-        try {
-
-            return $this->_constructAddonFromArray($infoFileContents, $manifestFilePath);
-
-        } catch (Exception $e) {
-
-            if ($shouldLog) {
-
-                $this->_logger->warn('Caught exception when parsing info file at ' . $infoFile->getRealpath() . ': ' . $e->getMessage());
-            }
-
-            return null;
-        }
+        return $this->findContributables('/src/main/php/add-ons', '/add-ons');
     }
 
     public function __callbackSystemAddonSorter(tubepress_spi_addon_Addon $first, tubepress_spi_addon_Addon $second)
@@ -217,73 +60,7 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer implements tubepress_
         return 0;
     }
 
-    private function _constructAddonFromArray(array $manifestContentsAsArray, $manifestFileAbsPath)
-    {
-        $addon = $this->_buildAddonFromRequiredAttributes($manifestContentsAsArray);
-
-        $this->_setOptionalAttributes($addon, $manifestContentsAsArray, $manifestFileAbsPath);
-
-        return $addon;
-    }
-
-    private function _setOptionalAttributes(tubepress_spi_addon_Addon $addon, array $manifestContentsAsArray, $manifestFileAbsPath)
-    {
-        $optionalAttributeMap = array(
-
-            tubepress_spi_addon_Addon::ATTRIBUTE_DESCRIPTION         => 'Description',
-            tubepress_spi_addon_Addon::ATTRIBUTE_KEYWORDS            => 'Keywords',
-            tubepress_spi_addon_Addon::CATEGORY_URLS                 => array(
-
-                tubepress_spi_addon_Addon::ATTRIBUTE_URL_HOMEPAGE       => 'HomepageUrl',
-                tubepress_spi_addon_Addon::ATTRIBUTE_URL_DOCUMENTATION  => 'DocumentationUrl',
-                tubepress_spi_addon_Addon::ATTRIBUTE_URL_DEMO           => 'DemoUrl',
-                tubepress_spi_addon_Addon::ATTRIBUTE_URL_DOWNLOAD       => 'DownloadUrl',
-                tubepress_spi_addon_Addon::ATTRIBUTE_URL_BUGS           => 'BugTrackerUrl',
-            ),
-            tubepress_spi_addon_Addon::CATEGORY_AUTOLOAD             => array(
-
-                tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS => 'Psr0ClassPathRoots',
-                tubepress_spi_addon_Addon::ATTRIBUTE_CLASSMAP        => 'ClassMap'
-            ),
-            tubepress_spi_addon_Addon::CATEGORY_IOC                  => array(
-
-                tubepress_spi_addon_Addon::ATTRIBUTE_IOC_COMPILER_PASSES => 'IocContainerCompilerPasses',
-                tubepress_spi_addon_Addon::ATTRIBUTE_IOC_EXTENSIONS      => 'IocContainerExtensions',
-            )
-        );
-
-        $this->_setOptionalAttributesFromMap($addon, $manifestContentsAsArray, $manifestFileAbsPath, $optionalAttributeMap);
-    }
-
-    private function _setOptionalAttributesFromMap(tubepress_spi_addon_Addon $addon, array $manifestContentsAsArray, $manifestFileAbsPath, array $attributeNameToSetterNameMap)
-    {
-        foreach ($attributeNameToSetterNameMap as $optionalAttributeName => $setterSuffix) {
-
-            /**
-             * Dig into array if we need to.
-             */
-            if (is_array($setterSuffix)) {
-
-                if (isset($manifestContentsAsArray[$optionalAttributeName])) {
-
-                    $this->_setOptionalAttributesFromMap($addon, $manifestContentsAsArray[$optionalAttributeName], $manifestFileAbsPath, $setterSuffix);
-                }
-
-                continue;
-            }
-
-            if (isset($manifestContentsAsArray[$optionalAttributeName])) {
-
-                $method = 'set' . $setterSuffix;
-
-                $value = $this->_getCleanedAttribute($optionalAttributeName, $manifestContentsAsArray[$optionalAttributeName], $manifestFileAbsPath);
-
-                $addon->$method($value);
-            }
-        }
-    }
-
-    private function _getCleanedAttribute($attributeName, $candidateValue, $manifestFileAbsPath)
+    protected function getCleanedAttributeValue($attributeName, $candidateValue, $manifestFileAbsPath, array $manifestContents)
     {
         switch ($attributeName) {
 
@@ -296,35 +73,6 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer implements tubepress_
 
                 return $candidateValue;
         }
-    }
-
-    private function _buildAddonFromRequiredAttributes(array $manifestContentsAsArray)
-    {
-        $requiredAttributeNames = array(
-
-            tubepress_spi_addon_Addon::ATTRIBUTE_NAME,
-            tubepress_spi_addon_Addon::ATTRIBUTE_VERSION,
-            tubepress_spi_addon_Addon::ATTRIBUTE_TITLE,
-            tubepress_spi_addon_Addon::ATTRIBUTE_AUTHOR,
-            tubepress_spi_addon_Addon::ATTRIBUTE_LICENSES
-        );
-
-        foreach ($requiredAttributeNames as $requiredAttributeName) {
-
-            if (!isset($manifestContentsAsArray[$requiredAttributeName])) {
-
-                throw new RuntimeException("Manifest is missing $requiredAttributeName");
-            }
-        }
-
-        return new tubepress_impl_addon_AddonBase(
-
-            $manifestContentsAsArray[tubepress_spi_addon_Addon::ATTRIBUTE_NAME],
-            $manifestContentsAsArray[tubepress_spi_addon_Addon::ATTRIBUTE_VERSION],
-            $manifestContentsAsArray[tubepress_spi_addon_Addon::ATTRIBUTE_TITLE],
-            $manifestContentsAsArray[tubepress_spi_addon_Addon::ATTRIBUTE_AUTHOR],
-            $manifestContentsAsArray[tubepress_spi_addon_Addon::ATTRIBUTE_LICENSES]
-        );
     }
 
     private function _arrayValuesToAbsolutePaths(array $paths, $manifestFilePath)
@@ -349,5 +97,101 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer implements tubepress_
     private function _getAbsolutePath($path, $manifestFilePath)
     {
         return dirname($manifestFilePath) . DIRECTORY_SEPARATOR . $path;
+    }
+
+    /**
+     * @return array A map of required attributes.
+     */
+    protected function getRequiredAttributesMap()
+    {
+        return array();
+    }
+
+    /**
+     * @return array A map of optional attributes.
+     */
+    protected function getOptionalAttributesMap()
+    {
+        return array(
+
+            tubepress_spi_addon_Addon::CATEGORY_AUTOLOAD             => array(
+
+                tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS => 'Psr0ClassPathRoots',
+                tubepress_spi_addon_Addon::ATTRIBUTE_CLASSMAP        => 'ClassMap'
+            ),
+            tubepress_spi_addon_Addon::CATEGORY_IOC                  => array(
+
+                tubepress_spi_addon_Addon::ATTRIBUTE_IOC_COMPILER_PASSES => 'IocContainerCompilerPasses',
+                tubepress_spi_addon_Addon::ATTRIBUTE_IOC_EXTENSIONS      => 'IocContainerExtensions',
+            )
+        );
+    }
+
+    /**
+     * @return string The class name that this discoverer instantiates.
+     */
+    protected function getContributableClassName()
+    {
+        return 'tubepress_impl_addon_AddonBase';
+    }
+
+    protected function getAdditionalRequiredConstructorArgs(array $manifestContents, $absPath)
+    {
+        return array();
+    }
+
+    protected function filter(array &$contributables)
+    {
+        if (!isset($this->_blacklist)) {
+
+            //this only happens during testing
+            return;
+        }
+
+        if ($this->shouldLog()) {
+
+            $this->_logger->debug(sprintf('Add-on blacklist: %s', json_encode($this->_blacklist)));
+        }
+
+        $addonCount = count($contributables);
+
+        for ($x = 0; $x < $addonCount; $x++) {
+
+            /**
+             * @var $addon tubepress_spi_addon_Addon
+             */
+            $addon     = $contributables[$x];
+            $addonName = $addon->getName();
+
+            if (in_array($addonName, $this->_blacklist)) {
+
+                unset($contributables[$x]);
+            }
+        }
+
+        if ($this->shouldLog()) {
+
+            $this->_logger->debug(sprintf('After blacklist processing, we now have %d add-on(s)', count($contributables)));
+        }
+    }
+
+    protected function getLogger()
+    {
+        if (!isset($this->_logger)) {
+
+            $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Add-on Discoverer');
+        }
+
+        return $this->_logger;
+    }
+
+    protected function sortSystemContributables(array &$contributables)
+    {
+        usort($contributables, array($this, '__callbackSystemAddonSorter'));
+    }
+
+    protected function getManifestName()
+    {
+        return 'manifest.json';
     }
 }

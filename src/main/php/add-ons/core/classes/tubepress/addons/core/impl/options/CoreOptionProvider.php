@@ -407,51 +407,12 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
 
     private function _getValidThemeValues()
     {
-        $environmentDetectorService     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $fileSystemService              = tubepress_impl_patterns_sl_ServiceLocator::getFileSystem();
-        $fileSystemFinderFactoryService = tubepress_impl_patterns_sl_ServiceLocator::getFileSystemFinderFactory();
+        $themeHandler = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $themeNames   = $themeHandler->getMapOfAllThemeNamesToTitles();
 
-        $systemThemesDirectory = TUBEPRESS_ROOT . '/src/main/resources/default-themes';
-        $userThemesDirectory   = $environmentDetectorService->getUserContentDirectory() . '/themes';
+        ksort($themeNames);
 
-        $directoriesToSearch = array();
-
-        if ($fileSystemService->exists($systemThemesDirectory)) {
-
-            $directoriesToSearch[] = $systemThemesDirectory;
-        }
-
-        if ($fileSystemService->exists($userThemesDirectory)) {
-
-            $directoriesToSearch[] = $userThemesDirectory;
-        }
-
-        $finder = $fileSystemFinderFactoryService->createFinder();
-
-        $finder->directories()->in($directoriesToSearch)->depth(0);
-
-        $themeNames = array();
-
-        /**
-         * @var $themeDirectory SplFileInfo
-         */
-        foreach ($finder as $themeDirectory) {
-
-            $themeNames[] = basename($themeDirectory->getBasename());
-        }
-
-        sort($themeNames);
-
-        $toReturn = array();
-
-        foreach ($themeNames as $themeName) {
-
-            $toReturn[$themeName] = $themeName;
-        }
-
-        ksort($toReturn);
-
-        return $toReturn;
+        return $themeNames;
     }
 
     private function _getValidVideoProviderNames()

@@ -249,9 +249,9 @@ class tubepress_api_const_event_EventNames
      * @arg string 'optionName' The name of the option being set.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
-    const OPTIONS_NVP_PREVALIDATIONSET = 'tubepress.core.options.nvp.preValidationSet';
+    const OPTION_SINGLE_PRE_VALIDATION_SET = 'tubepress.core.option.preValidationSet';
 
     /**
      * This event is fired when a TubePress option (a name-value pair) is being read from external input.
@@ -261,9 +261,34 @@ class tubepress_api_const_event_EventNames
      * @arg string 'optionName' The name of the option being set.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
-    const OPTIONS_NVP_READFROMEXTERNAL = 'tubepress.core.options.nvp.readFromExternalInput';
+    const OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT = 'tubepress.core.option.readFromExternalInput';
+
+    /**
+     * This event is fired when a TubePress option (a name-value pair) is being set. It is fired
+     * *before* any validation takes place, so use caution when handling these values.
+     *
+     * @subject mixed The incoming option value.
+     *
+     * @arg string 'optionName' The name of the option being set.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_ANY_PRE_VALIDATION_SET = 'tubepress.core.option.any.preValidationSet';
+
+    /**
+     * This event is fired when a TubePress option (a name-value pair) is being read from external input.
+     *
+     * @subject mixed The incoming option value.
+     *
+     * @arg string 'optionName' The name of the option being set.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const OPTION_ANY_READ_FROM_EXTERNAL_INPUT = 'tubepress.core.option.any.readFromExternalInput';
 
     /**
      * This event is fired when TubePress loads a PHP/HTML template for a field on the options page.

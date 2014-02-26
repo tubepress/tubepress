@@ -183,10 +183,11 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'vimeo_color_sanitizer',
             'tubepress_impl_listeners_options_ColorSanitizingListener'
 
-        )->addArgument(array(
-                tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR
-            ))
-            ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 9500));
+        )->addTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,
+                'method'   => 'onPreValidationOptionSet',
+                'priority' => 9500
+        ));
 
         $this->_registerHttpListeners($containerBuilder);
     }
