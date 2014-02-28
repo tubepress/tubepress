@@ -1,0 +1,127 @@
+/*!
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+
+/**
+ **********************************************************************************************
+ **** VIDEO THUMBNAILS - GENERAL
+ **********************************************************************************************
+ */
+
+.tubepress_thumb {
+
+    /** This lets the thumbnails "flow" naturally across the page. */
+    display: inline-block;
+
+    /** Ensure everything inside aligns with the top edge. */
+    vertical-align: top;
+}
+
+.tubepress_thumb a {
+
+    /** Make sure we have a pointer, even if no href. */
+    cursor: pointer;
+}
+
+/**
+ * These selectors apply to the main thumbnail image, which is wrapped in an anchor.
+ */
+.tubepress_thumb > a,
+.tubepress_thumb img {
+
+    /** Ensure that this is a block-level element. */
+    display: block;
+
+    /** This centers the thumbnail image inside the div.tubepress_thumb */
+    margin: 0 auto !important;
+}
+
+
+/**
+ **********************************************************************************************
+ **** VIDEO THUMBNAILS - METADATA
+ **********************************************************************************************
+ */
+
+/**
+ * dl refers to the overall group of metadata
+ */
+dl.tubepress_meta_group {
+
+    /** This centers the thumbnail image inside the div.tubepress_thumb */
+    margin: 0 auto ! important;
+    font-size: 11px;
+}
+
+/**
+ * dt refers to the label for a piece of metadata (e.g. "Author" or "Date uploaded")
+ */
+dt.tubepress_meta {
+
+    /** Let the labels "flow" to the left */
+    display: inline;
+}
+
+dt.tubepress_meta:after {
+
+    /** Inserts a colon between the label and value. */
+    content: ": ";
+}
+
+dt.tubepress_meta_title,
+dt.tubepress_meta_runtime,
+dt.tubepress_meta_url,
+dt.tubepress_meta_description {
+
+    /** Hide these labels completely! */
+    display: none;
+}
+
+/**
+ * dd refers to the value for a piece of metadata (e.g. "1:33" or "billyjeanking")
+ */
+dd.tubepress_meta {
+
+    margin-bottom: auto ! important;
+    display: inline;
+}
+
+dd.tubepress_meta:after {
+
+    /** Neat trick to force a line break: https://stackoverflow.com/questions/4609279/css-to-line-break-before-after-a-particular-inline-block-item */
+    content: "\A";
+    white-space: pre;
+}
+
+dd.tubepress_meta_title {
+
+    font-size: 13px;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** EMBEDDED VIDEO PLAYER
+ **********************************************************************************************
+ */
+
+.tubepress_normal_embedded_wrapper {
+
+    text-align: left;
+    margin: auto;
+}
+
+.tubepress_embedded_title {
+
+    font-weight: 700;
+    font-size: larger;
+    margin-bottom: .3em;
+}

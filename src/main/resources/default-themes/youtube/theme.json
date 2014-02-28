@@ -1,7 +1,7 @@
 {
-    "name" : "tubepress/legacy-default",
+    "name" : "tubepress/youtube",
     "version": "1.0.0",
-    "title" : "TubePress Default (legacy)",
+    "title" : "TubePress YouTube Theme",
     "author" : {
         "name" : "TubePress LLC",
         "url" : "http://tubepress.com"
@@ -12,9 +12,9 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "TubePress default theme (legacy)",
+    "description": "TubePress YouTube theme.",
     "resources" : {
-        "styles" : [ "css/tubepress.css" ]
+        "styles" : [ "css/youtube.css" ]
     },
     "parent" : "tubepress/default"
 }
