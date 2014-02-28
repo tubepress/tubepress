@@ -137,7 +137,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('some/theme');
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_TemplateInterface');
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('/some/otherpath/what/up.tpl.php')->andReturn($mockTemplate);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with($this->_mockThemeDirectory . '/what/up.tpl.php')->andReturn($mockTemplate);
 
         $template = $this->_sut->getTemplateInstance('what/up.tpl.php', $this->_mockThemeDirectory);
 
