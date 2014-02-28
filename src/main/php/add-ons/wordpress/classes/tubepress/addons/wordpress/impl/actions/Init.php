@@ -30,15 +30,12 @@ class tubepress_addons_wordpress_impl_actions_Init
         $baseName = basename(TUBEPRESS_ROOT);
 
         $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/js/tubepress.js", $baseName);
-        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/css/tubepress.css", $baseName);
 
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
-        $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);
 
         $wordPressFunctionWrapper->wp_enqueue_script('jquery', false, array(), false, false);
         $wordPressFunctionWrapper->wp_enqueue_script('tubepress', false, array(), false, false);
 
-        $wordPressFunctionWrapper->wp_enqueue_style('tubepress');
 
         $this->_enqueueThemeResources($wordPressFunctionWrapper);
     }
@@ -53,7 +50,7 @@ class tubepress_addons_wordpress_impl_actions_Init
 
         for ($x = 0; $x < $styleCount; $x++) {
 
-            $handle = 'tubepress-theme-css-' . $x;
+            $handle = 'tubepress-theme-' . $x;
 
             $wpFunctions->wp_register_style($handle, $styles[$x]);
             $wpFunctions->wp_enqueue_style($handle);
@@ -61,7 +58,7 @@ class tubepress_addons_wordpress_impl_actions_Init
 
         for ($x = 0; $x < $scriptCount; $x++) {
 
-            $handle = 'tubepress-theme-js-' . $x;
+            $handle = 'tubepress-theme-' . $x;
 
             $wpFunctions->wp_register_script($handle, $scripts[$x]);
             $wpFunctions->wp_enqueue_script($handle, false, array(), false, false);

@@ -130,6 +130,11 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
         $parent = $this->_getParentThemeName($themeName);
 
+        if ($parent === null) {
+
+            return $toReturn;
+        }
+
         return array_merge($this->_recursivelyGetResourceUrlsForTheme($parent, $key), $toReturn);
     }
 
@@ -158,10 +163,10 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     }
 
     /**
-    * Returns the name of the current TubePress theme in use.
-    *
-    * @return string The current theme name, or 'tubepress/default' if the default theme is in use.
-    */
+     * Returns the name of the current TubePress theme in use.
+     *
+     * @return string The current theme name, or 'tubepress/default' if the default theme is in use.
+     */
     private function _calculateCurrentThemeName()
     {
         $executionContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
@@ -216,6 +221,11 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
              * Next try the parent.
              */
             $parent = $this->_getParentThemeName($currentTheme);
+
+            if ($parent === null) {
+
+                break;
+            }
 
             if ($this->_shouldLog()) {
 
@@ -290,6 +300,6 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
         }
 
-        return self::$_DEFAULT_THEME_NAME;
+        return null;
     }
 }
