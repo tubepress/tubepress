@@ -290,13 +290,13 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
     {
         $default = true;
 
-        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_CLASSLOADER,
+        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_CACHE,
             self::$_3RD_LEVEL_KEY_CACHE_ENABLED)) {
 
             return $default;
         }
 
-        $enabled = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CLASSLOADER]
+        $enabled = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE]
             [self::$_3RD_LEVEL_KEY_CACHE_ENABLED];
 
         if (!is_bool($enabled)) {
