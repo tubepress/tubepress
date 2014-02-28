@@ -48,6 +48,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     {
         $provider = $this->_findProviderOfOption($optionName);
 
+        if ($provider === null) {
+
+            return array();
+        }
+
         return $provider->getDiscreteAcceptableValues($optionName);
     }
 
@@ -59,6 +64,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     public function getDefaultValue($optionName)
     {
         $provider = $this->_findProviderOfOption($optionName);
+
+        if ($provider === null) {
+
+            return null;
+        }
 
         return $provider->getDefaultValue($optionName);
     }
@@ -72,6 +82,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     {
         $provider = $this->_findProviderOfOption($optionName);
 
+        if ($provider === null) {
+
+            return '';
+        }
+
         return $provider->getDescription($optionName);
     }
 
@@ -83,6 +98,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     public function getLabel($optionName)
     {
         $provider = $this->_findProviderOfOption($optionName);
+
+        if ($provider === null) {
+
+            return '';
+        }
 
         return $provider->getLabel($optionName);
     }
@@ -98,6 +118,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     public function getProblemMessage($optionName, $candidate)
     {
         $provider = $this->_findProviderOfOption($optionName);
+
+        if ($provider === null) {
+
+            return sprintf('No option provider is aware of option named "%s"', $optionName);
+        }
 
         return $provider->getProblemMessage($optionName, $candidate);
     }
@@ -121,6 +146,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     {
         $provider = $this->_findProviderOfOption($optionName);
 
+        if ($provider === null) {
+
+            return false;
+        }
+
         return $provider->isAbleToBeSetViaShortcode($optionName);
     }
 
@@ -132,6 +162,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     public function isBoolean($optionName)
     {
         $provider = $this->_findProviderOfOption($optionName);
+
+        if ($provider === null) {
+
+            return false;
+        }
 
         return $provider->isBoolean($optionName);
     }
@@ -145,6 +180,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     {
         $provider = $this->_findProviderOfOption($optionName);
 
+        if ($provider === null) {
+
+            return false;
+        }
+
         return $provider->isMeantToBePersisted($optionName);
     }
 
@@ -156,6 +196,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     public function isProOnly($optionName)
     {
         $provider = $this->_findProviderOfOption($optionName);
+
+        if ($provider === null) {
+
+            return false;
+        }
 
         return $provider->isProOnly($optionName);
     }
@@ -171,6 +216,11 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     public function isValid($optionName, $candidate)
     {
         $provider = $this->_findProviderOfOption($optionName);
+
+        if ($provider === null) {
+
+            return false;
+        }
 
         return $provider->isValid($optionName, $candidate);
     }
@@ -214,7 +264,7 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
 
         if (!isset($this->_cacheOptionNameToProvider[$optionName])) {
 
-            throw new RuntimeException("No option provider is aware of $optionName");
+            return null;
         }
 
         return $this->_cacheOptionNameToProvider[$optionName];
