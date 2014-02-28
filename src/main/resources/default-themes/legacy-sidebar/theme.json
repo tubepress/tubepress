@@ -12,5 +12,6 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "Legacy sidebar theme."
+    "description": "Legacy sidebar theme.",
+    "parent" : "tubepress/legacy-default"
 }

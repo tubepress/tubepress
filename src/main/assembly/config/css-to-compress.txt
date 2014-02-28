@@ -1,0 +1,3 @@
+src/main/resources/default-themes/default/css/tubepress.css
+src/main/resources/default-themes/legacy-default/css/tubepress.css
+src/main/resources/default-themes/youtube/css/youtube.css
