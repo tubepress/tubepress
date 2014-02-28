@@ -107,6 +107,8 @@ dd.tubepress_meta_title {
 
 
 
+
+
 /**
  **********************************************************************************************
  **** EMBEDDED VIDEO PLAYER
@@ -124,4 +126,18 @@ dd.tubepress_meta_title {
     font-weight: 700;
     font-size: larger;
     margin-bottom: .3em;
+}
+
+
+
+
+
+/**
+ **********************************************************************************************
+ **** SINGLE VIDEO EMBEDS
+ **********************************************************************************************
+ */
+div.tubepress_single_video dl.tubepress_meta_group {
+
+    margin-left: 0 !important;
 }
