@@ -121,7 +121,7 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
 
                 if ($this->shouldLog()) {
 
-                    $this->_logger->debug(sprintf('%s does not have all the required attributes', $absPath));
+                    $this->_logger->warning(sprintf('%s does not have all the required attributes', $absPath));
                 }
             }
         }
@@ -276,7 +276,14 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
 
         if ($this->shouldLog()) {
 
-            $this->_logger->debug(sprintf('Decoded manifest at %s? %s', $manifestFilePath, $manifestParsed ? 'yes' : 'no'));
+            if ($manifestParsed) {
+
+                $this->_logger->debug(sprintf('Decoded manifest at %s? %s', $manifestFilePath, $manifestParsed ? 'yes' : 'no'));
+
+            } else {
+
+                $this->_logger->warning(sprintf('Decoded manifest at %s? %s', $manifestFilePath, $manifestParsed ? 'yes' : 'no'));
+            }
         }
 
         if ($manifestParsed) {
@@ -339,7 +346,7 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
 
                 if ($this->shouldLog()) {
 
-                    $this->_logger->debug(sprintf('Manifest is missing %s attribute', $requiredAttributeName));
+                    $this->_logger->warning(sprintf('Manifest is missing %s attribute', $requiredAttributeName));
                 }
 
                 return false;
