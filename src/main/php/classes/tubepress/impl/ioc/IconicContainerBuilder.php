@@ -13,7 +13,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_ContainerBuilderInterface, tubepress_api_ioc_CompilerPassInterface
+class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_ContainerBuilderInterface, tubepress_api_ioc_CompilerPassInterface, tubepress_api_ioc_ContainerInterface
 {
     /**
      * @var ehough_iconic_ContainerBuilder

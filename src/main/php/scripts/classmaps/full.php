@@ -295,6 +295,7 @@ return array(
     'tubepress_api_ioc_CompilerPassInterface'                      => $apiPrefix . '/ioc/CompilerPassInterface.php',
     'tubepress_api_ioc_ContainerBuilderInterface'                  => $apiPrefix . '/ioc/ContainerBuilderInterface.php',
     'tubepress_api_ioc_ContainerExtensionInterface'                => $apiPrefix . '/ioc/ContainerExtensionInterface.php',
+    'tubepress_api_ioc_ContainerInterface'                         => $apiPrefix . '/ioc/ContainerInterface.php',
     'tubepress_api_ioc_DefinitionInterface'                        => $apiPrefix . '/ioc/DefinitionInterface.php',
     'tubepress_api_video_Video'                                    => $apiPrefix . '/video/Video.php',
     'tubepress_api_video_VideoGalleryPage'                         => $apiPrefix . '/video/VideoGalleryPage.php',
@@ -362,6 +363,7 @@ return array(
     'tubepress_impl_util_LangUtils'                                          => $implPrefix . '/util/LangUtils.php',
     'tubepress_impl_util_StringUtils'                                        => $implPrefix . '/util/StringUtils.php',
     'tubepress_impl_util_TimeUtils'                                          => $implPrefix . '/util/TimeUtils.php',
+    'tubepress_impl_util_UrlUtils'                                           => $implPrefix . '/util/UrlUtils.php',
 
     'tubepress_spi_addon_Addon'                                         => $spiPrefix . '/addon/Addon.php',
     'tubepress_spi_addon_Contributable'                                 => $spiPrefix . '/addon/Contributable.php',
