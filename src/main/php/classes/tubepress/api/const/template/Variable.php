@@ -102,6 +102,42 @@ class tubepress_api_const_template_Variable
 
     /**
      * @api
+     * @since 4.0.0
+     */
+    const PAGINATION_CURRENT_PAGE   = 'paginationCurrentPage';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PAGINATION_TOTAL_ITEMS   = 'paginationTotalItems';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PAGINATION_RESULTS_PER_PAGE = 'paginationResultsPerPage';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PAGINATION_TEXT_NEXT = 'paginationTextNext';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PAGINATION_TEXT_PREV = 'paginationTextPrev';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PAGINATION_HREF_FORMAT = 'paginationHrefFormat';
+
+    /**
+     * @api
      * @since 3.1.0
      */
     const PLAYER_HTML              = 'preGallery';

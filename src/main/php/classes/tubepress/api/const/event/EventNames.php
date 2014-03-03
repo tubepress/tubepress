@@ -327,6 +327,16 @@ class tubepress_api_const_event_EventNames
     const TEMPLATE_EMBEDDED = 'tubepress.core.template.embedded';
 
     /**
+     * This event is fired when TubePress builds the pagination HTML.
+     *
+     * @subject ehough_contemplate_api_Template The template for the pagination.
+     *
+     * @api
+     * @since 3.2.0
+     */
+    const TEMPLATE_PAGINATION = 'tubepress.core.template.pagination';
+
+    /**
      * This event is fired when a TubePress builds the PHP/HTML template for a TubePress
      * "player".
      *

@@ -49,6 +49,11 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
      */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockThemeHandler;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination();
@@ -57,6 +62,8 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockQueryStringService          = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
         $messageService                         = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockThemeHandler                = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)->andReturn(true);
@@ -74,15 +81,54 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
         });
-
-        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
     }
 
-    public function testNoAjaxHighPage()
+    public function testModern()
     {
+        $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->twice()->with('pagination.tpl.php', '')->andReturn($mockTemplate);
+        $expectedTemplateVars = array(
 
-        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.com?tubepress_page=24" data-page="24">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=24" data-page="24">24</a><span class="current">25</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=26" data-page="26">26</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.com?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=26" data-page="26">##next## &raquo;</a></div>
-';
+            tubepress_api_const_template_Variable::PAGINATION_CURRENT_PAGE     => 25,
+            tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS      => 500,
+            tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT      => '/?tubepress_page=%d',
+            tubepress_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE => 4,
+            tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT        => '##next##',
+            tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV        => '##prev##',
+        );
+
+        foreach ($expectedTemplateVars as $name => $val) {
+
+            $mockTemplate->shouldReceive('setVariable')->once()->with($name, $val);
+        }
+        $mockTemplate->shouldReceive('toString')->once()->andReturn('foo');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {
+
+            return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === $mockTemplate;
+        }));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) {
+
+            $good = $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() === 'foo';
+
+            if (!$good) {
+
+                $this->fail('Expected foo but got ' . $arg->getSubject());
+            }
+
+            $arg->setSubject('pagination-html');
+
+            return $good;
+        }));
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(25);
+
+        $this->_test();
+    }
+
+    public function testLegacyHighPage()
+    {
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('pagination.tpl.php', '')->andThrow(new InvalidArgumentException());
+        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/core/pagination/legacy-high.html');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
@@ -102,10 +148,10 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $this->_test();
     }
 
-    public function testNoAjaxMiddlePage()
+    public function testLegacyMiddlePage()
     {
-        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.com?tubepress_page=11" data-page="11">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=1" data-page="1">1</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=11" data-page="11">11</a><span class="current">12</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=13" data-page="13">13</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=124" data-page="124">124</a> <a rel="nofollow" href="http://tubepress.com?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=13" data-page="13">##next## &raquo;</a></div>
-';
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('pagination.tpl.php', '')->andThrow(new InvalidArgumentException());
+        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/core/pagination/legacy-middle.html');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
@@ -125,10 +171,10 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $this->_test();
     }
 
-    public function testNoAjax()
+    public function testLegacy()
     {
-        $expectedHtml = '<div class="pagination"><span class="current">1</span><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">2</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=3" data-page="3">3</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=4" data-page="4">4</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=5" data-page="5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.com?tubepress_page=124" data-page="124">124</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=125" data-page="125">125</a><a rel="nofollow" href="http://tubepress.com?tubepress_page=2" data-page="2">##next## &raquo;</a></div>
-';
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('pagination.tpl.php', '')->andThrow(new InvalidArgumentException());
+        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/addons/core/pagination/legacy-low.html');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::HTML_PAGINATION, ehough_mockery_Mockery::on(function ($arg) use ($expectedHtml) {
 
@@ -153,8 +199,8 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $event = new tubepress_spi_event_EventBase($this->_mockTemplate);
         $event->setArguments(array(
 
-            'page' => 1,
-            'providerName' => 'provider-name',
+            'page'             => 1,
+            'providerName'     => 'provider-name',
             'videoGalleryPage' => $this->_providerResult
         ));
 
@@ -162,5 +208,4 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
 
         $this->assertEquals($this->_mockTemplate, $event->getSubject());
     }
-
 }
