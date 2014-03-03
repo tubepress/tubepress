@@ -33,7 +33,7 @@ class tubepress_impl_log_TubePressLoggingHandler extends ehough_epilog_handler_A
     {
         parent::__construct();
 
-        $this->setFormatter(new ehough_epilog_formatter_LineFormatter("[%datetime%] [%level_name%] %channel%: %message% <br />\n"));
+        $this->setFormatter(new ehough_epilog_formatter_LineFormatter("[%datetime%] [%level_name%] %channel%: %message%"));
         $this->setLevel(ehough_epilog_Logger::DEBUG);
     }
 
@@ -51,13 +51,16 @@ class tubepress_impl_log_TubePressLoggingHandler extends ehough_epilog_handler_A
             return;
         }
 
+        $color   = $record['level_name'] === 'DEBUG' ? 'inherit' : 'red';
+        $toPrint = "<span style=\"color: $color\">" . $record['formatted'] . "</span><br />\n";
+
         if ($this->_isAllowedToPrint) {
 
-            echo $record['formatted'];
+            echo $toPrint;
 
         } else {
 
-            array_push($this->_messageBuffer, $record['formatted']);
+            array_push($this->_messageBuffer, $toPrint);
         }
     }
 
