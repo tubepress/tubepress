@@ -55,7 +55,7 @@
  */
 dl.tubepress_meta_group {
 
-    /** This centers the thumbnail image inside the div.tubepress_thumb */
+    /** This centers the dl inside the div.tubepress_thumb */
     margin: 0 auto ! important;
     font-size: 11px;
 }
@@ -140,4 +140,81 @@ dd.tubepress_meta_title {
 div.tubepress_single_video dl.tubepress_meta_group {
 
     margin-left: 0 !important;
+}
+
+
+
+
+/**
+ **********************************************************************************************
+ **** PAGINATION
+ **********************************************************************************************
+ */
+
+/**
+ * This block copied nearly verbatim from
+ * http://cssdeck.com/labs/twitter-bootstrap-pagination-and-pager
+ */
+.tubepress_pagination {
+    height: 29px;
+    margin: 18px 0;
+    font-size: 13px;
+}
+.tubepress_pagination ul {
+    display: inline-block;
+    margin-left: 0;
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.tubepress_pagination li {
+    display: inline;
+    margin: 0 auto !important;
+}
+.tubepress_pagination a,
+.tubepress_pagination span {
+    float: left;
+    padding: 0 14px;
+    line-height: 27px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-left-width: 0;
+}
+.tubepress_pagination a:hover,
+.tubepress_pagination .active span {
+    background-color: #f5f5f5;
+}
+.tubepress_pagination .active span {
+    color: #999999;
+    cursor: default;
+}
+.tubepress_pagination .disabled span,
+.tubepress_pagination .disabled a,
+.tubepress_pagination .disabled a:hover {
+    color: #999999;
+    background-color: transparent;
+    cursor: default;
+}
+.tubepress_pagination li:first-child a,
+.tubepress_pagination li:first-child span {
+    border-left-width: 1px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+.tubepress_pagination li:last-child a,
+.tubepress_pagination li:last-child span {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+.tubepress_pagination-centered {
+    text-align: center;
+}
+.tubepress_pagination-right {
+    text-align: right;
 }
