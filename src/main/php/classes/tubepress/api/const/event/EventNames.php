@@ -203,7 +203,7 @@ class tubepress_api_const_event_EventNames
      * @subject mixed The default value of an option.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_GET_DEFAULT_VALUE = 'tubepress.core.option.getDefaultValue';
 
@@ -213,7 +213,7 @@ class tubepress_api_const_event_EventNames
      * @subject string The untranslated (i.e. in English) option label.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_GET_LABEL = 'tubepress.core.option.getLabel';
 
@@ -223,7 +223,7 @@ class tubepress_api_const_event_EventNames
      * @subject string The untranslated (i.e. in English) option description.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_GET_DESCRIPTION = 'tubepress.core.option.getDescription';
 
@@ -236,7 +236,7 @@ class tubepress_api_const_event_EventNames
      *                tubepress_impl_util_LangUtils::isAssociativeArray() to check the type of array.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_GET_DISCRETE_ACCEPTABLE_VALUES = 'tubepress.core.option.getDiscreteAcceptableValues';
 
@@ -249,7 +249,7 @@ class tubepress_api_const_event_EventNames
      * @arg string 'optionName' The name of the option being set.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_SINGLE_PRE_VALIDATION_SET = 'tubepress.core.option.preValidationSet';
 
@@ -261,7 +261,7 @@ class tubepress_api_const_event_EventNames
      * @arg string 'optionName' The name of the option being set.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT = 'tubepress.core.option.readFromExternalInput';
 
@@ -274,7 +274,7 @@ class tubepress_api_const_event_EventNames
      * @arg string 'optionName' The name of the option being set.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_ANY_PRE_VALIDATION_SET = 'tubepress.core.option.any.preValidationSet';
 
@@ -286,7 +286,7 @@ class tubepress_api_const_event_EventNames
      * @arg string 'optionName' The name of the option being set.
      *
      * @api
-     * @since 4.0.0
+     * @since 3.2.0
      */
     const OPTION_ANY_READ_FROM_EXTERNAL_INPUT = 'tubepress.core.option.any.readFromExternalInput';
 
