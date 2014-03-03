@@ -115,7 +115,7 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
 
     public function testBootError()
     {
-        $this->expectOutputRegex('~^\[201[4-9]-[0-1][0-9]-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[ERROR\] TubePress Bootstrapper: Caught exception while booting: whoa nelly <br />$~');
+        $this->expectOutputRegex('~^<span style="color: red">\[201[4-9]-[0-1][0-9]-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\] \[ERROR\] TubePress Bootstrapper: Caught exception while booting: whoa nelly</span><br />\R$~');
 
         $this->setExpectedException('RuntimeException', 'whoa nelly');
 
