@@ -65,12 +65,12 @@ class tubepress_test_impl_boot_secondary_DefaultAddonDiscovererTest extends tube
 
         $this->_mockSystemFinder->shouldReceive('followLinks')->andReturn($this->_mockSystemFinder);
         $this->_mockSystemFinder->shouldReceive('files')->andReturn($this->_mockSystemFinder);
-        $this->_mockSystemFinder->shouldReceive('name')->with('manifest.json')->andReturn($this->_mockSystemFinder);
+        $this->_mockSystemFinder->shouldReceive('name')->with('*.json')->andReturn($this->_mockSystemFinder);
         $this->_mockSystemFinder->shouldReceive('depth')->once()->with('< 2')->andReturn(array());
         $this->_mockUserFinder->shouldReceive('followLinks')->andReturn($this->_mockUserFinder);
 
         $this->_mockUserFinder->shouldReceive('files')->andReturn($this->_mockUserFinder);
-        $this->_mockUserFinder->shouldReceive('name')->with('manifest.json')->andReturn($this->_mockUserFinder);
+        $this->_mockUserFinder->shouldReceive('name')->with('*.json')->andReturn($this->_mockUserFinder);
         $this->_mockUserFinder->shouldReceive('depth')->once()->with('< 2')->andReturnUsing(array($this, '_callback'));
     }
 

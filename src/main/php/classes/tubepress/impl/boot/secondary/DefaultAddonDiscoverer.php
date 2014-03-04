@@ -192,6 +192,6 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer extends tubepress_imp
 
     protected function getManifestName()
     {
-        return 'manifest.json';
+        return '*.json';
     }
 }
