@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension<extended>
+ */
 class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
 {
 
@@ -161,7 +165,17 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
         foreach ($map as $filter => $class) {
 
-            $this->expectRegistration("wordpress.action.$filter", "tubepress_addons_wordpress_impl_actions_$class");
+            $this->expectRegistration(
+
+                "wordpress.action.$filter.$class",
+                "tubepress_addons_wordpress_impl_actions_$class"
+
+            )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+
+                    'event'    => "tubepress.wordpress.action.$filter",
+                    'method'   => "action",
+                    'priority' => 10000
+                ));
         }
     }
 
@@ -176,7 +190,17 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
         foreach ($map as $filter => $class) {
 
-            $this->expectRegistration("wordpress.filter.$filter", "tubepress_addons_wordpress_impl_filters_$class");
+            $this->expectRegistration(
+
+                "wordpress.filter.$filter.$class",
+                "tubepress_addons_wordpress_impl_filters_$class"
+
+            )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.filter.$filter",
+                'method'   => 'filter',
+                'priority' => 10000
+            ));
         }
     }
 }

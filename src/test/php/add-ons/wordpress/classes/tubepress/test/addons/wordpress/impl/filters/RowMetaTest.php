@@ -36,20 +36,20 @@ class tubepress_test_addons_wordpress_impl_filters_RowMetaTest extends tubepress
         $this->_mockWordPressFunctionWrapper->shouldReceive('plugin_basename')->once()->with('tubepress/tubepress.php')->andReturn('something');
         $this->_mockWordPressFunctionWrapper->shouldReceive('__')->once()->with('Settings', 'tubepress')->andReturn('orange');
 
-        $args = array(
-
-            array('x', 1, 'three'),
-            'something'
-        );
-        $result = $this->_sut->filter($args);
-
-        $this->assertEquals(array(
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('x', 1, 'three'));
+        $mockEvent->shouldReceive('getArgument')->once()->with('args')->andReturn(array('something'));
+        $mockEvent->shouldReceive('setSubject')->once()->with(array(
 
             'x', 1, 'three',
             '<a href="options-general.php?page=tubepress.php">orange</a>',
             '<a href="http://docs.tubepress.com/">Documentation</a>',
             '<a href="http://community.tubepress.com/">Support</a>',
 
-        ), $result);
+        ));
+
+        $this->_sut->filter($mockEvent);
+
+        $this->assertTrue(true);
     }
 }

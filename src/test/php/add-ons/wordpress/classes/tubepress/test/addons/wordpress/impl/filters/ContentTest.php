@@ -74,7 +74,13 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
         $this->_mockExecutionContext->shouldReceive('getActualShortcodeUsed')->times(4)->andReturn('<current shortcode>');
         $this->_mockExecutionContext->shouldReceive('reset')->twice();
 
-        $this->assertEquals('html for shortcode', $this->_sut->filter(array('the content')));
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn('the content');
+        $mockEvent->shouldReceive('setSubject')->once()->with('html for shortcode');
+
+        $this->_sut->filter($mockEvent);
+
+        $this->assertTrue(true);
     }
 
     public function testErrorCondition()
@@ -97,6 +103,12 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
                 && $event->getSubject() instanceof Exception;
         }));
 
-        $this->assertEquals('something bad happened', $this->_sut->filter(array('the content')));
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn('the content');
+        $mockEvent->shouldReceive('setSubject')->once()->with('something bad happened');
+
+        $this->_sut->filter($mockEvent);
+
+        $this->assertTrue(true);
     }
 }

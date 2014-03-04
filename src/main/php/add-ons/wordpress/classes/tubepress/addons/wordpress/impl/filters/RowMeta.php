@@ -14,10 +14,11 @@ class tubepress_addons_wordpress_impl_filters_RowMeta
     /**
      * Filter the content (which may be empty).
      */
-    public final function filter(array $args)
+    public final function filter(tubepress_api_event_EventInterface $event)
     {
-        $links = $args[0];
-        $file  = $args[1];
+        $links = $event->getSubject();
+        $args  = $event->getArgument('args');
+        $file  = $args[0];
 
         $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
@@ -28,11 +29,13 @@ class tubepress_addons_wordpress_impl_filters_RowMeta
             return $links;
         }
 
-        return array_merge($links, array(
+        $toReturn = array_merge($links, array(
 
             sprintf('<a href="options-general.php?page=tubepress.php">%s</a>', $wordPressFunctionWrapper->__('Settings', 'tubepress')),
             sprintf('<a href="http://docs.tubepress.com/">Documentation</a>'),
             sprintf('<a href="http://community.tubepress.com/">Support</a>'),
         ));
+
+        $event->setSubject($toReturn);
     }
 }

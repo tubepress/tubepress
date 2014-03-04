@@ -64,8 +64,8 @@ class tubepress_test_addons_wordpress_impl_actions_InitTest extends tubepress_te
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress', false, array(), false, false);
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery', false, array(), false, false);
 
-        $this->_sut->execute(array());
-
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
         $this->assertTrue(true);
     }
 }

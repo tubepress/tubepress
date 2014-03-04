@@ -80,7 +80,9 @@ class tubepress_test_addons_wordpress_impl_actions_AdminEnqueueScriptsTest exten
             $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with($id, false, array(), false, false);
         }
 
-        $this->_sut->execute(array('settings_page_tubepress'));
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('settings_page_tubepress'));
+        $this->_sut->action($mockEvent);
 
         $this->assertTrue(true);
     }

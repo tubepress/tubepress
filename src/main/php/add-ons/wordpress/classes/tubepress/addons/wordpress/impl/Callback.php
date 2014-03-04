@@ -20,32 +20,37 @@ class tubepress_addons_wordpress_impl_Callback
     {
         self::_setBaseUrl();
 
-        $service = self::_fetchService("filter.$filterName");
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $subject         = $args[0];
+        $args            = count($args) > 1 ? array_slice($args, 1) : array();
+        $event           = new tubepress_spi_event_EventBase(
 
-        return $service->filter($args);
+            $subject,
+            array('args' => $args)
+        );
+
+        $eventDispatcher->dispatch("tubepress.wordpress.filter.$filterName", $event);
+
+        return $event->getSubject();
     }
 
     public static function onAction($actionName, array $args)
     {
         self::_setBaseUrl();
 
-        $service = self::_fetchService("action.$actionName");
+        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+        $event           = new tubepress_spi_event_EventBase($args);
 
-        $service->execute($args);
+        $eventDispatcher->dispatch("tubepress.wordpress.action.$actionName", $event);
     }
 
     public static function onPluginActivation()
     {
         self::_setBaseUrl();
 
-        $service = self::_fetchService("pluginActivator");
+        $service = tubepress_impl_patterns_sl_ServiceLocator::getService('wordpress.pluginActivator');
 
         $service->execute();
-    }
-
-    private static function _fetchService($serviceId)
-    {
-        return tubepress_impl_patterns_sl_ServiceLocator::getService("wordpress.$serviceId");
     }
 
     private static function _setBaseUrl()

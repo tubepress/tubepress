@@ -14,8 +14,9 @@ class tubepress_addons_wordpress_impl_actions_AdminEnqueueScripts
     /**
      * Filter the content (which may be empty).
      */
-    public final function execute(array $args)
+    public final function action(tubepress_api_event_EventInterface $eventInterface)
     {
+        $args = $eventInterface->getSubject();
         $hook = $args[0];
 
         /* only run on TubePress settings page */

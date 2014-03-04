@@ -14,7 +14,7 @@ class tubepress_addons_wordpress_impl_actions_Init
     /**
      * Filter the content (which may be empty).
      */
-    public final function execute(array $args)
+    public final function action(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $wordPressFunctionWrapper tubepress_addons_wordpress_spi_WpFunctionsInterface

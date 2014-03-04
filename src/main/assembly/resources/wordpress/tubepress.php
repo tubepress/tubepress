@@ -57,19 +57,28 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
 
         add_filter('the_content', $filterCallback);
         add_filter($this->_calculateMetaRowsFilterPoint(), $filterCallback, 10, 2);
+        add_filter('upgrader_pre_install', $filterCallback, 10, 2);
     }
 
     private function _addActions()
     {
-        $actionCallback = array($this, '__handlerAction');
+        $actionCallback     = array($this, '__handlerAction');
+        $interestingActions = array(
 
-        add_action('init',        			$actionCallback);
-        add_action('admin_menu',            $actionCallback);
-        add_action('admin_notices',         $actionCallback);
-        add_action('admin_enqueue_scripts', $actionCallback);
-        add_action('admin_head',            $actionCallback);
-        add_action('widgets_init', 			$actionCallback);
-        add_action('wp_head',     			$actionCallback);
+            'admin_enqueue_scripts',
+            'admin_head',
+            'admin_menu',
+            'admin_notices',
+            'init',
+            'in_plugin_update_message-' . $this->_baseName . '/tubepress.php',
+            'widgets_init',
+            'wp_head',
+        );
+
+        foreach ($interestingActions as $interestingAction) {
+
+            add_action($interestingAction, $actionCallback);
+        }
     }
 
     private function _addActivationHooks()

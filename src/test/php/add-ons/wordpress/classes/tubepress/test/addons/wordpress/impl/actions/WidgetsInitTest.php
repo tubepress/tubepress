@@ -48,8 +48,8 @@ class tubepress_test_addons_wordpress_impl_actions_WidgetInitTest extends tubepr
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_sidebar_widget')->once()->with('tubepress', 'TubePress', array($this->_sut, 'printWidgetHtml'), $widgetOps);
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_widget_control')->once()->with('tubepress', 'TubePress', array($this->_sut, 'printControlHtml'));
 
-        $this->_sut->execute(array());
-
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
         $this->assertTrue(true);
     }
 
