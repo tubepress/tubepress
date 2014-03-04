@@ -26,7 +26,7 @@ class tubepress_addons_wordpress_impl_filters_Content
         /* no shortcode? get out */
         if (!$parser->somethingToParse($content, $trigger)) {
 
-            return $content;
+            return;
         }
 
         $event->setSubject($this->_getHtml($content, $trigger, $parser));
