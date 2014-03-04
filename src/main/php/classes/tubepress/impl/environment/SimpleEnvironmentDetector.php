@@ -191,6 +191,8 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
             $url = new ehough_curly_Url($url);
         }
 
-        return rtrim($url->toString(), '/');
+        $result = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
+
+        return rtrim($result, '/');
     }
 }

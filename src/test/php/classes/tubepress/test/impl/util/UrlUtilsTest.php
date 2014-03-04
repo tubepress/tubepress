@@ -31,5 +31,14 @@ class tubepress_test_impl_util_UrlUtilsTest extends tubepress_test_TubePressUnit
         $this->assertTrue(is_string($result));
         $this->assertEquals('/', $result);
     }
+
+    public function testStripAuthorityAndScheme3()
+    {
+        $url    = new ehough_curly_Url('something://bla.bla:1234/one.php?hello=phrase');
+        $result = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
+
+        $this->assertTrue(is_string($result));
+        $this->assertEquals('/one.php?hello=phrase', $result);
+    }
 }
 

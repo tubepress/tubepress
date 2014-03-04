@@ -100,7 +100,7 @@ class tubepress_test_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTes
 
             'jsMap' => array(
 
-                'playerLocationJsUrl' => 'abc',
+                'playerLocationJsUrl' => '/abc',
                 'playerLocationProducesHtml' => true,
                 'ajaxPagination' => true,
                 'fluidThumbs' => false,
