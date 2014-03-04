@@ -26,42 +26,19 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
         return $addons[0];
     }
 
-    protected function validateClassMap($expectedClassMap, $actualClassMap)
-    {
-        $this->assertTrue(is_array($actualClassMap));
-
-        $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray($actualClassMap));
-
-        $this->assertTrue(count($expectedClassMap) === count($actualClassMap), 'Expected and actual class map sizes differ');
-
-        foreach ($actualClassMap as $className => $path) {
-
-            $this->assertTrue(is_readable($path) && is_file($path), "$path is not a readable file. Fix it!");
-
-            if (!class_exists($className) && !interface_exists($className)) {
-
-                require $path;
-
-                $this->assertTrue(class_exists($className) || interface_exists($className));
-            }
-        }
-
-        foreach ($expectedClassMap as $className => $abbreviatedPrefix) {
-
-            $this->assertTrue(isset($actualClassMap[$className]), "$className is missing from the classmap");
-
-            $this->assertTrue(tubepress_impl_util_StringUtils::endsWith($actualClassMap[$className], $abbreviatedPrefix),
-                $actualClassMap[$className] . ' does not end with ' . $abbreviatedPrefix);
-        }
-    }
-
     public function testClassMapIntegrity()
     {
         $map      = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(dirname($this->getPathToManifest()));
         $missing  = array();
         $manifest = $this->_decodeManifest();
+        $toIgnore = $this->getClassNamesToIgnore();
 
         foreach ($map as $className => $path) {
+
+            if (in_array($className, $toIgnore)) {
+
+                continue;
+            }
 
             if (!array_key_exists($className, $manifest['autoload']['classmap'])) {
 
@@ -106,4 +83,10 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
     }
 
     protected abstract function getPathToManifest();
+
+    protected function getClassNamesToIgnore()
+    {
+        //override point
+        return array();
+    }
 }
