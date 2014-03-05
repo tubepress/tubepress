@@ -17,7 +17,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     private static $_ARRAY_KEY_TEMPLATES = 'templates';
     private static $_ARRAY_KEY_PARENT    = 'parent';
     private static $_ARRAY_KEY_TITLE     = 'title';
-    private static $_ARRAY_KEY_ABSPATH   = 'rootAbsPath';
+    private static $_ARRAY_KEY_ABSPATH   = 'manifestPath';
     private static $_ARRAY_KEY_STYLES    = 'styles';
     private static $_ARRAY_KEY_SCRIPTS   = 'scripts';
     private static $_ARRAY_KEY_IS_SYS    = 'isSystemTheme';
@@ -142,7 +142,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     {
         $toReturn            = array();
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $themeAbsPath        = $this->_themeMap[$themeName][self::$_ARRAY_KEY_ABSPATH];
+        $themeAbsPath        = dirname($this->_themeMap[$themeName][self::$_ARRAY_KEY_ABSPATH]);
         $themeBaseName       = basename($themeAbsPath);
 
         foreach ($this->_themeMap[$themeName][$key] as $relativeResourcePath) {
@@ -274,7 +274,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
     private function _toAbsPath($themeName, $relativeTemplatePath)
     {
-        $themeAbsPath = $this->_themeMap[$themeName][self::$_ARRAY_KEY_ABSPATH];
+        $themeAbsPath = dirname($this->_themeMap[$themeName][self::$_ARRAY_KEY_ABSPATH]);
         $themeAbsPath = rtrim($themeAbsPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
         return $themeAbsPath . $relativeTemplatePath;

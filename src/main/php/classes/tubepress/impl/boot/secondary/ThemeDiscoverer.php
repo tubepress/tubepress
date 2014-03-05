@@ -44,18 +44,18 @@ class tubepress_impl_boot_secondary_ThemeDiscoverer extends tubepress_impl_boot_
          */
         foreach ($allThemes as $theme) {
 
-            $absPath   = $theme->getRootFilesystemPath();
+            $manifest  = $theme->getAbsolutePathToManifest();
             $scripts   = $theme->getScripts();
             $styles    = $theme->getStyles();
             $title     = $theme->getTitle();
             $parent    = $theme->getParentThemeName();
-            $templates = $this->_findThemeTemplates($absPath);
-            $isSys     = $this->_isSystemTheme($absPath);
+            $templates = $this->_findThemeTemplates(dirname($manifest));
+            $isSys     = $this->_isSystemTheme(dirname($manifest));
 
             $toReturn[$theme->getName()] = array(
 
                 'title'         => $title,
-                'rootAbsPath'   => $absPath,
+                'manifestPath'  => $manifest,
                 'styles'        => $styles,
                 'scripts'       => $scripts,
                 'parent'        => $parent,
@@ -101,7 +101,7 @@ class tubepress_impl_boot_secondary_ThemeDiscoverer extends tubepress_impl_boot_
 
     protected function getAdditionalRequiredConstructorArgs(array $manifestContents, $absPath)
     {
-        return array(realpath(dirname($absPath)));
+        return array(realpath($absPath));
     }
 
     protected function getManifestName()
@@ -144,7 +144,7 @@ class tubepress_impl_boot_secondary_ThemeDiscoverer extends tubepress_impl_boot_
              */
             foreach ($modernThemes as $modernTheme) {
 
-                if (strpos($candidateLegacyThemeDir->getRealPath(), $modernTheme->getRootFilesystemPath()) !== false) {
+                if (strpos($candidateLegacyThemeDir->getRealPath(), dirname($modernTheme->getAbsolutePathToManifest())) !== false) {
 
                     $keepTheme = false;
                     break;
@@ -180,7 +180,7 @@ class tubepress_impl_boot_secondary_ThemeDiscoverer extends tubepress_impl_boot_
                 ucwords(basename($legacyThemeDirectory)) . ' (legacy)',
                 array('name' => 'unknown'),
                 array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')),
-                $legacyThemeDirectory
+                "$legacyThemeDirectory/theme.json"
             );
 
             $toReturn[] = $theme;
@@ -204,7 +204,7 @@ class tubepress_impl_boot_secondary_ThemeDiscoverer extends tubepress_impl_boot_
          */
         foreach ($finder as $file) {
 
-            $toReturn[] = str_replace($rootDirectory, '', $file->getRealPath());
+            $toReturn[] = ltrim(str_replace($rootDirectory, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
         }
 
         if ($this->shouldLog()) {

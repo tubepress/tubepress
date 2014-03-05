@@ -58,7 +58,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
                     'tip/cup.css',
                     'window/glass.css',
                 ),
-                'rootAbsPath' => '/some/otherpath/',
+                'manifestPath' => '/some/otherpath/theme.json',
                 'templates' => array(
                     'what/up.tpl.php',
                     'modern/buddy.tpl.php',
@@ -75,7 +75,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
                     'car/tire.css',
                     'bike/ride.css',
                 ),
-                'rootAbsPath' => '/some/neat/',
+                'manifestPath' => '/some/neat/theme.json',
                 'templates' => array(
                     'ac/dc.tpl.php',
                     'ab/ba.tpl.php',
@@ -92,7 +92,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
                     'one/one.css',
                     'two/two.css',
                 ),
-                'rootAbsPath' => '/some/path/',
+                'manifestPath' => '/some/path/theme.json',
                 'templates' => array(
                     'one/hello.tpl.php',
                     'two/goodbye.tpl.php',

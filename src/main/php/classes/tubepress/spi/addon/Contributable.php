@@ -15,26 +15,6 @@
 interface tubepress_spi_addon_Contributable
 {
     /**
-     * Required attributes.
-     */
-    const ATTRIBUTE_NAME     = 'name';
-    const ATTRIBUTE_VERSION  = 'version';
-    const ATTRIBUTE_TITLE    = 'title';
-    const ATTRIBUTE_AUTHOR   = 'author';
-    const ATTRIBUTE_LICENSES = 'licenses';
-
-    /**
-     * Optional attributes.
-     */
-    const ATTRIBUTE_DESCRIPTION       = 'description';
-    const ATTRIBUTE_KEYWORDS          = 'keywords';
-    const ATTRIBUTE_URL_HOMEPAGE      = 'homepage';
-    const ATTRIBUTE_URL_DOCUMENTATION = 'docs';
-    const ATTRIBUTE_URL_DEMO          = 'demo';
-    const ATTRIBUTE_URL_DOWNLOAD      = 'download';
-    const ATTRIBUTE_URL_BUGS          = 'bugs';
-
-    /**
      * @return string The globally unique name of this add-on. Must be 100 characters or less,
      *                all lowercase, and contain only URL-safe characters ([a-z0-9-_\.]+).
      */

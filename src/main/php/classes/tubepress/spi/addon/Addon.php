@@ -17,21 +17,6 @@ interface tubepress_spi_addon_Addon extends tubepress_spi_addon_Contributable
     const _ = 'tubepress_spi_addon_Addon';
 
     /**
-     * Optional attributes.
-     */
-    const ATTRIBUTE_CLASSPATH_ROOTS     = 'psr-0';
-    const ATTRIBUTE_CLASSMAP            = 'classmap';
-    const ATTRIBUTE_IOC_COMPILER_PASSES = 'compiler-passes';
-    const ATTRIBUTE_IOC_EXTENSIONS      = 'container-extensions';
-
-    /**
-     * Containers.
-     */
-    const CATEGORY_AUTOLOAD  = 'autoload';
-    const CATEGORY_IOC       = 'inversion-of-control';
-    const CATEGORY_URLS      = 'urls';
-
-    /**
      * @return array Optional. An array of IOC container extension class names. May be empty, never null.
      */
     function getIocContainerExtensions();

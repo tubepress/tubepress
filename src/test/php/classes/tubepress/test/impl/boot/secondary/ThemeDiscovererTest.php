@@ -88,7 +88,7 @@ class tubepress_test_impl_boot_secondary_ThemeDiscovererTest extends tubepress_t
 
         $mockTemplateFinder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $mockTemplateFinder->shouldReceive('files')->once()->andReturn($mockTemplateFinder);
-        $mockTemplateFinder->shouldReceive('in')->once()->with($this->_mockLegacyThemeDirectory . '/themes/hiya/')->andReturn($mockTemplateFinder);
+        $mockTemplateFinder->shouldReceive('in')->once()->with($this->_mockLegacyThemeDirectory . '/themes/hiya')->andReturn($mockTemplateFinder);
         $mockTemplateFinder->shouldReceive('name')->once()->with('*.tpl.php')->andReturn($mockTemplates);
 
 
@@ -128,12 +128,12 @@ class tubepress_test_impl_boot_secondary_ThemeDiscovererTest extends tubepress_t
         $expected = array(
 
             'unknown/legacy-hiya' => array(
-                'title'       => 'Hiya (legacy)',
-                'rootAbsPath' => $this->_mockLegacyThemeDirectory . '/themes/hiya/',
-                'styles'      => array(),
-                'scripts'     => array(),
-                'parent'      => null,
-                'templates'   => array(
+                'title'        => 'Hiya (legacy)',
+                'manifestPath' => $this->_mockLegacyThemeDirectory . '/themes/hiya/theme.json',
+                'styles'       => array(),
+                'scripts'      => array(),
+                'parent'       => null,
+                'templates'    => array(
                     'mock template path'
                 ),
                 'isSystemTheme' => false,

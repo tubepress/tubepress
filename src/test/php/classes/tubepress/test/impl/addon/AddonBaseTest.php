@@ -8,6 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_addon_AddonBase<extended>
+ */
 class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressUnitTest
 {
     public function testNormalConstruction1()

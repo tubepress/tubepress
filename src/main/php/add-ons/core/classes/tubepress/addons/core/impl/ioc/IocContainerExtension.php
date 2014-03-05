@@ -312,6 +312,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => 'Which videos?',  //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS        => 'Thumbnails',     //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER        => 'Player',         //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THEME         => 'Theme',          //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META          => 'Meta',           //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED          => 'Feed',           //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE         => 'Cache',          //>(translatable)<
@@ -432,7 +433,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS => array(
 
-                tubepress_api_const_options_names_Thumbs::THEME,
                 tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,
                 tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,
                 tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
@@ -456,6 +456,11 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
                 tubepress_api_const_options_names_Embedded::AUTOPLAY,
                 tubepress_api_const_options_names_Embedded::LOOP,
                 tubepress_api_const_options_names_Embedded::ENABLE_JS_API,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THEME => array(
+
+                tubepress_api_const_options_names_Thumbs::THEME,
             ),
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META => array(

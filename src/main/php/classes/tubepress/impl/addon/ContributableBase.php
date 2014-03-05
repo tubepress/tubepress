@@ -15,6 +15,28 @@
 class tubepress_impl_addon_ContributableBase implements tubepress_spi_addon_Contributable
 {
     /**
+     * Required attributes.
+     */
+    const ATTRIBUTE_NAME     = 'name';
+    const ATTRIBUTE_VERSION  = 'version';
+    const ATTRIBUTE_TITLE    = 'title';
+    const ATTRIBUTE_AUTHOR   = 'author';
+    const ATTRIBUTE_LICENSES = 'licenses';
+
+    /**
+     * Optional attributes.
+     */
+    const ATTRIBUTE_DESCRIPTION       = 'description';
+    const ATTRIBUTE_KEYWORDS          = 'keywords';
+    const ATTRIBUTE_URL_HOMEPAGE      = 'homepage';
+    const ATTRIBUTE_URL_DOCUMENTATION = 'docs';
+    const ATTRIBUTE_URL_DEMO          = 'demo';
+    const ATTRIBUTE_URL_DOWNLOAD      = 'download';
+    const ATTRIBUTE_URL_BUGS          = 'bugs';
+
+    const CATEGORY_URLS      = 'urls';
+
+    /**
      * @var string
      */
     private $_name;

@@ -64,8 +64,8 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer extends tubepress_imp
     {
         switch ($attributeName) {
 
-            case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS:
-            case tubepress_spi_addon_Addon::ATTRIBUTE_CLASSMAP:
+            case tubepress_impl_addon_AddonBase::ATTRIBUTE_CLASSPATH_ROOTS:
+            case tubepress_impl_addon_AddonBase::ATTRIBUTE_CLASSMAP:
 
                 return $this->_arrayValuesToAbsolutePaths($candidateValue, $manifestFileAbsPath);
 
@@ -114,15 +114,15 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer extends tubepress_imp
     {
         return array(
 
-            tubepress_spi_addon_Addon::CATEGORY_AUTOLOAD             => array(
+            tubepress_impl_addon_AddonBase::CATEGORY_AUTOLOAD             => array(
 
-                tubepress_spi_addon_Addon::ATTRIBUTE_CLASSPATH_ROOTS => 'Psr0ClassPathRoots',
-                tubepress_spi_addon_Addon::ATTRIBUTE_CLASSMAP        => 'ClassMap'
+                tubepress_impl_addon_AddonBase::ATTRIBUTE_CLASSPATH_ROOTS => 'Psr0ClassPathRoots',
+                tubepress_impl_addon_AddonBase::ATTRIBUTE_CLASSMAP        => 'ClassMap'
             ),
-            tubepress_spi_addon_Addon::CATEGORY_IOC                  => array(
+            tubepress_impl_addon_AddonBase::CATEGORY_IOC                  => array(
 
-                tubepress_spi_addon_Addon::ATTRIBUTE_IOC_COMPILER_PASSES => 'IocContainerCompilerPasses',
-                tubepress_spi_addon_Addon::ATTRIBUTE_IOC_EXTENSIONS      => 'IocContainerExtensions',
+                tubepress_impl_addon_AddonBase::ATTRIBUTE_IOC_COMPILER_PASSES => 'IocContainerCompilerPasses',
+                tubepress_impl_addon_AddonBase::ATTRIBUTE_IOC_EXTENSIONS      => 'IocContainerExtensions',
             )
         );
     }

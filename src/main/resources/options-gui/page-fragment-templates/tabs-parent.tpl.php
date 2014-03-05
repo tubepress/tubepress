@@ -44,7 +44,14 @@
 
                 foreach ($categories as $category) {
 
-                    require 'single-category.tpl.php';
+                    if ($category->getId() === 'theme-category') {
+
+                        require 'theme/category-theme.tpl.php';
+
+                    } else {
+
+                        require 'single-category.tpl.php';
+                    }
                 }
                 ?>
 

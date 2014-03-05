@@ -32,7 +32,7 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
     /**
      * @var string
      */
-    private $_rootFilesystemPath;
+    private $_manifestAbsPath;
 
     public function __construct(
 
@@ -41,16 +41,18 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
         $title,
         array $author,
         array $licenses,
-        $rootPath) {
+        $manifestPath) {
 
         parent::__construct($name, $version, $title, $author, $licenses);
 
-        if (!is_dir($rootPath)) {
+        if (is_file($manifestPath)) {
 
-            throw new InvalidArgumentException("$rootPath is not a valid theme directory");
+            $this->_manifestAbsPath = realpath($manifestPath);
+
+        } else {
+
+            $this->_manifestAbsPath = $manifestPath;
         }
-
-        $this->_rootFilesystemPath = rtrim(realpath($rootPath), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -80,11 +82,11 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
     }
 
     /**
-     * @return string The absolute path, with trailing slash, of this theme on the filesystem.
+     * @return string The absolute path of this theme's manifest on the filesystem.
      */
-    public function getRootFilesystemPath()
+    public function getAbsolutePathToManifest()
     {
-        return $this->_rootFilesystemPath;
+        return $this->_manifestAbsPath;
     }
 
     /**

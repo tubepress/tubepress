@@ -15,6 +15,20 @@
 class tubepress_impl_addon_AddonBase extends tubepress_impl_addon_ContributableBase implements tubepress_spi_addon_Addon
 {
     /**
+     * Optional attributes.
+     */
+    const ATTRIBUTE_CLASSPATH_ROOTS     = 'psr-0';
+    const ATTRIBUTE_CLASSMAP            = 'classmap';
+    const ATTRIBUTE_IOC_COMPILER_PASSES = 'compiler-passes';
+    const ATTRIBUTE_IOC_EXTENSIONS      = 'container-extensions';
+
+    /**
+     * Containers.
+     */
+    const CATEGORY_AUTOLOAD  = 'autoload';
+    const CATEGORY_IOC       = 'inversion-of-control';
+
+    /**
      * @var array
      */
     private $_psr0ClassPathRoots = array();
