@@ -59,22 +59,22 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
 
     private function _findSystemContributables($sysPath)
     {
-        $coreAddons = $this->_findContributablesInDirectory(TUBEPRESS_ROOT . $sysPath);
+        $coreContributables = $this->_findContributablesInDirectory(TUBEPRESS_ROOT . $sysPath);
 
-        $this->sortSystemContributables($coreAddons);
+        $this->sortSystemContributables($coreContributables);
 
-        return $coreAddons;
+        return $coreContributables;
     }
 
     private function _findUserContributables($userPath)
     {
-        $userContentDir = $this->getEnvironmentDetector()->getUserContentDirectory();
-        $userAddonsDir  = $userContentDir . $userPath;
-        $userAddons     = $this->_findContributablesInDirectory($userAddonsDir);
+        $userContentDir         = $this->getEnvironmentDetector()->getUserContentDirectory();
+        $userContributablesDir  = $userContentDir . $userPath;
+        $userContributables     = $this->_findContributablesInDirectory($userContributablesDir);
 
-        $this->sortUserContributables($userAddons);
+        $this->sortUserContributables($userContributables);
 
-        return $userAddons;
+        return $userContributables;
     }
 
     public function _findContributablesInDirectory($directory)
@@ -241,7 +241,7 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
         return $instance;
     }
 
-    private function _setOptionalAttributes(tubepress_spi_addon_Contributable $addon,
+    private function _setOptionalAttributes(tubepress_spi_addon_Contributable $contributable,
                                              array $manifestContentsAsArray, $manifestFileAbsPath)
     {
         $optionalAttributeMap = array(
@@ -255,11 +255,12 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
                 tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_DEMO          => 'DemoUrl',
                 tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_DOWNLOAD      => 'DownloadUrl',
                 tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_BUGS          => 'BugTrackerUrl',
-            )
+            ),
+            tubepress_impl_addon_ContributableBase::ATTRIBUTE_SCREENSHOTS => 'Screenshots',
         );
         $optionalAttributeMap = array_merge($optionalAttributeMap, $this->getOptionalAttributesMap());
 
-        $this->_setOptionalAttributesFromMap($addon, $manifestContentsAsArray, $manifestFileAbsPath, $optionalAttributeMap);
+        $this->_setOptionalAttributesFromMap($contributable, $manifestContentsAsArray, $manifestFileAbsPath, $optionalAttributeMap);
     }
 
     private function _tryToDecodeManifest(SplFileInfo $infoFile)
@@ -294,7 +295,7 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
         return null;
     }
 
-    private function _setOptionalAttributesFromMap(tubepress_spi_addon_Contributable $addon, array $manifestContentsAsArray,
+    private function _setOptionalAttributesFromMap(tubepress_spi_addon_Contributable $contributable, array $manifestContentsAsArray,
                                                    $manifestFileAbsPath, array $attributeNameToSetterNameMap)
     {
         foreach ($attributeNameToSetterNameMap as $optionalAttributeName => $setterSuffix) {
@@ -306,7 +307,7 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
 
                 if (isset($manifestContentsAsArray[$optionalAttributeName])) {
 
-                    $this->_setOptionalAttributesFromMap($addon, $manifestContentsAsArray[$optionalAttributeName], $manifestFileAbsPath, $setterSuffix);
+                    $this->_setOptionalAttributesFromMap($contributable, $manifestContentsAsArray[$optionalAttributeName], $manifestFileAbsPath, $setterSuffix);
                 }
 
                 continue;
@@ -322,7 +323,7 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
                     $manifestFileAbsPath,
                     $manifestContentsAsArray);
 
-                $addon->$method($value);
+                $contributable->$method($value);
             }
         }
     }
@@ -337,8 +338,6 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
             tubepress_impl_addon_ContributableBase::ATTRIBUTE_AUTHOR,
             tubepress_impl_addon_ContributableBase::ATTRIBUTE_LICENSES
         );
-
-        $requiredAttributeNames = array_merge($requiredAttributeNames, $this->getRequiredAttributesMap());
 
         foreach ($requiredAttributeNames as $requiredAttributeName) {
 
@@ -357,11 +356,6 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
     }
 
     /**
-     * @return array A map of required attributes.
-     */
-    protected abstract function getRequiredAttributesMap();
-
-    /**
      * @return array A map of optional attributes.
      */
     protected abstract function getOptionalAttributesMap();
@@ -377,20 +371,22 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
 
     protected abstract function getLogger();
 
-    protected function sortSystemContributables(array &$contributables)
+    protected function sortSystemContributables(/** @noinspection PhpUnusedParameterInspection */
+        array &$contributables)
     {
         //override point
         return;
     }
 
-    protected function sortUserContributables(array &$contributables)
+    protected function sortUserContributables(/** @noinspection PhpUnusedParameterInspection */
+        array &$contributables)
     {
         //override point
         return;
     }
 
-
-    protected function getCleanedAttributeValue($attributeName, $candidateValue, $manifestFileAbsPath, array $manifestContents)
+    protected function getCleanedAttributeValue(/** @noinspection PhpUnusedParameterInspection */
+        $attributeName, $candidateValue, $manifestFileAbsPath, array $manifestContents)
     {
         //override point
         return $candidateValue;

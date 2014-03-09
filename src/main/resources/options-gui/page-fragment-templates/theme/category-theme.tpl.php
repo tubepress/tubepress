@@ -14,7 +14,7 @@
 
     <div class="row">
 
-        <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5">
 
             <dl class="dl-horizontal text-muted">
 
@@ -40,24 +40,87 @@
                     }
 
                     $field = $fields[$fieldId]; ?>
-                    <dt style="color: black"><?php echo $field->getTranslatedDisplayName(); ?></dt>
-                    <dd><?php echo $field->getWidgetHTML(); ?></dd><?php
+
+                    <dt><?php echo $field->getTranslatedDisplayName(); ?></dt>
+                    <dd id="theme-field-dropdown"><?php echo $field->getWidgetHTML(); ?></dd><?php
                 }
             }
-            ?>
 
-                <dt></dt>
-                <dd style="color: black">A description list is perfect for defining terms.</dd>
-                <dt>Author</dt>
-                <dd><a href="http://tubepress.llc" target="_blank">TubePress LLC</a></dd>
-                <dt>License(s)</dt>
-                <dd><a href="http://www.mozilla.org/MPL/2.0/" target="_blank">MPL-2.0</a></dd>
-                <dt>Felis euismod semper eget lacinia</dt>
-                <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+            $termMap = array(
+
+                ''              => 'description',
+                'Author'        => 'author',
+                'License(s)'    => 'licenses',
+                'Version'       => 'version',
+                'Demo'          => 'demo',
+                'Keywords'      => 'keywords',
+                'Homepage'      => 'homepage',
+                'Documentation' => 'docs',
+                'Download'      => 'download',
+                'Bugs'          => 'bugs'
+            );
+
+            foreach ($termMap as $label => $id) :
+            ?>
+                <dt style="display: none"><?php echo $label; ?></dt>
+                <dd style="display: none" id="theme-field-<?php echo $id; ?>"></dd>
+            <?php endforeach; ?>
             </dl>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6">
-            <p class="bg-info text-muted" style="padding: 15px">No screenshots available.</p>
+
+        <div class="col-xs-12 col-sm-4 col-md-6 col-lg-7" id="theme-screenshots">
+            <p class="bg-info text-muted" style="padding: 15px; display: none">No screenshots available.</p>
+            <div class="row">
+            </div>
+        </div>
+
+    </div>
+
+    <?php if ($field instanceof tubepress_addons_core_impl_options_ui_fields_ThemeField) : ?>
+
+        <div id="theme-field-data" style="display: none">
+
+            <script style="text-javascript">
+
+                var TubePressThemes = <?php echo $field->getThemeDataAsJson(); ?>;
+            </script>
+
+        </div>
+
+    <?php endif; ?>
+</div>
+
+
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

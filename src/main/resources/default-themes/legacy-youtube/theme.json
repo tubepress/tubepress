@@ -12,6 +12,6 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "Legacy YouTube theme.",
+    "description": "The YouTube theme for TubePress 3.1.5 and below.",
     "parent" : "tubepress/legacy-default"
 }

@@ -12,7 +12,7 @@
 /**
  * Constructs an efficient classloader.
  */
-class tubepress_impl_boot_secondary_DefaultClassLoadingHelper implements tubepress_spi_boot_secondary_ClassLoaderSetupInterface
+class tubepress_impl_boot_secondary_ClassLoaderSetup implements tubepress_spi_boot_secondary_ClassLoaderSetupInterface
 {
     /**
      * @var ehough_epilog_Logger

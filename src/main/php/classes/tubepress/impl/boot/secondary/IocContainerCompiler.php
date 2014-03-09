@@ -12,7 +12,7 @@
 /**
  * Handles constructing/initializing the IOC container.
  */
-class tubepress_impl_boot_secondary_DefaultIocContainerBootHelper implements tubepress_spi_boot_secondary_IocCompilingInterface
+class tubepress_impl_boot_secondary_IocContainerCompiler implements tubepress_spi_boot_secondary_IocCompilingInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -26,7 +26,7 @@ class tubepress_impl_boot_secondary_DefaultIocContainerBootHelper implements tub
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default IOC Boot Helper');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('IOC Container Compiler');
     }
 
     /**

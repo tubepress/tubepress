@@ -1,7 +1,7 @@
 {
     "name" : "tubepress/legacy-default",
     "version": "1.0.0",
-    "title" : "TubePress Default (legacy)",
+    "title" : "Default (legacy)",
     "author" : {
         "name" : "TubePress LLC",
         "url" : "http://tubepress.com"
@@ -12,9 +12,13 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "TubePress default theme (legacy)",
+    "description": "The default theme for TubePress 3.1.5 and below.",
     "resources" : {
         "styles" : [ "css/tubepress.css" ]
     },
-    "parent" : "tubepress/default"
+    "parent" : "tubepress/default",
+    "screenshots" : [
+
+        "http://i.imgur.com/GU8pe2f.png"
+    ]
 }

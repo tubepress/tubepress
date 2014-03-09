@@ -19,22 +19,77 @@ class tubepress_addons_core_impl_options_ui_fields_ThemeField extends tubepress_
         parent::__construct(tubepress_api_const_options_names_Thumbs::THEME);
     }
 
-    /**
-     * Override point.
-     *
-     * Allows subclasses to further modify the description for this field.
-     *
-     * @param $originalDescription string The original description as calculated by AbstractField.php.
-     *
-     * @return string The (possibly) modified description for this field.
-     */
-    protected final function getModifiedDescription($originalDescription)
+    protected function getAdditionalTemplateVariables()
     {
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $vars         = parent::getAdditionalTemplateVariables();
+        $choicesArray = $vars['choices'];
 
-        $defaultThemesPath = TUBEPRESS_ROOT . '/src/main/resources/default-themes';
-        $userThemesPath    = $environmentDetector->getUserContentDirectory() . '/themes';
+        asort($choicesArray);
+        uasort($choicesArray, array($this, '__callbackSortChoices'));
 
-        return sprintf($originalDescription, $userThemesPath, $defaultThemesPath);
+        $vars['choices'] = $choicesArray;
+
+        return $vars;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeDataAsJson()
+    {
+        $themeFinder  = tubepress_impl_patterns_sl_ServiceLocator::getThemeFinder();
+        $themeHandler = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $themes       = $themeFinder->findAllThemes();
+        $toReturn     = array();
+
+        foreach ($themes as $theme) {
+
+            $toReturn[$theme->getName()] = $this->_buildThemeData($theme, $themeHandler);
+        }
+
+        $asJson = json_encode($toReturn);
+
+        return htmlspecialchars($asJson, ENT_NOQUOTES);
+    }
+
+    public function __callbackSortChoices($a, $b)
+    {
+        $aIsLegacy = strpos($a, '(legacy)') !== false;
+        $bIsLegacy = strpos($b, '(legacy)') !== false;
+
+        if ($aIsLegacy && $bIsLegacy) {
+
+            return $a > $b;
+        }
+
+        if ($aIsLegacy) {
+
+            return 1;
+        }
+
+        if ($bIsLegacy) {
+
+            return -1;
+        }
+
+        return $a > $b;
+    }
+
+    private function _buildThemeData(tubepress_spi_theme_ThemeInterface $theme, tubepress_spi_theme_ThemeHandler $handler)
+    {
+        return array(
+
+            'screenshots'   => $handler->getScreenshots($theme->getName()),
+            'description'   => $theme->getDescription(),
+            'author'        => $theme->getAuthor(),
+            'licenses'      => $theme->getLicenses(),
+            'version'       => $theme->getVersion()->__toString(),
+            'demo'          => $theme->getDemoUrl(),
+            'keywords'      => $theme->getKeywords(),
+            'homepage'      => $theme->getHomepageUrl(),
+            'docs'          => $theme->getDocumentationUrl(),
+            'download'      => $theme->getDownloadUrl(),
+            'bugs'          => $theme->getBugTrackerUrl(),
+        );
     }
 }

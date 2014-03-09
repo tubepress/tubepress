@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_ThemeDiscoverer<extended>
+ * @covers tubepress_impl_theme_ThemeFinder<extended>
  */
-class tubepress_test_impl_boot_secondary_ThemeDiscovererTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_ThemeDiscoverer
+     * @var tubepress_impl_theme_ThemeFinder
      */
     private $_sut;
 
@@ -43,7 +43,7 @@ class tubepress_test_impl_boot_secondary_ThemeDiscovererTest extends tubepress_t
     {
         $this->_mockFinderFactory       = ehough_mockery_Mockery::mock('ehough_finder_FinderFactoryInterface');
         $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_sut                     = new tubepress_impl_boot_secondary_ThemeDiscoverer(
+        $this->_sut                     = new tubepress_impl_theme_ThemeFinder(
 
             $this->_mockFinderFactory,
             $this->_mockEnvironmentDetector
@@ -65,7 +65,34 @@ class tubepress_test_impl_boot_secondary_ThemeDiscovererTest extends tubepress_t
         $this->recursivelyDeleteDirectory($this->_mockLegacyThemeDirectory);
     }
 
-    public function testGetContainerParameter()
+    public function testFindAllThemes()
+    {
+        $mockLegacyFinder = $this->_setupLegacyThemeMocks();
+        $mockSystemFinder = $this->_setupSystemThemeMocks();
+        $mockUserFinder   = $this->_setupUserThemeMocks();
+
+        $this->_mockFinderFactory->shouldReceive('createFinder')->andReturn($mockSystemFinder, $mockUserFinder, $mockLegacyFinder);
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->twice()->andReturn($this->_mockUserThemeDirectory, $this->_mockLegacyThemeDirectory);
+
+        $themes = $this->_sut->findAllThemes();
+
+        $this->assertTrue(is_array($themes));
+        $this->assertTrue(count($themes) === 3);
+
+        $first = $themes[0];
+        $this->assertInstanceOf(tubepress_spi_theme_ThemeInterface::_, $first);
+        $this->assertTrue($first->getName() === 'tubepress/default');
+
+        $second = $themes[1];
+        $this->assertInstanceOf(tubepress_spi_theme_ThemeInterface::_, $second);
+        $this->assertTrue($second->getName() === 'tubepress/youtube');
+
+        $third = $themes[2];
+        $this->assertInstanceOf(tubepress_spi_theme_ThemeInterface::_, $third);
+        $this->assertEquals('unknown/legacy-hiya', $third->getName());
+    }
+
+    private function _setupLegacyThemeMocks()
     {
         $mockLegacyThemeSplFileInfo = ehough_mockery_Mockery::mock('SplFileInfo');
         $mockLegacyThemeSplFileInfo->shouldReceive('getRealPath')->andReturn($this->_mockLegacyThemeDirectory . '/themes/hiya');
@@ -79,35 +106,13 @@ class tubepress_test_impl_boot_secondary_ThemeDiscovererTest extends tubepress_t
         $mockLegacyFinder->shouldReceive('in')->once()->with($this->_mockLegacyThemeDirectory . '/themes')->andReturn($mockLegacyFinder);
         $mockLegacyFinder->shouldReceive('depth')->once()->with('< 1')->andReturn($mockLegacyThemesSplFileInfoArray);
 
-        $mockTemplate = ehough_mockery_Mockery::mock('SplFileInfo');
-        $mockTemplate->shouldReceive('getRealPath')->once()->andReturn('mock template path');
-        $mockTemplates = array(
+        return $mockLegacyFinder;
+    }
 
-            $mockTemplate
-        );
-
-        $mockTemplateFinder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
-        $mockTemplateFinder->shouldReceive('files')->once()->andReturn($mockTemplateFinder);
-        $mockTemplateFinder->shouldReceive('in')->once()->with($this->_mockLegacyThemeDirectory . '/themes/hiya')->andReturn($mockTemplateFinder);
-        $mockTemplateFinder->shouldReceive('name')->once()->with('*.tpl.php')->andReturn($mockTemplates);
-
-
-        $mockUserThemeSplFileInfo      = ehough_mockery_Mockery::mock('SplFileInfo');
-        $mockUserThemeSplFileInfo->shouldReceive('getRealPath')->once()->andReturn('lucky');
-        $mockUserThemeSplFileInfoArray = array(
-
-            $mockUserThemeSplFileInfo
-        );
-
-        $mockUserFinder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
-        $mockUserFinder->shouldReceive('followLinks')->once()->andReturn($mockUserFinder);
-        $mockUserFinder->shouldReceive('files')->once()->andReturn($mockUserFinder);
-        $mockUserFinder->shouldReceive('in')->once()->with($this->_mockUserThemeDirectory . '/themes')->andReturn($mockUserFinder);
-        $mockUserFinder->shouldReceive('name')->once()->with('theme.json')->andReturn($mockUserFinder);
-        $mockUserFinder->shouldReceive('depth')->once()->with('< 2')->andReturn($mockUserThemeSplFileInfoArray);
-
-        $mockSystemThemeSplFileInfo      = ehough_mockery_Mockery::mock('SplFileInfo');
-        $mockSystemThemeSplFileInfo->shouldReceive('getRealPath')->once()->andReturn('luciano');
+    private function _setupSystemThemeMocks()
+    {
+        $mockSystemThemeSplFileInfo = ehough_mockery_Mockery::mock('SplFileInfo');
+        $mockSystemThemeSplFileInfo->shouldReceive('getRealPath')->twice()->andReturn(TUBEPRESS_ROOT . '/src/main/resources/default-themes/default/theme.json');
         $mockSystemThemeSplFileInfoArray = array(
 
             $mockSystemThemeSplFileInfo
@@ -120,27 +125,29 @@ class tubepress_test_impl_boot_secondary_ThemeDiscovererTest extends tubepress_t
         $mockSystemFinder->shouldReceive('name')->once()->with('theme.json')->andReturn($mockSystemFinder);
         $mockSystemFinder->shouldReceive('depth')->once()->with('< 2')->andReturn($mockSystemThemeSplFileInfoArray);
 
-        $this->_mockFinderFactory->shouldReceive('createFinder')->andReturn($mockSystemFinder, $mockUserFinder, $mockLegacyFinder, $mockTemplateFinder);
+        return $mockSystemFinder;
+    }
 
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->twice()->andReturn($this->_mockUserThemeDirectory, $this->_mockLegacyThemeDirectory);
-        $param = $this->_sut->getThemesContainerParameterValue();
+    private function _setupUserThemeMocks()
+    {
+        $fs = new ehough_filesystem_Filesystem();
+        $fs->copy(TUBEPRESS_ROOT . '/src/main/resources/default-themes/youtube/theme.json', $this->_mockUserThemeDirectory . '/themes/something/theme.json');
 
-        $expected = array(
+        $mockUserThemeSplFileInfo      = ehough_mockery_Mockery::mock('SplFileInfo');
+        $mockUserThemeSplFileInfo->shouldReceive('getRealPath')->twice()->andReturn($this->_mockUserThemeDirectory . '/themes/something/theme.json');
+        $mockUserThemeSplFileInfoArray = array(
 
-            'unknown/legacy-hiya' => array(
-                'title'        => 'Hiya (legacy)',
-                'manifestPath' => $this->_mockLegacyThemeDirectory . '/themes/hiya/theme.json',
-                'styles'       => array(),
-                'scripts'      => array(),
-                'parent'       => null,
-                'templates'    => array(
-                    'mock template path'
-                ),
-                'isSystemTheme' => false,
-            )
+            $mockUserThemeSplFileInfo
         );
 
-        $this->assertEquals($expected, $param);
+        $mockUserFinder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
+        $mockUserFinder->shouldReceive('followLinks')->once()->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('files')->once()->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('in')->once()->with($this->_mockUserThemeDirectory . '/themes')->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('name')->once()->with('theme.json')->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('depth')->once()->with('< 2')->andReturn($mockUserThemeSplFileInfoArray);
+
+        return $mockUserFinder;
     }
 
 }

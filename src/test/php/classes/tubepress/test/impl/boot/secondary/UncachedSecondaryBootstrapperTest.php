@@ -51,7 +51,7 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
         $this->_mockClassLoaderHelper = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_ClassLoaderSetupInterface::_);
         $this->_mockContainerBuilder  = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
         $this->_mockContainerDumper   = ehough_mockery_Mockery::mock('ehough_iconic_dumper_DumperInterface');
-        $this->_mockThemeDiscoverer   = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_ThemeDiscoveryInterface::_);
+        $this->_mockThemeDiscoverer   = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_ThemesContainerParamInterface::_);
 
         $sut = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
 

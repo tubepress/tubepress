@@ -10,7 +10,7 @@
  */
 
 /**
- * Adds shortcode handlers to TubePress.
+ * Primary services for TubePress.
  */
 class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
@@ -52,6 +52,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerShortcodeParser($containerBuilder);
         $this->_registerTemplateBuilder($containerBuilder);
         $this->_registerThemeHandler($containerBuilder);
+        $this->_registerThemeFinder($containerBuilder);
         $this->_registerVideoCollector($containerBuilder);
 
         /**
@@ -274,6 +275,16 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_contemplate_api_TemplateBuilder',
             'ehough_contemplate_impl_SimpleTemplateBuilder'
         );
+    }
+
+    private function _registerThemeFinder(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_spi_theme_ThemeFinderInterface::_,
+            'tubepress_impl_theme_ThemeFinder'
+        )->addArgument(new ehough_iconic_Reference('ehough_finder_FinderFactoryInterface'))
+         ->addArgument(new ehough_iconic_Reference(tubepress_spi_environment_EnvironmentDetector::_));
     }
 
     private function _registerThemeHandler(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

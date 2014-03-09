@@ -14,7 +14,7 @@
  */
 class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
 {
-    protected final function getAbsolutePathToTemplate()
+    protected function getAbsolutePathToTemplate()
     {
         return TUBEPRESS_ROOT . '/src/main/resources/options-gui/field-templates/dropdown.tpl.php';
     }

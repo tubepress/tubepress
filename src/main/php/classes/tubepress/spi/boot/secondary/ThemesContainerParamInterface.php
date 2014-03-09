@@ -12,9 +12,9 @@
 /**
  * Discovers themes for TubePress.
  */
-interface tubepress_spi_boot_secondary_ThemeDiscoveryInterface
+interface tubepress_spi_boot_secondary_ThemesContainerParamInterface
 {
-    const _ = 'tubepress_spi_boot_secondary_ThemeDiscoveryInterface';
+    const _ = 'tubepress_spi_boot_secondary_ThemesContainerParamInterface';
 
     /**
      * Discovers TubePress themes.

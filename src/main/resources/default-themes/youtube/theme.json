@@ -1,7 +1,7 @@
 {
     "name" : "tubepress/youtube",
     "version": "1.0.0",
-    "title" : "TubePress YouTube Theme",
+    "title" : "YouTube Clone",
     "author" : {
         "name" : "TubePress LLC",
         "url" : "http://tubepress.com"
@@ -12,7 +12,7 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "TubePress YouTube theme.",
+    "description": "Clones the appearance of youtube.com.",
     "resources" : {
         "styles" : [ "css/youtube.css" ]
     },

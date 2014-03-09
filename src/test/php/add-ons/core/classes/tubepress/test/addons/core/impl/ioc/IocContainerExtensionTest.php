@@ -39,6 +39,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_shortcodeParser();
         $this->_templateBuilder();
         $this->_themeHandler();
+        $this->_themeFinder();
         $this->_videoCollector();
 
         $this->_pluggables();
@@ -448,6 +449,15 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             tubepress_spi_theme_ThemeHandler::_,
             'tubepress_impl_theme_SimpleThemeHandler'
         )->withArgument('%themes%');
+    }
+
+    private function _themeFinder()
+    {
+        $this->expectRegistration(
+            tubepress_spi_theme_ThemeFinderInterface::_,
+            'tubepress_impl_theme_ThemeFinder'
+        )->withArgument(new ehough_iconic_Reference('ehough_finder_FinderFactoryInterface'))
+         ->withArgument(new ehough_iconic_Reference(tubepress_spi_environment_EnvironmentDetector::_));
     }
 
     private function _templateBuilder()

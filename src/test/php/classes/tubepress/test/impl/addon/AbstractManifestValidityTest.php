@@ -12,7 +12,7 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
 {
     protected function getAddonFromManifest($pathToManifest)
     {
-        $discoverer = new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
+        $discoverer = new tubepress_impl_boot_secondary_AddonDiscovery(
             new ehough_finder_FinderFactory(),
             new tubepress_impl_environment_SimpleEnvironmentDetector()
         );

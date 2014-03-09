@@ -1,7 +1,7 @@
 {
     "name" : "tubepress/legacy-vimeo",
     "version": "1.0.0",
-    "title" : "TubePress Vimeo Theme",
+    "title" : "Vimeo (legacy)",
     "author" : {
         "name" : "TubePress LLC",
         "url" : "http://tubepress.com"
@@ -12,6 +12,6 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "TubePress Vimeo theme.",
+    "description": "The Vimeo theme for TubePress 3.1.5 and below.",
     "parent" : "tubepress/legacy-default"
 }

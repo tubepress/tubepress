@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_DefaultIocContainerBootHelper<extended>
+ * @covers tubepress_impl_boot_secondary_IocContainerCompiler<extended>
  */
 class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_DefaultIocContainerBootHelper
+     * @var tubepress_impl_boot_secondary_IocContainerCompiler
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest exten
 
     public function onSetup()
     {
-        $this->_sut              = new tubepress_impl_boot_secondary_DefaultIocContainerBootHelper();
+        $this->_sut              = new tubepress_impl_boot_secondary_IocContainerCompiler();
         $this->_mockIocContainer = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
     }
 

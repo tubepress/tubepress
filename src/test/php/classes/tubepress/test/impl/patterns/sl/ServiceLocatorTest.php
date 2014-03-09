@@ -58,6 +58,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
             tubepress_spi_shortcode_ShortcodeParser::_,
             'ehough_contemplate_api_TemplateBuilder',
+            tubepress_spi_theme_ThemeFinderInterface::_,
             tubepress_spi_theme_ThemeHandler::_,
             tubepress_spi_collector_VideoCollector::_,
         );
@@ -87,6 +88,7 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
             'ShortcodeHtmlGenerator',
             'ShortcodeParser',
             'TemplateBuilder',
+            'ThemeFinder',
             'ThemeHandler',
             'VideoCollector',
         );

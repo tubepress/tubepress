@@ -1,7 +1,7 @@
 {
     "name" : "tubepress/default",
     "version": "1.0.0",
-    "title" : "TubePress Default Theme",
+    "title" : "Default",
     "author" : {
         "name" : "TubePress LLC",
         "url" : "http://tubepress.com"
@@ -12,7 +12,7 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "TubePress default theme",
+    "description": "The official TubePress default theme. Works well on virtually any website.",
     "resources" : {
         "styles" : [ "css/tubepress.css" ]
     }

@@ -14,14 +14,6 @@
  */
 class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_ThemeHandler
 {
-    private static $_ARRAY_KEY_TEMPLATES = 'templates';
-    private static $_ARRAY_KEY_PARENT    = 'parent';
-    private static $_ARRAY_KEY_TITLE     = 'title';
-    private static $_ARRAY_KEY_ABSPATH   = 'manifestPath';
-    private static $_ARRAY_KEY_STYLES    = 'styles';
-    private static $_ARRAY_KEY_SCRIPTS   = 'scripts';
-    private static $_ARRAY_KEY_IS_SYS    = 'isSystemTheme';
-
     private static $_DEFAULT_THEME_NAME = 'tubepress/default';
 
     /**
@@ -46,31 +38,20 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     }
 
     /**
-     * @param string|null $themeName The theme name. If null, TubePress will use the theme stored in the DB.
-     *
-     * @throws RuntimeException If there is a problem building this theme instance.
-     *
-     * @return tubepress_spi_theme_ThemeInterface The theme, never null.
-     */
-    public function getThemeInstance($themeName = null)
-    {
-        // TODO: Implement getThemeInstance() method.
-    }
-
-    /**
      * Gets an instance of a template appropriate for the current theme.
      *
      * @param string $pathToTemplate    The relative path (from the root of the user's theme directory,
      *                                  or the fallback directory) to the template.
-     * @param string $fallBackDirectory The absolute path to a directory where this template (defined by the relative
-     *                                  path, can be found). You should make sure that the template will *always* exist
+     * @param string $fallBackDirectory The absolute path to a directory where this template, defined by the relative
+     *                                  path, can be found. You should make sure that the template will *always* exist
      *                                  here.
+     * @param string|null $themeName    The name of the theme to query, or null for the currently stored theme.
      *
      * @throws RuntimeException If the template could not be found.
      *
      * @return ehough_contemplate_api_Template The template instance.
      */
-    public function getTemplateInstance($pathToTemplate, $fallBackDirectory)
+    public function getTemplateInstance($pathToTemplate, $fallBackDirectory, $themeName = null)
     {
         $pathToTemplate = ltrim($pathToTemplate, DIRECTORY_SEPARATOR);
 
@@ -80,15 +61,18 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
                 $pathToTemplate, $fallBackDirectory));
         }
 
-        $currentTheme = $this->_calculateCurrentThemeName();
+        if (!$themeName) {
+
+            $themeName = $this->_calculateCurrentThemeName();
+        }
 
         if ($this->_shouldLog()) {
 
-            $this->_logger->debug("Using theme '$currentTheme'");
+            $this->_logger->debug("Getting template for theme '$themeName'");
         }
 
         $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $filePath        = $this->_getFilePath($currentTheme, $pathToTemplate, $fallBackDirectory);
+        $filePath        = $this->_getFilePath($themeName, $pathToTemplate, $fallBackDirectory);
         $template        = $templateBuilder->getNewTemplateInstance($filePath);
 
         if ($this->_shouldLog()) {
@@ -100,23 +84,48 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     }
 
     /**
+     * @param string $themeName The name of the theme to query, or null for the currently stored theme.
+     *
      * @return string[] URLs of CSS stylesheets required for the current theme. May be empty but never null.
      */
-    public function getStyles()
+    public function getStyles($themeName = null)
     {
-        $themeName = $this->_calculateCurrentThemeName();
+        if (!$themeName) {
 
-        return $this->_recursivelyGetResourceUrlsForTheme($themeName, self::$_ARRAY_KEY_STYLES);
+            $themeName = $this->_calculateCurrentThemeName();
+        }
+
+        return $this->_recursivelyGetResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_STYLES);
     }
 
     /**
+     * @param string $themeName  The name of the theme to query, or null for the currently stored theme.
+     *
      * @return string[] URLs of JS scripts required for the current theme. May be empty but never null.
      */
-    public function getScripts()
+    public function getScripts($themeName = null)
     {
-        $themeName = $this->_calculateCurrentThemeName();
+        if (!$themeName) {
 
-        return $this->_recursivelyGetResourceUrlsForTheme($themeName, self::$_ARRAY_KEY_SCRIPTS);
+            $themeName = $this->_calculateCurrentThemeName();
+        }
+
+        return $this->_recursivelyGetResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_SCRIPTS);
+    }
+
+    /**
+     * @param string $themeName The name of the theme to query, or null for the currently stored theme.
+     *
+     * @return string[] URLs of screenshots for the current theme. May be empty but never null.
+     */
+    public function getScreenshots($themeName = null)
+    {
+        if (!$themeName) {
+
+            $themeName = $this->_calculateCurrentThemeName();
+        }
+
+        return $this->_getResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_SCREENSHOTS);
     }
 
     private function _recursivelyGetResourceUrlsForTheme($themeName, $key)
@@ -128,9 +137,9 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
             return $toReturn;
         }
 
-        $parent = $this->_getParentThemeName($themeName);
+        $parent = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_PARENT];
 
-        if ($parent === null) {
+        if (!$parent) {
 
             return $toReturn;
         }
@@ -142,12 +151,27 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     {
         $toReturn            = array();
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $themeAbsPath        = dirname($this->_themeMap[$themeName][self::$_ARRAY_KEY_ABSPATH]);
+        $themeAbsPath        = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_THEME_ROOT];
         $themeBaseName       = basename($themeAbsPath);
 
         foreach ($this->_themeMap[$themeName][$key] as $relativeResourcePath) {
 
-            if ($this->_themeMap[$themeName][self::$_ARRAY_KEY_IS_SYS]) {
+            if (strpos($relativeResourcePath, 'http') === 0) {
+
+                try {
+
+                    new ehough_curly_Url($relativeResourcePath);
+
+                    $toReturn[] = $relativeResourcePath;
+
+                } catch (InvalidArgumentException $e) {
+                    //ignore
+                }
+
+                continue;
+            }
+
+            if ($this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_IS_SYSTEM]) {
 
                 $prefix = $environmentDetector->getBaseUrl() . '/src/main/resources/default-themes/';
 
@@ -200,7 +224,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
         /**
          * First try to load the template from the requested theme.
          */
-        if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][self::$_ARRAY_KEY_TEMPLATES])) {
+        if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_TEMPLATES])) {
 
             if ($this->_shouldLog()) {
 
@@ -215,14 +239,19 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
             $this->_logger->debug(sprintf('No direct hit for %s in "%s" theme. Checking hierarchy', $pathToTemplate, $currentTheme));
         }
 
-        while ($currentTheme !== self::$_DEFAULT_THEME_NAME) {
+        while (true) {
+
+            if (!isset($this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_PARENT])) {
+
+                break;
+            }
 
             /**
              * Next try the parent.
              */
-            $parent = $this->_getParentThemeName($currentTheme);
+            $parent = $this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_PARENT];
 
-            if ($parent === null) {
+            if (!$parent) {
 
                 break;
             }
@@ -234,7 +263,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
             $currentTheme = $parent;
 
-            if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][self::$_ARRAY_KEY_TEMPLATES])) {
+            if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_TEMPLATES])) {
 
                 if ($this->_shouldLog()) {
 
@@ -253,7 +282,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
         /**
          * Finally, load the template from the fallback directory.
          */
-        return "$fallBackDirectory/$pathToTemplate";
+        return $fallBackDirectory . DIRECTORY_SEPARATOR . $pathToTemplate;
     }
 
     /**
@@ -266,7 +295,8 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
         foreach ($this->_themeMap as $themeName => $data) {
 
-            $toReturn[$themeName] = $data[self::$_ARRAY_KEY_TITLE];
+            $themeTitle           = $data[tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_TITLE];
+            $toReturn[$themeName] = $themeTitle;
         }
 
         return $toReturn;
@@ -274,7 +304,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
     private function _toAbsPath($themeName, $relativeTemplatePath)
     {
-        $themeAbsPath = dirname($this->_themeMap[$themeName][self::$_ARRAY_KEY_ABSPATH]);
+        $themeAbsPath = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesContainerParam::ATTRIBUTE_THEME_ROOT];
         $themeAbsPath = rtrim($themeAbsPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
         return $themeAbsPath . $relativeTemplatePath;
@@ -288,18 +318,5 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
         }
 
         return $this->_shouldLog;
-    }
-
-    private function _getParentThemeName($themeName)
-    {
-        if (isset($this->_themeMap[$themeName][self::$_ARRAY_KEY_PARENT])
-            && $this->_themeMap[$themeName][self::$_ARRAY_KEY_PARENT]
-            && isset($this->_themeMap[$this->_themeMap[$themeName][self::$_ARRAY_KEY_PARENT]])) {
-
-            return $this->_themeMap[$themeName][self::$_ARRAY_KEY_PARENT];
-
-        }
-
-        return null;
     }
 }

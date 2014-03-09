@@ -34,7 +34,12 @@ interface tubepress_spi_theme_ThemeInterface extends tubepress_spi_addon_Contrib
     function getParentThemeName();
 
     /**
-     * @return string The absolute path of this theme's manifest on the filesystem.
+     * @return string The absolute path, with trailing slash, of this theme on the filesystem.
      */
-    function getAbsolutePathToManifest();
+    function getRootFilesystemPath();
+
+    /**
+     * @return bool True if this is a system theme, false otherwise.
+     */
+    function isSystemTheme();
 }

@@ -12,6 +12,10 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "Legacy sidebar theme.",
-    "parent" : "tubepress/legacy-default"
+    "description": "The sidebar theme for TubePress 3.1.5 and below.",
+    "parent" : "tubepress/legacy-default",
+    "screenshots" : [
+
+        "http://i.imgur.com/gfOd0dV.png"
+    ]
 }

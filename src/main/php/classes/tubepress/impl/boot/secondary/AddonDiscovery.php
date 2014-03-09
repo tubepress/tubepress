@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_impl_boot_secondary_DefaultAddonDiscoverer extends tubepress_impl_boot_secondary_AbstractContributableDiscoverer implements tubepress_spi_boot_secondary_AddonDiscoveryInterface
+class tubepress_impl_boot_secondary_AddonDiscovery extends tubepress_impl_boot_secondary_AbstractContributableDiscoverer implements tubepress_spi_boot_secondary_AddonDiscoveryInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -97,14 +97,6 @@ class tubepress_impl_boot_secondary_DefaultAddonDiscoverer extends tubepress_imp
     private function _getAbsolutePath($path, $manifestFilePath)
     {
         return dirname($manifestFilePath) . DIRECTORY_SEPARATOR . $path;
-    }
-
-    /**
-     * @return array A map of required attributes.
-     */
-    protected function getRequiredAttributesMap()
-    {
-        return array();
     }
 
     /**

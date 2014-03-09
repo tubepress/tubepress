@@ -24,12 +24,13 @@ interface tubepress_spi_theme_ThemeHandler
      * @param string $fallBackDirectory The absolute path to a directory where this template, defined by the relative
      *                                  path, can be found. You should make sure that the template will *always* exist
      *                                  here.
+     * @param string|null $themeName    The name of the theme to query, or null for the currently stored theme.
      *
      * @throws RuntimeException If the template could not be found.
      *
      * @return ehough_contemplate_api_Template The template instance.
      */
-    function getTemplateInstance($pathToTemplate, $fallBackDirectory);
+    function getTemplateInstance($pathToTemplate, $fallBackDirectory, $themeName = null);
 
     /**
      * @return string[] An associative array of strings, which may be empty but never null, of all known theme
@@ -38,21 +39,23 @@ interface tubepress_spi_theme_ThemeHandler
     function getMapOfAllThemeNamesToTitles();
 
     /**
-     * @param string|null $themeName The theme name. If null, TubePress will use the theme stored in the DB.
+     * @param string|null $themeName The name of the theme to query, or null for the currently stored theme.
      *
-     * @throws RuntimeException If there is a problem building this theme instance.
-     *
-     * @return tubepress_spi_theme_ThemeInterface The theme, never null.
-     */
-    function getThemeInstance($themeName = null);
-
-    /**
      * @return string[] URLs of CSS stylesheets required for the current theme. May be empty but never null.
      */
-    function getStyles();
+    function getStyles($themeName = null);
 
     /**
+     * @param string|null $themeName The name of the theme to query, or null for the currently stored theme.
+     *
      * @return string[] URLs of JS scripts required for the current theme. May be empty but never null.
      */
-    function getScripts();
+    function getScripts($themeName = null);
+
+    /**
+     * @param string|null $themeName The name of the theme to query, or null for the currently stored theme.
+     *
+     * @return string[] URLs of screenshots for the current theme. May be empty but never null.
+     */
+    function getScreenshots($themeName = null);
 }

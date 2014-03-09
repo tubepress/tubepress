@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_DefaultClassLoadingHelper<extended>
+ * @covers tubepress_impl_boot_secondary_ClassLoaderSetup<extended>
  */
 class tubepress_test_impl_boot_secondary_DefaultClassLoadingHelperTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_DefaultClassLoadingHelper
+     * @var tubepress_impl_boot_secondary_ClassLoaderSetup
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_impl_boot_secondary_DefaultClassLoadingHelperTest extends t
 
     public function onSetup()
     {
-        $this->_sut             = new tubepress_impl_boot_secondary_DefaultClassLoadingHelper();
+        $this->_sut             = new tubepress_impl_boot_secondary_ClassLoaderSetup();
         $this->_mockClassLoader = ehough_mockery_Mockery::mock('ehough_pulsar_ComposerClassLoader');
     }
 

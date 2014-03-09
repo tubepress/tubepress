@@ -40,7 +40,7 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
     private $_bootHelperAddonDiscoverer;
 
     /**
-     * @var tubepress_spi_boot_secondary_ThemeDiscoveryInterface
+     * @var tubepress_spi_boot_secondary_ThemesContainerParamInterface
      */
     private $_bootHelperThemeDiscoverer;
 
@@ -58,7 +58,7 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
         $shouldLog,
         tubepress_spi_boot_secondary_ClassLoaderSetupInterface $clsi,
         tubepress_spi_boot_secondary_AddonDiscoveryInterface $adi,
-        tubepress_spi_boot_secondary_ThemeDiscoveryInterface $tdi,
+        tubepress_spi_boot_secondary_ThemesContainerParamInterface $tdi,
         tubepress_spi_boot_secondary_IocCompilingInterface $ici)
     {
         $this->_logger                       = ehough_epilog_LoggerFactory::getLogger('Uncached Secondary Bootstrapper');

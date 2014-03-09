@@ -230,14 +230,15 @@ class tubepress_impl_boot_PrimaryBootstrapper
 
             $finderFactory       = new ehough_finder_FinderFactory();
             $environmentDetector = new tubepress_impl_environment_SimpleEnvironmentDetector();
+            $themeFinder         = new tubepress_impl_theme_ThemeFinder($finderFactory, $environmentDetector);
 
             $this->_secondaryBootstrapper = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
 
                 $this->_shouldLog,
-                new tubepress_impl_boot_secondary_DefaultClassLoadingHelper(),
-                new tubepress_impl_boot_secondary_DefaultAddonDiscoverer($finderFactory, $environmentDetector),
-                new tubepress_impl_boot_secondary_ThemeDiscoverer($finderFactory, $environmentDetector),
-                new tubepress_impl_boot_secondary_DefaultIocContainerBootHelper()
+                new tubepress_impl_boot_secondary_ClassLoaderSetup(),
+                new tubepress_impl_boot_secondary_AddonDiscovery($finderFactory, $environmentDetector),
+                new tubepress_impl_boot_secondary_ThemesContainerParam($themeFinder, $finderFactory),
+                new tubepress_impl_boot_secondary_IocContainerCompiler()
             );
         }
     }

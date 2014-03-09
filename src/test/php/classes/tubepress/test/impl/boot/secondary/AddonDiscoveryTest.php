@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_DefaultAddonDiscoverer<extended>
+ * @covers tubepress_impl_boot_secondary_AddonDiscovery<extended>
  */
-class tubepress_test_impl_boot_secondary_DefaultAddonDiscovererTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_DefaultAddonDiscoverer
+     * @var tubepress_impl_boot_secondary_AddonDiscovery
      */
     private $_sut;
 
@@ -52,7 +52,7 @@ class tubepress_test_impl_boot_secondary_DefaultAddonDiscovererTest extends tube
         $this->_splInfoArray            = array();
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $this->_sut                     = new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
+        $this->_sut                     = new tubepress_impl_boot_secondary_AddonDiscovery(
 
             $this->_mockFinderFactory,
             $this->_mockEnvironmentDetector

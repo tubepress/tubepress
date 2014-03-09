@@ -15,6 +15,18 @@
 class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableBase implements tubepress_spi_theme_ThemeInterface
 {
     /**
+     * Optional attributes.
+     */
+    const ATTRIBUTE_SCRIPTS = 'scripts';
+    const ATTRIBUTE_STYLES  = 'styles';
+    const ATTRIBUTE_PARENT  = 'parent';
+
+    /**
+     * Containers.
+     */
+    const CATEGORY_RESOURCES  = 'resources';
+
+    /**
      * @var string[]
      */
     private $_scripts = array();
@@ -32,7 +44,12 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
     /**
      * @var string
      */
-    private $_manifestAbsPath;
+    private $_rootFilesystemPath;
+
+    /**
+     * @var bool
+     */
+    private $_isSystemTheme;
 
     public function __construct(
 
@@ -41,18 +58,25 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
         $title,
         array $author,
         array $licenses,
-        $manifestPath) {
+        $isSystemTheme,
+        $rootPath)
+    {
+        parent::__construct(
+            $name,
+            $version,
+            $title,
+            $author,
+            $licenses
+        );
 
-        parent::__construct($name, $version, $title, $author, $licenses);
+        $this->_isSystemTheme = (boolean) $isSystemTheme;
 
-        if (is_file($manifestPath)) {
+        if (!is_dir($rootPath)) {
 
-            $this->_manifestAbsPath = realpath($manifestPath);
-
-        } else {
-
-            $this->_manifestAbsPath = $manifestPath;
+            throw new InvalidArgumentException(sprintf('%s is not a valid theme root', $rootPath));
         }
+
+        $this->_rootFilesystemPath = rtrim(realpath($rootPath), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -82,11 +106,19 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
     }
 
     /**
-     * @return string The absolute path of this theme's manifest on the filesystem.
+     * @return string The absolute path, with trailing slash, of this theme on the filesystem.
      */
-    public function getAbsolutePathToManifest()
+    public function getRootFilesystemPath()
     {
-        return $this->_manifestAbsPath;
+        return $this->_rootFilesystemPath;
+    }
+
+    /**
+     * @return bool True if this is a system theme, false otherwise.
+     */
+    public function isSystemTheme()
+    {
+        return $this->_isSystemTheme;
     }
 
     /**
@@ -112,6 +144,19 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
      */
     public function setScripts(array $scripts)
     {
+        foreach ($scripts as $script) {
+
+            if (!is_string($script)) {
+
+                throw new InvalidArgumentException('Theme scripts must all be strings.');
+            }
+
+            if (!tubepress_impl_util_StringUtils::endsWith($script, '.js')) {
+
+                throw new InvalidArgumentException('Theme scripts must all end in .js');
+            }
+        }
+
         $this->_scripts = $scripts;
     }
 
@@ -120,6 +165,19 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_addon_ContributableB
      */
     public function setStyles(array $styles)
     {
+        foreach ($styles as $style) {
+
+            if (!is_string($style)) {
+
+                throw new InvalidArgumentException('Theme styles must all be strings.');
+            }
+
+            if (!tubepress_impl_util_StringUtils::endsWith($style, '.css')) {
+
+                throw new InvalidArgumentException('Theme styles must all end in .css');
+            }
+        }
+
         $this->_styles = $styles;
     }
 }

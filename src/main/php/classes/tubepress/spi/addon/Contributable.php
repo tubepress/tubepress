@@ -79,4 +79,11 @@ interface tubepress_spi_addon_Contributable
      * @return ehough_curly_Url Optional. A link to a bug tracker for this add-on.
      */
     function getBugTrackerUrl();
+
+    /**
+     * @return string[] An array of strings, which may be empty but not null, of screenshots of this contributable.
+     *                  URLs may either be absolute, or relative. In the latter case, they will be considered to be
+     *                  relative from the contributable root.
+     */
+    function getScreenshots();
 }

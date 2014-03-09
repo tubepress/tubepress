@@ -28,6 +28,7 @@ class tubepress_impl_addon_ContributableBase implements tubepress_spi_addon_Cont
      */
     const ATTRIBUTE_DESCRIPTION       = 'description';
     const ATTRIBUTE_KEYWORDS          = 'keywords';
+    const ATTRIBUTE_SCREENSHOTS       = 'screenshots';
     const ATTRIBUTE_URL_HOMEPAGE      = 'homepage';
     const ATTRIBUTE_URL_DOCUMENTATION = 'docs';
     const ATTRIBUTE_URL_DEMO          = 'demo';
@@ -95,6 +96,11 @@ class tubepress_impl_addon_ContributableBase implements tubepress_spi_addon_Cont
      * @var ehough_curly_Url
      */
     private $_urlBugs;
+
+    /**
+     * @var string[]
+     */
+    private $_screenshots = array();
 
     public function __construct(
 
@@ -177,6 +183,36 @@ class tubepress_impl_addon_ContributableBase implements tubepress_spi_addon_Cont
         $this->_validateUrl($url, 'Invalid bug tracker URL');
 
         $this->_urlBugs = $url;
+    }
+
+    public function setScreenshots(array $screenshots) {
+
+        foreach ($screenshots as $screenshot) {
+
+            if (!is_string($screenshot)) {
+
+                throw new InvalidArgumentException('Screenshots must be strings.');
+            }
+
+            if (strpos($screenshot, 'http') === 0) {
+
+                try {
+
+                    new ehough_curly_Url($screenshot);
+
+                } catch (InvalidArgumentException $e) {
+
+                    throw new InvalidArgumentException(sprintf('%s is not a valid screenshot URL', $screenshot));
+                }
+            }
+
+            if (!(tubepress_impl_util_StringUtils::endsWith($screenshot, '.png') || tubepress_impl_util_StringUtils::endsWith($screenshot, '.png'))) {
+
+                throw new InvalidArgumentException('Screenshot URLs must end with .png or .jpg');
+            }
+        }
+
+        $this->_screenshots = $screenshots;
     }
 
     /**
@@ -279,6 +315,16 @@ class tubepress_impl_addon_ContributableBase implements tubepress_spi_addon_Cont
     public function getBugTrackerUrl()
     {
         return $this->_urlBugs;
+    }
+
+    /**
+     * @return string[] An array of strings, which may be empty but not null, of screenshots of this contributable.
+     *                  URLs may either be absolute, or relative. In the latter case, they will be considered to be
+     *                  relative from the contributable root.
+     */
+    public function getScreenshots()
+    {
+        return $this->_screenshots;
     }
 
 
