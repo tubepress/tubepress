@@ -12,9 +12,9 @@
 /**
  * Handles constructing/initializing the IOC container.
  */
-interface tubepress_spi_boot_secondary_IocCompilingInterface
+interface tubepress_spi_boot_secondary_IocCompilerInterface
 {
-    const _ = 'tubepress_spi_boot_secondary_IocCompilingInterface';
+    const _ = 'tubepress_spi_boot_secondary_IocCompilerInterface';
 
     /**
      * Compiles the container, if necessary.

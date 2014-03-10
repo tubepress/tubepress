@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_theme_SimpleThemeHandler<extended>
+ * @covers tubepress_impl_theme_ThemeHandler<extended>
  */
 class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_theme_SimpleThemeHandler
+     * @var tubepress_impl_theme_ThemeHandler
      */
     private $_sut;
 
@@ -45,7 +45,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
         $this->_mockContext             = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $this->_sut = new tubepress_impl_theme_SimpleThemeHandler(array(
+        $this->_sut = new tubepress_impl_theme_ThemeHandler(array(
 
             'tubepress/default' => array(
 

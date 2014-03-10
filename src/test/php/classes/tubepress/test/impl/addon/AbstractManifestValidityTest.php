@@ -12,7 +12,7 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
 {
     protected function getAddonFromManifest($pathToManifest)
     {
-        $discoverer = new tubepress_impl_boot_secondary_AddonDiscovery(
+        $discoverer = new tubepress_impl_addon_AddonFinder(
             new ehough_finder_FinderFactory(),
             new tubepress_impl_environment_SimpleEnvironmentDetector()
         );
@@ -21,7 +21,7 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
 
         $this->assertTrue(count($addons) === 1, 'Expected 1 addon but got ' . count($addons));
 
-        $this->assertTrue($addons[0] instanceof tubepress_spi_addon_Addon);
+        $this->assertTrue($addons[0] instanceof tubepress_spi_addon_AddonInterface);
 
         return $addons[0];
     }

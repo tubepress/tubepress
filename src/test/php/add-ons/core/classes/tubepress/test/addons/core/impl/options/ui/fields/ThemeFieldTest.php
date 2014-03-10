@@ -66,7 +66,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_ThemeFieldTest extends t
 
     protected function performAdditionalSetup()
     {
-        $this->_themeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $this->_themeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
         $this->_themeFinder  = $this->createMockSingletonService(tubepress_spi_theme_ThemeFinderInterface::_);
     }
 

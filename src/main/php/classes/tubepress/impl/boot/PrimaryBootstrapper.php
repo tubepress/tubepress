@@ -235,10 +235,10 @@ class tubepress_impl_boot_PrimaryBootstrapper
             $this->_secondaryBootstrapper = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
 
                 $this->_shouldLog,
-                new tubepress_impl_boot_secondary_ClassLoaderSetup(),
-                new tubepress_impl_boot_secondary_AddonDiscovery($finderFactory, $environmentDetector),
-                new tubepress_impl_boot_secondary_ThemesContainerParam($themeFinder, $finderFactory),
-                new tubepress_impl_boot_secondary_IocContainerCompiler()
+                new tubepress_impl_boot_secondary_ClassLoaderPrimer(),
+                new tubepress_impl_addon_AddonFinder($finderFactory, $environmentDetector),
+                new tubepress_impl_boot_secondary_ThemesPrimer($themeFinder, $finderFactory),
+                new tubepress_impl_boot_secondary_IocCompiler()
             );
         }
     }

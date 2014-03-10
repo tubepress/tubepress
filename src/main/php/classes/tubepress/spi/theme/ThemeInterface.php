@@ -12,7 +12,7 @@
 /**
  * TubePress theme.
  */
-interface tubepress_spi_theme_ThemeInterface extends tubepress_spi_addon_Contributable
+interface tubepress_spi_theme_ThemeInterface extends tubepress_spi_contrib_ContributableInterface
 {
     const _ = 'tubepress_spi_theme_ThemeInterface';
 

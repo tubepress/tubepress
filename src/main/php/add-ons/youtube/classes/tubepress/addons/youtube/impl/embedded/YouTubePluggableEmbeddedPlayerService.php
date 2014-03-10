@@ -23,11 +23,11 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
     }
 
     /**
-     * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
+     * @param tubepress_spi_theme_ThemeHandlerInterface $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The template for this embedded player.
      */
-    public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
+    public final function getTemplate(tubepress_spi_theme_ThemeHandlerInterface $themeHandler)
     {
         return $themeHandler->getTemplateInstance('embedded/youtube.tpl.php', TUBEPRESS_ROOT . '/src/main/php/add-ons/youtube/resources/templates');
     }

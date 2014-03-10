@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_AddonDiscovery<extended>
+ * @covers tubepress_impl_addon_AddonFinder<extended>
  */
 class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_AddonDiscovery
+     * @var tubepress_impl_addon_AddonFinder
      */
     private $_sut;
 
@@ -52,7 +52,7 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
         $this->_splInfoArray            = array();
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $this->_sut                     = new tubepress_impl_boot_secondary_AddonDiscovery(
+        $this->_sut                     = new tubepress_impl_addon_AddonFinder(
 
             $this->_mockFinderFactory,
             $this->_mockEnvironmentDetector
@@ -93,7 +93,7 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
         $this->assertTrue(is_array($results));
         $this->assertTrue(!empty($results));
 
-        $this->assertTrue($results[0] instanceof tubepress_spi_addon_Addon);
+        $this->assertTrue($results[0] instanceof tubepress_spi_addon_AddonInterface);
     }
 
     public function testBadVersion()
@@ -135,10 +135,10 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
         $this->assertTrue(is_array($result));
         $this->assertTrue(!empty($result));
 
-        $this->assertTrue($result[0] instanceof tubepress_spi_addon_Addon);
+        $this->assertTrue($result[0] instanceof tubepress_spi_addon_AddonInterface);
 
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
         $addon = $result[0];
 

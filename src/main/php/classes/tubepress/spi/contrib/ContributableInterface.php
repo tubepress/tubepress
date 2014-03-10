@@ -12,7 +12,7 @@
 /**
  * A TubePress add-on or theme.
  */
-interface tubepress_spi_addon_Contributable
+interface tubepress_spi_contrib_ContributableInterface
 {
     /**
      * @return string The globally unique name of this add-on. Must be 100 characters or less,

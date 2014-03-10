@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_ThemesContainerParam<extended>
+ * @covers tubepress_impl_boot_secondary_ThemesPrimer<extended>
  */
 class tubepress_test_impl_boot_secondary_ThemesContainerParamTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_ThemesContainerParam
+     * @var tubepress_impl_boot_secondary_ThemesPrimer
      */
     private $_sut;
 
@@ -33,7 +33,7 @@ class tubepress_test_impl_boot_secondary_ThemesContainerParamTest extends tubepr
     {
         $this->_mockFinderFactory = ehough_mockery_Mockery::mock('ehough_finder_FinderFactoryInterface');
         $this->_mockThemeFinder   = ehough_mockery_Mockery::mock(tubepress_spi_theme_ThemeFinderInterface::_);
-        $this->_sut               = new tubepress_impl_boot_secondary_ThemesContainerParam(
+        $this->_sut               = new tubepress_impl_boot_secondary_ThemesPrimer(
 
             $this->_mockThemeFinder,
             $this->_mockFinderFactory

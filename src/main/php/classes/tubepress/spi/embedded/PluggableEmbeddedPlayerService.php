@@ -27,11 +27,11 @@ interface tubepress_spi_embedded_PluggableEmbeddedPlayerService
     function getFriendlyName();
 
     /**
-     * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
+     * @param tubepress_spi_theme_ThemeHandlerInterface $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The template for this embedded player.
      */
-    function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler);
+    function getTemplate(tubepress_spi_theme_ThemeHandlerInterface $themeHandler);
 
     /**
      * @param string $videoId The video ID to play.

@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_impl_boot_secondary_ThemesContainerParam implements tubepress_spi_boot_secondary_ThemesContainerParamInterface
+class tubepress_impl_boot_secondary_ThemesPrimer implements tubepress_spi_boot_secondary_ThemesPrimerInterface
 {
     const ATTRIBUTE_IS_SYSTEM   = 'isSystem';
     const ATTRIBUTE_PARENT      = 'parent';

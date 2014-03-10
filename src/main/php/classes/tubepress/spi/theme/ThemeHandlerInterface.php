@@ -12,9 +12,9 @@
 /**
  * TubePress theme handler.
  */
-interface tubepress_spi_theme_ThemeHandler
+interface tubepress_spi_theme_ThemeHandlerInterface
 {
-    const _ = 'tubepress_spi_theme_ThemeHandler';
+    const _ = 'tubepress_spi_theme_ThemeHandlerInterface';
 
     /**
      * Gets an instance of a template appropriate for the current theme.

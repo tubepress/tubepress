@@ -34,7 +34,7 @@ class tubepress_test_addons_wordpress_impl_actions_InitTest extends tubepress_te
         $this->_sut = new tubepress_addons_wordpress_impl_actions_Init();
 
         $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
-        $this->_mockThemeHandler             = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockThemeHandler             = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
     }
 
     public function testInitAction()

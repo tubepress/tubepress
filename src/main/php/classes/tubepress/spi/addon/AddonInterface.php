@@ -12,9 +12,9 @@
 /**
  * A TubePress add-on.
  */
-interface tubepress_spi_addon_Addon extends tubepress_spi_addon_Contributable
+interface tubepress_spi_addon_AddonInterface extends tubepress_spi_contrib_ContributableInterface
 {
-    const _ = 'tubepress_spi_addon_Addon';
+    const _ = 'tubepress_spi_addon_AddonInterface';
 
     /**
      * @return array Optional. An array of IOC container extension class names. May be empty, never null.

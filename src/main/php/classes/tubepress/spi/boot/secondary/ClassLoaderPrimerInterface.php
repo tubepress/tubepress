@@ -12,9 +12,9 @@
 /**
  * Constructs an efficient classloader.
  */
-interface tubepress_spi_boot_secondary_ClassLoaderSetupInterface
+interface tubepress_spi_boot_secondary_ClassLoaderPrimerInterface
 {
-    const _ = 'tubepress_spi_boot_secondary_ClassLoaderSetupInterface';
+    const _ = 'tubepress_spi_boot_secondary_ClassLoaderPrimerInterface';
 
     /**
      * Load the rest of the default classmap into this classloader.

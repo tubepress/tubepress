@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_impl_boot_secondary_AddonDiscovery extends tubepress_impl_boot_secondary_AbstractContributableDiscoverer implements tubepress_spi_boot_secondary_AddonDiscoveryInterface
+class tubepress_impl_addon_AddonFinder extends tubepress_impl_contrib_AbstractContributableFinder implements tubepress_spi_addon_AddonFinderInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -29,7 +29,7 @@ class tubepress_impl_boot_secondary_AddonDiscovery extends tubepress_impl_boot_s
      *
      * @param array $blacklist The add-on blacklist.
      *
-     * @return array An array of tubepress_spi_addon_Addon instances, which may be empty. Never null.
+     * @return array An array of tubepress_spi_addon_AddonInterface instances, which may be empty. Never null.
      */
     public function findAddons(array $blacklist)
     {
@@ -38,7 +38,7 @@ class tubepress_impl_boot_secondary_AddonDiscovery extends tubepress_impl_boot_s
         return $this->findContributables('/src/main/php/add-ons', '/add-ons');
     }
 
-    public function __callbackSystemAddonSorter(tubepress_spi_addon_Addon $first, tubepress_spi_addon_Addon $second)
+    public function __callbackSystemAddonSorter(tubepress_spi_addon_AddonInterface $first, tubepress_spi_addon_AddonInterface $second)
     {
         $firstName  = $first->getName();
         $secondName = $second->getName();
@@ -150,7 +150,7 @@ class tubepress_impl_boot_secondary_AddonDiscovery extends tubepress_impl_boot_s
         for ($x = 0; $x < $addonCount; $x++) {
 
             /**
-             * @var $addon tubepress_spi_addon_Addon
+             * @var $addon tubepress_spi_addon_AddonInterface
              */
             $addon     = $contributables[$x];
             $addonName = $addon->getName();

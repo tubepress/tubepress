@@ -12,7 +12,7 @@
 /**
  * Constructs an efficient classloader.
  */
-class tubepress_impl_boot_secondary_ClassLoaderSetup implements tubepress_spi_boot_secondary_ClassLoaderSetupInterface
+class tubepress_impl_boot_secondary_ClassLoaderPrimer implements tubepress_spi_boot_secondary_ClassLoaderPrimerInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -71,7 +71,7 @@ class tubepress_impl_boot_secondary_ClassLoaderSetup implements tubepress_spi_bo
         }
 
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
         foreach ($addons as $addon) {
 
@@ -88,12 +88,12 @@ class tubepress_impl_boot_secondary_ClassLoaderSetup implements tubepress_spi_bo
      * Loads the PSR-0 class paths and any classmaps for this add-on into
      * the system's primary classloader.
      *
-     * @param tubepress_spi_addon_Addon $addon
+     * @param tubepress_spi_addon_AddonInterface $addon
      * @param ehough_pulsar_ComposerClassLoader
      *
      * @return void
      */
-    private function _addClassHints(tubepress_spi_addon_Addon $addon, ehough_pulsar_ComposerClassLoader $classLoader)
+    private function _addClassHints(tubepress_spi_addon_AddonInterface $addon, ehough_pulsar_ComposerClassLoader $classLoader)
     {
         $this->_shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
@@ -101,7 +101,7 @@ class tubepress_impl_boot_secondary_ClassLoaderSetup implements tubepress_spi_bo
         $this->_registerClassMap($addon, $classLoader);
     }
 
-    private function _registerClassMap(tubepress_spi_addon_Addon $addon, ehough_pulsar_ComposerClassLoader $classLoader)
+    private function _registerClassMap(tubepress_spi_addon_AddonInterface $addon, ehough_pulsar_ComposerClassLoader $classLoader)
     {
         $classMap = $addon->getClassMap();
 
@@ -119,7 +119,7 @@ class tubepress_impl_boot_secondary_ClassLoaderSetup implements tubepress_spi_bo
         $classLoader->addToClassMap($classMap);
     }
 
-    private function _registerPsr0ClassPath(tubepress_spi_addon_Addon $addon, ehough_pulsar_ComposerClassLoader $classLoader)
+    private function _registerPsr0ClassPath(tubepress_spi_addon_AddonInterface $addon, ehough_pulsar_ComposerClassLoader $classLoader)
     {
         $classPaths = $addon->getPsr0ClassPathRoots();
 

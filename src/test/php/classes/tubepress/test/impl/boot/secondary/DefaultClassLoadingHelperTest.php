@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_ClassLoaderSetup<extended>
+ * @covers tubepress_impl_boot_secondary_ClassLoaderPrimer<extended>
  */
 class tubepress_test_impl_boot_secondary_DefaultClassLoadingHelperTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_ClassLoaderSetup
+     * @var tubepress_impl_boot_secondary_ClassLoaderPrimer
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_impl_boot_secondary_DefaultClassLoadingHelperTest extends t
 
     public function onSetup()
     {
-        $this->_sut             = new tubepress_impl_boot_secondary_ClassLoaderSetup();
+        $this->_sut             = new tubepress_impl_boot_secondary_ClassLoaderPrimer();
         $this->_mockClassLoader = ehough_mockery_Mockery::mock('ehough_pulsar_ComposerClassLoader');
     }
 
@@ -39,8 +39,8 @@ class tubepress_test_impl_boot_secondary_DefaultClassLoadingHelperTest extends t
 
     public function testAddClassHints()
     {
-        $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
-        $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+        $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
+        $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
         $mockAddon1->shouldReceive('getName')->andReturn('mock add-on 1');
         $mockAddon2->shouldReceive('getName')->andReturn('mock add-on 2');
 

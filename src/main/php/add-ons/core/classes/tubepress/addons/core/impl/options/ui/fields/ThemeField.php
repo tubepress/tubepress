@@ -75,7 +75,7 @@ class tubepress_addons_core_impl_options_ui_fields_ThemeField extends tubepress_
         return $a > $b;
     }
 
-    private function _buildThemeData(tubepress_spi_theme_ThemeInterface $theme, tubepress_spi_theme_ThemeHandler $handler)
+    private function _buildThemeData(tubepress_spi_theme_ThemeInterface $theme, tubepress_spi_theme_ThemeHandlerInterface $handler)
     {
         return array(
 

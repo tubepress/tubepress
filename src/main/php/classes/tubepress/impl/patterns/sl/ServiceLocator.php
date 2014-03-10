@@ -213,11 +213,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_theme_ThemeHandler The theme handler.
+     * @return tubepress_spi_theme_ThemeHandlerInterface The theme handler.
      */
     public static function getThemeHandler()
     {
-        return self::getService(tubepress_spi_theme_ThemeHandler::_);
+        return self::getService(tubepress_spi_theme_ThemeHandlerInterface::_);
     }
 
     /**

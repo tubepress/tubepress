@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons and themes for TubePress.
  */
-abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
+abstract class tubepress_impl_contrib_AbstractContributableFinder
 {
     /**
      * @var ehough_epilog_Logger
@@ -220,11 +220,11 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
         $ref  = new ReflectionClass($this->getContributableClassName());
         $args = array(
 
-            $manifestContents[tubepress_impl_addon_ContributableBase::ATTRIBUTE_NAME],
-            $manifestContents[tubepress_impl_addon_ContributableBase::ATTRIBUTE_VERSION],
-            $manifestContents[tubepress_impl_addon_ContributableBase::ATTRIBUTE_TITLE],
-            $manifestContents[tubepress_impl_addon_ContributableBase::ATTRIBUTE_AUTHOR],
-            $manifestContents[tubepress_impl_addon_ContributableBase::ATTRIBUTE_LICENSES]
+            $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_NAME],
+            $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_VERSION],
+            $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_TITLE],
+            $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_AUTHOR],
+            $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_LICENSES]
         );
 
         $additionalConstructorArgs = $this->getAdditionalRequiredConstructorArgs($manifestContents, $absPath);
@@ -241,22 +241,22 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
         return $instance;
     }
 
-    private function _setOptionalAttributes(tubepress_spi_addon_Contributable $contributable,
+    private function _setOptionalAttributes(tubepress_spi_contrib_ContributableInterface $contributable,
                                              array $manifestContentsAsArray, $manifestFileAbsPath)
     {
         $optionalAttributeMap = array(
 
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_DESCRIPTION => 'Description',
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_KEYWORDS    => 'Keywords',
-            tubepress_impl_addon_ContributableBase::CATEGORY_URLS                 => array(
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_DESCRIPTION => 'Description',
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_KEYWORDS    => 'Keywords',
+            tubepress_impl_contrib_ContributableBase::CATEGORY_URLS                 => array(
 
-                tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_HOMEPAGE      => 'HomepageUrl',
-                tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_DOCUMENTATION => 'DocumentationUrl',
-                tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_DEMO          => 'DemoUrl',
-                tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_DOWNLOAD      => 'DownloadUrl',
-                tubepress_impl_addon_ContributableBase::ATTRIBUTE_URL_BUGS          => 'BugTrackerUrl',
+                tubepress_impl_contrib_ContributableBase::ATTRIBUTE_URL_HOMEPAGE      => 'HomepageUrl',
+                tubepress_impl_contrib_ContributableBase::ATTRIBUTE_URL_DOCUMENTATION => 'DocumentationUrl',
+                tubepress_impl_contrib_ContributableBase::ATTRIBUTE_URL_DEMO          => 'DemoUrl',
+                tubepress_impl_contrib_ContributableBase::ATTRIBUTE_URL_DOWNLOAD      => 'DownloadUrl',
+                tubepress_impl_contrib_ContributableBase::ATTRIBUTE_URL_BUGS          => 'BugTrackerUrl',
             ),
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_SCREENSHOTS => 'Screenshots',
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_SCREENSHOTS => 'Screenshots',
         );
         $optionalAttributeMap = array_merge($optionalAttributeMap, $this->getOptionalAttributesMap());
 
@@ -295,7 +295,7 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
         return null;
     }
 
-    private function _setOptionalAttributesFromMap(tubepress_spi_addon_Contributable $contributable, array $manifestContentsAsArray,
+    private function _setOptionalAttributesFromMap(tubepress_spi_contrib_ContributableInterface $contributable, array $manifestContentsAsArray,
                                                    $manifestFileAbsPath, array $attributeNameToSetterNameMap)
     {
         foreach ($attributeNameToSetterNameMap as $optionalAttributeName => $setterSuffix) {
@@ -332,11 +332,11 @@ abstract class tubepress_impl_boot_secondary_AbstractContributableDiscoverer
     {
         $requiredAttributeNames = array(
 
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_NAME,
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_VERSION,
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_TITLE,
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_AUTHOR,
-            tubepress_impl_addon_ContributableBase::ATTRIBUTE_LICENSES
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_NAME,
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_VERSION,
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_TITLE,
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_AUTHOR,
+            tubepress_impl_contrib_ContributableBase::ATTRIBUTE_LICENSES
         );
 
         foreach ($requiredAttributeNames as $requiredAttributeName) {

@@ -32,7 +32,7 @@ class tubepress_test_addons_core_impl_listeners_options_LegacyThemeListenerTest 
     public function onSetup()
     {
         $this->_mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
-        $this->_mockThemeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockThemeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
 
         $this->_sut = new tubepress_addons_core_impl_listeners_options_LegacyThemeListener();
     }

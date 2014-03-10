@@ -51,7 +51,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
 
     public function testGetThemeValues()
     {
-        $themeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $themeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
         $themeHandler->shouldReceive('getMapOfAllThemeNamesToTitles')->once()->andReturn(array(
 
             'xyz' => 'XZY Theme',

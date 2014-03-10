@@ -291,8 +291,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $containerBuilder->register(
 
-            tubepress_spi_theme_ThemeHandler::_,
-            'tubepress_impl_theme_SimpleThemeHandler'
+            tubepress_spi_theme_ThemeHandlerInterface::_,
+            'tubepress_impl_theme_ThemeHandler'
         )->addArgument('%themes%');
     }
 

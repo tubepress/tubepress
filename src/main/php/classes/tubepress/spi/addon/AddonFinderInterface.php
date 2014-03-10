@@ -12,16 +12,16 @@
 /**
  * Discovers add-ons for TubePress.
  */
-interface tubepress_spi_boot_secondary_AddonDiscoveryInterface
+interface tubepress_spi_addon_AddonFinderInterface
 {
-    const _ = 'tubepress_spi_boot_secondary_AddonDiscoveryInterface';
+    const _ = 'tubepress_spi_addon_AddonFinderInterface';
 
     /**
      * Discovers TubePress add-ons.
      *
      * @param array $blacklist The add-on blacklist.
      *
-     * @return array An array of tubepress_spi_addon_Addon instances, which may be empty. Never null.
+     * @return array An array of tubepress_spi_addon_AddonInterface instances, which may be empty. Never null.
      */
     function findAddons(array $blacklist);
 }

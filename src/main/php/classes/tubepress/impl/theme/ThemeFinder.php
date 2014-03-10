@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_impl_theme_ThemeFinder extends tubepress_impl_boot_secondary_AbstractContributableDiscoverer implements tubepress_spi_theme_ThemeFinderInterface
+class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractContributableFinder implements tubepress_spi_theme_ThemeFinderInterface
 {
     private static $_LEGACY_THEME_NAME_PREFIX = 'unknown/legacy-';
 

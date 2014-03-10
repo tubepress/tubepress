@@ -446,8 +446,8 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     private function _themeHandler()
     {
         $this->expectRegistration(
-            tubepress_spi_theme_ThemeHandler::_,
-            'tubepress_impl_theme_SimpleThemeHandler'
+            tubepress_spi_theme_ThemeHandlerInterface::_,
+            'tubepress_impl_theme_ThemeHandler'
         )->withArgument('%themes%');
     }
 

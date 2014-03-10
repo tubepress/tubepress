@@ -10,13 +10,13 @@
  */
 
 /**
- * @covers tubepress_impl_addon_ContributableBase<extended>
+ * @covers tubepress_impl_contrib_ContributableBase<extended>
  */
 class tubepress_test_impl_player_ContributableBaseTest extends tubepress_test_TubePressUnitTest
 {
     public function testNormalConstruction1()
     {
-        $sut = new tubepress_impl_addon_ContributableBase(
+        $sut = new tubepress_impl_contrib_ContributableBase(
 
             'name',
             '1.0.0',
@@ -34,7 +34,7 @@ class tubepress_test_impl_player_ContributableBaseTest extends tubepress_test_Tu
 
     public function testNormalConstruction2()
     {
-        $sut = new tubepress_impl_addon_ContributableBase(
+        $sut = new tubepress_impl_contrib_ContributableBase(
 
             'name',
             tubepress_spi_version_Version::parse('2.3.1'),
@@ -90,7 +90,7 @@ class tubepress_test_impl_player_ContributableBaseTest extends tubepress_test_Tu
 
     public function testSetGetDescription()
     {
-        $sut = new tubepress_impl_addon_ContributableBase(
+        $sut = new tubepress_impl_contrib_ContributableBase(
 
             'name',
             '1.0.0',

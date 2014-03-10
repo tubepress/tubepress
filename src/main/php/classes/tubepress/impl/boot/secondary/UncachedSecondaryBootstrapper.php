@@ -25,22 +25,22 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
     private $_shouldLog;
 
     /**
-     * @var tubepress_spi_boot_secondary_ClassLoaderSetupInterface
+     * @var tubepress_spi_boot_secondary_ClassLoaderPrimerInterface
      */
     private $_bootHelperClassLoadingHelper;
 
     /**
-     * @var tubepress_spi_boot_secondary_IocCompilingInterface
+     * @var tubepress_spi_boot_secondary_IocCompilerInterface
      */
     private $_bootHelperIocHelper;
 
     /**
-     * @var tubepress_spi_boot_secondary_AddonDiscoveryInterface
+     * @var tubepress_spi_addon_AddonFinderInterface
      */
     private $_bootHelperAddonDiscoverer;
 
     /**
-     * @var tubepress_spi_boot_secondary_ThemesContainerParamInterface
+     * @var tubepress_spi_boot_secondary_ThemesPrimerInterface
      */
     private $_bootHelperThemeDiscoverer;
 
@@ -56,10 +56,10 @@ class tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper implements tub
 
     public function __construct(
         $shouldLog,
-        tubepress_spi_boot_secondary_ClassLoaderSetupInterface $clsi,
-        tubepress_spi_boot_secondary_AddonDiscoveryInterface $adi,
-        tubepress_spi_boot_secondary_ThemesContainerParamInterface $tdi,
-        tubepress_spi_boot_secondary_IocCompilingInterface $ici)
+        tubepress_spi_boot_secondary_ClassLoaderPrimerInterface $clsi,
+        tubepress_spi_addon_AddonFinderInterface $adi,
+        tubepress_spi_boot_secondary_ThemesPrimerInterface $tdi,
+        tubepress_spi_boot_secondary_IocCompilerInterface $ici)
     {
         $this->_logger                       = ehough_epilog_LoggerFactory::getLogger('Uncached Secondary Bootstrapper');
         $this->_shouldLog                    = $shouldLog;

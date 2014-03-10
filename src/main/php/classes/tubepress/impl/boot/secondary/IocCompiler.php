@@ -12,7 +12,7 @@
 /**
  * Handles constructing/initializing the IOC container.
  */
-class tubepress_impl_boot_secondary_IocContainerCompiler implements tubepress_spi_boot_secondary_IocCompilingInterface
+class tubepress_impl_boot_secondary_IocCompiler implements tubepress_spi_boot_secondary_IocCompilerInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -88,7 +88,7 @@ class tubepress_impl_boot_secondary_IocContainerCompiler implements tubepress_sp
         $count = count($addons);
 
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
         foreach ($addons as $addon) {
 
@@ -148,7 +148,7 @@ class tubepress_impl_boot_secondary_IocContainerCompiler implements tubepress_sp
         $count = count($addons);
 
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
         foreach ($addons as $addon) {
 

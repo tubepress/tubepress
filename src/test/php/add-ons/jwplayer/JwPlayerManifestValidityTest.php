@@ -16,7 +16,7 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 

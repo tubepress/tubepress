@@ -43,7 +43,7 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
 
     public function testGetTemplate()
     {
-        $mockThemeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $mockThemeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
 
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 

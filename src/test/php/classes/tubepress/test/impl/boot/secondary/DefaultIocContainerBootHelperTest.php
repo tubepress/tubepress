@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_boot_secondary_IocContainerCompiler<extended>
+ * @covers tubepress_impl_boot_secondary_IocCompiler<extended>
  */
 class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_secondary_IocContainerCompiler
+     * @var tubepress_impl_boot_secondary_IocCompiler
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest exten
 
     public function onSetup()
     {
-        $this->_sut              = new tubepress_impl_boot_secondary_IocContainerCompiler();
+        $this->_sut              = new tubepress_impl_boot_secondary_IocCompiler();
         $this->_mockIocContainer = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
     }
 
@@ -40,8 +40,8 @@ class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest exten
 
     public function testCompile()
     {
-        $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
-        $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_Addon::_);
+        $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
+        $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
         $mockAddon1->shouldReceive('getName')->andReturn('mock add-on 1');
         $mockAddon2->shouldReceive('getName')->andReturn('mock add-on 2');
 

@@ -63,7 +63,7 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $this->_mockQueryStringService          = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
         $messageService                         = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockThemeHandler                = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockThemeHandler                = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)->andReturn(true);
