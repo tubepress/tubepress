@@ -171,7 +171,7 @@ class tubepress_impl_addon_AddonFinder extends tubepress_impl_contrib_AbstractCo
     {
         if (!isset($this->_logger)) {
 
-            $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Add-on Discoverer');
+            $this->_logger = ehough_epilog_LoggerFactory::getLogger('Add-on Finder');
         }
 
         return $this->_logger;

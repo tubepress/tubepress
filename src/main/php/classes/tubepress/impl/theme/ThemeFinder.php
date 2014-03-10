@@ -76,7 +76,7 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
     {
         if (!isset($this->_logger)) {
 
-            $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Theme Discoverer');
+            $this->_logger = ehough_epilog_LoggerFactory::getLogger('Theme Finder');
         }
 
         return $this->_logger;
@@ -98,6 +98,19 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
     private function _findLegacyThemes(array $modernThemes)
     {
         $userThemeDir = $this->getEnvironmentDetector()->getUserContentDirectory() . '/themes';
+
+        if (!is_dir($userThemeDir)) {
+
+            if ($this->shouldLog()) {
+
+                $this->_logger->debug(sprintf('User theme directory at %s does not exist.',
+                    $userThemeDir
+                ));
+            }
+
+            return array();
+        }
+
         $finder       = $this->getFinderFactory()->createFinder()->directories()->in($userThemeDir)->depth('< 1');
         $themesToKeep = array();
 

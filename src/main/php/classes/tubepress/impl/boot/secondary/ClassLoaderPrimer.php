@@ -26,7 +26,7 @@ class tubepress_impl_boot_secondary_ClassLoaderPrimer implements tubepress_spi_b
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Class Loader Boot Helper');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Class Loader Primer');
     }
 
     /**

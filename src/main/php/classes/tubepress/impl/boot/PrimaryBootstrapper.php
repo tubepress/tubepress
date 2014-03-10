@@ -178,7 +178,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
 
         ehough_epilog_LoggerFactory::setHandlerStack(array($loggingHandler));
 
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('TubePress Bootstrapper');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Bootstrapper');
 
         $this->_loggingHandler = $loggingHandler;
     }
