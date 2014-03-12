@@ -11,6 +11,8 @@
 
 /**
  * A video object that TubePress processes. It's basically just a key-value store.
+ *
+ * @package TubePress\Video
  */
 class tubepress_api_video_Video
 {

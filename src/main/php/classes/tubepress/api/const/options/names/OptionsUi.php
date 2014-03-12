@@ -11,6 +11,8 @@
 
 /**
  * Options related to the options UI.
+ *
+ * @package TubePress\Const\Options\Names
  */
 class tubepress_api_const_options_names_OptionsUi
 {

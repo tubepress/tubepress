@@ -11,6 +11,8 @@
 
 /**
  * Represents a set of videos.
+ *
+ * @package TubePress\Video
  */
 class tubepress_api_video_VideoGalleryPage
 {

@@ -10,8 +10,11 @@
  */
 
 /**
- * An event that is passed around during TubePress's execution.
+ * The dispatcher that passes events around during TubePress's execution. Typically instantiated
+ * only once during execution, allows plug-ins to listen for and respond to specific events 
+ * occuring during different phases of TubePress code execution.
  *
+ * @package TubePress\API\Event
  */
 interface tubepress_api_event_EventDispatcherInterface
 {

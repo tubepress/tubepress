@@ -10,8 +10,9 @@
  */
 
 /**
- * An event that is passed around during TubePress's execution.
+ * An event that is passed around during TubePress's execution. 
  *
+ * @package TubePress\API\Event
  */
 interface tubepress_api_event_EventInterface
 {
@@ -79,7 +80,7 @@ interface tubepress_api_event_EventInterface
      */
     function hasArgument($key);
 
-    /**
+   /**
      * Returns whether further event listeners should be triggered.
      *
      * @return Boolean Whether propagation was already stopped for this event.
@@ -103,7 +104,7 @@ interface tubepress_api_event_EventInterface
     function setArgument($key, $value);
 
     /**
-     * Set args property.
+     * Add numerous arguments to an event.
      *
      * @param array $args Arguments.
      *

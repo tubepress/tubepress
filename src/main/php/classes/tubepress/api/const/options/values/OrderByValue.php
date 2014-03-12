@@ -11,6 +11,8 @@
 
 /**
  * TubePress gallery content modes.
+ *
+ * @package TubePress\Const\Options\Values
  */
 class tubepress_api_const_options_values_OrderByValue
 {

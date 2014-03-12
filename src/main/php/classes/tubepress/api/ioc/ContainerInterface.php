@@ -11,7 +11,8 @@
 
 /**
  * @deprecated
- *
+ * @package TubePress\IOC
+ * 
  * This is only here for backwards compatability with pre 4.x.x add-ons. DO NOT USE!
  */
 interface tubepress_api_ioc_ContainerInterface extends tubepress_api_ioc_ContainerBuilderInterface

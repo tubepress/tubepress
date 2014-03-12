@@ -13,6 +13,8 @@
  * Public TubePress template variables. These variables are considered
  * safe for use by anyone, so don't mess with this list without serious
  * consideration!
+ *
+ * @package TubePress\Const\Template
  */
 class tubepress_api_const_template_Variable
 {
