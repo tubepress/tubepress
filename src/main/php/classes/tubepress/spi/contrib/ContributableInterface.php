@@ -83,7 +83,8 @@ interface tubepress_spi_contrib_ContributableInterface
     /**
      * @return string[] An array of strings, which may be empty but not null, of screenshots of this contributable.
      *                  URLs may either be absolute, or relative. In the latter case, they will be considered to be
-     *                  relative from the contributable root.
+     *                  relative from the contributable root. Array keys are considered to be thumbnails, and
+     *                  values are considered to be full-sized images.
      */
     function getScreenshots();
 }

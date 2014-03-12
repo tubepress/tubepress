@@ -20,6 +20,8 @@
         fieldMap = {},
         selectField,
         screenshotsDiv,
+        emptyScreenshotsP,
+        clickToEnlarge,
 
         setVisibility = function (field, visible) {
 
@@ -99,15 +101,15 @@
 
         getScreenshotDivs = function (screenshots) {
 
-            var i, columnDiv, anchor, img, toReturn = [];
+            var thumbUrl, columnDiv, anchor, img, toReturn = [];
 
-            for (i in screenshots) {
+            for (thumbUrl in screenshots) {
 
-                if (screenshots.hasOwnProperty(i)) {
+                if (screenshots.hasOwnProperty(thumbUrl)) {
 
-                    columnDiv = jquery(doc.createElement('div')).addClass('col-xs-12 col-lg-6');
-                    anchor    = jquery(doc.createElement('a')).attr('href', screenshots[i]).addClass('thumbnail').attr('data-gallery', '');
-                    img       = jquery(doc.createElement('img')).attr('src', screenshots[i]).addClass('img-responsive').attr('alt', 'theme screenshot');
+                    columnDiv = jquery(doc.createElement('div')).addClass('col-xs-6 col-sm-12 col-md-4').css('display', 'none');
+                    anchor    = jquery(doc.createElement('a')).attr('href', screenshots[thumbUrl]).addClass('thumbnail').attr('data-gallery', '');
+                    img       = jquery(doc.createElement('img')).attr('src', thumbUrl).addClass('img-responsive').attr('alt', 'theme screenshot');
 
                     anchor.append(img);
                     columnDiv.append(anchor);
@@ -121,20 +123,22 @@
 
         showScreenshots = function (screenshots) {
 
-            var firstDiv = screenshotsDiv.children('div:first');
+            var thumbnails;
 
-            firstDiv.children('div').remove();
-            firstDiv.append(getScreenshotDivs(screenshots));
+            screenshotsDiv.children('div').remove();
+            screenshotsDiv.append(getScreenshotDivs(screenshots));
+            emptyScreenshotsP.css('display', 'none');
 
-            screenshotsDiv.children('p:first').css('display', 'none');
-            firstDiv.css('display', 'none');
-            firstDiv.fadeIn(300);
+            thumbnails = screenshotsDiv.children('div');
+            thumbnails.fadeIn(300);
+            clickToEnlarge.fadeIn(300);
         },
 
         hideScreenshots = function () {
 
-            screenshotsDiv.children('div:first').css('display', 'none');
-            screenshotsDiv.children('p:first').css('display', 'inherit');
+            screenshotsDiv.children('div').remove();
+            emptyScreenshotsP.css('display', 'inherit');
+            clickToEnlarge.css('display', 'none');
         },
 
         loadTheme = function (themeName) {
@@ -168,7 +172,7 @@
                 }
             }
 
-            if (activeThemeData.screenshots && activeThemeData.screenshots.length > 0) {
+            if (activeThemeData.hasOwnProperty('screenshots') && jquery.isPlainObject(activeThemeData.screenshots)) {
 
                 showScreenshots(activeThemeData.screenshots);
 
@@ -185,10 +189,22 @@
             loadTheme(current);
         },
 
+        onTabSwitch = function (e) {
+
+            var newTab = e.target;
+
+            if (newTab.hash === '#theme-category') {
+
+                switchTheme();
+            }
+        },
+
         init = function () {
 
-            themeData      = win.TubePressThemes;
-            screenshotsDiv = jquery('#theme-screenshots');
+            themeData         = win.TubePressThemes;
+            screenshotsDiv    = jquery('#theme-screenshots div.panel-body:first');
+            emptyScreenshotsP = screenshotsDiv.children('p:first');
+            clickToEnlarge    = jquery('#click-to-englarge-screenshots');
 
             var i, fieldName, blueImpGallery = jquery('#blueimp-gallery');
 
@@ -206,7 +222,7 @@
 
             selectField.change(switchTheme);
 
-            switchTheme();
+            jquery('a[data-toggle="tab"]').on('show.bs.tab', onTabSwitch);
 
             blueImpGallery.data('useBootstrapModal', false);
             blueImpGallery.toggleClass('blueimp-gallery-controls', true);

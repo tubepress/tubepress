@@ -12,10 +12,10 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "The sidebar theme for TubePress 3.1.5 and below.",
+    "description": "The sidebar theme for TubePress 3.1.5 and below. Works well when used in a narrow vertical column.",
     "parent" : "tubepress/legacy-default",
-    "screenshots" : [
+    "screenshots" : {
 
-        "http://i.imgur.com/gfOd0dV.png"
-    ]
+        "http://themes.tubepress-cdn.com/legacy-sidebar/screenshots/1-thumbnail.png" : "http://themes.tubepress-cdn.com/legacy-sidebar/screenshots/1.png"
+    }
 }

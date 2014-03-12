@@ -125,7 +125,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
 
         $actual = $this->_sut->getScreenshots();
         $expected = array(
-            'http://foo.bar/hello/user/themes/neat/one.jpg',
+            'http://foo.bar/hello/user/themes/neat/one.jpg' => 'http://foo.bar/hello/user/themes/neat/one.jpg',
         );
 
         $this->assertEquals($expected, $actual);

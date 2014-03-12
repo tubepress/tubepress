@@ -12,6 +12,6 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "The Vimeo theme for TubePress 3.1.5 and below.",
+    "description": "The Vimeo theme for TubePress 3.1.5 and below. Identical to \"Default (legacy)\" except that it includes links to the video uploader's page on vimeo.com.",
     "parent" : "tubepress/legacy-default"
 }

@@ -17,8 +17,10 @@
         "styles" : [ "css/tubepress.css" ]
     },
     "parent" : "tubepress/default",
-    "screenshots" : [
+    "screenshots" : {
 
-        "http://i.imgur.com/GU8pe2f.png"
-    ]
+        "http://themes.tubepress-cdn.com/legacy-default/screenshots/1-thumbnail.png" : "http://themes.tubepress-cdn.com/legacy-default/screenshots/1.png",
+        "http://themes.tubepress-cdn.com/legacy-default/screenshots/2-thumbnail.png" : "http://themes.tubepress-cdn.com/legacy-default/screenshots/2.png",
+        "http://themes.tubepress-cdn.com/legacy-default/screenshots/3-thumbnail.png" : "http://themes.tubepress-cdn.com/legacy-default/screenshots/3.png"
+    }
 }

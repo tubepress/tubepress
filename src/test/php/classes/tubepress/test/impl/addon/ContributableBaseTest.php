@@ -55,10 +55,13 @@ class tubepress_test_impl_player_ContributableBaseTest extends tubepress_test_Tu
         $sut = $this->_buildValidContributable();
 
         $sut->setScreenshots(array('http://foo.bar/one.png'));
-        $this->assertEquals(array('http://foo.bar/one.png'), $sut->getScreenshots());
+        $this->assertEquals(array('http://foo.bar/one.png' => 'http://foo.bar/one.png'), $sut->getScreenshots());
 
         $sut->setScreenshots(array('foo/one.png'));
-        $this->assertEquals(array('foo/one.png'), $sut->getScreenshots());
+        $this->assertEquals(array('foo/one.png' => 'foo/one.png'), $sut->getScreenshots());
+
+        $sut->setScreenshots(array('foo/one.png' => 'bar/two.jpg'));
+        $this->assertEquals(array('foo/one.png' => 'bar/two.jpg'), $sut->getScreenshots());
     }
 
     public function testBadUrlScreenshots()

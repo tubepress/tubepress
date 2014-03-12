@@ -69,9 +69,13 @@
         </div>
 
         <div class="col-xs-12 col-sm-4 col-md-6 col-lg-7" id="theme-screenshots">
-            <p class="bg-info text-muted" style="padding: 15px; display: none">No screenshots available.</p>
-            <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Screenshots<span id="click-to-englarge-screenshots" style="display: none"> - click to enlarge</span></div>
+                <div class="panel-body">
+                    <p class="text-muted" style="display: none">None available.</p>
+                </div>
             </div>
+
         </div>
 
     </div>

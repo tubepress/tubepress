@@ -125,7 +125,20 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
             $themeName = $this->_calculateCurrentThemeName();
         }
 
-        return $this->_getResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_SCREENSHOTS);
+        $shots = $this->_getResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_SCREENSHOTS);
+
+        if (tubepress_impl_util_LangUtils::isAssociativeArray($shots)) {
+
+            return $shots;
+        }
+
+        $toReturn = array();
+        foreach ($shots as $shot) {
+
+            $toReturn[$shot] = $shot;
+        }
+
+        return $toReturn;
     }
 
     private function _recursivelyGetResourceUrlsForTheme($themeName, $key)
@@ -153,37 +166,56 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $themeAbsPath        = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_THEME_ROOT];
         $themeBaseName       = basename($themeAbsPath);
+        $resources           = $this->_themeMap[$themeName][$key];
+        $isSystemTheme       = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_IS_SYSTEM];
 
-        foreach ($this->_themeMap[$themeName][$key] as $relativeResourcePath) {
+        if (tubepress_impl_util_LangUtils::isAssociativeArray($resources)) {
 
-            if (strpos($relativeResourcePath, 'http') === 0) {
+            foreach ($resources as $keyUrl => $valUrl) {
 
-                try {
+                $key = $this->_resourceUrlToAbsolute($keyUrl, $isSystemTheme, $themeBaseName, $environmentDetector);
+                $val = $this->_resourceUrlToAbsolute($valUrl, $isSystemTheme, $themeBaseName, $environmentDetector);
 
-                    new ehough_curly_Url($relativeResourcePath);
-
-                    $toReturn[] = $relativeResourcePath;
-
-                } catch (InvalidArgumentException $e) {
-                    //ignore
-                }
-
-                continue;
+                $toReturn[$key] = $val;
             }
 
-            if ($this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_IS_SYSTEM]) {
+        } else {
 
-                $prefix = $environmentDetector->getBaseUrl() . '/src/main/resources/default-themes/';
+            foreach ($resources as $url) {
 
-            } else {
-
-                $prefix = $environmentDetector->getUserContentUrl() . '/themes/';
+                $toReturn[] = $this->_resourceUrlToAbsolute($url, $isSystemTheme, $themeBaseName, $environmentDetector);
             }
-
-            $toReturn[] = $prefix . $themeBaseName . '/' . $relativeResourcePath;
         }
 
         return $toReturn;
+    }
+
+    private function _resourceUrlToAbsolute($url, $isSystemTheme, $themeBaseName, tubepress_spi_environment_EnvironmentDetector $ed)
+    {
+        if (strpos($url, 'http') === 0) {
+
+            try {
+
+                new ehough_curly_Url($url);
+
+                return $url;
+
+            } catch (InvalidArgumentException $e) {
+
+                return null;
+            }
+        }
+
+        if ($isSystemTheme) {
+
+            $prefix = $ed->getBaseUrl() . '/src/main/resources/default-themes/';
+
+        } else {
+
+            $prefix = $ed->getUserContentUrl() . '/themes/';
+        }
+
+        return $prefix . $themeBaseName . '/' . $url;
     }
 
     /**

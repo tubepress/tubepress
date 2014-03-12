@@ -96,7 +96,8 @@ class tubepress_test_addons_wordpress_impl_actions_AdminEnqueueScriptsTest exten
             'bootstrap-multiselect'   => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.2/css/bootstrap-multiselect.css',
             'blueimp-gallery-2.14.0'  => '/src/main/web/options-gui/vendor/blueimp-gallery-2.14.0/css/blueimp-gallery.min.css',
             'bootstrap-image-gallery' => '/src/main/web/options-gui/vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css',
-            'tubepress-extra'         => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
+            'tubepress-options-gui'   => '/src/main/web/options-gui/css/options-page.css',
+            'wordpress-options-gui'   => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
             'spectrum'                => '/src/main/web/options-gui/vendor/spectrum-1.3.1/spectrum.css',
         );
     }

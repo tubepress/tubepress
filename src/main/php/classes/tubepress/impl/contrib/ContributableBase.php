@@ -187,32 +187,29 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     public function setScreenshots(array $screenshots) {
 
-        foreach ($screenshots as $screenshot) {
+        $toSet = array();
 
-            if (!is_string($screenshot)) {
+        if (tubepress_impl_util_LangUtils::isAssociativeArray($screenshots)) {
 
-                throw new InvalidArgumentException('Screenshots must be strings.');
+            foreach ($screenshots as $thumbnailUrl => $fullsizeUrl) {
+
+                $this->_validateScreenshotUrl($thumbnailUrl);
+                $this->_validateScreenshotUrl($fullsizeUrl);
+
+                $toSet[$thumbnailUrl] = $fullsizeUrl;
             }
 
-            if (strpos($screenshot, 'http') === 0) {
+        } else {
 
-                try {
+            foreach ($screenshots as $url) {
 
-                    new ehough_curly_Url($screenshot);
+                $this->_validateScreenshotUrl($url);
 
-                } catch (InvalidArgumentException $e) {
-
-                    throw new InvalidArgumentException(sprintf('%s is not a valid screenshot URL', $screenshot));
-                }
-            }
-
-            if (!(tubepress_impl_util_StringUtils::endsWith($screenshot, '.png') || tubepress_impl_util_StringUtils::endsWith($screenshot, '.png'))) {
-
-                throw new InvalidArgumentException('Screenshot URLs must end with .png or .jpg');
+                $toSet[$url] = $url;
             }
         }
 
-        $this->_screenshots = $screenshots;
+        $this->_screenshots = $toSet;
     }
 
     /**
@@ -434,6 +431,36 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
         } catch (InvalidArgumentException $e) {
 
             throw new InvalidArgumentException($message);
+        }
+    }
+
+    /**
+     * @param $screenshotUrl
+     *
+     * @throws InvalidArgumentException
+     */
+    private function _validateScreenshotUrl($screenshotUrl)
+    {
+        if (!is_string($screenshotUrl)) {
+
+            throw new InvalidArgumentException('Screenshots must be strings.');
+        }
+
+        if (strpos($screenshotUrl, 'http') === 0) {
+
+            try {
+
+                new ehough_curly_Url($screenshotUrl);
+
+            } catch (InvalidArgumentException $e) {
+
+                throw new InvalidArgumentException(sprintf('%s is not a valid screenshot URL', $screenshotUrl));
+            }
+        }
+
+        if (!(tubepress_impl_util_StringUtils::endsWith($screenshotUrl, '.png') || tubepress_impl_util_StringUtils::endsWith($screenshotUrl, '.jpg'))) {
+
+            throw new InvalidArgumentException('Screenshot URLs must end with .png or .jpg');
         }
     }
 }
