@@ -95,6 +95,21 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
         return array($isSystem, dirname($absPath));
     }
 
+    protected function filter(array &$contributables)
+    {
+        $contributables = array_filter($contributables, array($this, '__callbackRemoveStarterTheme'));
+    }
+
+    public function __callbackRemoveStarterTheme($element)
+    {
+        if (!($element instanceof tubepress_spi_theme_ThemeInterface)) {
+
+            return true;
+        }
+
+        return $element->getName() !== 'changeme/themename';
+    }
+
     private function _findLegacyThemes(array $modernThemes)
     {
         $userThemeDir = $this->getEnvironmentDetector()->getUserContentDirectory() . '/themes';
@@ -127,6 +142,14 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
         foreach ($finder as $candidateLegacyThemeDir) {
 
             $keepTheme = true;
+
+            if (basename($candidateLegacyThemeDir) === 'starter') {
+
+                /**
+                 * Ignore the starter theme.
+                 */
+                continue;
+            }
 
             /**
              * @var $modernTheme tubepress_spi_theme_ThemeInterface
