@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_impl_boot_secondary_IocCompiler<extended>
  */
-class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_boot_secondary_IocCompilerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_impl_boot_secondary_IocCompiler
@@ -24,10 +24,18 @@ class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest exten
      */
     private $_mockIocContainer;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockLegacyExtensionSupporter;
+
     public function onSetup()
     {
-        $this->_sut              = new tubepress_impl_boot_secondary_IocCompiler();
-        $this->_mockIocContainer = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
+        $this->_sut                          = new tubepress_impl_boot_secondary_IocCompiler();
+        $this->_mockIocContainer             = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
+        $this->_mockLegacyExtensionSupporter = ehough_mockery_Mockery::mock(tubepress_spi_bc_LegacyExtensionConverterInterface::_);
+
+        $this->_sut->___setLegacyExtensionConverter($this->_mockLegacyExtensionSupporter);
     }
 
     public static function setUpBeforeClass()
@@ -46,11 +54,12 @@ class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest exten
         $mockAddon2->shouldReceive('getName')->andReturn('mock add-on 2');
 
         $mockAddon1IocContainerExtensions = array('FakeExtension', 'bogus class');
+        $mockAddon2IocContainerExtensions = array('Hello', 'There');
         $mockAddon2IocCompilerPasses = array('FakeCompilerPass', 'no such class');
 
         $mockAddon1->shouldReceive('getIocContainerExtensions')->once()->andReturn($mockAddon1IocContainerExtensions);
         $mockAddon1->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn(array());
-        $mockAddon2->shouldReceive('getIocContainerExtensions')->once()->andReturn(array());
+        $mockAddon2->shouldReceive('getIocContainerExtensions')->once()->andReturn($mockAddon2IocContainerExtensions);
         $mockAddon2->shouldReceive('getIocContainerCompilerPasses')->once()->andReturn($mockAddon2IocCompilerPasses);
 
         $mockAddons = array($mockAddon1, $mockAddon2);
@@ -58,6 +67,11 @@ class tubepress_test_impl_boot_secondary_DefaultIocContainerBootHelperTest exten
         $this->_mockIocContainer->shouldReceive('compile')->once();
         $this->_mockIocContainer->shouldReceive('addCompilerPass')->once()->with(ehough_mockery_Mockery::any('FakeCompilerPass'));
         $this->_mockIocContainer->shouldReceive('registerExtension')->once()->with(ehough_mockery_Mockery::any('FakeExtension'));
+
+        $this->_mockLegacyExtensionSupporter->shouldReceive('isLegacyAddon')->twice()->with($mockAddon1)->andReturn(false);
+        $this->_mockLegacyExtensionSupporter->shouldReceive('isLegacyAddon')->twice()->with($mockAddon2)->andReturn(true);
+        $this->_mockLegacyExtensionSupporter->shouldReceive('evaluateLegacyExtensionClass')->once()->with(true, ehough_mockery_Mockery::any('ehough_epilog_Logger'), 2, 2, $mockAddon2, 'Hello')->andReturn(false);
+        $this->_mockLegacyExtensionSupporter->shouldReceive('evaluateLegacyExtensionClass')->once()->with(true, ehough_mockery_Mockery::any('ehough_epilog_Logger'), 2, 2, $mockAddon2, 'There')->andReturn(true);
 
         $this->_sut->compile($this->_mockIocContainer, $mockAddons);
 

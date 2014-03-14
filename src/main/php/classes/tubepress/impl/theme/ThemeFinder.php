@@ -143,7 +143,7 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
 
             $keepTheme = true;
 
-            if (basename($candidateLegacyThemeDir) === 'starter') {
+            if (basename($candidateLegacyThemeDir->getRealPath()) === 'starter') {
 
                 /**
                  * Ignore the starter theme.

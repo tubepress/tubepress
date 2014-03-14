@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass<extended>
+ * @covers tubepress_addons_core_impl_ioc_compiler_RegisterListenersCompilerPass<extended>
  */
-class tubepress_test_addons_core_impl_ioc_RegisterListenersCompilerPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_core_impl_ioc_compiler_RegisterListenersCompilerPassTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass
+     * @var tubepress_addons_core_impl_ioc_compiler_RegisterListenersCompilerPass
      */
     private $_sut;
 
@@ -31,7 +31,7 @@ class tubepress_test_addons_core_impl_ioc_RegisterListenersCompilerPassTest exte
 
     public function onSetup()
     {
-        $this->_sut           = new tubepress_addons_core_impl_ioc_RegisterListenersCompilerPass();
+        $this->_sut           = new tubepress_addons_core_impl_ioc_compiler_RegisterListenersCompilerPass();
         $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerBuilderInterface');
         $this->_mockEventDispatcherDefinition = ehough_mockery_Mockery::mock('tubepress_api_ioc_Definition');
     }

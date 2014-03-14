@@ -24,6 +24,11 @@ class tubepress_impl_boot_secondary_IocCompiler implements tubepress_spi_boot_se
      */
     private $_shouldLog = false;
 
+    /**
+     * @var tubepress_spi_bc_LegacyExtensionConverterInterface
+     */
+    private $_legacyExtensionConverter;
+
     public function __construct()
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('IOC Container Compiler');
@@ -82,7 +87,7 @@ class tubepress_impl_boot_secondary_IocCompiler implements tubepress_spi_boot_se
         }
     }
 
-    private function _registerIocContainerExtensions(tubepress_impl_ioc_IconicContainerBuilder $container, array $addons)
+    private function _registerIocContainerExtensions(tubepress_impl_ioc_IconicContainerBuilder $containerBuilder, array $addons)
     {
         $index = 1;
         $count = count($addons);
@@ -92,9 +97,9 @@ class tubepress_impl_boot_secondary_IocCompiler implements tubepress_spi_boot_se
          */
         foreach ($addons as $addon) {
 
-            $extensions = $addon->getIocContainerExtensions();
+            $extensionClassNames = $addon->getIocContainerExtensions();
 
-            if (count($extensions) === 0) {
+            if (count($extensionClassNames) === 0) {
 
                 if ($this->_shouldLog) {
 
@@ -107,34 +112,32 @@ class tubepress_impl_boot_secondary_IocCompiler implements tubepress_spi_boot_se
                 continue;
             }
 
-            foreach ($extensions as $extension) {
+            if (!isset($this->_legacyExtensionConverter)) {
+
+                $this->_legacyExtensionConverter = new tubepress_impl_bc_LegacyExtensionConverter();
+            }
+
+            foreach ($extensionClassNames as $extensionClassName) {
 
                 if ($this->_shouldLog) {
 
                     $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Will attempt to load %s as an IoC container extension',
-                        $index, $count, $addon->getName(), $extension));
+                        $index, $count, $addon->getName(), $extensionClassName));
                 }
 
-                try {
-
-                    $ref = new ReflectionClass($extension);
-
-                    /** @noinspection PhpParamsInspection */
-                    $container->registerExtension($ref->newInstance());
+                if ($this->_legacyExtensionConverter->isLegacyAddon($addon)) {
 
                     if ($this->_shouldLog) {
 
-                        $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Successfully loaded %s as an IoC container extension',
-                            $index, $count, $addon->getName(), $extension));
+                        $this->_logger->debug(sprintf('(Add-on %d of %d: %s) %s appears to be a legacy extension. Attempting workaround.',
+                            $index, $count, $addon->getName(), $extensionClassName));
                     }
 
-                } catch (Exception $e) {
+                    $this->_registerLegacyExtension($containerBuilder, $extensionClassName, $index, $count, $addon);
 
-                    if ($this->_shouldLog) {
+                } else {
 
-                        $this->_logger->warn(sprintf('(Add-on %d of %d: %s) Failed to load %s as an IoC container extension: %s',
-                            $index, $count, $addon->getName(), $extension, $e->getMessage()));
-                    }
+                    $this->_registerModernExtension($containerBuilder, $extensionClassName, $index, $count, $addon);
                 }
             }
 
@@ -202,4 +205,61 @@ class tubepress_impl_boot_secondary_IocCompiler implements tubepress_spi_boot_se
         }
     }
 
+    /**
+     * @param tubepress_impl_ioc_IconicContainerBuilder $container
+     * @param                                           $extensionClassName
+     * @param                                           $index
+     * @param                                           $count
+     * @param                                           $addon
+     */
+    private function _registerModernExtension(tubepress_impl_ioc_IconicContainerBuilder $container, $extensionClassName, $index, $count, tubepress_spi_addon_AddonInterface $addon)
+    {
+        try {
+
+            $ref = new ReflectionClass($extensionClassName);
+
+            /** @noinspection PhpParamsInspection */
+            $container->registerExtension($ref->newInstance());
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('(Add-on %d of %d: %s) Successfully loaded %s as an IoC container extension', $index, $count, $addon->getName(), $extensionClassName));
+            }
+
+        } catch (Exception $e) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->warn(sprintf('(Add-on %d of %d: %s) Failed to load %s as an IoC container extension: %s', $index, $count, $addon->getName(), $extensionClassName, $e->getMessage()));
+            }
+        }
+    }
+
+    private function _registerLegacyExtension(tubepress_impl_ioc_IconicContainerBuilder $container, $extensionClassName, $index, $count, tubepress_spi_addon_AddonInterface $addon)
+    {
+        $success = $this->_legacyExtensionConverter->evaluateLegacyExtensionClass(
+
+            $this->_shouldLog,
+            $this->_logger,
+            $index,
+            $count,
+            $addon,
+            $extensionClassName
+        );
+
+        if ($success) {
+
+            $this->_registerModernExtension($container, $extensionClassName, $index, $count, $addon);
+        }
+    }
+
+    /**
+     * This is here for testing only!
+     *
+     * @param tubepress_spi_bc_LegacyExtensionConverterInterface $lesi
+     */
+    public function ___setLegacyExtensionConverter(tubepress_spi_bc_LegacyExtensionConverterInterface $lesi)
+    {
+        $this->_legacyExtensionConverter = $lesi;
+    }
 }

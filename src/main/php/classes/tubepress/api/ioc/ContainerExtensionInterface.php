@@ -24,7 +24,7 @@ interface tubepress_api_ioc_ContainerExtensionInterface
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 3.2.0
      */
     function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder);
 }

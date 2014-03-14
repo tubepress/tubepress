@@ -302,6 +302,8 @@ return array(
 
     'tubepress_impl_addon_AddonBase'                                         => $implPrefix . '/addon/AddonBase.php',
     'tubepress_impl_addon_AddonFinder'                                       => $implPrefix . '/addon/AddonFinder.php',
+    'tubepress_impl_bc_LegacyExtensionConverter'                             => $implPrefix . '/bc/LegacyExtensionConverter.php',
+    'tubepress_impl_bc_LegacyOptionProvider'                                 => $implPrefix . '/bc/LegacyOptionProvider.php',
     'tubepress_impl_boot_PrimaryBootstrapper'                                => $implPrefix . '/boot/PrimaryBootstrapper.php',
     'tubepress_impl_boot_SettingsFileReader'                                 => $implPrefix . '/boot/SettingsFileReader.php',
     'tubepress_impl_boot_secondary_CachedSecondaryBootstrapper'              => $implPrefix . '/boot/secondary/CachedSecondaryBootstrapper.php',
@@ -368,6 +370,7 @@ return array(
 
     'tubepress_spi_addon_AddonFinderInterface'                          => $spiPrefix . '/addon/AddonFinderInterface.php',
     'tubepress_spi_addon_AddonInterface'                                => $spiPrefix . '/addon/AddonInterface.php',
+    'tubepress_spi_bc_LegacyExtensionConverterInterface'                => $spiPrefix . '/bc/LegacyExtensionConverterInterface.php',
     'tubepress_spi_boot_SettingsFileReaderInterface'                    => $spiPrefix . '/boot/SettingsFileReaderInterface.php',
     'tubepress_spi_boot_secondary_ClassLoaderPrimerInterface'           => $spiPrefix . '/boot/secondary/ClassLoaderPrimerInterface.php',
     'tubepress_spi_boot_secondary_IocCompilerInterface'                 => $spiPrefix . '/boot/secondary/IocCompilerInterface.php',
@@ -389,7 +392,9 @@ return array(
     'tubepress_spi_http_PluggableAjaxCommandService'                    => $spiPrefix . '/http/PluggableAjaxCommandService.php',
     'tubepress_spi_http_ResponseCodeHandler'                            => $spiPrefix . '/http/ResponseCodeHandler.php',
     'tubepress_spi_message_MessageService'                              => $spiPrefix . '/message/MessageService.php',
+    'tubepress_spi_options_OptionDescriptor'                            => $spiPrefix . '/options/OptionDescriptor.php',
     'tubepress_spi_options_OptionProvider'                              => $spiPrefix . '/options/OptionProvider.php',
+    'tubepress_spi_options_PluggableOptionDescriptorProvider'           => $spiPrefix . '/options/PluggableOptionDescriptorProvider.php',
     'tubepress_spi_options_StorageManager'                              => $spiPrefix . '/options/StorageManager.php',
     'tubepress_spi_options_ui_OptionsPageFieldInterface'                => $spiPrefix . '/options/ui/OptionsPageFieldInterface.php',
     'tubepress_spi_options_ui_OptionsPageInterface'                     => $spiPrefix . '/options/ui/OptionsPageInterface.php',

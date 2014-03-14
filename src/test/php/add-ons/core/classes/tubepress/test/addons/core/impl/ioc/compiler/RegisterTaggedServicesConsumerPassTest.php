@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass<extended>
+ * @covers tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass<extended>
  */
-class tubepress_test_addons_core_impl_ioc_RegisterTaggedServicesConsumerPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPassTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass
+     * @var tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_addons_core_impl_ioc_RegisterTaggedServicesConsumerPassTest
 
     public function onSetup()
     {
-        $this->_sut           = new tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass();
+        $this->_sut           = new tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass();
         $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerBuilderInterface');
     }
 

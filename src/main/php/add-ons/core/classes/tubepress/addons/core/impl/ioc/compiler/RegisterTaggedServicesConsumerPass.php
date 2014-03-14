@@ -12,7 +12,7 @@
 /**
  * Finds registered listeners and adds them to the event dispatcher.
  */
-class tubepress_addons_core_impl_ioc_RegisterTaggedServicesConsumerPass implements tubepress_api_ioc_CompilerPassInterface
+class tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass implements tubepress_api_ioc_CompilerPassInterface
 {
     /**
      * Provides add-ons with the ability to modify the TubePress IOC container builder
