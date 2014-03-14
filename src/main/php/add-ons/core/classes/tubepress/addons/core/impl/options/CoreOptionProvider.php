@@ -125,8 +125,8 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
 
             tubepress_api_const_options_names_Embedded::AUTONEXT        => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
             tubepress_api_const_options_names_Embedded::AUTOPLAY        => 'Auto-play all videos', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT => 'Default is 350.', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH  => 'Default is 425.', //>(translatable)<
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT => sprintf('Default is %s.', 390), //>(translatable)<
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH  => sprintf('Default is %s.', 640), //>(translatable)<
             tubepress_api_const_options_names_Embedded::ENABLE_JS_API   => 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::LAZYPLAY        => 'Auto-play each video after thumbnail click.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::LOOP            => 'Continue playing the video until the user stops it.', //>(translatable)<
@@ -150,10 +150,10 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
             tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS    => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 'Default is 20. Maximum is 50.',     //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => sprintf('Default is %s. Maximum is %s.', 20, 50),     //>(translatable)<
             tubepress_api_const_options_names_Thumbs::THEME            => 'The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.', //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => 'Default is 90.',   //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => 'Default is 120.',  //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => sprintf('Default is %s.', 90),   //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => sprintf('Default is %s.', 120),  //>(translatable)<
         );
     }
 
@@ -176,8 +176,8 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
             tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS          => 3600,
             tubepress_api_const_options_names_Embedded::AUTONEXT                     => true,
             tubepress_api_const_options_names_Embedded::AUTOPLAY                     => false,
-            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT              => 350,
-            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH               => 425,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT              => 390,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH               => 640,
             tubepress_api_const_options_names_Embedded::ENABLE_JS_API                => true,
             tubepress_api_const_options_names_Embedded::LAZYPLAY                     => true,
             tubepress_api_const_options_names_Embedded::LOOP                         => false,
@@ -217,7 +217,7 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW                 => true,
             tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS                  => true,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE               => 20,
-            tubepress_api_const_options_names_Thumbs::THEME                          => 'default',
+            tubepress_api_const_options_names_Thumbs::THEME                          => 'tubepress/default',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT                   => 90,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH                    => 120,
         );

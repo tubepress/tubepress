@@ -38,12 +38,12 @@ class tubepress_addons_wordpress_impl_Widget
             tubepress_api_const_options_names_Meta::VIEWS               => false,
             tubepress_api_const_options_names_Meta::DESCRIPTION         => true,
             tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
-            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'popup',
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'shadowbox',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT      => 105,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH       => 135,
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE    => false,
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW    => false,
-            tubepress_api_const_options_names_Thumbs::THEME             => 'sidebar',
+            tubepress_api_const_options_names_Thumbs::THEME             => 'tubepress/legacy-sidebar',
             tubepress_api_const_options_names_Thumbs::FLUID_THUMBS      => false
         );
 
@@ -58,7 +58,7 @@ class tubepress_addons_wordpress_impl_Widget
 
         if ($context->get(tubepress_api_const_options_names_Thumbs::THEME) === '') {
 
-            $context->set(tubepress_api_const_options_names_Thumbs::THEME, 'sidebar');
+            $context->set(tubepress_api_const_options_names_Thumbs::THEME, 'tubepress/legacy-sidebar');
         }
 
         try {
