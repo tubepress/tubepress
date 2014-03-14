@@ -12,7 +12,7 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "The sidebar theme for TubePress 3.1.5 and below. Works well when used in a narrow vertical column.",
+    "description": "The classic sidebar theme. Nearly identical to the \"Default\" theme, but works very well when used in a narrow vertical column.",
     "parent" : "tubepress/legacy-default",
     "screenshots" : {
 

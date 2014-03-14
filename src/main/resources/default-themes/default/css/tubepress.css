@@ -20,8 +20,14 @@
     /** This lets the thumbnails "flow" naturally across the page. */
     display: inline-block;
 
+    /** http://css-tricks.com/fighting-the-space-between-inline-block-elements/ */
+    margin-right: -4px;
+
     /** Ensure everything inside aligns with the top edge. */
     vertical-align: top;
+
+    /** Ensures that the thumbs are vertically spaced a bit */
+    margin-bottom: 1em;
 }
 
 .tubepress_thumb a {
@@ -41,6 +47,9 @@
 
     /** This centers the thumbnail image inside the div.tubepress_thumb */
     margin: 0 auto !important;
+
+    /** http://css-tricks.com/ie-fix-bicubic-scaling-for-images/ */
+    -ms-interpolation-mode: bicubic
 }
 
 
@@ -89,7 +98,7 @@ dt.tubepress_meta_description {
  */
 dd.tubepress_meta {
 
-    margin-bottom: auto ! important;
+    margin: 0 0 auto 0 ! important;
     display: inline;
 }
 
@@ -100,13 +109,33 @@ dd.tubepress_meta:after {
     white-space: pre;
 }
 
+/**
+ * Apply some basic styling to the video title.
+ */
 dd.tubepress_meta_title {
 
+    font-weight: bold;
     font-size: 13px;
 }
 
-
-
+/**
+ * The following dd's have their corresponding dt's set to display:none. This can cause
+ * text overflow in the dd's, unfortunately, so the following two rules correct that.
+ */
+dd.tubepress_meta_title,
+dd.tubepress_meta_runtime,
+dd.tubepress_meta_url,
+dd.tubepress_meta_description
+{
+    display: block;
+}
+dd.tubepress_meta_title:after,
+dd.tubepress_meta_runtime:after,
+dd.tubepress_meta_url:after,
+dd.tubepress_meta_description:after
+{
+    content: '';
+}
 
 
 /**
@@ -217,4 +246,20 @@ div.tubepress_single_video dl.tubepress_meta_group {
 }
 .tubepress_pagination-right {
     text-align: right;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** SIDEBAR THEME
+ **********************************************************************************************
+ */
+/**
+ * Many folks use both the "tubepress/legacy-default" theme in conjunction with the default
+ * theme. So for convenience we include some CSS rules for the sidebar here.
+ */
+.tubepress_sidebar .tubepress_thumb img {
+
+    margin: 0 !important;
 }

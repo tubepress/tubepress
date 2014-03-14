@@ -79,26 +79,29 @@ $currentItemCount = count($pages);
 $firstItemNumber  = (($current - 1) * $itemsPerPage) + 1;
 $lastItemNumber   = $firstItemNumber + $currentItemCount - 1;
 
-function ___a($page, $format, $innerText = null)
-{
-    if (!$innerText) {
+if (!function_exists('___a')) {
 
-        $innerText = $page;
-    }
-    $href = sprintf($format, $page);
+    function ___a($page, $format, $innerText = null)
+    {
+        if (!$innerText) {
 
-    if ($page > 1) {
+            $innerText = $page;
+        }
+        $href = sprintf($format, $page);
 
-        $noFollow = ' rel="nofollow"';
+        if ($page > 1) {
 
-    } else {
+            $noFollow = ' rel="nofollow"';
 
-        $noFollow = '';
-    }
-    echo <<<ABC
+        } else {
+
+            $noFollow = '';
+        }
+        echo <<<ABC
 <a href="$href" data-page="$page"$noFollow>$innerText</a>
 ABC;
 
+    }
 }
 
 if ($pageCount > 1) : ?>
