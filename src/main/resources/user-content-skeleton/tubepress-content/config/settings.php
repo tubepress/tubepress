@@ -28,9 +28,9 @@ return array(
 
             /**
              * "killerKey" defines the name of the query parameter that you can pass to
-             * TubePress to purge the entire boot cache.
+             * TubePress to purge the entire system cache.
              */
-            //'killerKey' => 'tubepress_clear_boot_cache',
+            //'killerKey' => 'tubepress_clear_system_cache',
 
             /**
              * "containerStoragePath" defines an absolute directory where TubePress can store
