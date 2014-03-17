@@ -129,6 +129,7 @@ class tubepress_test_addons_wordpress_impl_actions_AdminEnqueueScriptsTest exten
             'spectrum-js-initializer'       => '/src/main/web/options-gui/js/spectrum-js-initializer.js',
             'bootstrap-multiselect-init'    => '/src/main/web/options-gui/js/bootstrap-multiselect-initializer.js',
             'theme-field-handler'           => '/src/main/web/options-gui/js/theme-field-handler.js',
+            'theme-reminder'                => '/src/main/php/add-ons/wordpress/web/options-gui/js/theme-reminder.js',
             'iframe-loader'                 => '/src/main/php/add-ons/wordpress/web/options-gui/js/iframe-loader.js',
         ));
 
