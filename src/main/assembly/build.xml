@@ -30,6 +30,7 @@ Builds the free WordPress plugin package of Tubepress.
         <antcall target="compress-js" />
         <antcall target="compress-css" />
         <antcall target="strip-phpunit-from-composer" />
+        <antcall target="copy-locale-fallbacks" />
         <antcall target="package" />
 
     </target>

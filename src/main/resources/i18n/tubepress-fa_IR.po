@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:01+0000\n"
+"PO-Revision-Date: 2014-03-18 20:39:55+0000\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "حداکثر تعداد کاراکتر برای نمایش در توصی
 msgid "Height (px) of thumbs"
 msgstr "قد (پیکسل) از شست"
 
-msgid "Default is 90."
-msgstr "پیش فرض 90 است."
-
 msgid "Width (px) of thumbs"
 msgstr "عرض (پیکسل) از شست"
-
-msgid "Default is 120."
-msgstr "پیش فرض 120 است."
 
 msgid "Use relative dates"
 msgstr "استفاده از تاریخ نسبی"
@@ -155,8 +149,8 @@ msgstr "در صورت انتخاب، هر کسی قادر خواهد بود بر
 msgid "Enable API cache"
 msgstr "فعال کردن کش API"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "پیش فرض 20 است. حداکثر 50 سال است."
+msgid "Default is %s. Maximum is %s."
+msgstr "پیش فرض %s است. حداکثر %s سال است."
 
 msgid "Show pagination above thumbnails"
 msgstr "نمایش صفحه بندی فوق ریز"
@@ -176,11 +170,8 @@ msgstr "فقط به گالری که اندازهشان چند صفحه صدق م
 msgid "Max height (px)"
 msgstr "حداکثر ارتفاع (پیکسل)"
 
-msgid "Default is 350."
-msgstr "پیش فرض 350 است."
-
-msgid "Default is 425."
-msgstr "پیش فرض 425 است."
+msgid "Default is %s."
+msgstr "پیش فرض %s است."
 
 msgid "Thumbnails"
 msgstr "ریز عکسها به"
@@ -265,9 +256,6 @@ msgstr "موضوع"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "مرتب سازی اضافی اعمال شده به هر صفحه منحصر به فرد یک گالری"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "این موضوع TubePress برای این گالری استفاده کنید. تم های خود را در به <code> یافت را می توان %s </ کد>، و تم پیش فرض را می توان در به <code> %s </> کد."
 
 msgid "Loop"
 msgstr "حلقه"

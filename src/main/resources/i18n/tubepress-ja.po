@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:09+0000\n"
+"PO-Revision-Date: 2014-03-18 20:40:02+0000\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "ビデオの説明に表示される文字の最大数。制限なしの
 msgid "Height (px) of thumbs"
 msgstr "親指の高さ（ピクセル）"
 
-msgid "Default is 90."
-msgstr "デフォルトは90です。"
-
 msgid "Width (px) of thumbs"
 msgstr "親指の幅（ピクセル）"
-
-msgid "Default is 120."
-msgstr "既定値は120です。"
 
 msgid "Use relative dates"
 msgstr "相対的な日付を使用"
@@ -155,8 +149,8 @@ msgstr "チェックした場合、誰もがあなたのデバッグ情報を表
 msgid "Enable API cache"
 msgstr "APIのキャッシュを有効にする"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "デフォルトは20です。最大値は50です。"
+msgid "Default is %s. Maximum is %s."
+msgstr "デフォルトは%sです。最大値は%sです。"
 
 msgid "Show pagination above thumbnails"
 msgstr "サムネイル上の改ページを表示"
@@ -176,11 +170,8 @@ msgstr "唯一の複数のページにまたがるのギャラリーに適用さ
 msgid "Max height (px)"
 msgstr "最大高さ（ピクセル）"
 
-msgid "Default is 350."
-msgstr "デフォルトは350です。"
-
-msgid "Default is 425."
-msgstr "デフォルトは425です。"
+msgid "Default is %s."
+msgstr "デフォルトは%sです。"
 
 msgid "Thumbnails"
 msgstr "サムネイル"
@@ -265,9 +256,6 @@ msgstr "テーマ"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "ギャラリーの各々のページに適用される追加のソート順序"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "このギャラリーに使用するTubePressテーマ。あなたのテーマの<code>で見つけることができる%s </ code>は、デフォルトのテーマはの<code>で見つけることができる%s </ code>を。"
 
 msgid "Loop"
 msgstr "ループ"

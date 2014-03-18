@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:12+0000\n"
+"PO-Revision-Date: 2014-03-18 20:40:04+0000\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "Maksimalt antall tegn å vise i videobeskrivelsen. Sett denne til 0 for 
 msgid "Height (px) of thumbs"
 msgstr "Høyde (px) på miniatyrbilder"
 
-msgid "Default is 90."
-msgstr "Standard er 90."
-
 msgid "Width (px) of thumbs"
 msgstr "Bredde (px) på miniatyrbilder"
-
-msgid "Default is 120."
-msgstr "Standard er 120."
 
 msgid "Use relative dates"
 msgstr "Bruk relative datoer"
@@ -155,8 +149,8 @@ msgstr "Om aktivert, vil hvem som helst kunne se feilsøkingsinformasjon. Dette 
 msgid "Enable API cache"
 msgstr "Aktiver API bufferminne"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "Standard er 20. Maksimalt tillatt er 50."
+msgid "Default is %s. Maximum is %s."
+msgstr "Standard er %s. Maksimalt tillatt er %s."
 
 msgid "Show pagination above thumbnails"
 msgstr "Vis navigering over miniatyrbildene"
@@ -176,11 +170,8 @@ msgstr "Gjelder kun gallerier som strekker seg over flere sider"
 msgid "Max height (px)"
 msgstr "Maksimal høyde (px)"
 
-msgid "Default is 350."
-msgstr "Standard er 350."
-
-msgid "Default is 425."
-msgstr "Standard er 425."
+msgid "Default is %s."
+msgstr "Standard er %s."
 
 msgid "Thumbnails"
 msgstr "Miniatyrbilder"
@@ -265,9 +256,6 @@ msgstr "Tema"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "Sorteringsrekkefølge som gjelder for hver individuelle side i galleriet"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "TubePress-temaet som skal brukes for dette galleriet. Temaene dine kan lastes ned på <code>%s</code>, og standardtema finnes på <code>%s</code>.."
 
 msgid "Loop"
 msgstr "Repetisjon"

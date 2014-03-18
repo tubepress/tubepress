@@ -1,13 +1,13 @@
-# Translation of TubePress in Chinese (China)
+# Translation of TubePress in Swedish
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-03-18 20:40:10+0000\n"
-"Language: zh-cn\n"
+"PO-Revision-Date: 2014-03-18 20:40:09+0000\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: TubePress\n"
 
@@ -15,82 +15,82 @@ msgid "default"
 msgstr ""
 
 msgid "next"
-msgstr "因为下一步"
+msgstr "nästa"
 
 msgid "prev"
-msgstr "上一页"
+msgstr "föregående"
 
 msgid "Author"
-msgstr "作者"
+msgstr "Författare"
 
 msgid "Category"
-msgstr "服务类别"
+msgstr "Kategori"
 
 msgid "Description"
-msgstr "说明"
+msgstr "Beskrivning"
 
 msgid "ID"
-msgstr "识别码"
+msgstr "ID"
 
 msgid "Keywords"
-msgstr "关键词"
+msgstr "Taggar"
 
 msgid "Title"
-msgstr "产品名"
+msgstr "Titel"
 
 msgid "Date posted"
-msgstr "发布日期"
+msgstr "Inlagd"
 
 msgid "Runtime"
-msgstr "运行时间"
+msgstr "Runtime"
 
 msgid "URL"
-msgstr "网址"
+msgstr "Adress"
 
 msgid "View count"
-msgstr "浏览次数"
+msgstr "Spelningar"
 
 msgid "Order videos by"
-msgstr "订购视频"
+msgstr "Sortera videos efter"
 
 msgid "relevance"
-msgstr "相关性"
+msgstr "relevans"
 
 msgid "view count"
-msgstr "浏览次数"
+msgstr "antal spelningar"
 
 msgid "rating"
-msgstr "等级"
+msgstr "betyg"
 
 msgid "randomly"
-msgstr "随机"
+msgstr "slumpmässigt"
 
 msgid "position in a playlist"
-msgstr "在播放列表中的位置"
+msgstr "position i en spellista"
 
 msgid "comment count"
-msgstr "评论计数"
+msgstr "kommentera räkna"
 
 msgid "length"
-msgstr "长"
+msgstr "längd"
 
 msgid "title"
-msgstr "产权"
+msgstr "titel"
 
 msgid "date published (newest first)"
-msgstr "发布日期（最新）"
+msgstr "Datum för publicering (nyast först)"
 
 msgid "date published (oldest first)"
-msgstr "发布日期（最前）"
+msgstr "Datum för publicering (äldst först)"
 
 msgid "Video %s not found"
-msgstr "视频%s未发现"
+msgstr "Video %s hittades inte"
 
 msgid "No matching videos"
-msgstr "没有匹配的视频"
+msgstr "Inga matchande videor"
 
 msgid "Search"
-msgstr "搜索"
+msgstr "Sök"
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -111,460 +111,460 @@ msgid "Settings updated."
 msgstr ""
 
 msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
-msgstr "最大数量的字符显示在视频描述。设置为0表示没有限制。"
+msgstr "Det maximala antalet tecken som visas i en videobeskrivning. Sätt detta till 0 för att inte begränsa."
 
 msgid "Height (px) of thumbs"
-msgstr "大拇指的高度（PX）"
+msgstr "Höjd (px) på tumnagel"
 
 msgid "Width (px) of thumbs"
-msgstr "大拇指的宽度（像素）"
+msgstr "Bredd (px) på tumnagel"
 
 msgid "Use relative dates"
-msgstr "使用相对日期"
+msgstr "Använd relativa datum"
 
 msgid "e.g. \"yesterday\" instead of \"November 3, 1980\"."
-msgstr "例如，\"昨天\"而不是\"1980年11月3日\"。"
+msgstr "t.ex. \"igår\" istället för \"November 3, 1980\"."
 
 msgid "Advanced"
-msgstr "先进"
+msgstr "Avancerad"
 
 msgid "Date format"
-msgstr "日期格式"
+msgstr "Datumformat"
 
 msgid "Set the textual formatting of date information for videos. See <a href=\"%s\" target=\"_blank\">date</a> for examples."
-msgstr "设置文本格式的视频的最新信息。见<a href=\"%s\">日</ a>的例子。"
+msgstr "Bestämmer hur datum formateras för videos. Se <a href=\"%s\">date</a> för exempel."
 
 msgid "Video blacklist"
-msgstr "视频黑名单"
+msgstr "Video svartlista"
 
 msgid "A list of video IDs that should never be displayed."
-msgstr "视频ID的清单绝不应显示。"
+msgstr "En lista över video-ID som aldrig ska visas."
 
 msgid "Enable debugging"
-msgstr "启用调试"
+msgstr "Aktivera debugging"
 
 msgid "If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you're not having problems with TubePress, or you're worried about revealing any details of your TubePress pages, feel free to disable the feature."
-msgstr "如果选中，则任何人都可以查看调试信息。这是一个相当小的隐私风险。如果你不问题TubePress，或者你担心透露任何细节您的TubePress页，感觉自由地禁用该功能。"
+msgstr "Om vald kan alla se information om debugging. Detta är en liten säkerhetsrisk. Om du inte har några problem med TubePress eller om du inte har någonting emot att visa några detaljer om dina TubePress-sidor kan du avaktivera denna funktion."
 
 msgid "Enable API cache"
-msgstr "启用API缓存"
+msgstr "Aktivera API cache"
 
 msgid "Default is %s. Maximum is %s."
-msgstr "默认值是%s。最大为%s。"
+msgstr "Standard är %s. Maximalt %s."
 
 msgid "Show pagination above thumbnails"
-msgstr "上面的缩略图显示分页"
+msgstr "Visa paginering ovan miniatyrer"
 
 msgid "Show pagination below thumbnails"
-msgstr "下面的缩略图显示分页"
+msgstr "Visa paginering nedan miniatyrer"
 
 msgid "Use high-quality thumbnails"
-msgstr "使用高品质的缩略图"
+msgstr "Använd högkvalitativa miniatyrer"
 
 msgid "<a href=\"%s\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"%s\">阿贾克斯</ A>  - 启用分页"
+msgstr "<a href=\"%s\">Ajax</ a>-aktiverad sidnumrering"
 
 msgid "Only applies to galleries that span multiple pages."
-msgstr "仅适用于跨越多个页面的画廊。"
+msgstr "Gäller endast gallerier som sträcker sig över flera sidor."
 
 msgid "Max height (px)"
-msgstr "最大高度（PX）"
+msgstr "Maximal höjd (px)"
 
 msgid "Default is %s."
-msgstr "默认为%s。"
+msgstr "Standard är %s."
 
 msgid "Thumbnails"
-msgstr "缩略图"
+msgstr "Miniatyrer"
 
 msgid "Feed"
-msgstr "进水"
+msgstr "Feed"
 
 msgid "Cache"
-msgstr "内存"
+msgstr "Cache"
 
 msgid "in a \"detached\" location (see the documentation)"
-msgstr "在\"超脱\"位置（请参阅文档）"
+msgstr "i ett \"fristående\" läge (se dokumentationen)"
 
 msgid "Thumbnails per page"
-msgstr "每个页面的缩略图"
+msgstr "Miniatyrer per sida"
 
 msgid "Show each video's..."
-msgstr "显示每个视频的..."
+msgstr "Visa alla videons ..."
 
 msgid "Enable JavaScript API"
-msgstr "启用JavaScript API"
+msgstr "Aktivera JavaScript API"
 
 msgid "Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features."
-msgstr "允许通过JavaScript与嵌入式视频播放器TubePress沟通。这会导致一个非常小的性能开销，但所需的某些功能。"
+msgstr "Tillåt TubePress att kommunicera med inbäddad videospelare via JavaScript. Detta medför en mycket liten prestanda overhead, men krävs för vissa funktioner."
 
 msgid "Play videos sequentially without user intervention"
-msgstr "连续播放视频，而无需用户干预"
+msgstr "Spela upp video sekventiellt utan åtgärder"
 
 msgid "When a video finishes, this will start playing the next video in the gallery."
-msgstr "当视频结束，这将在画廊开始播放下一个视频。"
+msgstr "När en video är klar, kommer det börja spela nästa video i galleriet."
 
 msgid "Enable HTTPS"
-msgstr "启用HTTPS"
+msgstr "Aktivera HTTPS"
 
 msgid "Serve thumbnails and embedded video player over a secure connection."
-msgstr "为缩略图和嵌入式视频播放器，通过安全连接。"
+msgstr "Servera miniatyrer och inbäddad videospelare över en säker anslutning."
 
 msgid "Provider default"
-msgstr "供应商违约"
+msgstr "Provider standard"
 
 msgid "Implementation"
-msgstr "执行结合在一起。"
+msgstr "Genomförande"
 
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
-msgstr "该品牌的嵌入播放器。默认是提供商的播放器（YouTube上，或是Vimeo等）。"
+msgstr "Märket på den inbäddade spelaren. Standard är leverantörens spelaren (YouTube, Vimeo, osv)."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more info."
-msgstr "并非所有排序顺序，可以适用于所有类型的画廊。参见<a href=\"%s\">文档</ a>，以了解更多信息。"
+msgstr "Inte alla slags beställningar kan tillämpas på alla typer galleri. Se <a href=\"%s\">dokumentationen </ a> för mer info."
 
 msgid "Cache directory"
-msgstr "缓存目录"
+msgstr "Cache directory"
 
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
-msgstr "留空尝试使用你的系统的临时目录。否则，进入一个可写目录的绝对路径。"
+msgstr "Lämna tomt för att försöka använda systemets temp katalog. Annars ange den absoluta sökvägen till en skrivbar katalog."
 
 msgid "Cache expiration time (seconds)"
-msgstr "缓存过期时间（秒）"
+msgstr "Cache utgången tid (sekunder)"
 
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr "一个缓存文件存储API反应显着减少加载时间画廊新鲜感轻微的开支。"
+msgstr "Affär API svar i en cache-fil för att avsevärt minska laddningstider för dina gallerier på viss bekostnad av färskhet."
 
 msgid "Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour)."
-msgstr "缓存条目将被视为失效后，在指定的秒数。默认值是3600（一小时）。"
+msgstr "Cacheposter kommer att övervägas inaktuella efter angivet antal sekunder. Standard är 3600 (en timme)."
 
 msgid "Only show options applicable to..."
-msgstr "只显示选项适用于..."
+msgstr "Visa endast alternativ som gäller för ..."
 
 msgid "Cache cleaning factor"
-msgstr "缓存清理因子"
+msgstr "Cache rengöring faktor"
 
 msgid "Which videos?"
-msgstr "哪些影片？"
+msgstr "Vilka videos?"
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
-msgstr "如果输入X，每1 / X缓存写入整个缓存将被清理。输入0来禁用缓存清理。"
+msgstr "Om du anger X, kommer hela cacheminnet rengöras varje 1/X cache skriver. Ange 0 för att inaktivera cache rengöring."
 
 msgid "Per-page sort order"
-msgstr "每页排序顺序"
+msgstr "Per-sida sorteringsordning"
 
 msgid "Theme"
-msgstr "背景主题"
+msgstr "Tema"
 
 msgid "Additional sort order applied to each individual page of a gallery"
-msgstr "其他排序顺序应用到每个页面一个画廊"
+msgstr "Ytterligare sorteringsordning tillämpas på varje sida av ett galleri"
 
 msgid "Loop"
-msgstr "循环"
+msgstr "Loop"
 
 msgid "HTTP method"
-msgstr "HTTP方法"
+msgstr "HTTP-metoden"
 
 msgid "Continue playing the video until the user stops it."
-msgstr "继续播放视频，直到用户停止。"
+msgstr "Fortsätt spela videon tills användare stoppar den."
 
 msgid "Defines the HTTP method used in most TubePress Ajax operations"
-msgstr "定义在大多数TubePress Ajax操作使用的HTTP方法"
+msgstr "Definierar den HTTP-metod som används i de flesta TubePress Ajax verksamhet"
 
 msgid "Show title and rating before video starts"
-msgstr "视频开始前显示标题和评级"
+msgstr "Visa titel och rating innan filmen börjar"
 
 msgid "normally (at the top of your gallery)"
-msgstr "正常情况下（在您的画廊的顶部）"
+msgstr "standard (ovanför galleriet)"
 
 msgid "Meta"
-msgstr "荟萃"
+msgstr "Metavisning"
 
 msgid "in a popup window"
-msgstr "在弹出窗口"
+msgstr "i ett pop-up-fönster"
 
 msgid "Maximum total videos to retrieve"
-msgstr "最大总视频检索"
+msgstr "Maximal total videos för att hämta"
 
 msgid "from the video's original YouTube page"
-msgstr "从视频的原始YouTube页面"
+msgstr "på den ursprungliga YouTube-sidan"
 
 msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
-msgstr "这可以帮助减少页面的数量在你的画廊。设置\"0 \"，以消除任何限制。"
+msgstr "Detta kan bidra till att minska antalet sidor i ditt galleri. Ställ in till \"0\" för att upphäva alla begränsningar."
 
 msgid "from the video's original Vimeo page"
-msgstr "从视频的原始的Vimeo页"
+msgstr "från videons ursprungliga Vimeo sida"
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."
-msgstr "注：此选项不能使用\"随机缩略图\"功能。"
+msgstr "OBS: Detta alternativ kan inte användas med \"slumpa miniatyrer\"-funktionen."
 
 msgid "with FancyBox"
-msgstr "同 FancyBox"
+msgstr "med Fancybox"
 
 msgid "Restrict search results to videos from author"
-msgstr "限制从作者的视频搜索结果"
+msgstr "Begränsa sökresultaten till videor från författaren"
 
 msgid "with TinyBox"
-msgstr "同 TinyBox"
+msgstr "med TinyBox"
 
 msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
-msgstr "的YouTube或Vimeo用户名。仅适用于基于搜索的画廊。"
+msgstr "En YouTube eller Vimeo användarnamn. Gäller endast sökbaserade gallerier."
 
 msgid "with jqModal"
-msgstr "同 jqModal"
+msgstr "med jqModal"
 
 msgid "Use \"fluid\" thumbnails"
-msgstr "使用\"\"流体缩略图"
+msgstr "Använd \"flytande\" miniatyrer"
 
 msgid "with Shadowbox"
-msgstr "同 Shadowbox"
+msgstr "med Shadowbox"
 
 msgid "Dynamically set thumbnail spacing based on the width of their container."
-msgstr "动态设置缩略图的间距是根据它们的容器的宽度。"
+msgstr "Dynamiskt inställd miniatyrbild avstånd baserat på bredden av deras behållare."
 
 msgid "statically (page refreshes on each thumbnail click)"
-msgstr "静态（每个缩略图点击页面刷新）"
+msgstr "statiskt (sidan uppdateras på varje miniatyr klick)"
 
 msgid "\"Lazy\" play videos"
-msgstr "\"懒\"播放视频"
+msgstr "\"Lat\" spela upp videoklipp"
 
 msgid "in a new window on its own"
-msgstr "在自身的一个新的窗口"
+msgstr "i ett nytt fönster på egen hand"
 
 msgid "Auto-play each video after thumbnail click."
-msgstr "自动播放的每个视频后点击缩略图。"
+msgstr "Auto-spela varje video efter miniatyrbild klick."
 
 msgid "TubePress Options"
-msgstr "TubePress选项"
+msgstr "TubePress Inställningar"
 
 msgid "Default is %s"
 msgstr ""
 
 msgid "Save"
-msgstr "保存"
+msgstr "Spara"
 
 msgid "Auto-play all videos"
-msgstr "自动播放所有视频"
+msgstr "Börja spela automatiskt"
 
 msgid "Play each video"
-msgstr "每个播放视频"
+msgstr "Spela varje video"
 
 msgid "Player"
-msgstr "玩家"
+msgstr "Inbäddad spelare"
 
 msgid "Maximum description length"
-msgstr "最大长度描述"
+msgstr "Maximal längd på beskrivning"
 
 msgid "Randomize thumbnail images"
-msgstr "随机缩略图"
+msgstr "Slumpa miniatyrbilder"
 
 msgid "Max width (px)"
-msgstr "最大宽度（PX）"
+msgstr "Max bredd (px)"
 
 msgid "random"
-msgstr "随机"
+msgstr "slumpvis"
 
 msgid "WordPress"
 msgstr ""
 
 msgid "Displays YouTube or Vimeo videos with TubePress"
-msgstr "显示YouTube或Vimeo与TubePress视频"
+msgstr "Visar YouTube eller Vimeo videos med TubePress"
 
 msgid "Shortcode keyword"
-msgstr "简码关键字"
+msgstr "Nyckelord"
 
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
-msgstr "字插入到您的文章/页（明文，在方括号中），显示一个画廊。"
+msgstr "Ordet som du använder (i vanlig text eller inom klammer) där du vill visa ett galleri på dina sidor och inlägg."
 
 msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
-msgstr "TubePress短代码的插件。 <a href=\"%s\">文档</ A>。"
+msgstr "TubePress kortkod för widgeten. Se <a href=\"%s\"> dokumentationen </ a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
-msgstr "在这里，你可以设置的默认选项TubePress。这里的每个选项可以覆盖每一个页面/后根据与TubePress简。参见<a href=\"%s\">文档</ a>，以了解更多信息。"
+msgstr "Här kan du ställa in standardalternativ för TubePress. Varje alternativ här kan åsidosättas på en per sida/post basis med TubePress kortkoder. Se <a href=\"%s\">dokumentationen </ a> för mer information."
 
 msgid "Videos uploaded by this Vimeo user"
-msgstr "这或是Vimeo用户上传的视频"
+msgstr "Videos uppladdade av denna Vimeo användare"
 
 msgid "Videos this Vimeo user likes"
-msgstr "这或是Vimeo用户喜欢的影片"
+msgstr "Videos detta Vimeo användare gillar"
 
 msgid "Videos this Vimeo user appears in"
-msgstr "视频出现在这或是Vimeo用户"
+msgstr "Videos detta Vimeo användaren visas i"
 
 msgid "Vimeo search for"
-msgstr "或是Vimeo搜索"
+msgstr "Vimeo Sök efter"
 
 msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
-msgstr "影片计入这或是Vimeo用户（无论是出现在或上传）"
+msgstr "Videos krediteras detta Vimeo användare (antingen visas eller laddas upp)"
 
 msgid "Videos in this Vimeo channel"
-msgstr "影片在这Vimeo频道"
+msgstr "Video i detta Vimeo-kanal"
 
 msgid "Videos from this Vimeo album"
-msgstr "影片从或是Vimeo专辑"
+msgstr "Videoklipp från detta Vimeo album"
 
 msgid "Videos from this Vimeo group"
-msgstr "影片从这个Vimeo组"
+msgstr "Videoklipp från denna Vimeo grupp"
 
 msgid "Vimeo API \"Consumer Key\""
-msgstr "或是Vimeo API \"消费者键\""
+msgstr "Vimeo API \"Consumer Key\""
 
 msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"%s\">点击此处</ a>的消费者密钥和秘密注册。"
+msgstr "<a href=\"%s\">Klicka här </ a> för att registrera dig för en konsument nyckel och hemlighet."
 
 msgid "Vimeo API \"Consumer Secret\""
-msgstr "或是Vimeo API \"消费者的秘密\""
+msgstr "Vimeo API \"Consumer Secret\""
 
 msgid "Main color"
-msgstr "主色系："
+msgstr "Färg"
 
 msgid "Vimeo"
-msgstr "或是Vimeo"
+msgstr "Vimeo"
 
 msgid "Number of \"likes\""
-msgstr "喜欢\""
+msgstr "Antal \"gillar\""
 
 msgid "YouTube"
 msgstr ""
 
 msgid "Videos related to this YouTube video"
-msgstr "此YouTube视频相关视频"
+msgstr "Videoklipp relaterade till denna YouTube-video"
 
 msgid "today"
-msgstr "现在"
+msgstr "idag"
 
 msgid "all time"
-msgstr "一直以来"
+msgstr "alltid"
 
 msgid "Average rating"
-msgstr "平均评价"
+msgstr "Betyg"
 
 msgid "Number of ratings"
-msgstr "数个"
+msgstr "Betyg"
 
 msgid "Fade progress bar and video controls"
-msgstr "淡出进度条和视频监控"
+msgstr "Fade förloppsindikator och reglage video"
 
 msgid "Fade progress bar only"
-msgstr "淡出只显示进度栏"
+msgstr "Fade förloppsindikatorn endast"
 
 msgid "Disable fading - always show both"
-msgstr "禁用褪色 - 始终显示两个"
+msgstr "Inaktivera blekning - alltid visa både"
 
 msgid "After video playback begins, choose which elements (if any) of the embedded video player to automatically hide."
-msgstr "视频开始播放后，选择自动隐藏的元素（如果有的话）的嵌入式视频播放器。"
+msgstr "Efter videouppspelning börjar välja vilka element (om någon) av inbäddad videospelare för att automatiskt dölja."
 
 msgid "YouTube API Developer Key"
-msgstr "YouTube的API开发重点"
+msgstr "YouTube API Developer Key"
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"%s\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube将使用此开发关键日志和调试的目的，如果你遇到的服务问题在他们那一端。你可以注册一个新的客户端ID和开发关键<a href=\"%s\">这里</ a>。不要改变，除非你知道你在做什么。"
+msgstr "YouTube kommer att använda den här utvecklaren nyckel för loggning och felsökning om du får en tjänst problem på slutet. Du kan registrera en ny klient-ID och utvecklarnyckel <a href=\"%s\">här</a>. Ändra inte detta om du inte vet vad du gör."
 
 msgid "Filter \"racy\" content"
-msgstr "过滤器\"活泼\"的内容"
+msgstr "Filtrera innehåll"
 
 msgid "Don't show videos that may not be suitable for minors."
-msgstr "不要显示的影片可能不适合未成年人观看。"
+msgstr "Visa videos som kan vara olämpliga för barn."
 
 msgid "none"
-msgstr "无"
+msgstr "ingen"
 
 msgid "moderate"
-msgstr "中等价格"
+msgstr "måttlig"
 
 msgid "strict"
-msgstr "高"
+msgstr "strikt"
 
 msgid "Show related videos"
-msgstr "相关视频"
+msgstr "Visa relaterade videos"
 
 msgid "Toggles the display of related videos after a video finishes."
-msgstr "视频结束后，相关视频切换显示。"
+msgstr "Anger om relaterade videos ska visas efter att videon slutat spela."
 
 msgid "The URL to any YouTube playlist (e.g. <a href=\"%s\" target=\"_blank\">%s</a>) or just the playlist identifier (e.g. %s)."
 msgstr ""
 
 msgid "\"Modest\" branding"
-msgstr "\"谦虚\"的品牌"
+msgstr "\"Blygsamma\" branding"
 
 msgid "Hide the YouTube logo from the control area."
-msgstr "隐藏YouTube标志从控制区。"
+msgstr "Dölj YouTube-logotypen från skyddsområdet."
 
 msgid "Show closed captions by default"
-msgstr "默认情况下，显示隐藏式字幕"
+msgstr "Visa textning som standard"
 
 msgid "Disable keyboard controls"
-msgstr "禁用键盘控制"
+msgstr "Inaktivera tangentbordskontroller"
 
 msgid "Show video annotations by default"
-msgstr "默认情况下，显示视频注释"
+msgstr "Visa videoklippskommentarer som standard"
 
 msgid "Show or hide video controls"
-msgstr "显示或隐藏视频控制"
+msgstr "Visa eller dölja video kontroller"
 
 msgid "Show controls - load Flash player immediately"
-msgstr "显示控制 - 负载Flash播放器立即"
+msgstr "Visa kontroller - spelare belastning Flash omedelbart"
 
 msgid "Show controls - load Flash player when playback begins"
-msgstr "显示控制 - 加载Flash播放器开始播放时"
+msgstr "Visa kontroller - load Flash player när uppspelningen börjar"
 
 msgid "Hide controls"
-msgstr "隐藏控件"
+msgstr "Dölj kontroller"
 
 msgid "YouTube player theme"
-msgstr "YouTube播放器主题"
+msgstr "YouTube-spelaren tema"
 
 msgid "Dark"
-msgstr "暗"
+msgstr "Mörk"
 
 msgid "Light"
-msgstr "灯"
+msgstr "Ljus"
 
 msgid "YouTube limits this to 1,000 results."
-msgstr "YouTube上的限制，这1000个结果。"
+msgstr "YouTube begränsar detta till 1000 resultat."
 
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature."
-msgstr "大多数视频来几个缩略图。通过选择此选项，每次有人浏览您的画廊，他们将看到相同的视频，每个视频的缩略图随机。注：此选项不能使用\"高品质的缩略图\"功能。"
+msgstr "De flesta videos har flera tumnaglar. Genom att välja detta väljs tumnaglarna för dina videos slumpmässigt då ett galleri visas"
 
 msgid "reversed position in a playlist"
-msgstr "播放列表中的位置相反"
+msgstr "återförda position i en spellista"
 
 msgid "Only retrieve embeddable videos"
-msgstr "仅检索嵌入视频"
+msgstr "Endast hämta inbäddningsbara videor"
 
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
-msgstr "一些视频嵌入禁用。勾选这个选项将会排除这些视频从您的画廊。"
+msgstr "Vissa filmer har inbäddning inaktiverad. Markerar detta alternativ kommer att utesluta dessa filmer från dina gallerier."
 
 msgid "Allow fullscreen playback."
-msgstr "允许全屏播放。"
+msgstr "Tillåt helskärm uppspelning."
 
 msgid "This YouTube user's \"favorites\""
-msgstr "此YouTube用户的\"收藏夹\""
+msgstr "Denna YouTube-användares \"favoriter\""
 
 msgid "This YouTube playlist"
-msgstr "这个YouTube播放列表"
+msgstr "Denna spellista"
 
 msgid "Most-viewed YouTube videos from"
-msgstr "查看次数最多的YouTube视频"
+msgstr "MesVideos med flest spelningar från"
 
 msgid "YouTube search for"
-msgstr "YouTube的搜索"
+msgstr "Sökning på YouTube efter"
 
 msgid "Videos from this YouTube user"
-msgstr "影片从YouTube用户"
+msgstr "Videos från denna YouTube-användare"
 
 msgid "JW Player (by Longtail Video)"
-msgstr "JW播放器（长尾影片）"
+msgstr "JW Player (från Longtail Video)"
 
 msgid "JW Player"
-msgstr "JW播放器"
+msgstr "JW Player"
 
 msgid "Background color"
-msgstr "背景色"
+msgstr "Bakgrundsfärg"
 
 msgid "Front color"
-msgstr "正面色"
+msgstr "Front färg"
 
 msgid "Light color"
-msgstr "灯光的颜色"
+msgstr "Ljusfärg"
 
 msgid "Screen color"
-msgstr "屏幕色彩"
+msgstr "Skärm färg"

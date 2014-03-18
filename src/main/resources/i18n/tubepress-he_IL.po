@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:06+0000\n"
+"PO-Revision-Date: 2014-03-18 20:39:59+0000\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "מספר התווים המרבי להציג בתיאור וידאו.הג
 msgid "Height (px) of thumbs"
 msgstr "גובה (px פיקסלים) של תמונות תצוגה מקדימה"
 
-msgid "Default is 90."
-msgstr ".ברירת המחדל הוא 90"
-
 msgid "Width (px) of thumbs"
 msgstr "רוחב (px פיקסלים) של תמונות תצוגה מקדימה"
-
-msgid "Default is 120."
-msgstr ".ברירת המחדל הוא 120"
 
 msgid "Use relative dates"
 msgstr "שימוש בתאריך יחסי"
@@ -155,8 +149,8 @@ msgstr "אם מסומן, כל אחד יוכל לצפות במידע על הבא�
 msgid "Enable API cache"
 msgstr "אפשר בקשת מטמון"
 
-msgid "Default is 20. Maximum is 50."
-msgstr ".ברירת המחדל 30 גודל מרבי 50"
+msgid "Default is %s. Maximum is %s."
+msgstr ".ברירת המחדל %s גודל מרבי %s"
 
 msgid "Show pagination above thumbnails"
 msgstr "הצג מעבר עמודים מעל תמונות ממוזערות"
@@ -176,11 +170,8 @@ msgstr "חל רק על הגלריות עם עמודים מרובים"
 msgid "Max height (px)"
 msgstr "גובה מקסמלי (px פקסלים)"
 
-msgid "Default is 350."
-msgstr ".ברירת המחדל היא 350"
-
-msgid "Default is 425."
-msgstr "ברירת המחדל היא .425"
+msgid "Default is %s."
+msgstr "ברירת המחדל היא .%s"
 
 msgid "Thumbnails"
 msgstr "תמונות ממוזערות"
@@ -265,9 +256,6 @@ msgstr "נושא"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "סדר מיון נוסף יחול על כל דף הבודד של גלריה"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "נושא TubePress להשתמש לגלריה זו. ניתן למצוא ערכות הנושא שלך %s </ code>, וניתן למצוא את נושאים המוגדרים כברירת מחדל %s </ code>."
 
 msgid "Loop"
 msgstr "לולאה"

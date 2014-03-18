@@ -163,6 +163,12 @@
         </exec>
     </target>
 
+    <target name="copy-locale-fallbacks">
+
+        <copy file="${stagingdir}/src/main/resources/i18n/tubepress-es_ES.mo" tofile="${stagingdir}/src/main/resources/i18n/tubepress-es_MX.mo" />
+
+    </target>
+
 	<target name="package">
 
 		<zip destfile="dist/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="stage" />

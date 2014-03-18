@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:02+0000\n"
+"PO-Revision-Date: 2014-03-18 20:39:57+0000\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "Maksimimäärä merkkejä, joita näytetään videoiden kuvauksissa. 0 n
 msgid "Height (px) of thumbs"
 msgstr "Esikatselukuvien korkeus pikseleinä"
 
-msgid "Default is 90."
-msgstr "Oletus on 90."
-
 msgid "Width (px) of thumbs"
 msgstr "Esikatselukuvien leveys pikseleinä"
-
-msgid "Default is 120."
-msgstr "Oletus on 120."
 
 msgid "Use relative dates"
 msgstr "Käytä suhteellisia päivämääriä"
@@ -155,8 +149,8 @@ msgstr "Kuka tahansa voi nähdä debug-tiedot. Tämä on melko pieni tietoturvar
 msgid "Enable API cache"
 msgstr "Käytä välimuistia"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "Oletus on 20, maksimi 50."
+msgid "Default is %s. Maximum is %s."
+msgstr "Oletus on %s, maksimi %s."
 
 msgid "Show pagination above thumbnails"
 msgstr "Näytä sivutus gallerian yläpuolella"
@@ -176,11 +170,8 @@ msgstr "Vaikuttaa vain gallerioihin, jotka on jaettu useammalle sivulle"
 msgid "Max height (px)"
 msgstr "Maksimikorkeus (px)"
 
-msgid "Default is 350."
-msgstr "Oletus on 350."
-
-msgid "Default is 425."
-msgstr "Oletus on 425."
+msgid "Default is %s."
+msgstr "Oletus on %s."
 
 msgid "Thumbnails"
 msgstr "Pikkukuvat"
@@ -265,9 +256,6 @@ msgstr "Teema"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "Muita järjestys sovelletaan kuhunkin yksittäiseen sivun galleriassa"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "Tälle gallerialle käytettävä TubePress-teema. Teemat löytyvät kansiosta <code>%s</code>, ja oletusteemat löytyvät osoitteesta <code>%s</code>."
 
 msgid "Loop"
 msgstr "Toista"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:07+0000\n"
+"PO-Revision-Date: 2014-03-18 20:40:00+0000\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "वीडियो वर्णन में प्रदर्शित
 msgid "Height (px) of thumbs"
 msgstr "अंगूठे की लंबाई (px)"
 
-msgid "Default is 90."
-msgstr "डिफ़ॉल्ट 90 है."
-
 msgid "Width (px) of thumbs"
 msgstr "अंगूठे की चौड़ाई (पिक्सेल)"
-
-msgid "Default is 120."
-msgstr "डिफ़ॉल्ट 120 है."
 
 msgid "Use relative dates"
 msgstr "रिश्तेदार तारीखों का उपयोग"
@@ -155,8 +149,8 @@ msgstr "जाँच की, तो किसी को अपने डिब�
 msgid "Enable API cache"
 msgstr "एपीआई कैश सक्षम करें"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "डिफ़ॉल्ट 20 है. अधिकतम 50 है."
+msgid "Default is %s. Maximum is %s."
+msgstr "डिफ़ॉल्ट %s है. अधिकतम %s है."
 
 msgid "Show pagination above thumbnails"
 msgstr "थंबनेल ऊपर पृष्ठ पर अंक लगाना दिखाएँ"
@@ -176,11 +170,8 @@ msgstr "केवल एकाधिक पृष्ठों अवधि क�
 msgid "Max height (px)"
 msgstr "अधिकतम ऊंचाई (पिक्सेल)"
 
-msgid "Default is 350."
-msgstr "डिफ़ॉल्ट 350 है."
-
-msgid "Default is 425."
-msgstr "डिफ़ॉल्ट 425 है."
+msgid "Default is %s."
+msgstr "डिफ़ॉल्ट %s है."
 
 msgid "Thumbnails"
 msgstr "थंबनेल"
@@ -265,9 +256,6 @@ msgstr "विषय"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "एक गैलरी के प्रत्येक पृष्ठ के लिए लागू अतिरिक्त सॉर्ट क्रम"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "TubePress विषय इस गैलरी के लिए उपयोग करने के लिए. अपने विषयों <code> में पाया जा सकता है %s </ कोड>, और डिफ़ॉल्ट विषयों <code> में पाया जा सकता है %s </ कोड>."
 
 msgid "Loop"
 msgstr "पाश"
