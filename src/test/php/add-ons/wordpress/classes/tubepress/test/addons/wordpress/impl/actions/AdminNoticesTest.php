@@ -136,7 +136,7 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
         $this->expectOutputString(<<<ABC
 <div class="update-nag">
-TubePress is not configured for optimal performance, and could be slowing down your site. <strong><a target="_blank" href="http://docs.tubepress.com/page/manual/wordpress/faq-and-troubleshooting.html">Fix it now</a></strong> or <a href="?color=blue&tubePressWpNonce=your+nonce&dismissTubePressCacheNag=true">dismiss this message</a>.
+TubePress is not configured for optimal performance, and could be slowing down your site. <strong><a target="_blank" href="http://docs.tubepress.com/page/manual/wordpress/install-upgrade-uninstall.html#optimize-for-speed">Fix it now</a></strong> or <a href="?color=blue&tubePressWpNonce=your+nonce&dismissTubePressCacheNag=true">dismiss this message</a>.
 </div>
 ABC
         );
