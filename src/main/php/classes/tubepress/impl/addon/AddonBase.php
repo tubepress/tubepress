@@ -55,26 +55,32 @@ class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_Contributabl
             throw new InvalidArgumentException('Class map must be an associative array');
         }
 
+        foreach ($map as $key => $value) {
+
+            $this->validateIsString($key, 'each classmap prefix');
+            $this->validateIsString($value, 'each classmap path');
+        }
+
         $this->_classMap = $map;
     }
 
     public function setIocContainerExtensions(array $extensions)
     {
-        $this->_validateArrayIsJustStrings($extensions, 'IoC container extensions must be strings');
+        $this->_validateArrayIsJustStrings($extensions, 'Each IoC container extension');
 
         $this->_iocContainerExtensions = $extensions;
     }
 
     public function setIocContainerCompilerPasses(array $passes) {
 
-        $this->_validateArrayIsJustStrings($passes, 'IoC container compiler passes must be strings');
+        $this->_validateArrayIsJustStrings($passes, 'Each IoC container compiler pass');
 
         $this->_iocContainerCompilerPasses = $passes;
     }
 
     public function setPsr0ClassPathRoots(array $roots)
     {
-        $this->_validateArrayIsJustStrings($roots, 'PSR-0 classpath roots must be strings');
+        $this->_validateArrayIsJustStrings($roots, 'Each PSR-0 classpath root');
 
         $this->_psr0ClassPathRoots = $roots;
     }
@@ -111,14 +117,11 @@ class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_Contributabl
         return $this->_classMap;
     }
 
-    private function _validateArrayIsJustStrings(array $array, $message)
+    private function _validateArrayIsJustStrings(array $array, $name)
     {
-        foreach($array as $element) {
+        foreach ($array as $element) {
 
-            if (!is_string($element)) {
-
-                throw new InvalidArgumentException($message);
-            }
+            $this->validateIsString($element, $name);
         }
     }
 }

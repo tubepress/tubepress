@@ -8,6 +8,6 @@
     },
     "licenses": {
 
-        "url": "http://foo.bar"
+        "type": "hello"
     }
 }

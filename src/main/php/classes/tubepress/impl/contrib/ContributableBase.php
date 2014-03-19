@@ -35,7 +35,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     const ATTRIBUTE_URL_DOWNLOAD      = 'download';
     const ATTRIBUTE_URL_BUGS          = 'bugs';
 
-    const CATEGORY_URLS      = 'urls';
+    const CATEGORY_URLS = 'urls';
 
     /**
      * @var string
@@ -119,15 +119,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     public function setDescription($description)
     {
-        if (!is_string($description)) {
-
-            throw new InvalidArgumentException('Description must be a string');
-        }
-
-        if (strlen($description) > 1000) {
-
-            throw new InvalidArgumentException('Description must be 1000 characters or less.');
-        }
+        $this->validateStringAndLength($description, 2000, 'description');
 
         $this->_description = $description;
     }
@@ -136,14 +128,11 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     {
         foreach ($keywords as $keyword) {
 
-            if (!is_string($keyword)) {
+            $this->validateStringAndLength($keyword, 100, 'each keyword');
 
-                throw new InvalidArgumentException('Keywords must be strings');
-            }
+            if ($keyword == '') {
 
-            if (preg_match('~^[A-Za-z0-9-\.]{1,30}$~', $keyword, $matches) !== 1) {
-
-                throw new InvalidArgumentException("Invalid keyword: $keyword");
+                throw new InvalidArgumentException('Keywords must not be empty.');
             }
         }
 
@@ -152,35 +141,35 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     public function setHomepageUrl($url)
     {
-        $this->_validateUrl($url, 'Invalid homepage URL');
+        $this->validateUrl($url, 'homepage');
 
         $this->_urlHomepage = $url;
     }
 
     public function setDocumentationUrl($url)
     {
-        $this->_validateUrl($url, 'Invalid documentation URL');
+        $this->validateUrl($url, 'documentation');
 
         $this->_urlDocs = $url;
     }
 
     public function setDemoUrl($url)
     {
-        $this->_validateUrl($url, 'Invalid demo URL');
+        $this->validateUrl($url, 'demo');
 
         $this->_urlDemo = $url;
     }
 
     public function setDownloadUrl($url)
     {
-        $this->_validateUrl($url, 'Invalid download URL');
+        $this->validateUrl($url, 'download');
 
         $this->_urlDownload = $url;
     }
 
     public function setBugTrackerUrl($url)
     {
-        $this->_validateUrl($url, 'Invalid bug tracker URL');
+        $this->validateUrl($url, 'bug tracker');
 
         $this->_urlBugs = $url;
     }
@@ -324,19 +313,98 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
         return $this->_screenshots;
     }
 
+    protected function validateUrl($url, $name)
+    {
+        try {
 
+            new ehough_curly_Url($url);
+
+        } catch (InvalidArgumentException $e) {
+
+            throw new InvalidArgumentException("Invalid $name URL.");
+        }
+    }
+
+    protected function validateStringAndLength($candidate, $length, $name)
+    {
+        $this->validateIsString($candidate, $name);
+
+        $this->validateStringLength($candidate, $length, $name);
+    }
+
+    protected function validateStringLength($candidate, $length, $name)
+    {
+        if (strlen($candidate) > $length) {
+
+            throw new InvalidArgumentException(sprintf('%s must be %d characters or less.',
+                ucfirst($name), $length));
+        }
+    }
+
+    protected function validateIsString($candidate, $name)
+    {
+        if (!is_string($candidate)) {
+
+            throw new InvalidArgumentException(ucfirst($name) . ' must be a string.');
+        }
+    }
+
+    protected function validateIsEmailAddress($candidate, $name)
+    {
+        $this->validateIsString($candidate, $name);
+
+        if (preg_match('~[a-z0-9!#$%&\'*+/=?^_`{|}\~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}\~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?~', $candidate, $matches) !== 1) {
+
+            throw new InvalidArgumentException(ucfirst($name) . ' email is invalid.');
+        }
+    }
+
+    protected function validateContributableName($candidate, $name)
+    {
+        $this->validateIsString($candidate, $name);
+
+        if (preg_match('~^[A-Za-z0-9-_\./]{1,100}$~', $candidate, $matches) !== 1) {
+
+            throw new InvalidArgumentException(sprintf('Invalid %s.', $name));
+        }
+    }
+
+    protected function validateStringEndsWith($candidate, array $choices, $name)
+    {
+        $this->validateIsString($candidate, $name);
+
+        foreach ($choices as $suffix) {
+
+            if (tubepress_impl_util_StringUtils::endsWith($candidate, $suffix)) {
+
+                return;
+            }
+        }
+
+        throw new InvalidArgumentException(sprintf('%s must end with one of: %s', ucfirst($name), implode(', ', $choices)));
+    }
+
+    /**
+     * @param $screenshotUrl
+     *
+     * @throws InvalidArgumentException
+     */
+    private function _validateScreenshotUrl($screenshotUrl)
+    {
+        $this->validateStringAndLength($screenshotUrl, 300, 'screenshot URLs');
+
+        if (strpos($screenshotUrl, 'http') === 0) {
+
+            $this->validateUrl($screenshotUrl, 'screenshot');
+        }
+
+        $this->validateStringEndsWith($screenshotUrl, array('.png', '.jpg'), 'Each screenshot URL');
+    }
 
     private function _setName($name)
     {
-        if (!is_string($name)) {
+        $this->validateContributableName($name, 'name');
 
-            throw new InvalidArgumentException('Name must be a string');
-        }
-
-        if (preg_match('~^[A-Za-z0-9-_\./]{1,100}$~', $name, $matches) !== 1) {
-
-            throw new InvalidArgumentException('Invalid name.');
-        }
         $this->_name = strtolower($name);
     }
 
@@ -361,37 +429,36 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     private function _setTitle($title)
     {
-        if (!is_string($title)) {
-
-            throw new InvalidArgumentException('Title must be a string');
-        }
-
-        if (strlen($title) > 255) {
-
-            throw new InvalidArgumentException('Titles must be 255 characters or less');
-        }
+        $this->validateStringAndLength($title, 255, 'title');
 
         $this->_title = $title;
     }
 
     private function _setAuthor(array $author)
     {
-        if (! isset($author['name'])) {
+        if (!isset($author['name'])) {
 
             throw new InvalidArgumentException('Must include author name');
         }
+
+        $this->validateStringAndLength($author['name'], 200, 'author name');
 
         foreach ($author as $key => $value) {
 
             if ($key !== 'name' && $key !== 'email' && $key !== 'url') {
 
-                throw new InvalidArgumentException("Invalid author attribute: $key");
+                throw new InvalidArgumentException('Author information must only include name, email, and/or URL');
             }
         }
 
         if (isset($author['url'])) {
 
-            $this->_validateUrl($author['url'], 'Invalid author URL: ' . $author['url']);
+            $this->validateUrl($author['url'], 'author');
+        }
+
+        if (isset($author['email'])) {
+
+            $this->validateIsEmailAddress($author['email'], 'author');
         }
 
         $this->_author = $author;
@@ -401,66 +468,29 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     {
         if (empty($licenses)) {
 
-            throw new InvalidArgumentException('Missing licenses');
+            throw new InvalidArgumentException('Must include at least one license.');
         }
 
         foreach ($licenses as $license) {
 
-            if (!isset($license['url'])) {
+            if (!isset($license['type'])) {
 
-                throw new InvalidArgumentException('License is missing URL');
+                throw new InvalidArgumentException('License is missing type');
             }
 
-            $this->_validateUrl($license['url'], 'Invalid license URL: ' . $license['url']);
+            $this->validateStringAndLength($license['type'], 100, 'license type');
 
-            if (count($license) > 1 && !isset($license['type'])) {
+            if (count($license) > 1 && !isset($license['url'])) {
 
                 throw new InvalidArgumentException('Only \'url\' and \'type\' attributes are supported for licenses');
+            }
+
+            if (isset($license['url'])) {
+
+                $this->validateUrl($license['url'], 'license');
             }
         }
 
         $this->_licenses = $licenses;
-    }
-
-    private function _validateUrl($url, $message)
-    {
-        try {
-
-            new ehough_curly_Url($url);
-
-        } catch (InvalidArgumentException $e) {
-
-            throw new InvalidArgumentException($message);
-        }
-    }
-
-    /**
-     * @param $screenshotUrl
-     *
-     * @throws InvalidArgumentException
-     */
-    private function _validateScreenshotUrl($screenshotUrl)
-    {
-        if (!is_string($screenshotUrl)) {
-
-            throw new InvalidArgumentException('Screenshots must be strings.');
-        }
-
-        if (strpos($screenshotUrl, 'http') === 0) {
-
-            try {
-
-                new ehough_curly_Url($screenshotUrl);
-
-            } catch (InvalidArgumentException $e) {
-
-                throw new InvalidArgumentException(sprintf('%s is not a valid screenshot URL', $screenshotUrl));
-            }
-        }
-
-        if (!(tubepress_impl_util_StringUtils::endsWith($screenshotUrl, '.png') || tubepress_impl_util_StringUtils::endsWith($screenshotUrl, '.jpg'))) {
-
-            throw new InvalidArgumentException('Screenshot URLs must end with .png or .jpg');
-        }
     }
 }

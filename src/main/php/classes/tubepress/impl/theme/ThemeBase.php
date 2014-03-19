@@ -126,15 +126,7 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_contrib_Contributabl
      */
     public function setParentThemeName($parentThemeName)
     {
-        if (!is_string($parentThemeName)) {
-
-            throw new InvalidArgumentException('Theme parent name must be a string');
-        }
-
-        if (preg_match('~^[A-Za-z0-9-_\./]{1,100}$~', $parentThemeName) !== 1) {
-
-            throw new InvalidArgumentException('Invalid parent theme name.');
-        }
+        $this->validateContributableName($parentThemeName, 'parent theme name');
 
         $this->_parentThemeName = $parentThemeName;
     }
@@ -146,15 +138,7 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_contrib_Contributabl
     {
         foreach ($scripts as $script) {
 
-            if (!is_string($script)) {
-
-                throw new InvalidArgumentException('Theme scripts must all be strings.');
-            }
-
-            if (!tubepress_impl_util_StringUtils::endsWith($script, '.js')) {
-
-                throw new InvalidArgumentException('Theme scripts must all end in .js');
-            }
+            $this->validateStringEndsWith($script, array('.js'), 'each theme script');
         }
 
         $this->_scripts = $scripts;
@@ -167,15 +151,8 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_contrib_Contributabl
     {
         foreach ($styles as $style) {
 
-            if (!is_string($style)) {
+            $this->validateStringEndsWith($style, array('.css'), 'each theme style');
 
-                throw new InvalidArgumentException('Theme styles must all be strings.');
-            }
-
-            if (!tubepress_impl_util_StringUtils::endsWith($style, '.css')) {
-
-                throw new InvalidArgumentException('Theme styles must all end in .css');
-            }
         }
 
         $this->_styles = $styles;

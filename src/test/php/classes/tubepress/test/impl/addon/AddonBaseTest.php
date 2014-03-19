@@ -14,69 +14,82 @@
  */
 class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressUnitTest
 {
-    public function testSetPsr0NonString()
+    /**
+     * @var tubepress_impl_addon_AddonBase
+     */
+    private $_sut;
+    
+    public function onSetup()
     {
-        $this->setExpectedException('InvalidArgumentException', 'PSR-0 classpath roots must be strings');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setPsr0ClassPathRoots(array(array()));
-        $this->assertEquals(array(array()), $addon->getPsr0ClassPathRoots());
-    }
-
-    public function testSetPsr0()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setPsr0ClassPathRoots(array('foo'));
-        $this->assertEquals(array('foo'), $addon->getPsr0ClassPathRoots());
-    }
-
-    public function testSetIocContainerCompilerPassesNonString()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'IoC container compiler passes must be strings');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerCompilerPasses(array(array()));
-        $this->assertEquals(array(array()), $addon->getIocContainerCompilerPasses());
-    }
-
-    public function testSetIocContainerCompilerPasses()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerCompilerPasses(array('foo'));
-        $this->assertEquals(array('foo'), $addon->getIocContainerCompilerPasses());
-    }
-
-    public function testSetIocContainerExtensionsNonString()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'IoC container extensions must be strings');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerExtensions(array(array()));
-        $this->assertEquals(array(array()), $addon->getIocContainerExtensions());
-    }
-
-    public function testSetIocContainerExtensions()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerExtensions(array('foo'));
-        $this->assertEquals(array('foo'), $addon->getIocContainerExtensions());
-    }
-
-    private function _buildValidAddon()
-    {
-        return new tubepress_impl_addon_AddonBase(
+        $this->_sut = new tubepress_impl_addon_AddonBase(
 
             'name',
             tubepress_spi_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar'))
+            array(array('type' => 'foobar'))
         );
+    }
+    
+    public function testGetSetClassMap()
+    {
+        $this->_sut->setClassMap(array('x' =>'y'));
+        $this->assertEquals(array('x' => 'y'), $this->_sut->getClassMap());
+    }
+
+    public function testNonAssociativeClassMap()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Class map must be an associative array');
+
+        $this->_sut->setClassMap(array('x'));
+    }
+
+    public function testNoStringClassMapPath()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Each classmap path must be a string');
+
+        $this->_sut->setClassMap(array('x' => array()));
+    }
+
+    public function testSetIocContainerExtensionsNonString()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Each IoC container extension must be a string');
+
+        $this->_sut->setIocContainerExtensions(array(array()));
+        $this->assertEquals(array(array()), $this->_sut->getIocContainerExtensions());
+    }
+
+    public function testSetIocContainerExtensions()
+    {
+        $this->_sut->setIocContainerExtensions(array('foo'));
+        $this->assertEquals(array('foo'), $this->_sut->getIocContainerExtensions());
+    }
+
+    public function testSetIocContainerCompilerPassesNonString()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Each IoC container compiler pass must be a string');
+
+        $this->_sut->setIocContainerCompilerPasses(array(array()));
+        $this->assertEquals(array(array()), $this->_sut->getIocContainerCompilerPasses());
+    }
+
+    public function testSetIocContainerCompilerPasses()
+    {
+        $this->_sut->setIocContainerCompilerPasses(array('foo'));
+        $this->assertEquals(array('foo'), $this->_sut->getIocContainerCompilerPasses());
+    }
+    
+    public function testSetPsr0NonString()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Each PSR-0 classpath root must be a string');
+
+        $this->_sut->setPsr0ClassPathRoots(array(array()));
+        $this->assertEquals(array(array()), $this->_sut->getPsr0ClassPathRoots());
+    }
+
+    public function testSetPsr0()
+    {
+        $this->_sut->setPsr0ClassPathRoots(array('foo'));
+        $this->assertEquals(array('foo'), $this->_sut->getPsr0ClassPathRoots());
     }
 }

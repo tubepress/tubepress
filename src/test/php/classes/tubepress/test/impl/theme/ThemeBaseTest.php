@@ -48,21 +48,21 @@ class tubepress_test_impl_theme_ThemeBaseTest extends tubepress_test_TubePressUn
 
     public function testSetNonStringParentName()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Theme parent name must be a string');
+        $this->setExpectedException('InvalidArgumentException', 'Parent theme name must be a string.');
 
         $this->_sut->setParentThemeName(new stdClass());
     }
 
     public function testSetNonCssStyles()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Theme styles must all end in .css');
+        $this->setExpectedException('InvalidArgumentException', 'Each theme style must end with one of: .css');
 
         $this->_sut->setStyles(array('hello.js'));
     }
 
     public function testSetNonStringStyles()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Theme styles must all be strings.');
+        $this->setExpectedException('InvalidArgumentException', 'Each theme style must be a string.');
 
         $this->_sut->setStyles(array(new stdClass()));
     }
@@ -76,14 +76,14 @@ class tubepress_test_impl_theme_ThemeBaseTest extends tubepress_test_TubePressUn
 
     public function testSetNonJsScripts()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Theme scripts must all end in .js');
+        $this->setExpectedException('InvalidArgumentException', 'Each theme script must end with one of: .js');
 
         $this->_sut->setScripts(array('hello.css'));
     }
 
     public function testSetNonStringScripts()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Theme scripts must all be strings.');
+        $this->setExpectedException('InvalidArgumentException', 'Each theme script must be a string.');
 
         $this->_sut->setScripts(array(new stdClass()));
     }

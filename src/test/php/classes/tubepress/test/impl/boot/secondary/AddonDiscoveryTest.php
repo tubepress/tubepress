@@ -150,8 +150,8 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
 
         $licenses = $addon->getLicenses();
 
-        $this->assertEquals('http://foo.bar', $licenses[0]['url']);
-        $this->assertEquals('http://foo.com', $licenses[1]['url']);
+        $this->assertEquals('foo', $licenses[0]['type']);
+        $this->assertEquals('bar', $licenses[1]['type']);
 
         $author = $addon->getAuthor();
 
