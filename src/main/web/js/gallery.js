@@ -671,9 +671,14 @@ var tubePressGalleryRegistrar;
                     }
 
                     return troo;
-                };
+                },
+                    selectorPrefix = '#' + text_tubepress + '_gallery_' + galleryId + ' ';
 
-                jquery('#' + text_tubepress + '_gallery_' + galleryId + ' div.pagination a').click(pagationClickCallback);
+                /**
+                 * Modern themes will use div.tubepress_pagination, but there are still lots of themes
+                 * that have div.pagination.
+                 */
+                jquery(selectorPrefix + 'div.pagination a, ' + selectorPrefix + 'div.tubepress_pagination a').click(pagationClickCallback);
             };
 
         subscribe(text_event_galleryNewThumbs + ' ' + text_event_galleryLoad, onNewGalleryOrThumbs);
