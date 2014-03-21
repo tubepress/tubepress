@@ -181,7 +181,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
 
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn('user-content-dir');
 
-        $this->_mockFileSystem->shouldReceive('exists')->times(1)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
+        $this->_mockFileSystem->shouldReceive('exists')->times(1)->with(TUBEPRESS_ROOT . '/src/main/web/themes')->andReturn(false);
         $this->_mockFileSystem->shouldReceive('exists')->times(1)->with('user-content-dir/themes')->andReturn(true);
 
         $fakeThemeDir        = ehough_mockery_Mockery::mock();

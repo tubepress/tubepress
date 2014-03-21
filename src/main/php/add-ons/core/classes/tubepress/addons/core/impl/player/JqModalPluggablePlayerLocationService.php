@@ -21,7 +21,7 @@ class tubepress_addons_core_impl_player_JqModalPluggablePlayerLocationService im
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandlerInterface $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('players/jqmodal.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        return $themeHandler->getTemplateInstance('players/jqmodal.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
     }
 
     /**

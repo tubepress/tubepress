@@ -36,7 +36,7 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
     {
         $th       = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
         $pm       = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $template = $th->getTemplateInstance('search/search_input.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        $template = $th->getTemplateInstance('search/search_input.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
 
         if ($pm->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT)) {
 

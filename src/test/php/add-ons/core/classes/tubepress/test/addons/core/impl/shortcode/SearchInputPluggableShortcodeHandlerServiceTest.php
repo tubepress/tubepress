@@ -56,7 +56,7 @@ class tubepress_test_addons_core_impl_shortcode_SearchInputPluggableShortcodeHan
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('search/search_input.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('search/search_input.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default')->andReturn($mockTemplate);
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT)->andReturn(true);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT, ehough_mockery_Mockery::on(function ($arg) use ($mockTemplate) {

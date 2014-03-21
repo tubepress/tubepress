@@ -216,7 +216,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
         if ($isSystemTheme) {
 
-            $prefix = $ed->getBaseUrl() . '/src/main/resources/default-themes/';
+            $prefix = $ed->getBaseUrl() . '/src/main/web/themes/';
 
         } else {
 

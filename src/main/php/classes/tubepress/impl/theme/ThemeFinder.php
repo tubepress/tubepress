@@ -28,7 +28,7 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
      */
     public function findAllThemes()
     {
-        $modernThemes = $this->findContributables('/src/main/resources/default-themes/', '/themes');
+        $modernThemes = $this->findContributables('/src/main/web/themes/', '/themes');
         $legacyThemes = $this->_findLegacyThemes($modernThemes);
         $toReturn     = array_merge($modernThemes, $legacyThemes);
 

@@ -112,7 +112,7 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
     private function _setupSystemThemeMocks()
     {
         $mockSystemThemeSplFileInfo = ehough_mockery_Mockery::mock('SplFileInfo');
-        $mockSystemThemeSplFileInfo->shouldReceive('getRealPath')->twice()->andReturn(TUBEPRESS_ROOT . '/src/main/resources/default-themes/default/theme.json');
+        $mockSystemThemeSplFileInfo->shouldReceive('getRealPath')->twice()->andReturn(TUBEPRESS_ROOT . '/src/main/web/themes/default/theme.json');
         $mockSystemThemeSplFileInfoArray = array(
 
             $mockSystemThemeSplFileInfo
@@ -121,7 +121,7 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
         $mockSystemFinder = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $mockSystemFinder->shouldReceive('followLinks')->once()->andReturn($mockSystemFinder);
         $mockSystemFinder->shouldReceive('files')->once()->andReturn($mockSystemFinder);
-        $mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes/')->andReturn($mockSystemFinder);
+        $mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/web/themes/')->andReturn($mockSystemFinder);
         $mockSystemFinder->shouldReceive('name')->once()->with('theme.json')->andReturn($mockSystemFinder);
         $mockSystemFinder->shouldReceive('depth')->once()->with('< 2')->andReturn($mockSystemThemeSplFileInfoArray);
 
@@ -131,7 +131,7 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
     private function _setupUserThemeMocks()
     {
         $fs = new ehough_filesystem_Filesystem();
-        $fs->copy(TUBEPRESS_ROOT . '/src/main/resources/default-themes/youtube/theme.json', $this->_mockUserThemeDirectory . '/themes/something/theme.json');
+        $fs->copy(TUBEPRESS_ROOT . '/src/main/web/themes/youtube/theme.json', $this->_mockUserThemeDirectory . '/themes/something/theme.json');
 
         $mockUserThemeSplFileInfo      = ehough_mockery_Mockery::mock('SplFileInfo');
         $mockUserThemeSplFileInfo->shouldReceive('getRealPath')->twice()->andReturn($this->_mockUserThemeDirectory . '/themes/something/theme.json');

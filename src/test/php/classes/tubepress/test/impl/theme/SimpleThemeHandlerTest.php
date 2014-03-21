@@ -140,8 +140,8 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
         $actual = $this->_sut->getScripts();
         $expected = array(
             'http://foo.bar/hello/src/main/web/js/tubepress.js',
-            'http://foo.bar/hello/src/main/resources/default-themes/otherpath/foo/bar.js',
-            'http://foo.bar/hello/src/main/resources/default-themes/otherpath/fooz/baz.js',
+            'http://foo.bar/hello/src/main/web/themes/otherpath/foo/bar.js',
+            'http://foo.bar/hello/src/main/web/themes/otherpath/fooz/baz.js',
             'http://foo.bar/hello/user/themes/neat/blue/red.js',
             'http://foo.bar/hello/user/themes/neat/orange/pie.js',
             'http://foo.bar/hello/user/themes/path/one/1.js',
@@ -159,8 +159,8 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
 
         $actual = $this->_sut->getStyles();
         $expected = array(
-            'http://foo.bar/hello/src/main/resources/default-themes/otherpath/tip/cup.css',
-            'http://foo.bar/hello/src/main/resources/default-themes/otherpath/window/glass.css',
+            'http://foo.bar/hello/src/main/web/themes/otherpath/tip/cup.css',
+            'http://foo.bar/hello/src/main/web/themes/otherpath/window/glass.css',
             'http://foo.edu/car/tire.css',
             'http://foo.bar/hello/user/themes/neat/bike/ride.css',
         );
@@ -175,8 +175,8 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
 
         $actual = $this->_sut->getStyles();
         $expected = array(
-            'http://foo.bar/hello/src/main/resources/default-themes/otherpath/tip/cup.css',
-            'http://foo.bar/hello/src/main/resources/default-themes/otherpath/window/glass.css'
+            'http://foo.bar/hello/src/main/web/themes/otherpath/tip/cup.css',
+            'http://foo.bar/hello/src/main/web/themes/otherpath/window/glass.css'
         );
 
         $this->assertEquals($expected, $actual);

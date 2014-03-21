@@ -14,7 +14,7 @@ class tubepress_test_impl_template_templates_defaultthemes_default_PaginationTes
     {
         $expected = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/templates/default-themes/default/pagination.txt');
 
-        $path = TUBEPRESS_ROOT . '/src/main/resources/default-themes/default/pagination.tpl.php';
+        $path = TUBEPRESS_ROOT . '/src/main/web/themes/default/pagination.tpl.php';
         ${tubepress_api_const_template_Variable::PAGINATION_CURRENT_PAGE}     = 4;
         ${tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS}      = 99;
         ${tubepress_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE} = 10;
