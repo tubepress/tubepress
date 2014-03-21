@@ -58,6 +58,12 @@ class tubepress_addons_wordpress_impl_actions_Init
 
         for ($x = 0; $x < $scriptCount; $x++) {
 
+            if (tubepress_impl_util_StringUtils::endsWith($scripts[$x], '/src/main/web/js/tubepress.js')) {
+
+                //we already loaded this above
+                continue;
+            }
+
             $handle = 'tubepress-theme-' . $x;
 
             $wpFunctions->wp_register_script($handle, $scripts[$x]);
