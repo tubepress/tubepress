@@ -66,7 +66,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject An `exception` containing the caught error message.
      *
-     * @argument "message" (`string`): The message to be displayed to the user. May contain HTML.
+     * @argument <var>$message</var> (`string`): The message to be displayed to the user. May contain HTML.
      *
      * @api
      * @since 3.1.0
@@ -78,10 +78,10 @@ class tubepress_api_const_event_EventNames
      *
      * @subject string The HTML for the embedded video player.
      *
-     * @argument  "videoId" (`string`): The ID of the video to be played.
-     * @argument "providerName" (`string`): The name of the video provider (e.g. "vimeo" or "youtube").
-     * @argument "dataUrl" (`ehough_curly_Url`): The embedded data URL.
-     * @argument "embeddedImplementationName" (`string`): The name of the embedded implementation.
+     * @argument <var>$videoId</var> (`string`): The ID of the video to be played.
+     * @argument <var>$providerName</var> (`string`): The name of the video provider (e.g. "vimeo" or "youtube").
+     * @argument <var>$dataUrl</var> (`ehough_curly_Url`): The embedded data URL.
+     * @argument <var>$embeddedImplementationName</var> (`string`): The name of the embedded implementation.
      *
      * @todo Determine what to do about the ehough_* classes being exposed in the docs
      *
@@ -105,8 +105,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject A `string` containing the player HTML.
      *
-     * @argument "video" (`tubepress_api_video_Video`): The video to be played.
-     * @argument "playerName" (`string`): The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
+     * @argument <var>$video</var> (`{@link tubepress_api_video_Video}`): The video to be played.
+     * @argument <var>$playerName</var> (`string`): The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      *
      * @api
      * @since 3.1.0
@@ -138,8 +138,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject A `string` containing the HTML for the thumbnail gallery.
      *
-     * @argument "videoGalleryPage" (`tubepress_api_video_VideoGalleryPage`): The backing {@link tubepress_api_video_VideoGalleryPage}.
-     * @argument "page" (`integer`): The page number.
+     * @argument <var>$videoGalleryPage</var> (`{@link tubepress_api_video_VideoGalleryPage}`): The backing {@link tubepress_api_video_VideoGalleryPage}.
+     * @argument <var>$page</var> (`integer`): The page number.
      *
      * @api
      * @since 3.1.0
@@ -195,8 +195,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject A `string` containing the HTTP body.
      *
-     * @argument "request" (`ehough_shortstop_api_HttpRequest`):  The HTTP request.
-     * @argument "response" (`ehough_shortstop_api_HttpResponse`): The HTTP response.
+     * @argument <var>$request</var> (`ehough_shortstop_api_HttpRequest`):  The HTTP request.
+     * @argument <var>$response</var> (`ehough_shortstop_api_HttpResponse`): The HTTP response.
      *
      * @todo Determine what to do about the ehough_* classes being exposed in the docs
      *
@@ -267,7 +267,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject mixed The incoming option value.
      *
-     * @argument string 'optionName' The name of the option being set.
+     * @argument <var>$optionName</var> (`string`): The name of the option being set.
      *
      * @api
      * @since 3.2.0
@@ -280,7 +280,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject mixed The incoming option value.
      *
-     * @argument string 'optionName' The name of the option being set.
+     * @argument <var>$optionName</var> (`string`): The name of the option being set.
      *
      * @api
      * @since 3.2.0
@@ -292,7 +292,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject mixed The incoming option value.
      *
-     * @argument string 'optionName' The name of the option being set.
+     * @argument <var>$optionName</var> (`string`): The name of the option being set.
      *
      * @api
      * @since 3.2.0
@@ -325,10 +325,12 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The embedded video player template.
      *
-     * @argument string           'videoId'                    The ID of the video to be played.
-     * @argument string           'providerName'               The name of the video provider (e.g. "vimeo" or "youtube").
-     * @argument ehough_curly_Url 'dataUrl'                    The embedded data URL.
-     * @argument string           'embeddedImplementationName' The name of the embedded implementation.
+     * @argument <var>$videoId</var> (`string`): The ID of the video to be played.
+     * @argument <var>$providerName</var> (`string`): The name of the video provider (e.g. "vimeo" or "youtube").
+     * @argument <var>$dataUrl</var> (`ehough_curly_Url`): The embedded data URL.
+     * @argument <var>$embeddedImplementationName</var> (`string`): The name of the embedded implementation.
+     *
+     * @todo Determine what to do about the ehough_* classes being exposed in the docs
      *
      * @api
      * @since 3.1.0
@@ -351,8 +353,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject string The player HTML.
      *
-     * @argument tubepress_api_video_Video 'video'      The video to be played.
-     * @argument string                    'playerName' The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
+     * @argument <var>$video</var> (`{@link tubepress_api_video_Video}`): The video to be played.
+     * @argument <var>$playerName</var> (`string`): The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      *
      * @api
      * @since 3.1.0
@@ -374,7 +376,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The template.
      *
-     * @argument tubepress_api_video_Video 'video' The video to be played.
+     * @argument <var>$video</var> (`{@link tubepress_api_video_Video}`): The video to be played.
      *
      * @api
      * @since 3.1.0
@@ -386,8 +388,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The template.
      *
-     * @argument tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
-     * @argument integer                              'page'             The page number.
+     * @argument <var>$videoGalleryPage</var> (`{@link tubepress_api_video_VideoGalleryPage}`): The backing {@link tubepress_api_video_VideoGalleryPage}
+     * @argument <var>$page</var> (`integer`): The page number.
      *
      * @api
      * @since 3.1.0
@@ -400,8 +402,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject tubepress_api_video_Video The TubePress video.
      *
-     * @argument int   zeroBasedFeedIndex The zero-based index into the raw feed from which this video was built.
-     * @argument mixed rawFeed            The "raw" unaltered feed from the provider.
+     * @argument <var>$zeroBasedFeedIndex</var> (`int`): The zero-based index into the raw feed from which this video was built.
+     * @argument <var>$rawFeed</var> (`mixed`): The "raw" unaltered feed from the provider.
      *
      * @api
      * @since 3.1.0

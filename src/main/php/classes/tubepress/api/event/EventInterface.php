@@ -10,7 +10,12 @@
  */
 
 /**
- * An event that is passed around during TubePress's execution. 
+ * An event that is passed around during TubePress's execution. Oftentimes, different classes need to be notified of
+ * certain events taking place during the execution of TubePress (e.g., notify prior to JS scripts being written to HTML
+ * so additional JS can be added, or inform when the video gallery is about to be displayed so custom code can be
+ * executed). The `EventInterface` allows for the event itself to be modified through the `getSubject` and `setSubject`
+ * functions described below, as well as for the passing of related objects through the `getArgument` (`getArguments`)
+ * and `setArgument` (`setArguments`) functions described below.
  *
  * @package TubePress\API\Event
  */
@@ -19,7 +24,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Get argument by key.
      *
-     * @param string $key Key.
+     * @param string Key.
      *
      * @throws InvalidArgumentException If key is not found.
      *
@@ -71,7 +76,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Has argument.
      *
-     * @param string $key Key of arguments array.
+     * @param string Key of arguments array.
      *
      * @return boolean
      *
@@ -93,8 +98,8 @@ interface tubepress_api_event_EventInterface
     /**
      * Add argument to event.
      *
-     * @param string $key   Argument name.
-     * @param mixed  $value Value.
+     * @param string Argument name.
+     * @param mixed  Value.
      *
      * @return tubepress_api_event_EventInterface
      *
@@ -106,7 +111,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Add numerous arguments to an event.
      *
-     * @param array $args Arguments.
+     * @param array Arguments. Both the key and value of the array elements are used in setting the arguments.
      *
      * @return tubepress_api_event_EventInterface
      *
@@ -118,7 +123,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Allows listeners to replace the subject with a new item.
      *
-     * @param mixed $subject The new subject for the event.
+     * @param mixed The new subject for the event.
      *
      * @return void
      *

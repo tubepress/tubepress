@@ -22,7 +22,7 @@ interface tubepress_api_ioc_ContainerExtensionInterface
     /**
      * Allows extensions to load services into the TubePress IOC container.
      *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface A `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
