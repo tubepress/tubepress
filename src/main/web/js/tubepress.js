@@ -333,7 +333,7 @@ var tubePressDomInjector,
 
                 convertToAbsoluteUrl = function (url, isSystem) {
 
-                    if (url.indexOf('/') === 0) {
+                    if (url.indexOf('/') === 0 || url.indexOf('http') === 0) {
 
                         //already absolute
                         return url;
