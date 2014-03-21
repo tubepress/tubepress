@@ -237,7 +237,6 @@ class tubepress_impl_boot_PrimaryBootstrapper
                 $this->_shouldLog,
                 new tubepress_impl_boot_secondary_ClassLoaderPrimer(),
                 new tubepress_impl_addon_AddonFinder($finderFactory, $environmentDetector),
-                new tubepress_impl_boot_secondary_ThemesPrimer($themeFinder, $finderFactory),
                 new tubepress_impl_boot_secondary_IocCompiler()
             );
         }

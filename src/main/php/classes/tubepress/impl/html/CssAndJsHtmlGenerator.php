@@ -21,25 +21,13 @@ class tubepress_impl_html_CssAndJsHtmlGenerator implements tubepress_spi_html_Cs
     {
         $cssHtml = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, '') . "\n";
 
-        $cssAndJsRegistry = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsRegistry();
-        $styleHandles     = $cssAndJsRegistry->getStyleHandlesForDisplay();
-        $styles           = array();
-
-        foreach ($styleHandles as $handle) {
-
-            $style = $cssAndJsRegistry->getStyle($handle);
-
-            if ($style !== null) {
-
-                $styles[$handle] = $style;
-            }
-        }
-
+        $themeHandler   = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $styles         = $themeHandler->getStyles();
         $filteredStyles = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_STYLESHEETS, $styles);
 
-        foreach ($filteredStyles as $handle => $info) {
+        foreach ($filteredStyles as $url) {
 
-            $cssHtml .= $this->_toCssTag($info);
+            $cssHtml .= $this->_toCssTag($url);
         }
 
         $cssHtml = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::HTML_STYLESHEETS_POST, $cssHtml);
@@ -52,26 +40,14 @@ class tubepress_impl_html_CssAndJsHtmlGenerator implements tubepress_spi_html_Cs
      */
     public function getJsHtml()
     {
-        $cssAndJsRegistry = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsRegistry();
-        $scriptHandles     = $cssAndJsRegistry->getScriptHandlesForDisplay();
-        $scripts           = array();
-
-        foreach ($scriptHandles as $handle) {
-
-            $script = $cssAndJsRegistry->getScript($handle);
-
-            if ($script !== null) {
-
-                $scripts[$handle] = $script;
-            }
-        }
-
+        $themeHandler    = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $scripts         = $themeHandler->getScripts();
         $jsHtml          = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::HTML_SCRIPTS_PRE, '') . "\n";
         $filteredScripts = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::CSS_JS_SCRIPTS, $scripts);
 
-        foreach ($filteredScripts as $handle => $info) {
+        foreach ($filteredScripts as $url) {
 
-            $jsHtml .= $this->_toJsTag($info);
+            $jsHtml .= $this->_toJsTag($url);
         }
 
         $jsHtml = $this->_fireEventAndReturnSubject(tubepress_api_const_event_EventNames::HTML_SCRIPTS_POST, $jsHtml);
@@ -79,15 +55,15 @@ class tubepress_impl_html_CssAndJsHtmlGenerator implements tubepress_spi_html_Cs
         return $jsHtml;
     }
 
-    private function _toJsTag(array $script)
+    private function _toJsTag($url)
     {
-        return sprintf("<script type=\"text/javascript\" src=\"%s\"></script>\n", $script['url']);
+        return sprintf("<script type=\"text/javascript\" src=\"%s\"></script>\n", $url);
 
     }
 
-    private function _toCssTag(array $style)
+    private function _toCssTag($url)
     {
-        return sprintf("<link href=\"%s\" rel=\"stylesheet\" type=\"text/css\" media=\"%s\">\n", $style['url'], $style['media']);
+        return sprintf("<link href=\"%s\" rel=\"stylesheet\" type=\"text/css\">\n", $url);
     }
 
     private function _fireEventAndReturnSubject($eventName, $raw)

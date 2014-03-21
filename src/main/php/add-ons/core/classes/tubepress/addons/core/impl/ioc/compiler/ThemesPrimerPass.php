@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_impl_boot_secondary_ThemesPrimer implements tubepress_spi_boot_secondary_ThemesPrimerInterface
+class tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass implements tubepress_api_ioc_CompilerPassInterface
 {
     const ATTRIBUTE_IS_SYSTEM   = 'isSystem';
     const ATTRIBUTE_PARENT      = 'parent';
@@ -24,16 +24,6 @@ class tubepress_impl_boot_secondary_ThemesPrimer implements tubepress_spi_boot_s
     const ATTRIBUTE_TITLE       = 'title';
 
     /**
-     * @var tubepress_spi_theme_ThemeFinderInterface
-     */
-    private $_themeFinder;
-
-    /**
-     * @var ehough_finder_FinderFactoryInterface
-     */
-    private $_finderFactory;
-
-    /**
      * @var ehough_epilog_Logger
      */
     private $_logger;
@@ -43,29 +33,34 @@ class tubepress_impl_boot_secondary_ThemesPrimer implements tubepress_spi_boot_s
      */
     private $_shouldLog;
 
-    public function __construct(tubepress_spi_theme_ThemeFinderInterface $themeFinder, ehough_finder_FinderFactoryInterface $ffi)
+    public function __construct()
     {
-        $this->_themeFinder   = $themeFinder;
-        $this->_finderFactory = $ffi;
-        $this->_logger        = ehough_epilog_LoggerFactory::getLogger('Themes Container Param');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Themes Container Param');
     }
 
     /**
-     * Discovers TubePress themes.
+     * Provides add-ons with the ability to modify the TubePress IOC container builder
+     * before it is compiled for production.
      *
-     * @return array An array data of the discovered TubePress themes.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The core IOC container builder.
+     *
+     * @return void
+     * @api
+     * @since 3.1.0
      */
-    public function getThemesContainerParameterValue()
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $allThemes = $this->_themeFinder->findAllThemes();
-        $toReturn  = array();
+        $themeFinder   = $containerBuilder->get(tubepress_spi_theme_ThemeFinderInterface::_);
+        $finderFactory = $containerBuilder->get('ehough_finder_FinderFactoryInterface');
+        $allThemes     = $themeFinder->findAllThemes();
+        $toReturn      = array();
 
         /**
          * @var $theme tubepress_spi_theme_ThemeInterface
          */
         foreach ($allThemes as $theme) {
 
-            $templates = $this->_findTemplates($theme->getRootFilesystemPath());
+            $templates = $this->_findTemplates($theme->getRootFilesystemPath(), $finderFactory);
 
             $toReturn[$theme->getName()] = array(
 
@@ -80,10 +75,10 @@ class tubepress_impl_boot_secondary_ThemesPrimer implements tubepress_spi_boot_s
             );
         }
 
-        return $toReturn;
+        $containerBuilder->setParameter('themes', $toReturn);
     }
 
-    private function _findTemplates($rootDirectory)
+    private function _findTemplates($rootDirectory, ehough_finder_FinderFactoryInterface $ffi)
     {
         $this->_initLogging();
 
@@ -92,7 +87,7 @@ class tubepress_impl_boot_secondary_ThemesPrimer implements tubepress_spi_boot_s
             $this->_logger->debug(sprintf('Looking for .tpl.php files in %s', $rootDirectory));
         }
 
-        $finder   = $this->_finderFactory->createFinder()->files()->in($rootDirectory)->name('*.tpl.php');
+        $finder   = $ffi->createFinder()->files()->in($rootDirectory)->name('*.tpl.php');
         $toReturn = array();
 
         /**

@@ -110,7 +110,15 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
             $themeName = $this->_calculateCurrentThemeName();
         }
 
-        return $this->_recursivelyGetResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_SCRIPTS);
+        $themeScripts = $this->_recursivelyGetResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_SCRIPTS);
+
+        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $baseUrl             = $environmentDetector->getBaseUrl();
+        $tubePressJsUrl      = $baseUrl . '/src/main/web/js/tubepress.js';
+
+        array_unshift($themeScripts, $tubePressJsUrl);
+
+        return $themeScripts;
     }
 
     /**
@@ -150,7 +158,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
             return $toReturn;
         }
 
-        $parent = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_PARENT];
+        $parent = $this->_themeMap[$themeName][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_PARENT];
 
         if (!$parent) {
 
@@ -164,10 +172,10 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
     {
         $toReturn            = array();
         $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $themeAbsPath        = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_THEME_ROOT];
+        $themeAbsPath        = $this->_themeMap[$themeName][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_THEME_ROOT];
         $themeBaseName       = basename($themeAbsPath);
         $resources           = $this->_themeMap[$themeName][$key];
-        $isSystemTheme       = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_IS_SYSTEM];
+        $isSystemTheme       = $this->_themeMap[$themeName][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_IS_SYSTEM];
 
         if (tubepress_impl_util_LangUtils::isAssociativeArray($resources)) {
 
@@ -256,7 +264,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
         /**
          * First try to load the template from the requested theme.
          */
-        if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_TEMPLATES])) {
+        if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_TEMPLATES])) {
 
             if ($this->_shouldLog()) {
 
@@ -273,7 +281,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
         while (true) {
 
-            if (!isset($this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_PARENT])) {
+            if (!isset($this->_themeMap[$currentTheme][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_PARENT])) {
 
                 break;
             }
@@ -281,7 +289,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
             /**
              * Next try the parent.
              */
-            $parent = $this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_PARENT];
+            $parent = $this->_themeMap[$currentTheme][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_PARENT];
 
             if (!$parent) {
 
@@ -295,7 +303,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
             $currentTheme = $parent;
 
-            if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_TEMPLATES])) {
+            if (in_array($pathToTemplate, $this->_themeMap[$currentTheme][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_TEMPLATES])) {
 
                 if ($this->_shouldLog()) {
 
@@ -327,7 +335,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
         foreach ($this->_themeMap as $themeName => $data) {
 
-            $themeTitle           = $data[tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_TITLE];
+            $themeTitle           = $data[tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_TITLE];
             $toReturn[$themeName] = $themeTitle;
         }
 
@@ -336,7 +344,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
     private function _toAbsPath($themeName, $relativeTemplatePath)
     {
-        $themeAbsPath = $this->_themeMap[$themeName][tubepress_impl_boot_secondary_ThemesPrimer::ATTRIBUTE_THEME_ROOT];
+        $themeAbsPath = $this->_themeMap[$themeName][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_THEME_ROOT];
         $themeAbsPath = rtrim($themeAbsPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
         return $themeAbsPath . $relativeTemplatePath;

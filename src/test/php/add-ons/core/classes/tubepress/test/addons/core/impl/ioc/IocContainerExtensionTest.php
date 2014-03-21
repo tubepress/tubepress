@@ -22,7 +22,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_ajaxHandler();
         $this->_cacheService();
         $this->_cssAndJs();
-        $this->_cssAndJsRegistry();
         $this->_embeddedGenerator();
         $this->_executionContext();
         $this->_feedFetcher();
@@ -674,15 +673,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     private function _cssAndJs()
     {
         $this->expectRegistration(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_, 'tubepress_impl_html_CssAndJsHtmlGenerator');
-    }
-
-    private function _cssAndJsRegistry()
-    {
-        $this->expectRegistration(
-
-            tubepress_spi_html_CssAndJsRegistryInterface::_,
-            'tubepress_impl_html_CssAndJsRegistry'
-        );
     }
 
     private function _ajaxHandler()

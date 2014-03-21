@@ -37,14 +37,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_CssAndJsRegistryInterface The CSS registry.
-     */
-    public static function getCssAndJsRegistry()
-    {
-        return self::getService(tubepress_spi_html_CssAndJsRegistryInterface::_);
-    }
-
-    /**
      * @return tubepress_spi_embedded_EmbeddedHtmlGenerator The embedded HTML generator.
      */
     public static function getEmbeddedHtmlGenerator()

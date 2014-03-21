@@ -38,7 +38,6 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
     {
         return array(
 
-            tubepress_spi_html_CssAndJsRegistryInterface::_,
             tubepress_spi_http_AjaxHandler::_,
             'ehough_stash_interfaces_PoolInterface',
             tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
@@ -68,7 +67,6 @@ class tubepress_test_impl_patterns_sl_ServiceLocatorTest extends tubepress_test_
     {
         return array(
 
-            'CssAndJsRegistry',
             'AjaxHandler',
             'CacheService',
             'EmbeddedHtmlGenerator',

@@ -39,11 +39,6 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
      */
     private $_mockContainerDumper;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockThemeDiscoverer;
-
     public function buildSut()
     {
         $this->_mockAddonDiscoverer   = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonFinderInterface::_);
@@ -51,14 +46,12 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
         $this->_mockClassLoaderHelper = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_ClassLoaderPrimerInterface::_);
         $this->_mockContainerBuilder  = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
         $this->_mockContainerDumper   = ehough_mockery_Mockery::mock('ehough_iconic_dumper_DumperInterface');
-        $this->_mockThemeDiscoverer   = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_ThemesPrimerInterface::_);
 
         $sut = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
 
             true,
             $this->_mockClassLoaderHelper,
             $this->_mockAddonDiscoverer,
-            $this->_mockThemeDiscoverer,
             $this->_mockIocHelper
         );
 
@@ -82,8 +75,6 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
         $mockIconicContainerBuilder = ehough_mockery_Mockery::mock('ehough_iconic_ContainerBuilder');
         $this->_mockContainerBuilder->shouldReceive('getDelegateIconicContainerBuilder')->once()->andReturn($mockIconicContainerBuilder);
         $this->_mockContainerDumper->shouldReceive('dump')->once()->with(array('class' => 'TubePressServiceContainer'))->andReturn('xyz');
-        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with('themes', 'theme param, yo');
-        $this->_mockThemeDiscoverer->shouldReceive('getThemesContainerParameterValue')->once()->andReturn('theme param, yo');
 
         $container = $this->getContainer();
 

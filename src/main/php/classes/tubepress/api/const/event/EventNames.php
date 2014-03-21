@@ -17,8 +17,7 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fied when TubePress is about to print its JS files (either in <head> or near </body>).
      *
-     * @subject array An associative array where keys are script handles and values are script details.
-     *                See tubepress_spi_html_CssAndJsRegistryInterface::getScript() for details on array values.
+     * @subject array An array of URLs for the stylesheets that TubePress will print in the HTML <head>
      *
      * @api
      * @since 3.1.3

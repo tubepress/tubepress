@@ -18,6 +18,7 @@
             "tubepress_addons_core_impl_ioc_IocContainerExtension"
         ],
         "compiler-passes" : [
+            "tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass",
             "tubepress_addons_core_impl_ioc_compiler_LegacyOptionsPass",
             "tubepress_addons_core_impl_ioc_compiler_RegisterListenersCompilerPass",
             "tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass",
@@ -35,6 +36,7 @@
             "tubepress_addons_core_impl_ioc_compiler_LegacyOptionsPass"                         : "classes/tubepress/addons/core/impl/ioc/compiler/LegacyOptionsPass.php",
             "tubepress_addons_core_impl_ioc_compiler_RegisterListenersCompilerPass"             : "classes/tubepress/addons/core/impl/ioc/compiler/RegisterListenersCompilerPass.php",
             "tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass"        : "classes/tubepress/addons/core/impl/ioc/compiler/RegisterTaggedServicesConsumerPass.php",
+            "tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass"                          : "classes/tubepress/addons/core/impl/ioc/compiler/ThemesPrimerPass.php",
             "tubepress_addons_core_impl_ioc_FilesystemCacheBuilder"                             : "classes/tubepress/addons/core/impl/ioc/FilesystemCacheBuilder.php",
             "tubepress_addons_core_impl_ioc_IocContainerExtension"                              : "classes/tubepress/addons/core/impl/ioc/IocContainerExtension.php",
             "tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter"                          : "classes/tubepress/addons/core/impl/listeners/cssjs/BaseUrlSetter.php",

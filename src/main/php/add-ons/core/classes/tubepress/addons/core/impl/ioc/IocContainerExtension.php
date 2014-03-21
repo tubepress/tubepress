@@ -35,7 +35,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerAjaxHandler($containerBuilder);
         $this->_registerCacheService($containerBuilder);
         $this->_registerCssAndJsGenerator($containerBuilder);
-        $this->_registerCssAndJsRegistry($containerBuilder);
         $this->_registerEmbeddedHtmlGenerator($containerBuilder);
         $this->_registerExecutionContext($containerBuilder);
         $this->_registerFeedFetcher($containerBuilder);
@@ -104,15 +103,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_impl_cache_PoolDecorator'
 
         )->addArgument(new tubepress_impl_ioc_Reference($actualPoolServiceId));
-    }
-
-    private function _registerCssAndJsRegistry(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_html_CssAndJsRegistryInterface::_,
-            'tubepress_impl_html_CssAndJsRegistry'
-        );
     }
 
     private function _registerCssAndJsGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

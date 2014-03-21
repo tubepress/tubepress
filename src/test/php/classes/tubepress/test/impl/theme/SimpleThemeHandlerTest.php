@@ -134,11 +134,12 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
     public function testGetScripts()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('some/theme');
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->twice()->andReturn('http://foo.bar/hello');
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->times(3)->andReturn('http://foo.bar/hello');
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->times(4)->andReturn('http://foo.bar/hello/user');
 
         $actual = $this->_sut->getScripts();
         $expected = array(
+            'http://foo.bar/hello/src/main/web/js/tubepress.js',
             'http://foo.bar/hello/src/main/resources/default-themes/otherpath/foo/bar.js',
             'http://foo.bar/hello/src/main/resources/default-themes/otherpath/fooz/baz.js',
             'http://foo.bar/hello/user/themes/neat/blue/red.js',

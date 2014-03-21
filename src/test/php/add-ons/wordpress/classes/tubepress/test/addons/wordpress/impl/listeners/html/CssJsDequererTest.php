@@ -37,7 +37,7 @@ class tubepress_test_addons_wordpress_impl_listeners_html_CssJsDequererTest exte
 
         $this->_sut->onCss($mockEvent);
 
-        $this->assertEquals(array('foo' => 'bar'), $mockEvent->getSubject());
+        $this->assertEquals(array(), $mockEvent->getSubject());
     }
 
     public function testJs()
@@ -53,6 +53,6 @@ class tubepress_test_addons_wordpress_impl_listeners_html_CssJsDequererTest exte
 
         $this->_sut->onJs($mockEvent);
 
-        $this->assertEquals(array('foo' => 'bar'), $mockEvent->getSubject());
+        $this->assertEquals(array(), $mockEvent->getSubject());
     }
 }
