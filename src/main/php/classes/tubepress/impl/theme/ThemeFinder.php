@@ -86,7 +86,7 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
     {
         $pathElements = array(
             TUBEPRESS_ROOT,
-            'src', 'main', 'resources', 'default-themes'
+            'src', 'main', 'web', 'themes'
         );
 
         $needle   = implode(DIRECTORY_SEPARATOR, $pathElements);
