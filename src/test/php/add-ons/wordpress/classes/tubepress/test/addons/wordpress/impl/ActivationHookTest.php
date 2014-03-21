@@ -64,7 +64,7 @@ class tubepress_test_addons_wordpress_impl_ActivationHookTest extends tubepress_
     {
         $this->_mockFilesystemInterface->shouldReceive('mirror')->once()->with(
 
-            TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content',
+            TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton',
             $this->_userContentDirectory . '/tubepress-content'
         );
 
