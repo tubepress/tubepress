@@ -10,26 +10,41 @@
  */
 ?>
 
-<div class="tubepress_single_video">
-    
-    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::TITLE]): ?>
-        <div class="tubepress_embedded_title"><?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?></div>
-    <?php endif; ?>
+<div class="tubepress_single_video tubepress-youtube">
     
     <?php echo ${tubepress_api_const_template_Variable::EMBEDDED_SOURCE}; ?>
 
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::TITLE]): ?>
+        <div class="tubepress_embedded_title"><?php
+            if (strlen($video->getTitle()) > 55) {
+
+                $video->setTitle(substr($video->getTitle(), 0, 55) . ' ...');
+            }
+            echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8");
+            ?></div>
+    <?php endif; ?>
+
     <dl class="tubepress_meta_group" style="width: <?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px">
-      
+
     <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::LENGTH]): ?>
-    
+
     <dt class="tubepress_meta tubepress_meta_runtime"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::LENGTH]; ?></dt><dd class="tubepress_meta tubepress_meta_runtime"><?php echo $video->getDuration(); ?></dd>
     <?php endif; ?>
-        
+
     <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::AUTHOR]): ?>
     
     <dt class="tubepress_meta tubepress_meta_author"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><a rel="external nofollow" href="http://www.youtube.com/user/<?php echo $video->getAuthorUid(); ?>"><?php echo $video->getAuthorDisplayName(); ?></a></dd>
     <?php endif; ?>
-    
+
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::VIEWS]): ?>
+
+        <dt class="tubepress_meta tubepress_meta_views"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::VIEWS]; ?></dt><dd class="tubepress_meta tubepress_meta_views"><?php echo $video->getViewCount(); ?></dd>
+    <?php endif; ?>
+
+    </dl>
+
+    <dl class="tubepress_meta_group" style="width: <?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px">
+
     <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::KEYWORDS]): ?>
     
     <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::KEYWORDS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></a></dd>
@@ -72,15 +87,10 @@
     
     <dt class="tubepress_meta tubepress_meta_id"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::ID]; ?></dt><dd class="tubepress_meta tubepress_meta_id"><?php echo $video->getId(); ?></dd>
     <?php endif; ?>
-        
-    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::VIEWS]): ?>
-    
-    <dt class="tubepress_meta tubepress_meta_views"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::VIEWS]; ?></dt><dd class="tubepress_meta tubepress_meta_views"><?php echo $video->getViewCount(); ?></dd>
-    <?php endif; ?>
-        
+
     <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::UPLOADED]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_uploaddate"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::UPLOADED]; ?></dt><dd class="tubepress_meta tubepress_meta_uploaddate"><?php echo $video->getTimePublished(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_uploaddate">Published on</dt><dd class="tubepress_meta tubepress_meta_uploaddate"><?php echo $video->getTimePublished(); ?></dd>
     <?php endif; ?>
     
     <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::DESCRIPTION]): ?>

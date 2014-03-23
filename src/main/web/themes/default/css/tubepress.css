@@ -99,6 +99,7 @@ dt.tubepress_meta_description {
 dd.tubepress_meta {
 
     margin: 0 0 auto 0 ! important;
+    padding: 0 !important;
     display: inline;
 }
 
