@@ -17,7 +17,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Adds an argument to pass to the service constructor/factory method.
      *
-     * @param mixed An argument
+     * @param mixed $argument An argument
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -29,8 +29,8 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Adds a method to call after service initialization.
      *
-     * @param string The method name to call
-     * @param array  An array of arguments to pass to the method call
+     * @param string $method    The method name to call
+     * @param array  $arguments An array of arguments to pass to the method call
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -44,8 +44,8 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Adds a tag for this definition.
      *
-     * @param string The tag name
-     * @param array  An array of attributes
+     * @param string $name       The tag name
+     * @param array  $attributes An array of attributes
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -57,7 +57,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Clears all tags for a given name.
      *
-     * @param string The tag name
+     * @param string $name The tag name
      *
      * @return tubepress_api_ioc_DefinitionInterface
      *
@@ -79,7 +79,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Gets an argument to pass to the service constructor/factory method.
      *
-     * @param integer The index of the argument you wish to obtain
+     * @param integer $index The index of the argument you wish to obtain
      *
      * @return mixed The argument value
      *
@@ -179,7 +179,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Gets a tag by name.
      *
-     * @param string The tag name
+     * @param string $name The tag name
      *
      * @return array An array of attributes
      *
@@ -201,7 +201,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Check if the current definition has a given method to call after service initialization.
      *
-     * @param string The method name to search for
+     * @param string $method The method name to search for
      *
      * @return Boolean
      *
@@ -214,7 +214,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Whether this definition has a tag with the given name
      *
-     * @param string The name of the tag
+     * @param string $name The name of the tag
      *
      * @return Boolean
      *
@@ -226,7 +226,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Removes a method to call after service initialization.
      *
-     * @param string The method name to remove
+     * @param string $method The method name to remove
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -238,8 +238,8 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets a specific argument
      *
-     * @param integer The index of the argument being replaced
-     * @param mixed The value of the argument being replaced
+     * @param integer $index	The index of the argument being replaced
+     * @param mixed   $argument	The value of the argument being replaced
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -253,7 +253,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets the arguments to pass to the service constructor/factory method.
      *
-     * @param array An array of arguments
+     * @param array $arguments An array of arguments
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -265,7 +265,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets the service class.
      *
-     * @param string The service class
+     * @param string $class The service class
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -278,7 +278,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets a configurator to call after the service is fully initialized.
      *
-     * @param callable A PHP callable
+     * @param callable $callable A PHP callable
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -291,7 +291,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * Sets the name of the class that acts as a factory using the factory method,
      * which will be invoked statically.
      *
-     * @param string The factory class name
+     * @param string $factoryClass The factory class name
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -303,7 +303,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets the factory method able to create an instance of this class.
      *
-     * @param string The factory method name
+     * @param string $factoryMethod The factory method name
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -315,7 +315,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets the name of the service that acts as a factory using the factory method.
      *
-     * @param string The factory service id
+     * @param string $factoryService The factory service id
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -327,7 +327,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets a file to require before creating the service.
      *
-     * @param string A full pathname to include
+     * @param string $file A full pathname to include
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -339,7 +339,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets the methods to call after service initialization.
      *
-     * @param array An array of method calls
+     * @param array $calls An array of method calls
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *

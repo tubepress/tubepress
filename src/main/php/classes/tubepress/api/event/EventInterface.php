@@ -24,7 +24,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Get argument by key.
      *
-     * @param string Key.
+     * @param string $key Key.
      *
      * @throws InvalidArgumentException If key is not found.
      *
@@ -76,7 +76,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Has argument.
      *
-     * @param string Key of arguments array.
+     * @param string $key Key of arguments array.
      *
      * @return boolean
      *
@@ -98,8 +98,8 @@ interface tubepress_api_event_EventInterface
     /**
      * Add argument to event.
      *
-     * @param string Argument name.
-     * @param mixed  Value.
+     * @param string $key   Argument name.
+     * @param mixed  $value Value.
      *
      * @return tubepress_api_event_EventInterface
      *
@@ -111,7 +111,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Add numerous arguments to an event.
      *
-     * @param array Arguments. Both the key and value of the array elements are used in setting the arguments.
+     * @param array $args Arguments. Both the key and value of the array elements are used in setting the arguments.
      *
      * @return tubepress_api_event_EventInterface
      *
@@ -123,7 +123,7 @@ interface tubepress_api_event_EventInterface
     /**
      * Allows listeners to replace the subject with a new item.
      *
-     * @param mixed The new subject for the event.
+     * @param mixed $subject The new subject for the event.
      *
      * @return void
      *

@@ -19,7 +19,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Adds the service definitions.
      *
-     * @param tubepress_api_ioc_DefinitionInterface[] An array of service definitions
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *
      * @return void
      *
@@ -31,7 +31,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Returns service ids for a given tag.
      *
-     * @param string The tag name
+     * @param string $name The tag name
      *
      * @return array An array of tags
      *
@@ -53,7 +53,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Gets a service.
      *
-     * @param string The service identifier
+     * @param string $id The service identifier
      *
      * @return object The associated service, or null if not defined.
      *
@@ -65,7 +65,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Gets a service definition.
      *
-     * @param string The service identifier
+     * @param string $id The service identifier
      *
      * @return tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance, or null if the
      *                                               service does not exist.
@@ -88,7 +88,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Gets a parameter.
      *
-     * @param string The parameter name
+     * @param string $name The parameter name
      *
      * @return mixed The parameter value
      *
@@ -112,7 +112,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Returns true if the given service is defined.
      *
-     * @param string The service identifier
+     * @param string $id The service identifier
      *
      * @return Boolean true if the service is defined, false otherwise
      *
@@ -124,7 +124,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Returns true if a service definition exists under the given identifier.
      *
-     * @param string The service identifier
+     * @param string $id The service identifier
      *
      * @return Boolean true if the service definition exists, false otherwise
      *
@@ -136,7 +136,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Checks if a parameter exists.
      *
-     * @param string The parameter name
+     * @param string $name The parameter name
      *
      * @return Boolean The presence of parameter in container
      *
@@ -148,7 +148,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Check for whether or not a service has been initialized.
      *
-     * @param string Name of the service to be verified
+     * @param string $id Name of the service to be verified
      *
      * @return Boolean true if the service has been initialized, false otherwise
      *
@@ -163,8 +163,8 @@ interface tubepress_api_ioc_ContainerBuilderInterface
      * This methods allows for simple registration of service definition
      * with a fluid interface.
      *
-     * @param string The service identifier
-     * @param string The service class
+     * @param string $id    The service identifier
+     * @param string $class The service class
      *
      * @return tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance
      *
@@ -176,7 +176,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Removes a service definition.
      *
-     * @param string The service identifier
+     * @param string $id The service identifier
      *
      * @return void
      *
@@ -188,8 +188,8 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Sets a service.
      *
-     * @param string The service identifier
-     * @param object The service instance
+     * @param string $id      The service identifier
+     * @param object $service The service instance
      *
      * @return void
      *
@@ -201,8 +201,8 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Sets a service definition.
      *
-     * @param string                                The service identifier
-     * @param tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance
+     * @param string                                $id         The service identifier
+     * @param tubepress_api_ioc_DefinitionInterface $definition A `tubepress_api_ioc_DefinitionInterface` instance
      *
      * @return tubepress_api_ioc_DefinitionInterface the service definition
      *
@@ -216,7 +216,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Sets the service definitions.
      *
-     * @param tubepress_api_ioc_DefinitionInterface[] An array of service definitions
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *
      * @return void
      *
@@ -228,8 +228,8 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Sets a parameter.
      *
-     * @param string The parameter name
-     * @param mixed  The parameter value
+     * @param string $name  The parameter name
+     * @param mixed  $value The parameter value
      *
      * @return void
      *

@@ -45,7 +45,7 @@ class tubepress_api_video_Video
     /**
      * Get an attribute for this video.
      *
-     * @param string The name of the attribute.
+     * @param string $key The name of the attribute.
      *
      * @return mixed The value of the attribute. May be null.
      */
@@ -62,8 +62,8 @@ class tubepress_api_video_Video
     /**
      * Set an attribute for this video.
      *
-     * @param string The attribute name.
-     * @param mixed  The attribute value.
+     * @param string $key   The attribute name.
+     * @param mixed  $value The attribute value.
      *
      * @return void
      */
