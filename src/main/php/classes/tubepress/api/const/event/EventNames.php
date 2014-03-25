@@ -11,14 +11,16 @@
 
 /**
  * A list of the "core" TubePress events.
+ *
+ * @package TubePress\Const\Event
  */
 class tubepress_api_const_event_EventNames
 {
     /**
-     * This event is fied when TubePress is about to print its JS files (either in <head> or near </body>).
+     * This event is fired when TubePress is about to print its stylesheets to the HTML head.
      *
-     * @subject array An associative array where keys are script handles and values are script details.
-     *                See tubepress_spi_html_CssAndJsRegistryInterface::getScript() for details on array values.
+     * @subject An associative `array` where keys are style handles and values are style details.
+     *          See {@link tubepress_spi_html_CssAndJsRegistryInterface::getStyle()} for details on array values.
      *
      * @api
      * @since 3.1.3
@@ -26,10 +28,10 @@ class tubepress_api_const_event_EventNames
     const CSS_JS_STYLESHEETS = 'tubepress.core.cssjs.stylesheets';
 
     /**
-     * This event is fied when TubePress is about to print its stylesheets to the HTML head.
+     * This event is fired when TubePress is about to print its JS files (either in <head> or near </body>).
      *
-     * @subject array An associative array where keys are style handles and values are style details.
-     *                See tubepress_spi_html_CssAndJsRegistryInterface::getStyle() for details on array values.
+     * @subject An associative `array` where keys are script handles and values are script details.
+     *          See {@link tubepress_spi_html_CssAndJsRegistryInterface::getScript()} for details on array values.
      *
      * @api
      * @since 3.1.3
@@ -39,8 +41,8 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when TubePress builds the gallery initialization JS code.
      *
-     * @subject array An associative array of name => values that will be converted into JSON and applied as
-     *                init code for the gallery in JavaScript.
+     * @subject An associative `array` that will be converted into JSON and applied as
+     *          init code for the gallery in JavaScript.
      *
      * @api
      * @since 3.1.0
@@ -48,10 +50,10 @@ class tubepress_api_const_event_EventNames
     const CSS_JS_GALLERY_INIT = 'tubepress.core.cssjs.galleryInit';
 
     /**
-     * This event is fired when TubePress builds the TubePressJsConfig object.
+     * This event is fired when TubePress builds the `TubePressJsConfig` object.
      *
-     * @subject array An associative array of name => values that will be converted into JSON and applied as
-     *                global JS configuration for TubePress.
+     * @subject An associative `array` that will be converted into JSON and applied as global JS configuration
+     *          for TubePress.
      *
      * @api
      * @since 3.1.0
@@ -62,9 +64,9 @@ class tubepress_api_const_event_EventNames
      * This event is fired when TubePress encounters an error during processing and is
      * about to return an error message to the screen.
      *
-     * @subject Exception The caught error message.
+     * @subject An `exception` containing the caught error message.
      *
-     * @arg string 'message' The message to be displayed to the user. May contain HTML.
+     * @argument <var>$message</var> (`string`): The message to be displayed to the user. May contain HTML.
      *
      * @api
      * @since 3.1.0
@@ -76,10 +78,12 @@ class tubepress_api_const_event_EventNames
      *
      * @subject string The HTML for the embedded video player.
      *
-     * @arg string           'videoId'                    The ID of the video to be played.
-     * @arg string           'providerName'               The name of the video provider (e.g. "vimeo" or "youtube").
-     * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
-     * @arg string           'embeddedImplementationName' The name of the embedded implementation.
+     * @argument <var>$videoId</var> (`string`): The ID of the video to be played.
+     * @argument <var>$providerName</var> (`string`): The name of the video provider (e.g. "vimeo" or "youtube").
+     * @argument <var>$dataUrl</var> (`ehough_curly_Url`): The embedded data URL.
+     * @argument <var>$embeddedImplementationName</var> (`string`): The name of the embedded implementation.
+     *
+     * @todo Determine what to do about the ehough_* classes being exposed in the docs
      *
      * @api
      * @since 3.1.0
@@ -89,7 +93,7 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when a TubePress builds the HTML for pagination.
      *
-     * @subject string The pagination HTML.
+     * @subject A `string` containing the pagination HTML.
      *
      * @api
      * @since 3.1.0
@@ -97,13 +101,12 @@ class tubepress_api_const_event_EventNames
     const HTML_PAGINATION = 'tubepress.core.html.pagination';
 
     /**
-     * This event is fired when a TubePress builds the HTML for a TubePress
-     * "player".
+     * This event is fired when a TubePress builds the HTML for a TubePress "player".
      *
-     * @subject string The player HTML.
+     * @subject A `string` containing the player HTML.
      *
-     * @arg tubepress_api_video_Video 'video'      The video to be played.
-     * @arg string                    'playerName' The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
+     * @argument <var>$video</var> (`{@link tubepress_api_video_Video}`): The video to be played.
+     * @argument <var>$playerName</var> (`string`): The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      *
      * @api
      * @since 3.1.0
@@ -113,7 +116,7 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when TubePress builds HTML for a standard (non-Ajax) search input form.
      *
-     * @subject string The HTML for the search input.
+     * @subject A `string` containing the HTML for the search input.
      *
      * @api
      * @since 3.1.0
@@ -123,7 +126,7 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when TubePress builds HTML for a single video (not inside a gallery).
      *
-     * @subject string The HTML for the single video.
+     * @subject a `string` containing the HTML for the single video.
      *
      * @api
      * @since 3.1.0
@@ -133,10 +136,10 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when TubePress builds the HTML for a thumbnail gallery.
      *
-     * @subject string The HTML for the thumbnail gallery.
+     * @subject A `string` containing the HTML for the thumbnail gallery.
      *
-     * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
-     * @arg integer                              'page'             The page number.
+     * @argument <var>$videoGalleryPage</var> (`{@link tubepress_api_video_VideoGalleryPage}`): The backing {@link tubepress_api_video_VideoGalleryPage}.
+     * @argument <var>$page</var> (`integer`): The page number.
      *
      * @api
      * @since 3.1.0
@@ -144,7 +147,9 @@ class tubepress_api_const_event_EventNames
     const HTML_THUMBNAIL_GALLERY = 'tubepress.core.html.thumbnailGallery';
 
     /**
-     * This event is fired immediately before TubePress prints out the HTML for its stylesheets.
+     * This event is fired immediately before TubePress prints out the HTML for its stylesheets. If you wish to
+     * modify the stylesheet prior to it being output to the browser, see
+     * {@link tubepress_api_const_event_EventNames::CSS_JS_STYLESHEETS}.
      *
      * @subject string The HTML for TubePress's stylesheets.
      *
@@ -154,7 +159,7 @@ class tubepress_api_const_event_EventNames
     const HTML_STYLESHEETS_PRE = 'tubepress.core.html.stylesheets.pre';
 
     /**
-     * This event is fired immediately after TubePress prints out the HTML for its stylesheets.
+     * This event is fired immediately after TubePress prints out the HTML for its stylesheets. 
      *
      * @subject string The HTML for TubePress's stylesheets.
      *
@@ -164,7 +169,9 @@ class tubepress_api_const_event_EventNames
     const HTML_STYLESHEETS_POST = 'tubepress.core.html.stylesheets.post';
 
     /**
-     * This event is fired immediately before TubePress prints out the HTML for its scripts.
+     * This event is fired immediately before TubePress prints out the HTML for its scripts. If you wish to
+     * modify the javascript prior to it being output to the browser, see
+     * {@link tubepress_api_const_event_EventNames::CSS_JS_SCRIPTS}.
      *
      * @subject string The HTML for TubePress's scripts.
      *
@@ -186,10 +193,12 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired after TubePress fetches a HTTP response from the network.
      *
-     * @subject string The HTTP body.
+     * @subject A `string` containing the HTTP body.
      *
-     * @arg ehough_shortstop_api_HttpRequest  request  The HTTP request.
-     * @arg ehough_shortstop_api_HttpResponse response The HTTP response.
+     * @argument <var>$request</var> (`ehough_shortstop_api_HttpRequest`):  The HTTP request.
+     * @argument <var>$response</var> (`ehough_shortstop_api_HttpResponse`): The HTTP response.
+     *
+     * @todo Determine what to do about the ehough_* classes being exposed in the docs
      *
      * @api
      * @since 3.1.0
@@ -200,7 +209,7 @@ class tubepress_api_const_event_EventNames
      * This event is fired when TubePress looks up the default value for an option. Typically
      * this only happens the first time TubePress is used on a system.
      *
-     * @subject mixed The default value of an option.
+     * @subject The default value of an option. May return one of a number of variable types.
      *
      * @api
      * @since 3.2.0
@@ -210,7 +219,7 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when TubePress looks up the label for an option.
      *
-     * @subject string The untranslated (i.e. in English) option label.
+     * @subject A `string` containing the untranslated (i.e. in English) option label.
      *
      * @api
      * @since 3.2.0
@@ -220,7 +229,7 @@ class tubepress_api_const_event_EventNames
     /**
      * This event is fired when TubePress looks up the description for an option.
      *
-     * @subject string The untranslated (i.e. in English) option description.
+     * @subject A `string` containing the untranslated (i.e. in English) option description.
      *
      * @api
      * @since 3.2.0
@@ -229,11 +238,11 @@ class tubepress_api_const_event_EventNames
 
     /**
      * This event is fired when TubePress looks the acceptable values for an option. This
-     * only applies, obviously, to options that take on discrete values.
+     * only applies to options that take on discrete values.
      *
      * @subject array The acceptable values for this option. This *may* be an associative array
      *                where the keys are values and the values are untranslated labels. You can use
-     *                tubepress_impl_util_LangUtils::isAssociativeArray() to check the type of array.
+     *                {@link tubepress_impl_util_LangUtils::isAssociativeArray()} to check the type of array.
      *
      * @api
      * @since 3.2.0
@@ -246,7 +255,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject mixed The incoming option value.
      *
-     * @arg string 'optionName' The name of the option being set.
+     * @argument string 'optionName' The name of the option being set.
      *
      * @api
      * @since 3.2.0
@@ -258,7 +267,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject mixed The incoming option value.
      *
-     * @arg string 'optionName' The name of the option being set.
+     * @argument <var>$optionName</var> (`string`): The name of the option being set.
      *
      * @api
      * @since 3.2.0
@@ -271,7 +280,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject mixed The incoming option value.
      *
-     * @arg string 'optionName' The name of the option being set.
+     * @argument <var>$optionName</var> (`string`): The name of the option being set.
      *
      * @api
      * @since 3.2.0
@@ -283,7 +292,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject mixed The incoming option value.
      *
-     * @arg string 'optionName' The name of the option being set.
+     * @argument <var>$optionName</var> (`string`): The name of the option being set.
      *
      * @api
      * @since 3.2.0
@@ -316,10 +325,12 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The embedded video player template.
      *
-     * @arg string           'videoId'                    The ID of the video to be played.
-     * @arg string           'providerName'               The name of the video provider (e.g. "vimeo" or "youtube").
-     * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
-     * @arg string           'embeddedImplementationName' The name of the embedded implementation.
+     * @argument <var>$videoId</var> (`string`): The ID of the video to be played.
+     * @argument <var>$providerName</var> (`string`): The name of the video provider (e.g. "vimeo" or "youtube").
+     * @argument <var>$dataUrl</var> (`ehough_curly_Url`): The embedded data URL.
+     * @argument <var>$embeddedImplementationName</var> (`string`): The name of the embedded implementation.
+     *
+     * @todo Determine what to do about the ehough_* classes being exposed in the docs
      *
      * @api
      * @since 3.1.0
@@ -342,8 +353,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject string The player HTML.
      *
-     * @arg tubepress_api_video_Video 'video'      The video to be played.
-     * @arg string                    'playerName' The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
+     * @argument <var>$video</var> (`{@link tubepress_api_video_Video}`): The video to be played.
+     * @argument <var>$playerName</var> (`string`): The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      *
      * @api
      * @since 3.1.0
@@ -365,7 +376,7 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The template.
      *
-     * @arg tubepress_api_video_Video 'video' The video to be played.
+     * @argument <var>$video</var> (`{@link tubepress_api_video_Video}`): The video to be played.
      *
      * @api
      * @since 3.1.0
@@ -377,8 +388,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject ehough_contemplate_api_Template The template.
      *
-     * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
-     * @arg integer                              'page'             The page number.
+     * @argument <var>$videoGalleryPage</var> (`{@link tubepress_api_video_VideoGalleryPage}`): The backing {@link tubepress_api_video_VideoGalleryPage}
+     * @argument <var>$page</var> (`integer`): The page number.
      *
      * @api
      * @since 3.1.0
@@ -391,8 +402,8 @@ class tubepress_api_const_event_EventNames
      *
      * @subject tubepress_api_video_Video The TubePress video.
      *
-     * @arg int   zeroBasedFeedIndex The zero-based index into the raw feed from which this video was built.
-     * @arg mixed rawFeed            The "raw" unaltered feed from the provider.
+     * @argument <var>$zeroBasedFeedIndex</var> (`int`): The zero-based index into the raw feed from which this video was built.
+     * @argument <var>$rawFeed</var> (`mixed`): The "raw" unaltered feed from the provider.
      *
      * @api
      * @since 3.1.0

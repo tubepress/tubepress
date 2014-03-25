@@ -9,6 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+ /**
+  * @package TubePress\IOC
+  */
 interface tubepress_api_ioc_DefinitionInterface
 {
     /**
@@ -31,7 +34,7 @@ interface tubepress_api_ioc_DefinitionInterface
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
-     * @throws InvalidArgumentException on empty $method param
+     * @throws InvalidArgumentException on empty `$method` param
      *
      * @api
      * @since 3.1.0
@@ -76,7 +79,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Gets an argument to pass to the service constructor/factory method.
      *
-     * @param integer $index
+     * @param integer $index The index of the argument you wish to obtain
      *
      * @return mixed The argument value
      *
@@ -211,7 +214,7 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Whether this definition has a tag with the given name
      *
-     * @param string $name
+     * @param string $name The name of the tag
      *
      * @return Boolean
      *
@@ -235,8 +238,8 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * Sets a specific argument
      *
-     * @param integer $index
-     * @param mixed   $argument
+     * @param integer $index	The index of the argument being replaced
+     * @param mixed   $argument	The value of the argument being replaced
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -348,12 +351,16 @@ interface tubepress_api_ioc_DefinitionInterface
     /**
      * @api
      * @since 3.1.0
+     *
+     * @todo add docs
      */
     function setProperties(array $properties);
 
     /**
      * @api
      * @since 3.1.0
+     *
+     * @todo add docs
      */
     function setProperty($name, $value);
 

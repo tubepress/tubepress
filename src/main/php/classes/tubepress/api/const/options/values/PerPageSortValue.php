@@ -11,6 +11,8 @@
 
 /**
  * Per-page sorting values.
+ *
+ * @package TubePress\Const\Options\Values
  */
 class tubepress_api_const_options_values_PerPageSortValue
 {

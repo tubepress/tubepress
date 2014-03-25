@@ -9,6 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+ /**
+  * @package TubePress\IOC
+  */
 interface tubepress_api_ioc_ContainerBuilderInterface
 {
     const _ = 'tubepress_api_ioc_ContainerBuilderInterface';
@@ -64,7 +67,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
      *
      * @param string $id The service identifier
      *
-     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance, or null if the
+     * @return tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance, or null if the
      *                                               service does not exist.
      *
      * @api
@@ -75,7 +78,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Gets all service definitions.
      *
-     * @return tubepress_api_ioc_DefinitionInterface[] An array of tubepress_api_ioc_DefinitionInterface instances
+     * @return tubepress_api_ioc_DefinitionInterface[] An array of `tubepress_api_ioc_DefinitionInterface` instances
      *
      * @api
      * @since 3.1.0
@@ -87,7 +90,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
      *
      * @param string $name The parameter name
      *
-     * @return mixed  The parameter value
+     * @return mixed The parameter value
      *
      * @throws InvalidArgumentException if the parameter is not defined
      *
@@ -145,7 +148,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
     /**
      * Check for whether or not a service has been initialized.
      *
-     * @param string $id
+     * @param string $id Name of the service to be verified
      *
      * @return Boolean true if the service has been initialized, false otherwise
      *
@@ -163,7 +166,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
      * @param string $id    The service identifier
      * @param string $class The service class
      *
-     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance
+     * @return tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance
      *
      * @api
      * @since 3.1.0
@@ -199,7 +202,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface
      * Sets a service definition.
      *
      * @param string                                $id         The service identifier
-     * @param tubepress_api_ioc_DefinitionInterface $definition A tubepress_api_ioc_DefinitionInterface instance
+     * @param tubepress_api_ioc_DefinitionInterface $definition A `tubepress_api_ioc_DefinitionInterface` instance
      *
      * @return tubepress_api_ioc_DefinitionInterface the service definition
      *

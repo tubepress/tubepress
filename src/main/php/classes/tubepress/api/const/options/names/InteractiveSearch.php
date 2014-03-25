@@ -11,6 +11,8 @@
 
 /**
  * Option names related to interactive searching.
+ *
+ * @package TubePress\Const\Options\Names
  */
 class tubepress_api_const_options_names_InteractiveSearch
 {
