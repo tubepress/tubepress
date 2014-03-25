@@ -16,7 +16,6 @@
     "resources" : {
         "styles" : [ "css/tubepress.css" ]
     },
-    "parent" : "tubepress/default",
     "screenshots" : {
 
         "http://themes.tubepress-cdn.com/legacy-default/screenshots/1-thumbnail.png" : "http://themes.tubepress-cdn.com/legacy-default/screenshots/1.png",

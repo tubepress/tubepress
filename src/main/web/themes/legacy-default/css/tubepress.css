@@ -151,7 +151,6 @@ dd.tubepress_meta_description {
 
 .tubepress_sidebar .tubepress_thumb img {
     width: auto ! important;
-    padding: 5% 5% 1% 2%;
     margin: 0 auto ! important;
     -ms-interpolation-mode: bicubic;
 }
@@ -163,10 +162,6 @@ dd.tubepress_meta_description {
 
 .tubepress_sidebar .tubepress_thumb  {
     margin-top: auto;   
-}
-
-.tubepress_sidebar .tubepress_meta_group {
-    padding: 0 2%;  
 }
 
 .tubepress_sidebar .tubepress_thumb a {

@@ -192,8 +192,8 @@ div.tubepress_single_video dl.tubepress_meta_group {
 }
 .tubepress_pagination ul {
     display: inline-block;
-    margin-left: 0;
-    margin-bottom: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;

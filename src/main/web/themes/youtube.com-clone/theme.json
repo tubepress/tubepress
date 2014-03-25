@@ -1,0 +1,20 @@
+{
+    "name" : "tubepress/youtube.com-clone",
+    "version": "1.0.0",
+    "title" : "YouTube.com Clone",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Clones the appearance of youtube.com.",
+    "resources" : {
+        "styles" : [ "css/youtube.css" ]
+    },
+    "parent" : "tubepress/default"
+}

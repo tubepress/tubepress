@@ -1,0 +1,118 @@
+/*!
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+
+/**
+ **********************************************************************************************
+ **** GENERAL
+ **********************************************************************************************
+ */
+
+
+
+
+
+/**
+ **********************************************************************************************
+ **** VIDEO THUMBNAILS - GENERAL
+ **********************************************************************************************
+ */
+
+
+/**
+ * Apply style to the video thumbnail.
+ */
+.tubepress-vimeo div.tubepress_thumb img {
+
+    /**
+     * Add the gray border around the images.
+     */
+    border: 1px solid #e1e2e3;
+    padding: 4px;
+
+    /**
+     * Ensure that the image corners aren't rounded off.
+     */
+    border-radius: 0;
+}
+
+
+/**
+ **********************************************************************************************
+ **** VIDEO THUMBNAILS - META
+ **********************************************************************************************
+ */
+
+/**
+ * Hide the words "Date posted"
+ */
+.tubepress-vimeo dt.tubepress_meta_uploaddate {
+
+    display: none;
+}
+
+/**
+ * Set the font size of the video title.
+ */
+.tubepress-vimeo dd.tubepress_meta_title {
+
+    font-size: 14px;
+}
+
+.tubepress-vimeo dd.tubepress_meta_uploaddate {
+
+    color: gray;
+}
+
+
+/**
+ **********************************************************************************************
+ **** SINGLE VIDEO META
+ **********************************************************************************************
+ */
+
+div.tubepress_single_video.tubepress-vimeo .tubepress_embedded_title {
+
+    font-size: 36px;
+    font-weight: bold;
+}
+
+div.tubepress_single_video.tubepress-vimeo dl.tubepress_meta_group {
+
+    font-size: 13px;
+}
+
+div.tubepress_single_video.tubepress-vimeo dt.tubepress_meta_author {
+
+    font-weight: normal !important;
+    color: gray;
+}
+
+div.tubepress_single_video.tubepress-vimeo dd.tubepress_meta_author a {
+
+    text-decoration: none;
+}
+
+div.tubepress_single_video.tubepress-vimeo dt.tubepress_meta_author:after {
+
+    content: ' ';
+}
+
+div.tubepress_single_video.tubepress-vimeo dd.tubepress_meta_author:after {
+
+    content: '';
+}
+
+div.tubepress_single_video.tubepress-vimeo dd.tubepress_meta_description {
+
+    font-size: 16px;
+    color: rgb(113, 118, 122);
+    margin-top: 1em !important;
+}

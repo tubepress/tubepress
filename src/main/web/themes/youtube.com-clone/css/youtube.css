@@ -91,7 +91,8 @@
  * Remove the ":" following author and view count
  */
 .tubepress-youtube dt.tubepress_meta_author:after,
-.tubepress-youtube dt.tubepress_meta_views:after{
+.tubepress-youtube dt.tubepress_meta_uploaddate:after,
+.tubepress-youtube dt.tubepress_meta_views:after {
     content: '';
 }
 
@@ -171,6 +172,15 @@ div.tubepress_single_video.tubepress-youtube .tubepress_meta_runtime {
 
     display: none;
 }
+
+/**
+ * Add a space after "published on"
+ */
+div.tubepress_single_video.tubepress-youtube  dt.tubepress_meta_uploaddate:after {
+
+    content: ' ';
+}
+
 
 /**
  * Apply style to the video author.

@@ -1,7 +1,7 @@
 {
-    "name" : "tubepress/youtube",
+    "name" : "tubepress/vimeo.com-clone",
     "version": "1.0.0",
-    "title" : "youtube.com Clone",
+    "title" : "Vimeo.com Clone",
     "author" : {
         "name" : "TubePress LLC",
         "url" : "http://tubepress.com"
@@ -12,9 +12,9 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "description": "Clones the appearance of youtube.com.",
+    "description": "Clones the appearance of vimeo.com.",
     "resources" : {
-        "styles" : [ "css/youtube.css" ]
+        "styles" : [ "css/vimeo.css" ]
     },
     "parent" : "tubepress/default"
 }
