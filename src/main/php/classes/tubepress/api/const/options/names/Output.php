@@ -11,6 +11,8 @@
 
 /**
  * Option names defining what output to display
+ *
+ * @package TubePress\Const\Options\Names
  */
 class tubepress_api_const_options_names_Output
 {

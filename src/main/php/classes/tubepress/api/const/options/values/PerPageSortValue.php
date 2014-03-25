@@ -10,7 +10,9 @@
  */
 
 /**
- * Per-page sorting values.
+ * Valid values for {@link tubepress_api_const_options_names_Feed::PER_PAGE_SORT}
+ *
+ * @package TubePress\Const\Options\Values
  */
 class tubepress_api_const_options_values_PerPageSortValue
 {

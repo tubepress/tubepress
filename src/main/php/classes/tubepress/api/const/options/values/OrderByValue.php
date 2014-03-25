@@ -10,7 +10,9 @@
  */
 
 /**
- * TubePress gallery content modes.
+ * Valid values for {@link tubepress_api_const_options_names_Feed::ORDER_BY}
+ *
+ * @package TubePress\Const\Options\Values
  */
 class tubepress_api_const_options_values_OrderByValue
 {

@@ -10,13 +10,12 @@
  */
 
 /**
- * A video object that TubePress processes. It's basically just a key-value store.
+ * A video object that TubePress processes. It's essentially just a key-value store.
+ *
+ * @package TubePress\Video
  */
 class tubepress_api_video_Video
 {
-    /**
-     * We provide constansts here for commonly used keys.
-     */
     const ATTRIBUTE_AUTHOR_DISPLAY_NAME      = 'authorDisplayName';
     const ATTRIBUTE_AUTHOR_USER_ID           = 'authorUid';
     const ATTRIBUTE_CATEGORY_DISPLAY_NAME    = 'category';
@@ -73,58 +72,156 @@ class tubepress_api_video_Video
 
 
 
-
     /**
-     * ALL OF THE BELOW IS DEPRECATED AND SHOULD BE AVOIDED.
+     * @deprecated
      */
     public function getAuthorDisplayName() { return $this->getAttribute(self::ATTRIBUTE_AUTHOR_DISPLAY_NAME); }
+    /**
+     * @deprecated
+     */
     public function setAuthorDisplayName($author) { $this->setAttribute(self::ATTRIBUTE_AUTHOR_DISPLAY_NAME, $author); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getAuthorUid() { return $this->getAttribute(self::ATTRIBUTE_AUTHOR_USER_ID); }
+    /**
+     * @deprecated
+     */
     public function setAuthorUid($author) { $this->setAttribute(self::ATTRIBUTE_AUTHOR_USER_ID, $author); }
 
+    /**
+     * @deprecated
+     */
     public function getCategory() { return $this->getAttribute(self::ATTRIBUTE_CATEGORY_DISPLAY_NAME); }
+    /**
+     * @deprecated
+     */
     public function setCategory($category) { $this->setAttribute(self::ATTRIBUTE_CATEGORY_DISPLAY_NAME, $category); }
 
+    /**
+     * @deprecated
+     */
     public function getCommentCount() { return $this->getAttribute(self::ATTRIBUTE_COMMENT_COUNT); }
+    /**
+     * @deprecated
+     */
     public function setCommentCount($count) { $this->setAttribute(self::ATTRIBUTE_COMMENT_COUNT, $count); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getDescription() { return $this->getAttribute(self::ATTRIBUTE_DESCRIPTION); }
+    /**
+     * @deprecated
+     */
     public function setDescription($description) { $this->setAttribute(self::ATTRIBUTE_DESCRIPTION, $description); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getDuration() { return $this->getAttribute(self::ATTRIBUTE_DURATION_FORMATTED); }
+    /**
+     * @deprecated
+     */
     public function setDuration($duration) { $this->setAttribute(self::ATTRIBUTE_DURATION_FORMATTED, $duration); }
 
+    /**
+     * @deprecated
+     */
     public function getHomeUrl() { return $this->getAttribute(self::ATTRIBUTE_HOME_URL); }
+    /**
+     * @deprecated
+     */
     public function setHomeUrl($url) { $this->setAttribute(self::ATTRIBUTE_HOME_URL, $url); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getId() { return $this->getAttribute(self::ATTRIBUTE_ID); }
+    /**
+     * @deprecated
+     */
     public function setId($id) { $this->setAttribute(self::ATTRIBUTE_ID, $id); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getKeywords() { return $this->getAttribute(self::ATTRIBUTE_KEYWORD_ARRAY); }
+    /**
+     * @deprecated
+     */
     public function setKeywords($keywords) { $this->setAttribute(self::ATTRIBUTE_KEYWORD_ARRAY, $keywords); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getLikesCount() { return $this->getAttribute(self::ATTRIBUTE_LIKES_COUNT); }
+    /**
+     * @deprecated
+     */
     public function setLikesCount($c) { $this->setAttribute(self::ATTRIBUTE_LIKES_COUNT, $c); }
 
+    /**
+     * @deprecated
+     */
     public function getRatingAverage() { return $this->getAttribute(self::ATTRIBUTE_RATING_AVERAGE); }
+    /**
+     * @deprecated
+     */
     public function setRatingAverage($average) { $this->setAttribute(self::ATTRIBUTE_RATING_AVERAGE, $average); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getRatingCount() { return $this->getAttribute(self::ATTRIBUTE_RATING_COUNT); }
+    /**
+     * @deprecated
+     */
     public function setRatingCount($count) { $this->setAttribute(self::ATTRIBUTE_RATING_COUNT, $count); }
 
+    /**
+     * @deprecated
+     */
     public function getThumbnailUrl() { return $this->getAttribute(self::ATTRIBUTE_THUMBNAIL_URL); }
+    /**
+     * @deprecated
+     */
     public function setThumbnailUrl($url) { $this->setAttribute(self::ATTRIBUTE_THUMBNAIL_URL, $url); }
 
+    /**
+     * @deprecated
+     */
     public function getTimeLastUpdated() { return $this->getAttribute(self::ATTRIBUTE_TIME_UPDATED_FORMATTED); }
+    /**
+     * @deprecated
+     */
     public function setTimeLastUpdated($time) { $this->setAttribute(self::ATTRIBUTE_TIME_UPDATED_FORMATTED, $time); }
 
+    /**
+     * @deprecated
+     */
     public function getTimePublished() { return $this->getAttribute(self::ATTRIBUTE_TIME_PUBLISHED_FORMATTED); }
+    /**
+     * @deprecated
+     */
     public function setTimePublished($time) { $this->setAttribute(self::ATTRIBUTE_TIME_PUBLISHED_FORMATTED, $time); }
 
+    /**
+     * @deprecated
+     */
     public function getTitle() { return $this->getAttribute(self::ATTRIBUTE_TITLE); }
+    /**
+     * @deprecated
+     */
     public function setTitle($title) { $this->setAttribute(self::ATTRIBUTE_TITLE, $title); }
-    
+
+    /**
+     * @deprecated
+     */
     public function getViewCount() { return $this->getAttribute(self::ATTRIBUTE_VIEW_COUNT); }
+    /**
+     * @deprecated
+     */
     public function setViewCount($count) { $this->setAttribute(self::ATTRIBUTE_VIEW_COUNT, $count); }
 }

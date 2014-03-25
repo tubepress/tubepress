@@ -10,7 +10,9 @@
  */
 
 /**
- * Options related to the options UI.
+ * Options UI option names.
+ *
+ * @package TubePress\Const\Options\Names
  */
 class tubepress_api_const_options_names_OptionsUi
 {

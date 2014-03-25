@@ -9,14 +9,22 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/**
+ * Provides utility functions used during construction of a {@link tubepress_api_ioc_ContainerInterface} instance.
+ *
+ * @package TubePress\IoC
+ */
 interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_ContainerInterface
 {
+    /**
+     * @ignore
+     */
     const _ = 'tubepress_api_ioc_ContainerBuilderInterface';
 
     /**
-     * Adds the service definitions.
+     * Add service definitions.
      *
-     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
+     * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions.
      *
      * @return void
      *
@@ -26,7 +34,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function addDefinitions(array $definitions);
 
     /**
-     * Returns service ids for a given tag.
+     * Find service ids for a given tag.
      *
      * @param string $name The tag name
      *
@@ -38,7 +46,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function findTaggedServiceIds($name);
 
     /**
-     * Returns all tags the defined services use.
+     * Find all tags in use.
      *
      * @return array An array of tags
      *
@@ -48,11 +56,11 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function findTags();
 
     /**
-     * Gets a service definition.
+     * Get a service definition.
      *
      * @param string $id The service identifier
      *
-     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance, or null if the
+     * @return tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance, or null if the
      *                                               service does not exist.
      *
      * @api
@@ -61,9 +69,9 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function getDefinition($id);
 
     /**
-     * Gets all service definitions.
+     * Get all service definitions.
      *
-     * @return tubepress_api_ioc_DefinitionInterface[] An array of tubepress_api_ioc_DefinitionInterface instances
+     * @return tubepress_api_ioc_DefinitionInterface[] An array of `tubepress_api_ioc_DefinitionInterface` instances
      *
      * @api
      * @since 3.1.0
@@ -71,7 +79,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function getDefinitions();
 
     /**
-     * Returns true if a service definition exists under the given identifier.
+     * Determine if a service definition exists under the given identifier.
      *
      * @param string $id The service identifier
      *
@@ -83,7 +91,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function hasDefinition($id);
 
     /**
-     * Registers a service definition.
+     * Register a service definition.
      *
      * This methods allows for simple registration of service definition
      * with a fluid interface.
@@ -91,7 +99,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @param string $id    The service identifier
      * @param string $class The service class
      *
-     * @return tubepress_api_ioc_DefinitionInterface A tubepress_api_ioc_DefinitionInterface instance
+     * @return tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance
      *
      * @api
      * @since 3.1.0
@@ -99,7 +107,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function register($id, $class = null);
 
     /**
-     * Removes a service definition.
+     * Remove a service definition.
      *
      * @param string $id The service identifier
      *
@@ -111,12 +119,12 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function removeDefinition($id);
 
     /**
-     * Sets a service definition.
+     * Set a service definition.
      *
      * @param string                                $id         The service identifier
-     * @param tubepress_api_ioc_DefinitionInterface $definition A tubepress_api_ioc_DefinitionInterface instance
+     * @param tubepress_api_ioc_DefinitionInterface $definition The service definition.
      *
-     * @return tubepress_api_ioc_DefinitionInterface the service definition
+     * @return tubepress_api_ioc_DefinitionInterface The service definition
      *
      * @throws BadMethodCallException When this ContainerBuilder is frozen
      *
@@ -126,7 +134,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
     function setDefinition($id, tubepress_api_ioc_DefinitionInterface $definition);
 
     /**
-     * Sets the service definitions.
+     * Set the service definitions.
      *
      * @param tubepress_api_ioc_DefinitionInterface[] $definitions An array of service definitions
      *

@@ -10,8 +10,9 @@
  */
 
 /**
- * Option names that control which meta info is displayed below video
- * thumbnails
+ * Video metadata option names.
+ *
+ * @package TubePress\Const\Options\Names
  */
 class tubepress_api_const_options_names_Meta
 {

@@ -9,10 +9,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/**
+ * A service container.
+ *
+ * @package TubePress\IoC
+ */
 interface tubepress_api_ioc_ContainerInterface
 {
     /**
-     * Gets a service.
+     * Get a service.
      *
      * @param string $id The service identifier
      *
@@ -24,7 +29,7 @@ interface tubepress_api_ioc_ContainerInterface
     function get($id);
 
     /**
-     * Gets a parameter.
+     * Get a parameter.
      *
      * @param string $name The parameter name
      *
@@ -38,7 +43,7 @@ interface tubepress_api_ioc_ContainerInterface
     function getParameter($name);
 
     /**
-     * Returns true if the given service is defined.
+     * Determine if the given service is defined.
      *
      * @param string $id The service identifier
      *
@@ -50,7 +55,7 @@ interface tubepress_api_ioc_ContainerInterface
     function has($id);
 
     /**
-     * Checks if a parameter exists.
+     * Check if a parameter exists.
      *
      * @param string $name The parameter name
      *
@@ -62,7 +67,7 @@ interface tubepress_api_ioc_ContainerInterface
     function hasParameter($name);
 
     /**
-     * Sets a service.
+     * Set a service.
      *
      * @param string $id      The service identifier
      * @param object $service The service instance
@@ -75,7 +80,7 @@ interface tubepress_api_ioc_ContainerInterface
     function set($id, $service);
 
     /**
-     * Sets a parameter.
+     * Set a parameter.
      *
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value

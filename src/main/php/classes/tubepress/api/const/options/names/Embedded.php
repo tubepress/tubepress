@@ -10,7 +10,9 @@
  */
 
 /**
- * Option names for the embedded player.
+ * Embedded player option names.
+ *
+ * @package TubePress\Const\Options\Names
  */
 class tubepress_api_const_options_names_Embedded
 {

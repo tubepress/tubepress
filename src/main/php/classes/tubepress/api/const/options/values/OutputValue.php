@@ -10,7 +10,9 @@
  */
 
 /**
- * Output options.
+ * Valid values for {@link tubepress_api_const_options_names_Output::OUTPUT}
+ *
+ * @package TubePress\Const\Options\Values
  */
 class tubepress_api_const_options_values_OutputValue
 {

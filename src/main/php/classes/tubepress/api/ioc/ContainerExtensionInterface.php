@@ -9,17 +9,27 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+ /**
+  * Allows add-ons to load services into the TubePress service container.
+  *
+  * @package TubePress\IoC
+  */
 interface tubepress_api_ioc_ContainerExtensionInterface
 {
+    /**
+     * @ignore
+     */
     const _ = 'tubepress_api_ioc_ContainerExtensionInterface';
 
     const TAG_EVENT_LISTENER           = 'tubepress.event.listener';
     const TAG_TAGGED_SERVICES_CONSUMER = 'tubepress.consumer.taggedServices';
 
     /**
-     * Allows extensions to load services into the TubePress IOC container.
+     * Called during construction of the TubePress service container. If an add-on intends to add
+     * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
+     * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder A tubepress_api_ioc_ContainerBuilderInterface instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *

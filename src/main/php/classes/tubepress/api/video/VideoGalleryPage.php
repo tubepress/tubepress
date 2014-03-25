@@ -11,16 +11,25 @@
 
 /**
  * Represents a set of videos.
+ *
+ * @package TubePress\Video
  */
 class tubepress_api_video_VideoGalleryPage
 {
+    /**
+     * @var int
+     */
     private $_totalResultCount = 0;
-    private $_videoArray       = array();
+
+    /**
+     * @var tubepress_api_video_Video[]
+     */
+    private $_videoArray = array();
 
     /**
      * Set the video array
      *
-     * @param array $videos The video array.
+     * @param tubepress_api_video_Video[] $videos The video array.
      *
      * @return void
      */
@@ -32,7 +41,7 @@ class tubepress_api_video_VideoGalleryPage
     /**
      * Get the video array
      *
-     * @return array The video array.
+     * @return tubepress_api_video_Video[] The video array. May be empty but never null.
      */
     public final function getVideos()
     {
