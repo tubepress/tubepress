@@ -85,7 +85,7 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
 
         $second = $themes[1];
         $this->assertInstanceOf(tubepress_spi_theme_ThemeInterface::_, $second);
-        $this->assertTrue($second->getName() === 'tubepress/youtube');
+        $this->assertTrue($second->getName() === 'tubepress/youtube.com-clone');
 
         $third = $themes[2];
         $this->assertInstanceOf(tubepress_spi_theme_ThemeInterface::_, $third);
@@ -131,7 +131,7 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
     private function _setupUserThemeMocks()
     {
         $fs = new ehough_filesystem_Filesystem();
-        $fs->copy(TUBEPRESS_ROOT . '/src/main/web/themes/youtube/theme.json', $this->_mockUserThemeDirectory . '/themes/something/theme.json');
+        $fs->copy(TUBEPRESS_ROOT . '/src/main/web/themes/youtube.com-clone/theme.json', $this->_mockUserThemeDirectory . '/themes/something/theme.json');
 
         $mockUserThemeSplFileInfo      = ehough_mockery_Mockery::mock('SplFileInfo');
         $mockUserThemeSplFileInfo->shouldReceive('getRealPath')->twice()->andReturn($this->_mockUserThemeDirectory . '/themes/something/theme.json');
