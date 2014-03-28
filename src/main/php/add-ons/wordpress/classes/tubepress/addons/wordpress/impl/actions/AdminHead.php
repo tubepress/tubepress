@@ -14,7 +14,7 @@ class tubepress_addons_wordpress_impl_actions_AdminHead
     /**
      * Filter the content (which may be empty).
      */
-    public final function execute(array $args)
+    public final function action(tubepress_api_event_EventInterface $event)
     {
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">';
     }

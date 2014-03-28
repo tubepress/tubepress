@@ -29,6 +29,126 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
      */
     private $_mockFinderFactory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockPlayerLocations;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockEmbeddedPlayers;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface[]
+     */
+    private $_mockVideoProviders;
+
+    public function testBadThumbHeight()
+    {
+        $this->ensureInvalidValueByRegex(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH, 0);
+    }
+
+    public function testGetThemeValues()
+    {
+        $themeHandler = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
+        $themeHandler->shouldReceive('getMapOfAllThemeNamesToTitles')->once()->andReturn(array(
+
+            'xyz' => 'XZY Theme',
+            'abc' => 'ABC Theme',
+        ));
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Thumbs::THEME, array(
+
+            'abc' => 'ABC Theme',
+            'xyz' => 'XZY Theme',
+        ));
+    }
+
+    public function testGetValuesForVideoProviders()
+    {
+        $mockVideoProvider = $this->_mockVideoProviders[0];
+        $mockVideoProvider->shouldReceive('getName')->once()->andReturn('provider name');
+        $mockVideoProvider->shouldReceive('getFriendlyName')->once()->andReturn('provider friendly name');
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER, array(
+
+            'provider name',
+        ));
+    }
+
+    public function testGetValuesForEmbeddedPlayers()
+    {
+        $mockEmbeddedPlayer = $this->_mockEmbeddedPlayers[0];
+        $mockEmbeddedPlayer->shouldReceive('getName')->twice()->andReturn('embedded name');
+        $mockEmbeddedPlayer->shouldReceive('getFriendlyName')->once()->andReturn('player friendly name');
+
+        $mockVideoProvider = $this->_mockVideoProviders[0];
+        $mockVideoProvider->shouldReceive('getName')->once()->andReturn('provider name');
+        $mockVideoProvider->shouldReceive('getFriendlyName')->once()->andReturn('provider friendly name');
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Embedded::PLAYER_IMPL, array(
+
+            'provider_based' => 'Provider default',
+            'embedded name' => 'player friendly name',
+        ));
+    }
+
+    public function testGetValuesForPlayerLocation()
+    {
+        $mockPlayerLocation = $this->_mockPlayerLocations[0];
+        $mockPlayerLocation->shouldReceive('getName')->once()->andReturn('player name');
+        $mockPlayerLocation->shouldReceive('getFriendlyName')->once()->andReturn('player friendly name');
+
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION, array(
+
+            'player name' => 'player friendly name',
+        ));
+    }
+
+    public function testGetValuesForPerPageSort()
+    {
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Feed::PER_PAGE_SORT, array(
+                tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::NEWEST         => 'date published (newest first)', //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::OLDEST         => 'date published (oldest first)', //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::DURATION       => 'length',                        //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::NONE           => 'none',                          //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::RANDOM         => 'random',                        //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::RATING         => 'rating',                        //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',                         //>(translatable)<
+                tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
+        ));
+    }
+
+    public function testGetValuesForHttpMethod()
+    {
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Advanced::HTTP_METHOD, array(
+
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET  => ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET,
+            ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST => ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST,
+        ));
+    }
+
+    public function testGetValuesForOrderBy()
+    {
+        $this->doTestGetDiscreteAcceptableValues(tubepress_api_const_options_names_Feed::ORDER_BY, array(
+
+            tubepress_api_const_options_values_OrderByValue::DEFAULTT       => 'default',                         //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',                   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',   //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::DURATION       => 'length',                          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::REV_POSITION   => 'reversed position in a playlist', //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',                        //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',                          //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',                       //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::TITLE          => 'title',                           //>(translatable)<
+            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',                      //>(translatable)<
+        ));
+    }
+
     protected function prepare(tubepress_spi_options_OptionProvider $sut)
     {
         $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
@@ -61,7 +181,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
 
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->times(1)->andReturn('user-content-dir');
 
-        $this->_mockFileSystem->shouldReceive('exists')->times(1)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
+        $this->_mockFileSystem->shouldReceive('exists')->times(1)->with(TUBEPRESS_ROOT . '/src/main/web/themes')->andReturn(false);
         $this->_mockFileSystem->shouldReceive('exists')->times(1)->with('user-content-dir/themes')->andReturn(true);
 
         $fakeThemeDir        = ehough_mockery_Mockery::mock();
@@ -78,7 +198,22 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
 
     protected function buildSut()
     {
-        return new tubepress_addons_core_impl_options_CoreOptionProvider();
+        $mockPlayerLocation = ehough_mockery_Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $this->_mockPlayerLocations = array($mockPlayerLocation);
+
+        $mockEmbeddedPlayer = ehough_mockery_Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        $this->_mockEmbeddedPlayers = array($mockEmbeddedPlayer);
+
+        $mockVideoProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $this->_mockVideoProviders = array($mockVideoProvider);
+
+        $sut = new tubepress_addons_core_impl_options_CoreOptionProvider();
+
+        $sut->setPluggablePlayerLocations($this->_mockPlayerLocations);
+        $sut->setPluggableEmbeddedPlayers($this->_mockEmbeddedPlayers);
+        $sut->setPluggableVideoProviders($this->_mockVideoProviders);
+
+        return $sut;
     }
 
 
@@ -97,8 +232,8 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
             tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS          => 3600,
             tubepress_api_const_options_names_Embedded::AUTONEXT                     => true,
             tubepress_api_const_options_names_Embedded::AUTOPLAY                     => false,
-            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT              => 350,
-            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH               => 425,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT              => 390,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH               => 640,
             tubepress_api_const_options_names_Embedded::ENABLE_JS_API                => true,
             tubepress_api_const_options_names_Embedded::LAZYPLAY                     => true,
             tubepress_api_const_options_names_Embedded::LOOP                         => false,
@@ -138,7 +273,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW                 => true,
             tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS                  => true,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE               => 20,
-            tubepress_api_const_options_names_Thumbs::THEME                          => 'default',
+            tubepress_api_const_options_names_Thumbs::THEME                          => 'tubepress/default',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT                   => 90,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH                    => 120,
         );
@@ -220,21 +355,18 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
             tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS => 'Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour).',   //>(translatable)<
 
             tubepress_api_const_options_names_Embedded::AUTONEXT        => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
-            tubepress_api_const_options_names_Embedded::AUTOPLAY        => 'Auto-play all videos', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT => 'Default is 350.', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH  => 'Default is 425.', //>(translatable)<
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT => sprintf('Default is %s.', 390), //>(translatable)<
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH  => sprintf('Default is %s.', 640), //>(translatable)<
             tubepress_api_const_options_names_Embedded::ENABLE_JS_API   => 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::LAZYPLAY        => 'Auto-play each video after thumbnail click.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::LOOP            => 'Continue playing the video until the user stops it.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'Play each video',  //>(translatable)<
-            tubepress_api_const_options_names_Embedded::SHOW_INFO       => 'Show title and rating before video starts',  //>(translatable)<
 
             tubepress_api_const_options_names_Feed::ORDER_BY         => sprintf('Not all sort orders can be applied to all gallery types. See the <a href="%s" target="_blank">documentation</a> for more info.', "http://docs.tubepress.com/page/reference/options/core.html#orderby"),  //>(translatable)<
             tubepress_api_const_options_names_Feed::PER_PAGE_SORT    => 'Additional sort order applied to each individual page of a gallery',  //>(translatable)<
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', //>(translatable)<
-            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER =>'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
-            tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  =>'A list of video IDs that should never be displayed.',  //>(translatable)<
+            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
+            tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  => 'A list of video IDs that should never be displayed.',  //>(translatable)<
 
             tubepress_api_const_options_names_Meta::DATEFORMAT     => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
             tubepress_api_const_options_names_Meta::DESC_LIMIT     => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
@@ -246,10 +378,9 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
             tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS    => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 'Default is 20. Maximum is 50.',     //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THEME            => 'The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.', //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => 'Default is 90.',   //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => 'Default is 120.',  //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => sprintf('Default is %s. Maximum is %s.', 20, 50),     //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => sprintf('Default is %s.', 90),   //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => sprintf('Default is %s.', 120),  //>(translatable)<
         );
     }
 

@@ -54,16 +54,6 @@ class tubepress_test_addons_youtube_impl_listeners_options_YouTubePlaylistHandle
         $this->assertEquals('http://vimeo.com/?list=123', $event->getSubject());
     }
 
-    public function testAlterDifferentVariable()
-    {
-        $event = new tubepress_spi_event_EventBase('PLsomething');
-        $event->setArgument('optionName', tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
-
-        $this->_sut->onPreValidationOptionSet($event);
-
-        $this->assertEquals('PLsomething', $event->getSubject());
-    }
-
     public function testAlterNonString()
     {
         $event = new tubepress_spi_event_EventBase(array('hello'));

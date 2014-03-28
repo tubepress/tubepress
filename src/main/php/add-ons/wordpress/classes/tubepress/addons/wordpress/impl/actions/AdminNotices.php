@@ -27,7 +27,7 @@ class tubepress_addons_wordpress_impl_actions_AdminNotices
     /**
      * Filter the content (which may be empty).
      */
-    public final function execute(array $args)
+    public final function action(tubepress_api_event_EventInterface $event)
     {
         if (class_exists('TubePressServiceContainer', false)) {
 
@@ -78,7 +78,7 @@ class tubepress_addons_wordpress_impl_actions_AdminNotices
         $qss   = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
         $url   = $qss->getFullUrl($_SERVER);
         $url   = new ehough_curly_Url($url);
-        $urlToDocs = 'http://docs.tubepress.com/page/manual/wordpress/faq-and-troubleshooting.html';
+        $urlToDocs = 'http://docs.tubepress.com/page/manual/wordpress/install-upgrade-uninstall.html#optimize-for-speed';
 
         $url->setQueryVariable(self::$_NONCE_QUERY_PARAM_NAME, $nonce);
         $url->setQueryVariable(self::$_DISMISS_NAG_QUERY_PARAM_NAME, 'true');

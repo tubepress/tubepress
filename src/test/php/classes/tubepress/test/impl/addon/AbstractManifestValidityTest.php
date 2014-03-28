@@ -12,47 +12,18 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
 {
     protected function getAddonFromManifest($pathToManifest)
     {
-        $discoverer = new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
-            new tubepress_impl_environment_SimpleEnvironmentDetector(),
-            new ehough_finder_FinderFactory()
+        $discoverer = new tubepress_impl_addon_AddonFinder(
+            new ehough_finder_FinderFactory(),
+            new tubepress_impl_environment_SimpleEnvironmentDetector()
         );
 
-        $addons = $discoverer->_findAddonsInDirectory(dirname($pathToManifest));
+        $addons = $discoverer->_findContributablesInDirectory(dirname($pathToManifest));
 
         $this->assertTrue(count($addons) === 1, 'Expected 1 addon but got ' . count($addons));
 
-        $this->assertTrue($addons[0] instanceof tubepress_spi_addon_Addon);
+        $this->assertTrue($addons[0] instanceof tubepress_spi_addon_AddonInterface);
 
         return $addons[0];
-    }
-
-    protected function validateClassMap($expectedClassMap, $actualClassMap)
-    {
-        $this->assertTrue(is_array($actualClassMap));
-
-        $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray($actualClassMap));
-
-        $this->assertTrue(count($expectedClassMap) === count($actualClassMap), 'Expected and actual class map sizes differ');
-
-        foreach ($actualClassMap as $className => $path) {
-
-            $this->assertTrue(is_readable($path) && is_file($path), "$path is not a readable file. Fix it!");
-
-            if (!class_exists($className) && !interface_exists($className)) {
-
-                require $path;
-
-                $this->assertTrue(class_exists($className) || interface_exists($className));
-            }
-        }
-
-        foreach ($expectedClassMap as $className => $abbreviatedPrefix) {
-
-            $this->assertTrue(isset($actualClassMap[$className]), "$className is missing from the classmap");
-
-            $this->assertTrue(tubepress_impl_util_StringUtils::endsWith($actualClassMap[$className], $abbreviatedPrefix),
-                $actualClassMap[$className] . ' does not end with ' . $abbreviatedPrefix);
-        }
     }
 
     public function testClassMapIntegrity()
@@ -60,8 +31,14 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
         $map      = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(dirname($this->getPathToManifest()));
         $missing  = array();
         $manifest = $this->_decodeManifest();
+        $toIgnore = $this->getClassNamesToIgnore();
 
         foreach ($map as $className => $path) {
+
+            if (in_array($className, $toIgnore)) {
+
+                continue;
+            }
 
             if (!array_key_exists($className, $manifest['autoload']['classmap'])) {
 
@@ -106,4 +83,10 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
     }
 
     protected abstract function getPathToManifest();
+
+    protected function getClassNamesToIgnore()
+    {
+        //override point
+        return array();
+    }
 }

@@ -53,7 +53,8 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_get_current_user')->once()->andReturn($mockUser);
         $this->_mockWordPressFunctionWrapper->shouldReceive('get_transient')->once()->with('user_5_dismiss_tubepress_nag')->andReturn('dismiss');
 
-        $this->_sut->execute(array());
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
 
         $this->assertTrue(true);
     }
@@ -62,8 +63,8 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
     {
         $this->_mockWordPressFunctionWrapper->shouldReceive('current_user_can')->once()->with('manage_options')->andReturn(false);
 
-        $this->_sut->execute(array());
-
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
         $this->assertTrue(true);
     }
 
@@ -119,8 +120,8 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
         $mockUser->ID = 5;
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_get_current_user')->once()->andReturn($mockUser);
 
-        $this->_sut->execute(array());
-
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
         $this->assertTrue(true);
     }
 
@@ -135,13 +136,13 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
         $this->expectOutputString(<<<ABC
 <div class="update-nag">
-TubePress is not configured for optimal performance, and could be slowing down your site. <strong><a target="_blank" href="http://docs.tubepress.com/page/manual/wordpress/faq-and-troubleshooting.html">Fix it now</a></strong> or <a href="?color=blue&tubePressWpNonce=your+nonce&dismissTubePressCacheNag=true">dismiss this message</a>.
+TubePress is not configured for optimal performance, and could be slowing down your site. <strong><a target="_blank" href="http://docs.tubepress.com/page/manual/wordpress/install-upgrade-uninstall.html#optimize-for-speed">Fix it now</a></strong> or <a href="?color=blue&tubePressWpNonce=your+nonce&dismissTubePressCacheNag=true">dismiss this message</a>.
 </div>
 ABC
         );
 
-        $this->_sut->execute(array());
-
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
         $this->assertTrue(true);
     }
 }

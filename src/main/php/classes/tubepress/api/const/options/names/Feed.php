@@ -10,7 +10,9 @@
  */
 
 /**
- * Video feed options.
+ * Video feed option names.
+ *
+ * @package TubePress\Const\Options\Names
  */
 class tubepress_api_const_options_names_Feed
 {

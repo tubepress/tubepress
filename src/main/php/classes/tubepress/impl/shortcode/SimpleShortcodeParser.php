@@ -162,7 +162,17 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL,
+                tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT,
+                $event
+            );
+
+            $filtered = $event->getSubject();
+
+            $event = new tubepress_spi_event_EventBase($filtered);
+
+            $eventDispatcher->dispatch(
+
+                tubepress_api_const_event_EventNames::OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT . ".$name",
                 $event
             );
 

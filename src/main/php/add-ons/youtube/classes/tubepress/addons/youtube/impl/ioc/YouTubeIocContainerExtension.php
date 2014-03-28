@@ -49,7 +49,11 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler',
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 10000));
+        )->addTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
+            'method'   => 'onPreValidationOptionSet',
+            'priority' => 10000
+        ));
     }
 
     private function _registerPluggables(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

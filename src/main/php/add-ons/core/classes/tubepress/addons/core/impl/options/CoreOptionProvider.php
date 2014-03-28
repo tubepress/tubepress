@@ -124,21 +124,18 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
             tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS => 'Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour).',   //>(translatable)<
 
             tubepress_api_const_options_names_Embedded::AUTONEXT        => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
-            tubepress_api_const_options_names_Embedded::AUTOPLAY        => 'Auto-play all videos', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT => 'Default is 350.', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH  => 'Default is 425.', //>(translatable)<
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT => sprintf('Default is %s.', 390), //>(translatable)<
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH  => sprintf('Default is %s.', 640), //>(translatable)<
             tubepress_api_const_options_names_Embedded::ENABLE_JS_API   => 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::LAZYPLAY        => 'Auto-play each video after thumbnail click.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::LOOP            => 'Continue playing the video until the user stops it.', //>(translatable)<
             tubepress_api_const_options_names_Embedded::PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', //>(translatable)<
-            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'Play each video',  //>(translatable)<
-            tubepress_api_const_options_names_Embedded::SHOW_INFO       => 'Show title and rating before video starts',  //>(translatable)<
 
             tubepress_api_const_options_names_Feed::ORDER_BY         => sprintf('Not all sort orders can be applied to all gallery types. See the <a href="%s" target="_blank">documentation</a> for more info.', "http://docs.tubepress.com/page/reference/options/core.html#orderby"),  //>(translatable)<
             tubepress_api_const_options_names_Feed::PER_PAGE_SORT    => 'Additional sort order applied to each individual page of a gallery',  //>(translatable)<
             tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', //>(translatable)<
-            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER =>'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
-            tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  =>'A list of video IDs that should never be displayed.',  //>(translatable)<
+            tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
+            tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  => 'A list of video IDs that should never be displayed.',  //>(translatable)<
 
             tubepress_api_const_options_names_Meta::DATEFORMAT     => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
             tubepress_api_const_options_names_Meta::DESC_LIMIT     => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
@@ -150,10 +147,9 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
             tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS    => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 'Default is 20. Maximum is 50.',     //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THEME            => 'The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>.', //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => 'Default is 90.',   //>(translatable)<
-            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => 'Default is 120.',  //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => sprintf('Default is %s. Maximum is %s.', 20, 50),     //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => sprintf('Default is %s.', 90),   //>(translatable)<
+            tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => sprintf('Default is %s.', 120),  //>(translatable)<
         );
     }
 
@@ -176,8 +172,8 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
             tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS          => 3600,
             tubepress_api_const_options_names_Embedded::AUTONEXT                     => true,
             tubepress_api_const_options_names_Embedded::AUTOPLAY                     => false,
-            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT              => 350,
-            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH               => 425,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT              => 390,
+            tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH               => 640,
             tubepress_api_const_options_names_Embedded::ENABLE_JS_API                => true,
             tubepress_api_const_options_names_Embedded::LAZYPLAY                     => true,
             tubepress_api_const_options_names_Embedded::LOOP                         => false,
@@ -217,7 +213,7 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW                 => true,
             tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS                  => true,
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE               => 20,
-            tubepress_api_const_options_names_Thumbs::THEME                          => 'default',
+            tubepress_api_const_options_names_Thumbs::THEME                          => 'tubepress/default',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT                   => 90,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH                    => 120,
         );
@@ -407,51 +403,12 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
 
     private function _getValidThemeValues()
     {
-        $environmentDetectorService     = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $fileSystemService              = tubepress_impl_patterns_sl_ServiceLocator::getFileSystem();
-        $fileSystemFinderFactoryService = tubepress_impl_patterns_sl_ServiceLocator::getFileSystemFinderFactory();
+        $themeHandler = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $themeNames   = $themeHandler->getMapOfAllThemeNamesToTitles();
 
-        $systemThemesDirectory = TUBEPRESS_ROOT . '/src/main/resources/default-themes';
-        $userThemesDirectory   = $environmentDetectorService->getUserContentDirectory() . '/themes';
+        ksort($themeNames);
 
-        $directoriesToSearch = array();
-
-        if ($fileSystemService->exists($systemThemesDirectory)) {
-
-            $directoriesToSearch[] = $systemThemesDirectory;
-        }
-
-        if ($fileSystemService->exists($userThemesDirectory)) {
-
-            $directoriesToSearch[] = $userThemesDirectory;
-        }
-
-        $finder = $fileSystemFinderFactoryService->createFinder();
-
-        $finder->directories()->in($directoriesToSearch)->depth(0);
-
-        $themeNames = array();
-
-        /**
-         * @var $themeDirectory SplFileInfo
-         */
-        foreach ($finder as $themeDirectory) {
-
-            $themeNames[] = basename($themeDirectory->getBasename());
-        }
-
-        sort($themeNames);
-
-        $toReturn = array();
-
-        foreach ($themeNames as $themeName) {
-
-            $toReturn[$themeName] = $themeName;
-        }
-
-        ksort($toReturn);
-
-        return $toReturn;
+        return $themeNames;
     }
 
     private function _getValidVideoProviderNames()

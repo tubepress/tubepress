@@ -14,9 +14,9 @@ class tubepress_addons_wordpress_impl_filters_Content
     /**
      * Filter the content (which may be empty).
      */
-    public final function filter(array $args)
+    public final function filter(tubepress_api_event_EventInterface $event)
     {
-        $content = $args[0];
+        $content = $event->getSubject();
 
         /* do as little work as possible here 'cause we might not even run */
         $wpsm    = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
@@ -26,10 +26,10 @@ class tubepress_addons_wordpress_impl_filters_Content
         /* no shortcode? get out */
         if (!$parser->somethingToParse($content, $trigger)) {
 
-            return $content;
+            return;
         }
 
-        return $this->_getHtml($content, $trigger, $parser);
+        $event->setSubject($this->_getHtml($content, $trigger, $parser));
     }
 
     private function _getHtml($content, $trigger, tubepress_spi_shortcode_ShortcodeParser $parser)

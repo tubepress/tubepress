@@ -16,9 +16,9 @@ class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_tes
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
-        $addon = $this->getAddonFromManifest(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/vimeo.json');
+        $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
         $this->assertEquals('tubepress-vimeo-addon', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
@@ -28,31 +28,11 @@ class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_tes
         $this->assertEquals('Allows TubePress work with Vimeo', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_vimeo' => TUBEPRESS_ROOT . '/src/main/php/add-ons/vimeo/classes'), $addon->getPsr0ClassPathRoots());
         $this->assertEquals(array('tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension'), $addon->getIocContainerExtensions());
-        $this->validateClassMap($this->_getExpectedClassMap(), $addon->getClassMap());
     }
 
     protected function getPathToManifest()
     {
-        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/vimeo.json');
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/vimeo/manifest.json');
     }
 
-    private function _getExpectedClassMap()
-    {
-        return array(
-            'tubepress_addons_vimeo_api_const_options_names_Embedded'                     => 'classes/tubepress/addons/vimeo/api/const/options/names/Embedded.php',
-            'tubepress_addons_vimeo_api_const_options_names_Feed'                         => 'classes/tubepress/addons/vimeo/api/const/options/names/Feed.php',
-            'tubepress_addons_vimeo_api_const_options_names_GallerySource'                => 'classes/tubepress/addons/vimeo/api/const/options/names/GallerySource.php',
-            'tubepress_addons_vimeo_api_const_options_names_Meta'                         => 'classes/tubepress/addons/vimeo/api/const/options/names/Meta.php',
-            'tubepress_addons_vimeo_api_const_options_values_GallerySourceValue'          => 'classes/tubepress/addons/vimeo/api/const/options/values/GallerySourceValue.php',
-            'tubepress_addons_vimeo_api_const_VimeoEventNames'                            => 'classes/tubepress/addons/vimeo/api/const/VimeoEventNames.php',
-            'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService'    => 'classes/tubepress/addons/vimeo/impl/embedded/VimeoPluggableEmbeddedPlayerService.php',
-            'tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension'                  => 'classes/tubepress/addons/vimeo/impl/ioc/VimeoIocContainerExtension.php',
-            'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener'   => 'classes/tubepress/addons/vimeo/impl/listeners/http/VimeoHttpErrorResponseListener.php',
-            'tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener'        => 'classes/tubepress/addons/vimeo/impl/listeners/http/VimeoOauthRequestListener.php',
-            'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'  => 'classes/tubepress/addons/vimeo/impl/listeners/video/VimeoVideoConstructionListener.php',
-            'tubepress_addons_vimeo_impl_options_VimeoOptionProvider'                     => 'classes/tubepress/addons/vimeo/impl/options/VimeoOptionProvider.php',
-            'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService'     => 'classes/tubepress/addons/vimeo/impl/provider/VimeoPluggableVideoProviderService.php',
-            'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'                        => 'classes/tubepress/addons/vimeo/impl/provider/VimeoUrlBuilder.php'
-        );
-    }
 }

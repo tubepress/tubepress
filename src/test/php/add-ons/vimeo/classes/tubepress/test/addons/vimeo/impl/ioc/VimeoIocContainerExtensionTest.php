@@ -183,11 +183,11 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
             'vimeo_color_sanitizer',
             'tubepress_impl_listeners_options_ColorSanitizingListener'
 
-        )->withArgument(array(
-                tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR
-            ))
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 9500));
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,
+            'method'   => 'onPreValidationOptionSet',
+            'priority' => 9500
+        ));
     }
 
     private function _expectHttpListenerRegistration()

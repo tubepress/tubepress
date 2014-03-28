@@ -178,7 +178,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
 
         ehough_epilog_LoggerFactory::setHandlerStack(array($loggingHandler));
 
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('TubePress Bootstrapper');
+        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Bootstrapper');
 
         $this->_loggingHandler = $loggingHandler;
     }
@@ -228,15 +228,16 @@ class tubepress_impl_boot_PrimaryBootstrapper
                 $this->_logger->debug('We cannot boot from cache. Will perform a full boot instead.');
             }
 
+            $finderFactory       = new ehough_finder_FinderFactory();
+            $environmentDetector = new tubepress_impl_environment_SimpleEnvironmentDetector();
+            $themeFinder         = new tubepress_impl_theme_ThemeFinder($finderFactory, $environmentDetector);
+
             $this->_secondaryBootstrapper = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
 
                 $this->_shouldLog,
-                new tubepress_impl_boot_secondary_DefaultClassLoadingHelper(),
-                new tubepress_impl_boot_secondary_DefaultAddonDiscoverer(
-                    new tubepress_impl_environment_SimpleEnvironmentDetector(),
-                    new ehough_finder_FinderFactory()
-                ),
-                new tubepress_impl_boot_secondary_DefaultIocContainerBootHelper()
+                new tubepress_impl_boot_secondary_ClassLoaderPrimer(),
+                new tubepress_impl_addon_AddonFinder($finderFactory, $environmentDetector),
+                new tubepress_impl_boot_secondary_IocCompiler()
             );
         }
     }

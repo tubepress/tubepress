@@ -37,14 +37,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_CssAndJsRegistryInterface The CSS registry.
-     */
-    public static function getCssAndJsRegistry()
-    {
-        return self::getService(tubepress_spi_html_CssAndJsRegistryInterface::_);
-    }
-
-    /**
      * @return tubepress_spi_embedded_EmbeddedHtmlGenerator The embedded HTML generator.
      */
     public static function getEmbeddedHtmlGenerator()
@@ -205,11 +197,19 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_theme_ThemeHandler The theme handler.
+     * @return tubepress_spi_theme_ThemeFinderInterface
+     */
+    public static function getThemeFinder()
+    {
+        return self::getService(tubepress_spi_theme_ThemeFinderInterface::_);
+    }
+
+    /**
+     * @return tubepress_spi_theme_ThemeHandlerInterface The theme handler.
      */
     public static function getThemeHandler()
     {
-        return self::getService(tubepress_spi_theme_ThemeHandler::_);
+        return self::getService(tubepress_spi_theme_ThemeHandlerInterface::_);
     }
 
     /**

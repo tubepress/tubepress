@@ -50,7 +50,7 @@ class tubepress_test_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHa
     {
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
         $this->_mockProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
@@ -66,7 +66,7 @@ class tubepress_test_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHa
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default')->andReturn($mockTemplate);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('');
         $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID, ehough_mockery_Mockery::type('integer'))->andReturn(true);
@@ -97,7 +97,7 @@ class tubepress_test_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHa
 
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
-        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default')->andReturn($mockTemplate);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
@@ -121,7 +121,7 @@ class tubepress_test_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHa
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($mockTemplate);
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default')->andReturn($mockTemplate);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 

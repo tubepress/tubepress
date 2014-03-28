@@ -178,9 +178,19 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'plugin_action_links' => 'RowMeta',
         );
 
-        foreach ($map as $filter => $class) {
+        foreach ($map as $filterName => $classSuffix) {
 
-            $builder->register("wordpress.filter.$filter", "tubepress_addons_wordpress_impl_filters_$class");
+            $builder->register(
+
+                "wordpress.filter.$filterName.$classSuffix",
+                "tubepress_addons_wordpress_impl_filters_$classSuffix"
+
+            )->addTag(self::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.filter.$filterName",
+                'method'   => 'filter',
+                'priority' => 10000
+            ));
         }
     }
 
@@ -197,9 +207,19 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'admin_notices'         => 'AdminNotices',
         );
 
-        foreach ($map as $filter => $class) {
+        foreach ($map as $actionName => $classSuffix) {
 
-            $builder->register("wordpress.action.$filter", "tubepress_addons_wordpress_impl_actions_$class");
+            $builder->register(
+
+                "wordpress.action.$actionName.$classSuffix",
+                "tubepress_addons_wordpress_impl_actions_$classSuffix"
+
+            )->addTag(self::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.action.$actionName",
+                'method'   => "action",
+                'priority' => 10000
+            ));
         }
     }
 

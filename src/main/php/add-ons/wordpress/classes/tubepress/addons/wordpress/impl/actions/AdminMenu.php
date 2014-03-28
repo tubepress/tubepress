@@ -14,7 +14,7 @@ class tubepress_addons_wordpress_impl_actions_AdminMenu
     /**
      * Filter the content (which may be empty).
      */
-    public final function execute(array $args)
+    public final function action(tubepress_api_event_EventInterface $event)
     {
         $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 

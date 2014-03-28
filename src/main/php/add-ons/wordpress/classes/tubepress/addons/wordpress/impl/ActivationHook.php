@@ -17,7 +17,7 @@ class tubepress_addons_wordpress_impl_ActivationHook
         if (!is_dir(WP_CONTENT_DIR . '/tubepress-content')) {
 
             $this->_tryToMirror(
-                TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content',
+                TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton',
                 WP_CONTENT_DIR . '/tubepress-content');
         }
 

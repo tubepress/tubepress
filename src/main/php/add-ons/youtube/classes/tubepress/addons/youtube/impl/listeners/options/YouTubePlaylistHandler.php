@@ -12,14 +12,6 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler
 {
     public function onPreValidationOptionSet(tubepress_api_event_EventInterface $event)
     {
-        $name = $event->getArgument('optionName');
-
-        /** We only care about playlistValue. */
-        if ($name !== tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {
-
-            return;
-        }
-
         $filteredValue = $this->_maybeGetListValueFromUrl($event->getSubject());
         $filteredValue = $this->_maybeRemoveLeadingPL($filteredValue);
 

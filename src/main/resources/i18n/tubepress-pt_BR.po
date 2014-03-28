@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:15+0000\n"
+"PO-Revision-Date: 2014-03-18 20:40:06+0000\n"
 "Language: pt-br\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "Número máximo de caracteres a serem mostrados nas descrições do víd
 msgid "Height (px) of thumbs"
 msgstr "Altura (px) das miniaturas"
 
-msgid "Default is 90."
-msgstr "O padrão é 90."
-
 msgid "Width (px) of thumbs"
 msgstr "Largura (px) das miniaturas"
-
-msgid "Default is 120."
-msgstr "O padrão é 120."
 
 msgid "Use relative dates"
 msgstr "Usar datas relativas"
@@ -155,8 +149,8 @@ msgstr "Se marcado, ninguém será capaz de ver as suas informações de depura�
 msgid "Enable API cache"
 msgstr "Ativar cache API"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "O padrão é 20. O máximo é 50."
+msgid "Default is %s. Maximum is %s."
+msgstr "O padrão é %s. O máximo é %s."
 
 msgid "Show pagination above thumbnails"
 msgstr "Mostrar a paginação acima das miniaturas"
@@ -176,11 +170,8 @@ msgstr "Só se aplica às galerias que geram muitas páginas."
 msgid "Max height (px)"
 msgstr "Altura máxima (px)"
 
-msgid "Default is 350."
-msgstr "O padrão é 350."
-
-msgid "Default is 425."
-msgstr "O padrão é 425."
+msgid "Default is %s."
+msgstr "O padrão é %s."
 
 msgid "Thumbnails"
 msgstr "Foto minimizada"
@@ -265,9 +256,6 @@ msgstr "Tema"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "Ordem de classificação adicional aplicada a cada página individual de uma galeria"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "O tema TubePress a ser utilizado por esta galeria. Seus temas podem ser encontrados em <code>%s</code>, e os temas padrão podem ser encontradas em <code>%s</code>."
 
 msgid "Loop"
 msgstr "Loop"

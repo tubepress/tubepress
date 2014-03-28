@@ -12,67 +12,21 @@
 /**
  * Simple implementation of an add-on.
  */
-class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
+class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_ContributableBase implements tubepress_spi_addon_AddonInterface
 {
     /**
-     * @var string
+     * Optional attributes.
      */
-    private $_name;
+    const ATTRIBUTE_CLASSPATH_ROOTS     = 'psr-0';
+    const ATTRIBUTE_CLASSMAP            = 'classmap';
+    const ATTRIBUTE_IOC_COMPILER_PASSES = 'compiler-passes';
+    const ATTRIBUTE_IOC_EXTENSIONS      = 'container-extensions';
 
     /**
-     * @var tubepress_spi_version_Version
+     * Containers.
      */
-    private $_version;
-
-    /**
-     * @var string
-     */
-    private $_title;
-
-    /**
-     * @var array
-     */
-    private $_author;
-
-    /**
-     * @var array
-     */
-    private $_licenses;
-
-    /**
-     * @var string
-     */
-    private $_description;
-
-    /**
-     * @var array
-     */
-    private $_keywords = array();
-
-    /**
-     * @var ehough_curly_Url
-     */
-    private $_urlHomepage;
-
-    /**
-     * @var ehough_curly_Url
-     */
-    private $_urlDocs;
-
-    /**
-     * @var ehough_curly_Url
-     */
-    private $_urlDemo;
-
-    /**
-     * @var ehough_curly_Url
-     */
-    private $_urlDownload;
-
-    /**
-     * @var ehough_curly_Url
-     */
-    private $_urlBugs;
+    const CATEGORY_AUTOLOAD  = 'autoload';
+    const CATEGORY_IOC       = 'inversion-of-control';
 
     /**
      * @var array
@@ -94,36 +48,6 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
      */
     private $_classMap = array();
 
-    public function __construct(
-
-        $name,
-        $version,
-        $title,
-        array $author,
-        array $licenses) {
-
-        $this->_setName($name);
-        $this->_setVersion($version);
-        $this->_setTitle($title);
-        $this->_setAuthor($author);
-        $this->_setLicenses($licenses);
-    }
-
-    public function setDescription($description)
-    {
-        if (!is_string($description)) {
-
-            throw new InvalidArgumentException('Add-on description must be a string');
-        }
-
-        if (strlen($description) > 1000) {
-
-            throw new InvalidArgumentException('Add-on description must be 1000 characters or less.');
-        }
-
-        $this->_description = $description;
-    }
-
     public function setClassMap(array $map)
     {
         if (!empty($map) && !tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
@@ -131,183 +55,34 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
             throw new InvalidArgumentException('Class map must be an associative array');
         }
 
-        $this->_classMap = $map;
-    }
+        foreach ($map as $key => $value) {
 
-    public function setKeywords(array $keywords)
-    {
-        foreach ($keywords as $keyword) {
-
-            if (!is_string($keyword)) {
-
-                throw new InvalidArgumentException('Keywords must be strings');
-            }
-
-            if (preg_match('~^[A-Za-z0-9-\.]{1,30}$~', $keyword, $matches) !== 1) {
-
-                throw new InvalidArgumentException("Invalid keyword: $keyword");
-            }
+            $this->validateIsString($key, 'each classmap prefix');
+            $this->validateIsString($value, 'each classmap path');
         }
 
-        $this->_keywords = $keywords;
-    }
-
-    public function setHomepageUrl($url)
-    {
-        $this->_validateUrl($url, 'Invalid homepage URL');
-
-        $this->_urlHomepage = $url;
-    }
-
-    public function setDocumentationUrl($url)
-    {
-        $this->_validateUrl($url, 'Invalid documentation URL');
-
-        $this->_urlDocs = $url;
-    }
-
-    public function setDemoUrl($url)
-    {
-        $this->_validateUrl($url, 'Invalid demo URL');
-
-        $this->_urlDemo = $url;
-    }
-
-    public function setDownloadUrl($url)
-    {
-        $this->_validateUrl($url, 'Invalid download URL');
-
-        $this->_urlDownload = $url;
-    }
-
-    public function setBugTrackerUrl($url)
-    {
-        $this->_validateUrl($url, 'Invalid bug tracker URL');
-
-        $this->_urlBugs = $url;
+        $this->_classMap = $map;
     }
 
     public function setIocContainerExtensions(array $extensions)
     {
-        $this->_validateArrayIsJustStrings($extensions, 'IoC container extensions must be strings');
+        $this->_validateArrayIsJustStrings($extensions, 'Each IoC container extension');
 
         $this->_iocContainerExtensions = $extensions;
     }
 
     public function setIocContainerCompilerPasses(array $passes) {
 
-        $this->_validateArrayIsJustStrings($passes, 'IoC container compiler passes must be strings');
+        $this->_validateArrayIsJustStrings($passes, 'Each IoC container compiler pass');
 
         $this->_iocContainerCompilerPasses = $passes;
     }
 
     public function setPsr0ClassPathRoots(array $roots)
     {
-        $this->_validateArrayIsJustStrings($roots, 'PSR-0 classpath roots must be strings');
+        $this->_validateArrayIsJustStrings($roots, 'Each PSR-0 classpath root');
 
         $this->_psr0ClassPathRoots = $roots;
-    }
-
-    /**
-     * @return string The globally unique name of this add-on. Must be 100 characters or less,
-     *                all lowercase, and contain only URL-safe characters ([a-z0-9-_\.]+).
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * @return tubepress_spi_version_Version The version of this add-on.
-     */
-    public function getVersion()
-    {
-        return $this->_version;
-    }
-
-    /**
-     * @return string A user-friendly title for the add-on. 255 characters or less.
-     */
-    public function getTitle()
-    {
-        return $this->_title;
-    }
-
-    /**
-     * @return array An associative array of author information. The possible array keys are
-     *               'name', 'email', and 'url'. 'name' is required, and the other fields are optional.
-     */
-    public function getAuthor()
-    {
-        return $this->_author;
-    }
-
-    /**
-     * @return array An array of associative arrays of license information. The possible array keys are
-     *               'url' and 'type'. 'url' is required and must link to the license text. 'type'
-     *               may be supplied if the license is one of the official open source licenses found
-     *               at http://www.opensource.org/licenses/alphabetical
-     */
-    public function getLicenses()
-    {
-        return $this->_licenses;
-    }
-
-    /**
-     * @return string Optional. A longer description of this add-on. 1000 characters or less.
-     */
-    public function getDescription()
-    {
-        return $this->_description;
-    }
-
-    /**
-     * @return array Optional. An array of keywords that might help folks discover this add-on. Only
-     *               letters, numbers, hypens, and dots. Each keyword must be 30 characters or less.
-     */
-    public function getKeywords()
-    {
-        return $this->_keywords;
-    }
-
-    /**
-     * @return ehough_curly_Url Optional. A link to the add-on's homepage.
-     */
-    public function getHomepageUrl()
-    {
-        return $this->_urlHomepage;
-    }
-
-    /**
-     * @return ehough_curly_Url Optional. A link to the add-on's documentation.
-     */
-    public function getDocumentationUrl()
-    {
-        return $this->_urlDocs;
-    }
-
-    /**
-     * @return ehough_curly_Url Optional. A link to a live demo of the add-on.
-     */
-    public function getDemoUrl()
-    {
-        return $this->_urlDemo;
-    }
-
-    /**
-     * @return ehough_curly_Url Optional. A link to a download URL.
-     */
-    public function getDownloadUrl()
-    {
-        return $this->_urlDownload;
-    }
-
-    /**
-     * @return ehough_curly_Url Optional. A link to a bug tracker for this add-on.
-     */
-    public function getBugTrackerUrl()
-    {
-        return $this->_urlBugs;
     }
 
     /**
@@ -342,124 +117,11 @@ class tubepress_impl_addon_AddonBase implements tubepress_spi_addon_Addon
         return $this->_classMap;
     }
 
-
-
-    private function _setName($name)
+    private function _validateArrayIsJustStrings(array $array, $name)
     {
-        if (!is_string($name)) {
+        foreach ($array as $element) {
 
-            throw new InvalidArgumentException('Add-on name must be a string');
-        }
-
-        if (preg_match('~^[A-Za-z0-9-_\.]{1,100}$~', $name, $matches) !== 1) {
-
-            throw new InvalidArgumentException('Invalid add-on name.');
-        }
-        $this->_name = strtolower($name);
-    }
-
-    private function _setVersion($version)
-    {
-        if ($version instanceof tubepress_spi_version_Version) {
-
-            $this->_version = $version;
-
-        } else {
-
-            try {
-
-                $this->_version = tubepress_spi_version_Version::parse($version);
-
-            } catch (InvalidArgumentException $e) {
-
-                throw new InvalidArgumentException('Invalid version: ' . $e->getMessage());
-            }
-        }
-    }
-
-    private function _setTitle($title)
-    {
-        if (!is_string($title)) {
-
-            throw new InvalidArgumentException('Add-on title must be a string');
-        }
-
-        if (strlen($title) > 255) {
-
-            throw new InvalidArgumentException('Add-on titles must be 255 characters or less');
-        }
-
-        $this->_title = $title;
-    }
-
-    private function _setAuthor(array $author)
-    {
-        if (! isset($author['name'])) {
-
-            throw new InvalidArgumentException('Must include author name');
-        }
-
-        foreach ($author as $key => $value) {
-
-            if ($key !== 'name' && $key !== 'email' && $key !== 'url') {
-
-                throw new InvalidArgumentException("Invalid author attribute: $key");
-            }
-        }
-
-        if (isset($author['url'])) {
-
-            $this->_validateUrl($author['url'], 'Invalid author URL: ' . $author['url']);
-        }
-
-        $this->_author = $author;
-    }
-
-    private function _setLicenses(array $licenses)
-    {
-        if (empty($licenses)) {
-
-            throw new InvalidArgumentException('Missing licenses');
-        }
-
-        foreach ($licenses as $license) {
-
-            if (!isset($license['url'])) {
-
-                throw new InvalidArgumentException('License is missing URL');
-            }
-
-            $this->_validateUrl($license['url'], 'Invalid license URL: ' . $license['url']);
-
-            if (count($license) > 1 && !isset($license['type'])) {
-
-                throw new InvalidArgumentException('Only \'url\' and \'type\' attributes are supported for licenses');
-            }
-        }
-
-        $this->_licenses = $licenses;
-    }
-
-    private function _validateArrayIsJustStrings(array $array, $message)
-    {
-        foreach($array as $element) {
-
-            if (!is_string($element)) {
-
-                throw new InvalidArgumentException($message);
-            }
-        }
-    }
-
-    private function _validateUrl($url, $message)
-    {
-        try {
-
-            new ehough_curly_Url($url);
-
-        } catch (InvalidArgumentException $e) {
-
-            throw new InvalidArgumentException($message);
+            $this->validateIsString($element, $name);
         }
     }
 }

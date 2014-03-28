@@ -16,19 +16,11 @@ class tubepress_addons_wordpress_impl_listeners_html_CssJsDequerer
 {
     public function onCss(tubepress_api_event_EventInterface $event)
     {
-        $styles = $event->getSubject();
-
-        unset($styles['tubepress']);
-
-        $event->setSubject($styles);
+        $event->setSubject(array());
     }
 
     public function onJs(tubepress_api_event_EventInterface $event)
     {
-        $scripts = $event->getSubject();
-
-        unset($scripts['tubepress']);
-
-        $event->setSubject($scripts);
+        $this->onCss($event);
     }
 }

@@ -40,7 +40,7 @@ class tubepress_test_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extend
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
     }
 
     public function testMatchingCustomPlayer()

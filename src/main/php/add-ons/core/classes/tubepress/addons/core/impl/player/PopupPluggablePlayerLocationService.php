@@ -15,13 +15,13 @@
 class tubepress_addons_core_impl_player_PopupPluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
 {
     /**
-     * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
+     * @param tubepress_spi_theme_ThemeHandlerInterface $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The player's template.
      */
-    public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
+    public final function getTemplate(tubepress_spi_theme_ThemeHandlerInterface $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('players/popup.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        return $themeHandler->getTemplateInstance('players/popup.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
     }
 
     /**

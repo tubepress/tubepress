@@ -47,32 +47,54 @@ abstract class tubepress_test_impl_options_AbstractOptionProviderTest extends tu
 
     public function testHasOption()
     {
-        $randomOptionName = array_rand($this->getMapOfOptionNamesToDefaultValues());
-        $result           = $this->_sut->hasOption($randomOptionName);
+        $optionNames = $this->getMapOfOptionNamesToDefaultValues();
+        $ok          = true;
 
-        $this->assertTrue($result);
+        foreach ($optionNames as $optionName => $defaultValue) {
+
+            $ok = $ok && $this->_sut->hasOption($optionName);
+
+            if (!$ok) {
+
+                $this->fail('Option provider is missing ' . $optionName);
+                return;
+            }
+        }
+
+        $this->assertTrue($ok);
     }
 
     public function testDefaultValue()
     {
-        $options          = $this->getMapOfOptionNamesToDefaultValues();
-        $randomOptionName = array_rand($options);
-        $defaultValue     = $options[$randomOptionName];
+        $map = $this->getMapOfOptionNamesToDefaultValues();
+        $ok  = true;
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+        foreach ($map as $optionName => $value) {
 
-            tubepress_api_const_event_EventNames::OPTION_GET_DEFAULT_VALUE . ".$randomOptionName",
-            ehough_mockery_Mockery::on(function ($event) use ($defaultValue) {
+            $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-                $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $defaultValue;
+                tubepress_api_const_event_EventNames::OPTION_GET_DEFAULT_VALUE . ".$optionName",
+                ehough_mockery_Mockery::on(function ($event) use ($value) {
 
-                $event->setSubject('XYZ');
+                    $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $value;
 
-                return $ok;
-            })
-        );
+                    $event->setSubject('XYZ');
 
-        $this->assertEquals('XYZ', $this->_sut->getDefaultValue($randomOptionName));
+                    return $ok;
+                })
+            );
+
+            $actual = $this->_sut->getDefaultValue($optionName);
+            $ok     = $ok && $actual === 'XYZ';
+
+            if (!$ok) {
+
+                $this->fail(sprintf('Wrong default value for %s. Expected XYZ but got %s.', $optionName, print_r($actual, true)));
+                return;
+            }
+        }
+
+        $this->assertTrue($ok);
     }
 
     public function testGetDescription()
@@ -235,6 +257,47 @@ abstract class tubepress_test_impl_options_AbstractOptionProviderTest extends tu
     {
         $this->assertFalse($this->_sut->isValid('no such option', 'some candidate'));
         $this->assertEquals('No option with name "no such option".', $this->_sut->getProblemMessage('no such option', 'some candidate'));
+    }
+
+    protected function ensureInvalidValueByRegex($optionName, $value)
+    {
+        $labelMap      = $this->getMapOfOptionNamesToUntranslatedLabels();
+        $expectedLabel = $labelMap[$optionName];
+
+        $this->_mockMessageService->shouldReceive('_')->once()->with('XYZ')->andReturn('abc');
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+
+            tubepress_api_const_event_EventNames::OPTION_GET_LABEL . ".$optionName",
+            ehough_mockery_Mockery::on(function ($event) use ($expectedLabel) {
+
+                $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $expectedLabel;
+
+                $event->setSubject('XYZ');
+
+                return $ok;
+            })
+        );
+
+        $this->assertFalse($this->_sut->isValid($optionName, $value));
+    }
+
+    protected function doTestGetDiscreteAcceptableValues($optionName, $expected)
+    {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+
+            tubepress_api_const_event_EventNames::OPTION_GET_DISCRETE_ACCEPTABLE_VALUES . ".$optionName",
+            ehough_mockery_Mockery::on(function ($event) use ($expected) {
+
+                $ok = $event instanceof tubepress_api_event_EventInterface && $event->getSubject() === $expected;
+
+                $event->setSubject('XYZ');
+
+                return $ok;
+            })
+        );
+
+        $this->assertEquals('XYZ', $this->_sut->getDiscreteAcceptableValues($optionName));
     }
 
     protected abstract function getMapOfOptionNamesToDefaultValues();

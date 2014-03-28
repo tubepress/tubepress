@@ -64,7 +64,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $provider        = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
         $themeHandler    = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $template        = $themeHandler->getTemplateInstance('single_video.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        $template        = $themeHandler->getTemplateInstance('single_video.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
 
         /* grab the video from the provider */
         if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {

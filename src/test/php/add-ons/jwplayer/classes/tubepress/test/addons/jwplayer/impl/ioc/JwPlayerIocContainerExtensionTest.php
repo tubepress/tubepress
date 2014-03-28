@@ -93,18 +93,25 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
         )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10000));
 
-        $this->expectRegistration(
+        $colors = array(
 
-            'jw_color_sanitizer',
-            'tubepress_impl_listeners_options_ColorSanitizingListener'
-        )->withArgument(array(
-                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
-                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
-                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
-                tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
-            ))
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'onPreValidationOptionSet', 'priority' => 9500));
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_BACK,
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_FRONT,
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_LIGHT,
+            tubepress_addons_jwplayer_api_const_options_names_Embedded::COLOR_SCREEN,
+        );
+
+        foreach ($colors as $color) {
+
+            $this->expectRegistration(
+
+                'jw_color_sanitizer_' . $color,
+                'tubepress_impl_listeners_options_ColorSanitizingListener'
+            )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . ".$color",
+                'method'   => 'onPreValidationOptionSet',
+                'priority' => 9500
+            ));
+        }
     }
-
 }

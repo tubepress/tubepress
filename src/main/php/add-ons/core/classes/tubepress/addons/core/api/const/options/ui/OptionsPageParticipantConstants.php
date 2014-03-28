@@ -22,6 +22,7 @@ class tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants
     const CATEGORY_ID_GALLERYSOURCE = 'gallerysource-category';
     const CATEGORY_ID_META          = 'meta-category';
     const CATEGORY_ID_PLAYER        = 'player-category';
+    const CATEGORY_ID_THEME         = 'theme-category';
     const CATEGORY_ID_THUMBS        = 'thumbs-category';
 }
 

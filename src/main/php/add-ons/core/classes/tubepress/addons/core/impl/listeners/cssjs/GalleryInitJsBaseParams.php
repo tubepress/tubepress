@@ -136,6 +136,6 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
 
     private function _getPlayerJsUrl(tubepress_spi_player_PluggablePlayerLocationService $player)
     {
-        return trim($player->getPlayerJsUrl(), '/');
+        return rtrim($player->getPlayerJsUrl(), '/');
     }
 }

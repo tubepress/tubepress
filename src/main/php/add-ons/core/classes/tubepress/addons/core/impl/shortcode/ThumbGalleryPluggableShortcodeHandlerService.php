@@ -68,7 +68,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $themeHandler    = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
         $ms              = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $qss             = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $template        = $themeHandler->getTemplateInstance('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        $template        = $themeHandler->getTemplateInstance('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
         $page            = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 
         /* first grab the videos */

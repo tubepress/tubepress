@@ -41,9 +41,9 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
 
     public function buildSut()
     {
-        $this->_mockAddonDiscoverer   = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_AddonDiscoveryInterface::_);
-        $this->_mockIocHelper         = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_IocCompilingInterface::_);
-        $this->_mockClassLoaderHelper = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_ClassLoaderSetupInterface::_);
+        $this->_mockAddonDiscoverer   = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonFinderInterface::_);
+        $this->_mockIocHelper         = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_IocCompilerInterface::_);
+        $this->_mockClassLoaderHelper = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_ClassLoaderPrimerInterface::_);
         $this->_mockContainerBuilder  = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
         $this->_mockContainerDumper   = ehough_mockery_Mockery::mock('ehough_iconic_dumper_DumperInterface');
 
@@ -85,7 +85,7 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
     {
         return array(
 
-            ehough_mockery_Mockery::mock('tubepress_spi_addon_Addon')
+            ehough_mockery_Mockery::mock('tubepress_spi_addon_AddonInterface')
         );
     }
 }

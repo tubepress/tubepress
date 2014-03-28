@@ -35,8 +35,8 @@ class tubepress_test_addons_wordpress_impl_actions_WpHeadTest extends tubepress_
     {
         $this->_mockWordPressFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(true);
 
-        $this->_sut->execute(array());
-
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
         $this->assertTrue(true);
     }
 
@@ -50,7 +50,8 @@ class tubepress_test_addons_wordpress_impl_actions_WpHeadTest extends tubepress_
 
         $this->expectOutputString('hello theregoodbye now');
 
-        $this->_sut->execute(array());
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $this->_sut->action($mockEvent);
 
         $this->assertTrue(true);
     }

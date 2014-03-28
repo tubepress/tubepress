@@ -80,7 +80,9 @@ class tubepress_test_addons_wordpress_impl_actions_AdminEnqueueScriptsTest exten
             $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with($id, false, array(), false, false);
         }
 
-        $this->_sut->execute(array('settings_page_tubepress'));
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('settings_page_tubepress'));
+        $this->_sut->action($mockEvent);
 
         $this->assertTrue(true);
     }
@@ -89,11 +91,14 @@ class tubepress_test_addons_wordpress_impl_actions_AdminEnqueueScriptsTest exten
     {
         return array(
 
-            'bootstrap-3.1.1'       => '/src/main/web/options-gui/vendor/bootstrap-3.1.1/css/bootstrap-custom.css',
-            'bootstrap-theme'       => '/src/main/web/options-gui/vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css',
-            'bootstrap-multiselect' => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.2/css/bootstrap-multiselect.css',
-            'tubepress-extra'       => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
-            'spectrum'              => '/src/main/web/options-gui/vendor/spectrum-1.3.1/spectrum.css',
+            'bootstrap-3.1.1'         => '/src/main/web/options-gui/vendor/bootstrap-3.1.1/css/bootstrap-custom.css',
+            'bootstrap-theme'         => '/src/main/web/options-gui/vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css',
+            'bootstrap-multiselect'   => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.2/css/bootstrap-multiselect.css',
+            'blueimp-gallery-2.14.0'  => '/src/main/web/options-gui/vendor/blueimp-gallery-2.14.0/css/blueimp-gallery.min.css',
+            'bootstrap-image-gallery' => '/src/main/web/options-gui/vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css',
+            'tubepress-options-gui'   => '/src/main/web/options-gui/css/options-page.css',
+            'wordpress-options-gui'   => '/src/main/php/add-ons/wordpress/web/options-gui/css/options-page.css',
+            'spectrum'                => '/src/main/web/options-gui/vendor/spectrum-1.3.1/spectrum.css',
         );
     }
 
@@ -117,10 +122,14 @@ class tubepress_test_addons_wordpress_impl_actions_AdminEnqueueScriptsTest exten
 
             'bootstrap-multiselect'         => '/src/main/web/options-gui/vendor/bootstrap-multiselect-0.9.2/js/bootstrap-multiselect.js',
             'spectrum'                      => '/src/main/web/options-gui/vendor/spectrum-1.3.1/spectrum.js',
+            'blueimp-gallery-2.14.0'        => '/src/main/web/options-gui/vendor/blueimp-gallery-2.14.0/js/blueimp-gallery.min.js',
+            'bootstrap-image-gallery'       => '/src/main/web/options-gui/vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js',
             'bootstrap-field-error-handler' => '/src/main/web/options-gui/js/bootstrap-field-error-handler.js',
             'participant-filter-handler'    => '/src/main/web/options-gui/js/participant-filter-handler.js',
             'spectrum-js-initializer'       => '/src/main/web/options-gui/js/spectrum-js-initializer.js',
             'bootstrap-multiselect-init'    => '/src/main/web/options-gui/js/bootstrap-multiselect-initializer.js',
+            'theme-field-handler'           => '/src/main/web/options-gui/js/theme-field-handler.js',
+            'theme-reminder'                => '/src/main/php/add-ons/wordpress/web/options-gui/js/theme-reminder.js',
             'iframe-loader'                 => '/src/main/php/add-ons/wordpress/web/options-gui/js/iframe-loader.js',
         ));
 

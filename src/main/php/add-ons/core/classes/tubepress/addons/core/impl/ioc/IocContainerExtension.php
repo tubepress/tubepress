@@ -10,7 +10,7 @@
  */
 
 /**
- * Adds shortcode handlers to TubePress.
+ * Primary services for TubePress.
  */
 class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
@@ -35,7 +35,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerAjaxHandler($containerBuilder);
         $this->_registerCacheService($containerBuilder);
         $this->_registerCssAndJsGenerator($containerBuilder);
-        $this->_registerCssAndJsRegistry($containerBuilder);
         $this->_registerEmbeddedHtmlGenerator($containerBuilder);
         $this->_registerExecutionContext($containerBuilder);
         $this->_registerFeedFetcher($containerBuilder);
@@ -52,6 +51,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerShortcodeParser($containerBuilder);
         $this->_registerTemplateBuilder($containerBuilder);
         $this->_registerThemeHandler($containerBuilder);
+        $this->_registerThemeFinder($containerBuilder);
         $this->_registerVideoCollector($containerBuilder);
 
         /**
@@ -103,15 +103,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_impl_cache_PoolDecorator'
 
         )->addArgument(new tubepress_impl_ioc_Reference($actualPoolServiceId));
-    }
-
-    private function _registerCssAndJsRegistry(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_html_CssAndJsRegistryInterface::_,
-            'tubepress_impl_html_CssAndJsRegistry'
-        );
     }
 
     private function _registerCssAndJsGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -276,13 +267,23 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         );
     }
 
+    private function _registerThemeFinder(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_spi_theme_ThemeFinderInterface::_,
+            'tubepress_impl_theme_ThemeFinder'
+        )->addArgument(new ehough_iconic_Reference('ehough_finder_FinderFactoryInterface'))
+         ->addArgument(new ehough_iconic_Reference(tubepress_spi_environment_EnvironmentDetector::_));
+    }
+
     private function _registerThemeHandler(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
 
-            tubepress_spi_theme_ThemeHandler::_,
-            'tubepress_impl_theme_SimpleThemeHandler'
-        );
+            tubepress_spi_theme_ThemeHandlerInterface::_,
+            'tubepress_impl_theme_ThemeHandler'
+        )->addArgument('%themes%');
     }
 
     private function _registerVideoCollector(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -312,6 +313,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => 'Which videos?',  //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS        => 'Thumbnails',     //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER        => 'Player',         //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THEME         => 'Theme',          //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META          => 'Meta',           //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED          => 'Feed',           //>(translatable)<
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE         => 'Cache',          //>(translatable)<
@@ -432,7 +434,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS => array(
 
-                tubepress_api_const_options_names_Thumbs::THEME,
                 tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,
                 tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,
                 tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
@@ -456,6 +457,11 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
                 tubepress_api_const_options_names_Embedded::AUTOPLAY,
                 tubepress_api_const_options_names_Embedded::LOOP,
                 tubepress_api_const_options_names_Embedded::ENABLE_JS_API,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THEME => array(
+
+                tubepress_api_const_options_names_Thumbs::THEME,
             ),
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META => array(
@@ -644,19 +650,41 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $containerBuilder->register(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_preValidation',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'magic', 'priority' => 10100));
+        )->addTag(self::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET,
+                'method'   => 'magic',
+                'priority' => 10100
+        ));
 
         $containerBuilder->register(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_readFromExternal',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->addTag(self::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'magic', 'priority' => 10000));
+        )->addTag(self::TAG_EVENT_LISTENER,  array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT,
+                'method'   => 'magic',
+                'priority' => 10000));
+
+        $containerBuilder->register(
+            'tubepress_addons_core_impl_listeners_options_LegacyThemeListener',
+            'tubepress_addons_core_impl_listeners_options_LegacyThemeListener'
+        )->addTag(self::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_api_const_options_names_Thumbs::THEME,
+                'method'   => 'onPreValidationSet',
+                'priority' => 300000
+        ));
 
         $containerBuilder->register(
 
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, 'method' => 'onGalleryInitJs', 'priority' => 10000))
-            ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'));
+        )->addTag(self::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT,
+                'method'   => 'onGalleryInitJs',
+                'priority' => 10000)
+        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_spi_player_PluggablePlayerLocationService::_,
+                'method' => 'setPluggablePlayerLocations'
+        ));
     }
 
     private function _registerHttpTransportChain(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

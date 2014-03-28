@@ -43,7 +43,6 @@ var tubePressDomInjector,
         troo              = true,
         coreJsPrefix      = 'src/main/web/js',
         jquery_isFunction = jquery.isFunction,
-        tubePressJsConfig = win.TubePressJsConfig,
         nulll             = null,
         fawlse            = false,
 
@@ -194,7 +193,15 @@ var tubePressDomInjector,
                 text_usr                 = 'usr',
                 cachedBaseUrl,
 
+                getJsConfig = function () {
+
+                    return win.TubePressJsConfig;
+                },
+
                 getBaseUrl = function () {
+
+                    var tubePressJsConfig = getJsConfig(),
+                        scripts, x, scriptSrc;
 
                     if (!alreadyCalculatedBaseUrl) {
 
@@ -205,9 +212,8 @@ var tubePressDomInjector,
                         } else {
 
                             //http://stackoverflow.com/questions/2161159/get-script-path
-                            var scripts = dokument.getElementsByTagName('script'),
-                                x       = 0,
-                                scriptSrc;
+                            dokument.getElementsByTagName('script');
+                            x       = 0;
 
                             for (x; x < scripts.length; x += 1) {
 
@@ -220,6 +226,8 @@ var tubePressDomInjector,
                                 }
                             }
                         }
+
+                        alreadyCalculatedBaseUrl = troo;
                     }
 
                     return cachedBaseUrl;
@@ -228,7 +236,8 @@ var tubePressDomInjector,
                 getAjaxEndpointUrl = function () {
 
                     var text_ajaxEndpoint = 'ajaxEndpoint',
-                        text_php          = 'php';
+                        text_php          = 'php',
+                        tubePressJsConfig = getJsConfig();
 
                     if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_php, text_sys, text_ajaxEndpoint)) {
 
@@ -240,6 +249,8 @@ var tubePressDomInjector,
                 },
 
                 getUserContentUrl = function () {
+
+                    var tubePressJsConfig = getJsConfig();
 
                     if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_usr)) {
 
@@ -322,7 +333,7 @@ var tubePressDomInjector,
 
                 convertToAbsoluteUrl = function (url, isSystem) {
 
-                    if (url.indexOf('http') === 0) {
+                    if (url.indexOf('/') === 0 || url.indexOf('http') === 0) {
 
                         //already absolute
                         return url;
@@ -404,6 +415,8 @@ var tubePressDomInjector,
                 },
 
                 loadSystemScript = function (scriptName) {
+
+                    var tubePressJsConfig = win.TubePressJsConfig;
 
                     if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_js, text_sys, scriptName)) {
 

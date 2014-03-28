@@ -22,7 +22,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_ajaxHandler();
         $this->_cacheService();
         $this->_cssAndJs();
-        $this->_cssAndJsRegistry();
         $this->_embeddedGenerator();
         $this->_executionContext();
         $this->_feedFetcher();
@@ -39,6 +38,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_shortcodeParser();
         $this->_templateBuilder();
         $this->_themeHandler();
+        $this->_themeFinder();
         $this->_videoCollector();
 
         $this->_pluggables();
@@ -108,6 +108,10 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter' =>
                 array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000),
+
+            'tubepress_addons_core_impl_listeners_options_LegacyThemeListener' =>
+                array('event' => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_api_const_options_names_Thumbs::THEME,
+                    'method' => 'onPreValidationSet', 'priority' => 300000),
         );
 
         foreach ($listeners as $className => $tagAttributes) {
@@ -118,12 +122,12 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->expectRegistration(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_preValidation',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, 'method' => 'magic', 'priority' => 10100));
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, 'method' => 'magic', 'priority' => 10100));
 
         $this->expectRegistration(
             'tubepress_addons_core_impl_listeners_StringMagicFilter_readFromExternal',
             'tubepress_addons_core_impl_listeners_StringMagicFilter'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTIONS_NVP_READFROMEXTERNAL, 'method' => 'magic', 'priority' => 10000));
+        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,  array('event' => tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT, 'method' => 'magic', 'priority' => 10000));
 
         $this->expectRegistration(
 
@@ -148,13 +152,14 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     {
         $categoryMap = array(
 
-            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => 'Which videos?',
-            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS        => 'Thumbnails',
-            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER        => 'Player',
-            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META          => 'Meta',
-            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED          => 'Feed',
-            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE         => 'Cache',
-            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED      => 'Advanced',
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_GALLERYSOURCE => 'Which videos?',  //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS        => 'Thumbnails',     //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_PLAYER        => 'Player',         //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THEME         => 'Theme',          //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META          => 'Meta',           //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_FEED          => 'Feed',           //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_CACHE         => 'Cache',          //>(translatable)<
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_ADVANCED      => 'Advanced',       //>(translatable)<
         );
 
         $categoryIndex = 0;
@@ -271,7 +276,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THUMBS => array(
 
-                tubepress_api_const_options_names_Thumbs::THEME,
                 tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,
                 tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,
                 tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,
@@ -295,6 +299,11 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
                 tubepress_api_const_options_names_Embedded::AUTOPLAY,
                 tubepress_api_const_options_names_Embedded::LOOP,
                 tubepress_api_const_options_names_Embedded::ENABLE_JS_API,
+            ),
+
+            tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_THEME => array(
+
+                tubepress_api_const_options_names_Thumbs::THEME,
             ),
 
             tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::CATEGORY_ID_META => array(
@@ -435,8 +444,19 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
     private function _themeHandler()
     {
-        $this->expectRegistration(tubepress_spi_theme_ThemeHandler::_,
-            'tubepress_impl_theme_SimpleThemeHandler');
+        $this->expectRegistration(
+            tubepress_spi_theme_ThemeHandlerInterface::_,
+            'tubepress_impl_theme_ThemeHandler'
+        )->withArgument('%themes%');
+    }
+
+    private function _themeFinder()
+    {
+        $this->expectRegistration(
+            tubepress_spi_theme_ThemeFinderInterface::_,
+            'tubepress_impl_theme_ThemeFinder'
+        )->withArgument(new ehough_iconic_Reference('ehough_finder_FinderFactoryInterface'))
+         ->withArgument(new ehough_iconic_Reference(tubepress_spi_environment_EnvironmentDetector::_));
     }
 
     private function _templateBuilder()
@@ -653,15 +673,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     private function _cssAndJs()
     {
         $this->expectRegistration(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_, 'tubepress_impl_html_CssAndJsHtmlGenerator');
-    }
-
-    private function _cssAndJsRegistry()
-    {
-        $this->expectRegistration(
-
-            tubepress_spi_html_CssAndJsRegistryInterface::_,
-            'tubepress_impl_html_CssAndJsRegistry'
-        );
     }
 
     private function _ajaxHandler()

@@ -33,8 +33,10 @@ class tubepress_test_addons_wordpress_impl_actions_AdminHeadTest extends tubepre
 
     public function testExecute()
     {
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+
         ob_start();
-        $this->_sut->execute(array());
+        $this->_sut->action($mockEvent);
         $result = ob_get_contents();
         ob_end_clean();
 

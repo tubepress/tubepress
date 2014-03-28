@@ -8,8 +8,8 @@
     },
     "licenses": [
 
-        { "url": "http://foo.bar" },
-        { "url": "http://foo.com" }
+        { "type": "foo" },
+        { "type": "bar" }
     ],
     "description": "This is a description",
     "keywords": [ "one", "three", "two" ],

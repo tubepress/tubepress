@@ -9,10 +9,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+ /**
+  * A service definition. This informs a {@link tubepress_api_ioc_ContainerBuilderInterface} how to construct
+  * the service.
+  *
+  * @package TubePress\IoC
+  */
 interface tubepress_api_ioc_DefinitionInterface
 {
     /**
-     * Adds an argument to pass to the service constructor/factory method.
+     * Add an argument to pass to the service constructor/factory method.
      *
      * @param mixed $argument An argument
      *
@@ -24,14 +30,14 @@ interface tubepress_api_ioc_DefinitionInterface
     function addArgument($argument);
     
     /**
-     * Adds a method to call after service initialization.
+     * Add a method to call after service initialization.
      *
      * @param string $method    The method name to call
      * @param array  $arguments An array of arguments to pass to the method call
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
-     * @throws InvalidArgumentException on empty $method param
+     * @throws InvalidArgumentException on empty `$method` param
      *
      * @api
      * @since 3.1.0
@@ -39,7 +45,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function addMethodCall($method, array $arguments = array());
 
     /**
-     * Adds a tag for this definition.
+     * Add a tag for this definition.
      *
      * @param string $name       The tag name
      * @param array  $attributes An array of attributes
@@ -52,7 +58,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function addTag($name, array $attributes = array());
 
     /**
-     * Clears all tags for a given name.
+     * Clear all tags for a given name.
      *
      * @param string $name The tag name
      *
@@ -64,7 +70,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function clearTag($name);
 
     /**
-     * Clears the tags for this definition.
+     * Clear the tags for this definition.
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -74,9 +80,9 @@ interface tubepress_api_ioc_DefinitionInterface
     function clearTags();
     
     /**
-     * Gets an argument to pass to the service constructor/factory method.
+     * Get an argument to pass to the service constructor/factory method.
      *
-     * @param integer $index
+     * @param integer $index The index of the argument you wish to obtain
      *
      * @return mixed The argument value
      *
@@ -88,7 +94,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getArgument($index);
 
     /**
-     * Gets the arguments to pass to the service constructor/factory method.
+     * Get the arguments to pass to the service constructor/factory method.
      *
      * @return array The array of arguments
      *
@@ -98,7 +104,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getArguments();
 
     /**
-     * Gets the service class.
+     * Get the service class.
      *
      * @return string The service class
      *
@@ -108,7 +114,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getClass();
     
     /**
-     * Gets the configurator to call after the service is fully initialized.
+     * Get the configurator to call after the service is fully initialized.
      *
      * @return callable The PHP callable to call
      *
@@ -118,7 +124,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getConfigurator();
 
     /**
-     * Gets the factory class.
+     * Get the factory class.
      *
      * @return string The factory class name
      *
@@ -128,7 +134,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getFactoryClass();
 
     /**
-     * Gets the file to require before creating the service.
+     * Get the file to require before creating the service.
      *
      * @return string The full pathname to include
      *
@@ -138,7 +144,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getFile();
 
     /**
-     * Gets the factory method.
+     * Get the factory method.
      *
      * @return string The factory method name
      *
@@ -148,7 +154,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getFactoryMethod();
 
     /**
-     * Gets the factory service id.
+     * Get the factory service id.
      *
      * @return string The factory service id
      *
@@ -158,7 +164,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getFactoryService();
 
     /**
-     * Gets the methods to call after service initialization.
+     * Get the methods to call after service initialization.
      *
      * @return array An array of method calls
      *
@@ -168,13 +174,17 @@ interface tubepress_api_ioc_DefinitionInterface
     function getMethodCalls();
     
     /**
+     * Get the properties for this definition.
+     *
+     * @return array An array or properties, which may be empty.
+     *
      * @api
      * @since 3.1.0
      */
     function getProperties();
 
     /**
-     * Gets a tag by name.
+     * Get a tag by name.
      *
      * @param string $name The tag name
      *
@@ -186,7 +196,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function getTag($name);
     
     /**
-     * Returns all tags.
+     * Get all tags.
      *
      * @return array An array of tags
      *
@@ -209,9 +219,9 @@ interface tubepress_api_ioc_DefinitionInterface
 
 
     /**
-     * Whether this definition has a tag with the given name
+     * Check whether this definition has a tag with the given name
      *
-     * @param string $name
+     * @param string $name The name of the tag
      *
      * @return Boolean
      *
@@ -221,7 +231,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function hasTag($name);
     
     /**
-     * Removes a method to call after service initialization.
+     * Remove a method to call after service initialization.
      *
      * @param string $method The method name to remove
      *
@@ -233,10 +243,10 @@ interface tubepress_api_ioc_DefinitionInterface
     function removeMethodCall($method);
     
     /**
-     * Sets a specific argument
+     * Set a specific argument
      *
-     * @param integer $index
-     * @param mixed   $argument
+     * @param integer $index	The index of the argument being replaced
+     * @param mixed   $argument	The value of the argument being replaced
      *
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
@@ -248,7 +258,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function replaceArgument($index, $argument);
 
     /**
-     * Sets the arguments to pass to the service constructor/factory method.
+     * Set the arguments to pass to the service constructor/factory method.
      *
      * @param array $arguments An array of arguments
      *
@@ -260,7 +270,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function setArguments(array $arguments);
     
     /**
-     * Sets the service class.
+     * Set the service class.
      *
      * @param string $class The service class
      *
@@ -273,7 +283,7 @@ interface tubepress_api_ioc_DefinitionInterface
 
 
     /**
-     * Sets a configurator to call after the service is fully initialized.
+     * Set a configurator to call after the service is fully initialized.
      *
      * @param callable $callable A PHP callable
      *
@@ -285,7 +295,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function setConfigurator($callable);
     
     /**
-     * Sets the name of the class that acts as a factory using the factory method,
+     * Set the name of the class that acts as a factory using the factory method,
      * which will be invoked statically.
      *
      * @param string $factoryClass The factory class name
@@ -298,7 +308,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function setFactoryClass($factoryClass);
 
     /**
-     * Sets the factory method able to create an instance of this class.
+     * Set the factory method able to create an instance of this class.
      *
      * @param string $factoryMethod The factory method name
      *
@@ -310,7 +320,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function setFactoryMethod($factoryMethod);
 
     /**
-     * Sets the name of the service that acts as a factory using the factory method.
+     * Set the name of the service that acts as a factory using the factory method.
      *
      * @param string $factoryService The factory service id
      *
@@ -322,7 +332,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function setFactoryService($factoryService);
 
     /**
-     * Sets a file to require before creating the service.
+     * Set a file to require before creating the service.
      *
      * @param string $file A full pathname to include
      *
@@ -334,7 +344,7 @@ interface tubepress_api_ioc_DefinitionInterface
     function setFile($file);
     
     /**
-     * Sets the methods to call after service initialization.
+     * Set the methods to call after service initialization.
      *
      * @param array $calls An array of method calls
      *
@@ -346,19 +356,29 @@ interface tubepress_api_ioc_DefinitionInterface
     function setMethodCalls(array $calls = array());
     
     /**
+     * Set properties on the service.
+     *
+     * @param array $properties An associative array of property names to their respective
+     *                          values.
+     *
      * @api
      * @since 3.1.0
      */
     function setProperties(array $properties);
 
     /**
+     * Set a property on the service.
+     *
+     * @param string $name  The property name.
+     * @param mixed  $value The property value.
+     *
      * @api
      * @since 3.1.0
      */
     function setProperty($name, $value);
 
     /**
-     * Sets tags for this definition
+     * Set tags for this definition
      *
      * @param array $tags
      *

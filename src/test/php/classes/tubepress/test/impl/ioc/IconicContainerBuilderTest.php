@@ -123,13 +123,9 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
     {
         $service = new stdClass();
 
-        $this->assertEquals(array('service_container'), $this->_sut->getServiceIds());
-
         $this->_sut->set('x', $service);
 
         $this->assertSame($service, $this->_sut->get('x'));
-        $this->assertTrue($this->_sut->initialized('x'));
-        $this->assertEquals(array('service_container', 'x'), $this->_sut->getServiceIds());
     }
 
     public function testSetDefinitionFrozen()

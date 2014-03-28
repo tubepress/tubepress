@@ -60,7 +60,7 @@ class tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper
         switch ($mode) {
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
                 //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
-                return 999;
+                return 500;
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
                 //http://code.google.com/apis/youtube/2.0/reference.html#User_favorites_feed
                 return 50;

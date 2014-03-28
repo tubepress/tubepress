@@ -10,9 +10,9 @@
  */
 
 /**
- * Public TubePress template variables. These variables are considered
- * safe for use by anyone, so don't mess with this list without serious
- * consideration!
+ * Common template variable names.
+ *
+ * @package TubePress\Const\Template
  */
 class tubepress_api_const_template_Variable
 {
@@ -99,6 +99,42 @@ class tubepress_api_const_template_Variable
      * @since 3.1.0
      */
     const PAGINATION_TOP           = 'topPagination';
+
+    /**
+     * @api
+     * @since 3.2.0
+     */
+    const PAGINATION_CURRENT_PAGE   = 'paginationCurrentPage';
+
+    /**
+     * @api
+     * @since 3.2.0
+     */
+    const PAGINATION_TOTAL_ITEMS   = 'paginationTotalItems';
+
+    /**
+     * @api
+     * @since 3.2.0
+     */
+    const PAGINATION_RESULTS_PER_PAGE = 'paginationResultsPerPage';
+
+    /**
+     * @api
+     * @since 3.2.0
+     */
+    const PAGINATION_TEXT_NEXT = 'paginationTextNext';
+
+    /**
+     * @api
+     * @since 3.2.0
+     */
+    const PAGINATION_TEXT_PREV = 'paginationTextPrev';
+
+    /**
+     * @api
+     * @since 3.2.0
+     */
+    const PAGINATION_HREF_FORMAT = 'paginationHrefFormat';
 
     /**
      * @api

@@ -16,7 +16,7 @@ class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
@@ -32,6 +32,6 @@ class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test
 
     protected function getPathToManifest()
     {
-        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/core/core.json');
+        return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/core/manifest.json');
     }
 }

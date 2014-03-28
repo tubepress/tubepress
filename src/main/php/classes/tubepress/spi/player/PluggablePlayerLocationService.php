@@ -17,11 +17,11 @@ interface tubepress_spi_player_PluggablePlayerLocationService
     const _ = 'tubepress_spi_player_PluggablePlayerLocationService';
 
     /**
-     * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
+     * @param tubepress_spi_theme_ThemeHandlerInterface $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The player's template.
      */
-    function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler);
+    function getTemplate(tubepress_spi_theme_ThemeHandlerInterface $themeHandler);
 
     /**
      * @return string The name of this playerLocation. Never empty or null. All alphanumerics and dashes.

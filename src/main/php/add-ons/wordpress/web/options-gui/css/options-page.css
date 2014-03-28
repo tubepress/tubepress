@@ -96,3 +96,11 @@ div.has-iframe iframe body {
 
     margin-top: 0;
 }
+
+@media (min-width: 768px) {
+
+    .tp-bs div#theme-category .control-label {
+
+        text-align: left;
+    }
+}

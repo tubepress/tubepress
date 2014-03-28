@@ -15,7 +15,7 @@
 class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_SettingsFileReaderInterface
 {
     private static $_TOP_LEVEL_KEY_SYSTEM = 'system';
-    
+
     private static $_2ND_LEVEL_KEY_CLASSLOADER = 'classloader';
     private static $_2ND_LEVEL_KEY_CACHE       = 'cache';
     private static $_2ND_LEVEL_KEY_ADDONS      = 'add-ons';
@@ -255,7 +255,7 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
         }
 
         $blackList = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_ADDONS]
-            [self::$_3RD_LEVEL_KEY_ADDONS_BLACKLIST];
+        [self::$_3RD_LEVEL_KEY_ADDONS_BLACKLIST];
 
         if (!is_array($blackList)) {
 
@@ -290,14 +290,14 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
     {
         $default = true;
 
-        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_CLASSLOADER,
+        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_CACHE,
             self::$_3RD_LEVEL_KEY_CACHE_ENABLED)) {
 
             return $default;
         }
 
-        $enabled = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CLASSLOADER]
-            [self::$_3RD_LEVEL_KEY_CACHE_ENABLED];
+        $enabled = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE]
+        [self::$_3RD_LEVEL_KEY_CACHE_ENABLED];
 
         if (!is_bool($enabled)) {
 
@@ -318,7 +318,7 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
         }
 
         $key = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE]
-            [self::$_3RD_LEVEL_KEY_CACHE_KILLERKEY];
+        [self::$_3RD_LEVEL_KEY_CACHE_KILLERKEY];
 
         if (!is_string($key) || $key == '') {
 
@@ -390,7 +390,33 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
 
         if (!is_writable($baseDir)) {
 
-            return null;
+            if (!$this->_environmentDetector->isWordPress()) {
+
+                /**
+                 * There's really nothing else we can do at this point.
+                 */
+                return null;
+            }
+
+            /**
+             * Let's try to use tubepress-content/system-cache as the cache directory.
+             */
+            $userContentDirectory = $this->_environmentDetector->getUserContentDirectory();
+            $cacheDirectory       = $userContentDirectory . DIRECTORY_SEPARATOR . 'system-cache';
+
+            if (!is_dir($cacheDirectory)) {
+
+                @mkdir($cacheDirectory, 0755, true);
+            }
+
+            if (!is_dir($cacheDirectory) || !is_writable($cacheDirectory)) {
+
+                //welp, we tried!
+                return null;
+            }
+
+            return $cacheDirectory;
+
         }
 
         return $baseDir;

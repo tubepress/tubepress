@@ -119,12 +119,12 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             tubepress_api_const_options_names_Meta::VIEWS                  => false,
             tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
             tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
-            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'popup',
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'shadowbox',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT        => 105,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH         => 22135,
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE      => false,
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW      => false,
-            tubepress_api_const_options_names_Thumbs::THEME               => 'sidebar',
+            tubepress_api_const_options_names_Thumbs::THEME               => 'tubepress/legacy-sidebar',
             tubepress_api_const_options_names_Thumbs::FLUID_THUMBS        => false
         ));
         $this->_mockExecutionContext->shouldReceive('reset')->once();
@@ -157,12 +157,12 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             tubepress_api_const_options_names_Meta::VIEWS                  => false,
             tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
             tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
-            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'popup',
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'shadowbox',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT        => 105,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH         => 22135,
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE      => false,
             tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW      => false,
-            tubepress_api_const_options_names_Thumbs::THEME               => 'sidebar',
+            tubepress_api_const_options_names_Thumbs::THEME               => 'tubepress/legacy-sidebar',
             tubepress_api_const_options_names_Thumbs::FLUID_THUMBS        => false
         ));
         $this->_mockExecutionContext->shouldReceive('reset')->once();

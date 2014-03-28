@@ -10,7 +10,9 @@
  */
 
 /**
- * TubePress player implementation names.
+ * Valid values for {@link tubepress_api_const_options_names_Embedded::PLAYER_IMPL}
+ *
+ * @package TubePress\Const\Options\Values
  */
 class tubepress_api_const_options_values_PlayerImplementationValue
 {

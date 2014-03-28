@@ -14,8 +14,11 @@ class tubepress_addons_wordpress_impl_actions_Init
     /**
      * Filter the content (which may be empty).
      */
-    public final function execute(array $args)
+    public final function action(tubepress_api_event_EventInterface $event)
     {
+        /**
+         * @var $wordPressFunctionWrapper tubepress_addons_wordpress_spi_WpFunctionsInterface
+         */
         $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         /* no need to queue any of this stuff up in the admin section or login page */
@@ -27,14 +30,44 @@ class tubepress_addons_wordpress_impl_actions_Init
         $baseName = basename(TUBEPRESS_ROOT);
 
         $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/js/tubepress.js", $baseName);
-        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/css/tubepress.css", $baseName);
 
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
-        $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);
 
         $wordPressFunctionWrapper->wp_enqueue_script('jquery', false, array(), false, false);
         $wordPressFunctionWrapper->wp_enqueue_script('tubepress', false, array(), false, false);
 
-        $wordPressFunctionWrapper->wp_enqueue_style('tubepress');
+
+        $this->_enqueueThemeResources($wordPressFunctionWrapper);
+    }
+
+    private function _enqueueThemeResources(tubepress_addons_wordpress_spi_WpFunctionsInterface $wpFunctions)
+    {
+        $themeHandler = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
+        $styles       = $themeHandler->getStyles();
+        $scripts      = $themeHandler->getScripts();
+        $styleCount   = count($styles);
+        $scriptCount  = count($scripts);
+
+        for ($x = 0; $x < $styleCount; $x++) {
+
+            $handle = 'tubepress-theme-' . $x;
+
+            $wpFunctions->wp_register_style($handle, $styles[$x]);
+            $wpFunctions->wp_enqueue_style($handle);
+        }
+
+        for ($x = 0; $x < $scriptCount; $x++) {
+
+            if (tubepress_impl_util_StringUtils::endsWith($scripts[$x], '/src/main/web/js/tubepress.js')) {
+
+                //we already loaded this above
+                continue;
+            }
+
+            $handle = 'tubepress-theme-' . $x;
+
+            $wpFunctions->wp_register_script($handle, $scripts[$x]);
+            $wpFunctions->wp_enqueue_script($handle, false, array(), false, false);
+        }
     }
 }

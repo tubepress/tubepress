@@ -20,6 +20,7 @@
     <property file="config/custom.properties" />
 	<property name="stagingdir"        value="stage/${build.directory.stage.basename}" />
 	<property name="jscompresslist"    value="config/js-to-compress.txt" />
+	<property name="csscompresslist"    value="config/css-to-compress.txt" />
 
     <target name="init" description="Cleans and preps the build directory for a new build">
 
@@ -61,7 +62,7 @@
 
     <target name="suppress-directory-listings" description="Adds empty index.php files to various areas">
 
-        <property name="user-content-root" value="${stagingdir}/src/main/resources/user-content-skeleton/tubepress-content" />
+        <property name="user-content-root" value="${stagingdir}/src/main/resources/user-content-skeleton" />
 
         <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/index.php" />
         <copy file="resources/directory-listing-suppressor.php" tofile="${user-content-root}/index.php" />
@@ -102,6 +103,22 @@
 
     </target>
 
+    <target name="compress-private-css" description="Compresses CSS files">
+
+        <echo message="Compressing CSS. This may take a moment..." />
+
+        <apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
+            <fileset dir="${stagingdir}/" includesfile="${csscompresslist}"/>
+            <arg line="-jar"/>
+            <arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.6.jar"/>
+            <srcfile />
+            <arg line="-o" />
+            <mapper type="identity" />
+            <targetfile />
+        </apply>
+
+    </target>
+
 	<target name="compress-js" description="Compresses JS files">
 
 		<copy todir="${stagingdir}">
@@ -111,6 +128,16 @@
 
         <antcall target="compress-private-js" />
 	</target>
+
+    <target name="compress-css" description="Compresses CSS files">
+
+        <copy todir="${stagingdir}">
+            <fileset dir="${stagingdir}/" includesfile="${csscompresslist}"/>
+            <mapper type="glob" from="*.css" to="*-dev.css" />
+        </copy>
+
+        <antcall target="compress-private-css" />
+    </target>
 
     <target name="php-version-compatability-mods">
 
@@ -134,6 +161,12 @@
             <arg value="/\/phpunit\//d" />
             <arg value="vendor/composer/autoload_classmap.php" />
         </exec>
+    </target>
+
+    <target name="copy-locale-fallbacks">
+
+        <copy file="${stagingdir}/src/main/resources/i18n/tubepress-es_ES.mo" tofile="${stagingdir}/src/main/resources/i18n/tubepress-es_MX.mo" />
+
     </target>
 
 	<target name="package">

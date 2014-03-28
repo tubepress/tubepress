@@ -90,7 +90,8 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
     {
         $this->_existingStoredOptions = array('abc123' => 'xyz789');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.abc123', ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
         $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('abc123', 'xyz789')->andReturn(true);
         $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('abc123')->andReturn(true);
         $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with('abc123')->andReturn(false);
@@ -105,7 +106,10 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
     {
         $this->_existingStoredOptions = array('name1' => 'yello', 'name2' => 'blue');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->twice()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->twice()->with(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.name1', ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.name2', ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+
         $this->_mockOptionProvider->shouldReceive('getAllOptionNames')->once()->andReturn(array('name1', 'name2'));
         $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('name1')->andReturn(true);
         $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('name2')->andReturn(true);
@@ -136,7 +140,8 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
     public function testSetDoNotPersist()
     {
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.something', ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
         $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
         $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('something')->andReturn(false);
 
@@ -147,7 +152,9 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
 
     public function testSetFailsValidation()
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.something', ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+
         $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(false);
         $this->_mockOptionProvider->shouldReceive('getProblemMessage')->once()->with('something', 'value')->andReturn('xyz');
 
@@ -161,7 +168,9 @@ class tubepress_test_addons_wordpress_impl_options_WordPressStorageManagerTest e
         $this->_mockOptionProvider->shouldReceive('getAllOptionNames')->once()->andReturn(array('something'));
         $this->_existingStoredOptions = array('something' => 'else');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTIONS_NVP_PREVALIDATIONSET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.something', ehough_mockery_Mockery::type('tubepress_api_event_EventInterface'));
+
         $this->_mockOptionProvider->shouldReceive('isMeantToBePersisted')->once()->with('something')->andReturn(true);
         $this->_mockOptionProvider->shouldReceive('isBoolean')->once()->with('something')->andReturn(false);
         $this->_mockOptionProvider->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);

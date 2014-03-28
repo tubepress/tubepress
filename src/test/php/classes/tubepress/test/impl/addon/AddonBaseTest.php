@@ -8,428 +8,88 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * @covers tubepress_impl_addon_AddonBase
+ */
 class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressUnitTest
 {
-    public function testNormalConstruction1()
+    /**
+     * @var tubepress_impl_addon_AddonBase
+     */
+    private $_sut;
+    
+    public function onSetup()
     {
-        $sut = new tubepress_impl_addon_AddonBase(
-
-            'name',
-            '1.0.0',
-            'description',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com'))
-        );
-
-        $this->assertEquals('name', $sut->getName());
-        $this->assertEquals('1.0.0', (string) $sut->getVersion());
-        $this->assertEquals('description', $sut->getTitle());
-        $this->assertEquals(array('name' => 'eric'), $sut->getAuthor());
-        $this->assertEquals(array(array('url' => 'http://tubepress.com')), $sut->getLicenses());
-    }
-
-    public function testNormalConstruction2()
-    {
-        $sut = new tubepress_impl_addon_AddonBase(
+        $this->_sut = new tubepress_impl_addon_AddonBase(
 
             'name',
             tubepress_spi_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://tubepress.com'))
+            array(array('type' => 'foobar'))
         );
-
-        $this->assertEquals('name', $sut->getName());
-        $this->assertEquals('2.3.1', (string) $sut->getVersion());
-        $this->assertEquals('description', $sut->getTitle());
-        $this->assertEquals(array('name' => 'eric', 'url' => 'http://foo.bar'), $sut->getAuthor());
-        $this->assertEquals(array(array('url' => 'http://tubepress.com')), $sut->getLicenses());
+    }
+    
+    public function testGetSetClassMap()
+    {
+        $this->_sut->setClassMap(array('x' =>'y'));
+        $this->assertEquals(array('x' => 'y'), $this->_sut->getClassMap());
     }
 
-    public function testSetGetDescription()
+    public function testNonAssociativeClassMap()
     {
-        $sut = new tubepress_impl_addon_AddonBase(
+        $this->setExpectedException('InvalidArgumentException', 'Class map must be an associative array');
 
-            'name',
-            '1.0.0',
-            'description',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com'))
-        );
-
-        $sut->setDescription('something');
-        $this->assertEquals('something', $sut->getDescription());
+        $this->_sut->setClassMap(array('x'));
     }
 
-    public function testSetPsr0NonString()
+    public function testNoStringClassMapPath()
     {
-        $this->setExpectedException('InvalidArgumentException', 'PSR-0 classpath roots must be strings');
+        $this->setExpectedException('InvalidArgumentException', 'Each classmap path must be a string');
 
-        $addon = $this->_buildValidAddon();
-
-        $addon->setPsr0ClassPathRoots(array(array()));
-        $this->assertEquals(array(array()), $addon->getPsr0ClassPathRoots());
-    }
-
-    public function testSetPsr0()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setPsr0ClassPathRoots(array('foo'));
-        $this->assertEquals(array('foo'), $addon->getPsr0ClassPathRoots());
-    }
-
-    public function testSetIocContainerCompilerPassesNonString()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'IoC container compiler passes must be strings');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerCompilerPasses(array(array()));
-        $this->assertEquals(array(array()), $addon->getIocContainerCompilerPasses());
-    }
-
-    public function testSetIocContainerCompilerPasses()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerCompilerPasses(array('foo'));
-        $this->assertEquals(array('foo'), $addon->getIocContainerCompilerPasses());
+        $this->_sut->setClassMap(array('x' => array()));
     }
 
     public function testSetIocContainerExtensionsNonString()
     {
-        $this->setExpectedException('InvalidArgumentException', 'IoC container extensions must be strings');
+        $this->setExpectedException('InvalidArgumentException', 'Each IoC container extension must be a string');
 
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerExtensions(array(array()));
-        $this->assertEquals(array(array()), $addon->getIocContainerExtensions());
+        $this->_sut->setIocContainerExtensions(array(array()));
+        $this->assertEquals(array(array()), $this->_sut->getIocContainerExtensions());
     }
 
     public function testSetIocContainerExtensions()
     {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setIocContainerExtensions(array('foo'));
-        $this->assertEquals(array('foo'), $addon->getIocContainerExtensions());
+        $this->_sut->setIocContainerExtensions(array('foo'));
+        $this->assertEquals(array('foo'), $this->_sut->getIocContainerExtensions());
     }
 
-    public function testGetSetBugsUrl()
+    public function testSetIocContainerCompilerPassesNonString()
     {
-        $addon = $this->_buildValidAddon();
+        $this->setExpectedException('InvalidArgumentException', 'Each IoC container compiler pass must be a string');
 
-        $addon->setBugTrackerUrl('http://foo.bar');
-        $this->assertEquals('http://foo.bar', $addon->getBugTrackerUrl());
+        $this->_sut->setIocContainerCompilerPasses(array(array()));
+        $this->assertEquals(array(array()), $this->_sut->getIocContainerCompilerPasses());
     }
 
-    public function testGetSetDownloadUrl()
+    public function testSetIocContainerCompilerPasses()
     {
-        $addon = $this->_buildValidAddon();
+        $this->_sut->setIocContainerCompilerPasses(array('foo'));
+        $this->assertEquals(array('foo'), $this->_sut->getIocContainerCompilerPasses());
+    }
+    
+    public function testSetPsr0NonString()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Each PSR-0 classpath root must be a string');
 
-        $addon->setDownloadUrl('http://foo.bar');
-        $this->assertEquals('http://foo.bar', $addon->getDownloadUrl());
+        $this->_sut->setPsr0ClassPathRoots(array(array()));
+        $this->assertEquals(array(array()), $this->_sut->getPsr0ClassPathRoots());
     }
 
-    public function testGetSetDemoUrl()
+    public function testSetPsr0()
     {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setDemoUrl('http://foo.bar');
-        $this->assertEquals('http://foo.bar', $addon->getDemoUrl());
-    }
-
-    public function testGetSetDocsUrl()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setDocumentationUrl('http://foo.bar');
-        $this->assertEquals('http://foo.bar', $addon->getDocumentationUrl());
-    }
-
-    public function testGetSetHomePageUrl()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setHomepageUrl('http://foo.bar');
-        $this->assertEquals('http://foo.bar', $addon->getHomepageUrl());
-    }
-
-    public function testGetSetKeywords()
-    {
-        $addon = $this->_buildValidAddon();
-
-        $addon->setKeywords(array('foo', 'bar'));
-        $this->assertEquals(array('foo', 'bar'), $addon->getKeywords());
-    }
-
-    public function testInvalidKeywordBadChars()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid keyword: $$%');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setKeywords(array('$$%'));
-    }
-
-    public function testInvalidKeywordTooLong()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid keyword: sldkfjskldfjsdklfgjdklfgjdklgjsaklfjsflgkjdcbkljsklfjsdfklfgjdkljgsdff');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setKeywords(array('sldkfjskldfjsdklfgjdklfgjdklgjsaklfjsflgkjdcbkljsklfjsdfklfgjdkljgsdff'));
-    }
-
-    public function testInvalidKeywordTooShort()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid keyword: ');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setKeywords(array(''));
-    }
-
-    public function testSetNonStringKeyword()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Keywords must be strings');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setKeywords(array('foo', array()));
-    }
-
-    public function testSetNonStringDescription()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on description must be a string');
-
-        $addon = $this->_buildValidAddon();
-
-        $addon->setDescription(array());
-    }
-
-
-
-    public function testInvalidLicenseAttribute()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Only \'url\' and \'type\' attributes are supported for licenses');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar', 'foo' => 'bar')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidLicenseUrl()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid license URL: bar');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'bar')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testMissingLicenseIsMissingUrl()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'License is missing URL');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('foo' => 'bar')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testMissingLicense()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Missing licenses');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidAuthorUrl()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid author URL: bar');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            '1.0.0',
-            'description',
-            array('name' => 'eric', 'url' => 'bar'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidAuthorAttribute()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid author attribute: foo');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            '1.0.0',
-            'description',
-            array('name' => 'eric', 'foo' => 'bar'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testMissingAuthorName()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Must include author name');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            '1.0.0',
-            'description',
-            array('foo' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidTitleTooLong()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on titles must be 255 characters or less');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'foobar',
-            '1.2.3',
-            'wlkjwkljrwklejfwklfjsdklfjsdklfjsdgkljgkljdfkljsdfklaejerklwjfsklfjskldjskldfjsklfjsklgjwekltjsdklvjhxdjkvhsklfjsdjkfhsdjklfhsdfjhsdfsg'
-                . 'wlkjwkljrwklejfwklfjsdklfjsdklfjsdgkljgkljdfkljsdfklaejerklwjfsklfjskldjskldfjsklfjsklgjwekltjsdklvjhxdjkvhsklfjsdjkfhsdjklfhsdfjhsdfsg',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidTitleNonString()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on title must be a string');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'foobar',
-            '1.2.3',
-            array(),
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidNameBadChars()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid add-on name.');
-
-        new tubepress_impl_addon_AddonBase(
-
-            '@#*(&*&',
-            '1.2.3',
-            'description',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidNameTooLong()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid add-on name.');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'wlkjwkljrwklejfwklfjsdklfjsdklfjsdgkljgkljdfkljsdfklaejerklwjfsklfjskldjskldfjsklfjsklgjwekltjsdklvjhxdjkvhsklfjsdjkfhsdjklfhsdfjhsdfsg',
-            '1.2.3',
-            'description',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testInvalidNameTooShort()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid add-on name.');
-
-        new tubepress_impl_addon_AddonBase(
-
-            '',
-            '1.2.3',
-            'description',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testNonStringName()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Add-on name must be a string');
-
-        new tubepress_impl_addon_AddonBase(
-
-            array(),
-            '1.2.3',
-            'description',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    public function testBadVersion()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid version: x is not a number');
-
-        new tubepress_impl_addon_AddonBase(
-
-            'name',
-            'x.y.z',
-            'description',
-            array('name' => 'eric'),
-            array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
-        );
-    }
-
-    private function _buildValidAddon()
-    {
-        return new tubepress_impl_addon_AddonBase(
-
-            'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
-            'description',
-            array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('url' => 'http://foo.bar'))
-        );
+        $this->_sut->setPsr0ClassPathRoots(array('foo'));
+        $this->assertEquals(array('foo'), $this->_sut->getPsr0ClassPathRoots());
     }
 }

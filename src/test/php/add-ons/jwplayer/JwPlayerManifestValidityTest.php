@@ -16,7 +16,7 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_spi_addon_Addon
+         * @var $addon tubepress_spi_addon_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
@@ -32,6 +32,6 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
 
     protected function getPathToManifest()
     {
-        return dirname(__FILE__) . '/../../../../main/php/add-ons/jwplayer/jwplayer.json';
+        return dirname(__FILE__) . '/../../../../main/php/add-ons/jwplayer/manifest.json';
     }
 }

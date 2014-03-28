@@ -11,6 +11,29 @@
 
 class tubepress_test_impl_i18n_SynchronizationTest extends tubepress_test_TubePressUnitTest
 {
+    private static $_LOCALE_MAP = array(
+
+        'ar'    => 'ar',
+        'de'    => 'de_DE',
+        'el'    => 'el',
+        'es'    => 'es_ES',
+        'fa'    => 'fa_IR',
+        'fi'    => 'fi',
+        'fr'    => 'fr_FR',
+        'he'    => 'he_IL',
+        'hi'    => 'hi_IN',
+        'it'    => 'it_IT',
+        'ja'    => 'ja',
+        'ko'    => 'ko_KR',
+        'nb'    => 'nb_NO',
+        'pl'    => 'pl_PL',
+        'pt-br' => 'pt_BR',
+        'ru'    => 'ru_RU',
+        'sv'    => 'sv_SE',
+        'zh-cn' => 'zh_CN',
+        'zh-tw' => 'zh_TW'
+    );
+
     private static $_POSSIBLE_MSGFMT_LOCATIONS = array(
 
         '/usr/bin/msgfmt',
@@ -53,10 +76,10 @@ class tubepress_test_impl_i18n_SynchronizationTest extends tubepress_test_TubePr
         $i18nPath           = TUBEPRESS_ROOT . '/src/main/resources/i18n';
         self::$_greppedCode = new tubepress_test_impl_i18n_support_GreppedCode();
 
-        foreach (tubepress_test_impl_i18n_support_LocaleUtils::$LOCALES as $locale) {
+        foreach (self::$_LOCALE_MAP as $glotPressLocale => $tubePressLocale) {
 
-            $translation = new tubepress_test_impl_i18n_support_GlotPressTranslation($locale);
-            $poFile      = $i18nPath . '/tubepress-' . tubepress_test_impl_i18n_support_LocaleUtils::localeProperlyCapitalized($locale) . '.po';
+            $translation = new tubepress_test_impl_i18n_support_GlotPressTranslation($glotPressLocale);
+            $poFile      = $i18nPath . '/tubepress-' . $tubePressLocale . '.po';
 
             $translation->spitToPoFile($poFile);
 
@@ -65,7 +88,7 @@ class tubepress_test_impl_i18n_SynchronizationTest extends tubepress_test_TubePr
                 throw new RuntimeException('Could not generate local PO file from GlotPress');
             }
 
-            self::$_localPoFiles[] = new tubepress_test_impl_i18n_support_PoFileTranslation($poFile, $locale);
+            self::$_localPoFiles[] = new tubepress_test_impl_i18n_support_PoFileTranslation($poFile, $tubePressLocale);
         }
     }
 
@@ -100,9 +123,9 @@ class tubepress_test_impl_i18n_SynchronizationTest extends tubepress_test_TubePr
         $i18nRoot = TUBEPRESS_ROOT . '/src/main/resources/i18n/';
         $toReturn = array();
 
-        foreach (tubepress_test_impl_i18n_support_LocaleUtils::$LOCALES as $locale) {
+        foreach (self::$_LOCALE_MAP as $glotPressLocale => $tubePressLocale) {
 
-            $toReturn[] = $i18nRoot . 'tubepress-' . tubepress_test_impl_i18n_support_LocaleUtils::localeProperlyCapitalized($locale) . '.po';
+            $toReturn[] = $i18nRoot . 'tubepress-' . $tubePressLocale . '.po';
         }
 
         return $toReturn;

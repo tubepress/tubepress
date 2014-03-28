@@ -28,29 +28,31 @@ class tubepress_test_addons_wordpress_impl_listeners_html_CssJsDequererTest exte
     {
         $styles = array(
 
-            'foo' => 'bar',
-            'tubepress' => 'something'
+            'foo'                     => 'bar',
+            'tubepress'               => 'something',
+            'tubepress-theme-style-5' => 'xyz'
         );
 
         $mockEvent = new tubepress_spi_event_EventBase($styles);
 
         $this->_sut->onCss($mockEvent);
 
-        $this->assertEquals(array('foo' => 'bar'), $mockEvent->getSubject());
+        $this->assertEquals(array(), $mockEvent->getSubject());
     }
 
     public function testJs()
     {
         $scripts = array(
 
-            'foo' => 'bar',
-            'tubepress' => 'something'
+            'foo'                      => 'bar',
+            'tubepress'                => 'something',
+            'tubepress-theme-script-3' => 'abc',
         );
 
         $mockEvent = new tubepress_spi_event_EventBase($scripts);
 
         $this->_sut->onJs($mockEvent);
 
-        $this->assertEquals(array('foo' => 'bar'), $mockEvent->getSubject());
+        $this->assertEquals(array(), $mockEvent->getSubject());
     }
 }

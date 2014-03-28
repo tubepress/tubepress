@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:13:18+0000\n"
+"PO-Revision-Date: 2014-03-18 20:40:10+0000\n"
 "Language: zh-cn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "最大数量的字符显示在视频描述。设置为0表示没有限�
 msgid "Height (px) of thumbs"
 msgstr "大拇指的高度（PX）"
 
-msgid "Default is 90."
-msgstr "默认值为90。"
-
 msgid "Width (px) of thumbs"
 msgstr "大拇指的宽度（像素）"
-
-msgid "Default is 120."
-msgstr "默认值是120。"
 
 msgid "Use relative dates"
 msgstr "使用相对日期"
@@ -155,8 +149,8 @@ msgstr "如果选中，则任何人都可以查看调试信息。这是一个相
 msgid "Enable API cache"
 msgstr "启用API缓存"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "默认值是20。最大为50。"
+msgid "Default is %s. Maximum is %s."
+msgstr "默认值是%s。最大为%s。"
 
 msgid "Show pagination above thumbnails"
 msgstr "上面的缩略图显示分页"
@@ -176,11 +170,8 @@ msgstr "仅适用于跨越多个页面的画廊。"
 msgid "Max height (px)"
 msgstr "最大高度（PX）"
 
-msgid "Default is 350."
-msgstr "默认值是350。"
-
-msgid "Default is 425."
-msgstr "默认为425。"
+msgid "Default is %s."
+msgstr "默认为%s。"
 
 msgid "Thumbnails"
 msgstr "缩略图"
@@ -265,9 +256,6 @@ msgstr "背景主题"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "其他排序顺序应用到每个页面一个画廊"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "这个画廊的TubePress使用的主题。可以找到你的主题的<code> %s </ code>的默认主题，可以发现在特征码的%s </ code>的。"
 
 msgid "Loop"
 msgstr "循环"

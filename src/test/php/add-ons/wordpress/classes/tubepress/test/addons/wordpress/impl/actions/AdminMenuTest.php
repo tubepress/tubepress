@@ -39,7 +39,9 @@ class tubepress_test_addons_wordpress_impl_actions_AdminMenuTest extends tubepre
             'tubepress', array($this->_sut, 'runOptionsPage')
         );
 
-        $this->_sut->execute(array());
+        $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
+
+        $this->_sut->action($mockEvent);
 
         $this->assertTrue(true);
     }

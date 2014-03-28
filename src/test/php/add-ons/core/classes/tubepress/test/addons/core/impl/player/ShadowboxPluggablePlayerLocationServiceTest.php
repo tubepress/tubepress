@@ -65,9 +65,9 @@ class tubepress_test_addons_core_impl_players_ShadowboxPluggablePlayerLocationSe
     {
         $template = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 
-        $themeHandler = ehough_mockery_Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
+        $themeHandler = ehough_mockery_Mockery::mock(tubepress_spi_theme_ThemeHandlerInterface::_);
 
-        $themeHandler->shouldReceive('getTemplateInstance')->once()->with('players/shadowbox.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default')->andReturn($template);
+        $themeHandler->shouldReceive('getTemplateInstance')->once()->with('players/shadowbox.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default')->andReturn($template);
 
         $result = $this->_sut->getTemplate($themeHandler);
 

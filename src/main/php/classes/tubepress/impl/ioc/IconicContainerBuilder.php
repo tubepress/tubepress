@@ -229,19 +229,6 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
     }
 
     /**
-     * Gets all service ids.
-     *
-     * @return array An array of all defined service ids
-     *
-     * @api
-     * @since 3.1.0
-     */
-    public function getServiceIds()
-    {
-        return $this->_delegateContainerBuilder->getServiceIds();
-    }
-
-    /**
      * Returns true if the given service is defined.
      *
      * @param string $id The service identifier
@@ -284,21 +271,6 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
     public function hasParameter($name)
     {
         return $this->_delegateContainerBuilder->hasParameter($name);
-    }
-
-    /**
-     * Check for whether or not a service has been initialized.
-     *
-     * @param string $id
-     *
-     * @return Boolean true if the service has been initialized, false otherwise
-     *
-     * @api
-     * @since 3.1.0
-     */
-    public function initialized($id)
-    {
-        return $this->_delegateContainerBuilder->initialized($id);
     }
 
     /**

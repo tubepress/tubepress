@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-01-15 19:12:57+0000\n"
+"PO-Revision-Date: 2014-03-18 20:39:51+0000\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,14 +116,8 @@ msgstr "الحد الأعلى للخانات في وصف ‫(‬ضع صفر ٠ �
 msgid "Height (px) of thumbs"
 msgstr "طول صور المعاينة"
 
-msgid "Default is 90."
-msgstr "الافتراضي هو 90."
-
 msgid "Width (px) of thumbs"
 msgstr "عرض صور المعاينة"
-
-msgid "Default is 120."
-msgstr "الافتراضي هو 120."
 
 msgid "Use relative dates"
 msgstr "استعمل التواريخ النسبية"
@@ -155,8 +149,8 @@ msgstr "اذا شغلت هذه الخاصية فسوف تكون معلومات �
 msgid "Enable API cache"
 msgstr "شغل الكاش للطلبات"
 
-msgid "Default is 20. Maximum is 50."
-msgstr "الافتراضي هو 20. الحد الأقصى هو 50."
+msgid "Default is %s. Maximum is %s."
+msgstr "الافتراضي هو %s. الحد الأقصى هو %s."
 
 msgid "Show pagination above thumbnails"
 msgstr "اظهر ارقام الصفحات و التصفح في أعلى صور العاينة"
@@ -176,11 +170,8 @@ msgstr "ينطبق فقط على صالات العرض التي تمتد عدة 
 msgid "Max height (px)"
 msgstr "الحد الأعلى للطول بالبكسل"
 
-msgid "Default is 350."
-msgstr "الافتراضي هو 350."
-
-msgid "Default is 425."
-msgstr "الافتراضي هو 425."
+msgid "Default is %s."
+msgstr "الافتراضي هو %s."
 
 msgid "Thumbnails"
 msgstr "الصور المصغرة"
@@ -265,9 +256,6 @@ msgstr "التصميم"
 
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "ترتيب الفرز إضافية تطبق على كل صفحة فردية من معرض"
-
-msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "موضوع TubePress لاستخدامها لهذا المعرض. المواضيع الخاصة بك ويمكن الاطلاع على برمجيات <code> %s </ الرمز>، والموضوعات الافتراضية يمكن العثور على برمجيات <code> %s </ الرمز>."
 
 msgid "Loop"
 msgstr "تكرار"
