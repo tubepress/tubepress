@@ -16,5 +16,10 @@
     "resources" : {
         "styles" : [ "css/youtube.css" ]
     },
-    "parent" : "tubepress/default"
+    "parent" : "tubepress/default",
+    "screenshots" : {
+
+        "http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/1-thumbnail.png" : "http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/1.png",
+        "http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/2-thumbnail.png" : "http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/2.png"
+    }
 }

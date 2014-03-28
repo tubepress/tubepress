@@ -15,5 +15,11 @@
     "description": "The official TubePress default theme. Works well on virtually any website.",
     "resources" : {
         "styles" : [ "css/tubepress.css" ]
+    },
+    "screenshots" : {
+
+        "http://themes.tubepress-cdn.com/default/screenshots/1-thumbnail.png" : "http://themes.tubepress-cdn.com/default/screenshots/1.png",
+        "http://themes.tubepress-cdn.com/default/screenshots/2-thumbnail.png" : "http://themes.tubepress-cdn.com/default/screenshots/2.png",
+        "http://themes.tubepress-cdn.com/default/screenshots/3-thumbnail.png" : "http://themes.tubepress-cdn.com/default/screenshots/3.png"
     }
 }

@@ -18,7 +18,7 @@
                 col = jquery(doc.createElement('div')).addClass('col-xs-12'),
                 p   = jquery(doc.createElement('div')).addClass('well text-primary');
 
-            p.html('Don\'t see what you\'re after? You can <a href="#" style="font-weight: bold; text-decoration: underline">create your own custom theme</a> in minutes, or <a href="http://community.tubepress.com/files/category/3-themes/" style="font-weight: bold; text-decoration: underline">download pre-built themes</a> from the TubePress Marketplace!');
+            p.html('Don\'t see what you\'re after? You can <a target="_blank" href="http://docs.tubepress.com/page/extend/themes/" style="font-weight: bold; text-decoration: underline">create your own custom theme</a> in minutes.');
 
             row.append(col.append(p));
 
