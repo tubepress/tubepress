@@ -47,21 +47,21 @@
     <dt class="tubepress_meta tubepress_meta_category"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::CATEGORY]; ?></dt><dd class="tubepress_meta tubepress_meta_category"><?php echo htmlspecialchars($video->getCategory(), ENT_QUOTES, "UTF-8"); ?></dd>
     <?php endif; ?>
         
-    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATINGS] &&
+    <?php if (isset(${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATINGS]) && ${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATINGS] &&
         $video->getRatingCount() != ""):
     ?>
      
     <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_addons_youtube_api_const_options_names_Meta::RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $video->getRatingCount(); ?></dd>
     <?php endif; ?>
     
-    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_vimeo_api_const_options_names_Meta::LIKES] &&
+    <?php if (isset(${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_vimeo_api_const_options_names_Meta::LIKES]) && ${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_vimeo_api_const_options_names_Meta::LIKES] &&
               $video->getLikesCount() != ""):
           ?>
            
           <dt class="tubepress_meta tubepress_meta_likes"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_addons_vimeo_api_const_options_names_Meta::LIKES]; ?></dt><dd class="tubepress_meta tubepress_meta_likes"><?php echo $video->getLikesCount(); ?></dd>
           <?php endif; ?>
         
-    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATING] &&
+    <?php if (isset(${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATING]) && ${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_addons_youtube_api_const_options_names_Meta::RATING] &&
          $video->getRatingAverage() != ""):
      ?>
     
