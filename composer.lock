@@ -217,16 +217,16 @@
         },
         {
             "name": "ehough/filesystem",
-            "version": "v2.4.1",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "bc52a3d6e78f069631909f273237fb85ba4a48a2"
+                "reference": "01d41969f43e1757af25c01cd7925d219908343f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/bc52a3d6e78f069631909f273237fb85ba4a48a2",
-                "reference": "bc52a3d6e78f069631909f273237fb85ba4a48a2",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/01d41969f43e1757af25c01cd7925d219908343f",
+                "reference": "01d41969f43e1757af25c01cd7925d219908343f",
                 "shasum": ""
             },
             "require": {
@@ -256,7 +256,7 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2014-02-04 18:50:02"
+            "time": "2014-04-05 18:11:47"
         },
         {
             "name": "ehough/finder",
@@ -301,16 +301,16 @@
         },
         {
             "name": "ehough/iconic",
-            "version": "v2.4.1",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/iconic.git",
-                "reference": "18cfbca071ecf9c5c366b7bce56b38ec5cb9790d"
+                "reference": "84ebef269b9a635e108788141af4a53451d9356f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/18cfbca071ecf9c5c366b7bce56b38ec5cb9790d",
-                "reference": "18cfbca071ecf9c5c366b7bce56b38ec5cb9790d",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/84ebef269b9a635e108788141af4a53451d9356f",
+                "reference": "84ebef269b9a635e108788141af4a53451d9356f",
                 "shasum": ""
             },
             "require": {
@@ -346,20 +346,20 @@
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2014-02-06 21:00:24"
+            "time": "2014-04-07 03:30:50"
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.4.1",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "65ad9836f19a0743f05963d8c1f1fb031e045cd4"
+                "reference": "44de7bf0caed98d8d24fba2ebfa8c440023c19cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/65ad9836f19a0743f05963d8c1f1fb031e045cd4",
-                "reference": "65ad9836f19a0743f05963d8c1f1fb031e045cd4",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/44de7bf0caed98d8d24fba2ebfa8c440023c19cc",
+                "reference": "44de7bf0caed98d8d24fba2ebfa8c440023c19cc",
                 "shasum": ""
             },
             "require": {
@@ -381,7 +381,7 @@
             ],
             "authors": [
                 {
-                    "name": "Eric Hough",
+                    "name": "Eric D. Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
@@ -393,7 +393,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2014-02-06 19:45:09"
+            "time": "2014-04-07 04:20:38"
         },
         {
             "name": "ehough/shortstop",
@@ -493,16 +493,16 @@
         },
         {
             "name": "ehough/tickertape",
-            "version": "v2.4.1",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/tickertape.git",
-                "reference": "5e1d381263f17ac2df94c71c115397abe35d9149"
+                "reference": "6de1a5688ab200c403f7d104e1ca6d8db682010c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/tickertape/zipball/5e1d381263f17ac2df94c71c115397abe35d9149",
-                "reference": "5e1d381263f17ac2df94c71c115397abe35d9149",
+                "url": "https://api.github.com/repos/ehough/tickertape/zipball/6de1a5688ab200c403f7d104e1ca6d8db682010c",
+                "reference": "6de1a5688ab200c403f7d104e1ca6d8db682010c",
                 "shasum": ""
             },
             "require": {
@@ -536,7 +536,7 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2014-02-06 22:01:52"
+            "time": "2014-04-07 04:37:59"
         }
     ],
     "packages-dev": [
@@ -969,12 +969,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "948808ffe955ec583ba85f712eac6609bb70b666"
+                "reference": "53bae88d2d89ce9fb130f6968b74d31d4a2c732e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/948808ffe955ec583ba85f712eac6609bb70b666",
-                "reference": "948808ffe955ec583ba85f712eac6609bb70b666",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/53bae88d2d89ce9fb130f6968b74d31d4a2c732e",
+                "reference": "53bae88d2d89ce9fb130f6968b74d31d4a2c732e",
                 "shasum": ""
             },
             "require": {
@@ -1012,21 +1012,21 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-03 16:01:36"
+            "time": "2014-04-03 05:23:50"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3"
+                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
-                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
+                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
                 "shasum": ""
             },
             "require": {
@@ -1061,7 +1061,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-03-12 18:29:58"
         }
     ],
     "aliases": [
