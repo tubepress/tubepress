@@ -1,5 +1,5 @@
 {
-    "name" : "tubepress-wordpress-addon",
+    "name" : "tubepress/wordpress",
     "version": "1.0.0",
     "title" : "WordPress",
     "author" : {

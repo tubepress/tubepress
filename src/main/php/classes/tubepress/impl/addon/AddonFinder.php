@@ -47,12 +47,12 @@ class tubepress_impl_addon_AddonFinder extends tubepress_impl_contrib_AbstractCo
          * The core add-on always gets loaded first, the pro-core always last.
          */
 
-        if ($firstName === 'tubepress-core-addon' || $secondName === 'tubepress-pro-core-addon') {
+        if ($firstName === 'tubepress/core' || $secondName === 'tubepress/pro-core') {
 
             return -1;
         }
 
-        if ($firstName === 'tubepress-pro-core-addon' || $secondName === 'tubepress-core-addon') {
+        if ($firstName === 'tubepress/pro-core' || $secondName === 'tubepress/core') {
 
             return 1;
         }

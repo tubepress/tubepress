@@ -1,5 +1,5 @@
 {
-    "name" : "tubepress-youtube-addon",
+    "name" : "tubepress/youtube",
     "version": "1.0.0",
     "title" : "YouTube",
     "author" : {

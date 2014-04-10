@@ -20,7 +20,7 @@ class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
-        $this->assertEquals('tubepress-core-addon', $addon->getName());
+        $this->assertEquals('tubepress/core', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('TubePress Core', $addon->getTitle());
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());

@@ -20,7 +20,7 @@ class tubepress_test_addons_core_JwPlayerManifestValidityTest extends tubepress_
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
-        $this->assertEquals('tubepress-jwplayer-addon', $addon->getName());
+        $this->assertEquals('tubepress/jwplayer', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('JW Player', $addon->getTitle());
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());

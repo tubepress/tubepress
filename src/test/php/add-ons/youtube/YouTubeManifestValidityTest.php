@@ -20,7 +20,7 @@ class tubepress_test_addons_core_YouTubeManifestValidityTest extends tubepress_t
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
-        $this->assertEquals('tubepress-youtube-addon', $addon->getName());
+        $this->assertEquals('tubepress/youtube', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('YouTube', $addon->getTitle());
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());

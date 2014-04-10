@@ -20,7 +20,7 @@ class tubepress_test_addons_core_EmbedPlusManifestValidityTest extends tubepress
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
-        $this->assertEquals('tubepress-embedplus-addon', $addon->getName());
+        $this->assertEquals('tubepress/embedplus', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('EmbedPlus', $addon->getTitle());
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());

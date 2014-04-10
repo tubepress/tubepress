@@ -20,7 +20,7 @@ class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_tes
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
-        $this->assertEquals('tubepress-vimeo-addon', $addon->getName());
+        $this->assertEquals('tubepress/vimeo', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('Vimeo', $addon->getTitle());
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());

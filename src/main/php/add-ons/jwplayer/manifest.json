@@ -1,5 +1,5 @@
 {
-    "name" : "tubepress-jwplayer-addon",
+    "name" : "tubepress/jwplayer",
     "version": "1.0.0",
     "title" : "JW Player",
     "author" : {
