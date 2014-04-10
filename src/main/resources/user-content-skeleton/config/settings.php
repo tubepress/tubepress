@@ -33,8 +33,8 @@ return array(
             //'killerKey' => 'tubepress_clear_system_cache',
 
             /**
-             * "containerStoragePath" defines an absolute directory where TubePress can store
-             * its compiled service container.
+             * "containerStoragePath" defines the absolute path to a writable-directory on the filesystem
+             * where TubePress stores its compiled service container.
              */
             //'containerStoragePath' => '/some/directory',
 

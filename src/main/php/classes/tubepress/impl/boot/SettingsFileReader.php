@@ -229,19 +229,15 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
 
         $path = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_CSP];
 
+        /**
+         * Is this a writable directory? If so, we're done.
+         */
         if (is_dir($path) && is_writable($path)) {
 
             return rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tubepress-service-container.php';
         }
 
-        $parentDir = dirname($path);
-
-        if ($parentDir === '.' || !is_dir($parentDir) || !is_writable($parentDir)) {
-
-            return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
-        }
-
-        return $path;
+        return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
     }
 
     private function _getAddonBlacklistArray(array $config)

@@ -52,6 +52,63 @@ class tubepress_test_impl_boot_SettingsFileReaderTest extends tubepress_test_Tub
         $this->recursivelyDeleteDirectory($this->_userContentDirectory);
     }
 
+    public function testContainerStoragePathWritableDirectory()
+    {
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
+            $this->_userContentDirectory
+        );
+
+        $path = $this->_userContentDirectory . 'foo';
+        mkdir($path, 0755, false);
+
+        if (!is_dir($path) || !is_writable($path)) {
+
+            $this->fail('Could not create test dir.');
+            return;
+        }
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'system' => array(
+        'cache' => array(
+
+            'containerStoragePath'  => '$path'
+        )
+    )
+);
+EOF
+        );
+
+        $result = $this->_sut->getCachedContainerStoragePath();
+
+        $this->assertEquals($path . '/tubepress-service-container.php', $result);
+    }
+
+    public function testContainerStoragePathNonWritableDirectory()
+    {
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
+            $this->_userContentDirectory
+        );
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'system' => array(
+        'cache' => array(
+
+            'containerStoragePath'  => 'i am here'
+        )
+    )
+);
+EOF
+        );
+
+        $result = $this->_sut->getCachedContainerStoragePath();
+
+        $this->assertRegExp('~[^/]+/tubepress-container-cache/[a-f0-9]+/tubepress-service-container\.php~', $result);
+    }
+
     public function testFallback()
     {
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
@@ -280,7 +337,6 @@ EOF
         $this->assertTrue(!is_dir($result));
     }
 
-
     public function testNonArrayBlacklist()
     {
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
@@ -351,8 +407,6 @@ EOF
     {
         file_put_contents($this->_userContentDirectory . 'config/settings.php', $contents);
     }
-
-
 
     private function _verifyAllDefaults()
     {
