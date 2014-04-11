@@ -17,7 +17,7 @@
 /*
  * Puts a margin below the theme's description.
  */
-.tp-bs #theme-category dd:nth-of-type(2) {
+#theme-category dd:nth-of-type(2) {
 
     margin-bottom: 2em;
 }
@@ -27,11 +27,11 @@
     /**
      * Shifts the metadata to the left (default is 160px).
      */
-    .tp-bs #theme-category .dl-horizontal dt {
+    #theme-category .dl-horizontal dt {
 
         width: 100px;
     }
-    .tp-bs #theme-category .dl-horizontal dd {
+    #theme-category .dl-horizontal dd {
 
         margin-left: 120px;
     }
@@ -40,8 +40,8 @@
 /**
  * Makes the theme label and description stand out a little.
  */
-.tp-bs #theme-category .dl-horizontal dt:nth-of-type(1),
-.tp-bs #theme-category .dl-horizontal dd:nth-of-type(2){
+#theme-category .dl-horizontal dt:nth-of-type(1),
+#theme-category .dl-horizontal dd:nth-of-type(2){
 
     color: black;
 }
