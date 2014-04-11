@@ -101,6 +101,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
             ->withArgument(array())
             ->withArgument($fieldReferences)
             ->withArgument($map)
+            ->withArgument(false)
+            ->withArgument(false)
             ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 

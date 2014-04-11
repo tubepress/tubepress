@@ -62,18 +62,19 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
             $participant = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
             $participant->shouldReceive('getId')->andReturn($letter);
             $participant->shouldReceive('getTranslatedDisplayName')->andReturn(strtoupper($letter));
+            $participant->shouldReceive('isAbleToBeFilteredFromGui')->andReturn($letter !== 'c');
             $this->_mockOptionsPageParticipants[] = $participant;
         }
     }
 
     protected function setupExpectationsForFailedStorageWhenAllMissing($errorMessage)
     {
-        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'a;b;c;d')->andReturn($errorMessage);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'a;b;d')->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenAllMissing()
     {
-        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'a;b;c;d')->andReturn(null);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'a;b;d')->andReturn(null);
     }
 
     /**
@@ -84,7 +85,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
         $this->getMockStorageManager()->shouldReceive('fetch')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('a;b;c');
 
         $mockTemplate->shouldReceive('setVariable')->once()->with('currentlySelectedValues', array('d'));
-        $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', array('a' => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D'));
+        $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', array('a' => 'A', 'b' => 'B', 'd' => 'D'));
         $mockTemplate->shouldReceive('setVariable')->once()->with('groupedChoices', array());
     }
 
@@ -107,14 +108,14 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
     {
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
 
-        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'c;d')->andReturn($errorMessage);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'd')->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenMixed()
     {
         $this->getMockHttpRequestParameterService()->shouldReceive('getParamValue')->once()->with($this->getExpectedFieldId())->andReturn(array('a', 'b'));
 
-        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'c;d')->andReturn(null);
+        $this->getMockStorageManager()->shouldReceive('queueForSave')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'd')->andReturn(null);
     }
 }
 

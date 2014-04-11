@@ -81,6 +81,8 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
             ->withArgument(array())
             ->withArgument($fieldReferences)
             ->withArgument($map)
+            ->withArgument(false)
+            ->withArgument(true)
             ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 

@@ -120,6 +120,8 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
          ->addArgument(array())
          ->addArgument($fieldReferences)
          ->addArgument($map)
+         ->addArgument(false)
+         ->addArgument(true)
          ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 }

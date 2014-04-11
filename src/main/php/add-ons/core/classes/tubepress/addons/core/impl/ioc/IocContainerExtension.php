@@ -507,6 +507,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             ->addArgument($categoryReferences)
             ->addArgument($fieldReferences)
             ->addArgument($map)
+            ->addArgument(false)
+            ->addArgument(false)
             ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 

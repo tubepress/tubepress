@@ -134,7 +134,7 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
 
         foreach ($this->_optionsPageParticipants as $participant) {
 
-            if ($participant->getId() === tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants::PARTICIPANT_ID) {
+            if (!$participant->isAbleToBeFilteredFromGui()) {
 
                 continue;
             }

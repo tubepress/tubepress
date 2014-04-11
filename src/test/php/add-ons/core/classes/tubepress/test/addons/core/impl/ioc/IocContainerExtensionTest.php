@@ -349,6 +349,8 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
          ->withArgument($categoryReferences)
          ->withArgument($fieldReferences)
          ->withArgument($map)
+         ->withArgument(false)
+         ->withArgument(false)
          ->withTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 

@@ -90,6 +90,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             ->addArgument(array())
             ->addArgument($fieldReferences)
             ->addArgument($map)
+            ->addArgument(false)
+            ->addArgument(false)
             ->addTag('tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface');
     }
 

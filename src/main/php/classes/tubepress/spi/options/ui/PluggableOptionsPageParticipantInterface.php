@@ -29,4 +29,14 @@ interface tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface exte
      *               are arrays of field IDs that belong in the category.
      */
     function getCategoryIdsToFieldIdsMap();
+
+    /**
+     * @return boolean True if this participant should show up in the "Only show options to..." dropdown. False otherwise.
+     */
+    function isAbleToBeFilteredFromGui();
+
+    /**
+     * @return boolean True if this participant should separate its field into separate boxes. False otherwise.
+     */
+    function fieldsShouldBeInSeparateBoxes();
 }

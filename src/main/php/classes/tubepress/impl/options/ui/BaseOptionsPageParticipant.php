@@ -29,13 +29,26 @@ class tubepress_impl_options_ui_BaseOptionsPageParticipant extends tubepress_imp
      */
     private $_map = array();
 
-    public function __construct($id, $untranslatedDisplayName, array $categories, array $fields, array $map)
+    /**
+     * @var boolean
+     */
+    private $_isAbleToBeFilteredFromGui;
+
+    /**
+     * @var boolean
+     */
+    private $_fieldsContainedInSeparateBoxes;
+
+    public function __construct($id, $untranslatedDisplayName, array $categories, array $fields, array $map,
+        $ableToBeFilteredFromGui = true, $fieldsContainedInSeparateBoxes = true)
     {
         parent::__construct($id, $untranslatedDisplayName);
 
-        $this->_categories = $categories;
-        $this->_fields     = $fields;
-        $this->_map        = $map;
+        $this->_categories                     = $categories;
+        $this->_fields                         = $fields;
+        $this->_map                            = $map;
+        $this->_isAbleToBeFilteredFromGui      = (boolean) $ableToBeFilteredFromGui;
+        $this->_fieldsContainedInSeparateBoxes = (boolean) $fieldsContainedInSeparateBoxes;
     }
 
     /**
@@ -61,5 +74,21 @@ class tubepress_impl_options_ui_BaseOptionsPageParticipant extends tubepress_imp
     public function getCategoryIdsToFieldIdsMap()
     {
         return $this->_map;
+    }
+
+    /**
+     * @return boolean True if this participant should show up in the "Only show options to..." dropdown. False otherwise.
+     */
+    public function isAbleToBeFilteredFromGui()
+    {
+        return $this->_isAbleToBeFilteredFromGui;
+    }
+
+    /**
+     * @return boolean True if this participant should separate its field into separate boxes. False otherwise.
+     */
+    public function fieldsShouldBeInSeparateBoxes()
+    {
+        return $this->_fieldsContainedInSeparateBoxes;
     }
 }
