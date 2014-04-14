@@ -227,16 +227,33 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
             return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
         }
 
-        $path = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_CSP];
+        $path   = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_CSP];
+        $custom = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tubepress-service-container.php';
 
         /**
          * Is this a writable directory? If so, we're done.
          */
         if (is_dir($path) && is_writable($path)) {
 
-            return rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tubepress-service-container.php';
+            return $custom;
         }
 
+        /**
+         * Let's see if we can create this directory.
+         */
+        $createdDirectory = @mkdir($path, 0755, true);
+
+        /**
+         * Is this NOW a writable directory? If so, we're done.
+         */
+        if ($createdDirectory && is_dir($path) && is_writable($path)) {
+
+            return $custom;
+        }
+
+        /**
+         * eh, we tried.
+         */
         return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
     }
 
