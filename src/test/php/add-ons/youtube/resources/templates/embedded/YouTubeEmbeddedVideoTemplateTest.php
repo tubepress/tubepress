@@ -12,7 +12,7 @@ class tubepress_test_addons_youtube_resources_templates_embedded_YouTubeEmbedded
 {
     public function testTemplate()
     {
-        $this->expectOutputString('<iframe id="some-dom-id" data-videoid="video-id" data-playerimplementation="some-embedded-impl-name" data-videoprovidername="some-video-provider" class="youtube-player" type="text/html" width="99" height="88" src="data-url" frameborder="0"></iframe>');
+        $this->expectOutputString('<iframe id="some-dom-id" data-videoid="video-id" data-playerimplementation="some-embedded-impl-name" data-videoprovidername="some-video-provider" class="youtube-player" type="text/html" width="99" height="88" src="data-url" frameborder="0" allowfullscreen></iframe>');
 
         ${tubepress_api_const_template_Variable::VIDEO_ID} = 'video-id';
         ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH} = 99;
