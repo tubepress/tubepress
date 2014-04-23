@@ -23,31 +23,31 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
     /**
      * @var array An array of tubepress_api_ioc_ContainerExtensionInterface instances
      */
-    private $_extensions = array();
+    private $_tubePressContainerExtensions = array();
 
     /**
      * @var array An array of tubepress_api_ioc_CompilerPassInterface instances
      */
-    private $_compilerPasses = array();
-
-    /**
-     * @var bool
-     */
-    private $_isFrozen = false;
+    private $_tubePressCompilerPasses = array();
 
     public function __construct(ehough_iconic_parameterbag_ParameterBagInterface $params = null)
     {
         $this->_delegateContainerBuilder = new ehough_iconic_ContainerBuilder($params);
 
-        $this->_compilerPasses[] = $this;
-
         /**
-         * Turn off resource loading.
+         * Turn off resource tracking.
          */
         $this->_delegateContainerBuilder->setResourceTracking(false);
+
+        /**
+         * Add ourself as the first compiler pass.
+         */
+        $this->_tubePressCompilerPasses[] = $this;
     }
 
     /**
+     * This is necessary so the boostrapper can dump the container to PHP.
+     *
      * @return ehough_iconic_ContainerBuilder
      */
     public function getDelegateIconicContainerBuilder()
@@ -60,13 +60,12 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
         /**
          * @var $pass tubepress_api_ioc_CompilerPassInterface
          */
-        foreach ($this->_compilerPasses as $pass) {
+        foreach ($this->_tubePressCompilerPasses as $pass) {
 
             $pass->process($this);
         }
 
-        $this->_delegateContainerBuilder->getParameterBag()->resolve();
-        $this->_isFrozen = true;
+        $this->_delegateContainerBuilder->compile();
     }
 
     /**
@@ -76,7 +75,7 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     public function registerExtension(tubepress_api_ioc_ContainerExtensionInterface $extension)
     {
-        $this->_extensions[] = $extension;
+        $this->_tubePressContainerExtensions[] = $extension;
     }
 
     /**
@@ -88,12 +87,7 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     public function addCompilerPass(tubepress_api_ioc_CompilerPassInterface $pass)
     {
-        $this->_compilerPasses[] = $pass;
-    }
-
-    public function isFrozen()
-    {
-        return $this->_isFrozen;
+        $this->_tubePressCompilerPasses[] = $pass;
     }
 
     /**
@@ -106,16 +100,14 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      * @api
      * @since 3.1.0
      */
-    function addDefinitions(array $definitions)
+    public function addDefinitions(array $definitions)
     {
-        if ($this->isFrozen()) {
+        foreach ($definitions as $definition) {
 
-            throw new BadMethodCallException('Cannot set definitions on a frozen container');
-
+            $this->_verifyIsIconicDefinition($definition);
         }
-        $iconicDefinitions = array_map(array($this, '_callbackConvertToIconicDefinition'), $definitions);
 
-        $this->_delegateContainerBuilder->addDefinitions($iconicDefinitions);
+        $this->_delegateContainerBuilder->addDefinitions($definitions);
     }
 
     /**
@@ -176,12 +168,7 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
     {
         try {
 
-            /**
-             * @var $fromDelegate tubepress_impl_ioc_IconicDefinitionWrapper
-             */
-            $fromDelegate = $this->_delegateContainerBuilder->getDefinition($id);
-
-            return $this->_callbackConvertToTubePressDefinition($fromDelegate);
+            return $this->_delegateContainerBuilder->getDefinition($id);
 
         } catch (ehough_iconic_exception_InvalidArgumentException $e) {
 
@@ -199,9 +186,7 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     public function getDefinitions()
     {
-        $definitionsFromDelegate = $this->_delegateContainerBuilder->getDefinitions();
-
-        return array_map(array($this, '_callbackConvertToTubePressDefinition'), $definitionsFromDelegate);
+        return $this->_delegateContainerBuilder->getDefinitions();
     }
 
     /**
@@ -320,11 +305,6 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     public function set($id, $service)
     {
-        if ($this->isFrozen()) {
-
-            throw new BadMethodCallException('Cannot set a service on a frozen container');
-        }
-
         $this->_delegateContainerBuilder->set($id, $service);
     }
 
@@ -343,21 +323,11 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     public function setDefinition($id, tubepress_api_ioc_DefinitionInterface $definition)
     {
-        if ($this->_isFrozen) {
-
-            throw new BadMethodCallException('Setting a definition on a frozen container is not allowed');
-        }
-
-        $wrapped = new tubepress_impl_ioc_IconicDefinitionWrapper($definition);
+        $this->_verifyIsIconicDefinition($definition);
 
         try {
 
-            /**
-             * @var $fromParent tubepress_impl_ioc_IconicDefinitionWrapper
-             */
-            $fromParent = $this->_delegateContainerBuilder->setDefinition($id, $wrapped);
-
-            return $fromParent->getTubePressDefinition();
+            return $this->_delegateContainerBuilder->setDefinition($id, $definition);
 
         } catch (ehough_iconic_exception_BadMethodCallException $e) {
 
@@ -375,14 +345,12 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     public function setDefinitions(array $definitions)
     {
-        if ($this->isFrozen()) {
+        foreach ($definitions as $definition) {
 
-            throw new BadMethodCallException('Cannot set definitions on a frozen container');
+            $this->_verifyIsIconicDefinition($definition);
         }
 
-        $iconicDefinitions = array_map(array($this, '_callbackConvertToIconicDefinition'), $definitions);
-
-        $this->_delegateContainerBuilder->setDefinitions($iconicDefinitions);
+        $this->_delegateContainerBuilder->setDefinitions($definitions);
     }
 
     /**
@@ -398,16 +366,11 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     public function setParameter($name, $value)
     {
-        if ($this->isFrozen()) {
-
-            throw new LogicException('Cannot set a parameter on a frozen container');
-        }
-
         $this->_delegateContainerBuilder->setParameter($name, $value);
     }
 
     /**
-     * You can modify the container here before it is dumped to PHP code.
+     * Based heavily on ehough_iconic_compiler_MergeExtensionConfigurationPass.
      *
      * @param tubepress_api_ioc_ContainerBuilderInterface $self
      *
@@ -418,14 +381,14 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
         $parameters = $this->_delegateContainerBuilder->getParameterBag()->all();
 
         /**
-         * These will all be tubepress_impl_ioc_IconicDefinitionWrapper instances
+         * These will all be tubepress_impl_ioc_Definition instances
          */
         $definitions = $self->getDefinitions();
 
         /**
          * @var $extension tubepress_api_ioc_ContainerExtensionInterface
          */
-        foreach ($this->_extensions as $extension) {
+        foreach ($this->_tubePressContainerExtensions as $extension) {
 
             $tmpContainer = new tubepress_impl_ioc_IconicContainerBuilder($this->_delegateContainerBuilder->getParameterBag());
 
@@ -435,13 +398,14 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
         }
 
         $self->addDefinitions($definitions);
+
         $this->_delegateContainerBuilder->getParameterBag()->add($parameters);
     }
 
     /**
      * @internal
      */
-    public function getParameterBag()
+    private function getParameterBag()
     {
         return $this->_delegateContainerBuilder->getParameterBag();
     }
@@ -451,44 +415,15 @@ class tubepress_impl_ioc_IconicContainerBuilder implements tubepress_api_ioc_Con
      */
     private function merge(tubepress_impl_ioc_IconicContainerBuilder $containerBuilder)
     {
-        if ($this->_isFrozen) {
-
-            throw new BadMethodCallException('Cannot merge on a frozen container.');
-        }
-
         $this->addDefinitions($containerBuilder->getDefinitions());
         $this->getParameterBag()->add($containerBuilder->getParameterBag()->all());
     }
 
-    /**
-     * @internal
-     */
-    public function _callbackConvertToIconicDefinition($definition)
+    private function _verifyIsIconicDefinition($candidate)
     {
-        if ($definition instanceof tubepress_impl_ioc_IconicDefinitionWrapper) {
+        if (!($candidate instanceof ehough_iconic_Definition)) {
 
-            return $definition;
+            throw new InvalidArgumentException('This container implementation only deals with ehough_iconic_Definition instances');
         }
-
-        if (!($definition instanceof tubepress_api_ioc_DefinitionInterface)) {
-
-            throw new InvalidArgumentException('Can only add tubepress_api_ioc_DefinitionInterface instances to the ' .
-                'container. You supplied an instance of ' . get_class($definition));
-        }
-
-        return new tubepress_impl_ioc_IconicDefinitionWrapper($definition);
-    }
-
-    /**
-     * @internal
-     */
-    public function _callbackConvertToTubePressDefinition($definition)
-    {
-        if (!($definition instanceof tubepress_impl_ioc_IconicDefinitionWrapper)) {
-
-            throw new InvalidArgumentException('A non-tubepress_impl_ioc_IconicDefinitionWrapper made it\'s way into the container.');
-        }
-
-        return $definition->getTubePressDefinition();
     }
 }

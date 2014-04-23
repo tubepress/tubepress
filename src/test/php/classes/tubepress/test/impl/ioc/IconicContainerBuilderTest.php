@@ -24,30 +24,6 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
         $this->_sut = new tubepress_impl_ioc_IconicContainerBuilder();
     }
 
-    public function testConvertToIconicDefinitionWrongClass()
-    {
-        $this->setExpectedException('InvalidArgumentException', 'Can only add tubepress_api_ioc_DefinitionInterface instances to the container. You supplied an instance of stdClass');
-
-        $def = new stdClass();
-
-        $this->_sut->_callbackConvertToIconicDefinition($def);
-    }
-
-    public function testConvertToIconicDefinitionAlreadyInstance()
-    {
-        $def = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
-        $def->shouldReceive('getClass')->twice()->andReturn('some clazz');
-        $def->shouldReceive('setClass')->once()->with('some clazz');
-        $def->shouldReceive('getArguments')->twice()->andReturn(array(1, 3, 2));
-        $def->shouldReceive('setArguments')->once()->with(array(1, 3, 2));
-
-        $d = new tubepress_impl_ioc_IconicDefinitionWrapper($def);
-
-        $result = $this->_sut->_callbackConvertToIconicDefinition($d);
-
-        $this->assertSame($d, $result);
-    }
-
     public function testGetParameterNoSuchParam()
     {
         $this->setExpectedException('InvalidArgumentException', 'Parameter foo not found');
@@ -91,11 +67,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testRemoveDefinition()
     {
-        $def = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
-        $def->shouldReceive('getClass')->twice()->andReturn('some clazz');
-        $def->shouldReceive('setClass')->once()->with('some clazz');
-        $def->shouldReceive('getArguments')->twice()->andReturn(array(1, 3, 2));
-        $def->shouldReceive('setArguments')->once()->with(array(1, 3, 2));
+        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
 
         $this->assertFalse($this->_sut->has('x'));
 
@@ -110,7 +82,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testSetServiceFrozen()
     {
-        $this->setExpectedException('BadMethodCallException', 'Cannot set a service on a frozen container');
+        $this->setExpectedException('BadMethodCallException', 'Setting service "x" on a frozen container is not allowed.');
 
         $this->_sut->compile();
 
@@ -130,9 +102,9 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testSetDefinitionFrozen()
     {
-        $this->setExpectedException('BadMethodCallException', 'Setting a definition on a frozen container is not allowed');
+        $this->setExpectedException('BadMethodCallException', 'Adding definition to a frozen container is not allowed');
 
-        $def = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
+        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
 
         $this->_sut->compile();
 
@@ -141,11 +113,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testSetDefinition()
     {
-        $def = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
-        $def->shouldReceive('getClass')->twice()->andReturn('some clazz');
-        $def->shouldReceive('setClass')->once()->with('some clazz');
-        $def->shouldReceive('getArguments')->twice()->andReturn(array(1, 3, 2));
-        $def->shouldReceive('setArguments')->once()->with(array(1, 3, 2));
+        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
 
         $this->assertFalse($this->_sut->has('x'));
         $this->assertFalse($this->_sut->hasDefinition('x'));
@@ -162,20 +130,18 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testSetDefinitionsFrozen()
     {
-        $this->setExpectedException('BadMethodCallException', 'Cannot set definitions on a frozen container');
+        $this->setExpectedException('BadMethodCallException', 'Adding definition to a frozen container is not allowed');
 
         $this->_sut->compile();
 
-        $this->_sut->setDefinitions(array());
+        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
+
+        $this->_sut->setDefinitions(array($def));
     }
 
     public function testSetDefinitions()
     {
-        $def = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
-        $def->shouldReceive('getClass')->twice()->andReturn('some clazz');
-        $def->shouldReceive('setClass')->once()->with('some clazz');
-        $def->shouldReceive('getArguments')->twice()->andReturn(array(1, 3, 2));
-        $def->shouldReceive('setArguments')->once()->with(array(1, 3, 2));
+        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
 
         $this->assertEmpty($this->_sut->getDefinitions());
 
@@ -186,7 +152,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testSetParameterFrozen()
     {
-        $this->setExpectedException('LogicException', 'Cannot set a parameter on a frozen container');
+        $this->setExpectedException('LogicException', 'Impossible to call set() on a frozen ehough_iconic_parameterbag_ParameterBag.');
 
         $this->_sut->compile();
 
@@ -204,25 +170,6 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
         $this->assertTrue($this->_sut->hasParameter('foo'));
 
         $this->assertEquals('bar', $this->_sut->getParameter('foo'));
-    }
-
-    public function testMergeFrozen()
-    {
-        $this->setExpectedException('BadMethodCallException', 'Cannot merge on a frozen container.');
-
-        $this->_sut->compile();
-
-        $mockDef = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
-        $mockDefs = array($mockDef);
-
-        $mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerBuilderInterface');
-        $mockContainer->shouldReceive('getDefinitions')->once()->andReturn($mockDefs);
-
-        $mockExtension = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerExtensionInterface');
-        $mockExtension->shouldReceive('load')->once()->with(ehough_mockery_Mockery::any('tubepress_impl_ioc_IconicContainerBuilder'));
-        $this->_sut->registerExtension($mockExtension);
-
-        $this->_sut->process($mockContainer);
     }
 
     public function testMerge()
@@ -246,24 +193,9 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testAddDefinitionsWhenFrozen()
     {
-        $this->setExpectedException('BadMethodCallException', 'Cannot set definitions on a frozen container');
+        $this->setExpectedException('BadMethodCallException', 'Adding definition to a frozen container is not allowed');
 
         $this->_sut->compile();
         $this->_sut->addDefinitions(array(new tubepress_impl_ioc_Definition('clazz')));
-    }
-
-    public function testCompile()
-    {
-        $mockCompilerPass = ehough_mockery_Mockery::mock('tubepress_api_ioc_CompilerPassInterface');
-
-        $mockCompilerPass->shouldReceive('process')->once()->with($this->_sut);
-
-        $this->_sut->addCompilerPass($mockCompilerPass);
-
-        $this->assertFalse($this->_sut->isFrozen());
-
-        $this->_sut->compile();
-
-        $this->assertTrue($this->_sut->isFrozen());
     }
 }

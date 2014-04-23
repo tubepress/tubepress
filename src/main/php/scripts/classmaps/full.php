@@ -332,7 +332,6 @@ return array(
     'tubepress_impl_ioc_ChainRegistrar'                                      => $implPrefix . '/ioc/ChainRegistrar.php',
     'tubepress_impl_ioc_Definition'                                          => $implPrefix . '/ioc/Definition.php',
     'tubepress_impl_ioc_IconicContainerBuilder'                              => $implPrefix . '/ioc/IconicContainerBuilder.php',
-    'tubepress_impl_ioc_IconicDefinitionWrapper'                             => $implPrefix . '/ioc/IconicDefinitionWrapper.php',
     'tubepress_impl_ioc_Reference'                                           => $implPrefix . '/ioc/Reference.php',
     'tubepress_impl_listeners_options_ColorSanitizingListener'               => $implPrefix . '/listeners/options/ColorSanitizingListener.php',
     'tubepress_impl_listeners_video_AbstractVideoConstructionListener'       => $implPrefix . '/listeners/video/AbstractVideoConstructionListener.php',

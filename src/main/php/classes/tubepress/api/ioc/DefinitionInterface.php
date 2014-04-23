@@ -124,6 +124,16 @@ interface tubepress_api_ioc_DefinitionInterface
     function getConfigurator();
 
     /**
+     * Gets the service that decorates this service.
+     *
+     * @return null|array An array composed of the decorated service id and the new id for it, null if no service is decorated
+     *
+     * @api
+     * @since 3.2.0
+     */
+    function getDecoratedService();
+
+    /**
      * Get the factory class.
      *
      * @return string The factory class name
@@ -293,7 +303,22 @@ interface tubepress_api_ioc_DefinitionInterface
      * @since 3.1.0
      */
     function setConfigurator($callable);
-    
+
+    /**
+     * Sets the service that this service is decorating.
+     *
+     * @param null|string $id        The decorated service id, use null to remove decoration
+     * @param null|string $renamedId The new decorated service id
+     *
+     * @return tubepress_api_ioc_DefinitionInterface The current instance
+     *
+     * @throws InvalidArgumentException In case the decorated service id and the new decorated service id are equals.
+     *
+     * @api
+     * @since 3.2.0
+     */
+    function setDecoratedService($id, $renamedId = null);
+
     /**
      * Set the name of the class that acts as a factory using the factory method,
      * which will be invoked statically.
