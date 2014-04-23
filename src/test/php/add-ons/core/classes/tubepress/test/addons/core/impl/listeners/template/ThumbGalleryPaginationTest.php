@@ -76,7 +76,7 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
 
-        $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.com');
+        $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se');
 
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
@@ -91,7 +91,7 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
 
             tubepress_api_const_template_Variable::PAGINATION_CURRENT_PAGE     => 25,
             tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS      => 500,
-            tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT      => '/?tubepress_page=%d',
+            tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT      => '/foo.bar?hello=goodbye&something=el%%21se&tubepress_page=%d',
             tubepress_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE => 4,
             tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT        => '##next##',
             tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV        => '##prev##',

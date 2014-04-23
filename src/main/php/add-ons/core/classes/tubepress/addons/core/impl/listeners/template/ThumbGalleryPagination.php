@@ -79,9 +79,10 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
 
         $url->setQueryVariable('tubepress_page', 'zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p');
 
-        $urlFormat      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
-        $urlFormat      = str_replace('zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p', '%d', $urlFormat);
-        $vars           = array(
+        $urlFormat = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
+        $urlFormat = str_replace('%', '%%', $urlFormat);
+        $urlFormat = str_replace('zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p', '%d', $urlFormat);
+        $vars      = array(
 
             tubepress_api_const_template_Variable::PAGINATION_CURRENT_PAGE     => $currentPage,
             tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS      => $totalItems,
