@@ -34,7 +34,9 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler
 
         try {
 
-            $url = new ehough_curly_Url($originalValue);
+            $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+
+            $url = $urlFactory->fromString($originalValue);
 
         } catch (Exception $e) {
 
@@ -48,13 +50,13 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler
             return $originalValue;
         }
 
-        $params = $url->getQueryVariables();
+        $params = $url->getQuery();
 
-        if (!array_key_exists('list', $params)) {
+        if (!$params->hasKey('list')) {
 
             return $originalValue;
         }
 
-        return $params['list'];
+        return $params->get('list');
     }
 }

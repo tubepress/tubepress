@@ -39,10 +39,16 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
      */
     private $_mockLegacyThemeDirectory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
         $this->_mockFinderFactory       = ehough_mockery_Mockery::mock('ehough_finder_FinderFactoryInterface');
         $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
         $this->_sut                     = new tubepress_impl_theme_ThemeFinder(
 
             $this->_mockFinderFactory,
@@ -73,6 +79,23 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
 
         $this->_mockFinderFactory->shouldReceive('createFinder')->andReturn($mockSystemFinder, $mockUserFinder, $mockLegacyFinder);
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->twice()->andReturn($this->_mockUserThemeDirectory, $this->_mockLegacyThemeDirectory);
+
+        $this->_mockUrlFactory->shouldReceive('fromString')->twice()->with('http://tubepress.com');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://opensource.org/licenses/MIT');
+        $this->_mockUrlFactory->shouldReceive('fromString')->twice()->with('http://www.mozilla.org/MPL/2.0/');
+        $onceUrls = array(
+            'http://themes.tubepress-cdn.com/default/screenshots/1-thumbnail.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/1.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/2-thumbnail.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/2.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/3-thumbnail.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/3.png',
+            'http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/1-thumbnail.png','http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/1.png',
+            'http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/2-thumbnail.png','http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/2.png',
+        );
+        foreach ($onceUrls as $onceUrl) {
+            $this->_mockUrlFactory->shouldReceive('fromString')->once()->with($onceUrl);
+        }
 
         $themes = $this->_sut->findAllThemes();
 

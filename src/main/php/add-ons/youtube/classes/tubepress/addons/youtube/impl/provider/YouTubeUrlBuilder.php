@@ -33,6 +33,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
     public final function buildGalleryUrl($currentPage)
     {
         $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $urlFactory  = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
 
         switch ($execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE)) {
 
@@ -87,7 +88,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
                 throw new Exception('Invalid source supplied to YouTube');
         }
 
-        $requestUrl = new ehough_curly_Url("http://gdata.youtube.com/feeds/api/$url");
+        $requestUrl = $urlFactory->fromString("http://gdata.youtube.com/feeds/api/$url");
 
         $this->_urlPostProcessingCommon($execContext, $requestUrl);
 
@@ -108,14 +109,15 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
     public final function buildSingleVideoUrl($id)
     {
         $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $requestURL = new ehough_curly_Url("http://gdata.youtube.com/feeds/api/videos/$id");
+        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+        $requestURL = $urlFactory->fromString("http://gdata.youtube.com/feeds/api/videos/$id");
 
         $this->_urlPostProcessingCommon($context, $requestURL);
 
         return $this->_finishUrl($requestURL, tubepress_addons_youtube_api_const_YouTubeEventNames::URL_SINGLE);
     }
 
-    private function _finishUrl(ehough_curly_Url $url, $eventName)
+    private function _finishUrl(tubepress_api_url_UrlInterface $url, $eventName)
     {
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase($url);
@@ -123,11 +125,11 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
         $eventDispatcher->dispatch($eventName, $event);
 
         /**
-         * @var $url ehough_curly_Url
+         * @var $url tubepress_api_url_UrlInterface
          */
         $finalUrl = $event->getSubject();
 
-        return $finalUrl->toString();
+        return $finalUrl;
     }
 
     private static function _replaceQuotes($text)
@@ -135,33 +137,35 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
         return str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $text);
     }
 
-    private function _urlPostProcessingCommon(tubepress_spi_context_ExecutionContext $execContext, ehough_curly_Url $url)
+    private function _urlPostProcessingCommon(tubepress_spi_context_ExecutionContext $execContext, tubepress_api_url_UrlInterface $url)
     {
-        $url->setQueryVariable(self::$_URL_PARAM_VERSION, 2);
-        $url->setQueryVariable(self::$_URL_PARAM_KEY, $execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY));
+        $query                            = $url->getQuery();
+        $query->set(self::$_URL_PARAM_VERSION, 2);
+        $query->set(self::$_URL_PARAM_KEY, $execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY));
     }
 
-    private function _urlPostProcessingGallery(tubepress_spi_context_ExecutionContext $execContext, ehough_curly_Url $url, $currentPage)
+    private function _urlPostProcessingGallery(tubepress_spi_context_ExecutionContext $execContext, tubepress_api_url_UrlInterface $url, $currentPage)
     {
         $perPage = $execContext->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
 
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
 
-        $url->setQueryVariable(self::$_URL_PARAM_START_INDEX, $start);
-        $url->setQueryVariable(self::$_URL_PARAM_MAX_RESULTS, $perPage);
+        $query                              = $url->getQuery();
+        $query->set(self::$_URL_PARAM_START_INDEX, $start);
+        $query->set(self::$_URL_PARAM_MAX_RESULTS, $perPage);
 
         $this->_urlProcessingOrderBy($execContext, $url);
 
-        $url->setQueryVariable(self::$_URL_PARAM_SAFESEARCH, $execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::FILTER));
+        $query->set(self::$_URL_PARAM_SAFESEARCH, $execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::FILTER));
 
         if ($execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY)) {
 
-            $url->setQueryVariable(self::$_URL_PARAM_FORMAT, '5');
+            $query->set(self::$_URL_PARAM_FORMAT, '5');
         }
     }
 
-    private function _urlProcessingOrderBy(tubepress_spi_context_ExecutionContext $execContext, ehough_curly_Url $url)
+    private function _urlProcessingOrderBy(tubepress_spi_context_ExecutionContext $execContext, tubepress_api_url_UrlInterface $url)
     {
         /*
          * In a request for a video feed, the following values are valid for this parameter:
@@ -184,22 +188,23 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
         $requestedSortOrder   = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
         $currentGallerySource = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $query                = $url->getQuery();
 
         if ($requestedSortOrder === tubepress_api_const_options_values_OrderByValue::DEFAULTT) {
 
-            $url->setQueryVariable(self::$_URL_PARAM_ORDER, $this->_calculateDefaultSearchOrder($currentGallerySource));
+            $query->set(self::$_URL_PARAM_ORDER, $this->_calculateDefaultSearchOrder($currentGallerySource));
             return;
         }
 
         if ($requestedSortOrder === tubepress_api_const_options_values_OrderByValue::NEWEST) {
 
-            $url->setQueryVariable(self::$_URL_PARAM_ORDER, 'published');
+            $query->set(self::$_URL_PARAM_ORDER, 'published');
             return;
         }
 
         if ($requestedSortOrder == tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
 
-            $url->setQueryVariable(self::$_URL_PARAM_ORDER, $requestedSortOrder);
+            $query->set(self::$_URL_PARAM_ORDER, $requestedSortOrder);
 
             return;
         }
@@ -216,7 +221,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
             ))) {
 
-                $url->setQueryVariable(self::$_URL_PARAM_ORDER, $requestedSortOrder);
+                $query->set(self::$_URL_PARAM_ORDER, $requestedSortOrder);
                 return;
             }
 
@@ -224,7 +229,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
             if (in_array($requestedSortOrder, array(tubepress_api_const_options_values_OrderByValue::RELEVANCE, tubepress_api_const_options_values_OrderByValue::RATING))) {
 
-                $url->setQueryVariable(self::$_URL_PARAM_ORDER, $requestedSortOrder);
+                $query->set(self::$_URL_PARAM_ORDER, $requestedSortOrder);
             }
         }
     }

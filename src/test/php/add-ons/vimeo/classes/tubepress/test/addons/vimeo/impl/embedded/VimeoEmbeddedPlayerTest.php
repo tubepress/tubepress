@@ -19,9 +19,15 @@ class tubepress_test_addons_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends 
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup() {
 
         $this->_sut = new tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService();
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
     }
 
     public function testGetName()
@@ -57,13 +63,27 @@ class tubepress_test_addons_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
-
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('ABCDEF');
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://player.vimeo.com/video/xx')->andReturn($mockUrl);
+
+        $mockQuery->shouldReceive('set')->once()->with('autoplay', '1');
+        $mockQuery->shouldReceive('set')->once()->with('color', 'ABCDEF');
+        $mockQuery->shouldReceive('set')->once()->with('loop', '0');
+        $mockQuery->shouldReceive('set')->once()->with('portrait', '1');
+        $mockQuery->shouldReceive('set')->once()->with('byline', '1');
+        $mockQuery->shouldReceive('set')->once()->with('title', '1');
+        $mockQuery->shouldReceive('set')->once()->with('api', '1');
+        $mockQuery->shouldReceive('set')->once()->with('player_id', ehough_mockery_Mockery::on(function ($param) {
+            return tubepress_impl_util_StringUtils::startsWith($param, 'tubepress-video-object-');
+        }));
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
-        $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertRegExp('~^http://player\.vimeo\.com/video/xx\?autoplay=1&color=ABCDEF&loop=0&portrait=1&byline=1&title=1&api=1&player_id=tubepress-video-object-[0-9]+$~', $result->toString());
+        $this->assertSame($mockUrl, $result);
     }
 
 }

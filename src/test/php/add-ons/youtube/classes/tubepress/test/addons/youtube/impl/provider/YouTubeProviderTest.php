@@ -23,7 +23,7 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockFeedFetcher;
+    private $_mockHttpClient;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -40,13 +40,19 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
      */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
-        $this->_mockUrlBuilder  = $this->createMockSingletonService(tubepress_spi_provider_UrlBuilder::_);
-        $this->_mockFeedFetcher = $this->createMockSingletonService(tubepress_spi_feed_FeedFetcher::_);
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockUrlBuilder                  = $this->createMockSingletonService(tubepress_spi_provider_UrlBuilder::_);
+        $this->_mockHttpClient                  = $this->createMockSingletonService(tubepress_spi_http_HttpClientInterface::_);
+        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_sut = new tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService($this->_mockUrlBuilder);
     }
@@ -90,10 +96,6 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
     {
         $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(36)->andReturn('abc');
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
-
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->galleryXml());
-
         $this->_mockEventDispatcher->shouldReceive('dispatch')->times(16)->with(
 
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
@@ -103,6 +105,12 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
             })
         );
 
+        $mockResponse = ehough_mockery_Mockery::mock('tubepress_api_http_ResponseInterface');
+        $mockStream   = ehough_mockery_Mockery::mock('tubepress_api_stream_StreamInterface');
+        $this->_mockHttpClient->shouldReceive('get')->once()->with('abc')->andReturn($mockResponse);
+        $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
+        $mockStream->shouldReceive('toString')->once()->andReturn($this->galleryXml());
+
         $result = $this->_sut->fetchVideoGalleryPage(36);
 
         $this->assertTrue($result instanceof tubepress_api_video_VideoGalleryPage);
@@ -111,8 +119,6 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
     public function testFetchSingleVideo()
     {
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('SJxBZgC29ts')->andReturn('abc');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->singleVideoXml());
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
@@ -122,6 +128,12 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
                 return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_Video;
             })
         );
+
+        $mockResponse = ehough_mockery_Mockery::mock('tubepress_api_http_ResponseInterface');
+        $mockStream   = ehough_mockery_Mockery::mock('tubepress_api_stream_StreamInterface');
+        $this->_mockHttpClient->shouldReceive('get')->once()->with('abc')->andReturn($mockResponse);
+        $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
+        $mockStream->shouldReceive('toString')->once()->andReturn($this->singleVideoXml());
 
         $result = $this->_sut->fetchSingleVideo('SJxBZgC29ts');
 

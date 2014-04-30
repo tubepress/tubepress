@@ -204,7 +204,8 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
             try {
 
-                new ehough_curly_Url($url);
+                $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+                $urlFactory->fromString($url);
 
                 return $url;
 

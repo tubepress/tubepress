@@ -18,9 +18,12 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
      * @var tubepress_impl_addon_AddonBase
      */
     private $_sut;
-    
+
     public function onSetup()
     {
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $mockUrlFactory->shouldReceive('fromString')->once()->with('http://foo.bar')->andReturn($mockUrl);
         $this->_sut = new tubepress_impl_addon_AddonBase(
 
             'name',

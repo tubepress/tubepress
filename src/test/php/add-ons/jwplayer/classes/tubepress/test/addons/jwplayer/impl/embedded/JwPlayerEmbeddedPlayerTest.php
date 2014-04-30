@@ -19,9 +19,15 @@ class tubepress_test_addons_jwplayer_impl_embedded_JwPlayerEmbeddedPlayerTest ex
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup() {
 
         $this->_sut = new tubepress_addons_jwplayer_impl_embedded_JwPlayerPluggableEmbeddedPlayerService();
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
     }
 
     public function testGetName()
@@ -51,12 +57,12 @@ class tubepress_test_addons_jwplayer_impl_embedded_JwPlayerEmbeddedPlayerTest ex
 
     public function testGetDataUrl()
     {
-        $mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://www.youtube.com/watch?v=xx')->andReturn($mockUrl);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
-        $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://www.youtube.com/watch?v=xx', $result->toString());
+        $this->assertSame($mockUrl, $result);
     }
 
 

@@ -32,12 +32,18 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
      */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder();
 
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
     }
@@ -103,9 +109,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_SINGLE);
 
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getInfo&video_id=444333&format=php')->andReturn($mockUrl);
+
         $result = $this->_sut->buildSingleVideoUrl('444333');
         
-        $this->assertTrue($this->urlMatches('method=vimeo.videos.getInfo&video_id=444333', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testexecuteGroup()
@@ -120,9 +129,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
 
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.groups.getVideos&group_id=eric&full_response=true&page=1&per_page=20&sort=random&format=php')->andReturn($mockUrl);
+
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.groups.getVideos&group_id=eric&full_response=true&page=1&per_page=20&sort=random', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testExecuteCreditedTo()
@@ -137,9 +149,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
 
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getAll&user_id=eric&full_response=true&page=1&per_page=20&format=php')->andReturn($mockUrl);
+
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.videos.getAll&user_id=eric&full_response=true&page=1&per_page=20', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testexecuteAlbum()
@@ -153,9 +168,13 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
 
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.albums.getVideos&album_id=eric&full_response=true&page=1&per_page=20&format=php')->andReturn($mockUrl);
+
+
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.albums.getVideos&album_id=eric&full_response=true&page=1&per_page=20', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testexecuteChannel()
@@ -168,10 +187,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
         ));
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.channels.getVideos&channel_id=eric&full_response=true&page=1&per_page=20&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.channels.getVideos&channel_id=eric&full_response=true&page=1&per_page=20', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
 
@@ -187,10 +208,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
         ));
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.search&query=eric+hough&full_response=true&page=1&per_page=20&sort=relevant&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&full_response=true&page=1&per_page=20&sort=relevant', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testexecuteSearchWithUser()
@@ -205,10 +228,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
         ));
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.search&query=eric+hough&user_id=ehough&full_response=true&page=1&per_page=20&sort=relevant&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&user_id=ehough&full_response=true&page=1&per_page=20&sort=relevant', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testexecuteAppearsIn()
@@ -222,10 +247,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
         ));
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getAppearsIn&user_id=eric&full_response=true&page=1&per_page=20&sort=oldest&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.videos.getAppearsIn&user_id=eric&full_response=true&page=1&per_page=20&sort=oldest', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testexecuteLikes()
@@ -239,10 +266,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
         ));
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getLikes&user_id=eric&full_response=true&page=1&per_page=20&sort=most_liked&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.videos.getLikes&user_id=eric&full_response=true&page=1&per_page=20&sort=most_liked', $result));
+        $this->assertSame($mockUrl, $result);
     }
 
     public function testexecuteUploadedBy()
@@ -256,20 +285,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
         ));
 
         $this->_setupEventDispatcher(tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://vimeo.com/api/rest/v2?method=vimeo.videos.getUploaded&user_id=eric&full_response=true&page=1&per_page=20&sort=most_commented&format=php')->andReturn($mockUrl);
 
         $result = $this->_sut->buildGalleryUrl(1);
 
-        $this->assertTrue($this->urlMatches('method=vimeo.videos.getUploaded&user_id=eric&full_response=true&page=1&per_page=20&sort=most_commented', $result));
-    }
-
-    private function urlMatches($url, $full)
-    {
-        $pattern = self::PRE . $url . self::POST;
-        $result = 1 === preg_match($pattern, $full);
-        if (!$result) {
-            echo "\n\n$full\n    does not match\n$pattern\n\n";
-        }
-        return $result;
+        $this->assertSame($mockUrl, $result);
     }
 
     private function expectOptions($arr) {
@@ -284,7 +305,7 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
 
-            return $event->getSubject() instanceof ehough_curly_Url;
+            return $event->getSubject() instanceof tubepress_api_url_UrlInterface;
         }));
     }
 }

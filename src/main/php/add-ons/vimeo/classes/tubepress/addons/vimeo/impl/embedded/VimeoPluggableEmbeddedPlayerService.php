@@ -44,11 +44,12 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
     /**
      * @param string $videoId The video ID to play.
      *
-     * @return ehough_curly_Url The URL of the data for this video.
+     * @return tubepress_api_url_UrlInterface The URL of the data for this video.
      */
     public final function getDataUrlForVideo($videoId)
     {
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
 
         $autoPlay = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $showInfo = $context->get(tubepress_api_const_options_names_Embedded::SHOW_INFO);
@@ -58,18 +59,20 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
         $color    = $context->get(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
 
         /* build the data URL based on these options */
-        $link = new ehough_curly_Url("http://player.vimeo.com/video/$videoId");
-        $link->setQueryVariable(self::$_URL_PARAM_AUTOPLAY, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
-        $link->setQueryVariable(self::$_URL_PARAM_COLOR, $color);
-        $link->setQueryVariable(self::$_URL_PARAM_LOOP, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
-        $link->setQueryVariable(self::$_URL_PARAM_PORTRAIT, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
-        $link->setQueryVariable(self::$_URL_PARAM_BYLINE, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
-        $link->setQueryVariable(self::$_URL_PARAM_TITLE, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link  = $urlFactory->fromString("http://player.vimeo.com/video/$videoId");
+        $query = $link->getQuery();
+
+        $query->set(self::$_URL_PARAM_AUTOPLAY, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
+        $query->set(self::$_URL_PARAM_COLOR,    $color);
+        $query->set(self::$_URL_PARAM_LOOP,     tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
+        $query->set(self::$_URL_PARAM_PORTRAIT, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $query->set(self::$_URL_PARAM_BYLINE,   tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $query->set(self::$_URL_PARAM_TITLE,    tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
         if ($jsApi) {
 
-            $link->setQueryVariable(self::$_URL_PARAM_JS_API, 1);
-            $link->setQueryVariable(self::$_URL_PARAM_PLAYER_ID, 'tubepress-video-object-' . mt_rand());
+            $query->set(self::$_URL_PARAM_JS_API, 1);
+            $query->set(self::$_URL_PARAM_PLAYER_ID, 'tubepress-video-object-' . mt_rand());
         }
 
         return $link;

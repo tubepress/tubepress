@@ -163,7 +163,7 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
 
             tubepress_api_const_options_names_Advanced::DEBUG_ON                     => true,
             tubepress_api_const_options_names_Advanced::GALLERY_ID                   => null,
-            tubepress_api_const_options_names_Advanced::HTTP_METHOD                  => ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET,
+            tubepress_api_const_options_names_Advanced::HTTP_METHOD                  => 'GET',
             tubepress_api_const_options_names_Advanced::HTTPS                        => false,
             tubepress_api_const_options_names_Advanced::KEYWORD                      => 'tubepress',
             tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR              => 20,
@@ -270,8 +270,8 @@ class tubepress_addons_core_impl_options_CoreOptionProvider extends tubepress_im
 
             tubepress_api_const_options_names_Advanced::HTTP_METHOD => array(
 
-                ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET  => ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET,
-                ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST => ehough_shortstop_api_HttpRequest::HTTP_METHOD_POST,
+                'GET'  => 'GET',
+                'POST' => 'POST'
             ),
 
             tubepress_api_const_options_names_Feed::ORDER_BY => array(

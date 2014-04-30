@@ -19,8 +19,18 @@ class tubepress_test_impl_theme_ThemeBaseTest extends tubepress_test_TubePressUn
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
+        $this->_mockUrlFactory    = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+
+        $this->_mockUrlFactory->shouldReceive('fromString')->with('http://bar.com/hello');
+        $this->_mockUrlFactory->shouldReceive('fromString')->with('http://foo.com/yoyo');
+
         $this->_sut = new tubepress_impl_theme_ThemeBase(
             'my/theme',
             '3.2.1',

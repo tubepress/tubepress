@@ -76,12 +76,14 @@ class tubepress_addons_wordpress_impl_actions_AdminNotices
 
         $nonce = $wpFunctions->wp_create_nonce(self::$_NONCE_ACTION);
         $qss   = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
+        $urlFa = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
         $url   = $qss->getFullUrl($_SERVER);
-        $url   = new ehough_curly_Url($url);
+        $url   = $urlFa->fromString($url);
+        $query = $url->getQuery();
         $urlToDocs = 'http://docs.tubepress.com/page/manual/wordpress/install-upgrade-uninstall.html#optimize-for-speed';
 
-        $url->setQueryVariable(self::$_NONCE_QUERY_PARAM_NAME, $nonce);
-        $url->setQueryVariable(self::$_DISMISS_NAG_QUERY_PARAM_NAME, 'true');
+        $query->set(self::$_NONCE_QUERY_PARAM_NAME, $nonce);
+        $query->set(self::$_DISMISS_NAG_QUERY_PARAM_NAME ,'true');
 
         $query = $url->getQuery();
 

@@ -35,15 +35,17 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
     /**
      * @param string $videoId The video ID to play.
      *
-     * @return ehough_curly_Url The URL of the data for this video.
+     * @return tubepress_api_url_UrlInterface The URL of the data for this video.
      */
     public final function getDataUrlForVideo($videoId)
     {
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $link    = new ehough_curly_Url('https://www.youtube.com/embed/' . $videoId);
-        $qss     = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
-        $url     = new ehough_curly_Url($qss->getFullUrl($_SERVER));
-        $origin  = $url->getScheme() . '://' . $url->getHost();
+        $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+        $link       = $urlFactory->fromString('https://www.youtube.com/embed/' . $videoId);
+        $embedQuery = $link->getQuery();
+        $qss        = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
+        $url        = $urlFactory->fromString($qss->getFullUrl($_SERVER));
+        $origin     = $url->getScheme() . '://' . $url->getHost();
 
 
         $autoPlay        = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
@@ -55,17 +57,16 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
         $modestBranding  = $context->get(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING);
         $showRelated     = $context->get(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED);
 
-        $link->setQueryVariable('wmode', 'opaque');
-        $link->setQueryVariable('autohide', $this->_getAutoHideValue($autoHide));
-        $link->setQueryVariable('autoplay', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
-
-        $link->setQueryVariable('enablejsapi', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($enableJsApi));
-        $link->setQueryVariable('fs', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
-        $link->setQueryVariable('loop', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
-        $link->setQueryVariable('modestbranding', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($modestBranding));
-        $link->setQueryVariable('rel', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showRelated));
-        $link->setQueryVariable('showinfo', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
-        $link->setQueryVariable('origin', $origin);
+        $embedQuery->set('autohide',       $this->_getAutoHideValue($autoHide));
+        $embedQuery->set('autoplay',       tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
+        $embedQuery->set('enablejsapi',    tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($enableJsApi));
+        $embedQuery->set('fs',             tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
+        $embedQuery->set('loop',           tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
+        $embedQuery->set('modestbranding', tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($modestBranding));
+        $embedQuery->set('origin',         $origin);
+        $embedQuery->set('rel',            tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showRelated));
+        $embedQuery->set('showinfo',       tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $embedQuery->set('wmode',          'opaque');
 
         return $link;
     }

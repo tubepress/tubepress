@@ -24,9 +24,15 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
      */
     private $_mockQss;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
-        $this->_mockQss = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
+        $this->_mockQss        = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_sut = new tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService();
     }
@@ -71,10 +77,28 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
 
         $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('http://xyz.com/foo.bar?yes=no#boo');
 
+        $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrl2 = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl2->shouldReceive('getQuery')->once()->andReturn($mockQuery);
+        $mockFullUrl->shouldReceive('getScheme')->once()->andReturn('sdy');
+        $mockFullUrl->shouldReceive('getHost')->once()->andReturn('too.net');
+        $mockQuery->shouldReceive('set')->once()->with('autohide', '1');
+        $mockQuery->shouldReceive('set')->once()->with('autoplay', '1');
+        $mockQuery->shouldReceive('set')->once()->with('enablejsapi', '1');
+        $mockQuery->shouldReceive('set')->once()->with('fs', '0');
+        $mockQuery->shouldReceive('set')->once()->with('loop', '0');
+        $mockQuery->shouldReceive('set')->once()->with('modestbranding', '1');
+        $mockQuery->shouldReceive('set')->once()->with('origin', 'sdy://too.net');
+        $mockQuery->shouldReceive('set')->once()->with('rel', '0');
+        $mockQuery->shouldReceive('set')->once()->with('showinfo', '1');
+        $mockQuery->shouldReceive('set')->once()->with('wmode', 'opaque');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://xyz.com/foo.bar?yes=no#boo')->andReturn($mockFullUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
+
         $result = $this->_sut->getDataUrlForVideo('xx');
 
-        $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1&origin=http%3A%2F%2Fxyz.com', $result->toString());
+        $this->assertSame($mockUrl2, $result);
     }
 
     public function testGetDataUrlAutoShowBoth()
@@ -92,11 +116,28 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
 
         $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('https://xyz.com/foo.bar?yes=no#boo');
 
+        $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrl2 = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl2->shouldReceive('getQuery')->once()->andReturn($mockQuery);
+        $mockFullUrl->shouldReceive('getScheme')->once()->andReturn('sdy');
+        $mockFullUrl->shouldReceive('getHost')->once()->andReturn('too.net');
+        $mockQuery->shouldReceive('set')->once()->with('autohide', '0');
+        $mockQuery->shouldReceive('set')->once()->with('autoplay', '1');
+        $mockQuery->shouldReceive('set')->once()->with('enablejsapi', '1');
+        $mockQuery->shouldReceive('set')->once()->with('fs', '0');
+        $mockQuery->shouldReceive('set')->once()->with('loop', '0');
+        $mockQuery->shouldReceive('set')->once()->with('modestbranding', '1');
+        $mockQuery->shouldReceive('set')->once()->with('origin', 'sdy://too.net');
+        $mockQuery->shouldReceive('set')->once()->with('rel', '0');
+        $mockQuery->shouldReceive('set')->once()->with('showinfo', '1');
+        $mockQuery->shouldReceive('set')->once()->with('wmode', 'opaque');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://xyz.com/foo.bar?yes=no#boo')->andReturn($mockFullUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
-        $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=0&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1&origin=https%3A%2F%2Fxyz.com', $result->toString());
+        $this->assertSame($mockUrl2, $result);
     }
 
     public function testGetDataUrlAutoHideBarShowControls()
@@ -114,10 +155,27 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
 
         $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('https://xyz.com/foo.bar?yes=no#boo');
 
+        $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrl2 = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl2->shouldReceive('getQuery')->once()->andReturn($mockQuery);
+        $mockFullUrl->shouldReceive('getScheme')->once()->andReturn('sdy');
+        $mockFullUrl->shouldReceive('getHost')->once()->andReturn('too.net');
+        $mockQuery->shouldReceive('set')->once()->with('autohide', '2');
+        $mockQuery->shouldReceive('set')->once()->with('autoplay', '1');
+        $mockQuery->shouldReceive('set')->once()->with('enablejsapi', '1');
+        $mockQuery->shouldReceive('set')->once()->with('fs', '0');
+        $mockQuery->shouldReceive('set')->once()->with('loop', '0');
+        $mockQuery->shouldReceive('set')->once()->with('modestbranding', '1');
+        $mockQuery->shouldReceive('set')->once()->with('origin', 'sdy://too.net');
+        $mockQuery->shouldReceive('set')->once()->with('rel', '0');
+        $mockQuery->shouldReceive('set')->once()->with('showinfo', '1');
+        $mockQuery->shouldReceive('set')->once()->with('wmode', 'opaque');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://xyz.com/foo.bar?yes=no#boo')->andReturn($mockFullUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
-        $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('https://www.youtube.com/embed/xx?wmode=opaque&autohide=2&autoplay=1&enablejsapi=1&fs=0&loop=0&modestbranding=1&rel=0&showinfo=1&origin=https%3A%2F%2Fxyz.com', $result->toString());
+        $this->assertSame($mockUrl2, $result);
     }
 }

@@ -12,7 +12,7 @@
 /**
  * Base functionality for feed retrieval services.
  */
-class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_FeedFetcher
+class tubepress_impl_feed_CacheAwareFeedFetcher
 {
     /**
      * @var ehough_epilog_Logger
@@ -62,21 +62,21 @@ class tubepress_impl_feed_CacheAwareFeedFetcher implements tubepress_spi_feed_Fe
 
     private function _getFromNetwork($url)
     {
-        $u               = new ehough_curly_Url($url);
-        $request         = new ehough_shortstop_api_HttpRequest(ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET, $u);
-        $client          = tubepress_impl_patterns_sl_ServiceLocator::getHttpClient();
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
-        $response = $client->execute($request);
-
-        $event = new tubepress_spi_event_EventBase($response->getEntity()->getContent(), array(
-
-            'request'  => $request,
-            'response' => $response
-        ));
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::HTTP_RESPONSE, $event);
-
-        return $event->getSubject();
+//        $u               = tubepress_impl_url_PuzzleUrl::fromString($url);
+//        $request         = new ehough_shortstop_api_HttpRequest(ehough_shortstop_api_HttpRequest::HTTP_METHOD_GET, $u);
+//        $client          = tubepress_impl_patterns_sl_ServiceLocator::getHttpClient();
+//        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
+//
+//        $response = $client->execute($request);
+//
+//        $event = new tubepress_spi_event_EventBase($response->getEntity()->getContent(), array(
+//
+//            'request'  => $request,
+//            'response' => $response
+//        ));
+//        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::HTTP_RESPONSE, $event);
+//
+//        return $event->getSubject();
     }
 
     private function _getFromCache($url, tubepress_spi_context_ExecutionContext $context, $isDebugEnabled)

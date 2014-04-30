@@ -37,6 +37,14 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
+     * @return tubepress_spi_html_CssAndJsHtmlGeneratorInterface The head HTML generator.
+     */
+    public static function getCssAndJsHtmlGenerator()
+    {
+        return self::getService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
+    }
+
+    /**
      * @return tubepress_spi_embedded_EmbeddedHtmlGenerator The embedded HTML generator.
      */
     public static function getEmbeddedHtmlGenerator()
@@ -69,14 +77,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_feed_FeedFetcher The feed fetcher.
-     */
-    public static function getFeedFetcher()
-    {
-        return self::getService(tubepress_spi_feed_FeedFetcher::_);
-    }
-
-    /**
      * @return ehough_filesystem_FilesystemInterface The filesystem service.
      */
     public static function getFileSystem()
@@ -93,19 +93,11 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_CssAndJsHtmlGeneratorInterface The head HTML generator.
-     */
-    public static function getCssAndJsHtmlGenerator()
-    {
-        return self::getService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
-    }
-
-    /**
-     * @return ehough_shortstop_api_HttpClientInterface The HTTP client.
+     * @return tubepress_spi_http_HttpClientInterface The HTTP client.
      */
     public static function getHttpClient()
     {
-        return self::getService('ehough_shortstop_api_HttpClientInterface');
+        return self::getService(tubepress_spi_http_HttpClientInterface::_);
     }
 
     /**
@@ -210,6 +202,14 @@ class tubepress_impl_patterns_sl_ServiceLocator
     public static function getThemeHandler()
     {
         return self::getService(tubepress_spi_theme_ThemeHandlerInterface::_);
+    }
+
+    /**
+     * @return tubepress_spi_url_UrlFactoryInterface The URL factory.
+     */
+    public static function getUrlFactoryInterface()
+    {
+        return self::getService(tubepress_spi_url_UrlFactoryInterface::_);
     }
 
     /**

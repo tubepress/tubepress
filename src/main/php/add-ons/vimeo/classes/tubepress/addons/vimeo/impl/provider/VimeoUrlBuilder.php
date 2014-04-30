@@ -165,16 +165,17 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
     {
         $finalUrl        = $this->_buildUrl($params);
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $event           = new tubepress_spi_event_EventBase(new ehough_curly_Url($finalUrl));
+        $urlFactory      = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+        $event           = new tubepress_spi_event_EventBase($urlFactory->fromString($finalUrl));
 
         $eventDispatcher->dispatch($eventName, $event);
 
         /**
-         * @var $url ehough_curly_Url
+         * @var $url tubepress_api_url_UrlInterface
          */
         $url = $event->getSubject();
 
-        return $url->toString();
+        return $url;
     }
 
     private function _getSort($mode, tubepress_spi_context_ExecutionContext $execContext)

@@ -12,7 +12,7 @@
 /**
  * Handles the heavy lifting for YouTube.
  */
-class tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService extends tubepress_impl_provider_AbstractPluggableVideoProviderService
+class tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService extends tubepress_impl_provider_AbstractHttpBasedVideoProviderService
 {
     private static $_NAMESPACE_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     private static $_NAMESPACE_APP        = 'http://www.w3.org/2007/app';

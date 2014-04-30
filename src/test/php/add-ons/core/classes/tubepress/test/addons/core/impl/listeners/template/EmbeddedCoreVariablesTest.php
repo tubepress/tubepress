@@ -47,7 +47,7 @@ class tubepress_test_addons_core_impl_listeners_template_EmbeddedCoreVariablesTe
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(660);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(732);
 
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_DATA_URL, 'http://tubepress.com');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_DATA_URL, 'dddd');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, '<tubepress_base_url>');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART, 'false');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, 660);
@@ -60,10 +60,13 @@ class tubepress_test_addons_core_impl_listeners_template_EmbeddedCoreVariablesTe
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'embedded-impl-name');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_PROVIDER_NAME, 'video-provider-name');
 
+        $mockDataUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockDataUrl->shouldReceive('toString')->once()->andReturn('dddd');
+
         $event = new tubepress_spi_event_EventBase($mockTemplate);
         $event->setArguments(array(
 
-            'dataUrl' => new ehough_curly_Url('http://tubepress.com'),
+            'dataUrl' => $mockDataUrl,
             'videoId' => 'video-id',
             'providerName' => 'video-provider-name',
             'embeddedImplementationName' => 'embedded-impl-name'

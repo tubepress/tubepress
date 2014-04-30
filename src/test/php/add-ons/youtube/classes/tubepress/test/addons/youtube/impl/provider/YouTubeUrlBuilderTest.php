@@ -29,11 +29,17 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
      */
     private $_mockEventDispatcher;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
         $this->_sut                  = new tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder();
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_addons_youtube_api_const_options_names_Feed::FILTER)->andReturn('moderate');
@@ -45,11 +51,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
     {
         $this->_setupEventDispatcher(tubepress_addons_youtube_api_const_YouTubeEventNames::URL_SINGLE);
 
-        $this->assertEquals(
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockQuery->shouldReceive('set')->once()->with('v', 2);
+        $mockQuery->shouldReceive('set')->once()->with('key', 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
+        $mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/videos/dfsdkjerufd')->andReturn($mockUrl);
 
-            "http://gdata.youtube.com/feeds/api/videos/dfsdkjerufd?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg",
-            $this->_sut->buildSingleVideoUrl('dfsdkjerufd')
-        );
+        $this->assertSame($mockUrl, $this->_sut->buildSingleVideoUrl('dfsdkjerufd'));
     }
 
     public function testexecuteUserMode()
@@ -62,8 +71,15 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
            'userValue' => '3hough'
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testexecutePopular()
@@ -76,8 +92,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
            'youtubeMostPopularValue' => 'today'
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?time=today&" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?time=today')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testexecutePlaylist()
@@ -91,8 +113,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            tubepress_api_const_options_names_Feed::ORDER_BY => 'relevance',
            'playlistValue' => 'D2B04665B213AE35'
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&orderby=viewCount&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testexecuteFavorites()
@@ -105,8 +133,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
            'favoritesValue' => 'mrdeathgod'
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/mrdeathgod/favorites?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/mrdeathgod/favorites')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testexecuteTagWithDoubleQuotes()
@@ -120,8 +154,15 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => '"stewart daily" -show',
         tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=%22stewart+daily%22+-show&" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/videos?q=%22stewart+daily%22+-show')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+
     }
 
     public function testexecuteTagWithExclusion()
@@ -135,8 +176,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => 'stewart daily -show',
         tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+-show&" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+-show')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testexecuteTagWithPipes()
@@ -150,8 +197,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => 'stewart|daily|show',
         tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%7Cdaily%7Cshow&" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/videos?q=stewart%7Cdaily%7Cshow')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testexecuteTag()
@@ -165,8 +218,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
            'tagValue' => 'stewart daily show',
         tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+show&" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+show')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testexecuteTagWithUser()
@@ -180,10 +239,15 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '3hough',
             'tagValue' => 'stewart daily show'
         ));
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+show&author=3hough&" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
-    }
 
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+show&author=3hough')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+    }
 
     public function testNewestSortOrderNonPlaylist()
     {
@@ -196,8 +260,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::NEWEST
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff('published'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'published');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testNewestSortOrderPlaylist()
@@ -211,8 +280,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?" . $this->_standardPostProcessingStuff('published'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'published');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testViewsSortOrderNonPlaylist()
@@ -226,8 +300,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::VIEW_COUNT
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+
     }
 
     public function testViewsSortOrderPlaylist()
@@ -241,8 +321,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?" . $this->_standardPostProcessingStuff(),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery);
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testRelevanceSortOrderNonPlaylist()
@@ -256,8 +341,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::RELEVANCE
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff('relevance'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'relevance');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+
     }
 
     public function testRelevanceSortOrderPlaylist()
@@ -271,8 +362,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'NONE');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testRatingSortOrderNonPlaylist()
@@ -286,8 +382,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::RATING
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff('rating'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'rating');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testRatingSortOrderPlaylist()
@@ -301,8 +402,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'NONE');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+
     }
 
     public function testPositionSortOrderNonPlaylist()
@@ -316,8 +423,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::POSITION
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'NONE');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+
     }
 
     public function testPositionSortOrderPlaylist()
@@ -331,8 +444,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?" . $this->_standardPostProcessingStuff('position'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'position');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+
     }
 
     public function testCommentsSortOrderNonPlaylist()
@@ -346,8 +465,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'NONE');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testCommentsSortOrderPlaylist()
@@ -361,8 +485,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?" . $this->_standardPostProcessingStuff('commentCount'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'commentCount');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testDurationSortOrderNonPlaylist()
@@ -376,8 +505,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::DURATION
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'NONE');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testDurationSortOrderPlaylist()
@@ -391,8 +525,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?" . $this->_standardPostProcessingStuff('duration'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'duration');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testRevPositionSortOrderNonPlaylist()
@@ -406,8 +545,14 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::REV_POSITION
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'NONE');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
+
     }
 
     public function testRevPositionSortOrderPlaylist()
@@ -421,8 +566,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?" . $this->_standardPostProcessingStuff('reversedPosition'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'reversedPosition');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testTitleSortOrderNonPlaylist()
@@ -436,8 +586,13 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_api_const_options_names_Feed::ORDER_BY => tubepress_api_const_options_values_OrderByValue::TITLE
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5",
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/users/3hough/uploads')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'NONE');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
     public function testTitleSortOrderPlaylist()
@@ -451,13 +606,32 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
             tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
-        $this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?" . $this->_standardPostProcessingStuff('title'),
-            $this->_sut->buildGalleryUrl(1));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->times(3)->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35')->andReturn($mockUrl);
+        $this->_standardPostProcessingStuff($mockQuery, 'title');
+
+        $this->assertSame($mockUrl, $this->_sut->buildGalleryUrl(1));
     }
 
-    private function _standardPostProcessingStuff($order = 'viewCount')
+    private function _standardPostProcessingStuff(ehough_mockery_mockery_MockInterface $mockQuery, $order = 'viewCount')
     {
-        return "v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&orderby=$order&safeSearch=moderate&format=5";
+        $mockQuery->shouldReceive('set')->once()->with('v', 2);
+        $mockQuery->shouldReceive('set')->once()->with('start-index', 1);
+        $mockQuery->shouldReceive('set')->once()->with('max-results', 20);
+
+        if ($order !== 'NONE') {
+
+            $mockQuery->shouldReceive('set')->once()->with('orderby', $order);
+        }
+
+        $mockQuery->shouldReceive('set')->once()->with('safeSearch', 'moderate');
+        $mockQuery->shouldReceive('set')->once()->with('format', 5);
+        $mockQuery->shouldReceive('set')->once()->with('key', 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
+
+
+        return "&max-results=20&orderby=$order&safeSearch=moderate&format=5";
     }
 
     private function expectOptions($arr) {
@@ -472,7 +646,7 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
     {
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with($evenName, ehough_mockery_Mockery::on(function ($event) {
 
-            return $event->getSubject() instanceof ehough_curly_Url;
+            return $event->getSubject() instanceof tubepress_api_url_UrlInterface;
         }));
     }
 }

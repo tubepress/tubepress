@@ -56,27 +56,27 @@ interface tubepress_spi_contrib_ContributableInterface
     function getKeywords();
 
     /**
-     * @return ehough_curly_Url Optional. A link to the add-on's homepage.
+     * @return string Optional. A link to the add-on's homepage.
      */
     function getHomepageUrl();
 
     /**
-     * @return ehough_curly_Url Optional. A link to the add-on's documentation.
+     * @return string Optional. A link to the add-on's documentation.
      */
     function getDocumentationUrl();
 
     /**
-     * @return ehough_curly_Url Optional. A link to a live demo of the add-on.
+     * @return string Optional. A link to a live demo of the add-on.
      */
     function getDemoUrl();
 
     /**
-     * @return ehough_curly_Url Optional. A link to a download URL.
+     * @return string Optional. A link to a download URL.
      */
     function getDownloadUrl();
 
     /**
-     * @return ehough_curly_Url Optional. A link to a bug tracker for this add-on.
+     * @return string Optional. A link to a bug tracker for this add-on.
      */
     function getBugTrackerUrl();
 

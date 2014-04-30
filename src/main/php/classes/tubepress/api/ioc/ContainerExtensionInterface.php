@@ -29,12 +29,12 @@ interface tubepress_api_ioc_ContainerExtensionInterface
      * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
      * will be completely empty, and after this method is executed will be merged into the primary service container.
      *
-     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
+     * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder An empty `tubepress_api_ioc_ContainerBuilderInterface` instance.
      *
      * @return void
      *
      * @api
      * @since 3.2.0
      */
-    function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilderBuilder);
+    function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder);
 }

@@ -35,11 +35,13 @@ class tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerS
     /**
      * @param string $videoId The video ID to play.
      *
-     * @return ehough_curly_Url The URL of the data for this video.
+     * @return tubepress_api_url_UrlInterface The URL of the data for this video.
      */
     public final function getDataUrlForVideo($videoId)
     {
-        return new ehough_curly_Url(sprintf('http://www.youtube.com/embed/%s', $videoId));
+        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+
+        return $urlFactory->fromString(sprintf('http://www.youtube.com/embed/%s', $videoId));
     }
 
     /**

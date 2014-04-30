@@ -73,27 +73,27 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     private $_keywords = array();
 
     /**
-     * @var ehough_curly_Url
+     * @var string
      */
     private $_urlHomepage;
 
     /**
-     * @var ehough_curly_Url
+     * @var string
      */
     private $_urlDocs;
 
     /**
-     * @var ehough_curly_Url
+     * @var string
      */
     private $_urlDemo;
 
     /**
-     * @var ehough_curly_Url
+     * @var string
      */
     private $_urlDownload;
 
     /**
-     * @var ehough_curly_Url
+     * @var string
      */
     private $_urlBugs;
 
@@ -264,7 +264,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return ehough_curly_Url Optional. A link to the add-on's homepage.
+     * @return string Optional. A link to the add-on's homepage.
      */
     public function getHomepageUrl()
     {
@@ -272,7 +272,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return ehough_curly_Url Optional. A link to the add-on's documentation.
+     * @return string Optional. A link to the add-on's documentation.
      */
     public function getDocumentationUrl()
     {
@@ -280,7 +280,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return ehough_curly_Url Optional. A link to a live demo of the add-on.
+     * @return string Optional. A link to a live demo of the add-on.
      */
     public function getDemoUrl()
     {
@@ -288,7 +288,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return ehough_curly_Url Optional. A link to a download URL.
+     * @return string Optional. A link to a download URL.
      */
     public function getDownloadUrl()
     {
@@ -296,7 +296,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return ehough_curly_Url Optional. A link to a bug tracker for this add-on.
+     * @return string Optional. A link to a bug tracker for this add-on.
      */
     public function getBugTrackerUrl()
     {
@@ -315,9 +315,11 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     protected function validateUrl($url, $name)
     {
+        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+
         try {
 
-            new ehough_curly_Url($url);
+            $urlFactory->fromString($url);
 
         } catch (InvalidArgumentException $e) {
 

@@ -19,9 +19,15 @@ class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tube
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_impl_environment_SimpleEnvironmentDetector();
+        $this->_mockUrlFactory    = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
     }
 
     public function testVersion()
@@ -54,6 +60,11 @@ class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tube
 
     public function testBaseUrl()
     {
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrl->shouldReceive('getScheme')->once()->andReturn('http');
+        $mockUrl->shouldReceive('toString')->once()->andReturn('http://foo.com');
+        $mockUrl->shouldReceive('getAuthority')->once()->andReturn('foo.com');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://foo.com')->andReturn($mockUrl);
         $this->_sut->setBaseUrl('http://foo.com');
 
         $this->assertEquals('', $this->_sut->getBaseUrl());
@@ -63,13 +74,25 @@ class tubepress_test_impl_environment_SimpleEnvironmentDetectorTest extends tube
     {
         $u = 'https://bar.com/xyz/test.php?some=thing#x';
 
-        $this->_sut->setUserContentUrl(new ehough_curly_Url($u));
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrl->shouldReceive('getScheme')->once()->andReturn('https');
+        $mockUrl->shouldReceive('toString')->once()->andReturn($u);
+        $mockUrl->shouldReceive('getAuthority')->once()->andReturn('bar.com');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with($u)->andReturn($mockUrl);
+
+        $this->_sut->setUserContentUrl($u);
 
         $this->assertEquals('/xyz/test.php?some=thing#x', $this->_sut->getUserContentUrl());
     }
 
     public function testGetUserContentUrlNonWordPress()
     {
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrl->shouldReceive('getScheme')->once()->andReturn('http');
+        $mockUrl->shouldReceive('toString')->once()->andReturn('http://foo.bar/x');
+        $mockUrl->shouldReceive('getAuthority')->once()->andReturn('foo.bar');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://foo.bar/x')->andReturn($mockUrl);
+
         $this->_sut->setUserContentUrl('http://foo.bar/x');
 
         $this->assertEquals('/x', $this->_sut->getUserContentUrl());

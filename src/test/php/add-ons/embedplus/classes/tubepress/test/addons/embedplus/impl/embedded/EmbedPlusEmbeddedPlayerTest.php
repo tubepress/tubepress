@@ -15,9 +15,15 @@ class tubepress_test_addons_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest 
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup() {
 
         $this->_sut = new tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService();
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
     }
 
     public function testGetName()
@@ -47,12 +53,12 @@ class tubepress_test_addons_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest 
 
     public function testGetDataUrl()
     {
-        $mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://www.youtube.com/embed/xx')->andReturn($mockUrl);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
-        $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://www.youtube.com/embed/xx', $result->toString());
+        $this->assertSame($mockUrl, $result);
     }
 
 }

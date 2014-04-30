@@ -16,7 +16,10 @@ class tubepress_test_impl_util_UrlUtilsTest extends tubepress_test_TubePressUnit
 {
     public function testStripAuthorityAndScheme()
     {
-        $url    = new ehough_curly_Url('something://bla.bla/one.php?hello=phrase');
+        $url    = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $url->shouldReceive('getScheme')->once()->andReturn('something');
+        $url->shouldReceive('getAuthority')->once()->andReturn('bla.bla');
+        $url->shouldReceive('toString')->once()->andReturn('something://bla.bla/one.php?hello=phrase');
         $result = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
 
         $this->assertTrue(is_string($result));
@@ -25,7 +28,10 @@ class tubepress_test_impl_util_UrlUtilsTest extends tubepress_test_TubePressUnit
 
     public function testStripAuthorityAndSchem2()
     {
-        $url    = new ehough_curly_Url('something://bla.bla');
+        $url    = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $url->shouldReceive('getScheme')->once()->andReturn('something');
+        $url->shouldReceive('getAuthority')->once()->andReturn('bla.bla');
+        $url->shouldReceive('toString')->once()->andReturn('something://bla.bla');
         $result = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
 
         $this->assertTrue(is_string($result));
@@ -34,7 +40,10 @@ class tubepress_test_impl_util_UrlUtilsTest extends tubepress_test_TubePressUnit
 
     public function testStripAuthorityAndScheme3()
     {
-        $url    = new ehough_curly_Url('something://bla.bla:1234/one.php?hello=phrase');
+        $url    = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $url->shouldReceive('getScheme')->once()->andReturn('something');
+        $url->shouldReceive('getAuthority')->once()->andReturn('bla.bla:1234');
+        $url->shouldReceive('toString')->once()->andReturn('something://bla.bla:1234/one.php?hello=phrase');
         $result = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
 
         $this->assertTrue(is_string($result));

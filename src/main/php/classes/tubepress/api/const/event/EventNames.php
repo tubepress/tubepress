@@ -83,7 +83,7 @@ class tubepress_api_const_event_EventNames
      *
      * @argument <var>videoId</var> (`string`): The ID of the video to be played.
      * @argument <var>providerName</var> (`string`): The name of the video provider (e.g. "vimeo" or "youtube").
-     * @argument <var>dataUrl</var> (`ehough_curly_Url`): The embedded data URL.
+     * @argument <var>dataUrl</var> (`tubepress_api_url_UrlInterface`): The embedded data URL.
      * @argument <var>embeddedImplementationName</var> (`string`): The name of the embedded implementation.
      *
      * @api
@@ -327,7 +327,7 @@ class tubepress_api_const_event_EventNames
      *
      * @argument <var>videoId</var> (`string`): The ID of the video to be played.
      * @argument <var>providerName</var> (`string`): The name of the video provider (e.g. "vimeo" or "youtube").
-     * @argument <var>dataUrl</var> (`ehough_curly_Url`): The embedded data URL.
+     * @argument <var>dataUrl</var> (`tubepress_api_url_UrlInterface`): The embedded data URL.
      * @argument <var>embeddedImplementationName</var> (`string`): The name of the embedded implementation.
      *
      * @api

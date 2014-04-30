@@ -41,12 +41,6 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
         $containerBuilder->register(
 
-            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener',
-            'tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));
-
-        $containerBuilder->register(
-
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler',
             'tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler'
         )->addTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(

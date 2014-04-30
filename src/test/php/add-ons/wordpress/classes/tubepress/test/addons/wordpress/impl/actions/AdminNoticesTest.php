@@ -34,12 +34,18 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
      */
     private $_mockQss;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
         $this->_sut                             = new tubepress_addons_wordpress_impl_actions_AdminNotices();
         $this->_mockWordPressFunctionWrapper    = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockQss                         = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_sut->___doNotIgnoreExceptions();
     }
@@ -70,14 +76,29 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
     public function testNagNoDismissRequestedNoDismissStored()
     {
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
+        $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
+        $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
+
         $this->_mockWordPressFunctionWrapper->shouldReceive('current_user_can')->once()->with('manage_options')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('dismissTubePressCacheNag')->andReturn(false);
-        $mockUser = new stdClass();
         $this->_completeNagTest();
     }
 
     public function testNagNoDismissRequestedNoDismissStored2()
     {
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
+        $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
+        $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
+
         $this->_mockWordPressFunctionWrapper->shouldReceive('current_user_can')->once()->with('manage_options')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('dismissTubePressCacheNag')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('dismissTubePressCacheNag')->andReturn('xyz');
@@ -86,6 +107,14 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
     public function testNagNoDismissRequestedNoDismissStored3()
     {
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
+        $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
+        $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
+
         $this->_mockWordPressFunctionWrapper->shouldReceive('current_user_can')->once()->with('manage_options')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('dismissTubePressCacheNag')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubePressWpNonce')->andReturn(false);
@@ -96,6 +125,14 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
     public function testNagNoDismissRequestedNoDismissStored4()
     {
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
+        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
+        $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
+        $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
+
         $this->_mockWordPressFunctionWrapper->shouldReceive('current_user_can')->once()->with('manage_options')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('dismissTubePressCacheNag')->andReturn(true);
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubePressWpNonce')->andReturn(true);
@@ -136,7 +173,7 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
         $this->expectOutputString(<<<ABC
 <div class="update-nag">
-TubePress is not configured for optimal performance, and could be slowing down your site. <strong><a target="_blank" href="http://docs.tubepress.com/page/manual/wordpress/install-upgrade-uninstall.html#optimize-for-speed">Fix it now</a></strong> or <a href="?color=blue&tubePressWpNonce=your+nonce&dismissTubePressCacheNag=true">dismiss this message</a>.
+TubePress is not configured for optimal performance, and could be slowing down your site. <strong><a target="_blank" href="http://docs.tubepress.com/page/manual/wordpress/install-upgrade-uninstall.html#optimize-for-speed">Fix it now</a></strong> or <a href="?xyz">dismiss this message</a>.
 </div>
 ABC
         );

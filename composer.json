@@ -12,16 +12,14 @@
     ],
     "require": {
         "ehough/chaingang"   : "~1.0.0",
-        "ehough/coauthor"    : "~1.0.0",
         "ehough/contemplate" : "~1.0.0",
-        "ehough/curly"       : "~1.0.0",
         "ehough/epilog"      : "~1.7",
         "ehough/finder"      : "~2.4.0",
         "ehough/iconic"      : "~2.4.0",
         "ehough/pulsar"      : "~2.4.0",
-        "ehough/shortstop"   : "~2.0",
         "ehough/stash"       : "~0.10",
-        "ehough/tickertape"  : "~2.4.0"
+        "ehough/tickertape"  : "~2.4.0",
+        "puzzlehttp/puzzle"  : "~4.0"
     },
     "require-dev": {
         "ehough/mockery"       : "~0.8",
@@ -33,6 +31,7 @@
             "tubepress_addons_core"      : "src/main/php/add-ons/core/classes",
             "tubepress_addons_embedplus" : "src/main/php/add-ons/embedplus/classes",
             "tubepress_addons_jwplayer"  : "src/main/php/add-ons/jwplayer/classes",
+            "tubepress_addons_puzzle"    : "src/main/php/add-ons/puzzle/classes",
             "tubepress_addons_vimeo"     : "src/main/php/add-ons/vimeo/classes",
             "tubepress_addons_wordpress" : "src/main/php/add-ons/wordpress/classes",
             "tubepress_addons_youtube"   : "src/main/php/add-ons/youtube/classes",

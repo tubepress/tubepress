@@ -29,7 +29,7 @@ class tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables
 
         $vars = array(
 
-            tubepress_api_const_template_Variable::EMBEDDED_DATA_URL   => $dataUrl->toString(true),
+            tubepress_api_const_template_Variable::EMBEDDED_DATA_URL   => $dataUrl->toString(),
             tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL  => $environment->getBaseUrl(),
             tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART  => tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay),
             tubepress_api_const_template_Variable::EMBEDDED_WIDTH      => $embedWidth,
@@ -48,18 +48,18 @@ class tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables
         return $template;
     }
 
-    private function _getVideoDomId($providerName, ehough_curly_Url $dataUrl)
+    private function _getVideoDomId($providerName, tubepress_api_url_UrlInterface $dataUrl)
     {
         if ($providerName !== 'vimeo') {
 
             return 'tubepress-video-object-' . mt_rand();
         }
 
-        $queryVars = $dataUrl->getQueryVariables();
+        $query = $dataUrl->getQuery();
 
-        if (isset($queryVars['player_id'])) {
+        if ($query->hasKey('player_id')) {
 
-            return $queryVars['player_id'];
+            return $query->get('player_id');
         }
 
         //this should never happen

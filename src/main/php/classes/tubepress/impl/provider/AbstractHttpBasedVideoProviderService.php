@@ -12,7 +12,7 @@
 /**
  * Base class for video providers. This is a complex class, but it's also at the heart of TubePress.
  */
-abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService implements tubepress_spi_provider_PluggableVideoProviderService
+abstract class tubepress_impl_provider_AbstractHttpBasedVideoProviderService implements tubepress_spi_provider_PluggableVideoProviderService
 {
     /**
      * @var ehough_epilog_Logger
@@ -123,7 +123,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
      *
      * @param int $currentPage The current page number of the gallery.
      *
-     * @return string The request URL for this gallery.
+     * @return tubepress_api_url_UrlInterface The request URL for this gallery.
      */
     protected abstract function buildGalleryUrl($currentPage);
 
@@ -134,7 +134,7 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
      *
      * @throws InvalidArgumentException If unable to build a URL for the given video.
      *
-     * @return string The URL for the single video given.
+     * @return tubepress_api_url_UrlInterface The URL for the single video given.
      */
     protected abstract function buildSingleVideoUrl($id);
 
@@ -275,10 +275,9 @@ abstract class tubepress_impl_provider_AbstractPluggableVideoProviderService imp
 
     private function _fetchFeedAndPrepareForAnalysis($url)
     {
-        $feedFetcher = tubepress_impl_patterns_sl_ServiceLocator::getFeedFetcher();
-        $context     = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $useCache    = $context->get(tubepress_api_const_options_names_Cache::CACHE_ENABLED);
-        $rawFeed     = $feedFetcher->fetch($url, $useCache);
+        $httpClient   = tubepress_impl_patterns_sl_ServiceLocator::getHttpClient();
+        $httpResponse = $httpClient->get($url);
+        $rawFeed      = $httpResponse->getBody()->toString();
 
         $this->prepareForFeedAnalysis($rawFeed);
 

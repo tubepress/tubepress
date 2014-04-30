@@ -54,6 +54,21 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
      */
     private $_mockThemeHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockFullUrl;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockFullQuery;
+
     public function onSetup()
     {
         $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination();
@@ -64,6 +79,7 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $messageService                         = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockThemeHandler                = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)->andReturn(true);
@@ -76,7 +92,11 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
 
+        $this->_mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockFullQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
         $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se');
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se')->andReturn($this->_mockFullUrl);
+
 
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
@@ -91,7 +111,7 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
 
             tubepress_api_const_template_Variable::PAGINATION_CURRENT_PAGE     => 25,
             tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS      => 500,
-            tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT      => '/foo.bar?hello=goodbye&something=el%%21se&tubepress_page=%d',
+            tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT      => '/foo.bar?hello=goodbye&something=el%%21se',
             tubepress_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE => 4,
             tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT        => '##next##',
             tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV        => '##prev##',
@@ -121,6 +141,12 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
             return $good;
         }));
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(25);
+        $this->_mockFullUrl->shouldReceive('getQuery')->once()->andReturn($this->_mockFullQuery);
+        $this->_mockFullUrl->shouldReceive('getScheme')->once()->andReturn('http');
+        $this->_mockFullUrl->shouldReceive('getAuthority')->once()->andReturn('tubepress.com');
+        $this->_mockFullUrl->shouldReceive('toString')->once()->andReturn('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se');
+
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 'zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p');
 
         $this->_test();
     }
@@ -145,6 +171,18 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         }));
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(25);
 
+        $this->_mockFullQuery->shouldReceive('remove')->once()->with('tubepress_page');
+        $this->_mockFullQuery->shouldReceive('set')->twice()->with('tubepress_page', 24);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 1);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 2);
+        $this->_mockFullQuery->shouldReceive('set')->twice()->with('tubepress_page', 26);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 124);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 125);
+        $this->_mockFullUrl->shouldReceive('getQuery')->times(9)->andReturn($this->_mockFullQuery);
+        $this->_mockFullUrl->shouldReceive('getScheme')->times(8)->andReturn('http');
+        $this->_mockFullUrl->shouldReceive('getAuthority')->times(8)->andReturn('tubepress.com');
+        $this->_mockFullUrl->shouldReceive('toString')->times(8)->andReturn('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se');
+
         $this->_test();
     }
 
@@ -168,6 +206,18 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
         }));
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(12);
 
+        $this->_mockFullQuery->shouldReceive('remove')->once()->with('tubepress_page');
+        $this->_mockFullQuery->shouldReceive('set')->twice()->with('tubepress_page', 11);
+        $this->_mockFullQuery->shouldReceive('set')->twice()->with('tubepress_page', 13);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 1);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 2);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 124);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 125);
+        $this->_mockFullUrl->shouldReceive('getQuery')->times(9)->andReturn($this->_mockFullQuery);
+        $this->_mockFullUrl->shouldReceive('getScheme')->times(8)->andReturn('http');
+        $this->_mockFullUrl->shouldReceive('getAuthority')->times(8)->andReturn('tubepress.com');
+        $this->_mockFullUrl->shouldReceive('toString')->times(8)->andReturn('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se');
+
         $this->_test();
     }
 
@@ -190,6 +240,18 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
             return $good;
         }));
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
+
+        $this->_mockFullQuery->shouldReceive('remove')->once()->with('tubepress_page');
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 3);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 4);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 5);
+        $this->_mockFullQuery->shouldReceive('set')->twice()->with('tubepress_page', 2);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 124);
+        $this->_mockFullQuery->shouldReceive('set')->once()->with('tubepress_page', 125);
+        $this->_mockFullUrl->shouldReceive('getQuery')->times(8)->andReturn($this->_mockFullQuery);
+        $this->_mockFullUrl->shouldReceive('getScheme')->times(7)->andReturn('http');
+        $this->_mockFullUrl->shouldReceive('getAuthority')->times(7)->andReturn('tubepress.com');
+        $this->_mockFullUrl->shouldReceive('toString')->times(7)->andReturn('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se');
 
         $this->_test();
     }

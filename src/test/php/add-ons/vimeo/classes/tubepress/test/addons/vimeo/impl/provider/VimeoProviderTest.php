@@ -27,7 +27,7 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockFeedFetcher;
+    private $_mockHttpClient;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -44,13 +44,19 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
      */
     private $_mockHttpRequestParameterService;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
         $this->_mockUrlBuilder                  = $this->createMockSingletonService(tubepress_spi_provider_UrlBuilder::_);
-        $this->_mockFeedFetcher                 = $this->createMockSingletonService(tubepress_spi_feed_FeedFetcher::_);
+        $this->_mockHttpClient                 = $this->createMockSingletonService(tubepress_spi_http_HttpClientInterface::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService($this->_mockUrlBuilder);
     }
@@ -91,10 +97,6 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
     {
         $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(36)->andReturn('abc');
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
-
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->_gallerySerializedPhp());
-
         $this->_mockEventDispatcher->shouldReceive('dispatch')->times(16)->with(
 
             tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION,
@@ -104,6 +106,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
             })
         );
 
+        $mockResponse = ehough_mockery_Mockery::mock('tubepress_api_http_ResponseInterface');
+        $mockStream   = ehough_mockery_Mockery::mock('tubepress_api_stream_StreamInterface');
+        $this->_mockHttpClient->shouldReceive('get')->once()->with('abc')->andReturn($mockResponse);
+        $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
+        $mockStream->shouldReceive('toString')->once()->andReturn($this->_gallerySerializedPhp());
+
         $result = $this->_sut->fetchVideoGalleryPage(36);
 
         $this->assertTrue($result instanceof tubepress_api_video_VideoGalleryPage);
@@ -112,9 +120,6 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
     public function testFetchSingleVideo()
     {
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('333383838')->andReturn('abc');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(true);
-
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', true)->andReturn($this->_singleVideoSerializedPhp());
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
@@ -124,6 +129,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
                 return $arg instanceof tubepress_api_event_EventInterface && $arg->getSubject() instanceof tubepress_api_video_Video;
             })
         );
+
+        $mockResponse = ehough_mockery_Mockery::mock('tubepress_api_http_ResponseInterface');
+        $mockStream   = ehough_mockery_Mockery::mock('tubepress_api_stream_StreamInterface');
+        $this->_mockHttpClient->shouldReceive('get')->once()->with('abc')->andReturn($mockResponse);
+        $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
+        $mockStream->shouldReceive('toString')->once()->andReturn($this->_singleVideoSerializedPhp());
 
         $result = $this->_sut->fetchSingleVideo('333383838');
 
@@ -135,9 +146,12 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
         $this->setExpectedException('RuntimeException', 'Unable to unserialize PHP from Vimeo');
 
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('333383838')->andReturn('abc');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', false)->andReturn('"xxxx');
+        $mockResponse = ehough_mockery_Mockery::mock('tubepress_api_http_ResponseInterface');
+        $mockStream   = ehough_mockery_Mockery::mock('tubepress_api_stream_StreamInterface');
+        $this->_mockHttpClient->shouldReceive('get')->once()->with('abc')->andReturn($mockResponse);
+        $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
+        $mockStream->shouldReceive('toString')->once()->andReturn('xxxx');
 
         $this->_sut->fetchSingleVideo('333383838');
     }
@@ -147,9 +161,13 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
         $this->setExpectedException('RuntimeException', 'Vimeo responded to TubePress with an error: Invalid consumer key');
 
         $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('333383838')->andReturn('abc');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
-        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('abc', false)->andReturn($this->_errorSerializedPhp());
+        $mockResponse = ehough_mockery_Mockery::mock('tubepress_api_http_ResponseInterface');
+        $mockStream   = ehough_mockery_Mockery::mock('tubepress_api_stream_StreamInterface');
+        $this->_mockHttpClient->shouldReceive('get')->once()->with('abc')->andReturn($mockResponse);
+        $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
+        $mockStream->shouldReceive('toString')->once()->andReturn($this->_errorSerializedPhp());
+
 
         $this->_sut->fetchSingleVideo('333383838');
     }

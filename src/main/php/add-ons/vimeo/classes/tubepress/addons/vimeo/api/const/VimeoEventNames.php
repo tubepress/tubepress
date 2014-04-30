@@ -18,7 +18,7 @@ class tubepress_addons_vimeo_api_const_VimeoEventNames
      * This event is fired after TubePress builds the URL to fetch a set of videos
      * from Vimeo.
      *
-     * @subject ehough_curly_Url The Vimeo API URL.
+     * @subject tubepress_api_url_UrlInterface The Vimeo API URL.
      */
     const URL_GALLERY = 'tubepress.core.vimeo.url.gallery';
 
@@ -26,7 +26,7 @@ class tubepress_addons_vimeo_api_const_VimeoEventNames
      * This event is fired after TubePress builds the URL to fetch a single video
      * from Vimeo.
      *
-     * @subject ehough_curly_Url The Vimeo API URL.
+     * @subject tubepress_api_url_UrlInterface The Vimeo API URL.
      */
     const URL_SINGLE = 'tubepress.core.vimeo.url.single';
 }

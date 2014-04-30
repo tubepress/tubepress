@@ -21,12 +21,13 @@ class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
         $qss        = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
         $hrps       = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $ms         = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
         $resultsUrl = $context->get(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL);
         $url        = '';
 
         try {
 
-            $url = new ehough_curly_Url($resultsUrl);
+            $url = $urlFactory->fromString($resultsUrl);
 
         } catch (Exception $e) {
 
@@ -36,7 +37,7 @@ class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
         /* if the user didn't request a certain page, just send the search results right back here */
         if ($url == '') {
 
-            $url = new ehough_curly_Url($qss->getFullUrl($_SERVER));
+            $url = $urlFactory->fromString($qss->getFullUrl($_SERVER));
         }
 
         /* clean up the search terms a bit */
@@ -47,14 +48,14 @@ class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
          * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
          * if you're curious as to what's going on here
          */
-        $params = $url->getQueryVariables();
+        $params = $url->getQuery();
 
-        unset($params[tubepress_spi_const_http_ParamName::PAGE]);
-        unset($params[tubepress_spi_const_http_ParamName::SEARCH_TERMS]);
+        $params->remove(tubepress_spi_const_http_ParamName::PAGE);
+        $params->remove(tubepress_spi_const_http_ParamName::SEARCH_TERMS);
 
         /* apply the template variables */
         $template->setVariable(tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $url->toString());
-        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
+        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params->toArray());
         $template->setVariable(tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
 
         $template->setVariable(tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('Search'));    //>(translatable)<

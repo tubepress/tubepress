@@ -36,7 +36,7 @@ interface tubepress_spi_embedded_PluggableEmbeddedPlayerService
     /**
      * @param string $videoId The video ID to play.
      *
-     * @return ehough_curly_Url The URL of the data for this video.
+     * @return tubepress_api_url_UrlInterface The URL of the data for this video.
      */
     function getDataUrlForVideo($videoId);
 

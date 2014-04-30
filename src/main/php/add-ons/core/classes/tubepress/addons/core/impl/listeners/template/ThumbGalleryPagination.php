@@ -58,10 +58,11 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
         $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $qss            = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
         $hrps           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
+        $urlFactory     = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
 
         $currentPage = $hrps->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
         $vidsPerPage = $context->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
-        $newurl      = new ehough_curly_Url($qss->getFullUrl($_SERVER));
+        $newurl      = $urlFactory->fromString($qss->getFullUrl($_SERVER));
 
         if ($this->_themeHasPaginationTemplate()) {
 
@@ -71,13 +72,13 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
         return $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl, 'tubepress_page');
     }
 
-    private function _paginationFromTemplate($totalItems, $currentPage, $perPage, ehough_curly_Url $url)
+    private function _paginationFromTemplate($totalItems, $currentPage, $perPage, tubepress_api_url_UrlInterface $url)
     {
         $themeHandler   = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
         $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $template       = $themeHandler->getTemplateInstance('pagination.tpl.php', '');
 
-        $url->setQueryVariable('tubepress_page', 'zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p');
+        $url->getQuery()->set('tubepress_page', 'zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p');
 
         $urlFormat = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
         $urlFormat = str_replace('%', '%%', $urlFormat);
@@ -134,9 +135,9 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
      *
      * @return string The HTML for the pagination
      */
-    private function _diggStyle($totalitems, tubepress_spi_message_MessageService $messageService, $page = 1, $limit = 15, $adjacents = 1, ehough_curly_Url $url, $pagestring = '?page=')
+    private function _diggStyle($totalitems, tubepress_spi_message_MessageService $messageService, $page = 1, $limit = 15, $adjacents = 1, tubepress_api_url_UrlInterface $url, $pagestring = '?page=')
     {
-        $url->unsetQueryVariable('tubepress_page');
+        $url->getQuery()->remove('tubepress_page');
 
         $prev       = $page - 1;
         $next       = $page + 1;
@@ -147,7 +148,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
         if ($lastpage > 1) {
             $pagination .= '<div class="pagination">';
             if ($page > 1) {
-                $url->setQueryVariable($pagestring, $prev);
+                $url->getQuery()->set($pagestring, $prev);
                 $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                 $pagination .= $this->_buildAnchorOpener($newurl, true, $prev);
                 $pagination .= "&laquo; " .
@@ -160,7 +161,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                     if ($counter == $page) {
                         $pagination .= "<span class=\"current\">$counter</span>";
                     } else {
-                        $url->setQueryVariable($pagestring, $counter);
+                        $url->getQuery()->set($pagestring, $counter);
                         $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                         $pagination .= $this->_buildAnchorOpener($newurl, true, $counter);
                         $pagination .= "$counter</a>";
@@ -173,27 +174,27 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
-                            $url->setQueryVariable($pagestring, $counter);
+                            $url->getQuery()->set($pagestring, $counter);
                             $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                             $pagination .= $this->_buildAnchorOpener($newurl, true, $counter);
                             $pagination .= "$counter</a>";
                         }
                     }
                     $pagination .= self::DOTS;
-                    $url->setQueryVariable($pagestring, $lpm1);
+                    $url->getQuery()->set($pagestring, $lpm1);
                     $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $lpm1);
                     $pagination .= "$lpm1</a>";
-                    $url->setQueryVariable($pagestring, $lastpage);
+                    $url->getQuery()->set($pagestring, $lastpage);
                     $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= $this->_buildAnchorOpener($newurl, true, $lastpage);
                     $pagination .= "$lastpage</a>";
                 } elseif ($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
-                    $url->setQueryVariable($pagestring, 1);
+                    $url->getQuery()->set($pagestring, 1);
                     $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= $this->_buildAnchorOpener($newurl, true, 1);
                     $pagination .= "1</a>";
-                    $url->setQueryVariable($pagestring, 2);
+                    $url->getQuery()->set($pagestring, 2);
                     $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= $this->_buildAnchorOpener($newurl, true, 2);
                     $pagination .= "2</a>";
@@ -203,7 +204,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
-                            $url->setQueryVariable($pagestring, $counter);
+                            $url->getQuery()->set($pagestring, $counter);
                             $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                             $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $counter);
                             $pagination .= "$counter</a>";
@@ -211,21 +212,21 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                     }
                     $pagination .= self::DOTS;
 
-                    $url->setQueryVariable($pagestring, $lpm1);
+                    $url->getQuery()->set($pagestring, $lpm1);
                     $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $lpm1);
                     $pagination .= "$lpm1</a>";
-                    $url->setQueryVariable($pagestring, $lastpage);
+                    $url->getQuery()->set($pagestring, $lastpage);
                     $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $lastpage);
                     $pagination .= "$lastpage</a>";
 
                 } else {
-                    $url->setQueryVariable($pagestring, 1);
+                    $url->getQuery()->set($pagestring, 1);
                     $newurl = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= $this->_buildAnchorOpener($newurl, true, 1);
                     $pagination .= "1</a>";
-                    $url->setQueryVariable($pagestring, 2);
+                    $url->getQuery()->set($pagestring, 2);
                     $newurl = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                     $pagination .= $this->_buildAnchorOpener($newurl, true, 1);
                     $pagination .= "2</a>";
@@ -235,7 +236,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
-                            $url->setQueryVariable($pagestring, $counter);
+                            $url->getQuery()->set($pagestring, $counter);
                             $newurl = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                             $pagination .= ' ' . $this->_buildAnchorOpener($newurl, true, $counter);
                             $pagination .= "$counter</a>";
@@ -244,7 +245,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                 }
             }
             if ($page < $counter - 1) {
-                $url->setQueryVariable($pagestring, $next);
+                $url->getQuery()->set($pagestring, $next);
                 $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                 $pagination .= $this->_buildAnchorOpener($newurl, true, $next);
                 $pagination .= $messageService->_('next') .             //>(translatable)<

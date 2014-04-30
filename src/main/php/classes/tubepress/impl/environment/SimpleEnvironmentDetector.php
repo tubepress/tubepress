@@ -186,9 +186,10 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
 
     private function _urlToString($url)
     {
-        if (!($url instanceof ehough_curly_Url)) {
+        if (!($url instanceof tubepress_api_url_UrlInterface)) {
 
-            $url = new ehough_curly_Url($url);
+            $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
+            $url        = $urlFactory->fromString($url);
         }
 
         $result = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);

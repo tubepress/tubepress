@@ -39,6 +39,11 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
      */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     private $_fakeAddonRoot;
 
     private $_splInfoArray;
@@ -46,6 +51,7 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
     public function onSetup()
     {
         $this->_mockFinderFactory       = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
+        $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
         $this->_mockSystemFinder        = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $this->_mockUserFinder          = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $this->_fakeAddonRoot           = realpath(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultaddondiscoverer/add-ons');
@@ -88,6 +94,14 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
         $this->_mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/php/add-ons')->andReturn($this->_mockSystemFinder);
         $this->_mockUserFinder->shouldReceive('in')->once()->with($this->_fakeAddonRoot . '/good_addon/add-ons')->andReturn($this->_mockUserFinder);
 
+        $this->_setupUrlFactory(array(
+            'https://some.thing',
+            'http://hel.lo',
+            'http://some.demo',
+            'http://down.load',
+            'https://bug.tracker',
+        ));
+
         $results = $this->_sut->findAddons(array());
 
         $this->assertTrue(is_array($results));
@@ -123,6 +137,14 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
 
     private function _verifyGoodAddon($dir, $jsonFilePath)
     {
+        $this->_setupUrlFactory(array(
+            'https://some.thing',
+            'http://hel.lo',
+            'http://some.demo',
+            'http://down.load',
+            'https://bug.tracker',
+        ));
+
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn($this->_fakeAddonRoot . '/' . $dir);
 
         $this->_splInfoArray[] = new SplFileInfo($jsonFilePath . '/b.json');
@@ -184,5 +206,15 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
+    }
+
+    private function _setupUrlFactory(array $urls)
+    {
+        foreach ($urls as $url) {
+
+            $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+            $mockUrl->shouldReceive('toString')->andReturn($url);
+            $this->_mockUrlFactory->shouldReceive('fromString')->once()->with($url)->andReturn($mockUrl);
+        }
     }
 }

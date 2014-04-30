@@ -39,8 +39,14 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
      */
     private $_mockThemeDirectory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
+        $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockContext             = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
@@ -157,14 +163,22 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->twice()->andReturn('http://foo.bar/hello');
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn('http://foo.bar/hello/user');
 
+        $us = array(
+            'http://foo.edu/car/tire.css',
+        );
+        foreach ($us as $u) {
+
+            $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+            $this->_mockUrlFactory->shouldReceive('fromString')->once()->with($u)->andReturn($mockUrl);
+        }
         $actual = $this->_sut->getStyles();
+
         $expected = array(
             'http://foo.bar/hello/src/main/web/themes/otherpath/tip/cup.css',
             'http://foo.bar/hello/src/main/web/themes/otherpath/window/glass.css',
             'http://foo.edu/car/tire.css',
             'http://foo.bar/hello/user/themes/neat/bike/ride.css',
         );
-
         $this->assertEquals($expected, $actual);
     }
 

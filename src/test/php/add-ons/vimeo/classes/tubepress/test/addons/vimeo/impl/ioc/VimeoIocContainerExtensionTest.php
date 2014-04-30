@@ -27,8 +27,6 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
     {
         $this->_expectPluggables();
         $this->_expectListeners();
-        $this->_expectHttpListenerRegistration();
-        $this->_expectOauthClientRegistration();
     }
 
     private function _expectPluggables()
@@ -188,54 +186,5 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
             'method'   => 'onPreValidationOptionSet',
             'priority' => 9500
         ));
-    }
-
-    private function _expectHttpListenerRegistration()
-    {
-        $this->expectRegistration(
-
-            'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener',
-            'tubepress_addons_vimeo_impl_listeners_http_VimeoHttpErrorResponseListener'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10000));
-
-        $this->expectRegistration(
-
-            'tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener',
-            'tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener'
-        )->withArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_api_v1_ClientInterface'))
-         ->withArgument(new tubepress_impl_ioc_Reference(tubepress_spi_context_ExecutionContext::_))
-         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
-                array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onRequest', 'priority' => 9000));
-    }
-
-    private function _expectOauthClientRegistration()
-    {
-        $this->expectRegistration(
-
-            'ehough_coauthor_spi_v1_TemporaryCredentialsStorageInterface',
-            'ehough_coauthor_impl_v1_SessionCredentialsStorage'
-        )->withArgument(false);
-
-        $this->expectRegistration(
-
-            'ehough_coauthor_spi_v1_SignerInterface',
-            'ehough_coauthor_impl_v1_Signer'
-        );
-
-        $this->expectRegistration(
-
-            'ehough_coauthor_spi_v1_RemoteCredentialsFetcherInterface',
-            'ehough_coauthor_impl_v1_DefaultRemoteCredentialsFetcher'
-        )->withArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_api_HttpClientInterface'))
-         ->withArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_SignerInterface'));
-
-        $this->expectRegistration(
-
-            'ehough_coauthor_api_v1_ClientInterface',
-            'ehough_coauthor_impl_v1_DefaultV1Client'
-        )->withArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_TemporaryCredentialsStorageInterface'))
-         ->withArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_RemoteCredentialsFetcherInterface'))
-         ->withArgument(new tubepress_impl_ioc_Reference('ehough_coauthor_spi_v1_SignerInterface'));
     }
 }

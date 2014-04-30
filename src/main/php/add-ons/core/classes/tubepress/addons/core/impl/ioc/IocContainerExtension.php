@@ -37,9 +37,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerCssAndJsGenerator($containerBuilder);
         $this->_registerEmbeddedHtmlGenerator($containerBuilder);
         $this->_registerExecutionContext($containerBuilder);
-        $this->_registerFeedFetcher($containerBuilder);
         $this->_registerFilesystem($containerBuilder);
-        $this->_registerHttpClient($containerBuilder);
         $this->_registerHttpRequestParameterService($containerBuilder);
         $this->_registerHttpResponseCodeHandler($containerBuilder);
         $this->_registerAggregateOptionProvider($containerBuilder);
@@ -133,15 +131,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         );
     }
 
-    private function _registerFeedFetcher(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_feed_FeedFetcher::_,
-            'tubepress_impl_feed_CacheAwareFeedFetcher'
-        );
-    }
-
     private function _registerFilesystem(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
@@ -149,27 +138,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'ehough_filesystem_FilesystemInterface',
             'ehough_filesystem_Filesystem'
         );
-    }
-
-    private function _registerHttpClient(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $this->_registerHttpMessageParser($containerBuilder);
-        $this->_registerHttpTransportChain($containerBuilder);
-        $this->_registerHttpContentDecoder($containerBuilder);
-        $this->_registerHttpTransferDecoder($containerBuilder);
-        $this->_registerHttpRequestDefaultHeadersListener($containerBuilder);
-        $this->_registerHttpRequestLoggingListener($containerBuilder);
-        $this->_registerHttpTransferDecodingListener($containerBuilder);
-        $this->_registerHttpContentDecodingListener($containerBuilder);
-        $this->_registerHttpResponseLoggingListener($containerBuilder);
-
-        $containerBuilder->register(
-
-            'ehough_shortstop_api_HttpClientInterface',
-            'ehough_shortstop_impl_DefaultHttpClient'
-
-        )->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'))
-            ->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_impl_DefaultHttpClient_transportchain'));
     }
 
     private function _registerHttpRequestParameterService(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -687,148 +655,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
                 'tag'    => tubepress_spi_player_PluggablePlayerLocationService::_,
                 'method' => 'setPluggablePlayerLocations'
         ));
-    }
-
-    private function _registerHttpTransportChain(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        /**
-         * Register the transport commands and chain.
-         */
-        $transportClasses = array(
-
-            'ehough_shortstop_impl_exec_command_ExtCommand',
-            'ehough_shortstop_impl_exec_command_CurlCommand',
-            'ehough_shortstop_impl_exec_command_StreamsCommand',
-            'ehough_shortstop_impl_exec_command_FsockOpenCommand',
-            'ehough_shortstop_impl_exec_command_FopenCommand'
-        );
-
-        $transportReferences = array();
-
-        foreach ($transportClasses as $transportClass) {
-
-            $containerBuilder->register($transportClass, $transportClass)
-                ->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpMessageParser'))
-                ->addArgument(new tubepress_impl_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
-
-            array_push($transportReferences, new tubepress_impl_ioc_Reference($transportClass));
-        }
-
-        $transportChainId = 'ehough_shortstop_impl_DefaultHttpClient_transportchain';
-
-        tubepress_impl_ioc_ChainRegistrar::registerChainDefinitionByReferences($containerBuilder, $transportChainId, $transportReferences);
-    }
-
-    private function _registerHttpMessageParser(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            'ehough_shortstop_spi_HttpMessageParser',
-            'ehough_shortstop_impl_exec_DefaultHttpMessageParser'
-        );
-    }
-
-    private function _registerHttpResponseLoggingListener(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            'ehough_shortstop_impl_listeners_response_ResponseLoggingListener',
-            'ehough_shortstop_impl_listeners_response_ResponseLoggingListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10100));
-    }
-
-    private function _registerHttpContentDecodingListener(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener__content',
-            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
-        )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
-            ->addArgument('Content')
-            ->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10200));
-    }
-
-    private function _registerHttpTransferDecodingListener(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener__transfer',
-            'ehough_shortstop_impl_listeners_response_ResponseDecodingListener'
-        )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpTransferDecoder'))
-            ->addArgument('Transfer')
-            ->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::RESPONSE, 'method' => 'onResponse', 'priority' => 10300));
-    }
-
-    private function _registerHttpRequestLoggingListener(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            'ehough_shortstop_impl_listeners_request_RequestLoggingListener',
-            'ehough_shortstop_impl_listeners_request_RequestLoggingListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onPreRequest', 'priority' => 5000));
-    }
-
-    private function _registerHttpRequestDefaultHeadersListener(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener',
-            'ehough_shortstop_impl_listeners_request_RequestDefaultHeadersListener'
-        )->addArgument(new tubepress_impl_ioc_Reference('ehough_shortstop_spi_HttpContentDecoder'))
-            ->addTag(self::TAG_EVENT_LISTENER, array('event' => ehough_shortstop_api_Events::REQUEST, 'method' => 'onPreRequest', 'priority' => 10000));
-    }
-
-    private function _registerHttpContentDecoder(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        /**
-         * Register the content decoding commands and chain.
-         */
-        $contentDecoderCommands = array(
-
-            'ehough_shortstop_impl_decoding_content_command_NativeGzipDecompressingCommand',
-            'ehough_shortstop_impl_decoding_content_command_SimulatedGzipDecompressingCommand',
-            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1950DecompressingCommand',
-            'ehough_shortstop_impl_decoding_content_command_NativeDeflateRfc1951DecompressingCommand',
-        );
-
-        $contentDecoderChainId = 'ehough_shortstop_impl_DefaultHttpClient_contentdecoderchain';
-
-        tubepress_impl_ioc_ChainRegistrar::registerChainDefinitionByClassNames($containerBuilder, $contentDecoderChainId, $contentDecoderCommands);
-
-        /**
-         * Register the content decoder.
-         */
-        $containerBuilder->register(
-
-            'ehough_shortstop_spi_HttpContentDecoder',
-            'ehough_shortstop_impl_decoding_content_HttpContentDecodingChain'
-
-        )->addArgument(new tubepress_impl_ioc_Reference($contentDecoderChainId));
-    }
-
-    private function _registerHttpTransferDecoder(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        /**
-         * Register the transfer decoding command and chain.
-         */
-        $transferDecoderCommands = array(
-
-            'ehough_shortstop_impl_decoding_transfer_command_ChunkedTransferDecodingCommand'
-        );
-
-        $transferDecoderChainId = 'ehough_shortstop_impl_DefaultHttpClient_transferdecoderchain';
-
-        tubepress_impl_ioc_ChainRegistrar::registerChainDefinitionByClassNames($containerBuilder, $transferDecoderChainId, $transferDecoderCommands);
-
-        /**
-         * Register the transfer decoder.
-         */
-        $containerBuilder->register(
-
-            'ehough_shortstop_spi_HttpTransferDecoder',
-            'ehough_shortstop_impl_decoding_transfer_HttpTransferDecodingChain'
-
-        )->addArgument(new tubepress_impl_ioc_Reference($transferDecoderChainId));
     }
 
     private function _registerEnvironmentDetector(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

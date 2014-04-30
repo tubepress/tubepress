@@ -14,7 +14,7 @@
  */
 class tubepress_impl_util_UrlUtils
 {
-    public static function getAsStringWithoutSchemeAndAuthority(ehough_curly_Url $url)
+    public static function getAsStringWithoutSchemeAndAuthority(tubepress_api_url_UrlInterface $url)
     {
         $scheme    = $url->getScheme();
         $authority = $url->getAuthority();

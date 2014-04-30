@@ -1,0 +1,39 @@
+{
+    "name" : "tubepress/puzzle",
+    "version": "1.0.0",
+    "title" : "Puzzle HTTP Implementation",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Puzzle HTTP implementation",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_addons_puzzle_impl_ioc_IocContainerExtension"
+        ]
+    },
+    "autoload": {
+        "psr-0" : {
+            "tubepress_addons_puzzle_" : "classes"
+        },
+        "classmap" : {
+
+            "tubepress_addons_puzzle_impl_exception_RequestException"  : "classes/tubepress/addons/puzzle/impl/exception/RequestException.php",
+            "tubepress_addons_puzzle_impl_http_PuzzleHttpClient"       : "classes/tubepress/addons/puzzle/impl/http/PuzzleHttpClient.php",
+            "tubepress_addons_puzzle_impl_ioc_IocContainerExtension"   : "classes/tubepress/addons/puzzle/impl/ioc/IocContainerExtension.php",
+            "tubepress_addons_puzzle_impl_message_AbstractMessage"     : "classes/tubepress/addons/puzzle/impl/message/AbstractMessage.php",
+            "tubepress_addons_puzzle_impl_message_PuzzleBasedRequest"  : "classes/tubepress/addons/puzzle/impl/message/PuzzleBasedRequest.php",
+            "tubepress_addons_puzzle_impl_message_PuzzleBasedResponse" : "classes/tubepress/addons/puzzle/impl/message/PuzzleBasedResponse.php",
+            "tubepress_addons_puzzle_impl_stream_FlexibleStream"       : "classes/tubepress/addons/puzzle/impl/stream/FlexibleStream.php",
+            "tubepress_addons_puzzle_impl_url_PuzzleBasedQuery"        : "classes/tubepress/addons/puzzle/impl/url/PuzzleBasedQuery.php",
+            "tubepress_addons_puzzle_impl_url_PuzzleBasedUrl"          : "classes/tubepress/addons/puzzle/impl/url/PuzzleBasedUrl.php",
+            "tubepress_addons_puzzle_impl_url_UrlFactory"              : "classes/tubepress/addons/puzzle/impl/url/UrlFactory.php"
+        }
+    }
+}
