@@ -62,10 +62,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters( $expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -83,10 +83,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters( $expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -107,10 +107,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters($expected);
 
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -119,10 +119,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
     {
         $shortcode = '[butters]';
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->never();
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -139,10 +139,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters($expected);
 
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -157,10 +157,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters($expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -173,10 +173,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters($expected);
 
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -189,10 +189,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters($expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -205,10 +205,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters( $expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -244,10 +244,10 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters( $expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+        $this->assertEquals($shortcode, $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -260,10 +260,11 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters($expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertEquals("[butters mode='playlist']", $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }
@@ -276,10 +277,11 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
         $this->_setupExpectedFilters($expected);
 
-        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
         $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertEquals("[butters mode='playlist']", $this->_sut->getLastShortcodeUsed());
 
         $this->assertTrue(true);
     }

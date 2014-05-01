@@ -12,9 +12,9 @@
 /**
  * Parses shortcodes.
  */
-interface tubepress_spi_shortcode_ShortcodeParser
+interface tubepress_api_shortcode_ParserInterface
 {
-    const _ = 'tubepress_spi_shortcode_ShortcodeParser';
+    const _ = 'tubepress_api_shortcode_ParserInterface';
 
     /**
      * This function is used to parse a shortcode into options that TubePress can use.
@@ -24,6 +24,11 @@ interface tubepress_spi_shortcode_ShortcodeParser
      * @return array The associative array of parsed options.
      */
     function parse($content);
+
+    /**
+     * @return string|null The last shortcode used, or null if never parsed.
+     */
+    function getLastShortcodeUsed();
 
     /**
      * Determines if the given content contains a shortcode.

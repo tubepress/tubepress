@@ -44,9 +44,9 @@ class tubepress_test_addons_coreapiservices_impl_html_CssAndJsHtmlGeneratorTest 
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockThemeHandlerInterface       = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
-        $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
+        $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_api_shortcode_ParserInterface::_);
 
-        $this->_sut = new tubepress_addons_coreapiservices_impl_html_HtmlGenerator();
+        $this->_sut = new tubepress_addons_coreapiservices_impl_html_HtmlGenerator($this->_mockShortcodeParser);
     }
 
     public function testCssHtml()

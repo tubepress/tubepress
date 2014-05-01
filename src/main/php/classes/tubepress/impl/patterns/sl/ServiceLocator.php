@@ -117,14 +117,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_shortcode_ShortcodeParser The shortcode parser.
-     */
-    public static function getShortcodeParser()
-    {
-        return self::getService(tubepress_spi_shortcode_ShortcodeParser::_);
-    }
-
-    /**
      * @return ehough_contemplate_api_TemplateBuilder The template builder.
      */
     public static function getTemplateBuilder()

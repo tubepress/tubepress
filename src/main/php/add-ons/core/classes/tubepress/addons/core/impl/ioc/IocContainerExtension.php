@@ -184,7 +184,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $containerBuilder->register(
 
-            tubepress_spi_shortcode_ShortcodeParser::_,
+            tubepress_api_shortcode_ParserInterface::_,
             'tubepress_impl_shortcode_SimpleShortcodeParser'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
     }

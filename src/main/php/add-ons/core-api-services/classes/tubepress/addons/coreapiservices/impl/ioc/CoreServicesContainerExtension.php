@@ -41,7 +41,8 @@ class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension i
 
             tubepress_api_html_HtmlGeneratorInterface::_,
             'tubepress_addons_coreapiservices_impl_html_HtmlGenerator'
-        )->addTag(
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_))
+         ->addTag(
                 self::TAG_TAGGED_SERVICES_CONSUMER,
                 array(
                     'tag' => tubepress_spi_shortcode_PluggableShortcodeHandlerService::_,

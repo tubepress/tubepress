@@ -37,16 +37,23 @@ class tubepress_addons_wordpress_impl_Widget
      */
     private $_htmlGenerator;
 
+    /**
+     * @var tubepress_api_shortcode_ParserInterface
+     */
+    private $_shortcodeParser;
+
     public function __construct(
         tubepress_api_options_ContextInterface $context,
         tubepress_api_options_PersistenceInterface $persistence,
         tubepress_api_translation_TranslatorInterface $translator,
-        tubepress_api_html_HtmlGeneratorInterface $htmlGenerator)
+        tubepress_api_html_HtmlGeneratorInterface $htmlGenerator,
+        tubepress_api_shortcode_ParserInterface $parser)
     {
-        $this->_translator    = $translator;
-        $this->_context       = $context;
-        $this->_persistence   = $persistence;
-        $this->_htmlGenerator = $htmlGenerator;
+        $this->_translator      = $translator;
+        $this->_context         = $context;
+        $this->_persistence     = $persistence;
+        $this->_htmlGenerator   = $htmlGenerator;
+        $this->_shortcodeParser = $parser;
     }
 
     /**
@@ -59,8 +66,6 @@ class tubepress_addons_wordpress_impl_Widget
     public final function printWidgetHtml($opts)
     {
         extract($opts);
-
-        $parser = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
 
         /* default widget options */
         $defaultWidgetOptions = array(
@@ -80,7 +85,7 @@ class tubepress_addons_wordpress_impl_Widget
         /* now apply the user's options */
         $rawTag    = $this->_context->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $widgetTag = tubepress_impl_util_StringUtils::removeNewLines($rawTag);
-        $parser->parse($widgetTag);
+        $this->_shortcodeParser->parse($widgetTag);
 
         /* calculate the final options */
         $finalOptions = array_merge($defaultWidgetOptions, $this->_context->getAllInMemory());

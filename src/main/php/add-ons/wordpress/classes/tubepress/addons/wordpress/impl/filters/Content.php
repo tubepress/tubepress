@@ -26,13 +26,20 @@ class tubepress_addons_wordpress_impl_filters_Content
      */
     private $_htmlGenerator;
 
+    /**
+     * @var tubepress_api_shortcode_ParserInterface
+     */
+    private $_shortcodeParser;
+
     public function __construct(tubepress_api_options_ContextInterface $context,
                                 tubepress_api_options_PersistenceInterface $persistence,
-                                tubepress_api_html_HtmlGeneratorInterface $htmlGenerator)
+                                tubepress_api_html_HtmlGeneratorInterface $htmlGenerator,
+                                tubepress_api_shortcode_ParserInterface $parser)
     {
-        $this->_context       = $context;
-        $this->_persistence   = $persistence;
-        $this->_htmlGenerator = $htmlGenerator;
+        $this->_context         = $context;
+        $this->_persistence     = $persistence;
+        $this->_htmlGenerator   = $htmlGenerator;
+        $this->_shortcodeParser = $parser;
     }
 
     /**
@@ -44,21 +51,20 @@ class tubepress_addons_wordpress_impl_filters_Content
 
         /* do as little work as possible here 'cause we might not even run */
         $trigger = $this->_persistence->fetch(tubepress_api_const_options_names_Advanced::KEYWORD);
-        $parser  = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
 
         /* no shortcode? get out */
-        if (!$parser->somethingToParse($content, $trigger)) {
+        if (!$this->_shortcodeParser->somethingToParse($content, $trigger)) {
 
             return;
         }
 
-        $event->setSubject($this->_getHtml($content, $trigger, $parser));
+        $event->setSubject($this->_getHtml($content, $trigger));
     }
 
-    private function _getHtml($content, $trigger, tubepress_spi_shortcode_ShortcodeParser $parser)
+    private function _getHtml($content, $trigger)
     {
         /* Parse each shortcode one at a time */
-        while ($parser->somethingToParse($content, $trigger)) {
+        while ($this->_shortcodeParser->somethingToParse($content, $trigger)) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
             try {
@@ -71,11 +77,11 @@ class tubepress_addons_wordpress_impl_filters_Content
             }
 
             /* remove any leading/trailing <p> tags from the content */
-            $pattern = '/(<[P|p]>\s*)(' . preg_quote($this->_context->getActualShortcodeUsed(), '/') . ')(\s*<\/[P|p]>)/';
+            $pattern = '/(<[P|p]>\s*)(' . preg_quote($this->_shortcodeParser->getLastShortcodeUsed(), '/') . ')(\s*<\/[P|p]>)/';
             $content = preg_replace($pattern, '${2}', $content);
 
             /* replace the shortcode with our new content */
-            $currentShortcode = $this->_context->getActualShortcodeUsed();
+            $currentShortcode = $this->_shortcodeParser->getLastShortcodeUsed();
             $content          = tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
             $content          = tubepress_impl_util_StringUtils::removeEmptyLines($content);
 

@@ -12,7 +12,7 @@
 /**
  * Parses shortcodes.
  */
-class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_shortcode_ShortcodeParser
+class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_api_shortcode_ParserInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -28,6 +28,11 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
      * @var tubepress_api_options_ContextInterface
      */
     private $_context;
+
+    /**
+     * @var string
+     */
+    private $_lastShortcodeUsed = null;
 
     public function __construct(tubepress_api_options_ContextInterface $context)
     {
@@ -75,7 +80,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
             $this->_logger->debug(sprintf('Found a shortcode: %s', tubepress_impl_util_StringUtils::redactSecrets($matches[0])));
         }
 
-        $this->_context->setActualShortcodeUsed($matches[0]);
+        $this->_lastShortcodeUsed = $matches[0];
 
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != '') {
@@ -116,6 +121,14 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
     public function somethingToParse($content, $trigger = "tubepress")
     {
         return preg_match("/\[$trigger\b(.*)\]/", $content) === 1;
+    }
+
+    /**
+     * @return string|null The last shortcode used, or null if never parsed.
+     */
+    public function getLastShortcodeUsed()
+    {
+        return $this->_lastShortcodeUsed;
     }
 
     /**

@@ -70,7 +70,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
         $this->_mockExecutionContext            = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
+        $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_api_shortcode_ParserInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockShortCodeHtmlGenerator      = $this->createMockSingletonService(tubepress_api_html_HtmlGeneratorInterface::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
@@ -84,7 +84,8 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             $this->_mockExecutionContext,
             $this->_mockStorageManager,
             $this->_mockMessageService,
-            $this->_mockShortCodeHtmlGenerator
+            $this->_mockShortCodeHtmlGenerator,
+            $this->_mockShortcodeParser
         );
     }
 

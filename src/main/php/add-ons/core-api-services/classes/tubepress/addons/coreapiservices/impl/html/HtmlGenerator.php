@@ -20,6 +20,16 @@ class tubepress_addons_coreapiservices_impl_html_HtmlGenerator implements tubepr
     private $_shortcodeHandlers = array();
 
     /**
+     * @var tubepress_api_shortcode_ParserInterface
+     */
+    private $_shortcodeParser;
+
+    public function __construct(tubepress_api_shortcode_ParserInterface $parser)
+    {
+        $this->_shortcodeParser = $parser;
+    }
+
+    /**
      * @return string The HTML that should be displayed in the HTML <head>.
      */
     public function getCssHtml()
@@ -54,8 +64,7 @@ class tubepress_addons_coreapiservices_impl_html_HtmlGenerator implements tubepr
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
 
-            $shortcodeParser = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
-            $shortcodeParser->parse($shortCodeContent);
+            $this->_shortcodeParser->parse($shortCodeContent);
         }
 
         usort($this->_shortcodeHandlers, array($this, 'sortShortcodeHandlers'));
