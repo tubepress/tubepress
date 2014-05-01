@@ -36,7 +36,7 @@ class tubepress_test_impl_options_ui_BaseOptionsPageParticipantTest extends tube
 
     public function onSetup()
     {
-        $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockMessageService = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
 
         $mockCategory = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageItemInterface');
         $this->_mockCategories = array($mockCategory);
@@ -52,6 +52,7 @@ class tubepress_test_impl_options_ui_BaseOptionsPageParticipantTest extends tube
         $this->_sut = new tubepress_impl_options_ui_BaseOptionsPageParticipant(
 
             'id',
+            $this->_mockMessageService,
             'display name',
             $this->_mockCategories,
             $this->_mockFields,

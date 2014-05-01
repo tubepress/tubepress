@@ -62,7 +62,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_GallerySourceFieldTest e
      */
     protected function buildSut()
     {
-        return new tubepress_addons_core_impl_options_ui_fields_GallerySourceField();
+        return new tubepress_addons_core_impl_options_ui_fields_GallerySourceField($this->getMockMessageService());
     }
 
     /**

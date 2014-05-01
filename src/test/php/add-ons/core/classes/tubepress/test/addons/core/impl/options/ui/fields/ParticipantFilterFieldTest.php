@@ -29,7 +29,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
      */
     protected function buildSut()
     {
-        $sut = new tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField();
+        $sut = new tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField($this->getMockMessageService());
 
         $sut->setOptionsPageParticipants($this->_mockOptionsPageParticipants);
 

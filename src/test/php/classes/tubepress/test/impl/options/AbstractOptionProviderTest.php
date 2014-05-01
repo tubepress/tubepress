@@ -33,11 +33,11 @@ abstract class tubepress_test_impl_options_AbstractOptionProviderTest extends tu
 
     public final function onSetup()
     {
-        $this->_sut = $this->buildSut();
 
         $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
-        $this->_mockMessageService  = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockMessageService  = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockEventDispatcher = $this->createMockSingletonService('tubepress_api_event_EventDispatcherInterface');
+        $this->_sut = $this->buildSut();
     }
 
     public function testGetAllOptionNames()

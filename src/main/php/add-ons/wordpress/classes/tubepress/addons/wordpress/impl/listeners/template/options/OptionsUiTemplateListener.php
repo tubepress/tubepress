@@ -15,9 +15,16 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
 
     private $_environment;
 
-    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
+    /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_environment = $environment;
+        $this->_translator  = $translator;
     }
 
     public function onOptionsUiTemplate(tubepress_api_event_EventInterface $event)
@@ -25,11 +32,10 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
         /**
          * @var $template ehough_contemplate_api_Template
          */
-        $template        = $event->getSubject();
-        $messageService  = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
+        $template = $event->getSubject();
 
-        $template->setVariable("pageTitle", $messageService->_('TubePress Options'));                                                                                                                                                                                                                       //>(translatable)<                                                                                                                                                                                                                                                                                                      //>(translatable)<
-        $template->setVariable("introBlurb", $messageService->_(sprintf('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="%s" target="_blank">documentation</a> for more information.', "http://docs.tubepress.com/"))); //>(translatable)<
+        $template->setVariable("pageTitle", $this->_translator->_('TubePress Options'));                                                                                                                                                                                                                       //>(translatable)<                                                                                                                                                                                                                                                                                                      //>(translatable)<
+        $template->setVariable("introBlurb", $this->_translator->_(sprintf('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="%s" target="_blank">documentation</a> for more information.', "http://docs.tubepress.com/"))); //>(translatable)<
 
         $toEncode = array();
 

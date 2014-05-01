@@ -36,10 +36,8 @@ class tubepress_impl_options_ui_fields_SpectrumColorField extends tubepress_impl
 
     protected function getAdditionalTemplateVariables()
     {
-        $ms = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-
-        $cancelText = $ms->_('cancel');
-        $chooseText = $ms->_('Choose');
+        $cancelText = $this->translate('cancel');
+        $chooseText = $this->translate('Choose');
 
         return array(
 

@@ -31,10 +31,10 @@ class tubepress_test_addons_wordpress_impl_actions_WidgetInitTest extends tubepr
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_wordpress_impl_actions_WidgetsInit();
 
-        $this->_mockMessageService    = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockMessageService    = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockWpFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
+        $this->_sut = new tubepress_addons_wordpress_impl_actions_WidgetsInit($this->_mockMessageService);
 
         $this->_mockMessageService->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";

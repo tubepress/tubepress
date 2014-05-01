@@ -112,6 +112,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
                 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
 
@@ -129,7 +130,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
     {
         $containerBuilder->register(
 
-            tubepress_spi_message_MessageService::_,
+            tubepress_api_translation_TranslatorInterface::_,
             'tubepress_addons_wordpress_impl_message_WordPressMessageService'
         );
     }
@@ -171,7 +172,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
             'wordpress.widget',
             'tubepress_addons_wordpress_impl_Widget'
-        );
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
     }
 
     private function _registerWpFunctionWrapper(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -216,7 +217,6 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'admin_head'            => 'AdminHead',
             'admin_menu'            => 'AdminMenu',
             'init'                  => 'Init',
-            'widgets_init'          => 'WidgetsInit',
             'wp_head'               => 'WpHead',
         );
 
@@ -234,6 +234,18 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
                 'priority' => 10000
             ));
         }
+
+        $builder->register(
+
+            'wordpress.action.widgets_init',
+            'tubepress_addons_wordpress_impl_actions_WidgetsInit'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.action.widgets_init",
+                'method'   => "action",
+                'priority' => 10000
+            ));
 
         $builder->register(
 

@@ -12,7 +12,7 @@
 /**
  * Message service that uses gettext (via WordPress).
  */
-class tubepress_addons_wordpress_impl_message_WordPressMessageService implements tubepress_spi_message_MessageService
+class tubepress_addons_wordpress_impl_message_WordPressMessageService implements tubepress_api_translation_TranslatorInterface
 {
     /**
      * Retrieves a message for TubePress

@@ -53,9 +53,9 @@ class tubepress_test_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHa
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
         $this->_mockProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_messageService = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
 
-        $this->_sut = new tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService();
+        $this->_sut = new tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService($this->_messageService);
     }
 
 

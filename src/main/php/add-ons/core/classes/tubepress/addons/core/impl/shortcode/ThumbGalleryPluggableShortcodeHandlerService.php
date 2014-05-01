@@ -16,9 +16,15 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
      */
     private $_logger;
 
-    public function __construct()
+    /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Thumb Gallery Shortcode Handler');
+        $this->_translator = $translator;
+        $this->_logger     = ehough_epilog_LoggerFactory::getLogger('Thumb Gallery Shortcode Handler');
     }
 
     /**
@@ -66,7 +72,6 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $provider        = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $themeHandler    = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $ms              = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $qss             = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $template        = $themeHandler->getTemplateInstance('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
         $page            = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
@@ -88,7 +93,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
 
         if ($numVideos == 0) {
 
-            return $ms->_('No matching videos');     //>(translatable)<
+            return $this->_translator->_('No matching videos');     //>(translatable)<
         }
 
         /* send the template through the listeners */

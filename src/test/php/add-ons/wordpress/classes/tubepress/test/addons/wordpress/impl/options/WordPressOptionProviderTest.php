@@ -19,7 +19,7 @@ class tubepress_test_addons_wordpress_impl_options_WordPressOptionProviderTest e
      */
     protected function buildSut()
     {
-        return new tubepress_addons_wordpress_impl_options_WordPressOptionProvider();
+        return new tubepress_addons_wordpress_impl_options_WordPressOptionProvider($this->getMockMessageService());
     }
 
     protected function getMapOfOptionNamesToDefaultValues()

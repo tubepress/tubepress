@@ -21,7 +21,7 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
      */
     private $_optionsPageParticipants = array();
 
-    public function __construct()
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
     {
         $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
         $optionName     = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
@@ -29,6 +29,7 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
         parent::__construct(
 
             self::FIELD_ID,
+            $translator,
             $optionName,
             $optionProvider->getDescription($optionName)
         );

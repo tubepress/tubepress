@@ -18,6 +18,16 @@ class tubepress_addons_wordpress_impl_Widget
     const WIDGET_SUBMIT_TAG        = 'tubepress-widget-submit';
 
     /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    {
+        $this->_translator = $translator;
+    }
+
+    /**
      * Registers all the styles and scripts for the front end.
      *
      * @param array $opts The options.
@@ -86,7 +96,6 @@ class tubepress_addons_wordpress_impl_Widget
     public final function printControlHtml()
     {
         $wpsm         = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $msg          = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $tplBuilder   = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $hrps         = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
@@ -107,8 +116,8 @@ class tubepress_addons_wordpress_impl_Widget
 
         /* set up the template */
         $tpl->setVariable(self::WIDGET_TITLE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
-        $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $msg->_('Title'));                                                                                                            //>(translatable)<
-        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"))); //>(translatable)<
+        $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $this->_translator->_('Title'));                                                                                                            //>(translatable)<
+        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $this->_translator->_(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"))); //>(translatable)<
         $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
         $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 

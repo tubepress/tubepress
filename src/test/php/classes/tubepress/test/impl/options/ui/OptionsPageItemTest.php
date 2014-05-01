@@ -26,9 +26,9 @@ class tubepress_test_impl_options_ui_OptionsPageItemTest extends tubepress_test_
 
     public function onSetup()
     {
-        $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockMessageService = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
 
-        $this->_sut = new tubepress_impl_options_ui_OptionsPageItem('id', 'display name');
+        $this->_sut = new tubepress_impl_options_ui_OptionsPageItem('id', $this->_mockMessageService, 'display name');
     }
 
     public function testGetId()

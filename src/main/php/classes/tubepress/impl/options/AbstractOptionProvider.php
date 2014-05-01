@@ -63,6 +63,16 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
     private $_cacheOfOptionNamesWithDynamicAcceptableValues;
 
     /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    {
+        $this->_translator = $translator;
+    }
+
+    /**
      * Fetch all the option names from this provider.
      *
      * @return string[]
@@ -183,8 +193,6 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
      */
     public function getProblemMessage($optionName, $candidate)
     {
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-
         if (!$this->hasOption($optionName)) {
 
             return sprintf('No option with name "%s".', $optionName);                          //>(translatable)<
@@ -214,7 +222,7 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
                 return null;
             }
 
-            return sprintf('Invalid value supplied for "%s".', $messageService->_($this->getLabel($optionName)));      //>(translatable)<
+            return sprintf('Invalid value supplied for "%s".', $this->_translator->_($this->getLabel($optionName)));      //>(translatable)<
         }
 
         if ($this->isBoolean($optionName)) {
@@ -246,7 +254,7 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
             }
 
             return sprintf('"%s" must be one of "%s". You supplied "%s".',                               //>(translatable)<
-                $messageService->_($this->getLabel($optionName)), implode(', ', $values), $candidate);
+                $this->_translator->_($this->getLabel($optionName)), implode(', ', $values), $candidate);
         }
 
         return null;

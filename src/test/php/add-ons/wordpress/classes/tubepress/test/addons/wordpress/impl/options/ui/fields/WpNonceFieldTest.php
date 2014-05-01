@@ -24,11 +24,17 @@ class tubepress_test_addons_wordpress_impl_options_ui_fields_WpNonceFieldTest ex
      */
     private $_mockWpFunctionWrapper;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockMessageService;
+
     public function onSetup()
     {
         $this->_mockWpFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
+        $this->_mockMessageService = ehough_mockery_Mockery::mock(tubepress_api_translation_TranslatorInterface::_);
 
-        $this->_sut = new tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField();
+        $this->_sut = new tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField($this->_mockMessageService);
     }
 
     public function testIsPro()

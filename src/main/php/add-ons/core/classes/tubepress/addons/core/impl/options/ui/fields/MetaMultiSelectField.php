@@ -20,10 +20,10 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      * @var tubepress_addons_core_impl_options_MetaOptionNameService
      */
     private $_metaOptionNameService;
-    
-    public function __construct()
+
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
     {
-        parent::__construct(self::FIELD_ID, 'Show each video\'s...');   //>(translatable)<
+        parent::__construct(self::FIELD_ID, $translator, 'Show each video\'s...');   //>(translatable)<
     }
 
     /**
@@ -144,12 +144,11 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
     private function _labelAndAssociate($metaOptionNames)
     {
         $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
 
         foreach ($metaOptionNames as $metaOptionName) {
 
             $label                   = $optionProvider->getLabel($metaOptionName);
-            $values[$metaOptionName] = $messageService->_($label);
+            $values[$metaOptionName] = $this->translate($label);
         }
 
         asort($values);

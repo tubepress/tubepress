@@ -14,9 +14,9 @@
  */
 class tubepress_addons_core_impl_options_ui_fields_ThemeField extends tubepress_impl_options_ui_fields_DropdownField
 {
-    public function __construct()
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
     {
-        parent::__construct(tubepress_api_const_options_names_Thumbs::THEME);
+        parent::__construct(tubepress_api_const_options_names_Thumbs::THEME, $translator);
     }
 
     protected function getAdditionalTemplateVariables()

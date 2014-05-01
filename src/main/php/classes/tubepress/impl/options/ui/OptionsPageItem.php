@@ -24,7 +24,12 @@ class tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options
      */
     private $_untranslatedDisplayName;
 
-    public function __construct($id, $untranslatedDisplayName = null)
+    /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct($id, tubepress_api_translation_TranslatorInterface $translator, $untranslatedDisplayName = null)
     {
         if (!is_string($id)) {
 
@@ -36,7 +41,8 @@ class tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options
             $this->setUntranslatedDisplayName($untranslatedDisplayName);
         }
 
-        $this->_id = $id;
+        $this->_id         = $id;
+        $this->_translator = $translator;
     }
 
     /**
@@ -67,8 +73,6 @@ class tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options
 
     protected function translate($message)
     {
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-
-        return $messageService->_($message);
+        return $this->_translator->_($message);
     }
 }

@@ -12,9 +12,9 @@
 /**
  * General purpose message abstraction for TubePress
  */
-interface tubepress_spi_message_MessageService
+interface tubepress_api_translation_TranslatorInterface
 {
-    const _ = 'tubepress_spi_message_MessageService';
+    const _ = 'tubepress_api_translation_TranslatorInterface';
 
     /**
      * Get the message corresponding to the given key.

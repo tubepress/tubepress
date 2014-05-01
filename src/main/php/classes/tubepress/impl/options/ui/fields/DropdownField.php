@@ -29,11 +29,9 @@ class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_opti
             throw new InvalidArgumentException(sprintf('"%s" has a non-associative array set for its value map', $this->getId()));
         }
 
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-
         foreach ($map as $key => $value) {
 
-            $values[$key] = $messageService->_($value);
+            $values[$key] = $this->translate($value);
         }
 
         return array('choices' => $values);

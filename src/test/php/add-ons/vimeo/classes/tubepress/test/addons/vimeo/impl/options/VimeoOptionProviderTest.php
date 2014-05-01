@@ -22,7 +22,7 @@ class tubepress_test_addons_vimeo_impl_options_VimeoOptionProviderTest extends t
      */
     protected function buildSut()
     {
-        return new tubepress_addons_vimeo_impl_options_VimeoOptionProvider();
+        return new tubepress_addons_vimeo_impl_options_VimeoOptionProvider($this->getMockMessageService());
     }
 
     protected function getMapOfOptionNamesToDefaultValues()

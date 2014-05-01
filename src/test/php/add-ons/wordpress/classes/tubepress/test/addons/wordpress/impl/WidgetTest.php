@@ -66,7 +66,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
 
     public function onSetup()
     {
-        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
@@ -80,7 +80,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             return "<<$key>>";
         });
 
-        $this->_sut = new tubepress_addons_wordpress_impl_Widget();
+        $this->_sut = new tubepress_addons_wordpress_impl_Widget($this->_mockMessageService);
     }
 
     public function testPrintWidgetControl()

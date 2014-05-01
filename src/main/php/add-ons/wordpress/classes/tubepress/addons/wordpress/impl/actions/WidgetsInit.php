@@ -12,15 +12,24 @@
 class tubepress_addons_wordpress_impl_actions_WidgetsInit
 {
     /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    {
+        $this->_translator = $translator;
+    }
+
+    /**
      * Filter the content (which may be empty).
      */
     public final function action(tubepress_api_event_EventInterface $event)
     {
-        $msg               = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $wpFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
-            $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
+            $this->_translator->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
 
         $wpFunctionWrapper->wp_register_sidebar_widget('tubepress', 'TubePress', array($this, 'printWidgetHtml'), $widgetOps);
         $wpFunctionWrapper->wp_register_widget_control('tubepress', 'TubePress', array($this, 'printControlHtml'));

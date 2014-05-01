@@ -19,9 +19,16 @@ class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
      */
     private $_currentUrlService;
 
-    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService)
+    /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_currentUrlService = $currentUrlService;
+        $this->_translator        = $translator;
     }
 
     public function onSearchInputTemplate(tubepress_api_event_EventInterface $event)
@@ -29,7 +36,6 @@ class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
         $template   = $event->getSubject();
         $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $hrps       = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $ms         = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
         $resultsUrl = $context->get(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL);
         $url        = '';
@@ -67,6 +73,6 @@ class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
         $template->setVariable(tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params->toArray());
         $template->setVariable(tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
 
-        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('Search'));    //>(translatable)<
+        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_BUTTON, $this->_translator->_('Search'));    //>(translatable)<
     }
 }

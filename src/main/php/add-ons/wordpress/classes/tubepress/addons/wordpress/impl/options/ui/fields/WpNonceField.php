@@ -14,9 +14,9 @@
  */
 class tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField extends tubepress_impl_options_ui_OptionsPageItem implements tubepress_spi_options_ui_OptionsPageFieldInterface
 {
-    public function __construct()
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
     {
-        parent::__construct('tubepress-nonce');
+        parent::__construct('tubepress-nonce', $translator);
     }
 
     /**

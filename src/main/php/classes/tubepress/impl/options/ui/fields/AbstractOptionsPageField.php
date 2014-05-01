@@ -19,9 +19,10 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
      */
     private $_untranslatedDescription;
 
-    public function __construct($id, $untranslatedDisplayName = null, $untranslatedDescription = null)
+    public function __construct($id, tubepress_api_translation_TranslatorInterface $translator,
+                                $untranslatedDisplayName = null, $untranslatedDescription = null)
     {
-        parent::__construct($id, $untranslatedDisplayName);
+        parent::__construct($id, $translator, $untranslatedDisplayName);
 
         if ($untranslatedDescription) {
 

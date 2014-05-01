@@ -39,10 +39,11 @@ class tubepress_impl_options_ui_BaseOptionsPageParticipant extends tubepress_imp
      */
     private $_fieldsContainedInSeparateBoxes;
 
-    public function __construct($id, $untranslatedDisplayName, array $categories, array $fields, array $map,
-        $ableToBeFilteredFromGui = true, $fieldsContainedInSeparateBoxes = true)
+    public function __construct($id, tubepress_api_translation_TranslatorInterface $translator,
+                                $untranslatedDisplayName, array $categories, array $fields, array $map,
+                                $ableToBeFilteredFromGui = true, $fieldsContainedInSeparateBoxes = true)
     {
-        parent::__construct($id, $untranslatedDisplayName);
+        parent::__construct($id, $translator, $untranslatedDisplayName);
 
         $this->_categories                     = $categories;
         $this->_fields                         = $fields;

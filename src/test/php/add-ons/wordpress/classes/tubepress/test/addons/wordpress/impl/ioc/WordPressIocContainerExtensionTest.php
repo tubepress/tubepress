@@ -43,7 +43,7 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
         $this->expectRegistration(
 
-            tubepress_spi_message_MessageService::_,
+            tubepress_api_translation_TranslatorInterface::_,
             'tubepress_addons_wordpress_impl_message_WordPressMessageService'
         )->andReturnDefinition();
 
@@ -121,6 +121,7 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
                 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
 
@@ -152,7 +153,7 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
             'wordpress.widget',
             'tubepress_addons_wordpress_impl_Widget'
-        );
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
 
         $this->expectRegistration(
 
@@ -169,7 +170,6 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
             'admin_head'            => 'AdminHead',
             'admin_menu'            => 'AdminMenu',
             'init'                  => 'Init',
-            'widgets_init'          => 'WidgetsInit',
             'wp_head'               => 'WpHead',
         );
 
@@ -221,6 +221,18 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
          ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
 
                 'event'    => "tubepress.wordpress.action.admin_notices",
+                'method'   => "action",
+                'priority' => 10000
+            ));
+
+        $this->expectRegistration(
+
+            'wordpress.action.widgets_init',
+            'tubepress_addons_wordpress_impl_actions_WidgetsInit'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.action.widgets_init",
                 'method'   => "action",
                 'priority' => 10000
             ));

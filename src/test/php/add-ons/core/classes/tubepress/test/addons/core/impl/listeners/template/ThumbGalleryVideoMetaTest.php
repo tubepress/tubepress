@@ -34,18 +34,22 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryVideoMetaTe
      */
     private $_mockMetaNameProvider;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockMessageService;
+
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta();
-
+        $this->_mockMessageService = ehough_mockery_Mockery::mock(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockOptionProvider   = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
         $this->_mockMetaNameProvider = $this->createMockSingletonService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
+        $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta($this->_mockMessageService);
     }
 
     public function testVideoMetaAboveAndBelow()
     {
-        $messageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $metaNames      = array('x', 'y', 'z');
         $this->_mockMetaNameProvider->shouldReceive('getAllMetaOptionNames')->once()->andReturn($metaNames);
         $shouldShow     = array();
@@ -59,7 +63,7 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryVideoMetaTe
             $this->_mockExecutionContext->shouldReceive('get')->once()->with($metaName)->andReturn("<<value of $metaName>>");
             $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with($metaName)->andReturn(true);
             $this->_mockOptionProvider->shouldReceive('getLabel')->once()->with($metaName)->andReturn("video-$metaName");
-            $messageService->shouldReceive('_')->once()->with("video-$metaName")->andReturn("##video-$metaName##");
+            $this->_mockMessageService->shouldReceive('_')->once()->with("video-$metaName")->andReturn("##video-$metaName##");
         }
 
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');

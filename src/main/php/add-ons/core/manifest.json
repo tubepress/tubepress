@@ -19,7 +19,6 @@
         ],
         "compiler-passes" : [
             "tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass",
-            "tubepress_addons_core_impl_ioc_compiler_LegacyOptionsPass",
             "tubepress_addons_core_impl_ioc_compiler_RegisterListenersCompilerPass",
             "tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass",
             "tubepress_addons_core_impl_ioc_compiler_BuildOptionNamesParameterCompilerPass"
@@ -33,7 +32,6 @@
             "tubepress_addons_core_api_const_options_ui_OptionsPageParticipantConstants"        : "classes/tubepress/addons/core/api/const/options/ui/OptionsPageParticipantConstants.php",
             "tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService"                 : "classes/tubepress/addons/core/impl/http/PlayerPluggableAjaxCommandService.php",
             "tubepress_addons_core_impl_ioc_compiler_BuildOptionNamesParameterCompilerPass"     : "classes/tubepress/addons/core/impl/ioc/compiler/BuildOptionNamesParameterCompilerPass.php",
-            "tubepress_addons_core_impl_ioc_compiler_LegacyOptionsPass"                         : "classes/tubepress/addons/core/impl/ioc/compiler/LegacyOptionsPass.php",
             "tubepress_addons_core_impl_ioc_compiler_RegisterListenersCompilerPass"             : "classes/tubepress/addons/core/impl/ioc/compiler/RegisterListenersCompilerPass.php",
             "tubepress_addons_core_impl_ioc_compiler_RegisterTaggedServicesConsumerPass"        : "classes/tubepress/addons/core/impl/ioc/compiler/RegisterTaggedServicesConsumerPass.php",
             "tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass"                          : "classes/tubepress/addons/core/impl/ioc/compiler/ThemesPrimerPass.php",

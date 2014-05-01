@@ -19,7 +19,7 @@ class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest exte
      */
     protected function buildSut()
     {
-        return new tubepress_addons_youtube_impl_options_YouTubeOptionProvider();
+        return new tubepress_addons_youtube_impl_options_YouTubeOptionProvider($this->getMockMessageService());
     }
 
     protected function getMapOfOptionNamesToDefaultValues()

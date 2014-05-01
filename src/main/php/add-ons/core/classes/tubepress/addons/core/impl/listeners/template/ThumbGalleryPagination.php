@@ -21,9 +21,16 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
      */
     private $_currentUrlService;
 
-    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService)
+    /**
+     * @var tubepress_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_currentUrlService = $currentUrlService;
+        $this->_translator        = $translator;
     }
 
     public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
@@ -65,7 +72,6 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
     private function _getHtml($vidCount)
     {
         $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $hrps           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
         $currentPage = $hrps->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
@@ -77,13 +83,12 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
             return $this->_paginationFromTemplate($vidCount, $currentPage, $vidsPerPage, $newurl);
         }
 
-        return $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl, 'tubepress_page');
+        return $this->_diggStyle($vidCount, $currentPage, $vidsPerPage, 1, $newurl, 'tubepress_page');
     }
 
     private function _paginationFromTemplate($totalItems, $currentPage, $perPage, tubepress_api_url_UrlInterface $url)
     {
         $themeHandler   = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $template       = $themeHandler->getTemplateInstance('pagination.tpl.php', '');
 
         $url->getQuery()->set('tubepress_page', 'zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p');
@@ -97,8 +102,8 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
             tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS      => $totalItems,
             tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT      => $urlFormat,
             tubepress_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE => $perPage,
-            tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT        => $messageService->_('next'),
-            tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV        => $messageService->_('prev'),
+            tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT        => $this->_translator->_('next'),
+            tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV        => $this->_translator->_('prev'),
         );
 
         foreach ($vars as $name => $value) {
@@ -143,7 +148,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
      *
      * @return string The HTML for the pagination
      */
-    private function _diggStyle($totalitems, tubepress_spi_message_MessageService $messageService, $page = 1, $limit = 15, $adjacents = 1, tubepress_api_url_UrlInterface $url, $pagestring = '?page=')
+    private function _diggStyle($totalitems, $page = 1, $limit = 15, $adjacents = 1, tubepress_api_url_UrlInterface $url, $pagestring = '?page=')
     {
         $url->getQuery()->remove('tubepress_page');
 
@@ -160,7 +165,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                 $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                 $pagination .= $this->_buildAnchorOpener($newurl, true, $prev);
                 $pagination .= "&laquo; " .
-                    $messageService->_('prev') .                                     //>(translatable)<
+                    $this->_translator->_('prev') .                                     //>(translatable)<
                     '</a>';
             }
 
@@ -256,11 +261,11 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
                 $url->getQuery()->set($pagestring, $next);
                 $newurl      = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
                 $pagination .= $this->_buildAnchorOpener($newurl, true, $next);
-                $pagination .= $messageService->_('next') .             //>(translatable)<
+                $pagination .= $this->_translator->_('next') .             //>(translatable)<
                     ' &raquo;</a>';
             } else {
                 $pagination .= '<span class="disabled">' .
-                    $messageService->_('next') .             //>(translatable)<
+                    $this->_translator->_('next') .             //>(translatable)<
                     ' &raquo;</span>';
             }
             $pagination .= "</div>\n";

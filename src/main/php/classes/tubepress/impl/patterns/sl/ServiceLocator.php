@@ -109,14 +109,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_message_MessageService The message service.
-     */
-    public static function getMessageService()
-    {
-        return self::getService(tubepress_spi_message_MessageService::_);
-    }
-
-    /**
      * @return tubepress_spi_options_ui_OptionsPageInterface The UI form handler.
      */
     public static function getOptionsPage()

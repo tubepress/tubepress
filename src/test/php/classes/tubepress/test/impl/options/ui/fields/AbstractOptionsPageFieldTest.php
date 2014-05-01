@@ -37,7 +37,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTes
 
     public final function onSetup()
     {
-        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
+        $this->_mockMessageService              = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
 

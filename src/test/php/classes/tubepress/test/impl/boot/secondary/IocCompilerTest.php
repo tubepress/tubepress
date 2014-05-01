@@ -24,18 +24,10 @@ class tubepress_test_impl_boot_secondary_IocCompilerTest extends tubepress_test_
      */
     private $_mockIocContainer;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockLegacyExtensionSupporter;
-
     public function onSetup()
     {
         $this->_sut                          = new tubepress_impl_boot_secondary_IocCompiler();
         $this->_mockIocContainer             = ehough_mockery_Mockery::mock('tubepress_impl_ioc_IconicContainerBuilder');
-        $this->_mockLegacyExtensionSupporter = ehough_mockery_Mockery::mock(tubepress_spi_bc_LegacyExtensionConverterInterface::_);
-
-        $this->_sut->___setLegacyExtensionConverter($this->_mockLegacyExtensionSupporter);
     }
 
     public static function setUpBeforeClass()
@@ -67,11 +59,6 @@ class tubepress_test_impl_boot_secondary_IocCompilerTest extends tubepress_test_
         $this->_mockIocContainer->shouldReceive('compile')->once();
         $this->_mockIocContainer->shouldReceive('addCompilerPass')->once()->with(ehough_mockery_Mockery::any('FakeCompilerPass'));
         $this->_mockIocContainer->shouldReceive('registerExtension')->once()->with(ehough_mockery_Mockery::any('FakeExtension'));
-
-        $this->_mockLegacyExtensionSupporter->shouldReceive('isLegacyAddon')->twice()->with($mockAddon1)->andReturn(false);
-        $this->_mockLegacyExtensionSupporter->shouldReceive('isLegacyAddon')->twice()->with($mockAddon2)->andReturn(true);
-        $this->_mockLegacyExtensionSupporter->shouldReceive('evaluateLegacyExtensionClass')->once()->with(true, ehough_mockery_Mockery::any('ehough_epilog_Logger'), 2, 2, $mockAddon2, 'Hello')->andReturn(false);
-        $this->_mockLegacyExtensionSupporter->shouldReceive('evaluateLegacyExtensionClass')->once()->with(true, ehough_mockery_Mockery::any('ehough_epilog_Logger'), 2, 2, $mockAddon2, 'There')->andReturn(true);
 
         $this->_sut->compile($this->_mockIocContainer, $mockAddons);
 
