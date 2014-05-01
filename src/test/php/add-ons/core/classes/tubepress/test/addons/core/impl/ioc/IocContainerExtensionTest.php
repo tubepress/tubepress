@@ -543,11 +543,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             'ehough_contemplate_impl_SimpleTemplateBuilder');
     }
 
-    private function _shortcodeParser()
-    {
-        $this->expectRegistration(tubepress_api_shortcode_ParserInterface::_,
-            'tubepress_impl_shortcode_SimpleShortcodeParser')->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
-    }
+
 
     private function _optionMetaNameService()
     {

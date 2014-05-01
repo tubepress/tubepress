@@ -39,7 +39,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerCoreOptionProvider($containerBuilder);
         $this->_registerMetaOptionNameService($containerBuilder);
         $this->_registerPlayerHtmlGenerator($containerBuilder);
-        $this->_registerShortcodeParser($containerBuilder);
         $this->_registerTemplateBuilder($containerBuilder);
         $this->_registerThemeHandler($containerBuilder);
         $this->_registerThemeFinder($containerBuilder);
@@ -171,14 +170,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     }
 
 
-    private function _registerShortcodeParser(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
 
-            tubepress_api_shortcode_ParserInterface::_,
-            'tubepress_impl_shortcode_SimpleShortcodeParser'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
-    }
 
     private function _registerTemplateBuilder(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {

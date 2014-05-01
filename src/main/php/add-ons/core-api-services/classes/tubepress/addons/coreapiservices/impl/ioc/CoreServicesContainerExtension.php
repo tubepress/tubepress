@@ -34,6 +34,16 @@ class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension i
         $this->_registerOptionsContext($containerBuilder);
         $this->_registerOptionsPersistence($containerBuilder);
         $this->_registerOptionsProvider($containerBuilder);
+        $this->_registerShortcodeParser($containerBuilder);
+    }
+
+    private function _registerShortcodeParser(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_api_shortcode_ParserInterface::_,
+            'tubepress_impl_shortcode_SimpleShortcodeParser'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
     }
 
     private function _registerOptionsProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
