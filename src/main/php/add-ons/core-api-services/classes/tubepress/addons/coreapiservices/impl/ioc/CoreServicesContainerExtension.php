@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_addons_coreservices_impl_ioc_CoreServicesContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
+class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
@@ -37,7 +37,7 @@ class tubepress_addons_coreservices_impl_ioc_CoreServicesContainerExtension impl
         $containerBuilder->register(
 
             tubepress_api_environment_EnvironmentInterface::_,
-            'tubepress_addons_coreservices_impl_environment_Environment'
+            'tubepress_addons_coreapiservices_impl_environment_Environment'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_));
     }
 
@@ -46,7 +46,7 @@ class tubepress_addons_coreservices_impl_ioc_CoreServicesContainerExtension impl
         $containerBuilder->register(
 
             tubepress_api_url_CurrentUrlServiceInterface::_,
-            'tubepress_addons_coreservices_impl_url_CurrentUrlService'
+            'tubepress_addons_coreapiservices_impl_url_CurrentUrlService'
         )->addArgument($_SERVER)
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_));
     }

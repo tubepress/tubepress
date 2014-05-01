@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_addons_coreservices_impl_url_CurrentUrlService
+ * @covers tubepress_addons_coreapiservices_impl_url_CurrentUrlService
  */
-class tubepress_test_addons_coreservices_url_CurrentUrlServiceTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_coreapiservices_url_CurrentUrlServiceTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_coreservices_impl_url_CurrentUrlService
+     * @var tubepress_addons_coreapiservices_impl_url_CurrentUrlService
      */
     private $_sut;
 
@@ -42,7 +42,7 @@ class tubepress_test_addons_coreservices_url_CurrentUrlServiceTest extends tubep
             'REQUEST_URI' => '/foo/bar',
         );
 
-        $sut = new tubepress_addons_coreservices_impl_url_CurrentUrlService($serverArray, $this->_mockUrlFactory);
+        $sut = new tubepress_addons_coreapiservices_impl_url_CurrentUrlService($serverArray, $this->_mockUrlFactory);
 
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://(#$#$#$#$#$#%%***%**%/foo/bar')
             ->andThrow(new InvalidArgumentException('foobar'));
@@ -57,7 +57,7 @@ class tubepress_test_addons_coreservices_url_CurrentUrlServiceTest extends tubep
      */
     public function testCannotGetUrlMissingServerVars()
     {
-        $sut = new tubepress_addons_coreservices_impl_url_CurrentUrlService(array(), $this->_mockUrlFactory);
+        $sut = new tubepress_addons_coreapiservices_impl_url_CurrentUrlService(array(), $this->_mockUrlFactory);
         $sut->getUrl();
     }
 
@@ -67,7 +67,7 @@ class tubepress_test_addons_coreservices_url_CurrentUrlServiceTest extends tubep
      */
     public function testGetFullUrl($serverArray, $expectedUrl)
     {
-        $sut = new tubepress_addons_coreservices_impl_url_CurrentUrlService($serverArray, $this->_mockUrlFactory);
+        $sut = new tubepress_addons_coreapiservices_impl_url_CurrentUrlService($serverArray, $this->_mockUrlFactory);
 
         $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with($expectedUrl)->andReturn($mockUrl);

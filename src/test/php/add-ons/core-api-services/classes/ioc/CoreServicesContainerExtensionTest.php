@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_addons_coreservices_impl_ioc_CoreServicesContainerExtension
+ * @covers tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension
  */
-class tubepress_test_addons_coreservices_ioc_CoreServicesContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
+class tubepress_test_addons_coreapiservices_ioc_CoreServicesContainerExtensionTest extends tubepress_test_impl_ioc_AbstractIocContainerExtensionTest
 {
 
     /**
@@ -20,7 +20,7 @@ class tubepress_test_addons_coreservices_ioc_CoreServicesContainerExtensionTest 
      */
     protected function buildSut()
     {
-        return new tubepress_addons_coreservices_impl_ioc_CoreServicesContainerExtension();
+        return new tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension();
     }
 
     protected function prepareForLoad()
@@ -34,7 +34,7 @@ class tubepress_test_addons_coreservices_ioc_CoreServicesContainerExtensionTest 
         $this->expectRegistration(
 
             tubepress_api_environment_EnvironmentInterface::_,
-            'tubepress_addons_coreservices_impl_environment_Environment'
+            'tubepress_addons_coreapiservices_impl_environment_Environment'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_));
     }
 
@@ -43,7 +43,7 @@ class tubepress_test_addons_coreservices_ioc_CoreServicesContainerExtensionTest 
         $this->expectRegistration(
 
             tubepress_api_url_CurrentUrlServiceInterface::_,
-            'tubepress_addons_coreservices_impl_url_CurrentUrlService'
+            'tubepress_addons_coreapiservices_impl_url_CurrentUrlService'
         )->withArgument($_SERVER)
          ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_));
     }

@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_addons_coreservices_impl_url_CurrentUrlService implements tubepress_api_url_CurrentUrlServiceInterface
+class tubepress_addons_coreapiservices_impl_url_CurrentUrlService implements tubepress_api_url_CurrentUrlServiceInterface
 {
     private static $_KEY_HTTPS = 'HTTPS';
     private static $_KEY_NAME  = 'SERVER_NAME';

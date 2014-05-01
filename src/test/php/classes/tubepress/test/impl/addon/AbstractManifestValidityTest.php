@@ -22,7 +22,7 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
         $urlFactory = new tubepress_addons_puzzle_impl_url_UrlFactory();
         $discoverer = new tubepress_impl_addon_AddonFinder(
             new ehough_finder_FinderFactory(),
-            new tubepress_addons_coreservices_impl_environment_Environment($urlFactory),
+            new tubepress_addons_coreapiservices_impl_environment_Environment($urlFactory),
             $urlFactory
         );
 

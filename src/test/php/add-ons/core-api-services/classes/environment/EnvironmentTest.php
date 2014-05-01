@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_addons_coreservices_impl_environment_Environment<extended>
+ * @covers tubepress_addons_coreapiservices_impl_environment_Environment<extended>
  */
-class tubepress_test_addons_coreservices_impl_environment_EnvironmentTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_coreapiservices_impl_environment_EnvironmentTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_coreservices_impl_environment_Environment
+     * @var tubepress_addons_coreapiservices_impl_environment_Environment
      */
     private $_sut;
 
@@ -27,7 +27,7 @@ class tubepress_test_addons_coreservices_impl_environment_EnvironmentTest extend
     public function onSetup()
     {
         $this->_mockUrlFactory = ehough_mockery_Mockery::mock(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_sut            = new tubepress_addons_coreservices_impl_environment_Environment($this->_mockUrlFactory);
+        $this->_sut            = new tubepress_addons_coreapiservices_impl_environment_Environment($this->_mockUrlFactory);
     }
 
     public function testVersion()
@@ -52,7 +52,7 @@ class tubepress_test_addons_coreservices_impl_environment_EnvironmentTest extend
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Invalid argument to tubepress_addons_coreservices_impl_environment_Environment::setWpFunctionsInterface
+     * @expectedExceptionMessage Invalid argument to tubepress_addons_coreapiservices_impl_environment_Environment::setWpFunctionsInterface
      */
     public function testBadWpInterface()
     {

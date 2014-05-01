@@ -208,7 +208,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
 
             $finderFactory       = new ehough_finder_FinderFactory();
             $urlFactory          = new tubepress_addons_puzzle_impl_url_UrlFactory();
-            $environmentDetector = new tubepress_addons_coreservices_impl_environment_Environment($urlFactory);
+            $environmentDetector = new tubepress_addons_coreapiservices_impl_environment_Environment($urlFactory);
 
             $this->_secondaryBootstrapper = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
 

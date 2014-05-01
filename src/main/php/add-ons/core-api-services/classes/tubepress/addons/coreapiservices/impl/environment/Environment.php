@@ -12,7 +12,7 @@
 /**
  * Detects TubePress's environment
  */
-class tubepress_addons_coreservices_impl_environment_Environment implements tubepress_api_environment_EnvironmentInterface
+class tubepress_addons_coreapiservices_impl_environment_Environment implements tubepress_api_environment_EnvironmentInterface
 {
     /**
      * @var tubepress_api_version_Version
@@ -192,7 +192,7 @@ class tubepress_addons_coreservices_impl_environment_Environment implements tube
     {
         if (!is_a($wpFunctionsInterface, 'tubepress_addons_wordpress_spi_WpFunctionsInterface')) {
 
-            throw new InvalidArgumentException('Invalid argument to tubepress_addons_coreservices_impl_environment_Environment::setWpFunctionsInterface');
+            throw new InvalidArgumentException('Invalid argument to tubepress_addons_coreapiservices_impl_environment_Environment::setWpFunctionsInterface');
         }
 
         $this->_wpFunctionsInterface = $wpFunctionsInterface;
