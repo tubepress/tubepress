@@ -14,16 +14,25 @@
  */
 class tubepress_addons_core_impl_listeners_template_ThumbGalleryCoreVariables
 {
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
     public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
-        $context          = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoGalleryPage = $event->getArgument('videoGalleryPage');
         $template         = $event->getSubject();
 
         $videoArray  = $videoGalleryPage->getVideos();
-        $thumbWidth  = $context->get(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH);
-        $thumbHeight = $context->get(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
-        $galleryId   = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
+        $thumbWidth  = $this->_context->get(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH);
+        $thumbHeight = $this->_context->get(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
+        $galleryId   = $this->_context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         /* add some core template variables */
         $template->setVariable(tubepress_api_const_template_Variable::VIDEO_ARRAY, $videoArray);

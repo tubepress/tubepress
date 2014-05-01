@@ -14,6 +14,16 @@
  */
 class tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars
 {
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
     public function onEmbeddedTemplate(tubepress_api_event_EventInterface $event)
     {
         $implName = $event->getArgument('embeddedImplementationName');
@@ -23,7 +33,6 @@ class tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars
             return;
         }
 
-        $context  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $template = $event->getSubject();
 
         $toSet = array(
@@ -43,7 +52,7 @@ class tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars
 
         foreach ($toSet as $templateVariableName => $optionName) {
 
-            $template->setVariable($templateVariableName, $context->get($optionName));
+            $template->setVariable($templateVariableName, $this->_context->get($optionName));
         }
     }
 }

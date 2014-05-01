@@ -14,10 +14,19 @@
  */
 class tubepress_addons_core_impl_ioc_FilesystemCacheBuilder
 {
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
     public function buildCache()
     {
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $dir     = $context->get(tubepress_api_const_options_names_Cache::CACHE_DIR);
+        $dir = $this->_context->get(tubepress_api_const_options_names_Cache::CACHE_DIR);
 
         if (!$dir || !is_writable($dir)) {
 

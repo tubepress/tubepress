@@ -26,9 +26,8 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryCoreVariabl
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryCoreVariables();
-
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
+        $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryCoreVariables($this->_mockExecutionContext);
     }
 
     public function testAlterTemplate()

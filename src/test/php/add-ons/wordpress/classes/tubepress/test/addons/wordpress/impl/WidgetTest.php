@@ -67,7 +67,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
     public function onSetup()
     {
         $this->_mockMessageService              = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
-        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext            = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
@@ -80,7 +80,9 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             return "<<$key>>";
         });
 
-        $this->_sut = new tubepress_addons_wordpress_impl_Widget($this->_mockMessageService);
+        $this->_sut = new tubepress_addons_wordpress_impl_Widget(
+            $this->_mockExecutionContext,
+            $this->_mockMessageService);
     }
 
     public function testPrintWidgetControl()
@@ -113,8 +115,8 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('theme');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
-        $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with(array(
+        $this->_mockExecutionContext->shouldReceive('getAllInMemory')->once()->andReturn(array(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with(array(
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE    => 3,
             tubepress_api_const_options_names_Meta::VIEWS                  => false,
             tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
@@ -127,7 +129,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             tubepress_api_const_options_names_Thumbs::THEME               => 'tubepress/legacy-sidebar',
             tubepress_api_const_options_names_Thumbs::FLUID_THUMBS        => false
         ));
-        $this->_mockExecutionContext->shouldReceive('reset')->once();
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with(array());
 
         $this->_mockShortCodeHtmlGenerator->shouldReceive('getHtmlForShortcode')->once()->with('')->andReturn('html result');
 
@@ -151,8 +153,8 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('theme');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
-        $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with(array(
+        $this->_mockExecutionContext->shouldReceive('getAllInMemory')->once()->andReturn(array(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with(array(
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE    => 3,
             tubepress_api_const_options_names_Meta::VIEWS                  => false,
             tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
@@ -165,7 +167,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             tubepress_api_const_options_names_Thumbs::THEME               => 'tubepress/legacy-sidebar',
             tubepress_api_const_options_names_Thumbs::FLUID_THUMBS        => false
         ));
-        $this->_mockExecutionContext->shouldReceive('reset')->once();
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with(array());
 
         $this->_mockShortCodeHtmlGenerator->shouldReceive('getHtmlForShortcode')->once()->with('')->andThrow(new Exception('crazy stuff happened'));
 

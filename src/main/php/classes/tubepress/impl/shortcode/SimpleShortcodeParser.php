@@ -24,9 +24,15 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
      */
     private $_shouldLog = false;
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Shortcode Parser');
+        $this->_context = $context;
     }
 
     /**
@@ -55,8 +61,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
     private function _wrappedParse($content)
     {
-        $context  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $keyword  = $context->get(tubepress_api_const_options_names_Advanced::KEYWORD);
+        $keyword = $this->_context->get(tubepress_api_const_options_names_Advanced::KEYWORD);
 
         if (!$this->somethingToParse($content, $keyword)) {
 
@@ -70,7 +75,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
             $this->_logger->debug(sprintf('Found a shortcode: %s', tubepress_impl_util_StringUtils::redactSecrets($matches[0])));
         }
 
-        $context->setActualShortcodeUsed($matches[0]);
+        $this->_context->setActualShortcodeUsed($matches[0]);
 
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != '') {
@@ -88,7 +93,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
 
                 $toReturn = $this->_buildNameValuePairArray($match);
 
-                $context->setCustomOptions($toReturn);
+                $this->_context->setAll($toReturn);
             }
 
         } else {

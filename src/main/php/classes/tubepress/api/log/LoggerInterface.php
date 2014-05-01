@@ -16,13 +16,15 @@
  */
 interface tubepress_api_log_LoggerInterface
 {
+    const _ = 'tubepress_api_log_LoggerInterface';
+
     /**
      * @return bool True if debugging is active, false otherwise.
      */
-    function isDebugEnabled();
+    function isEnabled();
 
     /**
-     * Log a message. Users *should* call isDebugEnabled() before calling this
+     * Log a normal message. Users *should* call isEnabled() before calling this
      * function to avoid unnecessary overhead.
      *
      * @param string $message The message to log.
@@ -30,5 +32,16 @@ interface tubepress_api_log_LoggerInterface
      *
      * @return void
      */
-    function log($message, array $context = array());
+    function debug($message, array $context = array());
+
+    /**
+     * Log a message. Users *should* call isEnabled() before calling this
+     * function to avoid unnecessary overhead.
+     *
+     * @param string $message The message to log.
+     * @param array  $context Optional context variables.
+     *
+     * @return void
+     */
+    function error($message, array $context = array());
 }

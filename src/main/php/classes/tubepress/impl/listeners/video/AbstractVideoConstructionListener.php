@@ -14,6 +14,16 @@
  */
 abstract class tubepress_impl_listeners_video_AbstractVideoConstructionListener
 {
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
     public function onVideoConstruction(tubepress_api_event_EventInterface $event)
     {
         $video = $event->getSubject();
@@ -57,8 +67,7 @@ abstract class tubepress_impl_listeners_video_AbstractVideoConstructionListener
      */
     protected final function trimDescription($description)
     {
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $limit   = $context->get(tubepress_api_const_options_names_Meta::DESC_LIMIT);
+        $limit = $this->_context->get(tubepress_api_const_options_names_Meta::DESC_LIMIT);
 
         if ($limit > 0 && strlen($description) > $limit) {
 
@@ -82,14 +91,12 @@ abstract class tubepress_impl_listeners_video_AbstractVideoConstructionListener
             return '';
         }
 
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-
-        if ($context->get(tubepress_api_const_options_names_Meta::RELATIVE_DATES)) {
+        if ($this->_context->get(tubepress_api_const_options_names_Meta::RELATIVE_DATES)) {
 
             return tubepress_impl_util_TimeUtils::getRelativeTime($unixTime);
         }
 
-        return @date($context->get(tubepress_api_const_options_names_Meta::DATEFORMAT), $unixTime);
+        return @date($this->_context->get(tubepress_api_const_options_names_Meta::DATEFORMAT), $unixTime);
     }
 
     /**
@@ -106,8 +113,7 @@ abstract class tubepress_impl_listeners_video_AbstractVideoConstructionListener
             return '';
         }
 
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $random  = $context->get(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
+        $random = $this->_context->get(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
 
         if ($random) {
 

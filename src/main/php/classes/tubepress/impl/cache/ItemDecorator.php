@@ -24,8 +24,16 @@ class tubepress_impl_cache_ItemDecorator implements ehough_stash_interfaces_Item
      */
     private $_parentCache;
 
-    public function __construct(ehough_stash_interfaces_ItemInterface $delegate, ehough_stash_interfaces_PoolInterface $parentCache)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        ehough_stash_interfaces_ItemInterface $delegate, ehough_stash_interfaces_PoolInterface $parentCache)
     {
+        $this->_context     = $context;
         $this->_delegate    = $delegate;
         $this->_parentCache = $parentCache;
     }
@@ -84,8 +92,7 @@ class tubepress_impl_cache_ItemDecorator implements ehough_stash_interfaces_Item
      */
     public function set($value, $ttl = null)
     {
-        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $cleaningFactor = $context->get(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR);
+        $cleaningFactor = $this->_context->get(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR);
         $cleaningFactor = intval($cleaningFactor);
 
         /**
@@ -98,7 +105,7 @@ class tubepress_impl_cache_ItemDecorator implements ehough_stash_interfaces_Item
 
         if ($ttl === null) {
 
-            $ttl = intval($context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
+            $ttl = intval($this->_context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
         }
 
         return $this->_delegate->set($value, $ttl);

@@ -26,16 +26,23 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
      */
     private $_translator;
 
-    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
         tubepress_api_translation_TranslatorInterface $translator)
     {
+        $this->_context           = $context;
         $this->_currentUrlService = $currentUrlService;
         $this->_translator        = $translator;
     }
 
     public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
-        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $pm             = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $providerResult = $event->getArgument('videoGalleryPage');
         $template       = $event->getSubject();
@@ -51,12 +58,12 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
 
         $pagination = $event->getSubject();
 
-        if ($context->get(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)) {
+        if ($this->_context->get(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)) {
 
             $template->setVariable(tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
         }
 
-        if ($context->get(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)) {
+        if ($this->_context->get(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)) {
 
             $template->setVariable(tubepress_api_const_template_Variable::PAGINATION_BOTTOM, $pagination);
         }
@@ -71,11 +78,9 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
      */
     private function _getHtml($vidCount)
     {
-        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $hrps           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-
+        $hrps        = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $currentPage = $hrps->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
-        $vidsPerPage = $context->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
+        $vidsPerPage = $this->_context->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
         $newurl      = $this->_currentUrlService->getUrl();
 
         if ($this->_themeHasPaginationTemplate()) {

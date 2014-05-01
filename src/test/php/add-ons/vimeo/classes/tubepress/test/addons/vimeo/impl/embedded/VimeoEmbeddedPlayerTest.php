@@ -24,10 +24,17 @@ class tubepress_test_addons_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends 
      */
     private $_mockUrlFactory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockContext;
+
     public function onSetup() {
 
+        $this->_mockContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
-        $this->_sut = new tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService($this->_mockUrlFactory);
+        $this->_sut = new tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService(
+            $this->_mockContext, $this->_mockUrlFactory);
     }
 
     public function testGetName()
@@ -57,13 +64,11 @@ class tubepress_test_addons_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends 
 
     public function testGetDataUrl()
     {
-        $mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
-        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('ABCDEF');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('ABCDEF');
 
         $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');

@@ -19,18 +19,23 @@ class tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper
      */
     private $_logger;
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Result Count Capper');
+        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Result Count Capper');
+        $this->_context = $context;
     }
 
     public function onVideoGalleryPage(tubepress_api_event_EventInterface $event)
     {
         $totalResults = $event->getSubject()->getTotalResultCount();
-        $context      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $limit        = $context->get(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
+        $limit        = $this->_context->get(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
-        $secondCut    = min($firstCut, self::_calculateRealMax($context, $firstCut));
+        $secondCut    = min($firstCut, $this->_calculateRealMax($firstCut));
         $videos       = $event->getSubject()->getVideos();
         $resultCount  = count($videos);
         $shouldLog    = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
@@ -53,9 +58,9 @@ class tubepress_addons_core_impl_listeners_videogallerypage_ResultCountCapper
         $event->getSubject()->setTotalResultCount($secondCut);
     }
 
-    private static function _calculateRealMax($context, $reported)
+    private function _calculateRealMax($reported)
     {
-        $mode = $context->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $mode = $this->_context->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
         switch ($mode) {
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:

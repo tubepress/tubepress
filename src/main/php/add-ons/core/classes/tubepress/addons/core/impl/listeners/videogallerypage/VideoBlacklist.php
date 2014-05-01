@@ -16,16 +16,21 @@ class tubepress_addons_core_impl_listeners_videogallerypage_VideoBlacklist
 {
     private $_logger;
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Video Blacklister');
+        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Video Blacklister');
+        $this->_context = $context;
     }
 
     public function onVideoGalleryPage(tubepress_api_event_EventInterface $event)
     {
         $videos         = $event->getSubject()->getVideos();
-        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $blacklist      = $context->get(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
+        $blacklist      = $this->_context->get(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
         $videosToKeep   = array();
         $blacklistCount = 0;
 

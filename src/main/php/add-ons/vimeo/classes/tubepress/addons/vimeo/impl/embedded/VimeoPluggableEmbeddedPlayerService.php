@@ -28,9 +28,17 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
      */
     private $_urlFactory;
 
-    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_urlFactory = $urlFactory;
+        $this->_context    = $context;
     }
 
     /**
@@ -58,14 +66,11 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
      */
     public final function getDataUrlForVideo($videoId)
     {
-        $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-
-        $autoPlay = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
-        $showInfo = $context->get(tubepress_api_const_options_names_Embedded::SHOW_INFO);
-        $loop     = $context->get(tubepress_api_const_options_names_Embedded::LOOP);
-        $jsApi    = $context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
-
-        $color    = $context->get(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
+        $autoPlay = $this->_context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $showInfo = $this->_context->get(tubepress_api_const_options_names_Embedded::SHOW_INFO);
+        $loop     = $this->_context->get(tubepress_api_const_options_names_Embedded::LOOP);
+        $jsApi    = $this->_context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
+        $color    = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
 
         /* build the data URL based on these options */
         $link  = $this->_urlFactory->fromString("http://player.vimeo.com/video/$videoId");

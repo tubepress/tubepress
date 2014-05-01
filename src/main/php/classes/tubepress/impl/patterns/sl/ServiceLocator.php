@@ -61,14 +61,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_context_ExecutionContext The execution context.
-     */
-    public static function getExecutionContext()
-    {
-        return self::getService(tubepress_spi_context_ExecutionContext::_);
-    }
-
-    /**
      * @return ehough_filesystem_FilesystemInterface The filesystem service.
      */
     public static function getFileSystem()

@@ -40,13 +40,17 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService',
             'tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService'
 
-        )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
         $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'
-        );
+
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
+
         $containerBuilder->register(
 
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService',
@@ -176,7 +180,8 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
 
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
 
         $containerBuilder->register(
 

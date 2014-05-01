@@ -19,8 +19,16 @@ class tubepress_impl_cache_PoolDecorator implements ehough_stash_interfaces_Pool
      */
     private $_delegate;
 
-    public function __construct(ehough_stash_interfaces_PoolInterface $delegate)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        ehough_stash_interfaces_PoolInterface $delegate)
     {
+        $this->_context = $context;
         $this->_delegate = $delegate;
     }
 
@@ -63,7 +71,7 @@ class tubepress_impl_cache_PoolDecorator implements ehough_stash_interfaces_Pool
 
     private function _toDecoratedItem(ehough_stash_interfaces_ItemInterface $item)
     {
-        return new tubepress_impl_cache_ItemDecorator($item, $this);
+        return new tubepress_impl_cache_ItemDecorator($this->_context, $item, $this);
     }
 
     public function flush()

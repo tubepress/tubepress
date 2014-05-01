@@ -38,7 +38,7 @@ interface tubepress_api_options_ContextInterface
      *
      * @since 4.0.0
      */
-    function getAll();
+    function getAllInMemory();
 
     /**
      * Sets the value of an option in memory. This will *not* affect persistent storage.

@@ -48,14 +48,15 @@ class tubepress_test_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHa
 
     public function onSetup()
     {
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
         $this->_mockProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_messageService = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
 
-        $this->_sut = new tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService($this->_messageService);
+        $this->_sut = new tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService(
+            $this->_mockExecutionContext, $this->_messageService);
     }
 
 

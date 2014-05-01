@@ -48,7 +48,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
     {
         $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
-        $this->_mockContext             = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockContext             = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_impl_theme_ThemeHandler(array(
@@ -112,7 +112,9 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
                 'isSystem' => false,
                 'screenshots' => array()
             )
-        ), $this->_mockEnvironmentDetector,
+        ),
+            $this->_mockContext,
+            $this->_mockEnvironmentDetector,
         $this->_mockUrlFactory);
 
         $this->_mockThemeDirectory = sys_get_temp_dir() . '/mock-theme';

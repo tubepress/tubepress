@@ -19,9 +19,15 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
      */
     private $_logger;
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Single Video Shortcode Handler');
+        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Single Video Shortcode Handler');
+        $this->_context = $context;
     }
 
     /**
@@ -37,8 +43,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
      */
     public final function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $videoId     = $execContext->get(tubepress_api_const_options_names_Output::VIDEO);
+        $videoId = $this->_context->get(tubepress_api_const_options_names_Output::VIDEO);
 
         return $videoId != '';
     }
@@ -48,8 +53,7 @@ class tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerS
      */
     public final function getHtml()
     {
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $videoId     = $execContext->get(tubepress_api_const_options_names_Output::VIDEO);
+        $videoId = $this->_context->get(tubepress_api_const_options_names_Output::VIDEO);
 
         if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 

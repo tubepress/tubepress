@@ -12,6 +12,16 @@
 class tubepress_addons_wordpress_impl_filters_Content
 {
     /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
+    /**
      * Filter the content (which may be empty).
      */
     public final function filter(tubepress_api_event_EventInterface $event)
@@ -34,7 +44,6 @@ class tubepress_addons_wordpress_impl_filters_Content
 
     private function _getHtml($content, $trigger, tubepress_spi_shortcode_ShortcodeParser $parser)
     {
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $gallery = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHtmlGenerator();
 
         /* Parse each shortcode one at a time */
@@ -51,16 +60,16 @@ class tubepress_addons_wordpress_impl_filters_Content
             }
 
             /* remove any leading/trailing <p> tags from the content */
-            $pattern = '/(<[P|p]>\s*)(' . preg_quote($context->getActualShortcodeUsed(), '/') . ')(\s*<\/[P|p]>)/';
+            $pattern = '/(<[P|p]>\s*)(' . preg_quote($this->_context->getActualShortcodeUsed(), '/') . ')(\s*<\/[P|p]>)/';
             $content = preg_replace($pattern, '${2}', $content);
 
             /* replace the shortcode with our new content */
-            $currentShortcode = $context->getActualShortcodeUsed();
+            $currentShortcode = $this->_context->getActualShortcodeUsed();
             $content          = tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
             $content          = tubepress_impl_util_StringUtils::removeEmptyLines($content);
 
             /* reset the context for the next shortcode */
-            $context->reset();
+            $this->_context->setAll(array());
         }
 
         return $content;

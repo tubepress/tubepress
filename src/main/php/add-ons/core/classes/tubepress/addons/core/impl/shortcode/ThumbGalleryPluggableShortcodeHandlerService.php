@@ -21,10 +21,18 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
      */
     private $_translator;
 
-    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_translator = $translator;
         $this->_logger     = ehough_epilog_LoggerFactory::getLogger('Thumb Gallery Shortcode Handler');
+        $this->_context    = $context;
     }
 
     /**
@@ -48,15 +56,14 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
      */
     public final function getHtml()
     {
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $galleryId   = $execContext->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
+        $galleryId   = $this->_context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
         $shouldLog   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($galleryId == '') {
 
             $galleryId = mt_rand();
 
-            $result = $execContext->set(tubepress_api_const_options_names_Advanced::GALLERY_ID, $galleryId);
+            $result = $this->_context->set(tubepress_api_const_options_names_Advanced::GALLERY_ID, $galleryId);
 
             if ($result !== true) {
 

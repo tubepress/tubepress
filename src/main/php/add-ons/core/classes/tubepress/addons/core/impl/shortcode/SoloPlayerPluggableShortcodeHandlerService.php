@@ -24,10 +24,18 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
      */
     private $_singleVideoShortcodeHandler;
 
-    public function __construct(tubepress_spi_shortcode_PluggableShortcodeHandlerService $singleVideoShortcodeHandler)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_spi_shortcode_PluggableShortcodeHandlerService $singleVideoShortcodeHandler)
     {
         $this->_logger                      = ehough_epilog_LoggerFactory::getLogger('Solo Player Command');
         $this->_singleVideoShortcodeHandler = $singleVideoShortcodeHandler;
+        $this->_context                     = $context;
     }
 
     /**
@@ -43,8 +51,7 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
      */
     public final function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $playerName  = $execContext->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $playerName  = $this->_context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $shouldLog   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         if ($playerName !== 'solo') {
@@ -80,7 +87,6 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
     public final function getHtml()
     {
         $qss         = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $videoId     = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);;
         $shouldLog   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
@@ -89,7 +95,7 @@ class tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerSe
             $this->_logger->debug(sprintf('Building single video with ID %s', $videoId));
         }
 
-        $result = $execContext->set(tubepress_api_const_options_names_Output::VIDEO, $videoId);
+        $result = $this->_context->set(tubepress_api_const_options_names_Output::VIDEO, $videoId);
 
         if ($result !== true) {
 

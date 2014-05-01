@@ -19,22 +19,29 @@ class tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables
      */
     private $_environment;
 
-    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_environment_EnvironmentInterface $environment)
     {
+        $this->_context     = $context;
         $this->_environment = $environment;
     }
 
     public function onEmbeddedTemplate(tubepress_api_event_EventInterface $event)
     {
-        $context      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $template     = $event->getSubject();
         $dataUrl      = $event->getArgument('dataUrl');
         $videoId      = $event->getArgument('videoId');
         $providerName = $event->getArgument('providerName');
 
-        $autoPlay    = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
-        $embedWidth  = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
-        $embedHeight = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
+        $autoPlay    = $this->_context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $embedWidth  = $this->_context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
+        $embedHeight = $this->_context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
 
         $vars = array(
 

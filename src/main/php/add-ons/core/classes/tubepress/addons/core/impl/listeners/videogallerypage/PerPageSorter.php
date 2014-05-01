@@ -19,16 +19,21 @@ class tubepress_addons_core_impl_listeners_videogallerypage_PerPageSorter
      */
     private $_logger;
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Per-page Sorter');
+        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Per-page Sorter');
+        $this->_context = $context;
     }
 
     public function onVideoGalleryPage(tubepress_api_event_EventInterface $event)
     {
-        $context          = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $perPageSortOrder = $context->get(tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
-        $feedSortOrder    = $context->get(tubepress_api_const_options_names_Feed::ORDER_BY);
+        $perPageSortOrder = $this->_context->get(tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
+        $feedSortOrder    = $this->_context->get(tubepress_api_const_options_names_Feed::ORDER_BY);
         $shouldLog        = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         /** No sort requested? */

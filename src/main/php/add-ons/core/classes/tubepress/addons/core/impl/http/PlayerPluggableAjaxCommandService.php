@@ -21,9 +21,15 @@ class tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService extends 
      */
     private $_logger;
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Player Ajax Command');
+        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Player Ajax Command');
+        $this->_context = $context;
     }
 
     /**
@@ -36,7 +42,6 @@ class tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService extends 
 
     protected function getStatusCodeToHtmlMap()
     {
-        $executionContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $player           = tubepress_impl_patterns_sl_ServiceLocator::getPlayerHtmlGenerator();
         $provider         = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
         $qss              = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
@@ -55,11 +60,11 @@ class tubepress_addons_core_impl_http_PlayerPluggableAjaxCommandService extends 
             $this->_logger->debug('Requested video is ' . $videoId);
         }
 
-        $executionContext->setCustomOptions($nvpMap);
+        $this->_context->setAll($nvpMap);
 
-        if ($executionContext->get(tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
+        if ($this->_context->get(tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
 
-            $executionContext->set(tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
+            $this->_context->set(tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
         }
 
         if ($isDebugEnabled) {

@@ -29,9 +29,15 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
      */
     private $_videoProviders = array();
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Video Collector');
+        $this->_context = $context;
+        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Default Video Collector');
     }
 
     /**
@@ -42,8 +48,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
     public final function collectVideoGalleryPage()
     {
         $this->_isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
-        $executionContext      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $videoSource           = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $videoSource           = $this->_context->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         $result                = null;
         $providerName          = null;
         $currentPage           = $this->_getCurrentPage();

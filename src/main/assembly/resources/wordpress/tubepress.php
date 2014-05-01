@@ -19,11 +19,6 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 class tubepress_impl_addons_wordpress_ApiIntegrator
 {
     /**
-     * @var bool Flag to prevent duplicate boot.
-     */
-    private static $_FLAG_TUBEPRESS_BOOTED = false;
-
-    /**
      * @var string The base plugin directory.
      */
     private $_baseName;
@@ -48,6 +43,7 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
 
     private function _loadPluginTextDomain()
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         load_plugin_textdomain('tubepress', false, $this->_baseName . '/src/main/resources/i18n');
     }
 
@@ -55,8 +51,13 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
     {
         $filterCallback = array($this, '__handlerFilter');
 
+        /** @noinspection PhpUndefinedFunctionInspection */
         add_filter('the_content', $filterCallback);
+
+        /** @noinspection PhpUndefinedFunctionInspection */
         add_filter($this->_calculateMetaRowsFilterPoint(), $filterCallback, 10, 2);
+
+        /** @noinspection PhpUndefinedFunctionInspection */
         add_filter('upgrader_pre_install', $filterCallback, 10, 2);
     }
 
@@ -77,12 +78,14 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
 
         foreach ($interestingActions as $interestingAction) {
 
+            /** @noinspection PhpUndefinedFunctionInspection */
             add_action($interestingAction, $actionCallback);
         }
     }
 
     private function _addActivationHooks()
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         register_activation_hook($this->_baseName . '/tubepress.php', array($this, '__handlerActivationHook'));
     }
 
@@ -90,9 +93,12 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
     {
         try {
 
-            $this->_bootTubePress();
+            $callback = $this->_getCallback();
 
-            return tubepress_addons_wordpress_impl_Callback::onFilter(current_filter(), func_get_args());
+            /** @noinspection PhpUndefinedFunctionInspection */
+            $currentFilter = current_filter();
+
+            return $callback->onFilter($currentFilter, func_get_args());
 
         } catch (Exception $e) {
 
@@ -104,9 +110,12 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
     {
         try {
 
-            $this->_bootTubePress();
+            $callback = $this->_getCallback();
 
-            tubepress_addons_wordpress_impl_Callback::onAction(current_filter(), func_get_args());
+            /** @noinspection PhpUndefinedFunctionInspection */
+            $currentFilter = current_filter();
+
+            $callback->onAction($currentFilter, func_get_args());
 
         } catch (Exception $e) {
 
@@ -118,9 +127,9 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
     {
         try {
 
-            $this->_bootTubePress();
+            $callback = $this->_getCallback();
 
-            tubepress_addons_wordpress_impl_Callback::onPluginActivation(func_get_args());
+            $callback->onPluginActivation(func_get_args());
 
         } catch (Exception $e) {
 
@@ -140,19 +149,18 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
         return 'plugin_action_links';
     }
 
-    private function _bootTubePress()
+    /**
+     * @return tubepress_addons_wordpress_impl_Callback
+     */
+    private function _getCallback()
     {
-        if (self::$_FLAG_TUBEPRESS_BOOTED) {
+        /** @noinspection PhpIncludeInspection */
+        /**
+         * @var $serviceContainer tubepress_api_ioc_ContainerInterface
+         */
+        $serviceContainer = require 'src/main/php/scripts/boot.php';
 
-            return;
-        }
-
-        if (!defined('TUBEPRESS_ROOT')) {
-
-            require 'src/main/php/scripts/boot.php';
-        }
-
-        self::$_FLAG_TUBEPRESS_BOOTED = true;
+        return $serviceContainer->get('tubepress_addons_wordpress_impl_Callback');
     }
 }
 

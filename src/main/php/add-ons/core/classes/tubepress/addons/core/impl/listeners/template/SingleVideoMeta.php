@@ -19,15 +19,22 @@ class tubepress_addons_core_impl_listeners_template_SingleVideoMeta
      */
     private $_translator;
 
-    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
+        $this->_context    = $context;
         $this->_translator = $translator;
     }
 
     public function onSingleVideoTemplate(tubepress_api_event_EventInterface $event)
     {
         $template        = $event->getSubject();
-        $context         = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $optionProvider  = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
         /**
@@ -40,7 +47,7 @@ class tubepress_addons_core_impl_listeners_template_SingleVideoMeta
 
         foreach ($metaNames as $metaName) {
 
-            $shouldShow[$metaName] = $context->get($metaName);
+            $shouldShow[$metaName] = $this->_context->get($metaName);
             $labels[$metaName]     = $this->_translator->_($optionProvider->getLabel($metaName));
         }
 

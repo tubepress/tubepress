@@ -33,31 +33,31 @@ class tubepress_impl_feed_CacheAwareFeedFetcher
      */
     public final function fetch($url)
     {
-        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $cacheEnabled   = $context->get(tubepress_api_const_options_names_Cache::CACHE_ENABLED);
-        $isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
-
-        if ($cacheEnabled) {
-
-            $data = $this->_getFromCache($url, $context, $isDebugEnabled);
-
-        } else {
-
-            if ($isDebugEnabled) {
-
-                $this->_logger->debug(sprintf('Skip cache check for <a href="%s">URL</a>', $url));
-            }
-
-            $data = $this->_getFromNetwork($url);
-        }
-
-        if ($isDebugEnabled) {
-
-            $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
-                $url, htmlspecialchars($data)));
-        }
-
-        return $data;
+//        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
+//        $cacheEnabled   = $context->get(tubepress_api_const_options_names_Cache::CACHE_ENABLED);
+//        $isDebugEnabled = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
+//
+//        if ($cacheEnabled) {
+//
+//            $data = $this->_getFromCache($url, $context, $isDebugEnabled);
+//
+//        } else {
+//
+//            if ($isDebugEnabled) {
+//
+//                $this->_logger->debug(sprintf('Skip cache check for <a href="%s">URL</a>', $url));
+//            }
+//
+//            $data = $this->_getFromNetwork($url);
+//        }
+//
+//        if ($isDebugEnabled) {
+//
+//            $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
+//                $url, htmlspecialchars($data)));
+//        }
+//
+//        return $data;
     }
 
     private function _getFromNetwork($url)

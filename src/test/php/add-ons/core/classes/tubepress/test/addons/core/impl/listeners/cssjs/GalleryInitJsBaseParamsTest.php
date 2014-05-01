@@ -36,11 +36,11 @@ class tubepress_test_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTes
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams();
 
-        $this->_mockExecutionContext    = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext    = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockOptionProvider      = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_sut = new tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams($this->_mockExecutionContext);
     }
 
     public function testAlter()
@@ -51,7 +51,7 @@ class tubepress_test_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTes
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
         $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTP_METHOD)->andReturn('some-http-method');
-        $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array('x' => 'y', 'foo' => 'bar'));
+        $this->_mockExecutionContext->shouldReceive('getAllInMemory')->once()->andReturn(array('x' => 'y', 'foo' => 'bar'));
 
         $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
         $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(true);

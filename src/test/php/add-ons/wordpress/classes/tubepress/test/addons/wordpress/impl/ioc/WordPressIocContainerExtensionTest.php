@@ -153,7 +153,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
             'wordpress.widget',
             'tubepress_addons_wordpress_impl_Widget'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
 
         $this->expectRegistration(
 
@@ -193,10 +194,22 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
     {
         $map = array(
 
-            'the_content'         => 'Content',
             'plugin_row_meta'     => 'RowMeta',
             'plugin_action_links' => 'RowMeta',
         );
+
+        $this->expectRegistration(
+
+            "wordpress.filter.the_content.Content",
+            "tubepress_addons_wordpress_impl_filters_Content"
+
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.filter.the_content",
+                'method'   => 'filter',
+                'priority' => 10000
+            ));
 
         foreach ($map as $filter => $class) {
 

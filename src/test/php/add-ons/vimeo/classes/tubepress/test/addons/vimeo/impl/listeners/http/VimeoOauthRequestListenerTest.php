@@ -32,7 +32,7 @@ class tubepress_test_addons_vimeo_impl_listeners_http_VimeoOauthRequestListenerT
     public function onSetup()
     {
 //        $this->_mockOauthClient = $this->createMockSingletonService('ehough_coauthor_api_v1_ClientInterface');
-//        $this->_mockExecContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+//        $this->_mockExecContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
 //
 //
 //        $this->_sut = new tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener($this->_mockOauthClient, $this->_mockExecContext);

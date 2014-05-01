@@ -31,11 +31,11 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser();
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
+        $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser($this->_mockExecutionContext);
     }
 
 
@@ -63,7 +63,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters( $expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -84,7 +84,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters( $expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -108,7 +108,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -120,7 +120,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $shortcode = '[butters]';
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->never();
+        $this->_mockExecutionContext->shouldReceive('setAll')->never();
 
         $this->_sut->parse($shortcode);
 
@@ -140,7 +140,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -158,7 +158,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters($expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -174,7 +174,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -190,7 +190,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters($expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -206,7 +206,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters( $expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -245,7 +245,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters( $expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -261,7 +261,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters($expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 
@@ -277,7 +277,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_setupExpectedFilters($expected);
 
         $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
-        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
 

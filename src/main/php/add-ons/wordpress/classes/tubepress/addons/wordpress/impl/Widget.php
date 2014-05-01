@@ -22,9 +22,17 @@ class tubepress_addons_wordpress_impl_Widget
      */
     private $_translator;
 
-    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
         $this->_translator = $translator;
+        $this->_context    = $context;
     }
 
     /**
@@ -38,7 +46,6 @@ class tubepress_addons_wordpress_impl_Widget
     {
         extract($opts);
 
-        $context      = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $parser       = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
         $gallery      = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHtmlGenerator();
 
@@ -58,17 +65,17 @@ class tubepress_addons_wordpress_impl_Widget
         );
 
         /* now apply the user's options */
-        $rawTag    = $context->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $rawTag    = $this->_context->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $widgetTag = tubepress_impl_util_StringUtils::removeNewLines($rawTag);
         $parser->parse($widgetTag);
 
         /* calculate the final options */
-        $finalOptions = array_merge($defaultWidgetOptions, $context->getCustomOptions());
-        $context->setCustomOptions($finalOptions);
+        $finalOptions = array_merge($defaultWidgetOptions, $this->_context->getAllInMemory());
+        $this->_context->setAll($finalOptions);
 
-        if ($context->get(tubepress_api_const_options_names_Thumbs::THEME) === '') {
+        if ($this->_context->get(tubepress_api_const_options_names_Thumbs::THEME) === '') {
 
-            $context->set(tubepress_api_const_options_names_Thumbs::THEME, 'tubepress/legacy-sidebar');
+            $this->_context->set(tubepress_api_const_options_names_Thumbs::THEME, 'tubepress/legacy-sidebar');
         }
 
         try {
@@ -83,11 +90,11 @@ class tubepress_addons_wordpress_impl_Widget
         /* do the standard WordPress widget dance */
         /** @noinspection PhpUndefinedVariableInspection */
         echo $before_widget . $before_title .
-            $context->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE) .
+            $this->_context->get(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE) .
             $after_title . $out . $after_widget;
 
         /* reset the context for the next shortcode */
-        $context->reset();
+        $this->_context->setAll(array());
     }
 
     /**

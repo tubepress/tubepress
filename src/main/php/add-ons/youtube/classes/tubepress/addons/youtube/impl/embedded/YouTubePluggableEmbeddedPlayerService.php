@@ -24,11 +24,19 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
      */
     private $_urlFactory;
 
-    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
         tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_currentUrlService = $currentUrlService;
         $this->_urlFactory        = $urlFactory;
+        $this->_context           = $context;
     }
 
     /**
@@ -56,21 +64,20 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
      */
     public final function getDataUrlForVideo($videoId)
     {
-        $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $link       = $this->_urlFactory->fromString('https://www.youtube.com/embed/' . $videoId);
         $embedQuery = $link->getQuery();
         $url        = $this->_currentUrlService->getUrl();
         $origin     = $url->getScheme() . '://' . $url->getHost();
 
 
-        $autoPlay        = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
-        $loop            = $context->get(tubepress_api_const_options_names_Embedded::LOOP);
-        $showInfo        = $context->get(tubepress_api_const_options_names_Embedded::SHOW_INFO);
-        $autoHide        = $context->get(tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE);
-        $enableJsApi     = $context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
-        $fullscreen      = $context->get(tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN);
-        $modestBranding  = $context->get(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING);
-        $showRelated     = $context->get(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED);
+        $autoPlay        = $this->_context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $loop            = $this->_context->get(tubepress_api_const_options_names_Embedded::LOOP);
+        $showInfo        = $this->_context->get(tubepress_api_const_options_names_Embedded::SHOW_INFO);
+        $autoHide        = $this->_context->get(tubepress_addons_youtube_api_const_options_names_Embedded::AUTOHIDE);
+        $enableJsApi     = $this->_context->get(tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
+        $fullscreen      = $this->_context->get(tubepress_addons_youtube_api_const_options_names_Embedded::FULLSCREEN);
+        $modestBranding  = $this->_context->get(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING);
+        $showRelated     = $this->_context->get(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED);
 
         $embedQuery->set('autohide',       $this->_getAutoHideValue($autoHide));
         $embedQuery->set('autoplay',       tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));

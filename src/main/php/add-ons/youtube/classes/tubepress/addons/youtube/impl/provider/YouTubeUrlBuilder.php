@@ -28,9 +28,17 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
      */
     private $_urlFactory;
 
-    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_urlFactory = $urlFactory;
+        $this->_context    = $context;
     }
 
     /**
@@ -42,48 +50,46 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
      */
     public final function buildGalleryUrl($currentPage)
     {
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-
-        switch ($execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE)) {
+        switch ($this->_context->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE)) {
 
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER:
 
-                $url = 'users/' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE) . '/uploads';
+                $url = 'users/' . $this->_context->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE) . '/uploads';
 
                 break;
 
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR:
 
-                $url = 'standardfeeds/most_popular?time=' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE);
+                $url = 'standardfeeds/most_popular?time=' . $this->_context->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE);
 
                 break;
 
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
 
-                $url = 'playlists/' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+                $url = 'playlists/' . $this->_context->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
                 break;
 
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED:
 
-                $url = 'videos/' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE) . '/related';
+                $url = 'videos/' . $this->_context->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_RELATED_VALUE) . '/related';
 
                 break;
 
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
 
-                $url = 'users/' . $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE) . '/favorites';
+                $url = 'users/' . $this->_context->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE) . '/favorites';
 
                 break;
 
             case tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
 
-                $tags = $execContext->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
+                $tags = $this->_context->get(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
                 $tags = self::_replaceQuotes($tags);
                 $tags = urlencode($tags);
                 $url  = "videos?q=$tags";
 
-                $filter = $execContext->get(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
+                $filter = $this->_context->get(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
 
                 if ($filter != '') {
 
@@ -99,9 +105,9 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
 
         $requestUrl = $this->_urlFactory->fromString("http://gdata.youtube.com/feeds/api/$url");
 
-        $this->_urlPostProcessingCommon($execContext, $requestUrl);
+        $this->_urlPostProcessingCommon($requestUrl);
 
-        $this->_urlPostProcessingGallery($execContext, $requestUrl, $currentPage);
+        $this->_urlPostProcessingGallery($requestUrl, $currentPage);
 
         return $this->_finishUrl($requestUrl, tubepress_addons_youtube_api_const_YouTubeEventNames::URL_GALLERY);
     }
@@ -117,10 +123,9 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
      */
     public final function buildSingleVideoUrl($id)
     {
-        $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $requestURL = $this->_urlFactory->fromString("http://gdata.youtube.com/feeds/api/videos/$id");
 
-        $this->_urlPostProcessingCommon($context, $requestURL);
+        $this->_urlPostProcessingCommon($requestURL);
 
         return $this->_finishUrl($requestURL, tubepress_addons_youtube_api_const_YouTubeEventNames::URL_SINGLE);
     }
@@ -145,16 +150,16 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
         return str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $text);
     }
 
-    private function _urlPostProcessingCommon(tubepress_spi_context_ExecutionContext $execContext, tubepress_api_url_UrlInterface $url)
+    private function _urlPostProcessingCommon(tubepress_api_url_UrlInterface $url)
     {
         $query                            = $url->getQuery();
         $query->set(self::$_URL_PARAM_VERSION, 2);
-        $query->set(self::$_URL_PARAM_KEY, $execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY));
+        $query->set(self::$_URL_PARAM_KEY, $this->_context->get(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY));
     }
 
-    private function _urlPostProcessingGallery(tubepress_spi_context_ExecutionContext $execContext, tubepress_api_url_UrlInterface $url, $currentPage)
+    private function _urlPostProcessingGallery(tubepress_api_url_UrlInterface $url, $currentPage)
     {
-        $perPage = $execContext->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
+        $perPage = $this->_context->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
 
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -163,17 +168,17 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
         $query->set(self::$_URL_PARAM_START_INDEX, $start);
         $query->set(self::$_URL_PARAM_MAX_RESULTS, $perPage);
 
-        $this->_urlProcessingOrderBy($execContext, $url);
+        $this->_urlProcessingOrderBy($url);
 
-        $query->set(self::$_URL_PARAM_SAFESEARCH, $execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::FILTER));
+        $query->set(self::$_URL_PARAM_SAFESEARCH, $this->_context->get(tubepress_addons_youtube_api_const_options_names_Feed::FILTER));
 
-        if ($execContext->get(tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY)) {
+        if ($this->_context->get(tubepress_addons_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY)) {
 
             $query->set(self::$_URL_PARAM_FORMAT, '5');
         }
     }
 
-    private function _urlProcessingOrderBy(tubepress_spi_context_ExecutionContext $execContext, tubepress_api_url_UrlInterface $url)
+    private function _urlProcessingOrderBy(tubepress_api_url_UrlInterface $url)
     {
         /*
          * In a request for a video feed, the following values are valid for this parameter:
@@ -194,8 +199,8 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
          * viewCount – Entries are ordered from most views to least views.
          */
 
-        $requestedSortOrder   = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
-        $currentGallerySource = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $requestedSortOrder   = $this->_context->get(tubepress_api_const_options_names_Feed::ORDER_BY);
+        $currentGallerySource = $this->_context->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         $query                = $url->getQuery();
 
         if ($requestedSortOrder === tubepress_api_const_options_values_OrderByValue::DEFAULTT) {

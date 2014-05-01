@@ -26,10 +26,10 @@ class tubepress_test_addons_vimeo_impl_listeners_video_VimeoVideoConstructionLis
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener();
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(9);
+        $this->_sut = new tubepress_addons_vimeo_impl_listeners_video_VimeoVideoConstructionListener($this->_mockExecutionContext);
     }
 
     public function testConstructionGalleryXmlStaticThumbAbsoluteDates()

@@ -37,7 +37,8 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
 
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars',
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'
-        )->addTag(self::TAG_EVENT_LISTENER, array(
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
                 'method'   => 'onEmbeddedTemplate',
                 'priority' => 10000

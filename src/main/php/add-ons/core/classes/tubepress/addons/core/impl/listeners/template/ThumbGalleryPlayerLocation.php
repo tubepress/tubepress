@@ -14,15 +14,24 @@
  */
 class tubepress_addons_core_impl_listeners_template_ThumbGalleryPlayerLocation
 {
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
     public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
-        $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $htmlGenerator  = tubepress_impl_patterns_sl_ServiceLocator::getPlayerHtmlGenerator();
-        $playerName     = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $playerName     = $this->_context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $providerResult = $event->getArgument('videoGalleryPage');
         $videos         = $providerResult->getVideos();
         $template       = $event->getSubject();
-        $galleryId      = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
+        $galleryId      = $this->_context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
         $playerHtml     = $playerHtml = $this->_showPlayerHtmlOnPageLoad($playerName) ?
             $htmlGenerator->getHtml($videos[0], $galleryId) : '';
 

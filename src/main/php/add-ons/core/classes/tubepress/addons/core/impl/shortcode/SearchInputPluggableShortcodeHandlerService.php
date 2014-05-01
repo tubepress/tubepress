@@ -15,6 +15,16 @@
 class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
+    /**
      * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
      */
     function getName()
@@ -25,11 +35,9 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
     /**
      * @return boolean True if this handler is interested in generating HTML, false otherwise.
      */
-    function shouldExecute()
+    public function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-
-        return $execContext->get(tubepress_api_const_options_names_Output::OUTPUT) === tubepress_api_const_options_values_OutputValue::SEARCH_INPUT;
+        return $this->_context->get(tubepress_api_const_options_names_Output::OUTPUT) === tubepress_api_const_options_values_OutputValue::SEARCH_INPUT;
     }
 
     public function getHtml()

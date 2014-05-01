@@ -20,11 +20,11 @@ class tubepress_addons_vimeo_impl_listeners_http_VimeoOauthRequestListener
     private $_oauthClient;
 
     /**
-     * @var tubepress_spi_context_ExecutionContext
+     * @var tubepress_api_options_ContextInterface
      */
     private $_executionContext;
 
-    public function __construct(ehough_coauthor_api_v1_ClientInterface $oauthClient, tubepress_spi_context_ExecutionContext $context)
+    public function __construct(ehough_coauthor_api_v1_ClientInterface $oauthClient)
     {
         $this->_executionContext = $context;
         $this->_oauthClient      = $oauthClient;

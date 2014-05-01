@@ -32,9 +32,12 @@ class tubepress_test_addons_core_impl_listeners_template_EmbeddedCoreVariablesTe
     public function onSetup()
     {
         $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_api_environment_EnvironmentInterface::_);
-        $this->_sut = new tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables($this->_mockEnvironmentDetector);
 
-        $this->_mockExecutionContext    = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext    = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
+        $this->_sut = new tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables(
+            $this->_mockExecutionContext,
+            $this->_mockEnvironmentDetector
+        );
     }
 
     public function testAlter()

@@ -29,9 +29,9 @@ class tubepress_test_impl_cache_PoolDecoratorTest extends tubepress_test_TubePre
     {
         $this->_mockPool = ehough_mockery_Mockery::mock('ehough_stash_interfaces_PoolInterface');
 
-        $this->_sut = new tubepress_impl_cache_PoolDecorator($this->_mockPool);
 
-        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
+        $this->_sut = new tubepress_impl_cache_PoolDecorator($this->_mockExecutionContext, $this->_mockPool);
     }
 
     public function testGetItemIterator()

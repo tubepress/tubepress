@@ -37,7 +37,8 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener',
             'tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::VIDEO_CONSTRUCTION, 'method' => 'onVideoConstruction', 'priority' => 10000));
 
         $containerBuilder->register(
 
@@ -57,14 +58,15 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'
-        );
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
 
         $containerBuilder->register(
 
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService',
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService'
 
-        )->addArgument(tubepress_api_url_CurrentUrlServiceInterface::_)
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(tubepress_api_url_CurrentUrlServiceInterface::_)
          ->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
         $containerBuilder->register(

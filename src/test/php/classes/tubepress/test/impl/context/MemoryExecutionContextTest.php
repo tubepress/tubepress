@@ -70,7 +70,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
         $this->_setupValidationServiceToPass(tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
 
         $customOptions = array(tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
-        $this->_sut->setCustomOptions($customOptions);
+        $this->_sut->setAll($customOptions);
 
         $this->assertEquals(array('theme' => 'fakeoptionvalue'), $this->_sut->getCustomOptions());
 
@@ -92,7 +92,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
 
         $customOptions = array(tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
 
-        $result = $this->_sut->setCustomOptions($customOptions);
+        $result = $this->_sut->setAll($customOptions);
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
@@ -107,7 +107,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
 
         $customOptions = array(tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
 
-        $result = $this->_sut->setCustomOptions($customOptions);
+        $result = $this->_sut->setAll($customOptions);
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 1);

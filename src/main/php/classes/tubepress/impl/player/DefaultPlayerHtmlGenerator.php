@@ -20,6 +20,16 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
     private $_playerLocations = array();
 
     /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
+    /**
      * Get's the HTML for the TubePress "player"
      *
      * @param tubepress_api_video_Video $vid The video to display in the player.
@@ -28,9 +38,8 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
      */
     public final function getHtml(tubepress_api_video_Video $vid)
     {
-        $executionContextService  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $themeHandler             = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $requestedPlayerLocation  = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $requestedPlayerLocation  = $this->_context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $playerLocation           = null;
 
         /**

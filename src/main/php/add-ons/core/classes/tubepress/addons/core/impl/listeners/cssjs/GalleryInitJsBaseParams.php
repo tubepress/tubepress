@@ -27,6 +27,16 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
     private $_playerLocations = array();
 
     /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
+    /**
      * The following options are required by JS, so we explicity set them:
      *
      *  ajaxPagination
@@ -46,13 +56,11 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
      */
     public function onGalleryInitJs(tubepress_api_event_EventInterface $event)
     {
-        $context = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-
         $args = $event->getSubject();
 
-        $requiredNvpMap = $this->_buildRequiredNvpMap($context);
-        $jsMap          = $this->_buildJsMap($context);
-        $customNvpMap   = $context->getCustomOptions();
+        $requiredNvpMap = $this->_buildRequiredNvpMap();
+        $jsMap          = $this->_buildJsMap();
+        $customNvpMap   = $this->_context->getAllInMemory();
 
         $nvpMap = array_merge($requiredNvpMap, $customNvpMap);
 
@@ -70,11 +78,11 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
         $this->_playerLocations = $playerLocations;
     }
 
-    private function _buildJsMap(tubepress_spi_context_ExecutionContext $context)
+    private function _buildJsMap()
     {
         $toReturn = array();
 
-        $playerLocation = $this->_findPlayerLocation($context);
+        $playerLocation = $this->_findPlayerLocation();
 
         if ($playerLocation !== null) {
 
@@ -91,13 +99,13 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
 
         foreach ($requiredOptions as $optionName) {
 
-            $toReturn[$optionName] = $context->get($optionName);
+            $toReturn[$optionName] = $this->_context->get($optionName);
         }
 
         return $toReturn;
     }
 
-    private function _buildRequiredNvpMap(tubepress_spi_context_ExecutionContext $context)
+    private function _buildRequiredNvpMap()
     {
         $toReturn = array();
 
@@ -110,15 +118,15 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
 
         foreach ($requiredOptions as $optionName) {
 
-            $toReturn[$optionName] = $context->get($optionName);
+            $toReturn[$optionName] = $this->_context->get($optionName);
         }
 
         return $toReturn;
     }
 
-    private function _findPlayerLocation(tubepress_spi_context_ExecutionContext $context)
+    private function _findPlayerLocation()
     {
-        $requestedPlayerName = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $requestedPlayerName = $this->_context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
         /**
          * @var $playerLocation tubepress_spi_player_PluggablePlayerLocationService

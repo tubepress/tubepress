@@ -44,7 +44,7 @@ interface tubepress_spi_context_ExecutionContext
      *
      * @return array An array of error messages. May be empty, never null.
      */
-    function setCustomOptions(array $customOpts);
+    function setAll(array $customOpts);
 
     /**
      * Gets the options that differ from the default options.

@@ -52,9 +52,17 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
      */
     private $_urlFactory;
 
-    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_urlFactory = $urlFactory;
+        $this->_context = $context;
     }
 
     /**
@@ -67,40 +75,39 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
     public final function buildGalleryUrl($currentPage)
     {
         $params       = array();
-        $execContext  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $mode         = $execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $mode         = $this->_context->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
-        $this->_verifyKeyAndSecretExists($execContext);
+        $this->_verifyKeyAndSecretExists();
 
         switch ($mode) {
 
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY:
 
             $params[self::$_PARAM_METHOD]  = self::$_METHOD_VIDEOS_GETUPLOADED;
-            $params[self::$_PARAM_USER_ID] = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
+            $params[self::$_PARAM_USER_ID] = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
 
             break;
 
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_LIKES:
 
             $params[self::$_PARAM_METHOD]  = self::$_METHOD_VIDEOS_GETLIKES;
-            $params[self::$_PARAM_USER_ID] = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
+            $params[self::$_PARAM_USER_ID] = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
 
             break;
 
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN:
 
             $params[self::$_PARAM_METHOD]  = self::$_METHOD_VIDEOS_APPEARSIN;
-            $params[self::$_PARAM_USER_ID] = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE);
+            $params[self::$_PARAM_USER_ID] = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE);
 
             break;
 
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH:
 
             $params[self::$_PARAM_METHOD] = self::$_METHOD_VIDEOS_SEARCH;
-            $params[self::$_PARAM_QUERY]  = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
+            $params[self::$_PARAM_QUERY]  = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
 
-            $filter = $execContext->get(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
+            $filter = $this->_context->get(tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
 
             if ($filter != '') {
 
@@ -112,41 +119,41 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CREDITED:
 
             $params[self::$_PARAM_METHOD]  = self::$_METHOD_VIDEOS_GETALL;
-            $params[self::$_PARAM_USER_ID] = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
+            $params[self::$_PARAM_USER_ID] = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
 
             break;
 
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL:
 
             $params[self::$_PARAM_METHOD]     = self::$_METHOD_CHANNEL_GETVIDEOS;
-            $params[self::$_PARAM_CHANNEL_ID] = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
+            $params[self::$_PARAM_CHANNEL_ID] = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
 
             break;
 
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_ALBUM:
 
             $params[self::$_PARAM_METHOD]   = self::$_METHOD_ALBUM_GETVIDEOS;
-            $params[self::$_PARAM_ALBUM_ID] = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
+            $params[self::$_PARAM_ALBUM_ID] = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
 
             break;
 
         case tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_GROUP:
 
             $params[self::$_PARAM_METHOD]   = self::$_METHOD_GROUP_GETVIDEOS;
-            $params[self::$_PARAM_GROUP_ID] = $execContext->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
+            $params[self::$_PARAM_GROUP_ID] = $this->_context->get(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
         }
 
         $params[self::$_PARAM_FULL_RESPONSE] = 'true';
         $params[self::$_PARAM_PAGE]          = $currentPage;
-        $params[self::$_PARAM_PER_PAGE]      = $execContext->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
-        $sort                                = $this->_getSort($mode, $execContext);
+        $params[self::$_PARAM_PER_PAGE]      = $this->_context->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
+        $sort                                = $this->_getSort($mode);
 
         if ($sort != '') {
 
             $params[self::$_PARAM_SORT] = $sort;
         }
 
-        return $this->_finishUrl($params, $execContext, tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
+        return $this->_finishUrl($params, tubepress_addons_vimeo_api_const_VimeoEventNames::URL_GALLERY);
     }
 
     /**
@@ -160,18 +167,16 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
      */
     public final function buildSingleVideoUrl($id)
     {
-        $execContext  = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-
-        $this->_verifyKeyAndSecretExists($execContext);
+        $this->_verifyKeyAndSecretExists();
 
         $params                         = array();
         $params[self::$_PARAM_METHOD]   = self::$_METHOD_VIDEOS_GETINFO;
         $params[self::$_PARAM_VIDEO_ID] = $id;
 
-        return $this->_finishUrl($params, $execContext, tubepress_addons_vimeo_api_const_VimeoEventNames::URL_SINGLE);
+        return $this->_finishUrl($params, tubepress_addons_vimeo_api_const_VimeoEventNames::URL_SINGLE);
     }
 
-    private function _finishUrl($params, tubepress_spi_context_ExecutionContext $execContext, $eventName)
+    private function _finishUrl($params, $eventName)
     {
         $finalUrl        = $this->_buildUrl($params);
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
@@ -187,7 +192,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         return $url;
     }
 
-    private function _getSort($mode, tubepress_spi_context_ExecutionContext $execContext)
+    private function _getSort($mode)
     {
         /**
          * 'vimeoUploadedBy'    : newest, oldest, most_played, most_commented, or most_liked
@@ -219,7 +224,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
             return '';
         }
 
-        $order = $execContext->get(tubepress_api_const_options_names_Feed::ORDER_BY);
+        $order = $this->_context->get(tubepress_api_const_options_names_Feed::ORDER_BY);
 
         if ($order === tubepress_api_const_options_values_OrderByValue::DEFAULTT) {
 
@@ -275,13 +280,13 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
         return self::$_URL_BASE . '?' . http_build_query($params, '', '&');
     }
 
-    private function _verifyKeyAndSecretExists(tubepress_spi_context_ExecutionContext $execContext)
+    private function _verifyKeyAndSecretExists()
     {
-        if ($execContext->get(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY) === '') {
+        if ($this->_context->get(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_KEY) === '') {
 
             throw new RuntimeException('Missing Vimeo API Consumer Key.');
         }
-        if ($execContext->get(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET) === '') {
+        if ($this->_context->get(tubepress_addons_vimeo_api_const_options_names_Feed::VIMEO_SECRET) === '') {
 
             throw new RuntimeException('Missing Vimeo API Consumer Secret.');
         }

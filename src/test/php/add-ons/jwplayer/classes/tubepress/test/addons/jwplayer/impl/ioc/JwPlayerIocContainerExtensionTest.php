@@ -92,7 +92,8 @@ class tubepress_test_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtensionTest 
 
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars',
             'tubepress_addons_jwplayer_impl_listeners_template_JwPlayerTemplateVars'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER,
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10000));
 
         $colors = array(

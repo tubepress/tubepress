@@ -14,11 +14,20 @@
  */
 class tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables
 {
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
+    {
+        $this->_context = $context;
+    }
+
     public function onPlayerTemplate(tubepress_api_event_EventInterface $event)
     {
         $embedded  = tubepress_impl_patterns_sl_ServiceLocator::getEmbeddedHtmlGenerator();
-        $context   = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $galleryId = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
+        $galleryId = $this->_context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         $template = $event->getSubject();
         $video    = $event->getArgument('video');
@@ -26,6 +35,6 @@ class tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables
         $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $embedded->getHtml($video->getId()));
         $template->setVariable(tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
         $template->setVariable(tubepress_api_const_template_Variable::VIDEO, $video);
-        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $this->_context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
     }
 }

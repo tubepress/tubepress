@@ -41,11 +41,11 @@ class tubepress_test_impl_collector_DefaultVideoCollectorTest extends tubepress_
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_impl_collector_DefaultVideoCollector();
 
-        $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext            = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_sut = new tubepress_impl_collector_DefaultVideoCollector($this->_mockExecutionContext);
     }
 
     public function testGetSingle()

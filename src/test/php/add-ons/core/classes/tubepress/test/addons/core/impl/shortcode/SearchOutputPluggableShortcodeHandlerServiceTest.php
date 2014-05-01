@@ -37,14 +37,13 @@ class tubepress_test_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHa
     public function onSetup()
     {
 
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockThumbGalleryShortcodeHandler = ehough_mockery_Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
-        $this->_sut = new tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService($this->_mockThumbGalleryShortcodeHandler);
-
+        $this->_sut = new tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService(
+            $this->_mockExecutionContext, $this->_mockThumbGalleryShortcodeHandler);
     }
-
 
     public function testCantExecute()
     {

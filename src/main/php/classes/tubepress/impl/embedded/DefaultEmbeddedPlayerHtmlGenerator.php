@@ -29,8 +29,14 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
      */
     private $_embeddedPlayers = array();
 
-    public function __construct()
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(tubepress_api_options_ContextInterface $context)
     {
+        $this->_context = $context;
         $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
     }
 
@@ -133,8 +139,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
      */
     private function _getEmbeddedPlayer($videoId)
     {
-        $executionContext            = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $requestedEmbeddedPlayerName = $executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $requestedEmbeddedPlayerName = $this->_context->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $recognizingProvider         = $this->_findProviderThatRecognizesVideoId($videoId);
 
         /**

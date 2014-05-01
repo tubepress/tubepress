@@ -35,9 +35,9 @@ class tubepress_test_impl_cache_ItemDecoratorTest extends tubepress_test_TubePre
         $this->_mockPool = ehough_mockery_Mockery::mock('ehough_stash_interfaces_PoolInterface');
         $this->_mockItem = ehough_mockery_Mockery::mock('ehough_stash_interfaces_ItemInterface');
 
-        $this->_sut = new tubepress_impl_cache_ItemDecorator($this->_mockItem, $this->_mockPool);
 
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
+        $this->_sut = new tubepress_impl_cache_ItemDecorator($this->_mockExecutionContext, $this->_mockItem, $this->_mockPool);
     }
 
     public function testCacheCleaningFactor()

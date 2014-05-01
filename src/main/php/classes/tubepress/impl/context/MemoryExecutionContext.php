@@ -124,7 +124,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @return array An array of error messages. May be empty, never null.
      */
-    public final function setCustomOptions(array $customOpts)
+    public final function setAll(array $customOpts)
     {
         $this->_customOptions = array();
         $problemMessages      = array();

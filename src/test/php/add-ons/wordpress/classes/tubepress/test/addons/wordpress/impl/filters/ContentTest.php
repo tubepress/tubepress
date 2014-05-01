@@ -51,14 +51,14 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_wordpress_impl_filters_Content();
 
-        $this->_mockExecutionContext       = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext       = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockMessageService         = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockShortcodeHtmlGenerator = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
         $this->_mockShortcodeParser        = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
         $this->_mockStorageManager         = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockEventDispatcher        = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_sut = new tubepress_addons_wordpress_impl_filters_Content($this->_mockExecutionContext);
     }
 
     public function testNormalOperation()
@@ -72,7 +72,7 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
         $this->_mockShortcodeHtmlGenerator->shouldReceive('getHtmlForShortcode')->once()->with('html for shortcode')->andReturn('html for shortcode');
 
         $this->_mockExecutionContext->shouldReceive('getActualShortcodeUsed')->times(4)->andReturn('<current shortcode>');
-        $this->_mockExecutionContext->shouldReceive('reset')->twice();
+        $this->_mockExecutionContext->shouldReceive('setAll')->twice()->with(array());
 
         $mockEvent = ehough_mockery_Mockery::mock('tubepress_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn('the content');
@@ -95,7 +95,7 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
         $this->_mockShortcodeHtmlGenerator->shouldReceive('getHtmlForShortcode')->once()->with('the content')->andThrow($exception);
 
         $this->_mockExecutionContext->shouldReceive('getActualShortcodeUsed')->times(2)->andReturn('<current shortcode>');
-        $this->_mockExecutionContext->shouldReceive('reset')->once();
+        $this->_mockExecutionContext->shouldReceive('setAll')->once()->with(array());
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, ehough_mockery_Mockery::on(function ($event) use ($exception) {
 

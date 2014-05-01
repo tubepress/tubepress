@@ -37,12 +37,13 @@ class tubepress_test_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHand
     public function onSetup()
     {
 
-        $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
 
         $this->_mockSingleVideoShortcodeHandler = ehough_mockery_Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
-        $this->_sut = new tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService($this->_mockSingleVideoShortcodeHandler);
+        $this->_sut = new tubepress_addons_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService(
+            $this->_mockExecutionContext, $this->_mockSingleVideoShortcodeHandler);
     }
 
     public function testExecuteWrongPlayer()

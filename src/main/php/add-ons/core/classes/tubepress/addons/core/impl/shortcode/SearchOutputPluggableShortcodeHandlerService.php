@@ -21,10 +21,18 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
 
     private $_thumbGalleryShortcodeHandler;
 
-    public function __construct(tubepress_spi_shortcode_PluggableShortcodeHandlerService $thumbGalleryShortcodeHandler)
+    /**
+     * @var tubepress_api_options_ContextInterface
+     */
+    private $_context;
+
+    public function __construct(
+        tubepress_api_options_ContextInterface $context,
+        tubepress_spi_shortcode_PluggableShortcodeHandlerService $thumbGalleryShortcodeHandler)
     {
         $this->_logger                       = ehough_epilog_LoggerFactory::getLogger('Search Output Shortcode Handler');
         $this->_thumbGalleryShortcodeHandler = $thumbGalleryShortcodeHandler;
+        $this->_context                      = $context;
     }
 
     /**
@@ -40,11 +48,10 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
      */
     public final function shouldExecute()
     {
-        $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $shouldLog   = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         /* not configured at all for search results */
-        if ($execContext->get(tubepress_api_const_options_names_Output::OUTPUT) !== tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
+        if ($this->_context->get(tubepress_api_const_options_names_Output::OUTPUT) !== tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
 
             if ($shouldLog) {
 
@@ -59,7 +66,7 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
         $rawSearchTerms = $qss->getParamValue(tubepress_spi_const_http_ParamName::SEARCH_TERMS);
 
         /* are we set up for a gallery fallback? */
-        $mustShowSearchResults = $execContext->get(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
+        $mustShowSearchResults = $this->_context->get(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
         $hasSearchTerms        = $rawSearchTerms != '';
 
         /* the user is not searching and we don't have to show results */
@@ -85,7 +92,6 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
     public final function getHtml()
     {
         $qss            = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $execContext    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $rawSearchTerms = $qss->getParamValue(tubepress_spi_const_http_ParamName::SEARCH_TERMS);
         $hasSearchTerms = $rawSearchTerms != '';
         $shouldLog      = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
@@ -107,21 +113,21 @@ class tubepress_addons_core_impl_shortcode_SearchOutputPluggableShortcodeHandler
         }
 
         /* who are we searching? */
-        switch ($execContext->get(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)) {
+        switch ($this->_context->get(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)) {
 
             case 'vimeo':
 
-                $execContext->set(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
+                $this->_context->set(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_addons_vimeo_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
 
-                $execContext->set(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, $rawSearchTerms);
+                $this->_context->set(tubepress_addons_vimeo_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, $rawSearchTerms);
 
                 break;
 
             default:
 
-                $execContext->set(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
+                $this->_context->set(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_addons_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
 
-                $execContext->set(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $rawSearchTerms);
+                $this->_context->set(tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $rawSearchTerms);
 
                 break;
         }
