@@ -24,9 +24,16 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
      */
     private $_context;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_options_ContextInterface $context,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_context = $context;
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -64,9 +71,6 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          * @var $playerLocation tubepress_spi_player_PluggablePlayerLocationService
          */
         $template = $playerLocation->getTemplate($themeHandler);
-
-        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
         /*
          * Run filters for the player template construction.
          */
@@ -78,7 +82,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
                 'playerName' => $playerLocation->getName())
         );
 
-        $eventDispatcherService->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION,
             $playerTemplateEvent
@@ -95,7 +99,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
             'playerName'   => $playerLocation->getName()
         ));
 
-        $eventDispatcherService->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::HTML_PLAYERLOCATION,
             $playerHtmlEvent

@@ -31,15 +31,22 @@ class tubepress_addons_wordpress_impl_filters_Content
      */
     private $_shortcodeParser;
 
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
     public function __construct(tubepress_api_options_ContextInterface $context,
                                 tubepress_api_options_PersistenceInterface $persistence,
                                 tubepress_api_html_HtmlGeneratorInterface $htmlGenerator,
-                                tubepress_api_shortcode_ParserInterface $parser)
+                                tubepress_api_shortcode_ParserInterface $parser,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_context         = $context;
         $this->_persistence     = $persistence;
         $this->_htmlGenerator   = $htmlGenerator;
         $this->_shortcodeParser = $parser;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -98,9 +105,7 @@ class tubepress_addons_wordpress_impl_filters_Content
             'message' => $e->getMessage()
         ));
 
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::ERROR_EXCEPTION_CAUGHT, $event);
 
         return $event->getArgument('message');
     }

@@ -54,7 +54,7 @@ class tubepress_test_addons_youtube_impl_provider_YouTubeProviderTest extends tu
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
 
-        $this->_sut = new tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService($this->_mockUrlBuilder);
+        $this->_sut = new tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService($this->_mockUrlBuilder, $this->_mockEventDispatcher);
     }
 
     public function testGetName()

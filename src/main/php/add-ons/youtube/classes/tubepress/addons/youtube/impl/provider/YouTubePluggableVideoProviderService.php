@@ -51,8 +51,9 @@ class tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderServic
      */
     private $_urlBuilder;
 
-    public function __construct(tubepress_spi_provider_UrlBuilder $urlBuilder)
+    public function __construct(tubepress_spi_provider_UrlBuilder $urlBuilder, tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
+        parent::__construct($eventDispatcher);
         $this->_logger     = ehough_epilog_LoggerFactory::getLogger('YouTube Video Provider');
         $this->_urlBuilder = $urlBuilder;
     }

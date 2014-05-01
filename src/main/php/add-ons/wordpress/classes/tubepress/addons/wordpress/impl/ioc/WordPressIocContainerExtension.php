@@ -54,7 +54,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
             'tubepress_addons_wordpress_impl_Callback',
             'tubepress_addons_wordpress_impl_Callback'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
     }
 
     private function _registerPluggables(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -177,7 +178,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
     }
 
     private function _registerWpFunctionWrapper(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -200,6 +202,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array(
 
                 'event'    => "tubepress.wordpress.filter.the_content",

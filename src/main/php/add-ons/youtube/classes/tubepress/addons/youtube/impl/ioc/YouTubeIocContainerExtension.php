@@ -58,7 +58,9 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
 
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
 
         $containerBuilder->register(
 
@@ -75,6 +77,7 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService'
 
         )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $containerBuilder->register(

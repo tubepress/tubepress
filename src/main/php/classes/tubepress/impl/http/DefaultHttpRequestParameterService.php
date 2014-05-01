@@ -20,6 +20,16 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
     private $_cachedMergedGetAndPostArray;
 
     /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+    {
+        $this->_eventDispatcher = $eventDispatcher;
+    }
+
+    /**
      * Gets the parameter value from PHP's $_GET or $_POST array.
      *
      * @param string $name The name of the parameter.
@@ -39,22 +49,20 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
         $request  = $this->_getGETandPOSTarray();
         $rawValue = $request[$name];
 
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
         $event = new tubepress_spi_event_EventBase(
 
             $rawValue,
             array('optionName' => $name)
         );
 
-        $eventDispatcher->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT,
             $event
         );
 
         $event = new tubepress_spi_event_EventBase($event->getSubject());
-        $eventDispatcher->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT . ".$name",
             $event

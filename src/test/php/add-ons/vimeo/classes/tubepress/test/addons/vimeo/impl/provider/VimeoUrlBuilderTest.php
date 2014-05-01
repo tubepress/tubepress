@@ -45,7 +45,11 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoUrlBuilderTest extends tube
         $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
-        $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder($this->_mockExecutionContext, $this->_mockUrlFactory);
+        $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder(
+            $this->_mockExecutionContext,
+            $this->_mockUrlFactory,
+            $this->_mockEventDispatcher
+        );
     }
 
     /**

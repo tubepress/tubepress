@@ -44,7 +44,7 @@ class tubepress_test_impl_player_DefaultPlayerHtmlGeneratorTest extends tubepres
 
         $this->_mockVideo->setAttribute(tubepress_api_video_Video::ATTRIBUTE_ID, 'video-id');
 
-        $this->_sut = new tubepress_impl_player_DefaultPlayerHtmlGenerator($this->_mockExecutionContext);
+        $this->_sut = new tubepress_impl_player_DefaultPlayerHtmlGenerator($this->_mockExecutionContext, $this->_mockEventDispatcher);
     }
 
     public function testGetHtmlSuitablePlayerLocations()

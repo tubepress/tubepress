@@ -45,14 +45,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_api_event_EventDispatcherInterface The event dispatcher.
-     */
-    public static function getEventDispatcher()
-    {
-        return self::getService(tubepress_api_event_EventDispatcherInterface::_);
-    }
-
-    /**
      * @return ehough_filesystem_FilesystemInterface The filesystem service.
      */
     public static function getFileSystem()

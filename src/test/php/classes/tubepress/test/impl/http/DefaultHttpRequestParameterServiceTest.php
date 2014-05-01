@@ -28,7 +28,7 @@ class tubepress_test_impl_http_DefaultHttpRequestParameterServiceTest extends tu
     {
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
-        $this->_sut = new tubepress_impl_http_DefaultHttpRequestParameterService();
+        $this->_sut = new tubepress_impl_http_DefaultHttpRequestParameterService($this->_mockEventDispatcher);
     }
 
     public function testParamExists()

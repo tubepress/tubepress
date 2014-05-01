@@ -67,9 +67,16 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
      */
     private $_translator;
 
-    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_translation_TranslatorInterface $translator,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_translator = $translator;
+        $this->_translator      = $translator;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -475,10 +482,9 @@ abstract class tubepress_impl_options_AbstractOptionProvider implements tubepres
 
     private function _dispatchAndGetResult($optionName, $value, $eventName)
     {
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $event           = new tubepress_spi_event_EventBase($value);
+        $event = new tubepress_spi_event_EventBase($value);
 
-        $eventDispatcher->dispatch($eventName . ".$optionName", $event);
+        $this->_eventDispatcher->dispatch($eventName . ".$optionName", $event);
 
         return $event->getSubject();
     }

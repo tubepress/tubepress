@@ -33,7 +33,7 @@ class tubepress_test_addons_wordpress_impl_CallbackTest extends tubepress_test_T
         $mockWpFunctions->shouldReceive('content_url')->once()->andReturn('booya');
         $mockEnvironmentDetector->shouldReceive('setBaseUrl')->once()->with('booya/plugins/tubepress');
 
-        $this->_sut = new tubepress_addons_wordpress_impl_Callback($mockEnvironmentDetector);
+        $this->_sut = new tubepress_addons_wordpress_impl_Callback($mockEnvironmentDetector, $this->_mockEventDispatcher);
     }
 
     public function testFilter()

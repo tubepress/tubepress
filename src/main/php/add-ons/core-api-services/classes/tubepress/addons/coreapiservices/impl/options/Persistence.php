@@ -39,10 +39,18 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
      */
     private $_backend;
 
-    public function __construct(tubepress_api_options_PersistenceBackendInterface $backend)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+        tubepress_api_options_PersistenceBackendInterface $backend)
     {
-        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
-        $this->_backend = $backend;
+        $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
+        $this->_backend         = $backend;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -203,17 +211,15 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
 
     private function _getFilteredValue($optionName, $optionValue)
     {
-        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
         /** Run it through the filters. */
         $event = new tubepress_spi_event_EventBase($optionValue, array(
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, $event);
 
         $event = new tubepress_spi_event_EventBase($event->getSubject());
-        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . ".$optionName", $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . ".$optionName", $event);
 
         return $event->getSubject();
     }

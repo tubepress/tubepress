@@ -40,8 +40,10 @@ class tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService ex
 
     private $_videoArray;
 
-    public function __construct(tubepress_spi_provider_UrlBuilder $urlBuilder)
+    public function __construct(tubepress_spi_provider_UrlBuilder $urlBuilder, tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
+        parent::__construct($eventDispatcher);
+
         $this->_logger     = ehough_epilog_LoggerFactory::getLogger('Vimeo Video Provider');
         $this->_urlBuilder = $urlBuilder;
     }

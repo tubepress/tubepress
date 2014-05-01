@@ -80,7 +80,9 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBased
 
         new tubepress_impl_options_ui_fields_TextField(
             $this->getOptionName(), $this->getMockMessageService(),
-        $this->getMockStorageManager());
+        $this->getMockStorageManager(),
+        $this->getMockEventDispatcher()
+        );
     }
 
     public function testGetProOnlyNo()

@@ -19,8 +19,10 @@ abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
      */
     private $_optionProvider;
 
-    public function __construct($optionName, tubepress_api_translation_TranslatorInterface $translator,
-                                tubepress_api_options_PersistenceInterface $persistence)
+    public function __construct($optionName,
+                                tubepress_api_translation_TranslatorInterface $translator,
+                                tubepress_api_options_PersistenceInterface $persistence,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
@@ -32,7 +34,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
         $label       = $this->_optionProvider->getLabel($optionName);
         $description = $this->_optionProvider->getDescription($optionName);
 
-        parent::__construct($optionName, $translator, $persistence, $label, $description);
+        parent::__construct($optionName, $translator, $persistence, $eventDispatcher, $label, $description);
     }
 
     /**

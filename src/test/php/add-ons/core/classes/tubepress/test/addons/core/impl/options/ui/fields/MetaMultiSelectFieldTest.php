@@ -103,7 +103,8 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
     {
         $sut = new tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField(
             $this->getMockStorageManager(),
-            $this->getMockMessageService()
+            $this->getMockMessageService(),
+            $this->getMockEventDispatcher()
         );
 
         return $sut;

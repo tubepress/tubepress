@@ -14,13 +14,21 @@
  */
 class tubepress_addons_core_impl_listeners_html_JsConfig
 {
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+    {
+        $this->_eventDispatcher = $eventDispatcher;
+    }
+
     public function onPreScriptsHtml(tubepress_api_event_EventInterface $event)
     {
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
         $jsEvent = new tubepress_spi_event_EventBase(array());
 
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, $jsEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, $jsEvent);
 
         $args   = $jsEvent->getSubject();
         $asJson = json_encode($args);

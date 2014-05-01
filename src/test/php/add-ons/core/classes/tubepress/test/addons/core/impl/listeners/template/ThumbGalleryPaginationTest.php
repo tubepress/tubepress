@@ -95,7 +95,8 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
 
         $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination(
             $this->_mockExecutionContext,
-            $this->_mockQueryStringService, $messageService);
+            $this->_mockQueryStringService, $messageService,
+        $this->_mockEventDispatcher);
 
     }
 

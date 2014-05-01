@@ -34,10 +34,16 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
      */
     private $_context;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_options_ContextInterface $context, tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_context = $context;
-        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Default Video Collector');
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
+        $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Default Video Collector');
     }
 
     /**
@@ -96,9 +102,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $event = new tubepress_spi_event_EventBase($result);
 
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
-        $eventDispatcher->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::VIDEO_GALLERY_PAGE,
             $event

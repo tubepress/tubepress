@@ -20,6 +20,16 @@ abstract class tubepress_impl_provider_AbstractHttpBasedVideoProviderService imp
     private $_logger;
 
     /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+    {
+        $this->_eventDispatcher = $eventDispatcher;
+    }
+
+    /**
      * Fetch a video gallery page.
      *
      * @param int $currentPage The requested page number of the gallery.
@@ -294,9 +304,7 @@ abstract class tubepress_impl_provider_AbstractHttpBasedVideoProviderService imp
 
     private function _fireEventAndGetSubject($eventName, tubepress_api_event_EventInterface $event)
     {
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
-        $eventDispatcher->dispatch($eventName, $event);
+        $this->_eventDispatcher->dispatch($eventName, $event);
 
         return $event->getSubject();
     }

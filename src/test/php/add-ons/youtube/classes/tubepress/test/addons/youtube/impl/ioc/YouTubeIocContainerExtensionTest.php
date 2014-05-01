@@ -32,7 +32,10 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
 
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder',
             'tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
+
 
         $this->expectRegistration(
 
@@ -49,7 +52,8 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
             'tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService'
 
         )->withArgument(new ehough_iconic_Reference('tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder'))
-            ->withTag(tubepress_spi_provider_PluggableVideoProviderService::_);
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+        ->withTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $this->expectRegistration(
 

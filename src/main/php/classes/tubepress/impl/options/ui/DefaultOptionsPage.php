@@ -34,13 +34,20 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
      */
     private $_optionsPageParticipants;
 
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
     public function __construct($templatePath,
                                 tubepress_api_environment_EnvironmentInterface $environment,
-                                tubepress_api_options_PersistenceInterface $persistence)
+                                tubepress_api_options_PersistenceInterface $persistence,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_templatePath = $templatePath;
-        $this->_environment  = $environment;
-        $this->_persistence  = $persistence;
+        $this->_templatePath    = $templatePath;
+        $this->_environment     = $environment;
+        $this->_persistence     = $persistence;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -52,7 +59,6 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
     public function getHTML(array $errors = array(), $justSubmitted = false)
     {
         $templateBldr                         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $eventDispatcher                      = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template                             = $templateBldr->getNewTemplateInstance($this->_templatePath);
         $fields                               = $this->_buildFieldsArray();
         $categories                           = $this->_buildCategoriesArray();
@@ -89,7 +95,7 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
         }
 
         $templateEvent = new tubepress_spi_event_EventBase($template);
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE, $templateEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE, $templateEvent);
 
         return $template->toString();
     }

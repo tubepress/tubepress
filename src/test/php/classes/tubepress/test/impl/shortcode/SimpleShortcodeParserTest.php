@@ -35,7 +35,7 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
-        $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser($this->_mockExecutionContext);
+        $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser($this->_mockExecutionContext, $this->_mockEventDispatcher);
     }
 
 
@@ -288,16 +288,14 @@ class tubepress_test_impl_shortcode_SimpleShortcodeParserTest extends tubepress_
 
     private function _setupExpectedFilters($expected)
     {
-        $pm = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-
         foreach ($expected as $name => $value) {
 
-            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) use ($name) {
+            $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT, ehough_mockery_Mockery::on(function ($arg) use ($name) {
 
                 return $arg instanceof tubepress_api_event_EventInterface  && $arg->getArgument('optionName') === $name;
             }));
 
-            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT . ".$name", ehough_mockery_Mockery::on(function ($arg) use ($name) {
+            $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_EventNames::OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT . ".$name", ehough_mockery_Mockery::on(function ($arg) use ($name) {
 
                 return $arg instanceof tubepress_api_event_EventInterface;
             }));

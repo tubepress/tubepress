@@ -47,7 +47,7 @@ class tubepress_test_addons_core_impl_shortcode_commands_SingleVideoPluggableSho
         $this->_mockProvider = $this->createMockSingletonService(tubepress_spi_collector_VideoCollector::_);
 
 
-        $this->_sut = new tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService($this->_mockExecutionContext);
+        $this->_sut = new tubepress_addons_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService($this->_mockExecutionContext, $this->_mockEventDispatcher);
     }
 
     public function testExecuteNoVideo()

@@ -17,20 +17,25 @@ class tubepress_addons_wordpress_impl_Callback
     private $_environment;
 
     /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    /**
      * @var bool
      */
     private $_baseUrlAlreadySet = false;
 
-    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment, tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_environment = $environment;
+        $this->_environment     = $environment;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     public function onFilter($filterName, array $args)
     {
         $this->_setBaseUrl();
 
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $subject         = $args[0];
         $args            = count($args) > 1 ? array_slice($args, 1) : array();
         $event           = new tubepress_spi_event_EventBase(
@@ -39,7 +44,7 @@ class tubepress_addons_wordpress_impl_Callback
             array('args' => $args)
         );
 
-        $eventDispatcher->dispatch("tubepress.wordpress.filter.$filterName", $event);
+        $this->_eventDispatcher->dispatch("tubepress.wordpress.filter.$filterName", $event);
 
         return $event->getSubject();
     }
@@ -48,10 +53,9 @@ class tubepress_addons_wordpress_impl_Callback
     {
         $this->_setBaseUrl();
 
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase($args);
 
-        $eventDispatcher->dispatch("tubepress.wordpress.action.$actionName", $event);
+        $this->_eventDispatcher->dispatch("tubepress.wordpress.action.$actionName", $event);
     }
 
     public function onPluginActivation()

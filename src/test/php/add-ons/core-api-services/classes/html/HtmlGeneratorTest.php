@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_addons_coreapiservices_impl_html_HtmlGenerator
  */
-class tubepress_test_addons_coreapiservices_impl_html_CssAndJsHtmlGeneratorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_coreapiservices_impl_html_HtmlGeneratorTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_addons_coreapiservices_impl_html_HtmlGenerator
@@ -46,7 +46,7 @@ class tubepress_test_addons_coreapiservices_impl_html_CssAndJsHtmlGeneratorTest 
         $this->_mockThemeHandlerInterface       = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
         $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_api_shortcode_ParserInterface::_);
 
-        $this->_sut = new tubepress_addons_coreapiservices_impl_html_HtmlGenerator($this->_mockShortcodeParser);
+        $this->_sut = new tubepress_addons_coreapiservices_impl_html_HtmlGenerator($this->_mockEventDispatcher, $this->_mockShortcodeParser);
     }
 
     public function testCssHtml()

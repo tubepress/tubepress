@@ -85,7 +85,8 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
             $this->_mockStorageManager,
             $this->_mockMessageService,
             $this->_mockShortCodeHtmlGenerator,
-            $this->_mockShortcodeParser
+            $this->_mockShortcodeParser,
+            $this->_mockEventDispatcher
         );
     }
 

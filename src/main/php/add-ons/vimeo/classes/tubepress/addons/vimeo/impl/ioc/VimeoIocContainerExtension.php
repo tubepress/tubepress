@@ -49,7 +49,9 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'
 
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
 
         $containerBuilder->register(
 
@@ -57,6 +59,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService'
 
         )->addArgument(new tubepress_impl_ioc_Reference('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
          ->addTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $containerBuilder->register(

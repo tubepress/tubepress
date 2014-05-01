@@ -15,12 +15,34 @@
 abstract class tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField extends tubepress_impl_options_ui_fields_AbstractOptionsPageField
 {
     /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct($id,
+                                tubepress_api_translation_TranslatorInterface $translator,
+                                tubepress_api_options_PersistenceInterface $persistence,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                $untranslatedDisplayName = null,
+                                $untranslatedDescription = null)
+    {
+        parent::__construct(
+            $id,
+            $translator,
+            $persistence,
+            $untranslatedDisplayName,
+            $untranslatedDescription
+        );
+
+        $this->_eventDispatcher = $eventDispatcher;
+    }
+
+    /**
      * @return string The widget HTML for this form element.
      */
     public function getWidgetHTML()
     {
         $templateBuilder = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template        = $templateBuilder->getNewTemplateInstance($this->getAbsolutePathToTemplate());
         $templateEvent   = new tubepress_spi_event_EventBase($template);
         $templateEvent->setArgument('field', $this);
@@ -32,7 +54,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPage
             $template->setVariable($name, $value);
         }
 
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, $templateEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTIONS_PAGE_FIELDTEMPLATE, $templateEvent);
 
         return $template->toString();
     }

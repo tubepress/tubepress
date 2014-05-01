@@ -31,26 +31,32 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
      */
     private $_context;
 
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
     public function __construct(
         tubepress_api_options_ContextInterface $context,
         tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
-        tubepress_api_translation_TranslatorInterface $translator)
+        tubepress_api_translation_TranslatorInterface $translator,
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
         $this->_context           = $context;
         $this->_currentUrlService = $currentUrlService;
         $this->_translator        = $translator;
+        $this->_eventDispatcher   = $eventDispatcher;
     }
 
     public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
-        $pm             = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $providerResult = $event->getArgument('videoGalleryPage');
         $template       = $event->getSubject();
         $pagination     = $this->_getHtml($providerResult->getTotalResultCount());
 
         $event = new tubepress_spi_event_EventBase($pagination);
 
-        $pm->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::HTML_PAGINATION,
             $event
@@ -117,8 +123,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
         }
 
         $event = new tubepress_spi_event_EventBase($template);
-        $pm    = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $pm->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_PAGINATION, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::TEMPLATE_PAGINATION, $event);
 
         $template = $event->getSubject();
 

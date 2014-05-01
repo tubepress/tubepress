@@ -41,7 +41,7 @@ class tubepress_test_addons_core_impl_shortcode_SearchInputPluggableShortcodeHan
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockThemeHandler     = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
 
-        $this->_sut = new tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService($this->_mockExecutionContext);
+        $this->_sut = new tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService($this->_mockExecutionContext, $this->_mockEventDispatcher);
     }
 
     public function testShouldNotExecute()

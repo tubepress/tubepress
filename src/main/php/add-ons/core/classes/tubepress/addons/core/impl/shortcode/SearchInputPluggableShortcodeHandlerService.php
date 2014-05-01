@@ -19,9 +19,15 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
      */
     private $_context;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_options_ContextInterface $context, tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_context = $context;
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -43,14 +49,13 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
     public function getHtml()
     {
         $th       = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $pm       = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $template = $th->getTemplateInstance('search/search_input.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
 
-        if ($pm->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT)) {
+        if ($this->_eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT)) {
 
             $event = new tubepress_spi_event_EventBase($template);
 
-            $pm->dispatch(
+            $this->_eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT,
                 $event
@@ -61,11 +66,11 @@ class tubepress_addons_core_impl_shortcode_SearchInputPluggableShortcodeHandlerS
 
         $html = $template->toString();
 
-        if ($pm->hasListeners(tubepress_api_const_event_EventNames::HTML_SEARCH_INPUT)) {
+        if ($this->_eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_SEARCH_INPUT)) {
 
             $event = new tubepress_spi_event_EventBase($html);
 
-            $pm->dispatch(
+            $this->_eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::HTML_SEARCH_INPUT,
                 $event

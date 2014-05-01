@@ -31,9 +31,9 @@ class tubepress_test_addons_core_impl_listeners_html_JsConfigTest extends tubepr
 
     public function onSetup()
     {
-        $this->_sut                  = new tubepress_addons_core_impl_listeners_html_JsConfig();
         $this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
+        $this->_sut                  = new tubepress_addons_core_impl_listeners_html_JsConfig($this->_mockEventDispatcher);
     }
 
     public function testAlterHtml()

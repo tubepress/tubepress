@@ -34,10 +34,16 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
      */
     private $_context;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_options_ContextInterface $context, tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_context = $context;
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
+        $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Default Embedded Player HTML Generator');
     }
 
     /**
@@ -62,7 +68,6 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         }
 
         $themeHandler           = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
-        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
 
         $template = $embeddedPlayer->getTemplate($themeHandler);
 
@@ -86,7 +91,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         /**
          * Dispatch the embedded template event.
          */
-        $eventDispatcherService->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED,
             $embeddedTemplateEvent
@@ -113,7 +118,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         /**
          * Dispatche the embedded HTML event.
          */
-        $eventDispatcherService->dispatch(
+        $this->_eventDispatcher->dispatch(
 
             tubepress_api_const_event_EventNames::HTML_EMBEDDED,
             $embeddedHtmlEvent

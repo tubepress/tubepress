@@ -39,7 +39,7 @@ class tubepress_test_addons_core_impl_listeners_html_ThumbGalleryBaseJsTest exte
         $this->_providerResult       = new tubepress_api_video_VideoGalleryPage();
         $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockEventDispatcher  = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_sut                  = new tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs($this->_mockExecutionContext);
+        $this->_sut                  = new tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs($this->_mockExecutionContext, $this->_mockEventDispatcher);
     }
 
     public function testAlterHtml()

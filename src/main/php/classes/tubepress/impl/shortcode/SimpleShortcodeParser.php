@@ -30,14 +30,20 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_api_sh
     private $_context;
 
     /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    /**
      * @var string
      */
     private $_lastShortcodeUsed = null;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    public function __construct(tubepress_api_options_ContextInterface $context, tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Shortcode Parser');
-        $this->_context = $context;
+        $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Shortcode Parser');
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -141,7 +147,6 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_api_sh
     private function _buildNameValuePairArray($match)
     {
         $toReturn        = array();
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $value           = null;
 
         foreach ($match as $m) {
@@ -178,7 +183,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_api_sh
                 array('optionName' => $name)
             );
 
-            $eventDispatcher->dispatch(
+            $this->_eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::OPTION_ANY_READ_FROM_EXTERNAL_INPUT,
                 $event
@@ -188,7 +193,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_api_sh
 
             $event = new tubepress_spi_event_EventBase($filtered);
 
-            $eventDispatcher->dispatch(
+            $this->_eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::OPTION_SINGLE_READ_FROM_EXTERNAL_INPUT . ".$name",
                 $event

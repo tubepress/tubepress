@@ -38,7 +38,8 @@ class tubepress_test_addons_coreapiservices_ioc_CoreServicesContainerExtensionTe
 
             tubepress_api_html_HtmlGeneratorInterface::_,
             'tubepress_addons_coreapiservices_impl_html_HtmlGenerator'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_))
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_))
          ->withTag(
             tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
             array(
@@ -54,7 +55,8 @@ class tubepress_test_addons_coreapiservices_ioc_CoreServicesContainerExtensionTe
 
             tubepress_api_options_PersistenceInterface::_,
             'tubepress_addons_coreapiservices_impl_options_Persistence'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceBackendInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceBackendInterface::_));
     }
 
     private function _registerContext()
@@ -63,7 +65,8 @@ class tubepress_test_addons_coreapiservices_ioc_CoreServicesContainerExtensionTe
 
             tubepress_api_options_ContextInterface::_,
             'tubepress_addons_coreapiservices_impl_options_Context'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_));
     }
 
     private function _registerEnvironment()

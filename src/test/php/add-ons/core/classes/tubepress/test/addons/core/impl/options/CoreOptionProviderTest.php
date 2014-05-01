@@ -207,7 +207,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
         $mockVideoProvider = ehough_mockery_Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
         $this->_mockVideoProviders = array($mockVideoProvider);
 
-        $sut = new tubepress_addons_core_impl_options_CoreOptionProvider($this->getMockMessageService());
+        $sut = new tubepress_addons_core_impl_options_CoreOptionProvider($this->getMockMessageService(), $this->getMockEventDispatcher());
 
         $sut->setPluggablePlayerLocations($this->_mockPlayerLocations);
         $sut->setPluggableEmbeddedPlayers($this->_mockEmbeddedPlayers);

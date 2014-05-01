@@ -35,7 +35,9 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder',
             'tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
 
         $this->expectRegistration(
 
@@ -52,6 +54,7 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
             'tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService'
 
         )->withArgument(new ehough_iconic_Reference('tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
             ->withTag(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $this->expectRegistration(

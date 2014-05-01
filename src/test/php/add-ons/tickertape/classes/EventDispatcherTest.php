@@ -8,10 +8,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_test_impl_event_DefaultEventDispatcherTest extends tubepress_test_TubePressUnitTest
+
+/**
+ * @covers tubepress_addons_tickertape_impl_EventDispatcher
+ */
+class tubepress_test_addons_tickertape_impl_EventDispatcherTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_event_DefaultEventDispatcher
+     * @var tubepress_addons_tickertape_impl_EventDispatcher
      */
     private $_sut;
 
@@ -24,7 +28,7 @@ class tubepress_test_impl_event_DefaultEventDispatcherTest extends tubepress_tes
     {
         $this->_mockDispatcher = $this->createMockSingletonService('ehough_tickertape_ContainerAwareEventDispatcher');
 
-        $this->_sut = new tubepress_impl_event_DefaultEventDispatcher($this->_mockDispatcher);
+        $this->_sut = new tubepress_addons_tickertape_impl_EventDispatcher($this->_mockDispatcher);
     }
 
     public function testAddListener()
@@ -74,7 +78,7 @@ class tubepress_test_impl_event_DefaultEventDispatcherTest extends tubepress_tes
 
         $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', ehough_mockery_Mockery::on(function ($event) {
 
-            return $event instanceof tubepress_impl_event_TickertapeEventWrapper;
+            return $event instanceof tubepress_addons_tickertape_impl_TickertapeEventWrapper;
 
         }))->andReturn(array('x'));
 

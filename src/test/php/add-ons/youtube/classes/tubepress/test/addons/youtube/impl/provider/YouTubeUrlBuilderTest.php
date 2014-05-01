@@ -46,7 +46,9 @@ class tubepress_test_addons_youtube_impl_feed_urlbuilding_YouTubeUrlBuilderComma
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_addons_youtube_api_const_options_names_Feed::DEV_KEY)->andReturn('AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
         $this->_sut                  = new tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder(
             $this->_mockExecutionContext,
-            $this->_mockUrlFactory);
+            $this->_mockUrlFactory,
+            $this->_mockEventDispatcher
+        );
     }
 
     public function testSingleVideoUrl()

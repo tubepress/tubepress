@@ -23,9 +23,10 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
 
     public function __construct(
         tubepress_api_options_PersistenceInterface $persistence,
-        tubepress_api_translation_TranslatorInterface $translator)
+        tubepress_api_translation_TranslatorInterface $translator,
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        parent::__construct(self::FIELD_ID, $translator, $persistence, 'Show each video\'s...');   //>(translatable)<
+        parent::__construct(self::FIELD_ID, $translator, $persistence, $eventDispatcher, 'Show each video\'s...');   //>(translatable)<
     }
 
     /**

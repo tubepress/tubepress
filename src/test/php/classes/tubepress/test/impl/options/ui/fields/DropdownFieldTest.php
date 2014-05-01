@@ -17,7 +17,7 @@ class tubepress_test_impl_options_ui_fields_DropdownFieldTest extends tubepress_
     protected function buildSut()
     {
         return new tubepress_impl_options_ui_fields_DropdownField('name', $this->getMockMessageService(),
-        $this->getMockStorageManager());
+        $this->getMockStorageManager(), $this->getMockEventDispatcher());
     }
 
     /**

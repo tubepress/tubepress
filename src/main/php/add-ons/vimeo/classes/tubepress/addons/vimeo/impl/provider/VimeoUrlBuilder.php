@@ -57,12 +57,19 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
      */
     private $_context;
 
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
     public function __construct(
         tubepress_api_options_ContextInterface $context,
-        tubepress_api_url_UrlFactoryInterface $urlFactory)
+        tubepress_api_url_UrlFactoryInterface $urlFactory,
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_urlFactory = $urlFactory;
-        $this->_context = $context;
+        $this->_urlFactory      = $urlFactory;
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -179,10 +186,9 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
     private function _finishUrl($params, $eventName)
     {
         $finalUrl        = $this->_buildUrl($params);
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase($this->_urlFactory->fromString($finalUrl));
 
-        $eventDispatcher->dispatch($eventName, $event);
+        $this->_eventDispatcher->dispatch($eventName, $event);
 
         /**
          * @var $url tubepress_api_url_UrlInterface

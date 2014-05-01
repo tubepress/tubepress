@@ -13,7 +13,7 @@
  * Providers a wrapper to allow tubepress_api_event_EventInterface instances to be passed off as
  * ehough_tickertape_Event instances.
  */
-class tubepress_impl_event_TickertapeEventWrapper extends ehough_tickertape_Event implements tubepress_api_event_EventInterface
+class tubepress_addons_tickertape_impl_TickertapeEventWrapper extends ehough_tickertape_Event implements tubepress_api_event_EventInterface
 {
     /**
      * @var tubepress_api_event_EventInterface

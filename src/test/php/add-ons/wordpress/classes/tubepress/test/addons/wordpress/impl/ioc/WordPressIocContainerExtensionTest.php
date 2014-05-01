@@ -39,7 +39,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
             'tubepress_addons_wordpress_impl_Callback',
             'tubepress_addons_wordpress_impl_Callback'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
 
         $this->expectRegistration(
 
@@ -157,7 +158,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
          ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
          ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
-         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_));
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_));
 
         $this->expectRegistration(
 
@@ -222,7 +224,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_shortcode_ParserInterface::_))
-            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
+        ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
 
                 'event'    => "tubepress.wordpress.filter.the_content",
                 'method'   => 'filter',

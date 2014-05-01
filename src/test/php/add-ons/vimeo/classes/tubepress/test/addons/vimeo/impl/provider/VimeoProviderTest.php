@@ -58,7 +58,7 @@ class tubepress_test_addons_vimeo_impl_provider_VimeoProviderTest extends tubepr
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
 
-        $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService($this->_mockUrlBuilder);
+        $this->_sut = new tubepress_addons_vimeo_impl_provider_VimeoPluggableVideoProviderService($this->_mockUrlBuilder, $this->_mockEventDispatcher);
     }
 
     public function testGetName()

@@ -26,13 +26,20 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
      */
     private $_context;
 
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
     public function __construct(
         tubepress_api_options_ContextInterface $context,
-        tubepress_api_translation_TranslatorInterface $translator)
+        tubepress_api_translation_TranslatorInterface $translator,
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_translator = $translator;
-        $this->_logger     = ehough_epilog_LoggerFactory::getLogger('Thumb Gallery Shortcode Handler');
-        $this->_context    = $context;
+        $this->_translator      = $translator;
+        $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Thumb Gallery Shortcode Handler');
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -77,7 +84,6 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         }
 
         $provider        = tubepress_impl_patterns_sl_ServiceLocator::getVideoCollector();
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $themeHandler    = tubepress_impl_patterns_sl_ServiceLocator::getThemeHandler();
         $qss             = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $template        = $themeHandler->getTemplateInstance('gallery.tpl.php', TUBEPRESS_ROOT . '/src/main/web/themes/default');
@@ -104,7 +110,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         }
 
         /* send the template through the listeners */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY)) {
+        if ($this->_eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY)) {
 
             $event = new tubepress_spi_event_EventBase($template, array(
 
@@ -112,7 +118,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
                 'videoGalleryPage' => $feedResult
             ));
 
-            $eventDispatcher->dispatch(
+            $this->_eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY,
                 $event
@@ -124,7 +130,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
         $html = $template->toString();
 
         /* send gallery HTML through the listeners */
-        if ($eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY)) {
+        if ($this->_eventDispatcher->hasListeners(tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY)) {
 
             $event = new tubepress_spi_event_EventBase($html, array(
 
@@ -132,7 +138,7 @@ class tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandler
                 'videoGalleryPage' => $feedResult
             ));
 
-            $eventDispatcher->dispatch(
+            $this->_eventDispatcher->dispatch(
 
                 tubepress_api_const_event_EventNames::HTML_THUMBNAIL_GALLERY,
                 $event

@@ -62,7 +62,8 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
             $this->_mockExecutionContext,
             $this->_mockStorageManager,
             $this->_mockShortcodeHtmlGenerator,
-            $this->_mockShortcodeParser
+            $this->_mockShortcodeParser,
+            $this->_mockEventDispatcher
         );
     }
 

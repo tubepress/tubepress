@@ -73,4 +73,9 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractTemplateBasedOption
     {
         //override point
     }
+
+    protected function getMockEventDispatcher()
+    {
+        return $this->_mockEventDispatcher;
+    }
 }

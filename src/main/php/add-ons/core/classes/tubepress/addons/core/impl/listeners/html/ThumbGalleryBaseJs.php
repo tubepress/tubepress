@@ -19,19 +19,25 @@ class tubepress_addons_core_impl_listeners_html_ThumbGalleryBaseJs
      */
     private $_context;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(tubepress_api_options_ContextInterface $context,
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_context = $context;
+        $this->_context         = $context;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     public function onGalleryHtml(tubepress_api_event_EventInterface $event)
     {
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $galleryId       = $this->_context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         $jsEvent = new tubepress_spi_event_EventBase(array());
 
-        $eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, $jsEvent);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT, $jsEvent);
 
         $args   = $jsEvent->getSubject();
         $asJson = json_encode($args);

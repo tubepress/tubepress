@@ -16,7 +16,7 @@ class tubepress_test_addons_jwplayer_impl_options_JwPlayerOptionProviderTest ext
 {
     public function buildSut()
     {
-        return new tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider($this->getMockMessageService());
+        return new tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider($this->getMockMessageService(), $this->getMockEventDispatcher());
     }
 
     public function testBadColor()

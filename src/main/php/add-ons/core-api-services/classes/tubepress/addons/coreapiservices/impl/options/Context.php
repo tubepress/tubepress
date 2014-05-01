@@ -32,12 +32,20 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
     private $_persistence;
 
     /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    /**
      * Constructor.
      */
-    public function __construct(tubepress_api_options_PersistenceInterface $persistence)
+    public function __construct(
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+        tubepress_api_options_PersistenceInterface $persistence)
     {
-        $this->_logger      = ehough_epilog_LoggerFactory::getLogger('Memory Execution Context');
-        $this->_persistence = $persistence;
+        $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Memory Execution Context');
+        $this->_persistence     = $persistence;
+        $this->_eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -88,19 +96,18 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
      */
     public function set($optionName, $optionValue)
     {
-        $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $optionProvider         = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
         /** First run it through the filters. */
         $event = new tubepress_spi_event_EventBase($optionValue, array(
 
             'optionName' => $optionName
         ));
-        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTION_ANY_PRE_VALIDATION_SET, $event);
         $filteredValue = $event->getSubject();
 
         $event = new tubepress_spi_event_EventBase($filteredValue);
-        $eventDispatcherService->dispatch(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . ".$optionName", $event);
+        $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . ".$optionName", $event);
         $filteredValue = $event->getSubject();
 
         if ($optionProvider->isValid($optionName, $filteredValue)) {

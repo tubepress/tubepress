@@ -24,8 +24,16 @@ class tubepress_addons_coreapiservices_impl_html_HtmlGenerator implements tubepr
      */
     private $_shortcodeParser;
 
-    public function __construct(tubepress_api_shortcode_ParserInterface $parser)
+    /**
+     * @var tubepress_api_event_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
+    public function __construct(
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+        tubepress_api_shortcode_ParserInterface $parser)
     {
+        $this->_eventDispatcher = $eventDispatcher;
         $this->_shortcodeParser = $parser;
     }
 
@@ -145,10 +153,9 @@ class tubepress_addons_coreapiservices_impl_html_HtmlGenerator implements tubepr
 
     private function _fireEventAndReturnSubject($eventName, $raw)
     {
-        $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $event           = new tubepress_spi_event_EventBase($raw);
+        $event = new tubepress_spi_event_EventBase($raw);
 
-        $eventDispatcher->dispatch($eventName, $event);
+        $this->_eventDispatcher->dispatch($eventName, $event);
 
         return $event->getSubject();
     }

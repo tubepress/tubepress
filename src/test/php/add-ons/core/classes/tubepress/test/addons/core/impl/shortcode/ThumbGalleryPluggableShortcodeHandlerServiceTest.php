@@ -56,7 +56,7 @@ class tubepress_test_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHa
         $this->_messageService = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
 
         $this->_sut = new tubepress_addons_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService(
-            $this->_mockExecutionContext, $this->_messageService);
+            $this->_mockExecutionContext, $this->_messageService, $this->_mockEventDispatcher);
     }
 
 
