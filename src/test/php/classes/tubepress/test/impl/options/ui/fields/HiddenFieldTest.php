@@ -18,7 +18,7 @@ class tubepress_test_impl_options_ui_fields_HiddenFieldTest extends tubepress_te
     {
         return new tubepress_impl_options_ui_fields_HiddenField(
             $this->getOptionName(), $this->getMockMessageService(), $this->getMockStorageManager(),
-            $this->getMockEventDispatcher());
+            $this->getMockEventDispatcher(), $this->getMockOptionProvider());
     }
 
     protected function getExpectedTemplatePath()

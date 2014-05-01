@@ -12,9 +12,9 @@
 /**
  * Provides options.
  */
-interface tubepress_spi_options_OptionProvider
+interface tubepress_api_options_ProviderInterface
 {
-    const _ = 'tubepress_spi_options_OptionProvider';
+    const _ = 'tubepress_api_options_ProviderInterface';
 
     /**
      * Fetch all the option names from this provider.

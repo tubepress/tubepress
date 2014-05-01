@@ -24,18 +24,23 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta
      */
     private $_context;
 
+    /**
+     * @var tubepress_api_options_ProviderInterface
+     */
+    private $_optionProvider;
+
     public function __construct(
         tubepress_api_options_ContextInterface $context,
-        tubepress_api_translation_TranslatorInterface $translator)
+        tubepress_api_translation_TranslatorInterface $translator,
+        tubepress_api_options_ProviderInterface $optionProvider)
     {
-        $this->_translator = $translator;
-        $this->_context    = $context;
+        $this->_translator     = $translator;
+        $this->_context        = $context;
+        $this->_optionProvider = $optionProvider;
     }
 
     public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-
         /**
          * @var $metaNameService tubepress_addons_core_impl_options_MetaOptionNameService
          */
@@ -47,7 +52,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta
 
         foreach ($metaNames as $metaName) {
 
-            if (!$optionProvider->hasOption($metaName)) {
+            if (!$this->_optionProvider->hasOption($metaName)) {
 
                 $shouldShow[$metaName] = false;
                 $labels[$metaName]     = '';
@@ -55,7 +60,7 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta
             }
 
             $shouldShow[$metaName] = $this->_context->get($metaName);
-            $labels[$metaName]     = $this->_translator->_($optionProvider->getLabel($metaName));
+            $labels[$metaName]     = $this->_translator->_($this->_optionProvider->getLabel($metaName));
         }
 
         $template->setVariable(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);

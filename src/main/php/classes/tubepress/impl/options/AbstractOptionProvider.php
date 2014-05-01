@@ -12,7 +12,7 @@
 /**
  * Performs validation on option values
  */
-abstract class tubepress_impl_options_AbstractOptionProvider implements tubepress_spi_options_OptionProvider
+abstract class tubepress_impl_options_AbstractOptionProvider implements tubepress_api_options_ProviderInterface
 {
     private static $_regexPositiveInteger    = '/[1-9][0-9]{0,6}/';
     private static $_regexNonNegativeInteger = '/0|[1-9][0-9]{0,6}/';

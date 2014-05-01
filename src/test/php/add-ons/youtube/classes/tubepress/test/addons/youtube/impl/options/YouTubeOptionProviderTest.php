@@ -15,7 +15,7 @@
 class tubepress_test_addons_youtube_impl_options_YouTubeOptionsProviderTest extends tubepress_test_impl_options_AbstractOptionProviderTest
 {
     /**
-     * @return tubepress_spi_options_OptionProvider
+     * @return tubepress_api_options_ProviderInterface
      */
     protected function buildSut()
     {

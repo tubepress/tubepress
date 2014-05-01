@@ -12,7 +12,7 @@
 abstract class tubepress_test_impl_options_AbstractOptionProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_spi_options_OptionProvider
+     * @var tubepress_api_options_ProviderInterface
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ abstract class tubepress_test_impl_options_AbstractOptionProviderTest extends tu
     public final function onSetup()
     {
 
-        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
         $this->_mockMessageService  = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockEventDispatcher = $this->createMockSingletonService('tubepress_api_event_EventDispatcherInterface');
         $this->_sut = $this->buildSut();
@@ -309,7 +309,7 @@ abstract class tubepress_test_impl_options_AbstractOptionProviderTest extends tu
     protected abstract function buildSut();
 
     /**
-     * @return tubepress_spi_options_OptionProvider
+     * @return tubepress_api_options_ProviderInterface
      */
     protected function getSut()
     {

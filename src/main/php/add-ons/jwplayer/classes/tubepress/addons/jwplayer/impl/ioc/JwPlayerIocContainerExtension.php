@@ -79,7 +79,7 @@ class tubepress_addons_jwplayer_impl_ioc_JwPlayerIocContainerExtension implement
 
             'tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider',
             'tubepress_addons_jwplayer_impl_options_JwPlayerOptionProvider'
-        )->addTag(tubepress_spi_options_OptionProvider::_);
+        )->addTag(tubepress_api_options_ProviderInterface::_);
 
         $fieldIndex = 0;
         $fieldMap = array(

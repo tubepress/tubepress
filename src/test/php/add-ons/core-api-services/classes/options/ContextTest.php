@@ -38,9 +38,9 @@ class tubepress_test_addons_coreapiservices_options_ContextTest extends tubepres
     {
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
-        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
 
-        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Context($this->_mockEventDispatcher, $this->_mockStorageManager);
+        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Context($this->_mockEventDispatcher, $this->_mockStorageManager, $this->_mockOptionProvider);
     }
 
     public function testSetGet()

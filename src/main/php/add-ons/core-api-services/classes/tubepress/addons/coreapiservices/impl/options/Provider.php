@@ -12,10 +12,10 @@
 /**
  * Performs validation on option values
  */
-class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_options_OptionProvider
+class tubepress_addons_coreapiservices_impl_options_Provider implements tubepress_api_options_ProviderInterface
 {
     /**
-     * @var tubepress_spi_options_OptionProvider[]
+     * @var tubepress_api_options_ProviderInterface[]
      */
     private $_pluggableOptionProviders;
 
@@ -226,7 +226,7 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     }
 
     /**
-     * @param tubepress_spi_options_OptionProvider[] $optionProviders
+     * @param tubepress_api_options_ProviderInterface[] $optionProviders
      */
     public function setAddonOptionProviders(array $optionProviders)
     {
@@ -244,7 +244,7 @@ class tubepress_impl_options_OptionProviderAggregate implements tubepress_spi_op
     /**
      * @param $optionName
      *
-     * @return tubepress_spi_options_OptionProvider
+     * @return tubepress_api_options_ProviderInterface
      *
      * @throws RuntimeException
      */

@@ -16,9 +16,10 @@ class tubepress_addons_core_impl_options_ui_fields_ThemeField extends tubepress_
 {
     public function __construct(tubepress_api_options_PersistenceInterface $persistence,
                                 tubepress_api_translation_TranslatorInterface $translator,
-                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_api_options_ProviderInterface $optionProvider)
     {
-        parent::__construct(tubepress_api_const_options_names_Thumbs::THEME, $translator, $persistence, $eventDispatcher);
+        parent::__construct(tubepress_api_const_options_names_Thumbs::THEME, $translator, $persistence, $eventDispatcher, $optionProvider);
     }
 
     protected function getAdditionalTemplateVariables()

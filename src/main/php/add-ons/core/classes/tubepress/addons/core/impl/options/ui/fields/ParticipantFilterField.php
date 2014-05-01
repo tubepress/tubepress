@@ -24,10 +24,10 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
     public function __construct(
         tubepress_api_options_PersistenceInterface $persistence,
         tubepress_api_translation_TranslatorInterface $translator,
-        tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+        tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+        tubepress_api_options_ProviderInterface $optionProvider)
     {
-        $optionProvider     = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-        $optionName         = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
+        $optionName = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
 
         parent::__construct(
 

@@ -17,7 +17,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBased
 
     public final function doMoreSetup()
     {
-        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
         $optionName                = $this->getOptionName();
 
         $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with($optionName)->andReturn(true);
@@ -81,7 +81,8 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBased
         new tubepress_impl_options_ui_fields_TextField(
             $this->getOptionName(), $this->getMockMessageService(),
         $this->getMockStorageManager(),
-        $this->getMockEventDispatcher()
+        $this->getMockEventDispatcher(),
+            $this->getMockOptionProvider()
         );
     }
 

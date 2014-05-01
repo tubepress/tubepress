@@ -31,7 +31,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
 
     protected function doMoreSetup()
     {
-        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
         $this->_mockMetaNameService = $this->createMockSingletonService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
     }
 
@@ -104,7 +104,8 @@ class tubepress_test_addons_core_impl_options_ui_fields_MetaMultiSelectFieldTest
         $sut = new tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField(
             $this->getMockStorageManager(),
             $this->getMockMessageService(),
-            $this->getMockEventDispatcher()
+            $this->getMockEventDispatcher(),
+            $this->_mockOptionProvider
         );
 
         return $sut;

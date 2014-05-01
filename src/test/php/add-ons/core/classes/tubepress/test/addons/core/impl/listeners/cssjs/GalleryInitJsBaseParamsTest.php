@@ -38,9 +38,9 @@ class tubepress_test_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParamsTes
     {
 
         $this->_mockExecutionContext    = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockOptionProvider      = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider      = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
         $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
-        $this->_sut = new tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams($this->_mockExecutionContext);
+        $this->_sut = new tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams($this->_mockExecutionContext, $this->_mockOptionProvider);
     }
 
     public function testAlter()

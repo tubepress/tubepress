@@ -73,7 +73,7 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
             'tubepress_addons_wordpress_impl_options_WordPressOptionProvider',
             'tubepress_addons_wordpress_impl_options_WordPressOptionProvider'
-        )->withTag(tubepress_spi_options_OptionProvider::_);
+        )->withTag(tubepress_api_options_ProviderInterface::_);
 
         $this->_expectOptionsPageParticipant();
     }

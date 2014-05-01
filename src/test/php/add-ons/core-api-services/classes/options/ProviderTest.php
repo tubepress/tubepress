@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_options_OptionProviderAggregate<extended>
+ * @covers tubepress_addons_coreapiservices_impl_options_Provider<extended>
  */
-class tubepress_test_impl_options_OptionProviderAggregateTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_coreapiservices_impl_options_ProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_options_OptionProviderAggregate
+     * @var tubepress_addons_coreapiservices_impl_options_Provider
      */
     private $_sut;
 
@@ -41,8 +41,8 @@ class tubepress_test_impl_options_OptionProviderAggregateTest extends tubepress_
 
     public function onSetup()
     {
-        $this->_mockOptionProvider1 = ehough_mockery_Mockery::mock(tubepress_spi_options_OptionProvider::_);
-        $this->_mockOptionProvider2 = ehough_mockery_Mockery::mock(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider1 = ehough_mockery_Mockery::mock(tubepress_api_options_ProviderInterface::_);
+        $this->_mockOptionProvider2 = ehough_mockery_Mockery::mock(tubepress_api_options_ProviderInterface::_);
 
         $this->_mockOptionProviders = array(
 
@@ -50,7 +50,7 @@ class tubepress_test_impl_options_OptionProviderAggregateTest extends tubepress_
             $this->_mockOptionProvider2,
         );
 
-        $this->_sut = new tubepress_impl_options_OptionProviderAggregate();
+        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Provider();
         $this->_sut->setAddonOptionProviders($this->_mockOptionProviders);
         $this->_sut->setRegisteredOptionNames($this->_mockOptionNames);
     }

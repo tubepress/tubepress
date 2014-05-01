@@ -93,14 +93,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_options_OptionProvider The options provider.
-     */
-    public static function getOptionProvider()
-    {
-        return self::getService(tubepress_spi_options_OptionProvider::_);
-    }
-
-    /**
      * @return tubepress_spi_player_PlayerHtmlGenerator The player HTML generator.
      */
     public static function getPlayerHtmlGenerator()

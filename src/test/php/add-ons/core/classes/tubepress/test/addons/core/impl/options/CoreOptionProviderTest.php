@@ -149,7 +149,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
         ));
     }
 
-    protected function prepare(tubepress_spi_options_OptionProvider $sut)
+    protected function prepare(tubepress_api_options_ProviderInterface $sut)
     {
         $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
         $this->_mockFinderFactory              = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');

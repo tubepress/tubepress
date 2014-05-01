@@ -43,12 +43,13 @@ class tubepress_test_addons_core_impl_listeners_template_SingleVideoMetaTest ext
     {
         $this->_mockMessageService   = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockExecutionContext = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockOptionProvider   = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider   = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
         $this->_mockMetaNameProvider = $this->createMockSingletonService(tubepress_addons_core_impl_options_MetaOptionNameService::_);
 
         $this->_sut = new tubepress_addons_core_impl_listeners_template_SingleVideoMeta(
             $this->_mockExecutionContext,
-            $this->_mockMessageService
+            $this->_mockMessageService,
+            $this->_mockOptionProvider
         );
     }
 

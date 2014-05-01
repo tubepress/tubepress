@@ -33,6 +33,17 @@ class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension i
         $this->_registerHtmlGenerator($containerBuilder);
         $this->_registerOptionsContext($containerBuilder);
         $this->_registerOptionsPersistence($containerBuilder);
+        $this->_registerOptionsProvider($containerBuilder);
+    }
+
+    private function _registerOptionsProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_api_options_ProviderInterface::_,
+            'tubepress_addons_coreapiservices_impl_options_Provider'
+        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_api_options_ProviderInterface::_, 'method' => 'setAddonOptionProviders'))
+         ->addMethodCall('setRegisteredOptionNames', array('%tubePressOptionNames%'));
     }
 
     private function _registerHtmlGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -59,7 +70,8 @@ class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension i
             tubepress_api_options_PersistenceInterface::_,
             'tubepress_addons_coreapiservices_impl_options_Persistence'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceBackendInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceBackendInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ProviderInterface::_));
     }
 
     private function _registerOptionsContext(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -69,7 +81,8 @@ class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension i
             tubepress_api_options_ContextInterface::_,
             'tubepress_addons_coreapiservices_impl_options_Context'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ProviderInterface::_));
     }
 
     private function _registerEnvironment(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

@@ -64,7 +64,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
             'tubepress_addons_wordpress_impl_options_WordPressOptionProvider',
             'tubepress_addons_wordpress_impl_options_WordPressOptionProvider'
-        )->addTag(tubepress_spi_options_OptionProvider::_);
+        )->addTag(tubepress_api_options_ProviderInterface::_);
 
         $this->_registerOptionsPageParticipant($containerBuilder);
     }

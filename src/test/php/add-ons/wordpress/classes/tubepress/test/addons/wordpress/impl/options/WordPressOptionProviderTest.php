@@ -15,7 +15,7 @@
 class tubepress_test_addons_wordpress_impl_options_WordPressOptionProviderTest extends tubepress_test_impl_options_AbstractOptionProviderTest
 {
     /**
-     * @return tubepress_spi_options_OptionProvider
+     * @return tubepress_api_options_ProviderInterface
      */
     protected function buildSut()
     {

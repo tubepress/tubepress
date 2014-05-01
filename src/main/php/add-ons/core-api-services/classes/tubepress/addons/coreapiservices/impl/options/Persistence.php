@@ -44,13 +44,20 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
      */
     private $_eventDispatcher;
 
+    /**
+     * @var tubepress_api_options_ProviderInterface
+     */
+    private $_optionProvider;
+
     public function __construct(
         tubepress_api_event_EventDispatcherInterface $eventDispatcher,
-        tubepress_api_options_PersistenceBackendInterface $backend)
+        tubepress_api_options_PersistenceBackendInterface $backend,
+        tubepress_api_options_ProviderInterface $optionProvider)
     {
         $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
         $this->_backend         = $backend;
         $this->_eventDispatcher = $eventDispatcher;
+        $this->_optionProvider  = $optionProvider;
     }
 
     /**
@@ -111,19 +118,17 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
          */
         $filteredValue = $this->_getFilteredValue($optionName, $optionValue);
 
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-
         /**
          * Now validate it.
          */
-        $validationResult = $this->_validateOneForStorage($optionProvider, $optionName, $filteredValue);
+        $validationResult = $this->_validateOneForStorage($optionName, $filteredValue);
 
         if ($validationResult !== true) {
 
             return $validationResult;
         }
 
-        if (!$optionProvider->isMeantToBePersisted($optionName)) {
+        if (!$this->_optionProvider->isMeantToBePersisted($optionName)) {
 
             /**
              * Not meant to be persisted. Just ignore.
@@ -131,7 +136,7 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
             return null;
         }
 
-        if ($this->_noChangeBetweenIncomingAndCurrent($optionProvider, $optionName, $filteredValue)) {
+        if ($this->_noChangeBetweenIncomingAndCurrent($optionName, $filteredValue)) {
 
             /**
              * No change. Ignore.
@@ -184,12 +189,12 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
      *
      * @return bool True if the option is OK for storage, otherwise a string error message.
      */
-    private function _validateOneForStorage(tubepress_spi_options_OptionProvider $optionProvider, $optionName, $optionValue)
+    private function _validateOneForStorage($optionName, $optionValue)
     {
         $shouldLog = $this->_logger->isHandling(ehough_epilog_Logger::DEBUG);
 
         /** OK, let's see if it's valid. */
-        if ($optionProvider->isValid($optionName, $optionValue)) {
+        if ($this->_optionProvider->isValid($optionName, $optionValue)) {
 
             if ($shouldLog) {
 
@@ -199,7 +204,7 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
             return true;
         }
 
-        $problemMessage = $optionProvider->getProblemMessage($optionName, $optionValue);
+        $problemMessage = $this->_optionProvider->getProblemMessage($optionName, $optionValue);
 
         if ($shouldLog) {
 
@@ -224,9 +229,9 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
         return $event->getSubject();
     }
 
-    private function _noChangeBetweenIncomingAndCurrent(tubepress_spi_options_OptionProvider $optionProvider, $optionName, $filteredValue)
+    private function _noChangeBetweenIncomingAndCurrent($optionName, $filteredValue)
     {
-        $boolean      = $optionProvider->isBoolean($optionName);
+        $boolean      = $this->_optionProvider->isBoolean($optionName);
         $currentValue = $this->fetch($optionName);
 
         if ($boolean) {
@@ -244,8 +249,7 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
             return;
         }
 
-        $optionProvider          = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-        $optionNamesFromProvider = $optionProvider->getAllOptionNames();
+        $optionNamesFromProvider = $this->_optionProvider->getAllOptionNames();
         $toPersist               = array();
         $missingOptions          = array_diff($optionNamesFromProvider, array_keys($optionsInThisStorageManager));
 
@@ -254,9 +258,9 @@ class tubepress_addons_coreapiservices_impl_options_Persistence implements tubep
          */
         foreach ($missingOptions as $optionName) {
 
-            if ($optionProvider->isMeantToBePersisted($optionName)) {
+            if ($this->_optionProvider->isMeantToBePersisted($optionName)) {
 
-                $toPersist[$optionName] = $optionProvider->getDefaultValue($optionName);
+                $toPersist[$optionName] = $this->_optionProvider->getDefaultValue($optionName);
             }
         }
 

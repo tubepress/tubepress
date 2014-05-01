@@ -34,13 +34,13 @@ class tubepress_test_addons_core_impl_ioc_compiler_BuildOptionNamesParameterComp
     {
         $mockOptionProviderReferences = array(
 
-            'x' => array(tubepress_spi_options_OptionProvider::_)
+            'x' => array(tubepress_api_options_ProviderInterface::_)
         );
 
-        $mockOptionProvider = ehough_mockery_Mockery::mock(tubepress_spi_options_OptionProvider::_);
+        $mockOptionProvider = ehough_mockery_Mockery::mock(tubepress_api_options_ProviderInterface::_);
         $mockOptionProvider->shouldReceive('getAllOptionNames')->once()->andReturn(array('one', 'two', 'three'));
 
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_spi_options_OptionProvider::_)->andReturn($mockOptionProviderReferences);
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_api_options_ProviderInterface::_)->andReturn($mockOptionProviderReferences);
         $this->_mockContainer->shouldReceive('get')->once()->with('x')->andReturn($mockOptionProvider);
         $this->_mockContainer->shouldReceive('setParameter')->once()->with('tubePressOptionNames', array('one', 'two', 'three'));
 

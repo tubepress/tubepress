@@ -37,15 +37,22 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
     private $_eventDispatcher;
 
     /**
+     * @var tubepress_api_options_ProviderInterface
+     */
+    private $_optionProvider;
+
+    /**
      * Constructor.
      */
     public function __construct(
         tubepress_api_event_EventDispatcherInterface $eventDispatcher,
-        tubepress_api_options_PersistenceInterface $persistence)
+        tubepress_api_options_PersistenceInterface $persistence,
+        tubepress_api_options_ProviderInterface $optionProvider)
     {
         $this->_logger          = ehough_epilog_LoggerFactory::getLogger('Memory Execution Context');
         $this->_persistence     = $persistence;
         $this->_eventDispatcher = $eventDispatcher;
+        $this->_optionProvider  = $optionProvider;
     }
 
     /**
@@ -96,8 +103,6 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
      */
     public function set($optionName, $optionValue)
     {
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-
         /** First run it through the filters. */
         $event = new tubepress_spi_event_EventBase($optionValue, array(
 
@@ -110,7 +115,7 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
         $this->_eventDispatcher->dispatch(tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . ".$optionName", $event);
         $filteredValue = $event->getSubject();
 
-        if ($optionProvider->isValid($optionName, $filteredValue)) {
+        if ($this->_optionProvider->isValid($optionName, $filteredValue)) {
 
             if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 
@@ -122,7 +127,7 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
             return true;
         }
 
-        $problemMessage = $optionProvider->getProblemMessage($optionName, $filteredValue);
+        $problemMessage = $this->_optionProvider->getProblemMessage($optionName, $filteredValue);
 
         if ($this->_logger->isHandling(ehough_epilog_Logger::DEBUG)) {
 

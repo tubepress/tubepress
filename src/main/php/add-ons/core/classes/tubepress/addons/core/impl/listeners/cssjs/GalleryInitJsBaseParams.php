@@ -31,9 +31,16 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
      */
     private $_context;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_api_options_ProviderInterface
+     */
+    private $_optionProvider;
+
+    public function __construct(tubepress_api_options_ContextInterface $context,
+                                tubepress_api_options_ProviderInterface $optionProvider)
     {
-        $this->_context = $context;
+        $this->_context        = $context;
+        $this->_optionProvider = $optionProvider;
     }
 
     /**
@@ -149,11 +156,9 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
 
     private function _convertBooleans($map)
     {
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-
         foreach ($map as $key => $value) {
 
-            if (!$optionProvider->hasOption($key) || !$optionProvider->isBoolean($key)) {
+            if (!$this->_optionProvider->hasOption($key) || !$this->_optionProvider->isBoolean($key)) {
 
                 continue;
             }

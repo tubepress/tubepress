@@ -15,16 +15,17 @@
 abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField extends tubepress_impl_options_ui_fields_AbstractTemplateBasedOptionsPageField
 {
     /**
-     * @var tubepress_spi_options_OptionProvider
+     * @var tubepress_api_options_ProviderInterface
      */
     private $_optionProvider;
 
     public function __construct($optionName,
                                 tubepress_api_translation_TranslatorInterface $translator,
                                 tubepress_api_options_PersistenceInterface $persistence,
-                                tubepress_api_event_EventDispatcherInterface $eventDispatcher)
+                                tubepress_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_api_options_ProviderInterface $optionProvider)
     {
-        $this->_optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $this->_optionProvider = $optionProvider;
 
         if (!$this->_optionProvider->hasOption($optionName)) {
 
@@ -91,7 +92,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
     }
 
     /**
-     * @return tubepress_spi_options_OptionProvider
+     * @return tubepress_api_options_ProviderInterface
      */
     protected function getOptionProvider()
     {

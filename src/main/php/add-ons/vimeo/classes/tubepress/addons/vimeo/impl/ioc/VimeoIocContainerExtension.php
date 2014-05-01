@@ -66,7 +66,7 @@ class tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension implements tube
 
             'tubepress_addons_vimeo_impl_options_VimeoOptionProvider',
             'tubepress_addons_vimeo_impl_options_VimeoOptionProvider'
-        )->addTag(tubepress_spi_options_OptionProvider::_);
+        )->addTag(tubepress_api_options_ProviderInterface::_);
 
         $this->_registerOptionsPageParticipant($containerBuilder);
     }

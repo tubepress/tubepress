@@ -61,7 +61,7 @@ class tubepress_test_addons_vimeo_impl_ioc_VimeoIocContainerExtensionTest extend
 
             'tubepress_addons_vimeo_impl_options_VimeoOptionProvider',
             'tubepress_addons_vimeo_impl_options_VimeoOptionProvider'
-        )->withTag(tubepress_spi_options_OptionProvider::_);
+        )->withTag(tubepress_api_options_ProviderInterface::_);
 
         $this->_expectOptionsPageParticipant();
     }

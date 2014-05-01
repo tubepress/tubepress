@@ -62,7 +62,7 @@ class tubepress_test_addons_wordpress_impl_options_PersistenceBackendTest extend
 
         $this->_mockEnvironmentDetector      = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockEventDispatcher          = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockOptionProvider           = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider           = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
         $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
 
         $this->_sut = new tubepress_addons_wordpress_impl_options_PersistenceBackend();

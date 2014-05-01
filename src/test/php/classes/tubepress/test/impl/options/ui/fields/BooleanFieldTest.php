@@ -18,7 +18,7 @@ class tubepress_test_impl_options_ui_fields_BooleanFieldTest extends tubepress_t
     {
         return new tubepress_impl_options_ui_fields_BooleanField(
             $this->getOptionName(), $this->getMockMessageService(), $this->getMockStorageManager(),
-        $this->getMockEventDispatcher());
+        $this->getMockEventDispatcher(), $this->getMockOptionProvider());
     }
 
     /**

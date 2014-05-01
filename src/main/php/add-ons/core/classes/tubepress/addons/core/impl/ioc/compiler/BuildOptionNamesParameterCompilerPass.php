@@ -27,13 +27,13 @@ class tubepress_addons_core_impl_ioc_compiler_BuildOptionNamesParameterCompilerP
      */
     public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $providerIds = $containerBuilder->findTaggedServiceIds(tubepress_spi_options_OptionProvider::_);
+        $providerIds = $containerBuilder->findTaggedServiceIds(tubepress_api_options_ProviderInterface::_);
         $optionNames = array();
 
         foreach ($providerIds as $serviceId => $tags) {
 
             /**
-             * @var $provider tubepress_spi_options_OptionProvider
+             * @var $provider tubepress_api_options_ProviderInterface
              */
             $provider = $containerBuilder->get($serviceId);
 

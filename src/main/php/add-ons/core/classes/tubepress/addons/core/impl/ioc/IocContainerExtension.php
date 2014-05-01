@@ -36,7 +36,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerFilesystem($containerBuilder);
         $this->_registerHttpRequestParameterService($containerBuilder);
         $this->_registerHttpResponseCodeHandler($containerBuilder);
-        $this->_registerAggregateOptionProvider($containerBuilder);
         $this->_registerCoreOptionProvider($containerBuilder);
         $this->_registerMetaOptionNameService($containerBuilder);
         $this->_registerPlayerHtmlGenerator($containerBuilder);
@@ -137,15 +136,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         );
     }
 
-    private function _registerAggregateOptionProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_options_OptionProvider::_,
-            'tubepress_impl_options_OptionProviderAggregate'
-        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_options_OptionProvider::_, 'method' => 'setAddonOptionProviders'))
-         ->addMethodCall('setRegisteredOptionNames', array('%tubePressOptionNames%'));
-    }
 
     private function _registerCoreOptionProvider(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -154,7 +144,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_options_CoreOptionProvider'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_event_EventDispatcherInterface::_))
-            ->addTag(tubepress_spi_options_OptionProvider::_)
+            ->addTag(tubepress_api_options_ProviderInterface::_)
             ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'))
             ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_embedded_PluggableEmbeddedPlayerService::_, 'method' => 'setPluggableEmbeddedPlayers'))
             ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'));
@@ -584,6 +574,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_listeners_template_SingleVideoMeta'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ProviderInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO, 'method' => 'onSingleVideoTemplate', 'priority' => 10000));
 
         $containerBuilder->register(
@@ -592,6 +583,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_listeners_template_ThumbGalleryVideoMeta'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ProviderInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10000));
 
         $containerBuilder->register(
@@ -711,6 +703,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams',
             'tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ProviderInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_api_const_event_EventNames::CSS_JS_GALLERY_INIT,
                 'method'   => 'onGalleryInitJs',

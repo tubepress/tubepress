@@ -37,10 +37,10 @@ class tubepress_test_addons_coreapiservices_options_PersistenceTest extends tube
     public function onSetup()
     {
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
         $this->_mockBackend         = ehough_mockery_Mockery::mock(tubepress_api_options_PersistenceBackendInterface::_);
 
-        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Persistence($this->_mockEventDispatcher, $this->_mockBackend);
+        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Persistence($this->_mockEventDispatcher, $this->_mockBackend, $this->_mockOptionProvider);
     }
 
     public function testFetchNoSuchOption()

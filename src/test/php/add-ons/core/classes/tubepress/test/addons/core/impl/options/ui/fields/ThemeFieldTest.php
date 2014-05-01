@@ -56,7 +56,8 @@ class tubepress_test_addons_core_impl_options_ui_fields_ThemeFieldTest extends t
         return new tubepress_addons_core_impl_options_ui_fields_ThemeField(
             $this->getMockStorageManager(),
             $this->getMockMessageService(),
-            $this->getMockEventDispatcher()
+            $this->getMockEventDispatcher(),
+            $this->getMockOptionProvider()
         );
     }
 

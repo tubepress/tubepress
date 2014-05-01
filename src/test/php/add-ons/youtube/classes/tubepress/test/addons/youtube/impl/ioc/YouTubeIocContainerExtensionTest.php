@@ -59,7 +59,7 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
 
             'tubepress_addons_youtube_impl_options_YouTubeOptionProvider',
             'tubepress_addons_youtube_impl_options_YouTubeOptionProvider'
-        )->withTag(tubepress_spi_options_OptionProvider::_);
+        )->withTag(tubepress_api_options_ProviderInterface::_);
 
         $this->_expectOptionsPageParticipant();
     }

@@ -17,7 +17,8 @@ class tubepress_test_impl_options_ui_fields_SpectrumColorFieldTest extends tubep
     protected function buildSut()
     {
         return new tubepress_impl_options_ui_fields_SpectrumColorField(
-            $this->getOptionName(), $this->getMockMessageService(), $this->getMockStorageManager(), $this->getMockEventDispatcher());
+            $this->getOptionName(), $this->getMockMessageService(), $this->getMockStorageManager(), $this->getMockEventDispatcher(),
+            $this->getMockOptionProvider());
     }
 
     protected function getExpectedTemplatePath()

@@ -18,7 +18,7 @@ class tubepress_test_addons_vimeo_impl_options_VimeoOptionProviderTest extends t
     private static $_regexColor     = '/^([0-9a-f]{1,2}){3}$/i';
 
     /**
-     * @return tubepress_spi_options_OptionProvider
+     * @return tubepress_api_options_ProviderInterface
      */
     protected function buildSut()
     {

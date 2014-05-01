@@ -32,7 +32,8 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
         $sut = new tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField(
             $this->getMockStorageManager(),
             $this->getMockMessageService(),
-            $this->getMockEventDispatcher()
+            $this->getMockEventDispatcher(),
+            $this->_mockOptionProvider
         );
 
         $sut->setOptionsPageParticipants($this->_mockOptionsPageParticipants);
@@ -54,7 +55,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_ParticipantFilterFieldTe
 
     protected function doMoreSetup()
     {
-        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
+        $this->_mockOptionProvider = $this->createMockSingletonService(tubepress_api_options_ProviderInterface::_);
 
         $this->_mockOptionProvider->shouldReceive('getLabel')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock label');
         $this->_mockOptionProvider->shouldReceive('getDescription')->once()->with(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock desc');
