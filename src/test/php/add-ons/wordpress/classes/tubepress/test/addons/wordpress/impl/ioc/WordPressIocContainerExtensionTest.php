@@ -162,7 +162,6 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
             'init'                  => 'Init',
             'widgets_init'          => 'WidgetsInit',
             'wp_head'               => 'WpHead',
-            'admin_notices'         => 'AdminNotices',
         );
 
         foreach ($map as $filter => $class) {
@@ -204,5 +203,17 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
                 'priority' => 10000
             ));
         }
+
+        $this->expectRegistration(
+
+            'wordpress.action.admin_notices',
+            'tubepress_addons_wordpress_impl_actions_AdminNotices'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_CurrentUrlServiceInterface::_))
+         ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.action.admin_notices",
+                'method'   => "action",
+                'priority' => 10000
+            ));
     }
 }

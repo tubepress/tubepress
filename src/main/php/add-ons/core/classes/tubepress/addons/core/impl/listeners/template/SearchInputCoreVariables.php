@@ -14,11 +14,20 @@
  */
 class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
 {
+    /**
+     * @var tubepress_api_url_CurrentUrlServiceInterface
+     */
+    private $_currentUrlService;
+
+    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService)
+    {
+        $this->_currentUrlService = $currentUrlService;
+    }
+
     public function onSearchInputTemplate(tubepress_api_event_EventInterface $event)
     {
         $template   = $event->getSubject();
         $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $qss        = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
         $hrps       = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
         $ms         = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
         $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
@@ -37,7 +46,7 @@ class tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables
         /* if the user didn't request a certain page, just send the search results right back here */
         if ($url == '') {
 
-            $url = $urlFactory->fromString($qss->getFullUrl($_SERVER));
+            $url = $this->_currentUrlService->getUrl();
         }
 
         /* clean up the search terms a bit */

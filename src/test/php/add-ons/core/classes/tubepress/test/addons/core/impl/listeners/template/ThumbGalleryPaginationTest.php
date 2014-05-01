@@ -57,11 +57,6 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockUrlFactory;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockFullUrl;
 
     /**
@@ -71,15 +66,12 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination();
-
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockQueryStringService          = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
+        $this->_mockQueryStringService          = $this->createMockSingletonService(tubepress_api_url_CurrentUrlServiceInterface::_);
         $messageService                         = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockThemeHandler                = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
-        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)->andReturn(true);
@@ -94,13 +86,15 @@ class tubepress_test_addons_core_impl_listeners_template_ThumbGalleryPaginationT
 
         $this->_mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $this->_mockFullQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
-        $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se');
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/foo.bar?hello=goodbye&something=el%21se')->andReturn($this->_mockFullUrl);
+        $this->_mockQueryStringService->shouldReceive('getUrl')->once()->andReturn($this->_mockFullUrl);
 
 
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
         });
+
+        $this->_sut = new tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination($this->_mockQueryStringService);
+
     }
 
     public function testModern()

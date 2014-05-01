@@ -27,7 +27,7 @@ class tubepress_test_addons_core_impl_listeners_template_SearchInputCoreVariable
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockQueryStringService;
+    private $_mockCurrentUrlService;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -46,13 +46,13 @@ class tubepress_test_addons_core_impl_listeners_template_SearchInputCoreVariable
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables();
-
         $this->_mockExecutionContext = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockQueryStringService = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);;
+        $this->_mockCurrentUrlService = ehough_mockery_Mockery::mock(tubepress_api_url_CurrentUrlServiceInterface::_);
         $this->_mockMessageService = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+
+        $this->_sut = new tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables($this->_mockCurrentUrlService);
     }
 
     public function testYouTubeFavorites()
@@ -60,13 +60,12 @@ class tubepress_test_addons_core_impl_listeners_template_SearchInputCoreVariable
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL)->andReturn('');
         $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com?foo=bar&something=else')->andReturn($mockUrl);
         $mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
         $mockUrl->shouldReceive('toString')->once()->andReturn('abcabc');
         $mockQuery->shouldReceive('remove')->once()->with(tubepress_spi_const_http_ParamName::PAGE);
         $mockQuery->shouldReceive('remove')->once()->with(tubepress_spi_const_http_ParamName::SEARCH_TERMS);
         $mockQuery->shouldReceive('toArray')->once()->andReturn(array('foo' => 'bar', 'something' => 'else'));
-        $this->_mockQueryStringService->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.com?foo=bar&something=else');
+        $this->_mockCurrentUrlService->shouldReceive('getUrl')->once()->andReturn($mockUrl);
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_spi_const_http_ParamName::SEARCH_TERMS)->andReturn("search for something");
 

@@ -31,10 +31,10 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
 
     public function onSetup()
     {
-        $this->_mockQss        = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
+        $this->_mockQss        = $this->createMockSingletonService(tubepress_api_url_CurrentUrlServiceInterface::_);
         $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
 
-        $this->_sut = new tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService();
+        $this->_sut = new tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService($this->_mockQss);
     }
 
     public function testGetName()
@@ -75,8 +75,6 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
-        $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('http://xyz.com/foo.bar?yes=no#boo');
-
         $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockUrl2 = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
@@ -93,7 +91,7 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockQuery->shouldReceive('set')->once()->with('rel', '0');
         $mockQuery->shouldReceive('set')->once()->with('showinfo', '1');
         $mockQuery->shouldReceive('set')->once()->with('wmode', 'opaque');
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://xyz.com/foo.bar?yes=no#boo')->andReturn($mockFullUrl);
+        $this->_mockQss->shouldReceive('getUrl')->once()->andReturn($mockFullUrl);
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
@@ -114,8 +112,6 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
-        $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('https://xyz.com/foo.bar?yes=no#boo');
-
         $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockUrl2 = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
@@ -132,7 +128,7 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockQuery->shouldReceive('set')->once()->with('rel', '0');
         $mockQuery->shouldReceive('set')->once()->with('showinfo', '1');
         $mockQuery->shouldReceive('set')->once()->with('wmode', 'opaque');
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://xyz.com/foo.bar?yes=no#boo')->andReturn($mockFullUrl);
+        $this->_mockQss->shouldReceive('getUrl')->once()->andReturn($mockFullUrl);
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $result = $this->_sut->getDataUrlForVideo('xx');
@@ -153,8 +149,6 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(true);
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_addons_youtube_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(false);
 
-        $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('https://xyz.com/foo.bar?yes=no#boo');
-
         $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockUrl2 = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
@@ -171,7 +165,7 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
         $mockQuery->shouldReceive('set')->once()->with('rel', '0');
         $mockQuery->shouldReceive('set')->once()->with('showinfo', '1');
         $mockQuery->shouldReceive('set')->once()->with('wmode', 'opaque');
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://xyz.com/foo.bar?yes=no#boo')->andReturn($mockFullUrl);
+        $this->_mockQss->shouldReceive('getUrl')->once()->andReturn($mockFullUrl);
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $result = $this->_sut->getDataUrlForVideo('xx');

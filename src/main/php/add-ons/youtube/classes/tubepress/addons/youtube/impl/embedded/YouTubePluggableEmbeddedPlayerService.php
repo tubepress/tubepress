@@ -15,6 +15,16 @@
 class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     /**
+     * @var tubepress_api_url_CurrentUrlServiceInterface
+     */
+    private $_currentUrlService;
+
+    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService)
+    {
+        $this->_currentUrlService = $currentUrlService;
+    }
+
+    /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
      */
     public final function getName()
@@ -43,8 +53,7 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
         $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
         $link       = $urlFactory->fromString('https://www.youtube.com/embed/' . $videoId);
         $embedQuery = $link->getQuery();
-        $qss        = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
-        $url        = $urlFactory->fromString($qss->getFullUrl($_SERVER));
+        $url        = $this->_currentUrlService->getUrl();
         $origin     = $url->getScheme() . '://' . $url->getHost();
 
 

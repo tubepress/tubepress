@@ -73,6 +73,11 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
                 return is_array($expected) && $actual == $expected;
             }
 
+            if (is_array($expected)) {
+
+                return is_array($actual) && $actual === $expected;
+            }
+
             if (is_bool($actual)) {
 
                 return $actual === $expected;

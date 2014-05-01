@@ -44,7 +44,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerCoreOptionProvider($containerBuilder);
         $this->_registerMetaOptionNameService($containerBuilder);
         $this->_registerPlayerHtmlGenerator($containerBuilder);
-        $this->_registerQueryStringService($containerBuilder);
         $this->_registerShortcodeHtmlGenerator($containerBuilder);
         $this->_registerShortcodeParser($containerBuilder);
         $this->_registerTemplateBuilder($containerBuilder);
@@ -196,15 +195,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             tubepress_spi_player_PlayerHtmlGenerator::_,
             'tubepress_impl_player_DefaultPlayerHtmlGenerator'
         )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'));
-    }
-
-    private function _registerQueryStringService(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_querystring_QueryStringService::_,
-            'tubepress_impl_querystring_SimpleQueryStringService'
-        );
     }
 
     private function _registerShortcodeHtmlGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -555,6 +545,21 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
     private function _registerListeners(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
+        $containerBuilder->register(
+
+            'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables',
+            'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_CurrentUrlServiceInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT, 'method' => 'onSearchInputTemplate', 'priority' => 10000));
+
+        $containerBuilder->register(
+
+            'tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination',
+            'tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_CurrentUrlServiceInterface::_))
+            ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10200));
+
+
         $listeners = array(
 
             'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' =>
@@ -562,9 +567,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION, 'method' => 'onPlayerTemplate', 'priority' => 10000),
-
-            'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables' =>
-                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT, 'method' => 'onSearchInputTemplate', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_template_SingleVideoMeta' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SINGLE_VIDEO, 'method' => 'onSingleVideoTemplate', 'priority' => 10000),
@@ -580,9 +582,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'tubepress_addons_core_impl_listeners_template_ThumbGalleryEmbeddedImplName' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10300),
-
-            'tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination' =>
-                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10200),
 
             'tubepress_addons_core_impl_listeners_template_ThumbGalleryPlayerLocation' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10100),

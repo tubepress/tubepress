@@ -64,7 +64,8 @@ class tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension implements 
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService',
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService'
 
-        )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        )->addArgument(tubepress_api_url_CurrentUrlServiceInterface::_)
+         ->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
         $containerBuilder->register(
 

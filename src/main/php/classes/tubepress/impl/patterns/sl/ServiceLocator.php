@@ -157,14 +157,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_querystring_QueryStringService The query string service.
-     */
-    public static function getQueryStringService()
-    {
-        return self::getService(tubepress_spi_querystring_QueryStringService::_);
-    }
-
-    /**
      * @return tubepress_spi_shortcode_ShortcodeHtmlGenerator The shortcode HTML generator.
      */
     public static function getShortcodeHtmlGenerator()

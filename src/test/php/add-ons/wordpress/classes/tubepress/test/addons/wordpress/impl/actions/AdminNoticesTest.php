@@ -34,18 +34,12 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
      */
     private $_mockQss;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockUrlFactory;
-
     public function onSetup()
     {
-        $this->_sut                             = new tubepress_addons_wordpress_impl_actions_AdminNotices();
         $this->_mockWordPressFunctionWrapper    = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockQss                         = $this->createMockSingletonService(tubepress_spi_querystring_QueryStringService::_);
-        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $this->_mockQss                         = $this->createMockSingletonService(tubepress_api_url_CurrentUrlServiceInterface::_);
+        $this->_sut                             = new tubepress_addons_wordpress_impl_actions_AdminNotices($this->_mockQss);
 
         $this->_sut->___doNotIgnoreExceptions();
     }
@@ -76,10 +70,10 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
     public function testNagNoDismissRequestedNoDismissStored()
     {
-        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockQss->shouldReceive('getUrl')->once()->andReturn($mockFullUrl);
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
-        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockFullUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
         $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
         $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
         $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
@@ -91,10 +85,10 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
     public function testNagNoDismissRequestedNoDismissStored2()
     {
-        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockQss->shouldReceive('getUrl')->once()->andReturn($mockFullUrl);
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
-        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockFullUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
         $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
         $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
         $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
@@ -107,10 +101,10 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
     public function testNagNoDismissRequestedNoDismissStored3()
     {
-        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockQss->shouldReceive('getUrl')->once()->andReturn($mockFullUrl);
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
-        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockFullUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
         $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
         $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
         $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
@@ -125,10 +119,10 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
 
     public function testNagNoDismissRequestedNoDismissStored4()
     {
-        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockFullUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $this->_mockQss->shouldReceive('getUrl')->once()->andReturn($mockFullUrl);
         $mockQuery = ehough_mockery_Mockery::mock('tubepress_api_url_QueryInterface');
-        $mockUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://tubepress.com/some/thing.php?color=blue')->andReturn($mockUrl);
+        $mockFullUrl->shouldReceive('getQuery')->twice()->andReturn($mockQuery);
         $mockQuery->shouldReceive('set')->once()->with('tubePressWpNonce', 'your nonce');
         $mockQuery->shouldReceive('set')->once()->with('dismissTubePressCacheNag', 'true');
         $mockQuery->shouldReceive('__toString')->once()->andReturn('xyz');
@@ -169,7 +163,6 @@ class tubepress_test_addons_wordpress_impl_actions_AdminNoticesTest extends tube
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_get_current_user')->once()->andReturn($mockUser);
         $this->_mockWordPressFunctionWrapper->shouldReceive('get_transient')->once()->with('user_5_dismiss_tubepress_nag')->andReturn(false);
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_create_nonce')->once()->with('tubePressDismissNag')->andReturn('your nonce');
-        $this->_mockQss->shouldReceive('getFullUrl')->once()->with($_SERVER)->andReturn('http://tubepress.com/some/thing.php?color=blue');
 
         $this->expectOutputString(<<<ABC
 <div class="update-nag">

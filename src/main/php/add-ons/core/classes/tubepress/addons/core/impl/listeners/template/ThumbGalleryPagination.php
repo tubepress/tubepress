@@ -16,6 +16,16 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
 {
     const DOTS = '<span class="tubepress_pagination_dots">...</span>';
 
+    /**
+     * @var tubepress_api_url_CurrentUrlServiceInterface
+     */
+    private $_currentUrlService;
+
+    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService)
+    {
+        $this->_currentUrlService = $currentUrlService;
+    }
+
     public function onGalleryTemplate(tubepress_api_event_EventInterface $event)
     {
         $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
@@ -56,13 +66,11 @@ class tubepress_addons_core_impl_listeners_template_ThumbGalleryPagination
     {
         $context        = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
         $messageService = tubepress_impl_patterns_sl_ServiceLocator::getMessageService();
-        $qss            = tubepress_impl_patterns_sl_ServiceLocator::getQueryStringService();
         $hrps           = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
-        $urlFactory     = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
 
         $currentPage = $hrps->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
         $vidsPerPage = $context->get(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
-        $newurl      = $urlFactory->fromString($qss->getFullUrl($_SERVER));
+        $newurl      = $this->_currentUrlService->getUrl();
 
         if ($this->_themeHasPaginationTemplate()) {
 

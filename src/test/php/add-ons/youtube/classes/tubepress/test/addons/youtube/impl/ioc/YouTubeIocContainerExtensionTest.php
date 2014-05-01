@@ -39,7 +39,8 @@ class tubepress_test_addons_youtube_impl_ioc_YouTubeIocContainerExtensionTest ex
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService',
             'tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService'
 
-        )->withTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        )->withArgument(tubepress_api_url_CurrentUrlServiceInterface::_)
+         ->withTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
         $this->expectRegistration(
 
