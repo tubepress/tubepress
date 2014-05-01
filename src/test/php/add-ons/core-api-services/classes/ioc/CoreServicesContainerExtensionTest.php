@@ -25,8 +25,18 @@ class tubepress_test_addons_coreapiservices_ioc_CoreServicesContainerExtensionTe
 
     protected function prepareForLoad()
     {
+        $this->_registerContext();
         $this->_registerCurrentUrlService();
         $this->_registerEnvironment();
+    }
+
+    private function _registerContext()
+    {
+        $this->expectRegistration(
+
+            tubepress_api_options_ContextInterface::_,
+            'tubepress_addons_coreapiservices_impl_options_Context'
+        );
     }
 
     private function _registerEnvironment()

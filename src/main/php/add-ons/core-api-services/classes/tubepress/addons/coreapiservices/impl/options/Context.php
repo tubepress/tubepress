@@ -14,17 +14,12 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_context_ExecutionContext
+class tubepress_addons_coreapiservices_impl_options_Context implements tubepress_api_options_ContextInterface
 {
     /**
      * The user's "custom" options that differ from what's in storage.
      */
     private $_customOptions = array();
-
-    /**
-     * The actual shortcode used.
-     */
-    private $_actualShortcodeUsed;
 
     /**
      * @var ehough_epilog_Logger
@@ -40,24 +35,18 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     }
 
     /**
-     * Resets the context.
+     * Gets the value of an option. Memory will be checked first, then the option value
+     * will be retrieved from persistent storage.
      *
-     * @return void
+     * @param string $optionName The name of the option to retrieve.
+     *
+     * @throws InvalidArgumentException If no option with the given name is known.
+     *
+     * @return mixed The option value.
+     *
+     * @since 4.0.0
      */
-    public final function reset()
-    {
-        $this->_customOptions       = array();
-        $this->_actualShortcodeUsed = '';
-    }
-
-    /**
-     * Gets the value of an option
-     *
-     * @param string $optionName The name of the option
-     *
-     * @return mixed The option value
-     */
-    public final function get($optionName)
+    public function get($optionName)
     {
         /* get the value, either from the shortcode or the db */
         if (array_key_exists($optionName, $this->_customOptions)) {
@@ -71,14 +60,29 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     }
 
     /**
-     * Sets the value of an option
+     * Get options persisted in memory.
+     *
+     * @return array An associative array of options stored in memory. The array keys are option names
+     *               and the values are the values stored in memory.
+     *
+     * @since 4.0.0
+     */
+    public function getAllInMemory()
+    {
+        return $this->_customOptions;
+    }
+
+    /**
+     * Sets the value of an option in memory. This will *not* affect persistent storage.
      *
      * @param string $optionName  The name of the option
      * @param mixed  $optionValue The option value
      *
-     * @return mixed True if the option was set normally, otherwise a string error message.
+     * @return boolean|string True if the option was set normally, otherwise a string error message.
+     *
+     * @since 4.0.0
      */
-    public final function set($optionName, $optionValue)
+    public function set($optionName, $optionValue)
     {
         $eventDispatcherService = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $optionProvider         = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
@@ -118,13 +122,16 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     }
 
     /**
-     * Sets the options that differ from the default options.
+     * Sets all ephemeral option values, overwriting anything in memory. This will *not* affect persistent storage.
      *
-     * @param array $customOpts The custom options.
+     * @param array $customOpts An associative array of options. The array keys are option names
+     *                          and the values are the values stored in memory.
      *
-     * @return array An array of error messages. May be empty, never null.
+     * @return string[] An array of error messages. May be empty, never null.
+     *
+     * @since 4.0.0
      */
-    public final function setAll(array $customOpts)
+    public function setAll(array $customOpts)
     {
         $this->_customOptions = array();
         $problemMessages      = array();
@@ -142,55 +149,6 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
         }
 
         return $problemMessages;
-    }
-
-    /**
-     * Gets the options that differ from the default options.
-     *
-     * @return array The options that differ from the default options.
-     */
-    public final function getCustomOptions()
-    {
-        return $this->_customOptions;
-    }
-
-    /**
-     * Set the current shortcode.
-     *
-     * @param string $newTagString The current shortcode
-     *
-     * @return void
-     */
-    public final function setActualShortcodeUsed($newTagString)
-    {
-        $this->_actualShortcodeUsed = $newTagString;
-    }
-
-    /**
-     * Get the current shortcode
-     *
-     * @return string The current shortcode
-     */
-    public final function getActualShortcodeUsed()
-    {
-        return $this->_actualShortcodeUsed;
-    }
-
-    public static function convertBooleans($map)
-    {
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-
-        foreach ($map as $key => $value) {
-
-            if (!$optionProvider->hasOption($key) || !$optionProvider->isBoolean($key)) {
-
-                continue;
-            }
-
-            $map[$key] = $value ? true : false;
-        }
-
-        return $map;
     }
 
     private function _normalizeForStringOutput($candidate)

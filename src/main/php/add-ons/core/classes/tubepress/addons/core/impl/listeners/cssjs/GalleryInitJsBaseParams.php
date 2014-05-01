@@ -66,8 +66,8 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
 
         $newArgs = array(
 
-            self::$_PROPERTY_NVPMAP => tubepress_impl_context_MemoryExecutionContext::convertBooleans($nvpMap),
-            self::$_PROPERTY_JSMAP  => tubepress_impl_context_MemoryExecutionContext::convertBooleans($jsMap),
+            self::$_PROPERTY_NVPMAP => $this->_convertBooleans($nvpMap),
+            self::$_PROPERTY_JSMAP  => $this->_convertBooleans($jsMap),
         );
 
         $event->setSubject(array_merge($args, $newArgs));
@@ -145,5 +145,22 @@ class tubepress_addons_core_impl_listeners_cssjs_GalleryInitJsBaseParams
     private function _getPlayerJsUrl(tubepress_spi_player_PluggablePlayerLocationService $player)
     {
         return rtrim($player->getPlayerJsUrl(), '/');
+    }
+
+    private function _convertBooleans($map)
+    {
+        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+
+        foreach ($map as $key => $value) {
+
+            if (!$optionProvider->hasOption($key) || !$optionProvider->isBoolean($key)) {
+
+                continue;
+            }
+
+            $map[$key] = $value ? true : false;
+        }
+
+        return $map;
     }
 }

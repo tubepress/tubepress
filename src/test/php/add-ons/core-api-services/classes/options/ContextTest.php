@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_impl_context_MemoryExecutionContext<extended>
+ * @covers tubepress_addons_coreapiservices_impl_options_Context<extended>
  */
-class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_coreapiservices_options_ContextTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_context_MemoryExecutionContext
+     * @var tubepress_addons_coreapiservices_impl_options_Context
      */
     private $_sut;
 
@@ -40,7 +40,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
         $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
 
-        $this->_sut = new tubepress_impl_context_MemoryExecutionContext();
+        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Context();
     }
 
     public function testSetGet()
@@ -64,27 +64,6 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
         $this->assertTrue($result === 'crazytheme was a bad value', var_export($result, true));
     }
 
-    public function testReset()
-    {
-        $this->_setupFilters(tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
-        $this->_setupValidationServiceToPass(tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
-
-        $customOptions = array(tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
-        $this->_sut->setAll($customOptions);
-
-        $this->assertEquals(array('theme' => 'fakeoptionvalue'), $this->_sut->getCustomOptions());
-
-        $this->_sut->reset();
-
-        $this->assertEquals(array(), $this->_sut->getCustomOptions());
-    }
-
-    public function testGetSetShortcode()
-    {
-        $this->_sut->setActualShortcodeUsed("fakeshort");
-        $this->assertEquals("fakeshort", $this->_sut->getActualShortcodeUsed());
-    }
-
     public function testGetCustomOption()
     {
         $this->_setupFilters(tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
@@ -97,7 +76,7 @@ class tubepress_test_impl_exec_MemoryExecutionContextTest extends tubepress_test
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
         $this->assertEquals('fakeoptionvalue', $this->_sut->get(tubepress_api_const_options_names_Thumbs::THEME));
-        $this->assertEquals(1, sizeof(array_intersect(array('theme' => 'fakeoptionvalue'), $this->_sut->getCustomOptions())));
+        $this->assertEquals(1, sizeof(array_intersect(array('theme' => 'fakeoptionvalue'), $this->_sut->getAllInMemory())));
     }
 
     public function testGetCustomOptionWithBadValue()
