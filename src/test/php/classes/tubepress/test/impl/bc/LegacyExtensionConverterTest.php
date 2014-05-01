@@ -114,15 +114,15 @@ class tubepress_test_impl_bc_LegacyExtensionConverterTest extends tubepress_test
     {
         $mockAddon1 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
         $mockAddon1->shouldReceive('getName')->once()->andReturn('vimeo-all-access');
-        $mockAddon1->shouldReceive('getVersion')->once()->andReturn(new tubepress_spi_version_Version(1, 0, 0));
+        $mockAddon1->shouldReceive('getVersion')->once()->andReturn(new tubepress_api_version_Version(1, 0, 0));
 
         $mockAddon2 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
         $mockAddon2->shouldReceive('getName')->once()->andReturn('vimeo-all-access');
-        $mockAddon2->shouldReceive('getVersion')->once()->andReturn(new tubepress_spi_version_Version(0, 9, 9));
+        $mockAddon2->shouldReceive('getVersion')->once()->andReturn(new tubepress_api_version_Version(0, 9, 9));
 
         $mockAddon3 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
         $mockAddon3->shouldReceive('getName')->once()->andReturn('vimeo-all-access');
-        $mockAddon3->shouldReceive('getVersion')->once()->andReturn(new tubepress_spi_version_Version(2, 0, 0));
+        $mockAddon3->shouldReceive('getVersion')->once()->andReturn(new tubepress_api_version_Version(2, 0, 0));
 
         $mockAddon4 = ehough_mockery_Mockery::mock(tubepress_spi_addon_AddonInterface::_);
         $mockAddon4->shouldReceive('getName')->once()->andReturn('blablabla-all-access');

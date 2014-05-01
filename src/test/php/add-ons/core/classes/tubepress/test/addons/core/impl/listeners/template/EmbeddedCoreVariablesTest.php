@@ -31,15 +31,17 @@ class tubepress_test_addons_core_impl_listeners_template_EmbeddedCoreVariablesTe
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables();
+        $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_sut = new tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables($this->_mockEnvironmentDetector);
 
         $this->_mockExecutionContext    = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
     }
 
     public function testAlter()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('<tubepress_base_url>');
+        $mockBaseUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('<tubepress_base_url>');
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
 
         $mockTemplate = ehough_mockery_Mockery::mock('ehough_contemplate_api_Template');
 

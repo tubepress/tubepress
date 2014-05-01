@@ -43,7 +43,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     private $_name;
 
     /**
-     * @var tubepress_spi_version_Version
+     * @var tubepress_api_version_Version
      */
     private $_version;
 
@@ -211,7 +211,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return tubepress_spi_version_Version The version of this add-on.
+     * @return tubepress_api_version_Version The version of this add-on.
      */
     public function getVersion()
     {
@@ -412,7 +412,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     private function _setVersion($version)
     {
-        if ($version instanceof tubepress_spi_version_Version) {
+        if ($version instanceof tubepress_api_version_Version) {
 
             $this->_version = $version;
 
@@ -420,7 +420,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
             try {
 
-                $this->_version = tubepress_spi_version_Version::parse($version);
+                $this->_version = tubepress_api_version_Version::parse($version);
 
             } catch (InvalidArgumentException $e) {
 

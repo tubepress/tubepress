@@ -26,14 +26,18 @@ class tubepress_test_addons_core_impl_listeners_cssjs_BaseUrlSetterTest extends 
 
     public function onSetup()
     {
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_sut                     = new tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter();
+        $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_sut                     = new tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter($this->_mockEnvironmentDetector);
     }
 
     public function testOnJsConfig()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('foobar');
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn('barfoo');
+        $mockBaseUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUserContentUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('foobar');
+        $mockUserContentUrl->shouldReceive('toString')->once()->andReturn('barfoo');
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn($mockUserContentUrl);
 
         $event = new tubepress_spi_event_EventBase(array());
 

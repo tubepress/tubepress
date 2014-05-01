@@ -12,41 +12,47 @@
 /**
  * Detects TubePress's environment
  */
-class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_spi_environment_EnvironmentDetector
+class tubepress_addons_coreservices_impl_environment_Environment implements tubepress_api_environment_EnvironmentInterface
 {
     /**
-     * @var tubepress_spi_version_Version
+     * @var tubepress_api_version_Version
      */
     private $_version;
 
     /**
-     * @var string TubePress installation URL.
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    /**
+     * @var tubepress_addons_wordpress_spi_WpFunctionsInterface
+     */
+    private $_wpFunctionsInterface;
+
+    /**
+     * @var tubepress_api_url_UrlInterface TubePress installation URL.
      */
     private $_baseUrl;
 
     /**
-     * @var string User content URL.
+     * @var tubepress_api_url_UrlInterface User content URL.
      */
     private $_userContentUrl;
 
     /**
-     * @var bool Cache to reduce file lookups.
+     * @var bool
      */
-    private $_cacheIsWordPress;
-
-    /**
-     * @var bool Cache to reduce file lookups.
-     */
-    private $_cacheIsPro;
+    private $_isPro = false;
 
     /**
      * @var string Cache to reduce computation.
      */
     private $_cacheUserContentDirectory;
 
-    public function __construct()
+    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
-        $this->_version = tubepress_spi_version_Version::parse('9.9.9');
+        $this->_version    = tubepress_api_version_Version::parse('9.9.9');
+        $this->_urlFactory = $urlFactory;
     }
 
     /**
@@ -56,12 +62,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
      */
     public function isPro()
     {
-        if (!isset($this->_cacheIsPro)) {
-
-            $this->_cacheIsPro = is_readable(dirname(__FILE__) . '/../../../TubePressPro.php');
-        }
-
-        return $this->_cacheIsPro;
+        return $this->_isPro;
     }
 
     /**
@@ -71,13 +72,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
      */
     public function isWordPress()
     {
-        if (!isset($this->_cacheIsWordPress)) {
-
-            $this->_cacheIsWordPress = strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false
-            || function_exists('wp_cron');
-        }
-
-        return $this->_cacheIsWordPress;
+        return isset($this->_wpFunctionsInterface);
     }
 
     /**
@@ -118,7 +113,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
     /**
      * Get the current TubePress version.
      *
-     * @return tubepress_spi_version_Version The current version.
+     * @return tubepress_api_version_Version The current version.
      */
     public function getVersion()
     {
@@ -126,7 +121,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
     }
 
     /**
-     * @return string The base TubePress URL.
+     * @return tubepress_api_url_UrlInterface The base TubePress URL.
      */
     public function getBaseUrl()
     {
@@ -135,7 +130,7 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
 
     public function setBaseUrl($url)
     {
-        $this->_baseUrl = $this->_urlToString($url);
+        $this->_baseUrl = $this->_toUrl($url);
     }
 
     /**
@@ -147,26 +142,35 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
 
             if (defined('TUBEPRESS_CONTENT_URL')) {
 
-                $this->_userContentUrl = rtrim(TUBEPRESS_CONTENT_URL, DIRECTORY_SEPARATOR);
-
-                return $this->_userContentUrl;
-            }
-
-            if ($this->isWordPress()) {
-
-                /**
-                 * @var $wordPressFunctionWrapper tubepress_addons_wordpress_spi_WpFunctionsInterface
-                 */
-                $wordPressFunctionWrapper = tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
-
-                $prefix = $wordPressFunctionWrapper->content_url();
+                $url = rtrim(TUBEPRESS_CONTENT_URL, DIRECTORY_SEPARATOR);
 
             } else {
 
-                $prefix = $this->getBaseUrl();
+                if ($this->isWordPress()) {
+
+                    $url = $this->_wpFunctionsInterface->content_url();
+
+                } else {
+
+                    if ($this->getBaseUrl() === null) {
+
+                        return null;
+                    }
+
+                    $url = $this->getBaseUrl()->toString();
+                }
+
+                $url .= '/tubepress-content';
             }
 
-            $this->_userContentUrl = $this->_urlToString($prefix . '/tubepress-content');
+            try {
+
+                $this->_userContentUrl = $this->_toUrl($url);
+
+            } catch (InvalidArgumentException $e) {
+
+                return null;
+            }
         }
 
         return $this->_userContentUrl;
@@ -181,19 +185,31 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
      */
     public function setUserContentUrl($url)
     {
-        $this->_userContentUrl = $this->_urlToString($url);
+        $this->_userContentUrl = $this->_toUrl($url);
     }
 
-    private function _urlToString($url)
+    public function setWpFunctionsInterface($wpFunctionsInterface)
+    {
+        if (!is_a($wpFunctionsInterface, 'tubepress_addons_wordpress_spi_WpFunctionsInterface')) {
+
+            throw new InvalidArgumentException('Invalid argument to tubepress_addons_coreservices_impl_environment_Environment::setWpFunctionsInterface');
+        }
+
+        $this->_wpFunctionsInterface = $wpFunctionsInterface;
+    }
+
+    public function markAsPro()
+    {
+        $this->_isPro = true;
+    }
+
+    private function _toUrl($url)
     {
         if (!($url instanceof tubepress_api_url_UrlInterface)) {
 
-            $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-            $url        = $urlFactory->fromString($url);
+            $url = $this->_urlFactory->fromString($url);
         }
 
-        $result = tubepress_impl_util_UrlUtils::getAsStringWithoutSchemeAndAuthority($url);
-
-        return rtrim($result, '/');
+        return $url;
     }
 }

@@ -28,7 +28,17 @@ class tubepress_addons_coreservices_impl_ioc_CoreServicesContainerExtension impl
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
+        $this->_registerEnvironment($containerBuilder);
         $this->_registerCurrentUrlService($containerBuilder);
+    }
+
+    private function _registerEnvironment(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_api_environment_EnvironmentInterface::_,
+            'tubepress_addons_coreservices_impl_environment_Environment'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_));
     }
 
     private function _registerCurrentUrlService(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

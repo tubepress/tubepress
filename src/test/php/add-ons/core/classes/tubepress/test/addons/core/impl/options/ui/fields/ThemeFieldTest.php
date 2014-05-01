@@ -35,7 +35,7 @@ class tubepress_test_addons_core_impl_options_ui_fields_ThemeFieldTest extends t
         $mockTheme->shouldReceive('getLicenses')->once()->andReturn(array(
             array('type' => 'foo license', 'url' => 'http://foo.bar')
         ));
-        $mockTheme->shouldReceive('getVersion')->once()->andReturn(new tubepress_spi_version_Version(8));
+        $mockTheme->shouldReceive('getVersion')->once()->andReturn(new tubepress_api_version_Version(8));
         $mockTheme->shouldReceive('getDemoUrl')->once()->andReturn('http://foo.bar/demo');
         $mockTheme->shouldReceive('getHomepageUrl')->once()->andReturn('http://foo.bar/home');
         $mockTheme->shouldReceive('getDocumentationUrl')->once()->andReturn('http://foo.bar/docs');

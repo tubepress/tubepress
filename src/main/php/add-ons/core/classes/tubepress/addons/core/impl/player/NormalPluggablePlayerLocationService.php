@@ -15,6 +15,16 @@
 class tubepress_addons_core_impl_player_NormalPluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
 {
     /**
+     * @var tubepress_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
+    {
+        $this->_environment = $environment;
+    }
+
+    /**
      * @param tubepress_spi_theme_ThemeHandlerInterface $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The player's template.
@@ -37,8 +47,7 @@ class tubepress_addons_core_impl_player_NormalPluggablePlayerLocationService imp
      */
     public final function getPlayerJsUrl()
     {
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $sysUrl              = $environmentDetector->getBaseUrl();
+        $sysUrl = $this->_environment->getBaseUrl()->toString();
 
         return "$sysUrl/src/main/web/players/normal/normal.js";
     }

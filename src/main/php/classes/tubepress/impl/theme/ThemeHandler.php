@@ -27,14 +27,20 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
     private $_shouldLog;
 
     /**
+     * @var tubepress_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    /**
      * @var array
      */
     private $_themeMap;
 
-    public function __construct(array $themeMap)
+    public function __construct(array $themeMap, tubepress_api_environment_EnvironmentInterface $environment)
     {
-        $this->_logger   = ehough_epilog_LoggerFactory::getLogger('Theme Handler');
-        $this->_themeMap = $themeMap;
+        $this->_logger      = ehough_epilog_LoggerFactory::getLogger('Theme Handler');
+        $this->_themeMap    = $themeMap;
+        $this->_environment = $environment;
     }
 
     /**
@@ -112,9 +118,8 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
         $themeScripts = $this->_recursivelyGetResourceUrlsForTheme($themeName, tubepress_impl_theme_ThemeBase::ATTRIBUTE_SCRIPTS);
 
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $baseUrl             = $environmentDetector->getBaseUrl();
-        $tubePressJsUrl      = $baseUrl . '/src/main/web/js/tubepress.js';
+        $baseUrl        = $this->_environment->getBaseUrl()->toString();
+        $tubePressJsUrl = $baseUrl . '/src/main/web/js/tubepress.js';
 
         array_unshift($themeScripts, $tubePressJsUrl);
 
@@ -171,7 +176,6 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
     private function _getResourceUrlsForTheme($themeName, $key)
     {
         $toReturn            = array();
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $themeAbsPath        = $this->_themeMap[$themeName][tubepress_addons_core_impl_ioc_compiler_ThemesPrimerPass::ATTRIBUTE_THEME_ROOT];
         $themeBaseName       = basename($themeAbsPath);
         $resources           = $this->_themeMap[$themeName][$key];
@@ -181,8 +185,8 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
             foreach ($resources as $keyUrl => $valUrl) {
 
-                $key = $this->_resourceUrlToAbsolute($keyUrl, $isSystemTheme, $themeBaseName, $environmentDetector);
-                $val = $this->_resourceUrlToAbsolute($valUrl, $isSystemTheme, $themeBaseName, $environmentDetector);
+                $key = $this->_resourceUrlToAbsolute($keyUrl, $isSystemTheme, $themeBaseName);
+                $val = $this->_resourceUrlToAbsolute($valUrl, $isSystemTheme, $themeBaseName);
 
                 $toReturn[$key] = $val;
             }
@@ -191,14 +195,14 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
             foreach ($resources as $url) {
 
-                $toReturn[] = $this->_resourceUrlToAbsolute($url, $isSystemTheme, $themeBaseName, $environmentDetector);
+                $toReturn[] = $this->_resourceUrlToAbsolute($url, $isSystemTheme, $themeBaseName);
             }
         }
 
         return $toReturn;
     }
 
-    private function _resourceUrlToAbsolute($url, $isSystemTheme, $themeBaseName, tubepress_spi_environment_EnvironmentDetector $ed)
+    private function _resourceUrlToAbsolute($url, $isSystemTheme, $themeBaseName)
     {
         if (strpos($url, 'http') === 0) {
 
@@ -217,11 +221,11 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
         if ($isSystemTheme) {
 
-            $prefix = $ed->getBaseUrl() . '/src/main/web/themes/';
+            $prefix = $this->_environment->getBaseUrl()->toString() . '/src/main/web/themes/';
 
         } else {
 
-            $prefix = $ed->getUserContentUrl() . '/themes/';
+            $prefix = $this->_environment->getUserContentUrl()->toString() . '/themes/';
         }
 
         return $prefix . $themeBaseName . '/' . $url;

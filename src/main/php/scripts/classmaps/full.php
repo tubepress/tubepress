@@ -330,7 +330,7 @@ return array(
     'tubepress_spi_contrib_ContributableInterface'                      => $spiPrefix . '/contrib/ContributableInterface.php',
     'tubepress_spi_embedded_EmbeddedHtmlGenerator'                      => $spiPrefix . '/embedded/EmbeddedHtmlGenerator.php',
     'tubepress_spi_embedded_PluggableEmbeddedPlayerService'             => $spiPrefix . '/embedded/PluggableEmbeddedPlayerService.php',
-    'tubepress_spi_environment_EnvironmentDetector'                     => $spiPrefix . '/environment/EnvironmentDetector.php',
+    'tubepress_api_environment_EnvironmentInterface'                     => $spiPrefix . '/environment/EnvironmentDetector.php',
     'tubepress_spi_event_EventBase'                                     => $spiPrefix . '/event/EventBase.php',
     'tubepress_spi_html_CssAndJsHtmlGeneratorInterface'                 => $spiPrefix . '/html/CssAndJsHtmlGeneratorInterface.php',
     'tubepress_spi_http_AjaxHandler'                                    => $spiPrefix . '/http/AjaxHandler.php',

@@ -30,12 +30,12 @@ abstract class tubepress_impl_contrib_AbstractContributableFinder
     private $_finderFactory;
 
     /**
-     * @var tubepress_spi_environment_EnvironmentDetector
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environmentDetector;
 
     public function __construct(ehough_finder_FinderFactoryInterface $finderFactory,
-                                tubepress_spi_environment_EnvironmentDetector $environmentDetector)
+                                tubepress_api_environment_EnvironmentInterface $environmentDetector)
     {
         $this->_logger              = $this->getLogger();
         $this->_finderFactory       = $finderFactory;
@@ -148,7 +148,7 @@ abstract class tubepress_impl_contrib_AbstractContributableFinder
     }
 
     /**
-     * @return tubepress_spi_environment_EnvironmentDetector
+     * @return tubepress_api_environment_EnvironmentInterface
      */
     protected function getEnvironmentDetector()
     {

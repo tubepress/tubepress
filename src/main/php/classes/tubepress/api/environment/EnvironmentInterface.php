@@ -12,27 +12,27 @@
 /**
  * Detects TubePress's environment
  */
-interface tubepress_spi_environment_EnvironmentDetector
+interface tubepress_api_environment_EnvironmentInterface
 {
-    const _ = 'tubepress_spi_environment_EnvironmentDetector';
+    const _ = 'tubepress_api_environment_EnvironmentInterface';
 
     /**
      * Detects if the user is running TubePress Pro.
      *
-     * @return boolean True is the user is running TubePress Pro. False otherwise (or if there is a problem detecting the environment).
+     * @return boolean True is the user is running TubePress Pro. False otherwise.
      */
     function isPro();
 
     /**
      * Detects if the user is running within WordPress
      *
-     * @return boolean True is the user is running within WordPress (or if there is a problem detecting the environment). False otherwise.
+     * @return boolean True is the user is running within WordPress. False otherwise.
      */
     function isWordPress();
 
     /**
      * Find the absolute path of the user's content directory. In WordPress, this will be
-     * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content. Confusing, I know.
+     * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content.
      *
      * @return string The absolute path of the user's content directory.
      */
@@ -41,33 +41,37 @@ interface tubepress_spi_environment_EnvironmentDetector
     /**
      * Get the current TubePress version.
      *
-     * @return tubepress_spi_version_Version The current version.
+     * @return tubepress_api_version_Version The current version.
      */
     function getVersion();
 
     /**
-     * @return string The base TubePress URL.
+     * @return tubepress_api_url_UrlInterface The base TubePress URL. May be null.
      */
     function getBaseUrl();
 
     /**
      * Set the TubePress base URL.
      *
-     * @param mixed $url The new base URL.
+     * @param string|tubepress_api_url_UrlInterface $url The new base URL.
+     *
+     * @throws InvalidArgumentException If unable to parse URL.
      *
      * @return void
      */
     function setBaseUrl($url);
 
     /**
-     * @return string The user content URL.
+     * @return tubepress_api_url_UrlInterface The user content URL. May be null.
      */
     function getUserContentUrl();
 
     /**
      * Set the user content URL.
      *
-     * @param mixed $url The user content URL.
+     * @param string|tubepress_api_url_UrlInterface $url The user content URL.
+     *
+     * @throws InvalidArgumentException If unable to parse URL.
      *
      * @return void
      */

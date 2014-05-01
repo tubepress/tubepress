@@ -47,7 +47,7 @@ class tubepress_test_impl_theme_ThemeFinderTest extends tubepress_test_TubePress
     public function onSetup()
     {
         $this->_mockFinderFactory       = ehough_mockery_Mockery::mock('ehough_finder_FinderFactoryInterface');
-        $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
         $this->_sut                     = new tubepress_impl_theme_ThemeFinder(
 

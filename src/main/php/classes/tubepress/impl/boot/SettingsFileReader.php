@@ -42,7 +42,7 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
     private $_shouldLog = false;
 
     /**
-     * @var tubepress_spi_environment_EnvironmentDetector
+     * @var tubepress_api_environment_EnvironmentInterface
      */
     private $_environmentDetector;
 
@@ -125,9 +125,9 @@ class tubepress_impl_boot_SettingsFileReader implements tubepress_spi_boot_Setti
     /**
      * This function should NOT be use outside of testing.
      *
-     * @param tubepress_spi_environment_EnvironmentDetector $environmentDetector
+     * @param tubepress_api_environment_EnvironmentInterface $environmentDetector
      */
-    public function __setEnvironmentDetector(tubepress_spi_environment_EnvironmentDetector $environmentDetector)
+    public function __setEnvironmentDetector(tubepress_api_environment_EnvironmentInterface $environmentDetector)
     {
         $this->_environmentDetector = $environmentDetector;
     }

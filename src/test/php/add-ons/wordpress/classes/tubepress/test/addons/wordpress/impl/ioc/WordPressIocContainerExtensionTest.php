@@ -37,6 +37,12 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
     {
         $this->expectRegistration(
 
+            'tubepress_addons_wordpress_impl_Callback',
+            'tubepress_addons_wordpress_impl_Callback'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_));
+
+        $this->expectRegistration(
+
             tubepress_spi_message_MessageService::_,
             'tubepress_addons_wordpress_impl_message_WordPressMessageService'
         )->andReturnDefinition();
@@ -53,6 +59,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
             'tubepress_impl_options_ui_DefaultOptionsPage'
 
         )->withArgument(TUBEPRESS_ROOT . '/src/main/php/add-ons/wordpress/resources/templates/options_page.tpl.php')
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
                 array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface',
                     'method' => 'setOptionsPageParticipants'));
@@ -112,7 +120,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        )->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
                 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
 
         $this->expectRegistration(

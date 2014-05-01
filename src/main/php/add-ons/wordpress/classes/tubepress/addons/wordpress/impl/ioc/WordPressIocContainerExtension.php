@@ -42,9 +42,19 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
         $this->_registerWpOptionsPage($containerBuilder);
         $this->_registerWidget($containerBuilder);
         $this->_registerActivator($containerBuilder);
+        $this->_registerCallback($containerBuilder);
 
         $this->_registerPluggables($containerBuilder);
         $this->_registerListeners($containerBuilder);
+    }
+
+    private function _registerCallback(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            'tubepress_addons_wordpress_impl_Callback',
+            'tubepress_addons_wordpress_impl_Callback'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_));
     }
 
     private function _registerPluggables(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -101,7 +111,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
             'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        )->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::OPTIONS_PAGE_TEMPLATE,
                 'method' => 'onOptionsUiTemplate', 'priority' => 10000));
 
         $containerBuilder->register(
@@ -140,6 +151,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_impl_options_ui_DefaultOptionsPage'
 
         )->addArgument(TUBEPRESS_ROOT . '/src/main/php/add-ons/wordpress/resources/templates/options_page.tpl.php')
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
          ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface',
                 'method' => 'setOptionsPageParticipants'));
     }

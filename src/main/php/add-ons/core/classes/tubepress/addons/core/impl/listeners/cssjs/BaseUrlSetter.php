@@ -14,21 +14,30 @@
  */
 class tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter
 {
+    /**
+     * @var tubepress_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
+    {
+        $this->_environment = $environment;
+    }
+
     public function onJsConfig(tubepress_api_event_EventInterface $event)
     {
         /**
          * @var $config array
          */
-        $config              = $event->getSubject();
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
+        $config = $event->getSubject();
 
         if (!isset($config['urls'])) {
 
             $config['urls'] = array();
         }
 
-        $config['urls']['base'] = $environmentDetector->getBaseUrl();
-        $config['urls']['usr']  = $environmentDetector->getUserContentUrl();
+        $config['urls']['base'] = $this->_environment->getBaseUrl()->toString();
+        $config['urls']['usr']  = $this->_environment->getUserContentUrl()->toString();
 
         $event->setSubject($config);
     }

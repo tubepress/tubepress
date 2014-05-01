@@ -20,13 +20,19 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
     private $_templatePath;
 
     /**
+     * @var tubepress_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    /**
      * @var tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface[] Categories.
      */
     private $_optionsPageParticipants;
 
-    public function __construct($templatePath)
+    public function __construct($templatePath, tubepress_api_environment_EnvironmentInterface $environment)
     {
         $this->_templatePath = $templatePath;
+        $this->_environment  = $environment;
     }
 
     /**
@@ -39,7 +45,6 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
     {
         $templateBldr                         = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $eventDispatcher                      = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $environmentDetector                  = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $template                             = $templateBldr->getNewTemplateInstance($this->_templatePath);
         $fields                               = $this->_buildFieldsArray();
         $categories                           = $this->_buildCategoriesArray();
@@ -62,11 +67,11 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
             'categoryIdToParticipantIdToFieldsMap' => $categoryIdToParticipantIdToFieldsMap,
             'errors'                               => $errors,
             'fields'                               => $fields,
-            'isPro'                                => $environmentDetector->isPro(),
+            'isPro'                                => $this->_environment->isPro(),
             'justSubmitted'                        => $justSubmitted,
             'participants'                         => $participants,
             "successMessage"                       => 'Settings updated.',                     //>(translatable)<
-            'tubePressBaseUrl'                     => $environmentDetector->getBaseUrl(),
+            'tubePressBaseUrl'                     => $this->_environment->getBaseUrl()->toString(),
             "saveText"                             => 'Save'                                  //>(translatable)<
         );
 

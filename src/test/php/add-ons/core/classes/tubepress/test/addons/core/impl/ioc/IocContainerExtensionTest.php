@@ -63,11 +63,22 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_CurrentUrlServiceInterface::_))
          ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10200));
 
+        $this->expectRegistration(
+
+            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter',
+            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000));
+
+        $this->expectRegistration(
+
+            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables',
+            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10100));
+
 
         $listeners = array(
-
-            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' =>
-                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10100),
 
             'tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION, 'method' => 'onPlayerTemplate', 'priority' => 10000),
@@ -110,9 +121,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
 
             'tubepress_addons_core_impl_listeners_html_PreCssHtmlListener' =>
                 array('event' => tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, 'method' => 'onBeforeCssHtml', 'priority' => 10000),
-
-            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter' =>
-                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000),
 
             'tubepress_addons_core_impl_listeners_options_LegacyThemeListener' =>
                 array('event' => tubepress_api_const_event_EventNames::OPTION_SINGLE_PRE_VALIDATION_SET . '.' . tubepress_api_const_options_names_Thumbs::THEME,
@@ -382,6 +390,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         foreach ($playerLocationClasses as $playerLocationClass) {
 
             $this->expectRegistration($playerLocationClass, $playerLocationClass)
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
                 ->withTag(tubepress_spi_player_PluggablePlayerLocationService::_);
         }
     }
@@ -411,7 +420,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
     {
         $this->expectRegistration(
 
-            tubepress_spi_environment_EnvironmentDetector::_,
+            tubepress_api_environment_EnvironmentInterface::_,
             'tubepress_impl_environment_SimpleEnvironmentDetector'
         );
     }
@@ -454,7 +463,8 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->expectRegistration(
             tubepress_spi_theme_ThemeHandlerInterface::_,
             'tubepress_impl_theme_ThemeHandler'
-        )->withArgument('%themes%');
+        )->withArgument('%themes%')
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_));
     }
 
     private function _themeFinder()
@@ -463,7 +473,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             tubepress_spi_theme_ThemeFinderInterface::_,
             'tubepress_impl_theme_ThemeFinder'
         )->withArgument(new ehough_iconic_Reference('ehough_finder_FinderFactoryInterface'))
-         ->withArgument(new ehough_iconic_Reference(tubepress_spi_environment_EnvironmentDetector::_));
+         ->withArgument(new ehough_iconic_Reference(tubepress_api_environment_EnvironmentInterface::_));
     }
 
     private function _templateBuilder()

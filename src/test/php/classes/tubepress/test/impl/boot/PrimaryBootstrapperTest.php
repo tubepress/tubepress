@@ -65,7 +65,7 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
     {
         $this->_sut = new tubepress_impl_boot_PrimaryBootstrapper();
 
-        $this->_mockEnvironmentDetector          = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector          = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockStorageManager               = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
         $this->_mockExecutionContext             = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
         $this->_mockHttpRequestParameterService  = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);

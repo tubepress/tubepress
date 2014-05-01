@@ -53,14 +53,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_environment_EnvironmentDetector The environment detector.
-     */
-    public static function getEnvironmentDetector()
-    {
-        return self::getService(tubepress_spi_environment_EnvironmentDetector::_);
-    }
-
-    /**
      * @return tubepress_api_event_EventDispatcherInterface The event dispatcher.
      */
     public static function getEventDispatcher()

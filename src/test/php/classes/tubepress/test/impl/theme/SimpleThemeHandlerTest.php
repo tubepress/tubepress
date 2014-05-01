@@ -49,7 +49,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
         $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockContext             = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_impl_theme_ThemeHandler(array(
 
@@ -112,7 +112,7 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
                 'isSystem' => false,
                 'screenshots' => array()
             )
-        ));
+        ), $this->_mockEnvironmentDetector);
 
         $this->_mockThemeDirectory = sys_get_temp_dir() . '/mock-theme';
         $this->recursivelyDeleteDirectory($this->_mockThemeDirectory);
@@ -127,7 +127,9 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
     public function testGetScreenshots()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('cool/theme');
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn('http://foo.bar/hello/user');
+        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUrl->shouldReceive('toString')->once()->andReturn('http://foo.bar/hello/user');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn($mockUrl);
 
         $actual = $this->_sut->getScreenshots();
         $expected = array(
@@ -140,8 +142,12 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
     public function testGetScripts()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('some/theme');
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->times(3)->andReturn('http://foo.bar/hello');
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->times(4)->andReturn('http://foo.bar/hello/user');
+        $mockUserContentUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUserContentUrl->shouldReceive('toString')->times(4)->andReturn('http://foo.bar/hello/user');
+        $mockBaseUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl->shouldReceive('toString')->times(3)->andReturn('http://foo.bar/hello');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->times(4)->andReturn($mockUserContentUrl);
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->times(3)->andReturn($mockBaseUrl);
 
         $actual = $this->_sut->getScripts();
         $expected = array(
@@ -160,8 +166,12 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
     public function testGetStylesWithParent()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('cool/theme');
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->twice()->andReturn('http://foo.bar/hello');
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn('http://foo.bar/hello/user');
+        $mockUserContentUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockUserContentUrl->shouldReceive('toString')->once()->andReturn('http://foo.bar/hello/user');
+        $mockBaseUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl->shouldReceive('toString')->twice()->andReturn('http://foo.bar/hello');
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->times(1)->andReturn($mockUserContentUrl);
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->times(2)->andReturn($mockBaseUrl);
 
         $us = array(
             'http://foo.edu/car/tire.css',
@@ -185,7 +195,10 @@ class tubepress_test_impl_theme_SimpleThemeHandlerTest extends tubepress_test_Tu
     public function testGetStylesNoParent()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('tubepress/default');
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->twice()->andReturn('http://foo.bar/hello');
+        $mockBaseUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl->shouldReceive('toString')->twice()->andReturn('http://foo.bar/hello');
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->times(2)->andReturn($mockBaseUrl);
+
 
         $actual = $this->_sut->getStyles();
         $expected = array(

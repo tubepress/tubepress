@@ -12,13 +12,23 @@
 class tubepress_addons_wordpress_impl_Callback
 {
     /**
+     * @var tubepress_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    /**
      * @var bool
      */
-    private static $_FLAG_BASE_URL_SET = false;
+    private $_baseUrlAlreadySet = false;
 
-    public static function onFilter($filterName, array $args)
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
     {
-        self::_setBaseUrl();
+        $this->_environment = $environment;
+    }
+
+    public function onFilter($filterName, array $args)
+    {
+        $this->_setBaseUrl();
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $subject         = $args[0];
@@ -34,9 +44,9 @@ class tubepress_addons_wordpress_impl_Callback
         return $event->getSubject();
     }
 
-    public static function onAction($actionName, array $args)
+    public function onAction($actionName, array $args)
     {
-        self::_setBaseUrl();
+        $this->_setBaseUrl();
 
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
         $event           = new tubepress_spi_event_EventBase($args);
@@ -44,48 +54,46 @@ class tubepress_addons_wordpress_impl_Callback
         $eventDispatcher->dispatch("tubepress.wordpress.action.$actionName", $event);
     }
 
-    public static function onPluginActivation()
+    public function onPluginActivation()
     {
-        self::_setBaseUrl();
+        $this->_setBaseUrl();
 
         $service = tubepress_impl_patterns_sl_ServiceLocator::getService('wordpress.pluginActivator');
 
         $service->execute();
     }
 
-    private static function _setBaseUrl()
+    private function _setBaseUrl()
     {
-        if (self::$_FLAG_BASE_URL_SET) {
+        if ($this->_baseUrlAlreadySet) {
 
             return;
         }
 
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
-        $baseName            = basename(TUBEPRESS_ROOT);
+        $baseName = basename(TUBEPRESS_ROOT);
 
         /**
          * @var $wpFunctionWrapper tubepress_addons_wordpress_spi_WpFunctionsInterface
          */
         $wpFunctionWrapper =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
 
         /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
-        if (self::_isWordPressMuDomainMapped()) {
+        if ($this->_isWordPressMuDomainMapped()) {
 
-            $prefix = self::_getScheme($wpFunctionWrapper) . constant('COOKIE_DOMAIN') . '/wp-content';
+            $prefix = $this->_getScheme($wpFunctionWrapper) . constant('COOKIE_DOMAIN') . '/wp-content';
 
         } else {
 
             $prefix = $wpFunctionWrapper->content_url();
         }
 
-        $environmentDetector->setBaseUrl($prefix . "/plugins/$baseName");
+        $this->_environment->setBaseUrl($prefix . "/plugins/$baseName");
 
-        self::$_FLAG_BASE_URL_SET = true;
+        $this->_baseUrlAlreadySet = true;
     }
 
-    private static function _getScheme(tubepress_addons_wordpress_spi_WpFunctionsInterface $wpFunctionWrapper)
+    private function _getScheme(tubepress_addons_wordpress_spi_WpFunctionsInterface $wpFunctionWrapper)
     {
         if ($wpFunctionWrapper->is_ssl()) {
 
@@ -95,7 +103,7 @@ class tubepress_addons_wordpress_impl_Callback
         return 'http://';
     }
 
-    private static function _isWordPressMuDomainMapped()
+    private function _isWordPressMuDomainMapped()
     {
         return defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
     }

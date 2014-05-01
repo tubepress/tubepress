@@ -56,7 +56,7 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
         $this->_mockUserFinder          = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $this->_fakeAddonRoot           = realpath(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultaddondiscoverer/add-ons');
         $this->_splInfoArray            = array();
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut                     = new tubepress_impl_addon_AddonFinder(
 
@@ -166,7 +166,7 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
 
         $this->assertTrue($addon->getName() === 'addon-b');
         $this->assertTrue($addon->getTitle() === 'Title for Add-on B');
-        $this->assertTrue($addon->getVersion() instanceof tubepress_spi_version_Version);
+        $this->assertTrue($addon->getVersion() instanceof tubepress_api_version_Version);
         $this->assertTrue((string) $addon->getVersion() === '3.2.1');
         $this->assertTrue(count($addon->getLicenses()) === 2);
 

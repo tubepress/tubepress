@@ -50,7 +50,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
         $sut = new tubepress_impl_contrib_ContributableBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'proprietary'))
@@ -263,7 +263,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
         new tubepress_impl_contrib_ContributableBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'proprietary', 'foo' => 'bar')),
@@ -281,7 +281,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
         new tubepress_impl_contrib_ContributableBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'proprietary', 'url' => 'bar')),
@@ -298,7 +298,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
         new tubepress_impl_contrib_ContributableBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('foo' => 'bar')),
@@ -315,7 +315,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
         new tubepress_impl_contrib_ContributableBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(),
@@ -331,7 +331,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
         $contrib = new tubepress_impl_contrib_ContributableBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'foobar', 'url' => 'http://foo.bar/')),
@@ -599,7 +599,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
         return new tubepress_impl_contrib_ContributableBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'proprietary'))

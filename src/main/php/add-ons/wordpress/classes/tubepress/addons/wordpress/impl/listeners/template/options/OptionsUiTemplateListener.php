@@ -13,6 +13,13 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
 {
     const TEMPLATE_VAR_BOX_ARRAY = 'tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTemplateListener__boxArray';
 
+    private $_environment;
+
+    public function __construct(tubepress_api_environment_EnvironmentInterface $environment)
+    {
+        $this->_environment = $environment;
+    }
+
     public function onOptionsUiTemplate(tubepress_api_event_EventInterface $event)
     {
         /**
@@ -24,10 +31,9 @@ class tubepress_addons_wordpress_impl_listeners_template_options_OptionsUiTempla
         $template->setVariable("pageTitle", $messageService->_('TubePress Options'));                                                                                                                                                                                                                       //>(translatable)<                                                                                                                                                                                                                                                                                                      //>(translatable)<
         $template->setVariable("introBlurb", $messageService->_(sprintf('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="%s" target="_blank">documentation</a> for more information.', "http://docs.tubepress.com/"))); //>(translatable)<
 
-        $environmentDetector = tubepress_impl_patterns_sl_ServiceLocator::getEnvironmentDetector();
         $toEncode = array();
 
-        if (! $environmentDetector->isPro()) {
+        if (! $this->_environment->isPro()) {
 
             $toEncode[] = $this->_generateBox('You\'re Missing Out!', 'http://tubepress.com/snippets/wordpress/youre-missing-out.php');
         }

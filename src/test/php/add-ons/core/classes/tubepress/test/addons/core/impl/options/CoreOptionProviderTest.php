@@ -153,7 +153,7 @@ class tubepress_test_addons_core_impl_options_CoreOptionProviderTest extends tub
     {
         $this->_mockFileSystem                 = $this->createMockSingletonService('ehough_filesystem_FilesystemInterface');
         $this->_mockFinderFactory              = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
-        $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector        = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
 
         if (!defined('ABSPATH')) {
 

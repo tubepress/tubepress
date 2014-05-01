@@ -26,6 +26,16 @@ class tubepress_test_addons_coreservices_ioc_CoreServicesContainerExtensionTest 
     protected function prepareForLoad()
     {
         $this->_registerCurrentUrlService();
+        $this->_registerEnvironment();
+    }
+
+    private function _registerEnvironment()
+    {
+        $this->expectRegistration(
+
+            tubepress_api_environment_EnvironmentInterface::_,
+            'tubepress_addons_coreservices_impl_environment_Environment'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_));
     }
 
     private function _registerCurrentUrlService()

@@ -115,7 +115,7 @@ class tubepress_impl_bc_LegacyExtensionConverter implements tubepress_spi_bc_Leg
         }
 
         $maxVersionAsString = self::$_knownLegacyAddonNamesToMaxVersions[$addonName];
-        $maxVersion         = tubepress_spi_version_Version::parse($maxVersionAsString);
+        $maxVersion         = tubepress_api_version_Version::parse($maxVersionAsString);
         $addonVersion       = $addon->getVersion();
 
         return $addonVersion->compareTo($maxVersion) <= 0;

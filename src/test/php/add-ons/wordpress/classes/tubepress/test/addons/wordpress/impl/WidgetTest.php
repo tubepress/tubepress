@@ -68,7 +68,7 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
     {
         $this->_mockMessageService              = $this->createMockSingletonService(tubepress_spi_message_MessageService::_);
         $this->_mockExecutionContext            = $this->createMockSingletonService(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockTemplateBuilder             = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);

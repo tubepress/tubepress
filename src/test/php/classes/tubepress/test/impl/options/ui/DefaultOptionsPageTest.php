@@ -53,7 +53,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
     {
         $this->_mockTemplateBuilder     = $this->createMockSingletonService('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEventDispatcher     = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
         $this->_mockStorageManager      = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
 
         $mockFieldA        = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
@@ -64,7 +64,7 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
         $mockParticipant->shouldReceive('getFields')->once()->andReturn($this->_mockFields);
         $this->_mockParticipants = array($mockParticipant);
 
-        $this->_sut = new tubepress_impl_options_ui_DefaultOptionsPage('some path');
+        $this->_sut = new tubepress_impl_options_ui_DefaultOptionsPage('some path', $this->_mockEnvironmentDetector);
 
         $this->_sut->setOptionsPageParticipants($this->_mockParticipants);
     }
@@ -131,7 +131,9 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobaz');
 
         $this->_mockEnvironmentDetector->shouldReceive('isPro')->once()->andReturn(true);
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('syz');
+        $mockBaseUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('syz');
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
 
         $index = 0;
 

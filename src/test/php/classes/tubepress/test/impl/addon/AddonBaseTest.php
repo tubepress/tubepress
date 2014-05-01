@@ -27,7 +27,7 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
         $this->_sut = new tubepress_impl_addon_AddonBase(
 
             'name',
-            tubepress_spi_version_Version::parse('2.3.1'),
+            tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'foobar'))

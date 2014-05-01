@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_addons_puzzle_impl_url_UrlFactory implements tubepress_spi_url_UrlFactoryInterface
+class tubepress_addons_puzzle_impl_url_UrlFactory implements tubepress_api_url_UrlFactoryInterface
 {
     /**
      * @param string $url The URL to parse.

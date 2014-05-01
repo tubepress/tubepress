@@ -26,9 +26,8 @@ class tubepress_test_addons_core_impl_players_PopupPluggablePlayerLocationServic
 
     public function onSetup()
     {
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
-
-        $this->_sut = new tubepress_addons_core_impl_player_PopupPluggablePlayerLocationService();
+        $this->_mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_sut = new tubepress_addons_core_impl_player_PopupPluggablePlayerLocationService($this->_mockEnvironmentDetector);
     }
 
     public function testName()
@@ -54,7 +53,9 @@ class tubepress_test_addons_core_impl_players_PopupPluggablePlayerLocationServic
 
     public function testJsUrl()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn('xyz');
+        $mockBaseUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('xyz');
+        $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
 
         $result = $this->_sut->getPlayerJsUrl();
 

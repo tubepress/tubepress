@@ -17,7 +17,7 @@
  * http://trac.i2p2.de/browser/src/main/java/org/osgi/framework/Version.java?rev=c113cdcdaa29451f600437c9275762580386dbcf
  *
  */
-class tubepress_spi_version_Version
+class tubepress_api_version_Version
 {
     /** Version separator. */
     private static $_SEPARATOR = '.';
@@ -59,7 +59,7 @@ class tubepress_spi_version_Version
 
     public function compareTo($otherVersion)
     {
-        if (!($otherVersion instanceof tubepress_spi_version_Version)) {
+        if (!($otherVersion instanceof tubepress_api_version_Version)) {
 
             return $this->compareTo(self::parse($otherVersion));
         }
@@ -92,7 +92,7 @@ class tubepress_spi_version_Version
             throw new InvalidArgumentException('Can only parse strings to generate version');
         }
 
-        $empty = new tubepress_spi_version_Version(0, 0, 0);
+        $empty = new tubepress_api_version_Version(0, 0, 0);
 
         if ($version == '' || trim($version) == '') {
 
@@ -106,19 +106,19 @@ class tubepress_spi_version_Version
 
             case 1:
 
-                return new tubepress_spi_version_Version(self::_validateNumbersOnly($version));
+                return new tubepress_api_version_Version(self::_validateNumbersOnly($version));
 
             case 2:
 
-                return new tubepress_spi_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]));
+                return new tubepress_api_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]));
 
             case 3:
 
-                return new tubepress_spi_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]), self::_validateNumbersOnly($pieces[2]));
+                return new tubepress_api_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]), self::_validateNumbersOnly($pieces[2]));
 
             case 4:
 
-                return new tubepress_spi_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]), self::_validateNumbersOnly($pieces[2]), $pieces[3]);
+                return new tubepress_api_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]), self::_validateNumbersOnly($pieces[2]), $pieces[3]);
 
             default:
 

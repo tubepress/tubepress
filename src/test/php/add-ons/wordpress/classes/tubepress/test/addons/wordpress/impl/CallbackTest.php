@@ -11,8 +11,6 @@
 
 /**
  * @covers tubepress_addons_wordpress_impl_Callback
- * @runTestsInSeparateProcesses
- * @preserveGlobalState disabled
  */
 class tubepress_test_addons_wordpress_impl_CallbackTest extends tubepress_test_TubePressUnitTest
 {
@@ -21,14 +19,21 @@ class tubepress_test_addons_wordpress_impl_CallbackTest extends tubepress_test_T
      */
     private $_mockEventDispatcher;
 
+    /**
+     * @var tubepress_addons_wordpress_impl_Callback
+     */
+    private $_sut;
+
     public function onSetup()
     {
-        $mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $mockEnvironmentDetector = ehough_mockery_Mockery::mock(tubepress_api_environment_EnvironmentInterface::_);
         $mockWpFunctions         = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
         $this->_mockEventDispatcher = $this->createMockSingletonService('tubepress_api_event_EventDispatcherInterface');
 
         $mockWpFunctions->shouldReceive('content_url')->once()->andReturn('booya');
         $mockEnvironmentDetector->shouldReceive('setBaseUrl')->once()->with('booya/plugins/tubepress');
+
+        $this->_sut = new tubepress_addons_wordpress_impl_Callback($mockEnvironmentDetector);
     }
 
     public function testFilter()
@@ -37,7 +42,7 @@ class tubepress_test_addons_wordpress_impl_CallbackTest extends tubepress_test_T
 
         $args = array(1, 'two', array('three'));
 
-        $result = tubepress_addons_wordpress_impl_Callback::onFilter('someFilter', $args);
+        $result = $this->_sut->onFilter('someFilter', $args);
 
         $this->assertEquals('xyz', $result);
     }
@@ -48,7 +53,7 @@ class tubepress_test_addons_wordpress_impl_CallbackTest extends tubepress_test_T
 
         $args = array(1, 'two', array('three'));
 
-        tubepress_addons_wordpress_impl_Callback::onAction('someAction', $args);
+        $this->_sut->onAction('someAction', $args);
 
         $this->assertTrue(true);
     }
@@ -59,7 +64,7 @@ class tubepress_test_addons_wordpress_impl_CallbackTest extends tubepress_test_T
 
         $mock->shouldReceive('execute')->once();
 
-        tubepress_addons_wordpress_impl_Callback::onPluginActivation();
+        $this->_sut->onPluginActivation();
 
         $this->assertTrue(true);
     }

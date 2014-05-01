@@ -232,7 +232,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             tubepress_spi_theme_ThemeFinderInterface::_,
             'tubepress_impl_theme_ThemeFinder'
         )->addArgument(new ehough_iconic_Reference('ehough_finder_FinderFactoryInterface'))
-         ->addArgument(new ehough_iconic_Reference(tubepress_spi_environment_EnvironmentDetector::_));
+         ->addArgument(new ehough_iconic_Reference(tubepress_api_environment_EnvironmentInterface::_));
     }
 
     private function _registerThemeHandler(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -241,7 +241,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             tubepress_spi_theme_ThemeHandlerInterface::_,
             'tubepress_impl_theme_ThemeHandler'
-        )->addArgument('%themes%');
+        )->addArgument('%themes%')
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_));
     }
 
     private function _registerVideoCollector(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -500,7 +501,8 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
                 $playerLocationClass, $playerLocationClass
 
-            )->addTag(tubepress_spi_player_PluggablePlayerLocationService::_);
+            )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+             ->addTag(tubepress_spi_player_PluggablePlayerLocationService::_);
         }
     }
 
@@ -559,11 +561,21 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_CurrentUrlServiceInterface::_))
             ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_THUMBNAIL_GALLERY, 'method' => 'onGalleryTemplate', 'priority' => 10200));
 
+        $containerBuilder->register(
+
+            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter',
+            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000));
+
+        $containerBuilder->register(
+
+            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables',
+            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10100));
 
         $listeners = array(
-
-            'tubepress_addons_core_impl_listeners_template_EmbeddedCoreVariables' =>
-                array('event' => tubepress_api_const_event_EventNames::TEMPLATE_EMBEDDED, 'method' => 'onEmbeddedTemplate', 'priority' => 10100),
 
             'tubepress_addons_core_impl_listeners_template_PlayerLocationCoreVariables' =>
                 array('event' => tubepress_api_const_event_EventNames::TEMPLATE_PLAYERLOCATION, 'method' => 'onPlayerTemplate', 'priority' => 10000),
@@ -606,9 +618,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'tubepress_addons_core_impl_listeners_html_PreCssHtmlListener' =>
                 array('event' => tubepress_api_const_event_EventNames::HTML_STYLESHEETS_PRE, 'method' => 'onBeforeCssHtml', 'priority' => 10000),
-
-            'tubepress_addons_core_impl_listeners_cssjs_BaseUrlSetter' =>
-                array('event' => tubepress_api_const_event_EventNames::CSS_JS_GLOBAL_JS_CONFIG, 'method' => 'onJsConfig', 'priority' => 10000),
         );
 
         foreach ($listeners as $className => $tagAttributes) {
@@ -660,7 +669,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
     {
         $containerBuilder->register(
 
-            tubepress_spi_environment_EnvironmentDetector::_,
+            tubepress_api_environment_EnvironmentInterface::_,
             'tubepress_impl_environment_SimpleEnvironmentDetector'
         );
     }

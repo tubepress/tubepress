@@ -21,7 +21,7 @@ interface tubepress_spi_contrib_ContributableInterface
     function getName();
 
     /**
-     * @return tubepress_spi_version_Version The version of this add-on.
+     * @return tubepress_api_version_Version The version of this add-on.
      */
     function getVersion();
 

@@ -32,7 +32,7 @@ class tubepress_test_impl_boot_SettingsFileReaderTest extends tubepress_test_Tub
     public function onSetup()
     {
         $this->_sut                     = new tubepress_impl_boot_SettingsFileReader();
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
 
         $this->_sut->__setEnvironmentDetector($this->_mockEnvironmentDetector);
 

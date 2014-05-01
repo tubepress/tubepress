@@ -39,6 +39,6 @@ return array(
     'tubepress_impl_patterns_sl_ServiceLocator'                   => $_bootStrapClassMapSysPrefix . '/impl/patterns/sl/ServiceLocator.php',
     'tubepress_spi_boot_secondary_SecondaryBootstrapperInterface' => $_bootStrapClassMapSysPrefix . '/spi/boot/secondary/SecondaryBootstrapperInterface.php',
     'tubepress_spi_boot_SettingsFileReaderInterface'              => $_bootStrapClassMapSysPrefix . '/spi/boot/SettingsFileReaderInterface.php',
-    'tubepress_spi_environment_EnvironmentDetector'               => $_bootStrapClassMapSysPrefix . '/spi/environment/EnvironmentDetector.php',
+    'tubepress_api_environment_EnvironmentInterface'               => $_bootStrapClassMapSysPrefix . '/spi/environment/EnvironmentDetector.php',
     'tubepress_spi_version_Version'                               => $_bootStrapClassMapSysPrefix . '/spi/version/Version.php',
 );
