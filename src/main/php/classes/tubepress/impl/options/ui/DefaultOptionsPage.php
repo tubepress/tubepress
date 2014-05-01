@@ -25,14 +25,22 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
     private $_environment;
 
     /**
+     * @var tubepress_api_options_PersistenceInterface
+     */
+    private $_persistence;
+
+    /**
      * @var tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface[] Categories.
      */
     private $_optionsPageParticipants;
 
-    public function __construct($templatePath, tubepress_api_environment_EnvironmentInterface $environment)
+    public function __construct($templatePath,
+                                tubepress_api_environment_EnvironmentInterface $environment,
+                                tubepress_api_options_PersistenceInterface $persistence)
     {
         $this->_templatePath = $templatePath;
         $this->_environment  = $environment;
+        $this->_persistence  = $persistence;
     }
 
     /**
@@ -112,10 +120,7 @@ class tubepress_impl_options_ui_DefaultOptionsPage implements tubepress_spi_opti
         /**
          * Let's save!
          */
-
-        $optionStorage = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-
-        $optionStorage->flushSaveQueue();
+        $this->_persistence->flushSaveQueue();
 
         return $errors;
     }

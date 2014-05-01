@@ -153,6 +153,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
         )->addArgument(TUBEPRESS_ROOT . '/src/main/php/add-ons/wordpress/resources/templates/options_page.tpl.php')
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_environment_EnvironmentInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
          ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => 'tubepress_spi_options_ui_PluggableOptionsPageParticipantInterface',
                 'method' => 'setOptionsPageParticipants'));
     }
@@ -173,6 +174,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'wordpress.widget',
             'tubepress_addons_wordpress_impl_Widget'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
     }
 
@@ -193,6 +195,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             "tubepress_addons_wordpress_impl_filters_Content"
 
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array(
 
                 'event'    => "tubepress.wordpress.filter.the_content",

@@ -21,9 +21,11 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     private $_metaOptionNameService;
 
-    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    public function __construct(
+        tubepress_api_options_PersistenceInterface $persistence,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
-        parent::__construct(self::FIELD_ID, $translator, 'Show each video\'s...');   //>(translatable)<
+        parent::__construct(self::FIELD_ID, $translator, $persistence, 'Show each video\'s...');   //>(translatable)<
     }
 
     /**
@@ -41,13 +43,12 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function getCurrentlySelectedValues()
     {
-        $metaNames      = $this->_getAllMetaOptionNames();
-        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $toReturn       = array();
+        $metaNames = $this->_getAllMetaOptionNames();
+        $toReturn  = array();
 
         foreach ($metaNames as $metaName) {
 
-            if ($storageManager->fetch($metaName)) {
+            if ($this->getOptionPersistence()->fetch($metaName)) {
 
                 $toReturn[] = $metaName;
             }
@@ -91,13 +92,12 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function onSubmitAllMissing()
     {
-        $storage     = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $optionNames = $this->_getAllMetaOptionNames();
 
         //they unchecked everything
         foreach ($optionNames as $optionName) {
 
-            $message = $storage->queueForSave($optionName, false);
+            $message = $this->getOptionPersistence()->queueForSave($optionName, false);
 
             if ($message !== null) {
 
@@ -115,12 +115,11 @@ class tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField extends 
      */
     protected function onSubmitMixed(array $values)
     {
-        $storage     = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $optionNames = $this->_getAllMetaOptionNames();
 
         foreach ($optionNames as $optionName) {
 
-            $message = $storage->queueForSave($optionName, in_array($optionName, $values));
+            $message = $this->getOptionPersistence()->queueForSave($optionName, in_array($optionName, $values));
 
             if ($message !== null) {
 

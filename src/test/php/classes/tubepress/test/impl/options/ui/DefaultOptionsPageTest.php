@@ -64,7 +64,8 @@ class tubepress_test_impl_options_ui_DefaultFormHandlerTest extends tubepress_te
         $mockParticipant->shouldReceive('getFields')->once()->andReturn($this->_mockFields);
         $this->_mockParticipants = array($mockParticipant);
 
-        $this->_sut = new tubepress_impl_options_ui_DefaultOptionsPage('some path', $this->_mockEnvironmentDetector);
+        $this->_sut = new tubepress_impl_options_ui_DefaultOptionsPage('some path',
+            $this->_mockEnvironmentDetector, $this->_mockStorageManager);
 
         $this->_sut->setOptionsPageParticipants($this->_mockParticipants);
     }

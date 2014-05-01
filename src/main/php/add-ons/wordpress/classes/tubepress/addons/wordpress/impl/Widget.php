@@ -27,12 +27,19 @@ class tubepress_addons_wordpress_impl_Widget
      */
     private $_context;
 
+    /**
+     * @var tubepress_api_options_PersistenceInterface
+     */
+    private $_persistence;
+
     public function __construct(
         tubepress_api_options_ContextInterface $context,
+        tubepress_api_options_PersistenceInterface $persistence,
         tubepress_api_translation_TranslatorInterface $translator)
     {
-        $this->_translator = $translator;
-        $this->_context    = $context;
+        $this->_translator  = $translator;
+        $this->_context     = $context;
+        $this->_persistence = $persistence;
     }
 
     /**
@@ -102,7 +109,6 @@ class tubepress_addons_wordpress_impl_Widget
      */
     public final function printControlHtml()
     {
-        $wpsm         = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $tplBuilder   = tubepress_impl_patterns_sl_ServiceLocator::getTemplateBuilder();
         $hrps         = tubepress_impl_patterns_sl_ServiceLocator::getHttpRequestParameterService();
 
@@ -111,10 +117,10 @@ class tubepress_addons_wordpress_impl_Widget
 
             self::_verifyNonce();
 
-            $wpsm->queueForSave(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
-            $wpsm->queueForSave(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
+            $this->_persistence->queueForSave(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
+            $this->_persistence->queueForSave(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
 
-            $wpsm->flushSaveQueue();
+            $this->_persistence->flushSaveQueue();
         }
 
         /* load up the gallery template */
@@ -122,10 +128,10 @@ class tubepress_addons_wordpress_impl_Widget
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */
-        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
+        $tpl->setVariable(self::WIDGET_TITLE, $this->_persistence->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_TITLE));
         $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $this->_translator->_('Title'));                                                                                                            //>(translatable)<
         $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $this->_translator->_(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"))); //>(translatable)<
-        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
+        $tpl->setVariable(self::WIDGET_SHORTCODE, $this->_persistence->fetch(tubepress_addons_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
         $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 
         /* get the template's output */

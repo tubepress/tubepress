@@ -19,10 +19,18 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
      */
     private $_untranslatedDescription;
 
+    /**
+     * @var tubepress_api_options_PersistenceInterface
+     */
+    private $_persistence;
+
     public function __construct($id, tubepress_api_translation_TranslatorInterface $translator,
+                                tubepress_api_options_PersistenceInterface $persistence,
                                 $untranslatedDisplayName = null, $untranslatedDescription = null)
     {
         parent::__construct($id, $translator, $untranslatedDisplayName);
+
+        $this->_persistence = $persistence;
 
         if ($untranslatedDescription) {
 
@@ -56,9 +64,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
      */
     protected function sendToStorage($name, $value)
     {
-        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-
-        return $storageManager->queueForSave($name, $value);
+        return $this->_persistence->queueForSave($name, $value);
     }
 
     /**
@@ -74,5 +80,13 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionsPageField extends
     {
         //override point
         return $originalDescription;
+    }
+
+    /**
+     * @return tubepress_api_options_PersistenceInterface
+     */
+    protected function getOptionPersistence()
+    {
+        return $this->_persistence;
     }
 }

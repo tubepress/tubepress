@@ -40,7 +40,7 @@ class tubepress_test_addons_coreapiservices_options_ContextTest extends tubepres
         $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
         $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
 
-        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Context();
+        $this->_sut = new tubepress_addons_coreapiservices_impl_options_Context($this->_mockStorageManager);
     }
 
     public function testSetGet()

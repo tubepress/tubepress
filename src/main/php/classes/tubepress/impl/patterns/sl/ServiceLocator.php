@@ -117,14 +117,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_api_options_PersistenceInterface The option storage manager.
-     */
-    public static function getOptionStorageManager()
-    {
-        return self::getService(tubepress_api_options_PersistenceInterface::_);
-    }
-
-    /**
      * @return tubepress_spi_player_PlayerHtmlGenerator The player HTML generator.
      */
     public static function getPlayerHtmlGenerator()

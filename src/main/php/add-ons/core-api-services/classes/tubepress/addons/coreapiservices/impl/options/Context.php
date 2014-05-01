@@ -27,11 +27,17 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
     private $_logger;
 
     /**
+     * @var tubepress_api_options_PersistenceInterface
+     */
+    private $_persistence;
+
+    /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct(tubepress_api_options_PersistenceInterface $persistence)
     {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Memory Execution Context');
+        $this->_logger      = ehough_epilog_LoggerFactory::getLogger('Memory Execution Context');
+        $this->_persistence = $persistence;
     }
 
     /**
@@ -54,9 +60,7 @@ class tubepress_addons_coreapiservices_impl_options_Context implements tubepress
             return $this->_customOptions[$optionName];
         }
 
-        $optionStorageManagerService = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-
-        return $optionStorageManagerService->fetch($optionName);
+        return $this->_persistence->fetch($optionName);
     }
 
     /**

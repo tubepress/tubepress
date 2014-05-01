@@ -21,15 +21,18 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
      */
     private $_optionsPageParticipants = array();
 
-    public function __construct(tubepress_api_translation_TranslatorInterface $translator)
+    public function __construct(
+        tubepress_api_options_PersistenceInterface $persistence,
+        tubepress_api_translation_TranslatorInterface $translator)
     {
-        $optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
-        $optionName     = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
+        $optionProvider     = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
+        $optionName         = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
 
         parent::__construct(
 
             self::FIELD_ID,
             $translator,
+            $persistence,
             $optionName,
             $optionProvider->getDescription($optionName)
         );
@@ -60,9 +63,8 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
      */
     protected function getCurrentlySelectedValues()
     {
-        $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $optionName          = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
-        $currentHides        = explode(';', $storageManager->fetch($optionName));
+        $currentHides        = explode(';', $this->getOptionPersistence()->fetch($optionName));
         $participantsNameMap = $this->_getParticipantNamesToFriendlyNamesMap();
         $currentShows        = array();
 
@@ -90,11 +92,10 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
      */
     protected function onSubmitAllMissing()
     {
-        $storageManager = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $participantIds = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
         $newValue       = implode(';', $participantIds);
 
-        return $storageManager->queueForSave(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, $newValue);
+        return $this->getOptionPersistence()->queueForSave(tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS, $newValue);
     }
 
     /**
@@ -104,7 +105,6 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
      */
     protected function onSubmitMixed(array $values)
     {
-        $storageManager      = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $optionName          = tubepress_api_const_options_names_OptionsUi::DISABLED_OPTIONS_PAGE_PARTICIPANTS;
         $allParticipantNames = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
 
@@ -126,7 +126,7 @@ class tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField extend
             $toHide[] = $participantName;
         }
 
-        return $storageManager->queueForSave($optionName, implode(';', $toHide));
+        return $this->getOptionPersistence()->queueForSave($optionName, implode(';', $toHide));
     }
 
     private function _getParticipantNamesToFriendlyNamesMap()

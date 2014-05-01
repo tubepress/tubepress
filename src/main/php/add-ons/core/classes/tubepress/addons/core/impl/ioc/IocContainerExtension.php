@@ -301,28 +301,32 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
             'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_GallerySourceField'
-        );
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_));
 
         //Filter field
         $containerBuilder->register(
 
             'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_ParticipantFilterField'
-        );
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
 
         //Meta multi-select
         $containerBuilder->register(
 
             'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_MetaMultiSelectField'
-        );
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
 
         //Theme field
         $containerBuilder->register(
 
             'core_options_field_' . $fieldIndex++,
             'tubepress_addons_core_impl_options_ui_fields_ThemeField'
-        );
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
 
         $fieldMap = array(
 

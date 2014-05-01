@@ -53,7 +53,10 @@ class tubepress_test_addons_core_impl_options_ui_fields_ThemeFieldTest extends t
 
     protected function buildSut()
     {
-        return new tubepress_addons_core_impl_options_ui_fields_ThemeField($this->getMockMessageService());
+        return new tubepress_addons_core_impl_options_ui_fields_ThemeField(
+            $this->getMockStorageManager(),
+            $this->getMockMessageService()
+        );
     }
 
     /**

@@ -78,7 +78,9 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractProvidedOptionBased
     {
         $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with($this->getOptionName())->andReturn(false);
 
-        new tubepress_impl_options_ui_fields_TextField($this->getOptionName(), $this->getMockMessageService());
+        new tubepress_impl_options_ui_fields_TextField(
+            $this->getOptionName(), $this->getMockMessageService(),
+        $this->getMockStorageManager());
     }
 
     public function testGetProOnlyNo()

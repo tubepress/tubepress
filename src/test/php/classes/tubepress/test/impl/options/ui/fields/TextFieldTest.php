@@ -28,7 +28,8 @@ class tubepress_test_impl_options_ui_fields_TextFieldTest extends tubepress_test
 
     protected function buildSut()
     {
-        $field = new tubepress_impl_options_ui_fields_TextField($this->getOptionName(), $this->getMockMessageService());
+        $field = new tubepress_impl_options_ui_fields_TextField(
+            $this->getOptionName(), $this->getMockMessageService(), $this->getMockStorageManager());
 
         $field->setSize(99);
 

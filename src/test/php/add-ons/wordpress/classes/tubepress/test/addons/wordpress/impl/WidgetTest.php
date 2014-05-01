@@ -82,7 +82,9 @@ class tubepress_test_addons_wordpress_impl_WidgetTest extends tubepress_test_Tub
 
         $this->_sut = new tubepress_addons_wordpress_impl_Widget(
             $this->_mockExecutionContext,
-            $this->_mockMessageService);
+            $this->_mockStorageManager,
+            $this->_mockMessageService
+        );
     }
 
     public function testPrintWidgetControl()

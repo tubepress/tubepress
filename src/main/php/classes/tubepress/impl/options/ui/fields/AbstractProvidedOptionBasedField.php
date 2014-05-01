@@ -19,7 +19,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
      */
     private $_optionProvider;
 
-    public function __construct($optionName, tubepress_api_translation_TranslatorInterface $translator)
+    public function __construct($optionName, tubepress_api_translation_TranslatorInterface $translator,
+                                tubepress_api_options_PersistenceInterface $persistence)
     {
         $this->_optionProvider = tubepress_impl_patterns_sl_ServiceLocator::getOptionProvider();
 
@@ -31,7 +32,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
         $label       = $this->_optionProvider->getLabel($optionName);
         $description = $this->_optionProvider->getDescription($optionName);
 
-        parent::__construct($optionName, $translator, $label, $description);
+        parent::__construct($optionName, $translator, $persistence, $label, $description);
     }
 
     /**
@@ -76,9 +77,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractProvidedOptionBasedField
      */
     protected function getTemplateVariables()
     {
-        $storage = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
         $id      = $this->getId();
-        $value   = $this->convertStorageFormatToStringValueForHTML($storage->fetch($id));
+        $value   = $this->convertStorageFormatToStringValueForHTML($this->getOptionPersistence()->fetch($id));
 
         return array_merge(array(
 

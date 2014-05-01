@@ -46,7 +46,7 @@ class tubepress_test_addons_coreapiservices_ioc_CoreServicesContainerExtensionTe
 
             tubepress_api_options_ContextInterface::_,
             'tubepress_addons_coreapiservices_impl_options_Context'
-        );
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_));
     }
 
     private function _registerEnvironment()

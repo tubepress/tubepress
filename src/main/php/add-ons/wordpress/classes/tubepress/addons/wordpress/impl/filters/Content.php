@@ -16,9 +16,16 @@ class tubepress_addons_wordpress_impl_filters_Content
      */
     private $_context;
 
-    public function __construct(tubepress_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_api_options_PersistenceInterface
+     */
+    private $_persistence;
+
+    public function __construct(tubepress_api_options_ContextInterface $context,
+                                tubepress_api_options_PersistenceInterface $persistence)
     {
-        $this->_context = $context;
+        $this->_context     = $context;
+        $this->_persistence = $persistence;
     }
 
     /**
@@ -29,8 +36,7 @@ class tubepress_addons_wordpress_impl_filters_Content
         $content = $event->getSubject();
 
         /* do as little work as possible here 'cause we might not even run */
-        $wpsm    = tubepress_impl_patterns_sl_ServiceLocator::getOptionStorageManager();
-        $trigger = $wpsm->fetch(tubepress_api_const_options_names_Advanced::KEYWORD);
+        $trigger = $this->_persistence->fetch(tubepress_api_const_options_names_Advanced::KEYWORD);
         $parser  = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
 
         /* no shortcode? get out */

@@ -58,7 +58,10 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
         $this->_mockShortcodeParser        = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
         $this->_mockStorageManager         = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
         $this->_mockEventDispatcher        = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_sut = new tubepress_addons_wordpress_impl_filters_Content($this->_mockExecutionContext);
+        $this->_sut = new tubepress_addons_wordpress_impl_filters_Content(
+            $this->_mockExecutionContext,
+            $this->_mockStorageManager
+        );
     }
 
     public function testNormalOperation()
