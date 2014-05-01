@@ -12,14 +12,23 @@
 /**
  * Generates HTML for use in the <head>.
  */
-interface tubepress_spi_html_CssAndJsHtmlGeneratorInterface
+interface tubepress_api_html_HtmlGeneratorInterface
 {
-    const _ = 'tubepress_spi_html_CssAndJsHtmlGeneratorInterface';
+    const _ = 'tubepress_api_html_HtmlGeneratorInterface';
 
     /**
      * @return string The HTML that should be displayed in the HTML <head>.
      */
     function getCssHtml();
+
+    /**
+     * Generates the HTML for the given shortcode.
+     *
+     * @param string $shortCodeContent The shortcode content.
+     *
+     * @return string The HTML for the given shortcode, or the error message if there was a problem.
+     */
+    function getHtmlForShortcode($shortCodeContent);
 
     /**
      * @return string The HTML that should be displayed in the HTML footer (just before </html>)

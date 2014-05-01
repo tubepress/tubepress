@@ -24,9 +24,15 @@ class tubepress_test_addons_wordpress_impl_actions_WpHeadTest extends tubepress_
      */
     private $_mockWordPressFunctionWrapper;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockHtmlGenerator;
+
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_wordpress_impl_actions_WpHead();
+        $this->_mockHtmlGenerator = $this->createMockSingletonService(tubepress_api_html_HtmlGeneratorInterface::_);
+        $this->_sut = new tubepress_addons_wordpress_impl_actions_WpHead($this->_mockHtmlGenerator);
 
         $this->_mockWordPressFunctionWrapper = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
     }
@@ -42,9 +48,9 @@ class tubepress_test_addons_wordpress_impl_actions_WpHeadTest extends tubepress_
 
     public function testExecuteOutsideAdmin()
     {
-        $mock = $this->createMockSingletonService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
-        $mock->shouldReceive('getCssHtml')->once()->andReturn('hello there');
-        $mock->shouldReceive('getJsHtml')->once()->andReturn('goodbye now');
+
+        $this->_mockHtmlGenerator->shouldReceive('getCssHtml')->once()->andReturn('hello there');
+        $this->_mockHtmlGenerator->shouldReceive('getJsHtml')->once()->andReturn('goodbye now');
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
 

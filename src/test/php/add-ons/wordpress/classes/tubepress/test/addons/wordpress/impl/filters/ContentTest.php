@@ -54,13 +54,14 @@ class tubepress_test_addons_wordpress_impl_filters_ContentTest extends tubepress
 
         $this->_mockExecutionContext       = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
         $this->_mockMessageService         = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
-        $this->_mockShortcodeHtmlGenerator = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
+        $this->_mockShortcodeHtmlGenerator = $this->createMockSingletonService(tubepress_api_html_HtmlGeneratorInterface::_);
         $this->_mockShortcodeParser        = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
         $this->_mockStorageManager         = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
         $this->_mockEventDispatcher        = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_sut = new tubepress_addons_wordpress_impl_filters_Content(
             $this->_mockExecutionContext,
-            $this->_mockStorageManager
+            $this->_mockStorageManager,
+            $this->_mockShortcodeHtmlGenerator
         );
     }
 

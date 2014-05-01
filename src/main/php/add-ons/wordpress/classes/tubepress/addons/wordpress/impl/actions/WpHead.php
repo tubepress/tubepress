@@ -12,6 +12,16 @@
 class tubepress_addons_wordpress_impl_actions_WpHead
 {
     /**
+     * @var tubepress_api_html_HtmlGeneratorInterface
+     */
+    private $_htmlGenerator;
+
+    public function __construct(tubepress_api_html_HtmlGeneratorInterface $htmlGenerator)
+    {
+        $this->_htmlGenerator = $htmlGenerator;
+    }
+
+    /**
      * Filter the content (which may be empty).
      */
     public final function action(tubepress_api_event_EventInterface $event)
@@ -24,10 +34,8 @@ class tubepress_addons_wordpress_impl_actions_WpHead
             return;
         }
 
-        $hh = tubepress_impl_patterns_sl_ServiceLocator::getCssAndJsHtmlGenerator();
-
         /* this inline JS helps initialize TubePress */
-        print $hh->getCssHtml();
-        print $hh->getJsHtml();
+        print $this->_htmlGenerator->getCssHtml();
+        print $this->_htmlGenerator->getJsHtml();
     }
 }

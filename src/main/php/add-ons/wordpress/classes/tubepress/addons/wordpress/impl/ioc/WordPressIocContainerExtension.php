@@ -175,7 +175,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
             'tubepress_addons_wordpress_impl_Widget'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_));
     }
 
     private function _registerWpFunctionWrapper(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -196,6 +197,7 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_html_HtmlGeneratorInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array(
 
                 'event'    => "tubepress.wordpress.filter.the_content",
@@ -227,13 +229,25 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
 
     private function _registerActions(tubepress_api_ioc_ContainerBuilderInterface $builder)
     {
+        $builder->register(
+
+            "wordpress.action.wp_head.WpHead",
+            "tubepress_addons_wordpress_impl_actions_WpHead"
+
+        )->addArgument(tubepress_api_html_HtmlGeneratorInterface::_)
+         ->addTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array(
+
+                'event'    => "tubepress.wordpress.action.wp_head",
+                'method'   => "action",
+                'priority' => 10000
+            ));
+
         $map = array(
 
             'admin_enqueue_scripts' => 'AdminEnqueueScripts',
             'admin_head'            => 'AdminHead',
             'admin_menu'            => 'AdminMenu',
             'init'                  => 'Init',
-            'wp_head'               => 'WpHead',
         );
 
         foreach ($map as $actionName => $classSuffix) {

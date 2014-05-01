@@ -32,14 +32,21 @@ class tubepress_addons_wordpress_impl_Widget
      */
     private $_persistence;
 
+    /**
+     * @var tubepress_api_html_HtmlGeneratorInterface
+     */
+    private $_htmlGenerator;
+
     public function __construct(
         tubepress_api_options_ContextInterface $context,
         tubepress_api_options_PersistenceInterface $persistence,
-        tubepress_api_translation_TranslatorInterface $translator)
+        tubepress_api_translation_TranslatorInterface $translator,
+        tubepress_api_html_HtmlGeneratorInterface $htmlGenerator)
     {
-        $this->_translator  = $translator;
-        $this->_context     = $context;
-        $this->_persistence = $persistence;
+        $this->_translator    = $translator;
+        $this->_context       = $context;
+        $this->_persistence   = $persistence;
+        $this->_htmlGenerator = $htmlGenerator;
     }
 
     /**
@@ -53,8 +60,7 @@ class tubepress_addons_wordpress_impl_Widget
     {
         extract($opts);
 
-        $parser       = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
-        $gallery      = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHtmlGenerator();
+        $parser = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeParser();
 
         /* default widget options */
         $defaultWidgetOptions = array(
@@ -87,7 +93,7 @@ class tubepress_addons_wordpress_impl_Widget
 
         try {
 
-            $out = $gallery->getHtmlForShortcode('');
+            $out = $this->_htmlGenerator->getHtmlForShortcode('');
 
         } catch (Exception $e) {
 

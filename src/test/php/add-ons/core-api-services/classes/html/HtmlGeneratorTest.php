@@ -10,12 +10,12 @@
  */
 
 /**
- * @var tubepress_impl_html_CssAndJsHtmlGenerator
+ * @covers tubepress_addons_coreapiservices_impl_html_HtmlGenerator
  */
-class tubepress_test_impl_html_CssAndJsHtmlGeneratorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_addons_coreapiservices_impl_html_CssAndJsHtmlGeneratorTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_html_CssAndJsHtmlGenerator
+     * @var tubepress_addons_coreapiservices_impl_html_HtmlGenerator
      */
     private $_sut;
 
@@ -34,13 +34,19 @@ class tubepress_test_impl_html_CssAndJsHtmlGeneratorTest extends tubepress_test_
      */
     private $_mockThemeHandlerInterface;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockShortcodeParser;
+
     public function onSetup()
     {
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockEventDispatcher             = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
         $this->_mockThemeHandlerInterface       = $this->createMockSingletonService(tubepress_spi_theme_ThemeHandlerInterface::_);
+        $this->_mockShortcodeParser             = $this->createMockSingletonService(tubepress_spi_shortcode_ShortcodeParser::_);
 
-        $this->_sut = new tubepress_impl_html_CssAndJsHtmlGenerator();
+        $this->_sut = new tubepress_addons_coreapiservices_impl_html_HtmlGenerator();
     }
 
     public function testCssHtml()
@@ -109,5 +115,45 @@ class tubepress_test_impl_html_CssAndJsHtmlGeneratorTest extends tubepress_test_
         $result = $this->_sut->getJsHtml();
 
         $this->assertEquals('yum', $result);
+    }
+
+    public function testOneHandlerCouldHandle()
+    {
+        $mockHandler = ehough_mockery_Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+        $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(true);
+        $mockHandler->shouldReceive('getHtml')->once()->andReturn('foobar');
+
+        $this->_sut->setPluggableShortcodeHandlers(array($mockHandler));
+
+        $this->_mockShortcodeParser->shouldReceive('parse')->once();
+
+        $result = $this->_sut->getHtmlForShortcode('shortcode');
+
+        $this->assertEquals('foobar', $result);
+    }
+
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testNoHandlersCouldHandle()
+    {
+        $mockHandler = ehough_mockery_Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
+        $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(false);
+
+        $this->_mockShortcodeParser->shouldReceive('parse')->once();
+
+        $this->_sut->setPluggableShortcodeHandlers(array($mockHandler));
+
+        $this->_sut->getHtmlForShortcode('shortcode');
+    }
+
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testNoHandlers()
+    {
+        $this->_mockShortcodeParser->shouldReceive('parse')->once();
+
+        $this->_sut->getHtmlForShortcode('shortcode');
     }
 }

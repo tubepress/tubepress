@@ -30,8 +30,24 @@ class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension i
     {
         $this->_registerEnvironment($containerBuilder);
         $this->_registerCurrentUrlService($containerBuilder);
+        $this->_registerHtmlGenerator($containerBuilder);
         $this->_registerOptionsContext($containerBuilder);
         $this->_registerOptionsPersistence($containerBuilder);
+    }
+
+    private function _registerHtmlGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_api_html_HtmlGeneratorInterface::_,
+            'tubepress_addons_coreapiservices_impl_html_HtmlGenerator'
+        )->addTag(
+                self::TAG_TAGGED_SERVICES_CONSUMER,
+                array(
+                    'tag' => tubepress_spi_shortcode_PluggableShortcodeHandlerService::_,
+                    'method' => 'setPluggableShortcodeHandlers'
+                )
+            );
     }
 
     private function _registerOptionsPersistence(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)

@@ -21,7 +21,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_filesystemFinderFactory();
         $this->_ajaxHandler();
         $this->_cacheService();
-        $this->_cssAndJs();
         $this->_embeddedGenerator();
         $this->_filesystem();
         $this->_hrps();
@@ -30,7 +29,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
         $this->_optionProvider();
         $this->_optionMetaNameService();
         $this->_registerPlayerHtml();
-        $this->_shortcode();
         $this->_shortcodeParser();
         $this->_templateBuilder();
         $this->_themeHandler();
@@ -561,13 +559,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             'tubepress_impl_shortcode_SimpleShortcodeParser')->withArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_));
     }
 
-    private function _shortcode()
-    {
-        $this->expectRegistration(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
-            'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator')->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
-                array('tag' => tubepress_spi_shortcode_PluggableShortcodeHandlerService::_, 'method' => 'setPluggableShortcodeHandlers'));
-    }
-
     private function _optionMetaNameService()
     {
         $this->expectRegistration(
@@ -633,11 +624,6 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_provider_PluggableVideoProviderService::_, 'method' => 'setPluggableVideoProviders'))
             ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_embedded_PluggableEmbeddedPlayerService::_, 'method' => 'setPluggableEmbeddedPlayers'));
 
-    }
-
-    private function _cssAndJs()
-    {
-        $this->expectRegistration(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_, 'tubepress_impl_html_CssAndJsHtmlGenerator');
     }
 
     private function _ajaxHandler()

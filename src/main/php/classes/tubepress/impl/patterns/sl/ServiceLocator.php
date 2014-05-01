@@ -37,14 +37,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_html_CssAndJsHtmlGeneratorInterface The head HTML generator.
-     */
-    public static function getCssAndJsHtmlGenerator()
-    {
-        return self::getService(tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_);
-    }
-
-    /**
      * @return tubepress_spi_embedded_EmbeddedHtmlGenerator The embedded HTML generator.
      */
     public static function getEmbeddedHtmlGenerator()
@@ -122,14 +114,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     public static function getPlayerHtmlGenerator()
     {
         return self::getService(tubepress_spi_player_PlayerHtmlGenerator::_);
-    }
-
-    /**
-     * @return tubepress_spi_shortcode_ShortcodeHtmlGenerator The shortcode HTML generator.
-     */
-    public static function getShortcodeHtmlGenerator()
-    {
-        return self::getService(tubepress_spi_shortcode_ShortcodeHtmlGenerator::_);
     }
 
     /**

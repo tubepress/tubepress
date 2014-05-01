@@ -21,11 +21,18 @@ class tubepress_addons_wordpress_impl_filters_Content
      */
     private $_persistence;
 
+    /**
+     * @var tubepress_api_html_HtmlGeneratorInterface
+     */
+    private $_htmlGenerator;
+
     public function __construct(tubepress_api_options_ContextInterface $context,
-                                tubepress_api_options_PersistenceInterface $persistence)
+                                tubepress_api_options_PersistenceInterface $persistence,
+                                tubepress_api_html_HtmlGeneratorInterface $htmlGenerator)
     {
-        $this->_context     = $context;
-        $this->_persistence = $persistence;
+        $this->_context       = $context;
+        $this->_persistence   = $persistence;
+        $this->_htmlGenerator = $htmlGenerator;
     }
 
     /**
@@ -50,15 +57,13 @@ class tubepress_addons_wordpress_impl_filters_Content
 
     private function _getHtml($content, $trigger, tubepress_spi_shortcode_ShortcodeParser $parser)
     {
-        $gallery = tubepress_impl_patterns_sl_ServiceLocator::getShortcodeHtmlGenerator();
-
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
             try {
 
-                $generatedHtml = $gallery->getHtmlForShortcode($content);
+                $generatedHtml = $this->_htmlGenerator->getHtmlForShortcode($content);
 
             } catch (Exception $e) {
 

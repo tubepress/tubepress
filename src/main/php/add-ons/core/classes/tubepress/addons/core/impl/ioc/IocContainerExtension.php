@@ -34,7 +34,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerFilesystemFinderFactory($containerBuilder);
         $this->_registerAjaxHandler($containerBuilder);
         $this->_registerCacheService($containerBuilder);
-        $this->_registerCssAndJsGenerator($containerBuilder);
         $this->_registerEmbeddedHtmlGenerator($containerBuilder);
         $this->_registerFilesystem($containerBuilder);
         $this->_registerHttpRequestParameterService($containerBuilder);
@@ -43,7 +42,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
         $this->_registerCoreOptionProvider($containerBuilder);
         $this->_registerMetaOptionNameService($containerBuilder);
         $this->_registerPlayerHtmlGenerator($containerBuilder);
-        $this->_registerShortcodeHtmlGenerator($containerBuilder);
         $this->_registerShortcodeParser($containerBuilder);
         $this->_registerTemplateBuilder($containerBuilder);
         $this->_registerThemeHandler($containerBuilder);
@@ -100,15 +98,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
 
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_ContextInterface::_))
          ->addArgument(new tubepress_impl_ioc_Reference($actualPoolServiceId));
-    }
-
-    private function _registerCssAndJsGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_html_CssAndJsHtmlGeneratorInterface::_,
-            'tubepress_impl_html_CssAndJsHtmlGenerator'
-        );
     }
 
     private function _registerEmbeddedHtmlGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -190,15 +179,6 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
          ->addTag(self::TAG_TAGGED_SERVICES_CONSUMER, array('tag' => tubepress_spi_player_PluggablePlayerLocationService::_, 'method' => 'setPluggablePlayerLocations'));
     }
 
-    private function _registerShortcodeHtmlGenerator(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_spi_shortcode_ShortcodeHtmlGenerator::_,
-            'tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator'
-        )->addTag(self::TAG_TAGGED_SERVICES_CONSUMER,
-                array('tag' => tubepress_spi_shortcode_PluggableShortcodeHandlerService::_, 'method' => 'setPluggableShortcodeHandlers'));
-    }
 
     private function _registerShortcodeParser(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {

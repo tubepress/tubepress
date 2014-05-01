@@ -26,9 +26,25 @@ class tubepress_test_addons_coreapiservices_ioc_CoreServicesContainerExtensionTe
     protected function prepareForLoad()
     {
         $this->_registerContext();
+        $this->_registerHtmlGenerator();
         $this->_registerPersistence();
         $this->_registerCurrentUrlService();
         $this->_registerEnvironment();
+    }
+
+    private function _registerHtmlGenerator()
+    {
+        $this->expectRegistration(
+
+            tubepress_api_html_HtmlGeneratorInterface::_,
+            'tubepress_addons_coreapiservices_impl_html_HtmlGenerator'
+        )->withTag(
+            tubepress_api_ioc_ContainerExtensionInterface::TAG_TAGGED_SERVICES_CONSUMER,
+            array(
+                'tag' => tubepress_spi_shortcode_PluggableShortcodeHandlerService::_,
+                'method' => 'setPluggableShortcodeHandlers'
+            )
+        );
     }
 
     private function _registerPersistence()
