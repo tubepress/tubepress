@@ -24,6 +24,16 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
     private static $_URL_PARAM_PLAYER_ID = 'player_id';
 
     /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    {
+        $this->_urlFactory = $urlFactory;
+    }
+
+    /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
      */
     public final function getName()
@@ -49,7 +59,6 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
     public final function getDataUrlForVideo($videoId)
     {
         $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
 
         $autoPlay = $context->get(tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $showInfo = $context->get(tubepress_api_const_options_names_Embedded::SHOW_INFO);
@@ -59,7 +68,7 @@ class tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService i
         $color    = $context->get(tubepress_addons_vimeo_api_const_options_names_Embedded::PLAYER_COLOR);
 
         /* build the data URL based on these options */
-        $link  = $urlFactory->fromString("http://player.vimeo.com/video/$videoId");
+        $link  = $this->_urlFactory->fromString("http://player.vimeo.com/video/$videoId");
         $query = $link->getQuery();
 
         $query->set(self::$_URL_PARAM_AUTOPLAY, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));

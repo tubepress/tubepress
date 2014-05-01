@@ -192,6 +192,7 @@ class tubepress_impl_theme_ThemeFinder extends tubepress_impl_contrib_AbstractCo
                 ucwords(basename($legacyThemeDirectory)) . ' (legacy)',
                 array('name' => 'unknown'),
                 array(array('type' => 'MIT', 'url' => 'http://opensource.org/licenses/MIT')),
+                $this->getUrlFactory(),
                 false,
                 $legacyThemeDirectory
             );

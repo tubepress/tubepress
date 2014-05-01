@@ -17,8 +17,10 @@ class tubepress_test_addons_embedplus_impl_ioc_EmbedPlusIocContainerExtensionTes
 
     protected function prepareForLoad()
     {
-        $this->expectRegistration('tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
-            'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService')
-            ->withTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        $this->expectRegistration(
+            'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
+            'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->withTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
     }
 }

@@ -26,8 +26,8 @@ class tubepress_test_addons_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends 
 
     public function onSetup() {
 
-        $this->_sut = new tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService();
-        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_sut = new tubepress_addons_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService($this->_mockUrlFactory);
     }
 
     public function testGetName()

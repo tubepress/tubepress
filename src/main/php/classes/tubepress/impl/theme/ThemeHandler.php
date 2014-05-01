@@ -36,11 +36,18 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
      */
     private $_themeMap;
 
-    public function __construct(array $themeMap, tubepress_api_environment_EnvironmentInterface $environment)
+    /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(array $themeMap, tubepress_api_environment_EnvironmentInterface $environment,
+        tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_logger      = ehough_epilog_LoggerFactory::getLogger('Theme Handler');
         $this->_themeMap    = $themeMap;
         $this->_environment = $environment;
+        $this->_urlFactory  = $urlFactory;
     }
 
     /**
@@ -208,8 +215,7 @@ class tubepress_impl_theme_ThemeHandler implements tubepress_spi_theme_ThemeHand
 
             try {
 
-                $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-                $urlFactory->fromString($url);
+                $this->_urlFactory->fromString($url);
 
                 return $url;
 

@@ -31,6 +31,7 @@ class tubepress_addons_embedplus_impl_ioc_EmbedPlusIocContainerExtension impleme
             'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService',
             'tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService'
 
-        )->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
+         ->addTag(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
     }
 }

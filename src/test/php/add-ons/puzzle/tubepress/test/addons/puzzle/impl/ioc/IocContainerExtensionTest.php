@@ -48,7 +48,7 @@ class tubepress_test_addons_puzzle_impl_ioc_IocContainerExtensionTest extends tu
     {
         $this->expectRegistration(
 
-            tubepress_spi_url_UrlFactoryInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_,
             'tubepress_addons_puzzle_impl_url_UrlFactory'
         );
     }

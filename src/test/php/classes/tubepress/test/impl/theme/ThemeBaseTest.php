@@ -26,7 +26,7 @@ class tubepress_test_impl_theme_ThemeBaseTest extends tubepress_test_TubePressUn
 
     public function onSetup()
     {
-        $this->_mockUrlFactory    = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $this->_mockUrlFactory    = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
 
         $this->_mockUrlFactory->shouldReceive('fromString')->with('http://bar.com/hello');
         $this->_mockUrlFactory->shouldReceive('fromString')->with('http://foo.com/yoyo');
@@ -37,6 +37,7 @@ class tubepress_test_impl_theme_ThemeBaseTest extends tubepress_test_TubePressUn
             'my theme',
             array('name' => 'foo', 'url' => 'http://bar.com/hello'),
             array(array('type' => 'fooz', 'url' => 'http://foo.com/yoyo')),
+            $this->_mockUrlFactory,
             false,
             sys_get_temp_dir()
         );
@@ -115,6 +116,7 @@ class tubepress_test_impl_theme_ThemeBaseTest extends tubepress_test_TubePressUn
             'my theme',
             array('name' => 'foo', 'url' => 'http://bar.com/hello'),
             array(array('type' => 'fooz', 'url' => 'http://foo.com/yoyo')),
+            $this->_mockUrlFactory,
             false,
             '/bad/path'
         );

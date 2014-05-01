@@ -55,6 +55,7 @@ class tubepress_test_addons_core_impl_ioc_IocContainerExtensionTest extends tube
             'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_CurrentUrlServiceInterface::_))
          ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->withTag(tubepress_api_ioc_ContainerExtensionInterface::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT, 'method' => 'onSearchInputTemplate', 'priority' => 10000));
 
         $this->expectRegistration(

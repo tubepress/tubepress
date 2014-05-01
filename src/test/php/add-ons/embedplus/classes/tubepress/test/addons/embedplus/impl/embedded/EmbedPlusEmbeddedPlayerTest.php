@@ -22,8 +22,8 @@ class tubepress_test_addons_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest 
 
     public function onSetup() {
 
-        $this->_sut = new tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService();
-        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
+        $this->_sut = new tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService($this->_mockUrlFactory);
     }
 
     public function testGetName()

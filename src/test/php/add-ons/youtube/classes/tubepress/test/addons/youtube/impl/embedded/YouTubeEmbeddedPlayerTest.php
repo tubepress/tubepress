@@ -32,9 +32,9 @@ class tubepress_test_addons_youtube_impl_embedded_YouTubeEmbeddedPlayerTest exte
     public function onSetup()
     {
         $this->_mockQss        = $this->createMockSingletonService(tubepress_api_url_CurrentUrlServiceInterface::_);
-        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $this->_mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
 
-        $this->_sut = new tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService($this->_mockQss);
+        $this->_sut = new tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService($this->_mockQss, $this->_mockUrlFactory);
     }
 
     public function testGetName()

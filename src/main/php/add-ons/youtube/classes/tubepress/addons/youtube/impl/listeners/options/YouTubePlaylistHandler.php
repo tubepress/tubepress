@@ -10,6 +10,16 @@
  */
 class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler
 {
+    /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    {
+        $this->_urlFactory = $urlFactory;
+    }
+
     public function onPreValidationOptionSet(tubepress_api_event_EventInterface $event)
     {
         $filteredValue = $this->_maybeGetListValueFromUrl($event->getSubject());
@@ -34,9 +44,7 @@ class tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler
 
         try {
 
-            $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-
-            $url = $urlFactory->fromString($originalValue);
+            $url = $this->_urlFactory->fromString($originalValue);
 
         } catch (Exception $e) {
 

@@ -24,6 +24,16 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
     private static $_URL_PARAM_VERSION     = 'v';
 
     /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    {
+        $this->_urlFactory = $urlFactory;
+    }
+
+    /**
      * Builds a gdata request url for a list of videos
      *
      * @param int $currentPage The current page of the gallery.
@@ -33,7 +43,6 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
     public final function buildGalleryUrl($currentPage)
     {
         $execContext = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $urlFactory  = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
 
         switch ($execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE)) {
 
@@ -88,7 +97,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
                 throw new Exception('Invalid source supplied to YouTube');
         }
 
-        $requestUrl = $urlFactory->fromString("http://gdata.youtube.com/feeds/api/$url");
+        $requestUrl = $this->_urlFactory->fromString("http://gdata.youtube.com/feeds/api/$url");
 
         $this->_urlPostProcessingCommon($execContext, $requestUrl);
 
@@ -109,8 +118,7 @@ class tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder implements tubepr
     public final function buildSingleVideoUrl($id)
     {
         $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-        $requestURL = $urlFactory->fromString("http://gdata.youtube.com/feeds/api/videos/$id");
+        $requestURL = $this->_urlFactory->fromString("http://gdata.youtube.com/feeds/api/videos/$id");
 
         $this->_urlPostProcessingCommon($context, $requestURL);
 

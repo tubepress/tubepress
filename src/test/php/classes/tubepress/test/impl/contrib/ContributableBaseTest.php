@@ -22,7 +22,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
     public function onSetup()
     {
         $this->_mockFinderFactory = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
-        $this->_mockUrlFactory    = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $this->_mockUrlFactory    = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
     }
 
     public function testNormalConstruction1()
@@ -33,7 +33,8 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             '1.0.0',
             'description',
             array('name' => 'eric'),
-            array(array('type' => 'proprietary'))
+            array(array('type' => 'proprietary')),
+            $this->_mockUrlFactory
         );
 
         $this->assertEquals('name', $sut->getName());
@@ -53,7 +54,8 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('type' => 'proprietary'))
+            array(array('type' => 'proprietary')),
+            $this->_mockUrlFactory
         );
 
         $this->assertEquals('name', $sut->getName());
@@ -74,7 +76,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -89,7 +91,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -104,7 +106,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -119,7 +121,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -134,7 +136,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -150,7 +152,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             . 'wlkjwkljrwklejfwklfjsdklfjsdklfjsdgkljgkljdfkljsdfklaejerklwjfsklfjskldjskldfjsklfjsklgjwekltjsdklvjhxdjkvhsklfjsdjkfhsdjklfhsdfjhsdfsg',
             array('name' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -165,7 +167,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             array(),
             array('name' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -182,7 +184,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'bar'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -197,7 +199,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'foo' => 'bar'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -212,7 +214,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('foo' => 'eric'),
             array(array('url' => 'http://tubepress.com')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -229,7 +231,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar', 'email' => 'xyz'),
             array(array('type' => 'foobar')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -244,7 +246,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar', 'email' => 'no@yes.com'),
             array(array('type' => 'foobar')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
 
         $author = $contrib->getAuthor();
@@ -267,7 +269,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'proprietary', 'foo' => 'bar')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -285,7 +287,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'proprietary', 'url' => 'bar')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -302,7 +304,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('foo' => 'bar')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -319,7 +321,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
     }
 
@@ -335,7 +337,7 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
             array(array('type' => 'foobar', 'url' => 'http://foo.bar/')),
-            'tubepress_impl_player_AddonBaseTest'
+            $this->_mockUrlFactory
         );
 
         $licenses = $contrib->getLicenses();
@@ -358,7 +360,8 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             '1.0.0',
             'description',
             array('name' => 'eric'),
-            array(array('type' => 'proprietary'))
+            array(array('type' => 'proprietary')),
+            $this->_mockUrlFactory
         );
 
         $sut->setDescription('something');
@@ -602,7 +605,8 @@ class tubepress_test_impl_contrib_ContributableBaseTest extends tubepress_test_T
             tubepress_api_version_Version::parse('2.3.1'),
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('type' => 'proprietary'))
+            array(array('type' => 'proprietary')),
+            $this->_mockUrlFactory
         );
     }
 }

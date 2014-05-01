@@ -554,6 +554,7 @@ class tubepress_addons_core_impl_ioc_IocContainerExtension implements tubepress_
             'tubepress_addons_core_impl_listeners_template_SearchInputCoreVariables'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_CurrentUrlServiceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_translation_TranslatorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_url_UrlFactoryInterface::_))
          ->addTag(self::TAG_EVENT_LISTENER, array('event' => tubepress_api_const_event_EventNames::TEMPLATE_SEARCH_INPUT, 'method' => 'onSearchInputTemplate', 'priority' => 10000));
 
         $containerBuilder->register(

@@ -15,6 +15,16 @@
 class tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    {
+        $this->_urlFactory = $urlFactory;
+    }
+
+    /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
      */
     public final function getName()
@@ -39,9 +49,7 @@ class tubepress_addons_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerS
      */
     public final function getDataUrlForVideo($videoId)
     {
-        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-
-        return $urlFactory->fromString(sprintf('http://www.youtube.com/embed/%s', $videoId));
+        return $this->_urlFactory->fromString(sprintf('http://www.youtube.com/embed/%s', $videoId));
     }
 
     /**

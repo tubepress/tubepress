@@ -34,12 +34,19 @@ abstract class tubepress_impl_contrib_AbstractContributableFinder
      */
     private $_environmentDetector;
 
+    /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
     public function __construct(ehough_finder_FinderFactoryInterface $finderFactory,
-                                tubepress_api_environment_EnvironmentInterface $environmentDetector)
+                                tubepress_api_environment_EnvironmentInterface $environmentDetector,
+                                tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_logger              = $this->getLogger();
         $this->_finderFactory       = $finderFactory;
         $this->_environmentDetector = $environmentDetector;
+        $this->_urlFactory          = $urlFactory;
     }
 
     protected function findContributables($sysPath, $userPath)
@@ -224,7 +231,8 @@ abstract class tubepress_impl_contrib_AbstractContributableFinder
             $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_VERSION],
             $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_TITLE],
             $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_AUTHOR],
-            $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_LICENSES]
+            $manifestContents[tubepress_impl_contrib_ContributableBase::ATTRIBUTE_LICENSES],
+            $this->_urlFactory
         );
 
         $additionalConstructorArgs = $this->getAdditionalRequiredConstructorArgs($manifestContents, $absPath);
@@ -353,6 +361,14 @@ abstract class tubepress_impl_contrib_AbstractContributableFinder
         }
 
         return true;
+    }
+
+    /**
+     * @return tubepress_api_url_UrlFactoryInterface
+     */
+    protected function getUrlFactory()
+    {
+        return $this->_urlFactory;
     }
 
     /**

@@ -19,9 +19,16 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
      */
     private $_currentUrlService;
 
-    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService)
+    /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(tubepress_api_url_CurrentUrlServiceInterface $currentUrlService,
+        tubepress_api_url_UrlFactoryInterface $urlFactory)
     {
         $this->_currentUrlService = $currentUrlService;
+        $this->_urlFactory        = $urlFactory;
     }
 
     /**
@@ -50,8 +57,7 @@ class tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerServi
     public final function getDataUrlForVideo($videoId)
     {
         $context    = tubepress_impl_patterns_sl_ServiceLocator::getExecutionContext();
-        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-        $link       = $urlFactory->fromString('https://www.youtube.com/embed/' . $videoId);
+        $link       = $this->_urlFactory->fromString('https://www.youtube.com/embed/' . $videoId);
         $embedQuery = $link->getQuery();
         $url        = $this->_currentUrlService->getUrl();
         $origin     = $url->getScheme() . '://' . $url->getHost();

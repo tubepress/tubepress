@@ -181,14 +181,6 @@ class tubepress_impl_patterns_sl_ServiceLocator
     }
 
     /**
-     * @return tubepress_spi_url_UrlFactoryInterface The URL factory.
-     */
-    public static function getUrlFactoryInterface()
-    {
-        return self::getService(tubepress_spi_url_UrlFactoryInterface::_);
-    }
-
-    /**
      * @return tubepress_spi_collector_VideoCollector The video collector.
      */
     public static function getVideoCollector()

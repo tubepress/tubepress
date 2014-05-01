@@ -102,13 +102,21 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
      */
     private $_screenshots = array();
 
+    /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
     public function __construct(
 
         $name,
         $version,
         $title,
         array $author,
-        array $licenses) {
+        array $licenses,
+        tubepress_api_url_UrlFactoryInterface $urlFactory) {
+
+        $this->_urlFactory = $urlFactory;
 
         $this->_setName($name);
         $this->_setVersion($version);
@@ -315,11 +323,9 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     protected function validateUrl($url, $name)
     {
-        $urlFactory = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-
         try {
 
-            $urlFactory->fromString($url);
+            $this->_urlFactory->fromString($url);
 
         } catch (InvalidArgumentException $e) {
 

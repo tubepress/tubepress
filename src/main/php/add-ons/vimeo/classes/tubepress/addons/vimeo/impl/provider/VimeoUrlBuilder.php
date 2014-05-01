@@ -48,6 +48,16 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
     private static $_URL_BASE = 'http://vimeo.com/api/rest/v2';
 
     /**
+     * @var tubepress_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(tubepress_api_url_UrlFactoryInterface $urlFactory)
+    {
+        $this->_urlFactory = $urlFactory;
+    }
+
+    /**
      * Build a gallery URL for the given page.
      *
      * @param int $currentPage The page number.
@@ -165,8 +175,7 @@ class tubepress_addons_vimeo_impl_provider_VimeoUrlBuilder implements tubepress_
     {
         $finalUrl        = $this->_buildUrl($params);
         $eventDispatcher = tubepress_impl_patterns_sl_ServiceLocator::getEventDispatcher();
-        $urlFactory      = tubepress_impl_patterns_sl_ServiceLocator::getUrlFactoryInterface();
-        $event           = new tubepress_spi_event_EventBase($urlFactory->fromString($finalUrl));
+        $event           = new tubepress_spi_event_EventBase($this->_urlFactory->fromString($finalUrl));
 
         $eventDispatcher->dispatch($eventName, $event);
 

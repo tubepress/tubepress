@@ -58,6 +58,7 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_contrib_Contributabl
         $title,
         array $author,
         array $licenses,
+        tubepress_api_url_UrlFactoryInterface $urlFactory,
         $isSystemTheme,
         $rootPath)
     {
@@ -66,7 +67,8 @@ class tubepress_impl_theme_ThemeBase extends tubepress_impl_contrib_Contributabl
             $version,
             $title,
             $author,
-            $licenses
+            $licenses,
+            $urlFactory
         );
 
         $this->_isSystemTheme = (boolean) $isSystemTheme;

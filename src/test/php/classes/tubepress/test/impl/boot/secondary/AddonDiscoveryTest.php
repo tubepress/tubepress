@@ -51,7 +51,7 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
     public function onSetup()
     {
         $this->_mockFinderFactory       = $this->createMockSingletonService('ehough_finder_FinderFactoryInterface');
-        $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $this->_mockUrlFactory          = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
         $this->_mockSystemFinder        = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $this->_mockUserFinder          = ehough_mockery_Mockery::mock('ehough_finder_FinderInterface');
         $this->_fakeAddonRoot           = realpath(TUBEPRESS_ROOT . '/src/test/resources/fixtures/classes/tubepress/test/impl/boot/defaultaddondiscoverer/add-ons');
@@ -61,7 +61,8 @@ class tubepress_test_impl_boot_secondary_AddonDiscoveryTest extends tubepress_te
         $this->_sut                     = new tubepress_impl_addon_AddonFinder(
 
             $this->_mockFinderFactory,
-            $this->_mockEnvironmentDetector
+            $this->_mockEnvironmentDetector,
+            $this->_mockUrlFactory
         );
 
         $this->_mockUserFinder->name = 'user finder';

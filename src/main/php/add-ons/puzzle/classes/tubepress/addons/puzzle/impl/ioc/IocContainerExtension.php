@@ -32,7 +32,7 @@ class tubepress_addons_puzzle_impl_ioc_IocContainerExtension implements tubepres
     {
         $containerBuilder->register(
 
-            tubepress_spi_url_UrlFactoryInterface::_,
+            tubepress_api_url_UrlFactoryInterface::_,
             'tubepress_addons_puzzle_impl_url_UrlFactory'
         );
     }

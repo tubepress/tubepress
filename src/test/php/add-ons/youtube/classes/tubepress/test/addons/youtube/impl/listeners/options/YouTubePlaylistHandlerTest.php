@@ -21,15 +21,15 @@ class tubepress_test_addons_youtube_impl_listeners_options_YouTubePlaylistHandle
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler();
 
-        $mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
         $mockUrlFactory->shouldReceive('fromString')->andReturnUsing(function ($incoming) {
 
             $factory = new tubepress_addons_puzzle_impl_url_UrlFactory();
 
             return $factory->fromString($incoming);
         });
+        $this->_sut = new tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler($mockUrlFactory);
     }
 
     public function testPullListFromUrl()

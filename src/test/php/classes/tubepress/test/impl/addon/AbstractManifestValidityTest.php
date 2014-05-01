@@ -12,16 +12,18 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
 {
     protected function getAddonFromManifest($pathToManifest)
     {
-        $mockUrlFactory = $this->createMockSingletonService(tubepress_spi_url_UrlFactoryInterface::_);
+        $mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
         $mockUrlFactory->shouldReceive('fromString')->andReturnUsing(function ($incoming) {
 
             $factory = new tubepress_addons_puzzle_impl_url_UrlFactory();
             return $factory->fromString($incoming);
         });
 
+        $urlFactory = new tubepress_addons_puzzle_impl_url_UrlFactory();
         $discoverer = new tubepress_impl_addon_AddonFinder(
             new ehough_finder_FinderFactory(),
-            new tubepress_addons_coreservices_impl_environment_Environment(new tubepress_addons_puzzle_impl_url_UrlFactory())
+            new tubepress_addons_coreservices_impl_environment_Environment($urlFactory),
+            $urlFactory
         );
 
         $addons = $discoverer->_findContributablesInDirectory(dirname($pathToManifest));
