@@ -39,7 +39,7 @@
             "tubepress_addons_wordpress_impl_message_WordPressMessageService"    : "classes/tubepress/addons/wordpress/impl/message/WordPressMessageService.php",
             "tubepress_addons_wordpress_impl_options_ui_fields_WpNonceField"     : "classes/tubepress/addons/wordpress/impl/options/ui/fields/WpNonceField.php",
             "tubepress_addons_wordpress_impl_options_WordPressOptionProvider"    : "classes/tubepress/addons/wordpress/impl/options/WordPressOptionProvider.php",
-            "tubepress_addons_wordpress_impl_options_WordPressStorageManager"    : "classes/tubepress/addons/wordpress/impl/options/WordPressStorageManager.php",
+            "tubepress_addons_wordpress_impl_options_PersistenceBackend"         : "classes/tubepress/addons/wordpress/impl/options/PersistenceBackend.php",
             "tubepress_addons_wordpress_impl_ActivationHook"                     : "classes/tubepress/addons/wordpress/impl/ActivationHook.php",
             "tubepress_addons_wordpress_impl_Callback"                           : "classes/tubepress/addons/wordpress/impl/Callback.php",
             "tubepress_addons_wordpress_impl_OptionsPage"                        : "classes/tubepress/addons/wordpress/impl/OptionsPage.php",

@@ -49,8 +49,8 @@ class tubepress_test_addons_wordpress_impl_ioc_WordPressIocContainerExtensionTes
 
         $this->expectRegistration(
 
-            tubepress_spi_options_StorageManager::_,
-            'tubepress_addons_wordpress_impl_options_WordPressStorageManager'
+            tubepress_api_options_PersistenceBackendInterface::_,
+            'tubepress_addons_wordpress_impl_options_PersistenceBackend'
         )->andReturnDefinition();
 
         $this->expectRegistration(

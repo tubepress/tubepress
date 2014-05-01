@@ -139,8 +139,8 @@ class tubepress_addons_wordpress_impl_ioc_WordPressIocContainerExtension impleme
     {
         $containerBuilder->register(
 
-            tubepress_spi_options_StorageManager::_,
-            'tubepress_addons_wordpress_impl_options_WordPressStorageManager'
+            tubepress_api_options_PersistenceBackendInterface::_,
+            'tubepress_addons_wordpress_impl_options_PersistenceBackend'
         );
     }
 

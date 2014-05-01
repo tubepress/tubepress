@@ -50,7 +50,7 @@ class tubepress_test_addons_wordpress_impl_OptionsPageTest extends tubepress_tes
 
         $this->_mockWpFunctionWrapper           = $this->createMockSingletonService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
         $this->_mockFormHandler                 = $this->createMockSingletonService('tubepress_spi_options_ui_OptionsPageInterface');
         $this->_mockEnvironmentDetector         = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
     }

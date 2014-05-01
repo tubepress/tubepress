@@ -37,7 +37,7 @@ class tubepress_test_addons_coreapiservices_options_ContextTest extends tubepres
     public function onSetup()
     {
         $this->_mockEventDispatcher = $this->createMockSingletonService(tubepress_api_event_EventDispatcherInterface::_);
-        $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockStorageManager  = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
         $this->_mockOptionProvider  = $this->createMockSingletonService(tubepress_spi_options_OptionProvider::_);
 
         $this->_sut = new tubepress_addons_coreapiservices_impl_options_Context();

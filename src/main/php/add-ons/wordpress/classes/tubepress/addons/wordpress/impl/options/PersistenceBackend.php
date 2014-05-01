@@ -10,10 +10,10 @@
  */
 
 /**
- * Implementation of tubepress_spi_options_StorageManager that uses the
+ * Implementation of tubepress_api_options_PersistenceInterface that uses the
  * regular WordPress options API.
  */
-class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager
+class tubepress_addons_wordpress_impl_options_PersistenceBackend implements tubepress_api_options_PersistenceBackendInterface
 {
     /*
      * Prefix all our option names in the WordPress DB
@@ -52,10 +52,11 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
     /**
      * @return array An associative array of all option names to values.
      */
-    protected function fetchAllCurrentlyKnownOptionNamesToValues()
+    public function fetchAllCurrentlyKnownOptionNamesToValues()
     {
         global $wpdb;
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $raw = $wpdb->get_results("SELECT option_name, option_value FROM $wpdb->options WHERE option_name LIKE 'tubepress-%'");
 
         if (!$raw || !is_array($raw)) {
@@ -78,7 +79,7 @@ class tubepress_addons_wordpress_impl_options_WordPressStorageManager extends tu
      *
      * @return null|string Null if the save succeeded and all queued options were saved, otherwise a string error message.
      */
-    protected function saveAll(array $optionNamesToValues)
+    public function saveAll(array $optionNamesToValues)
     {
         $wordPressFunctionWrapperService =
             tubepress_impl_patterns_sl_ServiceLocator::getService(tubepress_addons_wordpress_spi_WpFunctionsInterface::_);

@@ -10,9 +10,9 @@
  */
 
 /**
- * Handles persistent storage of TubePress options
+ *
  */
-abstract class tubepress_impl_options_AbstractStorageManager implements tubepress_spi_options_StorageManager
+class tubepress_addons_coreapiservices_impl_options_Persistence implements tubepress_api_options_PersistenceInterface
 {
     /**
      * @var ehough_epilog_Logger
@@ -34,25 +34,15 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      */
     private $_flagCheckedForMissingOptions = false;
 
-    public function __construct()
-    {
-        $this->_logger = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
-    }
-
     /**
-     * @return array An associative array of all the options known by this manager. The keys are option
-     *               names and the values are the stored option values.
+     * @var tubepress_api_options_PersistenceBackendInterface
      */
-    public final function fetchAll()
+    private $_backend;
+
+    public function __construct(tubepress_api_options_PersistenceBackendInterface $backend)
     {
-        if (!isset($this->_cachedOptions)) {
-
-            $this->_cachedOptions = $this->fetchAllCurrentlyKnownOptionNamesToValues();
-
-            $this->_addAnyMissingOptions($this->_cachedOptions);
-        }
-
-        return $this->_cachedOptions;
+        $this->_logger  = ehough_epilog_LoggerFactory::getLogger('Abstract Storage Manager');
+        $this->_backend = $backend;
     }
 
     /**
@@ -62,7 +52,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return mixed|null The option's stored value, or null if no such option.
      */
-    public final function fetch($optionName)
+    public function fetch($optionName)
     {
         $allOptions = $this->fetchAll();
 
@@ -75,6 +65,22 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
     }
 
     /**
+     * @return array An associative array of all the options known by this manager. The keys are option
+     *               names and the values are the stored option values.
+     */
+    public function fetchAll()
+    {
+        if (!isset($this->_cachedOptions)) {
+
+            $this->_cachedOptions = $this->_backend->fetchAllCurrentlyKnownOptionNamesToValues();
+
+            $this->_addAnyMissingOptions($this->_cachedOptions);
+        }
+
+        return $this->_cachedOptions;
+    }
+
+    /**
      * Queue a name-value pair for storage.
      *
      * @param string $optionName  The option name.
@@ -82,7 +88,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return string|null Null if the option was accepted for storage, otherwise a string error message.
      */
-    public final function queueForSave($optionName, $optionValue)
+    public function queueForSave($optionName, $optionValue)
     {
         /**
          * Init the queue if need be.
@@ -134,19 +140,19 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
     }
 
     /**
-     * Flush the save queue. This function will empty the queue regardless of whether or not an error occurred during
+     * Flush the save queue. This public function will empty the queue regardless of whether or not an error occurred during
      * save.
      *
      * @return null|string Null if the flush succeeded and all queued options were saved, otherwise a string error message.
      */
-    public final function flushSaveQueue()
+    public function flushSaveQueue()
     {
         if (!isset($this->_saveQueue) || count($this->_saveQueue) === 0) {
 
             return null;
         }
 
-        $result = $this->saveAll($this->_saveQueue);
+        $result = $this->_backend->saveAll($this->_saveQueue);
 
         unset($this->_saveQueue);
 
@@ -163,29 +169,6 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         unset($this->_cachedOptions);
         $this->fetchAll();
     }
-
-    /**
-     * Creates one or more options in storage, if they don't already exist. This function is called on TubePress's boot.
-     *
-     * @param array $optionNamesToValuesMap An associative array of option names to option values. For each
-     *                                      element in the array, the storage manager will create the option if it does
-     *                                      not already exist.
-     *
-     * @return void
-     */
-    protected abstract function createEach(array $optionNamesToValuesMap);
-
-    /**
-     * @param array $optionNamesToValues An associative array of option names to values.
-     *
-     * @return null|string Null if the save succeeded and all queued options were saved, otherwise a string error message.
-     */
-    protected abstract function saveAll(array $optionNamesToValues);
-
-    /**
-     * @return array An associative array of all option names to values.
-     */
-    protected abstract function fetchAllCurrentlyKnownOptionNamesToValues();
 
     /**
      * @param $optionName
@@ -273,7 +256,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
         if (!empty($toPersist)) {
 
-            $this->createEach($toPersist);
+            $this->_backend->createEach($toPersist);
             $this->_forceReloadOfOptionsCache();
         }
 

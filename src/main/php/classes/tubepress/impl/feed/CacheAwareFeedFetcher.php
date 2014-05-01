@@ -79,52 +79,52 @@ class tubepress_impl_feed_CacheAwareFeedFetcher
 //        return $event->getSubject();
     }
 
-    private function _getFromCache($url, tubepress_spi_context_ExecutionContext $context, $isDebugEnabled)
-    {
-        /**
-         * @var $cache ehough_stash_interfaces_PoolInterface
-         */
-        $cache = tubepress_impl_patterns_sl_ServiceLocator::getCacheService();
-
-        if ($isDebugEnabled) {
-
-            $this->_logger->debug(sprintf('First asking cache for <a href="%s">URL</a>', $url));
-        }
-
-        $cacheKey = $this->_urlToCacheKey($url);
-        $result   = $cache->getItem($cacheKey);
-
-        if ($result && !$result->isMiss()) {
-
-            if ($isDebugEnabled) {
-
-                $this->_logger->debug(sprintf('Cache has <a href="%s">URL</a>. Sweet.', $url));
-            }
-
-        } else {
-
-            if ($isDebugEnabled) {
-
-                $this->_logger->debug(sprintf('Cache does not have <a href="%s">URL</a>. We\'ll have to get it from the network.', $url));
-            }
-
-            $data = $this->_getFromNetwork($url);
-
-            $storedSuccessfully = $result->set($data, $context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
-
-            if (!$storedSuccessfully) {
-
-                if ($isDebugEnabled) {
-
-                    $this->_logger->debug('Unable to store data to cache');
-                }
-
-                return $data;
-            }
-        }
-
-        return $result->get();
-    }
+//    private function _getFromCache($url, tubepress_spi_context_ExecutionContext $context, $isDebugEnabled)
+//    {
+//        /**
+//         * @var $cache ehough_stash_interfaces_PoolInterface
+//         */
+//        $cache = tubepress_impl_patterns_sl_ServiceLocator::getCacheService();
+//
+//        if ($isDebugEnabled) {
+//
+//            $this->_logger->debug(sprintf('First asking cache for <a href="%s">URL</a>', $url));
+//        }
+//
+//        $cacheKey = $this->_urlToCacheKey($url);
+//        $result   = $cache->getItem($cacheKey);
+//
+//        if ($result && !$result->isMiss()) {
+//
+//            if ($isDebugEnabled) {
+//
+//                $this->_logger->debug(sprintf('Cache has <a href="%s">URL</a>. Sweet.', $url));
+//            }
+//
+//        } else {
+//
+//            if ($isDebugEnabled) {
+//
+//                $this->_logger->debug(sprintf('Cache does not have <a href="%s">URL</a>. We\'ll have to get it from the network.', $url));
+//            }
+//
+//            $data = $this->_getFromNetwork($url);
+//
+//            $storedSuccessfully = $result->set($data, $context->get(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS));
+//
+//            if (!$storedSuccessfully) {
+//
+//                if ($isDebugEnabled) {
+//
+//                    $this->_logger->debug('Unable to store data to cache');
+//                }
+//
+//                return $data;
+//            }
+//        }
+//
+//        return $result->get();
+//    }
 
     private function _urlToCacheKey($url)
     {

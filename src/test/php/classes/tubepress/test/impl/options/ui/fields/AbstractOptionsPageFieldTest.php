@@ -39,7 +39,7 @@ abstract class tubepress_test_impl_options_ui_fields_AbstractOptionsPageFieldTes
     {
         $this->_mockMessageService              = $this->createMockSingletonService(tubepress_api_translation_TranslatorInterface::_);
         $this->_mockHttpRequestParameterService = $this->createMockSingletonService(tubepress_spi_http_HttpRequestParameterService::_);
-        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_spi_options_StorageManager::_);
+        $this->_mockStorageManager              = $this->createMockSingletonService(tubepress_api_options_PersistenceInterface::_);
 
         $this->doOnSetup();
 

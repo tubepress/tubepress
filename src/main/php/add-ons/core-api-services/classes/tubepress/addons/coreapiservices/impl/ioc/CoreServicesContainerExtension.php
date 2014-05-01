@@ -28,12 +28,22 @@ class tubepress_addons_coreapiservices_impl_ioc_CoreServicesContainerExtension i
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerContext($containerBuilder);
         $this->_registerEnvironment($containerBuilder);
         $this->_registerCurrentUrlService($containerBuilder);
+        $this->_registerOptionsContext($containerBuilder);
+        $this->_registerOptionsPersistence($containerBuilder);
     }
 
-    private function _registerContext(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerOptionsPersistence(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+
+            tubepress_api_options_PersistenceInterface::_,
+            'tubepress_addons_coreapiservices_impl_options_Persistence'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_options_PersistenceBackendInterface::_));
+    }
+
+    private function _registerOptionsContext(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
 

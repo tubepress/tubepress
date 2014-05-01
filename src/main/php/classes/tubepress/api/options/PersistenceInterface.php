@@ -12,9 +12,9 @@
 /**
  * Handles persistent storage of TubePress options.
  */
-interface tubepress_spi_options_StorageManager
+interface tubepress_api_options_PersistenceInterface
 {
-    const _ = 'tubepress_spi_options_StorageManager';
+    const _ = 'tubepress_api_options_PersistenceInterface';
 
     /**
      * Retrieve the current value of an option from this storage manager.
