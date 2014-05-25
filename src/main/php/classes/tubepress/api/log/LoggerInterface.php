@@ -13,13 +13,22 @@
  * Logger used in debugging.
  *
  * @package TubePress\Log
+ *
+ * @api
+ * @since 4.0.0
  */
 interface tubepress_api_log_LoggerInterface
 {
+    /**
+     * @ignore
+     */
     const _ = 'tubepress_api_log_LoggerInterface';
 
     /**
      * @return bool True if debugging is active, false otherwise.
+     *
+     * @api
+     * @since 4.0.0
      */
     function isEnabled();
 
@@ -31,6 +40,9 @@ interface tubepress_api_log_LoggerInterface
      * @param array  $context Optional context variables.
      *
      * @return void
+     *
+     * @api
+     * @since 4.0.0
      */
     function debug($message, array $context = array());
 
@@ -42,6 +54,9 @@ interface tubepress_api_log_LoggerInterface
      * @param array  $context Optional context variables.
      *
      * @return void
+     *
+     * @api
+     * @since 4.0.0
      */
     function error($message, array $context = array());
 }

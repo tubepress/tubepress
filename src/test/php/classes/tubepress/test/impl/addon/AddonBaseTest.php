@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_impl_addon_AddonBase
  */
-class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_addon_AddonBaseTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_impl_addon_AddonBase
@@ -21,17 +21,13 @@ class tubepress_test_impl_player_AddonBaseTest extends tubepress_test_TubePressU
 
     public function onSetup()
     {
-        $mockUrl = ehough_mockery_Mockery::mock('tubepress_api_url_UrlInterface');
-        $mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
-        $mockUrlFactory->shouldReceive('fromString')->once()->with('http://foo.bar')->andReturn($mockUrl);
         $this->_sut = new tubepress_impl_addon_AddonBase(
 
             'name',
-            tubepress_api_version_Version::parse('2.3.1'),
+            '2.3.1',
             'description',
             array('name' => 'eric', 'url' => 'http://foo.bar'),
-            array(array('type' => 'foobar')),
-            $mockUrlFactory
+            array(array('type' => 'foobar'))
         );
     }
     

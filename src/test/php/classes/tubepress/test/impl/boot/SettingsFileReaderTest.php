@@ -10,33 +10,37 @@
  */
 
 /**
- * @covers tubepress_impl_boot_SettingsFileReader<extended>
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ * @covers tubepress_impl_boot_BootSettings<extended>
  */
-class tubepress_test_impl_boot_SettingsFileReaderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_boot_SettingsFileReader
+     * @var tubepress_impl_boot_BootSettings
      */
     private $_sut;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockEnvironmentDetector;
 
     /**
      * @var string
      */
     private $_userContentDirectory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockLogger;
+
     public function onSetup()
     {
-        $this->_sut                     = new tubepress_impl_boot_SettingsFileReader();
-        $this->_mockEnvironmentDetector = $this->createMockSingletonService(tubepress_api_environment_EnvironmentInterface::_);
+        $this->_mockLogger              = $this->mock(tubepress_api_log_LoggerInterface::_);
 
-        $this->_sut->__setEnvironmentDetector($this->_mockEnvironmentDetector);
+        $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_userContentDirectory = sys_get_temp_dir() . '/default-boot-config-service-test/';
+        $this->_sut                     = new tubepress_impl_boot_BootSettings($this->_mockLogger);
+
+        $this->_userContentDirectory = sys_get_temp_dir() . '/tubepress-container-cache/';
 
         if (is_dir($this->_userContentDirectory)) {
 
@@ -44,6 +48,8 @@ class tubepress_test_impl_boot_SettingsFileReaderTest extends tubepress_test_Tub
         }
 
         mkdir($this->_userContentDirectory . '/config', 0777, true);
+
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
     }
 
     public function onTearDown()
@@ -54,10 +60,6 @@ class tubepress_test_impl_boot_SettingsFileReaderTest extends tubepress_test_Tub
 
     public function testContainerStoragePathWritableDirectory()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $path = $this->_userContentDirectory . 'foo';
         mkdir($path, 0755, false);
 
@@ -80,17 +82,13 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getCachedContainerStoragePath();
+        $result = $this->_sut->getPathToContainerCacheFile();
 
         $this->assertEquals($path . '/tubepress-service-container.php', $result);
     }
 
     public function testContainerStoragePathCreateDirectory()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $path = $this->_userContentDirectory . 'foo';
 
         $this->_writeBootConfig(<<<EOF
@@ -106,16 +104,13 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getCachedContainerStoragePath();
+        $result = $this->_sut->getPathToContainerCacheFile();
 
         $this->assertEquals($path . '/tubepress-service-container.php', $result);
     }
 
     public function testContainerStoragePathNonWritableDirectory()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
 
         $this->_writeBootConfig(<<<EOF
 <?php
@@ -130,26 +125,18 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getCachedContainerStoragePath();
+        $result = $this->_sut->getPathToContainerCacheFile();
 
         $this->assertRegExp('~[^/]+/tubepress-container-cache/[a-f0-9]+/tubepress-service-container\.php~', $result);
     }
 
     public function testFallback()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            TUBEPRESS_ROOT . '/no-such-dir'
-        );
-
         $this->_verifyAllDefaults();
     }
 
     public function testCustomAddonsBlacklist()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $this->_writeBootConfig(<<<EOF
 <?php
 return array(
@@ -180,10 +167,6 @@ EOF
 
     public function testNonPhpBootFile()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $this->_writeBootConfig(<<<EOF
 this should be php
 EOF
@@ -194,9 +177,6 @@ EOF
 
     public function testClearCache()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
 
         $this->_writeBootConfig(<<<EOF
 <?php
@@ -231,10 +211,6 @@ EOF
 
     public function testNonReturningPhpBootFile()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $this->_writeBootConfig(<<<EOF
 <?php
 \$x = 'x';
@@ -246,9 +222,6 @@ EOF
 
     public function testMissingCacheConfig()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
 
         $this->_writeBootConfig(<<<EOF
 <?php
@@ -267,17 +240,13 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getCachedContainerStoragePath();
+        $result = $this->_sut->getPathToContainerCacheFile();
         $this->assertTrue(is_writable(dirname($result)));
         $this->assertTrue(!is_dir($result));
     }
 
     public function testMissingBlacklist()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $this->_writeBootConfig(<<<EOF
 <?php
 return array(
@@ -304,9 +273,6 @@ EOF
 
     public function testNonArrayCacheConfig()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
 
         $this->_writeBootConfig(<<<EOF
 <?php
@@ -326,17 +292,13 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getCachedContainerStoragePath();
+        $result = $this->_sut->getPathToContainerCacheFile();
         $this->assertTrue(is_writable(dirname($result)));
         $this->assertTrue(!is_dir($result));
     }
 
     public function testNonStringKillerKey()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $this->_writeBootConfig(<<<EOF
 <?php
 return array(
@@ -358,17 +320,13 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getCachedContainerStoragePath();
+        $result = $this->_sut->getPathToContainerCacheFile();
         $this->assertTrue(is_writable(dirname($result)));
         $this->assertTrue(!is_dir($result));
     }
 
     public function testNonArrayBlacklist()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $this->_writeBootConfig(<<<EOF
 <?php
 return array(
@@ -399,10 +357,6 @@ EOF
 
     public function testNonBooleanClassLoaderEnablement()
     {
-        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn(
-            $this->_userContentDirectory
-        );
-
         $this->_writeBootConfig(<<<EOF
 <?php
 return array(
@@ -449,7 +403,7 @@ EOF
         $result = $this->_sut->isClassLoaderEnabled();
         $this->assertTrue($result);
 
-        $result = $this->_sut->getCachedContainerStoragePath();
+        $result = $this->_sut->getPathToContainerCacheFile();
         $this->assertTrue(is_writable(dirname($result)));
         $this->assertTrue(!is_dir($result));
 

@@ -13,6 +13,9 @@
   * Allows add-ons to load services into the TubePress service container.
   *
   * @package TubePress\IoC
+  *
+  * @api
+  * @since 3.2.0
   */
 interface tubepress_api_ioc_ContainerExtensionInterface
 {
@@ -20,9 +23,6 @@ interface tubepress_api_ioc_ContainerExtensionInterface
      * @ignore
      */
     const _ = 'tubepress_api_ioc_ContainerExtensionInterface';
-
-    const TAG_EVENT_LISTENER           = 'tubepress.event.listener';
-    const TAG_TAGGED_SERVICES_CONSUMER = 'tubepress.consumer.taggedServices';
 
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add

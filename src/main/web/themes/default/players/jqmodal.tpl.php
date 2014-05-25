@@ -9,4 +9,4 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-echo ${tubepress_api_const_template_Variable::EMBEDDED_SOURCE};
+echo ${tubepress_core_api_const_template_Variable::EMBEDDED_SOURCE};

@@ -13,6 +13,9 @@
  * Provides utility functions used during construction of a {@link tubepress_api_ioc_ContainerInterface} instance.
  *
  * @package TubePress\IoC
+ *
+ * @api
+ * @since 4.0.0
  */
 interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_ContainerInterface
 {

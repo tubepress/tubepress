@@ -11,10 +11,8 @@
 
 /**
  * @covers tubepress_impl_boot_PrimaryBootstrapper<extended>
- * @runTestsInSeparateProcesses
- * @preserveGlobalState disabled
  */
-class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_impl_boot_PrimaryBootstrapper
@@ -29,7 +27,7 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockSecondaryBootstrapper;
+    private $_mockContainerSupplier;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -44,25 +42,19 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockExecutionContext;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockCachedContainer;
 
     public function onSetup()
     {
         $this->_sut = new tubepress_impl_boot_PrimaryBootstrapper();
 
-        $this->_mockBootHelperSettingsFileReader = ehough_mockery_Mockery::mock(tubepress_spi_boot_SettingsFileReaderInterface::_);
-        $this->_mockSecondaryBootstrapper        = ehough_mockery_Mockery::mock(tubepress_spi_boot_secondary_SecondaryBootstrapperInterface::_);
-        $this->_mockClassLoader                  = ehough_mockery_Mockery::mock('ehough_pulsar_ComposerClassLoader');
-        $this->_mockTemporaryLogger              = ehough_mockery_Mockery::mock('tubepress_impl_log_MemoryBufferLogger');
-        $this->_mockExecutionContext             = ehough_mockery_Mockery::mock(tubepress_api_options_ContextInterface::_);
-        $this->_mockCachedContainer              = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerInterface');
+        $this->_mockBootHelperSettingsFileReader = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
+        $this->_mockContainerSupplier            = $this->mock('tubepress_impl_boot_helper_ContainerSupplier');
+        $this->_mockClassLoader                  = $this->mock('ehough_pulsar_ComposerClassLoader');
+        $this->_mockTemporaryLogger              = $this->mock('tubepress_impl_log_BootLogger');
+        $this->_mockCachedContainer              = $this->mock('tubepress_api_ioc_ContainerInterface');
 
-        $this->_sut->___setSecondaryBootstrapper($this->_mockSecondaryBootstrapper);
+        $this->_sut->___setContainerSupplier($this->_mockContainerSupplier);
         $this->_sut->___setSettingsFileReader($this->_mockBootHelperSettingsFileReader);
         $this->_sut->___setClassLoader($this->_mockClassLoader);
         $this->_sut->___setTemporaryLogger($this->_mockTemporaryLogger);
@@ -70,52 +62,27 @@ class tubepress_test_impl_bootstrap_PrimaryBootstrapperTest extends tubepress_te
         $_GET['tubepress_debug'] = 'true';
 
         $this->_mockClassLoader->shouldReceive('register')->once();
+        $this->_mockTemporaryLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
     }
 
-    public function testBoot()
+    public function testBootNoErrorClEnabled()
     {
-        $this->_mockSecondaryBootstrapper->shouldReceive('getServiceContainer')->once()->with(
-            $this->_mockBootHelperSettingsFileReader,
-            $this->_mockClassLoader
-        )->andReturn($this->_mockCachedContainer);
+        $this->_mockContainerSupplier->shouldReceive('getServiceContainer')->once()->andReturn($this->_mockCachedContainer);
+        $this->_mockCachedContainer->shouldReceive('set')->once()->with(tubepress_api_boot_BootSettingsInterface::_, $this->_mockBootHelperSettingsFileReader);
+        $this->_mockCachedContainer->shouldReceive('set')->once()->with('tubepress_impl_log_BootLogger', $this->_mockTemporaryLogger);
+        $this->_mockCachedContainer->shouldReceive('getParameter')->once()->with('classMap')->andReturn(array('foo'));
+        $this->_mockBootHelperSettingsFileReader->shouldReceive('isClassLoaderEnabled')->twice()->andReturn(true);
 
-        $this->_mockBootHelperSettingsFileReader->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
+        //addToClassMap() is final :(
+        //$this->_mockClassLoader->shouldReceive('addToClassMap')->once()->with(array('foo'));
 
-        $this->_mockCachedContainer->shouldReceive('getParameter')->once()->with('classMap')->andReturn(array('s'));
-        $this->_mockCachedContainer->shouldReceive('set')->once()->with('tubepress.settingsFileReader', $this->_mockBootHelperSettingsFileReader);
-        $this->_mockCachedContainer->shouldReceive('get')->once()->with(tubepress_api_options_ContextInterface::_)->andReturn($this->_mockExecutionContext);
-        $this->_mockCachedContainer->shouldReceive('set')->once()->with(tubepress_api_log_LoggerInterface::_, ehough_mockery_Mockery::type('tubepress_impl_log_HtmlLogger'));
-
-        $this->_mockTemporaryLogger->shouldReceive('isEnabled')->andReturn(true);
-        $this->_mockTemporaryLogger->shouldReceive('flushTo')->once()->with(ehough_mockery_Mockery::type('tubepress_impl_log_HtmlLogger'));
-        $this->_mockTemporaryLogger->shouldReceive('disable')->once();
-        $this->_mockTemporaryLogger->shouldReceive('debug')->once()->with(ehough_mockery_Mockery::on(function ($arg) {
-
-            return tubepress_impl_util_StringUtils::startsWith($arg, 'Boot completed in ');
-        }));
-
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(true);
-
-        $result = $this->_sut->boot();
+        $this->_mockTemporaryLogger->shouldReceive('debug')->atLeast(1);
+        $result = $this->_sut->getServiceContainer();
 
         $this->assertSame($this->_mockCachedContainer, $result);
-    }
 
-    /**
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage foobar
-     */
-    public function testBootError()
-    {
-        $this->_mockSecondaryBootstrapper->shouldReceive('getServiceContainer')->once()->with(
-            $this->_mockBootHelperSettingsFileReader,
-            $this->_mockClassLoader
-        )->andThrow(new RuntimeException('foobar'));
+        $result = $this->_sut->getServiceContainer();
 
-        $this->_mockTemporaryLogger->shouldReceive('isEnabled')->twice()->andReturn(true);
-        $this->_mockTemporaryLogger->shouldReceive('error')->once()->with('Caught exception while booting: foobar');
-        $this->_mockTemporaryLogger->shouldReceive('printBuffer')->once();
-
-        $this->_sut->boot();
+        $this->assertSame($this->_mockCachedContainer, $result);
     }
 }

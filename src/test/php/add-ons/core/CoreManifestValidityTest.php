@@ -11,12 +11,12 @@
 class_exists('tubepress_test_impl_addon_AbstractManifestValidityTest') ||
     require dirname(__FILE__) . '/../../classes/tubepress/test/impl/addon/AbstractManifestValidityTest.php';
 
-class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
+class tubepress_test_coreboot_CoreManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
 {
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_spi_addon_AddonInterface
+         * @var $addon tubepress_api_addon_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
@@ -25,13 +25,19 @@ class tubepress_test_addons_core_CoreManifestValidityTest extends tubepress_test
         $this->assertEquals('TubePress Core', $addon->getTitle());
         $this->assertEquals(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com'), $addon->getAuthor());
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
-        $this->assertEquals('TubePress core functionality', $addon->getDescription());
-        $this->assertEquals(array('tubepress_addons_core' => TUBEPRESS_ROOT . '/src/main/php/add-ons/core/classes'), $addon->getPsr0ClassPathRoots());
-        $this->assertEquals(array('tubepress_addons_core_impl_ioc_IocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals('TubePress core functionality.', $addon->getDescription());
+        $this->assertEquals(array('tubepress_core_impl_' => TUBEPRESS_ROOT . '/src/main/php/add-ons/core/classes'), $addon->getPsr0ClassPathRoots());
     }
 
     protected function getPathToManifest()
     {
         return realpath(dirname(__FILE__) . '/../../../../main/php/add-ons/core/manifest.json');
+    }
+
+    protected function getClassNamesToIgnore()
+    {
+        return array(
+            'tubepress_core_impl_ioc_AbstractTagProcessingPass'
+        );
     }
 }

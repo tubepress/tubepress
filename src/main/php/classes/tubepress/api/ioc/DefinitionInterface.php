@@ -14,6 +14,9 @@
   * the service.
   *
   * @package TubePress\IoC
+  *
+  * @api
+  * @since 3.1.0
   */
 interface tubepress_api_ioc_DefinitionInterface
 {

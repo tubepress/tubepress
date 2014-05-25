@@ -14,6 +14,9 @@
   * *as* it is compiled for production. Add-ons may add, remove, or modify service definitions or parameters.
   *
   * @package TubePress\IoC
+  *
+  * @api
+  * @since 4.0.0
   */
 interface tubepress_api_ioc_CompilerPassInterface
 {
@@ -21,7 +24,7 @@ interface tubepress_api_ioc_CompilerPassInterface
      * @param tubepress_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder);
 }

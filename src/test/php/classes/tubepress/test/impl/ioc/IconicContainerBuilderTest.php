@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_impl_ioc_IconicContainerBuilder
+ * @covers tubepress_impl_ioc_ContainerBuilder
  */
-class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_ioc_IconicContainerBuilder
+     * @var tubepress_impl_ioc_ContainerBuilder
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_impl_ioc_IconicContainerBuilder();
+        $this->_sut = new tubepress_impl_ioc_ContainerBuilder();
     }
 
     public function testGetParameterNoSuchParam()
@@ -67,7 +67,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testRemoveDefinition()
     {
-        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
+        $def = $this->mock('tubepress_impl_ioc_Definition');
 
         $this->assertFalse($this->_sut->has('x'));
 
@@ -104,7 +104,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
     {
         $this->setExpectedException('BadMethodCallException', 'Adding definition to a frozen container is not allowed');
 
-        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
+        $def = $this->mock('tubepress_impl_ioc_Definition');
 
         $this->_sut->compile();
 
@@ -113,7 +113,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testSetDefinition()
     {
-        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
+        $def = $this->mock('tubepress_impl_ioc_Definition');
 
         $this->assertFalse($this->_sut->has('x'));
         $this->assertFalse($this->_sut->hasDefinition('x'));
@@ -134,14 +134,14 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
         $this->_sut->compile();
 
-        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
+        $def = $this->mock('tubepress_impl_ioc_Definition');
 
         $this->_sut->setDefinitions(array($def));
     }
 
     public function testSetDefinitions()
     {
-        $def = ehough_mockery_Mockery::mock('tubepress_impl_ioc_Definition');
+        $def = $this->mock('tubepress_impl_ioc_Definition');
 
         $this->assertEmpty($this->_sut->getDefinitions());
 
@@ -174,15 +174,15 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
 
     public function testMerge()
     {
-        $mockDef = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
+        $mockDef = $this->mock('tubepress_api_ioc_DefinitionInterface');
         $mockDefs = array($mockDef);
 
-        $mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerBuilderInterface');
+        $mockContainer = $this->mock('tubepress_api_ioc_ContainerBuilderInterface');
         $mockContainer->shouldReceive('getDefinitions')->once()->andReturn($mockDefs);
         $mockContainer->shouldReceive('addDefinitions')->once()->with($mockDefs);
 
-        $mockExtension = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerExtensionInterface');
-        $mockExtension->shouldReceive('load')->once()->with(ehough_mockery_Mockery::any('tubepress_impl_ioc_IconicContainerBuilder'));
+        $mockExtension = $this->mock('tubepress_api_ioc_ContainerExtensionInterface');
+        $mockExtension->shouldReceive('load')->once()->with(ehough_mockery_Mockery::any('tubepress_impl_ioc_ContainerBuilder'));
 
         $this->_sut->registerExtension($mockExtension);
 

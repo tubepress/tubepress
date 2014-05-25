@@ -1,0 +1,185 @@
+<?php
+/**
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/**
+ * @covers tubepress_core_impl_theme_ThemeRegistry<extended>
+ */
+class tubepress_test_core_impl_theme_ThemeRegistryTest extends tubepress_test_TubePressUnitTest
+{
+    /**
+     * @var tubepress_core_impl_theme_ThemeRegistry
+     */
+    private $_sut;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockFinderFactory;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockLogger;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockBootSettings;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockValidator;
+
+    /**
+     * @var string
+     */
+    private $_mockUserThemeDirectory;
+
+    /**
+     * @var string
+     */
+    private $_mockLegacyThemeDirectory;
+
+
+    public function onSetup()
+    {
+        $this->_mockFinderFactory = $this->mock('ehough_finder_FinderFactoryInterface');
+        $this->_mockBootSettings  = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
+        $this->_mockLogger        = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockValidator     = $this->mock(tubepress_core_api_contrib_ContributableValidatorInterface::_);
+
+        $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->atLeast(1)->andReturn(true);
+
+        $this->_sut               = new tubepress_core_impl_theme_ThemeRegistry(
+
+            $this->_mockLogger,
+            $this->_mockBootSettings,
+            $this->_mockFinderFactory,
+            $this->_mockValidator
+        );
+
+        $this->_mockUserThemeDirectory   = sys_get_temp_dir() . '/mock-user-themes';
+        $this->_mockLegacyThemeDirectory = sys_get_temp_dir() . '/mock-legacy-themes';
+
+        $this->recursivelyDeleteDirectory($this->_mockUserThemeDirectory);
+        $this->recursivelyDeleteDirectory($this->_mockLegacyThemeDirectory);
+
+        mkdir($this->_mockUserThemeDirectory . '/themes/something', 0755, true);
+        mkdir($this->_mockLegacyThemeDirectory . '/themes/hiya', 0755, true);
+    }
+
+    public function onTearDown()
+    {
+        $this->recursivelyDeleteDirectory($this->_mockUserThemeDirectory);
+        $this->recursivelyDeleteDirectory($this->_mockLegacyThemeDirectory);
+    }
+
+    public function testFindAllThemes()
+    {
+        $mockLegacyFinder = $this->_setupLegacyThemeMocks();
+        $mockSystemFinder = $this->_setupSystemThemeMocks();
+        $mockUserFinder   = $this->_setupUserThemeMocks();
+
+        $this->_mockValidator->shouldReceive('isValid')->with('tubepress_core_api_theme_ThemeInterface')->andReturn(true);
+
+        $this->_mockFinderFactory->shouldReceive('createFinder')->andReturn($mockSystemFinder, $mockUserFinder, $mockLegacyFinder);
+        $this->_mockBootSettings->shouldReceive('getUserContentDirectory')->twice()->andReturn($this->_mockUserThemeDirectory, $this->_mockLegacyThemeDirectory);
+
+        $onceUrls = array(
+            'http://themes.tubepress-cdn.com/default/screenshots/1-thumbnail.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/1.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/2-thumbnail.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/2.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/3-thumbnail.png',
+            'http://themes.tubepress-cdn.com/default/screenshots/3.png',
+            'http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/1-thumbnail.png','http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/1.png',
+            'http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/2-thumbnail.png','http://themes.tubepress-cdn.com/youtube.com-clone/screenshots/2.png',
+        );
+
+        $themes = $this->_sut->getAll();
+
+        $this->assertTrue(is_array($themes));
+        $this->assertTrue(count($themes) === 3);
+
+        $first = $themes[0];
+        $this->assertInstanceOf(tubepress_core_api_theme_ThemeInterface::_, $first);
+        $this->assertTrue($first->getName() === 'tubepress/default');
+
+        $second = $themes[1];
+        $this->assertInstanceOf(tubepress_core_api_theme_ThemeInterface::_, $second);
+        $this->assertTrue($second->getName() === 'tubepress/youtube.com-clone');
+
+        $third = $themes[2];
+        $this->assertInstanceOf(tubepress_core_api_theme_ThemeInterface::_, $third);
+        $this->assertEquals('unknown/legacy-hiya', $third->getName());
+    }
+
+    private function _setupLegacyThemeMocks()
+    {
+        $mockLegacyThemeSplFileInfo = $this->mock('SplFileInfo');
+        $mockLegacyThemeSplFileInfo->shouldReceive('getPathname')->andReturn($this->_mockLegacyThemeDirectory . '/themes/hiya');
+        $mockLegacyThemesSplFileInfoArray = array(
+
+            $mockLegacyThemeSplFileInfo
+        );
+
+        $mockLegacyFinder = $this->mock('ehough_finder_FinderInterface');
+        $mockLegacyFinder->shouldReceive('directories')->once()->andReturn($mockLegacyFinder);
+        $mockLegacyFinder->shouldReceive('in')->once()->with($this->_mockLegacyThemeDirectory . '/themes')->andReturn($mockLegacyFinder);
+        $mockLegacyFinder->shouldReceive('depth')->once()->with('< 1')->andReturn($mockLegacyThemesSplFileInfoArray);
+
+        return $mockLegacyFinder;
+    }
+
+    private function _setupSystemThemeMocks()
+    {
+        $mockSystemThemeSplFileInfo = $this->mock('SplFileInfo');
+        $mockSystemThemeSplFileInfo->shouldReceive('getPathname')->twice()->andReturn(TUBEPRESS_ROOT . '/src/main/web/themes/default/theme.json');
+        $mockSystemThemeSplFileInfoArray = array(
+
+            $mockSystemThemeSplFileInfo
+        );
+
+        $mockSystemFinder = $this->mock('ehough_finder_FinderInterface');
+        $mockSystemFinder->shouldReceive('followLinks')->once()->andReturn($mockSystemFinder);
+        $mockSystemFinder->shouldReceive('files')->once()->andReturn($mockSystemFinder);
+        $mockSystemFinder->shouldReceive('in')->once()->with(TUBEPRESS_ROOT . '/src/main/web/themes/')->andReturn($mockSystemFinder);
+        $mockSystemFinder->shouldReceive('name')->once()->with('theme.json')->andReturn($mockSystemFinder);
+        $mockSystemFinder->shouldReceive('depth')->once()->with('< 2')->andReturn($mockSystemThemeSplFileInfoArray);
+
+        return $mockSystemFinder;
+    }
+
+    private function _setupUserThemeMocks()
+    {
+        $fs = new ehough_filesystem_Filesystem();
+        $fs->copy(TUBEPRESS_ROOT . '/src/main/web/themes/youtube.com-clone/theme.json', $this->_mockUserThemeDirectory . '/themes/something/theme.json');
+
+        $mockUserThemeSplFileInfo      = $this->mock('SplFileInfo');
+        $mockUserThemeSplFileInfo->shouldReceive('getPathname')->twice()->andReturn($this->_mockUserThemeDirectory . '/themes/something/theme.json');
+        $mockUserThemeSplFileInfoArray = array(
+
+            $mockUserThemeSplFileInfo
+        );
+
+        $mockUserFinder = $this->mock('ehough_finder_FinderInterface');
+        $mockUserFinder->shouldReceive('followLinks')->once()->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('files')->once()->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('in')->once()->with($this->_mockUserThemeDirectory . '/themes')->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('name')->once()->with('theme.json')->andReturn($mockUserFinder);
+        $mockUserFinder->shouldReceive('depth')->once()->with('< 2')->andReturn($mockUserThemeSplFileInfoArray);
+
+        return $mockUserFinder;
+    }
+
+}

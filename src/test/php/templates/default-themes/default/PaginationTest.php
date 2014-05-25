@@ -15,12 +15,12 @@ class tubepress_test_impl_template_templates_defaultthemes_default_PaginationTes
         $expected = file_get_contents(TUBEPRESS_ROOT . '/src/test/resources/fixtures/templates/default-themes/default/pagination.txt');
 
         $path = TUBEPRESS_ROOT . '/src/main/web/themes/default/pagination.tpl.php';
-        ${tubepress_api_const_template_Variable::PAGINATION_CURRENT_PAGE}     = 4;
-        ${tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS}      = 99;
-        ${tubepress_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE} = 10;
-        ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}      = 'xyz%d';
-        ${tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV}        = 'prevv';
-        ${tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT}        = 'nextt';
+        ${tubepress_core_api_const_template_Variable::PAGINATION_CURRENT_PAGE}     = 4;
+        ${tubepress_core_api_const_template_Variable::PAGINATION_TOTAL_ITEMS}      = 99;
+        ${tubepress_core_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE} = 10;
+        ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}      = 'xyz%d';
+        ${tubepress_core_api_const_template_Variable::PAGINATION_TEXT_PREV}        = 'prevv';
+        ${tubepress_core_api_const_template_Variable::PAGINATION_TEXT_NEXT}        = 'nextt';
 
         ob_start();
         include $path;

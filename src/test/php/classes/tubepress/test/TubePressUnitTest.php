@@ -12,29 +12,12 @@
 abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var array
-     */
-    private $_mocks;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockIocContainer;
-
-    /**
-     * Sets up a mock IoC container that spits out mock services on demand. This reduces boilerplate
-     * code in our unit tests.
+     *
      */
     public final function setUp()
     {
-        $this->_mockIocContainer = ehough_mockery_Mockery::mock('ehough_iconic_ContainerInterface');
-
-        $this->_mockIocContainer->shouldReceive('get')->andReturnUsing(array($this, '_getMockServiceById'));
-
-        /** @noinspection PhpParamsInspection */
-        tubepress_impl_patterns_sl_ServiceLocator::setBackingIconicContainer($this->_mockIocContainer);
-
         date_default_timezone_set('America/New_York');
+
         error_reporting(E_ALL);
 
         $this->onSetup();
@@ -65,55 +48,14 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
         //override point
     }
 
-    protected final function createMockSingletonService($id)
-    {
-        if (!class_exists($id) && !interface_exists($id)) {
-
-            spl_autoload_call($id);
-        }
-
-        if (!class_exists($id) && !interface_exists($id)) {
-
-            $type = 'stdClass';
-
-        } else {
-
-            $type = $id;
-        }
-
-        $mockDescriptor           = new stdClass();
-        $mockDescriptor->id       = $id;
-        $mockDescriptor->instance = ehough_mockery_Mockery::mock($type);
-
-        $this->_mocks[] = $mockDescriptor;
-
-        return $mockDescriptor->instance;
-    }
-
     /**
+     * @param $name
+     *
      * @return ehough_mockery_mockery_MockInterface
      */
-    protected final function getMockIocContainer()
+    protected function mock($name)
     {
-        return $this->_mockIocContainer;
-    }
-
-    public final function _getMockServiceById($id)
-    {
-        if (! is_array($this->_mocks)) {
-
-            throw new RuntimeException("Failed to find singleton service with ID $id. Did you forget to call createMockSingletonService()?");
-        }
-
-        foreach ($this->_mocks as $mock) {
-
-            if ($mock->id === $id) {
-
-                return $mock->instance;
-            }
-        }
-
-        throw new RuntimeException("Failed to find singleton service with ID $id. Did you forget to call createMockSingletonService()?");
+        return ehough_mockery_Mockery::mock($name);
     }
 
     protected function recursivelyDeleteDirectory($dir)

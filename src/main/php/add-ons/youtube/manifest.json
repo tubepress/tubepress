@@ -15,7 +15,7 @@
     "description": "Allows TubePress work with YouTube",
     "inversion-of-control": {
         "container-extensions" : [
-            "tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension"
+            "tubepress_youtube_impl_ioc_YouTubeExtension"
         ]
     },
     "autoload": {
@@ -23,21 +23,16 @@
             "tubepress_addons_youtube" : "classes"
         },
         "classmap" : {
-            "tubepress_addons_youtube_api_const_YouTubeEventNames"                           : "classes/tubepress/addons/youtube/api/const/YouTubeEventNames.php",
-            "tubepress_addons_youtube_api_const_options_names_Embedded"                      : "classes/tubepress/addons/youtube/api/const/options/names/Embedded.php",
-            "tubepress_addons_youtube_api_const_options_names_Feed"                          : "classes/tubepress/addons/youtube/api/const/options/names/Feed.php",
-            "tubepress_addons_youtube_api_const_options_names_GallerySource"                 : "classes/tubepress/addons/youtube/api/const/options/names/GallerySource.php",
-            "tubepress_addons_youtube_api_const_options_names_Meta"                          : "classes/tubepress/addons/youtube/api/const/options/names/Meta.php",
-            "tubepress_addons_youtube_api_const_options_values_GallerySourceValue"           : "classes/tubepress/addons/youtube/api/const/options/values/GallerySourceValue.php",
-            "tubepress_addons_youtube_api_const_options_values_YouTube"                      : "classes/tubepress/addons/youtube/api/const/options/values/YouTube.php",
-            "tubepress_addons_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService"   : "classes/tubepress/addons/youtube/impl/embedded/YouTubePluggableEmbeddedPlayerService.php",
-            "tubepress_addons_youtube_impl_listeners_http_YouTubeHttpErrorResponseListener"  : "classes/tubepress/addons/youtube/impl/listeners/http/YouTubeHttpErrorResponseListener.php",
-            "tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler"         : "classes/tubepress/addons/youtube/impl/listeners/options/YouTubePlaylistHandler.php",
-            "tubepress_addons_youtube_impl_listeners_video_YouTubeVideoConstructionListener" : "classes/tubepress/addons/youtube/impl/listeners/video/YouTubeVideoConstructionListener.php",
-            "tubepress_addons_youtube_impl_options_YouTubeOptionProvider"                    : "classes/tubepress/addons/youtube/impl/options/YouTubeOptionProvider.php",
-            "tubepress_addons_youtube_impl_ioc_YouTubeIocContainerExtension"                 : "classes/tubepress/addons/youtube/impl/ioc/YouTubeIocContainerExtension.php",
-            "tubepress_addons_youtube_impl_provider_YouTubePluggableVideoProviderService"    : "classes/tubepress/addons/youtube/impl/provider/YouTubePluggableVideoProviderService.php",
-            "tubepress_addons_youtube_impl_provider_YouTubeUrlBuilder"                       : "classes/tubepress/addons/youtube/impl/provider/YouTubeUrlBuilder.php"
+            "tubepress_youtube_api_const_YouTubeEventNames"                           : "classes/tubepress/youtube/api/const/YouTubeEventNames.php",
+            "tubepress_youtube_api_const_options_Names"                      : "classes/tubepress/youtube/api/const/options/Names.php",
+            "tubepress_youtube_api_const_options_Values"           : "classes/tubepress/youtube/api/const/options/Values.php",
+            "tubepress_youtube_impl_embedded_YouTubeEmbeddedProvider"   : "classes/tubepress/youtube/impl/embedded/YouTubeEmbeddedProvider.php",
+            "tubepress_youtube_impl_listeners_options_YouTubePlaylistHandler"         : "classes/tubepress/youtube/impl/listeners/options/YouTubePlaylistHandler.php",
+            "tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener" : "classes/tubepress/youtube/impl/listeners/video/YouTubeVideoConstructionListener.php",
+            "tubepress_youtube_impl_options_YouTubeOptionProvider"                    : "classes/tubepress/youtube/impl/options/YouTubeOptionProvider.php",
+            "tubepress_youtube_impl_provider_YouTubeVideoProvider"    : "classes/tubepress/youtube/impl/provider/YouTubeVideoProvider.php",
+            "tubepress_youtube_impl_player_YouTubePlayerLocation" : "classes/tubepress/youtube/impl/player/YouTubePlayerLocation.php",
+            "tubepress_youtube_impl_options_ui_YouTubeFieldProvider" : "classes/tubepress/youtube/impl/options/ui/YouTubeFieldProvider.php"
         }
     }
 }

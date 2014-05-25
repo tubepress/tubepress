@@ -12,7 +12,7 @@
 /**
  * Handy string utilities.
  */
-class tubepress_impl_util_StringUtils
+class tubepress_impl_util_StringUtils implements tubepress_api_util_StringUtilsInterface
 {
     /**
      * Replaces the first occurence of a string by another string
@@ -22,9 +22,12 @@ class tubepress_impl_util_StringUtils
      * @param string $str     The haystack
      *
      * @return string The haystack with the first needle replaced
-     *     by the replacement string
+     *                by the replacement string
+     *
+     * @api
+     * @since 4.0.0
      */
-    public static function replaceFirst($search, $replace, $str)
+    public function replaceFirst($search, $replace, $str)
     {
         $l    = strlen($str);
         $a    = strpos($str, $search);
@@ -33,7 +36,15 @@ class tubepress_impl_util_StringUtils
         return $temp;
     }
 
-    public static function removeNewLines($string)
+    /**
+     * @param string $string The incoming string.
+     *
+     * @return string The string without new lines.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function removeNewLines($string)
     {
         return str_replace(array("\r\n", "\r", "\n"), '', $string);
     }
@@ -44,14 +55,27 @@ class tubepress_impl_util_StringUtils
      * @param string $string The string to modify
      *
      * @return string The string with most empty lines removed.
+     *
+     * @api
+     * @since 4.0.0
      */
-    public static function removeEmptyLines($string)
+    public function removeEmptyLines($string)
     {
         return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
     }
 
-    //http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
-    public static function startsWith($haystack, $needle)
+    /**
+     * http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
+     *
+     * @param string $haystack Haystack.
+     * @param string $needle   Needle.
+     *
+     * @return bool True if the haystack starts with the needle. False otherwise.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function startsWith($haystack, $needle)
     {
         if (! is_string($haystack) || ! is_string($needle)) {
 
@@ -63,8 +87,18 @@ class tubepress_impl_util_StringUtils
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    //http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
-    public static function endsWith($haystack, $needle)
+    /**
+     * http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
+     *
+     * @param string $haystack Haystack.
+     * @param string $needle   Needle.
+     *
+     * @return bool True if the haystack ends with the needle. False otherwise.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function endsWith($haystack, $needle)
     {
         if (! is_string($haystack) || ! is_string($needle)) {
 
@@ -77,8 +111,20 @@ class tubepress_impl_util_StringUtils
         return (substr($haystack, $start) === $needle);
     }
 
-    //http://us2.php.net/manual/en/function.stripslashes.php#92524
-    public static function stripslashes_deep($text, $times = 2) {
+    /**
+     * Strips slashes recursively.
+     *
+     * http://us2.php.net/manual/en/function.stripslashes.php#92524
+     *
+     * @param string $text  The incoming string.
+     * @param int    $times The recursion depth.
+     *
+     * @return string The modified text.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function stripslashes_deep($text, $times = 2) {
 
         $i = 0;
 
@@ -92,7 +138,17 @@ class tubepress_impl_util_StringUtils
         return $text;
     }
 
-    public static function redactSecrets($string)
+    /**
+     * Masks hex strings.
+     *
+     * @param string $string The incoming string.
+     *
+     * @return string The same string with hex sequences replaced by asterisks.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function redactSecrets($string)
     {
         return preg_replace('/[0-9a-fA-F]{12,}/', 'XXXXXX', $string);
     }

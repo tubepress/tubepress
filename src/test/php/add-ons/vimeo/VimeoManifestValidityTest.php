@@ -11,12 +11,12 @@
 class_exists('tubepress_test_impl_addon_AbstractManifestValidityTest') ||
     require dirname(__FILE__) . '/../../classes/tubepress/test/impl/addon/AbstractManifestValidityTest.php';
 
-class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
+class tubepress_test_core_VimeoManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
 {
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_spi_addon_AddonInterface
+         * @var $addon tubepress_api_addon_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
@@ -27,7 +27,7 @@ class tubepress_test_addons_core_VimeoManifestValidityTest extends tubepress_tes
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress work with Vimeo', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_vimeo' => TUBEPRESS_ROOT . '/src/main/php/add-ons/vimeo/classes'), $addon->getPsr0ClassPathRoots());
-        $this->assertEquals(array('tubepress_addons_vimeo_impl_ioc_VimeoIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals(array('tubepress_vimeo_impl_ioc_VimeoExtension'), $addon->getIocContainerExtensions());
     }
 
     protected function getPathToManifest()

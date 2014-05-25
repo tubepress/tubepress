@@ -11,7 +11,6 @@
         }
     ],
     "require": {
-        "ehough/chaingang"   : "~1.0.0",
         "ehough/contemplate" : "~1.0.0",
         "ehough/epilog"      : "~1.7",
         "ehough/finder"      : "~2.4.0",
@@ -28,18 +27,22 @@
     },
     "autoload": {
         "psr-0": {
-            "tubepress_addons_core"      : "src/main/php/add-ons/core/classes",
-            "tubepress_addons_embedplus" : "src/main/php/add-ons/embedplus/classes",
-            "tubepress_addons_jwplayer"  : "src/main/php/add-ons/jwplayer/classes",
-            "tubepress_addons_puzzle"    : "src/main/php/add-ons/puzzle/classes",
-            "tubepress_addons_vimeo"     : "src/main/php/add-ons/vimeo/classes",
-            "tubepress_addons_wordpress" : "src/main/php/add-ons/wordpress/classes",
-            "tubepress_addons_youtube"   : "src/main/php/add-ons/youtube/classes",
-            "tubepress_api"              : "src/main/php/classes",
-            "tubepress_impl"             : "src/main/php/classes",
-            "tubepress_plugins"          : "src/main/php/deprecated/classes",
-            "tubepress_spi"              : "src/main/php/classes",
-            "tubepress_test"             : "src/test/php/classes"
+            "tubepress_core_"             : "src/main/php/add-ons/core/classes",
+            "tubepress_embedplus_" : "src/main/php/add-ons/embedplus/classes",
+            "tubepress_jwplayer_"  : "src/main/php/add-ons/jwplayer/classes",
+            "tubepress_vimeo_"     : "src/main/php/add-ons/vimeo/classes",
+            "tubepress_wordpress_" : "src/main/php/add-ons/wordpress/classes",
+            "tubepress_youtube_"   : "src/main/php/add-ons/youtube/classes",
+            "tubepress_api_"              : "src/main/php/classes",
+            "tubepress_impl_"             : "src/main/php/classes",
+
+            "tubepress_test_core_"      : "src/test/php/add-ons/core/classes",
+            "tubepress_test_embedplus_" : "src/test/php/add-ons/core/embedplus/classes",
+            "tubepress_test_jwplayer_"  : "src/test/php/add-ons/core/jwplayer/classes",
+            "tubepress_test_vimeo_"     : "src/test/php/add-ons/core/vimeo/classes",
+            "tubepress_test_wordpress_" : "src/test/php/add-ons/core/wordpress/classes",
+            "tubepress_test_youtube_"   : "src/test/php/add-ons/core/youtube/classes",
+            "tubepress_test_"           : "src/test/php/classes"
         }
     }
 }

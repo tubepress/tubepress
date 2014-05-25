@@ -80,7 +80,7 @@
 
     </div>
 
-    <?php if ($field instanceof tubepress_addons_core_impl_options_ui_fields_ThemeField) : ?>
+    <?php if ($field instanceof tubepress_core_impl_options_ui_fields_provided_ThemeField) : ?>
 
         <div id="theme-field-data" style="display: none">
 

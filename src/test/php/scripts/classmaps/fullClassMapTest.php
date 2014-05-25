@@ -104,7 +104,9 @@ class fullClassMapTest extends tubepress_test_TubePressUnitTest
     {
         $this->assertTrue(is_array($this->_actualClassMap));
 
-        $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray($this->_actualClassMap));
+        $langUtils = new tubepress_impl_util_LangUtils();
+
+        $this->assertTrue($langUtils->isAssociativeArray($this->_actualClassMap));
 
         foreach ($this->_actualClassMap as $className => $path) {
 
@@ -117,7 +119,6 @@ class fullClassMapTest extends tubepress_test_TubePressUnitTest
         $pathsToSearch = array(
 
             '/src/main/php/classes',
-            '/vendor/ehough/chaingang',
             '/vendor/ehough/contemplate',
             '/vendor/ehough/epilog',
             '/vendor/ehough/filesystem',

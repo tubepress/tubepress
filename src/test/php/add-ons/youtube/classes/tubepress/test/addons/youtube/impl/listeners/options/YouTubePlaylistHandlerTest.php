@@ -10,85 +10,122 @@
  */
 
 /**
- * @covers tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler
+ * @covers tubepress_youtube_impl_listeners_options_YouTubePlaylistHandler
  */
-class tubepress_test_addons_youtube_impl_listeners_options_YouTubePlaylistHandlerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube_impl_listeners_options_YouTubePlaylistHandlerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler
+     * @var tubepress_youtube_impl_listeners_options_YouTubePlaylistHandler
      */
     private $_sut;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockStringUtils;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEvent;
+
     public function onSetup()
     {
+        $this->_mockUrlFactory = $this->mock(tubepress_core_api_url_UrlFactoryInterface::_);
+        $this->_mockStringUtils  = $this->mock(tubepress_api_util_StringUtilsInterface::_);
+        $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(function ($a) {
 
-        $mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
-        $mockUrlFactory->shouldReceive('fromString')->andReturnUsing(function ($incoming) {
-
-            $factory = new tubepress_addons_puzzle_impl_url_UrlFactory();
-
-            return $factory->fromString($incoming);
+            $urlFactory = new tubepress_core_impl_url_puzzle_UrlFactory($_SERVER);
+            return $urlFactory->fromString($a);
         });
-        $this->_sut = new tubepress_addons_youtube_impl_listeners_options_YouTubePlaylistHandler($mockUrlFactory);
+        $this->_mockEvent = $this->mock('tubepress_core_api_event_EventInterface');
+        $this->_sut = new tubepress_youtube_impl_listeners_options_YouTubePlaylistHandler($this->_mockUrlFactory, $this->_mockStringUtils);
     }
 
     public function testPullListFromUrl()
     {
-        $event = new tubepress_spi_event_EventBase('http://youtube.com/?list=PL123');
-        $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('youtube.com', 'youtube.com')->andReturn(true);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('PL123', 'PL')->andReturn(true);
+        $this->_mockStringUtils->shouldReceive('replaceFirst')->once()->with('PL', '', 'PL123')->andReturn('123');
 
-        $this->_sut->onPreValidationOptionSet($event);
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn('http://youtube.com/?list=PL123');
 
-        $this->assertEquals('123', $event->getSubject());
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with('123');
+        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
+        $this->assertTrue(true);
     }
 
     public function testPullListFromUrlNoListParam()
     {
-        $event = new tubepress_spi_event_EventBase('http://youtube.com/?lt=123');
-        $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('youtube.com', 'youtube.com')->andReturn(true);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('http://youtube.com/?lt=123', 'PL')->andReturn(false);
 
-        $this->_sut->onPreValidationOptionSet($event);
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn('http://youtube.com/?lt=123');
 
-        $this->assertEquals('http://youtube.com/?lt=123', $event->getSubject());
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with('http://youtube.com/?lt=123');
+        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
+
+        $this->assertTrue(true);
+
     }
 
     public function testPullListFromUrlNonYouTube()
     {
-        $event = new tubepress_spi_event_EventBase('http://vimeo.com/?list=123');
-        $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('vimeo.com', 'youtube.com')->andReturn(false);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('http://vimeo.com/?list=123', 'PL')->andReturn(false);
 
-        $this->_sut->onPreValidationOptionSet($event);
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn('http://vimeo.com/?list=123');
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with('http://vimeo.com/?list=123');
 
-        $this->assertEquals('http://vimeo.com/?list=123', $event->getSubject());
+        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
+
+        $this->assertTrue(true);
+
     }
 
     public function testAlterNonString()
     {
-        $event = new tubepress_spi_event_EventBase(array('hello'));
-        $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with(array('hello'), 'PL')->andReturn(false);
 
-        $this->_sut->onPreValidationOptionSet($event);
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(array('hello'));
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with(array('hello'));
 
-        $this->assertEquals(array('hello'), $event->getSubject());
+        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
+
+        $this->assertTrue(true);
     }
 
     public function testAlterHtmlNonPrefix()
     {
-        $event = new tubepress_spi_event_EventBase('hello');
-        $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('', 'youtube.com')->andReturn(false);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('hello', 'PL')->andReturn(false);
 
-        $this->_sut->onPreValidationOptionSet($event);
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn('hello');
 
-        $this->assertEquals('hello', $event->getSubject());
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with('hello');
+        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
+
+        $this->assertTrue(true);
+
     }
 
     public function testAlterPrefix()
     {
-        $event = new tubepress_spi_event_EventBase('PLhelloPL');
-        $event->setArgument('optionName', tubepress_addons_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('', 'youtube.com')->andReturn(false);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('PLhelloPL', 'PL')->andReturn(true);
+        $this->_mockStringUtils->shouldReceive('replaceFirst')->once()->with('PL', '', 'PLhelloPL')->andReturn('helloPL');
 
-        $this->_sut->onPreValidationOptionSet($event);
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn('PLhelloPL');
 
-        $this->assertEquals('helloPL', $event->getSubject());
+        $this->_mockEvent->shouldReceive('setSubject')->once()->with('helloPL');
+        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
+
+        $this->assertTrue(true);
+
     }
 }

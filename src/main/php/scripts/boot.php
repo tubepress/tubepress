@@ -9,41 +9,44 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-if (! function_exists('bootTubePress')) {
+if (!class_exists('__tubePressBoot', false)) {
 
-    /**
-     * Primary bootstrapping for TubePress.
-     */
-    function bootTubePress()
+    class __tubePressBoot
     {
-        /**
-         * First, record the root path.
-         */
-        if (!defined('TUBEPRESS_ROOT')) {
+        public static $SERVICE_CONTAINER = null;
 
-            define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+        /**
+         * Primary bootstrapping for TubePress.
+         */
+        public static function getServiceContainer()
+        {
+            if (!isset(self::$SERVICE_CONTAINER)) {
+
+                self::_cacheServiceContainer();
+            }
+
+            return self::$SERVICE_CONTAINER;
         }
 
-        /*
-         * Finally, hand off control to the TubePress bootstrapper. This will
-         *
-         * 1. Setup logging.
-         * 2. Build and compile the core IOC container.
-         * 3. Load system add-ons
-         * 4. Load user add-ons
-         */
-        require TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl/boot/PrimaryBootstrapper.php';
-        $bootStrapper = new tubepress_impl_boot_PrimaryBootstrapper();
-        $bootStrapper->boot();
+        private static function _cacheServiceContainer()
+        {
+            /**
+             * First, record the root path.
+             */
+            if (!defined('TUBEPRESS_ROOT')) {
 
-        define('TUBEPRESS_BOOT_COMPLETE', true);
+                define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+            }
+
+            if (!class_exists('tubepress_impl_boot_PrimaryBootstrapper', false)) {
+
+                require TUBEPRESS_ROOT . '/src/main/php/classes/tubepress/impl/boot/PrimaryBootstrapper.php';
+            }
+
+            $bootStrapper = new tubepress_impl_boot_PrimaryBootstrapper();
+            self::$SERVICE_CONTAINER = $bootStrapper->getServiceContainer();
+        }
     }
 }
 
-/*
- * Don't boot twice.
- */
-if (!defined('TUBEPRESS_BOOT_COMPLETE')) {
-
-    bootTubePress();
-}
+return __tubePressBoot::getServiceContainer();

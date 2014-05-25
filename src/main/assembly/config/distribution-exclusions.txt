@@ -14,10 +14,9 @@ src/test/**
 tubepress.php
 vendor/autoload.php
 vendor/bin/**
-vendor/ehough/chaingang/src/test/**
-vendor/ehough/coauthor/src/test/**
 vendor/ehough/contemplate/src/test/**
-vendor/ehough/curly/src/test/**
+vendor/puzzlehttp/puzzle/src/test/**
+vendor/puzzlehttp/streams/src/test/**
 vendor/ehough/epilog/src/main/php/ehough/epilog/formatter/ChromePHPFormatter.php
 vendor/ehough/epilog/src/main/php/ehough/epilog/formatter/ElasticaFormatter.php
 vendor/ehough/epilog/src/main/php/ehough/epilog/formatter/FlowdockFormatter.php
@@ -85,6 +84,12 @@ vendor/ehough/mockery/**
 vendor/ehough/pulsar/src/test/**
 vendor/ehough/shortstop/src/test/**
 vendor/ehough/stash/src/test/**
+vendor/ehough/stash/src/main/php/ehough/stash/driver/Apc.php
+vendor/ehough/stash/src/main/php/ehough/stash/driver/BlackHole.php
+vendor/ehough/stash/src/main/php/ehough/stash/driver/Redis.php
+vendor/ehough/stash/src/main/php/ehough/stash/driver/Sqlite.php
+vendor/ehough/stash/src/main/php/ehough/stash/driver/sub/Sqlite*
+vendor/ehough/stash/src/main/php/ehough/stash/driver/Xcache.php
 vendor/ehough/tickertape/src/main/php/ehough/tickertape/debug/**
 vendor/ehough/tickertape/src/test/**
 vendor/phpunit/**

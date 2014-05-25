@@ -20,7 +20,7 @@
                 $tabIndex = 0;
 
                 /**
-                 * @var $categories tubepress_spi_options_ui_OptionsPageItemInterface[]
+                 * @var $categories tubepress_core_api_options_ui_ElementInterface[]
                  */
                 foreach ($categories as $category): ?>
 

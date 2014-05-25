@@ -9,97 +9,35 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_impl_util_LangUtilsTestFakeClass
-{
-    const FOO = 'bar';
-    const _   = 'xxx';
-}
-
+/**
+ * @covers tubepress_impl_util_LangUtils
+ */
 class tubepress_test_impl_util_LangUtilsTest extends tubepress_test_TubePressUnitTest
 {
-
+    /**
+     * @var tubepress_impl_util_LangUtils
+     */
+    private $_sut;
+    
+    public function onSetup()
+    {
+        $this->_sut = new tubepress_impl_util_LangUtils();
+    }
+    
     public function testAssocArray()
     {
-        $this->assertFalse(tubepress_impl_util_LangUtils::isAssociativeArray(array(1, 2)));
-        $this->assertFalse(tubepress_impl_util_LangUtils::isAssociativeArray(array()));
-        $this->assertFalse(tubepress_impl_util_LangUtils::isAssociativeArray(array('foo' => 'bar', 3)));
-        $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray(array('foo' => 'bar', 'smack' => 'crack')));
+        $this->assertFalse($this->_sut->isAssociativeArray(array(1, 2)));
+        $this->assertFalse($this->_sut->isAssociativeArray(array()));
+        $this->assertFalse($this->_sut->isAssociativeArray(array('foo' => 'bar', 3)));
+        $this->assertTrue($this->_sut->isAssociativeArray(array('foo' => 'bar', 'smack' => 'crack')));
     }
 
-    public function testSerialized()
+    public function testBooleanToOneOrZero()
     {
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized('b:0;', $result);
-
-        $this->assertTrue($isSerialized === true);
-        $this->assertTrue($result === false);
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized('b:1;', $result);
-
-        $this->assertTrue($isSerialized === true);
-        $this->assertTrue($result === true);
-
-        $candidate = array(
-
-            'x' => 5,
-            1 => 'hello'
-        );
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized(serialize($candidate), $result);
-
-        $this->assertTrue($isSerialized === true);
-        $this->assertEquals($candidate, $result);
-    }
-
-    public function testNotSerialized()
-    {
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized('sxx');
-
-        $this->assertTrue($isSerialized === false);
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized(array());
-
-        $this->assertTrue($isSerialized === false);
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized('bxx');
-
-        $this->assertTrue($isSerialized === false);
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized('b:xx');
-
-        $this->assertTrue($isSerialized === false);
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized('xxx');
-
-        $this->assertTrue($isSerialized === false);
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized('');
-
-        $this->assertTrue($isSerialized === false);
-
-        $isSerialized = tubepress_impl_util_LangUtils::isSerialized(null);
-
-        $this->assertTrue($isSerialized === false);
-    }
-
-    public function testGetDefinedConstantsNoSuchClass()
-    {
-        $result = tubepress_impl_util_LangUtils::getDefinedConstants('bla bla bla');
-
-        $expected = array();
-
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testGetDefinedConstants()
-    {
-        $result = tubepress_impl_util_LangUtils::getDefinedConstants('tubepress_test_impl_util_LangUtilsTestFakeClass');
-
-        $expected = array(
-
-            'bar'
-        );
-
-        $this->assertEquals($expected, $result);
+        $this->assertEquals('1', $this->_sut->booleanToStringOneOrZero(true));
+        $this->assertEquals('0', $this->_sut->booleanToStringOneOrZero(false));
+        $this->assertEquals('1', $this->_sut->booleanToStringOneOrZero('1'));
+        $this->assertEquals('0', $this->_sut->booleanToStringOneOrZero('0'));
     }
 }
 

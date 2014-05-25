@@ -12,156 +12,38 @@
 /**
  * PHP language utilities.
  */
-class tubepress_impl_util_LangUtils
+class tubepress_impl_util_LangUtils implements tubepress_api_util_LangUtilsInterface
 {
-    public static function isAssociativeArray($candidate)
+    /**
+     * @param mixed $candidate
+     *
+     * @return bool True if the argument is an associative array, false otherwise.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function isAssociativeArray($candidate)
     {
         return is_array($candidate)
             && ! empty($candidate)
             && count(array_filter(array_keys($candidate),'is_string')) == count($candidate);
     }
 
-    public static function getDefinedConstants($classOrInterface)
-    {
-        if (! class_exists($classOrInterface) && ! interface_exists($classOrInterface)) {
-
-            return array();
-        }
-
-        $ref       = new ReflectionClass($classOrInterface);
-        $constants = $ref->getConstants();
-        $toReturn  = array();
-
-        foreach ($constants as $name => $value) {
-
-            if (substr($name, 0, 1) !== '_') {
-
-                $toReturn[] = $value;
-            }
-        }
-
-        return $toReturn;
-    }
-
-    //https://gist.github.com/1415653
     /**
-     * Tests if an input is valid PHP serialized string.
+     * @param mixed $candidate The value to convert to a one or a zero.
      *
-     * Checks if a string is serialized using quick string manipulation
-     * to throw out obviously incorrect strings. Unserialize is then run
-     * on the string to perform the final verification.
+     * @return string '1' or '0', depending on the boolean conversion of the incoming value.
      *
-     * Valid serialized forms are the following:
-     * <ul>
-     * <li>boolean: <code>b:1;</code></li>
-     * <li>integer: <code>i:1;</code></li>
-     * <li>double: <code>d:0.2;</code></li>
-     * <li>string: <code>s:4:"test";</code></li>
-     * <li>array: <code>a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}</code></li>
-     * <li>object: <code>O:8:"stdClass":0:{}</code></li>
-     * <li>null: <code>N;</code></li>
-     * </ul>
-     *
-     * @author    Chris Smith <code+php@chris.cs278.org>, Frank Bültge <frank@bueltge.de>
-     * @copyright    Copyright (c) 2009 Chris Smith (http://www.cs278.org/), 2011 Frank Bültge (http://bueltge.de)
-     * @license    http://sam.zoy.org/wtfpl/ WTFPL
-     * @param    string    $value    Value to test for serialized form
-     * @param    mixed    $result    Result of unserialize() of the $value
-     * @return    boolean            True if $value is serialized data, otherwise false
+     * @api
+     * @since 4.0.0
      */
-    public static function isSerialized($value, &$result = null)
+    public function booleanToStringOneOrZero($candidate)
     {
-        // Bit of a give away this one
-        if (! is_string($value)) {
+        if ($candidate === '1' || $candidate === '0') {
 
-            return false;
+            return $candidate;
         }
 
-        // Serialized false, return true. unserialize() returns false on an
-        // invalid string or it could return false if the string is serialized
-        // false, eliminate that possibility.
-        if ('b:0;' === $value) {
-
-            $result = false;
-            return true;
-        }
-
-        $length    = strlen($value);
-        $end    = '';
-
-        if (isset($value[0])) {
-
-            switch ($value[0]) {
-
-                case 's':
-
-                    if ('"' !== $value[$length - 2]) {
-
-                        return false;
-                    }
-
-                case 'b':
-                case 'i':
-                case 'd':
-
-                    // This looks odd but it is quicker than isset()ing
-                    $end .= ';';
-
-                case 'a':
-                case 'O':
-
-                    $end .= '}';
-
-                    if (':' !== $value[1]) {
-
-                        return false;
-                    }
-
-                    switch ($value[2]) {
-
-                        case 0:
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                        case 5:
-                        case 6:
-                        case 7:
-                        case 8:
-                        case 9:
-
-                            break;
-
-                        default:
-
-                            return false;
-                    }
-
-                case 'N':
-
-                    $end .= ';';
-
-                    if ($value[$length - 1] !== $end[0]) {
-
-                        return false;
-                    }
-
-                    break;
-
-                default:
-
-                    return false;
-            }
-        }
-
-        if (($result = @unserialize($value)) === false) {
-
-            $result = null;
-
-            return false;
-        }
-
-        return true;
+        return $candidate ? '1' : '0';
     }
 }
-

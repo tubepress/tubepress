@@ -74,7 +74,7 @@
 
     <target name="update-version-in-php-code">
 
-        <replace file="${stagingdir}/src/main/php/classes/tubepress/impl/environment/SimpleEnvironmentDetector.php" token="9.9.9" value="${version.major}.${version.minor}.${version.micro}" />
+        <replace file="${stagingdir}/src/main/php/add-ons/core/classes/tubepress/core/impl/environment/Environment.php" token="9.9.9" value="${version.major}.${version.minor}.${version.micro}" />
 
     </target>
 

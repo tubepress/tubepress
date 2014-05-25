@@ -16,7 +16,9 @@ class bootstrapClassMapTest extends tubepress_test_TubePressUnitTest
 
         $this->assertTrue(is_array($classMap));
 
-        $this->assertTrue(tubepress_impl_util_LangUtils::isAssociativeArray($classMap));
+        $langUtils = new tubepress_impl_util_LangUtils();
+
+        $this->assertTrue($langUtils->isAssociativeArray($classMap));
 
         foreach ($classMap as $className => $path) {
 

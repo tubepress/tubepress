@@ -10,29 +10,63 @@
  */
 abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tubepress_test_TubePressUnitTest
 {
+    /**
+     * @param $pathToManifest
+     *
+     * @return tubepress_api_addon_AddonInterface
+     */
     protected function getAddonFromManifest($pathToManifest)
     {
-        $mockUrlFactory = $this->createMockSingletonService(tubepress_api_url_UrlFactoryInterface::_);
+        $mockUrlFactory = $this->mock(tubepress_core_api_url_UrlFactoryInterface::_);
         $mockUrlFactory->shouldReceive('fromString')->andReturnUsing(function ($incoming) {
 
-            $factory = new tubepress_addons_puzzle_impl_url_UrlFactory();
+            $factory = new tubepress_core_impl_url_puzzle_UrlFactory();
             return $factory->fromString($incoming);
         });
 
-        $urlFactory = new tubepress_addons_puzzle_impl_url_UrlFactory();
-        $discoverer = new tubepress_impl_addon_AddonFinder(
-            new ehough_finder_FinderFactory(),
-            new tubepress_addons_coreapiservices_impl_environment_Environment($urlFactory),
-            $urlFactory
+        $logger = new tubepress_impl_log_BootLogger(false);
+
+        $discoverer = new tubepress_impl_addon_Registry(
+            $logger,
+            new tubepress_impl_boot_BootSettings($logger),
+            new ehough_finder_FinderFactory()
         );
 
         $addons = $discoverer->_findContributablesInDirectory(dirname($pathToManifest));
 
         $this->assertTrue(count($addons) === 1, 'Expected 1 addon but got ' . count($addons));
 
-        $this->assertTrue($addons[0] instanceof tubepress_spi_addon_AddonInterface);
+        $this->assertTrue($addons[0] instanceof tubepress_api_addon_AddonInterface);
 
         return $addons[0];
+    }
+
+    public function testCompilerPassesExist()
+    {
+        $addon = $this->getAddonFromManifest($this->getPathToManifest());
+
+        $extensions = $addon->getIocContainerCompilerPasses();
+
+        $this->assertTrue(is_array($extensions));
+
+        foreach ($extensions as $extension) {
+
+            $this->assertTrue(class_exists($extension), "$extension is not a valid container compiler pass");
+        }
+    }
+
+    public function testIocContainerExtensionsExist()
+    {
+        $addon = $this->getAddonFromManifest($this->getPathToManifest());
+
+        $extensions = $addon->getIocContainerExtensions();
+
+        $this->assertTrue(is_array($extensions));
+
+        foreach ($extensions as $extension) {
+
+            $this->assertTrue(class_exists($extension), "$extension is not a valid container extension");
+        }
     }
 
     public function testClassMapIntegrity()
@@ -41,6 +75,12 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
         $missing  = array();
         $manifest = $this->_decodeManifest();
         $toIgnore = $this->getClassNamesToIgnore();
+        $toIgnore = array_merge($toIgnore, $manifest['inversion-of-control']['container-extensions']);
+
+        if (isset($manifest['inversion-of-control']['compiler-passes'])) {
+
+            $toIgnore = array_merge($toIgnore, $manifest['inversion-of-control']['compiler-passes']);
+        }
 
         foreach ($map as $className => $path) {
 
@@ -78,7 +118,7 @@ abstract class tubepress_test_impl_addon_AbstractManifestValidityTest extends tu
 
             if (!is_file(dirname($this->getPathToManifest()) . DIRECTORY_SEPARATOR . $path)) {
 
-                $this->fail(dirname($this->getPathToManifest()) . DIRECTORY_SEPARATOR . $path . ' does not exist');
+                $this->fail(dirname(realpath($this->getPathToManifest())) . DIRECTORY_SEPARATOR . $path . ' does not exist');
                 return;
             }
         }

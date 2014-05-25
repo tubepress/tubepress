@@ -15,6 +15,12 @@
  **********************************************************************************************
  */
 
+.tubepress_thumbnail_area {
+
+    /** Add a margin above the thumbnail grid. */
+    margin-top: 1em;
+}
+
 .tubepress_thumb {
 
     /** This lets the thumbnails "flow" naturally across the page. */
@@ -40,6 +46,7 @@
  * These selectors apply to the main thumbnail image, which is wrapped in an anchor.
  */
 .tubepress_thumb > a,
+.tubepress_thumb .tubepress_embed,
 .tubepress_thumb img {
 
     /** Ensure that this is a block-level element. */
@@ -186,8 +193,7 @@ div.tubepress_single_video dl.tubepress_meta_group {
  * http://cssdeck.com/labs/twitter-bootstrap-pagination-and-pager
  */
 .tubepress_pagination {
-    height: 29px;
-    margin: 18px 0;
+    margin: 0 0 1em 0;
     font-size: 13px;
 }
 .tubepress_pagination ul {

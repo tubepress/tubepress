@@ -25,11 +25,18 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
      */
     private $_sut;
 
+    /**
+     * @var array
+     */
+    private $_expectedServiceConstructions;
+
     public function onSetup()
     {
         $this->_sut = $this->buildSut();
 
-        $this->_mockContainer = ehough_mockery_Mockery::mock('tubepress_api_ioc_ContainerBuilderInterface');
+        $this->_mockContainer = $this->mock('tubepress_api_ioc_ContainerBuilderInterface');
+
+        $this->_expectedServiceConstructions = array();
     }
 
     public function testLoad()
@@ -38,7 +45,49 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
 
         $this->_sut->load($this->_mockContainer);
 
-        $this->assertTrue(true);
+        $realContainerBuilder = new tubepress_impl_ioc_ContainerBuilder();
+
+        $realContainerBuilder->registerExtension($this->_sut);
+
+        foreach ($this->getExpectedExternalServicesMap() as $id => $type) {
+
+            if (is_string($type)) {
+
+                $realContainerBuilder->set($id, $this->mock($type));
+
+            } else {
+
+                $realContainerBuilder->set($id, $type);
+            }
+
+        }
+
+        foreach ($this->getExpectedParameterMap() as $key => $value) {
+
+            $realContainerBuilder->setParameter($key, $value);
+        }
+
+        $realContainerBuilder->compile();
+
+        foreach ($this->_expectedServiceConstructions as $id => $type) {
+
+            $this->assertTrue($realContainerBuilder->hasDefinition($id), "Expected that container has definition for $id");
+            $this->assertTrue($realContainerBuilder->has($id), "Expected that container has definition for $id");
+
+            $service = $realContainerBuilder->get($id);
+
+            if (is_string($type)) {
+
+                $this->assertInstanceOf($type, $service);
+            } else {
+
+                /**
+                 * @var $def tubepress_api_ioc_DefinitionInterface
+                 */
+                $def = $type;
+                $this->assertInstanceOf($def->getClass(), $service);
+            }
+        }
     }
 
     protected function expectRegistration($id, $class)
@@ -47,12 +96,16 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
 
         $this->_mockContainer->shouldReceive('register')->once()->with($id, $class)->andReturn($this->_mockDefinition);
 
+        $this->_expectedServiceConstructions[$id] = $class;
+
         return $this;
     }
 
     protected function expectDefinition($id, tubepress_api_ioc_DefinitionInterface $definition)
     {
         $this->_startChain($definition->getClass());
+
+        $this->_expectedServiceConstructions[$id] = $definition;
 
         $this->_mockContainer->shouldReceive('setDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
 
@@ -95,7 +148,7 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
     {
         $this->_mockDefinition->shouldReceive('setFactoryService')->once()->with(ehough_mockery_Mockery::on(function ($actual) use ($service) {
 
-            return $actual === $service;
+            return "$actual" === "$service";
 
         }))->andReturn($this->_mockDefinition);
 
@@ -157,9 +210,16 @@ abstract class tubepress_test_impl_ioc_AbstractIocContainerExtensionTest extends
 
     protected abstract function prepareForLoad();
 
+    protected abstract function getExpectedExternalServicesMap();
+
+    protected function getExpectedParameterMap()
+    {
+        return array();
+    }
+
     private function _startChain($class)
     {
-        $this->_mockDefinition = ehough_mockery_Mockery::mock('tubepress_api_ioc_DefinitionInterface');
+        $this->_mockDefinition = $this->mock('tubepress_api_ioc_DefinitionInterface');
 
         $this->_mockDefinition->shouldReceive('getClass')->andReturn($class);
     }

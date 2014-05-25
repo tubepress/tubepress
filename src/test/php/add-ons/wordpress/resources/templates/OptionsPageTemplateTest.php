@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_addons_wordpress_resources_templates_OptionsPageTemplateTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_resources_templates_OptionsPageTemplateTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -23,11 +23,11 @@ class tubepress_test_addons_wordpress_resources_templates_OptionsPageTemplateTes
 
     public function onSetup()
     {
-        $this->_mockParticipantFilterField = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
+        $this->_mockParticipantFilterField = $this->mock('tubepress_core_api_options_ui_FieldInterface');
         $this->_mockParticipantFilterField->shouldReceive('getTranslatedDisplayName')->once()->andReturn('participant filter name');
         $this->_mockParticipantFilterField->shouldReceive('getWidgetHTML')->once()->andReturn('abc');
 
-        $this->_mockNonceField = ehough_mockery_Mockery::mock('tubepress_spi_options_ui_OptionsPageFieldInterface');
+        $this->_mockNonceField = $this->mock('tubepress_core_api_options_ui_FieldInterface');
         $this->_mockNonceField->shouldReceive('getWidgetHTML')->once()->andReturn('xyz');
     }
 
@@ -89,7 +89,8 @@ class tubepress_test_addons_wordpress_resources_templates_OptionsPageTemplateTes
 
     private function _sanitize($string)
     {
-        $noNewLines = tubepress_impl_util_StringUtils::removeEmptyLines($string);
+        $stringUtils = new tubepress_impl_util_StringUtils();
+        $noNewLines = $stringUtils->removeEmptyLines($string);
 
         $arr = explode("\n", $noNewLines);
 

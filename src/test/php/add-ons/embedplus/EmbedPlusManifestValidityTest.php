@@ -11,12 +11,12 @@
 class_exists('tubepress_test_impl_addon_AbstractManifestValidityTest') ||
     require dirname(__FILE__) . '/../../classes/tubepress/test/impl/addon/AbstractManifestValidityTest.php';
 
-class tubepress_test_addons_core_EmbedPlusManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
+class tubepress_test_core_EmbedPlusManifestValidityTest extends tubepress_test_impl_addon_AbstractManifestValidityTest
 {
     public function testManifest()
     {
         /**
-         * @var $addon tubepress_spi_addon_AddonInterface
+         * @var $addon tubepress_api_addon_AddonInterface
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
@@ -27,7 +27,7 @@ class tubepress_test_addons_core_EmbedPlusManifestValidityTest extends tubepress
         $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
         $this->assertEquals('Allows TubePress to play YouTube videos with EmbedPlus', $addon->getDescription());
         $this->assertEquals(array('tubepress_addons_embedplus' => TUBEPRESS_ROOT . '/src/main/php/add-ons/embedplus/classes'), $addon->getPsr0ClassPathRoots());
-        $this->assertEquals(array('tubepress_addons_embedplus_impl_ioc_EmbedPlusIocContainerExtension'), $addon->getIocContainerExtensions());
+        $this->assertEquals(array('tubepress_embedplus_impl_ioc_EmbedPlusExtension'), $addon->getIocContainerExtensions());
     }
 
     protected function getPathToManifest()

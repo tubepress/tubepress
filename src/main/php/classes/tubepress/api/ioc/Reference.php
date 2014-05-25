@@ -13,6 +13,9 @@
   * A reference to another service in the container.
   *
   * @package TubePress\IoC
+  *
+  * @api
+  * @since 4.0.0
   */
 class tubepress_api_ioc_Reference
 {

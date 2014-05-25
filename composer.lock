@@ -3,49 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "096905174f72872eafbc6bb5a6cee766",
+    "hash": "0f761db4d6386dee33a99ca0d6eb581a",
     "packages": [
-        {
-            "name": "ehough/chaingang",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/chaingang.git",
-                "reference": "a94a458bdd468d85231984454508bf3049052157"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/chaingang/zipball/a94a458bdd468d85231984454508bf3049052157",
-                "reference": "a94a458bdd468d85231984454508bf3049052157",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "ehough/mockery": "~1.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_chaingang": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "Chain-of-Responsibility / Chain-of-Command pattern in PHP.",
-            "homepage": "https://github.com/ehough/chaingang",
-            "time": "2013-03-28 18:28:21"
-        },
         {
             "name": "ehough/contemplate",
             "version": "1.0.4",
@@ -1082,17 +1041,11 @@
             "time": "2014-04-18 20:37:09"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "symfony/class-loader": 20
     },
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "platform": [],
+    "platform-dev": []
 }

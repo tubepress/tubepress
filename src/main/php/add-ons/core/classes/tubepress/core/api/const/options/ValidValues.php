@@ -1,0 +1,186 @@
+<?php
+/**
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/**
+ * Advanced option names.
+ *
+ * @package TubePress\Const\Options
+ */
+interface tubepress_core_api_const_options_ValidValues
+{
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const EMBEDDED_IMPL_PROVIDER_BASED = 'provider_based';
+
+
+
+
+
+    /**
+     * @api
+     * @since 3.1.2
+     */
+    const ORDER_BY_DEFAULT = 'default';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_COMMENT_COUNT = 'commentCount';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_DURATION      = 'duration';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_NEWEST        = 'newest';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_OLDEST        = 'oldest';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_POSITION      = 'position';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_RANDOM        = 'random';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_RATING        = 'rating';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_RELEVANCE     = 'relevance';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_REV_POSITION  = 'reversedPosition';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_TITLE         = 'title';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const ORDER_BY_VIEW_COUNT    = 'viewCount';
+
+
+
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const OUTPUT_AJAX_SEARCH_INPUT = 'ajaxSearchInput';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const OUTPUT_SEARCH_INPUT      = 'searchInput';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const OUTPUT_SEARCH_RESULTS    = 'searchResults';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const OUTPUT_PLAYER            = 'player';
+
+
+
+
+
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_COMMENT_COUNT  = 'commentCount';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_DURATION       = 'duration';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_NEWEST         = 'newest';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_NONE           = 'none';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_OLDEST         = 'oldest';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_RANDOM         = 'random';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_RATING         = 'rating';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_TITLE          = 'title';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
+    const PER_PAGE_SORT_VIEW_COUNT     = 'viewCount';
+}

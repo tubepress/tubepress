@@ -13,9 +13,9 @@
  * Most of this logic is loosely based on
  * https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Pagination/SlidingPagination.php
  */
-$current      = ${tubepress_api_const_template_Variable::PAGINATION_CURRENT_PAGE};
-$totalItems   = ${tubepress_api_const_template_Variable::PAGINATION_TOTAL_ITEMS};
-$itemsPerPage = ${tubepress_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE};
+$current      = ${tubepress_core_api_const_template_Variable::PAGINATION_CURRENT_PAGE};
+$totalItems   = ${tubepress_core_api_const_template_Variable::PAGINATION_TOTAL_ITEMS};
+$itemsPerPage = ${tubepress_core_api_const_template_Variable::PAGINATION_RESULTS_PER_PAGE};
 $pageCount    = intval(ceil($totalItems / $itemsPerPage));
 $dots         = '<li class="disabled"><a href="#">...</a></li>';
 $pageRange    = 5;
@@ -110,24 +110,24 @@ if ($pageCount > 1) : ?>
 
         <?php if (isset($previousPage)) : ?>
             <li>
-                <?php ___a($previousPage, ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}, '&laquo;&nbsp;' . ${tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV}); ?>
+                <?php ___a($previousPage, ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}, '&laquo;&nbsp;' . ${tubepress_core_api_const_template_Variable::PAGINATION_TEXT_PREV}); ?>
             </li>
         <?php else: ?>
             <li class="disabled">
-                <span>&laquo;&nbsp;<?php echo ${tubepress_api_const_template_Variable::PAGINATION_TEXT_PREV}; ?></span>
+                <span>&laquo;&nbsp;<?php echo ${tubepress_core_api_const_template_Variable::PAGINATION_TEXT_PREV}; ?></span>
             </li>
         <?php endif; ?>
 
         <?php if ($startPage > 1) : ?>
 
             <li>
-                <?php ___a(1, ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
+                <?php ___a(1, ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
             </li>
 
             <?php if ($startPage == 3) : ?>
 
                 <li>
-                    <?php ___a(2, ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
+                    <?php ___a(2, ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
                 </li>
 
             <?php elseif ($startPage != 2): ?>
@@ -141,7 +141,7 @@ if ($pageCount > 1) : ?>
         <?php foreach ($pages as $page) : ?>
             <?php if ($page != $current) : ?>
                 <li>
-                    <?php ___a($page, ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
+                    <?php ___a($page, ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
                 </li>
             <?php else: ?>
                 <li class="active">
@@ -158,21 +158,21 @@ if ($pageCount > 1) : ?>
                     </li>
                 <?php else: ?>
                     <li>
-                        <?php ___a(($pageCount - 1), ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
+                        <?php ___a(($pageCount - 1), ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
                     </li>
                 <?php endif; ?>
             <?php endif; ?>
             <li>
-                <?php ___a($pageCount, ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
+                <?php ___a($pageCount, ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}); ?>
             </li>
         <?php endif; ?>
         <?php if (isset($nextPage)) : ?>
             <li>
-                <?php ___a($nextPage, ${tubepress_api_const_template_Variable::PAGINATION_HREF_FORMAT}, ${tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT} . '&nbsp;&raquo;'); ?>
+                <?php ___a($nextPage, ${tubepress_core_api_const_template_Variable::PAGINATION_HREF_FORMAT}, ${tubepress_core_api_const_template_Variable::PAGINATION_TEXT_NEXT} . '&nbsp;&raquo;'); ?>
             </li>
         <?php else: ?>
             <li class="disabled">
-                <span><?php echo ${tubepress_api_const_template_Variable::PAGINATION_TEXT_NEXT}; ?>&nbsp;&raquo;</span>
+                <span><?php echo ${tubepress_core_api_const_template_Variable::PAGINATION_TEXT_NEXT}; ?>&nbsp;&raquo;</span>
             </li>
         <?php endif; ?>
         </ul>

@@ -12,7 +12,7 @@
 /**
  * Simple implementation of an add-on.
  */
-class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_ContributableBase implements tubepress_spi_addon_AddonInterface
+class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_ContributableBase implements tubepress_api_addon_AddonInterface
 {
     /**
      * Optional attributes.
@@ -50,7 +50,7 @@ class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_Contributabl
 
     public function setClassMap(array $map)
     {
-        if (!empty($map) && !tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
+        if (!empty($map) && !$this->_isAssociativeArray($map)) {
 
             throw new InvalidArgumentException('Class map must be an associative array');
         }
@@ -66,27 +66,30 @@ class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_Contributabl
 
     public function setIocContainerExtensions(array $extensions)
     {
-        $this->_validateArrayIsJustStrings($extensions, 'Each IoC container extension');
+        $this->validateArrayIsJustStrings($extensions, 'Each IoC container extension');
 
         $this->_iocContainerExtensions = $extensions;
     }
 
     public function setIocContainerCompilerPasses(array $passes) {
 
-        $this->_validateArrayIsJustStrings($passes, 'Each IoC container compiler pass');
+        $this->validateArrayIsJustStrings($passes, 'Each IoC container compiler pass');
 
         $this->_iocContainerCompilerPasses = $passes;
     }
 
     public function setPsr0ClassPathRoots(array $roots)
     {
-        $this->_validateArrayIsJustStrings($roots, 'Each PSR-0 classpath root');
+        $this->validateArrayIsJustStrings($roots, 'Each PSR-0 classpath root');
 
         $this->_psr0ClassPathRoots = $roots;
     }
 
     /**
-     * @return array Optional. An array of IOC container extension class names. May be empty, never null.
+     * @return array Optional. An array of IoC container extension class names. May be empty, never null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getIocContainerExtensions()
     {
@@ -95,6 +98,9 @@ class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_Contributabl
 
     /**
      * @return array Optional. An array of IOC compiler pass class names. May be empty, never null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getIocContainerCompilerPasses()
     {
@@ -103,6 +109,9 @@ class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_Contributabl
 
     /**
      * @return array Optional. An array of PSR-0 compliant class path roots. May be empty, never null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getPsr0ClassPathRoots()
     {
@@ -111,17 +120,20 @@ class tubepress_impl_addon_AddonBase extends tubepress_impl_contrib_Contributabl
 
     /**
      * @return array Optional. An associative array of class names to the absolute path of their file locations.
+     *                         May be empty, never null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getClassMap()
     {
         return $this->_classMap;
     }
 
-    private function _validateArrayIsJustStrings(array $array, $name)
+    private function _isAssociativeArray($candidate)
     {
-        foreach ($array as $element) {
-
-            $this->validateIsString($element, $name);
-        }
+        return is_array($candidate)
+            && ! empty($candidate)
+            && count(array_filter(array_keys($candidate),'is_string')) == count($candidate);
     }
 }

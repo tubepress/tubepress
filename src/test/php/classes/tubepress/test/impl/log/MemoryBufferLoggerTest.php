@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_impl_log_MemoryBufferLogger
+ * @covers tubepress_impl_log_BootLogger
  */
-class tubepress_test_impl_log_MemoryBufferLoggerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_impl_log_BootLoggerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_impl_log_MemoryBufferLogger
+     * @var tubepress_impl_log_BootLogger
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_impl_log_MemoryBufferLogger(true);
+        $this->_sut = new tubepress_impl_log_BootLogger(true);
     }
 
     public function testEnabled()
@@ -31,11 +31,12 @@ class tubepress_test_impl_log_MemoryBufferLoggerTest extends tubepress_test_Tube
 
     public function testFlushTo()
     {
-        $mockLogger = ehough_mockery_Mockery::mock(tubepress_api_log_LoggerInterface::_);
+        $mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
 
         $mockLogger->shouldReceive('debug')->once()->with(ehough_mockery_Mockery::on(function ($m) {
 
-            return tubepress_impl_util_StringUtils::endsWith($m, 'something');
+            $utils = new tubepress_impl_util_StringUtils();
+            return $utils->endsWith($m, 'something');
         }), array());
         $this->_sut->debug('something');
 

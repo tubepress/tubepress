@@ -10,6 +10,16 @@
  */
 class tubepress_test_impl_template_templates_optionspage_fields_CheckboxFieldTemplateTest extends tubepress_test_TubePressUnitTest
 {
+    /**
+     * @var tubepress_impl_util_StringUtils
+     */
+    private $_stringUtils;
+
+    public function onSetup()
+    {
+        $this->_stringUtils = new tubepress_impl_util_StringUtils();
+    }
+
     public function test()
     {
         $id = 'some-name';
@@ -20,7 +30,7 @@ class tubepress_test_impl_template_templates_optionspage_fields_CheckboxFieldTem
         $result = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals(tubepress_impl_util_StringUtils::removeEmptyLines($this->_expected(true)), tubepress_impl_util_StringUtils::removeEmptyLines($result));
+        $this->assertEquals($this->_stringUtils->removeEmptyLines($this->_expected(true)), $this->_stringUtils->removeEmptyLines($result));
 
         $value = false;
 
@@ -29,7 +39,7 @@ class tubepress_test_impl_template_templates_optionspage_fields_CheckboxFieldTem
         $result = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals(tubepress_impl_util_StringUtils::removeEmptyLines($this->_expected(false)), tubepress_impl_util_StringUtils::removeEmptyLines($result));
+        $this->assertEquals($this->_stringUtils->removeEmptyLines($this->_expected(false)), $this->_stringUtils->removeEmptyLines($result));
     }
 
     private function _expected($checked)

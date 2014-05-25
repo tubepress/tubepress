@@ -12,7 +12,7 @@
 /**
  * Simple implementation of an add-on or theme.
  */
-class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_ContributableInterface
+class tubepress_impl_contrib_ContributableBase implements tubepress_api_contrib_ContributableInterface
 {
     /**
      * Required attributes.
@@ -43,7 +43,7 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     private $_name;
 
     /**
-     * @var tubepress_api_version_Version
+     * @var tubepress_core_api_version_Version
      */
     private $_version;
 
@@ -102,21 +102,13 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
      */
     private $_screenshots = array();
 
-    /**
-     * @var tubepress_api_url_UrlFactoryInterface
-     */
-    private $_urlFactory;
-
     public function __construct(
 
         $name,
         $version,
         $title,
         array $author,
-        array $licenses,
-        tubepress_api_url_UrlFactoryInterface $urlFactory) {
-
-        $this->_urlFactory = $urlFactory;
+        array $licenses) {
 
         $this->_setName($name);
         $this->_setVersion($version);
@@ -149,69 +141,40 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     public function setHomepageUrl($url)
     {
-        $this->validateUrl($url, 'homepage');
-
         $this->_urlHomepage = $url;
     }
 
     public function setDocumentationUrl($url)
     {
-        $this->validateUrl($url, 'documentation');
-
         $this->_urlDocs = $url;
     }
 
     public function setDemoUrl($url)
     {
-        $this->validateUrl($url, 'demo');
-
         $this->_urlDemo = $url;
     }
 
     public function setDownloadUrl($url)
     {
-        $this->validateUrl($url, 'download');
-
         $this->_urlDownload = $url;
     }
 
     public function setBugTrackerUrl($url)
     {
-        $this->validateUrl($url, 'bug tracker');
-
         $this->_urlBugs = $url;
     }
 
-    public function setScreenshots(array $screenshots) {
-
-        $toSet = array();
-
-        if (tubepress_impl_util_LangUtils::isAssociativeArray($screenshots)) {
-
-            foreach ($screenshots as $thumbnailUrl => $fullsizeUrl) {
-
-                $this->_validateScreenshotUrl($thumbnailUrl);
-                $this->_validateScreenshotUrl($fullsizeUrl);
-
-                $toSet[$thumbnailUrl] = $fullsizeUrl;
-            }
-
-        } else {
-
-            foreach ($screenshots as $url) {
-
-                $this->_validateScreenshotUrl($url);
-
-                $toSet[$url] = $url;
-            }
-        }
-
-        $this->_screenshots = $toSet;
+    public function setScreenshots(array $screenshots)
+    {
+        $this->_screenshots = $screenshots;
     }
 
     /**
      * @return string The globally unique name of this add-on. Must be 100 characters or less,
      *                all lowercase, and contain only URL-safe characters ([a-z0-9-_\.]+).
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getName()
     {
@@ -219,7 +182,10 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return tubepress_api_version_Version The version of this add-on.
+     * @return string The version of this add-on. This *should* be a semantic version number.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getVersion()
     {
@@ -228,6 +194,9 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     /**
      * @return string A user-friendly title for the add-on. 255 characters or less.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getTitle()
     {
@@ -237,6 +206,9 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     /**
      * @return array An associative array of author information. The possible array keys are
      *               'name', 'email', and 'url'. 'name' is required, and the other fields are optional.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getAuthor()
     {
@@ -248,6 +220,9 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
      *               'url' and 'type'. 'url' is required and must link to the license text. 'type'
      *               may be supplied if the license is one of the official open source licenses found
      *               at http://www.opensource.org/licenses/alphabetical
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getLicenses()
     {
@@ -256,6 +231,9 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
     /**
      * @return string Optional. A longer description of this add-on. 1000 characters or less.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getDescription()
     {
@@ -265,6 +243,9 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     /**
      * @return array Optional. An array of keywords that might help folks discover this add-on. Only
      *               letters, numbers, hypens, and dots. Each keyword must be 30 characters or less.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getKeywords()
     {
@@ -272,7 +253,10 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return string Optional. A link to the add-on's homepage.
+     * @return string Optional. A link to the add-on's homepage. May be null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getHomepageUrl()
     {
@@ -280,7 +264,10 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return string Optional. A link to the add-on's documentation.
+     * @return string Optional. A link to the add-on's documentation. May be null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getDocumentationUrl()
     {
@@ -288,7 +275,10 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return string Optional. A link to a live demo of the add-on.
+     * @return string Optional. A link to a live demo of the add-on. May be null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getDemoUrl()
     {
@@ -296,7 +286,10 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return string Optional. A link to a download URL.
+     * @return string Optional. A link to a download URL. May be null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getDownloadUrl()
     {
@@ -304,7 +297,10 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     }
 
     /**
-     * @return string Optional. A link to a bug tracker for this add-on.
+     * @return string Optional. A link to a bug tracker for this add-on. May be null.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getBugTrackerUrl()
     {
@@ -314,23 +310,15 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
     /**
      * @return string[] An array of strings, which may be empty but not null, of screenshots of this contributable.
      *                  URLs may either be absolute, or relative. In the latter case, they will be considered to be
-     *                  relative from the contributable root.
+     *                  relative from the contributable root. Array keys are considered to be thumbnails, and
+     *                  values are considered to be full-sized images.
+     *
+     * @api
+     * @since 4.0.0
      */
     public function getScreenshots()
     {
         return $this->_screenshots;
-    }
-
-    protected function validateUrl($url, $name)
-    {
-        try {
-
-            $this->_urlFactory->fromString($url);
-
-        } catch (InvalidArgumentException $e) {
-
-            throw new InvalidArgumentException("Invalid $name URL.");
-        }
     }
 
     protected function validateStringAndLength($candidate, $length, $name)
@@ -377,36 +365,34 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
         }
     }
 
-    protected function validateStringEndsWith($candidate, array $choices, $name)
+    protected function validateStringEndsWith($candidate, array $options, $name)
     {
         $this->validateIsString($candidate, $name);
 
-        foreach ($choices as $suffix) {
+        foreach ($options as $option) {
 
-            if (tubepress_impl_util_StringUtils::endsWith($candidate, $suffix)) {
+            if ($this->_endsWith($candidate, $option)) {
 
-                return;
+                return true;
             }
         }
 
-        throw new InvalidArgumentException(sprintf('%s must end with one of: %s', ucfirst($name), implode(', ', $choices)));
+        return false;
     }
 
-    /**
-     * @param $screenshotUrl
-     *
-     * @throws InvalidArgumentException
-     */
-    private function _validateScreenshotUrl($screenshotUrl)
+    protected function validateArrayIsJustStrings(array $array, $name)
     {
-        $this->validateStringAndLength($screenshotUrl, 300, 'screenshot URLs');
+        foreach ($array as $element) {
 
-        if (strpos($screenshotUrl, 'http') === 0) {
-
-            $this->validateUrl($screenshotUrl, 'screenshot');
+            $this->validateIsString($element, $name);
         }
+    }
 
-        $this->validateStringEndsWith($screenshotUrl, array('.png', '.jpg'), 'Each screenshot URL');
+    private function _setVersion($version)
+    {
+        $this->validateStringAndLength($version, 20, 'version');
+
+        $this->_version = $version;
     }
 
     private function _setName($name)
@@ -414,25 +400,6 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
         $this->validateContributableName($name, 'name');
 
         $this->_name = strtolower($name);
-    }
-
-    private function _setVersion($version)
-    {
-        if ($version instanceof tubepress_api_version_Version) {
-
-            $this->_version = $version;
-
-        } else {
-
-            try {
-
-                $this->_version = tubepress_api_version_Version::parse($version);
-
-            } catch (InvalidArgumentException $e) {
-
-                throw new InvalidArgumentException('Invalid version: ' . $e->getMessage());
-            }
-        }
     }
 
     private function _setTitle($title)
@@ -457,11 +424,6 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
                 throw new InvalidArgumentException('Author information must only include name, email, and/or URL');
             }
-        }
-
-        if (isset($author['url'])) {
-
-            $this->validateUrl($author['url'], 'author');
         }
 
         if (isset($author['email'])) {
@@ -492,13 +454,21 @@ class tubepress_impl_contrib_ContributableBase implements tubepress_spi_contrib_
 
                 throw new InvalidArgumentException('Only \'url\' and \'type\' attributes are supported for licenses');
             }
-
-            if (isset($license['url'])) {
-
-                $this->validateUrl($license['url'], 'license');
-            }
         }
 
         $this->_licenses = $licenses;
+    }
+
+    private function _endsWith($haystack, $needle)
+    {
+        if (! is_string($haystack) || ! is_string($needle)) {
+
+            return false;
+        }
+
+        $length = strlen($needle);
+        $start  = $length * -1; //negative
+
+        return (substr($haystack, $start) === $needle);
     }
 }

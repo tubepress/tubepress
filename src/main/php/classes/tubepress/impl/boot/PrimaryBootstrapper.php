@@ -21,7 +21,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
     private static $_SERVICE_CONTAINER;
 
     /**
-     * @var tubepress_impl_log_MemoryBufferLogger
+     * @var tubepress_impl_log_BootLogger
      */
     private $_logger;
 
@@ -36,14 +36,14 @@ class tubepress_impl_boot_PrimaryBootstrapper
     private $_classLoader;
 
     /**
-     * @var tubepress_spi_boot_SettingsFileReaderInterface
+     * @var tubepress_api_boot_BootSettingsInterface
      */
-    private $_bootHelperSettingsFileReader;
+    private $_helperSettingsFileReader;
 
     /**
-     * @var tubepress_spi_boot_secondary_SecondaryBootstrapperInterface
+     * @var tubepress_impl_boot_helper_ContainerSupplier
      */
-    private $_secondaryBootstrapper;
+    private $_helperContainerSupplier;
 
     /**
      * Performs TubePress-wide initialization.
@@ -52,7 +52,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
      *
      * @return tubepress_api_ioc_ContainerInterface
      */
-    public function boot()
+    public function getServiceContainer()
     {
         /**
          * Don't boot twice!
@@ -103,34 +103,29 @@ class tubepress_impl_boot_PrimaryBootstrapper
         $this->_03_recordStartTime();
 
         /**
-         * Read settings file.
+         * Helper services.
          */
-        $this->_04_readSettingsFile();
+        $this->_04_buildHelperServices();
 
         /**
-         * Build the secondary ...
+         * Core boot.
          */
-        $this->_05_buildSecondaryBootstrapper();
-
-        /**
-         * ... and run it.
-         */
-        $this->_06_performSecondaryBoot();
-
+        $this->_05_loadServiceContainer();
+        
         /**
          * Record finish time.
          */
-        $this->_07_recordFinishTime();
+        $this->_06_recordFinishTime();
 
         /**
          * Flush the log if we need to.
          */
-        $this->_08_finishLoggingJobs();
+        $this->_07_finishLoggingJobs();
 
         /**
          * Free up some memory.
          */
-        $this->_09_freeMemory();
+        $this->_08_freeMemory();
     }
 
     private function _01_buildInitialClassLoader()
@@ -157,7 +152,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         if (!isset($this->_logger)) {
 
             $loggingRequested = isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0;
-            $this->_logger    = new tubepress_impl_log_MemoryBufferLogger($loggingRequested);
+            $this->_logger    = new tubepress_impl_log_BootLogger($loggingRequested);
         }
     }
 
@@ -171,72 +166,40 @@ class tubepress_impl_boot_PrimaryBootstrapper
             $this->_startTime = microtime(true);
         }
     }
-
-    private function _04_readSettingsFile()
+    
+    private function _04_buildHelperServices()
     {
-        if (!isset($this->_bootHelperSettingsFileReader)) {
+        if (!isset($this->_helperSettingsFileReader)) {
 
-            $this->_bootHelperSettingsFileReader = new tubepress_impl_boot_SettingsFileReader();
-        }
-    }
-
-    private function _05_buildSecondaryBootstrapper()
-    {
-        if (isset($this->_secondaryBootstrapper)) {
-
-            return;
+            $this->_helperSettingsFileReader = new tubepress_impl_boot_BootSettings($this->_logger);
         }
 
-        if ($this->_canBootFromCache()) {
+        if (!isset($this->_helperContainerSupplier)) {
 
-            if ($this->_logger->isEnabled()) {
-
-                $this->_logger->debug('We can boot from cache. Excellent!');
-            }
-
-            $this->_secondaryBootstrapper = new tubepress_impl_boot_secondary_CachedSecondaryBootstrapper(
-
-                $this->_logger->isEnabled()
-            );
-
-        } else {
-
-            if ($this->_logger->isEnabled()) {
-
-                $this->_logger->debug('We cannot boot from cache. Will perform a full boot instead.');
-            }
-
-            $finderFactory       = new ehough_finder_FinderFactory();
-            $urlFactory          = new tubepress_addons_puzzle_impl_url_UrlFactory();
-            $environmentDetector = new tubepress_addons_coreapiservices_impl_environment_Environment($urlFactory);
-
-            $this->_secondaryBootstrapper = new tubepress_impl_boot_secondary_UncachedSecondaryBootstrapper(
-
-                $this->_logger->isEnabled(),
-                new tubepress_impl_boot_secondary_ClassLoaderPrimer(),
-                new tubepress_impl_addon_AddonFinder($finderFactory, $environmentDetector, $urlFactory),
-                new tubepress_impl_boot_secondary_IocCompiler()
+            $this->_helperContainerSupplier = new tubepress_impl_boot_helper_ContainerSupplier(
+                
+                $this->_logger,
+                $this->_helperSettingsFileReader,
+                $this->_classLoader
             );
         }
     }
 
-    private function _06_performSecondaryBoot()
+    private function _05_loadServiceContainer()
     {
-        $container = $this->_secondaryBootstrapper->getServiceContainer(
+        $container = $this->_helperContainerSupplier->getServiceContainer();
 
-            $this->_bootHelperSettingsFileReader,
-            $this->_classLoader
-        );
+        if ($this->_helperSettingsFileReader->isClassLoaderEnabled()) {
 
-        if ($this->_bootHelperSettingsFileReader->isClassLoaderEnabled()) {
-
-            $this->_classLoader->addToClassMap($container->getParameter('classMap'));
+            $containerClassMap = $container->getParameter('classMap');
+            
+            $this->_classLoader->addToClassMap($containerClassMap);
         }
 
         /**
-         * Keep this around for later.
+         * Save this guy in case anyone else wants it.
          */
-        $container->set('tubepress.settingsFileReader', $this->_bootHelperSettingsFileReader);
+        $container->set(tubepress_api_boot_BootSettingsInterface::_, $this->_helperSettingsFileReader);
 
         /**
          * Remember that we booted.
@@ -244,7 +207,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         self::$_SERVICE_CONTAINER = $container;
     }
 
-    private function _07_recordFinishTime()
+    private function _06_recordFinishTime()
     {
         if (!$this->_logger->isEnabled()) {
 
@@ -257,96 +220,24 @@ class tubepress_impl_boot_PrimaryBootstrapper
             (($now - $this->_startTime) * 1000.0)));
     }
 
-    private function _08_finishLoggingJobs()
+    private function _07_finishLoggingJobs()
     {
         $serviceContainer = self::$_SERVICE_CONTAINER;
-        $context          = $serviceContainer->get(tubepress_api_options_ContextInterface::_);
-        $loggingEnabled   = $context->get(tubepress_api_const_options_names_Advanced::DEBUG_ON);
-        $loggingRequested = $this->_logger->isEnabled();
-        $status           = $loggingEnabled && $loggingRequested;
 
-        if ($status) {
-
-            $finalLogger = new tubepress_impl_log_HtmlLogger(
-                new ehough_epilog_Logger('TubePress'),
-                new ehough_epilog_formatter_LineFormatter("[%datetime%] [%level_name%] %message%")
-            );
-            $this->_logger->flushTo($finalLogger);
-
-        } else {
-
-            $finalLogger = $this->_logger;
-        }
-
-        $this->_logger->disable();
-
-        $serviceContainer->set(tubepress_api_log_LoggerInterface::_, $finalLogger);
+        $serviceContainer->set('tubepress_impl_log_BootLogger', $this->_logger);
     }
 
-    private function _09_freeMemory()
+    private function _08_freeMemory()
     {
-        unset($this->_bootHelperAddonBooter);
-        unset($this->_bootHelperAddonDiscoverer);
-        unset($this->_bootHelperSettingsFileReader);
-        unset($this->_bootHelperClassLoadingHelper);
-        unset($this->_bootHelperIocHelper);
+        if (!$this->_helperSettingsFileReader->isClassLoaderEnabled()) {
+
+            spl_autoload_unregister(array($this->_classLoader, 'loadClass'));
+            unset($this->_classLoader);
+        }
+
+        unset($this->_helperSettingsFileReader);
+        unset($this->_helperContainerSupplier);
     }
-
-    public function _canBootFromCache()
-    {
-        if ($this->_logger->isEnabled()) {
-
-            $this->_logger->debug('Determining if we can boot from the cache.');
-        }
-
-        if (!$this->_bootHelperSettingsFileReader->isContainerCacheEnabled()) {
-
-            if ($this->_logger->isEnabled()) {
-
-                $this->_logger->debug('Boot cache is disabled by user settings.php');
-            }
-
-            return false;
-        }
-
-        if (class_exists('TubePressServiceContainer', false)) {
-
-            return true;
-        }
-
-        $file = $this->_bootHelperSettingsFileReader->getCachedContainerStoragePath();;
-
-        if (!is_readable($file)) {
-
-            if ($this->_logger->isEnabled()) {
-
-                $this->_logger->debug(sprintf('%s is not a readable file.', $file));
-            }
-
-            return false;
-        }
-
-        if ($this->_logger->isEnabled()) {
-
-            $this->_logger->debug(sprintf('%s is a readable file. Now including it.', $file));
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        require $file;
-
-        $iocContainerHit = class_exists('TubePressServiceContainer', false);
-
-        if ($this->_logger->isEnabled()) {
-
-            if ($iocContainerHit) {
-
-                $this->_logger->debug(sprintf('IOC container found in cache? %s', $iocContainerHit ? 'yes' : 'no'));
-            }
-        }
-
-        return $iocContainerHit;
-    }
-
 
 
     /***********************************************************************************************************
@@ -356,25 +247,25 @@ class tubepress_impl_boot_PrimaryBootstrapper
     /**
      * This is here strictly for testing :/
      *
-     * @param tubepress_spi_boot_SettingsFileReaderInterface $bcsi The settings file interface.
+     * @param tubepress_api_boot_BootSettingsInterface $bcsi The settings file interface.
      *
      * @internal
      */
-    public function ___setSettingsFileReader(tubepress_spi_boot_SettingsFileReaderInterface $bcsi)
+    public function ___setSettingsFileReader(tubepress_api_boot_BootSettingsInterface $bcsi)
     {
-        $this->_bootHelperSettingsFileReader = $bcsi;
+        $this->_helperSettingsFileReader = $bcsi;
     }
 
     /**
      * This is here strictly for testing :/
      *
-     * @param tubepress_spi_boot_secondary_SecondaryBootstrapperInterface $sbi The secondary bootstrapper.
+     * @param tubepress_impl_boot_helper_ContainerSupplier $sbi The container supplier.
      *
      * @internal
      */
-    public function ___setSecondaryBootstrapper(tubepress_spi_boot_secondary_SecondaryBootstrapperInterface $sbi)
+    public function ___setContainerSupplier(tubepress_impl_boot_helper_ContainerSupplier $sbi)
     {
-        $this->_secondaryBootstrapper = $sbi;
+        $this->_helperContainerSupplier = $sbi;
     }
 
     /**
@@ -392,11 +283,11 @@ class tubepress_impl_boot_PrimaryBootstrapper
     /**
      * This is here strictly for testing :/
      *
-     * @param tubepress_impl_log_MemoryBufferLogger $logger
+     * @param tubepress_impl_log_BootLogger $logger
      *
      * @internal
      */
-    public function ___setTemporaryLogger(tubepress_impl_log_MemoryBufferLogger $logger)
+    public function ___setTemporaryLogger(tubepress_impl_log_BootLogger $logger)
     {
         $this->_logger = $logger;
     }

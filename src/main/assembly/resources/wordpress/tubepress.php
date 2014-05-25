@@ -150,7 +150,7 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
     }
 
     /**
-     * @return tubepress_addons_wordpress_impl_Callback
+     * @return tubepress_wordpress_impl_Callback
      */
     private function _getCallback()
     {
@@ -160,7 +160,7 @@ class tubepress_impl_addons_wordpress_ApiIntegrator
          */
         $serviceContainer = require 'src/main/php/scripts/boot.php';
 
-        return $serviceContainer->get('tubepress_addons_wordpress_impl_Callback');
+        return $serviceContainer->get('tubepress_wordpress_impl_Callback');
     }
 }
 

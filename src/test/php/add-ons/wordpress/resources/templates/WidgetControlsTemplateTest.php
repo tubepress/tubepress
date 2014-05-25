@@ -14,16 +14,16 @@ if (! function_exists('wp_nonce_field')) {
     function wp_nonce_field() { echo 'nonce'; }
 }
 
-class tubepress_test_addons_wordpress_resources_templates_WidgetControlsTemplateTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_resources_templates_WidgetControlsTemplateTest extends tubepress_test_TubePressUnitTest
 {
     public function test()
     {
-        ${tubepress_addons_wordpress_impl_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_addons_wordpress_impl_Widget::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
-        ${tubepress_addons_wordpress_impl_Widget::WIDGET_TITLE}         = '<<widget-title>>';
-        ${tubepress_addons_wordpress_impl_Widget::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
-        ${tubepress_addons_wordpress_impl_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_addons_wordpress_impl_Widget::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
+        ${tubepress_wordpress_impl_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_wordpress_impl_Widget::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
+        ${tubepress_wordpress_impl_Widget::WIDGET_TITLE}         = '<<widget-title>>';
+        ${tubepress_wordpress_impl_Widget::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
+        ${tubepress_wordpress_impl_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_wordpress_impl_Widget::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
 
         ob_start();
         include __DIR__ . '/../../../../../../main/php/add-ons/wordpress/resources/templates/widget_controls.tpl.php';

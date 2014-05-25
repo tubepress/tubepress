@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_test_addons_embedplus_resources_templates_embedded_EmbedPlusEmbeddedVideoTemplateTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_embedplus_resources_templates_embedded_EmbedPlusEmbeddedVideoTemplateTest extends tubepress_test_TubePressUnitTest
 {
     public function testTemplate()
     {
@@ -28,11 +28,11 @@ class tubepress_test_addons_embedplus_resources_templates_embedded_EmbedPlusEmbe
 EOT
 );
 
-        ${tubepress_api_const_template_Variable::VIDEO_ID} = 'video-id';
-        ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH} = 99;
-        ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT} = 88;
-        ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL} = 'data-url';
-        ${tubepress_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
+        ${tubepress_core_api_const_template_Variable::VIDEO_ID} = 'video-id';
+        ${tubepress_core_api_const_template_Variable::EMBEDDED_WIDTH} = 99;
+        ${tubepress_core_api_const_template_Variable::EMBEDDED_HEIGHT} = 88;
+        ${tubepress_core_api_const_template_Variable::EMBEDDED_DATA_URL} = 'data-url';
+        ${tubepress_core_api_const_template_Variable::VIDEO_DOM_ID} = 'video-dom-id';
 
         require TUBEPRESS_ROOT . '/src/main/php/add-ons/embedplus/resources/templates/embedded/embedplus.tpl.php';
     }
