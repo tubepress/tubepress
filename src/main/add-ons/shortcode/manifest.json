@@ -1,0 +1,31 @@
+{
+    "name" : "tubepress/core-shortcode",
+    "version": "1.0.0",
+    "title" : "TubePress Shortcode Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress shortcode functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_shortcode_ioc_ShortcodeExtension"
+        ]
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_core_shortcode_" : "classes"
+        },
+        "classmap" : {
+            "tubepress_core_shortcode_api_Constants"       : "classes/tubepress/core/shortcode/api/Constants.php",
+            "tubepress_core_shortcode_api_ParserInterface" : "classes/tubepress/core/shortcode/api/ParserInterface.php",
+            "tubepress_core_shortcode_impl_Parser"         : "classes/tubepress/core/shortcode/impl/Parser.php"
+        }
+    }
+}

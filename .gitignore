@@ -1,6 +1,6 @@
 .DS_Store
-src/main/assembly/stage
-src/main/assembly/dist
+src/assembly/stage
+src/assembly/dist
 .idea
 /vendor
 tubepress.php

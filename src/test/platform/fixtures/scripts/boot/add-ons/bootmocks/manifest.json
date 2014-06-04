@@ -1,0 +1,25 @@
+{
+    "name" : "tubepress/bootmocks",
+    "version": "1.0.0",
+    "title" : "TubePress Boot Mocks",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_test_boot_Extension"
+        ]
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_test_boot_" : "classes"
+        }
+    }
+}

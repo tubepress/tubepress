@@ -1,0 +1,41 @@
+{
+    "name" : "tubepress/core-theme",
+    "version": "1.0.0",
+    "title" : "TubePress Theme Capability",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress core theme functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_theme_ioc_ThemeExtension"
+        ],
+        "compiler-passes" : {
+            "tubepress_core_theme_ioc_compiler_ThemesPrimerPass" : 60000
+        }
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_core_theme_" : "classes"
+        },
+        "classmap" : {
+            "tubepress_core_theme_api_Constants"             : "classes/tubepress/core/theme/api/Constants.php",
+            "tubepress_core_theme_api_ThemeInterface"        : "classes/tubepress/core/theme/api/ThemeInterface.php",
+            "tubepress_core_theme_api_ThemeLibraryInterface" : "classes/tubepress/core/theme/api/ThemeLibraryInterface.php",
+
+            "tubepress_core_theme_impl_listeners_options_AcceptableValues"    : "classes/tubepress/core/theme/impl/listeners/options/AcceptableValues.php",
+            "tubepress_core_theme_impl_listeners_options_LegacyThemeListener" : "classes/tubepress/core/theme/impl/listeners/options/LegacyThemeListener.php",
+            "tubepress_core_theme_impl_ThemeBase"     : "classes/tubepress/core/theme/impl/ThemeBase.php",
+            "tubepress_core_theme_impl_ThemeLibrary"  : "classes/tubepress/core/theme/impl/ThemeLibrary.php",
+            "tubepress_core_theme_impl_ThemeRegistry" : "classes/tubepress/core/theme/impl/ThemeRegistry.php"
+
+        }
+    }
+}

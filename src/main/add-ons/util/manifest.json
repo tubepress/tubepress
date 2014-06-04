@@ -1,0 +1,33 @@
+{
+    "name" : "tubepress/core-util",
+    "version": "1.0.0",
+    "title" : "TubePress Language and Time Utilities",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress language and time utilities.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_util_ioc_UtilsExtension"
+        ]
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_core_util_" : "classes"
+        },
+        "classmap" : {
+            "tubepress_core_util_api_TimeUtilsInterface" : "classes/tubepress/core/util/api/TimeUtilsInterface.php",
+            "tubepress_core_util_api_UrlUtilsInterface"  : "classes/tubepress/core/util/api/UrlUtilsInterface.php",
+            "tubepress_core_util_impl_TimeUtils"         : "classes/tubepress/core/util/impl/TimeUtils.php",
+            "tubepress_core_util_impl_UrlUtils"          : "classes/tubepress/core/util/impl/UrlUtils.php"
+
+        }
+    }
+}
