@@ -183,7 +183,7 @@ abstract class tubepress_core_options_ioc_compiler_AbstractEasyPass implements t
     {
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug($message);
+            $this->_logger->error($message);
         }
 
         return false;

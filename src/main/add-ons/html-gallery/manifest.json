@@ -1,0 +1,38 @@
+{
+    "name" : "tubepress/core-html-gallery",
+    "version": "1.0.0",
+    "title" : "TubePress HTML Gallery Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress media gallery functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_html_gallery_ioc_GalleryExtension"
+        ]
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_core_html_gallery_" : "classes"
+        },
+        "classmap" : {
+            "tubepress_core_html_gallery_api_Constants"                               : "classes/tubepress/core/html/gallery/api/Constants.php",
+            "tubepress_core_html_gallery_impl_listeners_html_GalleryInitJsBaseParams" : "classes/tubepress/core/html/gallery/impl/listeners/html/GalleryInitJsBaseParams.php",
+            "tubepress_core_html_gallery_impl_listeners_html_NoRobotsListener"        : "classes/tubepress/core/html/gallery/impl/listeners/html/NoRobotsListener.php",
+            "tubepress_core_html_gallery_impl_listeners_html_AsyncJsInjector"         : "classes/tubepress/core/html/gallery/impl/listeners/html/AsyncJsInjector.php",
+            "tubepress_core_html_gallery_impl_listeners_html_GalleryMaker"            : "classes/tubepress/core/html/gallery/impl/listeners/html/GalleryMaker.php",
+            "tubepress_core_html_gallery_impl_listeners_template_CoreVariables"       : "classes/tubepress/core/html/gallery/impl/listeners/template/CoreVariables.php",
+            "tubepress_core_html_gallery_impl_listeners_template_EmbeddedVars"        : "classes/tubepress/core/html/gallery/impl/listeners/template/EmbeddedVars.php",
+            "tubepress_core_html_gallery_impl_listeners_template_Pagination"          : "classes/tubepress/core/html/gallery/impl/listeners/template/Pagination.php",
+            "tubepress_core_html_gallery_impl_listeners_template_PlayerLocation"      : "classes/tubepress/core/html/gallery/impl/listeners/template/PlayerLocation.php",
+            "tubepress_core_html_gallery_impl_listeners_template_VideoMeta"           : "classes/tubepress/core/html/gallery/impl/listeners/template/VideoMeta.php"
+        }
+    }
+}

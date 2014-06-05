@@ -27,6 +27,7 @@
             "tubepress_core_html_api_HtmlGeneratorInterface"    : "classes/tubepress/core/html/api/HtmlGeneratorInterface.php",
             "tubepress_core_html_impl_HtmlGenerator"            : "classes/tubepress/core/html/impl/HtmlGenerator.php",
             "tubepress_core_html_impl_listeners_BaseUrlSetter"  : "classes/tubepress/core/html/impl/listeners/BaseUrlSetter.php",
+            "tubepress_core_html_impl_listeners_ErrorLogger"    : "classes/tubepress/core/html/impl/listeners/ErrorLogger.php",
             "tubepress_core_html_impl_listeners_GlobalJsConfig" : "classes/tubepress/core/html/impl/listeners/GlobalJsConfig.php"
         }
     }

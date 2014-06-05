@@ -33,7 +33,7 @@ class tubepress_core_player_ioc_PlayerExtension implements tubepress_api_ioc_Con
             'tubepress_core_player_impl_listeners_html_SoloPlayerListener'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference('tubepress_core_media_single_impl_listeners_html_SingleVideoListener'))
+         ->addArgument(new tubepress_api_ioc_Reference('tubepress_core_html_single_impl_listeners_html_SingleVideoListener'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_html_api_Constants::EVENT_PRIMARY_HTML,

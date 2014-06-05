@@ -96,17 +96,17 @@ class tubepress_wordpress_impl_Widget
 
         /* default widget options */
         $defaultWidgetOptions = array(
-            tubepress_core_provider_api_Constants::OPTION_RESULTS_PER_PAGE     => 3,
-            tubepress_core_media_single_api_Constants::OPTION_VIEWS            => false,
-            tubepress_core_media_single_api_Constants::OPTION_DESCRIPTION      => true,
-            tubepress_core_media_single_api_Constants::OPTION_DESC_LIMIT       => 50,
+            tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE     => 3,
+            tubepress_core_media_item_api_Constants::OPTION_VIEWS            => false,
+            tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION      => true,
+            tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT       => 50,
             tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION        => 'shadowbox',
-            tubepress_core_media_gallery_api_Constants::OPTION_THUMB_HEIGHT    => 105,
-            tubepress_core_media_gallery_api_Constants::OPTION_THUMB_WIDTH     => 135,
-            tubepress_core_media_gallery_api_Constants::OPTION_PAGINATE_ABOVE  => false,
-            tubepress_core_media_gallery_api_Constants::OPTION_PAGINATE_BELOW  => false,
+            tubepress_core_html_gallery_api_Constants::OPTION_THUMB_HEIGHT    => 105,
+            tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH     => 135,
+            tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE  => false,
+            tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_BELOW  => false,
             tubepress_core_theme_api_Constants::OPTION_THEME                   => 'tubepress/legacy-sidebar',
-            tubepress_core_media_gallery_api_Constants::OPTION_FLUID_THUMBS     => false
+            tubepress_core_html_gallery_api_Constants::OPTION_FLUID_THUMBS     => false
         );
 
         /* now apply the user's options */

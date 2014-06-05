@@ -25,12 +25,12 @@ interface tubepress_core_player_api_PlayerHtmlInterface
     /**
      * Get's the HTML for the TubePress "player"
      *
-     * @param tubepress_core_provider_api_MediaItem $mediaItem The video to display in the player.
+     * @param tubepress_core_media_item_api_MediaItem $mediaItem The video to display in the player.
      *
      * @return string|null The HTML for this player with the given video, or null if not found.
      *
      * @api
      * @since 4.0.0
      */
-    function getHtml(tubepress_core_provider_api_MediaItem $mediaItem);
+    function getHtml(tubepress_core_media_item_api_MediaItem $mediaItem);
 }

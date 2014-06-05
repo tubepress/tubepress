@@ -33,7 +33,9 @@ class tubepress_test_core_log_ioc_LogExtensionTest extends tubepress_test_core_i
         $this->expectRegistration(
             'epilog.formatter',
             'ehough_epilog_formatter_LineFormatter'
-        )->withArgument('[%%datetime%%] [%%level_name%%]: %%message%%');
+        )->withArgument('[%%datetime%%] [%%level_name%%]: %%message%%')
+         ->withArgument('i:s.u');
+
 
         $this->expectRegistration(
             tubepress_api_log_LoggerInterface::_,

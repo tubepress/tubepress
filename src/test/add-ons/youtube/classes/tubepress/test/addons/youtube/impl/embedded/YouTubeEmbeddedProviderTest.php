@@ -59,7 +59,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
     {
         $expected = array(
            'embedded/youtube.tpl.php',
-            TUBEPRESS_ROOT . '/src/main/php/add-ons/youtube/resources/templates'
+            TUBEPRESS_ROOT . '/src/main/add-ons/youtube/resources/templates/embedded/youtube.tpl.php'
         );
 
         $result = $this->_sut->getPathsForTemplateFactory();
@@ -100,7 +100,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(4)->with(true)->andReturn('troo');
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(false)->andReturn('fawlse');
 
-        $mockProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
 
         $result = $this->_sut->getDataUrlForVideo($this->_mockUrlFactory, $mockProvider, 'xx');
 
@@ -140,7 +140,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(4)->with(true)->andReturn('troo');
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(false)->andReturn('fawlse');
 
-        $mockProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
 
         $result = $this->_sut->getDataUrlForVideo($this->_mockUrlFactory, $mockProvider, 'xx');
         $this->assertSame($mockUrl2, $result);
@@ -179,7 +179,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(4)->with(true)->andReturn('troo');
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(false)->andReturn('fawlse');
 
-        $mockProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
 
         $result = $this->_sut->getDataUrlForVideo($this->_mockUrlFactory, $mockProvider, 'xx');
         $this->assertSame($mockUrl2, $result);

@@ -37,8 +37,8 @@ class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extend
     protected function onAfterTemplateBasedFieldSetup()
     {
         $this->_mockOptionProvider = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
-        $this->_mockVideoProvider1  = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
-        $this->_mockVideoProvider2  = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $this->_mockVideoProvider1  = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
+        $this->_mockVideoProvider2  = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
     }
 
     protected function doPrepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $mockTemplate)
@@ -53,8 +53,8 @@ class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extend
             $this->_mockOptionProvider->shouldReceive('getUntranslatedLabel')->once()->with($metaOptionName)->andReturn(strtoupper($metaOptionName));
         }
 
-        $this->_mockVideoProvider1->shouldReceive('getFriendlyName')->atLeast(1)->andReturn('Provider 1');
-        $this->_mockVideoProvider2->shouldReceive('getFriendlyName')->atLeast(1)->andReturn('Provider 2');
+        $this->_mockVideoProvider1->shouldReceive('getDisplayName')->atLeast(1)->andReturn('Provider 1');
+        $this->_mockVideoProvider2->shouldReceive('getDisplayName')->atLeast(1)->andReturn('Provider 2');
 
         $mockTemplate->shouldReceive('setVariable')->once()->with('currentlySelectedValues', array('foo', 'buzz'));
         $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', array());
@@ -144,15 +144,15 @@ class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extend
 
     private function _setupForMetaOptionNames()
     {
-        $this->_mockVideoProvider1->shouldReceive('getMapOfMetaOptionNamesToUntranslatedLabels')->atLeast(1)->andReturn(array(
+        $this->_mockVideoProvider1->shouldReceive('getMetaOptionNames')->atLeast(1)->andReturn(array(
 
-            'foo' => 'foo label',
-            'buzz' => 'buzz label'
+            'foo',
+            'buzz',
         ));
-        $this->_mockVideoProvider2->shouldReceive('getMapOfMetaOptionNamesToUntranslatedLabels')->atLeast(1)->andReturn(array(
+        $this->_mockVideoProvider2->shouldReceive('getMetaOptionNames')->atLeast(1)->andReturn(array(
 
-            'foo' => 'foo label',
-            'bar' => 'bar label'
+            'foo',
+            'bar',
         ));
     }
 }

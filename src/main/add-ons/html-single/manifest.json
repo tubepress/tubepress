@@ -1,0 +1,31 @@
+{
+    "name" : "tubepress/core-html-single",
+    "version": "1.0.0",
+    "title" : "TubePress Single Media Item Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress single media item functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_html_single_ioc_SingleItemExtension"
+        ]
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_core_html_single_" : "classes"
+        },
+        "classmap" : {
+            "tubepress_core_html_single_api_Constants"                                    : "classes/tubepress/core/html/single/api/Constants.php",
+            "tubepress_core_html_single_impl_listeners_html_SingleVideoListener"          : "classes/tubepress/core/html/single/impl/listeners/html/SingleVideoListener.php",
+            "tubepress_core_html_single_impl_listeners_template_SingleVideoCoreVariables" : "classes/tubepress/core/html/single/impl/listeners/template/SingleVideoCoreVariables.php"
+        }
+    }
+}

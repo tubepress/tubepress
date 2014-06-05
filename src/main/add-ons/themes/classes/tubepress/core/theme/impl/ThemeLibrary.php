@@ -135,7 +135,7 @@ class tubepress_core_theme_impl_ThemeLibrary implements tubepress_core_theme_api
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Found direct hit for %s in "%s" theme.', $relativePath, $themeName));
+                $this->_logger->debug(sprintf('Found direct hit for template "%s" in "%s" theme.', $relativePath, $themeName));
             }
 
             return $this->_toAbsPath($themeName, $relativePath);
@@ -143,7 +143,7 @@ class tubepress_core_theme_impl_ThemeLibrary implements tubepress_core_theme_api
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('No direct hit for %s in "%s" theme. Checking hierarchy', $relativePath, $themeName));
+            $this->_logger->debug(sprintf('No direct hit for template "%s" in "%s" theme. Checking hierarchy', $relativePath, $themeName));
         }
 
         while (true) {
@@ -174,7 +174,7 @@ class tubepress_core_theme_impl_ThemeLibrary implements tubepress_core_theme_api
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Found %s in theme "%s".', $relativePath, $themeName));
+                    $this->_logger->debug(sprintf('Found template "%s" in theme "%s".', $relativePath, $themeName));
                 }
 
                 return $this->_toAbsPath($themeName, $relativePath);

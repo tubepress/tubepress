@@ -59,12 +59,12 @@ class tubepress_core_options_ioc_compiler_ReferenceCreatorPass implements tubepr
             tubepress_core_options_api_ReferenceInterface::_,
             'tubepress_core_options_impl_Reference'
         )->addArgument($mapOfOptionNamesToDefaultValues)
-         ->addArgument($mapOfOptionNamesToLabels)
-         ->addArgument($mapOfOptionNamesToDescriptions)
-         ->addArgument($optionNamesThatArePro)
-         ->addArgument($optionNamesThatShouldNotBePersisted)
-         ->addArgument($optionNamesThatCannotBeSetViaShortcode)
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_));
+            ->addArgument($mapOfOptionNamesToLabels)
+            ->addArgument($mapOfOptionNamesToDescriptions)
+            ->addArgument($optionNamesThatArePro)
+            ->addArgument($optionNamesThatShouldNotBePersisted)
+            ->addArgument($optionNamesThatCannotBeSetViaShortcode)
+            ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_));
     }
 
     private function _getNoShortcodeNames(tubepress_core_options_api_ReferenceInterface $ref)
@@ -84,7 +84,7 @@ class tubepress_core_options_ioc_compiler_ReferenceCreatorPass implements tubepr
 
     private function _getDefaultValueMap(tubepress_core_options_api_ReferenceInterface $ref)
     {
-        return $this->_map($ref, 'getDefaultValue');
+        return $this->_map($ref, 'getDefaultValue', true);
     }
 
     private function _getDescriptionMap(tubepress_core_options_api_ReferenceInterface $ref)
@@ -118,7 +118,7 @@ class tubepress_core_options_ioc_compiler_ReferenceCreatorPass implements tubepr
         return $toReturn;
     }
 
-    private function _map(tubepress_core_options_api_ReferenceInterface $ref, $methodName)
+    private function _map(tubepress_core_options_api_ReferenceInterface $ref, $methodName, $allowNull = false)
     {
         $toReturn    = array();
         $optionNames = $ref->getAllOptionNames();
@@ -127,10 +127,12 @@ class tubepress_core_options_ioc_compiler_ReferenceCreatorPass implements tubepr
 
             $result = $ref->$methodName($optionName);
 
-            if ($result !== null) {
+            if (!$allowNull && $result === null) {
 
-                $toReturn[$optionName] = $result;
+                continue;
             }
+
+            $toReturn[$optionName] = $result;
         }
 
         return $toReturn;

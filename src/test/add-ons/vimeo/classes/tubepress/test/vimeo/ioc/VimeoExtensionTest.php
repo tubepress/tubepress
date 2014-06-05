@@ -53,14 +53,13 @@ class tubepress_test_vimeo_impl_ioc_VimeoExtensionTest extends tubepress_test_co
             'tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_util_api_TimeUtilsInterface::_))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-                'event' => tubepress_core_provider_api_Constants::EVENT_NEW_MEDIA_ITEM,
-                'method' => 'onVideoConstruction',
-                'priority' => 10000
-            ));
+         ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event' => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_ITEM,
+            'method' => 'onVideoConstruction',
+            'priority' => 10000
+        ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_TRIMMER, array(
+        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_TRIMMER . '_vimeo', array(
             'priority'    => 9500,
             'charlist'    => '#',
             'ltrim'       => true,
@@ -76,8 +75,8 @@ class tubepress_test_vimeo_impl_ioc_VimeoExtensionTest extends tubepress_test_co
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_provider_api_ItemSorterInterface::_))
-            ->withTag(tubepress_core_provider_api_HttpProviderInterface::_);
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_media_provider_api_ItemSorterInterface::_))
+            ->withTag('tubepress_core_media_provider_api_HttpProviderInterface');
 
         $fieldIndex = 0;
         $this->expectRegistration(
@@ -281,7 +280,7 @@ class tubepress_test_vimeo_impl_ioc_VimeoExtensionTest extends tubepress_test_co
             tubepress_core_event_api_EventDispatcherInterface::_ => tubepress_core_event_api_EventDispatcherInterface::_,
             tubepress_core_options_ui_api_FieldBuilderInterface::_ => $mockfieldBuilder,
             tubepress_core_translation_api_TranslatorInterface::_ => tubepress_core_translation_api_TranslatorInterface::_,
-            tubepress_core_provider_api_ItemSorterInterface::_ => tubepress_core_provider_api_ItemSorterInterface::_,
+            tubepress_core_media_provider_api_ItemSorterInterface::_ => tubepress_core_media_provider_api_ItemSorterInterface::_,
             tubepress_core_options_ui_api_ElementBuilderInterface::_ => $mockElementBuilder,
         );
     }

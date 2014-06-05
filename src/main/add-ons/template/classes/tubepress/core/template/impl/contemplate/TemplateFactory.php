@@ -70,7 +70,7 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug(sprintf('Attempting to load template from %d possible path(s)', $pathCount));
+            $this->_logger->debug(sprintf('Attempting to load a template from %d possible path(s): %s', $pathCount, json_encode($paths)));
         }
 
         foreach ($paths as $path) {
@@ -82,7 +82,7 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug(sprintf('Attempting to load template from %s (%d of %d possible locations)',
+                $this->_logger->debug(sprintf('Attempting to load template from "%s" (%d of %d possible locations)',
                     $path, $index, $pathCount));
             }
 
@@ -92,7 +92,7 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
 
                 if ($this->_logEnabled) {
 
-                    $this->_logger->debug(sprintf('Able to load template from %s (%d of %d possible locations)',
+                    $this->_logger->debug(sprintf('Able to load template from "%s" (%d of %d possible locations)',
                         $path, $index, $pathCount));
                 }
 
@@ -101,14 +101,14 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug(sprintf('Unable to load template from %s (%d of %d possible locations)',
+                $this->_logger->debug(sprintf('Unable to load template from "%s" (%d of %d possible locations)',
                     $path, $index++, $pathCount));
             }
         }
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug(sprintf('Attempting to load template from any of %d possible locations',
+            $this->_logger->error(sprintf('Unable to load template from any of %d possible locations',
                 $pathCount));
         }
 
@@ -131,7 +131,7 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug(sprintf('Attempting to load theme template from "%s"', $pathToTemplate));
+            $this->_logger->debug(sprintf('Attempting to load theme template at path "%s"', $pathToTemplate));
         }
 
         $filePath = $this->_themeLibrary->getAbsolutePathToTemplate($path);
@@ -143,7 +143,7 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug(sprintf('Candidate absolute path is "%s"', $pathToTemplate));
+            $this->_logger->debug(sprintf('Candidate absolute path is "%s"', $filePath));
         }
 
         return $this->_newTemplateInstance($filePath);

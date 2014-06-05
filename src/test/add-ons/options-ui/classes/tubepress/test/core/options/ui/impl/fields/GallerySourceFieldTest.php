@@ -26,10 +26,10 @@ class tubepress_test_core_options_ui_impl_fields_GallerySourceFieldTest extends 
 
     public function testOnSubmitWithError()
     {
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn(true);
-        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('a');
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('a');
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE, 'a')->andReturn('some problem');
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, 'a')->andReturn('some problem');
 
         $result = $this->getSut()->onSubmit();
 
@@ -38,10 +38,10 @@ class tubepress_test_core_options_ui_impl_fields_GallerySourceFieldTest extends 
 
     public function testOnSubmitNoError()
     {
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn(true);
-        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('a');
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('a');
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE, 'a')->andReturn(null);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, 'a')->andReturn(null);
 
         $result = $this->getSut()->onSubmit();
 
@@ -50,7 +50,7 @@ class tubepress_test_core_options_ui_impl_fields_GallerySourceFieldTest extends 
 
     public function testOnSubmitMissing()
     {
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn(false);
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn(false);
 
         $result = $this->getSut()->onSubmit();
 
@@ -90,6 +90,6 @@ class tubepress_test_core_options_ui_impl_fields_GallerySourceFieldTest extends 
      */
     protected function getOptionsPageItemId()
     {
-        return tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE;
+        return tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE;
     }
 }

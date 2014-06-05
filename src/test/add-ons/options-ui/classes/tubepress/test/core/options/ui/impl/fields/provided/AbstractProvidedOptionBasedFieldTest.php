@@ -20,9 +20,9 @@ abstract class tubepress_test_core_options_ui_impl_fields_provided_AbstractProvi
         $this->_mockOptionProvider = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
         $optionName                = $this->getOptionsPageItemId();
 
-        $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with($optionName)->andReturn(true);
-        $this->_mockOptionProvider->shouldReceive('getLabel')->once()->with($optionName)->andReturn('the label');
-        $this->_mockOptionProvider->shouldReceive('getDescription')->once()->with($optionName)->andReturn('the description');
+        $this->_mockOptionProvider->shouldReceive('optionExists')->once()->with($optionName)->andReturn(true);
+        $this->_mockOptionProvider->shouldReceive('getUntranslatedLabel')->once()->with($optionName)->andReturn('the label');
+        $this->_mockOptionProvider->shouldReceive('getUntranslatedDescription')->once()->with($optionName)->andReturn('the description');
 
         $this->onAfterProvidedFieldSetup();
     }
@@ -76,7 +76,7 @@ abstract class tubepress_test_core_options_ui_impl_fields_provided_AbstractProvi
      */
     public function testBadOptionName()
     {
-        $this->_mockOptionProvider->shouldReceive('hasOption')->once()->with($this->getOptionsPageItemId())->andReturn(false);
+        $this->_mockOptionProvider->shouldReceive('optionExists')->once()->with($this->getOptionsPageItemId())->andReturn(false);
 
         new tubepress_core_options_ui_impl_fields_provided_TextField(
 

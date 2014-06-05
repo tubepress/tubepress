@@ -22,7 +22,7 @@ interface tubepress_core_embedded_api_Constants
      * @subject `tubepress_core_template_api_TemplateInterface` The embedded media player template.
      *
      * @argument <var>itemId</var> (`string`): The ID of the item to be viewed. (since 4.0.0)
-     * @argument <var>mediaProvider</var> (`tubepress_core_provider_api_MediaProviderInterface`): The item's media provider. (since 4.0.0)
+     * @argument <var>mediaProvider</var> (`tubepress_core_media_provider_api_MediaProviderInterface`): The item's media provider. (since 4.0.0)
      * @argument <var>dataUrl</var> (`tubepress_core_url_api_UrlInterface`): The embedded data URL. (since 4.0.0)
      * @argument <var>embeddedProvider</var> (`tubepress_core_embedded_api_EmbeddedProviderInterface`): The embedded provider. (since 4.0.0)
      *
@@ -37,7 +37,7 @@ interface tubepress_core_embedded_api_Constants
      * @subject `string` The HTML for the embedded media player.
      *
      * @argument <var>itemId</var> (`string`): The ID of the item to be viewed. (since 4.0.0)
-     * @argument <var>mediaProvider</var> (`tubepress_core_provider_api_MediaProviderInterface`): The item's media provider. (since 4.0.0)
+     * @argument <var>mediaProvider</var> (`tubepress_core_media_provider_api_MediaProviderInterface`): The item's media provider. (since 4.0.0)
      * @argument <var>dataUrl</var> (`tubepress_core_url_api_UrlInterface`): The embedded data URL. (since 4.0.0)
      * @argument <var>embeddedProvider</var> (`tubepress_core_embedded_api_EmbeddedProviderInterface`): The embedded provider. (since 4.0.0)
      *

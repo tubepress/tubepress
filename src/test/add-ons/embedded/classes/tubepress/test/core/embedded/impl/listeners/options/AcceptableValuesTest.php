@@ -35,7 +35,7 @@ class tubepress_test_core_embedded_impl_listeners_options_AcceptableValuesTest e
         $mockEmbeddedPlayer = $this->mock(tubepress_core_embedded_api_EmbeddedProviderInterface::_);
         $this->_mockEmbeddedPlayers = array($mockEmbeddedPlayer);
 
-        $mockVideoProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
         $this->_mockVideoProviders = array($mockVideoProvider);
 
         $this->_sut = new tubepress_core_embedded_impl_listeners_options_AcceptableValues();

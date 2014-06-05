@@ -38,9 +38,9 @@ class tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
         $itemId   = $event->getArgument('itemId');
 
         /**
-         * @var $mediaProvider tubepress_core_provider_api_MediaProviderInterface
+         * @var $mediaProvider tubepress_core_media_provider_api_MediaProviderInterface
          */
-        $mediaProvider = $event->getArgument('mediaProvider');
+        $mediaProvider = $event->getArgument('itemProvider');
 
         /**
          * @var $embeddedProvider tubepress_core_embedded_api_EmbeddedProviderInterface

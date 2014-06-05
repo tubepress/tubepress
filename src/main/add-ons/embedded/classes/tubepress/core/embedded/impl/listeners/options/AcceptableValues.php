@@ -89,7 +89,7 @@ class tubepress_core_embedded_impl_listeners_options_AcceptableValues
         $toReturn = array();
 
         /**
-         * @var $videoProvider tubepress_core_provider_api_MediaProviderInterface
+         * @var $videoProvider tubepress_core_media_provider_api_MediaProviderInterface
          */
         foreach ($this->_videoProviders as $videoProvider) {
 

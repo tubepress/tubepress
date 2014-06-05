@@ -77,12 +77,14 @@ class tubepress_core_http_impl_puzzle_PuzzleHttpClient extends tubepress_core_ht
      */
     protected function doSend(tubepress_core_http_api_message_RequestInterface $request)
     {
+        $tubePressBody = $request->getBody();
+
         $puzzleRequest = new puzzle_message_Request(
 
             $request->getMethod(),
             $request->getUrl()->toString(),
             $request->getHeaders(),
-            new tubepress_core_stream_impl_puzzle_FlexibleStream($request->getBody()),
+            $tubePressBody ? new tubepress_core_stream_impl_puzzle_FlexibleStream($tubePressBody) : null,
             $request->getConfig()
         );
 

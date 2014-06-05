@@ -51,9 +51,9 @@ class tubepress_youtube_ioc_YouTubeExtension implements tubepress_api_ioc_Contai
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_util_api_TimeUtilsInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-            'event' => tubepress_core_provider_api_Constants::EVENT_NEW_MEDIA_ITEM,
+            'event' => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_ITEM,
             'method' => 'onVideoConstruction',
-            'priority' => 10000
+            'priority' => 40000
         ));
 
         $containerBuilder->register(
@@ -70,7 +70,7 @@ class tubepress_youtube_ioc_YouTubeExtension implements tubepress_api_ioc_Contai
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
-         ->addTag(tubepress_core_provider_api_HttpProviderInterface::_);
+         ->addTag('tubepress_core_media_provider_api_HttpProviderInterface');
 
         $fieldIndex = 0;
 
@@ -178,5 +178,48 @@ class tubepress_youtube_ioc_YouTubeExtension implements tubepress_api_ioc_Contai
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
          ->addArgument($fieldReferences)
          ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
+
+        $containerBuilder->setParameter(tubepress_core_media_item_api_Constants::IOC_TAG_EASY_ATTRIBUTE_FORMATTER . '_youtube', array(
+
+            'priority'     => 30000,
+            'providerName' => 'youtube',
+            'map'          => array(
+
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_COUNT,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_COUNT,
+                    'number',
+                    0,
+                ),
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
+                    'number',
+                    0,
+                ),
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE,
+                    'number',
+                    2,
+                ),
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION,
+                    'truncateString',
+                    tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT
+                ),
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED,
+                    'durationFromSeconds',
+                ),
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
+                    'dateFromUnixTime'
+                )
+            )
+        ));
     }
 }

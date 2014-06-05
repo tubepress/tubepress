@@ -37,7 +37,8 @@ class tubepress_core_log_ioc_LogExtension implements tubepress_api_ioc_Container
         $containerBuilder->register(
             'epilog.formatter',
             'ehough_epilog_formatter_LineFormatter'
-        )->addArgument('[%%datetime%%] [%%level_name%%]: %%message%%');
+        )->addArgument('[%%datetime%%] [%%level_name%%]: %%message%%')
+         ->addArgument('i:s.u');
 
         $containerBuilder->register(
             tubepress_api_log_LoggerInterface::_,

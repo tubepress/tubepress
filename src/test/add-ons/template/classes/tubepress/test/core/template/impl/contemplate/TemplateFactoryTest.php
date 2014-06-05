@@ -65,6 +65,8 @@ class tubepress_test_core_template_impl_contemplate_TemplateFactoryTest extends 
         $this->_mockFs->shouldReceive('isAbsolutePath')->once()->with($tempFile2)->andReturn(false);
         $this->_mockThemeLibrary->shouldReceive('getAbsolutePathToTemplate')->once()->with($tempFile2)->andReturn(null);
 
+        $this->_mockLogger->shouldReceive('error')->once()->with('Unable to load template from any of 1 possible locations');
+
         $result = $this->_sut->fromFilesystem(array($tempFile2));
 
         $this->assertNull($result);
@@ -100,6 +102,8 @@ class tubepress_test_core_template_impl_contemplate_TemplateFactoryTest extends 
 
     public function testFromFilesystemNonStringPath()
     {
+        $this->_mockLogger->shouldReceive('error')->once()->with('Unable to load template from any of 1 possible locations');
+
         $result = $this->_sut->fromFilesystem(array(new stdClass()));
 
         $this->assertNull($result);
@@ -107,6 +111,8 @@ class tubepress_test_core_template_impl_contemplate_TemplateFactoryTest extends 
 
     public function testFromFilesystemNoPathsGiven()
     {
+        $this->_mockLogger->shouldReceive('error')->once()->with('Unable to load template from any of 0 possible locations');
+
         $result = $this->_sut->fromFilesystem(array());
 
         $this->assertNull($result);

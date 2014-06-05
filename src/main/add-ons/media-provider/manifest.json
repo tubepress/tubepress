@@ -1,0 +1,46 @@
+{
+    "name" : "tubepress/core-media-provider",
+    "version": "1.0.0",
+    "title" : "TubePress Core Media Provider Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress core media provider functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_media_provider_ioc_ProviderExtension"
+        ],
+        "compiler-passes" : {
+            "tubepress_core_media_provider_ioc_compiler_EasyHttpProvidersPass" : 80000
+        }
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_core_media_provider_" : "classes"
+        },
+        "classmap" : {
+            "tubepress_core_media_provider_api_Constants"                           : "classes/tubepress/core/media/provider/api/Constants.php",
+            "tubepress_core_media_provider_api_ItemSorterInterface"                 : "classes/tubepress/core/media/provider/api/ItemSorterInterface.php",
+            "tubepress_core_media_provider_api_Page"                                : "classes/tubepress/core/media/provider/api/Page.php",
+            "tubepress_core_media_provider_api_CollectorInterface"                  : "classes/tubepress/core/media/provider/api/CollectorInterface.php",
+            "tubepress_core_media_provider_api_MediaProviderInterface"              : "classes/tubepress/core/media/provider/api/MediaProviderInterface.php",
+            "tubepress_core_media_provider_api_HttpProviderInterface"               : "classes/tubepress/core/media/provider/api/HttpProviderInterface.php",
+            "tubepress_core_media_provider_api_exception_ProviderException"         : "classes/tubepress/core/media/provider/api/exception/ProviderException.php",
+            "tubepress_core_media_provider_impl_listeners_options_AcceptableValues" : "classes/tubepress/core/media/provider/impl/listeners/options/AcceptableValues.php",
+            "tubepress_core_media_provider_impl_listeners_page_PerPageSorter"       : "classes/tubepress/core/media/provider/impl/listeners/page/PerPageSorter.php",
+            "tubepress_core_media_provider_impl_listeners_page_ResultCountCapper"   : "classes/tubepress/core/media/provider/impl/listeners/page/ResultCountCapper.php",
+            "tubepress_core_media_provider_impl_listeners_page_Blacklister"         : "classes/tubepress/core/media/provider/impl/listeners/page/Blacklister.php",
+            "tubepress_core_media_provider_impl_listeners_page_ItemPrepender"       : "classes/tubepress/core/media/provider/impl/listeners/page/ItemPrepender.php",
+            "tubepress_core_media_provider_impl_Collector"                          : "classes/tubepress/core/media/provider/impl/Collector.php",
+            "tubepress_core_media_provider_impl_HttpMediaProvider"                  : "classes/tubepress/core/media/provider/impl/HttpMediaProvider.php",
+            "tubepress_core_media_provider_impl_ItemSorter"                         : "classes/tubepress/core/media/provider/impl/ItemSorter.php"
+        }
+    }
+}

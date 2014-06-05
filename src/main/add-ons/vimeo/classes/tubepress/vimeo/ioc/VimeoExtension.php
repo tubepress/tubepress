@@ -53,14 +53,13 @@ class tubepress_vimeo_ioc_VimeoExtension implements tubepress_api_ioc_ContainerE
             'tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener',
             'tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_util_api_TimeUtilsInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-            'event' => tubepress_core_provider_api_Constants::EVENT_NEW_MEDIA_ITEM,
+            'event' => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_ITEM,
             'method' => 'onVideoConstruction',
             'priority' => 10000
         ));
 
-        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_TRIMMER, array(
+        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_TRIMMER . '_vimeo', array(
             'priority'    => 9500,
             'charlist'    => '#',
             'ltrim'       => true,
@@ -76,8 +75,8 @@ class tubepress_vimeo_ioc_VimeoExtension implements tubepress_api_ioc_ContainerE
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_provider_api_ItemSorterInterface::_))
-         ->addTag(tubepress_core_provider_api_HttpProviderInterface::_);
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_media_provider_api_ItemSorterInterface::_))
+         ->addTag('tubepress_core_media_provider_api_HttpProviderInterface');
 
         $fieldIndex = 0;
         $containerBuilder->register(

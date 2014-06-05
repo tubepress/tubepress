@@ -51,7 +51,7 @@ class tubepress_core_http_ioc_HttpExtension implements tubepress_api_ioc_Contain
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_player_api_PlayerHtmlInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_provider_api_CollectorInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_media_provider_api_CollectorInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_ResponseCodeInterface::_));
 

@@ -1,0 +1,33 @@
+{
+    "name" : "tubepress/core-html-search",
+    "version": "1.0.0",
+    "title" : "TubePress Search Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress search functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_html_search_ioc_SearchExtension"
+        ]
+    },
+    "autoload":{
+        "psr-0" : {
+            "tubepress_core_html_search_" : "classes"
+        },
+        "classmap" : {
+            "tubepress_core_html_search_api_Constants"                                    : "classes/tubepress/core/html/search/api/Constants.php",
+            "tubepress_core_html_search_impl_listeners_html_SearchInputListener"          : "classes/tubepress/core/html/search/impl/listeners/html/SearchInputListener.php",
+            "tubepress_core_html_search_impl_listeners_html_SearchOutputListener"         : "classes/tubepress/core/html/search/impl/listeners/html/SearchOutputListener.php",
+            "tubepress_core_html_search_impl_listeners_options_AcceptableValues"          : "classes/tubepress/core/html/search/impl/listeners/options/AcceptableValues.php",
+            "tubepress_core_html_search_impl_listeners_template_SearchInputCoreVariables" : "classes/tubepress/core/html/search/impl/listeners/template/SearchInputCoreVariables.php"
+        }
+    }
+}

@@ -41,8 +41,7 @@ class tubepress_test_core_player_listeners_template_PlayerLocationCoreVariablesT
 
     public function testAlterTemplate()
     {
-        $video = new tubepress_core_provider_api_MediaItem();
-        $video->setId('video-id');
+        $video = new tubepress_core_media_item_api_MediaItem('video-id');
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_GALLERY_ID)->andReturn('gallery-id');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH)->andReturn(668);

@@ -20,7 +20,7 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
     private $_logger;
 
     /**
-     * @var tubepress_core_media_single_impl_listeners_html_SingleVideoListener
+     * @var tubepress_core_html_single_impl_listeners_html_SingleVideoListener
      */
     private $_singleVideoShortcodeHandler;
 
@@ -36,7 +36,7 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
 
     public function __construct(tubepress_api_log_LoggerInterface                                   $logger,
                                 tubepress_core_options_api_ContextInterface                         $context,
-                                tubepress_core_media_single_impl_listeners_html_SingleVideoListener $singleVideoShortcodeHandler,
+                                tubepress_core_html_single_impl_listeners_html_SingleVideoListener $singleVideoShortcodeHandler,
                                 tubepress_core_http_api_RequestParametersInterface                  $requestParams)
     {
         $this->_logger                      = $logger;
@@ -102,7 +102,7 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
             $this->_logger->debug(sprintf('Building single video with ID %s', $videoId));
         }
 
-        $result = $this->_context->setEphemeralOption(tubepress_core_media_single_api_Constants::OPTION_VIDEO, $videoId);
+        $result = $this->_context->setEphemeralOption(tubepress_core_html_single_api_Constants::OPTION_VIDEO, $videoId);
 
         if ($result !== true) {
 

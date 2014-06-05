@@ -98,7 +98,7 @@ class tubepress_test_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends tubepre
             return $stringUtils->startsWith($param, 'tubepress-video-object-');
         }));
 
-        $mockVideoProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
 
         $result = $this->_sut->getDataUrlForVideo($this->_mockUrlFactory, $mockVideoProvider, 'xx');
 

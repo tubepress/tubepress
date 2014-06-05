@@ -57,7 +57,18 @@ class tubepress_core_html_ioc_HtmlExtension implements tubepress_api_ioc_Contain
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_shortcode_api_ParserInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_));
 
-        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE, array(
+        $containerBuilder->register(
+
+            'tubepress_core_html_impl_listeners_ErrorLogger',
+            'tubepress_core_html_impl_listeners_ErrorLogger'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_html_api_Constants::EVENT_EXCEPTION_CAUGHT,
+            'method'   => 'onException',
+            'priority' => 10000,
+        ));
+
+        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_html', array(
 
             'defaultValues' => array(
 
@@ -79,12 +90,12 @@ class tubepress_core_html_ioc_HtmlExtension implements tubepress_api_ioc_Contain
                 tubepress_core_html_api_Constants::OPTION_HTTPS         => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
             ),
 
-            'proOptions' => array(
+            'proOptionNames' => array(
 
                 tubepress_core_html_api_Constants::OPTION_HTTPS
             ),
 
-            'noPersist' => array(
+            'doNotPersistNames' => array(
 
                 tubepress_core_html_api_Constants::OPTION_GALLERY_ID,
                 tubepress_core_html_api_Constants::OPTION_OUTPUT,

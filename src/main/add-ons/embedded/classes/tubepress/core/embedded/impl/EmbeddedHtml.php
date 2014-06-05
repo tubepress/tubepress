@@ -20,7 +20,7 @@ class tubepress_core_embedded_impl_EmbeddedHtml implements tubepress_core_embedd
     private $_logger;
 
     /**
-     * @var tubepress_core_provider_api_MediaProviderInterface[]
+     * @var tubepress_core_media_provider_api_MediaProviderInterface[]
      */
     private $_mediaProviders = array();
 
@@ -126,7 +126,7 @@ class tubepress_core_embedded_impl_EmbeddedHtml implements tubepress_core_embedd
         $this->_embeddedProviders = $players;
     }
 
-    private function _findEmbeddedProvider(tubepress_core_provider_api_MediaProviderInterface $mediaProvider)
+    private function _findEmbeddedProvider(tubepress_core_media_provider_api_MediaProviderInterface $mediaProvider)
     {
         $requestedEmbeddedPlayerName = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL);
 
@@ -184,7 +184,7 @@ class tubepress_core_embedded_impl_EmbeddedHtml implements tubepress_core_embedd
     }
 
     private function _compatible(tubepress_core_embedded_api_EmbeddedProviderInterface $embeddedProvider,
-                                 tubepress_core_provider_api_MediaProviderInterface    $mediaProvider)
+                                 tubepress_core_media_provider_api_MediaProviderInterface    $mediaProvider)
     {
         $compatibleProviderNames = $embeddedProvider->getCompatibleProviderNames();
 
@@ -194,7 +194,7 @@ class tubepress_core_embedded_impl_EmbeddedHtml implements tubepress_core_embedd
     private function _findMediaProviderForItemId($itemId)
     {
         /**
-         * @var $mediaProvider tubepress_core_provider_api_MediaProviderInterface
+         * @var $mediaProvider tubepress_core_media_provider_api_MediaProviderInterface
          */
         foreach ($this->_mediaProviders as $mediaProvider) {
 
@@ -209,7 +209,7 @@ class tubepress_core_embedded_impl_EmbeddedHtml implements tubepress_core_embedd
 
     private function _fireEventAndReturnSubject($subject,
                                                 $mediaId,
-                                                tubepress_core_provider_api_MediaProviderInterface $mediaProvider,
+                                                tubepress_core_media_provider_api_MediaProviderInterface $mediaProvider,
                                                 tubepress_core_url_api_UrlInterface $url,
                                                 tubepress_core_embedded_api_EmbeddedProviderInterface $embeddedProvider,
                                                 $eventName)

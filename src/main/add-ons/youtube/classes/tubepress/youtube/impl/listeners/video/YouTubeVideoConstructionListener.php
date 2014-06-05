@@ -33,12 +33,20 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
 
     public function onVideoConstruction(tubepress_core_event_api_EventInterface $event)
     {
+        /**
+         * @var $video tubepress_core_media_item_api_MediaItem
+         */
         $video = $event->getSubject();
+
+        /**
+         * @var $provider tubepress_core_media_provider_api_MediaProviderInterface
+         */
+        $provider = $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER);
 
         /*
          * Short circuit for videos belonging to someone else.
          */
-        if ($video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_PROVIDER_NAME) !== 'youtube') {
+        if ($provider->getName() !== 'youtube') {
 
             return;
         }
@@ -65,79 +73,54 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
         $index    = $event->getArgument('zeroBasedFeedIndex');
 
         /* Author */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME] =
             $this->_relativeQuery($xpath, $index, 'atom:author/atom:name')->item(0)->nodeValue;
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_USER_ID] =
-            $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME];
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_USER_ID] =
+            $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME];
 
         /* Category */
         /** @noinspection PhpUndefinedMethodInspection */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_CATEGORY_DISPLAY_NAME] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_CATEGORY_DISPLAY_NAME] =
             trim($this->_relativeQuery($xpath, $index, 'media:group/media:category')->item(0)->getAttribute('label'));
 
         /* Description */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DESCRIPTION] =
-            $this->_trimDescription($this->_relativeQuery($xpath, $index, 'media:group/media:description')->item(0)->nodeValue);
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION] =
+            $this->_relativeQuery($xpath, $index, 'media:group/media:description')->item(0)->nodeValue;
 
         /* Duration */
         /** @noinspection PhpUndefinedMethodInspection */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS] =
             $this->_relativeQuery($xpath, $index, 'media:group/yt:duration')->item(0)->getAttribute('seconds');
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_FORMATTED] =
-            $this->_timeUtils->secondsToHumanTime($toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS]);
 
         /* Home URL */
         /** @noinspection PhpUndefinedMethodInspection */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_HOME_URL] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL] =
             $this->_relativeQuery($xpath, $index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
 
-        /* ID */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_ID] =
-            $this->_relativeQuery($xpath, $index, 'media:group/yt:videoid')->item(0)->nodeValue;
-
         /* Keywords. */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_KEYWORD_ARRAY] = array();
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORD_ARRAY] = array();
 
         /* Rating */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_RATING_AVERAGE] = $this->_getRatingAverage($xpath, $index);
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_RATING_COUNT] = $this->_getRatingCount($xpath, $index);
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE] = $this->_getRatingAverage($xpath, $index);
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_COUNT] = $this->_getRatingCount($xpath, $index);
 
         /* Thumbnail. */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_THUMBNAIL_URL] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_THUMBNAIL_URL] =
             $this->pickThumbnailUrl($this->_getThumbnailUrls($xpath, $index));
 
         /* Time published. */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
             $this->_getTimePublishedUnixTime($xpath, $index);
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED] =
-            $this->_timeUtils->unixTimeToHumanReadable(
-
-                $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME],
-                $this->_context->get(tubepress_core_media_single_api_Constants::OPTION_RELATIVE_DATES)
-            );
 
         /* Title. */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE] =
             $this->_relativeQuery($xpath, $index, 'atom:title')->item(0)->nodeValue;
 
         /* Views. */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_VIEW_COUNT] =
-            $this->fancyNumber($this->_getRawViewCount($xpath, $index));
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT] =
+            $this->_getRawViewCount($xpath, $index);
 
         return $toReturn;
-    }
-
-    /**
-     * @return string The name of the provider that this filter handles.
-     */
-    protected final function getHandledProviderName()
-    {
-        return 'youtube';
-    }
-
-    private function _relativeQuery(DOMXPath $xpath, $index, $query)
-    {
-        return $xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
     }
 
     private function _getRatingAverage(DOMXPath $xpath, $index)
@@ -147,7 +130,7 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
         if ($count != null) {
 
             /** @noinspection PhpUndefinedMethodInspection */
-            return number_format($count->getAttribute('average'), 2);
+            return $count->getAttribute('average');
         }
 
         return '';
@@ -160,10 +143,15 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
         if ($count != null) {
 
             /** @noinspection PhpUndefinedMethodInspection */
-            return number_format($count->getAttribute('numRaters'));
+            return $count->getAttribute('numRaters');
         }
 
         return '';
+    }
+
+    private function _relativeQuery(DOMXPath $xpath, $index, $query)
+    {
+        return $xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
     }
 
     private function _getThumbnailUrls(DOMXPath $xpath, $index)
@@ -213,25 +201,6 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
     }
 
     /**
-     * Optionally trims the description.
-     *
-     * @param string $description The incoming description.
-     *
-     * @return string The optionally trimmed description.
-     */
-    private function _trimDescription($description)
-    {
-        $limit = $this->_context->get(tubepress_core_media_single_api_Constants::OPTION_DESC_LIMIT);
-
-        if ($limit > 0 && strlen($description) > $limit) {
-
-            $description = substr($description, 0, $limit) . '...';
-        }
-
-        return $description;
-    }
-
-    /**
      * Choose a thumbnail URL for the video.
      *
      * @param array $urls An array of URLs from which to choose.
@@ -245,7 +214,7 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
             return '';
         }
 
-        $random = $this->_context->get(tubepress_core_media_gallery_api_Constants::OPTION_RANDOM_THUMBS);
+        $random = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_RANDOM_THUMBS);
 
         if ($random) {
 
@@ -255,22 +224,5 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
 
             return $urls[0];
         }
-    }
-
-    /**
-     * Builds a "fancy" number for the given number.
-     *
-     * @param mixed $num The candidate.
-     *
-     * @return string A formatted number, or "N/A" if non-numeric.
-     */
-    protected final function fancyNumber($num)
-    {
-        if (! is_numeric($num)) {
-
-            return 'N/A';
-        }
-
-        return number_format($num);
     }
 }

@@ -59,7 +59,7 @@ class tubepress_test_embedplus_impl_embedded_EmbedPlusEmbeddedProviderTest exten
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://www.youtube.com/embed/xx')->andReturn($mockUrl);
 
-        $mockProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
 
         $result = $this->_sut->getDataUrlForVideo($this->_mockUrlFactory, $mockProvider, 'xx');
 

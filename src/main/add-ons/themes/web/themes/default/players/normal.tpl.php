@@ -12,7 +12,7 @@
 <div class="tubepress_normal_embedded_wrapper" style="width: <?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH}; ?>px">
   
     <div id="tubepress_embedded_title_<?php echo ${tubepress_core_template_api_const_VariableNames::GALLERY_ID}; ?>" class="tubepress_embedded_title">
-      <?php echo ${tubepress_core_template_api_const_VariableNames::VIDEO}->getTitle(); ?>
+      <?php echo ${tubepress_core_template_api_const_VariableNames::VIDEO}->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE); ?>
     
     </div>
     <div id="tubepress_embedded_object_<?php echo ${tubepress_core_template_api_const_VariableNames::GALLERY_ID}; ?>">

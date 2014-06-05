@@ -76,11 +76,14 @@ abstract class tubepress_core_http_impl_puzzle_AbstractMessage implements tubepr
      */
     public function getBody()
     {
-        /**
-         * This will ALWAYS be an instance of tubepress_core_stream_impl_puzzle_FlexibleStream (or null),
-         * since the only way to set the body is through setBody()
-         */
-        return $this->_delegate->getBody();
+        $fromDelegate = $this->_delegate->getBody();
+
+        if ($fromDelegate && !($fromDelegate instanceof tubepress_core_stream_impl_puzzle_FlexibleStream)) {
+
+            $fromDelegate = new tubepress_core_stream_impl_puzzle_FlexibleStream($fromDelegate);
+        }
+
+        return $fromDelegate;
     }
 
     /**

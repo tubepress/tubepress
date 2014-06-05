@@ -129,19 +129,19 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE)->andReturn('shortcode string');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_theme_api_Constants::OPTION_THEME)->andReturn('theme');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE)->andReturn('widget title');
-        $this->_mockExecutionContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(tubepress_core_media_gallery_api_Constants::OPTION_THUMB_WIDTH => 22135));
+        $this->_mockExecutionContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH => 22135));
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with(array(
-            tubepress_core_provider_api_Constants::OPTION_RESULTS_PER_PAGE    => 3,
-            tubepress_core_media_single_api_Constants::OPTION_VIEWS                  => false,
-            tubepress_core_media_single_api_Constants::OPTION_DESCRIPTION            => true,
-            tubepress_core_media_single_api_Constants::OPTION_DESC_LIMIT          => 50,
+            tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE    => 3,
+            tubepress_core_media_item_api_Constants::OPTION_VIEWS                  => false,
+            tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION            => true,
+            tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT          => 50,
             tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION => 'shadowbox',
-            tubepress_core_media_gallery_api_Constants::OPTION_THUMB_HEIGHT        => 105,
-            tubepress_core_media_gallery_api_Constants::OPTION_THUMB_WIDTH         => 22135,
-            tubepress_core_media_gallery_api_Constants::OPTION_PAGINATE_ABOVE      => false,
-            tubepress_core_media_gallery_api_Constants::OPTION_PAGINATE_BELOW      => false,
+            tubepress_core_html_gallery_api_Constants::OPTION_THUMB_HEIGHT        => 105,
+            tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH         => 22135,
+            tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE      => false,
+            tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_BELOW      => false,
             tubepress_core_theme_api_Constants::OPTION_THEME               => 'tubepress/legacy-sidebar',
-            tubepress_core_media_gallery_api_Constants::OPTION_FLUID_THUMBS        => false
+            tubepress_core_html_gallery_api_Constants::OPTION_FLUID_THUMBS        => false
         ));
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with(array());
 

@@ -38,7 +38,7 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_template_api_TemplateFactoryInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_core_provider_api_MediaProviderInterface::_,
+            'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
             'method' => 'setMediaProviders'))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_core_embedded_api_EmbeddedProviderInterface::_,
@@ -68,7 +68,7 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
             'tag'    => tubepress_core_embedded_api_EmbeddedProviderInterface::_,
             'method' => 'setEmbeddedProviders'))
           ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
-            'tag'    => tubepress_core_provider_api_MediaProviderInterface::_,
+            'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
             'method' => 'setMediaProviders'
         ));
 

@@ -30,7 +30,7 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             'tubepress_core_player_impl_listeners_html_SoloPlayerListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_core_media_single_impl_listeners_html_SingleVideoListener'))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_core_html_single_impl_listeners_html_SingleVideoListener'))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_html_api_Constants::EVENT_PRIMARY_HTML,
@@ -179,7 +179,7 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             tubepress_core_template_api_TemplateFactoryInterface::_ => tubepress_core_template_api_TemplateFactoryInterface::_,
             tubepress_core_environment_api_EnvironmentInterface::_ => tubepress_core_environment_api_EnvironmentInterface::_,
             tubepress_api_log_LoggerInterface::_ => tubepress_api_log_LoggerInterface::_,
-            'tubepress_core_media_single_impl_listeners_html_SingleVideoListener' => 'tubepress_core_media_single_impl_listeners_html_SingleVideoListener',
+            'tubepress_core_html_single_impl_listeners_html_SingleVideoListener' => 'tubepress_core_html_single_impl_listeners_html_SingleVideoListener',
             tubepress_core_http_api_RequestParametersInterface::_ => tubepress_core_http_api_RequestParametersInterface::_,
             tubepress_core_embedded_api_EmbeddedHtmlInterface::_ => tubepress_core_embedded_api_EmbeddedHtmlInterface::_
         );

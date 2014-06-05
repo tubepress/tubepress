@@ -69,7 +69,7 @@ class tubepress_test_core_embedded_impl_EmbeddedHtmlTest extends tubepress_test_
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL)->andReturn('z');
 
-        $mockVideoProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
         $mockVideoProvider->shouldReceive('recognizesItemId')->once()->with('video-id')->andReturn(true);
         $mockVideoProvider->shouldReceive('getName')->times(1)->andReturn('some-provider');
 
@@ -130,7 +130,7 @@ class tubepress_test_core_embedded_impl_EmbeddedHtmlTest extends tubepress_test_
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
         $mockUrl->shouldReceive('__toString')->twice()->andReturn('data-url');
 
-        $mockVideoProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
         $mockVideoProvider->shouldReceive('recognizesItemId')->once()->with('video-id')->andReturn(true);
         $mockVideoProvider->shouldReceive('getName')->times(2)->andReturn('xyz');
 
@@ -185,7 +185,7 @@ class tubepress_test_core_embedded_impl_EmbeddedHtmlTest extends tubepress_test_
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL)->andReturn(tubepress_core_embedded_api_Constants::EMBEDDED_IMPL_PROVIDER_BASED);
 
-        $mockVideoProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
         $mockVideoProvider->shouldReceive('recognizesItemId')->once()->with('video-id')->andReturn(true);
         $mockVideoProvider->shouldReceive('getName')->twice()->andReturn('something else');
 
@@ -207,7 +207,7 @@ class tubepress_test_core_embedded_impl_EmbeddedHtmlTest extends tubepress_test_
 
         $this->mock(tubepress_core_embedded_api_EmbeddedProviderInterface::_);
 
-        $mockVideoProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
         $mockVideoProvider->shouldReceive('recognizesItemId')->once()->with('video-id')->andReturn(false);
 
         $this->_sut->setMediaProviders(array($mockVideoProvider));

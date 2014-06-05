@@ -19,26 +19,21 @@ class tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener
      */
     private $_context;
 
-    /**
-     * @var tubepress_core_util_api_TimeUtilsInterface
-     */
-    private $_timeUtils;
-
-    public function __construct(tubepress_core_options_api_ContextInterface $context,
-                                tubepress_core_util_api_TimeUtilsInterface  $timeUtils)
+    public function __construct(tubepress_core_options_api_ContextInterface $context)
     {
         $this->_context   = $context;
-        $this->_timeUtils = $timeUtils;
     }
 
     public function onVideoConstruction(tubepress_core_event_api_EventInterface $event)
     {
         $video = $event->getSubject();
 
+        $mediaProvider = $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER);
+
         /*
          * Short circuit for videos belonging to someone else.
          */
-        if ($video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_PROVIDER_NAME) !== 'vimeo') {
+        if ($mediaProvider->getName() !== 'vimeo') {
 
             return;
         }
@@ -65,61 +60,53 @@ class tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener
         $videoArray = $event->getArgument('videoArray');
 
         /* Author */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME] =
             $videoArray[$index]->owner->display_name;
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_USER_ID] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_USER_ID] =
             $videoArray[$index]->owner->username;
 
         /* Description */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DESCRIPTION] =
-            $this->_trimDescription($videoArray[$index]->description);
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION] =
+            $videoArray[$index]->description;
 
         /* Duration */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS] =
             $videoArray[$index]->duration;
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_FORMATTED] =
-            $this->_timeUtils->secondsToHumanTime($toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS]);
 
         /* Home URL */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_HOME_URL] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL] =
             'http://vimeo.com/' . $videoArray[$index]->id;
 
-        /* ID */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_ID] =
-            $videoArray[$index]->id;
-
         /* Keywords */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_KEYWORD_ARRAY] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORD_ARRAY] =
             $this->_gatherArrayOfContent($videoArray[$index], 'tags', 'tag');
 
         /* Likes. */
         if (isset($videoArray[$index]->number_of_likes)) {
 
-            $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_LIKES_COUNT] =
+            $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT] =
                 $videoArray[$index]->number_of_likes;
         }
 
         /* Thumbnail. */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_THUMBNAIL_URL] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_THUMBNAIL_URL] =
             $this->_getThumbnailUrl($videoArray, $index);
 
         /* Time published. Vimeo dates are in US Eastern Time.*/
         $reset = date_default_timezone_get();
         date_default_timezone_set('America/New_York');
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
             strtotime($videoArray[$index]->upload_date);
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED] =
-            $this->_toDisplayTime($toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME]);
         date_default_timezone_set($reset);
 
         /* Title. */
-        $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE] =
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE] =
             $videoArray[$index]->title;
 
         /* Views. */
         if (isset($videoArray[$index]->number_of_plays)) {
-            $toReturn[tubepress_core_provider_api_Constants::ATTRIBUTE_VIEW_COUNT] =
-                number_format($videoArray[$index]->number_of_plays);
+            $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT] =
+                $videoArray[$index]->number_of_plays;
         }
 
         return $toReturn;
@@ -145,31 +132,5 @@ class tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener
         }
 
         return $results;
-    }
-
-    private function _toDisplayTime($unixTime)
-    {
-        $relativeDates = $this->_context->get(tubepress_core_media_single_api_Constants::OPTION_RELATIVE_DATES);
-
-        return $this->_timeUtils->unixTimeToHumanReadable($unixTime, $relativeDates);
-    }
-
-    /**
-     * Optionally trims the description.
-     *
-     * @param string $description The incoming description.
-     *
-     * @return string The optionally trimmed description.
-     */
-    private function _trimDescription($description)
-    {
-        $limit = $this->_context->get(tubepress_core_media_single_api_Constants::OPTION_DESC_LIMIT);
-
-        if ($limit > 0 && strlen($description) > $limit) {
-
-            $description = substr($description, 0, $limit) . '...';
-        }
-
-        return $description;
     }
 }

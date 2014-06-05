@@ -22,9 +22,9 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
     private $_optionsReference;
 
     /**
-     * @var tubepress_core_provider_api_MediaProviderInterface[]
+     * @var tubepress_core_media_provider_api_MediaProviderInterface[]
      */
-    private $_videoProviders;
+    private $_mediaProviders;
 
     public function __construct(tubepress_core_translation_api_TranslatorInterface   $translator,
                                 tubepress_core_options_api_PersistenceInterface      $persistence,
@@ -99,11 +99,11 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
                 $tempMap[$metaOptionName] = array();
             }
 
-            foreach ($this->_videoProviders as $videoProvider) {
+            foreach ($this->_mediaProviders as $videoProvider) {
 
-                if (in_array($metaOptionName, array_keys($videoProvider->getMapOfMetaOptionNamesToUntranslatedLabels()))) {
+                if (in_array($metaOptionName, $videoProvider->getMetaOptionNames())) {
 
-                    $friendlyName = $videoProvider->getFriendlyName();
+                    $friendlyName = $videoProvider->getDisplayName();
                     if (!in_array($friendlyName, $tempMap[$metaOptionName])) {
 
                         $tempMap[$metaOptionName][] = $friendlyName;
@@ -165,7 +165,7 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
 
     public function setVideoProviders(array $providers)
     {
-        $this->_videoProviders = $providers;
+        $this->_mediaProviders = $providers;
     }
 
     /**
@@ -215,9 +215,9 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
     {
         $toReturn = array();
 
-        foreach ($this->_videoProviders as $videoProvider) {
+        foreach ($this->_mediaProviders as $videoProvider) {
 
-            $toReturn = array_merge($toReturn, array_keys($videoProvider->getMapOfMetaOptionNamesToUntranslatedLabels()));
+            $toReturn = array_merge($toReturn, $videoProvider->getMetaOptionNames());
         }
 
         return array_unique($toReturn);

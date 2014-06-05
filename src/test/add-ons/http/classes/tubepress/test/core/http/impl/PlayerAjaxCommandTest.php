@@ -54,7 +54,7 @@ class tubepress_test_core_http_impl_PlayerAjaxCommandTest extends tubepress_test
         $this->_mockLogger                      = $this->mock(tubepress_api_log_LoggerInterface::_);
         $this->_mockExecutionContext            = $this->mock(tubepress_core_options_api_ContextInterface::_);
         $this->_mockHttpRequestParameterService = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
-        $this->_mockVideoCollector              = $this->mock(tubepress_core_provider_api_CollectorInterface::_);
+        $this->_mockVideoCollector              = $this->mock(tubepress_core_media_provider_api_CollectorInterface::_);
         $this->_mockPlayerHtmlGenerator         = $this->mock(tubepress_core_player_api_PlayerHtmlInterface::_);
         $this->_mockResponseCode                = $this->mock(tubepress_core_http_api_ResponseCodeInterface::_);
 
@@ -81,8 +81,8 @@ class tubepress_test_core_http_impl_PlayerAjaxCommandTest extends tubepress_test
         $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with($queryParams);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY)->andReturn(false);
 
-        $mockVideo = new tubepress_core_provider_api_MediaItem();
-        $mockVideo->setAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE, 'video title');
+        $mockVideo = new tubepress_core_media_item_api_MediaItem('id');
+        $mockVideo->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE, 'video title');
 
         $this->_mockPlayerHtmlGenerator->shouldReceive('getHtml')->once()->with($mockVideo)->andReturn('player-html');
 

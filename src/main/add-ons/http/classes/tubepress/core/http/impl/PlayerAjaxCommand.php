@@ -32,7 +32,7 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
     private $_playerHtml;
 
     /**
-     * @var tubepress_core_provider_api_CollectorInterface
+     * @var tubepress_core_media_provider_api_CollectorInterface
      */
     private $_videoCollector;
 
@@ -49,7 +49,7 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
     public function __construct(tubepress_api_log_LoggerInterface $logger,
                                 tubepress_core_options_api_ContextInterface $context,
                                 tubepress_core_player_api_PlayerHtmlInterface $playerHtml,
-                                tubepress_core_provider_api_CollectorInterface $videoCollector,
+                                tubepress_core_media_provider_api_CollectorInterface $videoCollector,
                                 tubepress_core_http_api_RequestParametersInterface $requestParams,
                                 tubepress_core_http_api_ResponseCodeInterface $responseCode)
     {
@@ -126,7 +126,7 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
 
         $toReturn = array(
 
-            'title' => $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE),
+            'title' => $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE),
             'html'  => $this->_playerHtml->getHtml($video)
         );
 

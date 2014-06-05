@@ -1,9 +1,9 @@
 <?php
 /**
  * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.com)
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -50,9 +50,9 @@ interface tubepress_core_util_api_TimeUtilsInterface
 
     /**
      * Converts gdata timestamps to unix time
-     * 
+     *
      * @param string $rfcTime The RFC 3339 format of time
-     * 
+     *
      * @return int Unix time for the given RFC 3339 time
      *
      * @api
@@ -64,6 +64,7 @@ interface tubepress_core_util_api_TimeUtilsInterface
      * Given a unix time, return a human-readable version.
      *
      * @param int|string $unixTime The given unix time.
+     * @param string     $format   The time format.
      * @param bool       $relative Convert to relative time, instead.
      *
      * @return string A human readable time.
@@ -71,5 +72,5 @@ interface tubepress_core_util_api_TimeUtilsInterface
      * @api
      * @since 4.0.0
      */
-    function unixTimeToHumanReadable($unixTime, $relative);
+    function unixTimeToHumanReadable($unixTime, $format, $relative);
 }

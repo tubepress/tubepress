@@ -28,7 +28,7 @@ interface tubepress_core_player_api_Constants
      *
      * @subject `string` The player HTML.
      *
-     * @argument <var>item</var> (`{@link tubepress_core_provider_api_MediaItem}`): The item.
+     * @argument <var>item</var> (`{@link tubepress_core_media_item_api_MediaItem}`): The item.
      * @argument <var>playerLocation</var> (`tubepress_core_player_api_PlayerLocationInterface`): The TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      *
      * @api
@@ -40,7 +40,7 @@ interface tubepress_core_player_api_Constants
      * This event is fired as TubePress chooses the tubepress_core_player_api_PlayerLocationInterface
      * to generate player HTML.
      *
-     * @subject `tubepress_core_provider_api_MediaItem` The item.
+     * @subject `tubepress_core_media_item_api_MediaItem` The item.
      *
      * @argument <var>requestedPlayerLocationName</var> (`string`) The current value of the `playerLocation` option.
      * @argument <var>playerLocation</var> (`tubepress_core_player_api_PlayerLocationInterface`) Initially null, listeners are
@@ -57,7 +57,7 @@ interface tubepress_core_player_api_Constants
      *
      * @subject `tubepress_core_template_api_TemplateInterface` The player template.
      *
-     * @argument <var>item</var> (`{@link tubepress_core_provider_api_MediaItem}`): The item.
+     * @argument <var>item</var> (`{@link tubepress_core_media_item_api_MediaItem}`): The item.
      * @argument <var>playerLocation</var> (`tubepress_core_player_api_PlayerLocationInterface`): The TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      *
      * @api

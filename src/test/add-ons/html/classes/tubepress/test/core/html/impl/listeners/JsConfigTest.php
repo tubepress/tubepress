@@ -20,7 +20,7 @@ class tubepress_test_core_html_impl_listeners_JsConfigTest extends tubepress_tes
     private $_sut;
 
     /**
-     * @var tubepress_core_provider_api_Page
+     * @var tubepress_core_media_provider_api_Page
      */
     private $_providerResult;
 
@@ -31,7 +31,7 @@ class tubepress_test_core_html_impl_listeners_JsConfigTest extends tubepress_tes
 
     public function onSetup()
     {
-        $this->_providerResult       = new tubepress_core_provider_api_Page();
+        $this->_providerResult       = new tubepress_core_media_provider_api_Page();
         $this->_mockEventDispatcher  = $this->mock(tubepress_core_event_api_EventDispatcherInterface::_);
         $this->_sut                  = new tubepress_core_html_impl_listeners_GlobalJsConfig($this->_mockEventDispatcher);
     }

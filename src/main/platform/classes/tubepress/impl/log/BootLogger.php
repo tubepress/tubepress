@@ -54,10 +54,9 @@ class tubepress_impl_log_BootLogger implements tubepress_api_log_LoggerInterface
             $this->error("<tt>$line</tt>");
         }
 
-        foreach ($this->_buffer as $message => $buffer) {
+        foreach ($this->_buffer as $message => $context) {
 
-            unset($buffer['__level']);
-            $message = sprintf('%s [%s]', $message, print_r($buffer, true));
+            $message = sprintf('%s [%s]', $message, print_r($context, true));
             echo "$message<br />\n";
         }
     }
@@ -127,10 +126,20 @@ class tubepress_impl_log_BootLogger implements tubepress_api_log_LoggerInterface
             return;
         }
 
-        $message            = sprintf('%s %s', microtime(true), $message);
+        $message            = sprintf('%s %s', $this->_udate(), $message);
         $context['__level'] = $level;
 
         $this->_buffer[$message] = $context;
+    }
+
+    //http://www.php.net/manual/en/datetime.format.php#113607
+    private function _udate()
+    {
+        $utimestamp   = microtime(true);
+        $timestamp    = floor($utimestamp);
+        $milliseconds = round(($utimestamp - $timestamp) * 1000000);
+
+        return date(preg_replace('`(?<!\\\\)u`', $milliseconds, 'i:s.u'), $timestamp);
     }
 
     /**

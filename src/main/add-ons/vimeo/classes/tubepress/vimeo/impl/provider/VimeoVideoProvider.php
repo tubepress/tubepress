@@ -12,7 +12,7 @@
 /**
  * Handles the heavy lifting for Vimeo.
  */
-class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core_provider_api_HttpProviderInterface
+class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core_media_provider_api_HttpProviderInterface
 {
     private static $_URL_PARAM_ALBUM_ID      = 'album_id';
     private static $_URL_PARAM_CHANNEL_ID    = 'channel_id';
@@ -74,7 +74,7 @@ class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core
     private $_context;
 
     /**
-     * @var tubepress_core_provider_api_ItemSorterInterface
+     * @var tubepress_core_media_provider_api_ItemSorterInterface
      */
     private $_itemSorter;
 
@@ -85,7 +85,7 @@ class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core
     public function __construct(tubepress_api_log_LoggerInterface                 $logger,
                                 tubepress_core_url_api_UrlFactoryInterface        $urlFactory,
                                 tubepress_core_options_api_ContextInterface       $context,
-                                tubepress_core_provider_api_ItemSorterInterface   $itemSorter)
+                                tubepress_core_media_provider_api_ItemSorterInterface   $itemSorter)
     {
         $this->_logger          = $logger;
         $this->_urlFactory      = $urlFactory;
@@ -106,7 +106,7 @@ class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core
     public function buildUrlForPage($currentPage)
     {
         $params = array();
-        $mode   = $this->_context->get(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE);
+        $mode   = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
 
         $this->_verifyKeyAndSecretExists();
 
@@ -138,7 +138,7 @@ class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core
                 $params[self::$_URL_PARAM_METHOD] = self::$_METHOD_VIDEOS_SEARCH;
                 $params[self::$_URL_PARAM_QUERY]  = $this->_context->get(tubepress_vimeo_api_Constants::OPTION_VIMEO_SEARCH_VALUE);
 
-                $filter = $this->_context->get(tubepress_core_media_search_api_Constants::OPTION_SEARCH_ONLY_USER);
+                $filter = $this->_context->get(tubepress_core_html_search_api_Constants::OPTION_SEARCH_ONLY_USER);
 
                 if ($filter != '') {
 
@@ -176,7 +176,7 @@ class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core
 
         $params[self::$_URL_PARAM_FULL_RESPONSE] = 'true';
         $params[self::$_URL_PARAM_PAGE]          = $currentPage;
-        $params[self::$_URL_PARAM_PER_PAGE]      = $this->_context->get(tubepress_core_provider_api_Constants::OPTION_RESULTS_PER_PAGE);
+        $params[self::$_URL_PARAM_PER_PAGE]      = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE);
         $sort                                    = $this->_getSort($mode);
 
         if ($sort != '') {
@@ -246,6 +246,17 @@ es for the "mode" option.
     public final function getMetaOptionNames()
     {
         return array(
+
+            tubepress_core_media_item_api_Constants::OPTION_AUTHOR,
+            tubepress_core_media_item_api_Constants::OPTION_CATEGORY,
+            tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION,
+            tubepress_core_media_item_api_Constants::OPTION_ID,
+            tubepress_core_media_item_api_Constants::OPTION_KEYWORDS,
+            tubepress_core_media_item_api_Constants::OPTION_LENGTH,
+            tubepress_core_media_item_api_Constants::OPTION_TITLE,
+            tubepress_core_media_item_api_Constants::OPTION_UPLOADED,
+            tubepress_core_media_item_api_Constants::OPTION_URL,
+            tubepress_core_media_item_api_Constants::OPTION_VIEWS,
 
             tubepress_vimeo_api_Constants::OPTION_LIKES
         );
@@ -317,7 +328,7 @@ es for the "mode" option.
          */
         if ($this->_unserialized === false) {
 
-            throw new tubepress_core_provider_api_exception_ProviderException('Unable to unserialize PHP from Vimeo');
+            throw new tubepress_core_media_provider_api_exception_ProviderException('Unable to unserialize PHP from Vimeo');
         }
 
         /*
@@ -325,7 +336,7 @@ es for the "mode" option.
          */
         if ($this->_unserialized->stat !== 'ok') {
 
-            throw new tubepress_core_provider_api_exception_ProviderException($this->_getErrorMessageFromVimeo());
+            throw new tubepress_core_media_provider_api_exception_ProviderException($this->_getErrorMessageFromVimeo());
         }
 
         /*
@@ -477,7 +488,7 @@ es for the "mode" option.
      */
     public function getAttributeNameOfItemDescription()
     {
-        return tubepress_core_provider_api_Constants::ATTRIBUTE_DESCRIPTION;
+        return tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION;
     }
 
     /**
@@ -488,7 +499,7 @@ es for the "mode" option.
      */
     public function getAttributeNameOfItemTitle()
     {
-        return tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE;
+        return tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE;
     }
 
     /**
@@ -499,7 +510,7 @@ es for the "mode" option.
      */
     public function getAttributeNameOfItemId()
     {
-        return tubepress_core_provider_api_Constants::ATTRIBUTE_ID;
+        return tubepress_core_media_item_api_Constants::ATTRIBUTE_ID;
     }
 
     /**
@@ -511,19 +522,19 @@ es for the "mode" option.
     public function getMapOfFormattedDateAttributeNamesToUnixTimeAttributeNames()
     {
         return array(
-            tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED =>
-                tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME
+            tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED =>
+                tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME
         );
     }
 
     /**
-     * @param tubepress_core_provider_api_MediaItem $first
-     * @param tubepress_core_provider_api_MediaItem $second
+     * @param tubepress_core_media_item_api_MediaItem $first
+     * @param tubepress_core_media_item_api_MediaItem $second
      * @param string                                $perPageSort
      *
      * @return int
      */
-    public function compareForPerPageSort(tubepress_core_provider_api_MediaItem $first, tubepress_core_provider_api_MediaItem $second, $perPageSort)
+    public function compareForPerPageSort(tubepress_core_media_item_api_MediaItem $first, tubepress_core_media_item_api_MediaItem $second, $perPageSort)
     {
         $attributeName = null;
         $desc          = true;
@@ -531,28 +542,28 @@ es for the "mode" option.
         switch ($perPageSort) {
 
             case tubepress_vimeo_api_Constants::PER_PAGE_SORT_COMMENT_COUNT:
-                $attributeName = tubepress_core_provider_api_Constants::ATTRIBUTE_COMMENT_COUNT;
+                $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_COMMENT_COUNT;
                 break;
 
             case tubepress_vimeo_api_Constants::PER_PAGE_SORT_DURATION:
-                $attributeName = tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS;
+                $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS;
                 break;
 
             case tubepress_vimeo_api_Constants::PER_PAGE_SORT_NEWEST:
-                $attributeName = tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME;
+                $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME;
                 break;
 
             case tubepress_vimeo_api_Constants::PER_PAGE_SORT_OLDEST:
-                $attributeName = tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME;
+                $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME;
                 $desc          = false;
                 break;
 
             case tubepress_vimeo_api_Constants::PER_PAGE_SORT_RATING:
-                $attributeName = tubepress_core_provider_api_Constants::ATTRIBUTE_RATING_AVERAGE;
+                $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE;
                 break;
 
             case tubepress_vimeo_api_Constants::PER_PAGE_SORT_VIEW_COUNT:
-                $attributeName = tubepress_core_provider_api_Constants::ATTRIBUTE_VIEW_COUNT;
+                $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT;
                 break;
 
             default:
@@ -572,9 +583,9 @@ es for the "mode" option.
     {
         return array(
 
-            tubepress_core_provider_api_Constants::ATTRIBUTE_LIKES_COUNT,
-            tubepress_core_provider_api_Constants::ATTRIBUTE_VIEW_COUNT,
-            tubepress_core_provider_api_Constants::ATTRIBUTE_COMMENT_COUNT
+            tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT,
+            tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
+            tubepress_core_media_item_api_Constants::ATTRIBUTE_COMMENT_COUNT
         );
     }
 
@@ -588,8 +599,8 @@ es for the "mode" option.
     {
         return array(
 
-            tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_FORMATTED =>
-                tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS
+            tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED =>
+                tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS
         );
     }
 
@@ -625,9 +636,9 @@ es for the "mode" option.
             return '';
         }
 
-        $order = $this->_context->get(tubepress_core_provider_api_Constants::OPTION_ORDER_BY);
+        $order = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY);
 
-        if ($order === tubepress_core_provider_api_Constants::ORDER_BY_DEFAULT) {
+        if ($order === tubepress_core_media_provider_api_Constants::ORDER_BY_DEFAULT) {
 
             return $this->_calculateDefaultSortOrder($mode);
         }
@@ -726,9 +737,9 @@ es for the "mode" option.
      *
      * @param int $currentPage The requested page number of the gallery.
      *
-     * @return tubepress_core_provider_api_Page The media gallery page for this page. May be empty, never null.
+     * @return tubepress_core_media_provider_api_Page The media gallery page for this page. May be empty, never null.
      *
-     * @throws tubepress_core_provider_api_exception_ProviderException
+     * @throws tubepress_core_media_provider_api_exception_ProviderException
      *
      * @api
      * @since 4.0.0
@@ -743,9 +754,9 @@ es for the "mode" option.
      *
      * @param string $itemId The item ID to fetch.
      *
-     * @return tubepress_core_provider_api_MediaItem The media item, or null if unable to retrive.
+     * @return tubepress_core_media_item_api_MediaItem The media item, or null if unable to retrive.
      *
-     * @throws tubepress_core_provider_api_exception_ProviderException
+     * @throws tubepress_core_media_provider_api_exception_ProviderException
      *
      * @api
      * @since 4.0.0
@@ -755,4 +766,19 @@ es for the "mode" option.
         throw new LogicException();
     }
 
+    /**
+     * Get the item ID of an element of the feed.
+     *
+     * @param integer $index The index into the feed.
+     * @param mixed $feed The raw feed.
+     *
+     * @return string The globally unique item ID.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getIdForItemAtIndex($index, $feed)
+    {
+        return $this->_videoArray[$index]->id;
+    }
 }

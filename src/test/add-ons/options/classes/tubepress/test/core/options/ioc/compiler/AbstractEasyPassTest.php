@@ -62,6 +62,8 @@ abstract class tubepress_test_core_options_ioc_compiler_AbstractEasyPassTest ext
 
         $paramValue['bar'] = 'bla';
 
+        $this->_mockLogger->shouldReceive('error')->once()->with('foo has unexpected attribute: bar');
+
         $this->_mockContainer->shouldReceive('getParameterNames')->once()->andReturn(array('foo'));
         $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('foo', $this->getPrefix())->andReturn(true);
         $this->_mockContainer->shouldReceive('getParameter')->once()->with('foo')->andReturn($paramValue);
@@ -78,6 +80,7 @@ abstract class tubepress_test_core_options_ioc_compiler_AbstractEasyPassTest ext
         $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('foo', $this->getPrefix())->andReturn(true);
         $this->_mockContainer->shouldReceive('getParameter')->once()->with('foo')->andReturn(array('bar'));
         $this->_mockLangUtils->shouldReceive('isSimpleArrayOfStrings')->once()->with(array('bar'))->andReturn(true);
+        $this->_mockLogger->shouldReceive('error')->once()->with('foo is missing required attributes');
 
         $this->_sut->process($this->_mockContainer);
 
@@ -90,6 +93,7 @@ abstract class tubepress_test_core_options_ioc_compiler_AbstractEasyPassTest ext
         $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('foo', $this->getPrefix())->andReturn(true);
         $this->_mockContainer->shouldReceive('getParameter')->once()->with('foo')->andReturn(array());
         $this->_mockLangUtils->shouldReceive('isSimpleArrayOfStrings')->once()->with(array())->andReturn(false);
+        $this->_mockLogger->shouldReceive('error')->once()->with('foo is not an array with string keys');
 
         $this->_sut->process($this->_mockContainer);
 
@@ -101,6 +105,7 @@ abstract class tubepress_test_core_options_ioc_compiler_AbstractEasyPassTest ext
         $this->_mockContainer->shouldReceive('getParameterNames')->once()->andReturn(array('foo'));
         $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('foo', $this->getPrefix())->andReturn(true);
         $this->_mockContainer->shouldReceive('getParameter')->once()->with('foo')->andReturn(new stdClass());
+        $this->_mockLogger->shouldReceive('error')->once()->with('foo has a non-array for its value.');
 
         $this->_sut->process($this->_mockContainer);
 

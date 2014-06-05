@@ -20,7 +20,7 @@ class tubepress_test_core_player_impl_PlayerHtmlTest extends tubepress_test_Tube
     private $_sut;
 
     /**
-     * @var tubepress_core_provider_api_MediaItem
+     * @var tubepress_core_media_item_api_MediaItem
      */
     private $_mockVideo;
 
@@ -41,12 +41,10 @@ class tubepress_test_core_player_impl_PlayerHtmlTest extends tubepress_test_Tube
 
     public function onSetup()
     {
-        $this->_mockVideo            = new tubepress_core_provider_api_MediaItem();
+        $this->_mockVideo            = new tubepress_core_media_item_api_MediaItem('video-id');
         $this->_mockEventDispatcher  = $this->mock(tubepress_core_event_api_EventDispatcherInterface::_);
         $this->_mockExecutionContext = $this->mock(tubepress_core_options_api_ContextInterface::_);
         $this->_mockTemplateFactory  = $this->mock(tubepress_core_template_api_TemplateFactoryInterface::_);
-
-        $this->_mockVideo->setAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_ID, 'video-id');
 
         $this->_sut = new tubepress_core_player_impl_PlayerHtml($this->_mockExecutionContext, $this->_mockTemplateFactory, $this->_mockEventDispatcher);
     }

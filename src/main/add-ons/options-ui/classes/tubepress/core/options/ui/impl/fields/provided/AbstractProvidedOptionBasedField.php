@@ -29,13 +29,13 @@ abstract class tubepress_core_options_ui_impl_fields_provided_AbstractProvidedOp
     {
         $this->_optionProvider = $optionProvider;
 
-        if (!$this->_optionProvider->hasOption($optionName)) {
+        if (!$this->_optionProvider->optionExists($optionName)) {
 
             throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $optionName));
         }
 
-        $label       = $this->_optionProvider->getLabel($optionName);
-        $description = $this->_optionProvider->getDescription($optionName);
+        $label       = $this->_optionProvider->getUntranslatedLabel($optionName);
+        $description = $this->_optionProvider->getUntranslatedDescription($optionName);
 
         parent::__construct(
 

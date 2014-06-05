@@ -41,11 +41,11 @@ class tubepress_core_player_impl_PlayerHtml implements tubepress_core_player_api
     /**
      * Get's the HTML for the TubePress "player"
      *
-     * @param tubepress_core_provider_api_MediaItem $mediaItem The video to display in the player.
+     * @param tubepress_core_media_item_api_MediaItem $mediaItem The video to display in the player.
      *
      * @return string|null The HTML for this player with the given video, or null if not found.
      */
-    public function getHtml(tubepress_core_provider_api_MediaItem $mediaItem)
+    public function getHtml(tubepress_core_media_item_api_MediaItem $mediaItem)
     {
         $requestedPlayerLocation   = $this->_context->get(tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION);
         $choosePlayerLocationEvent = $this->_eventDispatcher->newEventInstance($mediaItem, array(

@@ -60,7 +60,7 @@ class tubepress_core_options_ui_impl_fields_GallerySourceRadioField extends tube
      */
     protected function getTemplateVariables()
     {
-        $currentMode = $this->_context->get(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE);
+        $currentMode = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
 
         return array(
 

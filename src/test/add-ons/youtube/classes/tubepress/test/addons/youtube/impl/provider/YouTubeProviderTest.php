@@ -54,7 +54,7 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
         $this->_mockUrlFactory = $this->mock(tubepress_core_url_api_UrlFactoryInterface::_);
         $this->_mockLogger = $this->mock(tubepress_api_log_LoggerInterface::_);
 
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_RESULTS_PER_PAGE)->andReturn(20);
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE)->andReturn(20);
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_youtube_api_Constants::OPTION_FILTER)->andReturn('moderate');
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_youtube_api_Constants::OPTION_EMBEDDABLE_ONLY)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_youtube_api_Constants::OPTION_DEV_KEY)->andReturn('AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
@@ -130,10 +130,10 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecuteUserMode()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             'userValue' => '3hough'
         ));
 
@@ -149,10 +149,10 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecutePopular()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
             'youtubeMostPopularValue' => 'today'
         ));
 
@@ -167,11 +167,11 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecutePlaylist()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => 'relevance',
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => 'relevance',
             'playlistValue' => 'D2B04665B213AE35'
         ));
 
@@ -186,10 +186,10 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecuteFavorites()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
             'favoritesValue' => 'mrdeathgod'
         ));
 
@@ -204,12 +204,12 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecuteTagWithDoubleQuotes()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE      => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE      => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_TAG_VALUE => '"stewart daily" -show',
-            tubepress_core_media_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
+            tubepress_core_html_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -224,12 +224,12 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecuteTagWithExclusion()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE      => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE      => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_TAG_VALUE => 'stewart daily -show',
-            tubepress_core_media_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
+            tubepress_core_html_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -243,12 +243,12 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecuteTagWithPipes()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE      => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE      => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_TAG_VALUE => 'stewart|daily|show',
-            tubepress_core_media_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
+            tubepress_core_html_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -263,12 +263,12 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     public function testexecuteTag()
     {
 
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
             'tagValue' => 'stewart daily show',
-            tubepress_core_media_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
+            tubepress_core_html_search_api_Constants::OPTION_SEARCH_ONLY_USER => '',
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -282,11 +282,11 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
     public function testexecuteTagWithUser()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
+        $this->_mockExecutionContext->shouldReceive('get')->zeroOrMoreTimes()->with(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY)->andReturn('viewCount');
 
         $this->expectOptions(array(
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
-            tubepress_core_media_search_api_Constants::OPTION_SEARCH_ONLY_USER => '3hough',
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
+            tubepress_core_html_search_api_Constants::OPTION_SEARCH_ONLY_USER => '3hough',
             'tagValue' => 'stewart daily show'
         ));
 
@@ -303,9 +303,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_NEWEST
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_NEWEST
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -321,8 +321,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_NEWEST,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_NEWEST,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -339,9 +339,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_VIEW_COUNT
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_VIEW_COUNT
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -358,8 +358,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_VIEW_COUNT,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_VIEW_COUNT,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -376,9 +376,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RELEVANCE
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RELEVANCE
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -395,8 +395,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RELEVANCE,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RELEVANCE,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -413,9 +413,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RATING
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RATING
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -431,8 +431,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RATING,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_RATING,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -450,9 +450,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_POSITION
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_POSITION
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -469,8 +469,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_POSITION,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_POSITION,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -488,9 +488,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_COMMENT_COUNT
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_COMMENT_COUNT
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -506,8 +506,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_COMMENT_COUNT,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_COMMENT_COUNT,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -524,9 +524,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_DURATION
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_DURATION
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -542,8 +542,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_DURATION,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_DURATION,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -560,9 +560,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_REV_POSITION
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_REV_POSITION
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -579,8 +579,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_REV_POSITION,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_REV_POSITION,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 
@@ -597,9 +597,9 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
     {
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_USER_VALUE => '3hough',
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_TITLE
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_TITLE
         ));
 
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -616,8 +616,8 @@ class tubepress_test_youtube_impl_provider_YouTubeProviderTest extends tubepress
 
         $this->expectOptions(array(
 
-            tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-            tubepress_core_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_TITLE,
+            tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+            tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY => tubepress_youtube_api_Constants::ORDER_BY_TITLE,
             tubepress_youtube_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'D2B04665B213AE35'
         ));
 

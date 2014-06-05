@@ -12,7 +12,7 @@
 /**
  * Handles the heavy lifting for YouTube.
  */
-class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_core_provider_api_HttpProviderInterface
+class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_core_media_provider_api_HttpProviderInterface
 {
     private static $_NAMESPACE_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     private static $_NAMESPACE_APP        = 'http://www.w3.org/2007/app';
@@ -109,7 +109,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
      */
     public function buildUrlForPage($currentPage)
     {
-        switch ($this->_context->get(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE)) {
+        switch ($this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)) {
 
             case tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER:
 
@@ -148,7 +148,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
                 $tags = urlencode($tags);
                 $url  = "videos?q=$tags";
 
-                $filter = $this->_context->get(tubepress_core_media_search_api_Constants::OPTION_SEARCH_ONLY_USER);
+                $filter = $this->_context->get(tubepress_core_html_search_api_Constants::OPTION_SEARCH_ONLY_USER);
 
                 if ($filter != '') {
 
@@ -336,20 +336,6 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
     }
 
     /**
-     * @return array An array of meta names
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getMapOfMetaOptionNamesToUntranslatedLabels()
-    {
-        return array(
-            tubepress_youtube_api_Constants::OPTION_RATING  => 'Average rating',     //>(translatable)<
-            tubepress_youtube_api_Constants::OPTION_RATINGS => 'Number of ratings',  //>(translatable)<
-        );
-    }
-
-    /**
      * @return string The name of the "mode" value that this provider uses for searching.
      *
      * @api
@@ -407,7 +393,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
 
     private function _urlPostProcessingGallery(tubepress_core_url_api_UrlInterface $url, $currentPage)
     {
-        $perPage = $this->_context->get(tubepress_core_provider_api_Constants::OPTION_RESULTS_PER_PAGE);
+        $perPage = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE);
 
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -447,11 +433,11 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
          * viewCount – Entries are ordered from most views to least views.
          */
 
-        $requestedSortOrder   = $this->_context->get(tubepress_core_provider_api_Constants::OPTION_ORDER_BY);
-        $currentGallerySource = $this->_context->get(tubepress_core_media_gallery_api_Constants::OPTION_GALLERY_SOURCE);
+        $requestedSortOrder   = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY);
+        $currentGallerySource = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
         $query                = $url->getQuery();
 
-        if ($requestedSortOrder === tubepress_core_provider_api_Constants::ORDER_BY_DEFAULT) {
+        if ($requestedSortOrder === tubepress_core_media_provider_api_Constants::ORDER_BY_DEFAULT) {
 
             $query->set(self::$_URL_PARAM_ORDER, $this->_calculateDefaultSearchOrder($currentGallerySource));
             return;
@@ -523,7 +509,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
     {
         if (is_numeric($result) === false) {
 
-            throw new tubepress_core_provider_api_exception_ProviderException("YouTube returned a non-numeric result count: $result");
+            throw new tubepress_core_media_provider_api_exception_ProviderException("YouTube returned a non-numeric result count: $result");
         }
     }
 
@@ -558,14 +544,14 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
 
         if (! class_exists('DOMDocument')) {
 
-            throw new tubepress_core_provider_api_exception_ProviderException('DOMDocument class not found');
+            throw new tubepress_core_media_provider_api_exception_ProviderException('DOMDocument class not found');
         }
 
         $doc = new DOMDocument();
 
         if ($doc->loadXML($feed) === false) {
 
-            throw new tubepress_core_provider_api_exception_ProviderException('Could not parse XML from YouTube');
+            throw new tubepress_core_media_provider_api_exception_ProviderException('Could not parse XML from YouTube');
         }
 
         if ($this->_logger->isEnabled()) {
@@ -586,9 +572,9 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
      *
      * @param int $currentPage The requested page number of the gallery.
      *
-     * @return tubepress_core_provider_api_Page The media gallery page for this page. May be empty, never null.
+     * @return tubepress_core_media_provider_api_Page The media gallery page for this page. May be empty, never null.
      *
-     * @throws tubepress_core_provider_api_exception_ProviderException
+     * @throws tubepress_core_media_provider_api_exception_ProviderException
      *
      * @api
      * @since 4.0.0
@@ -603,9 +589,9 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
      *
      * @param string $itemId The item ID to fetch.
      *
-     * @return tubepress_core_provider_api_MediaItem The media item, or null if unable to retrive.
+     * @return tubepress_core_media_item_api_MediaItem The media item, or null if unable to retrive.
      *
-     * @throws tubepress_core_provider_api_exception_ProviderException
+     * @throws tubepress_core_media_provider_api_exception_ProviderException
      *
      * @api
      * @since 4.0.0
@@ -625,6 +611,17 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
     {
         return array(
 
+             tubepress_core_media_item_api_Constants::OPTION_AUTHOR,
+             tubepress_core_media_item_api_Constants::OPTION_CATEGORY,
+             tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION,
+             tubepress_core_media_item_api_Constants::OPTION_ID,
+             tubepress_core_media_item_api_Constants::OPTION_KEYWORDS,
+             tubepress_core_media_item_api_Constants::OPTION_LENGTH,
+             tubepress_core_media_item_api_Constants::OPTION_TITLE,
+             tubepress_core_media_item_api_Constants::OPTION_UPLOADED,
+             tubepress_core_media_item_api_Constants::OPTION_URL,
+             tubepress_core_media_item_api_Constants::OPTION_VIEWS,
+
              tubepress_youtube_api_Constants::OPTION_RATING,
              tubepress_youtube_api_Constants::OPTION_RATINGS,
         );
@@ -642,94 +639,32 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
     }
 
     /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNameOfItemDescription()
-    {
-        return tubepress_core_provider_api_Constants::ATTRIBUTE_DESCRIPTION;
-    }
-
-    /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNameOfItemTitle()
-    {
-        return tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE;
-    }
-
-    /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNameOfItemId()
-    {
-        return tubepress_core_provider_api_Constants::ATTRIBUTE_ID;
-    }
-
-    /**
-     * @return string[]
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNamesOfIntegersToFormat()
-    {
-        return array(
-
-            tubepress_core_provider_api_Constants::ATTRIBUTE_RATING_COUNT,
-            tubepress_core_provider_api_Constants::ATTRIBUTE_VIEW_COUNT
-        );
-    }
-
-    /**
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getMapOfFormattedDateAttributeNamesToUnixTimeAttributeNames()
-    {
-        return array(
-
-            tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED =>
-                tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME
-        );
-    }
-
-    /**
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getMapOfHhMmSsAttributeNamesToSecondsAttributeNames()
-    {
-        return array(
-
-            tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_FORMATTED =>
-                tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS
-        );
-    }
-
-    /**
-     * @param tubepress_core_provider_api_MediaItem $first
-     * @param tubepress_core_provider_api_MediaItem $second
+     * @param tubepress_core_media_item_api_MediaItem $first
+     * @param tubepress_core_media_item_api_MediaItem $second
      * @param string $perPageSort
      *
      * @return int
      */
-    public function compareForPerPageSort(tubepress_core_provider_api_MediaItem $first,
-                                   tubepress_core_provider_api_MediaItem $second,
+    public function compareForPerPageSort(tubepress_core_media_item_api_MediaItem $first,
+                                   tubepress_core_media_item_api_MediaItem $second,
                                    $perPageSort)
     {
         // TODO: Implement compareForPerPageSort() method.
+    }
+
+    /**
+     * Get the item ID of an element of the feed.
+     *
+     * @param integer $index The index into the feed.
+     * @param mixed $feed The raw feed.
+     *
+     * @return string The globally unique item ID.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getIdForItemAtIndex($index, $feed)
+    {
+        return $this->_relativeQuery($index, 'media:group/yt:videoid')->item(0)->nodeValue;
     }
 }

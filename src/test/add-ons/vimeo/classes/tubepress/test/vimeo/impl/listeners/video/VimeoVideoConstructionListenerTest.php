@@ -34,7 +34,6 @@ class tubepress_test_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTe
         $this->_mockExecutionContext = $this->mock(tubepress_core_options_api_ContextInterface::_);
         $this->_mockTimeUtils        = $this->mock(tubepress_core_util_api_TimeUtilsInterface::_);
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_single_api_Constants::OPTION_DESC_LIMIT)->andReturn(9);
         $this->_sut = new tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener(
 
             $this->_mockExecutionContext,
@@ -42,62 +41,24 @@ class tubepress_test_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTe
         );
     }
 
-    public function testConstructionGalleryXmlStaticThumbAbsoluteDates()
-    {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_single_api_Constants::OPTION_RELATIVE_DATES)->andReturn(false);
-
-        $event = $this->_prepareEvent($this->galleryXml(), 2);
-
-        $this->_mockTimeUtils->shouldReceive('secondsToHumanTime')->once()->with('61')->andReturn('human time');
-        $this->_mockTimeUtils->shouldReceive('unixTimeToHumanReadable')->once()->with(1347129000, false)->andReturn('human readable');
-
-        $this->_sut->onVideoConstruction($event);
-
-        $video = $event->getSubject();
-        $this->assertTrue($video instanceof tubepress_core_provider_api_MediaItem);
-        $this->assertEquals('vimeo', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_PROVIDER_NAME));
-        $this->assertEquals('Nunca Silva', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME));
-        $this->assertEquals('nuncasilva', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_USER_ID));
-        $this->assertEquals('The assum...', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_DESCRIPTION));
-        $this->assertEquals('61', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS));
-        $this->assertEquals('human time', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_FORMATTED));
-        $this->assertEquals('http://vimeo.com/49078748', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_HOME_URL));
-        $this->assertEquals('49078748', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_ID));
-        $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_THUMBNAIL_URL));
-        $this->assertEquals('1347129000', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('human readable', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
-        $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE));
-        $this->assertEquals('96,321', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_VIEW_COUNT));
-        $this->assertEquals('6', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_LIKES_COUNT));
-    }
-
     public function testConstructionGalleryXmlRandomThumbRelativeDates()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_single_api_Constants::OPTION_RELATIVE_DATES)->andReturn(true);
-
         $event = $this->_prepareEvent($this->galleryXml(), 2);
-
-        $this->_mockTimeUtils->shouldReceive('secondsToHumanTime')->once()->with('61')->andReturn('human time');
-        $this->_mockTimeUtils->shouldReceive('unixTimeToHumanReadable')->once()->with(1347129000, true)->andReturn('human readable');
 
         $this->_sut->onVideoConstruction($event);
 
         $video = $event->getSubject();
-        $this->assertTrue($video instanceof tubepress_core_provider_api_MediaItem);
-        $this->assertEquals('vimeo', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_PROVIDER_NAME));
-        $this->assertEquals('Nunca Silva', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME));
-        $this->assertEquals('nuncasilva', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_AUTHOR_USER_ID));
-        $this->assertEquals('The assum...', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_DESCRIPTION));
-        $this->assertEquals('61', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_SECONDS));
-        $this->assertEquals('human time', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_DURATION_FORMATTED));
-        $this->assertEquals('http://vimeo.com/49078748', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_HOME_URL));
-        $this->assertEquals('49078748', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_ID));
-        $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_THUMBNAIL_URL));
-        $this->assertEquals('1347129000', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
-        $this->assertEquals('human readable', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED));
-        $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_TITLE));
-        $this->assertEquals('96,321', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_VIEW_COUNT));
-        $this->assertEquals('6', $video->getAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_LIKES_COUNT));
+        $this->assertTrue($video instanceof tubepress_core_media_item_api_MediaItem);
+        $this->assertEquals('Nunca Silva', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME));
+        $this->assertEquals('nuncasilva', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_USER_ID));
+        $this->assertEquals('The assumption that most hobby fishermen are individuals of limited fashion sense is groundless, demonstrated by this man who has colour-coordinated his shirt and his hat with the light blue background of the lake.', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION));
+        $this->assertEquals('61', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS));
+        $this->assertEquals('http://vimeo.com/49078748', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL));
+        $this->assertEquals('http://b.vimeocdn.com/ts/338/576/338576320_100.jpg', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_THUMBNAIL_URL));
+        $this->assertEquals('1347129000', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME));
+        $this->assertEquals('lone fisherman, colour coordinated', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE));
+        $this->assertEquals('96321', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT));
+        $this->assertEquals('6', $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT));
     }
 
     public function singleVideoXml()
@@ -120,8 +81,10 @@ class tubepress_test_vimeo_impl_listeners_video_VimeoVideoConstructionListenerTe
 
     private function _prepareEvent($feed, $index)
     {
-        $video = new tubepress_core_provider_api_MediaItem();
-        $video->setAttribute(tubepress_core_provider_api_Constants::ATTRIBUTE_PROVIDER_NAME, 'vimeo');
+        $video = new tubepress_core_media_item_api_MediaItem('id');
+        $mockProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
+        $mockProvider->shouldReceive('getName')->andReturn('vimeo');
+        $video->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER, $mockProvider);
 
         $unserialized = @unserialize($feed);
         $videoArray   = array();

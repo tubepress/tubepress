@@ -68,7 +68,7 @@ class tubepress_test_core_embedded_impl_listeners_template_EmbeddedCoreVariables
         $mockDataUrl = $this->mock('tubepress_core_url_api_UrlInterface');
         $mockDataUrl->shouldReceive('toString')->once()->andReturn('dddd');
 
-        $mockMediaProvider = $this->mock(tubepress_core_provider_api_MediaProviderInterface::_);
+        $mockMediaProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
         $mockMediaProvider->shouldReceive('getName')->twice()->andReturn('video-provider-name');
 
         $mockEmbeddedProvider = $this->mock(tubepress_core_embedded_api_EmbeddedProviderInterface::_);
@@ -80,7 +80,7 @@ class tubepress_test_core_embedded_impl_listeners_template_EmbeddedCoreVariables
 
             'dataUrl' => $mockDataUrl,
             'itemId' => 'video-id',
-            'mediaProvider' => $mockMediaProvider,
+            'itemProvider' => $mockMediaProvider,
             'embeddedProvider' => $mockEmbeddedProvider
         );
         foreach ($args as $k => $v) {

@@ -68,7 +68,7 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
 
     /**
      * @param tubepress_core_url_api_UrlFactoryInterface         $urlFactory URL factory
-     * @param tubepress_core_provider_api_MediaProviderInterface $provider   The video provider
+     * @param tubepress_core_media_provider_api_MediaProviderInterface $provider   The video provider
      * @param string                                             $videoId    The video ID to play
      *
      * @return tubepress_core_url_api_UrlInterface The URL of the data for this video.
@@ -77,7 +77,7 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
      * @since 4.0.0
      */
     public function getDataUrlForVideo(tubepress_core_url_api_UrlFactoryInterface         $urlFactory,
-                                       tubepress_core_provider_api_MediaProviderInterface $provider,
+                                       tubepress_core_media_provider_api_MediaProviderInterface $provider,
                                        $videoId)
     {
         $autoPlay = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY);
@@ -118,7 +118,7 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
     }
 
     /**
-     * @param tubepress_core_provider_api_MediaProviderInterface
+     * @param tubepress_core_media_provider_api_MediaProviderInterface
      *
      * @return string[] An array of provider names that this embedded provider can handle.
      *

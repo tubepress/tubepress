@@ -79,7 +79,10 @@ abstract class tubepress_test_core_ioc_AbstractManifestValidityTest extends tube
 
         if (isset($manifest['inversion-of-control'])) {
 
-            $toIgnore = array_merge($toIgnore, $manifest['inversion-of-control']['container-extensions']);
+            if (isset($manifest['inversion-of-control']['container-extensions'])) {
+
+                $toIgnore = array_merge($toIgnore, $manifest['inversion-of-control']['container-extensions']);
+            }
 
             if (isset($manifest['inversion-of-control']['compiler-passes'])) {
 
