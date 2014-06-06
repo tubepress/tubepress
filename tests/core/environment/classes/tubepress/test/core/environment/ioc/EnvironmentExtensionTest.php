@@ -27,15 +27,8 @@ class tubepress_test_core_environment_ioc_EnvironmentExtensionTest extends tubep
         $this->expectRegistration(
             tubepress_core_environment_api_EnvironmentInterface::_,
             'tubepress_core_environment_impl_Environment'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_));
-    }
-
-    protected function getExpectedServiceContructionMap()
-    {
-        return array(
-
-            tubepress_core_environment_api_EnvironmentInterface::_ => 'tubepress_core_environment_impl_Environment',
-        );
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
+         ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_));
     }
 
     protected function getExpectedExternalServicesMap()
@@ -43,6 +36,7 @@ class tubepress_test_core_environment_ioc_EnvironmentExtensionTest extends tubep
         return array(
 
             tubepress_core_url_api_UrlFactoryInterface::_ => tubepress_core_url_api_UrlFactoryInterface::_,
+            tubepress_api_boot_BootSettingsInterface::_ => tubepress_api_boot_BootSettingsInterface::_
         );
     }
 }

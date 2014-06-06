@@ -40,19 +40,21 @@ class tubepress_core_environment_impl_Environment implements tubepress_core_envi
     private $_userContentUrl;
 
     /**
+     * @var tubepress_api_boot_BootSettingsInterface
+     */
+    private $_bootSettings;
+
+    /**
      * @var bool
      */
     private $_isPro = false;
 
-    /**
-     * @var string Cache to reduce computation.
-     */
-    private $_cacheUserContentDirectory;
-
-    public function __construct(tubepress_core_url_api_UrlFactoryInterface $urlFactory)
+    public function __construct(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
+                                tubepress_api_boot_BootSettingsInterface   $bootSettings)
     {
-        $this->_version    = tubepress_core_version_api_Version::parse('9.9.9');
-        $this->_urlFactory = $urlFactory;
+        $this->_version      = tubepress_core_version_api_Version::parse('9.9.9');
+        $this->_urlFactory   = $urlFactory;
+        $this->_bootSettings = $bootSettings;
     }
 
     /**
@@ -92,31 +94,7 @@ class tubepress_core_environment_impl_Environment implements tubepress_core_envi
      */
     public function getUserContentDirectory()
     {
-        if (!isset($this->_cacheUserContentDirectory)) {
-
-            if (defined('TUBEPRESS_CONTENT_DIRECTORY')) {
-
-                $this->_cacheUserContentDirectory = rtrim(TUBEPRESS_CONTENT_DIRECTORY, DIRECTORY_SEPARATOR);
-
-                return $this->_cacheUserContentDirectory;
-            }
-
-            if ($this->isWordPress()) {
-
-                if (! defined('WP_CONTENT_DIR' )) {
-
-                    define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
-                }
-
-                $this->_cacheUserContentDirectory = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'tubepress-content';
-
-            } else {
-
-                $this->_cacheUserContentDirectory = TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'tubepress-content';
-            }
-        }
-
-        return $this->_cacheUserContentDirectory;
+        return $this->_bootSettings->getUserContentDirectory();
     }
 
     /**

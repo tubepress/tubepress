@@ -24,10 +24,16 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
      */
     private $_mockUrlFactory;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockBootSettings;
+
     public function onSetup()
     {
-        $this->_mockUrlFactory = $this->mock(tubepress_core_url_api_UrlFactoryInterface::_);
-        $this->_sut            = new tubepress_core_environment_impl_Environment($this->_mockUrlFactory);
+        $this->_mockUrlFactory   = $this->mock(tubepress_core_url_api_UrlFactoryInterface::_);
+        $this->_mockBootSettings = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
+        $this->_sut              = new tubepress_core_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
     }
 
     public function testVersion()
@@ -69,48 +75,6 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
         $this->assertFalse($this->_sut->isWordPress());
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testUserContentDirDefined()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', 'boo//////');
-
-        $this->assertEquals('boo', $this->_sut->getUserContentDirectory());
-    }
-
-    public function testUserContentDirNotDefined()
-    {
-        $this->assertEquals(TUBEPRESS_ROOT . '/tubepress-content', $this->_sut->getUserContentDirectory());
-    }
-
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testUserContentDirWp1()
-    {
-        define('ABSPATH', 'blue/');
-        $mockWp  = $this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_);
-        $this->_sut->setWpFunctionsInterface($mockWp);
-
-        $this->assertEquals('blue/wp-content/tubepress-content', $this->_sut->getUserContentDirectory());
-    }
-
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testUserContentDirWp2()
-    {
-        define('WP_CONTENT_DIR', 'bob');
-        $mockWp  = $this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_);
-        $this->_sut->setWpFunctionsInterface($mockWp);
-
-        $this->assertEquals('bob/tubepress-content', $this->_sut->getUserContentDirectory());
-    }
-
     public function testDetectUserContentUrlNonWp()
     {
         $mockUrl        = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -132,6 +96,12 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('xyz/tubepress-content')->andReturn($mockUrl);
         $result = $this->_sut->getUserContentUrl();
         $this->assertSame($mockUrl, $result);
+    }
+
+    public function testUserContentDir()
+    {
+        $this->_mockBootSettings->shouldReceive('getUserContentDirectory')->once()->andReturn('yyy');
+        $this->assertEquals('yyy', $this->_sut->getUserContentDirectory());
     }
 
     /**

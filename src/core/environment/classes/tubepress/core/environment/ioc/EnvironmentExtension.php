@@ -9,12 +9,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- *
- */
 class tubepress_core_environment_ioc_EnvironmentExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
-
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
      * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
@@ -25,7 +21,7 @@ class tubepress_core_environment_ioc_EnvironmentExtension implements tubepress_a
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -33,6 +29,7 @@ class tubepress_core_environment_ioc_EnvironmentExtension implements tubepress_a
 
             tubepress_core_environment_api_EnvironmentInterface::_,
             'tubepress_core_environment_impl_Environment'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_));
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_));
     }
 }
