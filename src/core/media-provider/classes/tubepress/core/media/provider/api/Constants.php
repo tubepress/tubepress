@@ -59,31 +59,31 @@ interface tubepress_core_media_provider_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_ORDER_BY = 'orderBy';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_PER_PAGE_SORT = 'perPageSort';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_RESULT_COUNT_CAP = 'resultCountCap';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_RESULTS_PER_PAGE = 'resultsPerPage';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_VIDEO_BLACKLIST = 'videoBlacklist';
 
@@ -95,13 +95,13 @@ interface tubepress_core_media_provider_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_NONE = 'none';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_RANDOM = 'random';
 }

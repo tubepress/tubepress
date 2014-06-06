@@ -24,7 +24,7 @@ class tubepress_core_url_ioc_UrlExtension implements tubepress_api_ioc_Container
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {

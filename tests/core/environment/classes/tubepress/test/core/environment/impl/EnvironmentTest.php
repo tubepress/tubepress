@@ -52,7 +52,7 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
 
     public function testIsWordPressTrue()
     {
-        $this->_sut->setWpFunctionsInterface($this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_));
+        $this->_sut->setWpFunctionsInterface($this->mock(tubepress_wordpress_impl_wp_WpFunctions::_));
         $this->assertTrue($this->_sut->isWordPress());
     }
 
@@ -90,7 +90,7 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
     public function testDetectUserContentUrlWp()
     {
         $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
-        $mockWp  = $this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_);
+        $mockWp  = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
         $mockWp->shouldReceive('content_url')->once()->andReturn('xyz');
         $this->_sut->setWpFunctionsInterface($mockWp);
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('xyz/tubepress-content')->andReturn($mockUrl);

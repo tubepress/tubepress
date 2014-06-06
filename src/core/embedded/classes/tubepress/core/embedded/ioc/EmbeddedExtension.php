@@ -24,7 +24,7 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -79,6 +79,7 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY        => false,
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT => 390,
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH  => 640,
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API   => true,
                 tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY        => true,
                 tubepress_core_embedded_api_Constants::OPTION_LOOP            => false,
                 tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL     => tubepress_core_embedded_api_Constants::EMBEDDED_IMPL_PROVIDER_BASED,
@@ -90,9 +91,10 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY        => 'Auto-play all videos',                               //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT => 'Max height (px)',                                    //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH  => 'Max width (px)',                                     //>(translatable)<
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API   => 'Enable JavaScript API',                              //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY        => '"Lazy" play videos',                                 //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_LOOP            => 'Loop',                                               //>(translatable)<
-                tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL     => 'Implementation',
+                tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL     => 'Implementation',                                     //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO       => 'Show title and rating before video starts',          //>(translatable)<
 
             ),

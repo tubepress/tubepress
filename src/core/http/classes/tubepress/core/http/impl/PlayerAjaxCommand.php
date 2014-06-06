@@ -67,7 +67,7 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
      * @api
      * @since 4.0.0
      */
-    public final function getName()
+    public function getName()
     {
         return 'playerHtml';
     }

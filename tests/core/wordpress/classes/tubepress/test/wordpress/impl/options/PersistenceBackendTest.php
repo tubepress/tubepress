@@ -63,7 +63,7 @@ class tubepress_test_wordpress_impl_options_PersistenceBackendTest extends tubep
         $this->_mockEnvironmentDetector      = $this->mock(tubepress_core_environment_api_EnvironmentInterface::_);
         $this->_mockEventDispatcher          = $this->mock(tubepress_core_event_api_EventDispatcherInterface::_);
         $this->_mockOptionProvider           = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
-        $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_);
+        $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
 
         $this->_sut = new tubepress_wordpress_impl_options_PersistenceBackend(
 

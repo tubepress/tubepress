@@ -25,7 +25,7 @@ class tubepress_core_html_single_ioc_SingleItemExtension implements tubepress_ap
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -57,57 +57,11 @@ class tubepress_core_html_single_ioc_SingleItemExtension implements tubepress_ap
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_single', array(
 
             'defaultValues' => array(
-                tubepress_core_media_item_api_Constants::OPTION_AUTHOR         => false,
-                tubepress_core_media_item_api_Constants::OPTION_CATEGORY       => false,
-                tubepress_core_media_item_api_Constants::OPTION_DATEFORMAT     => 'M j, Y',
-                tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT     => 80,
-                tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION    => false,
-                tubepress_core_media_item_api_Constants::OPTION_ID             => false,
-                tubepress_core_media_item_api_Constants::OPTION_KEYWORDS       => false,
-                tubepress_core_media_item_api_Constants::OPTION_LENGTH         => true,
-                tubepress_core_media_item_api_Constants::OPTION_RELATIVE_DATES => false,
-                tubepress_core_media_item_api_Constants::OPTION_TITLE          => true,
-                tubepress_core_media_item_api_Constants::OPTION_UPLOADED       => false,
-                tubepress_core_media_item_api_Constants::OPTION_URL            => false,
-                tubepress_core_media_item_api_Constants::OPTION_VIEWS          => true,
-
-                tubepress_core_html_single_api_Constants::OPTION_VIDEO          => null,
-            ),
-
-            'labels' => array(
-                tubepress_core_media_item_api_Constants::OPTION_AUTHOR         => 'Author',           //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_CATEGORY       => 'Category',         //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_DATEFORMAT     => 'Date format',                //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT     => 'Maximum description length', //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION    => 'Description',      //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_ID             => 'ID',               //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_KEYWORDS       => 'Keywords',         //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_LENGTH         => 'Runtime',          //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_RELATIVE_DATES => 'Use relative dates',         //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_TITLE          => 'Title',            //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_UPLOADED       => 'Date posted',      //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_URL            => 'URL',              //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_VIEWS          => 'View count',       //>(translatable)<
-            ),
-
-            'descriptions' => array(
-                tubepress_core_media_item_api_Constants::OPTION_DATEFORMAT     => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT     => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
-                tubepress_core_media_item_api_Constants::OPTION_RELATIVE_DATES => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
+                tubepress_core_html_single_api_Constants::OPTION_VIDEO => null,
             ),
 
             'doNotPersistNames' => array(
                 tubepress_core_html_single_api_Constants::OPTION_VIDEO,
-            )
-        ));
-
-        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_single', array(
-
-            'priority' => 30000,
-            'map'      => array(
-                'nonNegativeInteger' => array(
-                    tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT,
-                )
             )
         ));
     }

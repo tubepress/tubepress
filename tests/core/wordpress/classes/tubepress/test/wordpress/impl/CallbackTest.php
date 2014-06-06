@@ -32,9 +32,9 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
     public function onSetup()
     {
         $mockEnvironmentDetector    = $this->mock(tubepress_core_environment_api_EnvironmentInterface::_);
-        $mockWpFunctions            = $this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_);
+        $mockWpFunctions            = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
         $this->_mockEventDispatcher = $this->mock('tubepress_core_event_api_EventDispatcherInterface');
-        $this->_mockActivationHook  = $this->mock('tubepress_wordpress_impl_ActivationHook');
+        $this->_mockActivationHook  = $this->mock('tubepress_wordpress_impl_wp_ActivationHook');
 
         $mockWpFunctions->shouldReceive('content_url')->once()->andReturn('booya');
         $mockEnvironmentDetector->shouldReceive('setBaseUrl')->once()->with('booya/plugins/tubepress');

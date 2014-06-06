@@ -50,7 +50,7 @@ class tubepress_core_options_ui_impl_fields_provided_SpectrumColorField extends 
         );
     }
 
-    protected final function getAbsolutePathToTemplate()
+    protected function getAbsolutePathToTemplate()
     {
         return TUBEPRESS_ROOT . '/src/core/options-ui/resources/field-templates/spectrum-color.tpl.php';
     }

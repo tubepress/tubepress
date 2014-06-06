@@ -20,11 +20,6 @@ class tubepress_core_html_search_impl_listeners_html_SearchOutputListener
     private $_logger;
 
     /**
-     * @var tubepress_core_html_gallery_impl_listeners_html_GalleryMaker
-     */
-    private $_thumbGalleryShortcodeHandler;
-
-    /**
      * @var tubepress_core_options_api_ContextInterface
      */
     private $_context;
@@ -34,15 +29,18 @@ class tubepress_core_html_search_impl_listeners_html_SearchOutputListener
      */
     private $_requestParams;
 
-    public function __construct(tubepress_api_log_LoggerInterface $logger,
+    /**
+     * @var tubepress_core_media_provider_api_MediaProviderInterface[]
+     */
+    private $_mediaProviders;
+
+    public function __construct(tubepress_api_log_LoggerInterface                  $logger,
                                 tubepress_core_options_api_ContextInterface        $context,
-                                tubepress_core_html_gallery_impl_listeners_html_GalleryMaker      $thumbGalleryShortcodeHandler,
                                 tubepress_core_http_api_RequestParametersInterface $requestParams)
     {
-        $this->_logger                       = $logger;
-        $this->_thumbGalleryShortcodeHandler = $thumbGalleryShortcodeHandler;
-        $this->_context                      = $context;
-        $this->_requestParams                = $requestParams;
+        $this->_logger        = $logger;
+        $this->_context       = $context;
+        $this->_requestParams = $requestParams;
     }
 
     public function onHtmlGeneration(tubepress_core_event_api_EventInterface $event)
@@ -81,6 +79,11 @@ class tubepress_core_html_search_impl_listeners_html_SearchOutputListener
         $this->_handle($event);
     }
 
+    public function setMediaProviders(array $mediaProviders)
+    {
+        $this->_mediaProviders = $mediaProviders;
+    }
+
     private function _handle(tubepress_core_event_api_EventInterface $event)
     {
         $rawSearchTerms = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS);
@@ -105,27 +108,26 @@ class tubepress_core_html_search_impl_listeners_html_SearchOutputListener
             $this->_logger->debug('User is searching. We\'ll handle this.');
         }
 
-        /* who are we searching? */
-        switch ($this->_context->get(tubepress_core_html_search_api_Constants::OPTION_SEARCH_PROVIDER)) {
+        $provider  = $this->_findMediaProvider();
+        $modeName  = $provider->getSearchModeName();
+        $valueName = $provider->getSearchQueryOptionName();
 
-            case 'vimeo':
+        $this->_context->setEphemeralOption(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, $modeName);
+        $this->_context->setEphemeralOption($valueName, $rawSearchTerms);
+    }
 
-                $this->_context->set(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_SEARCH);
+    private function _findMediaProvider()
+    {
+        $name = $this->_context->get(tubepress_core_html_search_api_Constants::OPTION_SEARCH_PROVIDER);
 
-                $this->_context->set(tubepress_vimeo_api_Constants::OPTION_VIMEO_SEARCH_VALUE, $rawSearchTerms);
+        foreach ($this->_mediaProviders as $mediaProvider) {
 
-                break;
+            if ($mediaProvider->getName() === $name) {
 
-            default:
-
-                $this->_context->set(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH);
-
-                $this->_context->set(tubepress_youtube_api_Constants::OPTION_YOUTUBE_TAG_VALUE, $rawSearchTerms);
-
-                break;
+                return $mediaProvider;
+            }
         }
 
-        /* display the results as a thumb gallery */
-        $this->_thumbGalleryShortcodeHandler->onHtmlGeneration($event);
+        return null;
     }
 }

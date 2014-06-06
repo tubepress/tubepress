@@ -15,11 +15,11 @@
 class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepress_core_options_ui_api_FieldInterface
 {
     /**
-     * @var tubepress_wordpress_spi_WpFunctionsInterface
+     * @var tubepress_wordpress_impl_wp_WpFunctions
      */
     private $_wpFunctions;
 
-    public function __construct(tubepress_wordpress_spi_WpFunctionsInterface $wpFunctions)
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions)
     {
         $this->_wpFunctions = $wpFunctions;
     }

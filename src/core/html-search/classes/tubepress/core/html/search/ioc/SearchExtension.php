@@ -25,7 +25,7 @@ class tubepress_core_html_search_ioc_SearchExtension implements tubepress_api_io
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -48,9 +48,11 @@ class tubepress_core_html_search_ioc_SearchExtension implements tubepress_api_io
             'tubepress_core_html_search_impl_listeners_html_SearchOutputListener'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference('tubepress_core_html_gallery_impl_listeners_html_GalleryMaker'))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
-         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+         ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+            'tag' => tubepress_core_media_provider_api_MediaProviderInterface::_,
+            'method' => 'setMediaProviders'
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_html_api_Constants::EVENT_PRIMARY_HTML,
             'method'   => 'onHtmlGeneration',
             'priority' => 9000
@@ -62,7 +64,7 @@ class tubepress_core_html_search_ioc_SearchExtension implements tubepress_api_io
             'tubepress_core_html_search_impl_listeners_options_AcceptableValues'
         )->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
-            'method' => 'setVideoProviders'
+            'method' => 'setMediaProviders'
         ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_html_search_api_Constants::OPTION_SEARCH_PROVIDER,
             'method'   => 'onAcceptableValues',

@@ -76,7 +76,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
     /**
      * @return array An array of the valid option values for the "mode" option.
      */
-    public final function getGallerySourceNames()
+    public function getGallerySourceNames()
     {
         return self::$_sources;
     }
@@ -84,7 +84,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
     /**
      * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
      */
-    public final function getName()
+    public function getName()
     {
         return 'youtube';
     }
@@ -92,7 +92,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
     /**
      * @return string The human-readable name of this video provider.
      */
-    public final function getDisplayName()
+    public function getDisplayName()
     {
         return 'YouTube';
     }

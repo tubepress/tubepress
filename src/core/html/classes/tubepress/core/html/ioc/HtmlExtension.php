@@ -25,28 +25,28 @@ class tubepress_core_html_ioc_HtmlExtension implements tubepress_api_ioc_Contain
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_core_html_impl_listeners_BaseUrlSetter',
-            'tubepress_core_html_impl_listeners_BaseUrlSetter'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
+            'tubepress_core_html_impl_listeners_CoreHtmlListener',
+            'tubepress_core_html_impl_listeners_CoreHtmlListener'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_html_api_Constants::EVENT_GLOBAL_JS_CONFIG,
-            'method'   => 'onJsConfig',
+            'method'   => 'onGlobalJsConfig',
             'priority' => 10000
-        ));
-
-        $containerBuilder->register(
-            'tubepress_core_html_impl_listeners_GlobalJsConfig',
-            'tubepress_core_html_impl_listeners_GlobalJsConfig'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
-         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_html_api_Constants::EVENT_SCRIPTS_PRE,
             'method'   => 'onPreScriptsHtml',
             'priority' => 10000
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_html_api_Constants::EVENT_EXCEPTION_CAUGHT,
+            'method'   => 'onException',
+            'priority' => 10000,
         ));
 
         $containerBuilder->register(
@@ -57,46 +57,28 @@ class tubepress_core_html_ioc_HtmlExtension implements tubepress_api_ioc_Contain
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_shortcode_api_ParserInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_));
 
-        $containerBuilder->register(
-
-            'tubepress_core_html_impl_listeners_ErrorLogger',
-            'tubepress_core_html_impl_listeners_ErrorLogger'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
-         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-            'event'    => tubepress_core_html_api_Constants::EVENT_EXCEPTION_CAUGHT,
-            'method'   => 'onException',
-            'priority' => 10000,
-        ));
-
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_html', array(
 
             'defaultValues' => array(
 
-                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API => true,
-                tubepress_core_html_api_Constants::OPTION_GALLERY_ID    => null,
-                tubepress_core_html_api_Constants::OPTION_HTTPS         => false,
-                tubepress_core_html_api_Constants::OPTION_OUTPUT        => null,
+                tubepress_core_html_api_Constants::OPTION_GALLERY_ID  => null,
+                tubepress_core_html_api_Constants::OPTION_HTTPS       => false,
+                tubepress_core_html_api_Constants::OPTION_OUTPUT      => null,
             ),
 
             'labels' => array(
-
-                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API => 'Enable JavaScript API', //>(translatable)<
-                tubepress_core_html_api_Constants::OPTION_HTTPS         => 'Enable HTTPS',       //>(translatable)<
+                tubepress_core_html_api_Constants::OPTION_HTTPS => 'Enable HTTPS',       //>(translatable)<
             ),
 
             'descriptions' => array(
-
-                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API => 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', //>(translatable)<
-                tubepress_core_html_api_Constants::OPTION_HTTPS         => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
+                tubepress_core_html_api_Constants::OPTION_HTTPS => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
             ),
 
             'proOptionNames' => array(
-
                 tubepress_core_html_api_Constants::OPTION_HTTPS
             ),
 
             'doNotPersistNames' => array(
-
                 tubepress_core_html_api_Constants::OPTION_GALLERY_ID,
                 tubepress_core_html_api_Constants::OPTION_OUTPUT,
             )

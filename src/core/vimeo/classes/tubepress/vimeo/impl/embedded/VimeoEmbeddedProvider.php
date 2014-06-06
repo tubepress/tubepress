@@ -46,7 +46,7 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
      * @api
      * @since 4.0.0
      */
-    public final function getName()
+    public function getName()
     {
         return 'vimeo';
     }

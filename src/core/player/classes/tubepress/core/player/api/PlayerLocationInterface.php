@@ -57,6 +57,14 @@ interface tubepress_core_player_api_PlayerLocationInterface
     function producesHtml();
 
     /**
+     * @return bool True if this player location should show HTML when the gallery is initially loaded, false otherwise.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function displaysHtmlOnInitialGalleryLoad();
+
+    /**
      * @return string The human-readable name of this player location.
      *
      * @api

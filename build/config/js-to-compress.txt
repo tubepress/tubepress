@@ -8,3 +8,4 @@ src/core/player/web/players/solo/solo.js
 src/core/player/web/players/static/static.js
 src/core/player/web/players/vimeo/vimeo.js
 src/core/player/web/players/youtube/youtube.js
+src/core/wordpress/web/js/ajax.js

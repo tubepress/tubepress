@@ -30,7 +30,7 @@ class tubepress_core_event_impl_tickertape_EventDispatcher implements tubepress_
      *                            listener will be triggered in the chain (defaults to 0)
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function addListener($eventName, $listener, $priority = 0)
     {
@@ -50,7 +50,7 @@ class tubepress_core_event_impl_tickertape_EventDispatcher implements tubepress_
      * @throws InvalidArgumentException
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function addListenerService($eventName, $callback, $priority = 0)
     {
@@ -69,7 +69,7 @@ class tubepress_core_event_impl_tickertape_EventDispatcher implements tubepress_
      * @return tubepress_core_event_api_EventInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function dispatch($eventName, tubepress_core_event_api_EventInterface $event = null)
     {
@@ -89,7 +89,7 @@ class tubepress_core_event_impl_tickertape_EventDispatcher implements tubepress_
      * @return array The event listeners for the specified event, or all event listeners by event name
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getListeners($eventName = null)
     {
@@ -104,7 +104,7 @@ class tubepress_core_event_impl_tickertape_EventDispatcher implements tubepress_
      * @return Boolean true if the specified event has any listeners, false otherwise
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function hasListeners($eventName = null)
     {
@@ -118,7 +118,7 @@ class tubepress_core_event_impl_tickertape_EventDispatcher implements tubepress_
      * @param callable     $listener  The listener to remove
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function removeListener($eventName, $listener)
     {

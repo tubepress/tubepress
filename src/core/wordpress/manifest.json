@@ -23,30 +23,20 @@
             "tubepress_wordpress" : "classes"
         },
         "classmap" : {
-            "tubepress_wordpress_api_Constants"       : "classes/tubepress/wordpress/api/Constants.php",
-            "tubepress_wordpress_impl_actions_AdminEnqueueScripts"        : "classes/tubepress/wordpress/impl/actions/AdminEnqueueScripts.php",
-            "tubepress_wordpress_impl_actions_AdminHead"                  : "classes/tubepress/wordpress/impl/actions/AdminHead.php",
-            "tubepress_wordpress_impl_actions_AdminMenu"                  : "classes/tubepress/wordpress/impl/actions/AdminMenu.php",
-            "tubepress_wordpress_impl_actions_AdminNotices"               : "classes/tubepress/wordpress/impl/actions/AdminNotices.php",
-            "tubepress_wordpress_impl_actions_Ajax"                       : "classes/tubepress/wordpress/impl/actions/Ajax.php",
-            "tubepress_wordpress_impl_actions_Init"                       : "classes/tubepress/wordpress/impl/actions/Init.php",
-            "tubepress_wordpress_impl_actions_WidgetsInit"                : "classes/tubepress/wordpress/impl/actions/WidgetsInit.php",
-            "tubepress_wordpress_impl_actions_WpHead"                     : "classes/tubepress/wordpress/impl/actions/WpHead.php",
-            "tubepress_wordpress_impl_filters_Content"                    : "classes/tubepress/wordpress/impl/filters/Content.php",
-            "tubepress_wordpress_impl_filters_RowMeta"                    : "classes/tubepress/wordpress/impl/filters/RowMeta.php",
-            "tubepress_wordpress_impl_listeners_html_GlobalJsConfig"      : "classes/tubepress/wordpress/impl/listeners/html/GlobalJsConfig.php",
-            "tubepress_wordpress_impl_listeners_html_CssJsDequerer"       : "classes/tubepress/wordpress/impl/listeners/html/CssJsDequerer.php",
+            "tubepress_wordpress_api_Constants"                             : "classes/tubepress/wordpress/api/Constants.php",
+            "tubepress_wordpress_impl_Callback"                             : "classes/tubepress/wordpress/impl/Callback.php",
+            "tubepress_wordpress_impl_listeners_html_WpHtmlListener"        : "classes/tubepress/wordpress/impl/listeners/html/WpHtmlListener.php",
+            "tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters" : "classes/tubepress/wordpress/impl/listeners/wp/PublicActionsAndFilters.php",
+            "tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters"  : "classes/tubepress/wordpress/impl/listeners/wp/AdminActionsAndFilters.php",
             "tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListener" : "classes/tubepress/wordpress/impl/listeners/template/options/OptionsUiTemplateListener.php",
             "tubepress_wordpress_impl_message_WordPressMessageService"    : "classes/tubepress/wordpress/impl/message/WordPressMessageService.php",
-            "tubepress_wordpress_impl_options_ui_fields_WpNonceField"     : "classes/tubepress/wordpress/impl/options/ui/fields/WpNonceField.php",
             "tubepress_wordpress_impl_options_PersistenceBackend"         : "classes/tubepress/wordpress/impl/options/PersistenceBackend.php",
-            "tubepress_wordpress_impl_ActivationHook"                     : "classes/tubepress/wordpress/impl/ActivationHook.php",
-            "tubepress_wordpress_impl_Callback"                           : "classes/tubepress/wordpress/impl/Callback.php",
-            "tubepress_wordpress_impl_OptionsPage"                        : "classes/tubepress/wordpress/impl/OptionsPage.php",
-            "tubepress_wordpress_impl_Widget"                             : "classes/tubepress/wordpress/impl/Widget.php",
-            "tubepress_wordpress_impl_WpFunctions"                        : "classes/tubepress/wordpress/impl/WpFunctions.php",
-            "tubepress_wordpress_spi_WpFunctionsInterface"                : "classes/tubepress/wordpress/spi/WpFunctionsInterface.php",
-            "tubepress_wordpress_impl_options_ui_WpFieldProvider" : "classes/tubepress/wordpress/impl/options/ui/WpFieldProvider.php"
+            "tubepress_wordpress_impl_options_ui_WpFieldProvider"         : "classes/tubepress/wordpress/impl/options/ui/WpFieldProvider.php",
+            "tubepress_wordpress_impl_options_ui_fields_WpNonceField"     : "classes/tubepress/wordpress/impl/options/ui/fields/WpNonceField.php",
+            "tubepress_wordpress_impl_wp_ActivationHook"                  : "classes/tubepress/wordpress/impl/wp/ActivationHook.php",
+            "tubepress_wordpress_impl_wp_OptionsPage"                     : "classes/tubepress/wordpress/impl/wp/OptionsPage.php",
+            "tubepress_wordpress_impl_wp_Widget"                          : "classes/tubepress/wordpress/impl/wp/Widget.php",
+            "tubepress_wordpress_impl_wp_WpFunctions"                     : "classes/tubepress/wordpress/impl/wp/WpFunctions.php"
         }
     }
 }

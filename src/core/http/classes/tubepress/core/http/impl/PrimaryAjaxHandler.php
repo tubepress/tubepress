@@ -57,14 +57,14 @@ class tubepress_core_http_impl_PrimaryAjaxHandler implements tubepress_core_http
      * @api
      * @since 4.0.0
      */
-    public final function handle()
+    public function handle()
     {
         if ($this->_isDebugEnabled) {
 
             $this->_logger->debug('Handling incoming request');
         }
 
-        $actionName = $this->_requestParameters->getParamValue(self::PARAM_NAME_ACTION);
+        $actionName = $this->_requestParameters->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_ACTION);
 
         if ($actionName == '') {
 

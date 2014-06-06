@@ -76,11 +76,14 @@ interface tubepress_core_http_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_HTTP_METHOD = 'httpMethod';
 
-
+    /**
+     * @ignore
+     */
+    const PARAM_NAME_ACTION       = 'action';
     const PARAM_NAME_PAGE         = 'tubepress_page';
     const PARAM_NAME_SEARCH_TERMS = 'tubepress_search';
     const PARAM_NAME_VIDEO        = 'tubepress_video';

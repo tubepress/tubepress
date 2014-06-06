@@ -39,7 +39,7 @@ interface tubepress_core_html_single_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_VIDEO = 'video';
 }

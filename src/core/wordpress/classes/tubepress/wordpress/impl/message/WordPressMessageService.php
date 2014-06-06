@@ -15,11 +15,11 @@
 class tubepress_wordpress_impl_message_WordPressMessageService implements tubepress_core_translation_api_TranslatorInterface
 {
     /**
-     * @var tubepress_wordpress_spi_WpFunctionsInterface
+     * @var tubepress_wordpress_impl_wp_WpFunctions
      */
     private $_wpFunctions;
 
-    public function __construct(tubepress_wordpress_spi_WpFunctionsInterface $wpFunctions)
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions)
     {
         $this->_wpFunctions = $wpFunctions;
     }
@@ -31,7 +31,7 @@ class tubepress_wordpress_impl_message_WordPressMessageService implements tubepr
      *
      * @return string The corresponding message, or "" if not found
      */
-    public final function _($message)
+    public function _($message)
     {
         return $message == '' ? '' : $this->_wpFunctions->__($message, 'tubepress');
     }

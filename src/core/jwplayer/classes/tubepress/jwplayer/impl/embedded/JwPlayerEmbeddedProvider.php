@@ -35,7 +35,7 @@ class tubepress_jwplayer_impl_embedded_JwPlayerEmbeddedProvider implements tubep
      * @api
      * @since 4.0.0
      */
-    public function getDataUrlForMediaItem(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
+    public function getDataUrlForMediaItem(tubepress_core_url_api_UrlFactoryInterface    $urlFactory,
                                 tubepress_core_media_provider_api_MediaProviderInterface $provider,
                                 $mediaId)
     {

@@ -18,12 +18,12 @@ class tubepress_test_wordpress_resources_templates_WidgetControlsTemplateTest ex
 {
     public function test()
     {
-        ${tubepress_wordpress_impl_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_wordpress_impl_Widget::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
-        ${tubepress_wordpress_impl_Widget::WIDGET_TITLE}         = '<<widget-title>>';
-        ${tubepress_wordpress_impl_Widget::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
-        ${tubepress_wordpress_impl_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_wordpress_impl_Widget::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
+        ${tubepress_wordpress_impl_wp_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_wordpress_impl_wp_Widget::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
+        ${tubepress_wordpress_impl_wp_Widget::WIDGET_TITLE}         = '<<widget-title>>';
+        ${tubepress_wordpress_impl_wp_Widget::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
+        ${tubepress_wordpress_impl_wp_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_wordpress_impl_wp_Widget::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
 
         ob_start();
         include TUBEPRESS_ROOT . '/src/core/wordpress/resources/templates/widget_controls.tpl.php';

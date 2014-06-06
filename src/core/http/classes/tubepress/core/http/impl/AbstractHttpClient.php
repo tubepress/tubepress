@@ -55,7 +55,7 @@ abstract class tubepress_core_http_impl_AbstractHttpClient implements tubepress_
      * @api
      * @since 4.0.0
      */
-    public final function send(tubepress_core_http_api_message_RequestInterface $request)
+    public function send(tubepress_core_http_api_message_RequestInterface $request)
     {
         $response = $this->_getQuickResponse($request);
 

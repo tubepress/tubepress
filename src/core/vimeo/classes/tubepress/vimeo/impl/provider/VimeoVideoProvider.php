@@ -219,7 +219,7 @@ class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core
      * @return array An array of the valid option valu
 es for the "mode" option.
      */
-    public final function getGallerySourceNames()
+    public function getGallerySourceNames()
     {
         return self::$_GALLERY_SOURCE_NAMES;
     }
@@ -227,7 +227,7 @@ es for the "mode" option.
     /**
      * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
      */
-    public final function getName()
+    public function getName()
     {
         return 'vimeo';
     }
@@ -235,7 +235,7 @@ es for the "mode" option.
     /**
      * @return string The human-readable name of this video provider.
      */
-    public final function getDisplayName()
+    public function getDisplayName()
     {
         return 'Vimeo';
     }
@@ -243,7 +243,7 @@ es for the "mode" option.
     /**
      * @return array An array of meta names
      */
-    public final function getMetaOptionNames()
+    public function getMetaOptionNames()
     {
         return array(
 

@@ -66,6 +66,11 @@ class tubepress_impl_boot_BootSettings implements tubepress_api_boot_BootSetting
      */
     private $_containerStoragePath;
 
+    /**
+     * @var string
+     */
+    private $_cachedUserContentDir;
+
     public function __construct(tubepress_api_log_LoggerInterface $logger)
     {
         $this->_logger    = $logger;
@@ -125,23 +130,31 @@ class tubepress_impl_boot_BootSettings implements tubepress_api_boot_BootSetting
 
     public function getUserContentDirectory()
     {
-        if (defined('TUBEPRESS_CONTENT_DIRECTORY')) {
+        if (!isset($this->_cachedUserContentDir)) {
 
-            return rtrim(TUBEPRESS_CONTENT_DIRECTORY, DIRECTORY_SEPARATOR);
-        }
+            if (defined('TUBEPRESS_CONTENT_DIRECTORY')) {
 
-        if ($this->_isWordPress()) {
+                $this->_cachedUserContentDir = rtrim(TUBEPRESS_CONTENT_DIRECTORY, DIRECTORY_SEPARATOR);
 
-            if (! defined('WP_CONTENT_DIR' )) {
+            } else {
 
-                define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
+                if ($this->_isWordPress()) {
+
+                    if (! defined('WP_CONTENT_DIR' )) {
+
+                        define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
+                    }
+
+                    $this->_cachedUserContentDir = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'tubepress-content';
+
+                } else {
+
+                    $this->_cachedUserContentDir = TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'tubepress-content';
+                }
             }
-
-            return WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'tubepress-content';
-
         }
 
-        return TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'tubepress-content';
+        return $this->_cachedUserContentDir;
     }
 
     private function _init()

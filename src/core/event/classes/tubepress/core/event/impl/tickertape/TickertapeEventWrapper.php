@@ -60,7 +60,7 @@ class tubepress_core_event_impl_tickertape_TickertapeEventWrapper extends ehough
      * @return tubepress_core_event_api_EventDispatcherInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getDispatcher()
     {

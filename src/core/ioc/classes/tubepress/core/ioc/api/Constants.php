@@ -19,7 +19,7 @@
  */
 interface tubepress_core_ioc_api_Constants
 {
-    const TAG_EVENT_LISTENER = 'tubepress.core.ioc.api.tag.eventListener';
+    const TAG_EVENT_LISTENER = 'tubepress.core.ioc.tag.eventListener';
 
-    const TAG_TAGGED_SERVICES_CONSUMER = 'tubepress.core.ioc.api.tag.taggedServicesConsumer';
+    const TAG_TAGGED_SERVICES_CONSUMER = 'tubepress.core.ioc.tag.taggedServicesConsumer';
 }

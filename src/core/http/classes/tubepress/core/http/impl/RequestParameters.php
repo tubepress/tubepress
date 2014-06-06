@@ -41,7 +41,7 @@ class tubepress_core_http_impl_RequestParameters implements tubepress_core_http_
      * @api
      * @since 4.0.0
      */
-    public final function getParamValue($name)
+    public function getParamValue($name)
     {
         /** Are we sure we have it? */
         if (!($this->hasParam($name))) {
@@ -91,7 +91,7 @@ class tubepress_core_http_impl_RequestParameters implements tubepress_core_http_
      * @api
      * @since 4.0.0
      */
-    public final function getParamValueAsInt($name, $default)
+    public function getParamValueAsInt($name, $default)
     {
         $raw = $this->getParamValue($name);
 
@@ -114,7 +114,7 @@ class tubepress_core_http_impl_RequestParameters implements tubepress_core_http_
      * @api
      * @since 4.0.0
      */
-    public final function hasParam($name)
+    public function hasParam($name)
     {
         $request = $this->_getGETandPOSTarray();
 
@@ -129,7 +129,7 @@ class tubepress_core_http_impl_RequestParameters implements tubepress_core_http_
      * @api
      * @since 4.0.0
      */
-    public final function getAllParams()
+    public function getAllParams()
     {
         $toReturn = array();
         $request  = $this->_getGETandPOSTarray();

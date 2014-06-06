@@ -34,10 +34,7 @@
             "tubepress_core_media_provider_api_HttpProviderInterface"               : "classes/tubepress/core/media/provider/api/HttpProviderInterface.php",
             "tubepress_core_media_provider_api_exception_ProviderException"         : "classes/tubepress/core/media/provider/api/exception/ProviderException.php",
             "tubepress_core_media_provider_impl_listeners_options_AcceptableValues" : "classes/tubepress/core/media/provider/impl/listeners/options/AcceptableValues.php",
-            "tubepress_core_media_provider_impl_listeners_page_PerPageSorter"       : "classes/tubepress/core/media/provider/impl/listeners/page/PerPageSorter.php",
-            "tubepress_core_media_provider_impl_listeners_page_ResultCountCapper"   : "classes/tubepress/core/media/provider/impl/listeners/page/ResultCountCapper.php",
-            "tubepress_core_media_provider_impl_listeners_page_Blacklister"         : "classes/tubepress/core/media/provider/impl/listeners/page/Blacklister.php",
-            "tubepress_core_media_provider_impl_listeners_page_ItemPrepender"       : "classes/tubepress/core/media/provider/impl/listeners/page/ItemPrepender.php",
+            "tubepress_core_media_provider_impl_listeners_page_CorePageListener"       : "classes/tubepress/core/media/provider/impl/listeners/page/CorePageListener.php",
             "tubepress_core_media_provider_impl_Collector"                          : "classes/tubepress/core/media/provider/impl/Collector.php",
             "tubepress_core_media_provider_impl_HttpMediaProvider"                  : "classes/tubepress/core/media/provider/impl/HttpMediaProvider.php",
             "tubepress_core_media_provider_impl_ItemSorter"                         : "classes/tubepress/core/media/provider/impl/ItemSorter.php"

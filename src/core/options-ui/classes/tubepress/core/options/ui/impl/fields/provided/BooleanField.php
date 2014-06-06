@@ -14,7 +14,7 @@
  */
 class tubepress_core_options_ui_impl_fields_provided_BooleanField extends tubepress_core_options_ui_impl_fields_provided_AbstractProvidedOptionBasedField
 {
-    protected final function getAbsolutePathToTemplate()
+    protected function getAbsolutePathToTemplate()
     {
         return TUBEPRESS_ROOT . '/src/core/options-ui/resources/field-templates/checkbox.tpl.php';
     }

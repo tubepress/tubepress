@@ -47,11 +47,10 @@ class tubepress_test_core_html_search_impl_listeners_html_SearchOutputCommandTes
     public function onSetup()
     {
 
-        $this->_mockExecutionContext             = $this->mock(tubepress_core_options_api_ContextInterface::_);
-        $this->_mockThumbGalleryShortcodeHandler = $this->mock('tubepress_core_html_gallery_impl_listeners_html_GalleryMaker');
-        $this->_mockHttpRequestParameterService  = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
-        $this->_mockLogger                       = $this->mock(tubepress_api_log_LoggerInterface::_);
-        $this->_mockEvent                        = $this->mock('tubepress_core_event_api_EventInterface');
+        $this->_mockExecutionContext            = $this->mock(tubepress_core_options_api_ContextInterface::_);
+        $this->_mockHttpRequestParameterService = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
+        $this->_mockLogger                      = $this->mock(tubepress_api_log_LoggerInterface::_);
+        $this->_mockEvent                       = $this->mock('tubepress_core_event_api_EventInterface');
 
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -60,7 +59,6 @@ class tubepress_test_core_html_search_impl_listeners_html_SearchOutputCommandTes
 
             $this->_mockLogger,
             $this->_mockExecutionContext,
-            $this->_mockThumbGalleryShortcodeHandler,
             $this->_mockHttpRequestParameterService
         );
     }
@@ -76,35 +74,22 @@ class tubepress_test_core_html_search_impl_listeners_html_SearchOutputCommandTes
 
     public function testExecuteYouTube()
     {
+        $mockMediaProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
+        $mockMediaProvider->shouldReceive('getName')->once()->andReturn('youtube');
+        $mockMediaProvider->shouldReceive('getSearchModeName')->once()->andReturn('search');
+        $mockMediaProvider->shouldReceive('getSearchQueryOptionName')->once()->andReturn('searchValue');
+        $this->_sut->setMediaProviders(array($mockMediaProvider));
+
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_OUTPUT)->andReturn(tubepress_core_html_search_api_Constants::OUTPUT_SEARCH_RESULTS);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_search_api_Constants::OPTION_SEARCH_RESULTS_ONLY)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_search_api_Constants::OPTION_SEARCH_PROVIDER)->andReturn('youtube');
-        $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH);
-        $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_youtube_api_Constants::OPTION_YOUTUBE_TAG_VALUE, "(#@@!!search (())(())((terms*$$#")->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, 'search');
+        $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with('searchValue', "(#@@!!search (())(())((terms*$$#")->andReturn(true);
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS)->andReturn("(#@@!!search (())(())((terms*$$#");
 
-        $this->_mockThumbGalleryShortcodeHandler->shouldReceive('onHtmlGeneration')->once()->with($this->_mockEvent);
-
         $this->_sut->onHtmlGeneration($this->_mockEvent);
         $this->assertTrue(true);
-    }
-
-    public function testExecuteVimeo()
-    {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_OUTPUT)->andReturn(tubepress_core_html_search_api_Constants::OUTPUT_SEARCH_RESULTS);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_search_api_Constants::OPTION_SEARCH_RESULTS_ONLY)->andReturn(true);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_search_api_Constants::OPTION_SEARCH_PROVIDER)->andReturn('vimeo');
-        $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_SEARCH);
-        $this->_mockExecutionContext->shouldReceive('set')->once()->with(tubepress_vimeo_api_Constants::OPTION_VIMEO_SEARCH_VALUE, "(#@@!!search (())(())((terms*$$#")->andReturn(true);
-
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS)->andReturn("(#@@!!search (())(())((terms*$$#");
-
-        $this->_mockThumbGalleryShortcodeHandler->shouldReceive('onHtmlGeneration')->once()->with($this->_mockEvent);
-
-        $this->_sut->onHtmlGeneration($this->_mockEvent);
-        $this->assertTrue(true);
-
     }
 
     public function testExecuteHasToShowSearchResultsNotSearching()

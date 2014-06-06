@@ -31,7 +31,7 @@ class tubepress_vimeo_impl_player_VimeoPlayerLocation implements tubepress_core_
      * @api
      * @since 4.0.0
      */
-    public final function getName()
+    public function getName()
     {
         return 'vimeo';
     }
@@ -59,7 +59,7 @@ class tubepress_vimeo_impl_player_VimeoPlayerLocation implements tubepress_core_
      * @api
      * @since 4.0.0
      */
-    public final function producesHtml()
+    public function producesHtml()
     {
         return false;
     }

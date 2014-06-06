@@ -31,7 +31,7 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpNonceFieldTest extends t
 
     public function onSetup()
     {
-        $this->_mockWpFunctionWrapper = $this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_);
+        $this->_mockWpFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
         $this->_mockMessageService = $this->mock(tubepress_core_translation_api_TranslatorInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_options_ui_fields_WpNonceField($this->_mockWpFunctionWrapper);

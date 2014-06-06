@@ -23,11 +23,6 @@ interface tubepress_core_http_api_AjaxCommandInterface
     const _ = 'tubepress_core_http_api_AjaxCommandInterface';
 
     /**
-     * @ignore
-     */
-    const PARAM_NAME_ACTION = 'action';
-
-    /**
      * @return string The command name that this handler responds to.
      *
      * @api

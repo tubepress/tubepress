@@ -16,7 +16,7 @@ interface tubepress_core_log_api_Constants
 {
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_DEBUG_ON    = 'debugging_enabled';
 }

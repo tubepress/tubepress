@@ -40,17 +40,24 @@ class tubepress_core_player_impl_BasePlayerLocation implements tubepress_core_pl
      */
     private $_producesHtml;
 
+    /**
+     * @var bool
+     */
+    private $_htmlOnPageLoad;
+
     public function __construct($name,
                                 $friendlyName,
                                 array $templatePaths,
                                 $relativeJsurl,
-                                $producesHtml)
+                                $producesHtml,
+                                $htmlOnPageLoad)
     {
         $this->_templatePaths   = $templatePaths;
         $this->_name            = $name;
         $this->_relativeJsUrl   = $relativeJsurl;
         $this->_friendlyName    = $friendlyName;
         $this->_producesHtml    = $producesHtml;
+        $this->_htmlOnPageLoad = $htmlOnPageLoad;
     }
 
     public function onSelectPlayerLocation(tubepress_core_event_api_EventInterface $event)
@@ -123,5 +130,16 @@ class tubepress_core_player_impl_BasePlayerLocation implements tubepress_core_pl
     public function getUntranslatedFriendlyName()
     {
         return $this->_friendlyName;
+    }
+
+    /**
+     * @return bool True if this player location should show HTML when the gallery is initially loaded, false otherwise.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function displaysHtmlOnInitialGalleryLoad()
+    {
+        return $this->_htmlOnPageLoad;
     }
 }

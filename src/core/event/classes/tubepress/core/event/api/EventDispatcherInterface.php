@@ -16,7 +16,7 @@
  * @package TubePress\Event
  *
  * @api
- * @since 3.1.0
+ * @since 4.0.0
  */
 interface tubepress_core_event_api_EventDispatcherInterface
 {
@@ -34,7 +34,7 @@ interface tubepress_core_event_api_EventDispatcherInterface
      *                            listener will be triggered in the chain (defaults to 0)
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function addListener($eventName, $listener, $priority = 0);
 
@@ -51,7 +51,7 @@ interface tubepress_core_event_api_EventDispatcherInterface
      * @throws InvalidArgumentException
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function addListenerService($eventName, $callback, $priority = 0);
 
@@ -67,7 +67,7 @@ interface tubepress_core_event_api_EventDispatcherInterface
      * @return tubepress_core_event_api_EventInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function dispatch($eventName, tubepress_core_event_api_EventInterface $event = null);
 
@@ -79,7 +79,7 @@ interface tubepress_core_event_api_EventDispatcherInterface
      * @return array The event listeners for the specified event, or all event listeners by event name
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getListeners($eventName = null);
 
@@ -91,7 +91,7 @@ interface tubepress_core_event_api_EventDispatcherInterface
      * @return Boolean true if the specified event has any listeners, false otherwise
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function hasListeners($eventName = null);
 
@@ -113,7 +113,7 @@ interface tubepress_core_event_api_EventDispatcherInterface
      * @param callable     $listener  The listener to remove
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function removeListener($eventName, $listener);
 }

@@ -27,11 +27,6 @@ class tubepress_test_core_html_single_impl_listeners_html_SingleVideoCommandTest
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockThemeHandler;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockEventDispatcher;
 
     /**

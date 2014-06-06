@@ -64,7 +64,7 @@ class tubepress_core_media_provider_impl_Collector implements tubepress_core_med
      * @api
      * @since 4.0.0
      */
-    public final function collectPage()
+    public function collectPage()
     {
         $mediaSource           = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
         $result                = null;
@@ -135,7 +135,7 @@ class tubepress_core_media_provider_impl_Collector implements tubepress_core_med
      * @api
      * @since 4.0.0
      */
-    public final function collectSingle($id)
+    public function collectSingle($id)
     {
         if ($this->_isDebugEnabled) {
 

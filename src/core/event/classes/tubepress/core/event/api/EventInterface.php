@@ -22,7 +22,7 @@
  * @package TubePress\Event
  *
  * @api
- * @since 3.1.0
+ * @since 4.0.0
  */
 interface tubepress_core_event_api_EventInterface
 {
@@ -36,7 +36,7 @@ interface tubepress_core_event_api_EventInterface
      * @return mixed Contents of array key.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getArgument($key);
 
@@ -46,7 +46,7 @@ interface tubepress_core_event_api_EventInterface
      * @return array
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getArguments();
 
@@ -56,7 +56,7 @@ interface tubepress_core_event_api_EventInterface
      * @return tubepress_core_event_api_EventDispatcherInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getDispatcher();
 
@@ -66,7 +66,7 @@ interface tubepress_core_event_api_EventInterface
      * @return string
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getName();
 
@@ -74,7 +74,7 @@ interface tubepress_core_event_api_EventInterface
      * @return mixed The subject of the event.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getSubject();
 
@@ -86,7 +86,7 @@ interface tubepress_core_event_api_EventInterface
      * @return boolean
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function hasArgument($key);
 
@@ -96,7 +96,7 @@ interface tubepress_core_event_api_EventInterface
      * @return Boolean Whether propagation was already stopped for this event.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function isPropagationStopped();
 
@@ -109,7 +109,7 @@ interface tubepress_core_event_api_EventInterface
      * @return tubepress_core_event_api_EventInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setArgument($key, $value);
 
@@ -121,7 +121,7 @@ interface tubepress_core_event_api_EventInterface
      * @return tubepress_core_event_api_EventInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setArguments(array $args = array());
 
@@ -133,7 +133,7 @@ interface tubepress_core_event_api_EventInterface
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setSubject($subject);
 
@@ -147,7 +147,7 @@ interface tubepress_core_event_api_EventInterface
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function stopPropagation();
 }

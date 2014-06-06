@@ -18,7 +18,7 @@ class tubepress_test_wordpress_impl_message_WordPressMessageServiceTest extends 
 
     public function onSetup()
     {
-        $wrapper = $this->mock(tubepress_wordpress_spi_WpFunctionsInterface::_);
+        $wrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
         $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
 
             return "[[$key]]";

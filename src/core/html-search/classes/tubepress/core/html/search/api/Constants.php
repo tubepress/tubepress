@@ -43,51 +43,45 @@ interface tubepress_core_html_search_api_Constants
      */
     const EVENT_TEMPLATE_SEARCH_INPUT = 'tubepress.core.media.search.event.input.template';
 
-
-
-
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_SEARCH_PROVIDER = 'searchProvider';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_SEARCH_RESULTS_ONLY = 'searchResultsOnly';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_SEARCH_RESULTS_URL = 'searchResultsUrl';
 
-
-
-
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OUTPUT_AJAX_SEARCH_INPUT = 'ajaxSearchInput';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OUTPUT_SEARCH_INPUT = 'searchInput';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OUTPUT_SEARCH_RESULTS = 'searchResults';
 }

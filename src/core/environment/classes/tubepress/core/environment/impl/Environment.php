@@ -25,7 +25,7 @@ class tubepress_core_environment_impl_Environment implements tubepress_core_envi
     private $_urlFactory;
 
     /**
-     * @var tubepress_wordpress_spi_WpFunctionsInterface
+     * @var tubepress_wordpress_impl_wp_WpFunctions
      */
     private $_wpFunctionsInterface;
 
@@ -203,7 +203,7 @@ class tubepress_core_environment_impl_Environment implements tubepress_core_envi
 
     public function setWpFunctionsInterface($wpFunctionsInterface)
     {
-        if (!is_a($wpFunctionsInterface, 'tubepress_wordpress_spi_WpFunctionsInterface')) {
+        if (!is_a($wpFunctionsInterface, 'tubepress_wordpress_impl_wp_WpFunctions')) {
 
             throw new InvalidArgumentException('Invalid argument to tubepress_core_environment_impl_Environment::setWpFunctionsInterface');
         }

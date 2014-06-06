@@ -29,7 +29,7 @@ class tubepress_impl_ioc_Container implements tubepress_api_ioc_ContainerInterfa
      * @return object The associated service, or null if not defined.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function get($id)
     {
@@ -46,7 +46,7 @@ class tubepress_impl_ioc_Container implements tubepress_api_ioc_ContainerInterfa
      * @throws InvalidArgumentException if the parameter is not defined
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getParameter($name)
     {
@@ -61,7 +61,7 @@ class tubepress_impl_ioc_Container implements tubepress_api_ioc_ContainerInterfa
      * @return Boolean true if the service is defined, false otherwise
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function has($id)
     {
@@ -76,7 +76,7 @@ class tubepress_impl_ioc_Container implements tubepress_api_ioc_ContainerInterfa
      * @return Boolean The presence of parameter in container
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function hasParameter($name)
     {
@@ -92,7 +92,7 @@ class tubepress_impl_ioc_Container implements tubepress_api_ioc_ContainerInterfa
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function set($id, $service)
     {
@@ -108,7 +108,7 @@ class tubepress_impl_ioc_Container implements tubepress_api_ioc_ContainerInterfa
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setParameter($name, $value)
     {

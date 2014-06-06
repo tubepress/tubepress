@@ -31,7 +31,7 @@ class tubepress_vimeo_impl_listeners_http_VimeoOauthRequestListener
         $this->_oauthClient      = $oauthClient;
     }
 
-    public final function onRequest(tubepress_core_event_api_EventInterface $event)
+    public function onRequest(tubepress_core_event_api_EventInterface $event)
     {
         /**
          * @var $request tubepress_core_http_api_message_RequestInterface

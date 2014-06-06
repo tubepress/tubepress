@@ -45,7 +45,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function addArgument($argument)
     {
@@ -64,7 +64,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setArguments(array $arguments)
     {
@@ -86,7 +86,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @throws OutOfBoundsException When the replaced argument does not exist
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function replaceArgument($index, $argument)
     {
@@ -115,7 +115,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @throws OutOfBoundsException When the argument does not exist
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getArgument($index)
     {
@@ -142,7 +142,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @throws InvalidArgumentException on empty $method param
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function addMethodCall($method, array $arguments = array())
     {
@@ -205,7 +205,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function addTag($name, array $attributes = array())
     {
@@ -222,7 +222,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function clearTag($name)
     {
@@ -237,7 +237,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function clearTags()
     {
@@ -252,7 +252,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return array The array of arguments
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getArguments()
     {
@@ -267,7 +267,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return string The service class
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getClass()
     {
@@ -280,7 +280,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return callable The PHP callable to call
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getConfigurator()
     {
@@ -293,7 +293,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return null|array An array composed of the decorated service id and the new id for it, null if no service is decorated
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function getDecoratedService()
     {
@@ -306,7 +306,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return string The factory class name
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getFactoryClass()
     {
@@ -319,7 +319,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return string The full pathname to include
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getFile()
     {
@@ -332,7 +332,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return string The factory method name
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getFactoryMethod()
     {
@@ -345,7 +345,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return string The factory service id
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getFactoryService()
     {
@@ -358,7 +358,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return array An array of method calls
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getMethodCalls()
     {
@@ -373,7 +373,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return array An array or properties, which may be empty.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getProperties()
     {
@@ -388,7 +388,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return array An array of attributes
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getTag($name)
     {
@@ -401,7 +401,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return array An array of tags
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function getTags()
     {
@@ -416,7 +416,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return Boolean
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function hasMethodCall($method)
     {
@@ -431,7 +431,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return Boolean
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function hasTag($name)
     {
@@ -446,7 +446,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function removeMethodCall($method)
     {
@@ -463,7 +463,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setClass($class)
     {
@@ -480,7 +480,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setConfigurator($callable)
     {
@@ -500,7 +500,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @throws InvalidArgumentException In case the decorated service id and the new decorated service id are equals.
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function setDecoratedService($id, $renamedId = null)
     {
@@ -518,7 +518,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setFactoryClass($factoryClass)
     {
@@ -535,7 +535,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setFactoryMethod($factoryMethod)
     {
@@ -552,7 +552,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setFactoryService($factoryService)
     {
@@ -569,7 +569,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setFile($file)
     {
@@ -586,7 +586,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setMethodCalls(array $calls = array())
     {
@@ -604,7 +604,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      *                          values.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setProperties(array $properties)
     {
@@ -620,7 +620,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @param mixed $value The property value.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setProperty($name, $value)
     {
@@ -637,7 +637,7 @@ class tubepress_impl_ioc_Definition implements tubepress_api_ioc_DefinitionInter
      * @return tubepress_api_ioc_DefinitionInterface the current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function setTags(array $tags)
     {

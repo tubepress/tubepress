@@ -22,7 +22,7 @@ class tubepress_vimeo_ioc_VimeoExtension implements tubepress_api_ioc_ContainerE
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {

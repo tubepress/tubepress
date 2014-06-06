@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_core_media_gallery_MediaGalleryManifestValidityTest extends tubepress_test_core_ioc_AbstractManifestValidityTest
+class tubepress_test_core_html_gallery_MediaGalleryManifestValidityTest extends tubepress_test_core_ioc_AbstractManifestValidityTest
 {
     public function testManifest()
     {

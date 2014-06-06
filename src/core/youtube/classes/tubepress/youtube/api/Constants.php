@@ -97,7 +97,7 @@ class tubepress_youtube_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_DURATION      = 'duration';
 
@@ -109,49 +109,49 @@ class tubepress_youtube_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_POSITION      = 'position';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_NEWEST        = 'newest';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_REV_POSITION  = 'reversedPosition';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_TITLE         = 'title';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_COMMENT_COUNT = 'commentCount';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_RATING        = 'rating';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_RELEVANCE     = 'relevance';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_VIEW_COUNT    = 'viewCount';
 }

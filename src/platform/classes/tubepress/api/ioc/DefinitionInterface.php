@@ -16,7 +16,7 @@
   * @package TubePress\IoC
   *
   * @api
-  * @since 3.1.0
+  * @since 4.0.0
   */
 interface tubepress_api_ioc_DefinitionInterface
 {
@@ -28,7 +28,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function addArgument($argument);
     
@@ -43,7 +43,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @throws InvalidArgumentException on empty `$method` param
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function addMethodCall($method, array $arguments = array());
 
@@ -56,7 +56,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function addTag($name, array $attributes = array());
 
@@ -68,7 +68,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function clearTag($name);
 
@@ -78,7 +78,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function clearTags();
     
@@ -92,7 +92,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @throws OutOfBoundsException When the argument does not exist
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getArgument($index);
 
@@ -102,7 +102,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return array The array of arguments
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getArguments();
 
@@ -112,7 +112,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return string The service class
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getClass();
     
@@ -122,7 +122,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return callable The PHP callable to call
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getConfigurator();
 
@@ -132,7 +132,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return null|array An array composed of the decorated service id and the new id for it, null if no service is decorated
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     function getDecoratedService();
 
@@ -142,7 +142,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return string The factory class name
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getFactoryClass();
 
@@ -152,7 +152,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return string The full pathname to include
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getFile();
 
@@ -162,7 +162,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return string The factory method name
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getFactoryMethod();
 
@@ -172,7 +172,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return string The factory service id
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getFactoryService();
 
@@ -182,7 +182,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return array An array of method calls
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getMethodCalls();
     
@@ -192,7 +192,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return array An array or properties, which may be empty.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getProperties();
 
@@ -204,7 +204,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return array An array of attributes
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getTag($name);
     
@@ -214,7 +214,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return array An array of tags
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getTags();
     
@@ -226,7 +226,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return Boolean
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function hasMethodCall($method);
 
@@ -238,7 +238,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return Boolean
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function hasTag($name);
     
@@ -250,7 +250,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function removeMethodCall($method);
     
@@ -265,7 +265,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @throws OutOfBoundsException When the replaced argument does not exist
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function replaceArgument($index, $argument);
 
@@ -277,7 +277,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setArguments(array $arguments);
     
@@ -289,7 +289,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setClass($class);
 
@@ -301,7 +301,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setConfigurator($callable);
 
@@ -316,7 +316,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @throws InvalidArgumentException In case the decorated service id and the new decorated service id are equals.
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     function setDecoratedService($id, $renamedId = null);
 
@@ -329,7 +329,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setFactoryClass($factoryClass);
 
@@ -341,7 +341,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setFactoryMethod($factoryMethod);
 
@@ -353,7 +353,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setFactoryService($factoryService);
 
@@ -365,7 +365,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setFile($file);
     
@@ -377,7 +377,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface The current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setMethodCalls(array $calls = array());
     
@@ -388,7 +388,7 @@ interface tubepress_api_ioc_DefinitionInterface
      *                          values.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setProperties(array $properties);
 
@@ -399,7 +399,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @param mixed  $value The property value.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setProperty($name, $value);
 
@@ -411,7 +411,7 @@ interface tubepress_api_ioc_DefinitionInterface
      * @return tubepress_api_ioc_DefinitionInterface the current instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setTags(array $tags);
 }

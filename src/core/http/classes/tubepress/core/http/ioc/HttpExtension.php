@@ -25,7 +25,7 @@ class tubepress_core_http_ioc_HttpExtension implements tubepress_api_ioc_Contain
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {

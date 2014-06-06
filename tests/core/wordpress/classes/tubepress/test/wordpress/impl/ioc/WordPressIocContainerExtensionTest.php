@@ -30,140 +30,83 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
         define('ABSPATH', 'foo');
 
         $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_AdminEnqueueScripts',
-            'tubepress_wordpress_impl_actions_AdminEnqueueScripts'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
+            'tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters',
+            'tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_wp_OptionsPage'))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.admin_enqueue_scripts',
-                'method'   => 'action',
+                'method'   => 'onAction_admin_enqueue_scripts',
                 'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_AdminHead',
-            'tubepress_wordpress_impl_actions_AdminHead'
-        )->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.admin_head',
-                'method'   => 'action',
+                'method'   => 'onAction_admin_head',
                 'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_AdminMenu',
-            'tubepress_wordpress_impl_actions_AdminMenu'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_OptionsPage'))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.admin_menu',
-                'method'   => 'action',
+                'method'   => 'onAction_admin_menu',
                 'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_AdminNotices',
-            'tubepress_wordpress_impl_actions_AdminNotices'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.admin_notices',
-                'method'   => 'action',
+                'method'   => 'onAction_admin_notices',
+                'priority' => 10000
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.plugin_row_meta',
+                'method'   => 'onFilter_row_meta',
+                'priority' => 10000))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.plugin_action_links',
+                'method'   => 'onFilter_row_meta',
                 'priority' => 10000
             ));
 
         $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_Ajax',
-            'tubepress_wordpress_impl_actions_Ajax'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_AjaxCommandInterface::_))
+            'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters',
+            'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_html_api_HtmlGeneratorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_AjaxCommandInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_shortcode_api_ParserInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_wp_Widget'))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.wp_ajax_nopriv_tubepress',
-                'method'   => 'action',
+                'method'   => 'onAction_ajax',
                 'priority' => 10000
             ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_options_api_Constants::EVENT_NVP_READ_FROM_EXTERNAL_INPUT . '.action',
                 'method'   => 'onReadActionFromExternalInput',
                 'priority' => 9000
-            ));
-
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_Init',
-            'tubepress_wordpress_impl_actions_Init'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.init',
-                'method'   => 'action',
+                'method'   => 'onAction_init',
                 'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_WidgetsInit',
-            'tubepress_wordpress_impl_actions_WidgetsInit'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_Widget'))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.widgets_init',
-                'method'   => 'action',
+                'method'   => 'onAction_widgets_init',
                 'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_actions_WpHead',
-            'tubepress_wordpress_impl_actions_WpHead'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_html_api_HtmlGeneratorInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.action.wp_head',
-                'method'   => 'action',
+                'method'   => 'onAction_wp_head',
                 'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_listeners_html_GlobalJsConfig',
-            'tubepress_wordpress_impl_listeners_html_GlobalJsConfig'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-                'event'    => tubepress_core_html_api_Constants::EVENT_GLOBAL_JS_CONFIG,
-                'method'   => 'onConfig',
-                'priority' => 10000,
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_filters_Content',
-            'tubepress_wordpress_impl_filters_Content'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_html_api_HtmlGeneratorInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_shortcode_api_ParserInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => 'tubepress.wordpress.filter.the_content',
-                'method'   => 'filter',
+                'method'   => 'onFilter_the_content',
                 'priority' => 10000
             ));
 
         $this->expectRegistration(
-            'tubepress_wordpress_impl_filters_RowMeta',
-            'tubepress_wordpress_impl_filters_RowMeta'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
+            'tubepress_wordpress_impl_listeners_html_WpHtmlListener',
+            'tubepress_wordpress_impl_listeners_html_WpHtmlListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.filter.plugin_row_meta',
-                'method'   => 'filter',
-                'priority' => 10000))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-                'event'    => 'tubepress.wordpress.filter.plugin_action_links',
-                'method'   => 'filter',
-                'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-            'tubepress_wordpress_impl_listeners_html_CssJsDequerer',
-            'tubepress_wordpress_impl_listeners_html_CssJsDequerer'
-        )->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'  => tubepress_core_html_api_Constants::EVENT_STYLESHEETS,
                 'method' => 'onCss',
                 'priority' => 10000))
@@ -171,6 +114,10 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
                 'event' => tubepress_core_html_api_Constants::EVENT_SCRIPTS,
                 'method' => 'onJs',
                 'priority' => 10000
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_core_html_api_Constants::EVENT_GLOBAL_JS_CONFIG,
+                'method'   => 'onGlobalJsConfig',
+                'priority' => 10000,
             ));
 
         $this->expectRegistration(
@@ -187,13 +134,13 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
         $this->expectRegistration(
             tubepress_core_translation_api_TranslatorInterface::_,
             'tubepress_wordpress_impl_message_WordPressMessageService'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
 
         $fieldIndex = 0;
         $this->expectRegistration(
             'wordpress_field_' . $fieldIndex++,
             'tubepress_wordpress_impl_options_ui_fields_WpNonceField'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
         $this->expectRegistration(
             'wordpress_field_' . $fieldIndex++,
             'tubepress_core_options_ui_api_FieldInterface'
@@ -217,11 +164,11 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
         $this->expectRegistration(
             tubepress_core_options_api_PersistenceBackendInterface::_,
             'tubepress_wordpress_impl_options_PersistenceBackend'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_));
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_));
 
         $this->expectRegistration(
-            'tubepress_wordpress_impl_ActivationHook',
-            'tubepress_wordpress_impl_ActivationHook'
+            'tubepress_wordpress_impl_wp_ActivationHook',
+            'tubepress_wordpress_impl_wp_ActivationHook'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_boot_BootSettingsInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference('ehough_filesystem_FilesystemInterface'));
 
@@ -230,32 +177,32 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
             'tubepress_wordpress_impl_Callback'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_ActivationHook'));
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
+            ->withArgument(new tubepress_api_ioc_Reference('tubepress_wordpress_impl_wp_ActivationHook'));
 
         $this->expectRegistration(
-            'tubepress_wordpress_impl_OptionsPage',
-            'tubepress_wordpress_impl_OptionsPage'
+            'tubepress_wordpress_impl_wp_OptionsPage',
+            'tubepress_wordpress_impl_wp_OptionsPage'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_ui_api_FormInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_));
 
         $this->expectRegistration(
 
-            'tubepress_wordpress_impl_Widget',
-            'tubepress_wordpress_impl_Widget'
+            'tubepress_wordpress_impl_wp_Widget',
+            'tubepress_wordpress_impl_wp_Widget'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_html_api_HtmlGeneratorInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_shortcode_api_ParserInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_template_api_TemplateFactoryInterface::_));
 
         $this->expectRegistration(
-            tubepress_wordpress_spi_WpFunctionsInterface::_,
-            'tubepress_wordpress_impl_WpFunctions'
+            tubepress_wordpress_impl_wp_WpFunctions::_,
+            'tubepress_wordpress_impl_wp_WpFunctions'
         );
 
         $this->expectRegistration(

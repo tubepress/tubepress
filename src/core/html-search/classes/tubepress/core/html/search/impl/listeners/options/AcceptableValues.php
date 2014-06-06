@@ -31,7 +31,7 @@ class tubepress_core_html_search_impl_listeners_options_AcceptableValues
         $event->setSubject(array_merge($current, $this->_getAccepted()));
     }
 
-    public function setVideoProviders(array $providers)
+    public function setMediaProviders(array $providers)
     {
         $this->_videoProviders = $providers;
     }

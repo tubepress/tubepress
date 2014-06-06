@@ -53,7 +53,7 @@ class tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener
      *
      * @return array An associative array of attribute names => attribute values
      */
-    protected final function buildAttributeMap(tubepress_core_event_api_EventInterface $event)
+    protected function buildAttributeMap(tubepress_core_event_api_EventInterface $event)
     {
         $toReturn   = array();
         $index      = $event->getArgument('zeroBasedFeedIndex');

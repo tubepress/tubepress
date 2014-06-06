@@ -39,6 +39,7 @@ class tubepress_test_core_impl_player_BasePlayerLocationTest extends tubepress_t
             'in a popup window',
             array('players/popup.tpl.php', TUBEPRESS_ROOT . '/core/themes/web/default/players/popup.tpl.php'),
             'core/player/web/players/popup/popup.js',
+            true,
             true
         );
     }

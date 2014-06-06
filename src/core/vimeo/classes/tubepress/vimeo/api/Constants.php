@@ -48,43 +48,43 @@ interface tubepress_vimeo_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_COMMENT_COUNT = 'commentCount';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_NEWEST        = 'newest';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_OLDEST        = 'oldest';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_RANDOM        = 'random';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_RATING        = 'rating';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_RELEVANCE     = 'relevance';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const ORDER_BY_VIEW_COUNT    = 'viewCount';
 
@@ -94,43 +94,43 @@ interface tubepress_vimeo_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_COMMENT_COUNT = 'commentCount';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_DURATION       = 'duration';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_NEWEST         = 'newest';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_OLDEST         = 'oldest';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_RATING         = 'rating';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_TITLE          = 'title';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const PER_PAGE_SORT_VIEW_COUNT     = 'viewCount';
 }

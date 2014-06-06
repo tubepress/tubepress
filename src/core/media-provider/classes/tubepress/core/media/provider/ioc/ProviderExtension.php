@@ -25,7 +25,7 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
      * @return void
      *
      * @api
-     * @since 3.2.0
+     * @since 4.0.0
      */
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
@@ -70,50 +70,27 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
 
         $containerBuilder->register(
 
-            'tubepress_core_media_provider_impl_listeners_page_PerPageSorter',
-            'tubepress_core_media_provider_impl_listeners_page_PerPageSorter'
+            'tubepress_core_media_provider_impl_listeners_page_CorePageListener',
+            'tubepress_core_media_provider_impl_listeners_page_CorePageListener'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-            'event'    => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_PAGE,
-            'method'   => 'onVideoGalleryPage',
-            'priority' => 10300
-        ));
-
-        $containerBuilder->register(
-
-            'tubepress_core_media_provider_impl_listeners_page_ResultCountCapper',
-            'tubepress_core_media_provider_impl_listeners_page_ResultCountCapper'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-            'event'    => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_PAGE,
-            'method'   => 'onVideoGalleryPage',
-            'priority' => 10100
-        ));
-
-        $containerBuilder->register(
-
-            'tubepress_core_media_provider_impl_listeners_page_Blacklister',
-            'tubepress_core_media_provider_impl_listeners_page_Blacklister'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-            'event'    => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_PAGE,
-            'method'   => 'onVideoGalleryPage',
-            'priority' => 10200
-        ));
-
-        $containerBuilder->register(
-
-            'tubepress_core_media_provider_impl_listeners_page_ItemPrepender',
-            'tubepress_core_media_provider_impl_listeners_page_ItemPrepender'
-        )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_media_provider_api_CollectorInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_PAGE,
+            'method'   => 'perPageSort',
+            'priority' => 10300
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_PAGE,
+            'method'   => 'capResults',
+            'priority' => 10100
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_PAGE,
+            'method'   => 'blacklist',
+            'priority' => 10200
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event' => tubepress_core_media_provider_api_Constants::EVENT_NEW_MEDIA_PAGE,
-            'method' => 'onVideoGalleryPage',
+            'method' => 'prependItems',
             'priority' => 10000
         ));
 

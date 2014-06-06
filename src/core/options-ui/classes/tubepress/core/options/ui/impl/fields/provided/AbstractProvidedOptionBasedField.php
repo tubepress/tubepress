@@ -55,7 +55,7 @@ abstract class tubepress_core_options_ui_impl_fields_provided_AbstractProvidedOp
      *
      * @return boolean True if this field is TubePress Pro only. False otherwise.
      */
-    public final function isProOnly()
+    public function isProOnly()
     {
         return $this->_optionProvider->isProOnly($this->getId());
     }
@@ -65,7 +65,7 @@ abstract class tubepress_core_options_ui_impl_fields_provided_AbstractProvidedOp
      *
      * @return array An array of failure messages if there's a problem, otherwise null.
      */
-    public final function onSubmit()
+    public function onSubmit()
     {
         $id        = $this->getId();
         $isBoolean = $this->_optionProvider->isBoolean($this->getId());

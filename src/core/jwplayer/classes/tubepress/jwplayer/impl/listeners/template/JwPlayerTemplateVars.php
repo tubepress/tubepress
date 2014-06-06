@@ -40,22 +40,15 @@ class tubepress_jwplayer_impl_listeners_template_JwPlayerTemplateVars
 
         $toSet = array(
 
-            tubepress_jwplayer_api_Constants::OPTION_COLOR_FRONT =>
-                tubepress_jwplayer_api_Constants::OPTION_COLOR_FRONT,
-
-            tubepress_jwplayer_api_Constants::OPTION_COLOR_LIGHT =>
-                tubepress_jwplayer_api_Constants::OPTION_COLOR_LIGHT,
-
-            tubepress_jwplayer_api_Constants::OPTION_COLOR_SCREEN =>
-                tubepress_jwplayer_api_Constants::OPTION_COLOR_SCREEN,
-
-            tubepress_jwplayer_api_Constants::OPTION_COLOR_BACK =>
-                tubepress_jwplayer_api_Constants::OPTION_COLOR_BACK,
+            tubepress_jwplayer_api_Constants::OPTION_COLOR_FRONT,
+            tubepress_jwplayer_api_Constants::OPTION_COLOR_LIGHT,
+            tubepress_jwplayer_api_Constants::OPTION_COLOR_SCREEN,
+            tubepress_jwplayer_api_Constants::OPTION_COLOR_BACK,
         );
 
-        foreach ($toSet as $templateVariableName => $optionName) {
+        foreach ($toSet as $optionName) {
 
-            $template->setVariable($templateVariableName, $this->_context->get($optionName));
+            $template->setVariable($optionName, $this->_context->get($optionName));
         }
     }
 }

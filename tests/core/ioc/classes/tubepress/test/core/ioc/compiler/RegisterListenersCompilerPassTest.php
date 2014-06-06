@@ -45,7 +45,7 @@ class tubepress_test_core_impl_ioc_compiler_RegisterListenersCompilerPassTest ex
 
     public function testNoEventInTag()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Service "foo" must define the "event" attribute on "tubepress.core.ioc.api.tag.eventListener" tags');
+        $this->setExpectedException('InvalidArgumentException', 'Service "foo" must define the "event" attribute on "tubepress.core.ioc.tag.eventListener" tags');
 
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with(tubepress_core_event_api_EventDispatcherInterface::_)->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with(tubepress_core_event_api_EventDispatcherInterface::_)->andReturn($this->_mockEventDispatcherDefinition);

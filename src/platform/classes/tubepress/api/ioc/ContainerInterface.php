@@ -15,7 +15,7 @@
  * @package TubePress\IoC
  *
  * @api
- * @since 3.1.0
+ * @since 4.0.0
  */
 interface tubepress_api_ioc_ContainerInterface
 {
@@ -27,7 +27,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @return object The associated service, or null if not defined.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function get($id);
 
@@ -41,7 +41,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @throws InvalidArgumentException if the parameter is not defined
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getParameter($name);
 
@@ -53,7 +53,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @return Boolean true if the service is defined, false otherwise
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function has($id);
 
@@ -65,7 +65,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @return Boolean The presence of parameter in container
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function hasParameter($name);
 
@@ -78,7 +78,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function set($id, $service);
 
@@ -91,7 +91,7 @@ interface tubepress_api_ioc_ContainerInterface
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setParameter($name, $value);
 }

@@ -27,19 +27,19 @@ class tubepress_wordpress_impl_Callback
     private $_baseUrlAlreadySet = false;
 
     /**
-     * @var tubepress_wordpress_spi_WpFunctionsInterface
+     * @var tubepress_wordpress_impl_wp_WpFunctions
      */
     private $_wpFunctions;
 
     /**
-     * @var tubepress_wordpress_impl_ActivationHook
+     * @var tubepress_wordpress_impl_wp_ActivationHook
      */
     private $_activationHook;
 
     public function __construct(tubepress_core_environment_api_EnvironmentInterface $environment,
                                 tubepress_core_event_api_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_wordpress_spi_WpFunctionsInterface        $wpFunctions,
-                                tubepress_wordpress_impl_ActivationHook             $activationHook)
+                                tubepress_wordpress_impl_wp_WpFunctions             $wpFunctions,
+                                tubepress_wordpress_impl_wp_ActivationHook          $activationHook)
     {
         $this->_environment     = $environment;
         $this->_eventDispatcher = $eventDispatcher;
@@ -105,7 +105,7 @@ class tubepress_wordpress_impl_Callback
         $this->_baseUrlAlreadySet = true;
     }
 
-    private function _getScheme(tubepress_wordpress_spi_WpFunctionsInterface $wpFunctionWrapper)
+    private function _getScheme(tubepress_wordpress_impl_wp_WpFunctions $wpFunctionWrapper)
     {
         if ($wpFunctionWrapper->is_ssl()) {
 

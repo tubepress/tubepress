@@ -31,7 +31,7 @@ class tubepress_youtube_impl_player_YouTubePlayerLocation implements tubepress_c
      * @api
      * @since 4.0.0
      */
-    public final function getName()
+    public function getName()
     {
         return 'youtube';
     }
@@ -59,7 +59,7 @@ class tubepress_youtube_impl_player_YouTubePlayerLocation implements tubepress_c
      * @api
      * @since 4.0.0
      */
-    public final function producesHtml()
+    public function producesHtml()
     {
         return false;
     }
@@ -73,5 +73,16 @@ class tubepress_youtube_impl_player_YouTubePlayerLocation implements tubepress_c
     public function getUntranslatedFriendlyName()
     {
         return 'from the video\'s original YouTube page';               //>(translatable)<
+    }
+
+    /**
+     * @return bool True if this player location should show HTML when the gallery is initially loaded, false otherwise.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function displaysHtmlOnInitialGalleryLoad()
+    {
+        return false;
     }
 }

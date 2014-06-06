@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_core_html_gallery_ioc_GalleryExtension
  */
-class tubepress_test_core_media_gallery_ioc_GalleryExtensionTest extends tubepress_test_core_ioc_AbstractIocContainerExtensionTest
+class tubepress_test_core_html_gallery_ioc_GalleryExtensionTest extends tubepress_test_core_ioc_AbstractIocContainerExtensionTest
 {
 
     /**

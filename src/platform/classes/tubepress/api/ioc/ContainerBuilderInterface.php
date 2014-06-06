@@ -32,7 +32,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function addDefinitions(array $definitions);
 
@@ -44,7 +44,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return array An array of tags
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function findTaggedServiceIds($name);
 
@@ -54,7 +54,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return array An array of tags
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function findTags();
 
@@ -67,7 +67,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      *                                               service does not exist.
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getDefinition($id);
 
@@ -77,7 +77,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return tubepress_api_ioc_DefinitionInterface[] An array of `tubepress_api_ioc_DefinitionInterface` instances
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function getDefinitions();
 
@@ -96,7 +96,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return Boolean true if the service definition exists, false otherwise
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function hasDefinition($id);
 
@@ -112,7 +112,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return tubepress_api_ioc_DefinitionInterface A `tubepress_api_ioc_DefinitionInterface` instance
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function register($id, $class = null);
 
@@ -124,7 +124,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function removeDefinition($id);
 
@@ -139,7 +139,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @throws BadMethodCallException When this ContainerBuilder is frozen
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setDefinition($id, tubepress_api_ioc_DefinitionInterface $definition);
 
@@ -151,7 +151,7 @@ interface tubepress_api_ioc_ContainerBuilderInterface extends tubepress_api_ioc_
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     function setDefinitions(array $definitions);
 }

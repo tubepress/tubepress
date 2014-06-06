@@ -66,7 +66,7 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
      *
      * @return array An associative array of attribute names => attribute values
      */
-    protected final function buildAttributeMap(tubepress_core_event_api_EventInterface $event)
+    protected function buildAttributeMap(tubepress_core_event_api_EventInterface $event)
     {
         $toReturn = array();
         $xpath    = $event->getArgument('xPath');
@@ -207,7 +207,7 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
      *
      * @return string A single thumbnail URL.
      */
-    protected final function pickThumbnailUrl($urls)
+    protected function pickThumbnailUrl($urls)
     {
         if (! is_array($urls) || sizeof($urls) == 0) {
 

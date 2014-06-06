@@ -47,7 +47,7 @@ interface tubepress_core_options_ui_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS = 'disabledOptionsPageParticipants';
 

@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_core_html_search_ioc_SearchExtension
  */
-class tubepress_test_core_media_search_ioc_SearchExtensionTest extends tubepress_test_core_ioc_AbstractIocContainerExtensionTest
+class tubepress_test_core_html_search_ioc_SearchExtensionTest extends tubepress_test_core_ioc_AbstractIocContainerExtensionTest
 {
 
     /**
@@ -44,21 +44,22 @@ class tubepress_test_core_media_search_ioc_SearchExtensionTest extends tubepress
             'tubepress_core_html_search_impl_listeners_html_SearchOutputListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_core_html_gallery_impl_listeners_html_GalleryMaker'))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+                'tag' => tubepress_core_media_provider_api_MediaProviderInterface::_,
+                'method' => 'setMediaProviders'
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_html_api_Constants::EVENT_PRIMARY_HTML,
                 'method'   => 'onHtmlGeneration',
                 'priority' => 9000
             ));
-
         $this->expectRegistration(
 
             'tubepress_core_html_search_impl_listeners_options_AcceptableValues',
             'tubepress_core_html_search_impl_listeners_options_AcceptableValues'
         )->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
-                'method' => 'setVideoProviders'
+                'method' => 'setMediaProviders'
             ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_html_search_api_Constants::OPTION_SEARCH_PROVIDER,
                 'method'   => 'onAcceptableValues',

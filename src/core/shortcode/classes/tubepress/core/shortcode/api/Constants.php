@@ -17,7 +17,7 @@ interface tubepress_core_shortcode_api_Constants
 {
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_KEYWORD     = 'keyword';
 }

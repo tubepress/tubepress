@@ -35,7 +35,7 @@ abstract class tubepress_core_options_ioc_compiler_AbstractEasyPass implements t
      * @api
      * @since 4.0.0
      */
-    public final function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function process(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_stringUtils = $containerBuilder->get(tubepress_api_util_StringUtilsInterface::_);
         $this->_langUtils   = $containerBuilder->get(tubepress_api_util_LangUtilsInterface::_);

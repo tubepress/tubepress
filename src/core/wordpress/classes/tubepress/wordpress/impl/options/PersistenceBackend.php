@@ -22,11 +22,11 @@ class tubepress_wordpress_impl_options_PersistenceBackend implements tubepress_c
     private static $_optionPrefix = "tubepress-";
 
     /**
-     * @var tubepress_wordpress_spi_WpFunctionsInterface
+     * @var tubepress_wordpress_impl_wp_WpFunctions
      */
     private $_wpFunctions;
 
-    public function __construct(tubepress_wordpress_spi_WpFunctionsInterface $wpFunctions)
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions)
     {
         $this->_wpFunctions = $wpFunctions;
     }

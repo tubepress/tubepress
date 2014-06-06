@@ -48,7 +48,7 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      *
      * @return boolean True if this field is TubePress Pro only. False otherwise.
      */
-    public final function isProOnly()
+    public function isProOnly()
     {
         return false;
     }
