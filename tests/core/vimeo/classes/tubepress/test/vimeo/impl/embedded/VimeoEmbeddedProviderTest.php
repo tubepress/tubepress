@@ -95,12 +95,12 @@ class tubepress_test_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends tubepre
         $mockQuery->shouldReceive('set')->once()->with('api', 1);
         $mockQuery->shouldReceive('set')->once()->with('player_id', ehough_mockery_Mockery::on(function ($param) {
             $stringUtils = new tubepress_impl_util_StringUtils();
-            return $stringUtils->startsWith($param, 'tubepress-video-object-');
+            return $stringUtils->startsWith($param, 'tubepress-media-object-');
         }));
 
         $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
 
-        $result = $this->_sut->getDataUrlForVideo($this->_mockUrlFactory, $mockVideoProvider, 'xx');
+        $result = $this->_sut->getDataUrlForMediaItem($this->_mockUrlFactory, $mockVideoProvider, 'xx');
 
         $this->assertSame($mockUrl, $result);
     }

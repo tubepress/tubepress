@@ -28,18 +28,18 @@ class tubepress_jwplayer_impl_embedded_JwPlayerEmbeddedProvider implements tubep
     /**
      * @param tubepress_core_url_api_UrlFactoryInterface         $urlFactory URL factory
      * @param tubepress_core_media_provider_api_MediaProviderInterface $provider   The video provider
-     * @param string                                             $videoId    The video ID to play
+     * @param string                                             $mediaId    The video ID to play
      *
      * @return tubepress_core_url_api_UrlInterface The URL of the data for this video.
      *
      * @api
      * @since 4.0.0
      */
-    public function getDataUrlForVideo(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
+    public function getDataUrlForMediaItem(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
                                 tubepress_core_media_provider_api_MediaProviderInterface $provider,
-                                $videoId)
+                                $mediaId)
     {
-        return $urlFactory->fromString(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
+        return $urlFactory->fromString(sprintf('http://www.youtube.com/watch?v=%s', $mediaId));
     }
 
     /**

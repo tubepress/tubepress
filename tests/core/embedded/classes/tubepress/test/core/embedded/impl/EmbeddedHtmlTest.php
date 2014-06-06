@@ -78,7 +78,7 @@ class tubepress_test_core_embedded_impl_EmbeddedHtmlTest extends tubepress_test_
 
         $mockEmbeddedPlayer = $this->mock(tubepress_core_embedded_api_EmbeddedProviderInterface::_);
         $mockEmbeddedPlayer->shouldReceive('getName')->times(1)->andReturn('z');
-        $mockEmbeddedPlayer->shouldReceive('getDataUrlForVideo')->once()->with($this->_mockUrlFactory, $mockVideoProvider, 'video-id')->andReturn($mockUrl);
+        $mockEmbeddedPlayer->shouldReceive('getDataUrlForMediaItem')->once()->with($this->_mockUrlFactory, $mockVideoProvider, 'video-id')->andReturn($mockUrl);
         $mockEmbeddedPlayer->shouldReceive('getCompatibleProviderNames')->once()->andReturn(array('some-provider'));
 
         $mockTemplate = $this->mock('tubepress_core_template_api_TemplateInterface');
@@ -135,7 +135,7 @@ class tubepress_test_core_embedded_impl_EmbeddedHtmlTest extends tubepress_test_
         $mockVideoProvider->shouldReceive('getName')->times(2)->andReturn('xyz');
 
         $mockEmbeddedPlayer = $this->mock(tubepress_core_embedded_api_EmbeddedProviderInterface::_);
-        $mockEmbeddedPlayer->shouldReceive('getDataUrlForVideo')->once()->with($this->_mockUrlFactory, $mockVideoProvider, 'video-id')->andReturn($mockUrl);
+        $mockEmbeddedPlayer->shouldReceive('getDataUrlForMediaItem')->once()->with($this->_mockUrlFactory, $mockVideoProvider, 'video-id')->andReturn($mockUrl);
         $mockEmbeddedPlayer->shouldReceive('getName')->once()->andReturn('z');
         $mockEmbeddedPlayer->shouldReceive('getCompatibleProviderNames')->once()->andReturn(array('xyz'));
 

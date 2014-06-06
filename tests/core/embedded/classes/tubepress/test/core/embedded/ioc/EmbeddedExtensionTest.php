@@ -42,8 +42,8 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
 
         $this->expectRegistration(
 
-            'tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables',
-            'tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables'
+            'tubepress_core_embedded_impl_listeners_template_Core',
+            'tubepress_core_embedded_impl_listeners_template_Core'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(

@@ -69,16 +69,16 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
     /**
      * @param tubepress_core_url_api_UrlFactoryInterface         $urlFactory URL factory
      * @param tubepress_core_media_provider_api_MediaProviderInterface $provider   The video provider
-     * @param string                                             $videoId    The video ID to play
+     * @param string                                             $mediaId    The video ID to play
      *
      * @return tubepress_core_url_api_UrlInterface The URL of the data for this video.
      *
      * @api
      * @since 4.0.0
      */
-    public function getDataUrlForVideo(tubepress_core_url_api_UrlFactoryInterface         $urlFactory,
+    public function getDataUrlForMediaItem(tubepress_core_url_api_UrlFactoryInterface         $urlFactory,
                                        tubepress_core_media_provider_api_MediaProviderInterface $provider,
-                                       $videoId)
+                                       $mediaId)
     {
         $autoPlay = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY);
         $showInfo = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO);
@@ -87,7 +87,7 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
         $color    = $this->_context->get(tubepress_vimeo_api_Constants::OPTION_PLAYER_COLOR);
 
         /* build the data URL based on these options */
-        $link  = $urlFactory->fromString("http://player.vimeo.com/video/$videoId");
+        $link  = $urlFactory->fromString("http://player.vimeo.com/video/$mediaId");
         $query = $link->getQuery();
 
         $query->set(self::$_URL_PARAM_AUTOPLAY, $this->_langUtils->booleanToStringOneOrZero($autoPlay));
@@ -100,7 +100,7 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
         if ($jsApi) {
 
             $query->set(self::$_URL_PARAM_JS_API, 1);
-            $query->set(self::$_URL_PARAM_PLAYER_ID, 'tubepress-video-object-' . mt_rand());
+            $query->set(self::$_URL_PARAM_PLAYER_ID, 'tubepress-media-object-' . mt_rand());
         }
 
         return $link;

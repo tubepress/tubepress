@@ -10,7 +10,7 @@
  */
 
 /**
- * Generates the HTML for an embeddable Flash/HTML5 video player
+ * Generates the HTML for an embeddable Flash/HTML5 media player
  *
  * @api
  * @since 4.0.0
@@ -25,7 +25,7 @@ interface tubepress_core_embedded_api_EmbeddedHtmlInterface
     /**
      * Spits back the text for this embedded player
      *
-     * @param string $mediaId The video ID to display
+     * @param string $mediaId The media ID to display
      *
      * @return string The text for this embedded player, or null if there was a problem.
      *

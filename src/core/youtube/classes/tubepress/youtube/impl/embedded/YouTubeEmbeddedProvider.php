@@ -60,18 +60,18 @@ class tubepress_youtube_impl_embedded_YouTubeEmbeddedProvider implements tubepre
     /**
      * @param tubepress_core_url_api_UrlFactoryInterface         $urlFactory URL factory
      * @param tubepress_core_media_provider_api_MediaProviderInterface $provider   The video provider
-     * @param string                                             $videoId    The video ID to play
+     * @param string                                             $mediaId    The video ID to play
      *
      * @return tubepress_core_url_api_UrlInterface The URL of the data for this video.
      *
      * @api
      * @since 4.0.0
      */
-    public function getDataUrlForVideo(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
+    public function getDataUrlForMediaItem(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
                                 tubepress_core_media_provider_api_MediaProviderInterface $provider,
-                                $videoId)
+                                $mediaId)
     {
-        $link       = $urlFactory->fromString('https://www.youtube.com/embed/' . $videoId);
+        $link       = $urlFactory->fromString('https://www.youtube.com/embed/' . $mediaId);
         $embedQuery = $link->getQuery();
         $url        = $urlFactory->fromCurrent();
         $origin     = $url->getScheme() . '://' . $url->getHost();

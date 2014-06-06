@@ -46,8 +46,8 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
 
         $containerBuilder->register(
 
-            'tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables',
-            'tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables'
+            'tubepress_core_embedded_impl_listeners_template_Core',
+            'tubepress_core_embedded_impl_listeners_template_Core'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(

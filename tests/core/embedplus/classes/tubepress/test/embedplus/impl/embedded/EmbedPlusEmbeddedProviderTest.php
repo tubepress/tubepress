@@ -61,7 +61,7 @@ class tubepress_test_embedplus_impl_embedded_EmbedPlusEmbeddedProviderTest exten
 
         $mockProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
 
-        $result = $this->_sut->getDataUrlForVideo($this->_mockUrlFactory, $mockProvider, 'xx');
+        $result = $this->_sut->getDataUrlForMediaItem($this->_mockUrlFactory, $mockProvider, 'xx');
 
         $this->assertSame($mockUrl, $result);
     }

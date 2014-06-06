@@ -107,7 +107,7 @@ class tubepress_core_embedded_impl_EmbeddedHtml implements tubepress_core_embedd
 
         $templatePaths = $embeddedProvider->getPathsForTemplateFactory();
         $template      = $this->_templateFactory->fromFilesystem($templatePaths);
-        $dataUrl       = $embeddedProvider->getDataUrlForVideo($this->_urlFactory, $mediaProvider, $mediaId);
+        $dataUrl       = $embeddedProvider->getDataUrlForMediaItem($this->_urlFactory, $mediaProvider, $mediaId);
 
         $template = $this->_fireEventAndReturnSubject($template,
             $mediaId, $mediaProvider, $dataUrl, $embeddedProvider, tubepress_core_embedded_api_Constants::EVENT_TEMPLATE_EMBEDDED);

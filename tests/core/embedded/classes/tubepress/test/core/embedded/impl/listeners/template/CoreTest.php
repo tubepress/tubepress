@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
+ * @covers tubepress_core_embedded_impl_listeners_template_Core
  */
-class tubepress_test_core_embedded_impl_listeners_template_EmbeddedCoreVariablesTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_core_embedded_impl_listeners_template_CoreTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
+     * @var tubepress_core_embedded_impl_listeners_template_Core
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_core_embedded_impl_listeners_template_EmbeddedCoreVariables
         $this->_mockEnvironmentDetector = $this->mock(tubepress_core_environment_api_EnvironmentInterface::_);
 
         $this->_mockExecutionContext    = $this->mock(tubepress_core_options_api_ContextInterface::_);
-        $this->_sut = new tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables(
+        $this->_sut = new tubepress_core_embedded_impl_listeners_template_Core(
             $this->_mockExecutionContext,
             $this->_mockEnvironmentDetector
         );
@@ -60,7 +60,7 @@ class tubepress_test_core_embedded_impl_listeners_template_EmbeddedCoreVariables
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO_ID, 'video-id');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO_DOM_ID, ehough_mockery_Mockery::on(function ($arg) {
 
-            return preg_match('/^tubepress-video-object-[0-9]+$/', $arg) === 1;
+            return preg_match('/^tubepress-media-object-[0-9]+$/', $arg) === 1;
         }));
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_IMPL_NAME, 'embedded-impl-name');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO_PROVIDER_NAME, 'video-provider-name');
@@ -94,17 +94,11 @@ class tubepress_test_core_embedded_impl_listeners_template_EmbeddedCoreVariables
 
     public function testBadColor()
     {
-        $this->assertEquals('ff88dd', tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables::getSafeColorValue('badcolor', 'ff88dd'));
+        $this->assertEquals('ff88dd', tubepress_core_embedded_impl_listeners_template_Core::getSafeColorValue('badcolor', 'ff88dd'));
     }
 
     public function testGoodColor()
     {
-        $this->assertEquals('eecc33', tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables::getSafeColorValue('eecc33', 'ff88dd'));
-    }
-
-    public function testBooleanToString()
-    {
-        $this->assertEquals('true', tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables::booleanToString(true));
-        $this->assertEquals('false', tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables::booleanToString(false));
+        $this->assertEquals('eecc33', tubepress_core_embedded_impl_listeners_template_Core::getSafeColorValue('eecc33', 'ff88dd'));
     }
 }

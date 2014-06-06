@@ -10,7 +10,7 @@
  */
 
 /**
- * An embedded video player.
+ * An embedded media player.
  *
  * @api
  * @since 4.0.0
@@ -47,18 +47,18 @@ interface tubepress_core_embedded_api_EmbeddedProviderInterface
     function getPathsForTemplateFactory();
 
     /**
-     * @param tubepress_core_url_api_UrlFactoryInterface         $urlFactory URL factory
-     * @param tubepress_core_media_provider_api_MediaProviderInterface $provider   The video provider
-     * @param string                                             $videoId    The video ID to play
+     * @param tubepress_core_url_api_UrlFactoryInterface               $urlFactory URL factory
+     * @param tubepress_core_media_provider_api_MediaProviderInterface $provider   The media provider
+     * @param string                                                   $mediaId    The media ID to play
      *
-     * @return tubepress_core_url_api_UrlInterface The URL of the data for this video.
+     * @return tubepress_core_url_api_UrlInterface The URL of the data for this item.
      *
      * @api
      * @since 4.0.0
      */
-    function getDataUrlForVideo(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
-                                tubepress_core_media_provider_api_MediaProviderInterface $provider,
-                                $videoId);
+    function getDataUrlForMediaItem(tubepress_core_url_api_UrlFactoryInterface               $urlFactory,
+                                    tubepress_core_media_provider_api_MediaProviderInterface $provider,
+                                    $mediaId);
 
     /**
      * @param tubepress_core_media_provider_api_MediaProviderInterface

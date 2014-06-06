@@ -12,7 +12,7 @@
 /**
  * Core variables for the embedded template.
  */
-class tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
+class tubepress_core_embedded_impl_listeners_template_Core
 {
     /**
      * @var tubepress_core_environment_api_EnvironmentInterface
@@ -55,7 +55,7 @@ class tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
 
             tubepress_core_template_api_const_VariableNames::EMBEDDED_DATA_URL   => $dataUrl->toString(),
             tubepress_core_template_api_const_VariableNames::TUBEPRESS_BASE_URL  => $this->_environment->getBaseUrl()->toString(),
-            tubepress_core_template_api_const_VariableNames::EMBEDDED_AUTOSTART  => self::booleanToString($autoPlay),
+            tubepress_core_template_api_const_VariableNames::EMBEDDED_AUTOSTART  => $this->_booleanToString($autoPlay),
             tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH      => $embedWidth,
             tubepress_core_template_api_const_VariableNames::EMBEDDED_HEIGHT     => $embedHeight,
             tubepress_core_template_api_const_VariableNames::VIDEO_ID            => $itemId,
@@ -74,7 +74,7 @@ class tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
     {
         if ($providerName !== 'vimeo') {
 
-            return 'tubepress-video-object-' . mt_rand();
+            return 'tubepress-media-object-' . mt_rand();
         }
 
         $query = $dataUrl->getQuery();
@@ -85,7 +85,7 @@ class tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
         }
 
         //this should never happen
-        return 'tubepress-video-object-' . mt_rand();
+        return 'tubepress-media-object-' . mt_rand();
     }
 
     /**
@@ -115,7 +115,7 @@ class tubepress_core_embedded_impl_listeners_template_EmbeddedCoreVariables
      *
      * @return string 'true' or 'false'
      */
-    public static function booleanToString($bool)
+    private function _booleanToString($bool)
     {
         return $bool ? 'true' : 'false';
     }
