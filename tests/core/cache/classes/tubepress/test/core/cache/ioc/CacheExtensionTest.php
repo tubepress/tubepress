@@ -55,27 +55,18 @@ class tubepress_test_core_cache_ioc_CacheExtensionTest extends tubepress_test_co
 
         $this->expectRegistration(
 
-            'tubepress_core_cache_impl_listeners_http_ApiCacheBeforeListener',
-            'tubepress_core_cache_impl_listeners_http_ApiCacheBeforeListener'
+            'tubepress_core_cache_impl_listeners_http_ApiCacheListener',
+            'tubepress_core_cache_impl_listeners_http_ApiCacheListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference('ehough_stash_interfaces_PoolInterface'))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_http_api_Constants::EVENT_HTTP_REQUEST,
-                'method'   => 'onEvent',
+                'method'   => 'onRequest',
                 'priority' => 10000
-            ));
-
-        $this->expectRegistration(
-
-            'tubepress_core_cache_impl_listeners_http_ApiCacheAfterListener',
-            'tubepress_core_cache_impl_listeners_http_ApiCacheAfterListener'
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('ehough_stash_interfaces_PoolInterface'))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_http_api_Constants::EVENT_HTTP_RESPONSE,
-                'method'   => 'onEvent',
+                'method'   => 'onResponse',
                 'priority' => 10000
             ));
 
