@@ -28,6 +28,7 @@
         langUtils            = tubePress.Lang.Utils,
         domInjector          = tubePress.DomInjector,
         event_prefix_players = 'tubepress.playerlocation.',
+        text_playerName      = 'playerName',
 
         isShadowBoxAvailable = function () {
 
@@ -68,19 +69,19 @@
             }
         },
 
-        onPlayerInvoked = function (e, playerName, height, width, videoId, galleryId) {
+        onPlayerInvoked = function (e, data) {
 
-            if (playerName !== name) {
+            if (data[text_playerName] !== name) {
 
                 return;
             }
 
             Shadowbox.open({
 
-                player:        text_html,
-                height:        height,
-                width:        width,
-                content:    '&nbsp;'
+                player  : text_html,
+                height  : data.height,
+                width   : data.width,
+                content : '&nbsp;'
             });
         },
 
@@ -89,18 +90,18 @@
             jquery('#sb-player').html(html);
         },
 
-        onPlayerPopulated = function (e, playerName, title, html, height, width, videoId, galleryId) {
+        onPlayerPopulated = function (e, data) {
 
             var callback, test;
 
-            if (playerName !== name) {
+            if (data[text_playerName] !== name) {
 
                 return;
             }
 
             callback = function () {
 
-                doPopulate(html);
+                doPopulate(data.html);
             };
 
             test = function () {

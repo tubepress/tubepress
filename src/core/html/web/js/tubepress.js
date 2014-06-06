@@ -520,60 +520,6 @@ var tubePressDomInjector,
         }()),
 
         /**
-         * Exposes a parse() function that wraps jQuery.parseJSON(), but adapts to
-         * jQuery < 1.6.
-         */
-        jsonParser = (function () {
-
-            var version      = jquery.fn.jquery,
-                modernJquery = /1\.6|7|8|9\.[0-9]+/.test(version) !== fawlse,
-                parser,
-                parse = function (msg) {
-
-                    return parser(msg);
-                };
-
-            if (modernJquery) {
-
-                parser = function (msg) {
-
-                    return jquery.parseJSON(msg);
-                };
-
-            } else {
-
-                parser = function (data) {
-
-                    if (typeof data !== 'string' || !data) {
-
-                        return nulll;
-                    }
-
-                    data = jquery.trim(data);
-
-
-                    if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
-                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
-                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
-
-                        return (win.JSON && win.JSON.parse) ?
-
-                            win.JSON.parse(data) : (new Function('return ' + data))();
-
-                    } else {
-
-                        throw 'Invalid JSON: ' + data;
-                    }
-                };
-            }
-
-            return {
-
-                parse : parse
-            };
-        }()),
-
-        /**
          * Handles styling DOM elements before and after loads.
          */
         loadStyler = (function () {
@@ -606,11 +552,18 @@ var tubePressDomInjector,
          */
         ajaxExecutor = (function () {
 
-            /**
-             * Similar to jQuery's "load" but tolerates non-200 status codes.
-             * https://github.com/jquery/jquery/blob/1.8-stable/src/ajax.js#L203
-             */
-            var load = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
+            var doAjax = function (dataToSend) {
+
+                beacon.publish(text_tubepress + '.ajax', dataToSend);
+
+                jquery.ajax(dataToSend);
+            },
+
+                /**
+                 * Similar to jQuery's "load" but tolerates non-200 status codes.
+                 * https://github.com/jquery/jquery/blob/1.8-stable/src/ajax.js#L203
+                 */
+                load = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
 
                 var rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
 
@@ -626,6 +579,12 @@ var tubePressDomInjector,
 
                             postLoadFunction();
                         }
+                    }, dataToSend = {
+
+                        url      : url,
+                        type     : method,
+                        dataType : 'html',
+                        complete : completeCallback
                     };
 
                 /** did the user supply a pre-load function? */
@@ -634,29 +593,21 @@ var tubePressDomInjector,
                     preLoadFunction();
                 }
 
-                jquery.ajax({
-
-                    url      : url,
-                    type     : method,
-                    dataType : 'html',
-                    complete : completeCallback
-                });
+                doAjax(dataToSend);
             },
 
-            /**
-             * Similar to jQuery's "get" but ignores response code.
-             */
             get = function (method, url, data, success, dataType) {
 
-                jquery.ajax({
+                var dataToSend = {
 
                     url      : url,
                     type     : method,
                     data     : data,
                     dataType : dataType,
-                    complete : success
-                });
+                    success  : success
+                };
 
+                doAjax(dataToSend);
             },
 
             triggerDoneLoading = function (targetDiv) {
@@ -756,8 +707,7 @@ var tubePressDomInjector,
 
         Lang : {
 
-            Utils      : langUtils,
-            JsonParser : jsonParser
+            Utils : langUtils
         },
 
         Logger : logger

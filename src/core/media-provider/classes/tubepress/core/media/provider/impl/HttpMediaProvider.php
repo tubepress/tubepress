@@ -293,7 +293,9 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
     {
         try {
 
-            $httpResponse = $this->_httpClient->get($url);
+            $httpRequest = $this->_httpClient->createRequest('GET', $url);
+            $httpRequest->setHeader('TubePress-Remote-API-Call', 'true');
+            $httpResponse = $this->_httpClient->send($httpRequest);
 
         } catch (tubepress_core_http_api_exception_RequestException $e) {
 

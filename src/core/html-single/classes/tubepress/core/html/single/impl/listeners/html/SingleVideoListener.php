@@ -42,7 +42,7 @@ class tubepress_core_html_single_impl_listeners_html_SingleVideoListener
     public function __construct(tubepress_api_log_LoggerInterface                    $logger,
                                 tubepress_core_options_api_ContextInterface          $context,
                                 tubepress_core_event_api_EventDispatcherInterface    $eventDispatcher,
-                                tubepress_core_media_provider_api_CollectorInterface       $collector,
+                                tubepress_core_media_provider_api_CollectorInterface $collector,
                                 tubepress_core_template_api_TemplateFactoryInterface $templateFactory)
     {
         $this->_logger          = $logger;

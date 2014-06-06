@@ -49,14 +49,20 @@ class tubepress_test_core_http_impl_HttpExtensionTest extends tubepress_test_cor
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_player_api_PlayerHtmlInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_media_provider_api_CollectorInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_ResponseCodeInterface::_));
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_ResponseCodeInterface::_))
+            ->withTag(tubepress_core_http_api_AjaxCommandInterface::_);
+
 
         $this->expectRegistration(
             tubepress_core_http_api_AjaxCommandInterface::_,
             'tubepress_core_http_impl_PrimaryAjaxHandler'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_ResponseCodeInterface::_));
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_ResponseCodeInterface::_))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_core_http_api_AjaxCommandInterface::_,
+                'method' => 'setAjaxCommands',
+            ));
 
         $this->expectRegistration(
             tubepress_core_http_api_RequestParametersInterface::_,

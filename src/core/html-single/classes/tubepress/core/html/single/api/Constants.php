@@ -23,7 +23,7 @@ interface tubepress_core_html_single_api_Constants
      * @api
      * @since 4.0.0
      */
-    const EVENT_SINGLE_ITEM_HTML = 'tubepress.core.media.single.html';
+    const EVENT_SINGLE_ITEM_HTML = 'tubepress.core.html.single.html';
 
     /**
      * This event is fired when TubePress builds the PHP/HTML template for a single media item (not inside a gallery)
@@ -35,7 +35,7 @@ interface tubepress_core_html_single_api_Constants
      * @api
      * @since 4.0.0
      */
-    const EVENT_SINGLE_ITEM_TEMPLATE = 'tubepress.core.media.single.template';
+    const EVENT_SINGLE_ITEM_TEMPLATE = 'tubepress.core.html.single.template';
 
     /**
      * @api

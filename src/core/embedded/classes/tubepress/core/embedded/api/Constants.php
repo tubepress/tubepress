@@ -70,6 +70,12 @@ interface tubepress_core_embedded_api_Constants
      * @api
      * @since 3.1.0
      */
+    const OPTION_ENABLE_JS_API = 'enableJsApi';
+
+    /**
+     * @api
+     * @since 3.1.0
+     */
     const OPTION_LAZYPLAY         = 'lazyPlay';
 
     /**

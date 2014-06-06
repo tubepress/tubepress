@@ -79,18 +79,22 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
     {
         $addons = $this->_bootHelperAddonDiscoverer->getAll();
 
-        if ($this->_settingsFileReader->isClassLoaderEnabled()) {
-
-            $this->_bootHelperClassLoadingHelper->addClassHintsForAddons($addons, $this->_classLoader);
-        }
-
         if (!isset($this->_containerBuilder)) {
 
             $this->_containerBuilder = new tubepress_impl_ioc_ContainerBuilder();
         }
 
-        $classMap = $this->_classLoader->getClassMap();
-        $this->_containerBuilder->setParameter('classMap', $classMap);
+        if ($this->_settingsFileReader->isClassLoaderEnabled()) {
+
+            $this->_bootHelperClassLoadingHelper->addClassHintsForAddons($addons, $this->_classLoader);
+
+            $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full.php';
+
+            $this->_classLoader->addToClassMap($fullClassMap);
+
+            $classMap = $this->_classLoader->getClassMap();
+            $this->_containerBuilder->setParameter('classMap', $classMap);
+        }
 
         $this->_containerBuilder->set('tubepress_api_ioc_ContainerInterface',      $this->_containerBuilder);
         $this->_containerBuilder->set('ehough_iconic_ContainerInterface',          $this->_containerBuilder->getDelegateContainerBuilder());

@@ -363,12 +363,15 @@ interface tubepress_wordpress_spi_WpFunctionsInterface
     /**
      * A safe way of regisetring javascripts in WordPress for later use with wp_enqueue_script().
      *
-     * @param string $handle Name of the script.
-     * @param string $src    URL to the script.
+     * @param string $handle   Name of the script.
+     * @param string $src      URL to the script.
+     * @param array  $deps     Array of the handles of all the registered scripts that this script depends on.
+     * @param string $version  String specifying the script version number
+     * @param bool   $inFooter If this parameter is true the script is placed at the bottom of the <body>
      *
      * @return void
      */
-    function wp_register_script($handle, $src);
+    function wp_register_script($handle, $src, $deps = array(), $version = null, $inFooter = false);
 
     /**
      * Register WordPress Widgets for use in your themes sidebars.

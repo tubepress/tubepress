@@ -20,15 +20,18 @@
         path                 = tubePress.Environment.getBaseUrl() + '/src/main/web/vendor/jqmodal/jqModal.',
         domInjector          = tubePress.DomInjector,
         event_prefix_players = 'tubepress.playerlocation.',
+        text_playerName      = 'playerName',
+        text_galleryId       = 'galleryId',
+        text_videoId         = 'videoId',
 
-        invoke = function (e, playerName, height, width, videoId, galleryId) {
+        invoke = function (e, data) {
 
-            if (playerName !== name) {
+            if (data[text_playerName] !== name) {
 
                 return;
             }
 
-            var element = jquery('<div id="jqmodal' + galleryId + videoId + '" style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;"></div>').appendTo('body'),
+            var element = jquery('<div id="jqmodal' + data[text_galleryId] + data[text_videoId] + '" style="visibility: none; height: ' + data.height + 'px; width: ' + data.width + 'px;"></div>').appendTo('body'),
                 hider = function (hash) {
                     hash.o.remove();
                     hash.w.remove();
@@ -38,14 +41,14 @@
             element.jqm({ onHide : hider }).jqmShow();
         },
 
-        populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
+        populate = function (e, data) {
 
-            if (playerName !== name) {
+            if (data[text_playerName] !== name) {
 
                 return;
             }
 
-            jquery('#jqmodal' + galleryId + videoId).html(html);
+            jquery('#jqmodal' + data[text_galleryId] + data[text_videoId]).html(data.html);
         };
 
     if (!jquery.isFunction(jquery.fn.jqm)) {

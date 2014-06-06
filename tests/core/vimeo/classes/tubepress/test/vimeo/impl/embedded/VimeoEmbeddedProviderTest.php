@@ -75,7 +75,7 @@ class tubepress_test_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends tubepre
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_LOOP)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO)->andReturn(true);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_vimeo_api_Constants::OPTION_PLAYER_COLOR)->andReturn('ABCDEF');
 
         $mockUrl   = $this->mock('tubepress_core_url_api_UrlInterface');

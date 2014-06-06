@@ -63,7 +63,8 @@ class tubepress_core_html_gallery_impl_listeners_html_GalleryMaker
 
         if ($galleryId == '') {
 
-            $this->_context->setEphemeralOption(tubepress_core_html_api_Constants::OPTION_GALLERY_ID, mt_rand());
+            $galleryId = mt_rand();
+            $this->_context->setEphemeralOption(tubepress_core_html_api_Constants::OPTION_GALLERY_ID, $galleryId);
         }
 
         if ($shouldLog) {

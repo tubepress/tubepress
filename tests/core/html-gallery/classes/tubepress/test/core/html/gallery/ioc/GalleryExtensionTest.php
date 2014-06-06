@@ -49,7 +49,7 @@ class tubepress_test_core_media_gallery_ioc_GalleryExtensionTest extends tubepre
                     'priority' => 10000)
             )->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_core_player_api_PlayerLocationInterface::_,
-                'method' => 'setPluggablePlayerLocations'
+                'method' => 'setPlayerLocations'
             ));
 
         $this->expectRegistration(

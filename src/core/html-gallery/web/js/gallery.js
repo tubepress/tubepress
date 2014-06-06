@@ -32,6 +32,14 @@ var tubePressGalleryRegistrar;
         text_event_galleryPreviousVideo   = text_eventPrefix_gallery + 'previousvideo',
         text_event_videoStart             = text_eventPrefix_video + 'start',
         text_event_videoStop              = text_eventPrefix_video + 'stop',
+        text_galleryId                    = 'galleryId',
+        text_videoId                      = 'videoId',
+        text_height                       = 'height',
+        text_width                        = 'width',
+        text_playerName                   = 'playerName',
+        text_page                         = 'page',
+        text_params                       = 'params',
+        text_domId                        = 'domId',
         text_urls                         = 'urls',
         text_sys                          = 'sys',
         text_js                           = 'js',
@@ -208,15 +216,16 @@ var tubePressGalleryRegistrar;
                 /**
                  * Performs gallery initialization on jQuery(document).ready().
                  */
-                onGalleryLoad = function (event, galleryId, params) {
+                onGalleryLoad = function (event, data) {
 
                     var currentPage         = langUtils.getParameterByName(text_tubepress + '_page'),
                         pageAsInt           = parseIntOrZero(currentPage),
                         text_ajaxPagination = 'ajaxPagination',
+                        galleryId           = data[text_galleryId],
                         sequence;
 
                     /** Save the params. */
-                    internalRegistry[galleryId] = params;
+                    internalRegistry[galleryId] = data[text_params];
 
                     /**
                      * Save the current page.
@@ -252,11 +261,13 @@ var tubePressGalleryRegistrar;
                     }
                 },
 
-                onPageChange = function (event, galleryId, newPage) {
+                onPageChange = function (event, data) {
+
+                    var galleryId = data[text_galleryId],
+                        newPage   = data[text_page],
+                        asInt     = parseIntOrZero(newPage);
 
                     if (isRegistered(galleryId)) {
-
-                        var asInt = parseIntOrZero(newPage);
 
                         internalRegistry[galleryId][text_page] = asInt === 0 ? 1 : asInt;
                     }
@@ -309,9 +320,10 @@ var tubePressGalleryRegistrar;
                 /**
                  * A video on the page has stopped.
                  */
-                onVideoStop = function (e, videoId, domId) {
+                onVideoStop = function (e, data) {
 
-                    var matchingGalleryId = findGalleryContainingVideoDomId(domId);
+                    var domId             = data[text_domId],
+                        matchingGalleryId = findGalleryContainingVideoDomId(domId);
 
                     /**
                      * If we don't have a gallery assigned to this video, we don't really care.
@@ -330,9 +342,9 @@ var tubePressGalleryRegistrar;
                 /**
                  * A video on the page has started.
                  */
-                onVideoStart = function (e, videoId, domId) {
+                onVideoStart = function (e, data) {
 
-                    var matchingGalleryId = findGalleryContainingVideoDomId(domId);
+                    var matchingGalleryId = findGalleryContainingVideoDomId(data[text_domId]);
 
                     /**
                      * If we don't have a gallery assigned to this video, we don't really care.
@@ -346,17 +358,19 @@ var tubePressGalleryRegistrar;
                      * Record the video as playing.
                      */
                     internalRegistry[matchingGalleryId][isCurrentlyPlayingVideo] = troo;
-                    internalRegistry[matchingGalleryId][text_currentVideoId]     = videoId;
+                    internalRegistry[matchingGalleryId][text_currentVideoId]     = data[text_videoId];
                 },
 
                 /**
                  * Set a video as "current" for a gallery.
                  */
-                onChangeVideo = function (event, galleryId, videoId) {
+                onChangeVideo = function (event, data) {
+
+                    var galleryId = data[text_galleryId];
 
                     if (isRegistered(galleryId)) {
 
-                        internalRegistry[galleryId][text_currentVideoId] = videoId;
+                        internalRegistry[galleryId][text_currentVideoId] = data[text_videoId];
                     }
                 },
 
@@ -413,7 +427,12 @@ var tubePressGalleryRegistrar;
 
             var register = function (galleryId, params) {
 
-                publish(text_event_galleryLoad, [ galleryId, params ]);
+                var dataToPublish = {};
+
+                dataToPublish[text_galleryId] = galleryId;
+                dataToPublish[text_params]    = params;
+
+                publish(text_event_galleryLoad, dataToPublish);
             };
 
             return {
@@ -486,20 +505,25 @@ var tubePressGalleryRegistrar;
                     galleryWidth    = gallery.width(),
                     colNum          = floor(galleryWidth / columnWidth),
                     newThumbWidth   = floor(galleryWidth / colNum),
-                    thumbs          = jquery(gallerySelector + ' div.' + text_tubepress + '_thumb');
+                    thumbs          = jquery(gallerySelector + ' div.' + text_tubepress + '_thumb'),
+                    dataToPublish   = {};
 
                 gallery.css({ 'width' : '100%'});
                 gallery.css({ 'width' : galleryWidth });
                 thumbs.css({ 'width' : newThumbWidth});
 
                 gallery.data('fluid_thumbs_applied', true);
-                beacon.publish(text_eventPrefix_gallery + 'fluidThumbs', [ galleryId, newThumbWidth ]);
+                dataToPublish[text_galleryId] = galleryId;
+                dataToPublish.newThumbWidth   = newThumbWidth;
+                publish(text_eventPrefix_gallery + 'fluidThumbs', dataToPublish);
             },
 
             /**
              * Callback for thumbnail loads.
              */
-            onNewGalleryOrThumbs = function (e, galleryId) {
+            onNewGalleryOrThumbs = function (e, data) {
+
+                var galleryId = data[text_galleryId];
 
                 /* fluid thumbs if we need it */
                 if (galleryRegistry.isFluidThumbs(galleryId)) {
@@ -555,20 +579,23 @@ var tubePressGalleryRegistrar;
              */
             clickListener = function () {
 
-                var rel_split = jquery(this).attr('rel').split('_'),
-                    galleryId = getGalleryIdFromRelSplit(rel_split),
-                    videoId   = getVideoIdFromIdAttr(jquery(this).attr('id'));
+                var rel_split     = jquery(this).attr('rel').split('_'),
+                    videoId       = getVideoIdFromIdAttr(jquery(this).attr('id')),
+                    dataToPublish = {};
 
-                publish(text_event_galleryChangeVideo, [ galleryId, videoId ]);
+                dataToPublish[text_galleryId] = getGalleryIdFromRelSplit(rel_split);
+                dataToPublish[text_videoId]   = videoId;
+
+                publish(text_event_galleryChangeVideo, dataToPublish);
             },
 
             /**
              * Callback for thumbnail loads.
              */
-            onNewGalleryOrThumbs = function (e, galleryId) {
+            onNewGalleryOrThumbs = function (e, data) {
 
                 /* add a click handler to each link in this gallery */
-                jquery('#' + text_tubepress + '_gallery_' + galleryId + " a[id^='" + text_tubepress + "_']").click(clickListener);
+                jquery('#' + text_tubepress + '_gallery_' + data[text_galleryId] + " a[id^='" + text_tubepress + "_']").click(clickListener);
             };
 
         subscribe(text_event_galleryNewThumbs + ' ' + text_event_galleryLoad, onNewGalleryOrThumbs);
@@ -583,9 +610,9 @@ var tubePressGalleryRegistrar;
         /**
          * Find the player required for a gallery and load the JS.
          */
-        var onNewGalleryLoaded = function (e, galleryId) {
+        var onNewGalleryLoaded = function (e, data) {
 
-                var path = galleryRegistry.getPlayerLocationJsUrl(galleryId);
+                var path = galleryRegistry.getPlayerLocationJsUrl(data[text_galleryId]);
 
                 /*
                  * Load this player's JS, if needed.
@@ -596,20 +623,31 @@ var tubePressGalleryRegistrar;
             /**
              * Load up a TubePress player with the given video ID.
              */
-            onNewVideoRequested = function (e, galleryId, videoId) {
+            onNewVideoRequested = function (e, data) {
 
-                var playerName = galleryRegistry.getPlayerLocationName(galleryId),
+                var galleryId  = data[text_galleryId],
+                    videoId    = data[text_videoId],
+                    playerName = galleryRegistry.getPlayerLocationName(galleryId),
                     height     = galleryRegistry.getEmbeddedHeight(galleryId),
                     width      = galleryRegistry.getEmbeddedWidth(galleryId),
                     nvpMap     = galleryRegistry.getNvpMap(galleryId),
 
                     callback   = function (data) {
 
-                        var result = tubepress.Lang.JsonParser.parse(data.responseText),
-                            title  = result.title,
-                            html   = result.html;
+                        var title         = data.title,
+                            html          = data.html,
+                            dataToPublish = {
+                                'title' : title,
+                                'html'  : html
+                            };
 
-                        publish(text_event_playerLocationPopulate, [ playerName, title, html, height, width, videoId, galleryId ]);
+                        dataToPublish[text_playerName] = playerName;
+                        dataToPublish[text_height]     = height;
+                        dataToPublish[text_width]      = width;
+                        dataToPublish[text_videoId]    = videoId;
+                        dataToPublish[text_galleryId]  = galleryId;
+
+                        publish(text_event_playerLocationPopulate, dataToPublish);
                     },
 
                     dataToSend = {
@@ -618,7 +656,9 @@ var tubePressGalleryRegistrar;
                         'tubepress_video' : videoId
                     },
 
-                    method;
+                    method,
+
+                    dataToPublish = {};
 
                 /**
                  * Add the NVPs for TubePress to the data.
@@ -626,7 +666,12 @@ var tubePressGalleryRegistrar;
                 jquery.extend(dataToSend, nvpMap);
 
                 /** Announce we're gonna invoke the player... */
-                publish(text_event_playerLocationInvoke, [ playerName, height, width, videoId, galleryId ]);
+                dataToPublish[text_playerName] = playerName;
+                dataToPublish[text_height]     = height;
+                dataToPublish[text_width]      = width;
+                dataToPublish[text_videoId]    = videoId;
+                dataToPublish[text_galleryId]  = galleryId;
+                publish(text_event_playerLocationInvoke, dataToPublish);
 
                 /** If this player requires population, go fetch the HTML for it. */
                 if (galleryRegistry.getPlayerLocationProducesHtml(galleryId)) {
@@ -652,26 +697,31 @@ var tubePressGalleryRegistrar;
 
         var handlePaginationClick = function (anchor, galleryId) {
 
-                var page = anchor.data('page');
+                var page          = anchor.data(text_page),
+                    dataToPublish = {};
 
-                publish(text_event_galleryPageChange, [ galleryId, page ]);
+                dataToPublish[text_galleryId] = galleryId;
+                dataToPublish[text_page]      = page;
+
+                publish(text_event_galleryPageChange, dataToPublish);
             },
 
-            onNewGalleryOrThumbs = function (event, galleryId) {
+            onNewGalleryOrThumbs = function (event, data) {
 
-                var pagationClickCallback = function () {
+                var galleryId = data[text_galleryId],
+                    pagationClickCallback = function () {
 
-                    handlePaginationClick(jquery(this), galleryId);
+                        handlePaginationClick(jquery(this), galleryId);
 
-                    if (galleryRegistry.isAjaxPagination(galleryId)) {
+                        if (galleryRegistry.isAjaxPagination(galleryId)) {
 
-                        //prevent default click action
-                        event.preventDefault();
-                        return fawlse;
-                    }
+                            //prevent default click action
+                            event.preventDefault();
+                            return fawlse;
+                        }
 
-                    return troo;
-                },
+                        return troo;
+                    },
                     selectorPrefix = '#' + text_tubepress + '_gallery_' + galleryId + ' ';
 
                 /**
@@ -693,13 +743,15 @@ var tubePressGalleryRegistrar;
         /**
          * Go to the next video in the gallery.
          */
-        var onNextVideoRequested = function (event, galleryId) {
+        var onNextVideoRequested = function (event, data) {
 
             /** Get the gallery's sequence. This is an array of video ids. */
-            var sequence  = galleryRegistry.getSequence(galleryId),
-                vidId     = galleryRegistry.getCurrentVideoId(galleryId),
-                index     = jquery.inArray(vidId.toString(), sequence),
-                lastIndex = sequence ? sequence.length - 1 : index;
+            var galleryId     = data[text_galleryId],
+                sequence      = galleryRegistry.getSequence(galleryId),
+                vidId         = galleryRegistry.getCurrentVideoId(galleryId),
+                index         = jquery.inArray(vidId.toString(), sequence),
+                lastIndex     = sequence ? sequence.length - 1 : index,
+                dataToPublish = {};
 
             /** Sorry, we don't know anything about this video id, or we've reached the end of the gallery. */
             if (index === -1 || index === lastIndex) {
@@ -708,16 +760,20 @@ var tubePressGalleryRegistrar;
             }
 
             /** Start the next video in line. */
-            publish(text_event_galleryChangeVideo, [ galleryId, sequence[index + 1] ]);
+            dataToPublish[text_galleryId] = galleryId;
+            dataToPublish[text_videoId]   = sequence[index + 1];
+            publish(text_event_galleryChangeVideo, dataToPublish);
         },
 
             /** Play the previous video in the gallery. */
-            onPrevVideoRequested = function (event, galleryId) {
+            onPrevVideoRequested = function (event, data) {
 
                 /** Get the gallery's sequence. This is an array of video ids. */
-                var sequence = galleryRegistry.getSequence(galleryId),
-                    vidId    = galleryRegistry.getCurrentVideoId(galleryId),
-                    index    = jquery.inArray(vidId.toString(), sequence);
+                var galleryId     = data[text_galleryId],
+                    sequence      = galleryRegistry.getSequence(galleryId),
+                    vidId         = galleryRegistry.getCurrentVideoId(galleryId),
+                    index         = jquery.inArray(vidId.toString(), sequence),
+                    dataToPublish = {};
 
                 /** Sorry, we don't know anything about this video id, or we're at the start of the gallery. */
                 if (index === -1 || index === 0) {
@@ -726,7 +782,9 @@ var tubePressGalleryRegistrar;
                 }
 
                 /** Start the previous video in line. */
-                publish(text_event_galleryChangeVideo, [ galleryId, sequence[index - 1] ]);
+                dataToPublish[text_galleryId] = galleryId;
+                dataToPublish[text_videoId]   = sequence[index - 1];
+                publish(text_event_galleryChangeVideo, dataToPublish);
             };
 
         subscribe(text_event_galleryNextVideo, onNextVideoRequested);
@@ -743,9 +801,10 @@ var tubePressGalleryRegistrar;
         /**
          * A video on the page has stopped.
          */
-        var onVideoStop = function (e, video) {
+        var onVideoStop = function (e, data) {
 
-                var galleryId = galleryRegistry.findGalleryContainingVideoDomId(video.domId);
+                var galleryId     = galleryRegistry.findGalleryContainingVideoDomId(data[text_domId]),
+                    dataToPublish = {};
 
                 if (!galleryId) {
 
@@ -755,7 +814,8 @@ var tubePressGalleryRegistrar;
                 if (galleryRegistry.isAutoNext(galleryId) && galleryRegistry.getSequence(galleryId)) {
 
                     /** Go to the next one! */
-                    beacon.publish(text_event_galleryNextVideo, [ galleryId ]);
+                    dataToPublish[text_galleryId] = galleryId;
+                    beacon.publish(text_event_galleryNextVideo, dataToPublish);
                 }
             };
 

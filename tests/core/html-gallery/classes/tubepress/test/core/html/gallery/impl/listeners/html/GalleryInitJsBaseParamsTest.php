@@ -107,7 +107,7 @@ class tubepress_test_core_html_gallery_impl_listeners_html_GalleryInitJsBasePara
         $mockPlayer->shouldReceive('getName')->andReturn('player-loc');
         $mockPlayer->shouldReceive('getPlayerJsUrl')->andReturn('/abc/');
         $mockPlayer->shouldReceive('producesHtml')->once()->andReturn(true);
-        $this->_sut->setPluggablePlayerLocations(array($mockPlayer));
+        $this->_sut->setPlayerLocations(array($mockPlayer));
 
         $this->_sut->onGalleryInitJs($event);
 

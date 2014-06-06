@@ -95,7 +95,6 @@ interface tubepress_core_media_item_api_Constants
      */
     const OPTION_RELATIVE_DATES = 'relativeDates';
 
-
     const ATTRIBUTE_AUTHOR_DISPLAY_NAME      = 'authorDisplayName';
     const ATTRIBUTE_AUTHOR_USER_ID           = 'authorUid';
     const ATTRIBUTE_CATEGORY_DISPLAY_NAME    = 'category';

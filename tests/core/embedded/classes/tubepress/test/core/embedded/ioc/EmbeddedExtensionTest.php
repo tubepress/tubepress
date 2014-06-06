@@ -68,7 +68,7 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
                 'method' => 'setMediaProviders'
             ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE, array(
+        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_embedded', array(
 
             'defaultValues' => array(
 
@@ -100,11 +100,10 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
                 tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY        => 'Auto-play each video after thumbnail click.', //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_LOOP            => 'Continue playing the video until the user stops it.', //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', //>(translatable)<
-                tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO       => false,
             )
         ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION, array(
+        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_embedded', array(
 
             'priority' => 30000,
             'map'      => array(

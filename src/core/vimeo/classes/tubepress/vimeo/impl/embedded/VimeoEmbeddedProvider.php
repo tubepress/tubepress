@@ -83,7 +83,7 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
         $autoPlay = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY);
         $showInfo = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO);
         $loop     = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_LOOP);
-        $jsApi    = $this->_context->get(tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API);
+        $jsApi    = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API);
         $color    = $this->_context->get(tubepress_vimeo_api_Constants::OPTION_PLAYER_COLOR);
 
         /* build the data URL based on these options */

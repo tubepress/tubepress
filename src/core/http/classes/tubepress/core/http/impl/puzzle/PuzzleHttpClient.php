@@ -25,6 +25,11 @@ class tubepress_core_http_impl_puzzle_PuzzleHttpClient extends tubepress_core_ht
             require TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/functions.php';
         }
 
+        if (!function_exists('puzzle_stream_create')) {
+
+            require TUBEPRESS_ROOT . '/vendor/puzzlehttp/streams/src/main/php/puzzle/stream/functions.php';
+        }
+
         $this->_delegate = $delegate;
 
         $delegate->getEmitter()->attach($this);

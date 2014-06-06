@@ -23,7 +23,7 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const EVENT_HTML_PAGINATION = 'tubepress.core.media.gallery.event.html.pagination';
+    const EVENT_HTML_PAGINATION = 'tubepress.core.media.html.event.html.pagination';
 
     /**
      * This event is fired after TubePress builds the HTML for a media gallery.
@@ -36,7 +36,7 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const EVENT_HTML_THUMBNAIL_GALLERY = 'tubepress.core.media.gallery.event.html.gallery';
+    const EVENT_HTML_THUMBNAIL_GALLERY = 'tubepress.core.media.html.event.html.gallery';
 
     /**
      * This event is fired after TubePress builds the pagination HTML template.
@@ -46,7 +46,7 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const EVENT_TEMPLATE_PAGINATION = 'tubepress.core.media.gallery.event.template.pagination';
+    const EVENT_TEMPLATE_PAGINATION = 'tubepress.core.media.html.event.template.pagination';
 
     /**
      * This event is fired after TubePress builds the PHP/HTML template for a media gallery.
@@ -59,7 +59,7 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const EVENT_TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.media.gallery.event.template.gallery';
+    const EVENT_TEMPLATE_THUMBNAIL_GALLERY = 'tubepress.core.media.html.event.template.gallery';
 
     /**
      * This event is fired after TubePress builds the gallery initialization JSON, which is inserted immediately
@@ -71,7 +71,7 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const EVENT_GALLERY_INIT_JS = 'tubepress.core.media.gallery.event.galleryInitJs';
+    const EVENT_GALLERY_INIT_JS = 'tubepress.core.media.html.event.galleryInitJs';
 
 
     /**

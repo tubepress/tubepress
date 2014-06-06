@@ -14,14 +14,14 @@
     'use strict';
 
     /* this stuff helps compression */
-    var invoke = function (e, playerName, height, width, videoId, galleryId) {
+    var invoke = function (e, data) {
 
-        if (playerName !== 'vimeo') {
+        if (data.playerName !== 'vimeo') {
 
             return;
         }
 
-        window.location = 'http://www.vimeo.com/' + videoId;
+        window.location = 'http://www.vimeo.com/' + data.videoId;
     };
 
     TubePress.Beacon.subscribe('tubepress.playerlocation.invoke', invoke);

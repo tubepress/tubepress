@@ -77,6 +77,21 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_api_ioc_Co
         ));
 
         $containerBuilder->register(
+            'tubepress_wordpress_impl_actions_Ajax',
+            'tubepress_wordpress_impl_actions_Ajax'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_AjaxCommandInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
+         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.action.wp_ajax_nopriv_tubepress',
+            'method'   => 'action',
+            'priority' => 10000
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_options_api_Constants::EVENT_NVP_READ_FROM_EXTERNAL_INPUT . '.action',
+            'method'   => 'onReadActionFromExternalInput',
+            'priority' => 9000
+         ));
+
+        $containerBuilder->register(
             'tubepress_wordpress_impl_actions_Init',
             'tubepress_wordpress_impl_actions_Init'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
@@ -151,6 +166,16 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_api_ioc_Co
                 'method' => 'onJs',
                 'priority' => 10000
             ));
+
+        $containerBuilder->register(
+            'tubepress_wordpress_impl_listeners_html_GlobalJsConfig',
+            'tubepress_wordpress_impl_listeners_html_GlobalJsConfig'
+        )->addArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
+         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_html_api_Constants::EVENT_GLOBAL_JS_CONFIG,
+            'method'   => 'onConfig',
+            'priority' => 10000,
+         ));
 
         $containerBuilder->register(
             'tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',

@@ -74,9 +74,10 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             'tubepress_core_player_impl_BasePlayerLocation'
         )->withArgument('normal')
             ->withArgument('normally (at the top of your gallery)')                 //>(translatable)<)
-            ->withArgument(array('players/normal.tpl.php', TUBEPRESS_ROOT . '/core/themes/web/default/players/normal.tpl.php'))
-            ->withArgument('core/player/web/players/normal/normal.js')
+            ->withArgument(array('players/normal.tpl.php', TUBEPRESS_ROOT . '/src/core/themes/web/default/players/normal.tpl.php'))
+            ->withArgument('src/core/player/web/players/normal/normal.js')
             ->withArgument(true)
+            ->withTag(tubepress_core_player_api_PlayerLocationInterface::_)
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_player_api_Constants::EVENT_PLAYER_SELECT,
                 'method'   => 'onSelectPlayerLocation',
@@ -89,9 +90,10 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             'tubepress_core_player_impl_BasePlayerLocation'
         )->withArgument('shadowbox')
             ->withArgument('with Shadowbox')                 //>(translatable)<)
-            ->withArgument(array('players/shadowbox.tpl.php', TUBEPRESS_ROOT . '/core/themes/web/default/players/shadowbox.tpl.php'))
-            ->withArgument('core/player/web/players/shadowbox/shadowbox.js')
+            ->withArgument(array('players/shadowbox.tpl.php', TUBEPRESS_ROOT . '/src/core/themes/web/default/players/shadowbox.tpl.php'))
+            ->withArgument('src/core/player/web/players/shadowbox/shadowbox.js')
             ->withArgument(true)
+            ->withTag(tubepress_core_player_api_PlayerLocationInterface::_)
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_player_api_Constants::EVENT_PLAYER_SELECT,
                 'method'   => 'onSelectPlayerLocation',
@@ -104,9 +106,10 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             'tubepress_core_player_impl_BasePlayerLocation'
         )->withArgument('popup')
             ->withArgument('in a popup window')                 //>(translatable)<)
-            ->withArgument(array('players/popup.tpl.php', TUBEPRESS_ROOT . '/core/themes/web/default/players/popup.tpl.php'))
-            ->withArgument('core/player/web/players/popup/popup.js')
+            ->withArgument(array('players/popup.tpl.php', TUBEPRESS_ROOT . '/src/core/themes/web/default/players/popup.tpl.php'))
+            ->withArgument('src/core/player/web/players/popup/popup.js')
             ->withArgument(true)
+            ->withTag(tubepress_core_player_api_PlayerLocationInterface::_)
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_player_api_Constants::EVENT_PLAYER_SELECT,
                 'method'   => 'onSelectPlayerLocation',
@@ -120,8 +123,9 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
         )->withArgument('solo')
             ->withArgument('in a new window on its own')                 //>(translatable)<)
             ->withArgument(array())
-            ->withArgument('core/player/web/players/solo/solo.js')
+            ->withArgument('src/core/player/web/players/solo/solo.js')
             ->withArgument(false)
+            ->withTag(tubepress_core_player_api_PlayerLocationInterface::_)
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_player_api_Constants::EVENT_PLAYER_SELECT,
                 'method'   => 'onSelectPlayerLocation',
@@ -134,9 +138,10 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             'tubepress_core_player_impl_BasePlayerLocation'
         )->withArgument('static')
             ->withArgument('statically (page refreshes on each thumbnail click)')                 //>(translatable)<)
-            ->withArgument(array('players/static.tpl.php', TUBEPRESS_ROOT . '/core/themes/web/default/players/static.tpl.php'))
-            ->withArgument('core/player/web/players/static/static.js')
+            ->withArgument(array('players/static.tpl.php', TUBEPRESS_ROOT . '/src/core/themes/web/default/players/static.tpl.php'))
+            ->withArgument('src/core/player/web/players/static/static.js')
             ->withArgument(true)
+            ->withTag(tubepress_core_player_api_PlayerLocationInterface::_)
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_player_api_Constants::EVENT_PLAYER_SELECT,
                 'method'   => 'onSelectPlayerLocation',
@@ -149,9 +154,10 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             'tubepress_core_player_impl_BasePlayerLocation'
         )->withArgument('jqmodal')
             ->withArgument('with jqModal')                 //>(translatable)<)
-            ->withArgument(array('players/jqmodal.tpl.php', TUBEPRESS_ROOT . '/core/themes/web/default/players/jqmodal.tpl.php'))
-            ->withArgument('core/player/web/players/jqmodal/jqmodal.js')
+            ->withArgument(array('players/jqmodal.tpl.php', TUBEPRESS_ROOT . '/src/core/themes/web/default/players/jqmodal.tpl.php'))
+            ->withArgument('src/core/player/web/players/jqmodal/jqmodal.js')
             ->withArgument(true)
+            ->withTag(tubepress_core_player_api_PlayerLocationInterface::_)
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_player_api_Constants::EVENT_PLAYER_SELECT,
                 'method'   => 'onSelectPlayerLocation',

@@ -69,7 +69,7 @@ class tubepress_test_core_http_impl_PrimaryAjaxHandlerTest extends tubepress_tes
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('action')->andReturn('action');
 
-        $this->_sut->setPluggableAjaxCommandHandlers(array($mockHandler));
+        $this->_sut->setAjaxCommands(array($mockHandler));
 
         $this->_sut->handle();
 
@@ -82,9 +82,9 @@ class tubepress_test_core_http_impl_PrimaryAjaxHandlerTest extends tubepress_tes
         $mockHandler->shouldReceive('getName')->andReturn('x');
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('action')->andReturn('action');
-        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(500)->andReturn(500);
+        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(400)->andReturn(400);
 
-        $this->_sut->setPluggableAjaxCommandHandlers(array($mockHandler));
+        $this->_sut->setAjaxCommands(array($mockHandler));
 
         $this->_sut->handle();
 
@@ -94,7 +94,7 @@ class tubepress_test_core_http_impl_PrimaryAjaxHandlerTest extends tubepress_tes
     public function testHandleNoCommandHandlers()
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('action')->andReturn('action');
-        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(500)->andReturn(500);
+        $this->_mockHttpResponseCodeService->shouldReceive('setResponseCode')->once()->with(400)->andReturn(400);
 
         $this->_sut->handle();
 

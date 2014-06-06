@@ -253,7 +253,6 @@ class tubepress_impl_boot_helper_ContainerSupplier
         if ($this->_settingsFileReader->isClassLoaderEnabled()) {
 
             $containerClassMap = $container->getParameter('classMap');
-
             $this->_classLoader->addToClassMap($containerClassMap);
 
         } else {

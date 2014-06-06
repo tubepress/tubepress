@@ -76,7 +76,10 @@ class tubepress_test_core_media_provider_impl_HttpMediaProviderTest extends tube
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
         $mockStream->shouldReceive('toString')->once()->andReturn('body');
 
-        $this->_mockHttpClient->shouldReceive('get')->once()->with($mockUrl)->andReturn($mockResponse);
+        $mockRequest = $this->mock('tubepress_core_http_api_message_RequestInterface');
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $mockUrl)->andReturn($mockRequest);
+        $mockRequest->shouldReceive('setHeader')->once()->with('TubePress-Remote-API-Call', 'true');
+        $this->_mockHttpClient->shouldReceive('send')->once()->with($mockRequest)->andReturn($mockResponse);
 
         $item = $this->setupEventDispatcherForVideo();
         $this->_setupEventDispatcherForUrl($mockUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_PAGE, array(
@@ -110,8 +113,10 @@ class tubepress_test_core_media_provider_impl_HttpMediaProviderTest extends tube
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
         $mockStream->shouldReceive('toString')->once()->andReturn('body');
 
-        $this->_mockHttpClient->shouldReceive('get')->once()->with($mockUrl)->andReturn($mockResponse);
-
+        $mockRequest = $this->mock('tubepress_core_http_api_message_RequestInterface');
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $mockUrl)->andReturn($mockRequest);
+        $mockRequest->shouldReceive('setHeader')->once()->with('TubePress-Remote-API-Call', 'true');
+        $this->_mockHttpClient->shouldReceive('send')->once()->with($mockRequest)->andReturn($mockResponse);
         $this->_setupEventDispatcherForUrl($mockUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_PAGE, array(
             'pageNumber' => 33,
             'provider' => $this->_sut
@@ -139,8 +144,10 @@ class tubepress_test_core_media_provider_impl_HttpMediaProviderTest extends tube
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
         $mockStream->shouldReceive('toString')->once()->andReturn('body');
 
-        $this->_mockHttpClient->shouldReceive('get')->once()->with($mockUrl)->andReturn($mockResponse);
-
+        $mockRequest = $this->mock('tubepress_core_http_api_message_RequestInterface');
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $mockUrl)->andReturn($mockRequest);
+        $mockRequest->shouldReceive('setHeader')->once()->with('TubePress-Remote-API-Call', 'true');
+        $this->_mockHttpClient->shouldReceive('send')->once()->with($mockRequest)->andReturn($mockResponse);
         $this->_setupEventDispatcherForUrl($mockUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_PAGE, array(
             'pageNumber' => 33,
             'provider' => $this->_sut
@@ -170,8 +177,10 @@ class tubepress_test_core_media_provider_impl_HttpMediaProviderTest extends tube
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
         $mockStream->shouldReceive('toString')->once()->andReturn('body');
 
-        $this->_mockHttpClient->shouldReceive('get')->once()->with($mockUrl)->andReturn($mockResponse);
-
+        $mockRequest = $this->mock('tubepress_core_http_api_message_RequestInterface');
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $mockUrl)->andReturn($mockRequest);
+        $mockRequest->shouldReceive('setHeader')->once()->with('TubePress-Remote-API-Call', 'true');
+        $this->_mockHttpClient->shouldReceive('send')->once()->with($mockRequest)->andReturn($mockResponse);
         $this->_setupEventDispatcherForUrl($mockUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_ITEM, array(
             'itemId' => 'x',
             'provider' => $this->_sut
@@ -235,8 +244,10 @@ class tubepress_test_core_media_provider_impl_HttpMediaProviderTest extends tube
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
         $mockStream->shouldReceive('toString')->once()->andReturn('body');
 
-        $this->_mockHttpClient->shouldReceive('get')->once()->with($mockUrl)->andReturn($mockResponse);
-
+        $mockRequest = $this->mock('tubepress_core_http_api_message_RequestInterface');
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $mockUrl)->andReturn($mockRequest);
+        $mockRequest->shouldReceive('setHeader')->once()->with('TubePress-Remote-API-Call', 'true');
+        $this->_mockHttpClient->shouldReceive('send')->once()->with($mockRequest)->andReturn($mockResponse);
         $this->_setupEventDispatcherForUrl($mockUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_ITEM, array(
             'itemId' => 'x',
             'provider' => $this->_sut
@@ -262,8 +273,10 @@ class tubepress_test_core_media_provider_impl_HttpMediaProviderTest extends tube
         $mockResponse->shouldReceive('getBody')->once()->andReturn($mockStream);
         $mockStream->shouldReceive('toString')->once()->andReturn('body');
 
-        $this->_mockHttpClient->shouldReceive('get')->once()->with($mockUrl)->andReturn($mockResponse);
-
+        $mockRequest = $this->mock('tubepress_core_http_api_message_RequestInterface');
+        $this->_mockHttpClient->shouldReceive('createRequest')->once()->with('GET', $mockUrl)->andReturn($mockRequest);
+        $mockRequest->shouldReceive('setHeader')->once()->with('TubePress-Remote-API-Call', 'true');
+        $this->_mockHttpClient->shouldReceive('send')->once()->with($mockRequest)->andReturn($mockResponse);
         $this->_setupEventDispatcherForUrl($mockUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_ITEM, array(
             'itemId' => 'x',
             'provider' => $this->_sut

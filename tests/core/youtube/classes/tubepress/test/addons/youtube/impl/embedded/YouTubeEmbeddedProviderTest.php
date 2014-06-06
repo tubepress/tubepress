@@ -73,7 +73,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_LOOP)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_AUTOHIDE)->andReturn(tubepress_youtube_api_Constants::AUTOHIDE_HIDE_BOTH);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_FULLSCREEN)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_MODEST_BRANDING)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_SHOW_RELATED)->andReturn(false);
@@ -113,7 +113,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_LOOP)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_AUTOHIDE)->andReturn(tubepress_youtube_api_Constants::AUTOHIDE_SHOW_BOTH);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_FULLSCREEN)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_MODEST_BRANDING)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_SHOW_RELATED)->andReturn(false);
@@ -152,7 +152,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_LOOP)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_AUTOHIDE)->andReturn(tubepress_youtube_api_Constants::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_FULLSCREEN)->andReturn(false);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_MODEST_BRANDING)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_youtube_api_Constants::OPTION_SHOW_RELATED)->andReturn(false);

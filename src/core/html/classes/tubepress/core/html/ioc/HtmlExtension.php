@@ -72,7 +72,7 @@ class tubepress_core_html_ioc_HtmlExtension implements tubepress_api_ioc_Contain
 
             'defaultValues' => array(
 
-                tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API => true,
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API => true,
                 tubepress_core_html_api_Constants::OPTION_GALLERY_ID    => null,
                 tubepress_core_html_api_Constants::OPTION_HTTPS         => false,
                 tubepress_core_html_api_Constants::OPTION_OUTPUT        => null,
@@ -80,13 +80,13 @@ class tubepress_core_html_ioc_HtmlExtension implements tubepress_api_ioc_Contain
 
             'labels' => array(
 
-                tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API => 'Enable JavaScript API', //>(translatable)<
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API => 'Enable JavaScript API', //>(translatable)<
                 tubepress_core_html_api_Constants::OPTION_HTTPS         => 'Enable HTTPS',       //>(translatable)<
             ),
 
             'descriptions' => array(
 
-                tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API => 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', //>(translatable)<
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API => 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', //>(translatable)<
                 tubepress_core_html_api_Constants::OPTION_HTTPS         => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
             ),
 

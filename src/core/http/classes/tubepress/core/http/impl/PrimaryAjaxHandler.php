@@ -105,7 +105,7 @@ class tubepress_core_http_impl_PrimaryAjaxHandler implements tubepress_core_http
                 $this->_logger->debug('No pluggable Ajax command services could handle action ' . $actionName);
             }
 
-            $this->_responseCode->setResponseCode(500);
+            $this->_responseCode->setResponseCode(400);
 
             return;
         }

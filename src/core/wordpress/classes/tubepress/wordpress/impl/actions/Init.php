@@ -48,12 +48,15 @@ class tubepress_wordpress_impl_actions_Init
 
         $baseName = basename(TUBEPRESS_ROOT);
 
-        $jsUrl = $this->_wpFunctions->plugins_url("$baseName/src/core/html/web/js/tubepress.js", $baseName);
+        $tubePressJsUrl = $this->_wpFunctions->plugins_url("$baseName/src/core/html/web/js/tubepress.js", $baseName);
+        $ajaxUrl        = $this->_wpFunctions->plugins_url("$baseName/src/core/wordpress/web/js/ajax.js", $baseName);
 
-        $this->_wpFunctions->wp_register_script('tubepress', $jsUrl);
+        $this->_wpFunctions->wp_register_script('tubepress', $tubePressJsUrl, array('jquery'));
+        $this->_wpFunctions->wp_register_script('tubepress_ajax', $ajaxUrl, array('tubepress'));
 
         $this->_wpFunctions->wp_enqueue_script('jquery', false, array(), false, false);
         $this->_wpFunctions->wp_enqueue_script('tubepress', false, array(), false, false);
+        $this->_wpFunctions->wp_enqueue_script('tubepress_ajax', false, array(), false, false);
 
 
         $this->_enqueueThemeResources($this->_wpFunctions);

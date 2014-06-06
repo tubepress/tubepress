@@ -72,6 +72,22 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
             ));
 
         $this->expectRegistration(
+            'tubepress_wordpress_impl_actions_Ajax',
+            'tubepress_wordpress_impl_actions_Ajax'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_AjaxCommandInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.action.wp_ajax_nopriv_tubepress',
+                'method'   => 'action',
+                'priority' => 10000
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_core_options_api_Constants::EVENT_NVP_READ_FROM_EXTERNAL_INPUT . '.action',
+                'method'   => 'onReadActionFromExternalInput',
+                'priority' => 9000
+            ));
+
+
+        $this->expectRegistration(
             'tubepress_wordpress_impl_actions_Init',
             'tubepress_wordpress_impl_actions_Init'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
@@ -104,6 +120,16 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
                 'event'    => 'tubepress.wordpress.action.wp_head',
                 'method'   => 'action',
                 'priority' => 10000
+            ));
+
+        $this->expectRegistration(
+            'tubepress_wordpress_impl_listeners_html_GlobalJsConfig',
+            'tubepress_wordpress_impl_listeners_html_GlobalJsConfig'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_wordpress_spi_WpFunctionsInterface::_))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_core_html_api_Constants::EVENT_GLOBAL_JS_CONFIG,
+                'method'   => 'onConfig',
+                'priority' => 10000,
             ));
 
         $this->expectRegistration(
@@ -277,6 +303,7 @@ class tubepress_test_wordpress_ioc_WordPressIocContainerExtensionTest extends tu
             tubepress_core_options_ui_api_FieldBuilderInterface::_ => $mockFieldBuilder,
             tubepress_api_boot_BootSettingsInterface::_ => tubepress_api_boot_BootSettingsInterface::_,
             'ehough_filesystem_FilesystemInterface' => 'ehough_filesystem_FilesystemInterface',
+            tubepress_core_http_api_AjaxCommandInterface::_ => tubepress_core_http_api_AjaxCommandInterface::_
         );
     }
 }

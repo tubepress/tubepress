@@ -80,7 +80,7 @@ class tubepress_youtube_impl_embedded_YouTubeEmbeddedProvider implements tubepre
         $loop            = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_LOOP);
         $showInfo        = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO);
         $autoHide        = $this->_context->get(tubepress_youtube_api_Constants::OPTION_AUTOHIDE);
-        $enableJsApi     = $this->_context->get(tubepress_core_html_api_Constants::OPTION_ENABLE_JS_API);
+        $enableJsApi     = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API);
         $fullscreen      = $this->_context->get(tubepress_youtube_api_Constants::OPTION_FULLSCREEN);
         $modestBranding  = $this->_context->get(tubepress_youtube_api_Constants::OPTION_MODEST_BRANDING);
         $showRelated     = $this->_context->get(tubepress_youtube_api_Constants::OPTION_SHOW_RELATED);

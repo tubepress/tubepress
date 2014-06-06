@@ -10,8 +10,8 @@
  */
 
 /**
- * @runTestsInSeparateProcesses
- * @preserveGlobalState disabled
+ * @runTestsInS eparateProcesses
+ * @preserveGl obalState disabled
  * @covers tubepress_impl_boot_helper_secondary_UncachedContainerSupplier<extended>
  */
 class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest extends tubepress_test_TubePressUnitTest
@@ -124,7 +124,6 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
         $this->_mockSettingsFileReader->shouldReceive('isContainerCacheEnabled')->once()->andReturn(true);
         $this->_mockClassLoaderHelper->shouldReceive('addClassHintsForAddons')->once()->with($mockAddons, $this->_mockClassLoader);
         $this->_mockAddonDiscoverer->shouldReceive('getAll')->once()->andReturn($mockAddons);
-        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with('classMap', array());
         $this->_mockIocHelper->shouldReceive('compile')->once()->with($this->_mockContainerBuilder, $mockAddons);
         $this->_mockContainerBuilder->shouldReceive('getDelegateContainerBuilder')->times($times)->andReturn($mockIconicBuilder);
         $this->_mockContainerDumper->shouldReceive('dump')->once()->with(array(
@@ -136,6 +135,8 @@ class tubepress_test_impl_boot_secondary_UncachedSecondaryBootstrapperTest exten
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with(tubepress_api_boot_BootSettingsInterface::_, $this->_mockSettingsFileReader);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicBuilder);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_api_ioc_ContainerInterface', $this->_mockContainerBuilder);
+
+        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with('classMap', ehough_mockery_Mockery::on('is_array'));
     }
 
     private function createMockAddonArray()

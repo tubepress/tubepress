@@ -15,6 +15,33 @@ class bootTest extends tubepress_test_TubePressUnitTest
         define('TUBEPRESS_CONTENT_DIRECTORY', TUBEPRESS_ROOT . '/tests/platform/fixtures/scripts/boot');
     }
 
+    public function testFullClassMapValidity()
+    {
+        $platFormClasses  = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/src/platform');
+        $vendorClasses    = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/vendor');
+        $expected         = array_merge($platFormClasses, $vendorClasses);
+        $expected         = array_filter($expected, array($this, '__classesToExcludeFromBootMap'));
+        $classMapFileFile = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full.php';
+        ksort($expected);
+        ksort($classMapFileFile);
+
+        $this->assertEquals($expected, $classMapFileFile, $this->_getExpectedClassMap($expected));
+    }
+
+    private function _getExpectedClassMap(array $expected)
+    {
+        $toReturn = "array(\n";
+
+        foreach ($expected as $className => $path) {
+
+            $toReturn .= "\t'$className' => " . str_replace(TUBEPRESS_ROOT, 'TUBEPRESS_ROOT . \'', $path) . "',\n";
+        }
+
+        $toReturn .= ');';
+
+        return $toReturn;
+    }
+
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
@@ -39,8 +66,6 @@ class bootTest extends tubepress_test_TubePressUnitTest
         $result = require TUBEPRESS_ROOT . '/src/platform/scripts/boot.php';
 
         $now = $this->_getClassesAndInterfacesSnapshot();
-
-        $this->_testClassMapValidity(array_diff($now, $then));
 
         $this->_testBasics($result);
     }
@@ -88,34 +113,28 @@ class bootTest extends tubepress_test_TubePressUnitTest
         }
     }
 
-    private function _testClassMapValidity(array $expected)
-    {
-        $expected = array_filter($expected, array($this, '__classesToExcludeFromBootMap'));
-        $classMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/bootstrap.php';
-        sort($expected);
-        ksort($classMap);
-
-        $this->assertTrue(is_array($classMap));
-
-        $langUtils = new tubepress_impl_util_LangUtils();
-
-        $this->assertTrue($langUtils->isAssociativeArray($classMap), 'Boot classmap is not an associative array');
-
-        foreach ($classMap as $className => $path) {
-
-            $this->assertTrue(is_readable($path) && is_file($path), "$path is not readable. Fix it!");
-        }
-
-        $this->assertEquals($expected, array_keys($classMap));
-    }
-
     public function __classesToExcludeFromBootMap($className)
     {
-        return !in_array($className, array(
+        $thingsToIgnore = array(
+            '/phpunit',
+            '/mockery',
+            '/src/test/',
+            '/Tests/',
+            '\\',
+            '/vendor/symfony/',
+            '/src/platform/scripts/boot.php',
+            '/ContainerAwareTrait.php',
+            '/vendor/composer/'
+        );
 
-            '__tubePressBoot',
-            'TubePressServiceContainer',
-            'tubepress_impl_boot_PrimaryBootstrapper'
-        ));
+        foreach ($thingsToIgnore as $needle) {
+
+            if (strpos($className, $needle) !== false) {
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -17,6 +17,9 @@
 
     var prefix  = 'tubepress_',
         embedded = 'embedded_',
+        text_playerName = 'playerName',
+        text_galleryId  = 'galleryId',
+        text_html       = 'html',
     
         getTitleId = function (gId) {
 
@@ -37,14 +40,15 @@
             return '#' + prefix + embedded + 'object_' + gId;
         },
 
-        invoke = function (e, playerName, height, width, videoId, galleryId) {
+        invoke = function (e, data) {
 
-            if (playerName !== name) {
+            if (data[text_playerName] !== name) {
 
                 return;
             }
 
-            var titleDivId = getTitleId(galleryId),
+            var galleryId  = data[text_galleryId],
+                titleDivId = getTitleId(galleryId),
                 titleDiv   = jquery(titleDivId);
 
             addStyle(titleDivId);
@@ -56,14 +60,16 @@
             }
         },
         
-        populate = function (e, playerName, title, html, height, width, videoId, galleryId) {
+        populate = function (e, data) {
 
-            if (playerName !== name) {
+            if (data[text_playerName] !== name) {
 
                 return;
             }
 
-            jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_' + embedded + 'wrapper:first').replaceWith(html);
+            var galleryId  = data[text_galleryId];
+
+            jquery('#' + prefix + 'gallery_' + galleryId + ' div.' + prefix + 'normal_' + embedded + 'wrapper:first').replaceWith(data[text_html]);
 
             remStyle(getTitleId(galleryId));
             remStyle(getEmbedId(galleryId));

@@ -28,7 +28,7 @@
             return id.substring(16, end);
         },
 
-        scanAndModifyThumbs = function () {
+        scanAndModifyThumbs = function (e) {
 
             jquery("a[id^='tubepress_']").each(function () {
 
@@ -59,7 +59,7 @@
 
     } else {
 
-        tubePress.DomInjector.loadJs(tubePress.Environment.getBaseUrl() + '/src/main/web/vendor/jquery.query/jQuery.query.js');
+        tubePress.DomInjector.loadJs(tubePress.Environment.getBaseUrl() + '/src/core/player/web/vendor/jquery.query/jQuery.query.js');
         tubePressLangUtils.callWhenTrue(
 
             scanAndModifyThumbs,
