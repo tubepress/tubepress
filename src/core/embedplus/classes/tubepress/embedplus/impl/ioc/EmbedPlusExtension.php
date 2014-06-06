@@ -22,14 +22,14 @@ class tubepress_embedplus_impl_ioc_EmbedPlusExtension implements tubepress_api_i
      * @return void
      *
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
-    public final function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
+    public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
 
-            'tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService',
-            'tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService'
+            'tubepress_embedplus_impl_embedded_EmbedPlusProvider',
+            'tubepress_embedplus_impl_embedded_EmbedPlusProvider'
 
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_template_api_TemplateFactoryInterface::_))

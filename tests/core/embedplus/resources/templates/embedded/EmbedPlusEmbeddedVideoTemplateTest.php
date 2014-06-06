@@ -15,12 +15,12 @@ class tubepress_test_embedplus_resources_templates_embedded_EmbedPlusEmbeddedVid
         $this->expectOutputString(<<<EOT
 <object id="video-dom-id" type="application/x-shockwave-flash" width="99" height="120" data="http://getembedplus.com/embedplus.swf">
 
-	<param name="movie"		value="http://getembedplus.com/embedplus.swf" />
-	<param name="quality"		value="high" />
-	<param name="wmode"		value="transparent" />
+	<param name="movie"		        value="http://getembedplus.com/embedplus.swf" />
+	<param name="quality"		    value="high" />
+	<param name="wmode"		        value="transparent" />
 	<param name="allowscriptaccess"	value="always" />
 	<param name="allowFullScreen"	value="true" />
-	<param name="flashvars" 	value="ytid=video-id&width=99&height=88&hd=1" />
+	<param name="flashvars" 	    value="ytid=video-id&width=99&height=88&hd=1" />
 
 	<iframe class="cantembedplus" title="YouTube video player" width="99" height="88" src="data-url" frameborder="0" allowfullscreen></iframe>
 </object>

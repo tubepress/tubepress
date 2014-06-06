@@ -12,7 +12,7 @@
 /**
  * Plays videos with EmbedPlus.
  */
-class tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService implements tubepress_core_embedded_api_EmbeddedProviderInterface
+class tubepress_embedplus_impl_embedded_EmbedPlusProvider implements tubepress_core_embedded_api_EmbeddedProviderInterface
 {
     /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
@@ -41,9 +41,9 @@ class tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService impleme
     }
 
     /**
-     * @param tubepress_core_url_api_UrlFactoryInterface         $urlFactory URL factory
+     * @param tubepress_core_url_api_UrlFactoryInterface               $urlFactory URL factory
      * @param tubepress_core_media_provider_api_MediaProviderInterface $provider   The video provider
-     * @param string                                             $mediaId    The video ID to play
+     * @param string                                                   $mediaId    The video ID to play
      *
      * @return tubepress_core_url_api_UrlInterface The URL of the data for this video.
      *
@@ -51,8 +51,8 @@ class tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService impleme
      * @since 4.0.0
      */
     public function getDataUrlForMediaItem(tubepress_core_url_api_UrlFactoryInterface $urlFactory,
-                                tubepress_core_media_provider_api_MediaProviderInterface $provider,
-                                $mediaId)
+                                           tubepress_core_media_provider_api_MediaProviderInterface $provider,
+                                           $mediaId)
     {
         return $urlFactory->fromString(sprintf('http://www.youtube.com/embed/%s', $mediaId));
     }

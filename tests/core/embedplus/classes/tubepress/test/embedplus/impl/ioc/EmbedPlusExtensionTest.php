@@ -22,8 +22,8 @@ class tubepress_test_embedplus_impl_ioc_EmbedPlusExtensionTest extends tubepress
     protected function prepareForLoad()
     {
         $this->expectRegistration(
-            'tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService',
-            'tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService'
+            'tubepress_embedplus_impl_embedded_EmbedPlusProvider',
+            'tubepress_embedplus_impl_embedded_EmbedPlusProvider'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_url_api_UrlFactoryInterface::_))
          ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_template_api_TemplateFactoryInterface::_))
          ->withTag(tubepress_core_embedded_api_EmbeddedProviderInterface::_);
@@ -33,8 +33,8 @@ class tubepress_test_embedplus_impl_ioc_EmbedPlusExtensionTest extends tubepress
     {
         return array(
 
-            'tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService' =>
-                'tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService'
+            'tubepress_embedplus_impl_embedded_EmbedPlusProvider' =>
+                'tubepress_embedplus_impl_embedded_EmbedPlusProvider'
         );
     }
 

@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService
+ * @covers tubepress_embedplus_impl_embedded_EmbedPlusProvider
  */
 class tubepress_test_embedplus_impl_embedded_EmbedPlusEmbeddedProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService
+     * @var tubepress_embedplus_impl_embedded_EmbedPlusProvider
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_embedplus_impl_embedded_EmbedPlusEmbeddedProviderTest exten
         $this->_mockUrlFactory = $this->mock(tubepress_core_url_api_UrlFactoryInterface::_);
         $this->_mockTemplateFactory = $this->mock(tubepress_core_template_api_TemplateFactoryInterface::_);
 
-        $this->_sut = new tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService($this->_mockUrlFactory, $this->_mockTemplateFactory);
+        $this->_sut = new tubepress_embedplus_impl_embedded_EmbedPlusProvider($this->_mockUrlFactory, $this->_mockTemplateFactory);
     }
 
     public function testGetName()

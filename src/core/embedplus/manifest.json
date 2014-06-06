@@ -23,8 +23,8 @@
             "tubepress_embedplus" : "classes"
         },
         "classmap" : {
-            "tubepress_embedplus_impl_embedded_EmbedPlusEmbeddedProviderService" : "classes/tubepress/embedplus/impl/embedded/EmbedPlusEmbeddedProviderService.php",
-            "tubepress_embedplus_impl_ioc_EmbedPlusExtension"                    : "classes/tubepress/embedplus/impl/ioc/EmbedPlusExtension.php"
+            "tubepress_embedplus_impl_embedded_EmbedPlusProvider" : "classes/tubepress/embedplus/impl/embedded/EmbedPlusProvider.php",
+            "tubepress_embedplus_impl_ioc_EmbedPlusExtension"     : "classes/tubepress/embedplus/impl/ioc/EmbedPlusExtension.php"
         }
     }
 }
