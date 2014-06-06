@@ -76,67 +76,67 @@ interface tubepress_core_html_gallery_api_Constants
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_AUTONEXT = 'autoNext';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_GALLERY_SOURCE = 'mode';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_SEQUENCE = 'sequence';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_AJAX_PAGINATION = 'ajaxPagination';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_FLUID_THUMBS = 'fluidThumbs';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_HQ_THUMBS = 'hqThumbs';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_PAGINATE_ABOVE = 'paginationAbove';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_PAGINATE_BELOW = 'paginationBelow';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_RANDOM_THUMBS = 'randomize_thumbnails';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_THUMB_HEIGHT = 'thumbHeight';
 
     /**
      * @api
-     * @since 3.1.0
+     * @since 4.0.0
      */
     const OPTION_THUMB_WIDTH = 'thumbWidth';
 }

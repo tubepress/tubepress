@@ -23,16 +23,11 @@
             "tubepress_core_html_gallery_" : "classes"
         },
         "classmap" : {
-            "tubepress_core_html_gallery_api_Constants"                               : "classes/tubepress/core/html/gallery/api/Constants.php",
-            "tubepress_core_html_gallery_impl_listeners_html_GalleryInitJsBaseParams" : "classes/tubepress/core/html/gallery/impl/listeners/html/GalleryInitJsBaseParams.php",
-            "tubepress_core_html_gallery_impl_listeners_html_NoRobotsListener"        : "classes/tubepress/core/html/gallery/impl/listeners/html/NoRobotsListener.php",
-            "tubepress_core_html_gallery_impl_listeners_html_AsyncJsInjector"         : "classes/tubepress/core/html/gallery/impl/listeners/html/AsyncJsInjector.php",
-            "tubepress_core_html_gallery_impl_listeners_html_GalleryMaker"            : "classes/tubepress/core/html/gallery/impl/listeners/html/GalleryMaker.php",
-            "tubepress_core_html_gallery_impl_listeners_template_CoreVariables"       : "classes/tubepress/core/html/gallery/impl/listeners/template/CoreVariables.php",
-            "tubepress_core_html_gallery_impl_listeners_template_EmbeddedVars"        : "classes/tubepress/core/html/gallery/impl/listeners/template/EmbeddedVars.php",
-            "tubepress_core_html_gallery_impl_listeners_template_Pagination"          : "classes/tubepress/core/html/gallery/impl/listeners/template/Pagination.php",
-            "tubepress_core_html_gallery_impl_listeners_template_PlayerLocation"      : "classes/tubepress/core/html/gallery/impl/listeners/template/PlayerLocation.php",
-            "tubepress_core_html_gallery_impl_listeners_template_VideoMeta"           : "classes/tubepress/core/html/gallery/impl/listeners/template/VideoMeta.php"
+            "tubepress_core_html_gallery_api_Constants"                              : "classes/tubepress/core/html/gallery/api/Constants.php",
+            "tubepress_core_html_gallery_impl_listeners_AbstractGalleryListener"     : "classes/tubepress/core/html/gallery/impl/listeners/AbstractGalleryListener.php",
+            "tubepress_core_html_gallery_impl_listeners_CoreGalleryHtmlListener"     : "classes/tubepress/core/html/gallery/impl/listeners/CoreGalleryHtmlListener.php",
+            "tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener" : "classes/tubepress/core/html/gallery/impl/listeners/CoreGalleryTemplateListener.php",
+            "tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener"  : "classes/tubepress/core/html/gallery/impl/listeners/PaginationTemplateListener.php"
         }
     }
 }

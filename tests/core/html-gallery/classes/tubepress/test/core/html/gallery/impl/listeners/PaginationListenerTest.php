@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_core_html_gallery_impl_listeners_template_Pagination
+ * @covers tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener
  */
-class tubepress_test_core_html_gallery_impl_listeners_template_ThumbGalleryPaginationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_core_html_gallery_impl_listeners_template_PaginationListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_core_html_gallery_impl_listeners_template_Pagination
+     * @var tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener
      */
     private $_sut;
 
@@ -110,7 +110,7 @@ class tubepress_test_core_html_gallery_impl_listeners_template_ThumbGalleryPagin
             tubepress_core_template_api_const_VariableNames::PAGINATION_TOP    => 'pagination-html'
         ));
 
-        $this->_sut = new tubepress_core_html_gallery_impl_listeners_template_Pagination(
+        $this->_sut = new tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener(
             
             $this->_mockExecutionContext,
             $this->_mockCurrentUrlService,
