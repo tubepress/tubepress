@@ -109,7 +109,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
      */
     public function buildUrlForPage($currentPage)
     {
-        switch ($this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)) {
+        switch ($this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE)) {
 
             case tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER:
 
@@ -434,7 +434,7 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
          */
 
         $requestedSortOrder   = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY);
-        $currentGallerySource = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
+        $currentGallerySource = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE);
         $query                = $url->getQuery();
 
         if ($requestedSortOrder === tubepress_core_media_provider_api_Constants::ORDER_BY_DEFAULT) {

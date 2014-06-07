@@ -169,7 +169,7 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
 
     private function _calculateRealMax($reported)
     {
-        $mode = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
+        $mode = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE);
 
         switch ($mode) {
             case tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH:

@@ -61,6 +61,12 @@ interface tubepress_core_media_provider_api_Constants
      * @api
      * @since 4.0.0
      */
+    const OPTION_GALLERY_SOURCE = 'mode';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
     const OPTION_ORDER_BY = 'orderBy';
 
     /**

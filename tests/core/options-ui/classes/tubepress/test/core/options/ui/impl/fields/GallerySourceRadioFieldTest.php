@@ -109,7 +109,7 @@ class tubepress_test_core_options_ui_impl_fields_GallerySourceRadioFieldTest ext
      */
     protected function prepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $template)
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('somethin');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('somethin');
         $this->_mockAdditionalField->shouldReceive('getWidgetHTML')->once()->andReturn('boo');
 
         $template->shouldReceive('setVariable')->once()->with('modeName', 'foo');

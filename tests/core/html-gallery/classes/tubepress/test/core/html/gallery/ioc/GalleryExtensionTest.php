@@ -68,7 +68,10 @@ class tubepress_test_core_html_gallery_ioc_GalleryExtensionTest extends tubepres
             ->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_core_player_api_PlayerLocationInterface::_,
                 'method' => 'setPlayerLocations'
-            ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            ))->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
+                'method' => 'setMediaProviders'))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_html_gallery_api_Constants::EVENT_TEMPLATE_THUMBNAIL_GALLERY,
                 'method'   => 'onGalleryTemplate',
                 'priority' => 10400
@@ -91,12 +94,11 @@ class tubepress_test_core_html_gallery_ioc_GalleryExtensionTest extends tubepres
                 'priority' => 10200
             ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE, array(
+        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_gallery', array(
 
             'defaultValues' => array(
                 tubepress_core_html_gallery_api_Constants::OPTION_AJAX_PAGINATION => false,
                 tubepress_core_html_gallery_api_Constants::OPTION_AUTONEXT        => true,
-                tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE  => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
                 tubepress_core_html_gallery_api_Constants::OPTION_FLUID_THUMBS    => true,
                 tubepress_core_html_gallery_api_Constants::OPTION_HQ_THUMBS       => false,
                 tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE  => true,
@@ -131,18 +133,18 @@ class tubepress_test_core_html_gallery_ioc_GalleryExtensionTest extends tubepres
                 tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH      => sprintf('Default is %s.', 120),  //>(translatable)<
             ),
 
-            'noPersistNames' => array(
+            'doNotPersistNames' => array(
                 tubepress_core_html_gallery_api_Constants::OPTION_SEQUENCE,
             ),
 
-            'proNames' => array(
+            'proOptionNames' => array(
                 tubepress_core_html_gallery_api_Constants::OPTION_AJAX_PAGINATION,
                 tubepress_core_html_gallery_api_Constants::OPTION_AUTONEXT,
                 tubepress_core_html_gallery_api_Constants::OPTION_HQ_THUMBS,
             )
         ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION, array(
+        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_gallery', array(
 
             'priority' => 30000,
             'map'      => array(

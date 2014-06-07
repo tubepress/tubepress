@@ -19,17 +19,21 @@ class tubepress_core_options_impl_easy_EasyValidator
         'positiveInteger',
         'nonNegativeInteger',
         'oneOrMoreWordChars',
+        'oneOrMoreWordCharsPlusHyphen',
         'zeroOrMoreWordChars',
-        'hexColor'
+        'hexColor',
+        'youTubeVideoId'
     );
 
     private static $_REGEXES = array(
 
-        'positiveInteger'     => '/[1-9][0-9]{0,6}/',
-        'nonNegativeInteger'  => '/0|[1-9][0-9]{0,6}/',
-        'oneOrMoreWordChars'  => '/\w+/',
-        'zeroOrMoreWordChars' => '/\w*/',
-        'hexColor'            => '/^([0-9a-f]{1,2}){3}$/i'
+        'positiveInteger'              => '/[1-9][0-9]{0,6}/',
+        'nonNegativeInteger'           => '/0|[1-9][0-9]{0,6}/',
+        'oneOrMoreWordChars'           => '/\w+/',
+        'oneOrMoreWordCharsPlusHyphen' => '/[\w-]+/',
+        'zeroOrMoreWordChars'          => '/\w*/',
+        'hexColor'                     => '/^([0-9a-f]{1,2}){3}$/i',
+        'youTubeVideoId'               => '/[a-zA-Z0-9_-]{11}/'
     );
 
     /**

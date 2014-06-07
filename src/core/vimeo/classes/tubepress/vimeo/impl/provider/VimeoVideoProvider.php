@@ -106,7 +106,7 @@ class tubepress_vimeo_impl_provider_VimeoVideoProvider implements tubepress_core
     public function buildUrlForPage($currentPage)
     {
         $params = array();
-        $mode   = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
+        $mode   = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE);
 
         $this->_verifyKeyAndSecretExists();
 

@@ -43,6 +43,7 @@ class tubepress_core_http_ioc_HttpExtension implements tubepress_api_ioc_Contain
             tubepress_core_http_api_HttpClientInterface::_,
             'tubepress_core_http_impl_puzzle_PuzzleHttpClient'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('puzzle.httpClient'));
 
         $containerBuilder->register(

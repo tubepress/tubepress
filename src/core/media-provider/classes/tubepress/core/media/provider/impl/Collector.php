@@ -66,10 +66,10 @@ class tubepress_core_media_provider_impl_Collector implements tubepress_core_med
      */
     public function collectPage()
     {
-        $mediaSource           = $this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE);
-        $result                = null;
-        $providerName          = null;
-        $currentPage           = $this->_getCurrentPage();
+        $mediaSource  = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE);
+        $result       = null;
+        $providerName = null;
+        $currentPage  = $this->_getCurrentPage();
 
         if ($this->_isDebugEnabled) {
 

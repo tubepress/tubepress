@@ -18,7 +18,7 @@ class tubepress_core_options_ui_impl_fields_GallerySourceField extends tubepress
                                 tubepress_core_options_api_PersistenceInterface    $persistence,
                                 tubepress_core_http_api_RequestParametersInterface $requestParams)
     {
-        parent::__construct(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, $translator, $persistence, $requestParams);
+        parent::__construct(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE, $translator, $persistence, $requestParams);
     }
 
     /**
@@ -28,7 +28,7 @@ class tubepress_core_options_ui_impl_fields_GallerySourceField extends tubepress
      */
     public function onSubmit()
     {
-        $fieldName = tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE;
+        $fieldName = tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE;
 
         if (!$this->getHttpRequestParameters()->hasParam($fieldName)) {
 

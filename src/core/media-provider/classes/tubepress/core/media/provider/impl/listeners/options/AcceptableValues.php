@@ -38,10 +38,9 @@ class tubepress_core_media_provider_impl_listeners_options_AcceptableValues
             $current = array();
         }
 
-        $fromProviders = array();
         foreach ($this->_videoProviders as $provider) {
 
-            $fromProviders = array_merge($fromProviders, $provider->$methodName());
+            $current = array_merge($current, $provider->$methodName());
         }
 
         $event->setSubject($current);

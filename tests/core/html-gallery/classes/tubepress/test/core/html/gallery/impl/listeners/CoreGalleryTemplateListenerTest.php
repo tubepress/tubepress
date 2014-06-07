@@ -81,6 +81,7 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
 
     public function testOnTemplate()
     {
+        $this->_testEmbeddedImplName();
         $this->_testGalleryIdAndItems();
         $this->_testThumbSizes();
         $this->_testPlayerLocationStuff();
@@ -89,6 +90,11 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $this->_sut->onGalleryTemplate($this->_mockEvent);
 
         $this->assertTrue(true);
+    }
+
+    private function _testEmbeddedImplName()
+    {
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_IMPL_NAME, 'x');
     }
 
     private function _testVideoMetaStuff()

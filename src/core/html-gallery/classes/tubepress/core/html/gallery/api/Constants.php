@@ -84,12 +84,6 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTION_GALLERY_SOURCE = 'mode';
-
-    /**
-     * @api
-     * @since 4.0.0
-     */
     const OPTION_SEQUENCE = 'sequence';
 
     /**

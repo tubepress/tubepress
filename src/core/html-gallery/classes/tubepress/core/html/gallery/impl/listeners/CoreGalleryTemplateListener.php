@@ -47,6 +47,9 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
          */
         $template = $event->getSubject();
 
+        //shim for old templates :(
+        $template->setVariable(tubepress_core_template_api_const_VariableNames::EMBEDDED_IMPL_NAME, 'x');
+
         $this->_setItemArrayAndGalleryId($event, $template);
         $this->_setThumbnailSizes($template);
         $this->_setPlayerLocationStuff($event, $template);

@@ -112,7 +112,7 @@ class tubepress_core_html_search_impl_listeners_html_SearchOutputListener
         $modeName  = $provider->getSearchModeName();
         $valueName = $provider->getSearchQueryOptionName();
 
-        $this->_context->setEphemeralOption(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE, $modeName);
+        $this->_context->setEphemeralOption(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE, $modeName);
         $this->_context->setEphemeralOption($valueName, $rawSearchTerms);
     }
 

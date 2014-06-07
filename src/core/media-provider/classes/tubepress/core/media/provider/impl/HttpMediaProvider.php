@@ -291,22 +291,70 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
 
     private function _fetchFeedAndPrepareForAnalysis($url)
     {
+        $debugStream = null;
+        $requestOpts = array();
+
+        if ($this->_logger->isEnabled()) {
+
+            $debugStream          = fopen('php://memory','r+');
+            $requestOpts['debug'] = $debugStream;
+        }
+
         try {
 
-            $httpRequest = $this->_httpClient->createRequest('GET', $url);
-            $httpRequest->setHeader('TubePress-Remote-API-Call', 'true');
+            $httpRequest = $this->_httpClient->createRequest('GET', $url, $requestOpts);
+
+            /**
+             * Allows the cache to recognize this as an API call.
+             */
+            $httpRequest->setConfig(array_merge($httpRequest->getConfig(), array('tubepress-remote-api-call' => true)));
+
             $httpResponse = $this->_httpClient->send($httpRequest);
 
         } catch (tubepress_core_http_api_exception_RequestException $e) {
 
+            $this->_flushDebugStream($debugStream, true);
+
             throw new tubepress_core_media_provider_api_exception_ProviderException($e->getMessage());
         }
 
+        $this->_flushDebugStream($debugStream, false);
+
         $rawFeed = $httpResponse->getBody()->toString();
+
+        if ($this->_logger->isEnabled()) {
+
+            $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
+                $url, htmlspecialchars($rawFeed)));
+        }
 
         $this->_delegate->onAnalysisStart($rawFeed);
 
         return $rawFeed;
+    }
+
+    private function _flushDebugStream($stream, $error)
+    {
+        if (!$stream) {
+
+            return;
+        }
+
+        rewind($stream);
+
+        $contents = stream_get_contents($stream);
+        $contents = explode("\n", $contents);
+
+        foreach ($contents as $line) {
+
+            if ($error) {
+
+                $this->_logger->error($line);
+                continue;
+            }
+
+            $this->_logger->debug($line);
+        }
     }
 
     private function _emptyPage(tubepress_core_media_provider_api_Page $page)

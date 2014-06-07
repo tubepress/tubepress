@@ -39,6 +39,7 @@ class tubepress_test_core_http_impl_HttpExtensionTest extends tubepress_test_cor
             tubepress_core_http_api_HttpClientInterface::_,
             'tubepress_core_http_impl_puzzle_PuzzleHttpClient'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
+        ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference('puzzle.httpClient'));
 
         $this->expectRegistration(
@@ -105,6 +106,9 @@ class tubepress_test_core_http_impl_HttpExtensionTest extends tubepress_test_cor
         $logger = $this->mock(tubepress_api_log_LoggerInterface::_);
         $logger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 
+        $environment = $this->mock(tubepress_core_environment_api_EnvironmentInterface::_);
+        $environment->shouldReceive('getVersion')->once()->andReturn('1.2.3');
+
         return array(
 
             tubepress_api_log_LoggerInterface::_ => $logger,
@@ -112,6 +116,7 @@ class tubepress_test_core_http_impl_HttpExtensionTest extends tubepress_test_cor
             tubepress_core_player_api_PlayerHtmlInterface::_ => tubepress_core_player_api_PlayerHtmlInterface::_,
             tubepress_core_media_provider_api_CollectorInterface::_ => tubepress_core_media_provider_api_CollectorInterface::_,
             tubepress_core_event_api_EventDispatcherInterface::_ => tubepress_core_event_api_EventDispatcherInterface::_,
+            tubepress_core_environment_api_EnvironmentInterface::_ => $environment
         );
     }
 }

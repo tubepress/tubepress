@@ -91,7 +91,7 @@ class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_cache_api_Constants::ENABLED)->andReturn(true);
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_setupRequestFromEvent($request);
-        $this->_mockRequest->shouldReceive('hasHeader')->once()->with('TubePress-Remote-API-Call')->andReturn(false);
+        $this->_mockRequest->shouldReceive('getConfig')->once()->andReturn(array());
 
         $this->_runEvent($method);
     }
@@ -132,9 +132,8 @@ class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends
 
         $this->_mockLogger->shouldReceive('debug')->once()->with('Asking cache for <a href="<url>">URL</a>');
         $this->_mockLogger->shouldReceive('debug')->once()->with('Cache hit for <a href="<url>">URL</a>.');
-        $this->_mockLogger->shouldReceive('debug')->once()->with('Cached result for <a href="<url>">URL</a> is in the HTML source for this page. <span style="display:none">abc</span>');
         $this->_mockApiCache->shouldReceive('getItem')->once()->with('<url>')->andReturn($this->_mockCacheItem);
-        $this->_mockCacheItem->shouldReceive('get')->twice()->andReturn('abc');
+        $this->_mockCacheItem->shouldReceive('get')->once()->andReturn('abc');
         $this->_mockCacheItem->shouldReceive('isMiss')->twice()->andReturn(false);
 
         $this->_mockEvent->shouldReceive('setArgument')->once()->with('response', ehough_mockery_Mockery::on(function ($response) {
@@ -164,8 +163,7 @@ class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockResponse);
         $this->_mockResponse->shouldReceive('getBody')->once()->andReturn($this->_mockBody);
-        $this->_mockBody->shouldReceive('toString')->twice()->andReturn('abc');
-        $this->_mockLogger->shouldReceive('debug')->once()->with('Raw result for <a href="<url>">URL</a> is in the HTML source for this page. <span style="display:none">abc</span>');
+        $this->_mockBody->shouldReceive('toString')->once()->andReturn('abc');
         $this->_mockLogger->shouldReceive('error')->once()->with('Unable to store data to cache');
         $this->_mockApiCache->shouldReceive('getItem')->once()->with('<url>')->andReturn($this->_mockCacheItem);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_cache_api_Constants::LIFETIME_SECONDS)->andReturn(44);
@@ -182,8 +180,7 @@ class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockResponse);
         $this->_mockResponse->shouldReceive('getBody')->once()->andReturn($this->_mockBody);
-        $this->_mockBody->shouldReceive('toString')->twice()->andReturn('abc');
-        $this->_mockLogger->shouldReceive('debug')->once()->with('Raw result for <a href="<url>">URL</a> is in the HTML source for this page. <span style="display:none">abc</span>');
+        $this->_mockBody->shouldReceive('toString')->once()->andReturn('abc');
         $this->_mockApiCache->shouldReceive('getItem')->once()->with('<url>')->andReturn($this->_mockCacheItem);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_cache_api_Constants::LIFETIME_SECONDS)->andReturn(44);
         $this->_mockCacheItem->shouldReceive('set')->once()->with('abc', 44)->andReturn(true);
@@ -208,7 +205,7 @@ class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_cache_api_Constants::ENABLED)->andReturn(true);
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockEvent->shouldReceive('getArgument')->atLeast(1)->with('request')->andReturn($this->_mockRequest);
-        $this->_mockRequest->shouldReceive('hasHeader')->once()->with('TubePress-Remote-API-Call')->andReturn(true);
+        $this->_mockRequest->shouldReceive('getConfig')->once()->andReturn(array('tubepress-remote-api-call' => true));
         $this->_mockRequest->shouldReceive('getUrl')->andReturn($this->_mockUrl);
         $this->_mockUrl->shouldReceive('__toString')->andReturn('<url>');
     }

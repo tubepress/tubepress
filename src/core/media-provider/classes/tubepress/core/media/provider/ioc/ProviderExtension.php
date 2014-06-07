@@ -52,14 +52,14 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
             'tubepress_core_media_provider_impl_listeners_options_AcceptableValues',
             'tubepress_core_media_provider_impl_listeners_options_AcceptableValues'
         )->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
-            'tag' => 'tubepress_core_media_provider_api_MediaProviderInterface',
+            'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
             'method' => 'setVideoProviders'
         ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY,
             'method'   => 'onOrderBy',
             'priority' => 10300
         ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-            'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE,
+            'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE,
             'method'   => 'onMode',
             'priority' => 10300
         ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
@@ -94,10 +94,11 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
             'priority' => 10000
         ));
 
-        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_collector', array(
+        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_provider', array(
 
             'defaultValues' => array(
 
+                tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE   => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY         => 'default',
                 tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT    => tubepress_core_media_provider_api_Constants::PER_PAGE_SORT_NONE,
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP => 0,
@@ -145,7 +146,7 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
             )
         ));
 
-        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_collector', array(
+        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_provider', array(
 
             'priority' => 30000,
             'map'      => array(

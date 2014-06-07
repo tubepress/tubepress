@@ -86,6 +86,10 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_api_ioc_Co
             'method'   => 'onAction_ajax',
             'priority' => 10000
         ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.action.wp_ajax_tubepress',
+            'method'   => 'onAction_ajax',
+            'priority' => 10000
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_options_api_Constants::EVENT_NVP_READ_FROM_EXTERNAL_INPUT . '.action',
             'method'   => 'onReadActionFromExternalInput',
             'priority' => 9000

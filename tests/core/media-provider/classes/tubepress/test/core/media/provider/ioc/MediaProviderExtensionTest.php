@@ -53,7 +53,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
                 'method'   => 'onOrderBy',
                 'priority' => 10300
             ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
-                'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE,
+                'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE,
                 'method'   => 'onMode',
                 'priority' => 10300
             ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
@@ -88,10 +88,11 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
                 'priority' => 10000
             ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_collector', array(
+        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_provider', array(
 
             'defaultValues' => array(
 
+                tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE   => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY         => 'default',
                 tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT    => tubepress_core_media_provider_api_Constants::PER_PAGE_SORT_NONE,
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP => 0,
@@ -139,7 +140,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
                 )
             ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_collector', array(
+        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_provider', array(
 
             'priority' => 30000,
             'map'      => array(

@@ -88,15 +88,8 @@ class tubepress_core_cache_impl_listeners_http_ApiCacheListener
             return;
         }
 
-        $url  = $httpRequest->getUrl();
-        $body = $httpResponse->getBody();
-
-        if ($this->_logger->isEnabled()) {
-
-            $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
-                $url, htmlspecialchars($body->toString())));
-        }
-
+        $url    = $httpRequest->getUrl();
+        $body   = $httpResponse->getBody();
         $result = $this->_getItem($url);
 
         $storedSuccessfully = $result->set($body->toString(), $this->_context->get(tubepress_core_cache_api_Constants::LIFETIME_SECONDS));
@@ -137,7 +130,9 @@ class tubepress_core_cache_impl_listeners_http_ApiCacheListener
             return false;
         }
 
-        if (!$request->hasHeader('TubePress-Remote-API-Call')) {
+        $config = $request->getConfig();
+
+        if (!isset($config['tubepress-remote-api-call'])) {
 
             return false;
         }
@@ -173,9 +168,6 @@ class tubepress_core_cache_impl_listeners_http_ApiCacheListener
             } else {
 
                 $this->_logger->debug(sprintf('Cache hit for <a href="%s">URL</a>.', $url));
-
-                $this->_logger->debug(sprintf('Cached result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
-                    $url, htmlspecialchars($result->get())));
             }
         }
 

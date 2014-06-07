@@ -109,7 +109,7 @@ class tubepress_test_core_media_provider_impl_CollectorTest extends tubepress_te
         $this->_mockProvider->shouldReceive('fetchPage')->once()->with(97)->andReturn($mockPage);
         $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('x');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('x');
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_core_http_api_Constants::PARAM_NAME_PAGE, 1)->andReturn(97);
 
@@ -131,7 +131,7 @@ class tubepress_test_core_media_provider_impl_CollectorTest extends tubepress_te
         $this->_mockProvider->shouldReceive('getName')->andReturn('provider-name');
         $this->_mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array());
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('x');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('x');
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_core_http_api_Constants::PARAM_NAME_PAGE, 1)->andReturn(97);
 
@@ -155,7 +155,7 @@ class tubepress_test_core_media_provider_impl_CollectorTest extends tubepress_te
 
     public function testMultipleNoProviders()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('x');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE)->andReturn('x');
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_core_http_api_Constants::PARAM_NAME_PAGE, 1)->andReturn(97);
 

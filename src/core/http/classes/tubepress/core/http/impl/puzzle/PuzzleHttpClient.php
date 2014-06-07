@@ -15,8 +15,9 @@ class tubepress_core_http_impl_puzzle_PuzzleHttpClient extends tubepress_core_ht
      */
     private $_delegate;
 
-    public function __construct(tubepress_core_event_api_EventDispatcherInterface $eventDispatcher,
-                                puzzle_Client                                     $delegate)
+    public function __construct(tubepress_core_event_api_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_core_environment_api_EnvironmentInterface $environment,
+                                puzzle_Client                                       $delegate)
     {
         parent::__construct($eventDispatcher);
 
@@ -31,8 +32,24 @@ class tubepress_core_http_impl_puzzle_PuzzleHttpClient extends tubepress_core_ht
         }
 
         $this->_delegate = $delegate;
+        $this->_delegate->setDefaultOption('headers', array('User-Agent' => $this->_defaultUserAgent($environment)));
 
         $delegate->getEmitter()->attach($this);
+    }
+
+    private function _defaultUserAgent(tubepress_core_environment_api_EnvironmentInterface $environment)
+    {
+        $toReturn = 'tubepress/' . $environment->getVersion();
+
+        if (extension_loaded('curl')) {
+
+            $curlVersion = curl_version();
+            $toReturn .= ' curl/' . $curlVersion['version'];
+        }
+
+        $toReturn .= ' PHP/' . PHP_VERSION;
+
+        return $toReturn;
     }
 
     /**
