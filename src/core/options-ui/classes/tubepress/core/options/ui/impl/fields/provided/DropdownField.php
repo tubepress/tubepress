@@ -19,14 +19,20 @@ class tubepress_core_options_ui_impl_fields_provided_DropdownField extends tubep
      */
     private $_langUtils;
 
+    /**
+     * @var tubepress_core_options_api_AcceptableValuesInterface
+     */
+    private $_acceptableValues;
+
     public function __construct($optionName,
                                 tubepress_core_translation_api_TranslatorInterface   $translator,
                                 tubepress_core_options_api_PersistenceInterface      $persistence,
                                 tubepress_core_http_api_RequestParametersInterface   $requestParams,
                                 tubepress_core_event_api_EventDispatcherInterface    $eventDispatcher,
-                                tubepress_core_options_api_ReferenceInterface         $optionsReference,
+                                tubepress_core_options_api_ReferenceInterface        $optionsReference,
                                 tubepress_core_template_api_TemplateFactoryInterface $templateFactory,
-                                tubepress_api_util_LangUtilsInterface                $langUtils)
+                                tubepress_api_util_LangUtilsInterface                $langUtils,
+                                tubepress_core_options_api_AcceptableValuesInterface $acceptableValues)
     {
         parent::__construct(
 
@@ -39,7 +45,8 @@ class tubepress_core_options_ui_impl_fields_provided_DropdownField extends tubep
             $optionsReference
         );
 
-        $this->_langUtils = $langUtils;
+        $this->_langUtils        = $langUtils;
+        $this->_acceptableValues = $acceptableValues;
     }
 
     protected function getAbsolutePathToTemplate()
@@ -50,7 +57,7 @@ class tubepress_core_options_ui_impl_fields_provided_DropdownField extends tubep
     protected function getAdditionalTemplateVariables()
     {
         $values = array();
-        $map    = $this->getOptionProvider()->getDiscreteAcceptableValues($this->getId());
+        $map    = $this->_acceptableValues->getAcceptableValues($this->getId());
 
         if (!$this->_langUtils->isAssociativeArray($map)) {
 

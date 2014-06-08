@@ -19,9 +19,15 @@ class tubepress_test_core_options_ui_impl_fields_provided_DropdownFieldTest exte
      */
     private $_mockLangUtils;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockAcceptableValues;
+
     protected function onAfterProvidedFieldSetup()
     {
-        $this->_mockLangUtils = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockLangUtils        = $this->mock(tubepress_api_util_LangUtilsInterface::_);
+        $this->_mockAcceptableValues = $this->mock(tubepress_core_options_api_AcceptableValuesInterface::_);
 
         $this->onAfterDropDownFieldSetup();
     }
@@ -37,7 +43,8 @@ class tubepress_test_core_options_ui_impl_fields_provided_DropdownFieldTest exte
             $this->getMockEventDispatcher(),
             $this->getMockOptionProvider(),
             $this->getMockTemplateFactory(),
-            $this->_mockLangUtils
+            $this->_mockLangUtils,
+            $this->_mockAcceptableValues
         );
     }
 
@@ -56,7 +63,7 @@ class tubepress_test_core_options_ui_impl_fields_provided_DropdownFieldTest exte
     {
         $this->_mockLangUtils->shouldReceive('isAssociativeArray')->once()->andReturn(true);
 
-        $this->getMockOptionProvider()->shouldReceive('getDiscreteAcceptableValues')->once()->with($this->getOptionsPageItemId())->andReturn(array(
+        $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with($this->getOptionsPageItemId())->andReturn(array(
 
             'foo' => 'bar', 'smack' => 'rock'
         ));
@@ -71,6 +78,11 @@ class tubepress_test_core_options_ui_impl_fields_provided_DropdownFieldTest exte
     protected function getMockLangUtils()
     {
         return $this->_mockLangUtils;
+    }
+
+    protected function getMockAcceptableValues()
+    {
+        return $this->_mockAcceptableValues;
     }
 
     /**

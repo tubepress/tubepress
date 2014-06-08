@@ -54,6 +54,21 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
      */
     private $_context;
 
+    /**
+     * @var tubepress_core_options_api_AcceptableValuesInterface
+     */
+    private $_acceptableValues;
+
+    /**
+     * @var tubepress_core_theme_api_ThemeLibraryInterface
+     */
+    private $_themeLibrary;
+
+    /**
+     * @var tubepress_api_contrib_RegistryInterface
+     */
+    private $_themeRegistry;
+
     public function __construct(tubepress_core_translation_api_TranslatorInterface   $translator,
                                 tubepress_core_options_api_PersistenceInterface      $persistence,
                                 tubepress_core_http_api_RequestParametersInterface   $requestParams,
@@ -61,16 +76,20 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
                                 tubepress_core_template_api_TemplateFactoryInterface $templateFactory,
                                 tubepress_core_options_api_ReferenceInterface        $optionProvider,
                                 tubepress_api_util_LangUtilsInterface                $langUtils,
-                                tubepress_core_options_api_ContextInterface          $context)
+                                tubepress_core_options_api_ContextInterface          $context,
+                                tubepress_core_options_api_AcceptableValuesInterface $acceptableValues,
+                                tubepress_core_theme_api_ThemeLibraryInterface       $themeLibrary)
     {
-        $this->_translator      = $translator;
-        $this->_persistence     = $persistence;
-        $this->_requestParams   = $requestParams;
-        $this->_eventDispatcher = $eventDispatcher;
-        $this->_templateFactory = $templateFactory;
-        $this->_optionProvider  = $optionProvider;
-        $this->_langUtils       = $langUtils;
-        $this->_context         = $context;
+        $this->_translator       = $translator;
+        $this->_persistence      = $persistence;
+        $this->_requestParams    = $requestParams;
+        $this->_eventDispatcher  = $eventDispatcher;
+        $this->_templateFactory  = $templateFactory;
+        $this->_optionProvider   = $optionProvider;
+        $this->_langUtils        = $langUtils;
+        $this->_context          = $context;
+        $this->_acceptableValues = $acceptableValues;
+        $this->_themeLibrary     = $themeLibrary;
     }
 
     /**
@@ -110,9 +129,34 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             case 'text':
                 return $this->_buildText($id, $options);
 
+            case 'theme':
+                return $this->_buildTheme();
+
             default:
                 throw new InvalidArgumentException('Unknown field type');
         }
+    }
+
+    public function setThemeRegistry(tubepress_api_contrib_RegistryInterface $themeRegistry)
+    {
+        $this->_themeRegistry = $themeRegistry;
+    }
+
+    private function _buildTheme()
+    {
+        return new tubepress_core_options_ui_impl_fields_provided_ThemeField(
+
+            $this->_translator,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_eventDispatcher,
+            $this->_optionProvider,
+            $this->_templateFactory,
+            $this->_langUtils,
+            $this->_themeRegistry,
+            $this->_themeLibrary,
+            $this->_acceptableValues
+        );
     }
 
     private function _buildSpectrum($id, $options)
@@ -205,7 +249,8 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_eventDispatcher,
             $this->_optionProvider,
             $this->_templateFactory,
-            $this->_langUtils
+            $this->_langUtils,
+            $this->_acceptableValues
         );
     }
 
@@ -217,8 +262,8 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_persistence,
             $this->_requestParams,
             $this->_eventDispatcher,
-            $this->_optionProvider,
-            $this->_templateFactory
+            $this->_templateFactory,
+            $this->_optionProvider
         );
     }
 

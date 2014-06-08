@@ -28,11 +28,12 @@ class tubepress_core_options_ui_impl_fields_provided_ThemeField extends tubepres
                                 tubepress_core_options_api_PersistenceInterface      $persistence,
                                 tubepress_core_http_api_RequestParametersInterface   $requestParams,
                                 tubepress_core_event_api_EventDispatcherInterface    $eventDispatcher,
-                                tubepress_core_options_api_ReferenceInterface         $optionProvider,
+                                tubepress_core_options_api_ReferenceInterface        $optionProvider,
                                 tubepress_core_template_api_TemplateFactoryInterface $templateFactory,
                                 tubepress_api_util_LangUtilsInterface                $langUtils,
                                 tubepress_api_contrib_RegistryInterface              $themeRegistry,
-                                tubepress_core_theme_api_ThemeLibraryInterface       $themeLibrary)
+                                tubepress_core_theme_api_ThemeLibraryInterface       $themeLibrary,
+                                tubepress_core_options_api_AcceptableValuesInterface $acceptableValues)
     {
         parent::__construct(
 
@@ -43,7 +44,8 @@ class tubepress_core_options_ui_impl_fields_provided_ThemeField extends tubepres
             $eventDispatcher,
             $optionProvider,
             $templateFactory,
-            $langUtils
+            $langUtils,
+            $acceptableValues
         );
 
         $this->_themeLibrary  = $themeLibrary;
@@ -68,8 +70,8 @@ class tubepress_core_options_ui_impl_fields_provided_ThemeField extends tubepres
      */
     public function getThemeDataAsJson()
     {
-        $themes       = $this->_themeRegistry->getAll();
-        $toReturn     = array();
+        $themes   = $this->_themeRegistry->getAll();
+        $toReturn = array();
 
         foreach ($themes as $theme) {
 

@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_core_options_ui_impl_fields_MetaMultiSelectField<extended>
+ * @covers tubepress_core_media_item_impl_options_ui_MetaMultiSelectField<extended>
  */
 class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extends tubepress_test_core_options_ui_impl_fields_AbstractMultiSelectFieldTest
 {
@@ -88,7 +88,7 @@ class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extend
      */
     protected function buildSut()
     {
-        $sut = new tubepress_core_options_ui_impl_fields_MetaMultiSelectField(
+        $sut = new tubepress_core_media_item_impl_options_ui_MetaMultiSelectField(
 
             $this->getMockTranslator(),
             $this->getMockPersistence(),

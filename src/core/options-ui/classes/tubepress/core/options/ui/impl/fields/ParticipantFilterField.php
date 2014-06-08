@@ -21,12 +21,12 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      */
     private $_optionsPageParticipants = array();
 
-    public function __construct(tubepress_core_translation_api_TranslatorInterface $translator,
-                                tubepress_core_options_api_PersistenceInterface    $persistence,
-                                tubepress_core_http_api_RequestParametersInterface $requestParams,
-                                tubepress_core_event_api_EventDispatcherInterface  $eventDispatcher,
+    public function __construct(tubepress_core_translation_api_TranslatorInterface   $translator,
+                                tubepress_core_options_api_PersistenceInterface      $persistence,
+                                tubepress_core_http_api_RequestParametersInterface   $requestParams,
+                                tubepress_core_event_api_EventDispatcherInterface    $eventDispatcher,
                                 tubepress_core_template_api_TemplateFactoryInterface $templateFactory,
-                                tubepress_core_options_api_ReferenceInterface       $optionsReference)
+                                tubepress_core_options_api_ReferenceInterface        $optionsReference)
     {
         $optionName = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS;
 
@@ -38,8 +38,8 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
             $requestParams,
             $eventDispatcher,
             $templateFactory,
-            $optionsReference->getLabel($optionName),
-            $optionsReference->getDescription($optionName)
+            $optionsReference->getUntranslatedLabel($optionName),
+            $optionsReference->getUntranslatedDescription($optionName)
         );
     }
 

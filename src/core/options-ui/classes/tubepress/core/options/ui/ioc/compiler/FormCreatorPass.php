@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_core_options_ui_ioc_compiler_FormTemplatePass implements tubepress_api_ioc_CompilerPassInterface
+class tubepress_core_options_ui_ioc_compiler_FormCreatorPass implements tubepress_api_ioc_CompilerPassInterface
 {
 
     /**
@@ -41,7 +41,7 @@ class tubepress_core_options_ui_ioc_compiler_FormTemplatePass implements tubepre
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
              ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
-                'tag' => 'tubepress_core_options_ui_api_FieldProviderInterface',
+                'tag'    => 'tubepress_core_options_ui_api_FieldProviderInterface',
                 'method' => 'setOptionsPageParticipants'
             ));
         }

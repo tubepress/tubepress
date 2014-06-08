@@ -163,7 +163,7 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
         return 1;
     }
 
-    public function setVideoProviders(array $providers)
+    public function setMediaProviders(array $providers)
     {
         $this->_mediaProviders = $providers;
     }

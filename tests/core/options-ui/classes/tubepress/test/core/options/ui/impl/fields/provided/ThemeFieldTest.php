@@ -63,7 +63,8 @@ class tubepress_test_core_options_ui_impl_fields_ThemeFieldTest extends tubepres
             $this->getMockTemplateFactory(),
             $this->getMockLangUtils(),
             $this->_mockThemeRegistry,
-            $this->_mockThemeLibrary
+            $this->_mockThemeLibrary,
+            $this->getMockAcceptableValues()
         );
     }
 

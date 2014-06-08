@@ -54,7 +54,5 @@ interface tubepress_core_options_ui_api_Constants
 
     const IOC_TAG_OPTIONS_PAGE_TEMPLATE = 'tubepress.core.options.ui.ioc.tag.optionsPageTemplate';
 
-    const CATEGORY_NAME_GALLERYSOURCE = 'category-gallerysource';
-    const CATEGORY_NAME_PLAYER        = 'category-player';
-    const CATEGORY_NAME_FEED          = 'category-feed';
+    const OPTIONS_UI_CATEGORY_ADVANCED = 'advanced-category';
 }

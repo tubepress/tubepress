@@ -17,7 +17,7 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOptionProvider;
+    private $_mockOptionReference;
 
     /**
      * @var tubepress_core_options_ui_api_FieldProviderInterface[]
@@ -36,7 +36,7 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
             $this->getMockHttpRequestParams(),
             $this->getMockEventDispatcher(),
             $this->getMockTemplateFactory(),
-            $this->_mockOptionProvider
+            $this->_mockOptionReference
         );
 
         $sut->setOptionsPageParticipants($this->_mockOptionsPageParticipants);
@@ -58,10 +58,10 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
 
     protected function onAfterTemplateBasedFieldSetup()
     {
-        $this->_mockOptionProvider = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
+        $this->_mockOptionReference = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
 
-        $this->_mockOptionProvider->shouldReceive('getLabel')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock label');
-        $this->_mockOptionProvider->shouldReceive('getDescription')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock desc');
+        $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock label');
+        $this->_mockOptionReference->shouldReceive('getUntranslatedDescription')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock desc');
 
         $this->_mockOptionsPageParticipants = array();
 
