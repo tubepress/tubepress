@@ -114,5 +114,59 @@ class tubepress_core_cache_ioc_CacheExtension implements tubepress_api_ioc_Conta
                 )
             )
         ));
+
+        $fieldIndex = 0;
+        $fieldMap = array(
+            'boolean' => array(
+                tubepress_core_cache_api_Constants::ENABLED
+            ),
+            'text' => array(
+                tubepress_core_cache_api_Constants::DIRECTORY,
+                tubepress_core_cache_api_Constants::LIFETIME_SECONDS,
+                tubepress_core_cache_api_Constants::CLEANING_FACTOR
+            )
+        );
+        foreach ($fieldMap as $type => $ids) {
+            foreach ($ids as $id) {
+                $containerBuilder->register(
+                    'cache_field_' . $fieldIndex++,
+                    'tubepress_core_options_ui_api_FieldInterface'
+                )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+                 ->setFactoryMethod('newInstance')
+                 ->addArgument($id)
+                 ->addArgument($type);
+            }
+        }
+
+        $fieldReferences = array();
+        for ($x = 0; $x < $fieldIndex; $x++) {
+            $fieldReferences[] = new tubepress_api_ioc_Reference('cache_field_' . $x);
+        }
+
+        $containerBuilder->register(
+            'cache_category',
+            'tubepress_core_options_ui_api_ElementInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument(tubepress_core_cache_api_Constants::OPTIONS_UI_CATEGORY_CACHE)
+         ->addArgument('Cache');    //>(translatable)<
+
+        $fieldMap = array(
+            tubepress_core_cache_api_Constants::OPTIONS_UI_CATEGORY_CACHE => array(
+                tubepress_core_cache_api_Constants::ENABLED,
+                tubepress_core_cache_api_Constants::DIRECTORY,
+                tubepress_core_cache_api_Constants::LIFETIME_SECONDS,
+                tubepress_core_cache_api_Constants::CLEANING_FACTOR,
+            )
+        );
+
+        $containerBuilder->register(
+
+            'tubepress_core_cache_impl_options_ui_FieldProvider',
+            'tubepress_core_cache_impl_options_ui_FieldProvider'
+        )->addArgument(array(new tubepress_api_ioc_Reference('cache_category')))
+         ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 }

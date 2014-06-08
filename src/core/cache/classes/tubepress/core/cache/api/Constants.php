@@ -34,4 +34,10 @@ interface tubepress_core_cache_api_Constants
      * @since 4.0.0
      */
     const LIFETIME_SECONDS = 'cacheLifetimeSeconds';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const OPTIONS_UI_CATEGORY_CACHE = 'cache-options-ui-category';
 }

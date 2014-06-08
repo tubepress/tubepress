@@ -25,6 +25,7 @@
         "classmap" : {
             "tubepress_core_cache_api_Constants"                        : "classes/tubepress/core/cache/api/Constants.php",
             "tubepress_core_cache_impl_listeners_http_ApiCacheListener" : "classes/tubepress/core/cache/impl/listeners/http/ApiCacheListener.php",
+            "tubepress_core_cache_impl_options_ui_FieldProvider"        : "classes/tubepress/core/cache/impl/options/ui/FieldProvider.php",
             "tubepress_core_cache_impl_stash_FilesystemCacheBuilder"    : "classes/tubepress/core/cache/impl/stash/FilesystemCacheBuilder.php",
             "tubepress_core_cache_impl_stash_ItemDecorator"             : "classes/tubepress/core/cache/impl/stash/ItemDecorator.php",
             "tubepress_core_cache_impl_stash_PoolDecorator"             : "classes/tubepress/core/cache/impl/stash/PoolDecorator.php"
