@@ -15,7 +15,7 @@
  */
 interface tubepress_core_media_item_api_Constants
 {
-    const IOC_TAG_EASY_ATTRIBUTE_FORMATTER = 'sdf';
+    const IOC_PARAM_EASY_ATTRIBUTE_FORMATTER = 'tubepress.core.media.item.iocParamEasyAttributeFormatter';
 
     /**
      * @api

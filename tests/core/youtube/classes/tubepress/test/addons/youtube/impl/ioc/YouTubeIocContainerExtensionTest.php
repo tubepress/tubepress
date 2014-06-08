@@ -174,7 +174,7 @@ class tubepress_test_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends t
             ->withArgument($fieldReferences)
             ->withTag('tubepress_core_options_ui_api_FieldProviderInterface');
 
-        $this->expectParameter(tubepress_core_media_item_api_Constants::IOC_TAG_EASY_ATTRIBUTE_FORMATTER . '_youtube', array(
+        $this->expectParameter(tubepress_core_media_item_api_Constants::IOC_PARAM_EASY_ATTRIBUTE_FORMATTER . '_youtube', array(
 
             'priority'     => 30000,
             'providerName' => 'youtube',

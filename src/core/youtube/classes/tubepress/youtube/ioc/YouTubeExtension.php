@@ -179,7 +179,7 @@ class tubepress_youtube_ioc_YouTubeExtension implements tubepress_api_ioc_Contai
          ->addArgument($fieldReferences)
          ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
 
-        $containerBuilder->setParameter(tubepress_core_media_item_api_Constants::IOC_TAG_EASY_ATTRIBUTE_FORMATTER . '_youtube', array(
+        $containerBuilder->setParameter(tubepress_core_media_item_api_Constants::IOC_PARAM_EASY_ATTRIBUTE_FORMATTER . '_youtube', array(
 
             'priority'     => 30000,
             'providerName' => 'youtube',

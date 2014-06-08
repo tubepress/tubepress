@@ -121,7 +121,7 @@ class tubepress_core_media_item_ioc_compiler_EasyAttributeFormattersPass extends
      */
     protected function getParameterPrefix()
     {
-        return tubepress_core_media_item_api_Constants::IOC_TAG_EASY_ATTRIBUTE_FORMATTER;
+        return tubepress_core_media_item_api_Constants::IOC_PARAM_EASY_ATTRIBUTE_FORMATTER;
     }
 
     /**
