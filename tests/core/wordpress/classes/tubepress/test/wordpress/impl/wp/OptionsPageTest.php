@@ -44,9 +44,14 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
      */
     private $_mockEnvironmentDetector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEvent;
+
     public function onSetup()
     {
-
+        $this->_mockEvent                       = $this->mock('tubepress_core_event_api_EventInterface');
         $this->_mockWpFunctionWrapper           = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
         $this->_mockHttpRequestParameterService = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
         $this->_mockStorageManager              = $this->mock(tubepress_core_options_api_PersistenceInterface::_);
@@ -77,7 +82,7 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
 
         ob_start();
 
-        $this->_sut->run();
+        $this->_sut->run($this->_mockEvent);
 
         $contents = ob_get_contents();
         ob_end_clean();
@@ -95,7 +100,7 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
         $this->_mockFormHandler->shouldReceive('onSubmit')->once()->andReturn(array('bad value!', 'another bad value!'));
 
         ob_start();
-        $this->_sut->run();
+        $this->_sut->run($this->_mockEvent);
         $contents = ob_get_contents();
         ob_end_clean();
 
@@ -109,7 +114,7 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
         $this->_mockFormHandler->shouldReceive('getHtml')->once()->andReturn('yo');
 
         ob_start();
-        $this->_sut->run();
+        $this->_sut->run($this->_mockEvent);
         $contents = ob_get_contents();
         ob_end_clean();
 

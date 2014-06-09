@@ -14,7 +14,6 @@
  */
 class tubepress_core_theme_ioc_ThemeExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
-
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
      * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
@@ -65,7 +64,7 @@ class tubepress_core_theme_ioc_ThemeExtension implements tubepress_api_ioc_Conta
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_theme_api_Constants::OPTION_THEME,
-            'method'   => 'onAcceptableValue',
+            'method'   => 'onAcceptableValues',
             'priority' => 30000
         ));
 
@@ -79,5 +78,36 @@ class tubepress_core_theme_ioc_ThemeExtension implements tubepress_api_ioc_Conta
                 tubepress_core_theme_api_Constants::OPTION_THEME => 'Theme',  //>(translatable)<
             )
         ));
+
+        $containerBuilder->register(
+            'theme_field',
+            'tubepress_core_options_ui_api_FieldInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument(tubepress_core_theme_api_Constants::OPTION_THEME)
+         ->addArgument('theme');
+
+        $containerBuilder->register(
+            'theme_category',
+            'tubepress_core_options_ui_api_ElementInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+            ->setFactoryMethod('newInstance')
+            ->addArgument(tubepress_core_theme_api_Constants::OPTIONS_UI_CATEGORY_THEMES)
+            ->addArgument('Theme');
+
+        $fieldMap = array(
+            tubepress_core_theme_api_Constants::OPTIONS_UI_CATEGORY_THEMES => array(
+                tubepress_core_theme_api_Constants::OPTION_THEME
+            )
+        );
+
+        $containerBuilder->register(
+
+            'tubepress_core_theme_impl_options_ui_FieldProvider',
+            'tubepress_core_theme_impl_options_ui_FieldProvider'
+        )->addArgument(array(new tubepress_api_ioc_Reference('theme_category')))
+            ->addArgument(array(new tubepress_api_ioc_Reference('theme_field')))
+            ->addArgument($fieldMap)
+            ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 }

@@ -25,11 +25,6 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
     private $_wpFunctions;
 
     /**
-     * @var tubepress_wordpress_impl_wp_OptionsPage
-     */
-    private $_optionsPage;
-
-    /**
      * @var bool
      */
     private $_ignoreExceptions = true;
@@ -44,15 +39,20 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
      */
     private $_httpRequestParams;
 
+    /**
+     * @var tubepress_core_event_api_EventDispatcherInterface
+     */
+    private $_eventDispatcher;
+
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
-                                tubepress_wordpress_impl_wp_OptionsPage            $optionsPage,
                                 tubepress_core_url_api_UrlFactoryInterface         $currentUrlService,
-                                tubepress_core_http_api_RequestParametersInterface $requestParams)
+                                tubepress_core_http_api_RequestParametersInterface $requestParams,
+                                tubepress_core_event_api_EventDispatcherInterface  $eventDispatcher)
     {
         $this->_wpFunctions       = $wpFunctions;
-        $this->_optionsPage       = $optionsPage;
         $this->_currentUrlService = $currentUrlService;
         $this->_httpRequestParams = $requestParams;
+        $this->_eventDispatcher   = $eventDispatcher;
     }
 
     /**
@@ -163,7 +163,6 @@ EOT;
         return sprintf(self::$_TRANSIENT_FORMAT, $id);
     }
 
-
     /**
      * This is here strictly for testing :/
      */
@@ -178,12 +177,12 @@ EOT;
     public function onAction_admin_menu(tubepress_core_event_api_EventInterface $event)
     {
         $this->_wpFunctions->add_options_page('TubePress Options', 'TubePress', 'manage_options',
-            'tubepress', array($this, 'runOptionsPage'));
+            'tubepress', array($this, '__fireOptionsPageEvent'));
     }
 
-    public function runOptionsPage()
+    public function __fireOptionsPageEvent()
     {
-        $this->_optionsPage->run();
+        $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_OPTIONS_PAGE_INVOKED);
     }
 
     /**

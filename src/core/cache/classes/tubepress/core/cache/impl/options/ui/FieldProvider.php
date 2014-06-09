@@ -54,7 +54,7 @@ class tubepress_core_cache_impl_options_ui_FieldProvider implements tubepress_co
      */
     public function getId()
     {
-        return tubepress_core_cache_api_Constants::OPTIONS_UI_CATEGORY_CACHE;
+        return 'cache-field-provider';
     }
 
     /**

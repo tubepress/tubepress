@@ -77,7 +77,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockWidget;
+    private $_mockEventDispatcher;
 
     public function onSetup()
     {
@@ -89,7 +89,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
         $this->_mockShortcodeParser          = $this->mock(tubepress_core_shortcode_api_ParserInterface::_);
         $this->_mockStorageManager           = $this->mock(tubepress_core_options_api_PersistenceInterface::_);
         $this->_mockStringUtils              = $this->mock(tubepress_api_util_StringUtilsInterface::_);
-        $this->_mockWidget                   = $this->mock('tubepress_wordpress_impl_wp_Widget');
+        $this->_mockEventDispatcher          = $this->mock(tubepress_core_event_api_EventDispatcherInterface::_);
         $this->_mockAjaxHandler              = $this->mock(tubepress_core_http_api_AjaxCommandInterface::_);
         $this->_mockHttpRequestParams        = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
         $this->_mockTranslator               = $this->mock(tubepress_core_translation_api_TranslatorInterface::_);
@@ -106,7 +106,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
             $this->_mockStorageManager,
             $this->_mockShortcodeParser,
             $this->_mockTranslator,
-            $this->_mockWidget
+            $this->_mockEventDispatcher
         );
     }
 
@@ -151,18 +151,22 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
 
     public function testPrintWidgetControlHtml()
     {
-        $this->_mockWidget->shouldReceive('printControlHtml')->once();
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
+            ->with(tubepress_wordpress_api_Constants::EVENT_WIDGET_PRINT_CONTROLS);
 
-        $this->_sut->printControlHtml();
+        $this->_sut->__fireWidgetControlEvent();
 
         $this->assertTrue(true);
     }
 
     public function testPrintWidgetHtml()
     {
-        $this->_mockWidget->shouldReceive('printWidgetHtml')->once()->with(array(1));
+        $mockEvent = $this->mock('tubepress_core_event_api_EventInterface');
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(1))->andReturn($mockEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+            tubepress_wordpress_api_Constants::EVENT_WIDGET_PUBLIC_HTML, $mockEvent);
 
-        $this->_sut->printWidgetHtml(array(1));
+        $this->_sut->__fireWidgetHtmlEvent(array(1));
 
         $this->assertTrue(true);
     }

@@ -50,7 +50,11 @@ class tubepress_core_options_ui_ioc_OptionsUiExtension implements tubepress_api_
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_AcceptableValuesInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_))
+         ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
+            'method' => 'setMediaProviders'
+        ));
 
         $containerBuilder->register(
             tubepress_core_options_ui_api_ElementBuilderInterface::_,

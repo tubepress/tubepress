@@ -90,8 +90,10 @@ class tubepress_wordpress_impl_wp_Widget
      *
      * @return void
      */
-    public function printWidgetHtml($opts)
+    public function printWidgetHtml(tubepress_core_event_api_EventInterface $event)
     {
+        $opts = $event->getSubject();
+
         extract($opts);
 
         /* default widget options */

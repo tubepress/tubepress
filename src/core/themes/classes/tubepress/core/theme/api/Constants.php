@@ -20,4 +20,6 @@ interface tubepress_core_theme_api_Constants
      * @since 4.0.0
      */
     const OPTION_THEME = 'theme';
+
+    const OPTIONS_UI_CATEGORY_THEMES = 'theme-category';
 }

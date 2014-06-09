@@ -29,7 +29,7 @@
             "tubepress_core_theme_api_Constants"             : "classes/tubepress/core/theme/api/Constants.php",
             "tubepress_core_theme_api_ThemeInterface"        : "classes/tubepress/core/theme/api/ThemeInterface.php",
             "tubepress_core_theme_api_ThemeLibraryInterface" : "classes/tubepress/core/theme/api/ThemeLibraryInterface.php",
-
+            "tubepress_core_theme_impl_options_ui_FieldProvider" : "classes/tubepress/core/theme/impl/options/ui/FieldProvider.php",
             "tubepress_core_theme_impl_listeners_options_AcceptableValues"    : "classes/tubepress/core/theme/impl/listeners/options/AcceptableValues.php",
             "tubepress_core_theme_impl_listeners_options_LegacyThemeListener" : "classes/tubepress/core/theme/impl/listeners/options/LegacyThemeListener.php",
             "tubepress_core_theme_impl_ThemeBase"     : "classes/tubepress/core/theme/impl/ThemeBase.php",

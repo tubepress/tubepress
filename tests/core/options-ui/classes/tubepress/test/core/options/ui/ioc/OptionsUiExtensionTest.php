@@ -46,7 +46,11 @@ class tubepress_test_core_options_ui_ioc_OptionsUiExtensionTest extends tubepres
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_api_util_LangUtilsInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_AcceptableValuesInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_));
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
+                'method' => 'setMediaProviders'
+            ));
 
         $this->expectRegistration(
             tubepress_core_options_ui_api_ElementBuilderInterface::_,
@@ -81,7 +85,7 @@ class tubepress_test_core_options_ui_ioc_OptionsUiExtensionTest extends tubepres
         )->withFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
             ->withFactoryMethod('newInstance')
             ->withArgument(tubepress_core_options_ui_api_Constants::OPTIONS_UI_CATEGORY_ADVANCED)
-            ->withArgument('Advanced');
+            ->withArgument('Advanced');  //>(translatable)<
         $categoryReferences = array(new tubepress_api_ioc_Reference('tubepress_core_options_ui_api_ElementInterface_advanced_category'));
 
         $this->expectRegistration(

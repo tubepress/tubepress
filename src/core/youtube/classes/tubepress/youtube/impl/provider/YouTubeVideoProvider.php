@@ -635,7 +635,14 @@ class tubepress_youtube_impl_provider_YouTubeVideoProvider implements tubepress_
      */
     public function getMapOfPerPageSortNamesToUntranslatedLabels()
     {
-        // TODO: Implement getMapOfPerPageSortNamesToUntranslatedLabels() method.
+        return array(
+            tubepress_youtube_api_Constants::PER_PAGE_SORT_COMMENT_COUNT => 'comment count',                   //>(translatable)<
+            tubepress_youtube_api_Constants::PER_PAGE_SORT_DURATION      => 'length',                          //>(translatable)<
+            tubepress_youtube_api_Constants::PER_PAGE_SORT_NEWEST        => 'date published (newest first)',   //>(translatable)<
+            tubepress_youtube_api_Constants::PER_PAGE_SORT_OLDEST        => 'date published (oldest first)',   //>(translatable)<
+            tubepress_youtube_api_Constants::PER_PAGE_SORT_TITLE         => 'title',                           //>(translatable)<
+            tubepress_youtube_api_Constants::PER_PAGE_SORT_VIEW_COUNT    => 'view count',                      //>(translatable)<
+        );
     }
 
     /**

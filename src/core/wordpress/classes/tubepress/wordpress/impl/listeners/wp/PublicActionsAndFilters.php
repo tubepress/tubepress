@@ -62,9 +62,9 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
     private $_translator;
 
     /**
-     * @var tubepress_wordpress_impl_wp_Widget
+     * @var tubepress_core_event_api_EventDispatcherInterface
      */
-    private $_widget;
+    private $_eventDispatcher;
 
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
                                 tubepress_core_theme_api_ThemeLibraryInterface     $themeLibrary,
@@ -76,7 +76,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
                                 tubepress_core_options_api_PersistenceInterface    $persistence,
                                 tubepress_core_shortcode_api_ParserInterface       $parser,
                                 tubepress_core_translation_api_TranslatorInterface $translator,
-                                tubepress_wordpress_impl_wp_Widget                 $widget)
+                                tubepress_core_event_api_EventDispatcherInterface  $eventDispatcher)
     {
         $this->_wpFunctions       = $wpFunctions;
         $this->_themeLibrary      = $themeLibrary;
@@ -88,7 +88,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_persistence       = $persistence;
         $this->_shortcodeParser   = $parser;
         $this->_translator        = $translator;
-        $this->_widget            = $widget;
+        $this->_eventDispatcher   = $eventDispatcher;
     }
 
     public function onAction_widgets_init(tubepress_core_event_api_EventInterface $event)
@@ -100,14 +100,16 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_wpFunctions->wp_register_widget_control('tubepress', 'TubePress', array($this, 'printControlHtml'));
     }
 
-    public function printWidgetHtml($widgetOpts)
+    public function __fireWidgetHtmlEvent($widgetOpts)
     {
-        $this->_widget->printWidgetHtml($widgetOpts);
+        $event = $this->_eventDispatcher->newEventInstance($widgetOpts);
+
+        $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PUBLIC_HTML, $event);
     }
 
-    public function printControlHtml()
+    public function __fireWidgetControlEvent()
     {
-        $this->_widget->printControlHtml();
+        $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PRINT_CONTROLS);
     }
 
     public function onAction_init(tubepress_core_event_api_EventInterface $event)

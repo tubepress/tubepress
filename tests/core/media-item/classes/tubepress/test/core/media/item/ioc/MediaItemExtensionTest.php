@@ -75,13 +75,77 @@ class tubepress_test_core_media_item_ioc_MediaItemExtensionTest extends tubepres
             )
         ));
 
-        $this->assertTrue(true);
+        $this->expectRegistration(
+            'meta_category',
+            'tubepress_core_options_ui_api_ElementInterface'
+        )->withFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+            ->withFactoryMethod('newInstance')
+            ->withArgument(tubepress_core_media_item_api_Constants::OPTIONS_UI_CATEGORY_META)
+            ->withArgument('Meta');  //>(translatable)<
+
+        $fieldIndex = 0;
+
+        $fieldMap = array(
+            'text' => array(
+                tubepress_core_media_item_api_Constants::OPTION_DATEFORMAT,
+                tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT,
+            ),
+            'boolean' => array(
+                tubepress_core_media_item_api_Constants::OPTION_RELATIVE_DATES,
+            ),
+            'metaMultiSelect' => array(
+                'does not matter'
+            )
+        );
+        foreach ($fieldMap as $type => $ids) {
+            foreach ($ids as $id) {
+                $this->expectRegistration(
+                    'media_item_field_' . $fieldIndex++,
+                    'tubepress_core_options_ui_api_FieldInterface'
+                )->withFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+                    ->withFactoryMethod('newInstance')
+                    ->withArgument($id)
+                    ->withArgument($type);
+            }
+        }
+
+        $fieldReferences = array();
+        for ($x = 0; $x < $fieldIndex; $x++) {
+            $fieldReferences[] = new tubepress_api_ioc_Reference('media_item_field_' . $x);
+        }
+        $fieldMap = array(
+            tubepress_core_media_item_api_Constants::OPTIONS_UI_CATEGORY_META => array(
+                tubepress_core_options_ui_impl_fields_MetaMultiSelectField::FIELD_ID,
+                tubepress_core_media_item_api_Constants::OPTION_DATEFORMAT,
+                tubepress_core_media_item_api_Constants::OPTION_RELATIVE_DATES,
+                tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT,
+            )
+        );
+
+        $this->expectRegistration(
+            'tubepress_core_media_item_impl_options_ui_FieldProvider',
+            'tubepress_core_media_item_impl_options_ui_FieldProvider'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
+            ->withArgument(array(new tubepress_api_ioc_Reference('meta_category')))
+            ->withArgument($fieldReferences)
+            ->withArgument($fieldMap)
+            ->withTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()
     {
+        $mockField = $this->mock('tubepress_core_options_ui_api_FieldInterface');
+        $fieldBuilder = $this->mock(tubepress_core_options_ui_api_FieldBuilderInterface::_);
+        $fieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
+
+        $mockCategory = $this->mock('tubepress_core_options_ui_api_ElementInterface');
+        $elementBuilder = $this->mock(tubepress_core_options_ui_api_ElementBuilderInterface::_);
+        $elementBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockCategory);
+
         return array(
-            
+            tubepress_core_translation_api_TranslatorInterface::_ => tubepress_core_translation_api_TranslatorInterface::_,
+            tubepress_core_options_ui_api_ElementBuilderInterface::_ => $elementBuilder,
+            tubepress_core_options_ui_api_FieldBuilderInterface::_ => $fieldBuilder
         );
     }
 }

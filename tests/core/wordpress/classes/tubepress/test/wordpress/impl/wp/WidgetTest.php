@@ -69,8 +69,14 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
      */
     private $_mockWpFunctions;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEvent;
+
     public function onSetup()
     {
+        $this->_mockEvent                       = $this->mock('tubepress_core_event_api_EventInterface');
         $this->_mockMessageService              = $this->mock(tubepress_core_translation_api_TranslatorInterface::_);
         $this->_mockExecutionContext            = $this->mock(tubepress_core_options_api_ContextInterface::_);
         $this->_mockEnvironmentDetector         = $this->mock(tubepress_core_environment_api_EnvironmentInterface::_);
@@ -151,13 +157,17 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
 
         $this->_mockStringUtils->shouldReceive('removeNewLines')->once()->with('shortcode string')->andReturn('syz');
 
+        $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(
+            array(
+                'before_widget' => 'before_widget',
+                'before_title'  => 'before_title',
+                'after_title'   => 'after_title',
+                'after_widget'  => 'after_widget'
+            )
+        );
+
         ob_start();
-        $this->_sut->printWidgetHtml(array(
-            'before_widget' => 'before_widget',
-            'before_title'  => 'before_title',
-            'after_title'   => 'after_title',
-            'after_widget'  => 'after_widget'
-        ));
+        $this->_sut->printWidgetHtml($this->_mockEvent);
         $contents = ob_get_contents();
         ob_end_clean();
 

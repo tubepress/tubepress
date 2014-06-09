@@ -34,10 +34,11 @@
             "tubepress_core_media_provider_api_HttpProviderInterface"               : "classes/tubepress/core/media/provider/api/HttpProviderInterface.php",
             "tubepress_core_media_provider_api_exception_ProviderException"         : "classes/tubepress/core/media/provider/api/exception/ProviderException.php",
             "tubepress_core_media_provider_impl_listeners_options_AcceptableValues" : "classes/tubepress/core/media/provider/impl/listeners/options/AcceptableValues.php",
-            "tubepress_core_media_provider_impl_listeners_page_CorePageListener"       : "classes/tubepress/core/media/provider/impl/listeners/page/CorePageListener.php",
+            "tubepress_core_media_provider_impl_listeners_page_CorePageListener"    : "classes/tubepress/core/media/provider/impl/listeners/page/CorePageListener.php",
             "tubepress_core_media_provider_impl_Collector"                          : "classes/tubepress/core/media/provider/impl/Collector.php",
             "tubepress_core_media_provider_impl_HttpMediaProvider"                  : "classes/tubepress/core/media/provider/impl/HttpMediaProvider.php",
-            "tubepress_core_media_provider_impl_ItemSorter"                         : "classes/tubepress/core/media/provider/impl/ItemSorter.php"
+            "tubepress_core_media_provider_impl_ItemSorter"                         : "classes/tubepress/core/media/provider/impl/ItemSorter.php",
+            "tubepress_core_media_provider_impl_options_ui_FieldProvider"           : "classes/tubepress/core/media/provider/impl/options/ui/FieldProvider.php"
         }
     }
 }

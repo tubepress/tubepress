@@ -114,4 +114,6 @@ interface tubepress_core_media_item_api_Constants
     const ATTRIBUTE_TIME_PUBLISHED_UNIXTIME  = 'timePublishedUnixTime';
     const ATTRIBUTE_TITLE                    = 'title';
     const ATTRIBUTE_VIEW_COUNT               = 'viewCount';
+
+    const OPTIONS_UI_CATEGORY_META = 'meta-category';
 }

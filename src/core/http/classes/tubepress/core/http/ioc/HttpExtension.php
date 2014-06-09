@@ -14,7 +14,6 @@
  */
 class tubepress_core_http_ioc_HttpExtension implements tubepress_api_ioc_ContainerExtensionInterface
 {
-
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
      * services to the container, it should do so here. The incoming `tubepress_api_ioc_ContainerBuilderInterface`
@@ -93,7 +92,7 @@ class tubepress_core_http_ioc_HttpExtension implements tubepress_api_ioc_Contain
             )
         ));
 
-        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_ACCEPTABLE_VALUES, array(
+        $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_ACCEPTABLE_VALUES . '_http', array(
 
             'optionName' => tubepress_core_http_api_Constants::OPTION_HTTP_METHOD,
             'priority'   => 30000,
@@ -102,5 +101,42 @@ class tubepress_core_http_ioc_HttpExtension implements tubepress_api_ioc_Contain
                 'POST' => 'POST'
             )
         ));
+
+        $fieldIndex = 0;
+        $containerBuilder->register(
+            'http_field_' . $fieldIndex++,
+            'tubepress_core_options_ui_api_FieldInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument(tubepress_core_html_api_Constants::OPTION_HTTPS)
+         ->addArgument('boolean');
+
+        $containerBuilder->register(
+            'http_field_' . $fieldIndex++,
+            'tubepress_core_options_ui_api_FieldInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument(tubepress_core_http_api_Constants::OPTION_HTTP_METHOD)
+         ->addArgument('dropdown');
+
+        $fieldReferences = array();
+        for ($x = 0; $x < $fieldIndex; $x++) {
+            $fieldReferences[] = new tubepress_api_ioc_Reference('http_field_' . $x);
+        }
+
+        $fieldMap = array(
+            tubepress_core_options_ui_api_Constants::OPTIONS_UI_CATEGORY_ADVANCED => array(
+                tubepress_core_html_api_Constants::OPTION_HTTPS,
+                tubepress_core_http_api_Constants::OPTION_HTTP_METHOD
+            )
+        );
+
+        $containerBuilder->register(
+            'tubepress_core_http_impl_options_ui_FieldProvider',
+            'tubepress_core_http_impl_options_ui_FieldProvider'
+        )->addArgument(array())
+         ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 }

@@ -28,7 +28,7 @@ class tubepress_wordpress_impl_wp_OptionsPage
         $this->_httpRequestParams = $requestParams;
     }
 
-    public function run()
+    public function run(tubepress_core_event_api_EventInterface $event)
     {
         $errors        = array();
         $justSubmitted = false;

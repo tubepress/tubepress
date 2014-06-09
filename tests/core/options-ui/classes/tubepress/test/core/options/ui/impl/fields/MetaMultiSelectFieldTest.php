@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_core_media_item_impl_options_ui_MetaMultiSelectField<extended>
+ * @covers tubepress_core_options_ui_impl_fields_MetaMultiSelectField<extended>
  */
 class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extends tubepress_test_core_options_ui_impl_fields_AbstractMultiSelectFieldTest
 {
@@ -88,17 +88,16 @@ class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extend
      */
     protected function buildSut()
     {
-        $sut = new tubepress_core_media_item_impl_options_ui_MetaMultiSelectField(
+        $sut = new tubepress_core_options_ui_impl_fields_MetaMultiSelectField(
 
             $this->getMockTranslator(),
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockEventDispatcher(),
             $this->getMockTemplateFactory(),
-            $this->_mockOptionProvider
+            $this->_mockOptionProvider,
+            array($this->_mockVideoProvider1, $this->_mockVideoProvider2)
         );
-
-        $sut->setVideoProviders(array($this->_mockVideoProvider1, $this->_mockVideoProvider2));
 
         return $sut;
     }

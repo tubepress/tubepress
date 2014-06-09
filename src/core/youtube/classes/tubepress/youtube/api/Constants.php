@@ -154,4 +154,46 @@ class tubepress_youtube_api_Constants
      * @since 4.0.0
      */
     const ORDER_BY_VIEW_COUNT    = 'viewCount';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PER_PAGE_SORT_COMMENT_COUNT = 'commentCount';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PER_PAGE_SORT_DURATION       = 'duration';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PER_PAGE_SORT_NEWEST         = 'newest';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PER_PAGE_SORT_OLDEST         = 'oldest';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PER_PAGE_SORT_RATING         = 'rating';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PER_PAGE_SORT_TITLE          = 'title';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PER_PAGE_SORT_VIEW_COUNT     = 'viewCount';
 }

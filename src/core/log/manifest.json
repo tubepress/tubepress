@@ -23,8 +23,9 @@
             "tubepress_core_log_" : "classes"
         },
         "classmap" : {
-            "tubepress_core_log_api_Constants"   : "classes/tubepress/core/log/api/Constants.php",
-            "tubepress_core_log_impl_HtmlLogger" : "classes/tubepress/core/log/impl/HtmlLogger.php"
+            "tubepress_core_log_api_Constants"                 : "classes/tubepress/core/log/api/Constants.php",
+            "tubepress_core_log_impl_HtmlLogger"               : "classes/tubepress/core/log/impl/HtmlLogger.php",
+            "tubepress_core_log_impl_options_ui_FieldProvider" : "classes/tubepress/core/log/impl/options/ui/FieldProvider.php"
         }
     }
 }

@@ -110,4 +110,7 @@ interface tubepress_core_media_provider_api_Constants
      * @since 4.0.0
      */
     const PER_PAGE_SORT_RANDOM = 'random';
+
+    const OPTIONS_UI_CATEGORY_GALLERY_SOURCE = 'gallery-source-category';
+    const OPTIONS_UI_CATEGORY_FEED           = 'feed-category';
 }

@@ -471,59 +471,12 @@ es for the "mode" option.
     {
         return array(
 
-            tubepress_vimeo_api_Constants::PER_PAGE_SORT_COMMENT_COUNT => 'comment count',  //>(translatable)<
-            tubepress_vimeo_api_Constants::PER_PAGE_SORT_DURATION      => 'length',         //>(translatable)<
+            tubepress_vimeo_api_Constants::PER_PAGE_SORT_COMMENT_COUNT => 'comment count',                   //>(translatable)<
+            tubepress_vimeo_api_Constants::PER_PAGE_SORT_DURATION      => 'length',                          //>(translatable)<
             tubepress_vimeo_api_Constants::PER_PAGE_SORT_NEWEST        => 'date published (newest first)',   //>(translatable)<
             tubepress_vimeo_api_Constants::PER_PAGE_SORT_OLDEST        => 'date published (oldest first)',   //>(translatable)<
-            tubepress_vimeo_api_Constants::PER_PAGE_SORT_RATING        => 'title',                           //>(translatable)<
+            tubepress_vimeo_api_Constants::PER_PAGE_SORT_TITLE         => 'title',                           //>(translatable)<
             tubepress_vimeo_api_Constants::PER_PAGE_SORT_VIEW_COUNT    => 'view count',                      //>(translatable)<
-        );
-    }
-
-    /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNameOfItemDescription()
-    {
-        return tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION;
-    }
-
-    /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNameOfItemTitle()
-    {
-        return tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE;
-    }
-
-    /**
-     * @return string
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNameOfItemId()
-    {
-        return tubepress_core_media_item_api_Constants::ATTRIBUTE_ID;
-    }
-
-    /**
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getMapOfFormattedDateAttributeNamesToUnixTimeAttributeNames()
-    {
-        return array(
-            tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED =>
-                tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME
         );
     }
 
@@ -573,36 +526,6 @@ es for the "mode" option.
         return $this->_itemSorter->numericSort($first, $second, $attributeName, $desc);
     }
 
-    /**
-     * @return string[]
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getAttributeNamesOfIntegersToFormat()
-    {
-        return array(
-
-            tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT,
-            tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
-            tubepress_core_media_item_api_Constants::ATTRIBUTE_COMMENT_COUNT
-        );
-    }
-
-    /**
-     * @return array
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getMapOfHhMmSsAttributeNamesToSecondsAttributeNames()
-    {
-        return array(
-
-            tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED =>
-                tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS
-        );
-    }
 
     private function _getSort($mode)
     {

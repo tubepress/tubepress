@@ -97,7 +97,6 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_provider', array(
 
             'defaultValues' => array(
-
                 tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE   => tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY         => 'default',
                 tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT    => tubepress_core_media_provider_api_Constants::PER_PAGE_SORT_NONE,
@@ -107,7 +106,6 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
             ),
 
             'labels' => array(
-
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY         => 'Order videos by',                    //>(translatable)<
                 tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT    => 'Per-page sort order',                //>(translatable)<
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP => 'Maximum total videos to retrieve',   //>(translatable)<
@@ -116,7 +114,6 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
             ),
 
             'descriptions' => array(
-
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY         =>
                     sprintf('Not all sort orders can be applied to all gallery types. See the <a href="%s" target="_blank">documentation</a> for more info.', "http://docs.tubepress.com/page/reference/options/core.html#orderby"),  //>(translatable)<
 
@@ -158,5 +155,68 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
                 )
             )
         ));
+
+        $categoryIndex = 0;
+        $categoryIdsToNamesMap = array(
+            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_GALLERY_SOURCE => 'Which videos?',
+            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_FEED           => 'Feed'
+        );
+        foreach ($categoryIdsToNamesMap as $id => $name) {
+            $containerBuilder->register(
+                'media_provider_category_' . $categoryIndex++,
+                'tubepress_core_options_ui_api_ElementInterface'
+            )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+                ->setFactoryMethod('newInstance')
+                ->addArgument($id)
+                ->addArgument($name);
+        }
+        $categoryReferences = array();
+        for ($x = 0; $x < $categoryIndex; $x++) {
+            $categoryReferences[] = new tubepress_api_ioc_Reference('media_provider_category_' . $x);
+        }
+
+        $fieldIndex = 0;
+        $fieldMap = array(
+            'text' => array(
+                tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP,
+                tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST,
+            ),
+            'dropdown' => array(
+                tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY,
+                tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT
+            )
+
+        );
+        foreach ($fieldMap as $type => $ids) {
+            foreach ($ids as $id) {
+                $containerBuilder->register(
+                    'media_provider_field_' . $fieldIndex++,
+                    'tubepress_core_options_ui_api_FieldInterface'
+                )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+                    ->setFactoryMethod('newInstance')
+                    ->addArgument($id)
+                    ->addArgument($type);
+            }
+        }
+        $fieldReferences = array();
+        for ($x = 0; $x < $fieldIndex; $x++) {
+            $fieldReferences[] = new tubepress_api_ioc_Reference('media_provider_field_' . $x);
+        }
+        $fieldMap = array(
+            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_FEED => array(
+                tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY,
+                tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT,
+                tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP,
+                tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST,
+            )
+        );
+
+        $containerBuilder->register(
+            'tubepress_core_media_provider_impl_options_ui_FieldProvider',
+            'tubepress_core_media_provider_impl_options_ui_FieldProvider'
+        )->addArgument($categoryReferences)
+         ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 }

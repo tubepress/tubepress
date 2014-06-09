@@ -42,7 +42,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
     /**
      * @var tubepress_core_options_api_ReferenceInterface
      */
-    private $_optionProvider;
+    private $_optionReference;
 
     /**
      * @var tubepress_api_util_LangUtilsInterface
@@ -69,6 +69,11 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
      */
     private $_themeRegistry;
 
+    /**
+     * @var tubepress_core_media_provider_api_MediaProviderInterface[]
+     */
+    private $_mediaProviders;
+
     public function __construct(tubepress_core_translation_api_TranslatorInterface   $translator,
                                 tubepress_core_options_api_PersistenceInterface      $persistence,
                                 tubepress_core_http_api_RequestParametersInterface   $requestParams,
@@ -85,7 +90,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
         $this->_requestParams    = $requestParams;
         $this->_eventDispatcher  = $eventDispatcher;
         $this->_templateFactory  = $templateFactory;
-        $this->_optionProvider   = $optionProvider;
+        $this->_optionReference  = $optionProvider;
         $this->_langUtils        = $langUtils;
         $this->_context          = $context;
         $this->_acceptableValues = $acceptableValues;
@@ -132,6 +137,9 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             case 'theme':
                 return $this->_buildTheme();
 
+            case 'metaMultiSelect':
+                return $this->_buildMetaMultiSelect();
+
             default:
                 throw new InvalidArgumentException('Unknown field type');
         }
@@ -142,6 +150,24 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
         $this->_themeRegistry = $themeRegistry;
     }
 
+    public function setMediaProviders(array $providers)
+    {
+        $this->_mediaProviders = $providers;
+    }
+
+    private function _buildMetaMultiSelect()
+    {
+        return new tubepress_core_options_ui_impl_fields_MetaMultiSelectField(
+            $this->_translator,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_eventDispatcher,
+            $this->_templateFactory,
+            $this->_optionReference,
+            $this->_mediaProviders
+        );
+    }
+
     private function _buildTheme()
     {
         return new tubepress_core_options_ui_impl_fields_provided_ThemeField(
@@ -150,7 +176,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_persistence,
             $this->_requestParams,
             $this->_eventDispatcher,
-            $this->_optionProvider,
+            $this->_optionReference,
             $this->_templateFactory,
             $this->_langUtils,
             $this->_themeRegistry,
@@ -168,7 +194,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_requestParams,
             $this->_eventDispatcher,
             $this->_templateFactory,
-            $this->_optionProvider
+            $this->_optionReference
         );
 
         if (isset($options['preferredFormat'])) {
@@ -215,7 +241,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_requestParams,
             $this->_eventDispatcher,
             $this->_templateFactory,
-            $this->_optionProvider
+            $this->_optionReference
         );
 
         if (isset($options['size'])) {
@@ -235,7 +261,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_requestParams,
             $this->_eventDispatcher,
             $this->_templateFactory,
-            $this->_optionProvider
+            $this->_optionReference
         );
     }
 
@@ -247,7 +273,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_persistence,
             $this->_requestParams,
             $this->_eventDispatcher,
-            $this->_optionProvider,
+            $this->_optionReference,
             $this->_templateFactory,
             $this->_langUtils,
             $this->_acceptableValues
@@ -263,7 +289,7 @@ class tubepress_core_options_ui_impl_FieldBuilder implements tubepress_core_opti
             $this->_requestParams,
             $this->_eventDispatcher,
             $this->_templateFactory,
-            $this->_optionProvider
+            $this->_optionReference
         );
     }
 

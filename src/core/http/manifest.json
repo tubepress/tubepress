@@ -41,6 +41,7 @@
             "tubepress_core_http_impl_oauth_v1_Client"            : "classes/tubepress/core/http/impl/oauth/v1/Client.php",
             "tubepress_core_http_impl_PlayerAjaxCommand"          : "classes/tubepress/core/http/impl/PlayerAjaxCommand.php",
             "tubepress_core_http_impl_PrimaryAjaxHandler"         : "classes/tubepress/core/http/impl/PrimaryAjaxHandler.php",
+            "tubepress_core_http_impl_options_ui_FieldProvider"   : "classes/tubepress/core/http/impl/options/ui/FieldProvider.php",
             "tubepress_core_http_impl_puzzle_AbstractMessage"     : "classes/tubepress/core/http/impl/puzzle/AbstractMessage.php",
             "tubepress_core_http_impl_puzzle_PuzzleBasedRequest"  : "classes/tubepress/core/http/impl/puzzle/PuzzleBasedRequest.php",
             "tubepress_core_http_impl_puzzle_PuzzleBasedResponse" : "classes/tubepress/core/http/impl/puzzle/PuzzleBasedResponse.php",

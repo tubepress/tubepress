@@ -54,6 +54,7 @@
             "tubepress_core_options_ui_impl_fields_provided_SpectrumColorField"               : "classes/tubepress/core/options/ui/impl/fields/provided/SpectrumColorField.php",
             "tubepress_core_options_ui_impl_fields_provided_TextField"                        : "classes/tubepress/core/options/ui/impl/fields/provided/TextField.php",
             "tubepress_core_options_ui_impl_fields_provided_ThemeField"                       : "classes/tubepress/core/options/ui/impl/fields/provided/ThemeField.php",
+            "tubepress_core_options_ui_impl_fields_MetaMultiSelectField"                      : "classes/tubepress/core/options/ui/impl/fields/MetaMultiSelectField.php",
 
             "tubepress_core_options_ui_impl_listeners_CoreCategorySorter" : "classes/tubepress/core/options/ui/impl/listeners/CoreCategorySorter.php"
         }

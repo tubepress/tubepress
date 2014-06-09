@@ -20,22 +20,22 @@ class tubepress_vimeo_impl_options_ui_VimeoFieldProvider implements tubepress_co
     private $_fields;
 
     /**
-     * @var tubepress_core_options_ui_api_ElementInterface[]
-     */
-    private $_categories;
-
-    /**
      * @var tubepress_core_translation_api_TranslatorInterface
      */
     private $_translator;
 
+    /**
+     * @var array
+     */
+    private $_map;
+
     public function __construct(tubepress_core_translation_api_TranslatorInterface $translator,
-                                array $fields,
-                                array $categories)
+                                array                                              $fields,
+                                array                                              $map)
     {
         $this->_translator = $translator;
         $this->_fields     = $fields;
-        $this->_categories = $categories;
+        $this->_map        = $map;
     }
 
     /**
@@ -59,7 +59,7 @@ class tubepress_vimeo_impl_options_ui_VimeoFieldProvider implements tubepress_co
      */
     public function getCategories()
     {
-        return $this->_categories;
+        return array();
     }
 
     /**
@@ -76,31 +76,7 @@ class tubepress_vimeo_impl_options_ui_VimeoFieldProvider implements tubepress_co
      */
     public function getCategoryIdsToFieldIdsMap()
     {
-        return array(
-
-            tubepress_core_options_ui_api_Constants::CATEGORY_NAME_GALLERYSOURCE => array(
-
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_ALBUM,
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN,
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_CREDITED,
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_LIKES,
-                tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_GROUP,
-            ),
-
-            tubepress_core_options_ui_api_Constants::CATEGORY_NAME_PLAYER => array(
-
-                tubepress_vimeo_api_Constants::OPTION_PLAYER_COLOR,
-            ),
-
-            tubepress_core_options_ui_api_Constants::CATEGORY_NAME_FEED => array(
-
-                tubepress_vimeo_api_Constants::OPTION_VIMEO_KEY,
-                tubepress_vimeo_api_Constants::OPTION_VIMEO_SECRET,
-            ),
-        );
+        return $this->_map;
     }
 
     /**

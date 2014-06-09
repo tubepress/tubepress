@@ -27,7 +27,7 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockOptionsPage;
+    private $_mockEventDispatcher;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -42,16 +42,16 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockOptionsPage              = $this->mock('tubepress_wordpress_impl_wp_OptionsPage');
+        $this->_mockEventDispatcher              = $this->mock(tubepress_core_event_api_EventDispatcherInterface::_);
         $this->_mockHttpRequestParameterService = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
         $this->_mockQss                         = $this->mock(tubepress_core_url_api_UrlFactoryInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters(
 
             $this->_mockWordPressFunctionWrapper,
-            $this->_mockOptionsPage,
             $this->_mockQss,
-            $this->_mockHttpRequestParameterService
+            $this->_mockHttpRequestParameterService,
+            $this->_mockEventDispatcher
         );
 
         $this->_sut->___doNotIgnoreExceptions();
@@ -194,7 +194,7 @@ ABC
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_options_page')->once()->with(
 
             'TubePress Options', 'TubePress', 'manage_options',
-            'tubepress', array($this->_sut, 'runOptionsPage')
+            'tubepress', array($this->_sut, '__fireOptionsPageEvent')
         );
 
         $mockEvent = $this->mock('tubepress_core_event_api_EventInterface');
@@ -206,9 +206,11 @@ ABC
 
     public function testRunOptionsPage()
     {
-        $this->_mockOptionsPage->shouldReceive('run')->once();
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+            tubepress_wordpress_api_Constants::EVENT_OPTIONS_PAGE_INVOKED
+        );
 
-        $this->_sut->runOptionsPage();
+        $this->_sut->__fireOptionsPageEvent();
 
         $this->assertTrue(true);
     }

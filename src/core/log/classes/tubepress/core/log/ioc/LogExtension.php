@@ -62,5 +62,27 @@ class tubepress_core_log_ioc_LogExtension implements tubepress_api_ioc_Container
                 tubepress_core_log_api_Constants::OPTION_DEBUG_ON => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  //>(translatable)<
             )
         ));
+
+        $containerBuilder->register(
+            'logging_enabled_field',
+            'tubepress_core_options_ui_api_FieldInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument(tubepress_core_log_api_Constants::OPTION_DEBUG_ON)
+         ->addArgument('boolean');
+
+        $fieldMap = array(
+            tubepress_core_options_ui_api_Constants::OPTIONS_UI_CATEGORY_ADVANCED => array(
+                tubepress_core_log_api_Constants::OPTION_DEBUG_ON
+            )
+        );
+
+        $containerBuilder->register(
+            'tubepress_core_log_impl_options_ui_FieldProvider',
+            'tubepress_core_log_impl_options_ui_FieldProvider'
+        )->addArgument(array())
+         ->addArgument(array(new tubepress_api_ioc_Reference('logging_enabled_field')))
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 }

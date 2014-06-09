@@ -15,9 +15,9 @@
 interface tubepress_vimeo_api_Constants
 {
     const OPTION_PLAYER_COLOR = 'playerColor';
-
     const OPTION_VIMEO_KEY    = 'vimeoKey';
     const OPTION_VIMEO_SECRET = 'vimeoSecret';
+    const OPTION_LIKES        = 'likes';
 
     const OPTION_VIMEO_ALBUM_VALUE      = 'vimeoAlbumValue';
     const OPTION_VIMEO_APPEARS_IN_VALUE = 'vimeoAppearsInValue';
@@ -28,9 +28,6 @@ interface tubepress_vimeo_api_Constants
     const OPTION_VIMEO_SEARCH_VALUE     = 'vimeoSearchValue';
     const OPTION_VIMEO_UPLOADEDBY_VALUE = 'vimeoUploadedByValue';
 
-    const OPTION_LIKES = 'likes';
-
-
     const GALLERYSOURCE_VIMEO_UPLOADEDBY = 'vimeoUploadedBy';
     const GALLERYSOURCE_VIMEO_LIKES      = 'vimeoLikes';
     const GALLERYSOURCE_VIMEO_APPEARS_IN = 'vimeoAppearsIn';
@@ -39,11 +36,6 @@ interface tubepress_vimeo_api_Constants
     const GALLERYSOURCE_VIMEO_CHANNEL    = 'vimeoChannel';
     const GALLERYSOURCE_VIMEO_ALBUM      = 'vimeoAlbum';
     const GALLERYSOURCE_VIMEO_GROUP      = 'vimeoGroup';
-
-
-
-
-
 
 
     /**
@@ -56,37 +48,37 @@ interface tubepress_vimeo_api_Constants
      * @api
      * @since 4.0.0
      */
-    const ORDER_BY_NEWEST        = 'newest';
+    const ORDER_BY_NEWEST = 'newest';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const ORDER_BY_OLDEST        = 'oldest';
+    const ORDER_BY_OLDEST = 'oldest';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const ORDER_BY_RANDOM        = 'random';
+    const ORDER_BY_RANDOM = 'random';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const ORDER_BY_RATING        = 'rating';
+    const ORDER_BY_RATING = 'rating';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const ORDER_BY_RELEVANCE     = 'relevance';
+    const ORDER_BY_RELEVANCE = 'relevance';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const ORDER_BY_VIEW_COUNT    = 'viewCount';
+    const ORDER_BY_VIEW_COUNT = 'viewCount';
 
 
 
@@ -102,35 +94,35 @@ interface tubepress_vimeo_api_Constants
      * @api
      * @since 4.0.0
      */
-    const PER_PAGE_SORT_DURATION       = 'duration';
+    const PER_PAGE_SORT_DURATION = 'duration';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const PER_PAGE_SORT_NEWEST         = 'newest';
+    const PER_PAGE_SORT_NEWEST = 'newest';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const PER_PAGE_SORT_OLDEST         = 'oldest';
+    const PER_PAGE_SORT_OLDEST = 'oldest';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const PER_PAGE_SORT_RATING         = 'rating';
+    const PER_PAGE_SORT_RATING = 'rating';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const PER_PAGE_SORT_TITLE          = 'title';
+    const PER_PAGE_SORT_TITLE = 'title';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const PER_PAGE_SORT_VIEW_COUNT     = 'viewCount';
+    const PER_PAGE_SORT_VIEW_COUNT = 'viewCount';
 }

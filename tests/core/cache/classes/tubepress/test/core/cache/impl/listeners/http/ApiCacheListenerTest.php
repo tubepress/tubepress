@@ -10,6 +10,7 @@
  */
 
 /**
+ * @covers tubepress_core_cache_impl_listeners_http_ApiCacheListener
  */
 class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends tubepress_test_TubePressUnitTest
 {

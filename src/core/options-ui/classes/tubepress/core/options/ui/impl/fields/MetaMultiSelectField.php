@@ -31,7 +31,8 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
                                 tubepress_core_http_api_RequestParametersInterface   $requestParams,
                                 tubepress_core_event_api_EventDispatcherInterface    $eventDispatcher,
                                 tubepress_core_template_api_TemplateFactoryInterface $templateFactory,
-                                tubepress_core_options_api_ReferenceInterface        $optionsReference)
+                                tubepress_core_options_api_ReferenceInterface        $optionsReference,
+                                array                                                $mediaProviders)
     {
         parent::__construct(
 
@@ -45,6 +46,7 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
         );
 
         $this->_optionsReference = $optionsReference;
+        $this->_mediaProviders   = $mediaProviders;
     }
 
     /**
@@ -161,11 +163,6 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
         }
 
         return 1;
-    }
-
-    public function setMediaProviders(array $providers)
-    {
-        $this->_mediaProviders = $providers;
     }
 
     /**

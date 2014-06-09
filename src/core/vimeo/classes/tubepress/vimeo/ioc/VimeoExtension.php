@@ -165,34 +165,37 @@ class tubepress_vimeo_ioc_VimeoExtension implements tubepress_api_ioc_ContainerE
             $fieldReferences[] = new tubepress_api_ioc_Reference('vimeo_options_field_' . $x);
         }
 
-        $categoryIndex = 0;
-        $categories = array(
-            tubepress_core_options_ui_api_Constants::CATEGORY_NAME_GALLERYSOURCE,
-            tubepress_core_options_ui_api_Constants::CATEGORY_NAME_FEED,
-            tubepress_core_options_ui_api_Constants::CATEGORY_NAME_PLAYER,
-        );
-        foreach ($categories as $categoryName) {
-
-            $containerBuilder->register(
-                'vimeo_category_' . $categoryIndex++,
-                'tubepress_core_options_ui_api_ElementInterface'
-            )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
-             ->setFactoryMethod('newInstance')
-             ->addArgument($categoryName)
-             ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_));
-        }
-        $categoryReferences = array();
-        for ($x = 0; $x , $x < count($categoryIndex); $x++) {
-            $categoryReferences[] = new tubepress_api_ioc_Reference('vimeo_category_' . $x);
-        }
-
         $containerBuilder->register(
 
             'tubepress_vimeo_impl_options_ui_VimeoFieldProvider',
             'tubepress_vimeo_impl_options_ui_VimeoFieldProvider'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
          ->addArgument($fieldReferences)
-         ->addArgument($categoryReferences)
+         ->addArgument(array(
+
+                tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_GALLERY_SOURCE => array(
+
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_ALBUM,
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL,
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_SEARCH,
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY,
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN,
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_CREDITED,
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_LIKES,
+                    tubepress_vimeo_api_Constants::GALLERYSOURCE_VIMEO_GROUP,
+                ),
+
+                tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED => array(
+
+                    tubepress_vimeo_api_Constants::OPTION_PLAYER_COLOR,
+                ),
+
+                tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_FEED => array(
+
+                    tubepress_vimeo_api_Constants::OPTION_VIMEO_KEY,
+                    tubepress_vimeo_api_Constants::OPTION_VIMEO_SECRET,
+                ),
+            ))
          ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
 
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_vimeo', array(
@@ -258,3 +261,6 @@ class tubepress_vimeo_ioc_VimeoExtension implements tubepress_api_ioc_ContainerE
         ));
     }
 }
+
+
+

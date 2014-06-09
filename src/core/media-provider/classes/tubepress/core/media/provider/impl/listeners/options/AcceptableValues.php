@@ -17,7 +17,7 @@ class tubepress_core_media_provider_impl_listeners_options_AcceptableValues
     /**
      * @var tubepress_core_media_provider_api_MediaProviderInterface[]
      */
-    private $_videoProviders;
+    private $_mediaProviders;
 
     public function onMode(tubepress_core_event_api_EventInterface $event)
     {
@@ -29,6 +29,11 @@ class tubepress_core_media_provider_impl_listeners_options_AcceptableValues
         $this->_handle($event, 'getMapOfFeedSortNamesToUntranslatedLabels');
     }
 
+    public function onPerPageSort(tubepress_core_event_api_EventInterface $event)
+    {
+        $this->_handle($event, 'getMapOfPerPageSortNamesToUntranslatedLabels');
+    }
+
     private function _handle(tubepress_core_event_api_EventInterface $event, $methodName)
     {
         $current = $event->getSubject();
@@ -38,7 +43,7 @@ class tubepress_core_media_provider_impl_listeners_options_AcceptableValues
             $current = array();
         }
 
-        foreach ($this->_videoProviders as $provider) {
+        foreach ($this->_mediaProviders as $provider) {
 
             $current = array_merge($current, $provider->$methodName());
         }
@@ -46,8 +51,8 @@ class tubepress_core_media_provider_impl_listeners_options_AcceptableValues
         $event->setSubject($current);
     }
 
-    public function setVideoProviders(array $providers)
+    public function setMediaProviders(array $providers)
     {
-        $this->_videoProviders = $providers;
+        $this->_mediaProviders = $providers;
     }
 }

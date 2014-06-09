@@ -86,7 +86,7 @@ class tubepress_youtube_impl_options_ui_YouTubeFieldProvider implements tubepres
     {
         return array(
 
-            'gallerysource-category' => array(
+            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_GALLERY_SOURCE => array(
 
                 tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
                 tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
@@ -96,7 +96,7 @@ class tubepress_youtube_impl_options_ui_YouTubeFieldProvider implements tubepres
                 tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
             ),
 
-            'player-category' => array(
+            tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED => array(
 
                 tubepress_youtube_api_Constants::OPTION_AUTOHIDE,
                 tubepress_youtube_api_Constants::OPTION_CLOSED_CAPTIONS,
@@ -109,7 +109,7 @@ class tubepress_youtube_impl_options_ui_YouTubeFieldProvider implements tubepres
                 tubepress_youtube_api_Constants::OPTION_SHOW_CONTROLS,
             ),
 
-            'feed-category' => array(
+            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_FEED => array(
 
                 tubepress_youtube_api_Constants::OPTION_FILTER,
                 tubepress_youtube_api_Constants::OPTION_DEV_KEY,

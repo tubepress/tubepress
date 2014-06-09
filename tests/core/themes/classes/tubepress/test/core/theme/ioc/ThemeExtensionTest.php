@@ -61,7 +61,7 @@ class tubepress_test_core_theme_ioc_ThemeExtensionTest extends tubepress_test_co
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_theme_api_ThemeLibraryInterface::_))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_theme_api_Constants::OPTION_THEME,
-                'method'   => 'onAcceptableValue',
+                'method'   => 'onAcceptableValues',
                 'priority' => 30000
             ));
 
@@ -75,6 +75,37 @@ class tubepress_test_core_theme_ioc_ThemeExtensionTest extends tubepress_test_co
                 tubepress_core_theme_api_Constants::OPTION_THEME => 'Theme',  //>(translatable)<
             )
         ));
+
+        $this->expectRegistration(
+            'theme_field',
+            'tubepress_core_options_ui_api_FieldInterface'
+        )->withFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+            ->withFactoryMethod('newInstance')
+            ->withArgument(tubepress_core_theme_api_Constants::OPTION_THEME)
+            ->withArgument('theme');
+
+        $this->expectRegistration(
+            'theme_category',
+            'tubepress_core_options_ui_api_ElementInterface'
+        )->withFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+            ->withFactoryMethod('newInstance')
+            ->withArgument(tubepress_core_theme_api_Constants::OPTIONS_UI_CATEGORY_THEMES)
+            ->withArgument('Theme');
+
+        $fieldMap = array(
+            tubepress_core_theme_api_Constants::OPTIONS_UI_CATEGORY_THEMES => array(
+                tubepress_core_theme_api_Constants::OPTION_THEME
+            )
+        );
+
+        $this->expectRegistration(
+
+            'tubepress_core_theme_impl_options_ui_FieldProvider',
+            'tubepress_core_theme_impl_options_ui_FieldProvider'
+        )->withArgument(array(new tubepress_api_ioc_Reference('theme_category')))
+            ->withArgument(array(new tubepress_api_ioc_Reference('theme_field')))
+            ->withArgument($fieldMap)
+            ->withTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()
@@ -83,6 +114,14 @@ class tubepress_test_core_theme_ioc_ThemeExtensionTest extends tubepress_test_co
         $bootLogger = $this->mock('tubepress_impl_log_BootLogger');
         $logger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $bootLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
+
+        $mockField = $this->mock('tubepress_core_options_ui_api_FieldInterface');
+        $fieldBuilder = $this->mock(tubepress_core_options_ui_api_FieldBuilderInterface::_);
+        $fieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
+
+        $mockCategory = $this->mock('tubepress_core_options_ui_api_ElementInterface');
+        $elementBuilder = $this->mock(tubepress_core_options_ui_api_ElementBuilderInterface::_);
+        $elementBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockCategory);
 
         return array(
             tubepress_core_options_api_ContextInterface::_ => tubepress_core_options_api_ContextInterface::_,
@@ -94,6 +133,8 @@ class tubepress_test_core_theme_ioc_ThemeExtensionTest extends tubepress_test_co
             'ehough_finder_FinderFactoryInterface' => 'ehough_finder_FinderFactoryInterface',
             tubepress_core_contrib_api_ContributableValidatorInterface::_ => tubepress_core_contrib_api_ContributableValidatorInterface::_,
             'tubepress_impl_log_BootLogger' => $bootLogger,
+            tubepress_core_options_ui_api_ElementBuilderInterface::_ => $elementBuilder,
+            tubepress_core_options_ui_api_FieldBuilderInterface::_ => $fieldBuilder
         );
     }
 

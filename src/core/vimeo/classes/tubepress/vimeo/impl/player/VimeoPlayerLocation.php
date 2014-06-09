@@ -74,4 +74,15 @@ class tubepress_vimeo_impl_player_VimeoPlayerLocation implements tubepress_core_
     {
         return 'from the video\'s original Vimeo page';                 //>(translatable)<
     }
+
+    /**
+     * @return bool True if this player location should show HTML when the gallery is initially loaded, false otherwise.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function displaysHtmlOnInitialGalleryLoad()
+    {
+        return false;
+    }
 }
