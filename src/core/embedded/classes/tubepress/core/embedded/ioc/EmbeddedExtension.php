@@ -75,7 +75,6 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_embedded', array(
 
             'defaultValues' => array(
-
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY        => false,
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT => 390,
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH  => 640,
@@ -87,7 +86,6 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
             ),
 
             'labels' => array(
-
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY        => 'Auto-play all videos',                               //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT => 'Max height (px)',                                    //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH  => 'Max width (px)',                                     //>(translatable)<
@@ -100,7 +98,6 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
             ),
 
             'descriptions' => array(
-
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT => sprintf('Default is %s.', 390), //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH  => sprintf('Default is %s.', 640), //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY        => 'Auto-play each video after thumbnail click.', //>(translatable)<
@@ -119,5 +116,70 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
                 )
             )
         ));
+
+        $fieldIndex = 0;
+        $fieldsMap = array(
+            'dropdown' => array(
+                tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION,
+                tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL
+            ),
+            'text' => array(
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT,
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH
+            ),
+            'boolean' => array(
+
+                tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO,
+                tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_LOOP,
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API
+            )
+        );
+        foreach ($fieldsMap as $type => $fieldIds) {
+            foreach ($fieldIds as $fieldId) {
+                $containerBuilder->register(
+                    'embedded_field_' . $fieldIndex++,
+                    'tubepress_core_options_ui_api_FieldInterface'
+                )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+                 ->setFactoryMethod('newInstance')
+                 ->addArgument($fieldId)
+                 ->addArgument($type);
+            }
+        }
+        $fieldReferences = array();
+        for ($x = 0; $x < $fieldIndex; $x++) {
+            $fieldReferences[] = new tubepress_api_ioc_Reference('embedded_field_' . $x);
+        }
+
+        $containerBuilder->register(
+            'player_category',
+            'tubepress_core_options_ui_api_ElementInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument(tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED)
+         ->addArgument('Player');
+
+        $fieldMap = array(
+            tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED => array(
+                tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION,
+                tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL,
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT,
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH,
+                tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO,
+                tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_LOOP,
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API
+            )
+        );
+
+        $containerBuilder->register(
+            'tubepress_core_embedded_impl_options_ui_FieldProvider',
+            'tubepress_core_embedded_impl_options_ui_FieldProvider'
+        )->addArgument(array(new tubepress_api_ioc_Reference('player_category')))
+         ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 }

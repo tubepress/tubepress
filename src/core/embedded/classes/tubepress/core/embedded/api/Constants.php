@@ -50,19 +50,19 @@ interface tubepress_core_embedded_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTION_AUTOPLAY         = 'autoplay';
+    const OPTION_AUTOPLAY = 'autoplay';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const OPTION_EMBEDDED_HEIGHT  = 'embeddedHeight';
+    const OPTION_EMBEDDED_HEIGHT = 'embeddedHeight';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const OPTION_EMBEDDED_WIDTH   = 'embeddedWidth';
+    const OPTION_EMBEDDED_WIDTH = 'embeddedWidth';
 
     /**
      * @api
@@ -74,29 +74,31 @@ interface tubepress_core_embedded_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTION_LAZYPLAY         = 'lazyPlay';
+    const OPTION_LAZYPLAY = 'lazyPlay';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const OPTION_LOOP             = 'loop';
+    const OPTION_LOOP = 'loop';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const OPTION_PLAYER_IMPL      = 'playerImplementation';
+    const OPTION_PLAYER_IMPL = 'playerImplementation';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const OPTION_SHOW_INFO        = 'showInfo';
+    const OPTION_SHOW_INFO = 'showInfo';
 
     /**
      * @api
      * @since 4.0.0
      */
     const EMBEDDED_IMPL_PROVIDER_BASED = 'provider_based';
+
+    const OPTIONS_UI_CATEGORY_EMBEDDED = 'embedded-category';
 }

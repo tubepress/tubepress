@@ -28,7 +28,8 @@
             "tubepress_core_embedded_api_EmbeddedProviderInterface"           : "classes/tubepress/core/embedded/api/EmbeddedProviderInterface.php",
             "tubepress_core_embedded_impl_EmbeddedHtml"                       : "classes/tubepress/core/embedded/impl/EmbeddedHtml.php",
             "tubepress_core_embedded_impl_listeners_options_AcceptableValues" : "classes/tubepress/core/embedded/impl/listeners/options/AcceptableValues.php",
-            "tubepress_core_embedded_impl_listeners_template_Core"            : "classes/tubepress/core/embedded/impl/listeners/template/Core.php"
+            "tubepress_core_embedded_impl_listeners_template_Core"            : "classes/tubepress/core/embedded/impl/listeners/template/Core.php",
+            "tubepress_core_embedded_impl_options_ui_FieldProvider"           : "classes/tubepress/core/embedded/impl/options/ui/FieldProvider.php"
         }
     }
 }

@@ -115,12 +115,87 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
                 )
             )
         ));
+
+        $fieldIndex = 0;
+        $fieldsMap = array(
+            'dropdown' => array(
+                tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION,
+                tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL
+            ),
+            'text' => array(
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT,
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH
+            ),
+            'boolean' => array(
+
+                tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO,
+                tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_LOOP,
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API
+            )
+        );
+        foreach ($fieldsMap as $type => $fieldIds) {
+            foreach ($fieldIds as $fieldId) {
+                $this->expectRegistration(
+                    'embedded_field_' . $fieldIndex++,
+                    'tubepress_core_options_ui_api_FieldInterface'
+                )->withFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+                    ->withFactoryMethod('newInstance')
+                    ->withArgument($fieldId)
+                    ->withArgument($type);
+            }
+        }
+        $fieldReferences = array();
+        for ($x = 0; $x < $fieldIndex; $x++) {
+            $fieldReferences[] = new tubepress_api_ioc_Reference('embedded_field_' . $x);
+        }
+
+        $this->expectRegistration(
+            'player_category',
+            'tubepress_core_options_ui_api_ElementInterface'
+        )->withFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+            ->withFactoryMethod('newInstance')
+            ->withArgument(tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED)
+            ->withArgument('Player');
+
+        $fieldMap = array(
+            tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED => array(
+                tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION,
+                tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL,
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT,
+                tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH,
+                tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO,
+                tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY,
+                tubepress_core_embedded_api_Constants::OPTION_LOOP,
+                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API
+            )
+        );
+
+        $this->expectRegistration(
+
+            'tubepress_core_embedded_impl_options_ui_FieldProvider',
+            'tubepress_core_embedded_impl_options_ui_FieldProvider'
+        )->withArgument(array(new tubepress_api_ioc_Reference('player_category')))
+            ->withArgument($fieldReferences)
+            ->withArgument($fieldMap)
+            ->withTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()
     {
         $logger = $this->mock(tubepress_api_log_LoggerInterface::_);
         $logger->shouldReceive('isEnabled')->once()->andReturn(true);
+
+        $mockFieldBuilder = $this->mock(tubepress_core_options_ui_api_FieldBuilderInterface::_);
+        $mockField        = $this->mock('tubepress_core_options_ui_api_FieldInterface');
+        $mockFieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
+
+        $element = $this->mock('tubepress_core_options_ui_api_ElementInterface');
+        $elementBuilder = $this->mock(tubepress_core_options_ui_api_ElementBuilderInterface::_);
+        $elementBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($element);
+
         return array(
 
             tubepress_api_log_LoggerInterface::_                    => $logger,
@@ -129,6 +204,8 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
             tubepress_core_url_api_UrlFactoryInterface::_           => tubepress_core_url_api_UrlFactoryInterface::_,
             tubepress_core_template_api_TemplateFactoryInterface::_ => tubepress_core_template_api_TemplateFactoryInterface::_,
             tubepress_core_environment_api_EnvironmentInterface::_ => tubepress_core_environment_api_EnvironmentInterface::_,
+            tubepress_core_options_ui_api_FieldBuilderInterface::_ => $mockFieldBuilder,
+            tubepress_core_options_ui_api_ElementBuilderInterface::_ => $elementBuilder
         );
     }
 }
