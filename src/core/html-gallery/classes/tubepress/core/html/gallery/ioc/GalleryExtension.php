@@ -30,7 +30,6 @@ class tubepress_core_html_gallery_ioc_GalleryExtension implements tubepress_api_
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-
             'tubepress_core_html_gallery_impl_listeners_CoreGalleryHtmlListener',
             'tubepress_core_html_gallery_impl_listeners_CoreGalleryHtmlListener'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
@@ -127,7 +126,7 @@ class tubepress_core_html_gallery_ioc_GalleryExtension implements tubepress_api_
 
             'descriptions' => array(
                 tubepress_core_html_gallery_api_Constants::OPTION_AJAX_PAGINATION  => sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)"),  //>(translatable)<
-                tubepress_core_html_gallery_api_Constants::OPTION_AUTONEXT          => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
+                tubepress_core_html_gallery_api_Constants::OPTION_AUTONEXT         => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
                 tubepress_core_html_gallery_api_Constants::OPTION_FLUID_THUMBS     => 'Dynamically set thumbnail spacing based on the width of their container.', //>(translatable)<
                 tubepress_core_html_gallery_api_Constants::OPTION_HQ_THUMBS        => 'Note: this option cannot be used with the "randomize thumbnails" feature.', //>(translatable)<
                 tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
@@ -158,5 +157,65 @@ class tubepress_core_html_gallery_ioc_GalleryExtension implements tubepress_api_
                 )
             )
         ));
+
+        $fieldIndex = 0;
+        $fieldMap = array(
+            'text' => array(
+                tubepress_core_html_gallery_api_Constants::OPTION_THUMB_HEIGHT,
+                tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH,
+            ),
+            'boolean' => array(
+                tubepress_core_html_gallery_api_Constants::OPTION_AJAX_PAGINATION,
+                tubepress_core_html_gallery_api_Constants::OPTION_FLUID_THUMBS,
+                tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE,
+                tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_BELOW,
+                tubepress_core_html_gallery_api_Constants::OPTION_HQ_THUMBS,
+                tubepress_core_html_gallery_api_Constants::OPTION_RANDOM_THUMBS
+            )
+        );
+        foreach ($fieldMap as $type => $fieldIds) {
+            foreach ($fieldIds as $id) {
+                $containerBuilder->register(
+                    'html_gallery_field_' . $fieldIndex++,
+                    'tubepress_core_options_ui_api_FieldInterface'
+                )->setFactoryService(tubepress_core_options_ui_api_FieldBuilderInterface::_)
+                 ->setFactoryMethod('newInstance')
+                 ->addArgument($id)
+                 ->addArgument($type);
+            }
+        }
+        $fieldReferences = array();
+        for ($x = 0; $x < $fieldIndex; $x++) {
+            $fieldReferences[] = new tubepress_api_ioc_Reference('html_gallery_field_' . $x);
+        }
+
+        $containerBuilder->register(
+            'thumbnails_category',
+            'tubepress_core_options_ui_api_ElementInterface'
+        )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
+         ->setFactoryMethod('newInstance')
+         ->addArgument(tubepress_core_html_gallery_api_Constants::OPTIONS_UI_CATEGORY_THUMBNAILS)
+         ->addArgument('Thumbnails');
+
+        $fieldMap = array(
+            tubepress_core_html_gallery_api_Constants::OPTIONS_UI_CATEGORY_THUMBNAILS => array(
+                tubepress_core_html_gallery_api_Constants::OPTION_THUMB_HEIGHT,
+                tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH,
+                tubepress_core_html_gallery_api_Constants::OPTION_AJAX_PAGINATION,
+                tubepress_core_html_gallery_api_Constants::OPTION_FLUID_THUMBS,
+                tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE,
+                tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_BELOW,
+                tubepress_core_html_gallery_api_Constants::OPTION_HQ_THUMBS,
+                tubepress_core_html_gallery_api_Constants::OPTION_RANDOM_THUMBS
+            )
+        );
+
+        $containerBuilder->register(
+            'tubepress_core_html_gallery_impl_options_ui_FieldProvider',
+            'tubepress_core_html_gallery_impl_options_ui_FieldProvider'
+        )->addArgument(array(new tubepress_api_ioc_Reference('thumbnails_category')))
+         ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_core_options_ui_api_FieldProviderInterface');
     }
 }

@@ -27,7 +27,8 @@
             "tubepress_core_html_gallery_impl_listeners_AbstractGalleryListener"     : "classes/tubepress/core/html/gallery/impl/listeners/AbstractGalleryListener.php",
             "tubepress_core_html_gallery_impl_listeners_CoreGalleryHtmlListener"     : "classes/tubepress/core/html/gallery/impl/listeners/CoreGalleryHtmlListener.php",
             "tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener" : "classes/tubepress/core/html/gallery/impl/listeners/CoreGalleryTemplateListener.php",
-            "tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener"  : "classes/tubepress/core/html/gallery/impl/listeners/PaginationTemplateListener.php"
+            "tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener"  : "classes/tubepress/core/html/gallery/impl/listeners/PaginationTemplateListener.php",
+            "tubepress_core_html_gallery_impl_options_ui_FieldProvider"              : "classes/tubepress/core/html/gallery/impl/options/ui/FieldProvider.php"
         }
     }
 }

@@ -73,7 +73,6 @@ interface tubepress_core_html_gallery_api_Constants
      */
     const EVENT_GALLERY_INIT_JS = 'tubepress.core.media.html.event.galleryInitJs';
 
-
     /**
      * @api
      * @since 4.0.0
@@ -133,4 +132,10 @@ interface tubepress_core_html_gallery_api_Constants
      * @since 4.0.0
      */
     const OPTION_THUMB_WIDTH = 'thumbWidth';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const OPTIONS_UI_CATEGORY_THUMBNAILS = 'thumbnails-category';
 }
