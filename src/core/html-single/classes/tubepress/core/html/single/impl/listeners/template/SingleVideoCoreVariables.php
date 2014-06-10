@@ -10,7 +10,7 @@
  */
 
 /**
- * Adds some core variables to the single video template.
+ * Adds some core variables to the single media item template.
  */
 class tubepress_core_html_single_impl_listeners_template_SingleVideoCoreVariables
 {
@@ -33,15 +33,15 @@ class tubepress_core_html_single_impl_listeners_template_SingleVideoCoreVariable
 
     public function onSingleVideoTemplate(tubepress_core_event_api_EventInterface $event)
     {
-        $video    = $event->getArgument('item');
-        $template = $event->getSubject();
+        $mediaItem = $event->getArgument('item');
+        $template  = $event->getSubject();
 
-        $embeddedString = $this->_embeddedHtml->getHtml($video->getId());
+        $embeddedString = $this->_embeddedHtml->getHtml($mediaItem->getId());
         $width          = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH);
 
         /* apply it to the template */
         $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE, $embeddedString);
         $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH, $width);
-        $template->setVariable(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_VIDEO, $video);
+        $template->setVariable(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_MEDIA_ITEM, $mediaItem);
     }
 }

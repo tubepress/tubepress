@@ -55,21 +55,21 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
     public function blacklist(tubepress_core_event_api_EventInterface $event)
     {
         /**
-         * @var $videos tubepress_core_media_item_api_MediaItem[]
+         * @var $mediaItems tubepress_core_media_item_api_MediaItem[]
          */
-        $videos         = $event->getSubject()->getItems();
-        $blacklist      = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST);
-        $videosToKeep   = array();
+        $mediaItems     = $event->getSubject()->getItems();
+        $blacklist      = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_ITEM_ID_BLACKLIST);
+        $itemsToKeep    = array();
         $blacklistCount = 0;
 
-        foreach ($videos as $video) {
+        foreach ($mediaItems as $mediaItem) {
 
-            $id = $video->getId();
+            $id = $mediaItem->getId();
 
             /* keep videos without an ID or that aren't blacklisted */
             if (!isset($id) || $this->_isNotBlacklisted($id, $blacklist)) {
 
-                $videosToKeep[] = $video;
+                $itemsToKeep[] = $mediaItem;
 
             } else {
 
@@ -78,7 +78,7 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
         }
 
         /* modify the feed result */
-        $event->getSubject()->setItems($videosToKeep);
+        $event->getSubject()->setItems($itemsToKeep);
     }
 
     public function prependItems(tubepress_core_event_api_EventInterface $event)
@@ -117,7 +117,7 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
         }
 
         /** Grab a handle to the videos. */
-        $videos = $event->getSubject()->getItems();
+        $mediaItems = $event->getSubject()->getItems();
 
         if ($this->_perPageSortOrder === tubepress_core_media_provider_api_Constants::PER_PAGE_SORT_RANDOM) {
 
@@ -126,28 +126,28 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
                 $this->_logger->debug('Shuffling videos');
             }
 
-            shuffle($videos);
+            shuffle($mediaItems);
 
         } else {
 
-            $videos = $this->_performComplexSort($videos, $shouldLog);
+            $mediaItems = $this->_performComplexSort($mediaItems, $shouldLog);
         }
 
-        $videos = array_values($videos);
+        $mediaItems = array_values($mediaItems);
 
         /** Modify the feed result. */
-        $event->getSubject()->setItems($videos);
+        $event->getSubject()->setItems($mediaItems);
     }
 
     public function capResults(tubepress_core_event_api_EventInterface $event)
     {
-        $totalResults = $event->getSubject()->getTotalResultCount();
-        $limit        = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP);
-        $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
-        $secondCut    = min($firstCut, $this->_calculateRealMax($firstCut));
-        $videos       = $event->getSubject()->getItems();
-        $resultCount  = count($videos);
-        $shouldLog    = $this->_logger->isEnabled();
+        $totalResults   = $event->getSubject()->getTotalResultCount();
+        $limit          = $this->_context->get(tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP);
+        $firstCut       = $limit == 0 ? $totalResults : min($limit, $totalResults);
+        $secondCut      = min($firstCut, $this->_calculateRealMax($firstCut));
+        $mediaItemArray = $event->getSubject()->getItems();
+        $resultCount    = count($mediaItemArray);
+        $shouldLog      = $this->_logger->isEnabled();
 
         if ($shouldLog) {
 
@@ -161,7 +161,7 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
                 $this->_logger->debug(sprintf('Result has %d video(s), limit is %d. So we\'re chopping it down.', $resultCount, $secondCut));
             }
 
-            $event->getSubject()->setItems(array_splice($videos, 0, $secondCut - $resultCount));
+            $event->getSubject()->setItems(array_splice($mediaItemArray, 0, $secondCut - $resultCount));
         }
 
         $event->getSubject()->setTotalResultCount($secondCut);
@@ -274,60 +274,60 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
 
     private function _prependVideo($id, tubepress_core_event_api_EventInterface $event)
     {
-        $videos = $event->getSubject()->getItems();
+        $mediaItemArray = $event->getSubject()->getItems();
 
         /* see if the array already has it */
-        if (self::_videoArrayAlreadyHasVideo($videos, $id)) {
+        if (self::_mediaItemArrayAlreadyHasItem($mediaItemArray, $id)) {
 
-            $videos = $this->_moveVideoUpFront($videos, $id);
+            $mediaItemArray = $this->_moveItemUpFront($mediaItemArray, $id);
 
         } else {
 
-            $video = $this->_collector->collectSingle($id);
+            $mediaItem = $this->_collector->collectSingle($id);
 
-            if ($video) {
+            if ($mediaItem) {
 
-                array_unshift($videos, $video);
+                array_unshift($mediaItemArray, $mediaItem);
             }
         }
 
         /* modify the feed result */
-        $event->getSubject()->setItems($videos);
+        $event->getSubject()->setItems($mediaItemArray);
     }
 
-    private function _moveVideoUpFront($videos, $targetId)
+    private function _moveItemUpFront($mediaItems, $targetId)
     {
         /**
-         * @var $videos tubepress_core_media_item_api_MediaItem[]
+         * @var $mediaItems tubepress_core_media_item_api_MediaItem[]
          */
-        for ($x = 0; $x < count($videos); $x++) {
+        for ($x = 0; $x < count($mediaItems); $x++) {
 
-            $video = $videos[$x];
-            $id    = $video->getId();
+            $mediaItem = $mediaItems[$x];
+            $id        = $mediaItem->getId();
 
             if ($id == $targetId) {
 
-                $saved = $videos[$x];
+                $saved = $mediaItems[$x];
 
-                unset($videos[$x]);
+                unset($mediaItems[$x]);
 
-                array_unshift($videos, $saved);
+                array_unshift($mediaItems, $saved);
 
                 break;
             }
         }
 
-        return $videos;
+        return $mediaItems;
     }
 
-    private function _videoArrayAlreadyHasVideo($videos, $targetId)
+    private function _mediaItemArrayAlreadyHasItem($mediaItems, $targetId)
     {
         /**
-         * @var $video tubepress_core_media_item_api_MediaItem
+         * @var $mediaItem tubepress_core_media_item_api_MediaItem
          */
-        foreach ($videos as $video) {
+        foreach ($mediaItems as $mediaItem) {
 
-            $id = $video->getId();
+            $id = $mediaItem->getId();
 
             if ($id == $targetId) {
 

@@ -23,9 +23,9 @@ interface tubepress_core_media_provider_api_CollectorInterface
     const _ = 'tubepress_core_media_provider_api_CollectorInterface';
 
     /**
-     * Collects a video gallery page.
+     * Collects a media gallery page.
      *
-     * @return tubepress_core_media_provider_api_Page The video gallery page, never null.
+     * @return tubepress_core_media_provider_api_Page The media gallery page, never null.
      *
      * @api
      * @since 4.0.0
@@ -33,11 +33,11 @@ interface tubepress_core_media_provider_api_CollectorInterface
     function collectPage();
 
     /**
-     * Fetch a single video.
+     * Fetch a single media item.
      *
-     * @param string $id The video ID to fetch.
+     * @param string $id The media item ID to fetch.
      *
-     * @return tubepress_core_media_item_api_MediaItem The video, or null not found.
+     * @return tubepress_core_media_item_api_MediaItem The media item, or null not found.
      *
      * @api
      * @since 4.0.0

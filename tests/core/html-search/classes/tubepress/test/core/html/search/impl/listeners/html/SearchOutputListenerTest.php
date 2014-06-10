@@ -86,7 +86,7 @@ class tubepress_test_core_html_search_impl_listeners_html_SearchOutputCommandTes
         $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_core_media_provider_api_Constants::OPTION_GALLERY_SOURCE, 'search');
         $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with('searchValue', "(#@@!!search (())(())((terms*$$#")->andReturn(true);
 
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS)->andReturn("(#@@!!search (())(())((terms*$$#");
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS)->andReturn("(#@@!!search (())(())((terms*$$#");
 
         $this->_sut->onHtmlGeneration($this->_mockEvent);
         $this->assertTrue(true);
@@ -96,7 +96,7 @@ class tubepress_test_core_html_search_impl_listeners_html_SearchOutputCommandTes
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_OUTPUT)->andReturn(tubepress_core_html_search_api_Constants::OUTPUT_SEARCH_RESULTS);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_search_api_Constants::OPTION_SEARCH_RESULTS_ONLY)->andReturn(true);
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS)->andReturn("");
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS)->andReturn("");
 
         $this->_mockEvent->shouldReceive('setSubject')->once()->with('');
         $this->_mockEvent->shouldReceive('stopPropagation')->once();
@@ -110,7 +110,7 @@ class tubepress_test_core_html_search_impl_listeners_html_SearchOutputCommandTes
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_api_Constants::OPTION_OUTPUT)->andReturn(tubepress_core_html_search_api_Constants::OUTPUT_SEARCH_RESULTS);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_search_api_Constants::OPTION_SEARCH_RESULTS_ONLY)->andReturn(false);
 
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->atLeast(1)->with(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS)->andReturn("");
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->atLeast(1)->with(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS)->andReturn("");
 
         $this->_sut->onHtmlGeneration($this->_mockEvent);
         $this->assertTrue(true);

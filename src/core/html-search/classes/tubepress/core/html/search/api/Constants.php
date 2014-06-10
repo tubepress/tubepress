@@ -114,4 +114,11 @@ interface tubepress_core_html_search_api_Constants
      * @since 4.0.0
      */
     const TEMPLATE_VAR_TERMS = 'searchTerms';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const HTTP_PARAM_NAME_SEARCH_TERMS = 'tubepress_search';
+
 }

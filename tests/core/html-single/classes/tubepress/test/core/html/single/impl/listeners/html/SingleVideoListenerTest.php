@@ -70,7 +70,7 @@ class tubepress_test_core_html_single_impl_listeners_html_SingleVideoCommandTest
 
     public function testExecuteNoVideo()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_single_api_Constants::OPTION_VIDEO)->andReturn('');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID)->andReturn('');
 
         $this->_sut->onHtmlGeneration($this->_mockEvent);
         $this->assertTrue(true);
@@ -81,7 +81,7 @@ class tubepress_test_core_html_single_impl_listeners_html_SingleVideoCommandTest
         $this->_mockLogger->shouldReceive('isEnabled')->twice()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_core_html_single_api_Constants::OPTION_VIDEO)->andReturn('video-id');
+        $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID)->andReturn('video-id');
 
         $mockTemplate = $this->mock('tubepress_core_template_api_TemplateInterface');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');

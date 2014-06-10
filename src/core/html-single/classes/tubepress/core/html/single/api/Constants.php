@@ -41,11 +41,11 @@ interface tubepress_core_html_single_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTION_VIDEO = 'video';
+    const OPTION_MEDIA_ITEM_ID = 'video';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_VIDEO = 'video';
+    const TEMPLATE_VAR_MEDIA_ITEM = 'mediaItem';
 }

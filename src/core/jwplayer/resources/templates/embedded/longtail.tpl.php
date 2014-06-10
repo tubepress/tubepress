@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<div id="<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_DOM_ID}; ?>">
+<div id="<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_DOM_ID}; ?>">
 <object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH}; ?>' height='<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT}; ?>'>
     <param name='movie' value='<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_TUBEPRESS_BASE_URL}; ?>/src/core/jwplayer/web/player.swf'>
     <param name='allowfullscreen' value='true'>

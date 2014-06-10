@@ -59,7 +59,7 @@ class tubepress_core_html_search_impl_listeners_html_SearchOutputListener
         }
 
         /* do we have search terms? */
-        $rawSearchTerms = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS);
+        $rawSearchTerms = $this->_requestParams->getParamValue(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS);
 
         /* are we set up for a gallery fallback? */
         $mustShowSearchResults = $this->_context->get(tubepress_core_html_search_api_Constants::OPTION_SEARCH_RESULTS_ONLY);
@@ -86,7 +86,7 @@ class tubepress_core_html_search_impl_listeners_html_SearchOutputListener
 
     private function _handle(tubepress_core_event_api_EventInterface $event)
     {
-        $rawSearchTerms = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS);
+        $rawSearchTerms = $this->_requestParams->getParamValue(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS);
         $hasSearchTerms = $rawSearchTerms != '';
         $shouldLog      = $this->_logger->isEnabled();
 

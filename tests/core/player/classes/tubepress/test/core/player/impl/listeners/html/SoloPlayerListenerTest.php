@@ -80,7 +80,7 @@ class tubepress_test_core_impl_shortcode_SoloPlayerCommandTest extends tubepress
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION)->andReturn('solo');
 
-        $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_core_html_single_api_Constants::OPTION_VIDEO, 'video-id')->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID, 'video-id')->andReturn(true);
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO)->andReturn('video-id');
 

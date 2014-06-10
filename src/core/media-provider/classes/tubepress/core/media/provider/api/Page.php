@@ -10,7 +10,7 @@
  */
 
 /**
- * Represents a set of videos.
+ * Represents a set of media items.
  *
  * @package TubePress\Video
  *
@@ -30,9 +30,9 @@ class tubepress_core_media_provider_api_Page
     private $_itemArray = array();
 
     /**
-     * Set the video array
+     * Set the media item array
      *
-     * @param tubepress_core_media_item_api_MediaItem[] $items The video array.
+     * @param tubepress_core_media_item_api_MediaItem[] $items The media item array.
      *
      * @return void
      *
@@ -45,9 +45,9 @@ class tubepress_core_media_provider_api_Page
     }
 
     /**
-     * Get the video array
+     * Get the media item array
      *
-     * @return tubepress_core_media_item_api_MediaItem[] The video array. May be empty but never null.
+     * @return tubepress_core_media_item_api_MediaItem[] The media item array. May be empty but never null.
      *
      * @api
      * @since 4.0.0

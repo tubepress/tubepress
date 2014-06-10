@@ -61,11 +61,11 @@ class tubepress_test_core_html_search_impl_listeners_template_SearchInputCoreVar
         $mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
         $mockUrl->shouldReceive('toString')->once()->andReturn('abcabc');
         $mockQuery->shouldReceive('remove')->once()->with(tubepress_core_http_api_Constants::PARAM_NAME_PAGE);
-        $mockQuery->shouldReceive('remove')->once()->with(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS);
+        $mockQuery->shouldReceive('remove')->once()->with(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS);
         $mockQuery->shouldReceive('toArray')->once()->andReturn(array('foo' => 'bar', 'something' => 'else'));
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($mockUrl);
 
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS)->andReturn("search for something");
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS)->andReturn("search for something");
 
         $this->_mockMessageService->shouldReceive('_')->once()->andReturnUsing(function ($msg) {
             return "##$msg##";

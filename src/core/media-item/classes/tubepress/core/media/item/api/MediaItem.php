@@ -10,7 +10,7 @@
  */
 
 /**
- * A video object that TubePress processes. It's essentially just a key-value store.
+ * A media object that TubePress processes. It's essentially just a key-value store.
  *
  * @package TubePress\Video
  *

@@ -100,7 +100,7 @@ interface tubepress_core_embedded_api_Constants
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_AUTOSTART       = 'autostart';
+    const TEMPLATE_VAR_AUTOSTART = 'autostart';
 
     /**
      * @api
@@ -112,43 +112,43 @@ interface tubepress_core_embedded_api_Constants
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_COLOR_PRIMARY   = 'embeddedColorPrimary';
+    const TEMPLATE_VAR_COLOR_PRIMARY = 'embeddedColorPrimary';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_DATA_URL        = 'homeURL';
+    const TEMPLATE_VAR_DATA_URL = 'homeURL';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_FULLSCREEN      = 'embeddedFullscreen';
+    const TEMPLATE_VAR_FULLSCREEN = 'embeddedFullscreen';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_HEIGHT          = 'embeddedHeight';
+    const TEMPLATE_VAR_HEIGHT = 'embeddedHeight';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_IMPL_NAME       = 'embeddedImplementationName';
+    const TEMPLATE_VAR_IMPL_NAME = 'embeddedImplementationName';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_SOURCE          = 'embeddedSource';
+    const TEMPLATE_VAR_SOURCE = 'embeddedSource';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_WIDTH           = 'embeddedWidth';
+    const TEMPLATE_VAR_WIDTH = 'embeddedWidth';
 
     /**
      * @api
@@ -160,17 +160,17 @@ interface tubepress_core_embedded_api_Constants
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_VIDEO_DOM_ID = 'videoDomId';
+    const TEMPLATE_VAR_MEDIA_ITEM_DOM_ID = 'mediaItemDomId';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_MEDIA_PROVIDER_NAME = 'videoProviderName';
+    const TEMPLATE_VAR_MEDIA_PROVIDER_NAME = 'mediaProviderName';
 
     /**
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_VIDEO_ID = 'videoId';
+    const TEMPLATE_VAR_MEDIA_ITEM_ID = 'mediaItemId';
 }

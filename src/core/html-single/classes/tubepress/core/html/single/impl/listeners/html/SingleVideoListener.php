@@ -54,24 +54,24 @@ class tubepress_core_html_single_impl_listeners_html_SingleVideoListener
 
     public function onHtmlGeneration(tubepress_core_event_api_EventInterface $event)
     {
-        $videoId = $this->_context->get(tubepress_core_html_single_api_Constants::OPTION_VIDEO);
+        $mediaItemId = $this->_context->get(tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID);
 
-        if ($videoId == '') {
+        if ($mediaItemId == '') {
 
             return;
         }
 
-        $videoId = $this->_context->get(tubepress_core_html_single_api_Constants::OPTION_VIDEO);
+        $mediaItemId = $this->_context->get(tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID);
 
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Building single video with ID %s', $videoId));
+            $this->_logger->debug(sprintf('Building single media item with ID %s', $mediaItemId));
         }
 
-        $this->_getSingleVideoHtml($event, $videoId);
+        $this->_getSingleVideoHtml($event, $mediaItemId);
     }
 
-    private function _getSingleVideoHtml(tubepress_core_event_api_EventInterface $event, $videoId)
+    private function _getSingleVideoHtml(tubepress_core_event_api_EventInterface $event, $itemId)
     {
         $template = $this->_templateFactory->fromFilesystem(array(
 
@@ -79,13 +79,13 @@ class tubepress_core_html_single_impl_listeners_html_SingleVideoListener
             TUBEPRESS_ROOT . '/core/themes/web/default/single_video.tpl.php'
         ));
 
-        /* grab the video from the provider */
+        /* grab the media item from the provider */
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Asking provider for video with ID %s', $videoId));
+            $this->_logger->debug(sprintf('Asking provider for video with ID %s', $itemId));
         }
 
-        $mediaItem = $this->_collector->collectSingle($videoId);
+        $mediaItem = $this->_collector->collectSingle($itemId);
 
         if ($this->_eventDispatcher->hasListeners(tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE)) {
 

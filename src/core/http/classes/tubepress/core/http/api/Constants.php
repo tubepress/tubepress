@@ -85,6 +85,5 @@ interface tubepress_core_http_api_Constants
      */
     const PARAM_NAME_ACTION       = 'action';
     const PARAM_NAME_PAGE         = 'tubepress_page';
-    const PARAM_NAME_SEARCH_TERMS = 'tubepress_search';
     const PARAM_NAME_VIDEO        = 'tubepress_video';
 }

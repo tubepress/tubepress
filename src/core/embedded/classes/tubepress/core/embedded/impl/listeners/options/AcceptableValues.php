@@ -22,7 +22,7 @@ class tubepress_core_embedded_impl_listeners_options_AcceptableValues
     /**
      * @var array
      */
-    private $_videoProviders = array();
+    private $_mediaProviders = array();
 
     public function onAcceptableValues(tubepress_core_event_api_EventInterface $event)
     {
@@ -43,7 +43,7 @@ class tubepress_core_embedded_impl_listeners_options_AcceptableValues
 
     public function setMediaProviders(array $providers)
     {
-        $this->_videoProviders = $providers;
+        $this->_mediaProviders = $providers;
     }
 
     private function _getAccepted()
@@ -89,11 +89,11 @@ class tubepress_core_embedded_impl_listeners_options_AcceptableValues
         $toReturn = array();
 
         /**
-         * @var $videoProvider tubepress_core_media_provider_api_MediaProviderInterface
+         * @var $mediaProvider tubepress_core_media_provider_api_MediaProviderInterface
          */
-        foreach ($this->_videoProviders as $videoProvider) {
+        foreach ($this->_mediaProviders as $mediaProvider) {
 
-            $toReturn[$videoProvider->getName()] = $videoProvider->getDisplayName();
+            $toReturn[$mediaProvider->getName()] = $mediaProvider->getDisplayName();
         }
 
         return $toReturn;

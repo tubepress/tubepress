@@ -34,7 +34,7 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
     /**
      * @var tubepress_core_media_provider_api_CollectorInterface
      */
-    private $_videoCollector;
+    private $_collector;
 
     /**
      * @var tubepress_core_http_api_RequestParametersInterface
@@ -46,17 +46,17 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
      */
     private $_responseCode;
 
-    public function __construct(tubepress_api_log_LoggerInterface $logger,
-                                tubepress_core_options_api_ContextInterface $context,
-                                tubepress_core_player_api_PlayerHtmlInterface $playerHtml,
-                                tubepress_core_media_provider_api_CollectorInterface $videoCollector,
-                                tubepress_core_http_api_RequestParametersInterface $requestParams,
-                                tubepress_core_http_api_ResponseCodeInterface $responseCode)
+    public function __construct(tubepress_api_log_LoggerInterface                    $logger,
+                                tubepress_core_options_api_ContextInterface          $context,
+                                tubepress_core_player_api_PlayerHtmlInterface        $playerHtml,
+                                tubepress_core_media_provider_api_CollectorInterface $collector,
+                                tubepress_core_http_api_RequestParametersInterface   $requestParams,
+                                tubepress_core_http_api_ResponseCodeInterface        $responseCode)
     {
         $this->_logger         = $logger;
         $this->_context        = $context;
         $this->_playerHtml     = $playerHtml;
-        $this->_videoCollector = $videoCollector;
+        $this->_collector = $collector;
         $this->_requestParams  = $requestParams;
         $this->_responseCode   = $responseCode;
     }
@@ -89,12 +89,12 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
             $this->_logger->debug('Handling incoming request. First parsing shortcode.');
         }
 
-        $nvpMap  = $this->_requestParams->getAllParams();
-        $videoId = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO);
+        $nvpMap = $this->_requestParams->getAllParams();
+        $itemId = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO);
 
         if ($isDebugEnabled) {
 
-            $this->_logger->debug('Requested video is ' . $videoId);
+            $this->_logger->debug('Requested item ID is ' . $itemId);
         }
 
         $this->_context->setEphemeralOptions($nvpMap);
@@ -106,28 +106,28 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
 
         if ($isDebugEnabled) {
 
-            $this->_logger->debug('Now asking video collector for video ' . $videoId);
+            $this->_logger->debug('Now asking video collector for item with ID ' . $itemId);
         }
 
-        /* grab the video! */
-        $video = $this->_videoCollector->collectSingle($videoId);
+        /* grab the item! */
+        $mediaItem = $this->_collector->collectSingle($itemId);
 
-        if ($video === null) {
+        if ($mediaItem === null) {
 
             $this->_responseCode->setResponseCode(404);
-            print "Video $videoId not found";
+            print "Video $itemId not found";
             return;
         }
 
         if ($isDebugEnabled) {
 
-            $this->_logger->debug('Video collector found video ' . $videoId . '. Sending it to browser');
+            $this->_logger->debug('Collector found item with ID ' . $itemId . '. Sending it to browser');
         }
 
         $toReturn = array(
 
-            'title' => $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE),
-            'html'  => $this->_playerHtml->getHtml($video)
+            'title' => $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE),
+            'html'  => $this->_playerHtml->getHtml($mediaItem)
         );
 
         $this->_responseCode->setResponseCode(200);

@@ -87,15 +87,15 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
         }
 
         /* convert the feed to videos */
-        $videoArray = $this->_feedToVideoArray($rawFeed);
+        $mediaItemArray = $this->_feedToMediaItemArray($rawFeed);
 
-        if (count($videoArray) == 0) {
+        if (count($mediaItemArray) == 0) {
 
             return $this->_emptyPage($toReturn);
         }
 
         $toReturn->setTotalResultCount($reportedTotalResultCount);
-        $toReturn->setItems($videoArray);
+        $toReturn->setItems($mediaItemArray);
 
         return $toReturn;
     }
@@ -119,23 +119,23 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
             $this->_logger->debug(sprintf('Fetching media item with ID <code>%s</code>', $itemId));
         }
 
-        $videoUrl = $this->_delegate->buildUrlForSingle($itemId);
-        $videoUrl = $this->_dispatchUrl($videoUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_ITEM, array(
+        $mediaItemUrl = $this->_delegate->buildUrlForSingle($itemId);
+        $mediaItemUrl = $this->_dispatchUrl($mediaItemUrl, tubepress_core_media_provider_api_Constants::EVENT_URL_MEDIA_ITEM, array(
             'itemId' => $itemId
         ));
 
         if ($isLoggerDebugEnabled) {
 
-            $this->_logger->debug(sprintf('URL to fetch is <a href="%s">this</a>', $videoUrl));
+            $this->_logger->debug(sprintf('URL to fetch is <a href="%s">this</a>', $mediaItemUrl));
         }
 
-        $feed       = $this->_fetchFeedAndPrepareForAnalysis($videoUrl);
-        $videoArray = $this->_feedToVideoArray($feed);
-        $toReturn   = null;
+        $feed           = $this->_fetchFeedAndPrepareForAnalysis($mediaItemUrl);
+        $mediaItemArray = $this->_feedToMediaItemArray($feed);
+        $toReturn       = null;
 
-        if (count($videoArray) > 0) {
+        if (count($mediaItemArray) > 0) {
 
-            return $videoArray[0];
+            return $mediaItemArray[0];
         }
 
         return null;
@@ -250,7 +250,7 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
         return $this->_delegate->getMapOfPerPageSortNamesToUntranslatedLabels();
     }
 
-    private function _feedToVideoArray($feed)
+    private function _feedToMediaItemArray($feed)
     {
         $toReturn       = array();
         $total          = $this->_delegate->getCurrentResultCount($feed);
@@ -274,9 +274,9 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
                 continue;
             }
 
-            $video = $this->_buildMediaItem($feed, $index);
+            $mediaItem = $this->_buildMediaItem($feed, $index);
 
-            array_push($toReturn, $video);
+            array_push($toReturn, $mediaItem);
         }
 
         $this->_delegate->onAnalysisComplete($feed);
@@ -375,17 +375,17 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
     {
         $id = $this->_delegate->getIdForItemAtIndex($index, $feed);
 
-        $video = new tubepress_core_media_item_api_MediaItem($id);
+        $mediaItem = new tubepress_core_media_item_api_MediaItem($id);
 
         /*
          * Every video needs to have a provider.
          */
-        $video->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER, $this);
+        $mediaItem->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER, $this);
 
         /*
          * Let add-ons build the rest of the video.
          */
-        $event = $this->_eventDispatcher->newEventInstance($video, array(
+        $event = $this->_eventDispatcher->newEventInstance($mediaItem, array(
             'provider'           => $this,
             'zeroBasedFeedIndex' => $index,
             'rawFeed'            => $feed

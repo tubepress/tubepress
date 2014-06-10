@@ -101,11 +101,11 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
                 $tempMap[$metaOptionName] = array();
             }
 
-            foreach ($this->_mediaProviders as $videoProvider) {
+            foreach ($this->_mediaProviders as $mediaProvider) {
 
-                if (in_array($metaOptionName, $videoProvider->getMetaOptionNames())) {
+                if (in_array($metaOptionName, $mediaProvider->getMetaOptionNames())) {
 
-                    $displayName = $videoProvider->getDisplayName();
+                    $displayName = $mediaProvider->getDisplayName();
                     if (!in_array($displayName, $tempMap[$metaOptionName])) {
 
                         $tempMap[$metaOptionName][] = $displayName;
@@ -212,9 +212,9 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
     {
         $toReturn = array();
 
-        foreach ($this->_mediaProviders as $videoProvider) {
+        foreach ($this->_mediaProviders as $mediaProvider) {
 
-            $toReturn = array_merge($toReturn, $videoProvider->getMetaOptionNames());
+            $toReturn = array_merge($toReturn, $mediaProvider->getMetaOptionNames());
         }
 
         return array_unique($toReturn);

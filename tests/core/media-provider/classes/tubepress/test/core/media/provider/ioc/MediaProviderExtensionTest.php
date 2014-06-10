@@ -96,7 +96,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY         => 'default',
                 tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT    => tubepress_core_media_provider_api_Constants::PER_PAGE_SORT_NONE,
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP => 0,
-                tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST  => null,
+                tubepress_core_media_provider_api_Constants::OPTION_ITEM_ID_BLACKLIST  => null,
                 tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE => 20,
             ),
 
@@ -104,7 +104,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY         => 'Order videos by',                    //>(translatable)<
                 tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT    => 'Per-page sort order',                //>(translatable)<
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP => 'Maximum total videos to retrieve',   //>(translatable)<
-                tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST  => 'Video blacklist',                    //>(translatable)<
+                tubepress_core_media_provider_api_Constants::OPTION_ITEM_ID_BLACKLIST  => 'Video blacklist',                    //>(translatable)<
                 tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE => 'Thumbnails per page',                //>(translatable)<
             ),
 
@@ -118,7 +118,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP =>
                     'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', //>(translatable)<
 
-                tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST  =>
+                tubepress_core_media_provider_api_Constants::OPTION_ITEM_ID_BLACKLIST  =>
                     'A list of video IDs that should never be displayed.',                                          //>(translatable)<
 
                 tubepress_core_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE =>
@@ -174,7 +174,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
         $fieldMap = array(
             'text' => array(
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP,
-                tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST,
+                tubepress_core_media_provider_api_Constants::OPTION_ITEM_ID_BLACKLIST,
             ),
             'dropdown' => array(
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY,
@@ -202,7 +202,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
                 tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY,
                 tubepress_core_media_provider_api_Constants::OPTION_PER_PAGE_SORT,
                 tubepress_core_media_provider_api_Constants::OPTION_RESULT_COUNT_CAP,
-                tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST,
+                tubepress_core_media_provider_api_Constants::OPTION_ITEM_ID_BLACKLIST,
             )
         );
 

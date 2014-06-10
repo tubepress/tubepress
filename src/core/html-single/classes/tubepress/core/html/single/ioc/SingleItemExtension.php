@@ -57,11 +57,11 @@ class tubepress_core_html_single_ioc_SingleItemExtension implements tubepress_ap
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_single', array(
 
             'defaultValues' => array(
-                tubepress_core_html_single_api_Constants::OPTION_VIDEO => null,
+                tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID => null,
             ),
 
             'doNotPersistNames' => array(
-                tubepress_core_html_single_api_Constants::OPTION_VIDEO,
+                tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID,
             )
         ));
     }

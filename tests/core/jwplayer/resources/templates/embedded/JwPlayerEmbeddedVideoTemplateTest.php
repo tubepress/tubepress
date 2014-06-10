@@ -37,7 +37,7 @@ EOT
 );
 
         ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_TUBEPRESS_BASE_URL} = 'tp-base-url';
-        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_ID} = 'video-id';
+        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ID} = 'video-id';
         ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH} = 99;
         ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT} = 88;
         ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_DATA_URL} = 'data-url';
@@ -46,7 +46,7 @@ EOT
         ${tubepress_jwplayer_api_Constants::OPTION_COLOR_FRONT} = 'front-color';
         ${tubepress_jwplayer_api_Constants::OPTION_COLOR_LIGHT} = 'light-color';
         ${tubepress_jwplayer_api_Constants::OPTION_COLOR_SCREEN} = 'screen-color';
-        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_DOM_ID} = 'video-dom-id';
+        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_DOM_ID} = 'video-dom-id';
 
         require TUBEPRESS_ROOT . '/src/core/jwplayer/resources/templates/embedded/longtail.tpl.php';
     }

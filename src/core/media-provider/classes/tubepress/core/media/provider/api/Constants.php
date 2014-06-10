@@ -91,7 +91,7 @@ interface tubepress_core_media_provider_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTION_VIDEO_BLACKLIST = 'videoBlacklist';
+    const OPTION_ITEM_ID_BLACKLIST = 'videoBlacklist';
 
     /**
      * @api

@@ -48,7 +48,7 @@ class tubepress_test_core_html_single_impl_listeners_template_SingleVideoCoreVar
         $mockTemplate = $this->mock('tubepress_core_template_api_TemplateInterface');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE, 'embedded-html');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH, 889);
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_VIDEO, $video);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_MEDIA_ITEM, $video);
 
         $event = $this->mock('tubepress_core_event_api_EventInterface');
         $event->shouldReceive('getArgument')->once()->with('item')->andReturn($video);

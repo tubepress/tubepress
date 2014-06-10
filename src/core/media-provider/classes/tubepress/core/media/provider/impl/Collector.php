@@ -10,7 +10,7 @@
  */
 
 /**
- * Simple video collector.
+ * Simple media item collector.
  */
 class tubepress_core_media_provider_impl_Collector implements tubepress_core_media_provider_api_CollectorInterface
 {
@@ -57,9 +57,9 @@ class tubepress_core_media_provider_impl_Collector implements tubepress_core_med
     }
 
     /**
-     * Collects a video gallery page.
+     * Collects a media gallery page.
      *
-     * @return tubepress_core_media_provider_api_Page The video gallery page, never null.
+     * @return tubepress_core_media_provider_api_Page The media gallery page, never null.
      *
      * @api
      * @since 4.0.0
@@ -126,11 +126,11 @@ class tubepress_core_media_provider_impl_Collector implements tubepress_core_med
     }
 
     /**
-     * Fetch a single video.
+     * Fetch a single media item.
      *
-     * @param string $id The video ID to fetch.
+     * @param string $id The media item ID to fetch.
      *
-     * @return tubepress_core_media_item_api_MediaItem The video, or null not found.
+     * @return tubepress_core_media_item_api_MediaItem The media item, or null not found.
      *
      * @api
      * @since 4.0.0

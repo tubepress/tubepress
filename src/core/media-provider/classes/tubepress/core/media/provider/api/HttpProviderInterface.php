@@ -16,7 +16,7 @@
 interface tubepress_core_media_provider_api_HttpProviderInterface extends tubepress_core_media_provider_api_MediaProviderInterface
 {
     /**
-     * Builds a URL for a list of videos
+     * Builds a URL for a list of media items
      *
      * @param int $currentPage The current page number of the gallery.
      *
@@ -28,13 +28,13 @@ interface tubepress_core_media_provider_api_HttpProviderInterface extends tubepr
     function buildUrlForPage($currentPage);
 
     /**
-     * Builds a request url for a single video
+     * Builds a request url for a single media item
      *
-     * @param string $id The video ID to search for
+     * @param string $id The media item ID to search for
      *
-     * @throws InvalidArgumentException If unable to build a URL for the given video.
+     * @throws InvalidArgumentException If unable to build a URL for the given media item.
      *
-     * @return tubepress_core_url_api_UrlInterface The URL for the single video given.
+     * @return tubepress_core_url_api_UrlInterface The URL for the single media item given.
      *
      * @api
      * @since 4.0.0
@@ -42,7 +42,7 @@ interface tubepress_core_media_provider_api_HttpProviderInterface extends tubepr
     function buildUrlForSingle($id);
 
     /**
-     * Count the total videos in this feed result.
+     * Count the total media items in this feed result.
      *
      * @param mixed $feed The raw feed from the provider.
      *
@@ -54,11 +54,11 @@ interface tubepress_core_media_provider_api_HttpProviderInterface extends tubepr
     function getTotalResultCount($feed);
 
     /**
-     * Count the number of videos that we think are in this feed.
+     * Count the number of media items that we think are in this feed.
      *
      * @param mixed $feed The feed.
      *
-     * @return integer A count of videos in this feed.
+     * @return integer A count of media items in this feed.
      *
      * @api
      * @since 4.0.0
@@ -66,12 +66,12 @@ interface tubepress_core_media_provider_api_HttpProviderInterface extends tubepr
     function getCurrentResultCount($feed);
 
     /**
-     * Determine if we can build a video from this element of the feed.
+     * Determine if we can build a media item from this element of the feed.
      *
      * @param integer $index The index into the feed.
      * @param mixed   $feed  The raw feed.
      *
-     * @return boolean True if we can build a video from this element, false otherwise.
+     * @return boolean True if we can build a media item from this element, false otherwise.
      *
      * @api
      * @since 4.0.0
@@ -84,7 +84,7 @@ interface tubepress_core_media_provider_api_HttpProviderInterface extends tubepr
      * @param integer $index The index into the feed.
      * @param mixed   $feed  The raw feed.
      *
-     * @return string The reason why we can't work with this video, or null if we can.
+     * @return string The reason why we can't work with this media item, or null if we can.
      *
      * @api
      * @since 4.0.0
@@ -129,7 +129,7 @@ interface tubepress_core_media_provider_api_HttpProviderInterface extends tubepr
     function onAnalysisComplete($feed);
 
     /**
-     * Let's subclasses add arguments to the video construction event.
+     * Let's subclasses add arguments to the media item construction event.
      *
      * @param tubepress_core_event_api_EventInterface $event The event we're about to fire.
      *

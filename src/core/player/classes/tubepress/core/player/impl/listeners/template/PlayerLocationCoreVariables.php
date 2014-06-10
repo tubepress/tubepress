@@ -35,12 +35,21 @@ class tubepress_core_player_impl_listeners_template_PlayerLocationCoreVariables
     {
         $galleryId = $this->_context->get(tubepress_core_html_api_Constants::OPTION_GALLERY_ID);
 
-        $template = $event->getSubject();
-        $video    = $event->getArgument('item');
+        /**
+         * @var $template tubepress_core_template_api_TemplateInterface
+         */
+        $template  = $event->getSubject();
+        $mediaItem = $event->getArgument('item');
+        $toSet     = array(
+            tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID        => $galleryId,
+            tubepress_core_html_single_api_Constants::TEMPLATE_VAR_MEDIA_ITEM => $mediaItem,
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE        => $this->_embeddedHtml->getHtml($mediaItem->getId()),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH         => $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH),
+        );
 
-        $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE, $this->_embeddedHtml->getHtml($video->getId()));
-        $template->setVariable(tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID, $galleryId);
-        $template->setVariable(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_VIDEO, $video);
-        $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH, $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH));
+        foreach ($toSet as $name => $value) {
+
+            $template->setVariable($name, $value);
+        }
     }
 }

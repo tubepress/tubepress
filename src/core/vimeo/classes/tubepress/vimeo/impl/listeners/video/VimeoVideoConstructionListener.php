@@ -26,9 +26,9 @@ class tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener
 
     public function onVideoConstruction(tubepress_core_event_api_EventInterface $event)
     {
-        $video = $event->getSubject();
+        $mediaItem = $event->getSubject();
 
-        $mediaProvider = $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER);
+        $mediaProvider = $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER);
 
         /*
          * Short circuit for videos belonging to someone else.
@@ -42,7 +42,7 @@ class tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener
 
         foreach ($attributeMap as $attributeName => $attributeValue) {
 
-            $video->setAttribute($attributeName, $attributeValue);
+            $mediaItem->setAttribute($attributeName, $attributeValue);
         }
     }
 
@@ -55,66 +55,66 @@ class tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener
      */
     protected function buildAttributeMap(tubepress_core_event_api_EventInterface $event)
     {
-        $toReturn   = array();
-        $index      = $event->getArgument('zeroBasedFeedIndex');
-        $videoArray = $event->getArgument('videoArray');
+        $toReturn       = array();
+        $index          = $event->getArgument('zeroBasedFeedIndex');
+        $mediaItemArray = $event->getArgument('videoArray');
 
         /* Author */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME] =
-            $videoArray[$index]->owner->display_name;
+            $mediaItemArray[$index]->owner->display_name;
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_USER_ID] =
-            $videoArray[$index]->owner->username;
+            $mediaItemArray[$index]->owner->username;
 
         /* Description */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION] =
-            $videoArray[$index]->description;
+            $mediaItemArray[$index]->description;
 
         /* Duration */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_SECONDS] =
-            $videoArray[$index]->duration;
+            $mediaItemArray[$index]->duration;
 
         /* Home URL */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL] =
-            'http://vimeo.com/' . $videoArray[$index]->id;
+            'http://vimeo.com/' . $mediaItemArray[$index]->id;
 
         /* Keywords */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORD_ARRAY] =
-            $this->_gatherArrayOfContent($videoArray[$index], 'tags', 'tag');
+            $this->_gatherArrayOfContent($mediaItemArray[$index], 'tags', 'tag');
 
         /* Likes. */
-        if (isset($videoArray[$index]->number_of_likes)) {
+        if (isset($mediaItemArray[$index]->number_of_likes)) {
 
             $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT] =
-                $videoArray[$index]->number_of_likes;
+                $mediaItemArray[$index]->number_of_likes;
         }
 
         /* Thumbnail. */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_THUMBNAIL_URL] =
-            $this->_getThumbnailUrl($videoArray, $index);
+            $this->_getThumbnailUrl($mediaItemArray, $index);
 
         /* Time published. Vimeo dates are in US Eastern Time.*/
         $reset = date_default_timezone_get();
         date_default_timezone_set('America/New_York');
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME] =
-            strtotime($videoArray[$index]->upload_date);
+            strtotime($mediaItemArray[$index]->upload_date);
         date_default_timezone_set($reset);
 
         /* Title. */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE] =
-            $videoArray[$index]->title;
+            $mediaItemArray[$index]->title;
 
         /* Views. */
-        if (isset($videoArray[$index]->number_of_plays)) {
+        if (isset($mediaItemArray[$index]->number_of_plays)) {
             $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT] =
-                $videoArray[$index]->number_of_plays;
+                $mediaItemArray[$index]->number_of_plays;
         }
 
         return $toReturn;
     }
 
-    private function _getThumbnailUrl($videoArray, $index)
+    private function _getThumbnailUrl($mediaItemArray, $index)
     {
-        $raw = $this->_gatherArrayOfContent($videoArray[$index], 'thumbnails', 'thumbnail');
+        $raw = $this->_gatherArrayOfContent($mediaItemArray[$index], 'thumbnails', 'thumbnail');
 
         return $raw[0];
     }

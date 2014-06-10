@@ -28,11 +28,11 @@ class tubepress_test_embedplus_resources_templates_embedded_EmbedPlusEmbeddedVid
 EOT
 );
 
-        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_ID} = 'video-id';
+        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ID} = 'video-id';
         ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH} = 99;
         ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT} = 88;
         ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_DATA_URL} = 'data-url';
-        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_DOM_ID} = 'video-dom-id';
+        ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_DOM_ID} = 'video-dom-id';
 
         require TUBEPRESS_ROOT . '/src/core/embedplus/resources/templates/embedded/embedplus.tpl.php';
     }

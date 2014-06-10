@@ -58,8 +58,8 @@ class tubepress_core_embedded_impl_listeners_template_Core
             tubepress_core_embedded_api_Constants::TEMPLATE_VAR_AUTOSTART           => $this->_booleanToString($autoPlay),
             tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH               => $embedWidth,
             tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT              => $embedHeight,
-            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_ID            => $itemId,
-            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_DOM_ID        => $this->_getVideoDomId($mediaProvider->getName(), $dataUrl),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ID       => $itemId,
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_DOM_ID   => $this->_getVideoDomId($mediaProvider->getName(), $dataUrl),
             tubepress_core_embedded_api_Constants::TEMPLATE_VAR_IMPL_NAME           => $embeddedProvider->getName(),
             tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_PROVIDER_NAME => $mediaProvider->getName(),
         );

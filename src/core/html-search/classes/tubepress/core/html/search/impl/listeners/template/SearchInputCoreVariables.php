@@ -67,7 +67,7 @@ class tubepress_core_html_search_impl_listeners_template_SearchInputCoreVariable
         }
 
         /* clean up the search terms a bit */
-        $searchTerms = $this->_requestParamsInterface->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS);
+        $searchTerms = $this->_requestParamsInterface->getParamValue(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS);
         $searchTerms = urldecode($searchTerms);    //TODO: get rid of this once we move to POST?
 
         /*
@@ -77,7 +77,7 @@ class tubepress_core_html_search_impl_listeners_template_SearchInputCoreVariable
         $params = $url->getQuery();
 
         $params->remove(tubepress_core_http_api_Constants::PARAM_NAME_PAGE);
-        $params->remove(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS);
+        $params->remove(tubepress_core_html_search_api_Constants::HTTP_PARAM_NAME_SEARCH_TERMS);
 
         /* apply the template variables */
         $template->setVariable(tubepress_core_html_search_api_Constants::TEMPLATE_VAR_HANDLER_URL, $url->toString());

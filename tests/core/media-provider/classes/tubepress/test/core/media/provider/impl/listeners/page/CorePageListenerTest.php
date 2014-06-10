@@ -117,7 +117,7 @@ class tubepress_test_core_media_provider_impl_listeners_page_CorePageListenerTes
     public function testBlacklist()
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_provider_api_Constants::OPTION_VIDEO_BLACKLIST)->andReturn('xxx');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_media_provider_api_Constants::OPTION_ITEM_ID_BLACKLIST)->andReturn('xxx');
 
         $mockVideoProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
         $mockVideoProvider->shouldReceive('getAttributeNameOfItemId')->atLeast(1)->andReturn('id');

@@ -34,14 +34,14 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
     public function onVideoConstruction(tubepress_core_event_api_EventInterface $event)
     {
         /**
-         * @var $video tubepress_core_media_item_api_MediaItem
+         * @var $mediaItem tubepress_core_media_item_api_MediaItem
          */
-        $video = $event->getSubject();
+        $mediaItem = $event->getSubject();
 
         /**
          * @var $provider tubepress_core_media_provider_api_MediaProviderInterface
          */
-        $provider = $video->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER);
+        $provider = $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_PROVIDER);
 
         /*
          * Short circuit for videos belonging to someone else.
@@ -55,7 +55,7 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
 
         foreach ($attributeMap as $attributeName => $attributeValue) {
 
-            $video->setAttribute($attributeName, $attributeValue);
+            $mediaItem->setAttribute($attributeName, $attributeValue);
         }
     }
 

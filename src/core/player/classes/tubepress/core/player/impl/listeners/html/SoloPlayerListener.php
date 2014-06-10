@@ -67,9 +67,9 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
         }
 
         /* see if we have a custom video ID set */
-        $videoId = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO);
+        $itemId = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO);
 
-        if ($videoId == '') {
+        if ($itemId == '') {
 
             if ($shouldLog) {
 
@@ -87,15 +87,15 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
      */
     private function _handle(tubepress_core_event_api_EventInterface $event)
     {
-        $videoId     = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO);;
-        $shouldLog   = $this->_logger->isEnabled();
+        $itemId    = $this->_requestParams->getParamValue(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO);;
+        $shouldLog = $this->_logger->isEnabled();
 
         if ($shouldLog) {
 
-            $this->_logger->debug(sprintf('Building single video with ID %s', $videoId));
+            $this->_logger->debug(sprintf('Building single video with ID %s', $itemId));
         }
 
-        $result = $this->_context->setEphemeralOption(tubepress_core_html_single_api_Constants::OPTION_VIDEO, $videoId);
+        $result = $this->_context->setEphemeralOption(tubepress_core_html_single_api_Constants::OPTION_MEDIA_ITEM_ID, $itemId);
 
         if ($result !== null) {
 

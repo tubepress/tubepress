@@ -91,13 +91,13 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
         $playerName     = $this->getExecutionContext()->get(tubepress_core_player_api_Constants::OPTION_PLAYER_LOCATION);
         $player         = $this->findCurrentPlayerLocation();
         $providerResult = $event->getArgument('page');
-        $videos         = $providerResult->getItems();
+        $mediaItems     = $providerResult->getItems();
         $galleryId      = $this->getExecutionContext()->get(tubepress_core_html_api_Constants::OPTION_GALLERY_ID);
         $playerHtml     = '';
 
         if ($player && $player->displaysHtmlOnInitialGalleryLoad()) {
 
-            $playerHtml = $this->_playerHtml->getHtml($videos[0], $galleryId);
+            $playerHtml = $this->_playerHtml->getHtml($mediaItems[0], $galleryId);
         }
 
         $template->setVariable(tubepress_core_player_api_Constants::TEMPLATE_VAR_HTML, $playerHtml);
@@ -107,11 +107,11 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
     private function _setItemArrayAndGalleryId(tubepress_core_event_api_EventInterface       $event,
                                                tubepress_core_template_api_TemplateInterface $template)
     {
-        $videoGalleryPage = $event->getArgument('page');
-        $videoArray  = $videoGalleryPage->getItems();
-        $galleryId   = $this->getExecutionContext()->get(tubepress_core_html_api_Constants::OPTION_GALLERY_ID);
+        $mediaItemPage = $event->getArgument('page');
+        $mediaItems    = $mediaItemPage->getItems();
+        $galleryId     = $this->getExecutionContext()->get(tubepress_core_html_api_Constants::OPTION_GALLERY_ID);
 
-        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_VIDEO_ARRAY, $videoArray);
+        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ARRAY, $mediaItems);
         $template->setVariable(tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID, $galleryId);
     }
 

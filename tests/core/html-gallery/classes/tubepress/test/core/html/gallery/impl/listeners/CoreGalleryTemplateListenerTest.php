@@ -124,7 +124,7 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $providerResult = new tubepress_core_media_provider_api_Page();
         $providerResult->setItems(array('video-array'));
 
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_VIDEO_ARRAY, array('video-array'));
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ARRAY, array('video-array'));
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID, 47);
 
         $this->_mockEvent->shouldReceive('getArgument')->once()->with('page')->andReturn($providerResult);
