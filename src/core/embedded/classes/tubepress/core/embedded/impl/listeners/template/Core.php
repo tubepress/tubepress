@@ -53,15 +53,15 @@ class tubepress_core_embedded_impl_listeners_template_Core
 
         $vars = array(
 
-            tubepress_core_template_api_const_VariableNames::EMBEDDED_DATA_URL   => $dataUrl->toString(),
-            tubepress_core_template_api_const_VariableNames::TUBEPRESS_BASE_URL  => $this->_environment->getBaseUrl()->toString(),
-            tubepress_core_template_api_const_VariableNames::EMBEDDED_AUTOSTART  => $this->_booleanToString($autoPlay),
-            tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH      => $embedWidth,
-            tubepress_core_template_api_const_VariableNames::EMBEDDED_HEIGHT     => $embedHeight,
-            tubepress_core_template_api_const_VariableNames::VIDEO_ID            => $itemId,
-            tubepress_core_template_api_const_VariableNames::VIDEO_DOM_ID        => $this->_getVideoDomId($mediaProvider->getName(), $dataUrl),
-            tubepress_core_template_api_const_VariableNames::EMBEDDED_IMPL_NAME  => $embeddedProvider->getName(),
-            tubepress_core_template_api_const_VariableNames::VIDEO_PROVIDER_NAME => $mediaProvider->getName(),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_DATA_URL            => $dataUrl->toString(),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_TUBEPRESS_BASE_URL  => $this->_environment->getBaseUrl()->toString(),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_AUTOSTART           => $this->_booleanToString($autoPlay),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH               => $embedWidth,
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT              => $embedHeight,
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_ID            => $itemId,
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_DOM_ID        => $this->_getVideoDomId($mediaProvider->getName(), $dataUrl),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_IMPL_NAME           => $embeddedProvider->getName(),
+            tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_PROVIDER_NAME => $mediaProvider->getName(),
         );
 
         foreach ($vars as $key => $value) {

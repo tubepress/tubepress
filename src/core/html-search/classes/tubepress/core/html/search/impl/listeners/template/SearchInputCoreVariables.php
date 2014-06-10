@@ -80,10 +80,10 @@ class tubepress_core_html_search_impl_listeners_template_SearchInputCoreVariable
         $params->remove(tubepress_core_http_api_Constants::PARAM_NAME_SEARCH_TERMS);
 
         /* apply the template variables */
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::SEARCH_HANDLER_URL, $url->toString());
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::SEARCH_HIDDEN_INPUTS, $params->toArray());
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::SEARCH_TERMS, $searchTerms);
+        $template->setVariable(tubepress_core_html_search_api_Constants::TEMPLATE_VAR_HANDLER_URL, $url->toString());
+        $template->setVariable(tubepress_core_html_search_api_Constants::TEMPLATE_VAR_HIDDEN_INPUTS, $params->toArray());
+        $template->setVariable(tubepress_core_html_search_api_Constants::TEMPLATE_VAR_TERMS, $searchTerms);
 
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::SEARCH_BUTTON, $this->_translator->_('Search'));    //>(translatable)<
+        $template->setVariable(tubepress_core_html_search_api_Constants::TEMPLATE_VAR_BUTTON, $this->_translator->_('Search'));    //>(translatable)<
     }
 }

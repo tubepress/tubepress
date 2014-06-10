@@ -142,4 +142,10 @@ interface tubepress_core_html_api_Constants
      * @since 4.0.0
      */
     const OPTION_GALLERY_ID = 'galleryId';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_GALLERY_ID = 'galleryId';
 }

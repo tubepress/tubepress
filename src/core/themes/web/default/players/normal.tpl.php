@@ -9,14 +9,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<div class="tubepress_normal_embedded_wrapper" style="width: <?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH}; ?>px">
+<div class="tubepress_normal_embedded_wrapper" style="width: <?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH}; ?>px">
   
-    <div id="tubepress_embedded_title_<?php echo ${tubepress_core_template_api_const_VariableNames::GALLERY_ID}; ?>" class="tubepress_embedded_title">
-      <?php echo ${tubepress_core_template_api_const_VariableNames::VIDEO}->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE); ?>
+    <div id="tubepress_embedded_title_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>" class="tubepress_embedded_title">
+      <?php echo ${tubepress_core_html_single_api_Constants::TEMPLATE_VAR_VIDEO}->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE); ?>
     
     </div>
-    <div id="tubepress_embedded_object_<?php echo ${tubepress_core_template_api_const_VariableNames::GALLERY_ID}; ?>">
-      <?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_SOURCE}; ?>
+    <div id="tubepress_embedded_object_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>">
+      <?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE}; ?>
     
     </div>
   </div>

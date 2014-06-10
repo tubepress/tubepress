@@ -165,8 +165,13 @@ abstract class tubepress_core_options_ioc_compiler_AbstractEasyPass implements t
 
         foreach ($allParamNames as $paramName) {
 
-            if ($this->_stringUtils->startsWith($paramName, $prefix) && $paramName !== $prefix) {
+            if ($this->_stringUtils->startsWith($paramName, $prefix)) {
 
+                if ($paramName === $prefix) {
+
+                    $this->_logger->error(sprintf('Found a parameter that exactly matches the prefix %s', $prefix));
+                    continue;
+                }
                 $candidateParams[$paramName] = $containerBuilder->getParameter($paramName);
             }
         }

@@ -58,7 +58,7 @@ class tubepress_embedplus_impl_embedded_EmbedPlusProvider implements tubepress_c
     }
 
     /**
-     * @return string The friendly name of this embedded player service.
+     * @return string The display name of this embedded player service.
      *
      * @api
      * @since 4.0.0

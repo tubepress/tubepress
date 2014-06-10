@@ -38,9 +38,9 @@ class tubepress_core_player_impl_listeners_template_PlayerLocationCoreVariables
         $template = $event->getSubject();
         $video    = $event->getArgument('item');
 
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::EMBEDDED_SOURCE, $this->_embeddedHtml->getHtml($video->getId()));
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::GALLERY_ID, $galleryId);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::VIDEO, $video);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH, $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH));
+        $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE, $this->_embeddedHtml->getHtml($video->getId()));
+        $template->setVariable(tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID, $galleryId);
+        $template->setVariable(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_VIDEO, $video);
+        $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH, $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH));
     }
 }

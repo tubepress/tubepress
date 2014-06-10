@@ -115,6 +115,7 @@ abstract class tubepress_test_core_options_ioc_compiler_AbstractEasyPassTest ext
     public function testCreateNoMatchingIds2()
     {
         $this->_mockContainer->shouldReceive('getParameterNames')->once()->andReturn(array(strtolower($this->getPrefix())));
+        $this->_mockLogger->shouldReceive('error')->once()->with('Found a parameter that exactly matches the prefix ' . strtolower($this->getPrefix()));
         $this->_mockStringUtils->shouldReceive('startsWith')->once()->with(strtolower($this->getPrefix()), strtolower($this->getPrefix()))->andReturn(true);
 
         $this->_sut->process($this->_mockContainer);

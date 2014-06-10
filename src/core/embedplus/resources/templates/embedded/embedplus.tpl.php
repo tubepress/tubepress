@@ -9,15 +9,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
-<object id="<?php echo ${tubepress_core_template_api_const_VariableNames::VIDEO_DOM_ID}; ?>" type="application/x-shockwave-flash" width="<?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH}; ?>" height="<?php echo intval(${tubepress_core_template_api_const_VariableNames::EMBEDDED_HEIGHT}) + 32; ?>" data="http://getembedplus.com/embedplus.swf">
+<object id="<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_DOM_ID}; ?>" type="application/x-shockwave-flash" width="<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH}; ?>" height="<?php echo intval(${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT}) + 32; ?>" data="http://getembedplus.com/embedplus.swf">
 
 	<param name="movie"		        value="http://getembedplus.com/embedplus.swf" />
 	<param name="quality"		    value="high" />
 	<param name="wmode"		        value="transparent" />
 	<param name="allowscriptaccess"	value="always" />
 	<param name="allowFullScreen"	value="true" />
-	<param name="flashvars" 	    value="ytid=<?php echo ${tubepress_core_template_api_const_VariableNames::VIDEO_ID}; ?>&width=<?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH}; ?>&height=<?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_HEIGHT}; ?>&hd=1" />
+	<param name="flashvars" 	    value="ytid=<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_ID}; ?>&width=<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH}; ?>&height=<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT}; ?>&hd=1" />
 
-	<iframe class="cantembedplus" title="YouTube video player" width="<?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH}; ?>" height="<?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_HEIGHT}; ?>" src="<?php echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_DATA_URL}; ?>" frameborder="0" allowfullscreen></iframe>
+	<iframe class="cantembedplus" title="YouTube video player" width="<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH}; ?>" height="<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT}; ?>" src="<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_DATA_URL}; ?>" frameborder="0" allowfullscreen></iframe>
 </object>
 <!--[if lte IE 6]> <style type="text/css">.cantembedplus{display:none;}</style><![endif]-->

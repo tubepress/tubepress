@@ -88,7 +88,7 @@ class tubepress_test_core_media_item_impl_easy_EasyAttributeFormatterTest extend
     public function testNumbers1()
     {
         $this->_setupForRun('abc', 'abc');
-        $this->_setupAttributes(44321, '44,321');
+        $this->_setupAttributes('44321', '44,321');
 
         $this->_sut->formatNumber('source', 'dest', 0);
 

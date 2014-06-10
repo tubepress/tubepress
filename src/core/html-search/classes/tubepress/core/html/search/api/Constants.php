@@ -84,4 +84,34 @@ interface tubepress_core_html_search_api_Constants
      * @since 4.0.0
      */
     const OUTPUT_SEARCH_RESULTS = 'searchResults';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_HANDLER_URL = 'searchHandlerUrl';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_HIDDEN_INPUTS = 'searchHiddenInputs';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_BUTTON = 'searchButton';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_TARGET_DOM_ID = 'searchTargetDomId';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_TERMS = 'searchTerms';
 }

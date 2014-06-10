@@ -138,4 +138,82 @@ interface tubepress_core_html_gallery_api_Constants
      * @since 4.0.0
      */
     const OPTIONS_UI_CATEGORY_THUMBNAILS = 'thumbnails-category';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_BOTTOM = 'bottomPagination';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_TOP = 'topPagination';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_CURRENT_PAGE = 'paginationCurrentPage';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_TOTAL_ITEMS = 'paginationTotalItems';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_RESULTS_PER_PAGE = 'paginationResultsPerPage';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_TEXT_NEXT = 'paginationTextNext';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_TEXT_PREV = 'paginationTextPrev';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_PAGINATION_HREF_FORMAT = 'paginationHrefFormat';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_THUMBNAIL_HEIGHT = 'thumbHeight';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_THUMBNAIL_WIDTH = 'thumbWidth';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_META_LABELS = 'metaLabels';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_META_SHOULD_SHOW = 'shouldShow';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_VIDEO_ARRAY              = 'videoArray';
 }

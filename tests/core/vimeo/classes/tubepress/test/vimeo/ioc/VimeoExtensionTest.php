@@ -59,7 +59,7 @@ class tubepress_test_vimeo_impl_ioc_VimeoExtensionTest extends tubepress_test_co
                 'priority' => 10000
             ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_TRIMMER . '_vimeo', array(
+       $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_TRIMMER . '_vimeo', array(
             'priority'    => 9500,
             'charlist'    => '#',
             'ltrim'       => true,
@@ -161,7 +161,7 @@ class tubepress_test_vimeo_impl_ioc_VimeoExtensionTest extends tubepress_test_co
             ->withArgument('spectrum');
 
         $fieldReferences = array();
-        for ($x = 0; $x < count($fieldIndex); $x++) {
+        for ($x = 0; $x < $fieldIndex; $x++) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('vimeo_options_field_' . $x);
         }
 
@@ -198,7 +198,7 @@ class tubepress_test_vimeo_impl_ioc_VimeoExtensionTest extends tubepress_test_co
             ))
             ->withTag('tubepress_core_options_ui_api_FieldProviderInterface');
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_vimeo', array(
+       $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_vimeo', array(
 
             'defaultValues' => array(
                 tubepress_vimeo_api_Constants::OPTION_PLAYER_COLOR           => '999999',
@@ -240,7 +240,7 @@ class tubepress_test_vimeo_impl_ioc_VimeoExtensionTest extends tubepress_test_co
             )
         ));
 
-        $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_vimeo', array(
+       $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_VALIDATION . '_vimeo', array(
 
             'priority' => 4000,
             'map' => array(

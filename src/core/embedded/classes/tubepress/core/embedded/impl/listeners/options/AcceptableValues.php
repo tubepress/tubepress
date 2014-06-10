@@ -77,14 +77,14 @@ class tubepress_core_embedded_impl_listeners_options_AcceptableValues
 
     private function _getValidVideoProviderNames()
     {
-        $toReturn = array_keys($this->_getValidProviderNamesToFriendlyNames());
+        $toReturn = array_keys($this->_getValidProviderNamesToDisplayNames());
 
         asort($toReturn);
 
         return $toReturn;
     }
 
-    private function _getValidProviderNamesToFriendlyNames()
+    private function _getValidProviderNamesToDisplayNames()
     {
         $toReturn = array();
 

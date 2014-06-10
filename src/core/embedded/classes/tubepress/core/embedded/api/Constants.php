@@ -68,12 +68,6 @@ interface tubepress_core_embedded_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTION_ENABLE_JS_API = 'enableJsApi';
-
-    /**
-     * @api
-     * @since 4.0.0
-     */
     const OPTION_LAZYPLAY = 'lazyPlay';
 
     /**
@@ -101,4 +95,82 @@ interface tubepress_core_embedded_api_Constants
     const EMBEDDED_IMPL_PROVIDER_BASED = 'provider_based';
 
     const OPTIONS_UI_CATEGORY_EMBEDDED = 'embedded-category';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_AUTOSTART       = 'autostart';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_COLOR_HIGHLIGHT = 'embeddedColorHightlight';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_COLOR_PRIMARY   = 'embeddedColorPrimary';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_DATA_URL        = 'homeURL';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_FULLSCREEN      = 'embeddedFullscreen';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_HEIGHT          = 'embeddedHeight';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_IMPL_NAME       = 'embeddedImplementationName';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_SOURCE          = 'embeddedSource';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_WIDTH           = 'embeddedWidth';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_TUBEPRESS_BASE_URL = 'tubepressBaseUrl';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_VIDEO_DOM_ID = 'videoDomId';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_MEDIA_PROVIDER_NAME = 'videoProviderName';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_VIDEO_ID = 'videoId';
 }

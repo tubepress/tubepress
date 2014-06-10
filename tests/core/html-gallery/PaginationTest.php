@@ -15,12 +15,12 @@ class tubepress_test_impl_template_templates_defaultthemes_default_PaginationTes
         $expected = file_get_contents(TUBEPRESS_ROOT . '/tests/core/html-gallery/fixtures/pagination/pagination.txt');
 
         $path = TUBEPRESS_ROOT . '/src/core/themes/web/default/pagination.tpl.php';
-        ${tubepress_core_template_api_const_VariableNames::PAGINATION_CURRENT_PAGE}     = 4;
-        ${tubepress_core_template_api_const_VariableNames::PAGINATION_TOTAL_ITEMS}      = 99;
-        ${tubepress_core_template_api_const_VariableNames::PAGINATION_RESULTS_PER_PAGE} = 10;
-        ${tubepress_core_template_api_const_VariableNames::PAGINATION_HREF_FORMAT}      = 'xyz%d';
-        ${tubepress_core_template_api_const_VariableNames::PAGINATION_TEXT_PREV}        = 'prevv';
-        ${tubepress_core_template_api_const_VariableNames::PAGINATION_TEXT_NEXT}        = 'nextt';
+        ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_CURRENT_PAGE}     = 4;
+        ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOTAL_ITEMS}      = 99;
+        ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_RESULTS_PER_PAGE} = 10;
+        ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT}      = 'xyz%d';
+        ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_PREV}        = 'prevv';
+        ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_NEXT}        = 'nextt';
 
         ob_start();
         include $path;

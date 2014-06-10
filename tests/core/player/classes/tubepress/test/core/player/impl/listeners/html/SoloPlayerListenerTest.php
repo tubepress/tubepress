@@ -32,11 +32,6 @@ class tubepress_test_core_impl_shortcode_SoloPlayerCommandTest extends tubepress
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockSingleVideoShortcodeHandler;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockLogger;
 
     /**
@@ -50,7 +45,6 @@ class tubepress_test_core_impl_shortcode_SoloPlayerCommandTest extends tubepress
         $this->_mockExecutionContext            = $this->mock(tubepress_core_options_api_ContextInterface::_);
         $this->_mockHttpRequestParameterService = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
         $this->_mockLogger                       = $this->mock(tubepress_api_log_LoggerInterface::_);
-        $this->_mockSingleVideoShortcodeHandler = $this->mock('tubepress_core_html_single_impl_listeners_html_SingleVideoListener');
         $this->_mockEvent            = $this->mock('tubepress_core_event_api_EventInterface');
 
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
@@ -60,7 +54,6 @@ class tubepress_test_core_impl_shortcode_SoloPlayerCommandTest extends tubepress
 
             $this->_mockLogger,
             $this->_mockExecutionContext,
-            $this->_mockSingleVideoShortcodeHandler,
             $this->_mockHttpRequestParameterService
         );
     }
@@ -90,8 +83,6 @@ class tubepress_test_core_impl_shortcode_SoloPlayerCommandTest extends tubepress
         $this->_mockExecutionContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_core_html_single_api_Constants::OPTION_VIDEO, 'video-id')->andReturn(true);
 
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->twice()->with(tubepress_core_http_api_Constants::PARAM_NAME_VIDEO)->andReturn('video-id');
-
-        $this->_mockSingleVideoShortcodeHandler->shouldReceive('onHtmlGeneration')->once()->with($this->_mockEvent);
 
         $this->_sut->onHtmlGeneration($this->_mockEvent);
         $this->assertTrue(true);

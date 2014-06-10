@@ -71,33 +71,6 @@ class tubepress_core_environment_impl_Environment implements tubepress_core_envi
     }
 
     /**
-     * Detects if the user is running within WordPress
-     *
-     * @return boolean True is the user is running within WordPress. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function isWordPress()
-    {
-        return isset($this->_wpFunctionsInterface);
-    }
-
-    /**
-     * Find the absolute path of the user's content directory. In WordPress, this will be
-     * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content.
-     *
-     * @return string The absolute path of the user's content directory.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getUserContentDirectory()
-    {
-        return $this->_bootSettings->getUserContentDirectory();
-    }
-
-    /**
      * Get the current TubePress version.
      *
      * @return tubepress_core_version_api_Version The current version.
@@ -154,7 +127,7 @@ class tubepress_core_environment_impl_Environment implements tubepress_core_envi
 
             } else {
 
-                if ($this->isWordPress()) {
+                if ($this->_isWordPress()) {
 
                     $url = $this->_wpFunctionsInterface->content_url();
 
@@ -224,5 +197,10 @@ class tubepress_core_environment_impl_Environment implements tubepress_core_envi
         }
 
         return $url;
+    }
+
+    private function _isWordPress()
+    {
+        return defined('WPLANG') && defined('ABSPATH');
     }
 }

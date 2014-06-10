@@ -42,4 +42,10 @@ interface tubepress_core_html_single_api_Constants
      * @since 4.0.0
      */
     const OPTION_VIDEO = 'video';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_VIDEO = 'video';
 }

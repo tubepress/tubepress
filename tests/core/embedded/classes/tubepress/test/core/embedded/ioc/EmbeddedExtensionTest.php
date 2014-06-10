@@ -75,7 +75,6 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY        => false,
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT => 390,
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH  => 640,
-                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API   => true,
                 tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY        => true,
                 tubepress_core_embedded_api_Constants::OPTION_LOOP            => false,
                 tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL     => tubepress_core_embedded_api_Constants::EMBEDDED_IMPL_PROVIDER_BASED,
@@ -87,7 +86,6 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY        => 'Auto-play all videos',                               //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT => 'Max height (px)',                                    //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH  => 'Max width (px)',                                     //>(translatable)<
-                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API   => 'Enable JavaScript API',                              //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_LAZYPLAY        => '"Lazy" play videos',                                 //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_LOOP            => 'Loop',                                               //>(translatable)<
                 tubepress_core_embedded_api_Constants::OPTION_PLAYER_IMPL     => 'Implementation',                                     //>(translatable)<
@@ -132,7 +130,6 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
                 tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO,
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY,
                 tubepress_core_embedded_api_Constants::OPTION_LOOP,
-                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API
             )
         );
         foreach ($fieldsMap as $type => $fieldIds) {
@@ -169,7 +166,6 @@ class tubepress_test_core_embedded_ioc_EmbeddedExtensionTest extends tubepress_t
                 tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO,
                 tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY,
                 tubepress_core_embedded_api_Constants::OPTION_LOOP,
-                tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API
             )
         );
 

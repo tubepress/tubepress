@@ -38,10 +38,10 @@ class tubepress_core_html_search_impl_listeners_options_AcceptableValues
 
     private function _getAccepted()
     {
-        return $this->_getValidProviderNamesToFriendlyNames();
+        return $this->_getValidProviderNamesToDisplayNames();
     }
 
-    private function _getValidProviderNamesToFriendlyNames()
+    private function _getValidProviderNamesToDisplayNames()
     {
         $toReturn = array();
 

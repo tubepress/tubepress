@@ -77,7 +77,7 @@ class tubepress_test_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends t
             ->withFactoryMethod('newInstance')
             ->withArgument(tubepress_youtube_api_Constants::OPTION_DEV_KEY)
             ->withArgument('text')
-            ->withArgument(array('size' => 120));
+            ->withArgument(array('size' => 40));
 
         $gallerySourceMap = array(
 

@@ -70,7 +70,7 @@ class tubepress_youtube_impl_player_YouTubePlayerLocation implements tubepress_c
      * @api
      * @since 4.0.0
      */
-    public function getUntranslatedFriendlyName()
+    public function getUntranslatedDisplayName()
     {
         return 'from the video\'s original YouTube page';               //>(translatable)<
     }

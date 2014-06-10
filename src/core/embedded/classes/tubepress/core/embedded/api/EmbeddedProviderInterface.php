@@ -31,7 +31,7 @@ interface tubepress_core_embedded_api_EmbeddedProviderInterface
     function getName();
 
     /**
-     * @return string The friendly name of this embedded player service.
+     * @return string The display name of this embedded player service.
      *
      * @api
      * @since 4.0.0

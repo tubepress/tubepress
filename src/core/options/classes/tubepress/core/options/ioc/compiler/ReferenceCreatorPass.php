@@ -59,12 +59,12 @@ class tubepress_core_options_ioc_compiler_ReferenceCreatorPass implements tubepr
             tubepress_core_options_api_ReferenceInterface::_,
             'tubepress_core_options_impl_Reference'
         )->addArgument($mapOfOptionNamesToDefaultValues)
-            ->addArgument($mapOfOptionNamesToLabels)
-            ->addArgument($mapOfOptionNamesToDescriptions)
-            ->addArgument($optionNamesThatArePro)
-            ->addArgument($optionNamesThatShouldNotBePersisted)
-            ->addArgument($optionNamesThatCannotBeSetViaShortcode)
-            ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_));
+         ->addArgument($mapOfOptionNamesToLabels)
+         ->addArgument($mapOfOptionNamesToDescriptions)
+         ->addArgument($optionNamesThatShouldNotBePersisted)
+         ->addArgument($optionNamesThatCannotBeSetViaShortcode)
+         ->addArgument($optionNamesThatArePro)
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_));
     }
 
     private function _getNoShortcodeNames(tubepress_core_options_api_ReferenceInterface $ref)

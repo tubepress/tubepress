@@ -48,7 +48,7 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
         $template = $event->getSubject();
 
         //shim for old templates :(
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::EMBEDDED_IMPL_NAME, 'x');
+        $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_IMPL_NAME, 'x');
 
         $this->_setItemArrayAndGalleryId($event, $template);
         $this->_setThumbnailSizes($template);
@@ -81,8 +81,8 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
             $labels[$metaName]     = $this->_translator->_($untranslatedLabel);
         }
 
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::META_LABELS, $labels);
+        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
+        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
     }
 
     private function _setPlayerLocationStuff(tubepress_core_event_api_EventInterface      $event,
@@ -100,8 +100,8 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
             $playerHtml = $this->_playerHtml->getHtml($videos[0], $galleryId);
         }
 
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::PLAYER_HTML, $playerHtml);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::PLAYER_NAME, $playerName);
+        $template->setVariable(tubepress_core_player_api_Constants::TEMPLATE_VAR_HTML, $playerHtml);
+        $template->setVariable(tubepress_core_player_api_Constants::TEMPLATE_VAR_NAME, $playerName);
     }
 
     private function _setItemArrayAndGalleryId(tubepress_core_event_api_EventInterface       $event,
@@ -111,8 +111,8 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
         $videoArray  = $videoGalleryPage->getItems();
         $galleryId   = $this->getExecutionContext()->get(tubepress_core_html_api_Constants::OPTION_GALLERY_ID);
 
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::VIDEO_ARRAY, $videoArray);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::GALLERY_ID, $galleryId);
+        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_VIDEO_ARRAY, $videoArray);
+        $template->setVariable(tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID, $galleryId);
     }
 
     private function _setThumbnailSizes(tubepress_core_template_api_TemplateInterface $template)
@@ -120,8 +120,8 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
         $thumbWidth  = $this->getExecutionContext()->get(tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH);
         $thumbHeight = $this->getExecutionContext()->get(tubepress_core_html_gallery_api_Constants::OPTION_THUMB_HEIGHT);
 
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::THUMBNAIL_WIDTH, $thumbWidth);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::THUMBNAIL_HEIGHT, $thumbHeight);
+        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_WIDTH, $thumbWidth);
+        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_HEIGHT, $thumbHeight);
     }
 
     private function _getAllMetaOptionNames()

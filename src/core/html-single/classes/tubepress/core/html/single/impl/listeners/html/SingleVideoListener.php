@@ -85,7 +85,7 @@ class tubepress_core_html_single_impl_listeners_html_SingleVideoListener
             $this->_logger->debug(sprintf('Asking provider for video with ID %s', $videoId));
         }
 
-        $video = $this->_collector->collectSingle($videoId);
+        $mediaItem = $this->_collector->collectSingle($videoId);
 
         if ($this->_eventDispatcher->hasListeners(tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE)) {
 
@@ -94,7 +94,7 @@ class tubepress_core_html_single_impl_listeners_html_SingleVideoListener
                 $template,
                 array(
 
-                    'video' => $video
+                    'item' => $mediaItem
                 )
             );
 

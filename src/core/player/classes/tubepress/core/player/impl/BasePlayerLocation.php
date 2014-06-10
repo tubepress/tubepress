@@ -28,7 +28,7 @@ class tubepress_core_player_impl_BasePlayerLocation implements tubepress_core_pl
     /**
      * @var string
      */
-    private $_friendlyName;
+    private $_displayName;
 
     /**
      * @var string
@@ -46,17 +46,17 @@ class tubepress_core_player_impl_BasePlayerLocation implements tubepress_core_pl
     private $_htmlOnPageLoad;
 
     public function __construct($name,
-                                $friendlyName,
+                                $displayName,
                                 array $templatePaths,
                                 $relativeJsurl,
                                 $producesHtml,
                                 $htmlOnPageLoad)
     {
-        $this->_templatePaths   = $templatePaths;
-        $this->_name            = $name;
-        $this->_relativeJsUrl   = $relativeJsurl;
-        $this->_friendlyName    = $friendlyName;
-        $this->_producesHtml    = $producesHtml;
+        $this->_templatePaths  = $templatePaths;
+        $this->_name           = $name;
+        $this->_relativeJsUrl  = $relativeJsurl;
+        $this->_displayName    = $displayName;
+        $this->_producesHtml   = $producesHtml;
         $this->_htmlOnPageLoad = $htmlOnPageLoad;
     }
 
@@ -127,9 +127,9 @@ class tubepress_core_player_impl_BasePlayerLocation implements tubepress_core_pl
      * @api
      * @since 4.0.0
      */
-    public function getUntranslatedFriendlyName()
+    public function getUntranslatedDisplayName()
     {
-        return $this->_friendlyName;
+        return $this->_displayName;
     }
 
     /**

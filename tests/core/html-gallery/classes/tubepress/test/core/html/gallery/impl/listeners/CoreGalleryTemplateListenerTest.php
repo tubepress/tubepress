@@ -94,7 +94,7 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
 
     private function _testEmbeddedImplName()
     {
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_IMPL_NAME, 'x');
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_IMPL_NAME, 'x');
     }
 
     private function _testVideoMetaStuff()
@@ -112,8 +112,8 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with('meta')->andReturn('meta label!');
         $this->_mockTranslator->shouldReceive('_')->once()->with("meta label!")->andReturn("##video-meta##");
 
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::META_SHOULD_SHOW, $shouldShow);
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::META_LABELS, $labels);
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
 
     }
 
@@ -124,8 +124,8 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $providerResult = new tubepress_core_media_provider_api_Page();
         $providerResult->setItems(array('video-array'));
 
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO_ARRAY, array('video-array'));
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::GALLERY_ID, 47);
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_VIDEO_ARRAY, array('video-array'));
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID, 47);
 
         $this->_mockEvent->shouldReceive('getArgument')->once()->with('page')->andReturn($providerResult);
     }
@@ -135,8 +135,8 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_THUMB_WIDTH)->andReturn(556);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_html_gallery_api_Constants::OPTION_THUMB_HEIGHT)->andReturn(984);
 
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::THUMBNAIL_WIDTH, 556);
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::THUMBNAIL_HEIGHT, 984);
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_WIDTH, 556);
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_HEIGHT, 984);
     }
 
     private function _testPlayerLocationStuff()
@@ -151,8 +151,8 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $providerResult = new tubepress_core_media_provider_api_Page();
         $providerResult->setItems(array($fakeVideo));
 
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::PLAYER_HTML, 'player-html');
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::PLAYER_NAME, 'player');
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_player_api_Constants::TEMPLATE_VAR_HTML, 'player-html');
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_player_api_Constants::TEMPLATE_VAR_NAME, 'player');
 
         $this->_mockPlayerHtmlGenerator->shouldReceive('getHtml')->once()->with($fakeVideo, 'gallery-id')->andReturn('player-html');
 

@@ -52,7 +52,7 @@ class tubepress_test_core_cache_impl_options_ui_FieldProviderTest extends tubepr
         $fields     = $this->_sut->getFields();
 
         $this->assertEquals('', $name);
-        $this->assertEquals('cache-options-ui-category', $id);
+        $this->assertEquals('cache-field-provider', $id);
         $this->assertTrue(is_array($categories) && count($categories) === 1);
         $this->assertSame($categories[0], $this->_mockCategory);
         $this->assertTrue(is_array($fields) && count($fields) === 1);

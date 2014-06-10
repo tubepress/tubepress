@@ -20,11 +20,6 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
     private $_logger;
 
     /**
-     * @var tubepress_core_html_single_impl_listeners_html_SingleVideoListener
-     */
-    private $_singleVideoShortcodeHandler;
-
-    /**
      * @var tubepress_core_options_api_ContextInterface
      */
     private $_context;
@@ -34,13 +29,11 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
      */
     private $_requestParams;
 
-    public function __construct(tubepress_api_log_LoggerInterface                                   $logger,
-                                tubepress_core_options_api_ContextInterface                         $context,
-                                tubepress_core_html_single_impl_listeners_html_SingleVideoListener $singleVideoShortcodeHandler,
-                                tubepress_core_http_api_RequestParametersInterface                  $requestParams)
+    public function __construct(tubepress_api_log_LoggerInterface                  $logger,
+                                tubepress_core_options_api_ContextInterface        $context,
+                                tubepress_core_http_api_RequestParametersInterface $requestParams)
     {
         $this->_logger                      = $logger;
-        $this->_singleVideoShortcodeHandler = $singleVideoShortcodeHandler;
         $this->_context                     = $context;
         $this->_requestParams               = $requestParams;
     }
@@ -104,17 +97,12 @@ class tubepress_core_player_impl_listeners_html_SoloPlayerListener
 
         $result = $this->_context->setEphemeralOption(tubepress_core_html_single_api_Constants::OPTION_VIDEO, $videoId);
 
-        if ($result !== true) {
+        if ($result !== null) {
 
             if ($shouldLog) {
 
                 $this->_logger->debug('Could not verify video ID.');
             }
-
-            return false;
         }
-
-        /* display the results as a thumb gallery */
-        $this->_singleVideoShortcodeHandler->onHtmlGeneration($event);
     }
 }

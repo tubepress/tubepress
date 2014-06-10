@@ -40,8 +40,8 @@ class tubepress_core_html_single_impl_listeners_template_SingleVideoCoreVariable
         $width          = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH);
 
         /* apply it to the template */
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::EMBEDDED_SOURCE, $embeddedString);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH, $width);
-        $template->setVariable(tubepress_core_template_api_const_VariableNames::VIDEO, $video);
+        $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE, $embeddedString);
+        $template->setVariable(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH, $width);
+        $template->setVariable(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_VIDEO, $video);
     }
 }

@@ -77,7 +77,7 @@ class tubepress_test_core_impl_player_BasePlayerLocationTest extends tubepress_t
 
     public function testFriendlyName()
     {
-        $result = $this->_sut->getUntranslatedFriendlyName();
+        $result = $this->_sut->getUntranslatedDisplayName();
 
         $this->assertEquals('in a popup window', $result);
     }

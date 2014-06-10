@@ -133,7 +133,7 @@ class tubepress_core_media_item_impl_easy_EasyAttributeFormatter
                 continue;
             }
 
-            $formatted = number_format($mediaItem->getAttribute($attributeName), $precision);
+            $formatted = number_format((float) $mediaItem->getAttribute($attributeName), $precision);
             $mediaItem->setAttribute($this->_sourceToDestinationMap[$attributeName], $formatted);
         }
     }
@@ -147,7 +147,7 @@ class tubepress_core_media_item_impl_easy_EasyAttributeFormatter
                 continue;
             }
 
-            $limit = $this->_context->get($optionName);
+            $limit = intval($this->_context->get($optionName));
 
             if ($limit === 0) {
 
@@ -161,7 +161,7 @@ class tubepress_core_media_item_impl_easy_EasyAttributeFormatter
                 continue;
             }
 
-            $truncated = substr($currentValue, 0, $limit) . '...';
+            $truncated = substr("$currentValue", 0, $limit) . '...';
             $mediaItem->setAttribute($this->_sourceToDestinationMap[$attributeName], $truncated);
         }
     }

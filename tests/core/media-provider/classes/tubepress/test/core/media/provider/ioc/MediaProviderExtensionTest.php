@@ -48,7 +48,7 @@ class tubepress_test_core_media_provider_ioc_MediaProviderExtensionTest extends 
             'tubepress_core_media_provider_impl_listeners_options_AcceptableValues'
         )->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
-                'method' => 'setVideoProviders'
+                'method' => 'setMediaProviders'
             ))->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_options_api_Constants::EVENT_OPTION_GET_ACCEPTABLE_VALUES . '.' . tubepress_core_media_provider_api_Constants::OPTION_ORDER_BY,
                 'method'   => 'onOrderBy',

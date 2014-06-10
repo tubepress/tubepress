@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_vimeo_impl_options_ui_VimeoFieldProvider<extended>
  */
-class tubepress_test_core_cache_impl_options_ui_FieldProviderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo_impl_options_ui_FieldProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_vimeo_impl_options_ui_VimeoFieldProvider

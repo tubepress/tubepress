@@ -80,14 +80,13 @@ class tubepress_youtube_impl_embedded_YouTubeEmbeddedProvider implements tubepre
         $loop            = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_LOOP);
         $showInfo        = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO);
         $autoHide        = $this->_context->get(tubepress_youtube_api_Constants::OPTION_AUTOHIDE);
-        $enableJsApi     = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API);
         $fullscreen      = $this->_context->get(tubepress_youtube_api_Constants::OPTION_FULLSCREEN);
         $modestBranding  = $this->_context->get(tubepress_youtube_api_Constants::OPTION_MODEST_BRANDING);
         $showRelated     = $this->_context->get(tubepress_youtube_api_Constants::OPTION_SHOW_RELATED);
 
         $embedQuery->set('autohide',       $this->_getAutoHideValue($autoHide));
         $embedQuery->set('autoplay',       $this->_langUtils->booleanToStringOneOrZero($autoPlay));
-        $embedQuery->set('enablejsapi',    $this->_langUtils->booleanToStringOneOrZero($enableJsApi));
+        $embedQuery->set('enablejsapi',    '1');
         $embedQuery->set('fs',             $this->_langUtils->booleanToStringOneOrZero($fullscreen));
         $embedQuery->set('loop',           $this->_langUtils->booleanToStringOneOrZero($loop));
         $embedQuery->set('modestbranding', $this->_langUtils->booleanToStringOneOrZero($modestBranding));
@@ -100,7 +99,7 @@ class tubepress_youtube_impl_embedded_YouTubeEmbeddedProvider implements tubepre
     }
 
     /**
-     * @return string The friendly name of this embedded player service.
+     * @return string The display name of this embedded player service.
      *
      * @api
      * @since 4.0.0

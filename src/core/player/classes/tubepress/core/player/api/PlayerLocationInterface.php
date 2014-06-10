@@ -39,6 +39,14 @@ interface tubepress_core_player_api_PlayerLocationInterface
     function getName();
 
     /**
+     * @return string The human-readable name of this player location.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getUntranslatedDisplayName();
+
+    /**
      * @param tubepress_core_environment_api_EnvironmentInterface $environment
      *
      * @return tubepress_core_url_api_UrlInterface Gets the URL to this player location's JS init script.
@@ -63,12 +71,4 @@ interface tubepress_core_player_api_PlayerLocationInterface
      * @since 4.0.0
      */
     function displaysHtmlOnInitialGalleryLoad();
-
-    /**
-     * @return string The human-readable name of this player location.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    function getUntranslatedFriendlyName();
 }

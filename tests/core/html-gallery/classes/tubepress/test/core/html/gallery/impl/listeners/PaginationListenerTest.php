@@ -106,8 +106,8 @@ class tubepress_test_core_html_gallery_impl_listeners_template_PaginationListene
         $this->_mockTemplate->shouldReceive('setVariables')->once()->with(array(
 
             'x' => 'z',
-            tubepress_core_template_api_const_VariableNames::PAGINATION_BOTTOM => 'pagination-html',
-            tubepress_core_template_api_const_VariableNames::PAGINATION_TOP    => 'pagination-html'
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_BOTTOM => 'pagination-html',
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOP    => 'pagination-html'
         ));
 
         $this->_sut = new tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener(
@@ -130,12 +130,12 @@ class tubepress_test_core_html_gallery_impl_listeners_template_PaginationListene
         $this->_mockTemplateFactory->shouldReceive('fromFilesystem')->once()->with(array('pagination.tpl.php', TUBEPRESS_ROOT . '/core/themes/web/default/pagination.tpl.php'))->andReturn($mockTemplate);
         $expectedTemplateVars = array(
 
-            tubepress_core_template_api_const_VariableNames::PAGINATION_CURRENT_PAGE     => 25,
-            tubepress_core_template_api_const_VariableNames::PAGINATION_TOTAL_ITEMS      => 500,
-            tubepress_core_template_api_const_VariableNames::PAGINATION_HREF_FORMAT      => 'foobar',
-            tubepress_core_template_api_const_VariableNames::PAGINATION_RESULTS_PER_PAGE => 4,
-            tubepress_core_template_api_const_VariableNames::PAGINATION_TEXT_NEXT        => '##next##',
-            tubepress_core_template_api_const_VariableNames::PAGINATION_TEXT_PREV        => '##prev##',
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_CURRENT_PAGE     => 25,
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOTAL_ITEMS      => 500,
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT      => 'foobar',
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_RESULTS_PER_PAGE => 4,
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_NEXT        => '##next##',
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_PREV        => '##prev##',
         );
 
         foreach ($expectedTemplateVars as $k => $v) {

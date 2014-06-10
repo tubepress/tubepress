@@ -70,7 +70,7 @@ class tubepress_vimeo_impl_player_VimeoPlayerLocation implements tubepress_core_
      * @api
      * @since 4.0.0
      */
-    public function getUntranslatedFriendlyName()
+    public function getUntranslatedDisplayName()
     {
         return 'from the video\'s original Vimeo page';                 //>(translatable)<
     }

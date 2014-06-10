@@ -77,7 +77,7 @@ class tubepress_core_http_impl_PrimaryAjaxHandler implements tubepress_core_http
 
         if ($this->_isDebugEnabled) {
 
-            $this->_logger->debug('There are ' . count($this->_commandHandlers) . ' pluggable Ajax command service(s) registered');
+            $this->_logger->debug('There are ' . count($this->_commandHandlers) . ' Ajax command(s) registered');
         }
 
         /**
@@ -102,7 +102,7 @@ class tubepress_core_http_impl_PrimaryAjaxHandler implements tubepress_core_http
 
             if ($this->_isDebugEnabled) {
 
-                $this->_logger->debug('No pluggable Ajax command services could handle action ' . $actionName);
+                $this->_logger->debug('No Ajax commands could handle action ' . $actionName);
             }
 
             $this->_responseCode->setResponseCode(400);

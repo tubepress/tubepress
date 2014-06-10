@@ -14,6 +14,9 @@
     ],
     "description": "Allows TubePress to integrate with WordPress",
     "inversion-of-control": {
+        "compiler-passes" : {
+            "tubepress_wordpress_ioc_compiler_EnvironmentCompilerPass" : 70000
+        },
         "container-extensions" : [
             "tubepress_wordpress_ioc_WordPressExtension"
         ]

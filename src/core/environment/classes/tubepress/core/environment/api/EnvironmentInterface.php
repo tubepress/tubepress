@@ -33,27 +33,6 @@ interface tubepress_core_environment_api_EnvironmentInterface
     function isPro();
 
     /**
-     * Detects if the user is running within WordPress
-     *
-     * @return boolean True is the user is running within WordPress. False otherwise.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    function isWordPress();
-
-    /**
-     * Find the absolute path of the user's content directory. In WordPress, this will be
-     * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content.
-     *
-     * @return string The absolute path of the user's content directory.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    function getUserContentDirectory();
-
-    /**
      * Get the current TubePress version.
      *
      * @return tubepress_core_version_api_Version The current version.

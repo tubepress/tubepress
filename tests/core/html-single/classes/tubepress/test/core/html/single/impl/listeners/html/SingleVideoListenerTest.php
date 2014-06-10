@@ -99,7 +99,7 @@ class tubepress_test_core_html_single_impl_listeners_html_SingleVideoCommandTest
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($mockTemplate, array(
 
-            'video' => $video
+            'item' => $video
         ))->andReturn($mockTemplateEvent);
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE)->andReturn(true);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE, $mockTemplateEvent);

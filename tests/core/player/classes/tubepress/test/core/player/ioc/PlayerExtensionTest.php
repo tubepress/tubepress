@@ -30,12 +30,11 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             'tubepress_core_player_impl_listeners_html_SoloPlayerListener'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('tubepress_core_html_single_impl_listeners_html_SingleVideoListener'))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_html_api_Constants::EVENT_PRIMARY_HTML,
                 'method'   => 'onHtmlGeneration',
-                'priority' => 7000
+                'priority' => 9000
             ));
 
         $this->expectRegistration(
@@ -128,7 +127,7 @@ class tubepress_test_core_player_ioc_PlayerExtensionTest extends tubepress_test_
             ->withArgument(array())
             ->withArgument('src/core/player/web/players/solo/solo.js')
             ->withArgument(false)
-            ->withArgument(true)
+            ->withArgument(false)
             ->withTag(tubepress_core_player_api_PlayerLocationInterface::_)
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_player_api_Constants::EVENT_PLAYER_SELECT,

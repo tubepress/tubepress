@@ -82,7 +82,7 @@ class tubepress_youtube_ioc_YouTubeExtension implements tubepress_api_ioc_Contai
          ->setFactoryMethod('newInstance')
          ->addArgument(tubepress_youtube_api_Constants::OPTION_DEV_KEY)
          ->addArgument('text')
-         ->addArgument(array('size' => 120));
+         ->addArgument(array('size' => 40));
 
         $gallerySourceMap = array(
 

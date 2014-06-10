@@ -83,7 +83,6 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
         $autoPlay = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_AUTOPLAY);
         $showInfo = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_SHOW_INFO);
         $loop     = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_LOOP);
-        $jsApi    = $this->_context->get(tubepress_core_embedded_api_Constants::OPTION_ENABLE_JS_API);
         $color    = $this->_context->get(tubepress_vimeo_api_Constants::OPTION_PLAYER_COLOR);
 
         /* build the data URL based on these options */
@@ -96,18 +95,14 @@ class tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider implements tubepress_c
         $query->set(self::$_URL_PARAM_PORTRAIT, $this->_langUtils->booleanToStringOneOrZero($showInfo));
         $query->set(self::$_URL_PARAM_BYLINE,   $this->_langUtils->booleanToStringOneOrZero($showInfo));
         $query->set(self::$_URL_PARAM_TITLE,    $this->_langUtils->booleanToStringOneOrZero($showInfo));
-
-        if ($jsApi) {
-
-            $query->set(self::$_URL_PARAM_JS_API, 1);
-            $query->set(self::$_URL_PARAM_PLAYER_ID, 'tubepress-media-object-' . mt_rand());
-        }
+        $query->set(self::$_URL_PARAM_JS_API, 1);
+        $query->set(self::$_URL_PARAM_PLAYER_ID, 'tubepress-media-object-' . mt_rand());
 
         return $link;
     }
 
     /**
-     * @return string The friendly name of this embedded player service.
+     * @return string The display name of this embedded player service.
      *
      * @api
      * @since 4.0.0

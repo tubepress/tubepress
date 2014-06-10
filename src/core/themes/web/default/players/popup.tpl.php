@@ -8,4 +8,4 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-echo ${tubepress_core_template_api_const_VariableNames::EMBEDDED_SOURCE};
+echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE};

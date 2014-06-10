@@ -78,4 +78,17 @@ interface tubepress_core_player_api_Constants
      * @since 4.0.0
      */
     const OUTPUT_PLAYER            = 'player';
+
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_HTML              = 'preGallery';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_NAME              = 'playerName';
 }

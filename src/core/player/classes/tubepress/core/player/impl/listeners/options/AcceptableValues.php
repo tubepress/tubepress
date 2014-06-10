@@ -42,7 +42,7 @@ class tubepress_core_player_impl_listeners_options_AcceptableValues
          */
         foreach ($this->_playerLocations as $playerLocation) {
 
-            $toReturn[$playerLocation->getName()] = $playerLocation->getUntranslatedFriendlyName();
+            $toReturn[$playerLocation->getName()] = $playerLocation->getUntranslatedDisplayName();
         }
 
         asort($toReturn);

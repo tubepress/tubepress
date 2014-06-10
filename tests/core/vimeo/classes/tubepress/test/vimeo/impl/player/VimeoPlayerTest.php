@@ -30,7 +30,7 @@ class tubepress_test_vimeo_impl_player_VimeoPlayerTest extends tubepress_test_Tu
         $this->assertEquals('vimeo', $this->_sut->getName());
         $this->assertFalse($this->_sut->displaysHtmlOnInitialGalleryLoad());
         $this->assertFalse($this->_sut->producesHtml());
-        $this->assertEquals('from the video\'s original Vimeo page', $this->_sut->getUntranslatedFriendlyName());
+        $this->assertEquals('from the video\'s original Vimeo page', $this->_sut->getUntranslatedDisplayName());
     }
 
     public function testGetPlayerJsUrl()

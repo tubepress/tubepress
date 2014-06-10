@@ -68,10 +68,10 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
     {
         $optionName          = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS;
         $currentHides        = explode(';', $this->getOptionPersistence()->fetch($optionName));
-        $participantsNameMap = $this->_getParticipantNamesToFriendlyNamesMap();
+        $participantsNameMap = $this->_getParticipantNamesToDisplayNamesMap();
         $currentShows        = array();
 
-        foreach ($participantsNameMap as $participantName => $participantFriendlyName) {
+        foreach ($participantsNameMap as $participantName => $participantDisplayName) {
 
             if (! in_array($participantName, $currentHides)) {
 
@@ -87,7 +87,7 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      */
     protected function getUngroupedTranslatedChoicesArray()
     {
-        return $this->_getParticipantNamesToFriendlyNamesMap();
+        return $this->_getParticipantNamesToDisplayNamesMap();
     }
 
     /**
@@ -95,7 +95,7 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      */
     protected function onSubmitAllMissing()
     {
-        $participantIds = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
+        $participantIds = array_keys($this->_getParticipantNamesToDisplayNamesMap());
         $newValue       = implode(';', $participantIds);
 
         return $this->getOptionPersistence()->queueForSave(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS, $newValue);
@@ -109,7 +109,7 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
     protected function onSubmitMixed(array $values)
     {
         $optionName          = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS;
-        $allParticipantNames = array_keys($this->_getParticipantNamesToFriendlyNamesMap());
+        $allParticipantNames = array_keys($this->_getParticipantNamesToDisplayNamesMap());
 
         $toHide = array();
 
@@ -132,7 +132,7 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
         return $this->getOptionPersistence()->queueForSave($optionName, implode(';', $toHide));
     }
 
-    private function _getParticipantNamesToFriendlyNamesMap()
+    private function _getParticipantNamesToDisplayNamesMap()
     {
         $toReturn = array();
 

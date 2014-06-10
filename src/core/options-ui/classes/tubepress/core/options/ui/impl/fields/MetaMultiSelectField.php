@@ -105,19 +105,19 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
 
                 if (in_array($metaOptionName, $videoProvider->getMetaOptionNames())) {
 
-                    $friendlyName = $videoProvider->getDisplayName();
-                    if (!in_array($friendlyName, $tempMap[$metaOptionName])) {
+                    $displayName = $videoProvider->getDisplayName();
+                    if (!in_array($displayName, $tempMap[$metaOptionName])) {
 
-                        $tempMap[$metaOptionName][] = $friendlyName;
+                        $tempMap[$metaOptionName][] = $displayName;
                     }
                 }
             }
         }
 
         $middleMap = array();
-        foreach ($tempMap as $metaOptionName => $friendlyProviderNames) {
+        foreach ($tempMap as $metaOptionName => $providerDisplayNames) {
 
-            $label = implode(' / ', $friendlyProviderNames);
+            $label = implode(' / ', $providerDisplayNames);
             if (!isset($middleMap[$label])) {
                 $middleMap[$label] = array();
             }

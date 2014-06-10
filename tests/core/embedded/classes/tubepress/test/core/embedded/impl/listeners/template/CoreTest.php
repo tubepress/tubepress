@@ -52,18 +52,18 @@ class tubepress_test_core_embedded_impl_listeners_template_CoreTest extends tube
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_WIDTH)->andReturn(660);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_core_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT)->andReturn(732);
 
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_DATA_URL, 'dddd');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::TUBEPRESS_BASE_URL, '<tubepress_base_url>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_AUTOSTART, 'false');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH, 660);
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_HEIGHT, 732);
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO_ID, 'video-id');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO_DOM_ID, ehough_mockery_Mockery::on(function ($arg) {
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_DATA_URL, 'dddd');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_TUBEPRESS_BASE_URL, '<tubepress_base_url>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_AUTOSTART, 'false');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH, 660);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_HEIGHT, 732);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_ID, 'video-id');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_VIDEO_DOM_ID, ehough_mockery_Mockery::on(function ($arg) {
 
             return preg_match('/^tubepress-media-object-[0-9]+$/', $arg) === 1;
         }));
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_IMPL_NAME, 'embedded-impl-name');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO_PROVIDER_NAME, 'video-provider-name');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_IMPL_NAME, 'embedded-impl-name');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_MEDIA_PROVIDER_NAME, 'video-provider-name');
 
         $mockDataUrl = $this->mock('tubepress_core_url_api_UrlInterface');
         $mockDataUrl->shouldReceive('toString')->once()->andReturn('dddd');

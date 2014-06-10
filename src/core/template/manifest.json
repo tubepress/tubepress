@@ -24,7 +24,6 @@
         },
         "classmap" : {
 
-            "tubepress_core_template_api_const_VariableNames"      : "classes/tubepress/core/template/api/const/VariableNames.php",
             "tubepress_core_template_api_TemplateFactoryInterface" : "classes/tubepress/core/template/api/TemplateFactoryInterface.php",
             "tubepress_core_template_api_TemplateInterface"        : "classes/tubepress/core/template/api/TemplateInterface.php",
            

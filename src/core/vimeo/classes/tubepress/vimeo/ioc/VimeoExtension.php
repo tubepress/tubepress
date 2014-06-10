@@ -161,7 +161,7 @@ class tubepress_vimeo_ioc_VimeoExtension implements tubepress_api_ioc_ContainerE
          ->addArgument('spectrum');
 
         $fieldReferences = array();
-        for ($x = 0; $x < count($fieldIndex); $x++) {
+        for ($x = 0; $x < $fieldIndex; $x++) {
             $fieldReferences[] = new tubepress_api_ioc_Reference('vimeo_options_field_' . $x);
         }
 
@@ -261,6 +261,3 @@ class tubepress_vimeo_ioc_VimeoExtension implements tubepress_api_ioc_ContainerE
         ));
     }
 }
-
-
-

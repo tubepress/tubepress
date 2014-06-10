@@ -102,12 +102,12 @@ class tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener
 
         if ($this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE)) {
 
-            $context[tubepress_core_template_api_const_VariableNames::PAGINATION_TOP] = $pagination;
+            $context[tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOP] = $pagination;
         }
 
         if ($this->_context->get(tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_BELOW)) {
 
-            $context[tubepress_core_template_api_const_VariableNames::PAGINATION_BOTTOM] = $pagination;
+            $context[tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_BOTTOM] = $pagination;
         }
 
         $template->setVariables(array_merge($template->getVariables(), $context));
@@ -149,12 +149,12 @@ class tubepress_core_html_gallery_impl_listeners_PaginationTemplateListener
         $urlFormat = str_replace('zQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468pzQ12KeYf2ixV2h7l230e81QyE7Z5C54r5468p', '%d', $urlFormat);
         $vars      = array(
 
-            tubepress_core_template_api_const_VariableNames::PAGINATION_CURRENT_PAGE     => $currentPage,
-            tubepress_core_template_api_const_VariableNames::PAGINATION_TOTAL_ITEMS      => $totalItems,
-            tubepress_core_template_api_const_VariableNames::PAGINATION_HREF_FORMAT      => $urlFormat,
-            tubepress_core_template_api_const_VariableNames::PAGINATION_RESULTS_PER_PAGE => $perPage,
-            tubepress_core_template_api_const_VariableNames::PAGINATION_TEXT_NEXT        => $this->_translator->_('next'),
-            tubepress_core_template_api_const_VariableNames::PAGINATION_TEXT_PREV        => $this->_translator->_('prev'),
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_CURRENT_PAGE     => $currentPage,
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOTAL_ITEMS      => $totalItems,
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT      => $urlFormat,
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_RESULTS_PER_PAGE => $perPage,
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_NEXT        => $this->_translator->_('next'),
+            tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_PREV        => $this->_translator->_('prev'),
         );
 
         foreach ($vars as $key => $value) {

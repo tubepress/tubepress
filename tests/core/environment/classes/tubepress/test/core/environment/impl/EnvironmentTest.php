@@ -50,12 +50,6 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
         $this->assertTrue($this->_sut->isPro());
     }
 
-    public function testIsWordPressTrue()
-    {
-        $this->_sut->setWpFunctionsInterface($this->mock(tubepress_wordpress_impl_wp_WpFunctions::_));
-        $this->assertTrue($this->_sut->isWordPress());
-    }
-
     /**
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Invalid argument to tubepress_core_environment_impl_Environment::setWpFunctionsInterface
@@ -70,11 +64,6 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
         $this->assertFalse($this->_sut->isPro());
     }
 
-    public function testIsWordPressFalse()
-    {
-        $this->assertFalse($this->_sut->isWordPress());
-    }
-
     public function testDetectUserContentUrlNonWp()
     {
         $mockUrl        = $this->mock('tubepress_core_url_api_UrlInterface');
@@ -85,23 +74,6 @@ class tubepress_test_core_environment_impl_EnvironmentTest extends tubepress_tes
         $this->_sut->setBaseUrl('yellow');
         $result = $this->_sut->getUserContentUrl();
         $this->assertSame($mockUrl, $result);
-    }
-
-    public function testDetectUserContentUrlWp()
-    {
-        $mockUrl = $this->mock('tubepress_core_url_api_UrlInterface');
-        $mockWp  = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $mockWp->shouldReceive('content_url')->once()->andReturn('xyz');
-        $this->_sut->setWpFunctionsInterface($mockWp);
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('xyz/tubepress-content')->andReturn($mockUrl);
-        $result = $this->_sut->getUserContentUrl();
-        $this->assertSame($mockUrl, $result);
-    }
-
-    public function testUserContentDir()
-    {
-        $this->_mockBootSettings->shouldReceive('getUserContentDirectory')->once()->andReturn('yyy');
-        $this->assertEquals('yyy', $this->_sut->getUserContentDirectory());
     }
 
     /**

@@ -166,7 +166,8 @@ class tubepress_test_core_html_gallery_ioc_GalleryExtensionTest extends tubepres
                 tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_ABOVE,
                 tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_BELOW,
                 tubepress_core_html_gallery_api_Constants::OPTION_HQ_THUMBS,
-                tubepress_core_html_gallery_api_Constants::OPTION_RANDOM_THUMBS
+                tubepress_core_html_gallery_api_Constants::OPTION_RANDOM_THUMBS,
+                tubepress_core_html_gallery_api_Constants::OPTION_AUTONEXT
             )
         );
         foreach ($fieldMap as $type => $fieldIds) {
@@ -203,6 +204,9 @@ class tubepress_test_core_html_gallery_ioc_GalleryExtensionTest extends tubepres
                 tubepress_core_html_gallery_api_Constants::OPTION_PAGINATE_BELOW,
                 tubepress_core_html_gallery_api_Constants::OPTION_HQ_THUMBS,
                 tubepress_core_html_gallery_api_Constants::OPTION_RANDOM_THUMBS
+            ),
+            tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED => array(
+                tubepress_core_html_gallery_api_Constants::OPTION_AUTONEXT
             )
         );
 

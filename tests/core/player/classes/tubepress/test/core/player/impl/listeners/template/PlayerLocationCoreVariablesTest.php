@@ -49,10 +49,10 @@ class tubepress_test_core_player_listeners_template_PlayerLocationCoreVariablesT
         $this->_mockEmbeddedHtmlGenerator->shouldReceive('getHtml')->once()->with('video-id')->andReturn('embedded-html');
 
         $mockTemplate = $this->mock('tubepress_core_template_api_TemplateInterface');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_SOURCE, 'embedded-html');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::GALLERY_ID, 'gallery-id');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::VIDEO, $video);
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_template_api_const_VariableNames::EMBEDDED_WIDTH, 668);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE, 'embedded-html');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID, 'gallery-id');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_single_api_Constants::TEMPLATE_VAR_VIDEO, $video);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH, 668);
 
         $event = $this->mock('tubepress_core_event_api_EventInterface');
         $event->shouldReceive('getArgument')->once()->with('item')->andReturn($video);
