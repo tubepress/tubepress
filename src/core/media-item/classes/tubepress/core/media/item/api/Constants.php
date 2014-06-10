@@ -116,4 +116,16 @@ interface tubepress_core_media_item_api_Constants
     const ATTRIBUTE_VIEW_COUNT               = 'viewCount';
 
     const OPTIONS_UI_CATEGORY_META = 'meta-category';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_META_LABELS = 'metaLabels';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const TEMPLATE_VAR_META_SHOULD_SHOW = 'shouldShow';
 }

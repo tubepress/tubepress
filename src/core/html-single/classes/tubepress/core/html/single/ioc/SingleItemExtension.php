@@ -48,10 +48,15 @@ class tubepress_core_html_single_ioc_SingleItemExtension implements tubepress_ap
             'tubepress_core_html_single_impl_listeners_template_SingleVideoCoreVariables'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_embedded_api_EmbeddedHtmlInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE,
             'method'   => 'onSingleVideoTemplate',
             'priority' => 10100
+        ))->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
+            'method' => 'setMediaProviders'
         ));
 
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_single', array(

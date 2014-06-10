@@ -203,17 +203,5 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const TEMPLATE_VAR_META_LABELS = 'metaLabels';
-
-    /**
-     * @api
-     * @since 4.0.0
-     */
-    const TEMPLATE_VAR_META_SHOULD_SHOW = 'shouldShow';
-
-    /**
-     * @api
-     * @since 4.0.0
-     */
     const TEMPLATE_VAR_MEDIA_ITEM_ARRAY = 'mediaItemArray';
 }

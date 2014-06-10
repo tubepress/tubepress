@@ -81,8 +81,8 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
             $labels[$metaName]     = $this->_translator->_($untranslatedLabel);
         }
 
-        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
+        $template->setVariable(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
+        $template->setVariable(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
     }
 
     private function _setPlayerLocationStuff(tubepress_core_event_api_EventInterface      $event,

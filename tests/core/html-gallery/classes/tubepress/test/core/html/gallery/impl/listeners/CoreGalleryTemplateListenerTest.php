@@ -112,8 +112,8 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with('meta')->andReturn('meta label!');
         $this->_mockTranslator->shouldReceive('_')->once()->with("meta label!")->andReturn("##video-meta##");
 
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
 
     }
 
