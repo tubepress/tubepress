@@ -31,22 +31,19 @@ class tubepress_test_impl_boot_helper_ContainerSupplierTest extends tubepress_te
      */
     private $_mockSettingsFileReader;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockClassLoader;
-
-
     public function onSetup()
     {
         $this->_mockLogger              = $this->mock(tubepress_api_log_LoggerInterface::_);
-        $this->_mockClassLoader        = $this->mock('ehough_pulsar_ComposerClassLoader');
         $this->_mockSettingsFileReader = $this->mock('tubepress_impl_boot_BootSettings');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut = new tubepress_impl_boot_helper_ContainerSupplier($this->_mockLogger, $this->_mockSettingsFileReader, $this->_mockClassLoader);
+        $this->_sut = new tubepress_impl_boot_helper_ContainerSupplier(
+
+            $this->_mockLogger,
+            $this->_mockSettingsFileReader
+        );
     }
 
     public function testGetContainerNoSuchFile()
@@ -68,7 +65,6 @@ class tubepress_test_impl_boot_helper_ContainerSupplierTest extends tubepress_te
         fwrite($tmpFile, $this->_getDumpedEmptyIconicContainerBuilder());
 
         $this->_mockSettingsFileReader->shouldReceive('getPathToContainerCacheFile')->once()->andReturn($tmpFilename);
-        $this->_mockSettingsFileReader->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
 
         $result = $this->_sut->getServiceContainer();
 
@@ -115,8 +111,6 @@ XYZ;
 
     private function _completeUncachedTest()
     {
-        $this->_mockSettingsFileReader->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
-
         $mockIconicContainer  = $this->mock('ehough_iconic_ContainerInterface');
         $mockUncachedProvider = $this->mock('tubepress_impl_boot_helper_secondary_UncachedContainerSupplier');
 
@@ -128,7 +122,6 @@ XYZ;
         $mockIconicContainer->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicContainer);
         $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_impl_log_BootLogger', $this->_mockLogger);
         $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_api_boot_BootSettingsInterface', $this->_mockSettingsFileReader);
-        $mockIconicContainer->shouldReceive('getParameter')->once()->with('classMap')->andReturn(array('x' => 'z'));
 
         $result = $this->_sut->getServiceContainer();
 

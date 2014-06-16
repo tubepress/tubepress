@@ -27,9 +27,6 @@
         }
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_options_" : "classes"
-        },
         "classmap" : {
 
             "tubepress_core_options_api_AcceptableValuesInterface"   : "classes/tubepress/core/options/api/AcceptableValuesInterface.php",
@@ -53,7 +50,14 @@
 
             "tubepress_core_options_ioc_compiler_ReferenceCreatorPass" : "classes/tubepress/core/options/ioc/compiler/ReferenceCreatorPass.php",
             "tubepress_core_options_impl_Context" : "classes/tubepress/core/options/impl/Context.php",
-            "tubepress_core_options_impl_Persistence" : "classes/tubepress/core/options/impl/Persistence.php"
+            "tubepress_core_options_impl_Persistence" : "classes/tubepress/core/options/impl/Persistence.php",
+
+            "tubepress_core_options_ioc_OptionsExtension" : "classes/tubepress/core/options/ioc/OptionsExtension.php",
+            "tubepress_core_options_ioc_compiler_EasyAcceptableValuesPass" : "classes/tubepress/core/options/ioc/compiler/EasyAcceptableValuesPass.php",
+            "tubepress_core_options_ioc_compiler_EasyReferencesPass" : "classes/tubepress/core/options/ioc/compiler/EasyReferencesPass.php",
+            "tubepress_core_options_ioc_compiler_EasyTrimmersPass" : "classes/tubepress/core/options/ioc/compiler/EasyTrimmersPass.php",
+            "tubepress_core_options_ioc_compiler_EasyValidatorsPass" : "classes/tubepress/core/options/ioc/compiler/EasyValidatorsPass.php",
+            "tubepress_core_options_ioc_compiler_AbstractEasyPass" : "classes/tubepress/core/options/ioc/compiler/AbstractEasyPass.php"
         }
     }
 }

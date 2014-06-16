@@ -97,6 +97,9 @@ class tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL] =
             $this->_relativeQuery($xpath, $index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
 
+        $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_ID] =
+            $this->_relativeQuery($xpath, $index, 'media:group/yt:videoid')->item(0)->nodeValue;
+
         /* Keywords. */
         $toReturn[tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORD_ARRAY] = array();
 

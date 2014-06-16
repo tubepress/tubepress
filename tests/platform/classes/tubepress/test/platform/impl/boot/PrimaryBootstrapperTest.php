@@ -34,11 +34,6 @@ class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_Tu
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockClassLoader;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockBootLogger;
 
     /**
@@ -52,18 +47,15 @@ class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_Tu
 
         $this->_mockBootHelperSettingsFileReader = $this->mock(tubepress_api_boot_BootSettingsInterface::_);
         $this->_mockContainerSupplier            = $this->mock('tubepress_impl_boot_helper_ContainerSupplier');
-        $this->_mockClassLoader                  = $this->mock('ehough_pulsar_ComposerClassLoader');
         $this->_mockBootLogger                   = $this->mock('tubepress_impl_log_BootLogger');
         $this->_mockServiceContainer             = $this->mock('tubepress_api_ioc_ContainerInterface');
 
         $this->_sut->___setContainerSupplier($this->_mockContainerSupplier);
         $this->_sut->___setSettingsFileReader($this->_mockBootHelperSettingsFileReader);
-        $this->_sut->___setClassLoader($this->_mockClassLoader);
         $this->_sut->___setTemporaryLogger($this->_mockBootLogger);
 
         $_GET['tubepress_debug'] = 'true';
 
-        $this->_mockClassLoader->shouldReceive('register')->once();
         $this->_mockBootLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockBootLogger->shouldReceive('debug')->atLeast(1);
     }
@@ -76,7 +68,14 @@ class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_Tu
         $mockLogger->shouldReceive('debug')->atLeast(1);
         $mockLogger->shouldReceive('onBootComplete')->once();
         $this->_mockServiceContainer->shouldReceive('get')->once()->with(tubepress_api_log_LoggerInterface::_)->andReturn($mockLogger);
+        $this->_mockServiceContainer->shouldReceive('hasParameter')->once()->with('classloading-classmap')->andReturn(true);
+        $this->_mockServiceContainer->shouldReceive('hasParameter')->once()->with('classloading-psr0-fallbacks')->andReturn(true);
+        $this->_mockServiceContainer->shouldReceive('hasParameter')->once()->with('classloading-psr0-prefixed-paths')->andReturn(true);
+        $this->_mockServiceContainer->shouldReceive('getParameter')->once()->with('classloading-classmap')->andReturn(array('a' => 'b'));
+        $this->_mockServiceContainer->shouldReceive('getParameter')->once()->with('classloading-psr0-fallbacks')->andReturn(array('fallbackDir'));
+        $this->_mockServiceContainer->shouldReceive('getParameter')->once()->with('classloading-psr0-prefixed-paths')->andReturn(array('prefix' => 'path'));
 
+        $this->_mockBootHelperSettingsFileReader->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
         $this->_mockBootLogger->shouldReceive('flushTo')->once()->with($mockLogger);
         $this->_mockBootLogger->shouldReceive('onBootComplete')->once();
 

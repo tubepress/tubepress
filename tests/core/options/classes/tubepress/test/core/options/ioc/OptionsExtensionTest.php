@@ -73,7 +73,8 @@ class tubepress_test_core_impl_options_OptionsExtensionTest extends tubepress_te
             tubepress_core_options_api_ContextInterface::_,
             'tubepress_core_options_impl_Context'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_));
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_));
 
         $this->expectRegistration(
             tubepress_core_options_api_PersistenceInterface::_,

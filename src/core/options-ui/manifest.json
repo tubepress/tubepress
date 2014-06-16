@@ -23,9 +23,6 @@
         }
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_options_ui_" : "classes"
-        },
         "classmap" : {
             "tubepress_core_options_ui_api_ElementInterface"        : "classes/tubepress/core/options/ui/api/ElementInterface.php",
             "tubepress_core_options_ui_api_FieldBuilderInterface"   : "classes/tubepress/core/options/ui/api/FieldBuilderInterface.php",
@@ -56,7 +53,12 @@
             "tubepress_core_options_ui_impl_fields_provided_ThemeField"                       : "classes/tubepress/core/options/ui/impl/fields/provided/ThemeField.php",
             "tubepress_core_options_ui_impl_fields_MetaMultiSelectField"                      : "classes/tubepress/core/options/ui/impl/fields/MetaMultiSelectField.php",
 
-            "tubepress_core_options_ui_impl_listeners_CoreCategorySorter" : "classes/tubepress/core/options/ui/impl/listeners/CoreCategorySorter.php"
+            "tubepress_core_options_ui_impl_listeners_CoreCategorySorter" : "classes/tubepress/core/options/ui/impl/listeners/CoreCategorySorter.php",
+
+            "tubepress_core_options_ui_ioc_OptionsUiExtension"        : "classes/tubepress/core/options/ui/ioc/OptionsUiExtension.php",
+            "tubepress_core_options_ui_ioc_compiler_FieldBuilderPass" : "classes/tubepress/core/options/ui/ioc/compiler/FieldBuilderPass.php",
+            "tubepress_core_options_ui_ioc_compiler_FormCreatorPass"  : "classes/tubepress/core/options/ui/ioc/compiler/FormCreatorPass.php"
+
         }
     }
 }

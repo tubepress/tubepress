@@ -22,9 +22,6 @@
         ]
     },
     "autoload": {
-        "psr-0" : {
-            "tubepress_wordpress" : "classes"
-        },
         "classmap" : {
             "tubepress_wordpress_api_Constants"                             : "classes/tubepress/wordpress/api/Constants.php",
             "tubepress_wordpress_impl_Callback"                             : "classes/tubepress/wordpress/impl/Callback.php",
@@ -39,7 +36,9 @@
             "tubepress_wordpress_impl_wp_ActivationHook"                  : "classes/tubepress/wordpress/impl/wp/ActivationHook.php",
             "tubepress_wordpress_impl_wp_OptionsPage"                     : "classes/tubepress/wordpress/impl/wp/OptionsPage.php",
             "tubepress_wordpress_impl_wp_Widget"                          : "classes/tubepress/wordpress/impl/wp/Widget.php",
-            "tubepress_wordpress_impl_wp_WpFunctions"                     : "classes/tubepress/wordpress/impl/wp/WpFunctions.php"
+            "tubepress_wordpress_impl_wp_WpFunctions"                     : "classes/tubepress/wordpress/impl/wp/WpFunctions.php",
+            "tubepress_wordpress_ioc_WordPressExtension"                  : "classes/tubepress/wordpress/ioc/WordPressExtension.php",
+            "tubepress_wordpress_ioc_compiler_EnvironmentCompilerPass"    : "classes/tubepress/wordpress/ioc/compiler/EnvironmentCompilerPass.php"
         }
     }
 }

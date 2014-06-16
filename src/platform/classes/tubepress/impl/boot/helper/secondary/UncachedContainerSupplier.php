@@ -55,15 +55,16 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
     private $_settingsFileReader;
 
     /**
-     * @var ehough_pulsar_ComposerClassLoader
+     * @var ehough_pulsar_MapClassLoader
      */
-    private $_classLoader;
+    private $_mapClassLoader;
+
+    private $_psr0ClassLoader;
 
     public function __construct(tubepress_api_log_LoggerInterface                      $logger,
                                 tubepress_impl_boot_helper_secondary_ClassLoaderPrimer $clsi,
                                 tubepress_api_contrib_RegistryInterface                $adi,
                                 tubepress_impl_boot_helper_secondary_IocCompiler       $ici,
-                                ehough_pulsar_ComposerClassLoader                      $classLoader,
                                 tubepress_impl_boot_BootSettings                       $sfri)
     {
         $this->_logger                       = $logger;
@@ -72,7 +73,6 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
         $this->_bootHelperAddonDiscoverer    = $adi;
         $this->_bootHelperIocHelper          = $ici;
         $this->_settingsFileReader           = $sfri;
-        $this->_classLoader                  = $classLoader;
     }
 
     public function getNewIconicContainer()
@@ -86,14 +86,7 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
 
         if ($this->_settingsFileReader->isClassLoaderEnabled()) {
 
-            $this->_bootHelperClassLoadingHelper->addClassHintsForAddons($addons, $this->_classLoader);
-
-            $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full.php';
-
-            $this->_classLoader->addToClassMap($fullClassMap);
-
-            $classMap = $this->_classLoader->getClassMap();
-            $this->_containerBuilder->setParameter('classMap', $classMap);
+            $this->_setupClassLoaderAndContainerParams($addons);
         }
 
         $this->_containerBuilder->set('tubepress_api_ioc_ContainerInterface',      $this->_containerBuilder);
@@ -105,10 +98,44 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
 
         if ($this->_settingsFileReader->isContainerCacheEnabled()) {
 
-            return $this->_tryToCacheAndReturnIconicContainer($this->_containerBuilder);
+            $toReturn = $this->_tryToCacheAndReturnIconicContainer($this->_containerBuilder);
+
+        } else {
+
+            $toReturn = $this->_containerBuilder->getDelegateContainerBuilder();
         }
 
-        return $this->_containerBuilder->getDelegateContainerBuilder();
+        if ($this->_settingsFileReader->isClassLoaderEnabled()) {
+
+            spl_autoload_unregister(array($this->_mapClassLoader, 'loadClass'));
+            spl_autoload_unregister(array($this->_psr0ClassLoader, 'loadClass'));
+        }
+
+        return $toReturn;
+    }
+
+    private function _setupClassLoaderAndContainerParams(array $addons)
+    {
+        $addonClassMap = $this->_bootHelperClassLoadingHelper->getClassMapFromAddons($addons);
+        $addonClassMap = array_filter($addonClassMap, array($this, '__filterAddonClassMap'));
+        $psr0Roots     = $this->_bootHelperClassLoadingHelper->getPsr0Roots($addons);
+        $psr0Fallbacks = $this->_bootHelperClassLoadingHelper->getPsr0Fallbacks($addons);
+        $fullClassMap  = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full-vendor-and-platform.php';
+        $finalClassMap = array_merge($fullClassMap, $addonClassMap);
+
+        $this->_mapClassLoader = new ehough_pulsar_MapClassLoader($finalClassMap);
+        $this->_mapClassLoader->register();
+
+        $this->_psr0ClassLoader = new ehough_pulsar_UniversalClassLoader();
+        $this->_psr0ClassLoader->registerPrefixes($psr0Roots);
+        $this->_psr0ClassLoader->registerNamespaces($psr0Roots);
+        $this->_psr0ClassLoader->registerPrefixFallbacks($psr0Fallbacks);
+        $this->_psr0ClassLoader->registerNamespaceFallbacks($psr0Fallbacks);
+        $this->_psr0ClassLoader->register();
+
+        $this->_containerBuilder->setParameter('classloading-classmap', $finalClassMap);
+        $this->_containerBuilder->setParameter('classloading-psr0-fallbacks', $psr0Fallbacks);
+        $this->_containerBuilder->setParameter('classloading-psr0-prefixed-paths', $psr0Roots);
     }
 
     /**
@@ -202,5 +229,10 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
     public function __setContainerDumper(ehough_iconic_dumper_DumperInterface $dumper)
     {
         $this->_containerDumper = $dumper;
+    }
+
+    public function __filterAddonClassMap($filepath)
+    {
+        return true;
     }
 }

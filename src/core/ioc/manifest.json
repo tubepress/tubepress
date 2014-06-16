@@ -24,11 +24,11 @@
         }
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_ioc_" : "classes"
-        },
         "classmap" : {
-            "tubepress_core_ioc_api_Constants" : "classes/tubepress/core/ioc/api/Constants.php"
+            "tubepress_core_ioc_api_Constants" : "classes/tubepress/core/ioc/api/Constants.php",
+            "tubepress_core_ioc_VendorsExtension" : "classes/tubepress/core/ioc/VendorsExtension.php",
+            "tubepress_core_ioc_compiler_RegisterListenersPass" : "classes/tubepress/core/ioc/compiler/RegisterListenersPass.php",
+            "tubepress_core_ioc_compiler_TaggedServicesConsumerPass" : "classes/tubepress/core/ioc/compiler/TaggedServicesConsumerPass.php"
         }
     }
 }

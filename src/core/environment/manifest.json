@@ -19,12 +19,10 @@
         ]
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_environment_" : "classes"
-        },
         "classmap" : {
             "tubepress_core_environment_api_EnvironmentInterface" : "classes/tubepress/core/environment/api/EnvironmentInterface.php",
-            "tubepress_core_environment_impl_Environment"         : "classes/tubepress/core/environment/impl/Environment.php"
+            "tubepress_core_environment_impl_Environment"         : "classes/tubepress/core/environment/impl/Environment.php",
+            "tubepress_core_environment_ioc_EnvironmentExtension" : "classes/tubepress/core/environment/ioc/EnvironmentExtension.php"
         }
     }
 }

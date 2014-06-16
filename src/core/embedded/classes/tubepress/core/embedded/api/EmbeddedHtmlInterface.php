@@ -23,7 +23,7 @@ interface tubepress_core_embedded_api_EmbeddedHtmlInterface
     const _ = 'tubepress_core_embedded_api_EmbeddedHtmlInterface';
 
     /**
-     * Spits back the text for this embedded player
+     * Return the HTML for this embedded player
      *
      * @param string $mediaId The media ID to display
      *

@@ -63,13 +63,9 @@ class tubepress_test_core_html_gallery_ioc_GalleryExtensionTest extends tubepres
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_player_api_PlayerHtmlInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => tubepress_core_player_api_PlayerLocationInterface::_,
                 'method' => 'setPlayerLocations'))
-            ->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
-                'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
-                'method' => 'setMediaProviders'))
             ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_core_html_gallery_api_Constants::EVENT_TEMPLATE_THUMBNAIL_GALLERY,
                 'method'   => 'onGalleryTemplate',

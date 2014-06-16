@@ -33,10 +33,10 @@ return array(
             //'killerKey' => 'tubepress_clear_system_cache',
 
             /**
-             * "containerStoragePath" defines the absolute path to a writable-directory on the filesystem
+             * "directory" defines the absolute path to a writable-directory on the filesystem
              * where TubePress stores its compiled service container.
              */
-            //'containerStoragePath' => '/some/directory',
+            //'directory' => '/some/directory',
 
             /**
              * "enabled" turns on or off the entire boot cache. This is useful if you are developing

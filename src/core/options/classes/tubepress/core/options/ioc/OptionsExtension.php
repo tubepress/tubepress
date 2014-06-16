@@ -78,7 +78,8 @@ class tubepress_core_options_ioc_OptionsExtension implements tubepress_api_ioc_C
             tubepress_core_options_api_ContextInterface::_,
             'tubepress_core_options_impl_Context'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_));
 
         $containerBuilder->register(
             tubepress_core_options_api_PersistenceInterface::_,

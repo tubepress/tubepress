@@ -33,6 +33,8 @@ class tubepress_core_media_item_impl_easy_EasyAttributeFormatter
 
     private $_durationsFromSeconds = array();
 
+    private $_implodeArrayMap = array();
+
     private $_providerName;
 
     public function __construct(tubepress_core_util_api_TimeUtilsInterface  $timeUtils,
@@ -66,6 +68,12 @@ class tubepress_core_media_item_impl_easy_EasyAttributeFormatter
         $this->_durationsFromSeconds[]          = $source;
     }
 
+    public function implodeArray($source, $destination, $glue)
+    {
+        $this->_sourceToDestinationMap[$source] = $destination;
+        $this->_implodeArrayMap[$source]        = $glue;
+    }
+
     public function setProviderName($name)
     {
         $this->_providerName = $name;
@@ -89,6 +97,22 @@ class tubepress_core_media_item_impl_easy_EasyAttributeFormatter
         $this->_handleNumbers($mediaItem);
         $this->_handleStringTruncations($mediaItem);
         $this->_handleDates($mediaItem);
+        $this->_handleArrayImplosions($mediaItem);
+    }
+
+    private function _handleArrayImplosions(tubepress_core_media_item_api_MediaItem $mediaItem)
+    {
+        foreach ($this->_implodeArrayMap as $arrayAttributeName => $glue) {
+
+            if (!$mediaItem->hasAttribute($arrayAttributeName)) {
+
+                continue;
+            }
+
+            $array     = $mediaItem->getAttribute($arrayAttributeName);
+            $formatted = implode($glue, $array);
+            $mediaItem->setAttribute($this->_sourceToDestinationMap[$arrayAttributeName], $formatted);
+        }
     }
 
     private function _handleDurations(tubepress_core_media_item_api_MediaItem $mediaItem)

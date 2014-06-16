@@ -96,21 +96,22 @@ class tubepress_test_vimeo_impl_provider_VimeoProviderTest extends tubepress_tes
     {
         $expected = array(
 
-            tubepress_core_media_item_api_Constants::OPTION_AUTHOR,
-            tubepress_core_media_item_api_Constants::OPTION_CATEGORY,
-            tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION,
-            tubepress_core_media_item_api_Constants::OPTION_ID,
-            tubepress_core_media_item_api_Constants::OPTION_KEYWORDS,
-            tubepress_core_media_item_api_Constants::OPTION_LENGTH,
-            tubepress_core_media_item_api_Constants::OPTION_TITLE,
-            tubepress_core_media_item_api_Constants::OPTION_UPLOADED,
-            tubepress_core_media_item_api_Constants::OPTION_URL,
-            tubepress_core_media_item_api_Constants::OPTION_VIEWS,
+            tubepress_core_media_item_api_Constants::OPTION_TITLE       => tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE,
+            tubepress_core_media_item_api_Constants::OPTION_LENGTH      => tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED,
+            tubepress_core_media_item_api_Constants::OPTION_AUTHOR      => tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_core_media_item_api_Constants::OPTION_KEYWORDS    => tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORDS_FORMATTED,
+            tubepress_core_media_item_api_Constants::OPTION_URL         => tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL,
+            tubepress_core_media_item_api_Constants::OPTION_CATEGORY    => tubepress_core_media_item_api_Constants::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
-            tubepress_vimeo_api_Constants::OPTION_LIKES
+            tubepress_vimeo_api_Constants::OPTION_LIKES                 => tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT,
+
+            tubepress_core_media_item_api_Constants::OPTION_ID          => tubepress_core_media_item_api_Constants::ATTRIBUTE_ID,
+            tubepress_core_media_item_api_Constants::OPTION_VIEWS       => tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
+            tubepress_core_media_item_api_Constants::OPTION_UPLOADED    => tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
+            tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION => tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION,
         );
 
-        $actual = $this->_sut->getMetaOptionNames();
+        $actual = $this->_sut->getMapOfMetaOptionNamesToAttributeDisplayNames();
         $this->assertEquals($expected, $actual);
     }
 

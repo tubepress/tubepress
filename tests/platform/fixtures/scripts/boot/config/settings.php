@@ -36,7 +36,7 @@ return array(
              * "containerStoragePath" defines the absolute path to a writable-directory on the filesystem
              * where TubePress stores its compiled service container.
              */
-            'containerStoragePath' => sys_get_temp_dir(),
+            'directory' => sys_get_temp_dir(),
 
             /**
              * "enabled" turns on or off the entire boot cache. This is useful if you are developing

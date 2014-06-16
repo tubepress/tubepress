@@ -201,9 +201,9 @@ class tubepress_core_media_provider_impl_HttpMediaProvider implements tubepress_
      * @api
      * @since 4.0.0
      */
-    public function getMetaOptionNames()
+    public function getMapOfMetaOptionNamesToAttributeDisplayNames()
     {
-        return $this->_delegate->getMetaOptionNames();
+        return $this->_delegate->getMapOfMetaOptionNamesToAttributeDisplayNames();
     }
 
     /**

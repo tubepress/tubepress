@@ -12,6 +12,8 @@
 /**
  * Most of this logic is loosely based on
  * https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Pagination/SlidingPagination.php
+ *
+ * If you simply wish to modify the HTML, skip down to around line 109.
  */
 $current      = ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_CURRENT_PAGE};
 $totalItems   = ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOTAL_ITEMS};

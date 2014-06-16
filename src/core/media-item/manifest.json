@@ -22,14 +22,14 @@
         }
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_media_item_" : "classes"
-        },
         "classmap" : {
             "tubepress_core_media_item_api_Constants"                    : "classes/tubepress/core/media/item/api/Constants.php",
             "tubepress_core_media_item_api_MediaItem"                    : "classes/tubepress/core/media/item/api/MediaItem.php",
             "tubepress_core_media_item_impl_easy_EasyAttributeFormatter" : "classes/tubepress/core/media/item/impl/easy/EasyAttributeFormatter.php",
-            "tubepress_core_media_item_impl_options_ui_FieldProvider"    : "classes/tubepress/core/media/item/impl/options/ui/FieldProvider.php"
+            "tubepress_core_media_item_impl_options_ui_FieldProvider"    : "classes/tubepress/core/media/item/impl/options/ui/FieldProvider.php",
+            "tubepress_core_media_item_impl_listeners_MetadataTemplateListener" : "classes/tubepress/core/media/item/impl/listeners/MetadataTemplateListener.php",
+            "tubepress_core_media_item_ioc_MediaItemExtension"           : "classes/tubepress/core/media/item/ioc/MediaItemExtension.php",
+            "tubepress_core_media_item_ioc_compiler_EasyAttributeFormattersPass"           : "classes/tubepress/core/media/item/ioc/compiler/EasyAttributeFormattersPass.php"
         }
     }
 }

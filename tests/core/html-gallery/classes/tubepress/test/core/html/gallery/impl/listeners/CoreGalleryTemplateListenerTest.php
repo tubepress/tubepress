@@ -76,7 +76,6 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
             $this->_mockPlayerHtmlGenerator, $this->_mockTranslator);
 
         $this->_sut->setPlayerLocations(array($this->_mockPlayerLocation));
-        $this->_sut->setMediaProviders(array($this->_mockMediaProvider));
     }
 
     public function testOnTemplate()
@@ -85,7 +84,6 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $this->_testGalleryIdAndItems();
         $this->_testThumbSizes();
         $this->_testPlayerLocationStuff();
-        $this->_testVideoMetaStuff();
 
         $this->_sut->onGalleryTemplate($this->_mockEvent);
 

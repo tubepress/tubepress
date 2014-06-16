@@ -22,9 +22,6 @@
         }
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_media_provider_" : "classes"
-        },
         "classmap" : {
             "tubepress_core_media_provider_api_Constants"                           : "classes/tubepress/core/media/provider/api/Constants.php",
             "tubepress_core_media_provider_api_ItemSorterInterface"                 : "classes/tubepress/core/media/provider/api/ItemSorterInterface.php",
@@ -38,7 +35,9 @@
             "tubepress_core_media_provider_impl_Collector"                          : "classes/tubepress/core/media/provider/impl/Collector.php",
             "tubepress_core_media_provider_impl_HttpMediaProvider"                  : "classes/tubepress/core/media/provider/impl/HttpMediaProvider.php",
             "tubepress_core_media_provider_impl_ItemSorter"                         : "classes/tubepress/core/media/provider/impl/ItemSorter.php",
-            "tubepress_core_media_provider_impl_options_ui_FieldProvider"           : "classes/tubepress/core/media/provider/impl/options/ui/FieldProvider.php"
+            "tubepress_core_media_provider_impl_options_ui_FieldProvider"           : "classes/tubepress/core/media/provider/impl/options/ui/FieldProvider.php",
+            "tubepress_core_media_provider_ioc_ProviderExtension"                   : "classes/tubepress/core/media/provider/ioc/ProviderExtension.php",
+            "tubepress_core_media_provider_ioc_compiler_EasyHttpProvidersPass"      : "classes/tubepress/core/media/provider/ioc/compiler/EasyHttpProvidersPass.php"
         }
     }
 }

@@ -16,8 +16,6 @@
  * or as a constant reference (e.g. `tubepress_core_api_const_event_EventNames::CSS_JS_STYLESHEETS`). The latter
  * simply removes undocumented strings from your code and can help to prevent typos.
  *
- * @package TubePress\Const\Event
- *
  * @api
  * @since 4.0.0
  */

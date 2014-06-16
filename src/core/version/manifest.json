@@ -14,9 +14,6 @@
     ],
     "description": "TubePress version functionality.",
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_version_" : "classes"
-        },
         "classmap" : {
             "tubepress_core_version_api_Version" : "classes/tubepress/core/version/api/Version.php"
         }

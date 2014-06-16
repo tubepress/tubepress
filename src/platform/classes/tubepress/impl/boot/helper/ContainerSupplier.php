@@ -25,11 +25,6 @@ class tubepress_impl_boot_helper_ContainerSupplier
     private $_settingsFileReader;
 
     /**
-     * @var ehough_pulsar_ComposerClassLoader
-     */
-    private $_classLoader;
-
-    /**
      * @var bool
      */
     private $_logEnabled = false;
@@ -39,32 +34,18 @@ class tubepress_impl_boot_helper_ContainerSupplier
      */
     private $_uncachedContainerSupplier;
     
-    public function __construct(tubepress_api_log_LoggerInterface $logger,
-                                tubepress_impl_boot_BootSettings  $sfr,
-                                ehough_pulsar_ComposerClassLoader $classLoader)
+    public function __construct(tubepress_api_log_LoggerInterface      $logger,
+                                tubepress_impl_boot_BootSettings       $sfr)
     {
         $this->_logger             = $logger;
         $this->_settingsFileReader = $sfr;
         $this->_logEnabled         = $logger->isEnabled();
-        $this->_classLoader        = $classLoader;
     }
 
     /**
      * @return tubepress_api_ioc_ContainerInterface The fully constructed service container for TubePress.
      */
     public function getServiceContainer()
-    {
-        $tubePressContainer = $this->_getContainer();
-
-        $this->_finishSettingUpClassLoader($tubePressContainer);
-
-        return $tubePressContainer;
-    }
-
-    /**
-     * @return tubepress_api_ioc_ContainerInterface
-     */
-    private function _getContainer()
     {
         if ($this->_canBootFromCache()) {
 
@@ -75,7 +56,7 @@ class tubepress_impl_boot_helper_ContainerSupplier
 
             try {
 
-                return $this->_getCachedContainer();
+                return $this->_getTubePressContainerFromCache();
 
             } catch (RuntimeException $e) {
 
@@ -83,7 +64,7 @@ class tubepress_impl_boot_helper_ContainerSupplier
             }
         }
 
-        return $this->_getNewContainer();
+        return $this->_getNewTubePressContainer();
     }
 
     /**
@@ -147,7 +128,7 @@ class tubepress_impl_boot_helper_ContainerSupplier
     /**
      * @return tubepress_api_ioc_ContainerInterface
      */
-    private function _getCachedContainer()
+    private function _getTubePressContainerFromCache()
     {
         if ($this->_logEnabled) {
 
@@ -203,12 +184,26 @@ class tubepress_impl_boot_helper_ContainerSupplier
     /**
      * @return tubepress_api_ioc_ContainerInterface
      */
-    private function _getNewContainer()
+    private function _getNewTubePressContainer()
     {
         if ($this->_logEnabled) {
 
             $this->_logger->debug('We cannot boot from cache. Will perform a full boot instead.');
         }
+
+        if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+
+            /** @noinspection PhpIncludeInspection */
+            require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+        }
+
+        /**
+         * Create a temporary classloader so we can do the full boot.
+         */
+        /** @noinspection PhpIncludeInspection */
+        $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full-vendor-and-platform.php';
+        $classLoader  = new ehough_pulsar_MapClassLoader($fullClassMap);
+        $classLoader->register();
 
         if (!isset($this->_uncachedContainerSupplier)) {
 
@@ -219,15 +214,19 @@ class tubepress_impl_boot_helper_ContainerSupplier
                 new tubepress_impl_boot_helper_secondary_ClassLoaderPrimer($this->_logger),
                 new tubepress_impl_addon_Registry($this->_logger, $this->_settingsFileReader, $finderFactory),
                 new tubepress_impl_boot_helper_secondary_IocCompiler($this->_logger),
-                $this->_classLoader,
                 $this->_settingsFileReader
             );
 
             $this->_uncachedContainerSupplier = $uncached;
         }
 
-        $result             = $this->_uncachedContainerSupplier->getNewIconicContainer($this->_settingsFileReader, $this->_classLoader);
+        $result             = $this->_uncachedContainerSupplier->getNewIconicContainer($this->_settingsFileReader);
         $tubePressContainer = new tubepress_impl_ioc_Container($result);
+
+        /**
+         * De-register the temporary classloader.
+         */
+        spl_autoload_unregister(array($classLoader, 'loadClass'));
 
         if ($result instanceof ehough_iconic_ContainerBuilder) {
 
@@ -246,19 +245,6 @@ class tubepress_impl_boot_helper_ContainerSupplier
         $tubePressContainer->set('ehough_iconic_ContainerInterface',          $iconicContainer);
         $tubePressContainer->set('tubepress_impl_log_BootLogger',             $this->_logger);
         $tubePressContainer->set(tubepress_api_boot_BootSettingsInterface::_, $this->_settingsFileReader);
-    }
-
-    private function _finishSettingUpClassLoader(tubepress_api_ioc_ContainerInterface $container)
-    {
-        if ($this->_settingsFileReader->isClassLoaderEnabled()) {
-
-            $containerClassMap = $container->getParameter('classMap');
-            $this->_classLoader->addToClassMap($containerClassMap);
-
-        } else {
-
-            spl_autoload_unregister(array($this->_classLoader, 'loadClass'));
-        }
     }
 
     public function ___setUncachedContainerSupplier(tubepress_impl_boot_helper_secondary_UncachedContainerSupplier $supplier)

@@ -34,34 +34,17 @@ class tubepress_test_core_html_single_impl_listeners_template_SingleVideoCoreVar
      */
     private $_mockOptionReference;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockTranslator;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockMediaProvider;
-
-
     public function onSetup()
     {
-
         $this->_mockExecutionContext      = $this->mock(tubepress_core_options_api_ContextInterface::_);
         $this->_mockEmbeddedHtmlGenerator = $this->mock(tubepress_core_embedded_api_EmbeddedHtmlInterface::_);
         $this->_mockOptionReference   = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
-        $this->_mockMediaProvider = $this->mock(tubepress_core_media_provider_api_MediaProviderInterface::_);
-        $this->_mockTranslator = $this->mock(tubepress_core_translation_api_TranslatorInterface::_);
 
         $this->_sut = new tubepress_core_html_single_impl_listeners_template_SingleVideoCoreVariables(
             $this->_mockExecutionContext,
             $this->_mockEmbeddedHtmlGenerator,
-            $this->_mockOptionReference,
-            $this->_mockTranslator
+            $this->_mockOptionReference
         );
-
-        $this->_sut->setMediaProviders(array($this->_mockMediaProvider));
     }
 
     public function testYouTubeFavorites()
@@ -81,31 +64,9 @@ class tubepress_test_core_html_single_impl_listeners_template_SingleVideoCoreVar
         $event->shouldReceive('getArgument')->once()->with('item')->andReturn($video);
         $event->shouldReceive('getSubject')->once()->andReturn($mockTemplate);
 
-        $this->_testVideoMetaStuff($mockTemplate);
-
         $this->_sut->onSingleVideoTemplate($event);
 
         $this->assertTrue(true);
-    }
-
-    private function _testVideoMetaStuff(ehough_mockery_mockery_MockInterface $mockTemplate)
-    {
-        $this->_mockMediaProvider->shouldReceive('getMetaOptionNames')->once()->andReturn(array(
-
-            'meta',
-        ));
-
-        $shouldShow = array('meta' => '<<value of meta>>');
-        $labels     = array('meta' => '##video-meta##');
-
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with('meta')->andReturn("<<value of meta>>");
-        $this->_mockOptionReference->shouldReceive('optionExists')->once()->with('meta')->andReturn(true);
-        $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with('meta')->andReturn('meta label!');
-        $this->_mockTranslator->shouldReceive('_')->once()->with("meta label!")->andReturn("##video-meta##");
-
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
-
     }
 }
 

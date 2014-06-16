@@ -213,6 +213,12 @@ class tubepress_test_youtube_impl_ioc_YouTubeIocContainerExtensionTest extends t
                     tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
                     tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
                     'dateFromUnixTime'
+                ),
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORD_ARRAY,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORDS_FORMATTED,
+                    'implodeArray',
+                    ', ',
                 )
             )
         ));

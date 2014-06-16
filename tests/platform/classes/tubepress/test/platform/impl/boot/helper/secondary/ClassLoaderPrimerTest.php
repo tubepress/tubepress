@@ -22,11 +22,6 @@ class tubepress_test_impl_boot_helper_secondary_ClassLoaderPrimerTest extends tu
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockClassLoader;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockLogger;
 
     /**
@@ -44,28 +39,45 @@ class tubepress_test_impl_boot_helper_secondary_ClassLoaderPrimerTest extends tu
         $this->_mockClassLoader        = $this->mock('ehough_pulsar_ComposerClassLoader');
     }
 
-    public function testAddClassHints()
+    public function testGetPsrRoots()
+    {
+        $mockAddons = $this->getMockAddons();
+
+        $actual = $this->_sut->getPsr0Roots($mockAddons);
+
+        $this->assertEquals(array('some root' => 'something else', 'prefix' => 'something'), $actual);
+    }
+
+    public function testGetPsrFallbacks()
+    {
+        $mockAddons = $this->getMockAddons();
+
+        $actual = $this->_sut->getPsr0Fallbacks($mockAddons);
+
+        $this->assertEquals(array('something'), $actual);
+    }
+
+    public function testGetClassMapFromAddons()
+    {
+        $mockAddons = $this->getMockAddons();
+
+        $actual = $this->_sut->getClassMapFromAddons($mockAddons);
+
+        $this->assertEquals(array('foo' => 'bar'), $actual);
+    }
+
+    private function getMockAddons()
     {
         $mockAddon1 = $this->mock(tubepress_api_addon_AddonInterface::_);
         $mockAddon2 = $this->mock(tubepress_api_addon_AddonInterface::_);
         $mockAddon1->shouldReceive('getName')->andReturn('mock add-on 1');
         $mockAddon2->shouldReceive('getName')->andReturn('mock add-on 2');
 
-        $mockAddon1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('some root', 'prefix' => 'something'));
-        $mockAddon2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array());
+        $mockAddon1->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('some root' => 'something else', 'prefix' => 'something'));
+        $mockAddon2->shouldReceive('getPsr0ClassPathRoots')->once()->andReturn(array('something'));
         $mockAddon1->shouldReceive('getClassMap')->once()->andReturn(array());
         $mockAddon2->shouldReceive('getClassMap')->once()->andReturn(array('foo' => 'bar'));
-        $mockAddons = array($mockAddon1, $mockAddon2);
 
-        $this->_mockClassLoader->shouldReceive('registerNamespaceFallback')->once()->with('some root');
-        $this->_mockClassLoader->shouldReceive('registerPrefixFallback')->once()->with('some root');
-
-        $this->_mockClassLoader->shouldReceive('registerPrefix')->once()->with('prefix', 'something');
-        $this->_mockClassLoader->shouldReceive('registerNamespace')->once()->with('prefix', 'something');
-
-
-        $this->_sut->addClassHintsForAddons($mockAddons, $this->_mockClassLoader);
-
-        $this->assertTrue(true);
+        return array($mockAddon1, $mockAddon2);
     }
 }

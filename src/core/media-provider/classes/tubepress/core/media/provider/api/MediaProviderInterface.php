@@ -87,12 +87,14 @@ interface tubepress_core_media_provider_api_MediaProviderInterface
     function getDisplayName();
 
     /**
-     * @return string[] An array of meta names
+     * @return array An associative array where the keys are this providers meta
+     *               option names and the values are the corresponding media item
+     *               attribute names.
      *
      * @api
      * @since 4.0.0
      */
-    function getMetaOptionNames();
+    function getMapOfMetaOptionNamesToAttributeDisplayNames();
 
     /**
      * @return string The name of the "mode" value that this provider uses for searching.

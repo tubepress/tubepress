@@ -1,0 +1,22 @@
+{
+    "name" : "tubepress/core-translation",
+    "version": "1.0.0",
+    "title" : "TubePress i18n Capabilities",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress core i18n functionality.",
+    "autoload":{
+        "classmap" : {
+            "tubepress_core_translation_api_TranslatorInterface" : "classes/tubepress/core/translation/api/TranslatorInterface.php"
+
+        }
+    }
+}

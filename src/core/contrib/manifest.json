@@ -19,12 +19,10 @@
         ]
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_contrib_" : "classes"
-        },
         "classmap" : {
             "tubepress_core_contrib_api_ContributableValidatorInterface" : "classes/tubepress/core/contrib/api/ContributableValidatorInterface.php",
-            "tubepress_core_contrib_impl_ContributableValidator"         : "classes/tubepress/core/contrib/impl/ContributableValidator.php"
+            "tubepress_core_contrib_impl_ContributableValidator"         : "classes/tubepress/core/contrib/impl/ContributableValidator.php",
+            "tubepress_core_contrib_ioc_ContributableExtension"          : "classes/tubepress/core/contrib/ioc/ContributableExtension.php"
         }
     }
 }

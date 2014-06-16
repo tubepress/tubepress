@@ -19,16 +19,13 @@
         ]
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_event_" : "classes"
-        },
         "classmap" : {
-
             "tubepress_core_event_api_EventDispatcherInterface"           : "classes/tubepress/core/event/api/EventDispatcherInterface.php",
             "tubepress_core_event_api_EventInterface"                     : "classes/tubepress/core/event/api/EventInterface.php",
             "tubepress_core_event_impl_tickertape_EventBase"              : "classes/tubepress/core/event/impl/tickertape/EventBase.php",
             "tubepress_core_event_impl_tickertape_EventDispatcher"        : "classes/tubepress/core/event/impl/tickertape/EventDispatcher.php",
-            "tubepress_core_event_impl_tickertape_TickertapeEventWrapper" : "classes/tubepress/core/event/impl/tickertape/TickertapeEventWrapper.php"
+            "tubepress_core_event_impl_tickertape_TickertapeEventWrapper" : "classes/tubepress/core/event/impl/tickertape/TickertapeEventWrapper.php",
+            "tubepress_core_event_ioc_EventExtension"                     : "classes/tubepress/core/event/ioc/EventExtension.php"
         }
     }
 }

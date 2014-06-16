@@ -19,16 +19,13 @@
         ]
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_template_" : "classes"
-        },
         "classmap" : {
 
-            "tubepress_core_template_api_TemplateFactoryInterface" : "classes/tubepress/core/template/api/TemplateFactoryInterface.php",
-            "tubepress_core_template_api_TemplateInterface"        : "classes/tubepress/core/template/api/TemplateInterface.php",
-           
+            "tubepress_core_template_api_TemplateFactoryInterface"     : "classes/tubepress/core/template/api/TemplateFactoryInterface.php",
+            "tubepress_core_template_api_TemplateInterface"            : "classes/tubepress/core/template/api/TemplateInterface.php",
             "tubepress_core_template_impl_contemplate_Template"        : "classes/tubepress/core/template/impl/contemplate/Template.php",
-            "tubepress_core_template_impl_contemplate_TemplateFactory" : "classes/tubepress/core/template/impl/contemplate/TemplateFactory.php"
+            "tubepress_core_template_impl_contemplate_TemplateFactory" : "classes/tubepress/core/template/impl/contemplate/TemplateFactory.php",
+            "tubepress_core_template_ioc_TemplateExtension"            : "classes/tubepress/core/template/ioc/TemplateExtension.php"
         }
     }
 }

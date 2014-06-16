@@ -24,14 +24,21 @@ class tubepress_test_core_options_impl_ContextTest extends tubepress_test_core_o
      */
     private $_mockStorageManager;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockReference;
+
     protected function doSetup()
     {
         $this->_mockStorageManager  = $this->mock(tubepress_core_options_api_PersistenceInterface::_);
+        $this->_mockReference      = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
 
         $this->_sut = new tubepress_core_options_impl_Context(
 
             $this->_mockStorageManager,
-            $this->getMockEventDispatcher()
+            $this->getMockEventDispatcher(),
+            $this->_mockReference
         );
     }
 

@@ -92,7 +92,7 @@ return array(
     'system' => array(
         'cache' => array(
 
-            'containerStoragePath'  => '$path'
+            'directory'  => '$path'
         )
     )
 );
@@ -116,7 +116,7 @@ return array(
     'system' => array(
         'cache' => array(
 
-            'containerStoragePath'  => '$path'
+            'directory'  => '$path'
         )
     )
 );
@@ -137,7 +137,7 @@ return array(
     'system' => array(
         'cache' => array(
 
-            'containerStoragePath'  => '/sdfkklsjdflkslkjsklfjskljsflksjdfklsjklsjfksldfjsdf'
+            'directory'  => '/sdfkklsjdflkslkjsklfjskljsflksjdfklsjklsjfksldfjsdf'
         )
     )
 );

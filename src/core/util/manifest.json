@@ -19,14 +19,12 @@
         ]
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_util_" : "classes"
-        },
         "classmap" : {
             "tubepress_core_util_api_TimeUtilsInterface" : "classes/tubepress/core/util/api/TimeUtilsInterface.php",
             "tubepress_core_util_api_UrlUtilsInterface"  : "classes/tubepress/core/util/api/UrlUtilsInterface.php",
             "tubepress_core_util_impl_TimeUtils"         : "classes/tubepress/core/util/impl/TimeUtils.php",
-            "tubepress_core_util_impl_UrlUtils"          : "classes/tubepress/core/util/impl/UrlUtils.php"
+            "tubepress_core_util_impl_UrlUtils"          : "classes/tubepress/core/util/impl/UrlUtils.php",
+            "tubepress_core_util_ioc_UtilsExtension"     : "classes/tubepress/core/util/ioc/UtilsExtension.php"
 
         }
     }

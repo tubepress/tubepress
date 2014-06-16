@@ -172,4 +172,17 @@
 
 	</target>
 
+    <target name="build-boot-classes-file">
+
+        <mkdir dir="../src/platform/scripts/class-collections" />
+
+        <exec dir="bin/classloading" failonerror="true" searchpath="true" executable="php">
+            <arg value="./ClassCollectionBuilder.php" />
+        </exec>
+
+        <move file="../src/platform/scripts/class-collections"
+              tofile="${stagingdir}/src/platform/scripts/class-collections"
+              verbose="true" />
+    </target>
+
 </project>

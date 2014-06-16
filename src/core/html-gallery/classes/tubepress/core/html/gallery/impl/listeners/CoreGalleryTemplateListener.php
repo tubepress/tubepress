@@ -19,25 +19,13 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
      */
     private $_playerHtml;
 
-    /**
-     * @var tubepress_core_media_provider_api_MediaProviderInterface[]
-     */
-    private $_mediaProviders;
-
-    /**
-     * @var tubepress_core_translation_api_TranslatorInterface
-     */
-    private $_translator;
-
-    public function __construct(tubepress_core_options_api_ContextInterface        $context,
-                                tubepress_core_options_api_ReferenceInterface      $optionReference,
-                                tubepress_core_player_api_PlayerHtmlInterface      $playerHtml,
-                                tubepress_core_translation_api_TranslatorInterface $translator)
+    public function __construct(tubepress_core_options_api_ContextInterface   $context,
+                                tubepress_core_options_api_ReferenceInterface $optionReference,
+                                tubepress_core_player_api_PlayerHtmlInterface $playerHtml)
     {
         parent::__construct($context, $optionReference);
 
         $this->_playerHtml = $playerHtml;
-        $this->_translator = $translator;
     }
 
     public function onGalleryTemplate(tubepress_core_event_api_EventInterface $event)
@@ -53,36 +41,6 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
         $this->_setItemArrayAndGalleryId($event, $template);
         $this->_setThumbnailSizes($template);
         $this->_setPlayerLocationStuff($event, $template);
-        $this->_setVideoMetaDisplay($template);
-    }
-
-    public function setMediaProviders(array $providers)
-    {
-        $this->_mediaProviders = $providers;
-    }
-
-    private function _setVideoMetaDisplay(tubepress_core_template_api_TemplateInterface $template)
-    {
-        $metaNames  = $this->_getAllMetaOptionNames();
-        $shouldShow = array();
-        $labels     = array();
-
-        foreach ($metaNames as $metaName) {
-
-            if (!$this->getOptionReference()->optionExists($metaName)) {
-
-                $shouldShow[$metaName] = false;
-                $labels[$metaName]     = '';
-                continue;
-            }
-
-            $shouldShow[$metaName] = $this->getExecutionContext()->get($metaName);
-            $untranslatedLabel     = $this->getOptionReference()->getUntranslatedLabel($metaName);
-            $labels[$metaName]     = $this->_translator->_($untranslatedLabel);
-        }
-
-        $template->setVariable(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS, $labels);
     }
 
     private function _setPlayerLocationStuff(tubepress_core_event_api_EventInterface      $event,
@@ -122,17 +80,5 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
 
         $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_WIDTH, $thumbWidth);
         $template->setVariable(tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_HEIGHT, $thumbHeight);
-    }
-
-    private function _getAllMetaOptionNames()
-    {
-        $toReturn = array();
-
-        foreach ($this->_mediaProviders as $mediaProvider) {
-
-            $toReturn = array_merge($toReturn, $mediaProvider->getMetaOptionNames());
-        }
-
-        return array_unique($toReturn);
     }
 }

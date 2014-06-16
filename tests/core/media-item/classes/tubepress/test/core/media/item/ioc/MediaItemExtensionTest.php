@@ -24,6 +24,26 @@ class tubepress_test_core_media_item_ioc_MediaItemExtensionTest extends tubepres
 
     protected function prepareForLoad()
     {
+        $this->expectRegistration(
+            'tubepress_core_media_item_impl_listeners_MetadataTemplateListener',
+            'tubepress_core_media_item_impl_listeners_MetadataTemplateListener'
+        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => tubepress_core_media_provider_api_MediaProviderInterface::_,
+                'method' => 'setMediaProviders'))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_core_html_gallery_api_Constants::EVENT_TEMPLATE_THUMBNAIL_GALLERY,
+                'method'   => 'onGalleryTemplate',
+                'priority' => 10400))
+            ->withTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+                'event'    => tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE,
+                'method'   => 'onSingleTemplate',
+                'priority' => 10100
+            ));
+        
         $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_media_item', array(
 
             'defaultValues' => array(
@@ -145,7 +165,10 @@ class tubepress_test_core_media_item_ioc_MediaItemExtensionTest extends tubepres
         return array(
             tubepress_core_translation_api_TranslatorInterface::_ => tubepress_core_translation_api_TranslatorInterface::_,
             tubepress_core_options_ui_api_ElementBuilderInterface::_ => $elementBuilder,
-            tubepress_core_options_ui_api_FieldBuilderInterface::_ => $fieldBuilder
+            tubepress_core_options_ui_api_FieldBuilderInterface::_ => $fieldBuilder,
+            tubepress_core_options_api_ContextInterface::_ => tubepress_core_options_api_ContextInterface::_,
+            tubepress_core_options_api_ReferenceInterface::_ => tubepress_core_options_api_ReferenceInterface::_,
+            tubepress_core_event_api_EventDispatcherInterface::_ => tubepress_core_event_api_EventDispatcherInterface::_
         );
     }
 }

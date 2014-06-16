@@ -30,10 +30,4 @@ class tubepress_test_core_options_CoreOptionsManifestValidityTest extends tubepr
     {
         return TUBEPRESS_ROOT . '/src/core/options/manifest.json';
     }
-
-    protected function getClassNamesToIgnore()
-    {
-        return array('tubepress_core_options_ioc_compiler_AbstractEasyPass');
-    }
-
 }

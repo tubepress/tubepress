@@ -36,11 +36,6 @@ class tubepress_impl_boot_PrimaryBootstrapper
     private $_startTime;
 
     /**
-     * @var ehough_pulsar_ComposerClassLoader
-     */
-    private $_classLoader;
-
-    /**
      * @var tubepress_api_boot_BootSettingsInterface
      */
     private $_helperSettingsFileReader;
@@ -92,7 +87,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         /**
          * Setup initial class loader.
          */
-        $this->_01_buildInitialClassLoader();
+        $this->_01_registerMinimalClassLoader();
 
         /*
          * Setup basic logging facilities.
@@ -113,43 +108,42 @@ class tubepress_impl_boot_PrimaryBootstrapper
          * Core boot.
          */
         $this->_05_loadServiceContainer();
+
+        /**
+         * Setup classloading.
+         */
+        $this->_06_registerClassLoaderIfRequested();
         
         /**
          * Record finish time.
          */
-        $this->_06_recordFinishTime();
+        $this->_07_recordFinishTime();
 
         /**
          * Free up some memory.
          */
-        $this->_07_freeMemory();
+        $this->_08_freeMemory();
     }
 
-    private function _01_buildInitialClassLoader()
+    private function _01_registerMinimalClassLoader()
     {
-        if (!isset($this->_classLoader)) {
+        /**
+         * We don't want to include this during unit tests, so simply check to see if a mock boot logger
+         * has already been set on the object.
+         */
+        if (!isset($this->_bootLogger)) {
 
-            if (! class_exists('ehough_pulsar_ComposerClassLoader', false)) {
-
-                require_once TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
-            }
-
-            $this->_classLoader = new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor/');
+            /** @noinspection PhpIncludeInspection */
+            require TUBEPRESS_ROOT . '/src/platform/scripts/class-collections/minimal-boot.php';
         }
-
-        $this->_classLoader->register();
-
-        $bootStrapClassMap = require_once TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/bootstrap.php';
-
-        $this->_classLoader->addToClassMap($bootStrapClassMap);
     }
 
     private function _02_buildBootLogger()
     {
         if (!isset($this->_bootLogger)) {
 
-            $loggingRequested = isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0;
-            $this->_bootLogger    = new tubepress_impl_log_BootLogger($loggingRequested);
+            $loggingRequested  = isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0;
+            $this->_bootLogger = new tubepress_impl_log_BootLogger($loggingRequested);
         }
     }
 
@@ -176,8 +170,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
             $this->_helperContainerSupplier = new tubepress_impl_boot_helper_ContainerSupplier(
                 
                 $this->_bootLogger,
-                $this->_helperSettingsFileReader,
-                $this->_classLoader
+                $this->_helperSettingsFileReader
             );
         }
     }
@@ -187,7 +180,49 @@ class tubepress_impl_boot_PrimaryBootstrapper
         self::$_SERVICE_CONTAINER = $this->_helperContainerSupplier->getServiceContainer();
     }
 
-    private function _06_recordFinishTime()
+    private function _06_registerClassLoaderIfRequested()
+    {
+        $container = self::$_SERVICE_CONTAINER;
+        
+        if (!$this->_helperSettingsFileReader->isClassLoaderEnabled()) {
+
+            return;
+        }
+
+        if ($container->hasParameter('classloading-classmap')) {
+
+            $containerClassMap = $container->getParameter('classloading-classmap');
+            $mapClassLoader    = new ehough_pulsar_MapClassLoader($containerClassMap);
+
+            $mapClassLoader->register();
+        }
+
+        $hasFallbacks = $container->hasParameter('classloading-psr0-fallbacks');
+        $hasPrefixed  = $container->hasParameter('classloading-psr0-prefixed-paths');
+
+        if (!$hasFallbacks && !$hasPrefixed) {
+
+            return;
+        }
+
+        $psr0Fallbacks     = $container->getParameter('classloading-psr0-fallbacks');
+        $psr0PrefixedPaths = $container->getParameter('classloading-psr0-prefixed-paths');
+
+        if (empty($psr0Fallbacks) && empty($psr0PrefixedPaths)) {
+            
+            return;
+        }
+        
+        $universalClassLoader = new ehough_pulsar_UniversalClassLoader();
+        
+        $universalClassLoader->registerNamespaces($psr0PrefixedPaths);
+        $universalClassLoader->registerPrefixes($psr0PrefixedPaths);
+        $universalClassLoader->registerNamespaceFallbacks($psr0Fallbacks);
+        $universalClassLoader->registerPrefixFallbacks($psr0Fallbacks);
+        $universalClassLoader->register();
+    }
+
+    private function _07_recordFinishTime()
     {
         if (!$this->_bootLogger->isEnabled()) {
 
@@ -216,7 +251,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         $realLogger->onBootComplete();
     }
 
-    private function _07_freeMemory()
+    private function _08_freeMemory()
     {
         unset($this->_helperSettingsFileReader);
         unset($this->_helperContainerSupplier);
@@ -265,18 +300,6 @@ class tubepress_impl_boot_PrimaryBootstrapper
     public function ___setContainerSupplier(tubepress_impl_boot_helper_ContainerSupplier $sbi)
     {
         $this->_helperContainerSupplier = $sbi;
-    }
-
-    /**
-     * This is here strictly for testing :/
-     *
-     * @param ehough_pulsar_ComposerClassLoader $classloader The classloader.
-     *
-     * @internal
-     */
-    public function ___setClassLoader(ehough_pulsar_ComposerClassLoader $classloader)
-    {
-        $this->_classLoader = $classloader;
     }
 
     /**

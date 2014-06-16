@@ -19,14 +19,12 @@
         ]
     },
     "autoload": {
-        "psr-0" : {
-            "tubepress_jwplayer" : "classes"
-        },
         "classmap" : {
             "tubepress_jwplayer_api_Constants"                                : "classes/tubepress/jwplayer/api/Constants.php",
             "tubepress_jwplayer_impl_embedded_JwPlayerEmbeddedProvider"       : "classes/tubepress/jwplayer/impl/embedded/JwPlayerEmbeddedProvider.php",
             "tubepress_jwplayer_impl_listeners_template_JwPlayerTemplateVars" : "classes/tubepress/jwplayer/impl/listeners/template/JwPlayerTemplateVars.php",
-            "tubepress_jwplayer_impl_options_ui_JwPlayerFieldProvider"        : "classes/tubepress/jwplayer/impl/options/ui/JwPlayerFieldProvider.php"
+            "tubepress_jwplayer_impl_options_ui_JwPlayerFieldProvider"        : "classes/tubepress/jwplayer/impl/options/ui/JwPlayerFieldProvider.php",
+            "tubepress_jwplayer_ioc_JwPlayerExtension"                        : "classes/tubepress/jwplayer/ioc/JwPlayerExtension.php"
         }
     }
 }

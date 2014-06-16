@@ -92,8 +92,8 @@ dt.tubepress_meta:after {
 }
 
 dt.tubepress_meta_title,
-dt.tubepress_meta_runtime,
-dt.tubepress_meta_url,
+dt.tubepress_meta_duration,
+dt.tubepress_meta_homeUrl,
 dt.tubepress_meta_description {
 
     /** Hide these labels completely! */
@@ -131,15 +131,15 @@ dd.tubepress_meta_title {
  * text overflow in the dd's, unfortunately, so the following two rules correct that.
  */
 dd.tubepress_meta_title,
-dd.tubepress_meta_runtime,
-dd.tubepress_meta_url,
+dd.tubepress_meta_duration,
+dd.tubepress_meta_homeUrl,
 dd.tubepress_meta_description
 {
     display: block;
 }
 dd.tubepress_meta_title:after,
-dd.tubepress_meta_runtime:after,
-dd.tubepress_meta_url:after,
+dd.tubepress_meta_duration:after,
+dd.tubepress_meta_homeUrl:after,
 dd.tubepress_meta_description:after
 {
     content: '';

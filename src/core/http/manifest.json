@@ -20,11 +20,6 @@
         ]
     },
     "autoload":{
-        "psr-0" : {
-            "tubepress_core_http_"   : "classes",
-            "tubepress_core_stream_" : "classes",
-            "tubepress_core_url_"    : "classes"
-        },
         "classmap" : {
             "tubepress_core_http_api_Constants"                   : "classes/tubepress/core/http/api/Constants.php",
             "tubepress_core_http_api_AjaxCommandInterface"        : "classes/tubepress/core/http/api/AjaxCommandInterface.php",
@@ -49,6 +44,7 @@
             "tubepress_core_http_impl_puzzle_RequestException"    : "classes/tubepress/core/http/impl/puzzle/RequestException.php",
             "tubepress_core_http_impl_RequestParameters"          : "classes/tubepress/core/http/impl/RequestParameters.php",
             "tubepress_core_http_impl_ResponseCode"               : "classes/tubepress/core/http/impl/ResponseCode.php",
+            "tubepress_core_http_ioc_HttpExtension"               : "classes/tubepress/core/http/ioc/HttpExtension.php",
 
             "tubepress_core_stream_api_StreamInterface"        : "classes/tubepress/core/stream/api/StreamInterface.php",
             "tubepress_core_stream_impl_puzzle_FlexibleStream" : "classes/tubepress/core/stream/impl/puzzle/FlexibleStream.php",
@@ -58,7 +54,8 @@
             "tubepress_core_url_api_UrlInterface"             : "classes/tubepress/core/url/api/UrlInterface.php",
             "tubepress_core_url_impl_puzzle_PuzzleBasedQuery" : "classes/tubepress/core/url/impl/puzzle/PuzzleBasedQuery.php",
             "tubepress_core_url_impl_puzzle_PuzzleBasedUrl"   : "classes/tubepress/core/url/impl/puzzle/PuzzleBasedUrl.php",
-            "tubepress_core_url_impl_puzzle_UrlFactory"       : "classes/tubepress/core/url/impl/puzzle/UrlFactory.php"
+            "tubepress_core_url_impl_puzzle_UrlFactory"       : "classes/tubepress/core/url/impl/puzzle/UrlFactory.php",
+            "tubepress_core_url_ioc_UrlExtension"             : "classes/tubepress/core/url/ioc/UrlExtension.php"
 
         }
     }

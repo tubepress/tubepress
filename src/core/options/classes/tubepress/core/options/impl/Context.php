@@ -27,14 +27,21 @@ class tubepress_core_options_impl_Context extends tubepress_core_options_impl_in
     private $_persistence;
 
     /**
+     * @var tubepress_core_options_api_ReferenceInterface
+     */
+    private $_optionReference;
+
+    /**
      * Constructor.
      */
     public function __construct(tubepress_core_options_api_PersistenceInterface   $persistence,
-                                tubepress_core_event_api_EventDispatcherInterface $eventDispatcher)
+                                tubepress_core_event_api_EventDispatcherInterface $eventDispatcher,
+                                tubepress_core_options_api_ReferenceInterface     $reference)
     {
         parent::__construct($eventDispatcher);
 
-        $this->_persistence = $persistence;
+        $this->_persistence     = $persistence;
+        $this->_optionReference = $reference;
     }
 
     /**
@@ -56,7 +63,20 @@ class tubepress_core_options_impl_Context extends tubepress_core_options_impl_in
             return $this->_ephemeralOptions[$optionName];
         }
 
-        return $this->_persistence->fetch($optionName);
+        try {
+
+            return $this->_persistence->fetch($optionName);
+
+        } catch (InvalidArgumentException $e) {
+
+            if ($this->_optionReference->optionExists($optionName) &&
+                !$this->_optionReference->isMeantToBePersisted($optionName)) {
+
+                return null;
+            }
+
+            throw $e;
+        }
     }
 
     /**

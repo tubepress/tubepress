@@ -24,108 +24,96 @@ class tubepress_impl_boot_helper_secondary_ClassLoaderPrimer
      */
     private $_shouldLog = false;
 
+    /**
+     * @var array
+     */
+    private $_classmap;
+
+    /**
+     * @var array
+     */
+    private $_psr0FallbackRoots;
+
+    /**
+     * @var array
+     */
+    private $_psr0Roots;
+
     public function __construct(tubepress_api_log_LoggerInterface $logger)
     {
         $this->_logger    = $logger;
         $this->_shouldLog = $logger->isEnabled();
     }
 
-    /**
-     * Loads the PSR-0 class paths and any classmaps for this add-on into
-     * the system's primary classloader.
-     *
-     * @param array                             $addons
-     * @param ehough_pulsar_ComposerClassLoader $classLoader
-     *
-     * @return void
-     */
-    public function addClassHintsForAddons(array $addons, ehough_pulsar_ComposerClassLoader $classLoader)
+    public function getClassMapFromAddons(array $addons)
     {
+        $this->_execute($addons);
+
+        return $this->_classmap;
+    }
+
+    public function getPsr0Roots(array $addons)
+    {
+        $this->_execute($addons);
+
+        return $this->_psr0Roots;
+    }
+
+    public function getPsr0Fallbacks(array $addons)
+    {
+        $this->_execute($addons);
+
+        return $this->_psr0FallbackRoots;
+    }
+
+    private function _execute(array $addons)
+    {
+        if (isset($this->_classmap)) {
+
+            return;
+        }
+
         if ($this->_shouldLog) {
 
-            $this->_logger->debug('Now registering add-on class hints');
+            $this->_logger->debug(sprintf('Examining classloading data for %d add-ons', count($addons)));
         }
+
+        $this->_classmap          = array();
+        $this->_psr0Roots         = array();
+        $this->_psr0FallbackRoots = array();
+        $langUtils                = new tubepress_impl_util_LangUtils();
 
         /**
          * @var $addon tubepress_api_addon_AddonInterface
          */
         foreach ($addons as $addon) {
 
-            $this->_addClassHints($addon, $classLoader);
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug('Done registering add-on class hints.');
-        }
-    }
-
-    /**
-     * Loads the PSR-0 class paths and any classmaps for this add-on into
-     * the system's primary classloader.
-     *
-     * @param tubepress_api_addon_AddonInterface $addon
-     * @param ehough_pulsar_ComposerClassLoader
-     *
-     * @return void
-     */
-    private function _addClassHints(tubepress_api_addon_AddonInterface $addon, ehough_pulsar_ComposerClassLoader $classLoader)
-    {
-        $this->_registerPsr0ClassPath($addon, $classLoader);
-        $this->_registerClassMap($addon, $classLoader);
-    }
-
-    private function _registerClassMap(tubepress_api_addon_AddonInterface $addon, ehough_pulsar_ComposerClassLoader $classLoader)
-    {
-        $classMap = $addon->getClassMap();
-
-        if (count($classMap) === 0) {
-
-            return;
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Add-on %s has a classmap of size %d for the classloader',
-                $addon->getName(), count($classMap)));
-        }
-
-        $classLoader->addToClassMap($classMap);
-    }
-
-    private function _registerPsr0ClassPath(tubepress_api_addon_AddonInterface $addon, ehough_pulsar_ComposerClassLoader $classLoader)
-    {
-        $classPaths = $addon->getPsr0ClassPathRoots();
-
-        if (count($classPaths) === 0) {
-
-            return;
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Add-on %s has %d PSR-0 path(s) for the classloader',
-                $addon->getName(), count($classPaths)));
-        }
-
-        foreach ($classPaths as $prefix => $path) {
+            $map   = $addon->getClassMap();
+            $roots = $addon->getPsr0ClassPathRoots();
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Add-on %s registered %s => %s as a PSR-0 classpath',
-                    $addon->getName(), $prefix, $path));
+                $this->_logger->debug(sprintf('Add-on %s has a classmap of size %d',
+                    $addon->getName(), count($map)));
+                $this->_logger->debug(sprintf('Add-on %s has %d PSR-0 path(s)',
+                    $addon->getName(), count($roots)));
             }
 
-            if ($prefix) {
+            $this->_classmap = array_merge($this->_classmap, $map);
 
-                $classLoader->registerPrefix($prefix, $path);
-                $classLoader->registerNamespace($prefix, $path);
+            if ($langUtils->isAssociativeArray($roots)) {
+
+                $this->_psr0Roots = array_merge($this->_psr0Roots, $roots);
 
             } else {
 
-                $classLoader->registerNamespaceFallback($path);
-                $classLoader->registerPrefixFallback($path);
+                $this->_psr0FallbackRoots = array_merge($this->_psr0FallbackRoots, $roots);
             }
+        }
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Done examining classloading data for %d add-ons', count($addons)));
         }
     }
 }

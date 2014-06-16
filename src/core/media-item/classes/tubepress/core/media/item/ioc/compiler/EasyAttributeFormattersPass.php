@@ -16,7 +16,7 @@ class tubepress_core_media_item_ioc_compiler_EasyAttributeFormattersPass extends
 {
     private static $_validTypes = array(
 
-        'number', 'truncateString', 'durationFromSeconds', 'dateFromUnixTime'
+        'number', 'truncateString', 'durationFromSeconds', 'dateFromUnixTime', 'implodeArray'
     );
 
     protected function okToProcessParameter($paramName,
@@ -109,6 +109,9 @@ class tubepress_core_media_item_ioc_compiler_EasyAttributeFormattersPass extends
                     break;
                 case 'dateFromUnixTime':
                     $def->addMethodCall('formatDateFromUnixTime', array($source, $destination));
+                    break;
+                case 'implodeArray':
+                    $def->addMethodCall('implodeArray', array($source, $destination, $array[3]));
                     break;
                 default:
                     throw new LogicException();

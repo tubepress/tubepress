@@ -23,7 +23,7 @@ class tubepress_impl_boot_BootSettings implements tubepress_api_boot_BootSetting
     private static $_3RD_LEVEL_KEY_CLASSLOADER_ENABLED = 'enabled';
     private static $_3RD_LEVEL_KEY_CACHE_KILLERKEY     = 'killerKey';
     private static $_3RD_LEVEL_KEY_CACHE_ENABLED       = 'enabled';
-    private static $_3RD_LEVEL_KEY_CACHE_CSP           = 'containerStoragePath';
+    private static $_3RD_LEVEL_KEY_CACHE_CSP           = 'directory';
     private static $_3RD_LEVEL_KEY_ADDONS_BLACKLIST    = 'blacklist';
 
     /**

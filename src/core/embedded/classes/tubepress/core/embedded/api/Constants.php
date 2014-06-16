@@ -94,6 +94,10 @@ interface tubepress_core_embedded_api_Constants
      */
     const EMBEDDED_IMPL_PROVIDER_BASED = 'provider_based';
 
+    /**
+     * @api
+     * @since 4.0.0
+     */
     const OPTIONS_UI_CATEGORY_EMBEDDED = 'embedded-category';
 
     /**

@@ -19,9 +19,6 @@
         ]
     },
     "autoload": {
-        "psr-0" : {
-            "tubepress_vimeo" : "classes"
-        },
         "classmap" : {
             "tubepress_vimeo_api_Constants"                                      : "classes/tubepress/vimeo/api/Constants.php",
             "tubepress_vimeo_impl_embedded_VimeoEmbeddedProvider"    : "classes/tubepress/vimeo/impl/embedded/VimeoEmbeddedProvider.php",
@@ -29,7 +26,9 @@
             "tubepress_vimeo_impl_listeners_video_VimeoVideoConstructionListener"  : "classes/tubepress/vimeo/impl/listeners/video/VimeoVideoConstructionListener.php",
             "tubepress_vimeo_impl_options_ui_VimeoFieldProvider" : "classes/tubepress/vimeo/impl/options/ui/VimeoFieldProvider.php",
             "tubepress_vimeo_impl_player_VimeoPlayerLocation" : "classes/tubepress/vimeo/impl/player/VimeoPlayerLocation.php",
-            "tubepress_vimeo_impl_provider_VimeoVideoProvider"     : "classes/tubepress/vimeo/impl/provider/VimeoVideoProvider.php"
+            "tubepress_vimeo_impl_provider_VimeoVideoProvider"     : "classes/tubepress/vimeo/impl/provider/VimeoVideoProvider.php",
+            "tubepress_vimeo_ioc_VimeoExtension" : "classes/tubepress/vimeo/ioc/VimeoExtension.php"
+
         }
     }
 }

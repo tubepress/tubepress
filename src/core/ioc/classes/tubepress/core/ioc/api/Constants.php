@@ -10,10 +10,6 @@
  */
 
 /**
- * Advanced option names.
- *
- * @package TubePress\Const\IoC
- *
  * @api
  * @since 4.0.0
  */
