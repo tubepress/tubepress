@@ -1,0 +1,4 @@
+src/core/themes/web/default/css/tubepress.css
+src/core/themes/web/legacy-default/css/tubepress.css
+src/core/themes/web/vimeo.com-clone/css/vimeo.css
+src/core/themes/web/youtube.com-clone/css/youtube.css

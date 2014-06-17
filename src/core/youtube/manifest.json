@@ -1,0 +1,33 @@
+{
+    "name" : "tubepress/youtube",
+    "version": "1.0.0",
+    "title" : "YouTube",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Allows TubePress work with YouTube",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_youtube_ioc_YouTubeExtension"
+        ]
+    },
+    "autoload": {
+        "classmap" : {
+            "tubepress_youtube_api_Constants"                                         : "classes/tubepress/youtube/api/Constants.php",
+            "tubepress_youtube_impl_embedded_YouTubeEmbeddedProvider"                 : "classes/tubepress/youtube/impl/embedded/YouTubeEmbeddedProvider.php",
+            "tubepress_youtube_impl_listeners_options_YouTubePlaylistHandler"         : "classes/tubepress/youtube/impl/listeners/options/YouTubePlaylistHandler.php",
+            "tubepress_youtube_impl_listeners_video_YouTubeVideoConstructionListener" : "classes/tubepress/youtube/impl/listeners/video/YouTubeVideoConstructionListener.php",
+            "tubepress_youtube_impl_options_ui_YouTubeFieldProvider"                  : "classes/tubepress/youtube/impl/options/ui/YouTubeFieldProvider.php",
+            "tubepress_youtube_impl_player_YouTubePlayerLocation"                     : "classes/tubepress/youtube/impl/player/YouTubePlayerLocation.php",
+            "tubepress_youtube_impl_provider_YouTubeVideoProvider"                    : "classes/tubepress/youtube/impl/provider/YouTubeVideoProvider.php",
+            "tubepress_youtube_ioc_YouTubeExtension"                                  : "classes/tubepress/youtube/ioc/YouTubeExtension.php"
+        }
+    }
+}

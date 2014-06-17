@@ -1,0 +1,32 @@
+{
+    "name" : "tubepress/core-cache",
+    "version": "1.0.0",
+    "title" : "TubePress API Cache",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress API cache functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_cache_ioc_CacheExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_core_cache_api_Constants"                        : "classes/tubepress/core/cache/api/Constants.php",
+            "tubepress_core_cache_impl_listeners_http_ApiCacheListener" : "classes/tubepress/core/cache/impl/listeners/http/ApiCacheListener.php",
+            "tubepress_core_cache_impl_options_ui_FieldProvider"        : "classes/tubepress/core/cache/impl/options/ui/FieldProvider.php",
+            "tubepress_core_cache_impl_stash_FilesystemCacheBuilder"    : "classes/tubepress/core/cache/impl/stash/FilesystemCacheBuilder.php",
+            "tubepress_core_cache_impl_stash_ItemDecorator"             : "classes/tubepress/core/cache/impl/stash/ItemDecorator.php",
+            "tubepress_core_cache_impl_stash_PoolDecorator"             : "classes/tubepress/core/cache/impl/stash/PoolDecorator.php",
+            "tubepress_core_cache_ioc_CacheExtension"                   : "classes/tubepress/core/cache/ioc/CacheExtension.php"
+        }
+    }
+}

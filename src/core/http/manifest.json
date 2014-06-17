@@ -1,0 +1,62 @@
+{
+    "name" : "tubepress/core-http",
+    "version": "1.0.0",
+    "title" : "TubePress HTTP Implementation",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress core HTTP functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_http_ioc_HttpExtension",
+            "tubepress_core_url_ioc_UrlExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_core_http_api_Constants"                   : "classes/tubepress/core/http/api/Constants.php",
+            "tubepress_core_http_api_AjaxCommandInterface"        : "classes/tubepress/core/http/api/AjaxCommandInterface.php",
+            "tubepress_core_http_api_HttpClientInterface"         : "classes/tubepress/core/http/api/HttpClientInterface.php",
+            "tubepress_core_http_api_RequestParametersInterface"  : "classes/tubepress/core/http/api/RequestParametersInterface.php",
+            "tubepress_core_http_api_ResponseCodeInterface"       : "classes/tubepress/core/http/api/ResponseCodeInterface.php",
+            "tubepress_core_http_api_exception_RequestException"  : "classes/tubepress/core/http/api/exception/RequestException.php",
+            "tubepress_core_http_api_message_MessageInterface"    : "classes/tubepress/core/http/api/message/MessageInterface.php",
+            "tubepress_core_http_api_message_RequestInterface"    : "classes/tubepress/core/http/api/message/RequestInterface.php",
+            "tubepress_core_http_api_message_ResponseInterface"   : "classes/tubepress/core/http/api/message/ResponseInterface.php",
+            "tubepress_core_http_api_oauth_v1_ClientInterface"    : "classes/tubepress/core/http/api/oauth/v1/ClientInterface.php",
+            "tubepress_core_http_api_oauth_v1_Credentials"        : "classes/tubepress/core/http/api/oauth/v1/Credentials.php",
+            "tubepress_core_http_impl_AbstractHttpClient"         : "classes/tubepress/core/http/impl/AbstractHttpClient.php",
+            "tubepress_core_http_impl_oauth_v1_Client"            : "classes/tubepress/core/http/impl/oauth/v1/Client.php",
+            "tubepress_core_http_impl_PlayerAjaxCommand"          : "classes/tubepress/core/http/impl/PlayerAjaxCommand.php",
+            "tubepress_core_http_impl_PrimaryAjaxHandler"         : "classes/tubepress/core/http/impl/PrimaryAjaxHandler.php",
+            "tubepress_core_http_impl_options_ui_FieldProvider"   : "classes/tubepress/core/http/impl/options/ui/FieldProvider.php",
+            "tubepress_core_http_impl_puzzle_AbstractMessage"     : "classes/tubepress/core/http/impl/puzzle/AbstractMessage.php",
+            "tubepress_core_http_impl_puzzle_PuzzleBasedRequest"  : "classes/tubepress/core/http/impl/puzzle/PuzzleBasedRequest.php",
+            "tubepress_core_http_impl_puzzle_PuzzleBasedResponse" : "classes/tubepress/core/http/impl/puzzle/PuzzleBasedResponse.php",
+            "tubepress_core_http_impl_puzzle_PuzzleHttpClient"    : "classes/tubepress/core/http/impl/puzzle/PuzzleHttpClient.php",
+            "tubepress_core_http_impl_puzzle_RequestException"    : "classes/tubepress/core/http/impl/puzzle/RequestException.php",
+            "tubepress_core_http_impl_RequestParameters"          : "classes/tubepress/core/http/impl/RequestParameters.php",
+            "tubepress_core_http_impl_ResponseCode"               : "classes/tubepress/core/http/impl/ResponseCode.php",
+            "tubepress_core_http_ioc_HttpExtension"               : "classes/tubepress/core/http/ioc/HttpExtension.php",
+
+            "tubepress_core_stream_api_StreamInterface"        : "classes/tubepress/core/stream/api/StreamInterface.php",
+            "tubepress_core_stream_impl_puzzle_FlexibleStream" : "classes/tubepress/core/stream/impl/puzzle/FlexibleStream.php",
+
+            "tubepress_core_url_api_QueryInterface"           : "classes/tubepress/core/url/api/QueryInterface.php",
+            "tubepress_core_url_api_UrlFactoryInterface"      : "classes/tubepress/core/url/api/UrlFactoryInterface.php",
+            "tubepress_core_url_api_UrlInterface"             : "classes/tubepress/core/url/api/UrlInterface.php",
+            "tubepress_core_url_impl_puzzle_PuzzleBasedQuery" : "classes/tubepress/core/url/impl/puzzle/PuzzleBasedQuery.php",
+            "tubepress_core_url_impl_puzzle_PuzzleBasedUrl"   : "classes/tubepress/core/url/impl/puzzle/PuzzleBasedUrl.php",
+            "tubepress_core_url_impl_puzzle_UrlFactory"       : "classes/tubepress/core/url/impl/puzzle/UrlFactory.php",
+            "tubepress_core_url_ioc_UrlExtension"             : "classes/tubepress/core/url/ioc/UrlExtension.php"
+
+        }
+    }
+}

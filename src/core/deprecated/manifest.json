@@ -1,0 +1,31 @@
+{
+    "name" : "tubepress/core-deprecated",
+    "version": "1.0.0",
+    "title" : "TubePress Deprecated Classes and Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Provides backwards-compatability for older versions of TubePress",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_core_deprecated_ioc_DeprecatedExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_api_const_template_Variable"                 : "old-classes/tubepress/api/const/template/Variable.php",
+            "tubepress_api_const_options_names_Meta"                : "old-classes/tubepress/api/const/options/names/Meta.php",
+            "tubepress_addons_vimeo_api_const_options_names_Meta"   : "old-classes/tubepress/addons/vimeo/api/const/options/names/Meta.php",
+            "tubepress_addons_youtube_api_const_options_names_Meta" : "old-classes/tubepress/addons/youtube/api/const/options/names/Meta.php",
+            "tubepress_core_deprecated_impl_listeners_LegacyMetadataTemplateListener" : "classes/tubepress/core/deprecated/impl/listeners/LegacyMetadataTemplateListener.php",
+            "tubepress_core_deprecated_ioc_DeprecatedExtension"     : "classes/tubepress/core/deprecated/ioc/DeprecatedExtension.php"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name" : "tubepress/core-version",
+    "version": "1.0.0",
+    "title" : "TubePress Version Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress version functionality.",
+    "autoload":{
+        "classmap" : {
+            "tubepress_core_version_api_Version" : "classes/tubepress/core/version/api/Version.php"
+        }
+    }
+}

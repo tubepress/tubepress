@@ -3,92 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "58faa872d3fe067242ff58ffce5f3f79",
+    "hash": "0f761db4d6386dee33a99ca0d6eb581a",
     "packages": [
-        {
-            "name": "ehough/chaingang",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/chaingang.git",
-                "reference": "a94a458bdd468d85231984454508bf3049052157"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/chaingang/zipball/a94a458bdd468d85231984454508bf3049052157",
-                "reference": "a94a458bdd468d85231984454508bf3049052157",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "ehough/mockery": "~1.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_chaingang": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "Chain-of-Responsibility / Chain-of-Command pattern in PHP.",
-            "homepage": "https://github.com/ehough/chaingang",
-            "time": "2013-03-28 18:28:21"
-        },
-        {
-            "name": "ehough/coauthor",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/coauthor.git",
-                "reference": "69d0859b809761fe1734b9c08069a3cf16b61dac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/coauthor/zipball/69d0859b809761fe1734b9c08069a3cf16b61dac",
-                "reference": "69d0859b809761fe1734b9c08069a3cf16b61dac",
-                "shasum": ""
-            },
-            "require": {
-                "ehough/shortstop": "~2.0.0",
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "ehough/mockery": "~0.8",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_coauthor": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "OAuth client backed by ehough/shortstop",
-            "homepage": "https://github.com/ehough/coauthor",
-            "time": "2013-08-27 20:35:58"
-        },
         {
             "name": "ehough/contemplate",
             "version": "1.0.4",
@@ -131,70 +47,47 @@
             "time": "2013-05-30 22:20:52"
         },
         {
-            "name": "ehough/curly",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/curly.git",
-                "reference": "abd70d9ccaf774caa7496e77ae27d5c2eb66d2ce"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/curly/zipball/abd70d9ccaf774caa7496e77ae27d5c2eb66d2ce",
-                "reference": "abd70d9ccaf774caa7496e77ae27d5c2eb66d2ce",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_curly": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "Powerful PHP class for working with URLs",
-            "homepage": "https://github.com/ehough/curly",
-            "time": "2013-04-04 19:52:21"
-        },
-        {
             "name": "ehough/epilog",
-            "version": "1.7.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/epilog.git",
-                "reference": "dbdb5edb126d5e09fb6cb05aab11451e584f8cbd"
+                "reference": "a4f327d3f0105b7442ebf654eae3e1bb4eaf585e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/epilog/zipball/dbdb5edb126d5e09fb6cb05aab11451e584f8cbd",
-                "reference": "dbdb5edb126d5e09fb6cb05aab11451e584f8cbd",
+                "url": "https://api.github.com/repos/ehough/epilog/zipball/a4f327d3f0105b7442ebf654eae3e1bb4eaf585e",
+                "reference": "a4f327d3f0105b7442ebf654eae3e1bb4eaf585e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "~2.4.8",
-                "doctrine/couchdb": "dev-master",
+                "aws/aws-sdk-php": "~2.4, >2.4.8",
+                "doctrine/couchdb": "~1.0@dev",
                 "ehough/pulsar": "~2.3",
-                "mlehner/gelf-php": "1.0.*",
+                "graylog2/gelf-php": "~1.0",
                 "phpunit/phpunit": "~3.7.0",
-                "raven/raven": "0.5.*",
+                "raven/raven": "~0.5",
                 "ruflin/elastica": "0.90.*"
             },
+            "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mongo": "Allow sending log messages to a MongoDB server",
+                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "raven/raven": "Allow sending log messages to a Sentry server",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "ehough_epilog": "src/main/php"
@@ -206,27 +99,33 @@
             ],
             "authors": [
                 {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be",
+                    "role": "Developer"
+                },
+                {
                     "name": "Eric Hough",
-                    "email": "eric@ehough.com",
+                    "email": "eric@tubepress.org",
                     "homepage": "http://ehough.com"
                 }
             ],
-            "description": "Fork of seldaek/monolog compatible with PHP 5.2+.",
+            "description": "Fork of seldaek/monolog compatible with PHP 5.2+",
             "homepage": "https://github.com/ehough/epilog",
-            "time": "2013-12-05 02:07:00"
+            "time": "2014-04-29 23:09:30"
         },
         {
             "name": "ehough/filesystem",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "01d41969f43e1757af25c01cd7925d219908343f"
+                "reference": "ec5b858acc56975923cd73d6f921e8b0d388eb2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/01d41969f43e1757af25c01cd7925d219908343f",
-                "reference": "01d41969f43e1757af25c01cd7925d219908343f",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/ec5b858acc56975923cd73d6f921e8b0d388eb2d",
+                "reference": "ec5b858acc56975923cd73d6f921e8b0d388eb2d",
                 "shasum": ""
             },
             "require": {
@@ -256,20 +155,20 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2014-04-05 18:11:47"
+            "time": "2014-04-29 22:36:25"
         },
         {
             "name": "ehough/finder",
-            "version": "v2.4.1",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/finder.git",
-                "reference": "449fc237e95509cda5b04b2e40cf037add4b4bd1"
+                "reference": "cdd66b316344d47808623b7d4a956ec945534f91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/449fc237e95509cda5b04b2e40cf037add4b4bd1",
-                "reference": "449fc237e95509cda5b04b2e40cf037add4b4bd1",
+                "url": "https://api.github.com/repos/ehough/finder/zipball/cdd66b316344d47808623b7d4a956ec945534f91",
+                "reference": "cdd66b316344d47808623b7d4a956ec945534f91",
                 "shasum": ""
             },
             "require": {
@@ -297,20 +196,20 @@
                 }
             ],
             "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2014-02-04 18:58:50"
+            "time": "2014-04-29 23:44:58"
         },
         {
             "name": "ehough/iconic",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/iconic.git",
-                "reference": "84ebef269b9a635e108788141af4a53451d9356f"
+                "reference": "a68f04a40240bbb2c8db9874ebd218fed8586c7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/84ebef269b9a635e108788141af4a53451d9356f",
-                "reference": "84ebef269b9a635e108788141af4a53451d9356f",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/a68f04a40240bbb2c8db9874ebd218fed8586c7a",
+                "reference": "a68f04a40240bbb2c8db9874ebd218fed8586c7a",
                 "shasum": ""
             },
             "require": {
@@ -339,27 +238,27 @@
             ],
             "authors": [
                 {
-                    "name": "Eric Hough",
+                    "name": "Eric D. Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2014-04-07 03:30:50"
+            "time": "2014-04-30 01:27:36"
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "44de7bf0caed98d8d24fba2ebfa8c440023c19cc"
+                "reference": "84a16936a6b0059f1a09e10eee37c2288892e87f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/44de7bf0caed98d8d24fba2ebfa8c440023c19cc",
-                "reference": "44de7bf0caed98d8d24fba2ebfa8c440023c19cc",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/84a16936a6b0059f1a09e10eee37c2288892e87f",
+                "reference": "84a16936a6b0059f1a09e10eee37c2288892e87f",
                 "shasum": ""
             },
             "require": {
@@ -393,53 +292,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2014-04-07 04:20:38"
-        },
-        {
-            "name": "ehough/shortstop",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/shortstop.git",
-                "reference": "1014368f357322968d37b90f0beacfab973f6d78"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/shortstop/zipball/1014368f357322968d37b90f0beacfab973f6d78",
-                "reference": "1014368f357322968d37b90f0beacfab973f6d78",
-                "shasum": ""
-            },
-            "require": {
-                "ehough/chaingang": "~1.0.0",
-                "ehough/curly": "~1.0.0",
-                "ehough/epilog": "~1.5",
-                "ehough/tickertape": "~2.3",
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "ehough/mockery": "~0.8",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_shortstop": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "Fast and flexible HTTP client for PHP 5.2+",
-            "homepage": "https://github.com/ehough/shortstop",
-            "time": "2013-07-17 22:09:09"
+            "time": "2014-04-30 02:03:58"
         },
         {
             "name": "ehough/stash",
@@ -493,16 +346,16 @@
         },
         {
             "name": "ehough/tickertape",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/tickertape.git",
-                "reference": "6de1a5688ab200c403f7d104e1ca6d8db682010c"
+                "reference": "c76e77e37cc9096910864aad973234d42a58cf30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/tickertape/zipball/6de1a5688ab200c403f7d104e1ca6d8db682010c",
-                "reference": "6de1a5688ab200c403f7d104e1ca6d8db682010c",
+                "url": "https://api.github.com/repos/ehough/tickertape/zipball/c76e77e37cc9096910864aad973234d42a58cf30",
+                "reference": "c76e77e37cc9096910864aad973234d42a58cf30",
                 "shasum": ""
             },
             "require": {
@@ -536,7 +389,132 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2014-04-07 04:37:59"
+            "time": "2014-04-30 02:12:06"
+        },
+        {
+            "name": "puzzlehttp/puzzle",
+            "version": "v4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/puzzlehttp/puzzle.git",
+                "reference": "0a092128ab8cb515a975b83b8eb6031197250ecd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/puzzlehttp/puzzle/zipball/0a092128ab8cb515a975b83b8eb6031197250ecd",
+                "reference": "0a092128ab8cb515a975b83b8eb6031197250ecd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0",
+                "puzzlehttp/streams": "~1.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "puzzle_": "src/main/php"
+                },
+                "files": [
+                    "src/main/php/puzzle/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@tubepress.org",
+                    "homepage": "https://github.com/ehough"
+                }
+            ],
+            "description": "Fork of guzzlehttp/guzzle compatible with PHP 5.2+.",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2014-04-22 19:08:01"
+        },
+        {
+            "name": "puzzlehttp/streams",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/puzzlehttp/streams.git",
+                "reference": "7694f6859da7ef2c3169966f7de3a1d620c0144f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/puzzlehttp/streams/zipball/7694f6859da7ef2c3169966f7de3a1d620c0144f",
+                "reference": "7694f6859da7ef2c3169966f7de3a1d620c0144f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "puzzle_stream_": "src/main/php"
+                },
+                "files": [
+                    "src/main/php/puzzle/stream/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@tubepress.org",
+                    "homepage": "https://github.com/ehough"
+                }
+            ],
+            "description": "Fork of guzzlehttp/streams compatible with PHP 5.2+.",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "puzzle",
+                "stream"
+            ],
+            "time": "2014-04-22 18:34:41"
         }
     ],
     "packages-dev": [
@@ -841,20 +819,22 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.34",
+            "version": "3.7.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19"
+                "reference": "ae6cefd7cc84586a5ef27e04bae11ee940ec63dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
-                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ae6cefd7cc84586a5ef27e04bae11ee940ec63dc",
+                "reference": "ae6cefd7cc84586a5ef27e04bae11ee940ec63dc",
                 "shasum": ""
             },
             "require": {
+                "ext-ctype": "*",
                 "ext-dom": "*",
+                "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-reflection": "*",
                 "ext-spl": "*",
@@ -870,9 +850,6 @@
                 "pear-pear.php.net/pear": "1.9.4"
             },
             "suggest": {
-                "ext-json": "*",
-                "ext-simplexml": "*",
-                "ext-tokenizer": "*",
                 "phpunit/php-invoker": "~1.1"
             },
             "bin": [
@@ -911,7 +888,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-28 11:04:36"
+            "time": "2014-04-30 12:24:19"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -969,12 +946,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "53bae88d2d89ce9fb130f6968b74d31d4a2c732e"
+                "reference": "09e38e4d228c1f7f997f3dc7068d9d2fba9a10b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/53bae88d2d89ce9fb130f6968b74d31d4a2c732e",
-                "reference": "53bae88d2d89ce9fb130f6968b74d31d4a2c732e",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/09e38e4d228c1f7f997f3dc7068d9d2fba9a10b0",
+                "reference": "09e38e4d228c1f7f997f3dc7068d9d2fba9a10b0",
                 "shasum": ""
             },
             "require": {
@@ -1012,21 +989,21 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-03 05:23:50"
+            "time": "2014-04-16 10:36:34"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd"
+                "reference": "65539ecde838f9c0d18b006b2101e3deb4b5c9ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
-                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/65539ecde838f9c0d18b006b2101e3deb4b5c9ff",
+                "reference": "65539ecde838f9c0d18b006b2101e3deb4b5c9ff",
                 "shasum": ""
             },
             "require": {
@@ -1061,20 +1038,14 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-12 18:29:58"
+            "time": "2014-04-18 20:37:09"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "symfony/class-loader": 20
     },
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "platform": [],
+    "platform-dev": []
 }
