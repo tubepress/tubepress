@@ -192,7 +192,7 @@ class tubepress_core_html_gallery_ioc_GalleryExtension implements tubepress_api_
         )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
          ->setFactoryMethod('newInstance')
          ->addArgument(tubepress_core_html_gallery_api_Constants::OPTIONS_UI_CATEGORY_THUMBNAILS)
-         ->addArgument('Thumbnails');
+         ->addArgument('Thumbnails');      //>(translatable)<
 
         $fieldMap = array(
             tubepress_core_html_gallery_api_Constants::OPTIONS_UI_CATEGORY_THUMBNAILS => array(

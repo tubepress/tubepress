@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-05-31 22:59:01+0000\n"
+"PO-Revision-Date: 2014-06-17 19:00:59+0000\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,12 +190,6 @@ msgstr "प्रति पृष्ठ थंबनेल"
 
 msgid "Show each video's..."
 msgstr "प्रत्येक वीडियो के दिखाएं ..."
-
-msgid "Enable JavaScript API"
-msgstr "जावास्क्रिप्ट API सक्षम"
-
-msgid "Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features."
-msgstr "जावास्क्रिप्ट के माध्यम से एम्बेडेड वीडियो प्लेयर के साथ संवाद करने TubePress की अनुमति दें. यह एक बहुत छोटा सा प्रदर्शन उपरि incurs, लेकिन कुछ सुविधाओं के लिए आवश्यक है."
 
 msgid "Play videos sequentially without user intervention"
 msgstr "उपयोगकर्ता के हस्तक्षेप के बिना क्रमिक रूप से वीडियो प्ले"

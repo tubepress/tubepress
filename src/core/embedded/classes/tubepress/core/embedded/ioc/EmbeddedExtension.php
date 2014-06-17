@@ -155,7 +155,7 @@ class tubepress_core_embedded_ioc_EmbeddedExtension implements tubepress_api_ioc
         )->setFactoryService(tubepress_core_options_ui_api_ElementBuilderInterface::_)
          ->setFactoryMethod('newInstance')
          ->addArgument(tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED)
-         ->addArgument('Player');
+         ->addArgument('Player');   //>(translatable)<
 
         $fieldMap = array(
             tubepress_core_embedded_api_Constants::OPTIONS_UI_CATEGORY_EMBEDDED => array(

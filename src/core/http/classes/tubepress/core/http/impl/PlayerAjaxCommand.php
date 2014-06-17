@@ -115,7 +115,7 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
         if ($mediaItem === null) {
 
             $this->_responseCode->setResponseCode(404);
-            print "Video $itemId not found";
+            echo sprintf('Video %s not found', $itemId);            //>(translatable)<
             return;
         }
 

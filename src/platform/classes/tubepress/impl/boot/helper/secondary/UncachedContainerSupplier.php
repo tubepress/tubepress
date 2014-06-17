@@ -108,7 +108,11 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
         if ($this->_settingsFileReader->isClassLoaderEnabled()) {
 
             spl_autoload_unregister(array($this->_mapClassLoader, 'loadClass'));
-            spl_autoload_unregister(array($this->_psr0ClassLoader, 'loadClass'));
+
+            if (isset($this->_psr0ClassLoader)) {
+
+                spl_autoload_unregister(array($this->_psr0ClassLoader, 'loadClass'));
+            }
         }
 
         return $toReturn;
@@ -120,22 +124,25 @@ class tubepress_impl_boot_helper_secondary_UncachedContainerSupplier
         $addonClassMap = array_filter($addonClassMap, array($this, '__filterAddonClassMap'));
         $psr0Roots     = $this->_bootHelperClassLoadingHelper->getPsr0Roots($addons);
         $psr0Fallbacks = $this->_bootHelperClassLoadingHelper->getPsr0Fallbacks($addons);
-        $fullClassMap  = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full-vendor-and-platform.php';
+        $fullClassMap  = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
         $finalClassMap = array_merge($fullClassMap, $addonClassMap);
 
         $this->_mapClassLoader = new ehough_pulsar_MapClassLoader($finalClassMap);
         $this->_mapClassLoader->register();
-
-        $this->_psr0ClassLoader = new ehough_pulsar_UniversalClassLoader();
-        $this->_psr0ClassLoader->registerPrefixes($psr0Roots);
-        $this->_psr0ClassLoader->registerNamespaces($psr0Roots);
-        $this->_psr0ClassLoader->registerPrefixFallbacks($psr0Fallbacks);
-        $this->_psr0ClassLoader->registerNamespaceFallbacks($psr0Fallbacks);
-        $this->_psr0ClassLoader->register();
-
         $this->_containerBuilder->setParameter('classloading-classmap', $finalClassMap);
-        $this->_containerBuilder->setParameter('classloading-psr0-fallbacks', $psr0Fallbacks);
-        $this->_containerBuilder->setParameter('classloading-psr0-prefixed-paths', $psr0Roots);
+
+        if (!empty($psr0Fallbacks) || !empty($psr0Roots)) {
+
+            $this->_psr0ClassLoader = new ehough_pulsar_UniversalClassLoader();
+            $this->_psr0ClassLoader->registerPrefixes($psr0Roots);
+            $this->_psr0ClassLoader->registerNamespaces($psr0Roots);
+            $this->_psr0ClassLoader->registerPrefixFallbacks($psr0Fallbacks);
+            $this->_psr0ClassLoader->registerNamespaceFallbacks($psr0Fallbacks);
+            $this->_psr0ClassLoader->register();
+
+            $this->_containerBuilder->setParameter('classloading-psr0-fallbacks', $psr0Fallbacks);
+            $this->_containerBuilder->setParameter('classloading-psr0-prefixed-paths', $psr0Roots);
+        }
     }
 
     /**

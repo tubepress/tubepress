@@ -39,6 +39,11 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
      */
     private $_logEnabled;
 
+    /**
+     * @var array
+     */
+    private $_cache = array();
+
     public function __construct(
 
         tubepress_api_log_LoggerInterface              $logger,
@@ -68,6 +73,13 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
         $index     = 1;
         $pathCount = count($paths);
 
+        $cacheKey = $this->_createCacheKey($paths);
+
+        if (isset($this->_cache[$cacheKey])) {
+
+            return $this->_newTemplateInstance($this->_cache[$cacheKey]);
+        }
+
         if ($this->_logEnabled) {
 
             $this->_logger->debug(sprintf('Attempting to load a template from %d possible path(s): %s', $pathCount, json_encode($paths)));
@@ -96,6 +108,8 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
                         $path, $index, $pathCount));
                 }
 
+                $this->_cache[$cacheKey] = $path;
+
                 return $template;
             }
 
@@ -113,6 +127,11 @@ class tubepress_core_template_impl_contemplate_TemplateFactory implements tubepr
         }
 
         return null;
+    }
+
+    private function _createCacheKey(array $array)
+    {
+        return md5(json_encode($array));
     }
 
     private function _loadTemplate($path)

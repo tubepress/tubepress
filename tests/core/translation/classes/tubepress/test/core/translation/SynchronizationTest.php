@@ -152,9 +152,9 @@ class tubepress_test_core_translation_SynchronizationTest extends tubepress_test
             return true;
         }
 
-        $msgFmt = tubepress_impl_util_StringUtils::removeNewLines($msgFmtPath);
-
-        $toRun = "$msgFmt -o $outputfile $file";
+        $stringUtils = new tubepress_impl_util_StringUtils();
+        $msgFmt      = $stringUtils->removeNewLines($msgFmtPath);
+        $toRun       = "$msgFmt -o $outputfile $file";
 
         exec($toRun, $output, $return);
 

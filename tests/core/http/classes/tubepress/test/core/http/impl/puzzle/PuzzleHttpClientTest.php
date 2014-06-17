@@ -38,6 +38,7 @@ class tubepress_test_core_http_impl_puzzle_http_PuzzleHttpClientTest extends tub
         $curlVersion = curl_version();
 
         $this->_mockPuzzleClient->shouldReceive('setDefaultOption')->once()->with('headers', array('User-Agent' => 'tubepress/1.0.0 curl/' . $curlVersion['version'] . ' PHP/' . PHP_VERSION));
+        $this->_mockPuzzleClient->shouldReceive('setDefaultOption')->once()->with('verify', TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cacert.pem');
 
         $this->_mockPuzzleClient->shouldReceive('getEmitter')->once()->andReturn($mockEmitter);
         $mockEmitter->shouldReceive('attach')->once()->with(ehough_mockery_Mockery::type('tubepress_core_http_impl_puzzle_PuzzleHttpClient'));

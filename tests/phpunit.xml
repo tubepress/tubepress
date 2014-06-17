@@ -13,15 +13,12 @@
            <exclude>./core/translation</exclude>
 	   </testsuite>
         <testsuite name="all">
-            <directory>src/test</directory>
+            <directory>.</directory>
         </testsuite>
 	</testsuites>
     <filter>
         <whitelist>
-           <directory suffix=".php">../../main/php</directory>
-            <exclude>
-                <file>../../main/web/php/ajaxEndpoint.php</file>
-            </exclude>
+           <directory suffix=".php">../src</directory>
         </whitelist>
     </filter>
 </phpunit>

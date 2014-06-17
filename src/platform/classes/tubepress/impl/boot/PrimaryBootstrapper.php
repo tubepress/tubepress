@@ -134,7 +134,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         if (!isset($this->_bootLogger)) {
 
             /** @noinspection PhpIncludeInspection */
-            require TUBEPRESS_ROOT . '/src/platform/scripts/class-collections/minimal-boot.php';
+            require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/commonly-used-classes.php';
         }
     }
 
@@ -191,6 +191,11 @@ class tubepress_impl_boot_PrimaryBootstrapper
 
         if ($container->hasParameter('classloading-classmap')) {
 
+            if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+
+                require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+            }
+
             $containerClassMap = $container->getParameter('classloading-classmap');
             $mapClassLoader    = new ehough_pulsar_MapClassLoader($containerClassMap);
 
@@ -212,7 +217,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
             
             return;
         }
-        
+
         $universalClassLoader = new ehough_pulsar_UniversalClassLoader();
         
         $universalClassLoader->registerNamespaces($psr0PrefixedPaths);

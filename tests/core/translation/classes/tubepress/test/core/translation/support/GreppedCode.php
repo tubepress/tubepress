@@ -26,7 +26,7 @@ class tubepress_test_core_translation_support_GreppedCode extends tubepress_test
             TUBEPRESS_ROOT . '/src/core'
         );
 
-        $toReturn = array_map('rtrim', file(TUBEPRESS_ROOT . '/src/core/translation/extra-strings.txt'));
+        $toReturn = array_map('rtrim', file(TUBEPRESS_ROOT . '/tests/core/translation/extra-strings.txt'));
 
         foreach ($codeBaseDirectories as $codeBaseDirectory) {
 

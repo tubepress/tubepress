@@ -118,7 +118,7 @@ class tubepress_impl_boot_helper_ContainerSupplier
 
             if ($iocContainerHit) {
 
-                $this->_logger->debug(sprintf('IOC container found in cache? %s', $iocContainerHit ? 'yes' : 'no'));
+                $this->_logger->debug(sprintf('Service container found in cache? %s', $iocContainerHit ? 'yes' : 'no'));
             }
         }
 
@@ -132,7 +132,7 @@ class tubepress_impl_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Retrieving and preparing cached IOC container.');
+            $this->_logger->debug('Rehydrating cached service container.');
         }
 
         $this->_includeIconicContainerCache();
@@ -145,7 +145,7 @@ class tubepress_impl_boot_helper_ContainerSupplier
 
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Done restoring cached IOC container.');
+            $this->_logger->debug('Done rehydrating cached service container.');
         }
 
         $tubePressContainer = new tubepress_impl_ioc_Container($iconicContainer);
@@ -201,7 +201,7 @@ class tubepress_impl_boot_helper_ContainerSupplier
          * Create a temporary classloader so we can do the full boot.
          */
         /** @noinspection PhpIncludeInspection */
-        $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full-vendor-and-platform.php';
+        $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
         $classLoader  = new ehough_pulsar_MapClassLoader($fullClassMap);
         $classLoader->register();
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-05-31 22:59:04+0000\n"
+"PO-Revision-Date: 2014-06-17 19:01:01+0000\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,12 +190,6 @@ msgstr "ページごとのサムネイル"
 
 msgid "Show each video's..."
 msgstr "各ビデオのを表示..."
-
-msgid "Enable JavaScript API"
-msgstr "JavaScriptのAPIを有効にする"
-
-msgid "Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features."
-msgstr "JavaScriptで埋め込みビデオプレーヤーとの通信にTubePress許す。これは非常に小さなパフォーマンスオーバーヘッドが発生しますが、いくつかの機能が必要です。"
 
 msgid "Play videos sequentially without user intervention"
 msgstr "ユーザーの介入なしに連続して動画を再生する"

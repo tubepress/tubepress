@@ -15,51 +15,9 @@ class bootTest extends tubepress_test_TubePressUnitTest
         define('TUBEPRESS_CONTENT_DIRECTORY', TUBEPRESS_ROOT . '/tests/platform/fixtures/scripts/boot');
     }
 
-    public static function setUpBeforeClass()
+    public function onTearDown()
     {
-        parent::setUpBeforeClass();
-
-        self::tearDownAfterClass();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        if (file_exists(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections/minimal-boot.php')) {
-
-            self::assertTrue(unlink(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections/minimal-boot.php'));
-        }
-
-        if (is_dir(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections')) {
-
-            self::assertTrue(rmdir(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections'));
-        }
-    }
-
-    public function testFullClassMapValidity()
-    {
-        $platFormClasses  = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/src/platform');
-        $vendorClasses    = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/vendor');
-        $expected         = array_merge($platFormClasses, $vendorClasses);
-        $expected         = array_filter($expected, array($this, '__classesToExcludeFromBootMap'));
-        $classMapFileFile = require TUBEPRESS_ROOT . '/src/platform/scripts/classmaps/full-vendor-and-platform.php';
-        ksort($expected);
-        ksort($classMapFileFile);
-
-        $this->assertEquals($expected, $classMapFileFile, $this->_getExpectedClassMap($expected));
-    }
-
-    private function _getExpectedClassMap(array $expected)
-    {
-        $toReturn = "array(\n";
-
-        foreach ($expected as $className => $path) {
-
-            $toReturn .= "\t'$className' => " . str_replace(TUBEPRESS_ROOT, 'TUBEPRESS_ROOT . \'', $path) . "',\n";
-        }
-
-        $toReturn .= ');';
-
-        return $toReturn;
+        $this->assertTrue(unlink(TUBEPRESS_ROOT . '/src/platform/scripts/classloading/commonly-used-classes.php'));
     }
 
     /**
@@ -68,8 +26,7 @@ class bootTest extends tubepress_test_TubePressUnitTest
      */
     public function testUncachedBoot()
     {
-        $this->assertTrue(mkdir(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections'));
-        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections/minimal-boot.php', '<?php ') !== false);
+        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/platform/scripts/classloading/commonly-used-classes.php', '<?php ') !== false);
 
         $this->_removeCachedContainer();
 
@@ -84,24 +41,11 @@ class bootTest extends tubepress_test_TubePressUnitTest
      */
     public function testCachedBoot()
     {
-        $this->assertTrue(mkdir(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections'));
-        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/platform/scripts/class-collections/minimal-boot.php', '<?php ') !== false);
-
-        $then = $this->_getClassesAndInterfacesSnapshot();
+        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/platform/scripts/classloading/commonly-used-classes.php', '<?php ') !== false);
 
         $result = require TUBEPRESS_ROOT . '/src/platform/scripts/boot.php';
 
-        $now = $this->_getClassesAndInterfacesSnapshot();
-
         $this->_testBasics($result);
-    }
-
-    private function _getClassesAndInterfacesSnapshot()
-    {
-        $classes = get_declared_classes();
-        $interfaces = get_declared_interfaces();
-
-        return array_merge($classes, $interfaces);
     }
 
     private function _testBasics($result)

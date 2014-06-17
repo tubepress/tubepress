@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-05-31 22:58:59+0000\n"
+"PO-Revision-Date: 2014-06-17 19:00:57+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,12 +190,6 @@ msgstr "Vignettes par page"
 
 msgid "Show each video's..."
 msgstr "Afficher chaque vidéo de ..."
-
-msgid "Enable JavaScript API"
-msgstr "Activer API JavaScript"
-
-msgid "Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features."
-msgstr "Laisser TubePress pour communiquer avec le lecteur vidéo intégré via JavaScript. Cette encourt une très faible impact sur les performances, mais elle est nécessaire pour certaines fonctionnalités."
 
 msgid "Play videos sequentially without user intervention"
 msgstr "Lecture de vidéos séquentiellement sans intervention de l'utilisateur"

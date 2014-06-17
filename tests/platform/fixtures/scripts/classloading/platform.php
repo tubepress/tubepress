@@ -9,9 +9,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * These are the minimal classes needed to get TubePress off the ground.
- */
 return array(
 
     'ehough_iconic_Container',

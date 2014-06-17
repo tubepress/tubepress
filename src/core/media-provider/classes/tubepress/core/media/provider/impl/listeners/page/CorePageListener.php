@@ -94,7 +94,7 @@ class tubepress_core_media_provider_impl_listeners_page_CorePageListener
 
         if ($shouldLog) {
 
-            $this->_logger->debug(sprintf('Prepending video %s to the gallery', $customVideoId));
+            $this->_logger->debug(sprintf('Prepending item %s to the gallery', $customVideoId));
         }
 
         $this->_prependVideo($customVideoId, $event);

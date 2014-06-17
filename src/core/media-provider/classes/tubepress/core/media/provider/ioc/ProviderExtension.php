@@ -158,8 +158,8 @@ class tubepress_core_media_provider_ioc_ProviderExtension implements tubepress_a
 
         $categoryIndex = 0;
         $categoryIdsToNamesMap = array(
-            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_GALLERY_SOURCE => 'Which videos?',
-            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_FEED           => 'Feed'
+            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_GALLERY_SOURCE => 'Which videos?',   //>(translatable)<
+            tubepress_core_media_provider_api_Constants::OPTIONS_UI_CATEGORY_FEED           => 'Feed'             //>(translatable)<
         );
         foreach ($categoryIdsToNamesMap as $id => $name) {
             $containerBuilder->register(

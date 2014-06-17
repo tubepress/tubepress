@@ -9,8 +9,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 ?>
+<?
+/**
+ * First let's see if we have any videos to display...
+ */
+?>
+<?php if (empty(${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ARRAY})):
 
-<?php
+    echo 'No matching videos'; //>(translatable)<
+
+else:
+
 /**
  * <div class="tubepress_container" id="tubepress_gallery_123456789">
  *
@@ -114,3 +123,5 @@
 
     </div><?php //end of div.tubepress_thumbnail_area ?>
 </div><?php //end of div.tubepress_container ?>
+
+<?php endif; //end of top-level if/else block ?>

@@ -143,7 +143,7 @@ class tubepress_core_theme_impl_ThemeLibrary implements tubepress_core_theme_api
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('No direct hit for template "%s" in "%s" theme. Checking hierarchy', $relativePath, $themeName));
+            $this->_logger->debug(sprintf('No direct hit for template "%s" in "%s" theme. Checking theme parent (if any).', $relativePath, $themeName));
         }
 
         while (true) {

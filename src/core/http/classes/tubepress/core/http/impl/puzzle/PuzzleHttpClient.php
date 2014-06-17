@@ -32,6 +32,7 @@ class tubepress_core_http_impl_puzzle_PuzzleHttpClient extends tubepress_core_ht
         }
 
         $this->_delegate = $delegate;
+        $this->_delegate->setDefaultOption('verify', TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cacert.pem');
         $this->_delegate->setDefaultOption('headers', array('User-Agent' => $this->_defaultUserAgent($environment)));
 
         $delegate->getEmitter()->attach($this);

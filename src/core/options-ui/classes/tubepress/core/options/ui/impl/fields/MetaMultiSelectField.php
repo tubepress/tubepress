@@ -42,7 +42,7 @@ class tubepress_core_options_ui_impl_fields_MetaMultiSelectField extends tubepre
             $requestParams,
             $eventDispatcher,
             $templateFactory,
-            'Show each video\'s...'
+            'Show each video\'s...'     //>(translatable)<
         );
 
         $this->_optionsReference = $optionsReference;
