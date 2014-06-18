@@ -138,7 +138,7 @@ msgid "Date format"
 msgstr "日付フォーマット"
 
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "動画の日付情報のテキストの書式を設定します。例については、</> <a href=\"http://us.php.net/date\">日付を参照してください。"
+msgstr "動画の日付情報のテキストの書式を設定します"
 
 msgid "Video blacklist"
 msgstr "ビデオブラックリスト"
@@ -168,7 +168,7 @@ msgid "Use high-quality thumbnails"
 msgstr "高品質のサムネイルを使用してください"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">アヤックス</ a>の対応のページネーション"
+msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">アヤックス</a>の対応のページネーション"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "唯一の複数のページにまたがるのギャラリーに適用されます。"
@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "埋め込まれたプレーヤーのブランド。デフォルトでは、プロバイダのプレーヤー（YouTubeは、Vimeoの、など）です。"
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "すべてのソート順序は、すべてのギャラリータイプに適用できるわけではありません。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</>詳細。"
+msgstr "すべてのソート順序は、すべてのギャラリータイプに適用できるわけではありません。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</a>詳細。"
 
 msgid "Cache directory"
 msgstr "キャッシュディレクトリ"
@@ -267,7 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "ギャラリーの各々のページに適用される追加のソート順序"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "このギャラリーに使用するTubePressテーマ。あなたのテーマの<code>で見つけることができる%s </ code>は、デフォルトのテーマはの<code>で見つけることができる%s </ code>を。"
+msgstr "このギャラリーに使用するTubePressテーマ。あなたのテーマの<code>で見つけることができる%s </code>は、デフォルトのテーマはの<code>で見つけることができる%s </code>を。"
 
 msgid "Loop"
 msgstr "ループ"
@@ -387,10 +387,10 @@ msgid "The word you insert (in plaintext, between square brackets) into your pos
 msgstr "言葉あなたはギャラリーを表示するには、あなたの記事/ページに（平文で、角括弧の間）に挿入します。"
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "ウィジェットのショートコードをTubePress。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</ a>を。"
+msgstr "ウィジェットのショートコードをTubePress。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</a>を。"
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "ここでは、TubePressのデフォルトオプションを設定することができます。ここで各オプションはTubePressのショートコードでページごと/ポストベースで上書きすることができます。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</>詳細については、。"
+msgstr "ここでは、TubePressのデフォルトオプションを設定することができます。ここで各オプションはTubePressのショートコードでページごと/ポストベースで上書きすることができます。 <a href=\"http://tubepress.com/documentation\">マニュアルを参照してください</a>詳細については、。"
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "このVimeoのユーザーがアップロードした動画"
@@ -420,7 +420,7 @@ msgid "Vimeo API \"Consumer Key\""
 msgstr "VimeoのAPI \"コンシューマキー\""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "もし、ご希望にhref=\"http://vimeo.com/api/applications/new\">ここをクリック</>コンシューマキーとシークレットに登録する。"
+msgstr "もし、ご希望に <a href=\"http://vimeo.com/api/applications/new\">ここをクリックコンシューマキーとシークレットに登録する。</a>"
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "VimeoのAPI \"コンシューマシークレット\""
@@ -468,7 +468,7 @@ msgid "YouTube API Developer Key"
 msgstr "YouTubeのAPI開発者キー"
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "あなたはそれらの端にサービス問題が発生した場合、YouTubeはロギングとデバッグの目的のためにこの開発者キーを使用します。あなたは、新しいクライアントIDとデベロッパーキー<aを登録することができhref=\"http://code.google.com/apis/youtube/dashboard/\">ここ</ a>を。あなたは何をしているのかわかっていない限り、これを変更しないでください。"
+msgstr "あなたはそれらの端にサービス問題が発生した場合、YouTubeはロギングとデバッグの目的のためにこの開発者キーを使用します。あなたは、新しいクライアントIDとデベロッパーキーを登録することができ<a href=\"http://code.google.com/apis/youtube/dashboard/\">ここ</a>を。あなたは何をしているのかわかっていない限り、これを変更しないでください。"
 
 msgid "Filter \"racy\" content"
 msgstr "フィルタ\"際どい\"コンテンツ"

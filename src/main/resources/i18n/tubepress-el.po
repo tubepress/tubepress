@@ -138,7 +138,7 @@ msgid "Date format"
 msgstr "Μορφή ημερομηνίας"
 
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "Ρυθμίστε το κείμενο μορφοποίηση των πληροφοριών ημερομηνίας για βίντεο. Δείτε <a ημερομηνία href=\"http://us.php.net/date\"> </ a> για παραδείγματα."
+msgstr "Ρυθμίστε το κείμενο μορφοποίηση των πληροφοριών ημερομηνίας για βίντεο. Δείτε <a href=\"http://us.php.net/date\">ημερομηνία</a> για παραδείγματα."
 
 msgid "Video blacklist"
 msgstr "Βίντεο μαύρη λίστα"
@@ -168,7 +168,7 @@ msgid "Use high-quality thumbnails"
 msgstr "Χρήση υψηλής ποιότητας μικρογραφίες"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> Ajax </ a>-enabled σελιδοποίηση"
+msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled σελιδοποίηση"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "Ισχύει μόνο για στοές που εκτείνονται σε πολλές σελίδες."
@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "Η μάρκα του ενσωματωμένου player. Η προεπιλογή είναι παίκτης του παρόχου (YouTube, Vimeo, κλπ)."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "Δεν είναι όλες οι παραγγελίες του είδους μπορεί να εφαρμοστεί σε όλους τους τύπους γκαλερί. Δείτε το <a τεκμηρίωση href=\"http://tubepress.com/documentation\"> </ a> για περισσότερες πληροφορίες."
+msgstr "Δεν είναι όλες οι παραγγελίες του είδους μπορεί να εφαρμοστεί σε όλους τους τύπους γκαλερί. Δείτε το <a href=\"http://tubepress.com/documentation\">τεκμηρίωση</a> για περισσότερες πληροφορίες."
 
 msgid "Cache directory"
 msgstr "Κατάλογος Cache"
@@ -267,7 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "Πρόσθετες σειρά ταξινόμησης εφαρμόζεται σε κάθε σελίδα της gallery"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "Το θέμα TubePress να χρησιμοποιήσετε για αυτό το άλμπουμ. Θέματα που σας μπορεί να βρεθεί στο <code> %s </ code>, και τα θέματα προεπιλογή μπορεί να βρεθεί στο <code> %s </ code>."
+msgstr "Το θέμα TubePress να χρησιμοποιήσετε για αυτό το άλμπουμ. Θέματα που σας μπορεί να βρεθεί στο <code>%s</code>, και τα θέματα προεπιλογή μπορεί να βρεθεί στο <code>%s</code>."
 
 msgid "Loop"
 msgstr "Loop"
@@ -387,10 +387,10 @@ msgid "The word you insert (in plaintext, between square brackets) into your pos
 msgstr "Η λέξη που εισάγετε (σε απλό κείμενο, μέσα σε αγκύλες) σε θέσεις / σελίδες σας για να εμφανιστεί μια συλλογή."
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress shortcode για το widget. Δείτε το <a τεκμηρίωση href=\"http://tubepress.com/documentation\"> </ a>."
+msgstr "TubePress shortcode για το widget. Δείτε το <a href=\"http://tubepress.com/documentation\">τεκμηρίωση</a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "Εδώ μπορείτε να ορίσετε τις προεπιλεγμένες επιλογές για TubePress. Κάθε επιλογή εδώ μπορεί να αγνοηθεί σε μια βάση ανά σελίδα / post με TubePress ΣΥΝΤΟΜΟΙ. Δείτε το <a τεκμηρίωση href=\"http://tubepress.com/documentation\"> </ a> για περισσότερες πληροφορίες."
+msgstr "Εδώ μπορείτε να ορίσετε τις προεπιλεγμένες επιλογές για TubePress. Κάθε επιλογή εδώ μπορεί να αγνοηθεί σε μια βάση ανά σελίδα / post με TubePress ΣΥΝΤΟΜΟΙ. Δείτε το <a href=\"http://tubepress.com/documentation\">τεκμηρίωση</a> για περισσότερες πληροφορίες."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Βίντεο μεταφόρτωση από αυτόν τον χρήστη Vimeo"
@@ -420,7 +420,7 @@ msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API  \"Κλειδί καταναλωτή \""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "href=\"http://vimeo.com/api/applications/new\"> <a Κάντε κλικ εδώ </ a> για να εγγραφείτε για ένα βασικό καταναλωτικό και το μυστικό."
+msgstr "<a href=\"http://vimeo.com/api/applications/new\">Κάντε κλικ εδώ</a> για να εγγραφείτε για ένα βασικό καταναλωτικό και το μυστικό."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API  \"Secret Καταναλωτών \""
@@ -468,7 +468,7 @@ msgid "YouTube API Developer Key"
 msgstr "YouTube API Developer Key"
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "Το YouTube θα χρησιμοποιήσετε αυτό το κλειδί για την ανάπτυξη για την καταγραφή και τον εντοπισμό σφαλμάτων σκοπούς εάν αντιμετωπίζετε κάποιο πρόβλημα εξυπηρέτησης στο τέλος τους. Μπορείτε να καταχωρήσετε ένα νέο αναγνωριστικό πελάτη και προγραμματιστή <a κλειδί href=\"http://code.google.com/apis/youtube/dashboard/\"> εδώ </ a>. Μην αλλάξετε αυτό αν δεν ξέρετε τι κάνετε."
+msgstr "Το YouTube θα χρησιμοποιήσετε αυτό το κλειδί για την ανάπτυξη για την καταγραφή και τον εντοπισμό σφαλμάτων σκοπούς εάν αντιμετωπίζετε κάποιο πρόβλημα εξυπηρέτησης στο τέλος τους. Μπορείτε να καταχωρήσετε ένα νέο αναγνωριστικό πελάτη και προγραμματιστή κλειδί <a href=\"http://code.google.com/apis/youtube/dashboard/\"> εδώ</a>. Μην αλλάξετε αυτό αν δεν ξέρετε τι κάνετε."
 
 msgid "Filter \"racy\" content"
 msgstr "Φίλτρο  \"δημοκρατία \" περιεχόμενο"

@@ -74,7 +74,7 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
 
         $wpFunctionWrapper->add_filter($filterPoint, array($wpAdminHandler, 'modifyMetaRowLinks'), 10, 2);
 
-        $wpFunctionWrapper->register_activation_hook($baseName . '/tubepress.php', array('tubepress_addons_wordpress_impl_Bootstrap', '__callbackEnsureTubePressContentDirectoryExists'));
+        $wpFunctionWrapper->register_activation_hook($baseName . '/tubepress.php', array($this, '__callbackEnsureTubePressContentDirectoryExists'));
     }
 
     private static function _getScheme(tubepress_addons_wordpress_spi_WordPressFunctionWrapper $wpFunctionWrapper)
@@ -95,11 +95,11 @@ class tubepress_addons_wordpress_impl_listeners_boot_WordPressApiIntegrator
     public static function __callbackEnsureTubePressContentDirectoryExists()
     {
         /* add the content directory if it's not already there */
-        if (!is_dir(ABSPATH . 'wp-content/tubepress-content')) {
+        if (!is_dir(WP_CONTENT_DIR . '/tubepress-content')) {
 
             self::_tryToMirror(
                 TUBEPRESS_ROOT . '/src/main/resources/user-content-skeleton/tubepress-content',
-                ABSPATH . 'wp-content');
+                WP_CONTENT_DIR . '/tubepress-content');
         }
     }
 

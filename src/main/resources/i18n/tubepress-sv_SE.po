@@ -168,7 +168,7 @@ msgid "Use high-quality thumbnails"
 msgstr "Använd högkvalitativa miniatyrer"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</ a>-aktiverad sidnumrering"
+msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-aktiverad sidnumrering"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "Gäller endast gallerier som sträcker sig över flera sidor."
@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "Märket på den inbäddade spelaren. Standard är leverantörens spelaren (YouTube, Vimeo, osv)."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "Inte alla slags beställningar kan tillämpas på alla typer galleri. Se <a href=\"http://tubepress.com/documentation\">dokumentationen </ a> för mer info."
+msgstr "Inte alla slags beställningar kan tillämpas på alla typer galleri. Se <a href=\"http://tubepress.com/documentation\">dokumentationen</a> för mer info."
 
 msgid "Cache directory"
 msgstr "Cache directory"
@@ -387,10 +387,10 @@ msgid "The word you insert (in plaintext, between square brackets) into your pos
 msgstr "Ordet som du använder (i vanlig text eller inom klammer) där du vill visa ett galleri på dina sidor och inlägg."
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress kortkod för widgeten. Se <a href=\"http://tubepress.com/documentation\"> dokumentationen </ a>."
+msgstr "TubePress kortkod för widgeten. Se <a href=\"http://tubepress.com/documentation\">dokumentationen</a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "Här kan du ställa in standardalternativ för TubePress. Varje alternativ här kan åsidosättas på en per sida/post basis med TubePress kortkoder. Se <a href=\"http://tubepress.com/documentation\">dokumentationen </ a> för mer information."
+msgstr "Här kan du ställa in standardalternativ för TubePress. Varje alternativ här kan åsidosättas på en per sida/post basis med TubePress kortkoder. Se <a href=\"http://tubepress.com/documentation\">dokumentationen</a> för mer information."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Videos uppladdade av denna Vimeo användare"
@@ -420,7 +420,7 @@ msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API \"Consumer Key\""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\">Klicka här </ a> för att registrera dig för en konsument nyckel och hemlighet."
+msgstr "<a href=\"http://vimeo.com/api/applications/new\">Klicka här</a> för att registrera dig för en konsument nyckel och hemlighet."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API \"Consumer Secret\""

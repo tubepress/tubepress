@@ -138,7 +138,7 @@ msgid "Date format"
 msgstr "日期格式"
 
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "设置文本格式的视频的最新信息。见<a href=\"http://us.php.net/date\">日</ a>的例子。"
+msgstr "设置文本格式的视频的最新信息。见<a href=\"http://us.php.net/date\">日</a>的例子。"
 
 msgid "Video blacklist"
 msgstr "视频黑名单"
@@ -168,7 +168,7 @@ msgid "Use high-quality thumbnails"
 msgstr "使用高品质的缩略图"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">阿贾克斯</ A>  - 启用分页"
+msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">阿贾克斯</a>  - 启用分页"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "仅适用于跨越多个页面的画廊。"
@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "该品牌的嵌入播放器。默认是提供商的播放器（YouTube上，或是Vimeo等）。"
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "并非所有排序顺序，可以适用于所有类型的画廊。参见<a href=\"http://tubepress.com/documentation\">文档</ a>，以了解更多信息。"
+msgstr "并非所有排序顺序，可以适用于所有类型的画廊。参见<a href=\"http://tubepress.com/documentation\">文档</a>，以了解更多信息。"
 
 msgid "Cache directory"
 msgstr "缓存目录"
@@ -267,7 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "其他排序顺序应用到每个页面一个画廊"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "这个画廊的TubePress使用的主题。可以找到你的主题的<code> %s </ code>的默认主题，可以发现在特征码的%s </ code>的。"
+msgstr "这个画廊的TubePress使用的主题。可以找到你的主题的<code>%s</code>的默认主题，可以发现在特征码的<code>%s</code>的。"
 
 msgid "Loop"
 msgstr "循环"
@@ -387,10 +387,10 @@ msgid "The word you insert (in plaintext, between square brackets) into your pos
 msgstr "字插入到您的文章/页（明文，在方括号中），显示一个画廊。"
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "TubePress短代码的插件。 <a href=\"http://tubepress.com/documentation\">文档</ A>。"
+msgstr "TubePress短代码的插件。 <a href=\"http://tubepress.com/documentation\">文档</a>。"
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "在这里，你可以设置的默认选项TubePress。这里的每个选项可以覆盖每一个页面/后根据与TubePress简。参见<a href=\"http://tubepress.com/documentation\">文档</ a>，以了解更多信息。"
+msgstr "在这里，你可以设置的默认选项TubePress。这里的每个选项可以覆盖每一个页面/后根据与TubePress简。参见<a href=\"http://tubepress.com/documentation\">文档</a>，以了解更多信息。"
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "这或是Vimeo用户上传的视频"
@@ -420,7 +420,7 @@ msgid "Vimeo API \"Consumer Key\""
 msgstr "或是Vimeo API \"消费者键\""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\">点击此处</ a>的消费者密钥和秘密注册。"
+msgstr "<a href=\"http://vimeo.com/api/applications/new\">点击此处</a>的消费者密钥和秘密注册。"
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "或是Vimeo API \"消费者的秘密\""
@@ -468,7 +468,7 @@ msgid "YouTube API Developer Key"
 msgstr "YouTube的API开发重点"
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube将使用此开发关键日志和调试的目的，如果你遇到的服务问题在他们那一端。你可以注册一个新的客户端ID和开发关键<a href=\"http://code.google.com/apis/youtube/dashboard/\">这里</ a>。不要改变，除非你知道你在做什么。"
+msgstr "YouTube将使用此开发关键日志和调试的目的，如果你遇到的服务问题在他们那一端。你可以注册一个新的客户端ID和开发关键<a href=\"http://code.google.com/apis/youtube/dashboard/\">这里</a>。不要改变，除非你知道你在做什么。"
 
 msgid "Filter \"racy\" content"
 msgstr "过滤器\"活泼\"的内容"
