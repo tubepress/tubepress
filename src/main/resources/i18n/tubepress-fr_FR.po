@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "La marque du lecteur intégré. Défaut est le joueur du fournisseur (YouTube, Vimeo, etc.)"
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "Pas tous les ordres de tri peuvent être appliquées à tous les types de galeries. Voir le <a href=\"http://tubepress.com/documentation\"> documentation </ a> pour plus d'informations."
+msgstr "Pas tous les ordres de tri peuvent être appliquées à tous les types de galeries. Voir le <a href=\"http://tubepress.com/documentation\"> documentation </a> pour plus d'informations."
 
 msgid "Cache directory"
 msgstr "Répertoire du cache"
@@ -267,7 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "Ordre de tri supplémentaire appliqué à chaque page individuelle d'une galerie"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "Le thème de TubePress à utiliser pour cette galerie. Vos thèmes peuvent être trouvés à <code> %s s </ code>, et les thèmes par défaut peuvent être trouvés à <code> %s s </ code>."
+msgstr "Le thème de TubePress à utiliser pour cette galerie. Vos thèmes peuvent être trouvés à <code>%s</code>, et les thèmes par défaut peuvent être trouvés à <code>%s</code>."
 
 msgid "Loop"
 msgstr "Répéter"
@@ -420,7 +420,7 @@ msgid "Vimeo API \"Consumer Key\""
 msgstr "API Vimeo \"Consumer Key\""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "<a href=\"http://vimeo.com/api/applications/new\"> Cliquez ici </ a> pour vous inscrire à une touche de consommateurs et secret."
+msgstr "<a href=\"http://vimeo.com/api/applications/new\">Cliquez ici</a> pour vous inscrire à une touche de consommateurs et secret."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "API Vimeo \"Consumer Secret\""

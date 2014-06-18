@@ -138,7 +138,7 @@ msgid "Date format"
 msgstr "날짜 형식"
 
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\" target=\"_blank\">date</a> for examples."
-msgstr "동영상 최신 정보의 텍스트 서식을 설정합니다. 예제 </ a>를 참조 href=\"http://us.php.net/date\"> 날짜를 참조하십시오."
+msgstr "동영상 최신 정보의 텍스트 서식을 설정합니다. 예제 를 참조<a href=\"http://us.php.net/date\">날짜</a>를 참조하십시오."
 
 msgid "Video blacklist"
 msgstr "비디오 블랙리스트"
@@ -168,7 +168,7 @@ msgid "Use high-quality thumbnails"
 msgstr "고품질 축소판을 사용하여"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "만약 당신이 좋아하면 것인지 href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> 아약스 </ a>를 사용 매김"
+msgstr "만약 당신이 좋아하면 것인지 <a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">아약스</a>를 사용 매김"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "은 여러 페이지에 걸쳐 미술관에 적용됩니다."
@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "내장 플레이어의 브랜드입니다. 기본값은 공급자의 선수 (유튜브, 비 메오 등)입니다."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "모든 정렬 순서는 모든 갤러리 유형에 적용 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 문서에 대한 추가 정보를 원하시면 </ a>를 참조하십시오."
+msgstr "모든 정렬 순서는 모든 갤러리 유형에 적용 할 수 있습니다. 만약 당신이 좋아하면 것인지 <a href=\"http://tubepress.com/documentation\">문서에 대한 추가 정보를 원하시면</a>를 참조하십시오."
 
 msgid "Cache directory"
 msgstr "캐시 디렉토리"
@@ -267,7 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "갤러리의 각 페이지에 적용된 추가적인 정렬 순서"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "TubePress 테마는이 갤러리를 위해 사용합니다. 당신의 테마에서 <code>에서 찾을 수 있습니다 %s </ code>를, 및 기본 테마 <CODE>에서 찾을 수 있습니다 %s </ code>를."
+msgstr "TubePress 테마는이 갤러리를 위해 사용합니다. 당신의 테마에서에서 찾을 수 있습니다<code>%s</code>를, 및 기본 테마에서 찾을 수 있습니다<code>%s</code>를."
 
 msgid "Loop"
 msgstr "고리"
@@ -387,10 +387,10 @@ msgid "The word you insert (in plaintext, between square brackets) into your pos
 msgstr "게시물 / 페이지에 당신이 삽입 단어 (일반 텍스트, 대괄호)는 갤러리를 표시합니다."
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "위젯 단축 코드를 TubePress. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 설명서를 참조하십시오 </ a>를 참조하십시오."
+msgstr "위젯 단축 코드를 TubePress. 만약 당신이 좋아하면 것인지 <a href=\"http://tubepress.com/documentation\"> 설명서를 참조하십시오 </a>를 참조하십시오."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "여기 TubePress에 대한 기본 옵션을 설정할 수 있습니다. 여기에 각 옵션 TubePress의 단축 코드와 페이지 당 / 포스트 기준으로 재정의 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"http://tubepress.com/documentation\"> 문서에 대한 자세한 내용은 </ a>를 참조하십시오."
+msgstr "여기 TubePress에 대한 기본 옵션을 설정할 수 있습니다. 여기에 각 옵션 TubePress의 단축 코드와 페이지 당 / 포스트 기준으로 재정의 할 수 있습니다. 만약 당신이 좋아하면 것인지 <a href=\"http://tubepress.com/documentation\">문서에 대한 자세한 내용은</a>를 참조하십시오."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "이 비 메오를 사용자가 올린 동영상"
@@ -420,7 +420,7 @@ msgid "Vimeo API \"Consumer Key\""
 msgstr "메오 API \"소비자 키 \""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "만약 당신이 좋아하면 것인지의 href=\"http://vimeo.com/api/applications/new\"> 여기를 클릭 </ a> 소비자 키와 비밀을 등록합니다."
+msgstr "만약 당신이 좋아하면 것인지의 <a href=\"http://vimeo.com/api/applications/new\">여기를 클릭</a> 소비자 키와 비밀을 등록합니다."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "메오 API \"소비자 비밀 \""
@@ -468,7 +468,7 @@ msgid "YouTube API Developer Key"
 msgstr "유튜브 API 개발자 키"
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "당신은 그들의 말에 서비스 문제가 발생하는 경우 YouTube는 목적 로깅 및 디버깅이 개발자 키를 사용합니다. 당신은 새 클라이언트 ID와 개발자 키 - 만약 당신이 좋아하면 것인지를 등록 할 수 있습니다 href=\"http://code.google.com/apis/youtube/dashboard/\"> 여기 </ a>. 당신이 무슨 일을하는지 알지 못한다면이 설정을 변경하지 마십시오."
+msgstr "당신은 그들의 말에 서비스 문제가 발생하는 경우 YouTube는 목적 로깅 및 디버깅이 개발자 키를 사용합니다. 당신은 새 클라이언트 ID와 개발자 키 - 만약 당신이 좋아하면 것인지를 등록 할 수 있습니다 <a href=\"http://code.google.com/apis/youtube/dashboard/\">여기</a>. 당신이 무슨 일을하는지 알지 못한다면이 설정을 변경하지 마십시오."
 
 msgid "Filter \"racy\" content"
 msgstr "필터 \"정확성 \"콘텐츠"

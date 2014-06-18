@@ -168,7 +168,7 @@ msgid "Use high-quality thumbnails"
 msgstr "השתמש בתמונות ממוזערות באיכות גבוהה"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</ a> במעבר בין עמודים"
+msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a> במעבר בין עמודים"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "חל רק על הגלריות עם עמודים מרובים"
@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "המותג של הנגן המוטבע. ברירת מחדל הוא השחקן של הספק (YouTube, Vimeo, וכו ')."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "ניתן ליישם לא כל סדר המיון לכל סוגי הגלריה. ראה <a href=\"http://tubepress.com/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
+msgstr "ניתן ליישם לא כל סדר המיון לכל סוגי הגלריה. ראה <a href=\"http://tubepress.com/documentation\">תיעוד</a> לקבלת מידע נוסף."
 
 msgid "Cache directory"
 msgstr "ספריית מטמון"
@@ -267,7 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "סדר מיון נוסף יחול על כל דף הבודד של גלריה"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "נושא TubePress להשתמש לגלריה זו. ניתן למצוא ערכות הנושא שלך %s </ code>, וניתן למצוא את נושאים המוגדרים כברירת מחדל %s </ code>."
+msgstr "נושא TubePress להשתמש לגלריה זו. ניתן למצוא ערכות הנושא שלך <code>%s </code>, וניתן למצוא את נושאים המוגדרים כברירת מחדל <code>%s </code>."
 
 msgid "Loop"
 msgstr "לולאה"
@@ -390,7 +390,7 @@ msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.co
 msgstr "Shortcode TubePress עבור יישומון. צפה ב<a href=\"http://tubepress.com/documentation\"> תיעוד</a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
-msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"http://tubepress.com/documentation\"> תיעוד </ a> לקבלת מידע נוסף."
+msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"http://tubepress.com/documentation\"> תיעוד </a> לקבלת מידע נוסף."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "סרטונים שהועלו על ידי משתמש זה Vimeo"
@@ -420,7 +420,7 @@ msgid "Vimeo API \"Consumer Key\""
 msgstr "Vimeo API  \"מפתח לצרכן \""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
-msgstr "href=\"http://vimeo.com/api/applications/new\"> <a לחץ כאן </ a> כדי להירשם לצרכן ומפתח סודי."
+msgstr "<a href=\"http://vimeo.com/api/applications/new\"> לחץ כאן </a> כדי להירשם לצרכן ומפתח סודי."
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API  \"סוד לצרכן \""
@@ -468,7 +468,7 @@ msgid "YouTube API Developer Key"
 msgstr "מפתח API למפתחים ב YouTube "
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\" target=\"_blank\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube ישתמשו במפתח המפתחים לרישום באגים אם אתה נתקל בבעיה. אתה יכול להרשם עם מזהה לקוח חדש <a  href=\"http://code.google.com/apis/youtube/dashboard/\">כאן</ a>. אל תשנה את זה אלא אם כן אתה יודע מה אתה עושה."
+msgstr "YouTube ישתמשו במפתח המפתחים לרישום באגים אם אתה נתקל בבעיה. אתה יכול להרשם עם מזהה לקוח חדש <a  href=\"http://code.google.com/apis/youtube/dashboard/\">כאן</a>. אל תשנה את זה אלא אם כן אתה יודע מה אתה עושה."
 
 msgid "Filter \"racy\" content"
 msgstr "מסנן תוכן \"בעייתי\" "

@@ -168,7 +168,7 @@ msgid "Use high-quality thumbnails"
 msgstr "उच्च गुणवत्ता वाले थंबनेल का प्रयोग करें"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\" target=\"_blank\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> अजाक्स </ a> सक्षम पृष्ठांकन"
+msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"> अजाक्स </a> सक्षम पृष्ठांकन"
 
 msgid "Only applies to galleries that span multiple pages."
 msgstr "केवल एकाधिक पृष्ठों अवधि कि दीर्घाओं के लिए लागू होता है."
@@ -228,7 +228,7 @@ msgid "The brand of the embedded player. Default is the provider's player (YouTu
 msgstr "एम्बेडेड खिलाड़ी की ब्रांड. डिफ़ॉल्ट प्रदाता के खिलाड़ी (यूट्यूब, Vimeo, आदि) है."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more info."
-msgstr "नहीं सभी तरह के आदेश सभी गैलरी प्रकार के लिए लागू किया जा सकता है. <a Href=\"http://tubepress.com/documentation\"> प्रलेखन अधिक जानकारी के लिए </ a> देखें."
+msgstr "नहीं सभी तरह के आदेश सभी गैलरी प्रकार के लिए लागू किया जा सकता है. <a href=\"http://tubepress.com/documentation\"> प्रलेखन अधिक जानकारी के लिए </a> देखें."
 
 msgid "Cache directory"
 msgstr "कैश निर्देशिका"
@@ -267,8 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "एक गैलरी के प्रत्येक पृष्ठ के लिए लागू अतिरिक्त सॉर्ट क्रम"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "TubePress विषय इस गैलरी के लिए उपयोग करने के लिए. अपने विषयों <code> में पाया जा सकता है %s </ कोड>, और डिफ़ॉल्ट विषयों <code> में पाया जा सकता है %s </ कोड>."
-
+msgstr "TubePress विषय इस गैलरी के लिए उपयोग करने के लिए. अपने विषयों <code> में पाया जा सकता है %s</code>, और डिफ़ॉल्ट विषयों <code> में पाया जा सकता है %s </ कोड>."
 msgid "Loop"
 msgstr "पाश"
 
@@ -387,7 +386,7 @@ msgid "The word you insert (in plaintext, between square brackets) into your pos
 msgstr "अपने पदों / पृष्ठों में आप सम्मिलित शब्द (प्लेन टेक्स्ट में, वर्ग कोष्ठक के बीच) एक गैलरी प्रदर्शित करने के लिए."
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a>."
-msgstr "विजेट के लिए शोर्ट TubePress. <a Href=\"http://tubepress.com/documentation\"> दस्तावेज़ीकरण देखें </ a>."
+msgstr "विजेट के लिए शोर्ट TubePress. <a href=\"http://tubepress.com/documentation\"> दस्तावेज़ीकरण देखें </a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
 msgstr "यहाँ आप TubePress के लिए निर्धारित विकल्पों को सेट कर सकते हैं. यहाँ प्रत्येक विकल्प TubePress लघुकोड साथ एक प्रति पृष्ठ / पोस्ट आधार पर अधिरोहित जा सकता है. <a Href=\"http://tubepress.com/documentation\"> प्रलेखन अधिक जानकारी के लिए </ a> देखें."

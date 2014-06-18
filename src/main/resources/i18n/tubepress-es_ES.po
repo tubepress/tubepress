@@ -267,7 +267,7 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "Orden adicional aplicado a cada página individual o galería"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
-msgstr "El tema TubePress a utilizar para esta galería. Sus temas se pueden encontrar en <código> %s </ code>, y los temas por defecto se pueden encontrar en <código> %s </ code>."
+msgstr "El tema TubePress a utilizar para esta galería. Sus temas se pueden encontrar en <code>%s</code>, y los temas por defecto se pueden encontrar en <code>%s</code>."
 
 msgid "Loop"
 msgstr "Bucle"
