@@ -289,7 +289,7 @@ ABC
 
             'bootstrap-3.1.1'         => '/src/core/options-ui/web/vendor/bootstrap-3.1.1/css/bootstrap-custom.css',
             'bootstrap-theme'         => '/src/core/options-ui/web/vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css',
-            'bootstrap-multiselect'   => '/src/core/options-ui/web/vendor/bootstrap-multiselect-0.9.2/css/bootstrap-multiselect.css',
+            'bootstrap-multiselect'   => '/src/core/options-ui/web/vendor/bootstrap-multiselect-0.9.4/css/bootstrap-multiselect.css',
             'blueimp-gallery-2.14.0'  => '/src/core/options-ui/web/vendor/blueimp-gallery-2.14.0/css/blueimp-gallery.min.css',
             'bootstrap-image-gallery' => '/src/core/options-ui/web/vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css',
             'tubepress-options-gui'   => '/src/core/options-ui/web/css/options-page.css',
@@ -316,7 +316,7 @@ ABC
 
         $toReturn = array_merge($toReturn, array(
 
-            'bootstrap-multiselect'         => '/src/core/options-ui/web/vendor/bootstrap-multiselect-0.9.2/js/bootstrap-multiselect.js',
+            'bootstrap-multiselect'         => '/src/core/options-ui/web/vendor/bootstrap-multiselect-0.9.4/js/bootstrap-multiselect.js',
             'spectrum'                      => '/src/core/options-ui/web/vendor/spectrum-1.3.1/spectrum.js',
             'blueimp-gallery-2.14.0'        => '/src/core/options-ui/web/vendor/blueimp-gallery-2.14.0/js/blueimp-gallery.min.js',
             'bootstrap-image-gallery'       => '/src/core/options-ui/web/vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js',
