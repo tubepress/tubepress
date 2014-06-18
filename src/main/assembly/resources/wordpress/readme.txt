@@ -11,12 +11,6 @@ Modern video galleries for the web. Visit us at tubepress.com for more!
 
 == Description ==
 
-Rather not host your own copy of TubePress? [TubePress Express](http://express.tubepress.com) is now available!
-TubePress Express is a cloud-hosted version of TubePress with zero installation, maximum performance, and full
-compatability with *any* website or device. Enjoy a risk free 30-day trial and flexible pricing plans.
-
-For a limited time, use coupon code `WELCOME2EXPRESS` to lock in **50% off any TubePress Express plan!**
-
 **Demos**
 
 * [Simple gallery](http://tubepress.com/demo/)
@@ -37,6 +31,16 @@ For a limited time, use coupon code `WELCOME2EXPRESS` to lock in **50% off any T
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 3.1.6 =
+* Bug Fixes
+    * Fixed bug that prevented fullscreen playback in Chrome
+    * Fixed bug that prevented disable of sequential playback
+    * Fixed broken activation hook in WordPress which prevented TubePress Content Directory from being created.
+    * Fixed broken translation functionality for some languages
+* Changed
+    * Updated French translation by Aurélien Denis
+    * Updated Spanish translation by Andrew Kurtis
+
 = 3.1.5 =
 * Bug Fixes
     * Fixed bug in static and solo player locations.
