@@ -251,6 +251,12 @@ msgstr "التصميم"
 msgid "Additional sort order applied to each individual page of a gallery"
 msgstr "ترتيب الفرز إضافية تطبق على كل صفحة فردية من معرض"
 
+<<<<<<< HEAD:src/core/translation/resources/messages/tubepress-ar.po
+=======
+msgid "The TubePress theme to use for this gallery. Your themes can be found at <code>%s</code>, and default themes can be found at <code>%s</code>."
+msgstr "موضوع TubePress لاستخدامها لهذا المعرض. المواضيع الخاصة بك ويمكن الاطلاع على برمجيات <code> %s </code>، والموضوعات الافتراضية يمكن العثور على برمجيات <code>%s</code>."
+
+>>>>>>> master:src/main/resources/i18n/tubepress-ar.po
 msgid "Loop"
 msgstr "تكرار"
 
@@ -371,8 +377,13 @@ msgstr "الكلمة التي تضعها في النص لعرض الفيديوه
 msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blank\">documentation</a>."
 msgstr "الshortcode للقوائم الجانبية"
 
+<<<<<<< HEAD:src/core/translation/resources/messages/tubepress-ar.po
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
 msgstr "هنا يمكنك تعيين الخيارات الافتراضية للTubePress. كل خيار هنا يمكن تجاوزها في الصفحة / آخر في أساس الهاتفية القصيرة مع TubePress. راجع <a href=\"%s\"> الوثائق </ a> للحصول على مزيد من المعلومات."
+=======
+msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.com/documentation\" target=\"_blank\">documentation</a> for more information."
+msgstr "هنا يمكنك تعيين الخيارات الافتراضية للTubePress. كل خيار هنا يمكن تجاوزها في الصفحة / آخر في أساس الهاتفية القصيرة مع TubePress. راجع <a href=\"http://tubepress.com/documentation\"> الوثائق </a> للحصول على مزيد من المعلومات."
+>>>>>>> master:src/main/resources/i18n/tubepress-ar.po
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "الفيديوهات هذا المستخدم في فيميو"
@@ -401,8 +412,13 @@ msgstr "الفيديوهات في مجموعة فيميو هذه"
 msgid "Vimeo API \"Consumer Key\""
 msgstr "فيميو API \"مفتاح المستهلك \""
 
+<<<<<<< HEAD:src/core/translation/resources/messages/tubepress-ar.po
 msgid "<a href=\"%s\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
 msgstr "href=\"%s\"> <a اضغط هنا </ a> للتسجيل للحصول على مفتاح المستهلك وسرية."
+=======
+msgid "<a href=\"http://vimeo.com/api/applications/new\" target=\"_blank\">Click here</a> to register for a consumer key and secret."
+msgstr "<a href=\"http://vimeo.com/api/applications/new\"> اضغط هنا </a> للتسجيل للحصول على مفتاح المستهلك وسرية."
+>>>>>>> master:src/main/resources/i18n/tubepress-ar.po
 
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "فيميو API \"سرية المستهلك \""
