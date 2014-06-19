@@ -30,23 +30,10 @@ class tubepress_core_log_ioc_LogExtension implements tubepress_api_ioc_Container
     public function load(tubepress_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'epilog.logger',
-            'ehough_epilog_Logger'
-        )->addArgument('TubePress');
-
-        $containerBuilder->register(
-            'epilog.formatter',
-            'ehough_epilog_formatter_LineFormatter'
-        )->addArgument('[%%datetime%%] [%%level_name%%]: %%message%%')
-         ->addArgument('i:s.u');
-
-        $containerBuilder->register(
             tubepress_api_log_LoggerInterface::_,
             'tubepress_core_log_impl_HtmlLogger'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
-         ->addArgument(new tubepress_api_ioc_Reference('epilog.logger'))
-         ->addArgument(new tubepress_api_ioc_Reference('epilog.formatter'));
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_));
 
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_log', array(
 

@@ -26,23 +26,10 @@ class tubepress_test_core_log_ioc_LogExtensionTest extends tubepress_test_core_i
     protected function prepareForLoad()
     {
         $this->expectRegistration(
-            'epilog.logger',
-            'ehough_epilog_Logger'
-        )->withArgument('TubePress');
-
-        $this->expectRegistration(
-            'epilog.formatter',
-            'ehough_epilog_formatter_LineFormatter'
-        )->withArgument('[%%datetime%%] [%%level_name%%]: %%message%%')
-            ->withArgument('i:s.u');
-
-        $this->expectRegistration(
             tubepress_api_log_LoggerInterface::_,
             'tubepress_core_log_impl_HtmlLogger'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference('epilog.logger'))
-            ->withArgument(new tubepress_api_ioc_Reference('epilog.formatter'));
+            ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_));
 
         $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_log', array(
 

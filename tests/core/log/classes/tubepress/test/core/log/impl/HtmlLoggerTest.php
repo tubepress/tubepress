@@ -27,26 +27,13 @@ class tubepress_test_core_log_impl_HtmlLoggerTest extends tubepress_test_TubePre
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockDelegateLogger;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockFormatter;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockContext;
 
     public function onSetup()
     {
         $this->_mockHttpRequestParams = $this->mock(tubepress_core_http_api_RequestParametersInterface::_);
-        $this->_mockDelegateLogger    = $this->mock('ehough_epilog_Logger');
-        $this->_mockFormatter         = $this->mock('ehough_epilog_formatter_FormatterInterface');
         $this->_mockContext           = $this->mock(tubepress_core_options_api_ContextInterface::_);
 
-        $this->_mockDelegateLogger->shouldReceive('pushHandler')->once()->with(ehough_mockery_Mockery::type('tubepress_core_log_impl_HtmlLogger'));
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_log_api_Constants::OPTION_DEBUG_ON)->andReturn(true);
 
         $this->_mockHttpRequestParams->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
@@ -54,9 +41,7 @@ class tubepress_test_core_log_impl_HtmlLoggerTest extends tubepress_test_TubePre
 
         $this->_sut = new tubepress_core_log_impl_HtmlLogger(
             $this->_mockContext,
-            $this->_mockHttpRequestParams,
-            $this->_mockDelegateLogger,
-            $this->_mockFormatter
+            $this->_mockHttpRequestParams
         );
     }
 
@@ -68,7 +53,7 @@ class tubepress_test_core_log_impl_HtmlLoggerTest extends tubepress_test_TubePre
     public function testError()
     {
         $this->_sut->onBootComplete();
-        $this->_mockDelegateLogger->shouldReceive('error')->once()->with('some message', array('foo' => 'bar'));
+        $this->expectOutputRegex('~<span style="color: red">\[[0-9]{2}:[0-9]{2}\.[0-9]+\]\[ERROR\] some message {"foo":"bar"}</span><br />~');
         $this->_sut->error('some message', array('foo' => 'bar'));
         $this->assertTrue(true);
     }
@@ -76,20 +61,16 @@ class tubepress_test_core_log_impl_HtmlLoggerTest extends tubepress_test_TubePre
     public function testDebug()
     {
         $this->_sut->onBootComplete();
-        $this->_mockDelegateLogger->shouldReceive('debug')->once()->with('some message', array('foo' => 'bar'));
+        $this->expectOutputRegex('~<span style="color: inherit">\[[0-9]{2}:[0-9]{2}\.[0-9]+\]\[INFO\] some message {"foo":"bar"}</span><br />~');
         $this->_sut->debug('some message', array('foo' => 'bar'));
         $this->assertTrue(true);
     }
 
     public function testWrite()
     {
-        $this->expectOutputString('<span style="color: red">some message</span><br />
-');
-        $record = array(
-            'level_name' => 'foobar',
-            'formatted'  => 'some message'
-        );
-        $this->_sut->___write($record);
+        $this->_sut->onBootComplete();
+        $this->expectOutputRegex('~<span style="color: red">\[[0-9]{2}:[0-9]{2}\.[0-9]+\]\[ERROR\] some message</span><br />~');
+        $this->_sut->___write('some message', array(), true);
     }
 }
 

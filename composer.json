@@ -12,7 +12,6 @@
     ],
     "require": {
         "ehough/contemplate" : "~1.0.0",
-        "ehough/epilog"      : "~1.7",
         "ehough/finder"      : "~2.4.0",
         "ehough/iconic"      : "~2.4.0",
         "ehough/pulsar"      : "~2.4.0",

@@ -12,13 +12,8 @@
 /**
  *
  */
-class tubepress_core_log_impl_HtmlLogger extends ehough_epilog_handler_AbstractProcessingHandler implements tubepress_api_log_LoggerInterface
+class tubepress_core_log_impl_HtmlLogger implements tubepress_api_log_LoggerInterface
 {
-    /**
-     * @var ehough_epilog_Logger
-     */
-    private $_delegate;
-
     /**
      * @var boolean
      */
@@ -39,13 +34,14 @@ class tubepress_core_log_impl_HtmlLogger extends ehough_epilog_handler_AbstractP
      */
     private $_shouldBuffer;
 
+    /**
+     * @var string
+     */
+    private $_timezone;
+
     public function __construct(tubepress_core_options_api_ContextInterface        $context,
-                                tubepress_core_http_api_RequestParametersInterface $requestParams,
-                                ehough_epilog_Logger                               $delegate,
-                                ehough_epilog_formatter_FormatterInterface         $formatter) {
-
-        parent::__construct();
-
+                                tubepress_core_http_api_RequestParametersInterface $requestParams)
+    {
         $loggingRequested    = $requestParams->hasParam('tubepress_debug') && $requestParams->getParamValue('tubepress_debug') === true;
         $loggingEnabled      = $context->get(tubepress_core_log_api_Constants::OPTION_DEBUG_ON);
         $this->_enabled      = $loggingRequested && $loggingEnabled;
@@ -53,14 +49,7 @@ class tubepress_core_log_impl_HtmlLogger extends ehough_epilog_handler_AbstractP
         $this->_errorBuffer  = array();
         $this->_shouldBuffer = true;
 
-        if ($this->_enabled) {
-
-            $this->_delegate = $delegate;
-            $this->_delegate->pushHandler($this);
-
-            $this->setFormatter($formatter);
-            $this->setLevel(ehough_epilog_Logger::DEBUG);
-        }
+        $this->_timezone = new DateTimeZone(@date_default_timezone_get() ? @date_default_timezone_get() : 'UTC');
     }
 
     public function onBootComplete()
@@ -74,14 +63,14 @@ class tubepress_core_log_impl_HtmlLogger extends ehough_epilog_handler_AbstractP
 
         $this->_shouldBuffer = false;
 
-        foreach ($this->_debugBuffer as $debugMessage => $debugContext) {
+        foreach ($this->_debugBuffer as $debugMessage) {
 
-            $this->debug($debugMessage, $debugContext);
+            $this->debug($debugMessage, array());
         }
 
-        foreach ($this->_errorBuffer as $errorMessage => $errorContext) {
+        foreach ($this->_errorBuffer as $errorMessage) {
 
-            $this->error($errorMessage, $errorContext);
+            $this->error($errorMessage, array());
         }
     }
 
@@ -110,17 +99,7 @@ class tubepress_core_log_impl_HtmlLogger extends ehough_epilog_handler_AbstractP
      */
     public function debug($message, array $context = array())
     {
-        if ($this->_enabled) {
-
-            if ($this->_shouldBuffer) {
-
-                $this->_debugBuffer[$message] = $context;
-
-            } else {
-
-                $this->_delegate->debug($message, $context);
-            }
-        }
+        $this->_write($message, $context, false);
     }
 
     /**
@@ -137,46 +116,71 @@ class tubepress_core_log_impl_HtmlLogger extends ehough_epilog_handler_AbstractP
      */
     public function error($message, array $context = array())
     {
-        if ($this->_enabled) {
-
-            if ($this->_shouldBuffer) {
-
-                $this->_errorBuffer[$message] = $context;
-
-            } else {
-
-                $this->_delegate->error($message, $context);
-            }
-        }
+        $this->_write($message, $context, true);
     }
 
-    /**
-     * Write the record down to the log of the implementing handler.
-     *
-     * @param array $record The log record to write.
-     *
-     * @return void
-     */
-    protected function write(array $record)
+    private function _write($message, array $context, $error)
     {
         if (!$this->_enabled) {
 
             return;
         }
 
-        $color   = $record['level_name'] === 'DEBUG' ? 'inherit' : 'red';
-        $toPrint = "<span style=\"color: $color\">" . $record['formatted'] . "</span><br />\n";
+        $finalMessage = $this->_getFormattedMessage($message, $context, $error);
 
-        echo $toPrint;
+        if ($this->_shouldBuffer) {
+
+            if ($error) {
+
+                $this->_errorBuffer[] = $finalMessage;
+
+            } else {
+
+                $this->_debugBuffer[] = $finalMessage;
+            }
+
+        } else {
+
+            echo $finalMessage;
+        }
+    }
+
+    private function _getFormattedMessage($message, array $context, $error)
+    {
+        $dateTime      = $this->_createDateTimeFromFormat();
+        $formattedTime = $dateTime->format('i:s.u');
+        $level         = $error ? 'ERROR' : 'INFO';
+        $color         = $error ? 'red' : 'inherit';
+
+        if (!empty($context)) {
+
+            $message .= ' ' . json_encode($context);
+        }
+
+        return "<span style=\"color: $color\">[$formattedTime][$level] $message</span><br />\n";
     }
 
     /**
      * This is here for testing purposes.
-     *
-     * @param array $record
      */
-    public function ___write(array $record)
+    public function ___write($message, array $context, $error)
     {
-        $this->write($record);
+        $this->_write($message, $context, $error);
+    }
+
+    /**
+     * @return DateTime
+     */
+    private function _createDateTimeFromFormat()
+    {
+        if (version_compare(PHP_VERSION, '5.3') >= 0) {
+
+            return DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), $this->_timezone)->setTimezone($this->_timezone);
+        }
+
+        $time = new DateTime('@' . time());
+        $time->setTimezone($this->_timezone);
+
+        return $time;
     }
 }

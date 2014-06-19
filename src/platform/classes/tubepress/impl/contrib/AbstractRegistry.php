@@ -76,7 +76,7 @@ abstract class tubepress_impl_contrib_AbstractRegistry implements tubepress_api_
     }
 
     /**
-     * @return ehough_epilog_Logger|tubepress_api_log_LoggerInterface
+     * @return tubepress_api_log_LoggerInterface
      */
     protected function getLogger()
     {

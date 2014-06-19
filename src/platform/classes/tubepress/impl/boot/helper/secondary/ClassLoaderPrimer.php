@@ -15,7 +15,7 @@
 class tubepress_impl_boot_helper_secondary_ClassLoaderPrimer
 {
     /**
-     * @var ehough_epilog_Logger
+     * @var tubepress_api_log_LoggerInterface
      */
     private $_logger;
 

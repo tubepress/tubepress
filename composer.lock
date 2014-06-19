@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c13278c8c04688a3d706b8a930590683",
+    "hash": "2c417f620f1726eec3e15df3496044f3",
     "packages": [
         {
             "name": "ehough/contemplate",
@@ -46,74 +46,6 @@
             "description": "Template library that uses pure PHP syntax. Nothing new to learn, blazingly fast, and compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/contemplate",
             "time": "2013-05-30 22:20:52"
-        },
-        {
-            "name": "ehough/epilog",
-            "version": "1.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/epilog.git",
-                "reference": "a4f327d3f0105b7442ebf654eae3e1bb4eaf585e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/epilog/zipball/a4f327d3f0105b7442ebf654eae3e1bb4eaf585e",
-                "reference": "a4f327d3f0105b7442ebf654eae3e1bb4eaf585e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "aws/aws-sdk-php": "~2.4, >2.4.8",
-                "doctrine/couchdb": "~1.0@dev",
-                "ehough/pulsar": "~2.3",
-                "graylog2/gelf-php": "~1.0",
-                "phpunit/phpunit": "~3.7.0",
-                "raven/raven": "~0.5",
-                "ruflin/elastica": "0.90.*"
-            },
-            "suggest": {
-                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
-                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-                "ext-mongo": "Allow sending log messages to a MongoDB server",
-                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-                "raven/raven": "Allow sending log messages to a Sentry server",
-                "rollbar/rollbar": "Allow sending log messages to Rollbar",
-                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.9.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "ehough_epilog": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@tubepress.org",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "Fork of seldaek/monolog compatible with PHP 5.2+",
-            "homepage": "https://github.com/ehough/epilog",
-            "time": "2014-04-29 23:09:30"
         },
         {
             "name": "ehough/filesystem",
