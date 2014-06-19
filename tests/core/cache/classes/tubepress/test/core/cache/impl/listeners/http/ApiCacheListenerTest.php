@@ -162,6 +162,8 @@ class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends
     {
         $this->_setupForExecution(false);
 
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_cache_api_Constants::CLEANING_FACTOR)->andReturn(PHP_INT_MAX);
+
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockResponse);
         $this->_mockResponse->shouldReceive('getBody')->once()->andReturn($this->_mockBody);
         $this->_mockBody->shouldReceive('toString')->once()->andReturn('abc');
@@ -179,6 +181,8 @@ class tubepress_test_core_cache_impl_listeners_http_ApiCacheListenerTest extends
     {
         $this->_setupForExecution(false);
 
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_cache_api_Constants::CLEANING_FACTOR)->andReturn(1);
+        $this->_mockApiCache->shouldReceive('flush')->once();
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockResponse);
         $this->_mockResponse->shouldReceive('getBody')->once()->andReturn($this->_mockBody);
         $this->_mockBody->shouldReceive('toString')->once()->andReturn('abc');

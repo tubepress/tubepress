@@ -59,9 +59,9 @@ class tubepress_test_core_http_impl_puzzle_message_PuzzleResponseTest extends tu
             $response->toJson();
         } catch (puzzle_exception_ParseException $e) {
             if (version_compare(PHP_VERSION, '5.3') >= 0) {
-                $this->assertEquals('Unable to parse response body into JSON: 4', $e->getMessage());
+                $this->assertEquals('Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON', $e->getMessage());
             } else {
-                $this->assertEquals('Unable to parse response body into JSON', $e->getMessage());
+                $this->assertEquals('Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON', $e->getMessage());
             }
             return;
         }

@@ -24,34 +24,17 @@ class tubepress_test_core_cache_ioc_CacheExtensionTest extends tubepress_test_co
 
     protected function prepareForLoad()
     {
-        /**
-         * Long, guaranteed unique service IDs (since they're anonymous)
-         */
-        $actualPoolServiceId = 'tubepress_core_cache_ioc_CacheExtension__registerCacheService_actualPoolServiceId';
-        $builderServiceId    = 'tubepress_core_cache_ioc_CacheExtension__registerCacheService_builderServiceId';
-
-        /**
-         * First register the default cache builder.
-         */
         $this->expectRegistration(
 
-            $builderServiceId,
+            'tubepress_core_cache_impl_stash_FilesystemCacheBuilder',
             'tubepress_core_cache_impl_stash_FilesystemCacheBuilder'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-         ->withArgument(new tubepress_api_ioc_Reference('ehough_filesystem_FilesystemInterface'));
+            ->withArgument(new tubepress_api_ioc_Reference('ehough_filesystem_FilesystemInterface'));
 
         $actualPoolDefinition = new tubepress_impl_ioc_Definition('ehough_stash_interfaces_PoolInterface');
-        $actualPoolDefinition->setFactoryService($builderServiceId);
+        $actualPoolDefinition->setFactoryService('tubepress_core_cache_impl_stash_FilesystemCacheBuilder');
         $actualPoolDefinition->setFactoryMethod('buildCache');
-        $this->expectDefinition($actualPoolServiceId, $actualPoolDefinition);
-
-        $this->expectRegistration(
-
-            'ehough_stash_interfaces_PoolInterface',
-            'tubepress_core_cache_impl_stash_PoolDecorator'
-
-        )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
-            ->withArgument(new tubepress_api_ioc_Reference($actualPoolServiceId));
+        $this->expectDefinition('ehough_stash_interfaces_PoolInterface', $actualPoolDefinition);
 
         $this->expectRegistration(
 

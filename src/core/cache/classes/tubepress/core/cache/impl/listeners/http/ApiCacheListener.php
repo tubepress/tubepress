@@ -92,7 +92,9 @@ class tubepress_core_cache_impl_listeners_http_ApiCacheListener
         $body   = $httpResponse->getBody();
         $result = $this->_getItem($url);
 
-        $storedSuccessfully = $result->set($body->toString(), $this->_context->get(tubepress_core_cache_api_Constants::LIFETIME_SECONDS));
+        $this->_possiblyClearCache();
+
+        $storedSuccessfully = $result->set($body->toString(), intval($this->_context->get(tubepress_core_cache_api_Constants::LIFETIME_SECONDS)));
 
         if (!$storedSuccessfully) {
 
@@ -100,6 +102,20 @@ class tubepress_core_cache_impl_listeners_http_ApiCacheListener
 
                 $this->_logger->error('Unable to store data to cache');
             }
+        }
+    }
+
+    private function _possiblyClearCache()
+    {
+        $cleaningFactor = $this->_context->get(tubepress_core_cache_api_Constants::CLEANING_FACTOR);
+        $cleaningFactor = intval($cleaningFactor);
+
+        /**
+         * Handle cleaning factor.
+         */
+        if ($cleaningFactor > 0 && rand(1, $cleaningFactor) === 1) {
+
+            $this->_apiCache->flush();
         }
     }
 

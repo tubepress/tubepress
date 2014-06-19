@@ -10,18 +10,19 @@
             "homepage" : "http://tubepress.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
-        "ehough/contemplate" : "~1.0.0",
-        "ehough/finder"      : "~2.4.0",
-        "ehough/iconic"      : "~2.4.0",
-        "ehough/pulsar"      : "~2.4.0",
-        "ehough/stash"       : "~0.10",
-        "ehough/tickertape"  : "~2.4.0",
-        "puzzlehttp/puzzle"  : "~4.0"
+        "ehough/contemplate" : "~1.0",
+        "ehough/finder"      : "~2.5.0",
+        "ehough/iconic"      : "~2.5.0",
+        "ehough/pulsar"      : "~2.5.0",
+        "ehough/stash"       : "~0.12.0",
+        "ehough/tickertape"  : "~2.5.0",
+        "puzzlehttp/puzzle"  : "~4.1.0"
     },
     "require-dev": {
         "ehough/mockery"       : "~0.8",
-        "phpunit/phpunit"      : "3.7.*",
+        "phpunit/phpunit"      : "~3.0",
         "symfony/class-loader" : "dev-master"
     },
     "autoload": {

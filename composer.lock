@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c417f620f1726eec3e15df3496044f3",
+    "hash": "99faab44c498a746609725619737f6b0",
     "packages": [
         {
             "name": "ehough/contemplate",
@@ -92,16 +92,16 @@
         },
         {
             "name": "ehough/finder",
-            "version": "v2.4.4",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/finder.git",
-                "reference": "cdd66b316344d47808623b7d4a956ec945534f91"
+                "reference": "dd0c3cb8b656d6af9d2b0acde7d359f72038eb34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/cdd66b316344d47808623b7d4a956ec945534f91",
-                "reference": "cdd66b316344d47808623b7d4a956ec945534f91",
+                "url": "https://api.github.com/repos/ehough/finder/zipball/dd0c3cb8b656d6af9d2b0acde7d359f72038eb34",
+                "reference": "dd0c3cb8b656d6af9d2b0acde7d359f72038eb34",
                 "shasum": ""
             },
             "require": {
@@ -129,20 +129,20 @@
                 }
             ],
             "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2014-04-29 23:44:58"
+            "time": "2014-06-19 03:11:33"
         },
         {
             "name": "ehough/iconic",
-            "version": "v2.4.4",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/iconic.git",
-                "reference": "a68f04a40240bbb2c8db9874ebd218fed8586c7a"
+                "reference": "5127fe3f4a559e22c909033d5c56b1b353b8eda4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/a68f04a40240bbb2c8db9874ebd218fed8586c7a",
-                "reference": "a68f04a40240bbb2c8db9874ebd218fed8586c7a",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/5127fe3f4a559e22c909033d5c56b1b353b8eda4",
+                "reference": "5127fe3f4a559e22c909033d5c56b1b353b8eda4",
                 "shasum": ""
             },
             "require": {
@@ -171,27 +171,27 @@
             ],
             "authors": [
                 {
-                    "name": "Eric D. Hough",
+                    "name": "Eric Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2014-04-30 01:27:36"
+            "time": "2014-06-19 03:20:53"
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.4.4",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "84a16936a6b0059f1a09e10eee37c2288892e87f"
+                "reference": "58dc5a0620f48134411ed437953dc7ac7fb27208"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/84a16936a6b0059f1a09e10eee37c2288892e87f",
-                "reference": "84a16936a6b0059f1a09e10eee37c2288892e87f",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/58dc5a0620f48134411ed437953dc7ac7fb27208",
+                "reference": "58dc5a0620f48134411ed437953dc7ac7fb27208",
                 "shasum": ""
             },
             "require": {
@@ -213,7 +213,7 @@
             ],
             "authors": [
                 {
-                    "name": "Eric D. Hough",
+                    "name": "Eric Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
@@ -225,27 +225,29 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2014-04-30 02:03:58"
+            "time": "2014-06-19 03:24:43"
         },
         {
             "name": "ehough/stash",
-            "version": "v0.11.6",
+            "version": "v0.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/stash.git",
-                "reference": "ddbffcd483717e23239cebcb2e00c232a4b9159e"
+                "reference": "0e03f75d286733f6d0540138a9c448ef106b36eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/stash/zipball/ddbffcd483717e23239cebcb2e00c232a4b9159e",
-                "reference": "ddbffcd483717e23239cebcb2e00c232a4b9159e",
+                "url": "https://api.github.com/repos/ehough/stash/zipball/0e03f75d286733f6d0540138a9c448ef106b36eb",
+                "reference": "0e03f75d286733f6d0540138a9c448ef106b36eb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "fabpot/php-cs-fixer": "0.4.0",
+                "phpunit/phpunit": "4.0.*",
+                "satooshi/php-coveralls": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -275,20 +277,20 @@
                 "redis",
                 "sessions"
             ],
-            "time": "2014-03-31 16:58:04"
+            "time": "2014-06-19 22:31:57"
         },
         {
             "name": "ehough/tickertape",
-            "version": "v2.4.4",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/tickertape.git",
-                "reference": "c76e77e37cc9096910864aad973234d42a58cf30"
+                "reference": "65cdd20cdeb33a2d0f8564ccd0f708c3364e1c70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/tickertape/zipball/c76e77e37cc9096910864aad973234d42a58cf30",
-                "reference": "c76e77e37cc9096910864aad973234d42a58cf30",
+                "url": "https://api.github.com/repos/ehough/tickertape/zipball/65cdd20cdeb33a2d0f8564ccd0f708c3364e1c70",
+                "reference": "65cdd20cdeb33a2d0f8564ccd0f708c3364e1c70",
                 "shasum": ""
             },
             "require": {
@@ -298,6 +300,7 @@
                 "ehough/iconic": "~2.3",
                 "phpunit/phpunit": "3.7.*",
                 "psr/log": "~1.0",
+                "symfony/config": "~2.0",
                 "symfony/stopwatch": "~2.2"
             },
             "suggest": {
@@ -322,23 +325,24 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2014-04-30 02:12:06"
+            "time": "2014-06-19 03:27:40"
         },
         {
             "name": "puzzlehttp/puzzle",
-            "version": "v4.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/puzzlehttp/puzzle.git",
-                "reference": "0a092128ab8cb515a975b83b8eb6031197250ecd"
+                "reference": "142826e5ae7f47839f53b44c2e47a51276bb083c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puzzlehttp/puzzle/zipball/0a092128ab8cb515a975b83b8eb6031197250ecd",
-                "reference": "0a092128ab8cb515a975b83b8eb6031197250ecd",
+                "url": "https://api.github.com/repos/puzzlehttp/puzzle/zipball/142826e5ae7f47839f53b44c2e47a51276bb083c",
+                "reference": "142826e5ae7f47839f53b44c2e47a51276bb083c",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": ">=5.2.0",
                 "puzzlehttp/streams": "~1.0"
             },
@@ -347,10 +351,13 @@
                 "phpunit/phpunit": "3.7.*",
                 "psr/log": "~1.0"
             },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0.x-dev"
+                    "dev-master": "4.1.x-dev"
                 }
             },
             "autoload": {
@@ -388,11 +395,11 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-04-22 19:08:01"
+            "time": "2014-06-19 17:55:44"
         },
         {
             "name": "puzzlehttp/streams",
-            "version": "v1.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/puzzlehttp/streams.git",
@@ -508,16 +515,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "1.2.17",
+            "version": "1.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "6ef2bf3a1c47eca07ea95f0d8a902a6340390b34"
+                "reference": "61fed79803b6c75d461b909dfac05bbef5cd4f46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6ef2bf3a1c47eca07ea95f0d8a902a6340390b34",
-                "reference": "6ef2bf3a1c47eca07ea95f0d8a902a6340390b34",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/61fed79803b6c75d461b909dfac05bbef5cd4f46",
+                "reference": "61fed79803b6c75d461b909dfac05bbef5cd4f46",
                 "shasum": ""
             },
             "require": {
@@ -565,7 +572,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-28 10:53:45"
+            "time": "2014-05-19 01:58:57"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -702,16 +709,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.2.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
+                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
-                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/955c24b708f8bfd6a05f303217a8dac3a443d531",
+                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531",
                 "shasum": ""
             },
             "require": {
@@ -748,11 +755,11 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-03-03 05:10:30"
+            "time": "2014-05-12 05:34:42"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.37",
+            "version": "3.7.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
@@ -825,26 +832,34 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "1.2.3",
+            "version": "1.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "5794e3c5c5ba0fb037b11d8151add2a07fa82875"
+                "reference": "c39c4511c3b007539eb170c32cbc2af49a07351a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5794e3c5c5ba0fb037b11d8151add2a07fa82875",
-                "reference": "5794e3c5c5ba0fb037b11d8151add2a07fa82875",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/c39c4511c3b007539eb170c32cbc2af49a07351a",
+                "reference": "c39c4511c3b007539eb170c32cbc2af49a07351a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "phpunit/php-text-template": ">=1.1.1@stable"
             },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*@dev"
+            },
             "suggest": {
                 "ext-soap": "*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "PHPUnit/"
@@ -870,7 +885,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2013-01-13 10:24:48"
+            "time": "2014-02-16 12:43:56"
         },
         {
             "name": "symfony/class-loader",
@@ -926,17 +941,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.5.0",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "b4b09c68ec2f2727574544ef0173684281a5033c"
+                "reference": "b01d366060f33e18fd98b0008c41a01b0d25c95c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b4b09c68ec2f2727574544ef0173684281a5033c",
-                "reference": "b4b09c68ec2f2727574544ef0173684281a5033c",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b01d366060f33e18fd98b0008c41a01b0d25c95c",
+                "reference": "b01d366060f33e18fd98b0008c41a01b0d25c95c",
                 "shasum": ""
             },
             "require": {
@@ -945,7 +960,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -971,13 +986,13 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-16 14:25:18"
+            "time": "2014-06-04 06:43:44"
         }
     ],
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "symfony/class-loader": 20
     },
