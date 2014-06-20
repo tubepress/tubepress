@@ -31,23 +31,37 @@ class tubepress_core_cache_impl_stash_FilesystemCacheBuilder
         $this->_filesystem = $fs;
     }
 
-    public function buildCache()
+    public function buildFilesystemDriver()
     {
         $dir = $this->_context->get(tubepress_core_cache_api_Constants::DIRECTORY);
 
-        if (!$dir || !is_writable($dir)) {
+        /**
+         * If a path was given, but it's not a directory, let's try to create it.
+         */
+        if ($dir != '' && !is_dir($dir)) {
 
             @mkdir($dir, 0755, true);
         }
 
-        if (!$dir || !is_writable($dir)) {
+        /**
+         * If the directory exists, but isn't writable, let's try to change that.
+         */
+        if (is_dir($dir) && !is_writable($dir)) {
+
+            @chmod($dir, 0755);
+        }
+
+        /**
+         * If we don't have a writable directory, use the system temp directory.
+         */
+        if (!is_dir($dir) || !is_writable($dir)) {
 
             $dir = $this->_filesystem->getSystemTempDirectory() . DIRECTORY_SEPARATOR . 'tubepress-api-cache';
         }
 
-        return new ehough_stash_Pool(new ehough_stash_driver_FileSystem(array(
+        $driver = new ehough_stash_driver_FileSystem();
+        $driver->setOptions(array('path' => $dir));
 
-            'path' => $dir
-        )));
+        return $driver;
     }
 }

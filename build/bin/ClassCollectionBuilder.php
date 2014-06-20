@@ -22,12 +22,12 @@ class tubepress_build_ClassCollectionBuilder
 
     public static function build()
     {
-        @unlink(TUBEPRESS_ROOT . "/src/platform/scripts/classloading/commonly-used-classes.php");
+        @unlink(TUBEPRESS_ROOT . "/src/platform/scripts/classloading/classes.php");
 
         self::load(
             self::$CLASSES,
             TUBEPRESS_ROOT . '/src/platform/scripts/classloading',
-            'commonly-used-classes',
+            'classes',
             false
         );
     }
@@ -358,9 +358,11 @@ EOT;
         'ehough_iconic_Container',
         'ehough_iconic_ContainerInterface',
         'ehough_iconic_IntrospectableContainerInterface',
+        'ehough_stash_Invalidation',
         'ehough_stash_Item',
         'ehough_stash_Pool',
         'ehough_stash_Utilities',
+        'ehough_stash_driver_Ephemeral',
         'ehough_stash_driver_FileSystem',
         'ehough_stash_interfaces_DriverInterface',
         'ehough_stash_interfaces_ItemInterface',
@@ -499,6 +501,7 @@ EOT;
         'tubepress_core_player_impl_BasePlayerLocation',
         'tubepress_core_player_impl_PlayerHtml',
         'tubepress_core_player_impl_listeners_html_SoloPlayerListener',
+        'tubepress_core_player_impl_listeners_options_AcceptableValues',
         'tubepress_core_player_impl_listeners_template_PlayerLocationCoreVariables',
         'tubepress_core_shortcode_api_Constants',
         'tubepress_core_shortcode_api_ParserInterface',

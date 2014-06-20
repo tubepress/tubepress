@@ -83,6 +83,7 @@ class tubepress_test_platform_scripts_classloadingtest extends tubepress_test_Tu
             $toReturn[$className] = $path;
         }
 
+        ksort($toReturn);
         return $toReturn;
     }
 

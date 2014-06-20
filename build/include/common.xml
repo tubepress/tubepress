@@ -178,7 +178,7 @@
             <arg value="./ClassCollectionBuilder.php" />
         </exec>
 
-        <move file="../src/platform/scripts/classloading/commonly-used-classes.php" tofile="${stagingdir}/src/platform/scripts/classloading/commonly-used-classes.php" verbose="true"/>
+        <move file="../src/platform/scripts/classloading/classes.php" tofile="${stagingdir}/src/platform/scripts/classloading/classes.php" verbose="true"/>
     </target>
 
 </project>

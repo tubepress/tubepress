@@ -106,7 +106,7 @@ class tubepress_core_http_impl_PlayerAjaxCommand implements tubepress_core_http_
 
         if ($isDebugEnabled) {
 
-            $this->_logger->debug('Now asking video collector for item with ID ' . $itemId);
+            $this->_logger->debug('Now asking collector for item with ID ' . $itemId);
         }
 
         /* grab the item! */

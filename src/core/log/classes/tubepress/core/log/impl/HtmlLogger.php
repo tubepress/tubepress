@@ -22,12 +22,7 @@ class tubepress_core_log_impl_HtmlLogger implements tubepress_api_log_LoggerInte
     /**
      * @var string[]
      */
-    private $_debugBuffer;
-
-    /**
-     * @var string[]
-     */
-    private $_errorBuffer;
+    private $_bootMessageBuffer;
 
     /**
      * @var bool
@@ -42,12 +37,11 @@ class tubepress_core_log_impl_HtmlLogger implements tubepress_api_log_LoggerInte
     public function __construct(tubepress_core_options_api_ContextInterface        $context,
                                 tubepress_core_http_api_RequestParametersInterface $requestParams)
     {
-        $loggingRequested    = $requestParams->hasParam('tubepress_debug') && $requestParams->getParamValue('tubepress_debug') === true;
-        $loggingEnabled      = $context->get(tubepress_core_log_api_Constants::OPTION_DEBUG_ON);
-        $this->_enabled      = $loggingRequested && $loggingEnabled;
-        $this->_debugBuffer  = array();
-        $this->_errorBuffer  = array();
-        $this->_shouldBuffer = true;
+        $loggingRequested         = $requestParams->hasParam('tubepress_debug') && $requestParams->getParamValue('tubepress_debug') === true;
+        $loggingEnabled           = $context->get(tubepress_core_log_api_Constants::OPTION_DEBUG_ON);
+        $this->_enabled           = $loggingRequested && $loggingEnabled;
+        $this->_bootMessageBuffer = array();
+        $this->_shouldBuffer      = true;
 
         $this->_timezone = new DateTimeZone(@date_default_timezone_get() ? @date_default_timezone_get() : 'UTC');
     }
@@ -56,21 +50,15 @@ class tubepress_core_log_impl_HtmlLogger implements tubepress_api_log_LoggerInte
     {
         if (!$this->_enabled) {
 
-            unset($this->_errorBuffer);
-            unset($this->_debugBuffer);
+            unset($this->_bootMessageBuffer);
             return;
         }
 
         $this->_shouldBuffer = false;
 
-        foreach ($this->_debugBuffer as $debugMessage) {
+        foreach ($this->_bootMessageBuffer as $message) {
 
-            $this->debug($debugMessage, array());
-        }
-
-        foreach ($this->_errorBuffer as $errorMessage) {
-
-            $this->error($errorMessage, array());
+            echo $message;
         }
     }
 
@@ -130,14 +118,7 @@ class tubepress_core_log_impl_HtmlLogger implements tubepress_api_log_LoggerInte
 
         if ($this->_shouldBuffer) {
 
-            if ($error) {
-
-                $this->_errorBuffer[] = $finalMessage;
-
-            } else {
-
-                $this->_debugBuffer[] = $finalMessage;
-            }
+            $this->_bootMessageBuffer[] = $finalMessage;
 
         } else {
 
@@ -157,7 +138,7 @@ class tubepress_core_log_impl_HtmlLogger implements tubepress_api_log_LoggerInte
             $message .= ' ' . json_encode($context);
         }
 
-        return "<span style=\"color: $color\">[$formattedTime][$level] $message</span><br />\n";
+        return "<span style=\"color: $color\">[$formattedTime - $level] $message</span><br />\n";
     }
 
     /**

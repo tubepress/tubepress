@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-return array(
+return array (
     'ehough_contemplate_api_TemplateBuilder' => TUBEPRESS_ROOT . '/vendor/ehough/contemplate/src/main/php/ehough/contemplate/api/TemplateBuilder.php',
     'ehough_contemplate_api_exception_IException' => TUBEPRESS_ROOT . '/vendor/ehough/contemplate/src/main/php/ehough/contemplate/api/exception/IException.php',
     'ehough_contemplate_api_exception_InvalidArgumentException' => TUBEPRESS_ROOT . '/vendor/ehough/contemplate/src/main/php/ehough/contemplate/api/exception/InvalidArgumentException.php',
@@ -129,7 +129,9 @@ return array(
     'ehough_pulsar_ClassMapGenerator' => TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ClassMapGenerator.php',
     'ehough_pulsar_MapClassLoader' => TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php',
     'ehough_pulsar_UniversalClassLoader' => TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/UniversalClassLoader.php',
+    'ehough_stash_DriverList' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/DriverList.php',
     'ehough_stash_Drivers' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/Drivers.php',
+    'ehough_stash_Invalidation' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/Invalidation.php',
     'ehough_stash_Session' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/Session.php',
     'ehough_stash_driver_Apc' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/driver/Apc.php',
     'ehough_stash_driver_Composite' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/driver/Composite.php',
@@ -146,10 +148,11 @@ return array(
     'ehough_stash_interfaces_drivers_ExtendInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/interfaces/drivers/ExtendInterface.php',
     'ehough_stash_interfaces_drivers_IncDecInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/interfaces/drivers/IncDecInterface.php',
     'ehough_stash_interfaces_drivers_MultiInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/interfaces/drivers/MultiInterface.php',
-    'ehough_stash_session_SessionHandlerInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/session/SessionHandlerInterface.php',
+    'ehough_stash_session_SessionHandlerInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/session/SessionHandlerInterface_Legacy.php',
     'ehough_tickertape_EventSubscriberInterface' => TUBEPRESS_ROOT . '/vendor/ehough/tickertape/src/main/php/ehough/tickertape/EventSubscriberInterface.php',
     'ehough_tickertape_ImmutableEventDispatcher' => TUBEPRESS_ROOT . '/vendor/ehough/tickertape/src/main/php/ehough/tickertape/ImmutableEventDispatcher.php',
     'ehough_tickertape_dependencyinjection_RegisterListenersPass' => TUBEPRESS_ROOT . '/vendor/ehough/tickertape/src/main/php/ehough/tickertape/dependencyinjection/RegisterListenersPass.php',
+    'puzzle_AbstractListenerAttacher' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/AbstractListenerAttacher.php',
     'puzzle_Mimetypes' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/Mimetypes.php',
     'puzzle_SplObjectStorage' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/SplObjectStorage.php',
     'puzzle_UriTemplate' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/UriTemplate.php',
@@ -162,6 +165,7 @@ return array(
     'puzzle_cookie_CookieJar' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cookie/CookieJar.php',
     'puzzle_cookie_CookieJarInterface' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cookie/CookieJarInterface.php',
     'puzzle_cookie_FileCookieJar' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cookie/FileCookieJar.php',
+    'puzzle_cookie_SessionCookieJar' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cookie/SessionCookieJar.php',
     'puzzle_cookie_SetCookie' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/cookie/SetCookie.php',
     'puzzle_event_AbstractEvent' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/event/AbstractEvent.php',
     'puzzle_event_AbstractRequestEvent' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/event/AbstractRequestEvent.php',

@@ -85,6 +85,11 @@ class tubepress_impl_boot_PrimaryBootstrapper
     private function _wrappedBoot()
     {
         /**
+         * Register the fatal error handler.
+         */
+        $this->_00_registerFatalErrorHandler();
+
+        /**
          * Setup initial class loader.
          */
         $this->_01_registerMinimalClassLoader();
@@ -125,6 +130,11 @@ class tubepress_impl_boot_PrimaryBootstrapper
         $this->_08_freeMemory();
     }
 
+    private function _00_registerFatalErrorHandler()
+    {
+        register_shutdown_function(array($this, '__handleFatalError'));
+    }
+
     private function _01_registerMinimalClassLoader()
     {
         /**
@@ -134,7 +144,7 @@ class tubepress_impl_boot_PrimaryBootstrapper
         if (!isset($this->_bootLogger)) {
 
             /** @noinspection PhpIncludeInspection */
-            require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/commonly-used-classes.php';
+            require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php';
         }
     }
 
@@ -276,6 +286,39 @@ class tubepress_impl_boot_PrimaryBootstrapper
         self::$_BOOT_EXCEPTION = $e;
 
         throw $e;
+    }
+
+    public function __handleFatalError()
+    {
+        $error = error_get_last();
+
+        if (!is_array($error) || !isset($error['file'])) {
+
+            return;
+        }
+
+        $needle     = 'tubepress-service-container.php';
+        $fileName   = $error['file'];
+        $fileLength = strlen($needle);
+        $start      = $fileLength * -1; //negative
+
+        if (substr($fileName, $start) === $needle) {
+
+            $unlinked = unlink($fileName);
+
+            if ($unlinked !== true || !isset($_SERVER['REQUEST_URI'])) {
+
+                return;
+            }
+
+            $uri = $_SERVER['REQUEST_URI'];
+
+            echo <<<YYY
+<div>TubePress detected a fatal error with its system cache is has attempted to resolve the issue. Refreshing this page now...</div>
+<script type="text/javascript">window.location.replace("$uri");</script>
+YYY
+            ;
+        }
     }
 
 

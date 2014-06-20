@@ -36,10 +36,17 @@ class tubepress_core_cache_ioc_CacheExtension implements tubepress_api_ioc_Conta
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference('ehough_filesystem_FilesystemInterface'));
 
-        $actualPoolDefinition = new tubepress_impl_ioc_Definition('ehough_stash_interfaces_PoolInterface');
-        $actualPoolDefinition->setFactoryService('tubepress_core_cache_impl_stash_FilesystemCacheBuilder');
-        $actualPoolDefinition->setFactoryMethod('buildCache');
-        $containerBuilder->setDefinition('ehough_stash_interfaces_PoolInterface', $actualPoolDefinition);
+        $containerBuilder->register(
+
+            'ehough_stash_interfaces_PoolInterface',
+            'ehough_stash_Pool'
+        )->addMethodCall('setDriver', array(new tubepress_api_ioc_Reference('ehough_stash_interfaces_DriverInterface')));
+
+        $containerBuilder->register(
+            'ehough_stash_interfaces_DriverInterface',
+            'ehough_stash_interfaces_DriverInterface'
+        )->setFactoryService('tubepress_core_cache_impl_stash_FilesystemCacheBuilder')
+         ->setFactoryMethod('buildFilesystemDriver');
 
         $containerBuilder->register(
 

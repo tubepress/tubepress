@@ -46,12 +46,8 @@ class tubepress_test_core_cache_impl_stash_FilesystemCacheBuilderTest extends tu
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_core_cache_api_Constants::DIRECTORY)->andReturn('/abc');
         $this->_mockFs->shouldReceive('getSystemTempDirectory')->once()->andReturn(sys_get_temp_dir());
 
-        $result = $this->_sut->buildCache();
+        $result = $this->_sut->buildFilesystemDriver();
 
-        $this->assertInstanceOf('ehough_stash_Pool', $result);
-
-        $driver = $result->getDriver();
-
-        $this->assertInstanceOf('ehough_stash_driver_FileSystem', $driver);
+        $this->assertInstanceOf('ehough_stash_interfaces_DriverInterface', $result);
     }
 }

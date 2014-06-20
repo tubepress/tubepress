@@ -410,7 +410,7 @@ class tubepress_impl_boot_BootSettings implements tubepress_api_boot_BootSetting
             $tmp = '/tmp/';
         }
 
-        $baseDir = $tmp . 'tubepress-container-cache/' . md5(dirname(__FILE__)) . '/';
+        $baseDir = $tmp . 'tubepress-system-cache/' . md5(dirname(__FILE__)) . '/';
 
         if (!is_dir($baseDir)) {
 

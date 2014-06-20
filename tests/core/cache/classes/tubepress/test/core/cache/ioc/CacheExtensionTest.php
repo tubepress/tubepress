@@ -31,10 +31,17 @@ class tubepress_test_core_cache_ioc_CacheExtensionTest extends tubepress_test_co
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference('ehough_filesystem_FilesystemInterface'));
 
-        $actualPoolDefinition = new tubepress_impl_ioc_Definition('ehough_stash_interfaces_PoolInterface');
-        $actualPoolDefinition->setFactoryService('tubepress_core_cache_impl_stash_FilesystemCacheBuilder');
-        $actualPoolDefinition->setFactoryMethod('buildCache');
-        $this->expectDefinition('ehough_stash_interfaces_PoolInterface', $actualPoolDefinition);
+        $this->expectRegistration(
+
+            'ehough_stash_interfaces_PoolInterface',
+            'ehough_stash_Pool'
+        )->withMethodCall('setDriver', array(new tubepress_api_ioc_Reference('ehough_stash_interfaces_DriverInterface')));
+
+        $this->expectRegistration(
+            'ehough_stash_interfaces_DriverInterface',
+            'ehough_stash_interfaces_DriverInterface'
+        )->withFactoryService('tubepress_core_cache_impl_stash_FilesystemCacheBuilder')
+            ->withFactoryMethod('buildFilesystemDriver');
 
         $this->expectRegistration(
 
