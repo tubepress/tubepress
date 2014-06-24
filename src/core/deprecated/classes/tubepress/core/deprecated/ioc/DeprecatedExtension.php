@@ -44,7 +44,11 @@ class tubepress_core_deprecated_ioc_DeprecatedExtension implements tubepress_api
          ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE,
             'method'   => 'onTemplate',
+            'priority' => 10100))
+         ->addTag(tubepress_core_ioc_api_Constants::TAG_EVENT_LISTENER, array(
+            'event'    => tubepress_core_html_single_api_Constants::EVENT_SINGLE_ITEM_TEMPLATE,
+            'method'   => 'onSingleTemplate',
             'priority' => 10100
-        ));
+         ));
     }
 }

@@ -47,6 +47,16 @@ class tubepress_core_deprecated_impl_listeners_LegacyMetadataTemplateListener
         $this->_optionReference = $optionReference;
     }
 
+    public function onSingleTemplate(tubepress_core_event_api_EventInterface $event)
+    {
+        /**
+         * @var $template tubepress_core_template_api_TemplateInterface
+         */
+        $template = $event->getSubject();
+
+        $template->setVariable('video', $event->getArgument('item'));
+    }
+
     public function onTemplate(tubepress_core_event_api_EventInterface $event)
     {
         /**
