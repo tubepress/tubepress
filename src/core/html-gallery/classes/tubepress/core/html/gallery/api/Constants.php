@@ -137,7 +137,7 @@ interface tubepress_core_html_gallery_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTIONS_UI_CATEGORY_THUMBNAILS = 'thumbnails-category';
+    const OPTIONS_UI_CATEGORY_THUMBNAILS = 'tubepress-core-thumbnails-category';
 
     /**
      * @api

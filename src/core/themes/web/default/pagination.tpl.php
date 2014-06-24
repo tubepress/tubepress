@@ -118,9 +118,9 @@ if ($pageCount > 1) : ?>
             <li class="disabled">
                 <span>&laquo;&nbsp;<?php echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_PREV}; ?></span>
             </li>
-        <?php endif; ?>
+        <?php endif;
 
-        <?php if ($startPage > 1) : ?>
+        if ($startPage > 1) : ?>
 
             <li>
                 <?php ___a(1, ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT}); ?>
@@ -138,10 +138,12 @@ if ($pageCount > 1) : ?>
                     <span>&hellip;</span>
                 </li>
 
-            <?php endif; ?>
-        <?php endif; ?>
-        <?php foreach ($pages as $page) : ?>
-            <?php if ($page != $current) : ?>
+            <?php endif;
+
+        endif;
+
+        foreach ($pages as $page) :
+            if ($page != $current) : ?>
                 <li>
                     <?php ___a($page, ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT}); ?>
                 </li>
@@ -149,12 +151,12 @@ if ($pageCount > 1) : ?>
                 <li class="active">
                     <span><?php echo $page; ?></span>
                 </li>
-            <?php endif ?>
-        <?php endforeach; ?>
+            <?php endif;
+        endforeach; ?>
 
-        <?php if ($pageCount > $endPage) : ?>
-            <?php if ($pageCount > ($endPage + 1)) : ?>
-                <?php if ($pageCount > ($endPage + 2)) : ?>
+        <?php if ($pageCount > $endPage) :
+            if ($pageCount > ($endPage + 1)) :
+                if ($pageCount > ($endPage + 2)) : ?>
                     <li class="disabled">
                         <span>&hellip;</span>
                     </li>
@@ -162,13 +164,13 @@ if ($pageCount > 1) : ?>
                     <li>
                         <?php ___a(($pageCount - 1), ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT}); ?>
                     </li>
-                <?php endif; ?>
-            <?php endif; ?>
+                <?php endif;
+            endif; ?>
             <li>
                 <?php ___a($pageCount, ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT}); ?>
             </li>
-        <?php endif; ?>
-        <?php if (isset($nextPage)) : ?>
+        <?php endif;
+        if (isset($nextPage)) : ?>
             <li>
                 <?php ___a($nextPage, ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_HREF_FORMAT}, ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TEXT_NEXT} . '&nbsp;&raquo;'); ?>
             </li>

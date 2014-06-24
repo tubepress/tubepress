@@ -146,7 +146,7 @@ EOF
 
         $result = $this->_sut->getPathToContainerCacheFile();
 
-        $this->assertRegExp('~[^/]+/tubepress-container-cache/[a-f0-9]+/tubepress-service-container\.php~', $result);
+        $this->assertRegExp('~[^/]+/tubepress-system-cache/[a-f0-9]+/tubepress-service-container\.php~', $result);
     }
 
     public function testFallback()

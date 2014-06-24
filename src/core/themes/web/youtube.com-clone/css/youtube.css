@@ -44,8 +44,8 @@
 .tubepress-youtube div.tubepress_img {
 
     /**
-     * The "runtime" has absolute position, so make this guy relative
-     * runtime overlays the thumb.
+     * The "duration" has absolute position, so make this guy relative
+     * duration overlays the thumb.
      */
     position: relative;
 
@@ -69,9 +69,9 @@
  */
 
 /**
- * This overlays the video runtime on top of the thumbnail image.
+ * This overlays the video duration on top of the thumbnail image.
  */
-.tubepress-youtube span.tubepress_meta_runtime {
+.tubepress-youtube span.tubepress_meta_duration {
 
     padding: 0 4px;
     font-weight: bold;
@@ -88,18 +88,24 @@
 }
 
 /**
- * Remove the ":" following author and view count
+ * Hide the dt for these attributes.
  */
-.tubepress-youtube dt.tubepress_meta_author:after,
-.tubepress-youtube dt.tubepress_meta_uploaddate:after,
-.tubepress-youtube dt.tubepress_meta_views:after {
-    content: '';
+.tubepress-youtube dt.tubepress_meta_timePublishedFormatted,
+.tubepress-youtube dt.tubepress_meta_viewCount {
+    display: none;
+}
+
+/**
+ * Colorize the time published.
+ */
+.tubepress-youtube .tubepress_thumbnail_area dd.tubepress_meta_timePublishedFormatted {
+    color: #999;
 }
 
 /**
  * Style the word "by"
  */
-.tubepress-youtube dt.tubepress_meta_author {
+.tubepress-youtube dt.tubepress_meta_authorDisplayName {
 
     font-weight: normal;
     font-style: normal;
@@ -107,9 +113,9 @@
 }
 
 /**
- * Prevent a line break after "views", so upload date aligns up next to it
+ * Remove the ":" after the label for author display name.
  */
-.tubepress-youtube  dd.tubepress_meta_views:after {
+.tubepress-youtube dt.tubepress_meta_authorDisplayName:after {
 
     content: '';
 }
@@ -117,7 +123,7 @@
 /**
  * Add a little space to the right of the view count.
  */
-.tubepress-youtube  dd.tubepress_meta_views {
+.tubepress-youtube  dd.tubepress_meta_viewCount {
 
     margin-right: 8px !important;
 }
@@ -125,7 +131,7 @@
 /**
  * Make sure the actual author name is unstyled.
  */
-.tubepress-youtube dd.tubepress_meta_author a {
+.tubepress-youtube dd.tubepress_meta_authorDisplayName a {
 
     text-decoration: none;
 }
@@ -133,7 +139,7 @@
 /**
  * Underline the author during hover
  */
-.tubepress-youtube dd.tubepress_meta_author a:hover {
+.tubepress-youtube dd.tubepress_meta_authorDisplayName a:hover {
 
     text-decoration: underline;
 }
@@ -164,28 +170,43 @@ div.tubepress_single_video.tubepress-youtube dl.tubepress_meta_group {
 }
 
 /**
- * Hide the words "author" and "view count", and hide the entire runtime.
+ * Hide the words "author" and "view count", and hide the entire duration.
  */
-div.tubepress_single_video.tubepress-youtube dt.tubepress_meta_author,
-div.tubepress_single_video.tubepress-youtube dt.tubepress_meta_views,
-div.tubepress_single_video.tubepress-youtube .tubepress_meta_runtime {
+div.tubepress_single_video.tubepress-youtube dt.tubepress_meta_authorDisplayName,
+div.tubepress_single_video.tubepress-youtube dt.tubepress_meta_viewCount,
+div.tubepress_single_video.tubepress-youtube .tubepress_meta_duration {
 
     display: none;
 }
 
 /**
+ * Ensure "published on" is visible.
+ */
+div.tubepress_single_video.tubepress-youtube  dt.tubepress_meta_timePublishedFormatted {
+
+    display: inline;
+}
+
+/**
  * Add a space after "published on"
  */
-div.tubepress_single_video.tubepress-youtube  dt.tubepress_meta_uploaddate:after {
+div.tubepress_single_video.tubepress-youtube  dt.tubepress_meta_timePublishedFormatted:after {
 
     content: ' ';
+}
+
+/**
+ * Colorize the time published.
+ */
+div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_timePublishedFormatted {
+    font-weight: bold;
 }
 
 
 /**
  * Apply style to the video author.
  */
-div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_author {
+div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_authorDisplayName {
 
     font-size: 13px;
     font-weight: bold;
@@ -194,7 +215,7 @@ div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_author {
 /**
  * Position the view count over on the right.
  */
-div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_views {
+div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_viewCount {
 
     position: absolute;
     top: 0;

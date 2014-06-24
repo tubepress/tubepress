@@ -67,6 +67,7 @@ class tubepress_core_html_gallery_ioc_GalleryExtension implements tubepress_api_
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ContextInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_player_api_PlayerHtmlInterface::_))
+         ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
          ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
             'tag'    => tubepress_core_player_api_PlayerLocationInterface::_,
             'method' => 'setPlayerLocations'))

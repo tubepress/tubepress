@@ -21,5 +21,5 @@ interface tubepress_core_theme_api_Constants
      */
     const OPTION_THEME = 'theme';
 
-    const OPTIONS_UI_CATEGORY_THEMES = 'theme-category';
+    const OPTIONS_UI_CATEGORY_THEMES = 'tubepress-core-theme-category';
 }

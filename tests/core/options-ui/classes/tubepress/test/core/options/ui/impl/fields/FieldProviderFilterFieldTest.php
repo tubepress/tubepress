@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_core_options_ui_impl_fields_ParticipantFilterField<extended>
+ * @covers tubepress_core_options_ui_impl_fields_FieldProviderFilterField<extended>
  */
-class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest extends tubepress_test_core_options_ui_impl_fields_AbstractMultiSelectFieldTest
+class tubepress_test_core_options_ui_impl_fields_FieldProviderFilterFieldTest extends tubepress_test_core_options_ui_impl_fields_AbstractMultiSelectFieldTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -22,14 +22,14 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
     /**
      * @var tubepress_core_options_ui_api_FieldProviderInterface[]
      */
-    private $_mockOptionsPageParticipants;
+    private $_mockFieldProviders;
 
     /**
      * @return tubepress_core_options_ui_impl_fields_AbstractOptionsPageField
      */
     protected function buildSut()
     {
-        $sut = new tubepress_core_options_ui_impl_fields_ParticipantFilterField(
+        $sut = new tubepress_core_options_ui_impl_fields_FieldProviderFilterField(
 
             $this->getMockTranslator(),
             $this->getMockPersistence(),
@@ -39,7 +39,7 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
             $this->_mockOptionReference
         );
 
-        $sut->setOptionsPageParticipants($this->_mockOptionsPageParticipants);
+        $sut->setFieldProviders($this->_mockFieldProviders);
 
         return $sut;
     }
@@ -48,7 +48,7 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
     {
         $result = $this->getSut()->getId();
 
-        $this->assertEquals('participant-filter-field', $result);
+        $this->assertEquals('field-provider-filter-field', $result);
     }
 
     public function testIsProOnly()
@@ -60,29 +60,29 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
     {
         $this->_mockOptionReference = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
 
-        $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock label');
-        $this->_mockOptionReference->shouldReceive('getUntranslatedDescription')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('mock desc');
+        $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS)->andReturn('mock label');
+        $this->_mockOptionReference->shouldReceive('getUntranslatedDescription')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS)->andReturn('mock desc');
 
-        $this->_mockOptionsPageParticipants = array();
+        $this->_mockFieldProviders = array();
 
         foreach (array('a', 'b', 'c', 'd') as $letter) {
 
-            $participant = $this->mock('tubepress_core_options_ui_api_FieldProviderInterface');
-            $participant->shouldReceive('getId')->andReturn($letter);
-            $participant->shouldReceive('getTranslatedDisplayName')->andReturn(strtoupper($letter));
-            $participant->shouldReceive('isAbleToBeFilteredFromGui')->andReturn($letter !== 'c');
-            $this->_mockOptionsPageParticipants[] = $participant;
+            $fieldProvider = $this->mock('tubepress_core_options_ui_api_FieldProviderInterface');
+            $fieldProvider->shouldReceive('getId')->andReturn($letter);
+            $fieldProvider->shouldReceive('getTranslatedDisplayName')->andReturn(strtoupper($letter));
+            $fieldProvider->shouldReceive('isAbleToBeFilteredFromGui')->andReturn($letter !== 'c');
+            $this->_mockFieldProviders[] = $fieldProvider;
         }
     }
 
     protected function setupExpectationsForFailedStorageWhenAllMissing($errorMessage)
     {
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'a;b;d')->andReturn($errorMessage);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS, 'a;b;d')->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenAllMissing()
     {
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'a;b;d')->andReturn(null);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS, 'a;b;d')->andReturn(null);
     }
 
     /**
@@ -90,7 +90,7 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
      */
     protected function doPrepareForGetWidgetHtml(ehough_mockery_mockery_MockInterface $mockTemplate)
     {
-        $this->getMockPersistence()->shouldReceive('fetch')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('a;b;c');
+        $this->getMockPersistence()->shouldReceive('fetch')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS)->andReturn('a;b;c');
 
         $mockTemplate->shouldReceive('setVariable')->once()->with('currentlySelectedValues', array('d'));
         $mockTemplate->shouldReceive('setVariable')->once()->with('ungroupedChoices', array('a' => 'A', 'b' => 'B', 'd' => 'D'));
@@ -101,14 +101,14 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
     {
         $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getOptionsPageItemId())->andReturn(array('a', 'b'));
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'd')->andReturn($errorMessage);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS, 'd')->andReturn($errorMessage);
     }
 
     protected function setupExpectationsForGoodStorageWhenMixed()
     {
         $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getOptionsPageItemId())->andReturn(array('a', 'b'));
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS, 'd')->andReturn(null);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS, 'd')->andReturn(null);
     }
 
     /**
@@ -116,7 +116,7 @@ class tubepress_test_core_options_ui_impl_fields_ParticipantFilterFieldTest exte
      */
     protected function getOptionsPageItemId()
     {
-        return 'participant-filter-field';
+        return 'field-provider-filter-field';
     }
 }
 

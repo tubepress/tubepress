@@ -43,7 +43,7 @@
             "tubepress_core_options_ui_impl_fields_AbstractTemplateBasedOptionsPageField"     : "classes/tubepress/core/options/ui/impl/fields/AbstractTemplateBasedOptionsPageField.php",
             "tubepress_core_options_ui_impl_fields_GallerySourceField"                        : "classes/tubepress/core/options/ui/impl/fields/GallerySourceField.php",
             "tubepress_core_options_ui_impl_fields_GallerySourceRadioField"                   : "classes/tubepress/core/options/ui/impl/fields/GallerySourceRadioField.php",
-            "tubepress_core_options_ui_impl_fields_ParticipantFilterField"                    : "classes/tubepress/core/options/ui/impl/fields/ParticipantFilterField.php",
+            "tubepress_core_options_ui_impl_fields_FieldProviderFilterField"                    : "classes/tubepress/core/options/ui/impl/fields/FieldProviderFilterField.php",
             "tubepress_core_options_ui_impl_fields_provided_AbstractProvidedOptionBasedField" : "classes/tubepress/core/options/ui/impl/fields/provided/AbstractProvidedOptionBasedField.php",
             "tubepress_core_options_ui_impl_fields_provided_BooleanField"                     : "classes/tubepress/core/options/ui/impl/fields/provided/BooleanField.php",
             "tubepress_core_options_ui_impl_fields_provided_DropdownField"                    : "classes/tubepress/core/options/ui/impl/fields/provided/DropdownField.php",

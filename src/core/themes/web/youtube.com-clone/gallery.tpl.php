@@ -8,9 +8,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-?>
 
-<?php
+/**
+ * First let's see if we have any videos to display...
+ */
+if (empty(${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ARRAY})):
+
+    echo $translator->_('No matching videos'); //>(translatable)<
+
+else:
+
 /**
  * <div class="tubepress_container" id="tubepress_gallery_123456789">
  *
@@ -24,12 +31,10 @@
     <?php
     /**
      * The following statement prints out any HTML required for the TubePress "player location". We do not recommend removing
-     * this statement, though you may move it around the file.
+     * this statement, though you may move it around the template if you'd like.
      */
-    ?>
-  <?php echo ${tubepress_core_player_api_Constants::TEMPLATE_VAR_HTML}; ?>
+    echo ${tubepress_core_player_api_Constants::TEMPLATE_VAR_HTML};
 
-    <?php
     /**
      * <div id="tubepress_gallery_123456789_thumbnail_area" class="tubepress_thumbnail_area">
      *
@@ -37,16 +42,16 @@
      * the "class" attribute, but do not remove the existing "tubepress_thumbnail_area" class name.
      */
     ?>
-  <div id="tubepress_gallery_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>_thumbnail_area" class="tubepress_thumbnail_area">
-
-        <?
-        /**
-         * The following statement prints out any pagination above the thumbnail array, if necessary.
-         */
-        ?>
-    <?php if (isset(${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOP})) : echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOP}; endif; ?>
+    <div id="tubepress_gallery_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>_thumbnail_area" class="tubepress_thumbnail_area">
 
         <?php
+        /**
+         * The following block prints out any pagination above the thumbnail array, if necessary.
+         */
+        if (isset(${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOP})) :
+            echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_TOP};
+        endif;
+
         /**
          * <div class="tubepress_thumbs">
          *
@@ -54,7 +59,7 @@
          * the "class" attribute, but do not remove the existing "tubepress_thumbs" class name.
          */
         ?>
-    <div class="tubepress_thumbs">
+        <div class="tubepress_thumbs">
 
             <?php
             /**
@@ -62,9 +67,8 @@
              *
              * @var $mediaItem tubepress_core_media_item_api_MediaItem
              */
-            foreach (${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ARRAY} as $mediaItem): ?>
+            foreach (${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_MEDIA_ITEM_ARRAY} as $mediaItem):
 
-            <?php
             /**
              * <div class="tubepress_thumb">
              *
@@ -74,251 +78,109 @@
             <div class="tubepress_thumb">
 
                 <div class="tubepress_img"  style="width: <?php echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_WIDTH}; ?>px">
-                    <a id="tubepress_image_<?php echo $mediaItem->getId(); ?>_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>" rel="tubepress_<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_IMPL_NAME}; ?>_<?php echo ${tubepress_core_player_api_Constants::TEMPLATE_VAR_NAME}; ?>_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>">
-                        <img alt="<?php echo htmlspecialchars($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), ENT_QUOTES, "UTF-8"); ?>" src="<?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_THUMBNAIL_URL); ?>" width="<?php echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_WIDTH}; ?>" height="<?php echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_HEIGHT}; ?>" />
+
+                    <a id="tubepress_image_<?php echo $mediaItem->getId(); ?>_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>" <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_INVOCATION_ANCHOR_ATTRIBUTES); ?>>
+                    <img id="tubepress_image_<?php echo $mediaItem->getId(); ?>_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>"
+                         alt="<?php echo htmlspecialchars($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), ENT_QUOTES, 'UTF-8'); ?>"
+                         src="<?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_THUMBNAIL_URL); ?>"
+                         width="<?php echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_WIDTH}; ?>"
+                         height="<?php echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_HEIGHT}; ?>" />
                     </a>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_LENGTH]): ?>
-                    <span class="tubepress_meta_runtime">
+
+                    <?php
+                    /**
+                     * Print out the runtime.
+                     */
+                    if (in_array(tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW})): ?>
+                    <span class="tubepress_meta_duration">
                         <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED); ?>
                     </span>
                     <?php endif; ?>
-                </div>
+
+                </div><?php //end of div.tubepress_img ?>
 
                 <dl class="tubepress_meta_group" style="width: <?php echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_THUMBNAIL_WIDTH}; ?>px">
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's title, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_TITLE]): ?>
-                    <dt class="tubepress_meta tubepress_meta_title">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_TITLE]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_title">
-                        <a id="tubepress_title_<?php echo $mediaItem->getId(); ?>_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>" rel="tubepress_<?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_IMPL_NAME}; ?>_<?php echo ${tubepress_core_player_api_Constants::TEMPLATE_VAR_NAME}; ?>_<?php echo ${tubepress_core_html_api_Constants::TEMPLATE_VAR_GALLERY_ID}; ?>">
-                            <?php
+                        <?php
+
+                        /**
+                         * Limit the title to 35 characters.
+                         */
+                        if (in_array(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW})):
 
                             if (strlen($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE)) > 35) {
 
-                                $mediaItem->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE, substr($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), 0, 35) . ' ...');
+                                $mediaItem->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE,
+                                    substr($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), 0, 35) . ' ...');
                             }
-                            echo htmlspecialchars($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), ENT_QUOTES, "UTF-8");
+                        endif;
 
-                            ?>
-                        </a>
-                    </dd>
-                    <?php endif; ?>
+                        require dirname(__FILE__) . '/_fragments/authorDisplayNamePrep.fragment.php';
 
+                        /**
+                         * Adjust the display of "views"
+                         */
+                        if (in_array(tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW})):
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's author display name, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_AUTHOR]): ?>
-                    <dt class="tubepress_meta tubepress_meta_author">
-                        by
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_author">
-                        <a rel="external nofollow" href="http://www.youtube.com/user/<?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_USER_ID); ?>">
-                            <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME); ?>
-                        </a>
-                    </dd>
-                    <?php endif; ?>
+                            $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT;
+                            ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTE_LABELS}[$attributeName] = '';
+                            $mediaItem->setAttribute("$attributeName.postHtml", ' views');
+                        endif;
 
+                        /**
+                         * Get rid of the label for time published.
+                         */
+                        if (in_array(tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW})):
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's keywords, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_KEYWORDS]): ?>
-                    <dt class="tubepress_meta tubepress_meta_keywords">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_KEYWORDS]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_keywords">
-                        <?php echo htmlspecialchars(implode(" ", $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORD_ARRAY)), ENT_QUOTES, "UTF-8"); ?>
-                    </dd>
-                    <?php endif; ?>
+                            $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED;
+                            ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTE_LABELS}[$attributeName] = '';
+                        endif;
 
+                        /**
+                         * We want to adjust the display order so that these are shown first.
+                         */
+                        $modifiedAttributeNames = array(
+                            tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE,
+                            tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+                            tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
+                            tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
+                        );
+                        $modifiedAttributeNames = array_intersect($modifiedAttributeNames, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW});
+                        ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW} = array_diff(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW}, $modifiedAttributeNames);
+                        ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW} = array_merge($modifiedAttributeNames, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW});
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's URL, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_URL]): ?>
-                    <dt class="tubepress_meta tubepress_meta_url">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_URL]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_url">
-                        <a rel="external nofollow" href="<?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL); ?>">
-                            <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_URL]; ?>
-                        </a>
-                    </dd>
-                    <?php endif; ?>
+                        /**
+                         * Loop over the attributes for this media item.
+                         */
+                        foreach (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW} as $attributeName):
 
+                            /**
+                             * We already showed the runtime.
+                             */
+                            if ($attributeName === tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED) {
+                                continue;
+                            }
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's category, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_CATEGORY] &&
-                      $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_CATEGORY_DISPLAY_NAME) != ""):
-                    ?>
-                    <dt class="tubepress_meta tubepress_meta_category">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_CATEGORY]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_category">
-                        <?php echo htmlspecialchars($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_CATEGORY_DISPLAY_NAME), ENT_QUOTES, "UTF-8"); ?>
-                    </dd>
-                    <?php endif; ?>
+                            require dirname(__FILE__) . '/../default/_fragments/dt_dd_pair.fragment.php';
 
+                        endforeach; ?>
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's rating count, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (isset(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATINGS]) &&
-                        ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATINGS] &&
-                        $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_COUNT) != ""):
-                    ?>
-                    <dt class="tubepress_meta tubepress_meta_ratings">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_youtube_api_Constants::OPTION_RATINGS]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_ratings">
-                        <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_COUNT); ?>
-                    </dd>
-                    <?php endif; ?>
+                    </dl>
 
+            </div><?php // end of div.tubepress_thumb
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's "likes" count, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (isset(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_vimeo_api_Constants::OPTION_LIKES]) &&
-                        ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_vimeo_api_Constants::OPTION_LIKES] &&
-                        $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT) != ""):
-                    ?>
-                    <dt class="tubepress_meta tubepress_meta_likes">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_vimeo_api_Constants::OPTION_LIKES]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_likes">
-                        <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT); ?>
-                    </dd>
-                    <?php endif; ?>
+            endforeach; ?>
 
+        </div><?php //end of div.tubepress_thumbs
 
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's rating average, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (isset(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATING]) &&
-                        ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATING] &&
-                        $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE) != ""):
-                    ?>
-                    <dt class="tubepress_meta tubepress_meta_rating">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_youtube_api_Constants::OPTION_RATING]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_rating">
-                        <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE); ?>
-                    </dd>
-                    <?php endif; ?>
-
-
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's ID, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_ID]): ?>
-                    <dt class="tubepress_meta tubepress_meta_id">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_ID]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_id">
-                        <?php echo $mediaItem->getId(); ?>
-                    </dd>
-                    <?php endif; ?>
-
-
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's view count, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_VIEWS]): ?>
-                    <dt class="tubepress_meta tubepress_meta_views">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_VIEWS]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_views">
-                        <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT); ?>
-                    </dd>
-                    <?php endif; ?>
-
-
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's publish date, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_UPLOADED]): ?>
-                    <dt class="tubepress_meta tubepress_meta_uploaddate">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_UPLOADED]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_uploaddate">
-                        <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED); ?>
-                    </dd>
-                    <?php endif; ?>
-
-
-                    <?php
-                    /**
-                     * The following dt/dd block prints out the media item's description, if required. You may add to, but not remove, the existing class names for each
-                     * of the elements. Do not modify or remove any of the existing "id" attributes.
-                     */
-                    ?>
-                    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION]): ?>
-                    <dt class="tubepress_meta tubepress_meta_description">
-                        <?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION]; ?>
-                    </dt>
-                    <dd class="tubepress_meta tubepress_meta_description">
-                        <?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION); ?>
-                    </dd>
-                    <?php endif; ?>
-
-                </dl>
-            </div><?php // end of div.tubepress_thumb ?>
-            <?php
-            /**
-             * Stop looping through the videos...
-             */
-            ?>
-      <?php endforeach; ?>
-
-        </div><?php //end of div.tubepress_thumbs ?>
-
-        <?
         /**
-         * The following statement prints out any pagination above the thumbnail array, if necessary.
+         * The following block prints out any pagination below the thumbnail array, if necessary.
          */
-        ?>
-    <?php if (isset(${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_BOTTOM})) : echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_BOTTOM}; endif; ?>
+        if (isset(${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_BOTTOM})) :
+            echo ${tubepress_core_html_gallery_api_Constants::TEMPLATE_VAR_PAGINATION_BOTTOM};
+        endif; ?>
 
     </div><?php //end of div.tubepress_thumbnail_area ?>
-</div><?php //end of div.tubepress_container ?>
+</div><?php //end of div.tubepress_container
+
+endif; //end of top-level if/else block ?>

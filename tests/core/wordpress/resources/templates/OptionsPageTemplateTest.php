@@ -14,7 +14,7 @@ class tubepress_test_wordpress_resources_templates_OptionsPageTemplateTest exten
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockParticipantFilterField;
+    private $_mockFilterField;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -23,9 +23,9 @@ class tubepress_test_wordpress_resources_templates_OptionsPageTemplateTest exten
 
     public function onSetup()
     {
-        $this->_mockParticipantFilterField = $this->mock('tubepress_core_options_ui_api_FieldInterface');
-        $this->_mockParticipantFilterField->shouldReceive('getTranslatedDisplayName')->once()->andReturn('participant filter name');
-        $this->_mockParticipantFilterField->shouldReceive('getWidgetHTML')->once()->andReturn('abc');
+        $this->_mockFilterField = $this->mock('tubepress_core_options_ui_api_FieldInterface');
+        $this->_mockFilterField->shouldReceive('getTranslatedDisplayName')->once()->andReturn('field provider filter name');
+        $this->_mockFilterField->shouldReceive('getWidgetHTML')->once()->andReturn('abc');
 
         $this->_mockNonceField = $this->mock('tubepress_core_options_ui_api_FieldInterface');
         $this->_mockNonceField->shouldReceive('getWidgetHTML')->once()->andReturn('xyz');
@@ -71,8 +71,8 @@ class tubepress_test_wordpress_resources_templates_OptionsPageTemplateTest exten
             'successMessage' => 'SUCCESS',
             'fields'         => array(
 
-                'participant-filter-field' => $this->_mockParticipantFilterField,
-                'tubepress-nonce'          => $this->_mockNonceField
+                'field-provider-filter-field' => $this->_mockFilterField,
+                'tubepress-nonce'             => $this->_mockNonceField
             ),
             'errors'         => array(),
             'isPro'          => false,

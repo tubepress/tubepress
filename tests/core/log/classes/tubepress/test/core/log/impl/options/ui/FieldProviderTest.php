@@ -52,7 +52,7 @@ class tubepress_test_core_log_impl_options_ui_FieldProviderTest extends tubepres
         $fields     = $this->_sut->getFields();
 
         $this->assertEquals('', $name);
-        $this->assertEquals('log-field-provider', $id);
+        $this->assertEquals('tubepress-core-log-field-provider', $id);
         $this->assertTrue(is_array($categories) && count($categories) === 1);
         $this->assertSame($categories[0], $this->_mockCategory);
         $this->assertTrue(is_array($fields) && count($fields) === 1);

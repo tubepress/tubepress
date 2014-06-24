@@ -10,7 +10,7 @@
  */
 ?>
 
-<div class="tab-pane fade<?php if ($categoryIndex++ === 0): ?> in active<?php endif; ?>" id="theme-category">
+<div class="tab-pane fade<?php if ($categoryIndex++ === 0): ?> in active<?php endif; ?>" id="tubepress-core-theme-category">
 
     <div class="row">
 
@@ -21,16 +21,16 @@
             <?php
 
             /** @noinspection PhpUndefinedVariableInspection */
-            foreach ($categoryIdToParticipantIdToFieldsMap['theme-category'] as $participantId => $fieldIds) {
+            foreach ($categoryIdToProviderIdToFieldsMap['tubepress-core-theme-category'] as $providerId => $fieldIds) {
 
                 if (count($fieldIds) === 0) {
 
-                    //no fields in this participant - move on
+                    //no fields in this provider - move on
                     continue;
                 }
 
                 /** @noinspection PhpUndefinedVariableInspection */
-                $participant = $participants[$participantId];
+                $fieldProvider = $fieldProviders[$providerId];
 
                 foreach ($fieldIds as $fieldId) {
 

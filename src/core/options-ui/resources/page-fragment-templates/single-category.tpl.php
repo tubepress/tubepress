@@ -16,17 +16,17 @@
 
         <div class="col-md-12">
             <?php
-            foreach ($categoryIdToParticipantIdToFieldsMap[$category->getId()] as $participantId => $fieldIds) {
+            foreach ($categoryIdToProviderIdToFieldsMap[$category->getId()] as $providerId => $fieldIds) {
 
                 if (count($fieldIds) === 0) {
 
-                    //no fields in this participant - move on
+                    //no fields in this provider - move on
                     continue;
                 }
 
-                $participant = $participants[$participantId];
+                $fieldProvider = $fieldProviders[$providerId];
 
-                require 'single-participant.tpl.php';
+                require 'single-field-provider.tpl.php';
 
             }
             ?>

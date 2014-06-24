@@ -60,7 +60,7 @@ class tubepress_test_core_media_item_impl_options_ui_FieldProviderTest extends t
         $fields     = $this->_sut->getFields();
 
         $this->assertEquals('sdf', $name);
-        $this->assertEquals('media-item-field-provider', $id);
+        $this->assertEquals('tubepress-core-media-item-field-provider', $id);
         $this->assertTrue(is_array($categories) && count($categories) === 1);
         $this->assertSame($categories[0], $this->_mockCategory);
         $this->assertTrue(is_array($fields) && count($fields) === 1);

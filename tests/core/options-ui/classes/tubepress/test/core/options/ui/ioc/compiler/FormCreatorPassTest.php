@@ -42,9 +42,10 @@ class tubepress_test_core_options_ui_ioc_compiler_FormCreatorPassTest extends tu
         $this->_expectReference($mockDefinition, tubepress_core_environment_api_EnvironmentInterface::_);
         $this->_expectReference($mockDefinition, tubepress_core_options_api_PersistenceInterface::_);
         $this->_expectReference($mockDefinition, tubepress_core_event_api_EventDispatcherInterface::_);
+        $this->_expectReference($mockDefinition, tubepress_api_util_StringUtilsInterface::_);
         $mockDefinition->shouldReceive('addTag')->once()->with(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
             'tag'    => 'tubepress_core_options_ui_api_FieldProviderInterface',
-            'method' => 'setOptionsPageParticipants'
+            'method' => 'setFieldProviders'
         ));
 
         $this->_mockContainerBuilder->shouldReceive('register')->once()->with(

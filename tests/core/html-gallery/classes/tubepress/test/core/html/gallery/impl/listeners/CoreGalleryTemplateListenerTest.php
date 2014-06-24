@@ -84,10 +84,16 @@ class tubepress_test_core_html_gallery_impl_listeners_CoreGalleryTemplateListene
         $this->_testGalleryIdAndItems();
         $this->_testThumbSizes();
         $this->_testPlayerLocationStuff();
+        $this->_testTranslator();
 
         $this->_sut->onGalleryTemplate($this->_mockEvent);
 
         $this->assertTrue(true);
+    }
+
+    private function _testTranslator()
+    {
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with('translator', $this->_mockTranslator);
     }
 
     private function _testEmbeddedImplName()

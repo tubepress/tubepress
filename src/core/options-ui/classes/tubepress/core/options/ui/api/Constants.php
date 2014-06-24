@@ -49,7 +49,7 @@ interface tubepress_core_options_ui_api_Constants
      * @api
      * @since 4.0.0
      */
-    const OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS = 'disabledOptionsPageParticipants';
+    const OPTION_DISABLED_FIELD_PROVIDERS = 'disabledFieldProviderNames';
 
 
     const IOC_TAG_OPTIONS_PAGE_TEMPLATE = 'tubepress.core.options.ui.ioc.tag.optionsPageTemplate';

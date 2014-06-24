@@ -56,11 +56,11 @@ class tubepress_core_media_provider_impl_options_ui_FieldProvider implements tub
      */
     public function getId()
     {
-        return 'media-provider-field-provider';
+        return 'tubepress-core-media-provider-field-provider';
     }
 
     /**
-     * @return tubepress_core_options_ui_api_ElementInterface[] The categories that this participant supplies.
+     * @return tubepress_core_options_ui_api_ElementInterface[] The categories that this field provider supplies.
      *
      * @api
      * @since 4.0.0
@@ -71,7 +71,7 @@ class tubepress_core_media_provider_impl_options_ui_FieldProvider implements tub
     }
 
     /**
-     * @return tubepress_core_options_ui_api_FieldInterface[] The fields that this options page participant provides.
+     * @return tubepress_core_options_ui_api_FieldInterface[] The fields that this field provider provides.
      *
      * @api
      * @since 4.0.0
@@ -94,7 +94,7 @@ class tubepress_core_media_provider_impl_options_ui_FieldProvider implements tub
     }
 
     /**
-     * @return boolean True if this participant should show up in the "Only show options to..." dropdown. False otherwise.
+     * @return boolean True if this field provider should show up in the "Only show options to..." dropdown. False otherwise.
      *
      * @api
      * @since 4.0.0
@@ -105,7 +105,7 @@ class tubepress_core_media_provider_impl_options_ui_FieldProvider implements tub
     }
 
     /**
-     * @return boolean True if this participant should separate its field into separate boxes. False otherwise.
+     * @return boolean True if this field provider should separate its field into separate boxes. False otherwise.
      *
      * @api
      * @since 4.0.0

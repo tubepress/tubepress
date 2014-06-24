@@ -1,31 +1,26 @@
     <div class="tubepress_pagination tubepress_pagination-centered">
         <ul>
-
                     <li>
                 <a href="xyz3" data-page="3" rel="nofollow">&laquo;&nbsp;prevv</a>            </li>
-
-
             <li>
                 <a href="xyz1" data-page="1">1</a>            </li>
-
-                                                        <li>
+                            <li>
                     <a href="xyz2" data-page="2" rel="nofollow">2</a>                </li>
-                                                <li>
+                            <li>
                     <a href="xyz3" data-page="3" rel="nofollow">3</a>                </li>
-                                                <li class="active">
+                            <li class="active">
                     <span>4</span>
                 </li>
-                                                <li>
+                            <li>
                     <a href="xyz5" data-page="5" rel="nofollow">5</a>                </li>
-                                                <li>
+                            <li>
                     <a href="xyz6" data-page="6" rel="nofollow">6</a>                </li>
-
-                                                        <li class="disabled">
+                            <li class="disabled">
                         <span>&hellip;</span>
                     </li>
-                                        <li>
-                <a href="xyz10" data-page="10" rel="nofollow">10</a>            </li>
                             <li>
+                <a href="xyz10" data-page="10" rel="nofollow">10</a>            </li>
+                    <li>
                 <a href="xyz5" data-page="5" rel="nofollow">nextt&nbsp;&raquo;</a>            </li>
                 </ul>
     </div>

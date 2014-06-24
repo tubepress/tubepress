@@ -11,7 +11,7 @@
 
     'use strict';
 
-    var id = '#participant-filter-field',
+    var id = '#field-provider-filter-field',
 
         showAndHide = function (selected, all) {
 
@@ -30,16 +30,16 @@
             });
         },
 
-        normalizeParticipantName = function (e) {
+        normalizeProviderName = function (e) {
 
-            return 'tubepress-participant-' + jquery(this).val().toLowerCase();
+            return 'tubepress-field-provider-' + jquery(this).val().toLowerCase();
         },
 
         applySettings = function () {
 
             var rawSelected = jquery(id + ' option:selected'),
-                selected    = rawSelected.map(normalizeParticipantName),
-                all         = jquery(id + ' option').map(normalizeParticipantName);
+                selected    = rawSelected.map(normalizeProviderName),
+                all         = jquery(id + ' option').map(normalizeProviderName);
 
             showAndHide(selected, all);
         },

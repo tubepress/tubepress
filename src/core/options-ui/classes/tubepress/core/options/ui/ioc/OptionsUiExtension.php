@@ -64,24 +64,24 @@ class tubepress_core_options_ui_ioc_OptionsUiExtension implements tubepress_api_
         $containerBuilder->setParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_options_ui', array(
 
             'defaultValues' => array(
-                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS => null,
+                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS => null,
             ),
 
             'labels' => array(
-                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS => 'Only show options applicable to...', //>(translatable)<
+                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
             )
         ));
 
         $containerBuilder->register(
-            'tubepress_core_options_ui_impl_fields_ParticipantFilterField',
-            'tubepress_core_options_ui_impl_fields_ParticipantFilterField'
+            'tubepress_core_options_ui_impl_fields_FieldProviderFilterField',
+            'tubepress_core_options_ui_impl_fields_FieldProviderFilterField'
         )->addArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_template_api_TemplateFactoryInterface::_))
          ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_));
-        $fieldReferences = array(new tubepress_api_ioc_Reference('tubepress_core_options_ui_impl_fields_ParticipantFilterField'));
+        $fieldReferences = array(new tubepress_api_ioc_Reference('tubepress_core_options_ui_impl_fields_FieldProviderFilterField'));
 
         $containerBuilder->register(
             'tubepress_core_options_ui_api_ElementInterface_advanced_category',

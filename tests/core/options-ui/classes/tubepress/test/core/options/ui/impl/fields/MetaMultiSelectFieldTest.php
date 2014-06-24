@@ -143,15 +143,15 @@ class tubepress_test_core_options_ui_impl_fields_MetaMultiSelectFieldTest extend
 
     private function _setupForMetaOptionNames()
     {
-        $this->_mockVideoProvider1->shouldReceive('getMetaOptionNames')->atLeast(1)->andReturn(array(
+        $this->_mockVideoProvider1->shouldReceive('getMapOfMetaOptionNamesToAttributeDisplayNames')->atLeast(1)->andReturn(array(
 
-            'foo',
-            'buzz',
+            'foo' => 'bla',
+            'buzz' => 'boo',
         ));
-        $this->_mockVideoProvider2->shouldReceive('getMetaOptionNames')->atLeast(1)->andReturn(array(
+        $this->_mockVideoProvider2->shouldReceive('getMapOfMetaOptionNamesToAttributeDisplayNames')->atLeast(1)->andReturn(array(
 
-            'foo',
-            'bar',
+            'foo' => 'acb',
+            'bar' => 'xyz',
         ));
     }
 }

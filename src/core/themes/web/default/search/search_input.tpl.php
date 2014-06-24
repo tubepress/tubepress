@@ -17,9 +17,19 @@
          * if you're curious as to what's going on here
          */
 		foreach (${tubepress_core_html_search_api_Constants::TEMPLATE_VAR_HIDDEN_INPUTS} as $name => $value) : ?>
-		  <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
-		<?php endforeach; ?>
-<input type="text" id="tubepress_search" name="tubepress_search" class="tubepress_text_input" value="<?php echo htmlspecialchars(${tubepress_core_html_search_api_Constants::TEMPLATE_VAR_TERMS}); ?>"/>
-		<button class="tubepress_button" title="Submit Search"><?php echo htmlspecialchars(${tubepress_core_html_search_api_Constants::TEMPLATE_VAR_BUTTON}); ?></button>
+
+            <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
+
+        <?php endforeach; ?>
+
+        <input type="text"
+               id="tubepress_search"
+               name="tubepress_search"
+               class="tubepress_text_input"
+               value="<?php echo htmlspecialchars(${tubepress_core_html_search_api_Constants::TEMPLATE_VAR_TERMS}); ?>" />
+
+		<button class="tubepress_button" title="Submit Search">
+            <?php echo htmlspecialchars(${tubepress_core_html_search_api_Constants::TEMPLATE_VAR_BUTTON}); ?>
+        </button>
 	</fieldset>
 </form>

@@ -270,7 +270,7 @@ return array (
     'tubepress_core_options_ui_impl_fields_GallerySourceField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/GallerySourceField.php',
     'tubepress_core_options_ui_impl_fields_GallerySourceRadioField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/GallerySourceRadioField.php',
     'tubepress_core_options_ui_impl_fields_MetaMultiSelectField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/MetaMultiSelectField.php',
-    'tubepress_core_options_ui_impl_fields_ParticipantFilterField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/ParticipantFilterField.php',
+    'tubepress_core_options_ui_impl_fields_FieldProviderFilterField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/FieldProviderFilterField.php',
     'tubepress_core_options_ui_impl_fields_provided_AbstractProvidedOptionBasedField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/provided/AbstractProvidedOptionBasedField.php',
     'tubepress_core_options_ui_impl_fields_provided_BooleanField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/provided/BooleanField.php',
     'tubepress_core_options_ui_impl_fields_provided_DropdownField' => TUBEPRESS_ROOT . '/src/core/options-ui/classes/tubepress/core/options/ui/impl/fields/provided/DropdownField.php',

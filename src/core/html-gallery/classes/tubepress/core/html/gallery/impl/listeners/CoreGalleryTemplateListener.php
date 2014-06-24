@@ -19,13 +19,20 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
      */
     private $_playerHtml;
 
-    public function __construct(tubepress_core_options_api_ContextInterface   $context,
-                                tubepress_core_options_api_ReferenceInterface $optionReference,
-                                tubepress_core_player_api_PlayerHtmlInterface $playerHtml)
+    /**
+     * @var tubepress_core_translation_api_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_core_options_api_ContextInterface        $context,
+                                tubepress_core_options_api_ReferenceInterface      $optionReference,
+                                tubepress_core_player_api_PlayerHtmlInterface      $playerHtml,
+                                tubepress_core_translation_api_TranslatorInterface $translator)
     {
         parent::__construct($context, $optionReference);
 
         $this->_playerHtml = $playerHtml;
+        $this->_translator = $translator;
     }
 
     public function onGalleryTemplate(tubepress_core_event_api_EventInterface $event)
@@ -41,6 +48,12 @@ class tubepress_core_html_gallery_impl_listeners_CoreGalleryTemplateListener ext
         $this->_setItemArrayAndGalleryId($event, $template);
         $this->_setThumbnailSizes($template);
         $this->_setPlayerLocationStuff($event, $template);
+        $this->_setTranslator($template);
+    }
+
+    private function _setTranslator(tubepress_core_template_api_TemplateInterface $template)
+    {
+        $template->setVariable('translator', $this->_translator);
     }
 
     private function _setPlayerLocationStuff(tubepress_core_event_api_EventInterface      $event,

@@ -118,9 +118,22 @@ class tubepress_core_media_item_impl_listeners_MetadataTemplateListener
 
         foreach ($map as $metaOptionName => $attributeName) {
 
+            if ($attributeName === tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION) {
+
+                continue;
+            }
+
             if ($this->_context->get($metaOptionName)) {
 
                 $toReturn[] = $attributeName;
+            }
+        }
+
+        if (array_key_exists(tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION, $map)) {
+
+            if ($this->_context->get(tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION)) {
+
+                $toReturn[] = $map[tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION];
             }
         }
 
@@ -173,20 +186,32 @@ class tubepress_core_media_item_impl_listeners_MetadataTemplateListener
 
     private function _setPreAndPostAttributes(tubepress_core_media_item_api_MediaItem $item)
     {
-        if (!$item->hasAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE)) {
+        if ($item->hasAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE)) {
 
-            return;
+            $anchorAttributes = $item->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_INVOCATION_ANCHOR_ATTRIBUTES);
+            $galleryId        = $this->_context->get(tubepress_core_html_api_Constants::OPTION_GALLERY_ID);
+            $item->setAttribute(
+                sprintf('%s.preHtml', tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE),
+                sprintf('<a id="tubepress_title_%s_%s" %s>', $item->getId(), $galleryId, $anchorAttributes)
+            );
+            $item->setAttribute(
+                sprintf('%s.postHtml', tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE),
+                '</a>'
+            );
         }
 
-        $anchorAttributes = $item->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_INVOCATION_ANCHOR_ATTRIBUTES);
-        $item->setAttribute(
-            sprintf('%s.preHtml', tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE),
-            sprintf('<a %s>', $anchorAttributes)
-        );
-        $item->setAttribute(
-            sprintf('%s.postHtml', tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE),
-            '</a>'
-        );
+        if ($item->hasAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL)) {
+
+            $item->setAttribute(
+                sprintf('%s.preHtml', tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL),
+                sprintf('<a rel="nofollow" target="_blank" href="%s">', $item->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL))
+            );
+            $item->setAttribute(
+                sprintf('%s.postHtml', tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL),
+                '</a>'
+            );
+            $item->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL, 'URL');
+        }
     }
 
     private function _setInvocationAnchorForSingleItem(tubepress_core_media_item_api_MediaItem $item)

@@ -60,24 +60,24 @@ class tubepress_test_core_options_ui_ioc_OptionsUiExtensionTest extends tubepres
         $this->expectParameter(tubepress_core_options_api_Constants::IOC_PARAM_EASY_REFERENCE . '_options_ui', array(
 
             'defaultValues' => array(
-                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS => null,
+                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS => null,
             ),
 
             'labels' => array(
-                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS => 'Only show options applicable to...', //>(translatable)<
+                tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
             )
         ));
 
         $this->expectRegistration(
-            'tubepress_core_options_ui_impl_fields_ParticipantFilterField',
-            'tubepress_core_options_ui_impl_fields_ParticipantFilterField'
+            'tubepress_core_options_ui_impl_fields_FieldProviderFilterField',
+            'tubepress_core_options_ui_impl_fields_FieldProviderFilterField'
         )->withArgument(new tubepress_api_ioc_Reference(tubepress_core_translation_api_TranslatorInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_http_api_RequestParametersInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_template_api_TemplateFactoryInterface::_))
             ->withArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_ReferenceInterface::_));
-        $fieldReferences = array(new tubepress_api_ioc_Reference('tubepress_core_options_ui_impl_fields_ParticipantFilterField'));
+        $fieldReferences = array(new tubepress_api_ioc_Reference('tubepress_core_options_ui_impl_fields_FieldProviderFilterField'));
 
         $this->expectRegistration(
             'tubepress_core_options_ui_api_ElementInterface_advanced_category',
@@ -99,8 +99,8 @@ class tubepress_test_core_options_ui_ioc_OptionsUiExtensionTest extends tubepres
     protected function getExpectedExternalServicesMap()
     {
         $optionReference = $this->mock(tubepress_core_options_api_ReferenceInterface::_);
-        $optionReference->shouldReceive('getUntranslatedLabel')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('SDF');
-        $optionReference->shouldReceive('getUntranslatedDescription')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS)->andReturn('SDF');
+        $optionReference->shouldReceive('getUntranslatedLabel')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS)->andReturn('SDF');
+        $optionReference->shouldReceive('getUntranslatedDescription')->once()->with(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS)->andReturn('SDF');
 
         return array(
             tubepress_core_translation_api_TranslatorInterface::_ => tubepress_core_translation_api_TranslatorInterface::_,

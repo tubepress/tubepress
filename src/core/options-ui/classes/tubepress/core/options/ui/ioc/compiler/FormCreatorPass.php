@@ -40,9 +40,10 @@ class tubepress_core_options_ui_ioc_compiler_FormCreatorPass implements tubepres
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_environment_api_EnvironmentInterface::_))
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_options_api_PersistenceInterface::_))
              ->addArgument(new tubepress_api_ioc_Reference(tubepress_core_event_api_EventDispatcherInterface::_))
+             ->addArgument(new tubepress_api_ioc_Reference(tubepress_api_util_StringUtilsInterface::_))
              ->addTag(tubepress_core_ioc_api_Constants::TAG_TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => 'tubepress_core_options_ui_api_FieldProviderInterface',
-                'method' => 'setOptionsPageParticipants'
+                'method' => 'setFieldProviders'
             ));
         }
     }

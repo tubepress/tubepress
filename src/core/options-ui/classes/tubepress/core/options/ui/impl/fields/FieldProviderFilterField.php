@@ -12,14 +12,14 @@
 /**
  * Displays a multi-select drop-down input for video meta.
  */
-class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubepress_core_options_ui_impl_fields_AbstractMultiSelectField
+class tubepress_core_options_ui_impl_fields_FieldProviderFilterField extends tubepress_core_options_ui_impl_fields_AbstractMultiSelectField
 {
-    const FIELD_ID = 'participant-filter-field';
+    const FIELD_ID = 'field-provider-filter-field';
 
     /**
      * @var tubepress_core_options_ui_api_FieldProviderInterface[]
      */
-    private $_optionsPageParticipants = array();
+    private $_fieldProviders = array();
 
     public function __construct(tubepress_core_translation_api_TranslatorInterface   $translator,
                                 tubepress_core_options_api_PersistenceInterface      $persistence,
@@ -28,7 +28,7 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
                                 tubepress_core_template_api_TemplateFactoryInterface $templateFactory,
                                 tubepress_core_options_api_ReferenceInterface        $optionsReference)
     {
-        $optionName = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS;
+        $optionName = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS;
 
         parent::__construct(
 
@@ -54,11 +54,11 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
     }
 
     /**
-     * @param tubepress_core_options_ui_api_FieldProviderInterface[] $participants
+     * @param tubepress_core_options_ui_api_FieldProviderInterface[] $providers
      */
-    public function setOptionsPageParticipants(array $participants)
+    public function setFieldProviders(array $providers)
     {
-        $this->_optionsPageParticipants = $participants;
+        $this->_fieldProviders = $providers;
     }
 
     /**
@@ -66,16 +66,16 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      */
     protected function getCurrentlySelectedValues()
     {
-        $optionName          = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS;
+        $optionName          = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS;
         $currentHides        = explode(';', $this->getOptionPersistence()->fetch($optionName));
-        $participantsNameMap = $this->_getParticipantNamesToDisplayNamesMap();
+        $providerNameMap      = $this->_getFieldProvidersIdToDisplayNameMap();
         $currentShows        = array();
 
-        foreach ($participantsNameMap as $participantName => $participantDisplayName) {
+        foreach ($providerNameMap as $fieldProviderName => $fieldProviderDisplayName) {
 
-            if (! in_array($participantName, $currentHides)) {
+            if (! in_array($fieldProviderName, $currentHides)) {
 
-                $currentShows[] = $participantName;
+                $currentShows[] = $fieldProviderName;
             }
         }
 
@@ -87,7 +87,7 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      */
     protected function getUngroupedTranslatedChoicesArray()
     {
-        return $this->_getParticipantNamesToDisplayNamesMap();
+        return $this->_getFieldProvidersIdToDisplayNameMap();
     }
 
     /**
@@ -95,10 +95,10 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      */
     protected function onSubmitAllMissing()
     {
-        $participantIds = array_keys($this->_getParticipantNamesToDisplayNamesMap());
-        $newValue       = implode(';', $participantIds);
+        $providerIds = array_keys($this->_getFieldProvidersIdToDisplayNameMap());
+        $newValue       = implode(';', $providerIds);
 
-        return $this->getOptionPersistence()->queueForSave(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS, $newValue);
+        return $this->getOptionPersistence()->queueForSave(tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS, $newValue);
     }
 
     /**
@@ -108,17 +108,17 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
      */
     protected function onSubmitMixed(array $values)
     {
-        $optionName          = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_OPTIONS_PAGE_PARTICIPANTS;
-        $allParticipantNames = array_keys($this->_getParticipantNamesToDisplayNamesMap());
+        $optionName          = tubepress_core_options_ui_api_Constants::OPTION_DISABLED_FIELD_PROVIDERS;
+        $allFieldProviderNames = array_keys($this->_getFieldProvidersIdToDisplayNameMap());
 
         $toHide = array();
 
-        foreach ($allParticipantNames as $participantName) {
+        foreach ($allFieldProviderNames as $fieldProviderName) {
 
             /*
              * They checked the box, which means they want to show it.
              */
-            if (in_array($participantName, $values)) {
+            if (in_array($fieldProviderName, $values)) {
 
                 continue;
             }
@@ -126,24 +126,24 @@ class tubepress_core_options_ui_impl_fields_ParticipantFilterField extends tubep
             /**
              * They don't want to show this provider, so hide it.
              */
-            $toHide[] = $participantName;
+            $toHide[] = $fieldProviderName;
         }
 
         return $this->getOptionPersistence()->queueForSave($optionName, implode(';', $toHide));
     }
 
-    private function _getParticipantNamesToDisplayNamesMap()
+    private function _getFieldProvidersIdToDisplayNameMap()
     {
         $toReturn = array();
 
-        foreach ($this->_optionsPageParticipants as $participant) {
+        foreach ($this->_fieldProviders as $fieldProvider) {
 
-            if (!$participant->isAbleToBeFilteredFromGui()) {
+            if (!$fieldProvider->isAbleToBeFilteredFromGui()) {
 
                 continue;
             }
 
-            $toReturn[$participant->getId()] = $participant->getTranslatedDisplayName();
+            $toReturn[$fieldProvider->getId()] = $fieldProvider->getTranslatedDisplayName();
         }
 
         return $toReturn;

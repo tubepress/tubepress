@@ -8,96 +8,106 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+/**
+ * <div class="tubepress_single_video">
+ *
+ * The outer-most <div> for a TubePress media item. You may add additional class names to
+ * the "class" attribute, but do not remove the existing "tubepress_single_video" class name.
+ */
 ?>
-
 <div class="tubepress_single_video tubepress-youtube">
-    
-    <?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE}; ?>
 
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_TITLE]): ?>
+    <?php
+    /**
+     * The following statement prints out any HTML required for the TubePress embedded media player. We do not recommend removing
+     * this statement, though you may move it around the template if you'd like.
+     */
+    echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_SOURCE};
+
+    /**
+     * The following block prints out the media item's title, if requested. You may add to, but not remove,
+     * the existing class names for each of the elements.
+     */
+    if (in_array(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW})): ?>
         <div class="tubepress_embedded_title"><?php
             if (strlen($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE)) > 55) {
 
                 $mediaItem->setAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE, substr($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), 0, 55) . ' ...');
             }
-            echo htmlspecialchars($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), ENT_QUOTES, "UTF-8");
+            echo htmlspecialchars($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE), ENT_QUOTES, 'UTF-8');
             ?></div>
-    <?php endif; ?>
-
+    <?php endif;
+    /**
+     * <dl class="tubepress_meta_group" ...>
+     *
+     * This <dl> wraps each video's metadata (title, duration, etc). You may add additional class names to
+     * the "class" attribute, but do not remove the existing "tubepress_meta_group" class name.
+     */
+    ?>
     <dl class="tubepress_meta_group" style="width: <?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH}; ?>px">
 
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_LENGTH]): ?>
+        <?php require dirname(__FILE__) . '/_fragments/authorDisplayNamePrep.fragment.php';
 
-    <dt class="tubepress_meta tubepress_meta_runtime"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_LENGTH]; ?></dt><dd class="tubepress_meta tubepress_meta_runtime"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_DURATION_FORMATTED); ?></dd>
-    <?php endif; ?>
+        $topDlElements = array(
+            tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+            tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
+        );
 
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_AUTHOR]): ?>
-    
-    <dt class="tubepress_meta tubepress_meta_author"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><a rel="external nofollow" href="http://www.youtube.com/user/<?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_USER_ID); ?>"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME); ?></a></dd>
-    <?php endif; ?>
+        foreach ($topDlElements as $attributeName) {
 
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_VIEWS]): ?>
+            if (in_array($attributeName, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW})) {
 
-        <dt class="tubepress_meta tubepress_meta_views"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_VIEWS]; ?></dt><dd class="tubepress_meta tubepress_meta_views"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT); ?></dd>
-    <?php endif; ?>
+                require dirname(__FILE__) . '/../default/_fragments/dt_dd_pair.fragment.php';
+            }
+        } ?>
 
     </dl>
 
+    <?php
+    /**
+     * <dl class="tubepress_meta_group" ...>
+     *
+     * This <dl> wraps each video's metadata (title, duration, etc). You may add additional class names to
+     * the "class" attribute, but do not remove the existing "tubepress_meta_group" class name.
+     */
+    ?>
     <dl class="tubepress_meta_group" style="width: <?php echo ${tubepress_core_embedded_api_Constants::TEMPLATE_VAR_WIDTH}; ?>px">
 
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_KEYWORDS]): ?>
-    
-    <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_KEYWORDS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_KEYWORD_ARRAY)), ENT_QUOTES, "UTF-8"); ?></a></dd>
-    <?php endif; ?>
-    
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_URL]): ?>
-    
-    <dt class="tubepress_meta tubepress_meta_url"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_URL]; ?></dt><dd class="tubepress_meta tubepress_meta_url"><a rel="external nofollow" href="<?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_HOME_URL); ?>"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_URL]; ?></a></dd>
-    <?php endif; ?>
-    
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_CATEGORY] &&
-        $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_CATEGORY_DISPLAY_NAME) != ""):
-    ?>
-    
-    <dt class="tubepress_meta tubepress_meta_category"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_CATEGORY]; ?></dt><dd class="tubepress_meta tubepress_meta_category"><?php echo htmlspecialchars($mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_CATEGORY_DISPLAY_NAME), ENT_QUOTES, "UTF-8"); ?></dd>
-    <?php endif; ?>
-        
-    <?php if (isset(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATINGS]) && ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATINGS] &&
-        $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_COUNT) != ""):
-    ?>
-     
-    <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_youtube_api_Constants::OPTION_RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_COUNT); ?></dd>
-    <?php endif; ?>
-    
-    <?php if (isset(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_vimeo_api_Constants::OPTION_LIKES]) && ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_vimeo_api_Constants::OPTION_LIKES] &&
-              $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT) != ""):
-          ?>
-           
-          <dt class="tubepress_meta tubepress_meta_likes"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_vimeo_api_Constants::OPTION_LIKES]; ?></dt><dd class="tubepress_meta tubepress_meta_likes"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_LIKES_COUNT); ?></dd>
-          <?php endif; ?>
-        
-    <?php if (isset(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATING]) && ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_youtube_api_Constants::OPTION_RATING] &&
-         $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE) != ""):
-     ?>
-    
-    <dt class="tubepress_meta tubepress_meta_rating"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_youtube_api_Constants::OPTION_RATING]; ?></dt><dd class="tubepress_meta tubepress_meta_rating"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_RATING_AVERAGE); ?></dd>
-    <?php endif; ?>
-        
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_ID]): ?>
-    
-    <dt class="tubepress_meta tubepress_meta_id"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_ID]; ?></dt><dd class="tubepress_meta tubepress_meta_id"><?php echo $mediaItem->getId(); ?></dd>
-    <?php endif; ?>
+        <?php
+        if (in_array(tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED, ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW})):
 
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_UPLOADED]): ?>
-    
-    <dt class="tubepress_meta tubepress_meta_uploaddate">Published on</dt><dd class="tubepress_meta tubepress_meta_uploaddate"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED); ?></dd>
-    <?php endif; ?>
-    
-    <?php if (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_SHOULD_SHOW}[tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION]): ?>
-    
-    <dt class="tubepress_meta tubepress_meta_description"><?php echo ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_META_LABELS}[tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION]; ?></dt><dd class="tubepress_meta tubepress_meta_description"><?php echo $mediaItem->getAttribute(tubepress_core_media_item_api_Constants::ATTRIBUTE_DESCRIPTION); ?></dd>
-    <?php endif; ?>
-    
-</dl>
+            $attributeName = tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED;
+            ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTE_LABELS}[$attributeName] = 'Published on';
+            require dirname(__FILE__) . '/../default/_fragments/dt_dd_pair.fragment.php';
+        endif;
 
-</div>
+        /**
+         * Remove the title, author, and view count, since we already displayed them.
+         */
+        ${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW} =
+            array_diff(${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW},
+                array(
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_TITLE,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_AUTHOR_DISPLAY_NAME,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_VIEW_COUNT,
+                    tubepress_core_media_item_api_Constants::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
+                ));
+
+        /**
+         * Loop over the attributes for this media item.
+         */
+        foreach (${tubepress_core_media_item_api_Constants::TEMPLATE_VAR_ATTRIBUTES_TO_SHOW} as $attributeName):
+
+            /**
+             * The logic for printing the dd/dt pairs is delegated a fragment since it is shared
+             * with gallery.tpl.php. If you are extending this theme, don't forget to copy this fragment
+             * over into your theme directory!
+             */
+            require dirname(__FILE__) . '/../default/_fragments/dt_dd_pair.fragment.php';
+
+        endforeach; ?>
+
+    </dl><?php //end of dl.tubepress_meta_group ?>
+
+</div><?php //end of div.tubepress_single_video ?>

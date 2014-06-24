@@ -45,7 +45,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_c
     }
 
     /**
-     * @return tubepress_core_options_ui_api_ElementInterface[] The categories that this participant supplies.
+     * @return tubepress_core_options_ui_api_ElementInterface[] The categories that this field provider supplies.
      */
     public function getCategories()
     {
@@ -53,7 +53,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_c
     }
 
     /**
-     * @return tubepress_core_options_ui_api_FieldInterface[] The fields that this options page participant provides.
+     * @return tubepress_core_options_ui_api_FieldInterface[] The fields that this field provider provides.
      */
     public function getFields()
     {
@@ -74,7 +74,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_c
     }
 
     /**
-     * @return boolean True if this participant should show up in the "Only show options to..." dropdown. False otherwise.
+     * @return boolean True if this field provider should show up in the "Only show options to..." dropdown. False otherwise.
      */
     public function isAbleToBeFilteredFromGui()
     {
@@ -82,7 +82,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_c
     }
 
     /**
-     * @return boolean True if this participant should separate its field into separate boxes. False otherwise.
+     * @return boolean True if this field provider should separate its field into separate boxes. False otherwise.
      */
     public function fieldsShouldBeInSeparateBoxes()
     {

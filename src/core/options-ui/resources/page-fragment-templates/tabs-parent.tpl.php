@@ -44,7 +44,7 @@
 
                 foreach ($categories as $category) {
 
-                    if ($category->getId() === 'theme-category') {
+                    if ($category->getId() === 'tubepress-core-theme-category') {
 
                         require 'theme/category-theme.tpl.php';
 

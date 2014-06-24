@@ -27,7 +27,7 @@
 
                 <p id="filter-wrapper" class="text-right">
 
-                    <?php $filterField = $fields['participant-filter-field']; echo $filterField->getTranslatedDisplayName() ?> <?php echo $filterField->getWidgetHTML(); ?>
+                    <?php $filterField = $fields['field-provider-filter-field']; echo $filterField->getTranslatedDisplayName() ?> <?php echo $filterField->getWidgetHTML(); ?>
 
                 </p>
             </div>

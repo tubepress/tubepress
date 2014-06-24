@@ -11,13 +11,13 @@
 ?>
 
 
-<?php if ($participant->fieldsShouldBeInSeparateBoxes()): ?>
+<?php if ($fieldProvider->fieldsShouldBeInSeparateBoxes()): ?>
 
-<div class="panel panel-default tubepress-participant-<?php echo $participantId; ?>">
+<div class="panel panel-default tubepress-field-provider-<?php echo $providerId; ?>">
 
     <div class="panel-heading">
 
-        <h3 class="panel-title"><?php echo $participant->getTranslatedDisplayName(); ?></h3>
+        <h3 class="panel-title"><?php echo $fieldProvider->getTranslatedDisplayName(); ?></h3>
 
     </div>
 
@@ -41,7 +41,7 @@
 
         ?>
 
-        <?php if ($participant->fieldsShouldBeInSeparateBoxes()): ?>
+        <?php if ($fieldProvider->fieldsShouldBeInSeparateBoxes()): ?>
 
     </div>
 </div>

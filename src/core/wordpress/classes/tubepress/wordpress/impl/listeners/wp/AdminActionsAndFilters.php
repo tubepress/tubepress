@@ -290,7 +290,7 @@ EOT;
             'blueimp-gallery-2.14.0'        => '/src/core/options-ui/web/vendor/blueimp-gallery-2.14.0/js/blueimp-gallery.min.js',
             'bootstrap-image-gallery'       => '/src/core/options-ui/web/vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js',
             'bootstrap-field-error-handler' => '/src/core/options-ui/web/js/bootstrap-field-error-handler.js',
-            'participant-filter-handler'    => '/src/core/options-ui/web/js/participant-filter-handler.js',
+            'field-provider-filter-handler' => '/src/core/options-ui/web/js/field-provider-filter-handler.js',
             'spectrum-js-initializer'       => '/src/core/options-ui/web/js/spectrum-js-initializer.js',
             'bootstrap-multiselect-init'    => '/src/core/options-ui/web/js/bootstrap-multiselect-initializer.js',
             'theme-field-handler'           => '/src/core/options-ui/web/js/theme-field-handler.js',

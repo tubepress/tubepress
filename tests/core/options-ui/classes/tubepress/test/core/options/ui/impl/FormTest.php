@@ -27,7 +27,7 @@ class tubepress_test_core_options_ui_impl_FormTest extends tubepress_test_TubePr
     /**
      * @var ehough_mockery_mockery_MockInterface[]
      */
-    private $_mockParticipants;
+    private $_mockFieldProviders;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -49,30 +49,37 @@ class tubepress_test_core_options_ui_impl_FormTest extends tubepress_test_TubePr
      */
     private $_mockTemplate;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockStringUtils;
+
     public function onSetup()
     {
         $this->_mockEventDispatcher     = $this->mock(tubepress_core_event_api_EventDispatcherInterface::_);
         $this->_mockEnvironmentDetector = $this->mock(tubepress_core_environment_api_EnvironmentInterface::_);
         $this->_mockStorageManager      = $this->mock(tubepress_core_options_api_PersistenceInterface::_);
         $this->_mockTemplate            = $this->mock(tubepress_core_template_api_TemplateInterface::_);
+        $this->_mockStringUtils         = $this->mock(tubepress_api_util_StringUtilsInterface::_);
 
         $mockFieldA        = $this->mock('tubepress_core_options_ui_api_FieldInterface');
         $mockFieldB        = $this->mock('tubepress_core_options_ui_api_FieldInterface');
         $this->_mockFields = array($mockFieldA, $mockFieldB);
 
-        $mockParticipant  = $this->mock('tubepress_core_options_ui_api_FieldProviderInterface');
-        $mockParticipant->shouldReceive('getFields')->once()->andReturn($this->_mockFields);
-        $this->_mockParticipants = array($mockParticipant);
+        $mockFieldProvider  = $this->mock('tubepress_core_options_ui_api_FieldProviderInterface');
+        $mockFieldProvider->shouldReceive('getFields')->once()->andReturn($this->_mockFields);
+        $this->_mockFieldProviders = array($mockFieldProvider);
 
         $this->_sut = new tubepress_core_options_ui_impl_Form(
 
             $this->_mockTemplate,
             $this->_mockEnvironmentDetector,
             $this->_mockStorageManager,
-            $this->_mockEventDispatcher
+            $this->_mockEventDispatcher,
+            $this->_mockStringUtils
         );
 
-        $this->_sut->setOptionsPageParticipants($this->_mockParticipants);
+        $this->_sut->setFieldProviders($this->_mockFieldProviders);
     }
 
     public function testSubmitWithErrors()
@@ -117,18 +124,18 @@ class tubepress_test_core_options_ui_impl_FormTest extends tubepress_test_TubePr
 
         $mockCategory->shouldReceive('getId')->once()->andReturn('categoryid');
 
-        $this->_mockParticipants[0]->shouldReceive('getCategories')->once()->andReturn($mockCategories);
-        $this->_mockParticipants[0]->shouldReceive('getCategoryIdsToFieldIdsMap')->once()->andReturn($mockMap);
-        $this->_mockParticipants[0]->shouldReceive('getId')->twice()->andReturn('participantid');
+        $this->_mockFieldProviders[0]->shouldReceive('getCategories')->once()->andReturn($mockCategories);
+        $this->_mockFieldProviders[0]->shouldReceive('getCategoryIdsToFieldIdsMap')->once()->andReturn($mockMap);
+        $this->_mockFieldProviders[0]->shouldReceive('getId')->twice()->andReturn('providerId');
 
         $ctx = array(
             'categories' => $mockCategories,
-            'categoryIdToParticipantIdToFieldsMap' => array('categoryid' => array('participantid' => array('field0' => 'field1'))),
+            'categoryIdToProviderIdToFieldsMap' => array('categoryid' => array('providerId' => array('field0' => 'field1'))),
             'errors' => array('some error'),
             'fields' => $this->_mockFields,
             'isPro' => true,
             'justSubmitted' => false,
-            'participants' => $this->_mockParticipants,
+            'fieldProviders' => $this->_mockFieldProviders,
             'successMessage' => 'Settings updated.',
             'tubePressBaseUrl' => 'syz',
             'saveText' => 'Save'
