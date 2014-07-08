@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "99faab44c498a746609725619737f6b0",
+    "hash": "92fd5b7956851ad4a424d01764893487",
     "packages": [
         {
             "name": "ehough/contemplate",
@@ -49,16 +49,16 @@
         },
         {
             "name": "ehough/filesystem",
-            "version": "v2.4.4",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "ec5b858acc56975923cd73d6f921e8b0d388eb2d"
+                "reference": "ed9e6f12cefe83487ec3f337aef239b8bbeeea61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/ec5b858acc56975923cd73d6f921e8b0d388eb2d",
-                "reference": "ec5b858acc56975923cd73d6f921e8b0d388eb2d",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/ed9e6f12cefe83487ec3f337aef239b8bbeeea61",
+                "reference": "ed9e6f12cefe83487ec3f337aef239b8bbeeea61",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2014-04-29 22:36:25"
+            "time": "2014-06-19 00:00:27"
         },
         {
             "name": "ehough/finder",
@@ -713,12 +713,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531"
+                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/955c24b708f8bfd6a05f303217a8dac3a443d531",
-                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/a0802561692c3b2bb0ed972f7ffafbfab068e580",
+                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580",
                 "shasum": ""
             },
             "require": {
@@ -755,7 +755,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-05-12 05:34:42"
+            "time": "2014-06-26 07:15:38"
         },
         {
             "name": "phpunit/phpunit",
@@ -894,12 +894,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "9872f5b7a9547b3c4c7474cb4d5d4eb4cad3b4a5"
+                "reference": "ba3c7ba4e49645da3539e099d0b165a0c2292a31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/9872f5b7a9547b3c4c7474cb4d5d4eb4cad3b4a5",
-                "reference": "9872f5b7a9547b3c4c7474cb4d5d4eb4cad3b4a5",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/ba3c7ba4e49645da3539e099d0b165a0c2292a31",
+                "reference": "ba3c7ba4e49645da3539e099d0b165a0c2292a31",
                 "shasum": ""
             },
             "require": {
@@ -937,7 +937,115 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-07-01 06:41:10"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/CssSelector",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/CssSelector.git",
+                "reference": "782f14ec7ce960831f10f0a0ddc8dcee9be96788"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/782f14ec7ce960831f10f0a0ddc8dcee9be96788",
+                "reference": "782f14ec7ce960831f10f0a0ddc8dcee9be96788",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                }
+            ],
+            "description": "Symfony CssSelector Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-07-01 06:41:10"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/DomCrawler",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/DomCrawler.git",
+                "reference": "74a9fd5c5a9011759c0f47c749a72a34895a4f53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/74a9fd5c5a9011759c0f47c749a72a34895a4f53",
+                "reference": "74a9fd5c5a9011759c0f47c749a72a34895a4f53",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~2.0"
+            },
+            "suggest": {
+                "symfony/css-selector": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony DomCrawler Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-07-01 06:41:10"
         },
         {
             "name": "symfony/yaml",
@@ -946,12 +1054,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "b01d366060f33e18fd98b0008c41a01b0d25c95c"
+                "reference": "a0e90f173c33a57bfbb5561793d25864182239ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b01d366060f33e18fd98b0008c41a01b0d25c95c",
-                "reference": "b01d366060f33e18fd98b0008c41a01b0d25c95c",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/a0e90f173c33a57bfbb5561793d25864182239ad",
+                "reference": "a0e90f173c33a57bfbb5561793d25864182239ad",
                 "shasum": ""
             },
             "require": {
@@ -986,7 +1094,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-04 06:43:44"
+            "time": "2014-06-20 17:41:51"
         }
     ],
     "aliases": [
@@ -994,7 +1102,9 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "symfony/class-loader": 20
+        "symfony/class-loader": 20,
+        "symfony/dom-crawler": 20,
+        "symfony/css-selector": 20
     },
     "platform": [
 

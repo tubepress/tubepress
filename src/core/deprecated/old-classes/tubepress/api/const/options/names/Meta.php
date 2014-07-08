@@ -17,72 +17,72 @@ interface tubepress_api_const_options_names_Meta
     /**
      * @deprecated
      */
-    const AUTHOR = tubepress_core_media_item_api_Constants::OPTION_AUTHOR;
+    const AUTHOR = tubepress_app_media_item_api_Constants::OPTION_AUTHOR;
 
     /**
      * @deprecated
      */
-    const CATEGORY = tubepress_core_media_item_api_Constants::OPTION_CATEGORY;
+    const CATEGORY = tubepress_app_media_item_api_Constants::OPTION_CATEGORY;
 
     /**
      * @deprecated
      */
-    const DESCRIPTION = tubepress_core_media_item_api_Constants::OPTION_DESCRIPTION;
+    const DESCRIPTION = tubepress_app_media_item_api_Constants::OPTION_DESCRIPTION;
 
     /**
      * @deprecated
      */
-    const ID = tubepress_core_media_item_api_Constants::OPTION_ID;
+    const ID = tubepress_app_media_item_api_Constants::OPTION_ID;
 
     /**
      * @deprecated
      */
-    const KEYWORDS = tubepress_core_media_item_api_Constants::OPTION_KEYWORDS;
+    const KEYWORDS = tubepress_app_media_item_api_Constants::OPTION_KEYWORDS;
 
     /**
      * @deprecated
      */
-    const LENGTH = tubepress_core_media_item_api_Constants::OPTION_LENGTH;
+    const LENGTH = tubepress_app_media_item_api_Constants::OPTION_LENGTH;
 
     /**
      * @deprecated
      */
-    const TITLE = tubepress_core_media_item_api_Constants::OPTION_TITLE;
+    const TITLE = tubepress_app_media_item_api_Constants::OPTION_TITLE;
 
     /**
      * @deprecated
      */
-    const UPLOADED = tubepress_core_media_item_api_Constants::OPTION_UPLOADED;
+    const UPLOADED = tubepress_app_media_item_api_Constants::OPTION_UPLOADED;
 
     /**
      * @deprecated
      */
-    const URL = tubepress_core_media_item_api_Constants::OPTION_URL;
+    const URL = tubepress_app_media_item_api_Constants::OPTION_URL;
 
     /**
      * @deprecated
      */
-    const VIEWS = tubepress_core_media_item_api_Constants::OPTION_VIEWS;
+    const VIEWS = tubepress_app_media_item_api_Constants::OPTION_VIEWS;
 
     /**
      * @deprecated
      */
-    const DATEFORMAT = tubepress_core_media_item_api_Constants::OPTION_DATEFORMAT;
+    const DATEFORMAT = tubepress_app_media_item_api_Constants::OPTION_DATEFORMAT;
 
     /**
      * @deprecated
      */
-    const DESC_LIMIT = tubepress_core_media_item_api_Constants::OPTION_DESC_LIMIT;
+    const DESC_LIMIT = tubepress_app_media_item_api_Constants::OPTION_DESC_LIMIT;
 
     /**
      * @deprecated
      */
-    const RELATIVE_DATES = tubepress_core_media_item_api_Constants::OPTION_RELATIVE_DATES;
+    const RELATIVE_DATES = tubepress_app_media_item_api_Constants::OPTION_RELATIVE_DATES;
 
     /**
      * @deprecated
      */
-    const TAGS = tubepress_core_media_item_api_Constants::OPTION_KEYWORDS;
+    const TAGS = tubepress_app_media_item_api_Constants::OPTION_KEYWORDS;
 
     /**
      * @deprecated

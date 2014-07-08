@@ -1,0 +1,32 @@
+{
+    "name" : "tubepress/core-base-url",
+    "version": "1.0.0",
+    "title" : "TubePress URL Implementation",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress core URL functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_lib_url_ioc_UrlExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_lib_url_api_QueryInterface"           : "classes/tubepress/lib/url/api/QueryInterface.php",
+            "tubepress_lib_url_api_UrlFactoryInterface"      : "classes/tubepress/lib/url/api/UrlFactoryInterface.php",
+            "tubepress_lib_url_api_UrlInterface"             : "classes/tubepress/lib/url/api/UrlInterface.php",
+            "tubepress_lib_url_impl_puzzle_PuzzleBasedQuery" : "classes/tubepress/lib/url/impl/puzzle/PuzzleBasedQuery.php",
+            "tubepress_lib_url_impl_puzzle_PuzzleBasedUrl"   : "classes/tubepress/lib/url/impl/puzzle/PuzzleBasedUrl.php",
+            "tubepress_lib_url_impl_puzzle_UrlFactory"       : "classes/tubepress/lib/url/impl/puzzle/UrlFactory.php",
+            "tubepress_lib_url_ioc_UrlExtension"             : "classes/tubepress/lib/url/ioc/UrlExtension.php"
+        }
+    }
+}

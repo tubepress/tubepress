@@ -1,0 +1,55 @@
+/*!
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/**
+ **********************************************************************************************
+ **** THEME FIELD
+ **********************************************************************************************
+ */
+
+/*
+ * Puts a margin below the theme's description.
+ */
+#tubepress-core-theme-category dd:nth-of-type(2) {
+
+    margin-bottom: 2em;
+}
+
+@media (min-width: 768px) {
+
+    /**
+     * Shifts the metadata to the left (default is 160px).
+     */
+    #tubepress-core-theme-category .dl-horizontal dt {
+
+        width: 100px;
+    }
+    #tubepress-core-theme-category .dl-horizontal dd {
+
+        margin-left: 120px;
+    }
+}
+
+/**
+ * Makes the theme label and description stand out a little.
+ */
+#tubepress-core-theme-category .dl-horizontal dt:nth-of-type(1),
+#tubepress-core-theme-category .dl-horizontal dd:nth-of-type(2){
+
+    color: black;
+}
+
+/**
+ * Makes the "Screenshots" header a little less spacey
+ */
+#theme-screenshots > div.panel > div.panel-heading {
+
+    padding: 5px 8px;
+}

@@ -38,12 +38,12 @@ if (!class_exists('__tubePressBoot', false)) {
                 define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../'));
             }
 
-            if (!class_exists('tubepress_impl_boot_PrimaryBootstrapper', false)) {
+            if (!class_exists('tubepress_platform_impl_boot_PrimaryBootstrapper', false)) {
 
-                require TUBEPRESS_ROOT . '/src/platform/classes/tubepress/impl/boot/PrimaryBootstrapper.php';
+                require TUBEPRESS_ROOT . '/src/platform/classes/tubepress/platform/impl/boot/PrimaryBootstrapper.php';
             }
 
-            $bootStrapper = new tubepress_impl_boot_PrimaryBootstrapper();
+            $bootStrapper = new tubepress_platform_impl_boot_PrimaryBootstrapper();
             self::$SERVICE_CONTAINER = $bootStrapper->getServiceContainer();
         }
     }

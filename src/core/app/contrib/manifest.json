@@ -1,0 +1,28 @@
+{
+    "name" : "tubepress/core-contrib",
+    "version": "1.0.0",
+    "title" : "TubePress Core Contributables Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress core contributables functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_app_contrib_ioc_ContributableExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_app_contrib_api_ContributableValidatorInterface" : "classes/tubepress/app/contrib/api/ContributableValidatorInterface.php",
+            "tubepress_app_contrib_impl_ContributableValidator"         : "classes/tubepress/app/contrib/impl/ContributableValidator.php",
+            "tubepress_app_contrib_ioc_ContributableExtension"          : "classes/tubepress/app/contrib/ioc/ContributableExtension.php"
+        }
+    }
+}

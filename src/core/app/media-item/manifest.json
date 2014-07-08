@@ -1,0 +1,35 @@
+{
+    "name" : "tubepress/core-media-item",
+    "version": "1.0.0",
+    "title" : "TubePress Core Media Provider Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "TubePress core media provider functionality.",
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_app_media_item_ioc_MediaItemExtension"
+        ],
+        "compiler-passes" : {
+            "tubepress_app_media_item_ioc_compiler_EasyAttributeFormattersPass" : 80000
+        }
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_app_media_item_api_Constants"                    : "classes/tubepress/app/media/item/api/Constants.php",
+            "tubepress_app_media_item_api_MediaItem"                    : "classes/tubepress/app/media/item/api/MediaItem.php",
+            "tubepress_app_media_item_impl_easy_EasyAttributeFormatter" : "classes/tubepress/app/media/item/impl/easy/EasyAttributeFormatter.php",
+            "tubepress_app_media_item_impl_options_ui_FieldProvider"    : "classes/tubepress/app/media/item/impl/options/ui/FieldProvider.php",
+            "tubepress_app_media_item_impl_listeners_template_ToShowAndLabelsMapSetter" : "classes/tubepress/app/media/item/impl/listeners/template/ToShowAndLabelsMapSetter.php",
+            "tubepress_app_media_item_ioc_MediaItemExtension"           : "classes/tubepress/app/media/item/ioc/MediaItemExtension.php",
+            "tubepress_app_media_item_ioc_compiler_EasyAttributeFormattersPass"           : "classes/tubepress/app/media/item/ioc/compiler/EasyAttributeFormattersPass.php"
+        }
+    }
+}

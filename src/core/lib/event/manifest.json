@@ -1,0 +1,30 @@
+{
+    "name" : "tubepress/core-base-event",
+    "version": "1.0.0",
+    "title" : "TubePress Event Dispatcher",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_lib_event_ioc_EventExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_lib_event_api_EventDispatcherInterface"           : "classes/tubepress/lib/event/api/EventDispatcherInterface.php",
+            "tubepress_lib_event_api_EventInterface"                     : "classes/tubepress/lib/event/api/EventInterface.php",
+            "tubepress_lib_event_impl_tickertape_EventBase"              : "classes/tubepress/lib/event/impl/tickertape/EventBase.php",
+            "tubepress_lib_event_impl_tickertape_EventDispatcher"        : "classes/tubepress/lib/event/impl/tickertape/EventDispatcher.php",
+            "tubepress_lib_event_impl_tickertape_TickertapeEventWrapper" : "classes/tubepress/lib/event/impl/tickertape/TickertapeEventWrapper.php",
+            "tubepress_lib_event_ioc_EventExtension"                     : "classes/tubepress/lib/event/ioc/EventExtension.php"
+        }
+    }
+}

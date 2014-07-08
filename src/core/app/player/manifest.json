@@ -1,0 +1,38 @@
+{
+    "name" : "tubepress/core-player",
+    "version": "1.0.0",
+    "title" : "TubePress Player Location Functionality",
+    "author" : {
+        "name" : "TubePress LLC",
+        "url" : "http://tubepress.com"
+    },
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "inversion-of-control": {
+        "container-extensions" : [
+            "tubepress_app_player_ioc_PlayerExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_app_player_api_Constants"               : "classes/tubepress/app/player/api/Constants.php",
+            "tubepress_app_player_api_PlayerHtmlInterface"     : "classes/tubepress/app/player/api/PlayerHtmlInterface.php",
+            "tubepress_app_player_api_PlayerLocationInterface" : "classes/tubepress/app/player/api/PlayerLocationInterface.php",
+            "tubepress_app_player_impl_http_PlayerAjaxCommand" : "classes/tubepress/app/player/impl/http/PlayerAjaxCommand.php",
+            "tubepress_app_player_impl_listeners_html_SoloPlayerListener" : "classes/tubepress/app/player/impl/listeners/html/SoloPlayerListener.php",
+            "tubepress_app_player_impl_listeners_js_GalleryJsListener" : "classes/tubepress/app/player/impl/listeners/js/GalleryJsListener.php",
+            "tubepress_app_player_impl_listeners_media_item_InvokingAnchorListener" : "classes/tubepress/app/player/impl/listeners/media/item/InvokingAnchorListener.php",
+            "tubepress_app_player_impl_listeners_options_AcceptableValues" : "classes/tubepress/app/player/impl/listeners/options/AcceptableValues.php",
+            "tubepress_app_player_impl_listeners_template_GalleryTemplateListener" : "classes/tubepress/app/player/impl/listeners/template/GalleryTemplateListener.php",
+            "tubepress_app_player_impl_listeners_template_PlayerTemplateListener" : "classes/tubepress/app/player/impl/listeners/template/PlayerTemplateListener.php",
+            "tubepress_app_player_impl_BasePlayerLocation"     : "classes/tubepress/app/player/impl/BasePlayerLocation.php",
+            "tubepress_app_player_impl_SamePagePlayerLocation"     : "classes/tubepress/app/player/impl/SamePagePlayerLocation.php",
+            "tubepress_app_player_impl_PlayerHtml"             : "classes/tubepress/app/player/impl/PlayerHtml.php",
+            "tubepress_app_player_ioc_PlayerExtension"         : "classes/tubepress/app/player/ioc/PlayerExtension.php"
+        }
+    }
+}
