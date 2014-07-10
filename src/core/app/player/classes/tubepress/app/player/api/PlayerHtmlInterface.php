@@ -28,7 +28,8 @@ interface tubepress_app_player_api_PlayerHtmlInterface
      *
      * @param tubepress_app_media_item_api_MediaItem $mediaItem The item to display in the player.
      *
-     * @return string|null The HTML for this player with the given item, or null if not found.
+     * @return string The HTML for this player with the given item. May be empty if this player doesn't need
+     *                any HTML loaded on the page load.
      *
      * @api
      * @since 4.0.0
@@ -40,7 +41,8 @@ interface tubepress_app_player_api_PlayerHtmlInterface
      *
      * @param tubepress_app_media_item_api_MediaItem $mediaItem The item to display in the player.
      *
-     * @return string|null The HTML for this player with the given item, or null if not found.
+     * @return string The HTML for this player with the given item. May be empty if this player doesn't support
+     *                Ajax.
      *
      * @api
      * @since 4.0.0

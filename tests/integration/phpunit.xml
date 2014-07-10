@@ -12,4 +12,7 @@
            <directory>./classes</directory>
 	   </testsuite>
 	</testsuites>
+    <php>
+        <const name="ANT_PATH" value="/usr/bin/ant"/>
+    </php>
 </phpunit>

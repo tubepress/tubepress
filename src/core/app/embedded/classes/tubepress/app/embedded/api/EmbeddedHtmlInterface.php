@@ -25,12 +25,24 @@ interface tubepress_app_embedded_api_EmbeddedHtmlInterface
     /**
      * Return the HTML for this embedded player
      *
-     * @param string $mediaId The media ID to display
+     * @param string $itemId The media ID to display
      *
-     * @return string The text for this embedded player, or null if there was a problem.
+     * @return string The HTML for this embedded player.
      *
      * @api
      * @since 4.0.0
      */
-    function getHtml($mediaId);
+    function getHtml($itemId);
+
+    /**
+     * Find the appropriate embedded provider for this media item.
+     *
+     * @param tubepress_app_media_item_api_MediaItem $item
+     *
+     * @return tubepress_app_embedded_api_EmbeddedProviderInterface
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getEmbeddedProvider(tubepress_app_media_item_api_MediaItem $item);
 }

@@ -41,7 +41,10 @@ class tubepress_app_feature_gallery_impl_listeners_html_AsyncGalleryInitJsListen
     public function onGalleryHtml(tubepress_lib_event_api_EventInterface $event)
     {
         $galleryId = $this->_context->get(tubepress_app_html_api_Constants::OPTION_GALLERY_ID);
-        $jsEvent   = $this->_eventDispatcher->newEventInstance(array());
+        $jsEvent   = $this->_eventDispatcher->newEventInstance(array(), array(
+            'page' => $event->getArgument('page'),
+            'pageNumber' => $event->getArgument('pageNumber')
+        ));
 
         $this->_eventDispatcher->dispatch(tubepress_app_feature_gallery_api_Constants::EVENT_GALLERY_INIT_JS, $jsEvent);
 

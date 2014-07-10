@@ -49,7 +49,7 @@ class tubepress_test_app_impl_player_BasePlayerLocationTest extends tubepress_te
     {
         $mockEvent = $this->mock('tubepress_lib_event_api_EventInterface');
 
-        $mockEvent->shouldReceive('getArgument')->once()->with('playerLocation')->andReturn($this->_sut);
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn($this->_sut);
         $mockEvent->shouldReceive('stopPropagation')->once();
 
         $this->_sut->onSelectPlayerLocation($mockEvent);
@@ -61,7 +61,7 @@ class tubepress_test_app_impl_player_BasePlayerLocationTest extends tubepress_te
     {
         $mockEvent = $this->mock('tubepress_lib_event_api_EventInterface');
 
-        $mockEvent->shouldReceive('getArgument')->once()->with('playerLocation')->andReturn('xyz');
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn('xyz');
 
         $this->_sut->onSelectPlayerLocation($mockEvent);
 

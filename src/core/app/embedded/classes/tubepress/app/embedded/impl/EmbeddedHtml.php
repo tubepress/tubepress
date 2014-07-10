@@ -71,13 +71,13 @@ class tubepress_app_embedded_impl_EmbeddedHtml implements tubepress_app_embedded
     /**
      * Spits back the text for this embedded player
      *
-     * @param string $mediaId The item ID to display
+     * @param string $itemId The item ID to display
      *
-     * @return string The text for this embedded player, or null if there was a problem.
+     * @return string The HTML for this embedded player.
      */
-    public function getHtml($mediaId)
+    public function getHtml($itemId)
     {
-        $mediaProvider = $this->_findMediaProviderForItemId($mediaId);
+        $mediaProvider = $this->_findMediaProviderForItemId($itemId);
 
         /**
          * None of the registered media providers recognize this item ID. Nothing we can do about that. This
@@ -87,10 +87,8 @@ class tubepress_app_embedded_impl_EmbeddedHtml implements tubepress_app_embedded
 
             if ($this->_shouldLog) {
 
-                $this->_logger->error('No media providers recognize item with ID ' . $mediaId);
+                throw new RuntimeException('No media providers recognize item with ID ' . $itemId);
             }
-
-            return null;
         }
 
         $embeddedProvider = $this->_findEmbeddedProvider($mediaProvider);
@@ -99,7 +97,7 @@ class tubepress_app_embedded_impl_EmbeddedHtml implements tubepress_app_embedded
 
             if ($this->_shouldLog) {
 
-                $this->_logger->error('Could not generate the embedded player HTML for ' . $mediaId);
+                $this->_logger->error('Could not generate the embedded player HTML for ' . $itemId);
             }
 
             return null;
@@ -107,13 +105,13 @@ class tubepress_app_embedded_impl_EmbeddedHtml implements tubepress_app_embedded
 
         $templatePaths = $embeddedProvider->getPathsForTemplateFactory();
         $template      = $this->_templateFactory->fromFilesystem($templatePaths);
-        $dataUrl       = $embeddedProvider->getDataUrlForMediaItem($this->_urlFactory, $mediaProvider, $mediaId);
+        $dataUrl       = $embeddedProvider->getDataUrlForMediaItem($this->_urlFactory, $mediaProvider, $itemId);
 
         $template = $this->_fireEventAndReturnSubject($template,
-            $mediaId, $mediaProvider, $dataUrl, $embeddedProvider, tubepress_app_embedded_api_Constants::EVENT_TEMPLATE_EMBEDDED);
+            $itemId, $mediaProvider, $dataUrl, $embeddedProvider, tubepress_app_embedded_api_Constants::EVENT_TEMPLATE_EMBEDDED);
 
         return $this->_fireEventAndReturnSubject($template->toString(),
-            $mediaId, $mediaProvider, $dataUrl, $embeddedProvider, tubepress_app_embedded_api_Constants::EVENT_HTML_EMBEDDED);
+            $itemId, $mediaProvider, $dataUrl, $embeddedProvider, tubepress_app_embedded_api_Constants::EVENT_HTML_EMBEDDED);
     }
 
     public function setMediaProviders(array $providers)
@@ -124,6 +122,23 @@ class tubepress_app_embedded_impl_EmbeddedHtml implements tubepress_app_embedded
     public function setEmbeddedProviders(array $players)
     {
         $this->_embeddedProviders = $players;
+    }
+
+    /**
+     * Find the appropriate embedded provider for this media item.
+     *
+     * @param tubepress_app_media_item_api_MediaItem $item
+     *
+     * @return tubepress_app_embedded_api_EmbeddedProviderInterface
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getEmbeddedProvider(tubepress_app_media_item_api_MediaItem $item)
+    {
+        $mediaProvider = $item->getAttribute(tubepress_app_media_item_api_Constants::ATTRIBUTE_PROVIDER);
+
+        return $this->_findEmbeddedProvider($mediaProvider);
     }
 
     private function _findEmbeddedProvider(tubepress_app_media_provider_api_MediaProviderInterface $mediaProvider)

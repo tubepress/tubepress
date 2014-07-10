@@ -21,9 +21,16 @@ class tubepress_app_embedded_impl_listeners_js_JsOptionsListener
      */
     private $_context;
 
-    public function __construct(tubepress_app_options_api_ContextInterface $context)
+    /**
+     * @var tubepress_app_embedded_api_EmbeddedHtmlInterface
+     */
+    private $_embeddedHtml;
+
+    public function __construct(tubepress_app_options_api_ContextInterface       $context,
+                                tubepress_app_embedded_api_EmbeddedHtmlInterface $embeddedHtml)
     {
-        $this->_context = $context;
+        $this->_context      = $context;
+        $this->_embeddedHtml = $embeddedHtml;
     }
 
     /**
@@ -31,14 +38,47 @@ class tubepress_app_embedded_impl_listeners_js_JsOptionsListener
      */
     public function onGalleryInitJs(tubepress_lib_event_api_EventInterface $event)
     {
-        $args    = $event->getSubject();
-        $options = $this->_buildOptionsArray();
+        $args     = $event->getSubject();
+        $page     = $event->getArgument('page');
+        $implName = $this->_findMostPopularEmbeddedImpl($page);
+        $options  = $this->_buildOptionsArray($implName);
 
         $this->_ensureOutermostKeysExist($args);
 
         $args[self::$_OPTIONS] = array_merge($args[self::$_OPTIONS], $options);
 
         $event->setSubject($args);
+    }
+
+    private function _findMostPopularEmbeddedImpl(tubepress_app_media_provider_api_Page $page)
+    {
+        $discovered = array();
+        $items      = $page->getItems();
+
+        if (empty($items)) {
+
+            return null;
+        }
+
+        foreach ($items as $item) {
+
+            $provider = $this->_embeddedHtml->getEmbeddedProvider($item)->getName();
+
+            if (!isset($discovered[$provider])) {
+
+                $discovered[$provider] = 1;
+
+            } else {
+
+                $discovered[$provider]++;
+            }
+        }
+
+        arsort($discovered);
+
+        $keys = array_keys($discovered);
+
+        return $keys[0];
     }
 
     private function _ensureOutermostKeysExist(array &$args)
@@ -49,19 +89,23 @@ class tubepress_app_embedded_impl_listeners_js_JsOptionsListener
         }
     }
 
-    private function _buildOptionsArray()
+    private function _buildOptionsArray($embeddedImplName)
     {
         $toReturn        = array();
         $requiredOptions = array(
 
             tubepress_app_embedded_api_Constants::OPTION_EMBEDDED_HEIGHT,
             tubepress_app_embedded_api_Constants::OPTION_EMBEDDED_WIDTH,
-            tubepress_app_embedded_api_Constants::OPTION_PLAYER_IMPL,
         );
 
         foreach ($requiredOptions as $optionName) {
 
             $toReturn[$optionName] = $this->_context->get($optionName);
+        }
+
+        if ($embeddedImplName !== null) {
+
+            $toReturn[tubepress_app_embedded_api_Constants::OPTION_PLAYER_IMPL] = $embeddedImplName;
         }
 
         return $toReturn;

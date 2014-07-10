@@ -12,6 +12,7 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
+
 class tubepress_app_player_impl_PlayerHtml implements tubepress_app_player_api_PlayerHtmlInterface
 {
     /**
@@ -49,7 +50,8 @@ class tubepress_app_player_impl_PlayerHtml implements tubepress_app_player_api_P
      *
      * @param tubepress_app_media_item_api_MediaItem $mediaItem The item to display in the player.
      *
-     * @return string|null The HTML for this player with the given item, or null if not found.
+     * @return string The HTML for this player with the given item. May be empty if this player doesn't need
+     *                any HTML loaded on the page load.
      *
      * @api
      * @since 4.0.0
@@ -64,7 +66,8 @@ class tubepress_app_player_impl_PlayerHtml implements tubepress_app_player_api_P
      *
      * @param tubepress_app_media_item_api_MediaItem $mediaItem The item to display in the player.
      *
-     * @return string|null The HTML for this player with the given item, or null if not found.
+     * @return string The HTML for this player with the given item. May be empty if this player doesn't support
+     *                Ajax.
      *
      * @api
      * @since 4.0.0
@@ -74,36 +77,9 @@ class tubepress_app_player_impl_PlayerHtml implements tubepress_app_player_api_P
         return $this->_getHtml($mediaItem, true);
     }
 
-    /**
-     * Get's the HTML for the TubePress "player"
-     *
-     * @param tubepress_app_media_item_api_MediaItem $mediaItem The video to display in the player.
-     *
-     * @return string|null The HTML for this player with the given video, or null if not found.
-     */
     private function _getHtml(tubepress_app_media_item_api_MediaItem $mediaItem, $ajax)
     {
-        $playerLocation            = $this->getActivePlayerLocation();
-        $choosePlayerLocationEvent = $this->_eventDispatcher->newEventInstance($mediaItem, array(
-
-            'playerLocation' => $playerLocation
-        ));
-
-        $this->_eventDispatcher->dispatch(
-
-            tubepress_app_player_api_Constants::EVENT_PLAYER_SELECT,
-            $choosePlayerLocationEvent
-        );
-
-        /**
-         * @var $playerLocation tubepress_app_player_api_PlayerLocationInterface
-         */
-        $playerLocation = $choosePlayerLocationEvent->getArgument('playerLocation');
-
-        if ($playerLocation === null || (!$playerLocation instanceof tubepress_app_player_api_PlayerLocationInterface)) {
-
-            return null;
-        }
+        $playerLocation = $this->getActivePlayerLocation();
 
         if ($ajax) {
 
@@ -118,7 +94,7 @@ class tubepress_app_player_impl_PlayerHtml implements tubepress_app_player_api_P
 
         if (!$template) {
 
-            return null;
+            return '';
         }
 
         /*
@@ -172,6 +148,30 @@ class tubepress_app_player_impl_PlayerHtml implements tubepress_app_player_api_P
      * @since 4.0.0
      */
     public function getActivePlayerLocation()
+    {
+        $playerLocation            = $this->_getPlayerLocationFromContextSetting();
+        $choosePlayerLocationEvent = $this->_eventDispatcher->newEventInstance($playerLocation);
+
+        $this->_eventDispatcher->dispatch(
+
+            tubepress_app_player_api_Constants::EVENT_PLAYER_SELECT,
+            $choosePlayerLocationEvent
+        );
+
+        /**
+         * @var $playerLocation tubepress_app_player_api_PlayerLocationInterface
+         */
+        $playerLocation = $choosePlayerLocationEvent->getSubject();
+
+        if ($playerLocation === null || (!$playerLocation instanceof tubepress_app_player_api_PlayerLocationInterface)) {
+
+            throw new RuntimeException('No suitable player locations found.');
+        }
+
+        return $playerLocation;
+    }
+
+    private function _getPlayerLocationFromContextSetting()
     {
         $name = $this->_context->get(tubepress_app_player_api_Constants::OPTION_PLAYER_LOCATION);
 

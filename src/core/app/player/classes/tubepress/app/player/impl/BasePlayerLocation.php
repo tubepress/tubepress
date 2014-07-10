@@ -54,7 +54,7 @@ class tubepress_app_player_impl_BasePlayerLocation implements tubepress_app_play
 
     public function onSelectPlayerLocation(tubepress_lib_event_api_EventInterface $event)
     {
-        $requestedPlayerLocation = $event->getArgument('playerLocation');
+        $requestedPlayerLocation = $event->getSubject();
 
         if ($requestedPlayerLocation === $this) {
 

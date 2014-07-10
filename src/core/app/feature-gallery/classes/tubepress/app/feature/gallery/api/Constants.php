@@ -68,6 +68,9 @@ interface tubepress_app_feature_gallery_api_Constants
      * @subject `array` An associative `array` that will be converted into JSON and applied as
      *                  init code for the gallery in JavaScript.
      *
+     * @argument <var>page</var> (`{@link tubepress_app_media_provider_api_Page}`): The backing {@link tubepress_app_media_provider_api_Page}.
+     * @argument <var>pageNumber</var> (`integer`): The page number.
+     *
      * @api
      * @since 4.0.0
      */

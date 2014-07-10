@@ -113,7 +113,7 @@ class tubepress_test_integration_Bootstrap
 
         print "Running Ant\n";
 
-        exec('/usr/bin/ant quick', $output, $returnStatus);
+        exec(ANT_PATH . ' quick', $output, $returnStatus);
 
         if ($returnStatus !== 0) {
 

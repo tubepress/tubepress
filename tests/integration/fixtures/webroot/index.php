@@ -25,7 +25,7 @@ if (isset($_GET['options'])) {
 
 $shortcode = '';
 foreach ($options as $name => $val) {
-    $shortcode .= "name='$val' ";
+    $shortcode .= "$name='$val' ";
 }
 
 $html = $container->get(tubepress_app_html_api_HtmlGeneratorInterface::_);
@@ -33,7 +33,7 @@ $env  = $container->get(tubepress_app_environment_api_EnvironmentInterface::_);
 $env->setBaseUrl('http://localhost:54321/tubepress');
 $footer = $html->getJsHtml();
 $header = $html->getCssHtml();
-$content = $html->getHtmlForShortcode($shortcode);
+$content = $html->getHtmlForShortcode("[tubepress $shortcode]");
 
 print <<<TOY
 <!doctype html>

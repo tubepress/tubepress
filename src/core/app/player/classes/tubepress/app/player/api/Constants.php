@@ -40,9 +40,8 @@ interface tubepress_app_player_api_Constants
      * This event is fired as TubePress chooses the tubepress_app_player_api_PlayerLocationInterface
      * to generate player HTML.
      *
-     * @subject `tubepress_app_media_item_api_MediaItem` The item.
+     * @subject `tubepress_app_player_api_PlayerLocationInterface` The current player location as defined by the context. May be null in some cases.
      *
-     * @argument <var>playerLocation</var> (`tubepress_app_player_api_PlayerLocationInterface`) The current player location as defined by the context.
      * @api
      * @since 4.0.0
      */

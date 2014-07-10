@@ -44,6 +44,7 @@ class tubepress_test_app_embedded_ioc_EmbeddedExtensionTest extends tubepress_te
             'tubepress_app_embedded_impl_listeners_js_JsOptionsListener',
             'tubepress_app_embedded_impl_listeners_js_JsOptionsListener'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_options_api_ContextInterface::_))
+        ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_embedded_api_EmbeddedHtmlInterface::_))
             ->withTag(tubepress_lib_ioc_api_Constants::TAG_EVENT_LISTENER, array(
                 'event'    => tubepress_app_feature_gallery_api_Constants::EVENT_GALLERY_INIT_JS,
                 'method'   => 'onGalleryInitJs',

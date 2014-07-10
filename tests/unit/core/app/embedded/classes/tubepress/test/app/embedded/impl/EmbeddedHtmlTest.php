@@ -203,8 +203,7 @@ class tubepress_test_app_embedded_impl_EmbeddedHtmlTest extends tubepress_test_T
 
     public function testNoProvidersRecognize()
     {
-        $this->_mockLogger->shouldReceive('error')->once()->with('No media providers recognize item with ID video-id');
-
+        $this->setExpectedException('RuntimeException', 'No media providers recognize item with ID video-id');
         $this->mock(tubepress_app_embedded_api_EmbeddedProviderInterface::_);
 
         $mockVideoProvider = $this->mock(tubepress_app_media_provider_api_MediaProviderInterface::_);
@@ -212,19 +211,15 @@ class tubepress_test_app_embedded_impl_EmbeddedHtmlTest extends tubepress_test_T
 
         $this->_sut->setMediaProviders(array($mockVideoProvider));
 
-        $html = $this->_sut->getHtml('video-id');
-
-        $this->assertNull($html);
+        $this->_sut->getHtml('video-id');
     }
 
     public function testNoMatchingProviderPlayers()
     {
-        $this->_mockLogger->shouldReceive('error')->once()->with('No media providers recognize item with ID video-id');
+        $this->setExpectedException('RuntimeException', 'No media providers recognize item with ID video-id');
 
         $this->mock(tubepress_app_embedded_api_EmbeddedProviderInterface::_);
 
-        $html = $this->_sut->getHtml('video-id');
-
-        $this->assertNull($html);
+        $this->_sut->getHtml('video-id');
     }
 }

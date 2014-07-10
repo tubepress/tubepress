@@ -87,7 +87,6 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $mockQuery->shouldReceive('set')->once()->with('autoplay', 'troo');
         $mockQuery->shouldReceive('set')->once()->with('enablejsapi', '1');
         $mockQuery->shouldReceive('set')->once()->with('fs', 'fawlse');
-        $mockQuery->shouldReceive('set')->once()->with('loop', 'fawlse');
         $mockQuery->shouldReceive('set')->once()->with('modestbranding', 'troo');
         $mockQuery->shouldReceive('set')->once()->with('origin', 'sdy://too.net');
         $mockQuery->shouldReceive('set')->once()->with('rel', 'fawlse');
@@ -97,7 +96,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(true)->andReturn('troo');
-        $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(false)->andReturn('fawlse');
+        $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(2)->with(false)->andReturn('fawlse');
 
         $mockProvider = $this->mock(tubepress_app_media_provider_api_MediaProviderInterface::_);
 
@@ -126,7 +125,6 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $mockQuery->shouldReceive('set')->once()->with('autoplay', 'troo');
         $mockQuery->shouldReceive('set')->once()->with('enablejsapi', '1');
         $mockQuery->shouldReceive('set')->once()->with('fs', 'fawlse');
-        $mockQuery->shouldReceive('set')->once()->with('loop', 'fawlse');
         $mockQuery->shouldReceive('set')->once()->with('modestbranding', 'troo');
         $mockQuery->shouldReceive('set')->once()->with('origin', 'sdy://too.net');
         $mockQuery->shouldReceive('set')->once()->with('rel', 'fawlse');
@@ -136,7 +134,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(true)->andReturn('troo');
-        $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(false)->andReturn('fawlse');
+        $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(2)->with(false)->andReturn('fawlse');
 
         $mockProvider = $this->mock(tubepress_app_media_provider_api_MediaProviderInterface::_);
 
@@ -164,7 +162,6 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $mockQuery->shouldReceive('set')->once()->with('autoplay', 'troo');
         $mockQuery->shouldReceive('set')->once()->with('enablejsapi', '1');
         $mockQuery->shouldReceive('set')->once()->with('fs', 'fawlse');
-        $mockQuery->shouldReceive('set')->once()->with('loop', 'fawlse');
         $mockQuery->shouldReceive('set')->once()->with('modestbranding', 'troo');
         $mockQuery->shouldReceive('set')->once()->with('origin', 'sdy://too.net');
         $mockQuery->shouldReceive('set')->once()->with('rel', 'fawlse');
@@ -174,7 +171,7 @@ class tubepress_test_youtube_impl_embedded_YouTubeEmbeddedProviderTest extends t
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(true)->andReturn('troo');
-        $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(false)->andReturn('fawlse');
+        $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(2)->with(false)->andReturn('fawlse');
 
         $mockProvider = $this->mock(tubepress_app_media_provider_api_MediaProviderInterface::_);
 

@@ -14,7 +14,9 @@ class tubepress_test_integration_mocks_MockCacheDriver implements ehough_stash_i
     private static $_CACHE_MAP = array(
 
         'http:~~gdata.youtube.com~feeds~api~standardfeeds~most_popular?time=today&v=2&key=ai39si5uuzupiqw9bpzgqzrrhvqf3vbgrql-i_28g1zwozmdnjlskzmdqehpz-l2rqgf_6cnwool96ojzrrqko-ej9qo_qppmg&start-index=1&max-results=20&orderby=viewcount&safesearch=none&format=5' =>
-        'youtube/most_popular-1.xml'
+        'youtube/most_popular-1.xml',
+        'http:~~gdata.youtube.com~feeds~api~standardfeeds~most_popular?time=today&v=2&key=ai39si5uuzupiqw9bpzgqzrrhvqf3vbgrql-i_28g1zwozmdnjlskzmdqehpz-l2rqgf_6cnwool96ojzrrqko-ej9qo_qppmg&start-index=1&max-results=13&orderby=viewcount&safesearch=none&format=5' =>
+        'youtube/most_popular-today-13max.xml'
     );
 
     /**
@@ -47,7 +49,7 @@ class tubepress_test_integration_mocks_MockCacheDriver implements ehough_stash_i
 
         return array(
 
-            'data'       => file_get_contents(__DIR__ . '/../../../../../../../../../network-responses/' . self::$_CACHE_MAP[$key[2]]),
+            'data'       => array('return' => file_get_contents(__DIR__ . '/../../../../../../../../../network-responses/' . self::$_CACHE_MAP[$key[2]])),
             'expiration' => 999999999999999
         );
     }

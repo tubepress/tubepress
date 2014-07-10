@@ -48,6 +48,7 @@ class tubepress_app_embedded_ioc_EmbeddedExtension implements tubepress_platform
             'tubepress_app_embedded_impl_listeners_js_JsOptionsListener',
             'tubepress_app_embedded_impl_listeners_js_JsOptionsListener'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_options_api_ContextInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_embedded_api_EmbeddedHtmlInterface::_))
          ->addTag(tubepress_lib_ioc_api_Constants::TAG_EVENT_LISTENER, array(
             'event'    => tubepress_app_feature_gallery_api_Constants::EVENT_GALLERY_INIT_JS,
             'method'   => 'onGalleryInitJs',

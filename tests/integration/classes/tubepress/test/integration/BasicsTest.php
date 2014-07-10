@@ -13,12 +13,12 @@ class tubepress_test_integration_BasicsTest extends tubepress_test_integration_I
 {
     public function testBootsWithNoErrors()
     {
-        $result = $this->get(array(), true);
+        $result = $this->get(true);
 
         $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') !== false);
         $this->_assertNoBootErrors($result);
 
-        $result = $this->get(array(), true);
+        $result = $this->get(true);
 
         $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') === false);
         $this->assertTrue(strpos($result, 'We can boot from the system cache. Excellent!') !== false);
@@ -40,7 +40,7 @@ class tubepress_test_integration_BasicsTest extends tubepress_test_integration_I
 
     private function _assertNoBootErrors($html)
     {
-        $this->assertTrue(strpos($html, 'ERROR') === false);
+        $this->assertTrue(strpos($html, 'ERROR') === false, $html);
         $this->assertRegExp('/Boot completed in [0-9]+\.[0-9]+ milliseconds/', $html);
     }
 }

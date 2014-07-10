@@ -16,7 +16,6 @@ class tubepress_embedplus_impl_listeners_js_JsOptionsListener
 {
     private static $_OPTIONS = 'options';
 
-
     /**
      *
      */

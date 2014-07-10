@@ -57,12 +57,19 @@ class tubepress_test_app_feature_gallery_impl_listeners_html_AsyncGalleryInitJsL
         $internalEvent = $this->mock('tubepress_lib_event_api_EventInterface');
         $internalEvent->shouldReceive('getSubject')->once()->andReturn($fakeArgs);
 
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array())->andReturn($internalEvent);
+        $mockPage = $this->mock('tubepress_app_media_provider_api_Page');
+
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(), array(
+            'page' => $mockPage,
+            'pageNumber' => 12
+        ))->andReturn($internalEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_feature_gallery_api_Constants::EVENT_GALLERY_INIT_JS, $internalEvent);
 
         $event = $this->mock('tubepress_lib_event_api_EventInterface');
         $event->shouldReceive('getSubject')->once()->andReturn('hello');
+        $event->shouldReceive('getArgument')->once()->with('page')->andReturn($mockPage);
+        $event->shouldReceive('getArgument')->once()->with('pageNumber')->andReturn(12);
         $event->shouldReceive('setSubject')->once()->with($this->_expectedAsyncJs());
 
         $this->_mockOptionsReference->shouldReceive('optionExists')->once()->with('yo')->andReturn(false);

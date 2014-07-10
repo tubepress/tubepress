@@ -88,12 +88,17 @@ class tubepress_youtube_impl_embedded_YouTubeEmbeddedProvider implements tubepre
         $embedQuery->set('autoplay',       $this->_langUtils->booleanToStringOneOrZero($autoPlay));
         $embedQuery->set('enablejsapi',    '1');
         $embedQuery->set('fs',             $this->_langUtils->booleanToStringOneOrZero($fullscreen));
-        $embedQuery->set('loop',           $this->_langUtils->booleanToStringOneOrZero($loop));
         $embedQuery->set('modestbranding', $this->_langUtils->booleanToStringOneOrZero($modestBranding));
         $embedQuery->set('origin',         $origin);
         $embedQuery->set('rel',            $this->_langUtils->booleanToStringOneOrZero($showRelated));
         $embedQuery->set('showinfo',       $this->_langUtils->booleanToStringOneOrZero($showInfo));
         $embedQuery->set('wmode',          'opaque');
+
+        if ($loop) {
+
+            $embedQuery->set('loop', $this->_langUtils->booleanToStringOneOrZero($loop));
+            $embedQuery->set('playlist', $mediaId);
+        }
 
         return $link;
     }

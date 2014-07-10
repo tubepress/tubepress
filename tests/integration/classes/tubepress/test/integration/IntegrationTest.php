@@ -11,18 +11,30 @@
 
 abstract class tubepress_test_integration_IntegrationTest extends PHPUnit_Framework_TestCase
 {
-    protected $lastOptionsUsedForGet;
+    private $_options;
 
-    protected function get(array $tubePressOptions = array(), $debug = false)
+    public function setUp()
+    {
+        $this->_options = array();
+    }
+
+    protected function setOptions(array $opts)
+    {
+        $this->_options = $opts;
+    }
+
+    protected function get($debug = false)
     {
         $debugParams = array(
             'XDEBUG_SESSION_START' => 'true',
             'tubepress_debug'      => $debug ? 'true' : 'false',
         );
 
-        $this->lastOptionsUsedForGet = array_merge($debugParams, array('options' => $tubePressOptions));
-        $queryString                 = '?' . http_build_query($this->lastOptionsUsedForGet);
+        $opts        = array_merge($debugParams, array('options' => $this->_options));
+        $queryString = '?' . http_build_query($opts);
 
         return file_get_contents('http://localhost:54321/index.php' . $queryString);
     }
+
+
 }

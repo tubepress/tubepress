@@ -64,24 +64,15 @@ class tubepress_test_app_player_impl_PlayerHtmlTest extends tubepress_test_TubeP
         $this->_mockPlayerLocation->shouldReceive('getName')->andReturn('x');
     }
 
-    public function testGetHtmlSuitablePlayerLocations()
+    public function testGetStaticHtml()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_player_api_Constants::OPTION_PLAYER_LOCATION)->andReturn('x');
+        $this->_setupEventDispatcherForSelection('x', $this->_mockPlayerLocation, $this->_mockPlayerLocation);
 
         $mockTemplate = $this->mock('tubepress_lib_template_api_TemplateInterface');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobarr');
 
         $this->_mockPlayerLocation->shouldReceive('getTemplatePathsForStaticContent')->once()->andReturn(array('x'));
         $this->_mockTemplateFactory->shouldReceive('fromFilesystem')->once()->with(array('x'))->andReturn($mockTemplate);
-
-        $mockSelectionEvent = $this->mock('tubepress_lib_event_api_EventInterface');
-        $mockSelectionEvent->shouldReceive('getArgument')->once()->with('playerLocation')->andReturn($this->_mockPlayerLocation);
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($this->_mockVideo, array(
-
-            'playerLocation' => $this->_mockPlayerLocation
-        ))->andReturn($mockSelectionEvent);
-
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_player_api_Constants::EVENT_PLAYER_SELECT, $mockSelectionEvent);
 
         $mockTemplateEvent = $this->mock('tubepress_lib_event_api_EventInterface');
         $mockTemplateEvent->shouldReceive('getSubject')->once()->andReturn($mockTemplate);
@@ -107,9 +98,9 @@ class tubepress_test_app_player_impl_PlayerHtmlTest extends tubepress_test_TubeP
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(
             'foobarr', array(
 
-                'item' => $mockVideo,
+                'item'           => $mockVideo,
                 'playerLocation' => $this->_mockPlayerLocation,
-                'isAjax'                      => false,
+                'isAjax'         => false,
             )
         )->andReturn($mockHtmlEvent);
 
@@ -120,21 +111,22 @@ class tubepress_test_app_player_impl_PlayerHtmlTest extends tubepress_test_TubeP
         $this->assertEquals('abc', $this->_sut->getStaticHtml($this->_mockVideo));
     }
 
-    public function testGetHtmlNoSuitablePlayerLocations()
+    public function testGetStaticHtmlNoSuitablePlayerLocations()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_player_api_Constants::OPTION_PLAYER_LOCATION)->andReturn('z');
+        $this->setExpectedException('RuntimeException', 'No suitable player locations found.');
+
+        $this->_setupEventDispatcherForSelection('z', null, null);
+
+        $this->_sut->getStaticHtml($this->_mockVideo);
+    }
+
+    private function _setupEventDispatcherForSelection($contextVal, $initial, $finalSubject)
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_player_api_Constants::OPTION_PLAYER_LOCATION)->andReturn($contextVal);
 
         $mockSelectionEvent = $this->mock('tubepress_lib_event_api_EventInterface');
-        $mockSelectionEvent->shouldReceive('getArgument')->once()->with('playerLocation')->andReturn(null);
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($this->_mockVideo, array(
-
-            'playerLocation' => null,
-        ))->andReturn($mockSelectionEvent);
-
+        $mockSelectionEvent->shouldReceive('getSubject')->once()->andReturn($finalSubject);
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($initial)->andReturn($mockSelectionEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_player_api_Constants::EVENT_PLAYER_SELECT, $mockSelectionEvent);
-
-        $html = $this->_sut->getStaticHtml($this->_mockVideo);
-
-        $this->assertNull($html);
     }
 }
