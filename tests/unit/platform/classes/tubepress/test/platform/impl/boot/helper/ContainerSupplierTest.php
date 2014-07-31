@@ -46,25 +46,31 @@ class tubepress_test_impl_boot_helper_ContainerSupplierTest extends tubepress_te
         );
     }
 
+    public function onTeardown()
+    {
+        $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/tubepress-container-supplier-test');
+    }
+
     public function testGetContainerNoSuchFile()
     {
-        $this->_mockSettingsFileReader->shouldReceive('isContainerCacheEnabled')->once()->andReturn(true);
-        $this->_mockSettingsFileReader->shouldReceive('getPathToContainerCacheFile')->once()->andReturn('abc');
+        $this->_mockSettingsFileReader->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
+        $this->_mockSettingsFileReader->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn('abc');
 
         $this->_completeUncachedTest();
     }
 
     public function testCacheSuccess()
     {
-        $this->_mockSettingsFileReader->shouldReceive('isContainerCacheEnabled')->once()->andReturn(true);
+        $this->_mockSettingsFileReader->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
 
-        $tmpFile = tmpfile();
-        $metaDatas = stream_get_meta_data($tmpFile);
-        $tmpFilename = $metaDatas['uri'];
+        $mockCacheDir = sys_get_temp_dir() . '/tubepress-container-supplier-test/service-container';
+        $file = $mockCacheDir . '/tubepress-service-container.php';
+        $success = mkdir($mockCacheDir, 0755, true);
+        $this->assertTrue($success);
+        $text = $this->_getDumpedEmptyIconicContainerBuilder();
+        file_put_contents($file, $text);
 
-        fwrite($tmpFile, $this->_getDumpedEmptyIconicContainerBuilder());
-
-        $this->_mockSettingsFileReader->shouldReceive('getPathToContainerCacheFile')->once()->andReturn($tmpFilename);
+        $this->_mockSettingsFileReader->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(dirname($mockCacheDir));
 
         $result = $this->_sut->getServiceContainer();
 
@@ -73,14 +79,9 @@ class tubepress_test_impl_boot_helper_ContainerSupplierTest extends tubepress_te
 
     public function testCacheDisabled()
     {
-        $this->_mockSettingsFileReader->shouldReceive('isContainerCacheEnabled')->once()->andReturn(false);
+        $this->_mockSettingsFileReader->shouldReceive('isSystemCacheEnabled')->once()->andReturn(false);
 
         $this->_completeUncachedTest();
-    }
-
-    private function _verifyResult($container)
-    {
-        $this->assertInstanceOf('tubepress_platform_api_ioc_ContainerInterface', $container);
     }
 
     private function _getDumpedEmptyIconicContainerBuilder()
@@ -112,7 +113,7 @@ XYZ;
     private function _completeUncachedTest()
     {
         $mockIconicContainer  = $this->mock('ehough_iconic_ContainerInterface');
-        $mockUncachedProvider = $this->mock('tubepress_platform_impl_boot_helper_secondary_UncachedContainerSupplier');
+        $mockUncachedProvider = $this->mock('tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier');
 
         $mockUncachedProvider->shouldReceive('getNewIconicContainer')->once()->andReturn($mockIconicContainer);
 
@@ -128,4 +129,8 @@ XYZ;
         $this->_verifyResult($result);
     }
 
+    private function _verifyResult($container)
+    {
+        $this->assertInstanceOf('tubepress_platform_api_ioc_ContainerInterface', $container);
+    }
 }

@@ -1,0 +1,156 @@
+{#
+ Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+
+ This file is part of TubePress (http://tubepress.com)
+
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+ Non-exhaustive list of variables in this template (add-ons may add other variables).
+
+ mediaPage            tubepress_app_api_media_MediaPage             Set of items on this page.
+
+ translator           tubepress_lib_api_translation_TranslatorInterface Translator.
+
+ widgetId             string                                            The page-unique ID for this gallery.
+                                                                        Typically this is just a random number.
+
+ playerHTML           string                                            HTML for the embedded media player. This
+                                                                        may be empty as some players don't
+                                                                        generate HTML on page load.
+
+ paginationHTML       string                                            Pagination HTML. May be empty.
+
+ paginationShowTop    bool                                              Has the user requested pagination above
+                                                                        the thumbnails?
+
+ paginationShowBottom bool                                              Has the user requested pagination below
+                                                                        the thumbnails?
+
+ thumbHeightPx        int                                               The requested thumbnail height, in px.
+
+ thumbWidthPx         int                                               The requested thumbnail width, in px.
+
+ attributesToShow     string[]                                          Media item attribute names that the user
+                                                                        has requested to display for each item
+                                                                        in $mediaPage->getItems().
+
+ attributeLabels      array                                             An associative array of media item
+                                                                        attribute names (strings) to translated
+                                                                        labels. e.g. 'timePublishedFormatted' =>
+                                                                        'Date posted'. The array values will be
+                                                                        shown to the user.
+
+
+ <div class="js-tubepress-gallery-123456789">
+
+ The outer-most <div> for a TubePress media gallery. Ensure that the class
+ js-tubepress-gallery-* stays in the template, and on one of the
+ outer-most parent elements. Failure to do so will break most functionality for the user.
+
+ #}
+<div class="js-tubepress-gallery js-tubepress-gallery-{{ widgetId }}">
+
+{# First let's see if we have any items to display... #}
+{% if mediaPage.items is empty %}
+
+    <p class="tubepress-gallery-no-matching-videos">
+        {{ 'No matching videos'|translate }}                {# >(translatable)< #}
+    </p>
+
+{% else %}
+
+    {#
+     The following statement prints out any HTML required for the TubePress "player location". This may be
+     completely empty. We do not recommend removing this statement, though you may move it around the template if you'd like.
+     #}
+    {{ playerHTML|raw }}
+
+    {#
+     <div class="js-tubepress-pagination-and-thumbs">
+    
+     A <div> that wraps the pagination and thumbnails.
+    
+     You must retain the js-tubepress-pagination-and-thumbs class to let TubePress
+     know where the pagination and thumbnails are located. Failure to do so may break
+     client-side functionality.
+     #}
+    <div class="tubepress-pagination-and-thumbs js-tubepress-pagination-and-thumbs">
+
+        {# The following block prints out any pagination above the thumbnail array, if necessary. #}
+        {% if paginationShowTop %}
+            {{ paginationHTML|raw }}
+        {% endif %}
+
+        {#
+         <div class="tubepress_thumbs">
+
+         A <div> that wraps the thumbnail array.
+         #}
+        <div class="tubepress-thumbs">
+
+            {# Start looping through the items ... #}
+            {% for mediaItem in mediaPage.items %}
+
+            {#
+             <div class="tubepress-thumb js-tubepress-fluid-thumb-adjustable">
+            
+             We set this to the width of the thumbnail so that the metadata doesn't spill over
+             onto other thumbnails.
+             #}
+            <div class="tubepress-thumb js-tubepress-fluid-thumb-adjustable" style="width: {{ thumbWidthPx }}px">
+
+                {#
+                 The following <a> and <img> display the clickable video thumbnail. The opening <a> is a bit complex,
+                 so we delegate it to a fragment. If you are extending this theme, don't forget to copy this fragment
+                 over into your theme directory and update the path!
+                 #}
+                {% include '_fragments/invoking_anchor_opener.fragment.php' %}
+
+                    {#
+                     You must retain the js-tubepress-thumbnail-image class on the image. Failure to do
+                     so will break fluid thumbnails.
+                     #}
+                    <img class="tubepress-thumbnail-image js-tubepress-fluid-thumb-reference" alt="{{ mediaItem.title }}" src="{{ mediaItem.thumbnailUrl }}" width="{{ thumbWidthPx }}" height="{{ thumbHeightPx }}" />
+                </a>
+
+                {#
+                 <dl class="tubepress-meta-group" ...>
+                
+                 This <dl> wraps each video's metadata (title, runtime, etc).
+                 #}
+                <dl class="tubepress-meta-group" style="width: {{ thumbWidthPx }}px">
+
+                    {# Loop over the attributes for this media item. #}
+                    {% for attributeName in attributesToShow %}
+
+                        {#
+                         The logic for printing the dd/dt pairs is delegated a fragment since it is shared
+                         with single_video.tpl.php. If you are extending this theme, don't forget to copy this fragment
+                         over into your theme directory!
+                         #}
+                        {% include '_fragments/dt_dd_pair.fragment.php' %}
+
+                    {% endfor %}
+
+                </dl>{# end of dl.tubepress-meta-group #}
+
+            </div>{#  end of div.tubepress-thumb #}
+
+            {# Stop looping through the videos... #}
+            {% endfor %}
+
+        </div>{# end of div.tubepress-thumbs #}
+
+        {# The following block prints out any pagination below the thumbnail array, if necessary. #}
+        {% if paginationShowBottom %}
+            {{ paginationHTML|raw }}
+        {% endif %}
+
+    </div>{# end of div.tubepress-pagination-and-thumbs #}
+
+{% endif %} {# end of top-level if/else block #}
+
+</div>{# end of outermost div #}

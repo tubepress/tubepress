@@ -20,9 +20,9 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
     private $_logger;
 
     /**
-     * @var tubepress_platform_impl_boot_BootSettings
+     * @var tubepress_platform_api_boot_BootSettingsInterface
      */
-    private $_settingsFileReader;
+    private $_bootSettings;
 
     /**
      * @var bool
@@ -30,16 +30,21 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
     private $_logEnabled = false;
 
     /**
-     * @var tubepress_platform_impl_boot_helper_secondary_UncachedContainerSupplier
+     * @var tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
      */
     private $_uncachedContainerSupplier;
+
+    /**
+     * @var ehough_pulsar_MapClassLoader
+     */
+    private $_temporaryClassLoader;
     
-    public function __construct(tubepress_platform_api_log_LoggerInterface      $logger,
-                                tubepress_platform_impl_boot_BootSettings       $sfr)
+    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
+                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings)
     {
-        $this->_logger             = $logger;
-        $this->_settingsFileReader = $sfr;
-        $this->_logEnabled         = $logger->isEnabled();
+        $this->_logger       = $logger;
+        $this->_bootSettings = $bootSettings;
+        $this->_logEnabled   = $logger->isEnabled();
     }
 
     /**
@@ -51,7 +56,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug('We can boot from the system cache. Excellent!');
+                $this->_logger->debug('System cache is available. Excellent!');
             }
 
             try {
@@ -74,14 +79,14 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
     {
         if ($this->_logEnabled) {
 
-            $this->_logger->debug('Determining if we can boot from the cache.');
+            $this->_logger->debug('Determining if system cache is available.');
         }
 
-        if (!$this->_settingsFileReader->isContainerCacheEnabled()) {
+        if (!$this->_bootSettings->isSystemCacheEnabled()) {
 
             if ($this->_logEnabled) {
 
-                $this->_logger->debug('Boot cache is disabled by user settings.php');
+                $this->_logger->debug('System cache is disabled by user settings.php');
             }
 
             return false;
@@ -92,7 +97,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
             return true;
         }
 
-        $file = $this->_settingsFileReader->getPathToContainerCacheFile();;
+        $file = $this->_getPathToContainerCacheFile();
 
         if (!is_readable($file)) {
 
@@ -135,8 +140,6 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
             $this->_logger->debug('Rehydrating cached service container.');
         }
 
-        $this->_includeIconicContainerCache();
-
         /** @noinspection PhpUndefinedClassInspection */
         /**
          * @var $cachedContainer ehough_iconic_Container
@@ -149,31 +152,10 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
         }
 
         $tubePressContainer = new tubepress_platform_impl_ioc_Container($iconicContainer);
+
         $this->_setEphemeralServicesToContainer($tubePressContainer, $iconicContainer);
 
         return $tubePressContainer;
-    }
-
-    private function _includeIconicContainerCache()
-    {
-        if ($this->_tubePressContainerClassExists()) {
-
-            return;
-        }
-
-        $file = $this->_settingsFileReader->getPathToContainerCacheFile();;
-
-        if (!is_readable($file)) {
-
-            $message = sprintf('Cannot read file at %s', $file);
-
-            $this->_logger->error($message);
-
-            throw new RuntimeException($message);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        require $file;
     }
 
     private function _tubePressContainerClassExists()
@@ -191,42 +173,13 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
             $this->_logger->debug('We cannot boot from cache. Will perform a full boot instead.');
         }
 
-        if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+        $this->_buildTemporaryClassLoader();
+        $this->_buildUncachedContainerSupplier();
 
-            /** @noinspection PhpIncludeInspection */
-            require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
-        }
-
-        /**
-         * Create a temporary classloader so we can do the full boot.
-         */
-        /** @noinspection PhpIncludeInspection */
-        $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
-        $classLoader  = new ehough_pulsar_MapClassLoader($fullClassMap);
-        $classLoader->register();
-
-        if (!isset($this->_uncachedContainerSupplier)) {
-
-            $finderFactory = new ehough_finder_FinderFactory();
-            $uncached      = new tubepress_platform_impl_boot_helper_secondary_UncachedContainerSupplier(
-
-                $this->_logger,
-                new tubepress_platform_impl_boot_helper_secondary_ClassLoaderPrimer($this->_logger),
-                new tubepress_platform_impl_addon_Registry($this->_logger, $this->_settingsFileReader, $finderFactory),
-                new tubepress_platform_impl_boot_helper_secondary_IocCompiler($this->_logger),
-                $this->_settingsFileReader
-            );
-
-            $this->_uncachedContainerSupplier = $uncached;
-        }
-
-        $result             = $this->_uncachedContainerSupplier->getNewIconicContainer($this->_settingsFileReader);
+        $result             = $this->_uncachedContainerSupplier->getNewIconicContainer($this->_bootSettings);
         $tubePressContainer = new tubepress_platform_impl_ioc_Container($result);
 
-        /**
-         * De-register the temporary classloader.
-         */
-        spl_autoload_unregister(array($classLoader, 'loadClass'));
+        spl_autoload_unregister(array($this->_temporaryClassLoader, 'loadClass'));
 
         if ($result instanceof ehough_iconic_ContainerBuilder) {
 
@@ -239,15 +192,64 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
     }
 
     private function _setEphemeralServicesToContainer(tubepress_platform_api_ioc_ContainerInterface $tubePressContainer,
-                                                      ehough_iconic_ContainerInterface     $iconicContainer)
+                                                      ehough_iconic_ContainerInterface              $iconicContainer)
     {
         $tubePressContainer->set('tubepress_platform_api_ioc_ContainerInterface',      $tubePressContainer);
-        $tubePressContainer->set('ehough_iconic_ContainerInterface',          $iconicContainer);
+        $tubePressContainer->set('ehough_iconic_ContainerInterface',                   $iconicContainer);
         $tubePressContainer->set('tubepress_platform_impl_log_BootLogger',             $this->_logger);
-        $tubePressContainer->set(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_settingsFileReader);
+        $tubePressContainer->set(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_bootSettings);
     }
 
-    public function ___setUncachedContainerSupplier(tubepress_platform_impl_boot_helper_secondary_UncachedContainerSupplier $supplier)
+    private function _getPathToContainerCacheFile()
+    {
+        return $this->_bootSettings->getPathToSystemCacheDirectory() . '/service-container/tubepress-service-container.php';
+    }
+
+    private function _buildTemporaryClassLoader()
+    {
+        if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+
+            require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+        }
+
+        /**
+         * Create a temporary classloader so we can do the full boot.
+         */
+        /** @noinspection PhpIncludeInspection */
+        $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
+        $this->_temporaryClassLoader  = new ehough_pulsar_MapClassLoader($fullClassMap);
+        $this->_temporaryClassLoader->register();
+    }
+
+    private function _buildUncachedContainerSupplier()
+    {
+        if (isset($this->_uncachedContainerSupplier)) {
+
+            return;
+        }
+
+        $finderFactory = new ehough_finder_FinderFactory();
+        $urlFactory    = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $langUtils     = new tubepress_platform_impl_util_LangUtils();
+        $stringUtils   = new tubepress_platform_impl_util_StringUtils();
+        $addonFactory  = new tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory(
+            $this->_logger, $urlFactory, $langUtils, $stringUtils, $this->_bootSettings
+        );
+        $manifestFinder = new tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder(
+            TUBEPRESS_ROOT . '/src/add-ons', '/add-ons', 'manifest.json',
+            $this->_logger, $this->_bootSettings, $finderFactory
+        );
+        $uncached = new tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier(
+
+            $this->_logger, $manifestFinder, $addonFactory,
+            new tubepress_platform_impl_boot_helper_uncached_Compiler($this->_logger),
+            $this->_bootSettings
+        );
+
+        $this->_uncachedContainerSupplier = $uncached;
+    }
+
+    public function ___setUncachedContainerSupplier(tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier $supplier)
     {
         $this->_uncachedContainerSupplier = $supplier;
     }

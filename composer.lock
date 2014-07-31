@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "92fd5b7956851ad4a424d01764893487",
+    "hash": "b545e272f86d2e0f8e08b289c0b3facb",
     "packages": [
         {
             "name": "ehough/contemplate",
@@ -280,6 +280,64 @@
             "time": "2014-06-19 22:31:57"
         },
         {
+            "name": "ehough/templating",
+            "version": "v2.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ehough/templating.git",
+                "reference": "569f2d06c895f54d74b0e60274198a62ed9fca26"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ehough/templating/zipball/569f2d06c895f54d74b0e60274198a62ed9fca26",
+                "reference": "569f2d06c895f54d74b0e60274198a62ed9fca26",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "psr/log": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ehough_templating": "src/main/php",
+                    "ehough_templating_test": "src/test/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Eric Hough",
+                    "email": "eric@tubepress.com"
+                }
+            ],
+            "description": "Fork of Symfony's Templating component  compatible with PHP 5.2+",
+            "homepage": "http://symfony.com",
+            "time": "2014-07-20 04:57:56"
+        },
+        {
             "name": "ehough/tickertape",
             "version": "v2.5.0",
             "source": {
@@ -455,6 +513,63 @@
                 "stream"
             ],
             "time": "2014-04-22 18:34:41"
+        },
+        {
+            "name": "twig/twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "5fd428ed7603ea63998716995c123c99648aab26"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/5fd428ed7603ea63998716995c123c99648aab26",
+                "reference": "5fd428ed7603ea63998716995c123c99648aab26",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.16-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "https://github.com/fabpot/Twig/graphs/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2014-07-08 13:46:25"
         }
     ],
     "packages-dev": [
@@ -894,12 +1009,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "ba3c7ba4e49645da3539e099d0b165a0c2292a31"
+                "reference": "206de04f06299f28e1725d9a07a2ee05610fb6f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/ba3c7ba4e49645da3539e099d0b165a0c2292a31",
-                "reference": "ba3c7ba4e49645da3539e099d0b165a0c2292a31",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/206de04f06299f28e1725d9a07a2ee05610fb6f8",
+                "reference": "206de04f06299f28e1725d9a07a2ee05610fb6f8",
                 "shasum": ""
             },
             "require": {
@@ -937,7 +1052,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-01 06:41:10"
+            "time": "2014-07-09 09:06:26"
         },
         {
             "name": "symfony/css-selector",
@@ -946,12 +1061,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "782f14ec7ce960831f10f0a0ddc8dcee9be96788"
+                "reference": "4d29ae5f1dbc3ee7fcd82ffbb292476975a78692"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/782f14ec7ce960831f10f0a0ddc8dcee9be96788",
-                "reference": "782f14ec7ce960831f10f0a0ddc8dcee9be96788",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/4d29ae5f1dbc3ee7fcd82ffbb292476975a78692",
+                "reference": "4d29ae5f1dbc3ee7fcd82ffbb292476975a78692",
                 "shasum": ""
             },
             "require": {
@@ -990,7 +1105,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-01 06:41:10"
+            "time": "2014-07-17 08:32:45"
         },
         {
             "name": "symfony/dom-crawler",
@@ -999,12 +1114,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "74a9fd5c5a9011759c0f47c749a72a34895a4f53"
+                "reference": "e50da0a1af797151266110f432586d062bb873fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/74a9fd5c5a9011759c0f47c749a72a34895a4f53",
-                "reference": "74a9fd5c5a9011759c0f47c749a72a34895a4f53",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/e50da0a1af797151266110f432586d062bb873fb",
+                "reference": "e50da0a1af797151266110f432586d062bb873fb",
                 "shasum": ""
             },
             "require": {
@@ -1045,7 +1160,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-01 06:41:10"
+            "time": "2014-07-09 09:06:26"
         },
         {
             "name": "symfony/yaml",
@@ -1054,12 +1169,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "a0e90f173c33a57bfbb5561793d25864182239ad"
+                "reference": "07ff901ce8b081cf227091b4919d347fa999b2a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/a0e90f173c33a57bfbb5561793d25864182239ad",
-                "reference": "a0e90f173c33a57bfbb5561793d25864182239ad",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/07ff901ce8b081cf227091b4919d347fa999b2a0",
+                "reference": "07ff901ce8b081cf227091b4919d347fa999b2a0",
                 "shasum": ""
             },
             "require": {
@@ -1094,7 +1209,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-20 17:41:51"
+            "time": "2014-07-09 09:06:26"
         }
     ],
     "aliases": [

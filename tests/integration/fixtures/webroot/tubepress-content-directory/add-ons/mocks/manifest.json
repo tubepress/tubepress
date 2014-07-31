@@ -12,8 +12,8 @@
             "url" : "http://www.mozilla.org/MPL/2.0/"
         }
     ],
-    "inversion-of-control": {
-        "container-extensions" : [
+    "container-builder": {
+        "extensions" : [
             "tubepress_test_integration_mocks_MocksExtension"
         ]
     },

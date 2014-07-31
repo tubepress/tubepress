@@ -40,7 +40,7 @@ class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePress
 
         $this->_sut                     = new tubepress_platform_impl_boot_BootSettings($this->_mockLogger);
 
-        $this->_userContentDirectory = sys_get_temp_dir() . '/tubepress-container-cache/';
+        $this->_userContentDirectory = sys_get_temp_dir() . '/tubepress-boot-settings-test/';
 
         if (is_dir($this->_userContentDirectory)) {
 
@@ -99,9 +99,9 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getPathToContainerCacheFile();
+        $result = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertEquals($path . '/tubepress-service-container.php', $result);
+        $this->assertEquals($path, $result);
     }
 
     public function testContainerStoragePathCreateDirectory()
@@ -123,9 +123,9 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getPathToContainerCacheFile();
+        $result = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertEquals($path . '/tubepress-service-container.php', $result);
+        $this->assertEquals($path, $result);
     }
 
     public function testContainerStoragePathNonWritableDirectory()
@@ -144,9 +144,9 @@ return array(
 EOF
         );
 
-        $result = $this->_sut->getPathToContainerCacheFile();
+        $result = $this->_sut->getPathToSystemCacheDirectory();
 
-        $this->assertRegExp('~[^/]+/tubepress-system-cache/[a-f0-9]+/tubepress-service-container\.php~', $result);
+        $this->assertRegExp('~/[^/]+/tubepress-system-cache-[a-f0-9]+~', $result);
     }
 
     public function testFallback()
@@ -200,224 +200,31 @@ EOF
         $this->_verifyAllDefaults();
     }
 
-    public function testClearCache()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-
-    'system' => array(
-        'cache' => array(
-
-            'instance'  => new ehough_stash_Pool(new ehough_stash_driver_Ephemeral()),
-            'killerKey' => 'hello',
-        ),
-        'add-ons' => array(
-
-            'blacklist' => array('some', 'thing', 'else'),
-        ),
-        'classloader' => array(
-
-            'enabled' => true,
-        )
-    )
-);
-EOF
-        );
-
-        $_GET['hello'] = 'true';
-
-        $result = $this->_sut->getAddonBlacklistArray();
-
-        $this->assertTrue(is_array($result));
-        $this->assertEquals(array('some', 'thing', 'else'), $result);
-    }
-
-    public function testNonReturningPhpBootFile()
+    /**
+     * @dataProvider getBootConfigsThatShouldResultInDefaults
+     */
+    public function testDefaults($filename)
     {
         define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
 
-        $this->_writeBootConfig(<<<EOF
-<?php
-\$x = 'x';
-EOF
-        );
+        $bootConfigAsString = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/platform/fixtures/boot-settings-files/' . $filename . '.php');
+
+        $this->_writeBootConfig($bootConfigAsString);
 
         $this->_verifyAllDefaults();
     }
 
-    public function testMissingCacheConfig()
+    public function getBootConfigsThatShouldResultInDefaults()
     {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'system' => array(
-        'add-ons' => array(
-
-            'blacklist' => array('some', 'thing', 'else'),
-        ),
-        'classloader' => array(
-
-            'enabled' => true,
-        )
-    )
-);
-EOF
+        return array(
+            array('missing-blacklist'),
+            array('missing-cache-config'),
+            array('non-array-blacklist'),
+            array('non-array-cache-config'),
+            array('non-boolean-classloader-enablement'),
+            array('non-returning'),
+            array('non-string-cache-killer'),
         );
-
-        $result = $this->_sut->getPathToContainerCacheFile();
-        $this->assertTrue(is_writable(dirname($result)));
-        $this->assertTrue(!is_dir($result));
-    }
-
-    public function testMissingBlacklist()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'system' => array(
-        'cache' => array(
-
-            'killerKey' => 'hello',
-        ),
-        'add-ons' => array(),
-        'classloader' => array(
-
-            'enabled' => true,
-        )
-    )
-);
-EOF
-        );
-
-        $result = $this->_sut->getAddonBlacklistArray();
-
-        $this->assertTrue(is_array($result));
-        $this->assertTrue(empty($result));
-    }
-
-    public function testNonArrayCacheConfig()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'system' => array(
-        'cache' => 'hi',
-        'add-ons' => array(
-
-            'blacklist' => array('some', 'thing', 'else'),
-        ),
-        'classloader' => array(
-
-            'enabled' => true,
-        )
-    )
-);
-EOF
-        );
-
-        $result = $this->_sut->getPathToContainerCacheFile();
-        $this->assertTrue(is_writable(dirname($result)));
-        $this->assertTrue(!is_dir($result));
-    }
-
-    public function testNonStringKillerKey()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'system' => array(
-        'cache' => array(
-
-            'killerKey' => array(),
-        ),
-        'add-ons' => array(
-
-            'blacklist' => array(),
-        ),
-        'classloader' => array(
-
-            'enabled' => true,
-        )
-    )
-);
-EOF
-        );
-
-        $result = $this->_sut->getPathToContainerCacheFile();
-        $this->assertTrue(is_writable(dirname($result)));
-        $this->assertTrue(!is_dir($result));
-    }
-
-    public function testNonArrayBlacklist()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'system' => array(
-        'cache' => array(
-
-            'instance'  => new ehough_stash_Pool(new ehough_stash_driver_Ephemeral()),
-            'killerKey' => 'hello',
-        ),
-        'add-ons' => array(
-
-            'blacklist' => 3,
-        ),
-        'classloader' => array(
-
-            'enabled' => true,
-        )
-    )
-);
-EOF
-        );
-
-        $result = $this->_sut->getAddonBlacklistArray();
-
-        $this->assertTrue(is_array($result));
-        $this->assertEquals(array(), $result);
-    }
-
-    public function testNonBooleanClassLoaderEnablement()
-    {
-        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
-
-        $this->_writeBootConfig(<<<EOF
-<?php
-return array(
-    'system' => array(
-        'cache' => array(
-
-            'instance'  => new ehough_stash_Pool(new ehough_stash_driver_Ephemeral()),
-            'killerKey' => 'hello',
-        ),
-        'add-ons' => array(
-
-            'blacklist' => array(),
-        ),
-        'classloader' => array(
-
-            'enabled' => 'hello',
-        )
-    )
-);
-EOF
-        );
-
-        $result = $this->_sut->isClassLoaderEnabled();
-        $this->assertTrue($result);
     }
 
     private function _writeBootConfig($contents)
@@ -430,7 +237,7 @@ EOF
         $result = $this->_sut->getAddonBlacklistArray();
 
         $this->assertTrue(is_array($result));
-        $this->assertTrue(empty($result));
+        $this->assertTrue(empty($result), 'Add-on blacklist is not empty as it should be.');
 
         $result = $this->_sut->getAddonBlacklistArray();
 
@@ -440,11 +247,13 @@ EOF
         $result = $this->_sut->isClassLoaderEnabled();
         $this->assertTrue($result);
 
-        $result = $this->_sut->getPathToContainerCacheFile();
-        $this->assertTrue(is_writable(dirname($result)));
-        $this->assertTrue(!is_dir($result));
+        $result = $this->_sut->getPathToSystemCacheDirectory();
+        $this->assertTrue(is_writable($result));
+        $this->assertTrue(is_dir($result));
 
-        $result = $this->_sut->isContainerCacheEnabled();
+        $result = $this->_sut->isSystemCacheEnabled();
         $this->assertTrue($result);
+
+        $this->recursivelyDeleteDirectory($this->_sut->getPathToSystemCacheDirectory());
     }
 }

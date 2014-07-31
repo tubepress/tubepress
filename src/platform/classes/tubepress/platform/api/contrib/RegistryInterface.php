@@ -10,8 +10,6 @@
  */
 
 /**
- * A registry of contributables.
- *
  * @api
  * @since 4.0.0
  */
@@ -23,10 +21,20 @@ interface tubepress_platform_api_contrib_RegistryInterface
     const _ = 'tubepress_platform_api_contrib_RegistryInterface';
 
     /**
-     * @return tubepress_platform_api_contrib_ContributableInterface[] May be empty, never null.
+     * @return tubepress_platform_api_contrib_ContributableInterface[]
      *
      * @api
      * @since 4.0.0
      */
     function getAll();
+
+    /**
+     * @param $name string The name of the contributable to return.
+     *
+     * @return tubepress_platform_api_contrib_ContributableInterface
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getInstanceByName($name);
 }

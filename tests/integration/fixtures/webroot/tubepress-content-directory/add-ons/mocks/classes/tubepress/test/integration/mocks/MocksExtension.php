@@ -28,12 +28,12 @@ class tubepress_test_integration_mocks_MocksExtension implements tubepress_platf
     {
         $containerBuilder->register(
 
-            tubepress_lib_translation_api_TranslatorInterface::_,
+            tubepress_lib_api_translation_TranslatorInterface::_,
             'tubepress_test_integration_mocks_MockTranslator'
         );
 
         $containerBuilder->register(
-            tubepress_app_options_api_PersistenceBackendInterface::_,
+            tubepress_app_api_options_PersistenceBackendInterface::_,
             'tubepress_test_integration_mocks_MockPersistence'
         );
 

@@ -15,6 +15,8 @@
  */
 class tubepress_platform_impl_boot_PrimaryBootstrapper
 {
+    const CONTAINER_PARAM_BOOT_ARTIFACTS = 'boot-artifacts';
+
     /**
      * @var tubepress_platform_api_ioc_ContainerInterface
      */
@@ -38,12 +40,12 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     /**
      * @var tubepress_platform_api_boot_BootSettingsInterface
      */
-    private $_helperSettingsFileReader;
+    private $_bootSettings;
 
     /**
      * @var tubepress_platform_impl_boot_helper_ContainerSupplier
      */
-    private $_helperContainerSupplier;
+    private $_containerSupplier;
 
     /**
      * Performs TubePress-wide initialization.
@@ -92,7 +94,7 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
         /**
          * Setup initial class loader.
          */
-        $this->_01_registerMinimalClassLoader();
+        $this->_01_loadMinimalClasses();
 
         /*
          * Setup basic logging facilities.
@@ -132,19 +134,20 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
 
     private function _00_registerFatalErrorHandler()
     {
-        register_shutdown_function(array($this, '__handleFatalError'));
+        register_shutdown_function(array($this, '_handleFatalError'));
     }
 
-    private function _01_registerMinimalClassLoader()
+    private function _01_loadMinimalClasses()
     {
+        $classConcatenationPath = TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php';
+
         /**
-         * We don't want to include this during unit tests, so simply check to see if a mock boot logger
-         * has already been set on the object.
+         * This should be the common case in production.
          */
-        if (!isset($this->_bootLogger)) {
+        if (file_exists($classConcatenationPath)) {
 
             /** @noinspection PhpIncludeInspection */
-            require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php';
+            require $classConcatenationPath;
         }
     }
 
@@ -170,71 +173,64 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     
     private function _04_buildHelperServices()
     {
-        if (!isset($this->_helperSettingsFileReader)) {
+        if (!isset($this->_bootSettings)) {
 
-            $this->_helperSettingsFileReader = new tubepress_platform_impl_boot_BootSettings($this->_bootLogger);
+            $this->_bootSettings = new tubepress_platform_impl_boot_BootSettings($this->_bootLogger);
         }
 
-        if (!isset($this->_helperContainerSupplier)) {
+        if (!isset($this->_containerSupplier)) {
 
-            $this->_helperContainerSupplier = new tubepress_platform_impl_boot_helper_ContainerSupplier(
+            $this->_containerSupplier = new tubepress_platform_impl_boot_helper_ContainerSupplier(
                 
                 $this->_bootLogger,
-                $this->_helperSettingsFileReader
+                $this->_bootSettings
             );
         }
     }
 
     private function _05_loadServiceContainer()
     {
-        self::$_SERVICE_CONTAINER = $this->_helperContainerSupplier->getServiceContainer();
+        if ($this->_bootSettings->shouldClearCache()) {
+
+            $this->_clearSystemCache();
+        }
+
+        self::$_SERVICE_CONTAINER = $this->_containerSupplier->getServiceContainer();
     }
 
     private function _06_registerClassLoaderIfRequested()
     {
         $container = self::$_SERVICE_CONTAINER;
-        
-        if (!$this->_helperSettingsFileReader->isClassLoaderEnabled()) {
+
+        if (!$this->_bootSettings->isClassLoaderEnabled()) {
 
             return;
         }
 
-        if ($container->hasParameter('classloading-classmap')) {
+        if ($container->hasParameter(self::CONTAINER_PARAM_BOOT_ARTIFACTS)) {
 
-            if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+            $bootArtifacts = $container->getParameter(self::CONTAINER_PARAM_BOOT_ARTIFACTS);
 
-                require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+            if (!is_array($bootArtifacts) || !isset($bootArtifacts['classloading']) || !is_array($bootArtifacts['classloading'])) {
+
+                return;
             }
 
-            $containerClassMap = $container->getParameter('classloading-classmap');
-            $mapClassLoader    = new ehough_pulsar_MapClassLoader($containerClassMap);
+            $classLoadingArtifacts = $bootArtifacts['classloading'];
 
-            $mapClassLoader->register();
+            if (isset($classLoadingArtifacts['map'])
+                && is_array($classLoadingArtifacts['map'])) {
+
+                if (!class_exists('ehough_pulsar_MapClassLoader', false)) {
+
+                    require TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/MapClassLoader.php';
+                }
+
+                $mapClassLoader = new ehough_pulsar_MapClassLoader($classLoadingArtifacts['map']);
+
+                $mapClassLoader->register();
+            }
         }
-
-        $hasFallbacks = $container->hasParameter('classloading-psr0-fallbacks');
-        $hasPrefixed  = $container->hasParameter('classloading-psr0-prefixed-paths');
-
-        if (!$hasFallbacks && !$hasPrefixed) {
-
-            return;
-        }
-
-        $psr0Fallbacks     = $container->getParameter('classloading-psr0-fallbacks');
-        $psr0PrefixedPaths = $container->getParameter('classloading-psr0-prefixed-paths');
-
-        if (empty($psr0Fallbacks) && empty($psr0PrefixedPaths)) {
-            
-            return;
-        }
-
-        $universalClassLoader = new ehough_pulsar_UniversalClassLoader();
-        
-        $universalClassLoader->registerNamespaces($psr0PrefixedPaths);
-        $universalClassLoader->registerPrefixes($psr0PrefixedPaths);
-        $universalClassLoader->registerNamespaceFallbacks($psr0Fallbacks);
-        $universalClassLoader->registerPrefixFallbacks($psr0Fallbacks);
-        $universalClassLoader->register();
     }
 
     private function _07_recordFinishTime()
@@ -268,8 +264,8 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
 
     private function _08_freeMemory()
     {
-        unset($this->_helperSettingsFileReader);
-        unset($this->_helperContainerSupplier);
+        unset($this->_bootSettings);
+        unset($this->_containerSupplier);
     }
 
     private function _handleBootException(Exception $e)
@@ -288,37 +284,106 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
         throw $e;
     }
 
-    public function __handleFatalError()
+    private function _clearSystemCache()
     {
-        $error = error_get_last();
+        $dir       = $this->_bootSettings->getPathToSystemCacheDirectory();
+        $shouldLog = $this->_bootLogger->isEnabled();
 
-        if (!is_array($error) || !isset($error['file'])) {
+        if ($shouldLog) {
+
+            $this->_bootLogger->debug(sprintf('System cache clear requested. Attempting to recursively delete %s', $dir));
+        }
+
+        $this->_recursivelyDeleteDirectory($dir, $this->_bootLogger, $shouldLog);
+    }
+
+    private function _recursivelyDeleteDirectory($dir, tubepress_platform_api_log_LoggerInterface $logger, $shouldLog)
+    {
+        if (!is_dir($dir)) {
 
             return;
         }
 
-        $needle     = 'tubepress-service-container.php';
-        $fileName   = $error['file'];
-        $fileLength = strlen($needle);
-        $start      = $fileLength * -1; //negative
+        $objects = scandir($dir);
 
-        if (substr($fileName, $start) === $needle) {
+        if ($shouldLog) {
 
-            $unlinked = unlink($fileName);
+            $logger->debug(sprintf('Found %d objects in %s', count($objects), $dir));
+        }
 
-            if ($unlinked !== true || !isset($_SERVER['REQUEST_URI'])) {
+        foreach ($objects as $object) {
 
-                return;
+            if ($object == '.' || $object == '..') {
+
+                continue;
             }
 
-            $uri = $_SERVER['REQUEST_URI'];
+            $path = $dir . DIRECTORY_SEPARATOR . $object;
 
-            echo <<<YYY
-<div>TubePress detected a fatal error with its system cache is has attempted to resolve the issue. Refreshing this page now...</div>
-<script type="text/javascript">window.location.replace("$uri");</script>
-YYY
-            ;
+            if (filetype($path) == 'dir') {
+
+                if ($shouldLog) {
+
+                    $logger->debug(sprintf('Recursing inside %s to delete it', $path));
+                }
+
+                $this->_recursivelyDeleteDirectory($path, $logger, $shouldLog);
+
+            } else  {
+
+                if ($shouldLog) {
+
+                    $logger->debug(sprintf('Attempting to delete %s', $path));
+                }
+
+                $success = unlink($path);
+
+                if ($shouldLog) {
+
+                    if ($success === true) {
+
+                        $logger->debug(sprintf('Successfully deleted %s', $path));
+
+                    } else {
+
+                        $logger->error(sprintf('Could not delete %s', $path));
+                    }
+                }
+            }
+
         }
+
+        reset($objects);
+
+        if ($shouldLog) {
+
+            $logger->debug(sprintf('Attempting to delete directory %s', $dir));
+        }
+
+        $success = rmdir($dir);
+
+        if ($shouldLog) {
+
+            if ($success === true) {
+
+                $logger->debug(sprintf('Successfully deleted directory %s', $dir));
+
+            } else {
+
+                $logger->error(sprintf('Could not delete directory %s', $dir));
+            }
+        }
+    }
+
+    public function _handleFatalError()
+    {
+        if (!class_exists('tubepress_platform_impl_boot_helper_FatalErrorHandler', false)) {
+            
+            require dirname(__FILE__) . '/helper/FatalErrorHandler.php';
+        }
+        
+        $handler = new tubepress_platform_impl_boot_helper_FatalErrorHandler();
+        $handler->onFatalError();
     }
 
     /***********************************************************************************************************
@@ -334,7 +399,7 @@ YYY
      */
     public function ___setSettingsFileReader(tubepress_platform_api_boot_BootSettingsInterface $bcsi)
     {
-        $this->_helperSettingsFileReader = $bcsi;
+        $this->_bootSettings = $bcsi;
     }
 
     /**
@@ -346,7 +411,7 @@ YYY
      */
     public function ___setContainerSupplier(tubepress_platform_impl_boot_helper_ContainerSupplier $sbi)
     {
-        $this->_helperContainerSupplier = $sbi;
+        $this->_containerSupplier = $sbi;
     }
 
     /**

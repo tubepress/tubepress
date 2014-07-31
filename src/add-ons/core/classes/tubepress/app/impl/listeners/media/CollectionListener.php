@@ -1,0 +1,75 @@
+<?php
+/**
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/**
+ */
+class tubepress_app_impl_listeners_media_CollectionListener
+{
+    /**
+     * @var tubepress_app_api_media_MediaProviderInterface[]
+     */
+    private $_mediaProviders;
+
+    public function setMediaProviders(array $mediaProviders)
+    {
+        $this->_mediaProviders = $mediaProviders;
+    }
+
+    public function onMediaPageRequest(tubepress_lib_api_event_EventInterface $event)
+    {
+        $source   = $event->getSubject();
+        $provider = null;
+
+        foreach ($this->_mediaProviders as $mediaProvider) {
+
+            $sources = $mediaProvider->getGallerySourceNames();
+
+            if (in_array($source, $sources)) {
+
+                $provider = $mediaProvider;
+                break;
+            }
+        }
+
+        if ($provider === null) {
+
+            return;
+        }
+
+        $page = $provider->collectPage($event->getArgument('pageNumber'));
+
+        $event->setArgument('mediaPage', $page);
+    }
+
+    public function onMediaItemRequest(tubepress_lib_api_event_EventInterface $event)
+    {
+        $itemId   = $event->getSubject();
+        $provider = null;
+
+        foreach ($this->_mediaProviders as $mediaProvider) {
+
+            if ($mediaProvider->ownsItem($itemId)) {
+
+                $provider = $mediaProvider;
+                break;
+            }
+        }
+
+        if ($provider === null) {
+
+            return;
+        }
+
+        $item = $provider->collectSingle($itemId);
+
+        $event->setArgument('mediaItem', $item);
+    }
+}

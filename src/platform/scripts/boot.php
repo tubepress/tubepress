@@ -35,7 +35,7 @@ if (!class_exists('__tubePressBoot', false)) {
              */
             if (!defined('TUBEPRESS_ROOT')) {
 
-                define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../'));
+                define('TUBEPRESS_ROOT', dirname(__FILE__) . '/../../..');
             }
 
             if (!class_exists('tubepress_platform_impl_boot_PrimaryBootstrapper', false)) {

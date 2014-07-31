@@ -15,13 +15,13 @@ class tubepress_test_integration_BasicsTest extends tubepress_test_integration_I
     {
         $result = $this->get(true);
 
-        $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') !== false);
+        $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') !== false, $result);
         $this->_assertNoBootErrors($result);
 
         $result = $this->get(true);
 
-        $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') === false);
-        $this->assertTrue(strpos($result, 'We can boot from the system cache. Excellent!') !== false);
+        $this->assertTrue(strpos($result, 'We cannot boot from cache. Will perform a full boot instead.') === false, $result);
+        $this->assertTrue(strpos($result, 'We can boot from the system cache. Excellent!') !== false, $result);
         $this->_assertNoBootErrors($result);
     }
 

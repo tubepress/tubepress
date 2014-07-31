@@ -1,0 +1,39 @@
+{#
+ # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+{% if fieldProvider.fieldsShouldBeInSeparateBoxes %}
+
+<div class="panel panel-default tubepress-field-provider-{{ providerId }}">
+
+    <div class="panel-heading">
+
+        <h3 class="panel-title">{{ fieldProvider.translatedDisplayName }}</h3>
+
+    </div>
+
+    <div class="panel-body">
+{% endif %}
+
+        {% for fieldId in fieldIds %}
+
+            {% if fields.fieldId is not defined %}
+                {% continue %}
+            {% endif %}
+
+            {% set field = fields.fieldId %}
+
+            {% include 'options-ui/page-fragments/single-field' %}
+        {% endfor %}
+
+{% if fieldProvider.fieldsShouldBeInSeparateBoxes %}
+
+    </div>
+</div>
+{% endif %}
+

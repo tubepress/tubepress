@@ -21,12 +21,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
 
         self::$_CONCATED_CLASSES = array_merge(
 
-            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/base.php',
-            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/core.php',
-            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/deprecated.php',
-            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/external.php',
-            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/platform.php',
-            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/vendor.php'
+            require TUBEPRESS_ROOT . '/build/config/classes-to-concat/boot.php'
         );
 
         sort(self::$_CONCATED_CLASSES);
@@ -58,22 +53,14 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
      */
     public function testClassMapValidity()
     {
-        $actualCoreClasses     = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/src/core');
-        $actualPlatformClasses = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/src/platform');
+        $actualCoreClasses     = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/src');
         $actualVendorClasses   = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/vendor');
-        $actualClasses         = array_merge($actualCoreClasses, $actualPlatformClasses, $actualVendorClasses);
+        $actualClasses         = array_merge($actualCoreClasses, $actualVendorClasses);
         $actualClassMap        = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
 
         ksort($actualClasses);
 
-        $classesNotInConcatenation = array();
-        foreach ($actualClasses as $className => $path) {
-            if (!in_array($className, self::$_CONCATED_CLASSES)) {
-                $classesNotInConcatenation[$className] = $path;
-            }
-        }
-
-        $expected = $this->_getExpectedClassMap($classesNotInConcatenation);
+        $expected = $this->_getExpectedClassMap($actualClasses);
 
         $this->assertEquals($expected, $actualClassMap, $this->_messageForClassMapValidity($expected, $actualClassMap));
     }
@@ -234,6 +221,8 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
 
             '/ContainerAwareTrait\.php$',
             '/PrimaryBootstrapper.php',
+
+            'Twig_Test'
         );
 
         return '~' . implode('|', $excludes) . '~';

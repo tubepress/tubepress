@@ -1,0 +1,19 @@
+{
+    "name" : "tubepress/legacy-youtube",
+    "version": "1.0.0",
+    "title" : "YouTube (legacy)",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "The YouTube theme for TubePress 3.1.5 and below. Identical to \"Default (legacy)\" except that it includes links to the video uploader's page on youtube.com.",
+    "parent" : "tubepress/legacy-default"
+}

@@ -18,9 +18,9 @@
     <!-- Initialize some properties. -->
     <property file="${tubepress-build-common.basedir}/../config/common.properties" />
     <property file="config/custom.properties" />
-	<property name="stagingdir"        value="stage/${build.directory.stage.basename}" />
-	<property name="jscompresslist"    value="config/js-to-compress.txt" />
-	<property name="csscompresslist"    value="config/css-to-compress.txt" />
+	<property name="stagingdir"      value="stage/${build.directory.stage.basename}" />
+	<property name="jscompresslist"  value="config/js-to-compress.txt" />
+	<property name="csscompresslist" value="config/css-to-compress.txt" />
 
     <target name="init" description="Cleans and preps the build directory for a new build">
 
@@ -57,7 +57,7 @@
 
         <move todir="${stagingdir}">
 
-            <fileset dir="${stagingdir}/src/core/integration/wordpress/resources/skeleton">
+            <fileset dir="${stagingdir}/src/add-ons/wordpress/resources/skeleton">
                 <include name="**" />
             </fileset>
         </move>
@@ -71,7 +71,7 @@
 
     <target name="update-version-in-php-code">
 
-        <replace file="${stagingdir}/src/core/app/environment/classes/tubepress/app/environment/impl/Environment.php" token="9.9.9" value="${version.major}.${version.minor}.${version.micro}" />
+        <replace file="${stagingdir}/src/add-ons/core/classes/tubepress/app/impl/environment/Environment.php" token="9.9.9" value="${version.major}.${version.minor}.${version.micro}" />
 
     </target>
 
@@ -183,21 +183,14 @@
 
     <target name="stage-web-assets">
 
-        <mkdir dir="${stagingdir}/web" />
-        <mkdir dir="${stagingdir}/web/js" />
+        <move file="${stagingdir}/src/add-ons/core/web"                           tofile="${stagingdir}/web" verbose="true" />
+        <move file="${stagingdir}/src/add-ons/wordpress/web/options-gui"          tofile="${stagingdir}/web/options-ui/wordpress" verbose="true" />
+        <copy file="${stagingdir}/index.php"                                      tofile="${stagingdir}/web/index.php" />
 
-        <move file="${stagingdir}/src/core/app/options-ui/web"                tofile="${stagingdir}/web/options-ui"           verbose="true" />
-        <move file="${stagingdir}/src/core/app/player/web/js/players"         tofile="${stagingdir}/web/players"              verbose="true" />
-        <move file="${stagingdir}/src/core/app/player/web/vendor"             tofile="${stagingdir}/web/vendor"               verbose="true" />
-        <move file="${stagingdir}/src/core/app/themes/web"                    tofile="${stagingdir}/web/themes"               verbose="true" />
-        <move file="${stagingdir}/src/core/integration/wordpress/web/options-gui" tofile="${stagingdir}/web/options-ui/wordpress" verbose="true" />
         <move todir="${stagingdir}/web/js" verbose="true">
-            <fileset dir="${stagingdir}/src/core/app/html/web/js" />
-            <fileset dir="${stagingdir}/src/core/app/feature-gallery/web/js" />
-            <fileset dir="${stagingdir}/src/core/integration/wordpress/web/js" />
+            <fileset dir="${stagingdir}/src/add-ons/wordpress/web/js" />
             <mapper type="glob" from="*.js" to="*.js"/>
         </move>
-        <copy file="${stagingdir}/index.php" tofile="${stagingdir}/web/index.php" />
 
     </target>
 

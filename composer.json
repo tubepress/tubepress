@@ -12,13 +12,14 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "ehough/contemplate" : "~1.0",
         "ehough/finder"      : "~2.5.0",
         "ehough/iconic"      : "~2.5.0",
         "ehough/pulsar"      : "~2.5.0",
         "ehough/stash"       : "~0.12.0",
         "ehough/tickertape"  : "~2.5.0",
-        "puzzlehttp/puzzle"  : "~4.1.0"
+        "ehough/templating"  : "~2.5.0",
+        "puzzlehttp/puzzle"  : "~4.1.0",
+        "twig/twig"          : "1.*"
     },
     "require-dev": {
         "ehough/mockery"       : "~0.8",
@@ -30,56 +31,26 @@
     "autoload": {
         "psr-0": {
 
-            "tubepress_lib_event_"       : "src/core/lib/event/classes",
-            "tubepress_lib_http_"        : "src/core/lib/http/classes",
-            "tubepress_lib_ioc_"         : "src/core/lib/ioc/classes",
-            "tubepress_lib_streams_"     : "src/core/lib/streams/classes",
-            "tubepress_lib_template_"    : "src/core/lib/template/classes",
-            "tubepress_lib_translation_" : "src/core/lib/translation/classes",
-            "tubepress_lib_url_"         : "src/core/lib/url/classes",
-            "tubepress_lib_util_"        : "src/core/lib/util/classes",
-            "tubepress_lib_version_"     : "src/core/lib/version/classes",
+            "tubepress_app_"       : "src/add-ons/core/classes",
+            "tubepress_lib_"       : "src/add-ons/core/classes",
+            "tubepress_platform_"  : "src/platform/classes",
 
-            "tubepress_app_apicache_"        : "src/core/app/apicache/classes",
-            "tubepress_app_contrib_"         : "src/core/app/contrib/classes",
-            "tubepress_app_embedded_"        : "src/core/app/embedded/classes",
-            "tubepress_app_environment_"     : "src/core/app/environment/classes",
-            "tubepress_app_feature_gallery_" : "src/core/app/feature-gallery/classes",
-            "tubepress_app_feature_search_"  : "src/core/app/feature-search/classes",
-            "tubepress_app_feature_single_"  : "src/core/app/feature-single/classes",
-            "tubepress_app_html_"            : "src/core/app/html/classes",
-            "tubepress_app_http_"            : "src/core/app/http/classes",
-            "tubepress_app_log_"             : "src/core/app/log/classes",
-            "tubepress_app_media_item_"      : "src/core/app/media-item/classes",
-            "tubepress_app_media_provider_"  : "src/core/app/media-provider/classes",
-            "tubepress_app_options_ui_"      : "src/core/app/options-ui/classes",
-            "tubepress_app_options_"         : "src/core/app/options/classes",
-            "tubepress_app_player_"          : "src/core/app/player/classes",
-            "tubepress_app_shortcode_"       : "src/core/app/shortcode/classes",
-            "tubepress_app_theme_"           : "src/core/app/themes/classes",
-            "tubepress_app_vendor_"          : "src/core/app/vendor/classes",
+            "tubepress_deprecated_" : "src/add-ons/deprecated/classes",
+            "tubepress_api_const_"  : "src/add-ons/deprecated/classes",
+            "tubepress_addons_"     : "src/add-ons/deprecated/classes",
 
-            "tubepress_deprecated_"              : "src/core/deprecated/classes",
-            "tubepress_api_const_template_"      : "src/core/deprecated/old-classes",
-            "tubepress_api_const_options_names_" : "src/core/deprecated/old-classes",
-            "tubepress_addons_vimeo_"            : "src/core/deprecated/old-classes",
-            "tubepress_addons_youtube_"          : "src/core/deprecated/old-classes",
+            "tubepress_embedplus_" : "src/add-ons/embedplus/classes",
+            "tubepress_jwplayer5_" : "src/add-ons/jwplayer5/classes",
+            "tubepress_vimeo2_"    : "src/add-ons/vimeo_v2/classes",
+            "tubepress_wordpress_" : "src/add-ons/wordpress/classes",
+            "tubepress_youtube2_"  : "src/add-ons/youtube_v2/classes",
 
-            "tubepress_embedplus_" : "src/core/integration/embedplus/classes",
-            "tubepress_jwplayer_"  : "src/core/integration/jwplayer/classes",
-            "tubepress_vimeo_"     : "src/core/integration/vimeo/classes",
-            "tubepress_wordpress_" : "src/core/integration/wordpress/classes",
-            "tubepress_youtube_"   : "src/core/integration/youtube/classes",
-
-            "tubepress_platform_api_"  : "src/platform/classes",
-            "tubepress_platform_impl_" : "src/platform/classes",
-
-            "tubepress_test_boot_"              : "tests/unit/platform/fixtures/scripts/boot/add-ons/bootmocks/classes",
-            "tubepress_test_app_options_ui_"    : "tests/unit/core/app/options-ui/classes",
-            "tubepress_test_app_options_"       : "tests/unit/core/app/options/classes",
-            "tubepress_test_app_translation_"   : "tests/unit/translations/classes",
-            "tubepress_test_integration_"       : "tests/integration/classes",
-            "tubepress_test_"                   : "tests/unit/support/classes"
+            "tubepress_test_integration_" : "tests/integration/classes",
+            "tubepress_test_platform_" : "tests/unit/platform/classes",
+            "tubepress_test_app_"      : "tests/unit/add-ons/core/classes",
+            "tubepress_test_lib_"      : "tests/unit/add-ons/core/classes",
+            "tubepress_test_boot_"     : "tests/unit/platform/fixtures/mock-user-content-dir/add-ons/bootmocks/classes",
+            "tubepress_test_"          : "tests/unit/add-ons/core/classes"
         }
     }
 }

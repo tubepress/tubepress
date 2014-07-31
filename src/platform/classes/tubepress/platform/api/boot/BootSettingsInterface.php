@@ -47,21 +47,20 @@ interface tubepress_platform_api_boot_BootSettingsInterface
     function isClassLoaderEnabled();
 
     /**
-     * @return bool True if the container cache is enabled. False otherwise.
+     * @return bool True if the system cache is enabled. False otherwise.
      *
      * @api
      * @since 4.0.0
      */
-    function isContainerCacheEnabled();
+    function isSystemCacheEnabled();
 
     /**
-     * @return string An absolute path on the filesystem where TubePress should store the compiled service
-     *                container.
+     * @return string An absolute path on the filesystem where TubePress can store its cache data.
      *
      * @api
      * @since 4.0.0
      */
-    function getPathToContainerCacheFile();
+    function getPathToSystemCacheDirectory();
 
     /**
      * @return string The absolute path of the user's content directory. In WordPress, this will be
@@ -71,4 +70,12 @@ interface tubepress_platform_api_boot_BootSettingsInterface
      * @since 4.0.0
      */
     function getUserContentDirectory();
+
+    /**
+     * @return string
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getSerializationEncoding();
 }

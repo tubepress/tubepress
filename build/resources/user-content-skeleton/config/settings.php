@@ -34,15 +34,22 @@ return array(
 
             /**
              * "directory" defines the absolute path to a writable-directory on the filesystem
-             * where TubePress stores its compiled service container.
+             * where TubePress can store its cache data.
              */
             //'directory' => '/some/directory',
 
             /**
-             * "enabled" turns on or off the entire boot cache. This is useful if you are developing
-             * themes or add-ons for TubePress.
+             * "enabled" turns on or off the entire system cache. This is useful during development.
              */
             //'enabled' => true,
+
+            /**
+             * "serializationEncoding" defines the encoding, if any, that is applied to serialized
+             * data before it is written to the cache. This can often help skirt around strange syntax errors.
+             *
+             * Can be on of: base64, urlencode, gzip-then-base64, or none
+             */
+            //'serializationEncoding' => 'base64'
         ),
 
         /**
@@ -51,7 +58,7 @@ return array(
         'add-ons' => array(
 
             /**
-             * "blacklist" is an array of add-on names (defined in their respective .json manifests)
+             * "blacklist" is an array of add-on names (defined in their respective manifest.json manifests)
              * that should *not* be loaded.
              */
             //'blacklist' => array(),

@@ -33,7 +33,12 @@ interface tubepress_platform_api_log_LoggerInterface
     function isEnabled();
 
     /**
+     * Invoked when TubePress's boot process has completed.
+     *
      * @return void
+     *
+     * @api
+     * @since 4.0.0
      */
     function onBootComplete();
 

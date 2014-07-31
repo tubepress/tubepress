@@ -23,8 +23,9 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
     private static $_3RD_LEVEL_KEY_CLASSLOADER_ENABLED = 'enabled';
     private static $_3RD_LEVEL_KEY_CACHE_KILLERKEY     = 'killerKey';
     private static $_3RD_LEVEL_KEY_CACHE_ENABLED       = 'enabled';
-    private static $_3RD_LEVEL_KEY_CACHE_CSP           = 'directory';
+    private static $_3RD_LEVEL_KEY_CACHE_DIR           = 'directory';
     private static $_3RD_LEVEL_KEY_ADDONS_BLACKLIST    = 'blacklist';
+    private static $_3RD_LEVEL_KEY_SERIALIZATION_ENC   = 'serializationEncoding';
 
     /**
      * @var tubepress_platform_api_log_LoggerInterface
@@ -64,17 +65,33 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
     /**
      * @var string
      */
-    private $_containerStoragePath;
+    private $_cacheDirectory;
 
     /**
      * @var string
      */
     private $_cachedUserContentDir;
 
+    /**
+     * @var string
+     */
+    private $_serializationEncoding;
+
     public function __construct(tubepress_platform_api_log_LoggerInterface $logger)
     {
         $this->_logger    = $logger;
         $this->_shouldLog = $logger->isEnabled();
+    }
+
+    /**
+     * @return string
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getSerializationEncoding()
+    {
+        return $this->_serializationEncoding;
     }
 
     /**
@@ -110,7 +127,7 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
     /**
      * @return bool True if the container cache is enabled. False otherwise.
      */
-    public function isContainerCacheEnabled()
+    public function isSystemCacheEnabled()
     {
         $this->_init();
 
@@ -121,11 +138,11 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
      * @return string An absolute path on the filesystem where TubePress can store
      *                the compiled service container.
      */
-    public function getPathToContainerCacheFile()
+    public function getPathToSystemCacheDirectory()
     {
         $this->_init();
 
-        return $this->_containerStoragePath;
+        return $this->_cacheDirectory;
     }
 
     public function getUserContentDirectory()
@@ -167,8 +184,6 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         $this->_readConfig();
 
         $this->_hasInitialized = true;
-
-        $this->_clearCacheIfRequested();
     }
 
     private function _readConfig()
@@ -228,30 +243,30 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
 
     private function _mergeConfig(array $config)
     {
-        $this->_addonBlacklistArray  = $this->_getAddonBlacklistArray($config);
-        $this->_isClassLoaderEnabled = $this->_getClassLoaderEnablement($config);
-        $this->_systemCacheKillerKey = $this->_getCacheKillerKey($config);
-        $this->_containerStoragePath = $this->_getContainerStoragePath($config);
-        $this->_isCacheEnabled       = $this->_getContainerCacheEnablement($config);
+        $this->_addonBlacklistArray   = $this->_getAddonBlacklistArray($config);
+        $this->_isClassLoaderEnabled  = $this->_getClassLoaderEnablement($config);
+        $this->_systemCacheKillerKey  = $this->_getCacheKillerKey($config);
+        $this->_cacheDirectory        = rtrim($this->_getSystemCacheDirectory($config), DIRECTORY_SEPARATOR);
+        $this->_isCacheEnabled        = $this->_getCacheEnablement($config);
+        $this->_serializationEncoding = $this->_getSerializationEncoding($config);
     }
 
-    private function _getContainerStoragePath(array $config)
+    private function _getSystemCacheDirectory(array $config)
     {
         if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_CACHE,
-            self::$_3RD_LEVEL_KEY_CACHE_CSP)) {
+            self::$_3RD_LEVEL_KEY_CACHE_DIR)) {
 
-            return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
+            return $this->_getFilesystemCacheDirectory();
         }
 
-        $path   = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_CSP];
-        $custom = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tubepress-service-container.php';
+        $path = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_CACHE][self::$_3RD_LEVEL_KEY_CACHE_DIR];
 
         /**
          * Is this a writable directory? If so, we're done.
          */
         if (is_dir($path) && is_writable($path)) {
 
-            return $custom;
+            return $path;
         }
 
         /**
@@ -264,13 +279,13 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
          */
         if ($createdDirectory && is_dir($path) && is_writable($path)) {
 
-            return $custom;
+            return $path;
         }
 
         /**
          * eh, we tried.
          */
-        return $this->_getFilesystemCacheDirectory() . 'tubepress-service-container.php';
+        return $this->_getFilesystemCacheDirectory();
     }
 
     private function _getAddonBlacklistArray(array $config)
@@ -315,7 +330,7 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         return (boolean) $enabled;
     }
 
-    private function _getContainerCacheEnablement(array $config)
+    private function _getCacheEnablement(array $config)
     {
         $default = true;
 
@@ -357,6 +372,27 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         return $key;
     }
 
+    private function _getSerializationEncoding(array $config)
+    {
+        $default = 'base64';
+
+        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_SYSTEM, self::$_2ND_LEVEL_KEY_ADDONS,
+            self::$_3RD_LEVEL_KEY_SERIALIZATION_ENC)) {
+
+            return $default;
+        }
+
+        $encoding = $config[self::$_TOP_LEVEL_KEY_SYSTEM][self::$_2ND_LEVEL_KEY_ADDONS]
+            [self::$_3RD_LEVEL_KEY_SERIALIZATION_ENC];
+
+        if (!in_array($encoding, array('base64', 'none', 'urlencode'))) {
+
+            return $default;
+        }
+
+        return $encoding;
+    }
+
     private function _isAllSet(array $arr, $topLevel, $secondLevel, $thirdLevel)
     {
         if (!isset($arr[$topLevel])) {
@@ -377,28 +413,6 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         return true;
     }
 
-    private function _clearCacheIfRequested()
-    {
-        if (!$this->shouldClearCache()) {
-
-            return;
-        }
-
-        $path = $this->getPathToContainerCacheFile();
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Cache clearing requested. Attempting to delete %s', $path));
-        }
-
-        $result = @unlink($path) === true;
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Deleted %s ? %s', $path, $result ? 'yes' : 'no'));
-        }
-    }
-
     private function _getFilesystemCacheDirectory()
     {
         if (function_exists('sys_get_temp_dir')) {
@@ -410,7 +424,7 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
             $tmp = '/tmp/';
         }
 
-        $baseDir = $tmp . 'tubepress-system-cache/' . md5(dirname(__FILE__)) . '/';
+        $baseDir = $tmp . 'tubepress-system-cache-' . md5(dirname(__FILE__)) . '/';
 
         if (!is_dir($baseDir)) {
 

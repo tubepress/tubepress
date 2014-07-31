@@ -23,7 +23,7 @@ interface tubepress_platform_api_addon_AddonInterface extends tubepress_platform
     const _ = 'tubepress_platform_api_addon_AddonInterface';
 
     /**
-     * @return array Optional. An array of IoC container extension class names. May be empty, never null.
+     * @return string[] Optional. An array of IoC container extension class names. May be empty, never null.
      *
      * @api
      * @since 4.0.0
@@ -31,21 +31,13 @@ interface tubepress_platform_api_addon_AddonInterface extends tubepress_platform
     function getExtensionClassNames();
 
     /**
-     * @return array Optional. An associative array of IOC compiler pass class names to their corresponding priorities.
+     * @return array Optional. An associative array of IoC compiler pass class names to their corresponding priorities.
      *                         Higher priorities will be processed first. May be empty, never null.
      *
      * @api
      * @since 4.0.0
      */
     function getMapOfCompilerPassClassNamesToPriorities();
-
-    /**
-     * @return array Optional. An array of PSR-0 compliant class path roots. May be empty, never null.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    function getPsr0ClassPathRoots();
 
     /**
      * @return array Optional. An associative array of class names to the absolute path of their file locations.

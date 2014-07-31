@@ -1,0 +1,36 @@
+{
+    "name" : "tubepress/vimeo",
+    "version": "1.0.0",
+    "title" : "Vimeo",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "licenses": [
+        {
+            "type" : "MPL-2.0",
+            "url" : "http://www.mozilla.org/MPL/2.0/"
+        }
+    ],
+    "description": "Allows TubePress work with Vimeo",
+    "container-builder": {
+        "extensions" : [
+            "tubepress_vimeo2_ioc_VimeoExtension"
+        ]
+    },
+    "autoload": {
+        "classmap" : {
+            "tubepress_vimeo2_api_Constants"                            : "classes/tubepress/vimeo2/api/Constants.php",
+            "tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener" : "classes/tubepress/vimeo2/impl/listeners/embedded/EmbeddedListener.php",
+            "tubepress_vimeo2_impl_listeners_http_OauthListener"        : "classes/tubepress/vimeo2/impl/listeners/http/OauthListener.php",
+            "tubepress_vimeo2_impl_listeners_media_HttpItemListener"    : "classes/tubepress/vimeo2/impl/listeners/media/HttpItemListener.php",
+            "tubepress_vimeo2_impl_listeners_player_PlayerListener"     : "classes/tubepress/vimeo2/impl/listeners/player/PlayerListener.php",
+            "tubepress_vimeo2_impl_media_FeedHandler"                   : "classes/tubepress/vimeo2/impl/media/FeedHandler.php",
+            "tubepress_vimeo2_impl_media_MediaProvider"                 : "classes/tubepress/vimeo2/impl/media/MediaProvider.php",
+            "tubepress_vimeo2_impl_options_ui_FieldProvider"            : "classes/tubepress/vimeo2/impl/options/ui/FieldProvider.php",
+            "tubepress_vimeo2_ioc_VimeoExtension"                       : "classes/tubepress/vimeo2/ioc/VimeoExtension.php"
+        }
+    }
+}

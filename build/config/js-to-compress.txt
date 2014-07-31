@@ -1,8 +1,8 @@
-src/core/app/html/web/js/tubepress.js
-src/core/app/feature-gallery/web/js/gallery.js
-src/core/app/player/web/players/jqmodal-player.js
-src/core/app/player/web/players/normal-player.js
-src/core/app/player/web/players/popup-player.js
-src/core/app/player/web/players/shadowbox-player.js
-src/core/external/wordpress/web/js/wordpress-ajax.js
-src/core/app/player/web/vendor/jqmodal/jqModal.js
+src/add-ons/core/web/js/tubepress.js
+src/add-ons/core/web/js/gallery.js
+src/add-ons/core/web/js/players/jqmodal-player.js
+src/add-ons/core/web/js/players/normal-player.js
+src/add-ons/core/web/js/players/popup-player.js
+src/add-ons/core/web/js/players/shadowbox-player.js
+src/add-ons/wordpress/web/js/wordpress-ajax.js
+src/add-ons/core/web/vendor/jqmodal/jqModal.js

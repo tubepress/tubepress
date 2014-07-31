@@ -17,12 +17,12 @@ class tubepress_test_integration_galleries_youtube_MostPopularTest extends tubep
     public function test8Thumbs($theme)
     {
         $this->setOptions(array(
-            tubepress_app_media_provider_api_Constants::OPTION_GALLERY_SOURCE =>
-                tubepress_youtube_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
-            tubepress_youtube_api_Constants::OPTION_YOUTUBE_MOST_POPULAR_VALUE =>
-                tubepress_youtube_api_Constants::TIMEFRAME_TODAY,
-            tubepress_app_theme_api_Constants::OPTION_THEME => $theme,
-            tubepress_app_media_provider_api_Constants::OPTION_RESULTS_PER_PAGE => 13,
+            tubepress_app_api_options_Names::GALLERY_SOURCE =>
+                tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
+            tubepress_youtube2_api_Constants::OPTION_YOUTUBE_MOST_POPULAR_VALUE =>
+                tubepress_youtube2_api_Constants::TIMEFRAME_TODAY,
+            tubepress_app_api_options_Names::THEME => $theme,
+            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE => 13,
         ));
 
         $result = $this->get();

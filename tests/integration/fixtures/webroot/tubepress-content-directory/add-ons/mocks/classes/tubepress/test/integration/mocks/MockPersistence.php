@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_integration_mocks_MockPersistence implements tubepress_app_options_api_PersistenceBackendInterface
+class tubepress_test_integration_mocks_MockPersistence implements tubepress_app_api_options_PersistenceBackendInterface
 {
     private $_mockOptions = array();
 

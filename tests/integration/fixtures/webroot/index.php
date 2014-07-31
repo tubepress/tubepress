@@ -28,8 +28,8 @@ foreach ($options as $name => $val) {
     $shortcode .= "$name='$val' ";
 }
 
-$html = $container->get(tubepress_app_html_api_HtmlGeneratorInterface::_);
-$env  = $container->get(tubepress_app_environment_api_EnvironmentInterface::_);
+$html = $container->get(tubepress_app_api_html_HtmlGeneratorInterface::_);
+$env  = $container->get(tubepress_app_api_environment_EnvironmentInterface::_);
 $env->setBaseUrl('http://localhost:54321/tubepress');
 $footer = $html->getJsHtml();
 $header = $html->getCssHtml();

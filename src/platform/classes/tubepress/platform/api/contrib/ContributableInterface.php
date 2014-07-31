@@ -18,8 +18,10 @@
 interface tubepress_platform_api_contrib_ContributableInterface
 {
     /**
-     * @return string The globally unique name of this add-on. Must be 100 characters or less,
-     *                all lowercase, and contain only URL-safe characters ([a-z0-9-_\.]+).
+     * @return string Required. The globally unique name of this contributable.
+     *
+     *                Must be 100 characters or less, all lowercase, and contain only URL-safe characters
+     *                and slashes ([a-z0-9-_\./]{1,100}).
      *
      * @api
      * @since 4.0.0
@@ -27,7 +29,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getName();
 
     /**
-     * @return string The version of this add-on. This *should* be a semantic version number.
+     * @return tubepress_platform_api_version_Version Required. The version of this contributable.
      *
      * @api
      * @since 4.0.0
@@ -35,7 +37,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getVersion();
 
     /**
-     * @return string A user-friendly title for the add-on. 255 characters or less.
+     * @return string Required. A user-friendly title for the contributable. 255 characters or less.
      *
      * @api
      * @since 4.0.0
@@ -43,19 +45,25 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getTitle();
 
     /**
-     * @return array An associative array of author information. The possible array keys are
-     *               'name', 'email', and 'url'. 'name' is required, and the other fields are optional.
+     * @return tubepress_platform_api_property_CollectionInterface[] Required. One or more authors. Each author
+     *                                                               may contain the following property names.
+     *
+     *               key 'name'  : required, string
+     *               key 'email' : optional, string
+     *               key 'url'   : optional, tubepress_platform_api_url_UrlInterface
      *
      * @api
      * @since 4.0.0
      */
-    function getAuthor();
+    function getAuthors();
 
     /**
-     * @return array An array of associative arrays of license information. The possible array keys are
-     *               'url' and 'type'. 'url' is required and must link to the license text. 'type'
-     *               may be supplied if the license is one of the official open source licenses found
-     *               at http://www.opensource.org/licenses/alphabetical
+     * @return tubepress_platform_api_property_CollectionInterface[] Required. One or more authors. Each author
+     *                                                               may contain the following property names.
+     *
+     *               key 'url'  : required, tubepress_platform_api_url_UrlInterface. URL to the license text.
+     *               key 'type' : optional, string. An identifier to indicate to developer's the general license type.
+     *                            Consider using one of http://www.opensource.org/licenses/alphabetical.
      *
      * @api
      * @since 4.0.0
@@ -63,7 +71,9 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getLicenses();
 
     /**
-     * @return string Optional. A longer description of this add-on. 1000 characters or less.
+     * @return string Optional. A longer description of this contributable that may be shown to the user.
+     *
+     *                5000 characters or less.
      *
      * @api
      * @since 4.0.0
@@ -71,8 +81,10 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getDescription();
 
     /**
-     * @return array Optional. An array of keywords that might help folks discover this add-on. Only
-     *               letters, numbers, hypens, and dots. Each keyword must be 30 characters or less.
+     * @return array Optional. An array of keywords that might help users discover this contributable.
+     *
+     *               Each keyword must be comprised of only letters, numbers, hypens, and dots. Each keyword must
+     *               be 30 characters or less.
      *
      * @api
      * @since 4.0.0
@@ -80,7 +92,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getKeywords();
 
     /**
-     * @return string Optional. A link to the add-on's homepage. May be null.
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the contributable's homepage. May be null.
      *
      * @api
      * @since 4.0.0
@@ -88,7 +100,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getHomepageUrl();
 
     /**
-     * @return string Optional. A link to the add-on's documentation. May be null.
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the contributable's documentation. May be null.
      *
      * @api
      * @since 4.0.0
@@ -96,7 +108,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getDocumentationUrl();
 
     /**
-     * @return string Optional. A link to a live demo of the add-on. May be null.
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to a live demo of the contributable. May be null.
      *
      * @api
      * @since 4.0.0
@@ -104,7 +116,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getDemoUrl();
 
     /**
-     * @return string Optional. A link to a download URL. May be null.
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to a download URL. May be null.
      *
      * @api
      * @since 4.0.0
@@ -112,7 +124,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getDownloadUrl();
 
     /**
-     * @return string Optional. A link to a bug tracker for this add-on. May be null.
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to a bug tracker for this contributable. May be null.
      *
      * @api
      * @since 4.0.0
@@ -120,13 +132,25 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getBugTrackerUrl();
 
     /**
-     * @return string[] An array of strings, which may be empty but not null, of screenshots of this contributable.
-     *                  URLs may either be absolute, or relative. In the latter case, they will be considered to be
-     *                  relative from the contributable root. Array keys are considered to be thumbnails, and
-     *                  values are considered to be full-sized images.
+     * @return array Optional. One or more screenshots of this contributable.
+     *
+     *               Each element of this array is an array of two tubepress_platform_api_url_UrlInterface instances
+     *               that represent the screenshot.
+     *
+     *               The first URL points to the thumbnail version of the image pointed to by the second URL.
+     *
+     *               All URLs must be absolute, and the path must end with .png or .jpg.
      *
      * @api
      * @since 4.0.0
      */
     function getScreenshots();
+
+    /**
+     * @return tubepress_platform_api_property_CollectionInterface
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getProperties();
 }
