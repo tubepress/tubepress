@@ -54,30 +54,37 @@ class tubepress_app_impl_template_TemplatingService implements tubepress_lib_api
         /**
          * Fire the pre-render event for the original name.
          */
-        $originalPreRenderEvent = $this->_eventDispatcher->newEventInstance($nameSelectionEvent->getArgument('templateVars'));
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".$originalTemplateName", $originalPreRenderEvent);
+        $preRenderEvent = $this->_eventDispatcher->newEventInstance($nameSelectionEvent->getArgument('templateVars'));
+        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".$originalTemplateName", $preRenderEvent);
 
-        /**
-         * Fire the pre-render event for the new name.
-         */
-        $newPreRenderEvent = $this->_eventDispatcher->newEventInstance($originalPreRenderEvent->getSubject());
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".$newTemplateName", $newPreRenderEvent);
+        if ($originalTemplateName !== $newTemplateName) {
+
+            /**
+             * Fire the pre-render event for the new name.
+             */
+            $preRenderEvent = $this->_eventDispatcher->newEventInstance($preRenderEvent->getSubject());
+            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".$newTemplateName", $preRenderEvent);
+        }
 
         /**
          * Render!
          */
-        $result = $this->_delegate->render($newTemplateName, $newPreRenderEvent->getSubject());
+        $result = $this->_delegate->render($newTemplateName, $preRenderEvent->getSubject());
+
+        if ($originalTemplateName !== $newTemplateName) {
+
+            /**
+             * Fire the post-render event.
+             */
+            $newPostRenderEvent = $this->_eventDispatcher->newEventInstance($result);
+            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . ".$newTemplateName", $newPostRenderEvent);
+            $result = $newPostRenderEvent->getSubject();
+        }
 
         /**
          * Fire the post-render event.
          */
-        $newPostRenderEvent = $this->_eventDispatcher->newEventInstance($result);
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . ".$newTemplateName", $newPostRenderEvent);
-
-        /**
-         * Fire the post-render event.
-         */
-        $originalPostRenderEvent = $this->_eventDispatcher->newEventInstance($newPostRenderEvent->getSubject());
+        $originalPostRenderEvent = $this->_eventDispatcher->newEventInstance($result);
         $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . ".$originalTemplateName", $originalPostRenderEvent);
 
         return $originalPostRenderEvent->getSubject();
