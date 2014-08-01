@@ -130,6 +130,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_shortcode_ParserInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.wp_ajax_nopriv_tubepress',
             'method'   => 'onAction_ajax',
@@ -162,16 +163,16 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'  => tubepress_app_api_event_Events::HTML_STYLESHEETS,
-            'method' => 'onCss',
-            'priority' => 10000))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event' => tubepress_app_api_event_Events::HTML_SCRIPTS,
-            'method' => 'onJs',
-            'priority' => 10000
-        ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG,
             'method'   => 'onGlobalJsConfig',
+            'priority' => 10000,
+         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".html/scripts",
+            'method'   => 'onScriptsStylesTemplatePreRender',
+            'priority' => 10000,
+         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".html/styles",
+            'method'   => 'onScriptsStylesTemplatePreRender',
             'priority' => 10000,
          ));
 

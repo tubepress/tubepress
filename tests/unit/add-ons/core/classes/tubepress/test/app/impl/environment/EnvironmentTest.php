@@ -73,7 +73,9 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('abc/tubepress-content')->andReturn($mockUrl);
 
         $mockUrl->shouldReceive('freeze')->once();
+        $mockUrl->shouldReceive('removeSchemeAndAuthority')->once();
         $mockContentUrl->shouldReceive('freeze')->once();
+        $mockContentUrl->shouldReceive('removeSchemeAndAuthority')->once();
 
         $this->_sut->setBaseUrl('yellow');
         $result = $this->_sut->getUserContentUrl();
@@ -106,6 +108,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('yoyo')->andReturn($mockUrl);
 
         $mockUrl->shouldReceive('freeze')->once();
+        $mockUrl->shouldReceive('removeSchemeAndAuthority')->once();
 
         $result = $this->_sut->getUserContentUrl();
 
@@ -141,6 +144,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
     {
         $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
         $mockUrl->shouldReceive('freeze')->once();
+        $mockUrl->shouldReceive('removeSchemeAndAuthority')->once();
         $this->_sut->setBaseUrl($mockUrl);
         $this->assertSame($mockUrl, $this->_sut->getBaseUrl());
     }
@@ -150,6 +154,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
         $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
         $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('abc')->andReturn($mockUrl);
         $mockUrl->shouldReceive('freeze')->once();
+        $mockUrl->shouldReceive('removeSchemeAndAuthority')->once();
         $this->_sut->setBaseUrl('abc');
         $this->assertSame($mockUrl, $this->_sut->getBaseUrl());
     }

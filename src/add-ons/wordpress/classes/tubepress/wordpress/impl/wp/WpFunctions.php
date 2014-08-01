@@ -318,10 +318,10 @@ class tubepress_wordpress_impl_wp_WpFunctions
      *
      * @return void
      */
-    public function wp_register_style($handle, $src)
+    public function wp_register_style($handle, $src, $deps = array(), $version = null)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        wp_register_style($handle, $src);
+        wp_register_style($handle, $src, $deps, $version);
     }
 
     /**

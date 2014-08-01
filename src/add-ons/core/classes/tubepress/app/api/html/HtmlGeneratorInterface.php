@@ -23,7 +23,7 @@ interface tubepress_app_api_html_HtmlGeneratorInterface
     const _ = 'tubepress_app_api_html_HtmlGeneratorInterface';
 
     /**
-     * Generates the HTML for the given shortcode.
+     * Generates the primary HTML.
      *
      * @return string The HTML, or the error message if there was a problem.
      *

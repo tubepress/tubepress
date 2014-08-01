@@ -61,16 +61,19 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions           $wpFunctions,
-                                tubepress_platform_api_util_StringUtilsInterface  $stringUtils,
-                                tubepress_app_api_html_HtmlGeneratorInterface     $htmlGenerator,
-                                tubepress_lib_api_http_AjaxInterface              $ajaxHandler,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_app_api_shortcode_ParserInterface       $parser,
-                                tubepress_lib_api_translation_TranslatorInterface $translator,
-                                tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher)
+    private $_environment;
+
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
+                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils,
+                                tubepress_app_api_html_HtmlGeneratorInterface      $htmlGenerator,
+                                tubepress_lib_api_http_AjaxInterface               $ajaxHandler,
+                                tubepress_lib_api_http_RequestParametersInterface  $requestParams,
+                                tubepress_app_api_options_ContextInterface         $context,
+                                tubepress_app_api_options_PersistenceInterface     $persistence,
+                                tubepress_app_api_shortcode_ParserInterface        $parser,
+                                tubepress_lib_api_translation_TranslatorInterface  $translator,
+                                tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_app_api_environment_EnvironmentInterface $environment)
     {
         $this->_wpFunctions       = $wpFunctions;
         $this->_stringUtils       = $stringUtils;
@@ -82,6 +85,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_shortcodeParser   = $parser;
         $this->_translator        = $translator;
         $this->_eventDispatcher   = $eventDispatcher;
+        $this->_environment       = $environment;
     }
 
     public function onAction_widgets_init(tubepress_lib_api_event_EventInterface $event)
@@ -113,19 +117,19 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
             return;
         }
 
-        $baseName = basename(TUBEPRESS_ROOT);
-
+        $baseName       = basename(TUBEPRESS_ROOT);
         $tubePressJsUrl = $this->_wpFunctions->plugins_url("$baseName/web/js/tubepress.js", $baseName);
         $ajaxUrl        = $this->_wpFunctions->plugins_url("$baseName/web/js/wordpress-ajax.js", $baseName);
+        $version        = $this->_environment->getVersion();
 
-        $this->_wpFunctions->wp_register_script('tubepress', $tubePressJsUrl, array('jquery'));
-        $this->_wpFunctions->wp_register_script('tubepress_ajax', $ajaxUrl, array('tubepress'));
+        $this->_wpFunctions->wp_register_script('tubepress', $tubePressJsUrl, array('jquery'), "$version");
+        $this->_wpFunctions->wp_register_script('tubepress_ajax', $ajaxUrl, array('tubepress'), "$version");
 
         $this->_wpFunctions->wp_enqueue_script('jquery', false, array(), false, false);
         $this->_wpFunctions->wp_enqueue_script('tubepress', false, array(), false, false);
         $this->_wpFunctions->wp_enqueue_script('tubepress_ajax', false, array(), false, false);
 
-        $this->_enqueueThemeResources($this->_wpFunctions);
+        $this->_enqueueThemeResources($this->_wpFunctions, $version);
     }
 
     public function onAction_wp_head(tubepress_lib_api_event_EventInterface $event)
@@ -192,7 +196,8 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         return $content;
     }
 
-    private function _enqueueThemeResources(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions)
+    private function _enqueueThemeResources(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions,
+                                            tubepress_platform_api_version_Version $version)
     {
         $styles       = $this->_htmlGenerator->getUrlsCSS();
         $scripts      = $this->_htmlGenerator->getUrlsJS();
@@ -203,13 +208,13 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
 
             $handle = 'tubepress-theme-' . $x;
 
-            $wpFunctions->wp_register_style($handle, $styles[$x]->toString());
+            $wpFunctions->wp_register_style($handle, $styles[$x]->toString(), array(), "$version");
             $wpFunctions->wp_enqueue_style($handle);
         }
 
         for ($x = 0; $x < $scriptCount; $x++) {
 
-            if ($this->_stringUtils->endsWith($scripts[$x]->toString(), '/web/js/tubepress.js')) {
+            if ($this->_stringUtils->endsWith($scripts[$x]->getPath(), '/web/js/tubepress.js')) {
 
                 //we already loaded this above
                 continue;
@@ -217,7 +222,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
 
             $handle = 'tubepress-theme-' . $x;
 
-            $wpFunctions->wp_register_script($handle, $scripts[$x]->toString());
+            $wpFunctions->wp_register_script($handle, $scripts[$x]->toString(), array('tubepress'), "$version");
             $wpFunctions->wp_enqueue_script($handle, false, array(), false, false);
         }
     }

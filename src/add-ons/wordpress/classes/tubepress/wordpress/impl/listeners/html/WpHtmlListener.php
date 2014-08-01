@@ -31,14 +31,16 @@ class tubepress_wordpress_impl_listeners_html_WpHtmlListener
         $this->_urlFactory  = $urlFactory;
     }
 
-    public function onCss(tubepress_lib_api_event_EventInterface $event)
+    public function onScriptsStylesTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
     {
-        $event->setSubject(array());
-    }
+        $templateVars = $event->getSubject();
 
-    public function onJs(tubepress_lib_api_event_EventInterface $event)
-    {
-        $this->onCss($event);
+        if (is_array($templateVars)) {
+
+            $templateVars['urls'] = array();
+
+            $event->setSubject($templateVars);
+        }
     }
 
     public function onGlobalJsConfig(tubepress_lib_api_event_EventInterface $event)

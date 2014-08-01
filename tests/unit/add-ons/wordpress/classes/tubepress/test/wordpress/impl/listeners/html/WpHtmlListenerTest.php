@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_wordpress_impl_listeners_html_WpHtmlListener
  */
-class tubepress_test_wordpress_impl_listeners_html_CssJsDequererTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_wordpress_impl_listeners_html_WpHtmlListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_wordpress_impl_listeners_html_WpHtmlListener
@@ -39,6 +39,19 @@ class tubepress_test_wordpress_impl_listeners_html_CssJsDequererTest extends tub
         );
     }
 
+    public function testOnTemplatePreRender()
+    {
+        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent->shouldReceive('getSubject')->once()->andReturn(array());
+        $mockEvent->shouldReceive('setSubject')->once()->with(array(
+            'urls' => array()
+        ));
+
+        $this->_sut->onScriptsStylesTemplatePreRender($mockEvent);
+
+        $this->assertTrue(true);
+    }
+
     public function testGlobalJsConfig()
     {
         $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
@@ -56,26 +69,6 @@ class tubepress_test_wordpress_impl_listeners_html_CssJsDequererTest extends tub
         $mockUrl->shouldReceive('__toString')->once()->andReturn('yoyo');
 
         $this->_sut->onGlobalJsConfig($mockEvent);
-
-        $this->assertTrue(true);
-    }
-
-    public function testCss()
-    {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockEvent->shouldReceive('setSubject')->once()->with(array());
-
-        $this->_sut->onCss($mockEvent);
-
-        $this->assertTrue(true);
-    }
-
-    public function testJs()
-    {
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockEvent->shouldReceive('setSubject')->once()->with(array());
-
-        $this->_sut->onJs($mockEvent);
 
         $this->assertTrue(true);
     }

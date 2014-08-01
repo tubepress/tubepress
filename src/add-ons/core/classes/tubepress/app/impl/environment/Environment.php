@@ -97,6 +97,8 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     {
         $asUrl = $this->_toUrl($url);
 
+        $asUrl->removeSchemeAndAuthority();
+
         $asUrl->freeze();
 
         $this->_properties->set(self::$_PROPERTY_URL_BASE, $asUrl);
@@ -143,6 +145,8 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
                 return null;
             }
+
+            $url->removeSchemeAndAuthority();
 
             $url->freeze();
 
