@@ -146,7 +146,8 @@ class tubepress_test_youtube2_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $this->expectRegistration(
             'tubepress_app_api_options_Reference__youtube',
             'tubepress_app_api_options_Reference'
-        )->withArgument(array(
+        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+         ->withArgument(array(
 
                 tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                     tubepress_youtube2_api_Constants::OPTION_AUTOHIDE                   => tubepress_youtube2_api_Constants::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS,

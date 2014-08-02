@@ -151,7 +151,8 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
         $containerBuilder->register(
             'tubepress_app_api_options_Reference__youtube',
             'tubepress_app_api_options_Reference'
-        )->addArgument(array(
+        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+         ->addArgument(array(
 
             tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                     tubepress_youtube2_api_Constants::OPTION_AUTOHIDE                   => tubepress_youtube2_api_Constants::AUTOHIDE_HIDE_BAR_SHOW_CONTROLS,
