@@ -58,8 +58,8 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_AttributeFormatterInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event' => tubepress_app_api_event_Events::MEDIA_ITEM_NEW,
-            'method' => 'onVideoConstruction',
+            'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_NEW,
+            'method'   => 'onHttpItem',
             'priority' => 40000
         ));
 

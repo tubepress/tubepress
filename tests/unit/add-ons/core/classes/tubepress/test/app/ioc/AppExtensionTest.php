@@ -365,6 +365,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             /**
              * HTTP
              */
+            tubepress_app_api_event_Events::HTTP_AJAX . '.playerHtml' => array(
+                10000 => array('tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => 'onAjax')
+            ),
             tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST => array(
                 10000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onRequest',)
             ),

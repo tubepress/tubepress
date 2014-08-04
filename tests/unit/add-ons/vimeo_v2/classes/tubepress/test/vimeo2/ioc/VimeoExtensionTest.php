@@ -59,7 +59,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event' => tubepress_app_api_event_Events::MEDIA_ITEM_NEW,
-                'method' => 'onVideoConstruction',
+                'method' => 'onHttpItem',
                 'priority' => 40000
             ));
 
