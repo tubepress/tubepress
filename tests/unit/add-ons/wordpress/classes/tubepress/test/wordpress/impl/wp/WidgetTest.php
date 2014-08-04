@@ -88,7 +88,7 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
         $this->_mockWpFunctions                 = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
         $this->_mockStringUtils                 = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
 
-        $this->_mockMessageService->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
+        $this->_mockMessageService->shouldReceive('trans')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";
         });
 

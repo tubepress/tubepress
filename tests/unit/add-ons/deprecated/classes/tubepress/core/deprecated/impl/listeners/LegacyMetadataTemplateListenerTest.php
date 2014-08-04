@@ -86,7 +86,7 @@ class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTes
         $this->_mockExecutionContext->shouldReceive('get')->once()->with('meta')->andReturn("<<value of meta>>");
         $this->_mockOptionReference->shouldReceive('optionExists')->once()->with('meta')->andReturn(true);
         $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with('meta')->andReturn('meta label!');
-        $this->_mockTranslator->shouldReceive('_')->once()->with("meta label!")->andReturn("##video-meta##");
+        $this->_mockTranslator->shouldReceive('trans')->once()->with("meta label!")->andReturn("##video-meta##");
 
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_LABELS, $labels);

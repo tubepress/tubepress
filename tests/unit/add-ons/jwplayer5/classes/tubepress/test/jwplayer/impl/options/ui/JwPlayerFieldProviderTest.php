@@ -59,7 +59,7 @@ class tubepress_test_jwplayer_impl_options_ui_JwPlayerFieldProviderTest extends 
                 tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN)
         );
 
-        $this->_mockTranslator->shouldReceive('_')->once()->with('JW Player')->andReturn('xyz');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('JW Player')->andReturn('xyz');
         $this->assertEquals(array(), $this->_sut->getCategories());
         $this->assertTrue($this->_sut->fieldsShouldBeInSeparateBoxes());
         $this->assertFalse($this->_sut->isAbleToBeFilteredFromGui());

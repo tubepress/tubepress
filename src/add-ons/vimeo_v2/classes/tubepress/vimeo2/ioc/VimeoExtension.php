@@ -252,7 +252,8 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
         $containerBuilder->register(
             'tubepress_app_api_options_Reference__vimeo',
             'tubepress_app_api_options_Reference'
-        )->addArgument(array(
+        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+         ->addArgument(array(
 
             tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                 tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR           => '999999',

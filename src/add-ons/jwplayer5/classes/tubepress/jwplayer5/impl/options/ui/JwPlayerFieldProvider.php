@@ -93,7 +93,7 @@ class tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider implements tubep
      */
     public function getUntranslatedDisplayName()
     {
-        return $this->_translator->_('JW Player');          //>(translatable)<)
+        return $this->_translator->trans('JW Player');          //>(translatable)<)
     }
 
     /**

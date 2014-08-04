@@ -162,12 +162,6 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
             if ($nextThemeNameToCheck === null) {
 
-                if ($this->_shouldLog) {
-
-                    $this->_logger->debug(sprintf('Template source for %s was not found in theme %s. This theme also has no parents, so we are giving up on the theme hierarchy for this template.',
-                        $templateName, $currentTheme->getName()));
-                }
-
                 break;
             }
 
@@ -194,12 +188,6 @@ class tubepress_app_impl_template_ThemeTemplateLocator
         } while ($currentTheme !== null);
 
         $this->_templateNameToThemeInstanceCache[$templateName] = false;
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Failed to find template source for %s in the theme hierarchy.',
-                $templateName, $currentTheme->getName()));
-        }
 
         return null;
     }

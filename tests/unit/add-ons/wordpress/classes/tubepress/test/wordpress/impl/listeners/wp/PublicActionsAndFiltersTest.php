@@ -114,7 +114,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
     {
         $widgetOps = array('classname' => 'widget_tubepress', 'description' => 'X');
 
-        $this->_mockTranslator->shouldReceive('_')->once()->with('Displays YouTube or Vimeo videos with TubePress')->andReturn('X');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('Displays YouTube or Vimeo videos with TubePress')->andReturn('X');
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_sidebar_widget')->once()->with('tubepress', 'TubePress', array($this->_sut, 'printWidgetHtml'), $widgetOps);
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_widget_control')->once()->with('tubepress', 'TubePress', array($this->_sut, 'printControlHtml'));

@@ -32,7 +32,7 @@ class tubepress_app_impl_listeners_player_template_PlayerTemplateListener
          * @var $existingVars array
          */
         $existingVars = $event->getSubject();
-        $mediaItem    = $event->getArgument('item');
+        $mediaItem    = $event->getArgument('mediaItem');
         $toSet        = array(
             tubepress_app_api_template_VariableNames::HTML_WIDGET_ID    => $galleryId,
             tubepress_app_api_template_VariableNames::MEDIA_ITEM        => $mediaItem,

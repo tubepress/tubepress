@@ -60,8 +60,8 @@ class tubepress_test_app_impl_listeners_options_set_BasicOptionValidityTest exte
         $mockEvent = $this->_getMockEvent('value');
         $mockEvent->shouldReceive('setSubject')->once()->with(array('abc <<name>> buzz value'));
 
-        $this->_mockTranslator->shouldReceive('_')->once()->with('NAME')->andReturn('<<name>>');
-        $this->_mockTranslator->shouldReceive('_')->once()->with('"%s" must be one of "%s". You supplied "%s".')->andReturn('abc %s %s %s');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('NAME')->andReturn('<<name>>');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('"%s" must be one of "%s". You supplied "%s".')->andReturn('abc %s %s %s');
         $this->_mockReference->shouldReceive('optionExists')->once()->with('name')->andReturn(true);
         $this->_mockReference->shouldReceive('isBoolean')->once()->with('name')->andReturn(false);
         $this->_mockReference->shouldReceive('getUntranslatedLabel')->twice()->with('name')->andReturn('NAME');
@@ -77,8 +77,8 @@ class tubepress_test_app_impl_listeners_options_set_BasicOptionValidityTest exte
         $mockEvent = $this->_getMockEvent('value');
         $mockEvent->shouldReceive('setSubject')->once()->with(array('abc <<name>> value'));
 
-        $this->_mockTranslator->shouldReceive('_')->once()->with('NAME')->andReturn('<<name>>');
-        $this->_mockTranslator->shouldReceive('_')->once()->with('"%s" can only be "true" or "false". You supplied "%s".')->andReturn('abc %s %s');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('NAME')->andReturn('<<name>>');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('"%s" can only be "true" or "false". You supplied "%s".')->andReturn('abc %s %s');
         $this->_mockReference->shouldReceive('optionExists')->once()->with('name')->andReturn(true);
         $this->_mockReference->shouldReceive('isBoolean')->once()->with('name')->andReturn(true);
         $this->_mockReference->shouldReceive('getUntranslatedLabel')->twice()->with('name')->andReturn('NAME');
@@ -92,7 +92,7 @@ class tubepress_test_app_impl_listeners_options_set_BasicOptionValidityTest exte
         $mockEvent = $this->_getMockEvent('value');
         $mockEvent->shouldReceive('setSubject')->once()->with(array('abc name'));
 
-        $this->_mockTranslator->shouldReceive('_')->once()->with('No option with name "%s".')->andReturn('abc %s');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('No option with name "%s".')->andReturn('abc %s');
         $this->_mockReference->shouldReceive('optionExists')->once()->with('name')->andReturn(false);
 
         $this->_sut->onOption($mockEvent);

@@ -12,8 +12,6 @@
 
  mediaPage            tubepress_app_api_media_MediaPage             Set of items on this page.
 
- translator           tubepress_lib_api_translation_TranslatorInterface Translator.
-
  widgetId             string                                            The page-unique ID for this gallery.
                                                                         Typically this is just a random number.
 
@@ -38,7 +36,7 @@
                                                                         in $mediaPage->getItems().
 
  attributeLabels      array                                             An associative array of media item
-                                                                        attribute names (strings) to translated
+                                                                        attribute names (strings) to untranslated
                                                                         labels. e.g. 'timePublishedFormatted' =>
                                                                         'Date posted'. The array values will be
                                                                         shown to the user.
@@ -56,9 +54,13 @@
 {# First let's see if we have any items to display... #}
 {% if mediaPage.items is empty %}
 
-    <p class="tubepress-gallery-no-matching-videos">
-        {{ 'No matching videos'|translate }}                {# >(translatable)< #}
-    </p>
+    {% block noItemsFound %}
+
+        <p class="tubepress-gallery-no-matching-videos">
+            {{ 'No matching videos'|trans }}                {# >(translatable)< #}
+        </p>
+
+    {% endblock %}
 
 {% else %}
 
@@ -80,9 +82,11 @@
     <div class="tubepress-pagination-and-thumbs js-tubepress-pagination-and-thumbs">
 
         {# The following block prints out any pagination above the thumbnail array, if necessary. #}
-        {% if paginationShowTop %}
-            {{ paginationHTML|raw }}
-        {% endif %}
+        {% block paginationTop %}
+            {% if paginationShowTop %}
+                {{ paginationHTML|raw }}
+            {% endif %}
+        {% endblock %}
 
         {#
          <div class="tubepress_thumbs">
@@ -107,7 +111,7 @@
                  so we delegate it to a fragment. If you are extending this theme, don't forget to copy this fragment
                  over into your theme directory and update the path!
                  #}
-                {% include '_fragments/invoking_anchor_opener.fragment.php' %}
+                {% include '_fragments/invoking_anchor_opener.html.twig' %}
 
                     {#
                      You must retain the js-tubepress-thumbnail-image class on the image. Failure to do

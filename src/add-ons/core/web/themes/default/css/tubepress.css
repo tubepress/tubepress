@@ -298,3 +298,29 @@ div.tubepress-single-item dl.tubepress-meta-group {
 
     margin: 0 !important;
 }
+
+
+
+
+/**
+ **********************************************************************************************
+ **** EXCEPTIONS
+ **********************************************************************************************
+ */
+.tubepress-exception {
+    background-color: rgb(242, 222, 222);
+    box-sizing: border-box;
+    color: rgb(51, 51, 51);
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}

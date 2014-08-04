@@ -107,8 +107,8 @@ class tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand
 
         $toReturn = array(
 
-            'item' => $mediaItem->toHtmlSafeArray(),
-            'html' => $playerHtml
+            'mediaItem' => $mediaItem->toHtmlSafeArray(),
+            'html'      => $playerHtml
         );
 
         $this->_responseCode->setResponseCode(200);

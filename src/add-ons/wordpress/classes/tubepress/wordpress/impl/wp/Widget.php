@@ -159,8 +159,8 @@ class tubepress_wordpress_impl_wp_Widget
 
         /* set up the template */
         $tpl->setVariable(self::WIDGET_TITLE, $this->_persistence->fetch(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE));
-        $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $this->_translator->_('Title'));                                                                                                            //>(translatable)<
-        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $this->_translator->_(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"))); //>(translatable)<
+        $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $this->_translator->trans('Title'));                                                                                                            //>(translatable)<
+        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $this->_translator->trans(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"))); //>(translatable)<
         $tpl->setVariable(self::WIDGET_SHORTCODE, $this->_persistence->fetch(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE));
         $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 

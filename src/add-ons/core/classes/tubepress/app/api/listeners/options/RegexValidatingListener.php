@@ -92,7 +92,7 @@ class tubepress_app_api_listeners_options_RegexValidatingListener
                 return;
             }
 
-            $error    = $this->_translator->_('Invalid value supplied for "%s".');      //>(translatable)<
+            $error    = $this->_translator->trans('Invalid value supplied for "%s".');      //>(translatable)<
             $error    = sprintf($error, $this->_getLabel($optionName));
             $errors[] = $error;
 
@@ -108,7 +108,7 @@ class tubepress_app_api_listeners_options_RegexValidatingListener
 
             $label = $this->_reference->getUntranslatedLabel($optionName);
 
-            return $this->_translator->_($label);
+            return $this->_translator->trans($label);
         }
 
         return $optionName;

@@ -98,7 +98,7 @@ class tubepress_test_app_impl_listeners_http_ajax_PlayerAjaxCommandTest extends 
 
         $this->_mockResponseCode->shouldReceive('setResponseCode')->once()->with(200);
 
-        $this->expectOutputString('{"item":{"id":"id","title":"video title"},"html":"player-html"}');
+        $this->expectOutputString('{"mediaItem":{"id":"id","title":"video title"},"html":"player-html"}');
 
         $this->_mockAjaxEvent->shouldReceive('setArgument')->once()->with('handled', true);
         $this->_sut->onAjax($this->_mockAjaxEvent);

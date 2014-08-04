@@ -91,7 +91,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
     public function onAction_widgets_init(tubepress_lib_api_event_EventInterface $event)
     {
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
-            $this->_translator->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
+            $this->_translator->trans('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
 
         $this->_wpFunctions->wp_register_sidebar_widget('tubepress', 'TubePress', array($this, 'printWidgetHtml'), $widgetOps);
         $this->_wpFunctions->wp_register_widget_control('tubepress', 'TubePress', array($this, 'printControlHtml'));

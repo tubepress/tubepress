@@ -12,10 +12,8 @@
 /**
  * Base class for HTML fields.
  */
-abstract class tubepress_app_impl_options_ui_fields_AbstractField implements tubepress_app_api_options_ui_FieldInterface
+abstract class tubepress_app_impl_options_ui_fields_AbstractField extends tubepress_app_impl_options_ui_BaseElement implements tubepress_app_api_options_ui_FieldInterface
 {
-    protected static $PROPERTY_ID                   = 'id';
-    protected static $PROPERTY_UNTRANS_DISPLAY_NAME = 'untranslatedDisplayName';
     protected static $PROPERTY_UNTRANS_DESCRIPTION  = 'untranslatedDescription';
 
     /**
@@ -28,88 +26,18 @@ abstract class tubepress_app_impl_options_ui_fields_AbstractField implements tub
      */
     private $_httpRequestParameters;
 
-    /**
-     * @var tubepress_platform_api_property_CollectionInterface
-     */
-    private $_properties;
-
-
     public function __construct($id,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParameters,
                                 $untranslatedDisplayName = null,
                                 $untranslatedDescription = null)
     {
-        if (!is_string($id)) {
+        parent::__construct($id, $untranslatedDisplayName);
 
-            throw new InvalidArgumentException('Option page item IDs must be of type string');
-        }
-
-        $this->_properties            = new tubepress_platform_impl_property_Collection();
         $this->_persistence           = $persistence;
         $this->_httpRequestParameters = $requestParameters;
 
-        if ($untranslatedDisplayName) {
-
-            $this->setProperty(self::$PROPERTY_UNTRANS_DISPLAY_NAME, $untranslatedDisplayName);
-        }
-
-        $this->setProperty(self::$PROPERTY_ID, $id);
         $this->setProperty(self::$PROPERTY_UNTRANS_DESCRIPTION, $untranslatedDescription);
-    }
-
-    /**
-     * @return string The page-unique identifier for this item.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getId()
-    {
-        return $this->_properties->get(self::$PROPERTY_ID);
-    }
-
-    /**
-     * @return tubepress_platform_api_property_CollectionInterface
-     */
-    public function getProperties()
-    {
-        return $this->_properties;
-    }
-
-    /**
-     * @param string $name The property name.
-     * @param mixed $value The property value.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function setProperty($name, $value)
-    {
-        $this->_properties->set($name, $value);
-    }
-
-    /**
-     * @return string|null The untranslated display name of this element. May be null.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getUntranslatedDisplayName()
-    {
-        return $this->getOptionalProperty(self::$PROPERTY_UNTRANS_DISPLAY_NAME, null);
-    }
-
-    protected function getOptionalProperty($propertyName, $default)
-    {
-        if (!$this->_properties->has($propertyName)) {
-
-            return $default;
-        }
-
-        return $this->_properties->get($propertyName);
     }
 
     /**

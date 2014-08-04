@@ -53,7 +53,7 @@ class tubepress_app_impl_listeners_options_set_BasicOptionValidity
 
         if (!$this->_optionsReference->optionExists($optionName)) {
 
-            $error    = $this->_translator->_('No option with name "%s".');     //>(translatable)<
+            $error    = $this->_translator->trans('No option with name "%s".');     //>(translatable)<
             $error    = sprintf($error, $optionName);
             $errors[] = $error;
 
@@ -63,7 +63,7 @@ class tubepress_app_impl_listeners_options_set_BasicOptionValidity
 
         if ($this->_optionsReference->isBoolean($optionName) && !is_bool($optionValue)) {
 
-            $error    = $this->_translator->_('"%s" can only be "true" or "false". You supplied "%s".');  //>(translatable)<
+            $error    = $this->_translator->trans('"%s" can only be "true" or "false". You supplied "%s".');  //>(translatable)<
             $error    = sprintf($error, $this->_getLabel($optionName), $optionValue);
             $errors[] = $error;
 
@@ -86,7 +86,7 @@ class tubepress_app_impl_listeners_options_set_BasicOptionValidity
 
             if (!in_array($optionValue, $values)) {
 
-                $error    = $this->_translator->_('"%s" must be one of "%s". You supplied "%s".');   //>(translatable)<
+                $error    = $this->_translator->trans('"%s" must be one of "%s". You supplied "%s".');   //>(translatable)<
                 $error    = sprintf($error, $this->_getLabel($optionName), implode(', ', $values), $optionValue);
                 $errors[] = $error;
 
@@ -101,7 +101,7 @@ class tubepress_app_impl_listeners_options_set_BasicOptionValidity
 
             $label = $this->_optionsReference->getUntranslatedLabel($optionName);
 
-            return $this->_translator->_($label);
+            return $this->_translator->trans($label);
         }
 
         return $optionName;

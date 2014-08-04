@@ -153,11 +153,12 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         $this->_mockChildTheme->shouldReceive('getName')->once()->andReturn('abc');
         $this->_mockThemeRegistry->shouldReceive('getInstanceByName')->with('xyz')->andReturn($this->_mockParentTheme);
         $this->_mockParentTheme->shouldReceive('hasTemplateSource')->once()->with('template-name')->andReturn($exists);
-        $this->_mockParentTheme->shouldReceive('getName')->times($exists ? 1 : 2)->andReturn('xyz');
 
         if (!$exists) {
 
             $this->_mockParentTheme->shouldReceive('getParentThemeName')->once()->andReturnNull();
+        } else {
+            $this->_mockParentTheme->shouldReceive('getName')->times(1)->andReturn('xyz');
         }
 
         $this->assertTrue($this->_sut->exists('template-name') === $exists);

@@ -54,7 +54,7 @@ class tubepress_test_app_impl_template_TemplatingServiceTest extends tubepress_t
         $originalPreRenderEvent->shouldReceive('getSubject')->once()->andReturn($templateVars);
 
         $newPreRenderEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $newPreRenderEvent->shouldReceive('getSubject')->once()->andReturn($templateVars);
+        $newPreRenderEvent->shouldReceive('getSubject')->times(3)->andReturn($templateVars);
 
         $newPostRenderEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $newPostRenderEvent->shouldReceive('getSubject')->once()->andReturn('abc');
@@ -65,8 +65,8 @@ class tubepress_test_app_impl_template_TemplatingServiceTest extends tubepress_t
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('template-name', $nameSelectionEventArgs)->andReturn($templateSelectEvent);
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($templateVars)->andReturn($originalPreRenderEvent);
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($templateVars)->andReturn($newPreRenderEvent);
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('foo')->andReturn($newPostRenderEvent);
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('abc')->andReturn($originalPostRenderEvent);
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('foo', $templateVars)->andReturn($newPostRenderEvent);
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('abc', $templateVars)->andReturn($originalPostRenderEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::TEMPLATE_SELECT, $templateSelectEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.template-name', $originalPreRenderEvent);

@@ -37,8 +37,8 @@ class tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListe
          */
         $template = $event->getSubject();
 
-        $template->setVariable("pageTitle", $this->_translator->_('TubePress Options'));                                                                                                                                                                                                                       //>(translatable)<                                                                                                                                                                                                                                                                                                      //>(translatable)<
-        $template->setVariable("introBlurb", $this->_translator->_(sprintf('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="%s" target="_blank">documentation</a> for more information.', "http://docs.tubepress.com/"))); //>(translatable)<
+        $template->setVariable("pageTitle", $this->_translator->trans('TubePress Options'));                                                                                                                                                                                                                       //>(translatable)<                                                                                                                                                                                                                                                                                                      //>(translatable)<
+        $template->setVariable("introBlurb", $this->_translator->trans(sprintf('Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="%s" target="_blank">documentation</a> for more information.', "http://docs.tubepress.com/"))); //>(translatable)<
 
         $toEncode = array();
 

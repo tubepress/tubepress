@@ -40,7 +40,7 @@
 
 <?php if (!isset($mediaItem)): ?>
     <p class="tubepress-single-item-not-found">
-        <?php echo $translator->_('Item not found'); ?>
+        <?php echo $translator->trans('Item not found'); ?>
     </p>
 
 <?php else:

@@ -76,7 +76,7 @@ class tubepress_app_impl_template_TemplatingService implements tubepress_lib_api
             /**
              * Fire the post-render event.
              */
-            $newPostRenderEvent = $this->_eventDispatcher->newEventInstance($result);
+            $newPostRenderEvent = $this->_eventDispatcher->newEventInstance($result, $preRenderEvent->getSubject());
             $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . ".$newTemplateName", $newPostRenderEvent);
             $result = $newPostRenderEvent->getSubject();
         }
@@ -84,7 +84,7 @@ class tubepress_app_impl_template_TemplatingService implements tubepress_lib_api
         /**
          * Fire the post-render event.
          */
-        $originalPostRenderEvent = $this->_eventDispatcher->newEventInstance($result);
+        $originalPostRenderEvent = $this->_eventDispatcher->newEventInstance($result, $preRenderEvent->getSubject());
         $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . ".$originalTemplateName", $originalPostRenderEvent);
 
         return $originalPostRenderEvent->getSubject();

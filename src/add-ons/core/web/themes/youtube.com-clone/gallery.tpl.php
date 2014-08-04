@@ -60,7 +60,7 @@
 if (empty(${tubepress_app_api_template_VariableNames::GALLERY_MEDIA_ITEM_ARRAY})):
 
     ?><p class="tubepress-gallery-no-matching-videos">
-        <?php echo $translator->_('No matching videos'); //>(translatable)<  ?>
+        <?php echo $translator->trans('No matching videos'); //>(translatable)<  ?>
     </p><?php
 
 else:

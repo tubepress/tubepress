@@ -96,7 +96,7 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
 
             $shouldShow[$metaName] = $this->_context->get($metaName);
             $untranslatedLabel     = $this->_optionReference->getUntranslatedLabel($metaName);
-            $labels[$metaName]     = $this->_translator->_($untranslatedLabel);
+            $labels[$metaName]     = $this->_translator->trans($untranslatedLabel);
         }
 
         $template->setVariable(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);

@@ -21,23 +21,37 @@ class tubepress_app_impl_template_twig_EnvironmentBuilder
      */
     private $_bootSettingsInterface;
 
+    /**
+     * @var tubepress_app_api_options_ContextInterface
+     */
     private $_context;
+
+    /**
+     * @var tubepress_lib_api_translation_TranslatorInterface
+     */
+    private $_translator;
 
     public function __construct(Twig_LoaderInterface                              $loader,
                                 tubepress_platform_api_boot_BootSettingsInterface $bootSettings,
-                                tubepress_app_api_options_ContextInterface        $context)
+                                tubepress_app_api_options_ContextInterface        $context,
+                                tubepress_lib_api_translation_TranslatorInterface $translator)
     {
         $this->_loader                = $loader;
         $this->_bootSettingsInterface = $bootSettings;
         $this->_context               = $context;
+        $this->_translator            = $translator;
     }
 
     public function buildTwigEnvironment()
     {
-        return new Twig_Environment($this->_loader, array(
+        $environment = new Twig_Environment($this->_loader, array(
             'cache'       => $this->_getCache(),
             'auto_reload' => $this->_getAutoReload()
         ));
+
+        $this->_addFilters($environment);
+
+        return $environment;
     }
 
     private function _getAutoReload()
@@ -81,5 +95,24 @@ class tubepress_app_impl_template_twig_EnvironmentBuilder
     private function _writableDirectory($candidate)
     {
         return is_dir($candidate) && is_writable($candidate);
+    }
+
+    private function _addFilters(Twig_Environment $environment)
+    {
+        $transFilter       = new Twig_SimpleFilter('trans', array($this, '__callback_trans'));
+        $transChoiceFilter = new Twig_SimpleFilter('transChoice', array($this, '__callback_transchoice'));
+
+        $environment->addFilter('trans', $transFilter);
+        $environment->addFilter('transChoice', $transChoiceFilter);
+    }
+
+    public function __callback_trans($message, array $arguments = array(), $domain = null, $locale = null)
+    {
+        return $this->_translator->trans($message, $arguments, $domain, $locale);
+    }
+
+    public function __callback_transchoice($message, $count, array $arguments = array(), $domain = null, $locale = null)
+    {
+        return $this->_translator->transChoice($message, $count, array_merge(array('%count%' => $count), $arguments), $domain, $locale);
     }
 }

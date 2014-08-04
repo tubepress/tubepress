@@ -251,7 +251,8 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
         $this->expectRegistration(
             'tubepress_app_api_options_Reference__vimeo',
             'tubepress_app_api_options_Reference'
-        )->withArgument(array(
+        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+         ->withArgument(array(
 
                 tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                     tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR           => '999999',

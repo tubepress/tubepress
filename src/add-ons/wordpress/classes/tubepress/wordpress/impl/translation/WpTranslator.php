@@ -12,7 +12,7 @@
 /**
  * Message service that uses gettext (via WordPress).
  */
-class tubepress_wordpress_impl_translation_WpTranslator implements tubepress_lib_api_translation_TranslatorInterface
+class tubepress_wordpress_impl_translation_WpTranslator extends tubepress_lib_impl_translation_AbstractTranslator
 {
     /**
      * @var tubepress_wordpress_impl_wp_WpFunctions
@@ -25,14 +25,48 @@ class tubepress_wordpress_impl_translation_WpTranslator implements tubepress_lib
     }
 
     /**
-     * Retrieves a message for TubePress
+     * Translates the given message.
      *
-     * @param string $message The message ID
+     * @param string      $id         The message id (may also be an object that can be cast to string)
+     * @param string|null $domain     The domain for the message or null to use the default
+     * @param string|null $locale     The locale or null to use the default
      *
-     * @return string The corresponding message, or "" if not found
+     * @throws InvalidArgumentException If the locale contains invalid characters
+     *
+     * @return string The translated string
+     *
+     * @api
      */
-    public function _($message)
+    protected function translate($id, $domain = null, $locale = null)
     {
-        return $message == '' ? '' : $this->_wpFunctions->__($message, 'tubepress');
+        $domain = $domain ? $domain : 'tubepress';
+
+        return $id == '' ? '' : $this->_wpFunctions->__($id, $domain);
+    }
+
+    /**
+     * Sets the current locale.
+     *
+     * @param string $locale The locale
+     *
+     * @throws InvalidArgumentException If the locale contains invalid characters
+     *
+     * @api
+     */
+    public function setLocale($locale)
+    {
+        throw new LogicException('Use WPLANG to set WordPress locale');
+    }
+
+    /**
+     * Returns the current locale.
+     *
+     * @return string The locale
+     *
+     * @api
+     */
+    public function getLocale()
+    {
+        return $this->_wpFunctions->get_locale();
     }
 }

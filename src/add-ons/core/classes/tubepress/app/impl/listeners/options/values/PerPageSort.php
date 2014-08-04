@@ -24,10 +24,12 @@ class tubepress_app_impl_listeners_options_values_PerPageSort
         }
 
         $result = array(
+            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NONE          => 'none',                            //>(translatable)<
             tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT => 'comment count',                   //>(translatable)<
-            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_DURATION      => 'length',                          //>(translatable)<
             tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST        => 'date published (newest first)',   //>(translatable)<
             tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST        => 'date published (oldest first)',   //>(translatable)<
+            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_DURATION      => 'length',                          //>(translatable)<
+            tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_RANDOM        => 'random',                          //>(translatable)<
             tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_TITLE         => 'title',                           //>(translatable)<
             tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT    => 'view count',                      //>(translatable)<
         );

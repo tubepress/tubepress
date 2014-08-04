@@ -55,8 +55,8 @@ class tubepress_test_app_api_listeners_options_RegexValidatingListenerTest exten
 
         if (!$expectedToPass) {
 
-            $this->_mockTranslation->shouldReceive('_')->once()->with('Invalid value supplied for "%s".')->andReturn('omg %s');
-            $this->_mockTranslation->shouldReceive('_')->once()->with('something awesome')->andReturn('holy smokes');
+            $this->_mockTranslation->shouldReceive('trans')->once()->with('Invalid value supplied for "%s".')->andReturn('omg %s');
+            $this->_mockTranslation->shouldReceive('trans')->once()->with('something awesome')->andReturn('holy smokes');
             $this->_mockReference->shouldReceive('getUntranslatedLabel')->twice()->with('option-name')->andReturn('something awesome');
             $this->_mockEvent->shouldReceive('setSubject')->once()->with(array('omg holy smokes'));
         }
