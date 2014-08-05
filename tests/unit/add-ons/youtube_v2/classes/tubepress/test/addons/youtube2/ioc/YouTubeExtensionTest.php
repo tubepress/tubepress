@@ -41,7 +41,7 @@ class tubepress_test_youtube2_ioc_YouTubeExtensionTest extends tubepress_test_pl
                 'method'   => 'onEmbeddedTemplateSelection',
                 'priority' => 20000
             ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.youtube/embedded',
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.embedded/youtube',
                 'method'   => 'onEmbeddedTemplatePreRender',
                 'priority' => 20000
             ));

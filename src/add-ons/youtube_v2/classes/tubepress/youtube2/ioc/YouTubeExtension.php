@@ -46,7 +46,7 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
             'method'   => 'onEmbeddedTemplateSelection',
             'priority' => 20000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.youtube/embedded',
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.embedded/youtube',
             'method'   => 'onEmbeddedTemplatePreRender',
             'priority' => 20000
         ));

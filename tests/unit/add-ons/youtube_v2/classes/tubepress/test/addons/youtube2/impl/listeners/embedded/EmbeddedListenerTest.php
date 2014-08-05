@@ -65,7 +65,6 @@ class tubepress_test_youtube2_impl_listeners_embedded_EmbeddedListenerTest exten
             $this->_mockUrlFactory
         );
 
-        $this->_mockPreRenderEvent->shouldReceive('getArgument')->twice()->with('mediaItem')->andReturn($this->_mockMediaItem);
         $this->_mockMediaItem->shouldReceive('getAttribute')->once()->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)
             ->andReturn($this->_mockMediaProvider);
     }
@@ -101,11 +100,14 @@ class tubepress_test_youtube2_impl_listeners_embedded_EmbeddedListenerTest exten
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(true)->andReturn('troo');
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(2)->with(false)->andReturn('fawlse');
 
-        $this->_mockPreRenderEvent->shouldReceive('getSubject')->once()->andReturn(array());
+        $this->_mockPreRenderEvent->shouldReceive('getSubject')->once()->andReturn(array(
+            'mediaItem' => $this->_mockMediaItem
+        ));
 
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
         $this->_mockPreRenderEvent->shouldReceive('setSubject')->once()->with(array(
+            'mediaItem'                                                 => $this->_mockMediaItem,
             tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl2
         ));
 

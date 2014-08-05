@@ -40,7 +40,12 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
 
     public function onEmbeddedTemplateSelection(tubepress_lib_api_event_EventInterface $event)
     {
-        if (!$this->_handlesEvent($event)) {
+        /**
+         * @var $mediaItem tubepress_app_api_media_MediaItem
+         */
+        $mediaItem = $event->getArgument('mediaItem');
+
+        if (!$this->_handlesMediaItem($mediaItem)) {
 
             return;
         }
@@ -50,13 +55,13 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
 
     public function onEmbeddedTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
     {
-        if (!$this->_handlesEvent($event)) {
+        $existingArgs = $event->getSubject();
+        $mediaItem    = $existingArgs['mediaItem'];
+
+        if (!$this->_handlesMediaItem($mediaItem)) {
 
             return;
         }
-
-        $existingArgs = $event->getSubject();
-        $mediaItem    = $event->getArgument('mediaItem');
 
         $existingArgs[tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL] = $this->_getDataUrl($mediaItem);
 
@@ -115,13 +120,8 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
         }
     }
 
-    private function _handlesEvent(tubepress_lib_api_event_EventInterface $event)
+    private function _handlesMediaItem(tubepress_app_api_media_MediaItem $mediaItem)
     {
-        /**
-         * @var $mediaItem tubepress_app_api_media_MediaItem
-         */
-        $mediaItem = $event->getArgument('mediaItem');
-
         /**
          * @var $provider tubepress_app_api_media_MediaProviderInterface
          */
