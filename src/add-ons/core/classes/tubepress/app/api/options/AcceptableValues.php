@@ -109,5 +109,5 @@ interface tubepress_app_api_options_AcceptableValues
      * @api
      * @since 4.0.0
      */
-    const PLAYER_LOC_NORMAL = 'jqmodal';
+    const PLAYER_LOC_NORMAL = 'normal';
 }

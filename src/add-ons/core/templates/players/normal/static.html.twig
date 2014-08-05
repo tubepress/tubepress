@@ -7,8 +7,11 @@
  # License, v. 2.0. If a copy of the MPL was not distributed with this
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
-{% block jqModalAsyncJs %}
 
-    {% include 'players/_fragments/asyncJs.html.twig' with {'jsPath' : 'web/js/players/jqmodal-player.js'} %}
+{% include 'players/normal/ajax.html.twig' %}
+
+{% block normalPlayerAsyncJs %}
+
+    {% include 'players/_fragments/asyncJs.html.twig' with {'jsPath' : 'web/js/players/normal-player.js'} %}
 
 {% endblock %}

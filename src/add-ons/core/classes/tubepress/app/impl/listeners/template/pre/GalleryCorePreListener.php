@@ -27,11 +27,13 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
     private static $_ajaxPlayerTemplateMap = array(
 
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL => 'jqmodal/ajax',
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_NORMAL  => 'normal/ajax',
     );
 
     private static $_staticPlayerTemplateMap = array(
 
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL => 'jqmodal/static',
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_NORMAL  => 'normal/static',
     );
 
     private static $_ajaxOnly = array(
