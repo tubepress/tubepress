@@ -103,6 +103,12 @@ interface tubepress_app_api_options_AcceptableValues
      * @api
      * @since 4.0.0
      */
+    const PLAYER_LOC_FANCYBOX = 'fancybox';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
     const PLAYER_LOC_JQMODAL = 'jqmodal';
 
     /**
