@@ -18,74 +18,72 @@
  paginationTotalItems        int  The total number of items in this gallery.
  paginationResultsPerPage    int  The requested results per page.
  paginationHrefFormat        string Anchor HREF attributes format
- paginationTextNext
- paginationTextPrev
 
  IF YOU SIMPLY WISH TO MODIFY THE HTML, SKIP DOWN TO LINE 120.
 #}
 {% set currentPageNum = paginationCurrentPageNumber %}
 {% set totalItems     = paginationTotalItems %}
 {% set itemsPerPage   = paginationResultsPerPage %}
-{% set pageCount      = {{ totalItems / itemsPerPage }}|round(0, 'ceil') %}
+{% set pageCount      = (totalItems / itemsPerPage)|round(0, 'ceil') %}
 {% set dots           = '<li class="disabled"><a href="#">...</a></li>' %}
 {% set pageRange      = 5 %}
 
 {% if pageCount < currentPageNum %}
-    {% set currentPageNum = pageCount }} %}
+    {% set currentPageNum = pageCount %}
 {% endif %}
 
 {% if pageRange > pageCount %}
-    {% set pageRange = pageCount }} %}
+    {% set pageRange = pageCount %}
 {% endif %}
 
-{% set delta = {{ pageRange / 2}}|round(0, 'ceil') %}
+{% set delta = (pageRange / 2)|round(0, 'ceil') %}
 
-{% if {{ currentPageNum - delta }} > {{ pageCount - pageRange }} %}
+{% if (currentPageNum - delta) > (pageCount - pageRange) %}
 
-    {% set pages = range({{ pageCount - pageRange + 1 }}, pageCount) %}
+    {% set pages = range((pageCount - pageRange + 1), pageCount) %}
 
 {% else %}
 
-    {% if {{ currentPageNum - delta }} < 0 %}
+    {% if (currentPageNum - delta) < 0 %}
 
-        {% set delta = currentPageNum }} %}
+        {% set delta = currentPageNum %}
     {% endif %}
 
-    {% set offset = {{ currentPageNum - delta }} %}
-    {% set pages  = range({{ offset + 1 }}, {{ offset + pageRange }}) %}
+    {% set offset = currentPageNum - delta %}
+    {% set pages  = range(offset + 1, offset + pageRange) %}
 {% endif %}
 
-{% set proximity = {{ pageRange / 2 }}|round(0, 'floor') %}
-{% set startPage = {{ currentPageNum - proximity }} %}
-{% set endPage   = {{ currentPageNum + proximity }} %}
+{% set proximity = (pageRange / 2)|round(0, 'floor') %}
+{% set startPage = currentPageNum - proximity %}
+{% set endPage   = currentPageNum + proximity %}
 
 {% if startPage < 1 %}
 
-    {% set endPage = min({{ endPage + 1 - startPage }}, pageCount) %}
+    {% set endPage = min(endPage + 1 - startPage, pageCount) %}
     {% set startPage = 1 %}
 {% endif %}
 
 {% if endPage > pageCount %}
 
-    {% set startPage = max({{ startPage - endPage - pageCount }}, 1) %}
+    {% set startPage = max(startPage - endPage - pageCount, 1) %}
     {% set endPage   = pageCount %}
 {% endif %}
 
-{% if {{ currentPageNum - 1 }} > 0 %}
+{% if (currentPageNum - 1) > 0 %}
 
-    {% set previousPage = {{ currentPageNum - 1 }} %}
+    {% set previousPage = currentPageNum - 1 %}
 {% endif %}
 
-{% if {{ currentPageNum + 1 }} <= pageCount %}
+{% if (currentPageNum + 1) <= pageCount %}
 
-    {% set nextPage = {{ currentPageNum + 1 }} %}
+    {% set nextPage = currentPageNum + 1 %}
 {% endif %}
 
 {% set firstPageInRange = min(pages) %}
 {% set lastPageInRange  = max(pages) %}
 {% set currentItemCount = pages.length %}
-{% set firstItemNumber  = {{ {{ {{ currentPageNum - 1 }} * $itemsPerPage }} + 1 }} %}
-{% set lastItemNumber   = {{ firstItemNumber + currentItemCount - 1 }} %}
+{% set firstItemNumber  = ((currentPageNum - 1) * itemsPerPage) + 1 %}
+{% set lastItemNumber   = firstItemNumber + currentItemCount - 1 %}
 
 {% macro anchor(page, anchorFormat, text) %}
 
@@ -107,88 +105,115 @@
     {% endif %}
 
     {#
-         If you modify this theme, do not remove the "js-tubepress-*" class names as doing
+         If you modify this template, do not remove the "js-tubepress-*" class names as doing
          so will break Ajax pagination.
      #}
-    <a href="{{ href }}" class="js-tubepress-pager js-tubepress-page-{{ page }}"{{ noFollow}}>{{ text }}</a>
+    <a href="{{ href }}" class="js-tubepress-pager js-tubepress-page-{{ page }}"{{ noFollow}}>{{ text|raw }}</a>
 
 {% endmacro %}
 
 {% import _self as pagination %}
 
-{% if pageCount > 1) %}
-    <div class="tubepress-pagination tubepress-pagination-centered">
-        <ul>
+{% if pageCount > 1 %}
 
-        {% if previousPage is defined %}
-            <li>
-                {{ pagination.anchor(previousPage, paginationHrefFormat, '&laquo;&nbsp;' ~ paginationTextPrev) }}
-            </li>
-        {% else %}
-            <li class="disabled">
-                <span>&laquo;&nbsp;{{ paginationTextPrev }}</span>
-            </li>
-        {% endif %}
+    {% block pagination %}
 
-        {% if startPage > 1) %}
+        <div class="tubepress-pagination tubepress-pagination-centered">
 
-            <li>
-                {{ pagination.anchor(1, paginationHrefFormat) }}
-            </li>
+            <ul>
 
-            {% if startPage == 3) %}
+            {% if previousPage is defined %}
 
                 <li>
-                    {{ pagination.anchor(2, paginationHrefFormat) }}
+                    {{ pagination.anchor(previousPage, paginationHrefFormat, '&laquo;&nbsp;' ~ 'prev'|trans|escape) }}
                 </li>
 
-            {% elseif startPage != 2 %}
+            {% else %}
 
                 <li class="disabled">
-                    <span>&hellip;</span>
+                    <span>&laquo;&nbsp;{{ 'prev'|trans }}</span>
                 </li>
 
             {% endif %}
 
-        {% endif %}
+            {% if startPage > 1 %}
 
-        {% for page in pages %}
-            {% if page != currentPageNum %}
                 <li>
-                    {{ pagination.anchor(page, paginationHrefFormat) }}
+                    {{ pagination.anchor(1, paginationHrefFormat) }}
                 </li>
-            {% else %}
-                <li class="active">
-                    <span>{{ page }}</span>
-                </li>
-            {% endif %}
-        {% endfor %}
 
-        {% if pageCount > $endPage %}
-            {% if pageCount > {{ endPage + 1 }} %}
-                {% if pageCount > {{ endPage + 2 }} %}
+                {% if startPage == 3 %}
+
+                    <li>
+                        {{ pagination.anchor(2, paginationHrefFormat) }}
+                    </li>
+
+                {% elseif startPage != 2 %}
+
                     <li class="disabled">
                         <span>&hellip;</span>
                     </li>
-                {% else %}
-                    <li>
-                        {{ pagination.anchor({{ pageCount - 1 }}, paginationHrefFormat) }}
-                    </li>
+
                 {% endif %}
             {% endif %}
-            <li>
-                {{ pagination.anchor(pageCount, paginationHrefFormat) }}
-            </li>
-        {% endif %}
-        {% if nextPage is defined %}
-            <li>
-                {{ pagination.anchor(nextPage, paginationHrefFormat, paginationTextNext ~ '&nbsp;&raquo;') }}
-            </li>
-        {% else %}
-            <li class="disabled">
-                <span>{{ paginationTextNext }}&nbsp;&raquo;</span>
-            </li>
+
+            {% for page in pages %}
+
+                {% if page != currentPageNum %}
+
+                    <li>
+                        {{ pagination.anchor(page, paginationHrefFormat) }}
+                    </li>
+
+                {% else %}
+
+                    <li class="active">
+                        <span>{{ page }}</span>
+                    </li>
+
+                {% endif %}
+            {% endfor %}
+
+            {% if pageCount > endPage %}
+
+                {% if pageCount > (endPage + 1) %}
+
+                    {% if pageCount > (endPage + 2) %}
+
+                        <li class="disabled">
+                            <span>&hellip;</span>
+                        </li>
+
+                    {% else %}
+
+                        <li>
+                            {{ pagination.anchor(pageCount - 1, paginationHrefFormat) }}
+                        </li>
+
+                    {% endif %}
+                {% endif %}
+
+                <li>
+                    {{ pagination.anchor(pageCount, paginationHrefFormat) }}
+                </li>
+
             {% endif %}
-        </ul>
-    </div>
+
+            {% if nextPage is defined %}
+
+                <li>
+                    {{ pagination.anchor(nextPage, paginationHrefFormat, 'next'|trans|escape ~ '&nbsp;&raquo;') }}
+                </li>
+
+            {% else %}
+
+                <li class="disabled">
+                    <span>{{ 'next'|trans }}&nbsp;&raquo;</span>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+
+    {% endblock %}{# end block "pagination" #}
 {% endif %}

@@ -42,7 +42,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockThemeTemplateLocator;
+    private $_mockCurrentThemeService;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -64,14 +64,20 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
      */
     private $_mockTranslator;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockCurrentTheme;
+
     public function onSetup()
     {
-        $this->_mockContext              = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockUrlFactory           = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockRequestParams        = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockTemplating           = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockThemeTemplateLocator = $this->mock('tubepress_app_impl_template_ThemeTemplateLocator');
-        $this->_mockTranslator           = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockContext             = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockUrlFactory          = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
+        $this->_mockRequestParams       = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
+        $this->_mockTemplating          = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
+        $this->_mockCurrentThemeService = $this->mock('tubepress_app_impl_theme_CurrentThemeService');
+        $this->_mockTranslator          = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockCurrentTheme        = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW)->andReturn(true);
@@ -88,20 +94,22 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
             return "##$original##";
         });
 
+        $this->_mockCurrentThemeService->shouldReceive('getCurrentTheme')->atLeast(1)->andReturn($this->_mockCurrentTheme);
+
         $this->_sut = new tubepress_app_impl_listeners_template_pre_PaginationListener(
             
             $this->_mockContext,
             $this->_mockUrlFactory,
             $this->_mockRequestParams,
             $this->_mockTemplating,
-            $this->_mockThemeTemplateLocator,
+            $this->_mockCurrentThemeService,
             $this->_mockTranslator
         );
     }
 
     public function testModern()
     {
-        $this->_mockThemeTemplateLocator->shouldReceive('getSource')->once()->with('pagination')->andReturn('good!');
+        $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('something');
         $newTemplateVars = array(
 
             tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => 25,
@@ -124,7 +132,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
 
     public function testLegacyHighPage()
     {
-        $this->_mockThemeTemplateLocator->shouldReceive('getSource')->once()->with('pagination')->andReturnNull();
+        $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('legacy/something');
         $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/core/fixtures/feature/gallery/pagination/legacy-high.html');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(25);
@@ -144,7 +152,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
 
     public function testLegacyMiddlePage()
     {
-        $this->_mockThemeTemplateLocator->shouldReceive('getSource')->once()->with('pagination')->andReturnNull();
+        $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('unknown/something');
         $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/core/fixtures/feature/gallery/pagination/legacy-middle.html');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(12);
@@ -165,7 +173,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
 
     public function testLegacy()
     {
-        $this->_mockThemeTemplateLocator->shouldReceive('getSource')->once()->with('pagination')->andReturnNull();
+        $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('legacy/something');
         $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/core/fixtures/feature/gallery/pagination/legacy-low.html');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(1);

@@ -37,22 +37,22 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
     private $_templating;
 
     /**
-     * @var tubepress_app_impl_template_ThemeTemplateLocator
+     * @var tubepress_app_impl_theme_CurrentThemeService
      */
-    private $_themeTemplateLocator;
+    private $_currentThemeService;
     
     public function __construct(tubepress_app_api_options_ContextInterface          $context,
                                 tubepress_platform_api_url_UrlFactoryInterface      $urlFactory,
                                 tubepress_lib_api_http_RequestParametersInterface   $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface      $templating,
-                                tubepress_app_impl_template_ThemeTemplateLocator    $themeTemplateLocator,
+                                tubepress_app_impl_theme_CurrentThemeService        $currentThemeService,
                                 tubepress_lib_api_translation_TranslatorInterface   $translator)
     {
         $this->_context              = $context;
         $this->_urlFactory           = $urlFactory;
         $this->_requestParams        = $requestParams;
         $this->_templating           = $templating;
-        $this->_themeTemplateLocator = $themeTemplateLocator;
+        $this->_currentThemeService = $currentThemeService;
         $this->_translator           = $translator;
     }
 
@@ -78,18 +78,20 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
         $vidsPerPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
         $newurl      = $this->_urlFactory->fromCurrent();
 
-        if ($this->_themeHasPaginationTemplate()) {
+        if (!$this->_isLegacyTheme()) {
 
             return $this->_paginationFromTemplate($vidCount, $currentPage, $vidsPerPage, $newurl);
         }
 
-        return $this->_diggStyle($vidCount, $currentPage, $vidsPerPage, 1, $newurl, 'tubepress_page');
+        return $this->_legacyPagination($vidCount, $currentPage, $vidsPerPage, 1, $newurl, 'tubepress_page');
     }
 
     private function _paginationFromTemplate($totalItems, $currentPage, $perPage, tubepress_platform_api_url_UrlInterface $url)
     {
         $url->removeSchemeAndAuthority();
         $url->getQuery()->set('tubepress_page', '%d');
+
+        $url  = str_replace('tubepress_page=%25d', 'tubepress_page=%d', "$url");
         $vars = array(
 
             tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => $currentPage,
@@ -101,9 +103,22 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
         return $this->_templating->renderTemplate('pagination', $vars);
     }
 
-    private function _themeHasPaginationTemplate()
+    private function _isLegacyTheme()
     {
-        return $this->_themeTemplateLocator->getSource('pagination') !== null;
+        $currentTheme     = $this->_currentThemeService->getCurrentTheme();
+        $currentThemeName = $currentTheme->getName();
+
+        if (strpos($currentThemeName, 'legacy/') === 0) {
+
+            return true;
+        }
+
+        if (strpos($currentThemeName, 'unknown/') === 0) {
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -118,7 +133,7 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
      *
      * @return string The HTML for the pagination
      */
-    private function _diggStyle($totalitems, $page = 1, $limit = 15, $adjacents = 1, tubepress_platform_api_url_UrlInterface $url, $pagestring = '?page=')
+    private function _legacyPagination($totalitems, $page = 1, $limit = 15, $adjacents = 1, tubepress_platform_api_url_UrlInterface $url, $pagestring = '?page=')
     {
         $url->getQuery()->remove('tubepress_page');
 

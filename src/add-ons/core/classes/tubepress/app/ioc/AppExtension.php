@@ -239,7 +239,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_platform_api_url_UrlFactoryInterface::_,
                 tubepress_lib_api_http_RequestParametersInterface::_,
                 tubepress_lib_api_template_TemplatingInterface::_,
-                'tubepress_app_impl_template_ThemeTemplateLocator',
+                'tubepress_app_impl_theme_CurrentThemeService',
                 tubepress_lib_api_translation_TranslatorInterface::_
             ),
             'tubepress_app_impl_listeners_template_pre_SearchInputListener' => array(
