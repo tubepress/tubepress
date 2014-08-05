@@ -140,6 +140,20 @@ class tubepress_app_api_media_MediaItem
         return htmlspecialchars("$element", ENT_QUOTES, 'UTF-8');
     }
 
+    public function __get($attributeName)
+    {
+        if ($this->hasAttribute($attributeName)) {
+
+            return $this->getAttribute($attributeName);
+        }
+
+        return null;
+    }
+
+    public function __isset($attributeName)
+    {
+        return $this->hasAttribute($attributeName);
+    }
 
 
 

@@ -1,15 +1,17 @@
 {#
- Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #
+ #  Most of this logic is loosely based on
+ # https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Pagination/SlidingPagination.php
+ #}
 
- This file is part of TubePress (http://tubepress.com)
-
- This Source Code Form is subject to the terms of the Mozilla Public
- License, v. 2.0. If a copy of the MPL was not distributed with this
- file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
- Most of this logic is loosely based on
- https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Pagination/SlidingPagination.php
-
+{#
  Non-exhaustive list of variables in this template (add-ons may add other variables):
 
  paginationCurrentPageNumber int  The current page number of the gallery.
@@ -19,7 +21,7 @@
  paginationTextNext
  paginationTextPrev
 
- IF YOU SIMPLY WISH TO MODIFY THE HTML, SKIP DOWN TO LINE 115.
+ IF YOU SIMPLY WISH TO MODIFY THE HTML, SKIP DOWN TO LINE 120.
 #}
 {% set currentPageNum = paginationCurrentPageNumber %}
 {% set totalItems     = paginationTotalItems %}

@@ -1,0 +1,79 @@
+{#
+ # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+{# The following block prints out each attribute label (e.g. Ratings, Views, Comment Count, etc). #}
+{% block metaLabel %}
+
+    <dt class="tubepress-meta-{{ attributeName }}">
+
+        {% if attributeLabels[attributeName] is defined %}
+
+            {{ attributeLabels[attributeName] }}
+
+        {% endif %}
+    </dt>
+{% endblock %}{# end block "metaLabel" #}
+
+{#The following <dd> prints out each attribute value. #}
+{% block metaValue %}
+    <dd class="tubepress-meta-{{ attributeName }}">
+
+        {% set anchorOpen = false %}
+
+        {#
+         # The title gets special treatment because we want users to be able to click on it
+         # to start the video.
+         #}
+        {% if attributeName == 'title' %}
+
+            {% include '_fragments/invoking_anchor_opener.html.twig' %}
+
+            {% set anchorOpen = true %}
+
+        {% endif %}
+
+        {#
+         # Are we showing the URL for this video? If so, let's wrap it in an anchor and change the text.
+         #}
+        {% if attributeName == 'homeUrl' %}
+
+            <a rel="nofollow" target="_blank" href="{{ mediaItem.homeUrl }}">
+
+            {% set anchorOpen = true %}
+
+        {% endif %}
+
+        {#
+         # Do we have an author URL? If so, let's make it an anchor.
+         #}
+        {% if attributeName == 'authorDisplayName' and mediaItem.authorUrl is defined %}
+
+            <a ref="nofollow" target="_blank" href="{{ mediaItem.authorUrl }}">
+
+            {% set anchorOpen = true %}
+
+        {% endif %}
+
+        {#
+         # Print out the attribute value.
+         #
+         # @var $mediaItem tubepress_app_api_media_MediaItem
+         #}
+        {{ attribute(mediaItem, attributeName) }}
+
+        {#
+         # Close the anchor tag, if needed.
+         #}
+        {% if anchorOpen %}
+            </a>
+        {% endif %}
+
+    </dd>
+{% endblock %}{# end block "metaValue" #}
