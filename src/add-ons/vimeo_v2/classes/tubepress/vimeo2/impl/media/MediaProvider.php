@@ -58,7 +58,7 @@ es for the "mode" option.
      */
     public function getName()
     {
-        return 'vimeo';
+        return 'vimeo_v2';
     }
 
     /**

@@ -18,7 +18,10 @@
     "container-builder": {
         "extensions" : [
             "tubepress_vimeo2_ioc_VimeoExtension"
-        ]
+        ],
+        "compiler-passes" : {
+            "tubepress_vimeo2_ioc_compiler_TwigLoaderPass" : 9000
+        }
     },
     "autoload": {
         "classmap" : {
@@ -30,6 +33,7 @@
             "tubepress_vimeo2_impl_media_FeedHandler"                   : "classes/tubepress/vimeo2/impl/media/FeedHandler.php",
             "tubepress_vimeo2_impl_media_MediaProvider"                 : "classes/tubepress/vimeo2/impl/media/MediaProvider.php",
             "tubepress_vimeo2_impl_options_ui_FieldProvider"            : "classes/tubepress/vimeo2/impl/options/ui/FieldProvider.php",
+            "tubepress_vimeo2_ioc_compiler_TwigLoaderPass"              : "classes/tubepress/vimeo2/ioc/compiler/TwigLoaderPass.php",
             "tubepress_vimeo2_ioc_VimeoExtension"                       : "classes/tubepress/vimeo2/ioc/VimeoExtension.php"
         }
     }

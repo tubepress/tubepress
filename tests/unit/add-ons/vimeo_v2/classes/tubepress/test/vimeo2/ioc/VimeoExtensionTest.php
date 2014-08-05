@@ -38,8 +38,18 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
             'tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener',
             'tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_));
-
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.embedded',
+                'method'   => 'onEmbeddedTemplateSelection',
+                'priority' => 20000
+            ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.embedded/vimeo',
+                'method'   => 'onEmbeddedTemplatePreRender',
+                'priority' => 20000
+            ));
+        
         $this->expectRegistration(
             'tubepress_vimeo2_impl_listeners_http_OauthListener',
             'tubepress_vimeo2_impl_listeners_http_OauthListener'
@@ -58,7 +68,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_AttributeFormatterInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event' => tubepress_app_api_event_Events::MEDIA_ITEM_NEW,
+                'event' => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW,
                 'method' => 'onHttpItem',
                 'priority' => 40000
             ));

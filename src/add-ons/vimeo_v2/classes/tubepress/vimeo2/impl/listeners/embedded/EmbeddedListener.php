@@ -33,49 +33,51 @@ class tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener
      */
     private $_langUtils;
 
+    /**
+     * @var tubepress_platform_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
     public function __construct(tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_platform_api_util_LangUtilsInterface $langUtils)
+                                tubepress_platform_api_util_LangUtilsInterface $langUtils,
+                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
     {
-        $this->_context   = $context;
-        $this->_langUtils = $langUtils;
+        $this->_context    = $context;
+        $this->_langUtils  = $langUtils;
+        $this->_urlFactory = $urlFactory;
     }
 
-    /**
-     * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getName()
+    public function onEmbeddedTemplateSelection(tubepress_lib_api_event_EventInterface $event)
     {
-        return 'vimeo';
+        /**
+         * @var $mediaItem tubepress_app_api_media_MediaItem
+         */
+        $mediaItem = $event->getArgument('mediaItem');
+
+        if (!$this->_handlesMediaItem($mediaItem)) {
+
+            return;
+        }
+
+        $event->setSubject('embedded/youtube');
     }
 
-    /**
-     * @return string[] The paths, to pass to the template factory, for this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getPathsForTemplateFactory()
+    public function onEmbeddedTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
     {
-        return array(
+        $existingArgs = $event->getSubject();
+        $mediaItem    = $existingArgs['mediaItem'];
 
-            'embedded/vimeo.tpl.php',
-            TUBEPRESS_ROOT . '/src/add-ons/vimeo/templates/embedded/vimeo.tpl.php'
-        );
+        if (!$this->_handlesMediaItem($mediaItem)) {
+
+            return;
+        }
+
+        $existingArgs[tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL] = $this->_getDataUrl($mediaItem);
+
+        $event->setSubject($existingArgs);
     }
 
-    /**
-     * @param tubepress_platform_api_url_UrlFactoryInterface $urlFactory URL factory
-     * @param string                                         $mediaId    The video ID to play
-     *
-     * @return tubepress_platform_api_url_UrlInterface The URL of the data for this video.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getDataUrlForMediaItem(tubepress_platform_api_url_UrlFactoryInterface $urlFactory, $mediaId)
+    private function _getDataUrl(tubepress_app_api_media_MediaItem $mediaItem)
     {
         $autoPlay = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY);
         $showInfo = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO);
@@ -83,7 +85,7 @@ class tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener
         $color    = $this->_context->get(tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR);
 
         /* build the data URL based on these options */
-        $link  = $urlFactory->fromString("http://player.vimeo.com/video/$mediaId");
+        $link  = $this->_urlFactory->fromString('http://player.vimeo.com/video/' . $mediaItem->getId());
         $query = $link->getQuery();
 
         $query->set(self::$_URL_PARAM_AUTOPLAY, $this->_langUtils->booleanToStringOneOrZero($autoPlay));
@@ -98,25 +100,13 @@ class tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener
         return $link;
     }
 
-    /**
-     * @return string The display name of this embedded player service.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getUntranslatedDisplayName()
+    private function _handlesMediaItem(tubepress_app_api_media_MediaItem $mediaItem)
     {
-        return 'Vimeo';
-    }
+        /**
+         * @var $provider tubepress_app_api_media_MediaProviderInterface
+         */
+        $provider = $mediaItem->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER);
 
-    /**
-     * @return string[] An array of provider names that this embedded provider can handle.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getCompatibleProviderNames()
-    {
-        return array('vimeo');
+        return $provider->getName() === 'vimeo_v2';
     }
 }

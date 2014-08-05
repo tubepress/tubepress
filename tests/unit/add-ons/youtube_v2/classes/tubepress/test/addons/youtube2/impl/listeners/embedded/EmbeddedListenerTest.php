@@ -111,7 +111,7 @@ class tubepress_test_youtube2_impl_listeners_embedded_EmbeddedListenerTest exten
             tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl2
         ));
 
-        $this->_mockMediaProvider->shouldReceive('getName')->once()->andReturn('youtube');
+        $this->_mockMediaProvider->shouldReceive('getName')->once()->andReturn('youtube_v2');
         $this->_sut->onEmbeddedTemplatePreRender($this->_mockPreRenderEvent);
 
         $this->assertTrue(true);

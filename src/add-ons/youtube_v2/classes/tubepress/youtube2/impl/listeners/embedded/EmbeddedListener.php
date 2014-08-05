@@ -127,6 +127,6 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
          */
         $provider = $mediaItem->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER);
 
-        return $provider->getName() === 'youtube';
+        return $provider->getName() === 'youtube_v2';
     }
 }

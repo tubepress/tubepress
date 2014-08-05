@@ -464,9 +464,10 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
     public function getNewItemEventArguments(tubepress_app_api_media_MediaItem $mediaItemId, $index)
     {
         return array(
-            'api',              'vimeo_v2',
-            'unserializedFeed', $this->_unserialized,
-            'videoArray',       $this->_videoArray,
+            'api'              => 'vimeo_v2',
+            'unserializedFeed' => $this->_unserialized,
+            'videoArray'       => $this->_videoArray,
+            'zeroBasedIndex'   => $index,
         );
     }
 }
