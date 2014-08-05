@@ -478,8 +478,7 @@ return array (
     'tubepress_app_impl_html_HtmlGenerator' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/html/HtmlGenerator.php',
     'tubepress_app_impl_http_PrimaryAjaxHandler' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/http/PrimaryAjaxHandler.php',
     'tubepress_app_impl_http_RequestParameters' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/http/RequestParameters.php',
-    'tubepress_app_impl_listeners_embedded_SourceListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/embedded/SourceListener.php',
-    'tubepress_app_impl_listeners_gallery_js_PlayerDataListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/galleryjs/PlayerDataListener.php',
+    'tubepress_app_impl_listeners_galleryjs_PlayerDataListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/galleryjs/PlayerDataListener.php',
     'tubepress_app_impl_listeners_galleryjs_EmbeddedOptionsListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/galleryjs/EmbeddedOptionsListener.php',
     'tubepress_app_impl_listeners_galleryjs_OptionsListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/galleryjs/OptionsListener.php',
     'tubepress_app_impl_listeners_html_exception_LoggingListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/html/exception/LoggingListener.php',
@@ -509,7 +508,6 @@ return array (
     'tubepress_app_impl_listeners_template_post_GalleryPostListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/post/GalleryPostListener.php',
     'tubepress_app_impl_listeners_template_post_HtmlScriptsPostListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/post/HtmlScriptsPostListener.php',
     'tubepress_app_impl_listeners_template_post_HtmlStylesPostListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/post/HtmlStylesPostListener.php',
-    'tubepress_app_impl_listeners_template_pre_EmbeddedListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/EmbeddedListener.php',
     'tubepress_app_impl_listeners_template_pre_GalleryCorePreListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/GalleryCorePreListener.php',
     'tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/MetaDisplayListener.php',
     'tubepress_app_impl_listeners_template_pre_PaginationListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/PaginationListener.php',
@@ -679,4 +677,5 @@ return array (
     'tubepress_youtube2_impl_media_MediaProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/media/MediaProvider.php',
     'tubepress_youtube2_impl_options_ui_FieldProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/options/ui/FieldProvider.php',
     'tubepress_youtube2_ioc_YouTubeExtension' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/ioc/YouTubeExtension.php',
+    'tubepress_youtube2_ioc_compiler_TwigLoaderPass' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/ioc/compiler/TwigLoaderPass.php',
 );

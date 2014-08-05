@@ -24,42 +24,50 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
      */
     private $_langUtils;
 
+    /**
+     * @var tubepress_platform_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
     public function __construct(tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_platform_api_util_LangUtilsInterface $langUtils)
+                                tubepress_platform_api_util_LangUtilsInterface $langUtils,
+                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
     {
-        $this->_context   = $context;
-        $this->_langUtils = $langUtils;
+        $this->_context    = $context;
+        $this->_langUtils  = $langUtils;
+        $this->_urlFactory = $urlFactory;
     }
 
-    /**
-     * @return string[] The paths, to pass to the template factory, for this embedded provider.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getPathsForTemplateFactory()
+    public function onEmbeddedTemplateSelection(tubepress_lib_api_event_EventInterface $event)
     {
-        return array(
+        if (!$this->_handlesEvent($event)) {
 
-            'embedded/youtube',
-            TUBEPRESS_ROOT . '/src/add-ons/youtube/resources/templates/embedded/youtube.tpl.php'
-        );
+            return;
+        }
+
+        $event->setSubject('embedded/youtube');
     }
 
-    /**
-     * @param tubepress_platform_api_url_UrlFactoryInterface $urlFactory URL factory
-     * @param string                                         $mediaId    The video ID to play
-     *
-     * @return tubepress_platform_api_url_UrlInterface The URL of the data for this video.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getDataUrlForMediaItem(tubepress_platform_api_url_UrlFactoryInterface $urlFactory, $mediaId)
+    public function onEmbeddedTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
     {
-        $link       = $urlFactory->fromString('https://www.youtube.com/embed/' . $mediaId);
+        if (!$this->_handlesEvent($event)) {
+
+            return;
+        }
+
+        $existingArgs = $event->getSubject();
+        $mediaItem    = $event->getArgument('mediaItem');
+
+        $existingArgs[tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL] = $this->_getDataUrl($mediaItem);
+
+        $event->setSubject($existingArgs);
+    }
+
+    private function _getDataUrl(tubepress_app_api_media_MediaItem $mediaItem)
+    {
+        $link       = $this->_urlFactory->fromString('https://www.youtube.com/embed/' . $mediaItem->getId());
         $embedQuery = $link->getQuery();
-        $url        = $urlFactory->fromCurrent();
+        $url        = $this->_urlFactory->fromCurrent();
         $origin     = $url->getScheme() . '://' . $url->getHost();
 
         $autoPlay        = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY);
@@ -83,32 +91,10 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
         if ($loop) {
 
             $embedQuery->set('loop', $this->_langUtils->booleanToStringOneOrZero($loop));
-            $embedQuery->set('playlist', $mediaId);
+            $embedQuery->set('playlist', $mediaItem->getId());
         }
 
         return $link;
-    }
-
-    /**
-     * @return string The display name of this embedded player service.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getUntranslatedDisplayName()
-    {
-        return 'YouTube';
-    }
-
-    /**
-     * @return string[] An array of provider names that this embedded provider can handle.
-     *
-     * @api
-     * @since 4.0.0
-     */
-    public function getCompatibleProviderNames()
-    {
-        return array('youtube');
     }
 
     private function _getAutoHideValue($autoHide)
@@ -127,5 +113,20 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
 
                 return 2;
         }
+    }
+
+    private function _handlesEvent(tubepress_lib_api_event_EventInterface $event)
+    {
+        /**
+         * @var $mediaItem tubepress_app_api_media_MediaItem
+         */
+        $mediaItem = $event->getArgument('mediaItem');
+
+        /**
+         * @var $provider tubepress_app_api_media_MediaProviderInterface
+         */
+        $provider = $mediaItem->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER);
+
+        return $provider->getName() === 'youtube';
     }
 }

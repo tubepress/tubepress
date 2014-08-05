@@ -18,7 +18,11 @@
     "container-builder": {
         "extensions" : [
             "tubepress_youtube2_ioc_YouTubeExtension"
-        ]
+        ],
+        "compiler-passes" : {
+
+            "tubepress_youtube2_ioc_compiler_TwigLoaderPass" : 9000
+        }
     },
     "autoload": {
         "classmap" : {
@@ -30,6 +34,7 @@
             "tubepress_youtube2_impl_media_FeedHandler"                    : "classes/tubepress/youtube2/impl/media/FeedHandler.php",
             "tubepress_youtube2_impl_media_MediaProvider"                  : "classes/tubepress/youtube2/impl/media/MediaProvider.php",
             "tubepress_youtube2_impl_options_ui_FieldProvider"             : "classes/tubepress/youtube2/impl/options/ui/FieldProvider.php",
+            "tubepress_youtube2_ioc_compiler_TwigLoaderPass"               : "classes/tubepress/youtube2/ioc/compiler/TwigLoaderPass.php",
             "tubepress_youtube2_ioc_YouTubeExtension"                      : "classes/tubepress/youtube2/ioc/YouTubeExtension.php"
         }
     }

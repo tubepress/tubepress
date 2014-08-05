@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_gallery_js_PlayerDataListener
+class tubepress_app_impl_listeners_galleryjs_PlayerDataListener
 {
     private static $_OPTIONS = 'options';
     /**
@@ -20,23 +20,9 @@ class tubepress_app_impl_listeners_gallery_js_PlayerDataListener
      */
     private $_context;
 
-    /**
-     * @var tubepress_app_api_player_PlayerHtmlInterface
-     */
-    private $_playerHtml;
-
-    /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
-     */
-    private $_environment;
-
-    public function __construct(tubepress_app_api_options_ContextInterface         $context,
-                                tubepress_app_api_player_PlayerHtmlInterface       $playerHtml,
-                                tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_app_api_options_ContextInterface $context)
     {
-        $this->_context     = $context;
-        $this->_playerHtml  = $playerHtml;
-        $this->_environment = $environment;
+        $this->_context = $context;
     }
 
     public function onGalleryInitJs(tubepress_lib_api_event_EventInterface $event)
@@ -45,30 +31,27 @@ class tubepress_app_impl_listeners_gallery_js_PlayerDataListener
 
         $this->_ensureOutermostKeysExist($args);
 
-        $player        = $this->_playerHtml->getActivePlayerLocation();
-        $options       = $this->_getOptions($player);
+        $options = $this->_getOptions();
 
         $args[self::$_OPTIONS] = array_merge($args[self::$_OPTIONS], $options);
 
         $event->setSubject($args);
     }
 
-    private function _getOptions(tubepress_app_api_player_PlayerLocationInterface $player)
+    private function _getOptions()
     {
         return array(
 
-            tubepress_app_api_options_Names::PLAYER_LOCATION => $player->getName()
+            tubepress_app_api_options_Names::PLAYER_LOCATION =>
+                $this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION)
         );
     }
 
     private function _ensureOutermostKeysExist(array &$args)
     {
-        foreach (array(self::$_OPTIONS) as $key) {
+        if (!isset($args[self::$_OPTIONS]) || !is_array($args[self::$_OPTIONS])) {
 
-            if (!isset($args[$key]) || !is_array($args[$key])) {
-
-                $args[$key] = array();
-            }
+            $args[self::$_OPTIONS] = array();
         }
     }
 }

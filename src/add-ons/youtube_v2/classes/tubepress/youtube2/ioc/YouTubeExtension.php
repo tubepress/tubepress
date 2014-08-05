@@ -34,13 +34,22 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
 
     private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-//        $containerBuilder->register(
-//            'tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider',
-//            'tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider'
-//
-//        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-//         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
-//         ->addTag(tubepress_app_api_embedded_EmbeddedProviderInterface::_);
+        $containerBuilder->register(
+            'tubepress_youtube2_impl_listeners_embedded_EmbeddedListener',
+            'tubepress_youtube2_impl_listeners_embedded_EmbeddedListener'
+
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.embedded',
+            'method'   => 'onEmbeddedTemplateSelection',
+            'priority' => 20000
+        ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.youtube/embedded',
+            'method'   => 'onEmbeddedTemplatePreRender',
+            'priority' => 20000
+        ));
 
         $containerBuilder->register(
             'tubepress_youtube2_impl_listeners_media_HttpItemListener',

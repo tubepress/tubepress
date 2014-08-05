@@ -46,6 +46,11 @@ class tubepress_app_impl_listeners_media_CollectionListener
 
         $page = $provider->collectPage($event->getArgument('pageNumber'));
 
+        foreach ($page->getItems() as $mediaItem) {
+
+            $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
+        }
+
         $event->setArgument('mediaPage', $page);
     }
 
@@ -69,6 +74,8 @@ class tubepress_app_impl_listeners_media_CollectionListener
         }
 
         $item = $provider->collectSingle($itemId);
+
+        $item->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
 
         $event->setArgument('mediaItem', $item);
     }

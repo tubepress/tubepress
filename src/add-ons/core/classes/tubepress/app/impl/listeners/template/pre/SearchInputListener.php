@@ -64,7 +64,7 @@ class tubepress_app_impl_listeners_template_pre_SearchInputListener
 
         /* clean up the search terms a bit */
         $searchTerms = $this->_requestParams->getParamValue('tubepress_search');
-        $searchTerms = urldecode($searchTerms);    //TODO: get rid of this once we move to POST?
+        $searchTerms = urldecode($searchTerms);
 
         /*
          * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear

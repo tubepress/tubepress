@@ -98,4 +98,10 @@ interface tubepress_app_api_options_AcceptableValues
      * @since 4.0.0
      */
     const PER_PAGE_SORT_VIEW_COUNT = 'viewCount';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PLAYER_LOC_JQMODAL = 'jqmodal';
 }

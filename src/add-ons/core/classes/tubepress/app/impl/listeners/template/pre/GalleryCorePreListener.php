@@ -19,9 +19,31 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
      */
     private $_context;
 
-    public function __construct(tubepress_app_api_options_ContextInterface $context)
+    /**
+     * @var tubepress_lib_api_template_TemplatingInterface
+     */
+    private $_templating;
+
+    private static $_ajaxPlayerTemplateMap = array(
+
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL => 'jqmodal/ajax',
+    );
+
+    private static $_staticPlayerTemplateMap = array(
+
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL => 'jqmodal/static',
+    );
+
+    private static $_ajaxOnly = array(
+
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL
+    );
+
+    public function __construct(tubepress_app_api_options_ContextInterface     $context,
+                                tubepress_lib_api_template_TemplatingInterface $templating)
     {
-        $this->_context = $context;
+        $this->_context    = $context;
+        $this->_templating = $templating;
     }
 
     public function onGalleryTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
@@ -31,26 +53,121 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
          */
         $existingArgs = $event->getSubject();
 
-        $this->_setItemArrayAndGalleryId($event, $existingArgs);
-        $this->_setThumbnailSizes($existingArgs);
+        $this->_setSimpleVarsFromContext($existingArgs);
+        $this->_setStaticEmbeddedSource($existingArgs);
+        $this->_setStaticPlayer($existingArgs);
 
         $event->setSubject($existingArgs);
     }
 
-    private function _setItemArrayAndGalleryId(tubepress_lib_api_event_EventInterface $event,
-                                               array                                  &$templateVars)
+    public function onStaticPlayerTemplateSelection(tubepress_lib_api_event_EventInterface $event)
     {
-        $galleryId = $this->_context->get(tubepress_app_api_options_Names::HTML_GALLERY_ID);
+        $requestedLocation = $this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION);
 
-        $templateVars[tubepress_app_api_template_VariableNames::HTML_WIDGET_ID] = $galleryId;
+        if (isset(self::$_staticPlayerTemplateMap[$requestedLocation])) {
+
+            $event->setSubject('players/' . self::$_staticPlayerTemplateMap[$requestedLocation]);
+        }
     }
 
-    private function _setThumbnailSizes(array &$templateVars)
+    public function onAjaxPlayerTemplateSelection(tubepress_lib_api_event_EventInterface $event)
     {
+        $requestedLocation = $this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION);
+
+        if (isset(self::$_ajaxPlayerTemplateMap[$requestedLocation])) {
+
+            $event->setSubject('players/' . self::$_ajaxPlayerTemplateMap[$requestedLocation]);
+        }
+    }
+
+    public function onAjaxTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    {
+        $existingTemplateVars = $event->getSubject();
+        $mediaItem            = $existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM];
+
+        $this->_applyEmbeddedSource($mediaItem, $existingTemplateVars);
+
+        $event->setSubject($existingTemplateVars);
+    }
+
+    private function _setStaticPlayer(array &$templateVars)
+    {
+        /**
+         * @var $mediaPage tubepress_app_api_media_MediaPage
+         */
+        $mediaPage = $templateVars['mediaPage'];
+        $items     = $mediaPage->getItems();
+
+        if (count($items) === 0) {
+
+            return;
+        }
+
+        $playerTemplateVars = array(
+            tubepress_app_api_template_VariableNames::MEDIA_ITEM => $items[0]
+        );
+
+        if (isset($templateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE])) {
+
+            $playerTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE] =
+                $templateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE];
+        }
+
+        $playerHtml = $this->_templating->renderTemplate('player/static', $playerTemplateVars);
+
+        $templateVars[tubepress_app_api_template_VariableNames::PLAYER_HTML] = $playerHtml;
+    }
+
+    private function _setSimpleVarsFromContext(array &$templateVars)
+    {
+        $galleryId   = $this->_context->get(tubepress_app_api_options_Names::HTML_GALLERY_ID);
         $thumbWidth  = $this->_context->get(tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH);
         $thumbHeight = $this->_context->get(tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT);
 
+        $templateVars[tubepress_app_api_template_VariableNames::HTML_WIDGET_ID]              = $galleryId;
         $templateVars[tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_WIDTH_PX]  = $thumbWidth;
         $templateVars[tubepress_app_api_template_VariableNames::GALLERY_THUMBNAIL_HEIGHT_PX] = $thumbHeight;
+    }
+
+    private function _setStaticEmbeddedSource(array &$existingTemplateVars)
+    {
+        if (!isset($existingTemplateVars['mediaPage'])) {
+
+            return;
+        }
+
+        $requestedLocation = $this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION);
+
+        if (in_array($requestedLocation, self::$_ajaxOnly)) {
+
+            return;
+        }
+
+        /**
+         * @var $mediaPage tubepress_app_api_media_MediaPage
+         */
+        $mediaPage = $existingTemplateVars['mediaPage'];
+        $items     = $mediaPage->getItems();
+
+        if (count($items) === 0) {
+
+            return;
+        }
+
+        $this->_applyEmbeddedSource($items[0], $existingTemplateVars);
+    }
+
+    private function _applyEmbeddedSource(tubepress_app_api_media_MediaItem $mediaItem, array &$existingTemplateVars)
+    {
+        $embedWidth  = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_WIDTH);
+        $embedHeight = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_HEIGHT);
+
+        $embeddedHtml = $this->_templating->renderTemplate('embedded', array(
+
+            'mediaItem'                                                  => $mediaItem,
+            tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX  => $embedWidth,
+            tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT_PX => $embedHeight,));
+
+        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE] = $embeddedHtml;
     }
 }

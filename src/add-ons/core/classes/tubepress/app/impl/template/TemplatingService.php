@@ -44,17 +44,14 @@ class tubepress_app_impl_template_TemplatingService implements tubepress_lib_api
         /**
          * First dispatch the template name.
          */
-        $nameSelectionEvent = $this->_eventDispatcher->newEventInstance($originalTemplateName, array(
-
-            'templateVars' => $templateVars
-        ));
-        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_SELECT, $nameSelectionEvent);
+        $nameSelectionEvent = $this->_eventDispatcher->newEventInstance($originalTemplateName, $templateVars);
+        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_SELECT . ".$originalTemplateName", $nameSelectionEvent);
         $newTemplateName = $nameSelectionEvent->getSubject();
 
         /**
          * Fire the pre-render event for the original name.
          */
-        $preRenderEvent = $this->_eventDispatcher->newEventInstance($nameSelectionEvent->getArgument('templateVars'));
+        $preRenderEvent = $this->_eventDispatcher->newEventInstance($nameSelectionEvent->getArguments());
         $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".$originalTemplateName", $preRenderEvent);
 
         if ($originalTemplateName !== $newTemplateName) {

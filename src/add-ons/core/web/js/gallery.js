@@ -66,7 +66,7 @@
  * {
  *     "galleryId" : 123456789,
  *     "itemId"    : "ekv9384jJD"
- *     "item"      : { ... },            //a dictionary representing the backing tubepress_app_api_media_MediaItem attributes
+ *     "mediaItem" : { ... },            //a dictionary representing the backing tubepress_app_api_media_MediaItem attributes
  *     "html"      : " ... "             //the HTML for this player
  * }
  *
@@ -750,9 +750,10 @@ var tubePressGalleryRegistrar;
              */
         var onNewVideoRequested = function (e, data) {
 
-                var galleryId  = data[text_galleryId],
-                    itemId     = data[text_itemId],
-                    playerName = options.getOption(galleryId, text_player + 'Location', '?'),
+                var galleryId      = data[text_galleryId],
+                    itemId         = data[text_itemId],
+                    playerName     = options.getOption(galleryId, text_player + 'Location', '?'),
+                    text_mediaItem = 'mediaItem',
 
                     /**
                      * The data coming back should have the following keys:
@@ -764,7 +765,7 @@ var tubePressGalleryRegistrar;
 
                         var dataToPublish = {};
 
-                        dataToPublish[text_item]      = data[text_item];
+                        dataToPublish[text_mediaItem] = data[text_mediaItem];
                         dataToPublish[text_html]      = data[text_html];
                         dataToPublish[text_galleryId] = galleryId;
                         dataToPublish[text_itemId]    = itemId;
