@@ -59,7 +59,7 @@ class tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener
             return;
         }
 
-        $event->setSubject('embedded/vimeo');
+        $event->setSubject('single/embedded/vimeo');
     }
 
     public function onEmbeddedTemplatePreRender(tubepress_lib_api_event_EventInterface $event)

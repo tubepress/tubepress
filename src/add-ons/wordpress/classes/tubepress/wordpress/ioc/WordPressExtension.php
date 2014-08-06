@@ -167,11 +167,11 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
             'method'   => 'onGlobalJsConfig',
             'priority' => 10000,
          ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".html/scripts",
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/scripts",
             'method'   => 'onScriptsStylesTemplatePreRender',
             'priority' => 10000,
          ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".html/styles",
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/styles",
             'method'   => 'onScriptsStylesTemplatePreRender',
             'priority' => 10000,
          ));

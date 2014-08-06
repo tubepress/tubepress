@@ -80,7 +80,7 @@ class tubepress_app_impl_listeners_html_generation_SingleItemListener
             $eventArgs['mediaItem'] = $mediaItem;
         }
 
-        $singleHtml = $this->_templating->renderTemplate('single', array(), $eventArgs);
+        $singleHtml = $this->_templating->renderTemplate('single/main', array(), $eventArgs);
 
         $event->setSubject($singleHtml);
         $event->stopPropagation();

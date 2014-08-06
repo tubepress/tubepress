@@ -90,7 +90,7 @@ class tubepress_test_app_impl_listeners_http_ajax_PlayerAjaxCommandTest extends 
         $mockVideo = new tubepress_app_api_media_MediaItem('id');
         $mockVideo->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_TITLE, 'video title');
 
-        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('player/ajax', array(
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('gallery/player/ajax', array(
             tubepress_app_api_template_VariableNames::MEDIA_ITEM => $mockVideo
         ))->andReturn('player-html');
 

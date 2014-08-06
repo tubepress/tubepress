@@ -100,7 +100,7 @@ class tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand
             $this->_logger->debug('Collector found item with ID ' . $itemId . '. Sending it to browser');
         }
 
-        $playerHtml = $this->_templating->renderTemplate('player/ajax', array(
+        $playerHtml = $this->_templating->renderTemplate('gallery/player/ajax', array(
 
             tubepress_app_api_template_VariableNames::MEDIA_ITEM => $mediaItem
         ));

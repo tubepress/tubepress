@@ -161,11 +161,11 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
                 'method'   => 'onGlobalJsConfig',
                 'priority' => 10000,
             ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".html/scripts",
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/scripts",
                 'method'   => 'onScriptsStylesTemplatePreRender',
                 'priority' => 10000,
             ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".html/styles",
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/styles",
                 'method'   => 'onScriptsStylesTemplatePreRender',
                 'priority' => 10000,
             ));

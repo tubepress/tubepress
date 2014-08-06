@@ -11,36 +11,30 @@
 {#
  Non-exhaustive list of variables in this template (add-ons may add other variables).
 
- mediaPage            tubepress_app_api_media_MediaPage             Set of items on this page.
+ mediaPage            tubepress_app_api_media_MediaPage Set of items on this page.
 
- widgetId             string                                            The page-unique ID for this gallery.
-                                                                        Typically this is just a random number.
+ widgetId             string                            The page-unique ID for this gallery. Typically this is just
+                                                        a random number.
 
- playerHTML           string                                            HTML for the embedded media player. This
-                                                                        may be empty as some players don't
-                                                                        generate HTML on page load.
+ playerHTML           string                            HTML for the embedded media player. This may be empty as some
+                                                        players don't generate HTML on page load.
 
- paginationHTML       string                                            Pagination HTML. May be empty.
+ paginationHTML       string                            Pagination HTML. May be empty.
 
- paginationShowTop    bool                                              Has the user requested pagination above
-                                                                        the thumbnails?
+ paginationShowTop    bool                              Has the user requested pagination above the thumbnails?
 
- paginationShowBottom bool                                              Has the user requested pagination below
-                                                                        the thumbnails?
+ paginationShowBottom bool                              Has the user requested pagination below the thumbnails?
 
- thumbHeightPx        int                                               The requested thumbnail height, in px.
+ thumbHeightPx        int                               The requested thumbnail height, in px.
 
- thumbWidthPx         int                                               The requested thumbnail width, in px.
+ thumbWidthPx         int                               The requested thumbnail width, in px.
 
- attributesToShow     string[]                                          Media item attribute names that the user
-                                                                        has requested to display for each item
-                                                                        in $mediaPage->getItems().
+ attributesToShow     string[]                          Media item attribute names that the user has requested to
+                                                        display for each item in $mediaPage->getItems().
 
- attributeLabels      array                                             An associative array of media item
-                                                                        attribute names (strings) to untranslated
-                                                                        labels. e.g. 'timePublishedFormatted' =>
-                                                                        'Date posted'. The array values will be
-                                                                        shown to the user.
+ attributeLabels      array                             An associative array of media item attribute names (strings) to
+                                                        untranslated labels. e.g. 'timePublishedFormatted' =>
+                                                        'Date posted'. The array values will be shown to the user.
 
 
  <div class="js-tubepress-gallery-123456789">
@@ -138,7 +132,7 @@
                                      The following <a> and <img> display the clickable video thumbnail. The opening <a> is a bit complex,
                                      so we delegate it to a fragment.
                                      #}
-                                    {% include '_fragments/invoking_anchor.html.twig'%}
+                                    {% include 'gallery/players/fragments/invoking_anchor.html.twig'%}
 
                                     {% block meta %}
 
@@ -156,7 +150,7 @@
                                                  The logic for printing the dd/dt pairs is delegated a fragment since it is shared
                                                  with single_video.html.twig.
                                                  #}
-                                                {% include '_fragments/dt_dd_pair.html.twig' %}
+                                                {% include 'single/fragments/dt_dd_pair.html.twig' %}
 
                                             {% endfor %}{# Stop looping over the media attributes for this item #}
 

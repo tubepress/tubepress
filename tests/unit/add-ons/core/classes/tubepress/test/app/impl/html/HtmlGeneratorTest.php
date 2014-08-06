@@ -118,8 +118,8 @@ class tubepress_test_app_impl_html_HtmlGeneratorTest extends tubepress_test_Tube
     {
         return array(
 
-            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'html/styles', array('inlineCSS' => 'parent theme datacurrent theme data',), tubepress_app_api_event_Events::HTML_STYLESHEETS, 2, 4, 4, 2),
-            array('getJS', 'getUrlsJS', null, 'html/scripts', array(), tubepress_app_api_event_Events::HTML_SCRIPTS, 1, 3, 2, 1),
+            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'cssjs/styles', array('inlineCSS' => 'parent theme datacurrent theme data',), tubepress_app_api_event_Events::HTML_STYLESHEETS, 2, 4, 4, 2),
+            array('getJS', 'getUrlsJS', null, 'cssjs/scripts', array(), tubepress_app_api_event_Events::HTML_SCRIPTS, 1, 3, 2, 1),
         );
     }
 

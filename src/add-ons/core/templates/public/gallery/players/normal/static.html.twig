@@ -8,10 +8,10 @@
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
 
-{% include 'players/normal/ajax.html.twig' %}
+{% include 'gallery/players/normal/ajax.html.twig' %}
 
 {% block normalPlayerAsyncJs %}
 
-    {% include 'players/_fragments/asyncJs.html.twig' with {'jsPath' : 'web/js/players/normal-player.js'} %}
+    {% include 'gallery/players/fragments/asyncJs.html.twig' with {'jsPath' : 'web/js/players/normal-player.js'} %}
 
 {% endblock %}

@@ -90,7 +90,7 @@ class tubepress_app_impl_listeners_html_generation_GalleryListener
             'pageNumber' => $pageNumber,
         );
 
-        $html = $this->_templating->renderTemplate('gallery', $templateVars);
+        $html = $this->_templating->renderTemplate('gallery/main', $templateVars);
 
         /* we're done. tie up */
         if ($shouldLog) {

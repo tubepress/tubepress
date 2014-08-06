@@ -158,7 +158,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
         $currentTheme = $this->_currentThemeService->getCurrentTheme();
         $css          = $this->_recursivelyGetFromTheme($currentTheme, 'getInlineCSS');
 
-        return $this->_templating->renderTemplate('html/styles', array(
+        return $this->_templating->renderTemplate('cssjs/styles', array(
 
             'inlineCSS' => $css,
             'urls'      => $cssUrls
@@ -175,7 +175,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
     {
         $jsUrls = $this->getUrlsJS();
 
-        return $this->_templating->renderTemplate('html/scripts', array('urls' => $jsUrls));
+        return $this->_templating->renderTemplate('cssjs/scripts', array('urls' => $jsUrls));
     }
 
     private function _fireEventAndReturnSubject($eventName, $raw)

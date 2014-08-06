@@ -363,42 +363,42 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             /**
              * TEMPLATE - SELECTION
              */
-            tubepress_app_api_event_Events::TEMPLATE_SELECT . '.player/static' => array(
+            tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/static' => array(
                 20000 => array('tubepress_app_impl_listeners_template_pre_GalleryCorePreListener' => 'onStaticPlayerTemplateSelection')
             ),
-            tubepress_app_api_event_Events::TEMPLATE_SELECT . '.player/ajax' => array(
+            tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/ajax' => array(
                 20000 => array('tubepress_app_impl_listeners_template_pre_GalleryCorePreListener' => 'onAjaxPlayerTemplateSelection')
             ),
 
             /**
              * TEMPLATE - PRE
              */
-            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery' => array(
+            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main' => array(
                 10400 => array('tubepress_app_impl_listeners_template_pre_GalleryCorePreListener' => 'onGalleryTemplatePreRender'),
                 10300 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener'    => 'onPreTemplate'),
                 10200 => array('tubepress_app_impl_listeners_template_pre_PaginationListener'     => 'onGalleryTemplatePreRender'),
             ),
-            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single' => array(
+            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main' => array(
                 10100 => array('tubepress_app_impl_listeners_template_pre_SingleItemListener'  => 'onSingleTemplatePreRender'),
                 10000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input' => array(
                 10000 => array('tubepress_app_impl_listeners_template_pre_SearchInputListener' => 'onSearchInputTemplatePreRender',)
             ),
-            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.player/ajax' => array(
+            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/ajax' => array(
                 10000 => array('tubepress_app_impl_listeners_template_pre_GalleryCorePreListener' => 'onAjaxTemplatePreRender')
             ),
 
             /**
              * TEMPLATE - POST
              */
-            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.gallery' => array(
+            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.gallery/main' => array(
                 10000 => array('tubepress_app_impl_listeners_template_post_GalleryPostListener' => 'onPostGalleryTemplateRender'),
             ),
-            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.html/styles' => array(
+            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/styles' => array(
                 10000 => array('tubepress_app_impl_listeners_template_post_HtmlStylesPostListener' => 'onPostGalleryTemplateRender'),
             ),
-            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.html/scripts' => array(
+            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts' => array(
                 10000 => array('tubepress_app_impl_listeners_template_post_HtmlScriptsPostListener' => 'onPostGalleryTemplateRender')
             ),
         );
@@ -954,7 +954,10 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $containerBuilder->register(
             'Twig_Loader_Filesystem',
             'Twig_Loader_Filesystem'
-        )->addArgument(TUBEPRESS_ROOT . '/src/add-ons/core/templates');
+        )->addArgument(array(
+                TUBEPRESS_ROOT . '/src/add-ons/core/templates/public',
+                TUBEPRESS_ROOT . '/src/add-ons/core/templates/admin',
+        ));
         $twigLoaderReferences = array(
             new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_Loader'),
             new tubepress_platform_api_ioc_Reference('Twig_Loader_Filesystem')

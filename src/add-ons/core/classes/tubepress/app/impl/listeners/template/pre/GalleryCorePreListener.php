@@ -68,7 +68,7 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
 
         if (isset(self::$_staticPlayerTemplateMap[$requestedLocation])) {
 
-            $event->setSubject('players/' . self::$_staticPlayerTemplateMap[$requestedLocation]);
+            $event->setSubject('gallery/players/' . self::$_staticPlayerTemplateMap[$requestedLocation]);
         }
     }
 
@@ -78,7 +78,7 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
 
         if (isset(self::$_ajaxPlayerTemplateMap[$requestedLocation])) {
 
-            $event->setSubject('players/' . self::$_ajaxPlayerTemplateMap[$requestedLocation]);
+            $event->setSubject('gallery/players/' . self::$_ajaxPlayerTemplateMap[$requestedLocation]);
         }
     }
 
@@ -115,7 +115,7 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
                 $templateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE];
         }
 
-        $playerHtml = $this->_templating->renderTemplate('player/static', $playerTemplateVars);
+        $playerHtml = $this->_templating->renderTemplate('gallery/player/static', $playerTemplateVars);
 
         $templateVars[tubepress_app_api_template_VariableNames::PLAYER_HTML] = $playerHtml;
     }
@@ -164,7 +164,7 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
         $embedWidth  = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_WIDTH);
         $embedHeight = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_HEIGHT);
 
-        $embeddedHtml = $this->_templating->renderTemplate('embedded', array(
+        $embeddedHtml = $this->_templating->renderTemplate('single/embedded', array(
 
             'mediaItem'                                                  => $mediaItem,
             tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX  => $embedWidth,

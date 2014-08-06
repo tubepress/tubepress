@@ -50,7 +50,7 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
             return;
         }
 
-        $event->setSubject('embedded/youtube');
+        $event->setSubject('single/embedded/youtube');
     }
 
     public function onEmbeddedTemplatePreRender(tubepress_lib_api_event_EventInterface $event)

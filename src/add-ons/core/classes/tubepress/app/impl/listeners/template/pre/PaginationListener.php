@@ -100,7 +100,7 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
             tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_RESULTS_PER_PAGE    => $perPage,
         );
 
-        return $this->_templating->renderTemplate('pagination', $vars);
+        return $this->_templating->renderTemplate('gallery/pagination', $vars);
     }
 
     private function _isLegacyTheme()

@@ -117,7 +117,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
             tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_HREF_FORMAT         => 'foobar',
             tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_RESULTS_PER_PAGE    => 4,
         );
-        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('pagination', $newTemplateVars)->andReturn('foo');
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('gallery/pagination', $newTemplateVars)->andReturn('foo');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(25);
 

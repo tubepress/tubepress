@@ -68,7 +68,7 @@ class tubepress_test_app_impl_listeners_template_pre_GalleryCorePreListenerTest 
 
         $this->_mockMediaPage->shouldReceive('getItems')->once()->andReturn(array($this->_mockMediaItem));
 
-        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('player/static', array('mediaItem' => $this->_mockMediaItem))->andReturn('static-player');
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('gallery/player/static', array('mediaItem' => $this->_mockMediaItem))->andReturn('static-player');
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(array('mediaPage' => $this->_mockMediaPage));
         $this->_mockEvent->shouldReceive('setSubject')->once()->with(array_merge(array(

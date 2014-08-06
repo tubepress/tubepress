@@ -7,12 +7,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #}
+
 {% block urls %}
 
     {% for url in urls %}
 
-        <script type="text/javascript" src="{{ url }}"></script>
+        <link href="{{ url }}" rel="stylesheet" type="text/css">
 
     {% endfor %}
+
+{% endblock %}
+
+{% block inlineCSS %}
+
+    {{ inlineCSS|raw }}
 
 {% endblock %}
