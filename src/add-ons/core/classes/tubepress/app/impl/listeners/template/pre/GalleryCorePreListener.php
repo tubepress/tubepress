@@ -28,17 +28,20 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
 
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL => 'jqmodal/ajax',
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_NORMAL  => 'normal/ajax',
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_POPUP   => 'popup/ajax',
     );
 
     private static $_staticPlayerTemplateMap = array(
 
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL => 'jqmodal/static',
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_NORMAL  => 'normal/static',
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_POPUP   => 'popup/static',
     );
 
     private static $_ajaxOnly = array(
 
-        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL,
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_POPUP,
     );
 
     public function __construct(tubepress_app_api_options_ContextInterface     $context,
