@@ -23,9 +23,7 @@
     "autoload": {
         "classmap" : {
             "tubepress_jwplayer5_api_OptionNames"                              : "classes/tubepress/jwplayer5/api/OptionNames.php",
-            "tubepress_jwplayer5_api_TemplateVars"                             : "classes/tubepress/jwplayer5/api/TemplateVars.php",
-            "tubepress_jwplayer5_impl_listeners_embedded_EmbeddedListener"     : "classes/tubepress/jwplayer5/impl/listeners/embedded/EmbeddedListener.php",
-            "tubepress_jwplayer5_impl_listeners_template_JwPlayerTemplateVars" : "classes/tubepress/jwplayer5/impl/listeners/template/JwPlayerTemplateVars.php",
+            "tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider"      : "classes/tubepress/jwplayer5/impl/embedded/JwPlayer5EmbeddedProvider.php",
             "tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider"        : "classes/tubepress/jwplayer5/impl/options/ui/JwPlayerFieldProvider.php",
             "tubepress_jwplayer5_ioc_JwPlayerExtension"                        : "classes/tubepress/jwplayer5/ioc/JwPlayerExtension.php"
         }

@@ -21,25 +21,26 @@ class tubepress_test_jwplayer_ioc_JwPlayerExtensionTest extends tubepress_test_p
 
     protected function prepareForLoad()
     {
+        $this->_expectEmbeddedProvider();
         $this->_expectListeners();
         $this->_expectOptions();
         $this->_expectOptionsUi();
     }
 
-    private function _expectListeners()
+    private function _expectEmbeddedProvider()
     {
         $this->expectRegistration(
 
-            'tubepress_jwplayer5_impl_listeners_embedded_EmbeddedListener',
-            'tubepress_jwplayer5_impl_listeners_embedded_EmbeddedListener'
-        );
+            'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider',
+            'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+            ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
+            ->withTag('tubepress_lib_api_template_PathProviderInterface');
+    }
 
-        $this->expectRegistration(
-
-            'tubepress_jwplayer5_impl_listeners_template_JwPlayerTemplateVars',
-            'tubepress_jwplayer5_impl_listeners_template_JwPlayerTemplateVars'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_));
-
+    private function _expectListeners()
+    {
         $colors = array(
             tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
             tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,

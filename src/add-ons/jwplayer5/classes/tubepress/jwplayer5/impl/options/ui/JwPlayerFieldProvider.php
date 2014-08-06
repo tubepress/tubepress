@@ -21,7 +21,7 @@ class tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider implements tubep
 
     private static $_MAP = array(
 
-        'player-category' => array(
+        tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
 
             tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
             tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,

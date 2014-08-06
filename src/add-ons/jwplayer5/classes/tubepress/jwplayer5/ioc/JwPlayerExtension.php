@@ -26,25 +26,26 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_platform_ap
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
+        $this->_registerEmbeddedProvider($containerBuilder);
         $this->_registerListeners($containerBuilder);
         $this->_registerOptions($containerBuilder);
         $this->_registerOptionsUi($containerBuilder);
     }
 
-    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    private function _registerEmbeddedProvider(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
 
-            'tubepress_jwplayer5_impl_listeners_embedded_EmbeddedListener',
-            'tubepress_jwplayer5_impl_listeners_embedded_EmbeddedListener'
-        );
+            'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider',
+            'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+         ->addTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
+         ->addTag('tubepress_lib_api_template_PathProviderInterface');
+    }
 
-        $containerBuilder->register(
-
-            'tubepress_jwplayer5_impl_listeners_template_JwPlayerTemplateVars',
-            'tubepress_jwplayer5_impl_listeners_template_JwPlayerTemplateVars'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_));
-
+    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
         $colors = array(
             tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
             tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,

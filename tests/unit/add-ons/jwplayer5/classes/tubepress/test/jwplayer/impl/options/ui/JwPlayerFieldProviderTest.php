@@ -51,7 +51,7 @@ class tubepress_test_jwplayer_impl_options_ui_JwPlayerFieldProviderTest extends 
     {
         $map = array(
 
-            'player-category' => array(
+            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
 
                 tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
                 tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,
