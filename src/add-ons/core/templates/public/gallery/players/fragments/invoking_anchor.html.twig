@@ -18,8 +18,8 @@
 
     <a class="tubepress-cursor-pointer js-tubepress-invoker js-tubepress-itemid-{{ mediaItem.id }}"
 
-        {% if mediaItem.invokingAnchorUrl is defined %}
-            href="{{ mediaItem.invokingAnchorUrl }}"
+        {% if mediaItem.invokingAnchorHref is defined %}
+            href="{{ mediaItem.invokingAnchorHref }}"
         {% endif %}
 
         {% if mediaItem.invokingAnchorRel %}

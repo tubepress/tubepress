@@ -22,7 +22,7 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockExecutionContext;
+    private $_mockContext;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -47,23 +47,28 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockHttpRequestParameterService;
+    private $_mockRequestParams;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
     private $_mockCollector;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
-        $this->_mockExecutionContext = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockLogger           = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockEvent            = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockPage             = $this->mock('tubepress_app_api_media_MediaPage');
-        $this->_mockItemArray        = $this->_buildMockItemArray();
-        $this->_mockHttpRequestParameterService = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockCollector       = $this->mock(tubepress_app_api_media_CollectorInterface::_);
-
+        $this->_mockContext       = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockLogger        = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockEvent         = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockPage          = $this->mock('tubepress_app_api_media_MediaPage');
+        $this->_mockItemArray     = $this->_buildMockItemArray();
+        $this->_mockRequestParams = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
+        $this->_mockCollector     = $this->mock(tubepress_app_api_media_CollectorInterface::_);
+        $this->_mockUrlFactory    = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
 
         $this->_mockPage->shouldReceive('getItems')->andReturn($this->_mockItemArray);
         $this->_mockEvent->shouldReceive('getSubject')->andReturn($this->_mockPage);
@@ -72,15 +77,16 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
         $this->_sut = new tubepress_app_impl_listeners_media_PageListener(
             $this->_mockLogger,
-            $this->_mockExecutionContext,
-            $this->_mockHttpRequestParameterService,
-            $this->_mockCollector
+            $this->_mockContext,
+            $this->_mockRequestParams,
+            $this->_mockCollector,
+            $this->_mockUrlFactory
         );
     }
 
     public function testPrependCustomVideo()
     {
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_item')->andReturn('custom-video');
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_item')->andReturn('custom-video');
 
         $mockMediaProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
         $mockMediaProvider->shouldReceive('getAttributeNameOfItemId')->atLeast(1)->andReturn('id');
@@ -103,7 +109,7 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
 
     public function testPrependNoCustomVideo()
     {
-        $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('tubepress_item')->andReturn('');
+        $this->_mockRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_item')->andReturn('');
 
         $providerResult = new tubepress_app_api_media_MediaPage();
 
@@ -117,7 +123,7 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
     public function testBlacklist()
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST)->andReturn('xxx');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST)->andReturn('xxx');
 
         $mockVideoProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
 
@@ -150,8 +156,8 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP)->andReturn(888);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)->andReturn(tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP)->andReturn(888);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)->andReturn(tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES);
 
         $videoArray = array('x', 'y');
 
@@ -219,8 +225,8 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
 
     private function _setSortAndPerPageOrder($feed, $perPage)
     {
-        $this->_mockExecutionContext->shouldReceive('get')->with(tubepress_app_api_options_Names::FEED_ORDER_BY)->andReturn($feed);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_PER_PAGE_SORT)->andReturn($perPage);
+        $this->_mockContext->shouldReceive('get')->with(tubepress_app_api_options_Names::FEED_ORDER_BY)->andReturn($feed);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_PER_PAGE_SORT)->andReturn($perPage);
     }
 
     private function _buildMockItemArray()

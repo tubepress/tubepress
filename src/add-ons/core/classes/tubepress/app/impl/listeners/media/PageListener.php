@@ -36,15 +36,22 @@ class tubepress_app_impl_listeners_media_PageListener
      */
     private $_collector;
 
+    /**
+     * @var tubepress_platform_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
     public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
                                 tubepress_app_api_options_ContextInterface        $context,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_app_api_media_CollectorInterface        $collector)
+                                tubepress_app_api_media_CollectorInterface        $collector,
+                                tubepress_platform_api_url_UrlFactoryInterface    $urlFactory)
     {
         $this->_logger        = $logger;
         $this->_context       = $context;
         $this->_requestParams = $requestParams;
         $this->_collector     = $collector;
+        $this->_urlFactory    = $urlFactory;
     }
 
     public function blacklist(tubepress_lib_api_event_EventInterface $event)
@@ -160,6 +167,33 @@ class tubepress_app_impl_listeners_media_PageListener
         }
 
         $event->getSubject()->setTotalResultCount($secondCut);
+    }
+
+    public function handleSoloPlayer(tubepress_lib_api_event_EventInterface $event)
+    {
+        if (!$this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION)  ===
+            tubepress_app_api_options_AcceptableValues::PLAYER_LOC_SOLO) {
+
+            return;
+        }
+
+        $url = $this->_urlFactory->fromCurrent();
+        $url->removeSchemeAndAuthority();
+
+        /**
+         * @var $mediaPage tubepress_app_api_media_MediaPage
+         */
+        $mediaPage = $event->getSubject();
+
+        foreach ($mediaPage->getItems() as $mediaItem) {
+
+            $id = $mediaItem->getId();
+
+            $url->getQuery()->set('tubepress_item', $id);
+
+            $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_REL, 'nofollow');
+            $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_HREF, "$url");
+        }
     }
 
     private function _calculateRealMax($reported)

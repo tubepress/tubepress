@@ -92,11 +92,11 @@
             "tubepress_app_impl_listeners_template_post_GalleryPostListener"      : "classes/tubepress/app/impl/listeners/template/post/GalleryPostListener.php",
             "tubepress_app_impl_listeners_template_post_HtmlScriptsPostListener"  : "classes/tubepress/app/impl/listeners/template/post/HtmlScriptsPostListener.php",
             "tubepress_app_impl_listeners_template_post_HtmlStylesPostListener"   : "classes/tubepress/app/impl/listeners/template/post/HtmlStylesPostListener.php",
+            "tubepress_app_impl_listeners_template_pre_EmbeddedSourceListener"    : "classes/tubepress/app/impl/listeners/template/pre/EmbeddedSourceListener.php",
             "tubepress_app_impl_listeners_template_pre_GalleryCorePreListener"    : "classes/tubepress/app/impl/listeners/template/pre/GalleryCorePreListener.php",
             "tubepress_app_impl_listeners_template_pre_MetaDisplayListener"       : "classes/tubepress/app/impl/listeners/template/pre/MetaDisplayListener.php",
             "tubepress_app_impl_listeners_template_pre_PaginationListener"        : "classes/tubepress/app/impl/listeners/template/pre/PaginationListener.php",
             "tubepress_app_impl_listeners_template_pre_SearchInputListener"       : "classes/tubepress/app/impl/listeners/template/pre/SearchInputListener.php",
-            "tubepress_app_impl_listeners_template_pre_SingleItemListener"        : "classes/tubepress/app/impl/listeners/template/pre/SingleItemListener.php",
 
             "tubepress_app_impl_log_HtmlLogger"               : "classes/tubepress/app/impl/log/HtmlLogger.php",
             "tubepress_app_impl_media_AttributeFormatter"     : "classes/tubepress/app/impl/media/AttributeFormatter.php",

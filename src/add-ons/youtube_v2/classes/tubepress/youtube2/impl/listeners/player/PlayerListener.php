@@ -53,7 +53,7 @@ class tubepress_youtube2_impl_listeners_player_PlayerListener
 
         $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_REL,    'external nofollow');
         $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_TARGET, '_blank');
-        $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_URL,
+        $mediaItem->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_INVOKING_ANCHOR_HREF,
             sprintf('https://youtube.com/watch?v=%s', $mediaItem->getId()));
     }
 }

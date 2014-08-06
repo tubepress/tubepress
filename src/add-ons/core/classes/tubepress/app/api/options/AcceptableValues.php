@@ -128,4 +128,10 @@ interface tubepress_app_api_options_AcceptableValues
      * @since 4.0.0
      */
     const PLAYER_LOC_SHADOWBOX = 'shadowbox';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const PLAYER_LOC_SOLO = 'solo';
 }

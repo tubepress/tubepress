@@ -82,7 +82,6 @@ class tubepress_test_app_impl_listeners_template_pre_GalleryCorePreListenerTest 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::HTML_GALLERY_ID)->andReturn(47);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH)->andReturn(556);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT)->andReturn(984);
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::PLAYER_LOCATION)->andReturn(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL);
 
         $this->_sut->onGalleryTemplatePreRender($this->_mockEvent);
 

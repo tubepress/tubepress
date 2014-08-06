@@ -54,33 +54,21 @@ class tubepress_app_impl_listeners_html_generation_SingleItemListener
             return;
         }
 
-        $mediaItemId = $this->_context->get(tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID);
-
-        if ($this->_logger->isEnabled()) {
-
-            $this->_logger->debug(sprintf('Building single media item with ID %s', $mediaItemId));
-        }
-
-        $this->_getSingleVideoHtml($event, $mediaItemId);
-    }
-
-    private function _getSingleVideoHtml(tubepress_lib_api_event_EventInterface $event, $itemId)
-    {
         /* grab the media item from the provider */
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug(sprintf('Asking provider for video with ID %s', $itemId));
+            $this->_logger->debug(sprintf('Asking provider for video with ID %s', $mediaItemId));
         }
 
-        $mediaItem = $this->_collector->collectSingle($itemId);
-        $eventArgs = array('itemId' => $itemId);
+        $mediaItem = $this->_collector->collectSingle($mediaItemId);
+        $eventArgs = array('itemId' => $mediaItemId);
 
         if ($mediaItem !== null) {
 
             $eventArgs['mediaItem'] = $mediaItem;
         }
 
-        $singleHtml = $this->_templating->renderTemplate('single/main', array(), $eventArgs);
+        $singleHtml = $this->_templating->renderTemplate('single/main', $eventArgs);
 
         $event->setSubject($singleHtml);
         $event->stopPropagation();

@@ -29,7 +29,7 @@ class tubepress_app_api_media_MediaItem
     const ATTRIBUTE_DURATION_SECONDS         = 'durationInSeconds';
     const ATTRIBUTE_HOME_URL                 = 'homeUrl';
     const ATTRIBUTE_ID                       = 'id';
-    const ATTRIBUTE_INVOKING_ANCHOR_URL      = 'invokingAnchorUrl';
+    const ATTRIBUTE_INVOKING_ANCHOR_HREF      = 'invokingAnchorHref';
     const ATTRIBUTE_INVOKING_ANCHOR_REL      = 'invokingAnchorRel';
     const ATTRIBUTE_INVOKING_ANCHOR_TARGET   = 'invokingAnchorTarget';
     const ATTRIBUTE_KEYWORD_ARRAY            = 'keywords';
