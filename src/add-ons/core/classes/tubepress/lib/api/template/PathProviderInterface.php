@@ -16,11 +16,6 @@
 interface tubepress_lib_api_template_PathProviderInterface
 {
     /**
-     * @ignore
-     */
-    const _ = 'tubepress_lib_api_template_PathProviderInterface';
-
-    /**
      * @return string[] A set of absolute filesystem directory paths
      *
      * @api

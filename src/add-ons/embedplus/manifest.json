@@ -18,16 +18,12 @@
     "container-builder": {
         "extensions" : [
             "tubepress_embedplus_ioc_EmbedPlusExtension"
-        ],
-        "compiler-passes" : {
-            "tubepress_embedplus_ioc_compiler_EmbedPlusPass" : 90000
-        }
+        ]
     },
     "autoload": {
         "classmap" : {
-            "tubepress_embedplus_impl_listeners_EmbedPlusListener" : "classes/tubepress/embedplus/impl/listeners/EmbedPlusListener.php",
-            "tubepress_embedplus_ioc_compiler_EmbedPlusPass"       : "classes/tubepress/embedplus/ioc/compiler/EmbedPlusPass.php",
-            "tubepress_embedplus_ioc_EmbedPlusExtension"           : "classes/tubepress/embedplus/ioc/EmbedPlusExtension.php"
+            "tubepress_embedplus_impl_EmbedPlus"         : "classes/tubepress/embedplus/impl/EmbedPlus.php",
+            "tubepress_embedplus_ioc_EmbedPlusExtension" : "classes/tubepress/embedplus/ioc/EmbedPlusExtension.php"
         }
     }
 }

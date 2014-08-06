@@ -16,11 +16,6 @@
 interface tubepress_app_api_embedded_EmbeddedProviderInterface
 {
     /**
-     * @ignore
-     */
-    const _ = 'tubepress_app_api_embedded_EmbeddedProviderInterface';
-
-    /**
      * @return string[] The names of the media providers that this provider can handle.
      *
      * @api
