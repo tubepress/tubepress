@@ -19,7 +19,8 @@
             "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : 60000,
 
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass" : 70000,
-            "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000
+            "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000,
+            "tubepress_lib_ioc_compiler_TemplatePathProvidersPass"  : 70000
         },
         "extensions" : [
             "tubepress_app_ioc_AppExtension",
@@ -28,6 +29,7 @@
     },
     "autoload":{
         "classmap" : {
+            "tubepress_app_api_embedded_EmbeddedProviderInterface"        : "classes/tubepress/app/api/embedded/EmbeddedProviderInterface.php",
             "tubepress_app_api_environment_EnvironmentInterface"          : "classes/tubepress/app/api/environment/EnvironmentInterface.php",
             "tubepress_app_api_event_Events"                              : "classes/tubepress/app/api/event/Events.php",
             "tubepress_app_api_html_HtmlGeneratorInterface"               : "classes/tubepress/app/api/html/HtmlGeneratorInterface.php",
@@ -157,6 +159,7 @@
             "tubepress_lib_api_http_ResponseCodeInterface"      : "classes/tubepress/lib/api/http/ResponseCodeInterface.php",
             "tubepress_lib_api_ioc_ServiceTags"                 : "classes/tubepress/lib/api/ioc/ServiceTags.php",
             "tubepress_lib_api_streams_StreamInterface"         : "classes/tubepress/lib/api/streams/StreamInterface.php",
+            "tubepress_lib_api_template_PathProviderInterface"  : "classes/tubepress/lib/api/template/PathProviderInterface.php",
             "tubepress_lib_api_template_TemplatingInterface"    : "classes/tubepress/lib/api/template/TemplatingInterface.php",
             "tubepress_lib_api_translation_TranslatorInterface" : "classes/tubepress/lib/api/translation/TranslatorInterface.php",
             "tubepress_lib_api_util_TimeUtilsInterface"         : "classes/tubepress/lib/api/util/TimeUtilsInterface.php",
@@ -177,6 +180,7 @@
             "tubepress_lib_impl_util_TimeUtils"                          : "classes/tubepress/lib/impl/util/TimeUtils.php",
             "tubepress_lib_ioc_compiler_EventListenersPass"              : "classes/tubepress/lib/ioc/compiler/EventListenersPass.php",
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"      : "classes/tubepress/lib/ioc/compiler/TaggedServicesConsumerPass.php",
+            "tubepress_lib_ioc_compiler_TemplatePathProvidersPass"       : "classes/tubepress/lib/ioc/compiler/TemplatePathProvidersPass.php",
             "tubepress_lib_ioc_LibExtension"                             : "classes/tubepress/lib/ioc/LibExtension.php"
         }
     }

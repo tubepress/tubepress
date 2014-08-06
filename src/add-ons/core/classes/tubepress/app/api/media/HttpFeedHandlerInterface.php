@@ -103,8 +103,6 @@ interface tubepress_app_api_media_HttpFeedHandlerInterface
     /**
      * Perform post-construction activites for the feed.
      *
-     * @param mixed $feed The feed we used.
-     *
      * @return void
      *
      * @api
