@@ -89,8 +89,6 @@
             "tubepress_app_impl_listeners_options_values_PlayerImpl"              : "classes/tubepress/app/impl/listeners/options/values/PlayerImpl.php",
             "tubepress_app_impl_listeners_options_values_SearchProvider"          : "classes/tubepress/app/impl/listeners/options/values/SearchProvider.php",
             "tubepress_app_impl_listeners_options_values_ThemeListener"           : "classes/tubepress/app/impl/listeners/options/values/ThemeListener.php",
-            "tubepress_app_impl_listeners_player_html_BasePlayerListener"         : "classes/tubepress/app/impl/listeners/player/html/BasePlayerListener.php",
-            "tubepress_app_impl_listeners_player_template_PlayerTemplateListener" : "classes/tubepress/app/impl/listeners/player/template/PlayerTemplateListener.php",
             "tubepress_app_impl_listeners_template_post_GalleryPostListener"      : "classes/tubepress/app/impl/listeners/template/post/GalleryPostListener.php",
             "tubepress_app_impl_listeners_template_post_HtmlScriptsPostListener"  : "classes/tubepress/app/impl/listeners/template/post/HtmlScriptsPostListener.php",
             "tubepress_app_impl_listeners_template_post_HtmlStylesPostListener"   : "classes/tubepress/app/impl/listeners/template/post/HtmlStylesPostListener.php",

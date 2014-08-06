@@ -503,8 +503,6 @@ return array (
     'tubepress_app_impl_listeners_options_values_PlayerImpl' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/options/values/PlayerImpl.php',
     'tubepress_app_impl_listeners_options_values_SearchProvider' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/options/values/SearchProvider.php',
     'tubepress_app_impl_listeners_options_values_ThemeListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/options/values/ThemeListener.php',
-    'tubepress_app_impl_listeners_player_html_BasePlayerListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/player/html/BasePlayerListener.php',
-    'tubepress_app_impl_listeners_player_template_PlayerTemplateListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/player/template/PlayerTemplateListener.php',
     'tubepress_app_impl_listeners_template_post_GalleryPostListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/post/GalleryPostListener.php',
     'tubepress_app_impl_listeners_template_post_HtmlScriptsPostListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/post/HtmlScriptsPostListener.php',
     'tubepress_app_impl_listeners_template_post_HtmlStylesPostListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/post/HtmlStylesPostListener.php',
