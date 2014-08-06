@@ -38,6 +38,7 @@ class tubepress_app_impl_listeners_template_pre_GalleryCorePreListener
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_NORMAL    => 'normal/static',
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_POPUP     => 'popup/static',
         tubepress_app_api_options_AcceptableValues::PLAYER_LOC_SHADOWBOX => 'shadowbox/static',
+        tubepress_app_api_options_AcceptableValues::PLAYER_LOC_STATIC    => 'static/static',
     );
 
     public function __construct(tubepress_app_api_options_ContextInterface     $context,
