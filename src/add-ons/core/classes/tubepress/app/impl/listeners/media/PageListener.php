@@ -171,8 +171,12 @@ class tubepress_app_impl_listeners_media_PageListener
 
     public function handleSoloPlayer(tubepress_lib_api_event_EventInterface $event)
     {
-        if (!$this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION)  ===
-            tubepress_app_api_options_AcceptableValues::PLAYER_LOC_SOLO) {
+        $requestedPlayerLocation = $this->_context->get(tubepress_app_api_options_Names::PLAYER_LOCATION);
+
+        if (!in_array($requestedPlayerLocation, array(
+            tubepress_app_api_options_AcceptableValues::PLAYER_LOC_SOLO,
+            tubepress_app_api_options_AcceptableValues::PLAYER_LOC_STATIC,
+        ))) {
 
             return;
         }
