@@ -18,13 +18,16 @@
     "container-builder": {
         "extensions" : [
             "tubepress_embedplus_ioc_EmbedPlusExtension"
-        ]
+        ],
+        "compiler-passes" : {
+            "tubepress_embedplus_ioc_compiler_EmbedPlusPass" : 90000
+        }
     },
     "autoload": {
         "classmap" : {
-            "tubepress_embedplus_impl_listeners_embedded_EmbeddedListener" : "classes/tubepress/embedplus/impl/listeners/embedded/EmbeddedListener.php",
-            "tubepress_embedplus_impl_listeners_js_JsOptionsListener"      : "classes/tubepress/embedplus/impl/listeners/js/JsOptionsListener.php",
-            "tubepress_embedplus_ioc_EmbedPlusExtension"                   : "classes/tubepress/embedplus/ioc/EmbedPlusExtension.php"
+            "tubepress_embedplus_impl_listeners_EmbedPlusListener" : "classes/tubepress/embedplus/impl/listeners/EmbedPlusListener.php",
+            "tubepress_embedplus_ioc_compiler_EmbedPlusPass"       : "classes/tubepress/embedplus/ioc/compiler/EmbedPlusPass.php",
+            "tubepress_embedplus_ioc_EmbedPlusExtension"           : "classes/tubepress/embedplus/ioc/EmbedPlusExtension.php"
         }
     }
 }

@@ -26,22 +26,22 @@ class tubepress_embedplus_ioc_EmbedPlusExtension implements tubepress_platform_a
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-//        $containerBuilder->register(
-//
-//            'tubepress_embedplus_impl_listeners_embedded_EmbeddedListener',
-//            'tubepress_embedplus_impl_listeners_embedded_EmbeddedListener'
-//
-//        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-//         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
-//         ->addTag(tubepress_app_api_embedded_EmbeddedProviderInterface::_);
-
         $containerBuilder->register(
-            'tubepress_embedplus_impl_listeners_js_JsOptionsListener',
-            'tubepress_embedplus_impl_listeners_js_JsOptionsListener'
-        )->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event' => tubepress_app_api_event_Events::GALLERY_INIT_JS,
-            'method' => 'onGalleryInitJs',
+            'tubepress_embedplus_impl_listeners_EmbedPlusListener',
+            'tubepress_embedplus_impl_listeners_EmbedPlusListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::GALLERY_INIT_JS,
+            'method'   => 'onGalleryInitJs',
             'priority' => 7000
+        ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.single/embedded',
+            'method'   => 'onEmbeddedTemplateSelect',
+            'priority' => 10500
+        ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
+            'method'   => 'onPlayerImplAcceptableValues',
+            'priority' => 10000,
         ));
     }
 }

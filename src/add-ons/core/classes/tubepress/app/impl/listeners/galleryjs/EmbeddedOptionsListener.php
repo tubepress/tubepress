@@ -56,6 +56,7 @@ class tubepress_app_impl_listeners_galleryjs_EmbeddedOptionsListener
 
             tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
             tubepress_app_api_options_Names::EMBEDDED_WIDTH,
+            tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
         );
 
         foreach ($requiredOptions as $optionName) {

@@ -22,30 +22,29 @@ class tubepress_test_embedplus_impl_ioc_EmbedPlusExtensionTest extends tubepress
     protected function prepareForLoad()
     {
         $this->expectRegistration(
-            'tubepress_embedplus_impl_listeners_js_JsOptionsListener',
-            'tubepress_embedplus_impl_listeners_js_JsOptionsListener'
-        )->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event' => tubepress_app_api_event_Events::GALLERY_INIT_JS,
-                'method' => 'onGalleryInitJs',
+            'tubepress_embedplus_impl_listeners_EmbedPlusListener',
+            'tubepress_embedplus_impl_listeners_EmbedPlusListener'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+         ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::GALLERY_INIT_JS,
+                'method'   => 'onGalleryInitJs',
                 'priority' => 7000
+            ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.single/embedded',
+                'method'   => 'onEmbeddedTemplateSelect',
+                'priority' => 10500,
+            ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
+                'method'   => 'onPlayerImplAcceptableValues',
+                'priority' => 10000,
             ));
-    }
-
-    protected function getExpectedServiceContructionMap()
-    {
-        return array(
-
-            'tubepress_embedplus_impl_listeners_embedded_EmbeddedListener' =>
-                'tubepress_embedplus_impl_listeners_embedded_EmbeddedListener'
-        );
     }
 
     protected function getExpectedExternalServicesMap()
     {
         return array(
 
-            tubepress_platform_api_url_UrlFactoryInterface::_ => tubepress_platform_api_url_UrlFactoryInterface::_,
-            tubepress_lib_api_template_TemplatingInterface::_ => tubepress_lib_api_template_TemplatingInterface::_
+            tubepress_app_api_options_ContextInterface::_ => tubepress_app_api_options_ContextInterface::_,
         );
     }
 }
