@@ -20,15 +20,15 @@ class tubepress_app_impl_vendor_stash_FilesystemCacheBuilder
     private $_context;
 
     /**
-     * @var ehough_filesystem_FilesystemInterface
+     * @var tubepress_platform_api_boot_BootSettingsInterface
      */
-    private $_filesystem;
+    private $_bootSettings;
 
-    public function __construct(tubepress_app_api_options_ContextInterface $context,
-                                ehough_filesystem_FilesystemInterface      $fs)
+    public function __construct(tubepress_app_api_options_ContextInterface        $context,
+                                tubepress_platform_api_boot_BootSettingsInterface $bootSettings)
     {
-        $this->_context    = $context;
-        $this->_filesystem = $fs;
+        $this->_context      = $context;
+        $this->_bootSettings = $bootSettings;
     }
 
     public function buildFilesystemDriver()
@@ -56,7 +56,7 @@ class tubepress_app_impl_vendor_stash_FilesystemCacheBuilder
          */
         if (!is_dir($dir) || !is_writable($dir)) {
 
-            $dir = $this->_filesystem->getSystemTempDirectory() . DIRECTORY_SEPARATOR . 'tubepress-api-cache';
+            $dir = $this->_bootSettings->getPathToSystemCacheDirectory() . '/api-calls';
         }
 
         $driver = new ehough_stash_driver_FileSystem();

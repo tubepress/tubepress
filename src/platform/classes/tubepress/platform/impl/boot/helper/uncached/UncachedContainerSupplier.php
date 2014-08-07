@@ -192,7 +192,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
         }
 
         $dumpedContainerText = $this->_getDumpedIconicContainerAsString($containerBuilder->getDelegateContainerBuilder());
-        $storagePath         = $this->_bootSettings->getPathToSystemCacheDirectory() . '/service-container/tubepress-service-container.php';
+        $storagePath         = $this->_bootSettings->getPathToSystemCacheDirectory() . '/TubePressServiceContainer.php';
 
         if (!is_dir(dirname($storagePath))) {
 

@@ -63,8 +63,8 @@ class tubepress_test_impl_boot_helper_ContainerSupplierTest extends tubepress_te
     {
         $this->_mockSettingsFileReader->shouldReceive('isSystemCacheEnabled')->once()->andReturn(true);
 
-        $mockCacheDir = sys_get_temp_dir() . '/tubepress-container-supplier-test/service-container';
-        $file = $mockCacheDir . '/tubepress-service-container.php';
+        $mockCacheDir = sys_get_temp_dir() . '/tubepress-container-supplier-test';
+        $file = $mockCacheDir . '/TubePressServiceContainer.php';
         $success = mkdir($mockCacheDir, 0755, true);
         $this->assertTrue($success);
         $text = $this->_getDumpedEmptyIconicContainerBuilder();

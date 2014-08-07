@@ -75,9 +75,9 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
      */
     private function _removeCachedContainer()
     {
-        if (file_exists(sys_get_temp_dir() . '/service-container/tubepress-service-container.php')) {
+        if (file_exists(sys_get_temp_dir() . '/TubePressServiceContainer.php')) {
 
-            $result = unlink(sys_get_temp_dir() . '/service-container/tubepress-service-container.php');
+            $result = unlink(sys_get_temp_dir() . '/TubePressServiceContainer.php');
 
             $this->assertTrue($result);
         }

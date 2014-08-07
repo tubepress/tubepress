@@ -92,7 +92,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
     {
         $this->_setupMocks(3);
 
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of /abcdef/service-container/tubepress-service-container.php');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of /abcdef/TubePressServiceContainer.php');
         $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn('/abcdef');
 
         $result = $this->_sut->getNewIconicContainer();
@@ -104,14 +104,13 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
     {
         $this->_setupMocks(2);
 
-        $mockSystemDir = sys_get_temp_dir() . '/tubepress-uncached-test/service-container';
-        $this->assertTrue(mkdir($mockSystemDir, 0755, true));
+        $mockSystemDir = sys_get_temp_dir();
 
-        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(dirname($mockSystemDir));
+        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn($mockSystemDir);
 
         $result = $this->_sut->getNewIconicContainer();
 
-        $this->assertFileExists($mockSystemDir . '/tubepress-service-container.php');
+        $this->assertFileExists($mockSystemDir . '/TubePressServiceContainer.php');
 
         $this->assertInstanceOf('ehough_iconic_ContainerInterface', $result);
     }

@@ -27,24 +27,24 @@ class tubepress_test_app_vendor_impl_stash_FilesystemCacheBuilderTest extends tu
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockFs;
+    private $_mockBootSettings;
 
 
     public function onSetup()
     {
-        $this->_mockFs      = $this->mock('ehough_filesystem_FilesystemInterface');
-        $this->_mockContext = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_sut         = new tubepress_app_impl_vendor_stash_FilesystemCacheBuilder(
+        $this->_mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
+        $this->_mockContext      = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_sut              = new tubepress_app_impl_vendor_stash_FilesystemCacheBuilder(
 
             $this->_mockContext,
-            $this->_mockFs
+            $this->_mockBootSettings
         );
     }
 
     public function testBuildCache()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_DIRECTORY)->andReturn('/abc');
-        $this->_mockFs->shouldReceive('getSystemTempDirectory')->once()->andReturn(sys_get_temp_dir());
+        $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(sys_get_temp_dir());
 
         $result = $this->_sut->buildFilesystemDriver();
 

@@ -43,7 +43,7 @@ class tubepress_wordpress_impl_wp_ActivationHook
 
     private function _clearCachedContainer()
     {
-        $containerLocation = $this->_bootSettings->getPathToSystemCacheDirectory() . '/service-container/tubepress-service-container.php';
+        $containerLocation = $this->_bootSettings->getPathToSystemCacheDirectory() . '/TubePressServiceContainer.php';
 
         @unlink($containerLocation);
     }

@@ -1139,7 +1139,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'tubepress_app_impl_vendor_stash_FilesystemCacheBuilder',
             'tubepress_app_impl_vendor_stash_FilesystemCacheBuilder'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference('ehough_filesystem_FilesystemInterface'));
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
 
         $containerBuilder->register(
 

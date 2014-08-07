@@ -25,7 +25,7 @@ class tubepress_platform_impl_boot_helper_FatalErrorHandler
             return;
         }
 
-        $needle     = 'tubepress-service-container.php';
+        $needle     = 'TubePressServiceContainer.php';
         $fileName   = $error['file'];
         $fileLength = strlen($needle);
         $start      = $fileLength * -1;

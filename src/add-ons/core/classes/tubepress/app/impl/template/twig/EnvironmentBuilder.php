@@ -75,7 +75,7 @@ class tubepress_app_impl_template_twig_EnvironmentBuilder
             return $dir;
         }
 
-        $dir = $this->_bootSettingsInterface->getPathToSystemCacheDirectory() . DIRECTORY_SEPARATOR . '/twig-cache';
+        $dir = $this->_bootSettingsInterface->getPathToSystemCacheDirectory() . DIRECTORY_SEPARATOR . '/twig';
 
         if ($this->_writableDirectory($dir)) {
 

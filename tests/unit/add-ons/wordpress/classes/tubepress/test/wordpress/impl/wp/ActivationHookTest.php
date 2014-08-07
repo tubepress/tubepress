@@ -71,9 +71,9 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_test
             $this->_userContentDirectory . '/tubepress-content'
         );
 
-        $file = sys_get_temp_dir() . '/service-container/tubepress-service-container.php';
+        $file = sys_get_temp_dir() . '/foo/TubePressServiceContainer.php';
 
-        $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/service-container');
+        $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/foo');
 
         $madeDir = mkdir(dirname($file), 0755, true);
 
@@ -83,12 +83,12 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_test
 
         $this->assertTrue(is_file($file));
 
-        $this->_mockSettingsFileReader->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(sys_get_temp_dir());
+        $this->_mockSettingsFileReader->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(sys_get_temp_dir() . '/foo');
 
         $this->_sut->execute();
 
         $this->assertFalse(is_file($file));
 
-        $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/service-container');
+        $this->recursivelyDeleteDirectory(sys_get_temp_dir() . '/foo');
     }
 }
