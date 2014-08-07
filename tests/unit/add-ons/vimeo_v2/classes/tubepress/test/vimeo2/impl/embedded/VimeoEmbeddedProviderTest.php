@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener
+ * @covers tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider
  */
-class tubepress_test_vimeo2_impl_listeners_embedded_EmbeddedListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_embedded_VimeoEmbeddedProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener
+     * @var tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider
      */
     private $_sut;
 
@@ -37,17 +37,7 @@ class tubepress_test_vimeo2_impl_listeners_embedded_EmbeddedListenerTest extends
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockPreRenderEvent;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockMediaItem;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockMediaProvider;
 
     public function onSetup() {
 
@@ -55,19 +45,23 @@ class tubepress_test_vimeo2_impl_listeners_embedded_EmbeddedListenerTest extends
         $this->_mockContext        = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockLangUtils      = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
         $this->_mockUrlFactory     = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockPreRenderEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $this->_mockMediaItem      = $this->mock('tubepress_app_api_media_MediaItem');
-        $this->_mockMediaProvider  = $this->mock(tubepress_app_api_media_MediaProviderInterface::__);
 
-        $this->_sut = new tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener(
+        $this->_sut = new tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider(
 
             $this->_mockContext,
             $this->_mockLangUtils,
             $this->_mockUrlFactory
         );
+    }
 
-        $this->_mockMediaItem->shouldReceive('getAttribute')->once()->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)
-            ->andReturn($this->_mockMediaProvider);
+    public function testBasics()
+    {
+        $this->assertEquals('vimeo_v2', $this->_sut->getName());
+        $this->assertEquals('Vimeo', $this->_sut->getUntranslatedDisplayName());
+        $this->assertEquals(array('vimeo_v2'), $this->_sut->getCompatibleMediaProviderNames());
+        $this->assertEquals('single/embedded/vimeo_v2', $this->_sut->getTemplateName());
+        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/templates'), $this->_sut->getTemplateDirectories());
     }
 
     public function testGetDataUrl()
@@ -97,21 +91,15 @@ class tubepress_test_vimeo2_impl_listeners_embedded_EmbeddedListenerTest extends
             return $stringUtils->startsWith($param, 'tubepress-media-object-');
         }));
 
-        $this->_mockPreRenderEvent->shouldReceive('getSubject')->once()->andReturn(array(
-            'mediaItem' => $this->_mockMediaItem
-        ));
-
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
-        $this->_mockPreRenderEvent->shouldReceive('setSubject')->once()->with(array(
-            'mediaItem'                                                 => $this->_mockMediaItem,
+        $expected = array(
             tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl
-        ));
+        );
 
-        $this->_mockMediaProvider->shouldReceive('getName')->once()->andReturn('vimeo_v2');
-        $this->_sut->onEmbeddedTemplatePreRender($this->_mockPreRenderEvent);
+        $actual = $this->_sut->getTemplateVariables($this->_mockMediaItem);
 
-        $this->assertTrue(true);
+        $this->assertEquals($expected, $actual);
     }
 }
 

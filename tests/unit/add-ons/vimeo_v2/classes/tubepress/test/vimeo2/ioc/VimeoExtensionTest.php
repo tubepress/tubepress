@@ -26,30 +26,27 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
 
     protected function prepareForLoad()
     {
+        $this->_expectEmbedded();
         $this->_expectListeners();
         $this->_expectMediaProvider();
         $this->_expectOptions();
         $this->_expectOptionsUi();
     }
 
-    private function _expectListeners()
+    private function _expectEmbedded()
     {
         $this->expectRegistration(
-            'tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener',
-            'tubepress_vimeo2_impl_listeners_embedded_EmbeddedListener'
+            'tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider',
+            'tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.single/embedded',
-                'method'   => 'onEmbeddedTemplateSelection',
-                'priority' => 20000
-            ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/embedded/vimeo',
-                'method'   => 'onEmbeddedTemplatePreRender',
-                'priority' => 20000
-            ));
-        
+            ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
+            ->withTag('tubepress_lib_api_template_PathProviderInterface');
+    }
+
+    private function _expectListeners()
+    {
         $this->expectRegistration(
             'tubepress_vimeo2_impl_listeners_http_OauthListener',
             'tubepress_vimeo2_impl_listeners_http_OauthListener'
@@ -62,28 +59,21 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
             ));
 
         $this->expectRegistration(
-
             'tubepress_vimeo2_impl_listeners_media_HttpItemListener',
             'tubepress_vimeo2_impl_listeners_media_HttpItemListener'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_AttributeFormatterInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event' => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW,
-                'method' => 'onHttpItem',
+                'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW,
+                'method'   => 'onHttpItem',
                 'priority' => 40000
             ));
-
-        $this->expectRegistration(
-            'tubepress_vimeo2_impl_listeners_player_PlayerListener',
-            'tubepress_vimeo2_impl_listeners_player_PlayerListener'
-        );
 
         $this->expectRegistration(
             'tubepress_app_api_listeners_options_TrimmingListener.' . tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR,
             'tubepress_app_api_listeners_options_TrimmingListener'
         )->withArgument('#')
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-
                 'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR,
                 'method'   => 'onOption',
                 'priority' => 9500,
@@ -125,6 +115,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_));
+
 
         $this->expectRegistration(
             'tubepress_vimeo2_impl_media_MediaProvider',
@@ -262,7 +253,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
             'tubepress_app_api_options_Reference__vimeo',
             'tubepress_app_api_options_Reference'
         )->withTag(tubepress_app_api_options_ReferenceInterface::_)
-         ->withArgument(array(
+            ->withArgument(array(
 
                 tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                     tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR           => '999999',
