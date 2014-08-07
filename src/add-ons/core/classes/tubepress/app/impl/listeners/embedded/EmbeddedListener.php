@@ -50,6 +50,7 @@ class tubepress_app_impl_listeners_embedded_EmbeddedListener
         }
 
         $toAdd = array_merge($current, $toAdd);
+        ksort($toAdd);
         $toAdd = array_reverse($toAdd, true);
         $toAdd[tubepress_app_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED] = 'Provider default';  //>(translatable)<
         $toAdd = array_reverse($toAdd, true);

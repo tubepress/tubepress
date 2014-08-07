@@ -24,11 +24,18 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
      */
     private $_urlFactory;
 
-    public function __construct(tubepress_app_api_options_ContextInterface     $context,
-                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
+    /**
+     * @var tubepress_app_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    public function __construct(tubepress_app_api_options_ContextInterface         $context,
+                                tubepress_platform_api_url_UrlFactoryInterface     $urlFactory,
+                                tubepress_app_api_environment_EnvironmentInterface $environment)
     {
-        $this->_context    = $context;
-        $this->_urlFactory = $urlFactory;
+        $this->_context     = $context;
+        $this->_urlFactory  = $urlFactory;
+        $this->_environment = $environment;
     }
 
     /**
@@ -91,6 +98,8 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
 
         return array(
 
+            'tubePressBaseUrl'                                          => $this->_environment->getBaseUrl(),
+            'autostart'                                                 => $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY),
             tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $dataUrl,
             tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_FRONT),
             tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT),

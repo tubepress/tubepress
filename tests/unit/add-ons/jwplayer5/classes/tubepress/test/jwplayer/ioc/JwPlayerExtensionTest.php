@@ -35,6 +35,7 @@ class tubepress_test_jwplayer_ioc_JwPlayerExtensionTest extends tubepress_test_p
             'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
             ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
             ->withTag('tubepress_lib_api_template_PathProviderInterface');
     }
@@ -166,7 +167,8 @@ class tubepress_test_jwplayer_ioc_JwPlayerExtensionTest extends tubepress_test_p
             tubepress_app_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
             tubepress_lib_api_translation_TranslatorInterface::_ => tubepress_lib_api_translation_TranslatorInterface::_,
             tubepress_platform_api_util_StringUtilsInterface::_ => tubepress_platform_api_util_StringUtilsInterface::_,
-            tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_
+            tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_,
+            tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
         );
     }
 }

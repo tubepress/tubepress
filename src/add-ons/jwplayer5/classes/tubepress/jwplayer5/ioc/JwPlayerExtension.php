@@ -40,6 +40,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_platform_ap
             'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
          ->addTag('tubepress_lib_api_template_PathProviderInterface');
     }
