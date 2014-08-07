@@ -813,7 +813,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addTag('tubepress_app_api_player_PlayerLocationInterface');
 
         $containerBuilder->register(
-            'tubepress_app_impl_player_JsPlayerLocation__popup',
+            'tubepress_app_impl_player_JsPlayerLocation__shadowbox',
             'tubepress_app_impl_player_JsPlayerLocation'
         )->addArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_SHADOWBOX)
          ->addArgument('with Shadowbox')                 //>(translatable)<
@@ -830,7 +830,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addTag('tubepress_app_api_player_PlayerLocationInterface');
 
         $containerBuilder->register(
-            'tubepress_app_impl_player_SoloOrStaticPlayerLocation__solo',
+            'tubepress_app_impl_player_SoloOrStaticPlayerLocation__static',
             'tubepress_app_impl_player_SoloOrStaticPlayerLocation'
         )->addArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_STATIC)
          ->addArgument('statically (page refreshes on each thumbnail click)')                 //>(translatable)<
