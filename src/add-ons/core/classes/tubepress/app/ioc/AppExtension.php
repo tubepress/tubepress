@@ -311,10 +311,11 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              * MEDIA
              */
             tubepress_app_api_event_Events::MEDIA_PAGE_NEW => array(
-                10300 => array('tubepress_app_impl_listeners_media_PageListener' => 'perPageSort'),
-                10200 => array('tubepress_app_impl_listeners_media_PageListener' => 'blacklist'),
-                10100 => array('tubepress_app_impl_listeners_media_PageListener' => 'capResults'),
-                10000 => array('tubepress_app_impl_listeners_media_PageListener' => 'prependItems'),
+                10300 => array('tubepress_app_impl_listeners_media_PageListener'    => 'perPageSort'),
+                10200 => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
+                10100 => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
+                10000 => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
+                 9900 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
             ),
             tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST => array(
                 20000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaPageRequest'),
@@ -323,9 +324,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             tubepress_app_api_event_Events::MEDIA_ITEM_REQUEST => array(
                 20000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaItemRequest'),
                 18000 => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaItemRequest'),
-            ),
-            tubepress_app_api_event_Events::MEDIA_ITEM_NEW => array(
-                10000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaItem'),
             ),
 
             /**

@@ -40,30 +40,41 @@ class tubepress_app_impl_listeners_player_PlayerListener
         $this->_templating = $templating;
     }
 
-    public function onNewMediaItem(tubepress_lib_api_event_EventInterface $event)
+    public function onNewMediaPage(tubepress_lib_api_event_EventInterface $event)
     {
         /**
-         * @var $mediaItem tubepress_app_api_media_MediaItem
+         * @var $mediaPage tubepress_app_api_media_MediaPage
          */
-        $mediaItem            = $event->getSubject();
-        $activePlayerLocation = $this->_getActivePlayerLocation();
-        $anchorArgs           = $activePlayerLocation->getAttributesForInvocationAnchor($mediaItem);
+        $mediaPage = $event->getSubject();
+        $items     = $mediaPage->getItems();
 
-        if (count($anchorArgs) === 0) {
+        if (count($items) === 0) {
 
             return;
         }
 
-        foreach ($anchorArgs as $anchorAttributeName => $anchorAttributeValue) {
+        $activePlayerLocation = $this->_getActivePlayerLocation();
 
-            if (!isset(self::$_anchorMap[$anchorAttributeName])) {
+        foreach ($items as $mediaItem) {
+
+            $anchorArgs = $activePlayerLocation->getAttributesForInvocationAnchor($mediaItem);
+
+            if (count($anchorArgs) === 0) {
 
                 continue;
             }
 
-            $mediaItemAttributeName = self::$_anchorMap[$anchorAttributeName];
+            foreach ($anchorArgs as $anchorAttributeName => $anchorAttributeValue) {
 
-            $mediaItem->setAttribute($mediaItemAttributeName, $anchorAttributeValue);
+                if (!isset(self::$_anchorMap[$anchorAttributeName])) {
+
+                    continue;
+                }
+
+                $mediaItemAttributeName = self::$_anchorMap[$anchorAttributeName];
+
+                $mediaItem->setAttribute($mediaItemAttributeName, $anchorAttributeValue);
+            }
         }
     }
 
