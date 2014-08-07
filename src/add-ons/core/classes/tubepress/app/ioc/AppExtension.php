@@ -552,7 +552,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => null,
                 tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'normal',
                 tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => null,
-                tubepress_app_api_options_Names::SEARCH_PROVIDER                     => 'youtube_v2',
+                tubepress_app_api_options_Names::SEARCH_PROVIDER                     => 'youtube',
                 tubepress_app_api_options_Names::SEARCH_RESULTS_ONLY                 => false,
                 tubepress_app_api_options_Names::SEARCH_RESULTS_URL                  => null,
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'tubepress',

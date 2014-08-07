@@ -47,7 +47,7 @@ class tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider  implements tubep
     public function getCompatibleMediaProviderNames()
     {
         return array(
-            'youtube_v2',
+            'youtube',
         );
     }
 
@@ -59,7 +59,7 @@ class tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider  implements tubep
      */
     public function getName()
     {
-        return 'youtube_v2';
+        return 'youtube';
     }
 
     /**

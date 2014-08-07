@@ -56,7 +56,7 @@ class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_
     public function getCompatibleMediaProviderNames()
     {
         return array(
-            'vimeo_v2',
+            'vimeo',
         );
     }
 
@@ -68,7 +68,7 @@ class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_
      */
     public function getName()
     {
-        return 'vimeo_v2';
+        return 'vimeo';
     }
 
     /**

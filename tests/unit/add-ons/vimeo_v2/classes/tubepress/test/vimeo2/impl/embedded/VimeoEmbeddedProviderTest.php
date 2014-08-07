@@ -57,9 +57,9 @@ class tubepress_test_vimeo2_impl_embedded_VimeoEmbeddedProviderTest extends tube
 
     public function testBasics()
     {
-        $this->assertEquals('vimeo_v2', $this->_sut->getName());
+        $this->assertEquals('vimeo', $this->_sut->getName());
         $this->assertEquals('Vimeo', $this->_sut->getUntranslatedDisplayName());
-        $this->assertEquals(array('vimeo_v2'), $this->_sut->getCompatibleMediaProviderNames());
+        $this->assertEquals(array('vimeo'), $this->_sut->getCompatibleMediaProviderNames());
         $this->assertEquals('single/embedded/vimeo_v2', $this->_sut->getTemplateName());
         $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/templates'), $this->_sut->getTemplateDirectories());
     }

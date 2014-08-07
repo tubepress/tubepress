@@ -58,7 +58,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     public function getCompatibleMediaProviderNames()
     {
         return array(
-            'youtube_v2',
+            'youtube',
         );
     }
 

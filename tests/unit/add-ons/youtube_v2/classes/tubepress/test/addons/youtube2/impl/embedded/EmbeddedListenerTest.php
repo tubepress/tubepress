@@ -56,9 +56,9 @@ class tubepress_test_youtube2_impl_embedded_YouTubeEmbeddedProviderTest extends 
 
     public function testBasics()
     {
-        $this->assertEquals('youtube_v2', $this->_sut->getName());
+        $this->assertEquals('youtube', $this->_sut->getName());
         $this->assertEquals('YouTube', $this->_sut->getUntranslatedDisplayName());
-        $this->assertEquals(array('youtube_v2'), $this->_sut->getCompatibleMediaProviderNames());
+        $this->assertEquals(array('youtube'), $this->_sut->getCompatibleMediaProviderNames());
         $this->assertEquals('single/embedded/youtube_iframe', $this->_sut->getTemplateName());
         $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/templates'), $this->_sut->getTemplateDirectories());
     }

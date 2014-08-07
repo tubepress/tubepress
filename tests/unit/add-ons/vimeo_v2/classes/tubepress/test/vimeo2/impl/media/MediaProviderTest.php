@@ -43,7 +43,7 @@ class tubepress_test_vimeo2_impl_media_MediaProviderTest extends tubepress_test_
 
     public function testGetName()
     {
-        $this->assertEquals('vimeo_v2', $this->_sut->getName());
+        $this->assertEquals('vimeo', $this->_sut->getName());
     }
 
     public function testRecognizesVideoId()

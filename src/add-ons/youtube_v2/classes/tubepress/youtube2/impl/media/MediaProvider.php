@@ -97,7 +97,7 @@ class tubepress_youtube2_impl_media_MediaProvider implements tubepress_app_api_m
      */
     public function getName()
     {
-        return 'youtube_v2';
+        return 'youtube';
     }
 
     /**

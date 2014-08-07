@@ -102,7 +102,7 @@ class tubepress_test_embedplus_impl_EmbedPlusTest extends tubepress_test_TubePre
     {
         $this->assertEquals('embedplus', $this->_sut->getName());
         $this->assertEquals('EmbedPlus', $this->_sut->getUntranslatedDisplayName());
-        $this->assertEquals(array('youtube_v2'), $this->_sut->getCompatibleMediaProviderNames());
+        $this->assertEquals(array('youtube'), $this->_sut->getCompatibleMediaProviderNames());
         $this->assertEquals('single/embedded/embedplus', $this->_sut->getTemplateName());
         $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/embedplus/templates'), $this->_sut->getTemplateDirectories());
     }

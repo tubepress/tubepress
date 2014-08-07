@@ -113,7 +113,7 @@ class tubepress_test_youtube2_impl_media_MediaProviderTest extends tubepress_tes
 
     public function testGetName()
     {
-        $this->assertEquals('youtube_v2', $this->_sut->getName());
+        $this->assertEquals('youtube', $this->_sut->getName());
     }
 
     public function testGetSearchModeName()

@@ -34,7 +34,7 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_app_api_embedded_E
      */
     public function getCompatibleMediaProviderNames()
     {
-        return array('youtube_v2');
+        return array('youtube');
     }
 
     /**
