@@ -51,7 +51,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE     => 'TubePress',
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']'
             )
-        ));
+        ))->addTag(tubepress_app_api_options_ReferenceInterface::_);
     }
 
 

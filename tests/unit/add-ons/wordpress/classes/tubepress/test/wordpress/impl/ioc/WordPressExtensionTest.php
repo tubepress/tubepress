@@ -46,7 +46,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
                     tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE     => 'TubePress',
                     tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']'
                 )
-            ));
+            ))->withTag(tubepress_app_api_options_ReferenceInterface::_);
     }
 
     private function _registerOptionsUi()
