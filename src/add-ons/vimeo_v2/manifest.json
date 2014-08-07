@@ -26,10 +26,10 @@
             "tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider"   : "classes/tubepress/vimeo2/impl/embedded/VimeoEmbeddedProvider.php",
             "tubepress_vimeo2_impl_listeners_http_OauthListener"     : "classes/tubepress/vimeo2/impl/listeners/http/OauthListener.php",
             "tubepress_vimeo2_impl_listeners_media_HttpItemListener" : "classes/tubepress/vimeo2/impl/listeners/media/HttpItemListener.php",
-            "tubepress_vimeo2_impl_listeners_player_PlayerListener"  : "classes/tubepress/vimeo2/impl/listeners/player/PlayerListener.php",
             "tubepress_vimeo2_impl_media_FeedHandler"                : "classes/tubepress/vimeo2/impl/media/FeedHandler.php",
             "tubepress_vimeo2_impl_media_MediaProvider"              : "classes/tubepress/vimeo2/impl/media/MediaProvider.php",
             "tubepress_vimeo2_impl_options_ui_FieldProvider"         : "classes/tubepress/vimeo2/impl/options/ui/FieldProvider.php",
+            "tubepress_vimeo2_impl_player_VimeoPlayerLocation"       : "classes/tubepress/vimeo2/impl/player/VimeoPlayerLocation.php",
             "tubepress_vimeo2_ioc_VimeoExtension"                    : "classes/tubepress/vimeo2/ioc/VimeoExtension.php"
         }
     }

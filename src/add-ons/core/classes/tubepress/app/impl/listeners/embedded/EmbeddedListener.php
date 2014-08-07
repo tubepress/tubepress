@@ -109,15 +109,16 @@ class tubepress_app_impl_listeners_embedded_EmbeddedListener
 
     public function onGalleryInitJs(tubepress_lib_api_event_EventInterface $event)
     {
-        $args         = $event->getSubject();
-        $optionsToAdd = array(
+        $args             = $event->getSubject();
+        $optionsToAdd    = array();
+        $optionNamesToAdd = array(
 
             tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
             tubepress_app_api_options_Names::EMBEDDED_WIDTH,
             tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
         );
 
-        foreach ($optionsToAdd as $optionName) {
+        foreach ($optionNamesToAdd as $optionName) {
 
             $optionsToAdd[$optionName] = $this->_context->get($optionName);
         }

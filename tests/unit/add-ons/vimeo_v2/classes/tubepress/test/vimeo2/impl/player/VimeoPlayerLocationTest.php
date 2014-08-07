@@ -10,23 +10,22 @@
  */
 
 /**
- * @covers tubepress_vimeo2_impl_player_PlayerListener
+ * @covers tubepress_vimeo2_impl_player_VimeoPlayerLocation
  */
-class tubepress_test_vimeo2_impl_player_PlayerListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_vimeo2_impl_player_VimeoPlayerLocationTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_vimeo2_impl_listeners_player_PlayerListener
+     * @var tubepress_vimeo2_impl_player_VimeoPlayerLocation
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_vimeo2_impl_listeners_player_PlayerListener();
+        $this->_sut = new tubepress_vimeo2_impl_player_VimeoPlayerLocation();
     }
 
     public function testBasics()
     {
-        $this->assertEmpty($this->_sut->getTemplatePathsForStaticContent());
         $this->assertEquals('vimeo', $this->_sut->getName());
         $this->assertEquals('from the video\'s original Vimeo page', $this->_sut->getUntranslatedDisplayName());
     }

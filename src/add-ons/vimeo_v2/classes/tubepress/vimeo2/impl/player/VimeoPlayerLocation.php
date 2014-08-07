@@ -12,7 +12,7 @@
 /**
  * Plays videos with jqmodal.
  */
-class tubepress_vimeo2_impl_listeners_player_PlayerListener
+class tubepress_vimeo2_impl_player_VimeoPlayerLocation implements tubepress_app_api_player_PlayerLocationInterface
 {
     /**
      * @return string The name of this playerLocation. Never empty or null. All alphanumerics and dashes.
@@ -37,16 +37,17 @@ class tubepress_vimeo2_impl_listeners_player_PlayerListener
     }
 
     /**
+     * Get the data required to populate the invoking HTML anchor.
+     *
      * @param tubepress_app_api_media_MediaItem $mediaItem
      *
-     * @return array An an associative array of attribute names to values that should be included in any
-     *               HTML anchors to invoke playback of this media item. e.g. array('href' => 'http://foo.bar/video/id')
-     *               will end up like <a href="http://foo.bar/video/id" ...>
+     * @return array An associative array where the keys are HTML <a> attribute names and the values are
+     *               the corresponding attribute values. May be empty nut never null.
      *
      * @api
      * @since 4.0.0
      */
-    public function getInvocationAnchorAttributeArray(tubepress_app_api_media_MediaItem $mediaItem)
+    public function getAttributesForInvocationAnchor(tubepress_app_api_media_MediaItem $mediaItem)
     {
         return array(
             'target' => '_blank',
@@ -56,24 +57,26 @@ class tubepress_vimeo2_impl_listeners_player_PlayerListener
     }
 
     /**
-     * @return string[] The paths for the template factory.
+     * @return string The template name that this player location uses when it is loaded
+     *                statically on a gallery page, or null if not required on static page load.
      *
      * @api
      * @since 4.0.0
      */
-    public function getTemplatePathsForStaticContent()
+    public function getStaticTemplateName()
     {
-        return array();
+        return null;
     }
 
     /**
-     * @return string[] The paths for the template factory.
+     * @return string The template name that this player location uses when it is loaded
+     *                dynamically via Ajax, or null if not used via Ajax.
      *
      * @api
      * @since 4.0.0
      */
-    public function getTemplatePathsForAjaxContent()
+    public function getAjaxTemplateName()
     {
-        return array();
+        return null;
     }
 }

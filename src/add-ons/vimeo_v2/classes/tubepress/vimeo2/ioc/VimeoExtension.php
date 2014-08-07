@@ -31,6 +31,7 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
         $this->_registerMediaProvider($containerBuilder);
         $this->_registerOptions($containerBuilder);
         $this->_registerOptionsUi($containerBuilder);
+        $this->_registerPlayer($containerBuilder);
     }
 
     private function _registerEmbedded(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -297,4 +298,11 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
         ));
     }
 
+    private function _registerPlayer(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_vimeo2_impl_player_VimeoPlayerLocation',
+            'tubepress_vimeo2_impl_player_VimeoPlayerLocation'
+        )->addTag('tubepress_app_api_player_PlayerLocationInterface');
+    }
 }

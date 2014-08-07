@@ -54,11 +54,6 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
      */
     private $_mockCollector;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockUrlFactory;
-
     public function onSetup()
     {
         $this->_mockContext       = $this->mock(tubepress_app_api_options_ContextInterface::_);
@@ -68,7 +63,6 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
         $this->_mockItemArray     = $this->_buildMockItemArray();
         $this->_mockRequestParams = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
         $this->_mockCollector     = $this->mock(tubepress_app_api_media_CollectorInterface::_);
-        $this->_mockUrlFactory    = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
 
         $this->_mockPage->shouldReceive('getItems')->andReturn($this->_mockItemArray);
         $this->_mockEvent->shouldReceive('getSubject')->andReturn($this->_mockPage);
@@ -79,8 +73,7 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
             $this->_mockLogger,
             $this->_mockContext,
             $this->_mockRequestParams,
-            $this->_mockCollector,
-            $this->_mockUrlFactory
+            $this->_mockCollector
         );
     }
 

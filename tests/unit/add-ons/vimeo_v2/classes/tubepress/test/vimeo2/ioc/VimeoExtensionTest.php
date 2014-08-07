@@ -31,6 +31,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
         $this->_expectMediaProvider();
         $this->_expectOptions();
         $this->_expectOptionsUi();
+        $this->_expectPlayer();
     }
 
     private function _expectEmbedded()
@@ -295,6 +296,14 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
                     tubepress_vimeo2_api_Constants::OPTION_VIMEO_SECRET => sprintf('<a href="%s" target="_blank">Click here</a> to register for a consumer key and secret.', "https://developer.vimeo.com/apps/new"), //>(translatable)<
                 ),
             ));
+    }
+
+    private function _expectPlayer()
+    {
+        $this->expectRegistration(
+            'tubepress_vimeo2_impl_player_VimeoPlayerLocation',
+            'tubepress_vimeo2_impl_player_VimeoPlayerLocation'
+        )->withTag('tubepress_app_api_player_PlayerLocationInterface');
     }
 
     protected function getExpectedExternalServicesMap()

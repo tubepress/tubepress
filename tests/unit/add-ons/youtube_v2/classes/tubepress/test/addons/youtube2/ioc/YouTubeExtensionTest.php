@@ -26,6 +26,7 @@ class tubepress_test_youtube2_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $this->_expectMediaProvider();
         $this->_expectOptions();
         $this->_expectOptionsUi();
+        $this->_expectPlayer();
     }
 
     private function _expectEmbedded()
@@ -334,6 +335,14 @@ class tubepress_test_youtube2_ioc_YouTubeExtensionTest extends tubepress_test_pl
         )->withArgument($fieldReferences)
             ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
 
+    }
+
+    private function _expectPlayer()
+    {
+        $this->expectRegistration(
+            'tubepress_youtube2_impl_player_YouTubePlayerLocation',
+            'tubepress_youtube2_impl_player_YouTubePlayerLocation'
+        )->withTag('tubepress_app_api_player_PlayerLocationInterface');
     }
 
     protected function getExpectedExternalServicesMap()

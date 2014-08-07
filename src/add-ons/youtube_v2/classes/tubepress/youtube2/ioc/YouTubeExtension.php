@@ -31,6 +31,7 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
         $this->_registerMediaProvider($containerBuilder);
         $this->_registerOptions($containerBuilder);
         $this->_registerOptionsUi($containerBuilder);
+        $this->_registerPlayer($containerBuilder);
     }
 
     private function _registerEmbedded(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -338,5 +339,13 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
         )->addArgument($fieldReferences)
          ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
 
+    }
+
+    private function _registerPlayer(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_youtube2_impl_player_YouTubePlayerLocation',
+            'tubepress_youtube2_impl_player_YouTubePlayerLocation'
+        )->addTag('tubepress_app_api_player_PlayerLocationInterface');
     }
 }

@@ -102,6 +102,9 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
 
         $toReturn .= var_export($expected, true);
 
+        $toReturn = str_replace(TUBEPRESS_ROOT, 'TUBEPRESS_ROOT . \'', $toReturn);
+        $toReturn = str_replace('\'TUBEPRESS_ROOT', 'TUBEPRESS_ROOT', $toReturn);
+
         return $toReturn;
     }
 

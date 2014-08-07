@@ -26,10 +26,10 @@
             "tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider"     : "classes/tubepress/youtube2/impl/embedded/YouTubeEmbeddedProvider.php",
             "tubepress_youtube2_impl_listeners_media_HttpItemListener"     : "classes/tubepress/youtube2/impl/listeners/media/HttpItemListener.php",
             "tubepress_youtube2_impl_listeners_options_PlaylistIdListener" : "classes/tubepress/youtube2/impl/listeners/options/PlaylistIdListener.php",
-            "tubepress_youtube2_impl_listeners_player_PlayerListener"      : "classes/tubepress/youtube2/impl/listeners/player/PlayerListener.php",
             "tubepress_youtube2_impl_media_FeedHandler"                    : "classes/tubepress/youtube2/impl/media/FeedHandler.php",
             "tubepress_youtube2_impl_media_MediaProvider"                  : "classes/tubepress/youtube2/impl/media/MediaProvider.php",
             "tubepress_youtube2_impl_options_ui_FieldProvider"             : "classes/tubepress/youtube2/impl/options/ui/FieldProvider.php",
+            "tubepress_youtube2_impl_player_YouTubePlayerLocation"         : "classes/tubepress/youtube2/impl/player/YouTubePlayerLocation.php",
             "tubepress_youtube2_ioc_YouTubeExtension"                      : "classes/tubepress/youtube2/ioc/YouTubeExtension.php"
         }
     }
