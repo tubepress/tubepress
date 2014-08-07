@@ -27,7 +27,7 @@
     "autoload": {
         "classmap" : {
             "tubepress_youtube2_api_Constants"                             : "classes/tubepress/youtube2/api/Constants.php",
-            "tubepress_youtube2_impl_listeners_embedded_EmbeddedListener"  : "classes/tubepress/youtube2/impl/listeners/embedded/EmbeddedListener.php",
+            "tubepress_youtube2_impl_listeners_embedded_EmbeddedListener"  : "classes/tubepress/youtube2/impl/listeners/embedded/VimeoEmbeddedProvider.php",
             "tubepress_youtube2_impl_listeners_media_HttpItemListener"     : "classes/tubepress/youtube2/impl/listeners/media/HttpItemListener.php",
             "tubepress_youtube2_impl_listeners_options_PlaylistIdListener" : "classes/tubepress/youtube2/impl/listeners/options/PlaylistIdListener.php",
             "tubepress_youtube2_impl_listeners_player_PlayerListener"      : "classes/tubepress/youtube2/impl/listeners/player/PlayerListener.php",

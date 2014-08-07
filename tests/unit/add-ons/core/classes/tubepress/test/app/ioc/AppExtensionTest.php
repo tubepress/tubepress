@@ -339,7 +339,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders'
             ),
             'tubepress_app_impl_listeners_embedded_EmbeddedListener' => array(
-                tubepress_app_api_embedded_EmbeddedProviderInterface::_ => 'setEmbeddedProviders',
+                'tubepress_app_api_embedded_EmbeddedProviderInterface' => 'setEmbeddedProviders',
             ),
         );
 

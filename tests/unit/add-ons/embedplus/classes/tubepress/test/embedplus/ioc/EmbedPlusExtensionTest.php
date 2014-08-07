@@ -26,6 +26,7 @@ class tubepress_test_embedplus_ioc_EmbedPlusExtensionTest extends tubepress_test
             'tubepress_embedplus_impl_EmbedPlus'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
             ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
+        ->withTag('tubepress_lib_api_template_PathProviderInterface')
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_app_api_event_Events::GALLERY_INIT_JS,
                 'method'   => 'onGalleryInitJs',

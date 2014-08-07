@@ -48,8 +48,8 @@ class tubepress_test_app_impl_listeners_embedded_EmbeddedListenerTest extends tu
     {
         $this->_mockContext           = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockTemplating        = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockEmbeddedProvider1 = $this->mock(tubepress_app_api_embedded_EmbeddedProviderInterface::_);
-        $this->_mockEmbeddedProvider2 = $this->mock(tubepress_app_api_embedded_EmbeddedProviderInterface::_);
+        $this->_mockEmbeddedProvider1 = $this->mock('tubepress_app_api_embedded_EmbeddedProviderInterface');
+        $this->_mockEmbeddedProvider2 = $this->mock('tubepress_app_api_embedded_EmbeddedProviderInterface');
         $this->_mockIncomingEvent     = $this->mock('tubepress_lib_api_event_EventInterface');
 
         $this->_sut = new tubepress_app_impl_listeners_embedded_EmbeddedListener(

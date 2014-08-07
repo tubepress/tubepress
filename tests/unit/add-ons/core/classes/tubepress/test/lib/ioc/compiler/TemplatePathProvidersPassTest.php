@@ -47,7 +47,7 @@ class tubepress_test_lib_ioc_compiler_TemplatePathProvidersPassTest extends tube
     {
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with('Twig_Loader_Filesystem')->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('Twig_Loader_Filesystem')->andReturn($this->_mockTwigFsLoaderDefinition);
-        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_lib_api_template_PathProviderInterface::_)
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_lib_api_template_PathProviderInterface')
             ->andReturn(array(
                 'foo' => array(),
                 'bar' => array()
@@ -62,7 +62,7 @@ class tubepress_test_lib_ioc_compiler_TemplatePathProvidersPassTest extends tube
         $mockProvider1->shouldReceive('getTemplateDirectories')->once()->andReturn(array('/sdf'));
         $mockProvider2->shouldReceive('getTemplateDirectories')->once()->andReturn(array(sys_get_temp_dir()));
 
-        $this->_mockTwigFsLoaderDefinition->shouldReceive('addMethodCall')->once()->with('addPath', sys_get_temp_dir());
+        $this->_mockTwigFsLoaderDefinition->shouldReceive('addMethodCall')->once()->with('addPath', array(sys_get_temp_dir()));
 
         $this->_sut->process($this->_mockContainer);
 

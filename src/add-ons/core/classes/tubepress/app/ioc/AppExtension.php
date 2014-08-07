@@ -268,7 +268,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders'
             ),
             'tubepress_app_impl_listeners_embedded_EmbeddedListener' => array(
-                tubepress_app_api_embedded_EmbeddedProviderInterface::_ => 'setEmbeddedProviders',
+                'tubepress_app_api_embedded_EmbeddedProviderInterface' => 'setEmbeddedProviders',
             ),
         );
 

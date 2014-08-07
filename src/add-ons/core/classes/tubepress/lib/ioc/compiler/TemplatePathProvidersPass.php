@@ -25,7 +25,7 @@ class tubepress_lib_ioc_compiler_TemplatePathProvidersPass implements tubepress_
         }
 
         $twigFsLoaderDefinition = $containerBuilder->getDefinition('Twig_Loader_Filesystem');
-        $providerIds            = $containerBuilder->findTaggedServiceIds(tubepress_lib_api_template_PathProviderInterface::_);
+        $providerIds            = $containerBuilder->findTaggedServiceIds('tubepress_lib_api_template_PathProviderInterface');
 
         foreach ($providerIds as $providerId => $tags) {
 
@@ -39,7 +39,7 @@ class tubepress_lib_ioc_compiler_TemplatePathProvidersPass implements tubepress_
 
                 if (is_dir($directory)) {
 
-                    $twigFsLoaderDefinition->addMethodCall('addPath', $directory);
+                    $twigFsLoaderDefinition->addMethodCall('addPath', array($directory));
                 }
             }
         }

@@ -31,6 +31,7 @@ class tubepress_embedplus_ioc_EmbedPlusExtension implements tubepress_platform_a
             'tubepress_embedplus_impl_EmbedPlus'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
          ->addTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
+         ->addTag('tubepress_lib_api_template_PathProviderInterface')
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::GALLERY_INIT_JS,
             'method'   => 'onGalleryInitJs',
