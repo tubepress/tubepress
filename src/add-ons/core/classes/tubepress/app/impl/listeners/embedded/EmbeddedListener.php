@@ -85,6 +85,11 @@ class tubepress_app_impl_listeners_embedded_EmbeddedListener
          */
         $existingTemplateVars = $event->getSubject();
 
+        if (!isset($existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM])) {
+
+            return;
+        }
+
         /**
          * @var $mediaItem tubepress_app_api_media_MediaItem
          */

@@ -75,7 +75,10 @@ class tubepress_app_impl_listeners_media_CollectionListener
 
         $item = $provider->collectSingle($itemId);
 
-        $item->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
+        if ($item !== null) {
+
+            $item->setAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER, $provider);
+        }
 
         $event->setArgument('mediaItem', $item);
     }

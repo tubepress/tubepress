@@ -54,6 +54,11 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
      */
     private $_urlFactory;
 
+    /**
+     * @var bool
+     */
+    private $_videoNotFound = false;
+
     public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
                                 tubepress_app_api_options_ContextInterface     $context,
                                 tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
@@ -238,6 +243,11 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function getCurrentResultCount()
     {
+        if ($this->_videoNotFound) {
+
+            return 0;
+        }
+
         return $this->_xpath->query('//atom:entry')->length;
     }
 
@@ -496,10 +506,15 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
         }
 
         $reason = $this->_xpath->query('//gd:errors/gd:error/gd:internalReason');
+        $reason = $reason->item(0)->nodeValue;
 
-        if ($reason->length > 0) {
+        if ($reason === 'Video not found') {
 
-            throw new RuntimeException($reason->item(0)->nodeValue);
+            $this->_videoFound = true;
+
+        } else {
+
+            throw new RuntimeException($reason);
         }
     }
 }

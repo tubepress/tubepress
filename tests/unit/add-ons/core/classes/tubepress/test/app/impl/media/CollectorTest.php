@@ -119,7 +119,7 @@ class tubepress_test_app_media_provider_impl_CollectorTest extends tubepress_tes
 
     public function testGetSingleNobodyHandled()
     {
-        $this->setExpectedException('RuntimeException', 'No providers could collect video');
+        $this->setExpectedException('RuntimeException', 'No acceptable providers for item');
 
         $this->_mockProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
 

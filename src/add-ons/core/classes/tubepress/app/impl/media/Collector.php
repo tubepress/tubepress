@@ -92,7 +92,7 @@ class tubepress_app_impl_media_Collector implements tubepress_app_api_media_Coll
 
         if (!$collectionEvent->hasArgument('mediaItem')) {
 
-            throw new RuntimeException('No providers could collect video');
+            throw new RuntimeException('No acceptable providers for item');
         }
 
         return $collectionEvent->getArgument('mediaItem');
