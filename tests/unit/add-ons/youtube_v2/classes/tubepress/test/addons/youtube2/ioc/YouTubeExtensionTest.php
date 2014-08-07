@@ -21,31 +21,28 @@ class tubepress_test_youtube2_ioc_YouTubeExtensionTest extends tubepress_test_pl
 
     protected function prepareForLoad()
     {
+        $this->_expectEmbedded();
         $this->_expectListeners();
         $this->_expectMediaProvider();
         $this->_expectOptions();
         $this->_expectOptionsUi();
     }
 
-    private function _expectListeners()
+    private function _expectEmbedded()
     {
         $this->expectRegistration(
-            'tubepress_youtube2_impl_listeners_embedded_EmbeddedListener',
-            'tubepress_youtube2_impl_listeners_embedded_EmbeddedListener'
+            'tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider',
+            'tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider'
 
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.single/embedded',
-                'method'   => 'onEmbeddedTemplateSelection',
-                'priority' => 20000
-            ))->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/embedded/youtube',
-                'method'   => 'onEmbeddedTemplatePreRender',
-                'priority' => 20000
-            ));
-        
+            ->withTag('tubepress_app_api_embedded_EmbeddedProviderInterface')
+            ->withTag('tubepress_lib_api_template_PathProviderInterface');
+    }
+
+    private function _expectListeners()
+    {
         $this->expectRegistration(
             'tubepress_youtube2_impl_listeners_media_HttpItemListener',
             'tubepress_youtube2_impl_listeners_media_HttpItemListener'

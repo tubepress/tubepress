@@ -666,7 +666,7 @@ return array (
     'tubepress_wordpress_ioc_WordPressExtension' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/ioc/WordPressExtension.php',
     'tubepress_wordpress_ioc_compiler_EnvironmentCompilerPass' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/ioc/compiler/EnvironmentCompilerPass.php',
     'tubepress_youtube2_api_Constants' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/api/Constants.php',
-    'tubepress_youtube2_impl_listeners_embedded_EmbeddedListener' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/listeners/embedded/EmbeddedListener.php',
+    'tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/embedded/YouTubeEmbeddedProvider.php',
     'tubepress_youtube2_impl_listeners_media_HttpItemListener' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/listeners/media/HttpItemListener.php',
     'tubepress_youtube2_impl_listeners_options_PlaylistIdListener' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/listeners/options/PlaylistIdListener.php',
     'tubepress_youtube2_impl_listeners_player_PlayerListener' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/listeners/player/PlayerListener.php',
@@ -674,5 +674,4 @@ return array (
     'tubepress_youtube2_impl_media_MediaProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/media/MediaProvider.php',
     'tubepress_youtube2_impl_options_ui_FieldProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/impl/options/ui/FieldProvider.php',
     'tubepress_youtube2_ioc_YouTubeExtension' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/ioc/YouTubeExtension.php',
-    'tubepress_youtube2_ioc_compiler_TwigLoaderPass' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/classes/tubepress/youtube2/ioc/compiler/TwigLoaderPass.php',
 );

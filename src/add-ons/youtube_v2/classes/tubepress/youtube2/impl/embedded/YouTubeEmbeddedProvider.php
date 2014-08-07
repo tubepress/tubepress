@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
+class tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider  implements tubepress_app_api_embedded_EmbeddedProviderInterface, tubepress_lib_api_template_PathProviderInterface
 {
     /**
      * @var tubepress_app_api_options_ContextInterface
@@ -38,34 +38,80 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
         $this->_urlFactory = $urlFactory;
     }
 
-    public function onEmbeddedTemplateSelection(tubepress_lib_api_event_EventInterface $event)
+    /**
+     * @return string[] The names of the media providers that this provider can handle.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getCompatibleMediaProviderNames()
     {
-        /**
-         * @var $mediaItem tubepress_app_api_media_MediaItem
-         */
-        $mediaItem = $event->getArgument('mediaItem');
-
-        if (!$this->_handlesMediaItem($mediaItem)) {
-
-            return;
-        }
-
-        $event->setSubject('single/embedded/youtube');
+        return array(
+            'youtube_v2',
+        );
     }
 
-    public function onEmbeddedTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
+    /**
+     * @return string The name of this embedded provider.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getName()
     {
-        $existingArgs = $event->getSubject();
-        $mediaItem    = $existingArgs['mediaItem'];
+        return 'youtube_v2';
+    }
 
-        if (!$this->_handlesMediaItem($mediaItem)) {
+    /**
+     * @return string The template name for this provider.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getTemplateName()
+    {
+        return 'single/embedded/youtube_iframe';
+    }
 
-            return;
-        }
+    /**
+     * @param tubepress_app_api_media_MediaItem $mediaItem
+     *
+     * @return array
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getTemplateVariables(tubepress_app_api_media_MediaItem $mediaItem)
+    {
+        return array(
 
-        $existingArgs[tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL] = $this->_getDataUrl($mediaItem);
+            tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $this->_getDataUrl($mediaItem),
+        );
+    }
 
-        $event->setSubject($existingArgs);
+    /**
+     * @return string The display name of this embedded provider.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getUntranslatedDisplayName()
+    {
+        return 'YouTube';
+    }
+
+    /**
+     * @return string[] A set of absolute filesystem directory paths
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getTemplateDirectories()
+    {
+        return array(
+
+            TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/templates'
+        );
     }
 
     private function _getDataUrl(tubepress_app_api_media_MediaItem $mediaItem)
@@ -118,15 +164,5 @@ class tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
 
                 return 2;
         }
-    }
-
-    private function _handlesMediaItem(tubepress_app_api_media_MediaItem $mediaItem)
-    {
-        /**
-         * @var $provider tubepress_app_api_media_MediaProviderInterface
-         */
-        $provider = $mediaItem->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER);
-
-        return $provider->getName() === 'youtube_v2';
     }
 }

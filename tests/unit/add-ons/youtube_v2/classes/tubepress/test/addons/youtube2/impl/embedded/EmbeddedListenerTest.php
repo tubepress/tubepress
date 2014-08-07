@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
+ * @covers tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider
  */
-class tubepress_test_youtube2_impl_listeners_embedded_EmbeddedListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube2_impl_embedded_YouTubeEmbeddedProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_youtube2_impl_listeners_embedded_EmbeddedListener
+     * @var tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider
      */
     private $_sut;
 
@@ -37,17 +37,7 @@ class tubepress_test_youtube2_impl_listeners_embedded_EmbeddedListenerTest exten
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockPreRenderEvent;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockMediaItem;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockMediaProvider;
 
     public function onSetup()
     {
@@ -55,21 +45,25 @@ class tubepress_test_youtube2_impl_listeners_embedded_EmbeddedListenerTest exten
         $this->_mockContext        = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockLangUtils      = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
         $this->_mockUrlFactory     = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockPreRenderEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $this->_mockMediaItem      = $this->mock('tubepress_app_api_media_MediaItem');
-        $this->_mockMediaProvider  = $this->mock(tubepress_app_api_media_MediaProviderInterface::__);
 
-        $this->_sut = new tubepress_youtube2_impl_listeners_embedded_EmbeddedListener(
+        $this->_sut = new tubepress_youtube2_impl_embedded_YouTubeEmbeddedProvider(
             $this->_mockContext,
             $this->_mockLangUtils,
             $this->_mockUrlFactory
         );
-
-        $this->_mockMediaItem->shouldReceive('getAttribute')->once()->with(tubepress_app_api_media_MediaItem::ATTRIBUTE_PROVIDER)
-            ->andReturn($this->_mockMediaProvider);
     }
 
-    public function testOnEmbeddedTemplatePreRender()
+    public function testBasics()
+    {
+        $this->assertEquals('youtube_v2', $this->_sut->getName());
+        $this->assertEquals('YouTube', $this->_sut->getUntranslatedDisplayName());
+        $this->assertEquals(array('youtube_v2'), $this->_sut->getCompatibleMediaProviderNames());
+        $this->assertEquals('single/embedded/youtube_iframe', $this->_sut->getTemplateName());
+        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/youtube_v2/templates'), $this->_sut->getTemplateDirectories());
+    }
+
+    public function testGetDataUrl()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_LOOP)->andReturn(false);
@@ -100,20 +94,14 @@ class tubepress_test_youtube2_impl_listeners_embedded_EmbeddedListenerTest exten
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(true)->andReturn('troo');
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(2)->with(false)->andReturn('fawlse');
 
-        $this->_mockPreRenderEvent->shouldReceive('getSubject')->once()->andReturn(array(
-            'mediaItem' => $this->_mockMediaItem
-        ));
-
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
-        $this->_mockPreRenderEvent->shouldReceive('setSubject')->once()->with(array(
-            'mediaItem'                                                 => $this->_mockMediaItem,
+        $expected = array(
             tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $mockUrl2
-        ));
+        );
 
-        $this->_mockMediaProvider->shouldReceive('getName')->once()->andReturn('youtube_v2');
-        $this->_sut->onEmbeddedTemplatePreRender($this->_mockPreRenderEvent);
+        $actual = $this->_sut->getTemplateVariables($this->_mockMediaItem);
 
-        $this->assertTrue(true);
+        $this->assertEquals($expected, $actual);
     }
 }
