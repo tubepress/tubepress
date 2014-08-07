@@ -107,6 +107,31 @@ class tubepress_app_impl_listeners_embedded_EmbeddedListener
         $event->setSubject($existingTemplateVars);
     }
 
+    public function onGalleryInitJs(tubepress_lib_api_event_EventInterface $event)
+    {
+        $args         = $event->getSubject();
+        $optionsToAdd = array(
+
+            tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
+            tubepress_app_api_options_Names::EMBEDDED_WIDTH,
+            tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
+        );
+
+        foreach ($optionsToAdd as $optionName) {
+
+            $optionsToAdd[$optionName] = $this->_context->get($optionName);
+        }
+
+        if (!isset($args['options']) || !is_array($args['options'])) {
+
+            $args['options'] = array();
+        }
+
+        $args['options'] = array_merge($args['options'], $optionsToAdd);
+
+        $event->setSubject($args);
+    }
+
     /**
      * @param tubepress_app_api_embedded_EmbeddedProviderInterface[] $providers
      */

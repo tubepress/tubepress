@@ -67,7 +67,6 @@
             "tubepress_app_impl_http_RequestParameters"  : "classes/tubepress/app/impl/http/RequestParameters.php",
 
             "tubepress_app_impl_listeners_embedded_EmbeddedListener"              : "classes/tubepress/app/impl/listeners/embedded/EmbeddedListener.php",
-            "tubepress_app_impl_listeners_galleryjs_EmbeddedOptionsListener"      : "classes/tubepress/app/impl/listeners/galleryjs/EmbeddedOptionsListener.php",
             "tubepress_app_impl_listeners_galleryjs_OptionsListener"              : "classes/tubepress/app/impl/listeners/galleryjs/OptionsListener.php",
             "tubepress_app_impl_listeners_galleryjs_PlayerDataListener"           : "classes/tubepress/app/impl/listeners/galleryjs/PlayerDataListener.php",
             "tubepress_app_impl_listeners_html_exception_LoggingListener"         : "classes/tubepress/app/impl/listeners/html/exception/LoggingListener.php",

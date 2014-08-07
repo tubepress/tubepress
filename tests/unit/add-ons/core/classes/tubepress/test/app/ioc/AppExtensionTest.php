@@ -168,9 +168,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             /**
              * GALLERY JS
              */
-            'tubepress_app_impl_listeners_galleryjs_EmbeddedOptionsListener' => array(
-                tubepress_app_api_options_ContextInterface::_,
-            ),
             'tubepress_app_impl_listeners_galleryjs_OptionsListener' => array(
                 tubepress_app_api_options_ContextInterface::_
             ),
@@ -349,9 +346,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
              * GALLERY
              */
             tubepress_app_api_event_Events::GALLERY_INIT_JS => array(
-                10000 => array('tubepress_app_impl_listeners_galleryjs_OptionsListener'         => 'onGalleryInitJs'),
-                9800  => array('tubepress_app_impl_listeners_galleryjs_EmbeddedOptionsListener' => 'onGalleryInitJs'),
-                9600  => array('tubepress_app_impl_listeners_galleryjs_PlayerDataListener'     => 'onGalleryInitJs'),
+                10000 => array('tubepress_app_impl_listeners_galleryjs_OptionsListener'    => 'onGalleryInitJs'),
+                9800  => array('tubepress_app_impl_listeners_embedded_EmbeddedListener'    => 'onGalleryInitJs'),
+                9600  => array('tubepress_app_impl_listeners_galleryjs_PlayerDataListener' => 'onGalleryInitJs'),
             ),
 
             /**

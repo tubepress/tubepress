@@ -480,7 +480,6 @@ return array (
     'tubepress_app_impl_http_PrimaryAjaxHandler' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/http/PrimaryAjaxHandler.php',
     'tubepress_app_impl_http_RequestParameters' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/http/RequestParameters.php',
     'tubepress_app_impl_listeners_embedded_EmbeddedListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/embedded/EmbeddedListener.php',
-    'tubepress_app_impl_listeners_galleryjs_EmbeddedOptionsListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/galleryjs/EmbeddedOptionsListener.php',
     'tubepress_app_impl_listeners_galleryjs_OptionsListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/galleryjs/OptionsListener.php',
     'tubepress_app_impl_listeners_galleryjs_PlayerDataListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/galleryjs/PlayerDataListener.php',
     'tubepress_app_impl_listeners_html_exception_LoggingListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/html/exception/LoggingListener.php',
