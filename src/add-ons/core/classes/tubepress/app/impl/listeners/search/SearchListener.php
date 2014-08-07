@@ -10,19 +10,24 @@
  */
 
 /**
- * HTML generation command that generates HTML for a single video + meta info.
+ *
  */
-class tubepress_app_impl_listeners_html_generation_SearchOutputListener
+class tubepress_app_impl_listeners_search_SearchListener
 {
-    /**
-     * @var tubepress_platform_api_log_LoggerInterface
-     */
-    private $_logger;
-
     /**
      * @var tubepress_app_api_options_ContextInterface
      */
     private $_context;
+
+    /**
+     * @var tubepress_lib_api_template_TemplatingInterface
+     */
+    private $_templating;
+
+    /**
+     * @var tubepress_platform_api_log_LoggerInterface
+     */
+    private $_logger;
 
     /**
      * @var tubepress_lib_api_http_RequestParametersInterface
@@ -32,18 +37,33 @@ class tubepress_app_impl_listeners_html_generation_SearchOutputListener
     /**
      * @var tubepress_app_api_media_MediaProviderInterface[]
      */
-    private $_mediaProviders;
+    private $_mediaProviders = array();
 
     public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
                                 tubepress_app_api_options_ContextInterface        $context,
+                                tubepress_lib_api_template_TemplatingInterface    $templating,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams)
     {
         $this->_logger        = $logger;
         $this->_context       = $context;
+        $this->_templating    = $templating;
         $this->_requestParams = $requestParams;
     }
 
-    public function onHtmlGeneration(tubepress_lib_api_event_EventInterface $event)
+    public function onHtmlGenerationSearchInput(tubepress_lib_api_event_EventInterface $event)
+    {
+        if ($this->_context->get(tubepress_app_api_options_Names::HTML_OUTPUT) !== tubepress_app_api_options_AcceptableValues::OUTPUT_SEARCH_INPUT) {
+
+            return;
+        }
+
+        $html = $this->_templating->renderTemplate('search/input', array());
+
+        $event->setSubject($html);
+        $event->stopPropagation();
+    }
+
+    public function onHtmlGenerationSearchOutput(tubepress_lib_api_event_EventInterface $event)
     {
         $shouldLog   = $this->_logger->isEnabled();
 
@@ -76,15 +96,37 @@ class tubepress_app_impl_listeners_html_generation_SearchOutputListener
             return;
         }
 
-        $this->_handle($event);
+        $this->_handleSearchOutput($event);
     }
 
-    public function setMediaProviders(array $mediaProviders)
+    public function onAcceptableValues(tubepress_lib_api_event_EventInterface $event)
     {
-        $this->_mediaProviders = $mediaProviders;
+        $current = $event->getSubject();
+
+        if (!is_array($current)) {
+
+            $current = array();
+        }
+
+        $toAdd = array();
+
+        /**
+         * @var $mediaProvider tubepress_app_api_media_MediaProviderInterface
+         */
+        foreach ($this->_mediaProviders as $mediaProvider) {
+
+            $toAdd[$mediaProvider->getName()] = $mediaProvider->getDisplayName();
+        }
+
+        $event->setSubject(array_merge($current, $toAdd));
     }
 
-    private function _handle(tubepress_lib_api_event_EventInterface $event)
+    public function setMediaProviders(array $providers)
+    {
+        $this->_mediaProviders = $providers;
+    }
+
+    private function _handleSearchOutput(tubepress_lib_api_event_EventInterface $event)
     {
         $rawSearchTerms = $this->_requestParams->getParamValue('tubepress_search');
         $hasSearchTerms = $rawSearchTerms != '';
