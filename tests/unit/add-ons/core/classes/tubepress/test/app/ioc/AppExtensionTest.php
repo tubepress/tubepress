@@ -36,7 +36,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
 
         $mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
         $mockBootSettings->shouldReceive('getSerializationEncoding')->once()->andReturn('base64');
-        $mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn(sys_get_temp_dir());
+        $mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->twice()->andReturn(sys_get_temp_dir());
 
         $mockCurrentUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
         $mockCurrentUrl->shouldReceive('removeSchemeAndAuthority');
@@ -444,6 +444,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::PLAYER_LOCATION => array(
                 30000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAcceptableValues'),
+            ),
+            tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_PER_PAGE_SORT => array(
+                30000 => array('tubepress_app_impl_listeners_options_values_PerPageSort' => 'onAcceptableValues')
             ),
 
             /**

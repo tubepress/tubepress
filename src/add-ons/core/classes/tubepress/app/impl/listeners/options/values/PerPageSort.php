@@ -39,4 +39,3 @@ class tubepress_app_impl_listeners_options_values_PerPageSort
         $event->setSubject($toSet);
     }
 }
-

@@ -36,6 +36,27 @@ class tubepress_app_impl_listeners_media_PageListener
      */
     private $_collector;
 
+    private static $_perPageSortMap = array(
+
+        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT =>
+            tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT,
+
+        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST =>
+            tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+
+        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST =>
+            tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME,
+
+        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_DURATION =>
+            tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS,
+
+        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_TITLE =>
+            tubepress_app_api_media_MediaItem::ATTRIBUTE_TITLE,
+
+        tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT =>
+            tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
+    );
+
     public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
                                 tubepress_app_api_options_ContextInterface        $context,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
@@ -125,7 +146,10 @@ class tubepress_app_impl_listeners_media_PageListener
 
         } else {
 
-            $mediaItems = $this->_performComplexSort($mediaItems, $shouldLog);
+            if (isset(self::$_perPageSortMap[$this->_perPageSortOrder])) {
+
+                usort($mediaItems, array($this, '__perPageSort'));
+            }
         }
 
         $mediaItems = array_values($mediaItems);
@@ -181,34 +205,71 @@ class tubepress_app_impl_listeners_media_PageListener
         return $reported;
     }
 
-    private function _performComplexSort(array $items, $shouldLog)
+    public function __perPageSort(tubepress_app_api_media_MediaItem $first, tubepress_app_api_media_MediaItem $second)
     {
-//        $provider = $this->_findMostCommonProviderThatSupportsSort($items);
-//
-//        if (!$provider) {
-//
-//            if ($shouldLog) {
-//
-//                $this->_logger->debug(sprintf('Could not find a provider to sort videos by %s',
-//                    $this->_perPageSortOrder));
-//            }
-//
-//            return $items;
-//        }
-//
-//        $this->_mostCommonProvider = $provider;
-//
-//        if ($shouldLog) {
-//
-//            $this->_logger->debug(sprintf('Provider "%s" chosen to sort videos by %s',
-//                $this->_mostCommonProvider->getDisplayName(), $this->_perPageSortOrder));
-//        }
-//
-//        @usort($items, array($this, '__providerSort'));
-//
-//        return $items;
+        $attributeName = self::$_perPageSortMap[$this->_perPageSortOrder];
 
-        return array();
+        if (!$first->hasAttribute($attributeName) || !$second->hasAttribute($attributeName)) {
+
+            return 0;
+        }
+
+        $firstAttributeValue  = $first->getAttribute($attributeName);
+        $secondAttributeValue = $second->getAttribute($attributeName);
+
+        switch ($this->_perPageSortOrder) {
+
+            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT:
+            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NEWEST:
+            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_DURATION:
+            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_VIEW_COUNT:
+
+                $firstAttributeValue  = intval($firstAttributeValue);
+                $secondAttributeValue = intval($secondAttributeValue);
+
+                if ($firstAttributeValue == $secondAttributeValue) {
+
+                    return 0;
+                }
+
+                if ($firstAttributeValue < $secondAttributeValue) {
+
+                    return 1;
+                }
+
+                return -1;
+
+            case tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_OLDEST:
+
+                $firstAttributeValue  = intval($firstAttributeValue);
+                $secondAttributeValue = intval($secondAttributeValue);
+
+                if ($firstAttributeValue == $secondAttributeValue) {
+
+                    return 0;
+                }
+
+                if ($firstAttributeValue < $secondAttributeValue) {
+
+                    return -1;
+                }
+
+                return 1;
+
+            default:
+
+                if ($firstAttributeValue == $secondAttributeValue) {
+
+                    return 0;
+                }
+
+                if ($firstAttributeValue < $secondAttributeValue) {
+
+                    return -1;
+                }
+
+                return 1;
+        }
     }
 
     private function _prependVideo($id, tubepress_lib_api_event_EventInterface $event)

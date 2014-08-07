@@ -368,6 +368,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::PLAYER_LOCATION => array(
                 30000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAcceptableValues'),
             ),
+            tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_PER_PAGE_SORT => array(
+                30000 => array('tubepress_app_impl_listeners_options_values_PerPageSort' => 'onAcceptableValues')
+            ),
 
             /**
              * TEMPLATE - SELECTION
