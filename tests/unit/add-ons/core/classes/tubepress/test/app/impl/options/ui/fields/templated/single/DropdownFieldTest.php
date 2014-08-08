@@ -67,7 +67,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_DropdownFieldTe
         ));
 
         return array(
-            'choices' => array('foo' => 'abc', 'smack' => 'xyz')
+            'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz')
         );
     }
 

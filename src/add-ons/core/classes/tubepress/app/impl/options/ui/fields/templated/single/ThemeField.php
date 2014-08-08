@@ -44,12 +44,12 @@ class tubepress_app_impl_options_ui_fields_templated_single_ThemeField extends t
     protected function getAdditionalTemplateVariables()
     {
         $vars         = parent::getAdditionalTemplateVariables();
-        $choicesArray = $vars['choices'];
+        $choicesArray = $vars['ungroupedChoices'];
 
         asort($choicesArray);
         uasort($choicesArray, array($this, '__callbackSortChoices'));
 
-        $vars['choices'] = $choicesArray;
+        $vars['ungroupedChoices'] = $choicesArray;
 
         return $vars;
     }

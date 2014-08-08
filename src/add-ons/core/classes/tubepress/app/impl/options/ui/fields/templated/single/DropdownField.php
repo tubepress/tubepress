@@ -55,6 +55,6 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
             throw new InvalidArgumentException(sprintf('"%s" has a non-associative array set for its value map', $this->getId()));
         }
 
-        return array('choices' => $map);
+        return array('ungroupedChoices' => $map);
     }
 }

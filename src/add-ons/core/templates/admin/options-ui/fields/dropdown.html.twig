@@ -12,7 +12,9 @@
     {% if ungroupedChoices is defined %}
         {% for choiceValue, choiceDisplayName in ungroupedChoices %}
 
-            <option value="{{ choiceValue }}" {% if value == choiceValue %}SELECTED{% endif %}>{{ choiceDisplayName }}</option>
+            <option value="{{ choiceValue }}" {% if value == choiceValue %}SELECTED{% endif %}>
+                {{ choiceDisplayName|trans }}
+            </option>
 
         {% endfor %}
     {% endif %}
@@ -24,7 +26,9 @@
 
                 {% for choiceValue, choiceDisplayName in choicesArray %}
 
-                    <option value="{{ choiceValue }}" {% if choiceValue in currentlySelectedValues %}selected="selected"{% endif %}>{{ choiceDisplayName }}</option>
+                    <option value="{{ choiceValue }}" {% if choiceValue in currentlySelectedValues %}selected="selected"{% endif %}>
+                        {{ choiceDisplayName|trans }}
+                    </option>
 
                 {% endfor %}
 
