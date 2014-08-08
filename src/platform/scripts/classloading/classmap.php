@@ -503,6 +503,7 @@ return array (
     'tubepress_app_impl_listeners_search_SearchListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/search/SearchListener.php',
     'tubepress_app_impl_listeners_template_post_CssJsPostListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/post/CssJsPostListener.php',
     'tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/MetaDisplayListener.php',
+    'tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/OptionsGuiSorter.php',
     'tubepress_app_impl_listeners_template_pre_PaginationListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/PaginationListener.php',
     'tubepress_app_impl_listeners_template_pre_SearchInputListener' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/listeners/template/pre/SearchInputListener.php',
     'tubepress_app_impl_log_HtmlLogger' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/log/HtmlLogger.php',

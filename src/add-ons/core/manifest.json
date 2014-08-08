@@ -90,6 +90,7 @@
             "tubepress_app_impl_listeners_search_SearchListener"                  : "classes/tubepress/app/impl/listeners/search/SearchListener.php",
             "tubepress_app_impl_listeners_template_post_CssJsPostListener"        : "classes/tubepress/app/impl/listeners/template/post/CssJsPostListener.php",
             "tubepress_app_impl_listeners_template_pre_MetaDisplayListener"       : "classes/tubepress/app/impl/listeners/template/pre/MetaDisplayListener.php",
+            "tubepress_app_impl_listeners_template_pre_OptionsGuiSorter"          : "classes/tubepress/app/impl/listeners/template/pre/OptionsGuiSorter.php",
             "tubepress_app_impl_listeners_template_pre_PaginationListener"        : "classes/tubepress/app/impl/listeners/template/pre/PaginationListener.php",
             "tubepress_app_impl_listeners_template_pre_SearchInputListener"       : "classes/tubepress/app/impl/listeners/template/pre/SearchInputListener.php",
 
