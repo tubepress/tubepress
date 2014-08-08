@@ -16,11 +16,11 @@
                 {% set tabIndex = 0 %}
                 {% for category in categories %}
 
-                    <li{% if tabIndex === 0 %} class="active"{% endif %}>
+                    <li{% if tabIndex == 0 %} class="active"{% endif %}>
 
                         <a href="#{{ category.id }}" data-toggle="tab">
 
-                            {{ category.translatedDisplayName }}
+                            {{ category.untranslatedDisplayName|trans }}
 
                         </a>
 
@@ -35,10 +35,10 @@
                 {% set categoryIndex = 0 %}
                 {% for category in categories %}
 
-                    {% if category.id === 'theme_category' %}
-                        {% include 'options-ui/page-fragments/theme/category-theme' %}
+                    {% if category.id == 'theme_category' %}
+                        {% include 'options-ui/page-fragments/theme/category-theme.html.twig' %}
                     {% else %}
-                        {% include 'options-ui/page-fragments/single-category' %}
+                        {% include 'options-ui/page-fragments/single-category.html.twig' %}
                     {% endif %}
 
                     {% set categoryIndex = categoryIndex + 1 %}

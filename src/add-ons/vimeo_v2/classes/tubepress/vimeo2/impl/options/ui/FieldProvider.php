@@ -49,7 +49,7 @@ class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_app_ap
      */
     public function getId()
     {
-        return 'vimeo-field-provider';
+        return 'field-provider-vimeo';
     }
 
     /**

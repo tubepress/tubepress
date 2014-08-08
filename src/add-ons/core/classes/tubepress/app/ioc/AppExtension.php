@@ -786,7 +786,11 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_));
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
+            'method' => 'setFieldProviders',
+        ));
     }
 
     private function _registerPlayers(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

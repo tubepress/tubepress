@@ -49,7 +49,7 @@ class tubepress_youtube2_impl_options_ui_FieldProvider implements tubepress_app_
      */
     public function getId()
     {
-        return 'youtube-field-provider';
+        return 'field-provider-youtube';
     }
 
     /**

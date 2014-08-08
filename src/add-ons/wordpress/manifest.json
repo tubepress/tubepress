@@ -28,7 +28,7 @@
             "tubepress_wordpress_api_Constants"                             : "classes/tubepress/wordpress/api/Constants.php",
             "tubepress_wordpress_impl_Callback"                             : "classes/tubepress/wordpress/impl/Callback.php",
             "tubepress_wordpress_impl_listeners_html_WpHtmlListener"        : "classes/tubepress/wordpress/impl/listeners/html/WpHtmlListener.php",
-            "tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListener" : "classes/tubepress/wordpress/impl/listeners/template/options/OptionsUiTemplateListener.php",
+            "tubepress_wordpress_impl_listeners_template_OptionsUiTemplateListener" : "classes/tubepress/wordpress/impl/listeners/template/OptionsUiTemplateListener.php",
             "tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters"  : "classes/tubepress/wordpress/impl/listeners/wp/AdminActionsAndFilters.php",
             "tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters" : "classes/tubepress/wordpress/impl/listeners/wp/PublicActionsAndFilters.php",
             "tubepress_wordpress_impl_options_ui_fields_WpNonceField"     : "classes/tubepress/wordpress/impl/options/ui/fields/WpNonceField.php",
@@ -41,7 +41,6 @@
             "tubepress_wordpress_impl_wp_WpFunctions"                     : "classes/tubepress/wordpress/impl/wp/WpFunctions.php",
             "tubepress_wordpress_ioc_compiler_EnvironmentCompilerPass"    : "classes/tubepress/wordpress/ioc/compiler/EnvironmentCompilerPass.php",
             "tubepress_wordpress_ioc_WordPressExtension"                  : "classes/tubepress/wordpress/ioc/WordPressExtension.php"
-
         }
     }
 }

@@ -44,10 +44,10 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
                                 tubepress_app_api_options_PersistenceInterface     $persistence,
                                 tubepress_platform_api_util_StringUtilsInterface   $stringUtils)
     {
-        $this->_templating      = $templating;
-        $this->_environment     = $environment;
-        $this->_persistence     = $persistence;
-        $this->_stringUtils     = $stringUtils;
+        $this->_templating  = $templating;
+        $this->_environment = $environment;
+        $this->_persistence = $persistence;
+        $this->_stringUtils = $stringUtils;
     }
 
     /**
@@ -72,9 +72,7 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
             'isPro'                                => $this->_environment->isPro(),
             'justSubmitted'                        => $justSubmitted,
             'fieldProviders'                       => $fieldProviders,
-            "successMessage"                       => 'Settings updated.',                     //>(translatable)<
             'tubePressBaseUrl'                     => $this->_environment->getBaseUrl()->toString(),
-            "saveText"                             => 'Save'                                  //>(translatable)<
         );
 
         return $this->_templating->renderTemplate('options-ui/form', $templateVariables);
@@ -194,8 +192,6 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
 
                 $toReturn[$categoryId][$fieldProvider->getId()] = $map[$categoryId];
             }
-
-            uksort($toReturn[$categoryId], array($this, '__fieldProviderSorter'));
         }
 
         return $toReturn;
@@ -210,41 +206,6 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
             $toReturn[$fieldProvider->getId()] = $fieldProvider;
         }
 
-        uksort($toReturn, array($this, '__fieldProviderSorter'));
-
         return $toReturn;
-    }
-
-    public function __fieldProviderSorter($first, $second)
-    {
-        $firstIsCore  = $this->_stringUtils->startsWith($first, 'tubepress-core-');
-        $secondIsCore = $this->_stringUtils->startsWith($second, 'tubepress-core-');
-
-        if ($firstIsCore && $secondIsCore) {
-
-            return 0;
-        }
-
-        if ($firstIsCore) {
-
-            return -1;
-        }
-
-        if ($secondIsCore) {
-
-            return 1;
-        }
-
-        if ($first === 'youtube-field-provider' && $second === 'vimeo-field-provider') {
-
-            return -1;
-        }
-
-        if ($first === 'vimeo-field-provider' && $second === 'youtube-field-provider') {
-
-            return 1;
-        }
-
-        return 0;
     }
 }

@@ -171,15 +171,13 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
             ));
 
         $this->expectRegistration(
-            'tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
-            'tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER,
-                'method'   => 'onOptionsUiTemplate',
-                'priority' => 10000
-            ));
+            'tubepress_wordpress_impl_listeners_template_OptionsUiTemplateListener',
+            'tubepress_wordpress_impl_listeners_template_OptionsUiTemplateListener'
+        )->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.options-ui/form',
+                'method'   => 'onTemplateSelect',
+                'priority' => 10000,
+            ))->withTag('tubepress_lib_api_template_PathProviderInterface');
     }
 
     private function _registerSingletons()

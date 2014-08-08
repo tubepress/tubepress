@@ -863,7 +863,11 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_));
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
+                'method' => 'setFieldProviders',
+            ));
     }
 
     private function _registerOptionsUiFieldProvider()

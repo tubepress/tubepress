@@ -177,15 +177,13 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ));
 
         $containerBuilder->register(
-            'tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListener',
-            'tubepress_wordpress_impl_listeners_template_options_OptionsUiTemplateListener'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER,
-            'method'   => 'onOptionsUiTemplate',
-            'priority' => 10000
-        ));
+            'tubepress_wordpress_impl_listeners_template_OptionsUiTemplateListener',
+            'tubepress_wordpress_impl_listeners_template_OptionsUiTemplateListener'
+        )->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.options-ui/form',
+            'method'   => 'onTemplateSelect',
+            'priority' => 10000,
+        ))->addTag('tubepress_lib_api_template_PathProviderInterface');
     }
 
     private function _registerSingletons(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

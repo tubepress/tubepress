@@ -101,7 +101,7 @@ class tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider implements tubep
      */
     public function getId()
     {
-        return 'jwplayer-field-provider';
+        return 'field-provider-jwplayer5';
     }
 
     /**

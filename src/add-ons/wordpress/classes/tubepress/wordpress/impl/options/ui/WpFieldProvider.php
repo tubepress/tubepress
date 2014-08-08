@@ -41,7 +41,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
      */
     public function getId()
     {
-        return 'wordpress-field-provider';
+        return 'field-provider-wordpress';
     }
 
     /**

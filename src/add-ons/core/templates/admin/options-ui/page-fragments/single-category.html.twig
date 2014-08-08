@@ -8,21 +8,20 @@
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
 
-<div class="tab-pane fade{% if categoryIndex === 0 %} in active{% endif %}" id="{{ category.id }}">
+<div class="tab-pane fade{% if categoryIndex == 0 %} in active{% endif %}" id="{{ category.id }}">
 
     <div class="row">
 
         <div class="col-md-12">
             {% for providerId, fieldIds in categoryIdToProviderIdToFieldsMap[category.id] %}
 
-                {% if fieldIds is empty %}
+                {% if fieldIds is not empty %}
 
-                    {% continue %}
+                    {% set fieldProvider = attribute(fieldProviders, providerId) %}
+                    {% include 'options-ui/page-fragments/single-field-provider.html.twig' %}
+
                 {% endif %}
-
-                {% set fieldProvider = fieldProviders.providerId %}
-
-                {% include 'options-ui/page-fragments/single-field-provider' %}
+            {% endfor %}
         </div>
     </div>
 </div>

@@ -49,7 +49,7 @@ class tubepress_test_app_impl_options_ui_FieldProviderTest extends tubepress_tes
         $fields     = $this->_sut->getFields();
 
         $this->assertEquals('', $name);
-        $this->assertEquals('tubepress-core-field-provider', $id);
+        $this->assertEquals('field-provider-core', $id);
         $this->assertTrue(is_array($categories) && count($categories) === 1);
         $this->assertSame($categories[0], $this->_mockCategory);
         $this->assertTrue(is_array($fields) && count($fields) === 1);

@@ -49,7 +49,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
      */
     public function getWidgetHTML()
     {
-        return $this->_wpFunctions->wp_nonce_field('tubepress-save', 'tubepress-nonce', true, false);
+        return $this->_wpFunctions->wp_nonce_field('tubepress-save', 'tubepress_nonce', true, false);
     }
 
     /**
@@ -59,7 +59,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
      */
     public function onSubmit()
     {
-        $this->_wpFunctions->check_admin_referer('tubepress-save', 'tubepress-nonce');
+        $this->_wpFunctions->check_admin_referer('tubepress-save', 'tubepress_nonce');
 
         return null;
     }
@@ -87,7 +87,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
      */
     public function getId()
     {
-        return 'tubepress-nonce';
+        return 'tubepress_nonce';
     }
 
     /**

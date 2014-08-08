@@ -7,7 +7,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #}
-<div class="tab-pane fade{% if categoryIndex === 0 %} in active{% endif %}"  id="theme_category">
+<div class="tab-pane fade{% if categoryIndex == 0 %} in active{% endif %}"  id="theme_category">
 
     <div class="row">
 
@@ -17,43 +17,42 @@
 
             {% for providerId, fieldIds in categoryIdToProviderIdToFieldsMap.theme_category %}
 
-                {% if fieldIds is empty %}
+                {% if fieldIds is not empty %}
 
-                    {% continue %}
-                {% endif %}
+                    {% set fieldProvider = fieldProviders.providerId %}
 
-                {% set fieldProvider = fieldProviders.providerId %}
+                    {% for fieldId in fieldIds %}
 
-                {% for fieldId in fieldIds %}
+                        {% if fields.fieldId is defined %}
 
-                    {% if fields.fieldId is not defined %}
-                        {% continue %}
-                    {% endif %}
+                            {% set field = fields.fieldId %}
 
-                    {% set field = fields.fieldId %}
+                            <dt>{{ field.untranslatedDisplayName|trans }}</dt>
+                            <dd id="theme-field-dropdown">{{ field.widgetHTML|raw }}</dd>
 
-                    <dt>{{ field.translatedDisplayName }}</dt>
-                    <dd id="theme-field-dropdown">{{ field.widgetHTML }}</dd>
+                            {% set termMap = {
 
-                    {% set termMap = {
+                                ''              : 'description',
+                                'Author(s)'     : 'authors',
+                                'License(s)'    : 'licenses',
+                                'Version'       : 'version',
+                                'Demo'          : 'demo',
+                                'Keywords'      : 'keywords',
+                                'Homepage'      : 'homepage',
+                                'Documentation' : 'docs',
+                                'Download'      : 'download',
+                                'Bugs'          : 'bugs'
+                            } %}
 
-                        ''              : 'description',
-                        'Author(s)'     : 'authors',
-                        'License(s)'    : 'licenses',
-                        'Version'       : 'version',
-                        'Demo'          : 'demo',
-                        'Keywords'      : 'keywords',
-                        'Homepage'      : 'homepage',
-                        'Documentation' : 'docs',
-                        'Download'      : 'download',
-                        'Bugs'          : 'bugs'
-                    } %}
+                            {% for label, id in termMap %}
 
-                    {% for label, id in termMap %}
-
-                        <dt style="display: none">{{ label }}</dt>
-                        <dd style="display: none" id="theme-field-{{ id }}"></dd>
+                                <dt style="display: none">{{ label }}</dt>
+                                <dd style="display: none" id="theme-field-{{ id }}"></dd>
+                            {% endfor %}
+                        {% endif %}
                     {% endfor %}
+                {% endif %}
+            {% endfor %}
             </dl>
         </div>
 

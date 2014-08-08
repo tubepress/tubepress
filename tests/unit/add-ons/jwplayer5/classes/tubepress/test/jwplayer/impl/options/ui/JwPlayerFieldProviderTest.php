@@ -65,7 +65,7 @@ class tubepress_test_jwplayer_impl_options_ui_JwPlayerFieldProviderTest extends 
         $this->assertFalse($this->_sut->isAbleToBeFilteredFromGui());
         $this->assertEquals('xyz', $this->_sut->getUntranslatedDisplayName());
         $this->assertEquals($map, $this->_sut->getCategoryIdsToFieldIdsMap());
-        $this->assertEquals('jwplayer-field-provider', $this->_sut->getId());
+        $this->assertEquals('field-provider-jwplayer5', $this->_sut->getId());
         $this->assertSame($this->_mockFields, $this->_sut->getFields());
     }
 }

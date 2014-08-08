@@ -45,7 +45,7 @@ class tubepress_test_vimeo2_impl_options_ui_FieldProviderTest extends tubepress_
         $fields     = $this->_sut->getFields();
 
         $this->assertEquals('Vimeo', $name);
-        $this->assertEquals('vimeo-field-provider', $id);
+        $this->assertEquals('field-provider-vimeo', $id);
         $this->assertTrue(is_array($categories) && count($categories) === 0);
         $this->assertTrue(is_array($fields) && count($fields) === 1);
         $this->assertSame($fields[0], $this->_mockField);

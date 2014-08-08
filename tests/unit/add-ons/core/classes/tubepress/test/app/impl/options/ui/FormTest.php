@@ -132,9 +132,7 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePre
                 'isPro'                             => true,
                 'justSubmitted'                     => false,
                 //'fieldProviders'                    => $this->_mockFieldProviders,
-                'successMessage'                    => 'Settings updated.',
                 'tubePressBaseUrl'                  => 'syz',
-                'saveText'                          => 'Save'
             );
 
             foreach ($ctx as $key => $value) {

@@ -54,14 +54,14 @@ class tubepress_test_wordpress_impl_options_ui_fields_WpNonceFieldTest extends t
 
     public function testSubmit()
     {
-        $this->_mockWpFunctionWrapper->shouldReceive('check_admin_referer')->once()->with('tubepress-save', 'tubepress-nonce');
+        $this->_mockWpFunctionWrapper->shouldReceive('check_admin_referer')->once()->with('tubepress-save', 'tubepress_nonce');
 
         $this->assertNull($this->_sut->onSubmit());
     }
 
     public function testGetWidgetHtml()
     {
-        $this->_mockWpFunctionWrapper->shouldReceive('wp_nonce_field')->once()->with('tubepress-save', 'tubepress-nonce', true, false)->andReturn('foo');
+        $this->_mockWpFunctionWrapper->shouldReceive('wp_nonce_field')->once()->with('tubepress-save', 'tubepress_nonce', true, false)->andReturn('foo');
 
         $result = $this->_sut->getWidgetHTML();
 

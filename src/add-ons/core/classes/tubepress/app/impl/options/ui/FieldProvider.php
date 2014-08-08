@@ -49,7 +49,7 @@ class tubepress_app_impl_options_ui_FieldProvider implements tubepress_app_api_o
      */
     public function getId()
     {
-        return 'tubepress-core-field-provider';
+        return 'field-provider-core';
     }
 
     /**
