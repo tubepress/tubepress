@@ -45,8 +45,8 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getTitle();
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface[] Required. One or more authors. Each author
-     *                                                               may contain the following property names.
+     * @return tubepress_platform_api_collection_MapInterface[] Required. One or more authors. Each author
+     *                                                          may contain the following property names.
      *
      *               key 'name'  : required, string
      *               key 'email' : optional, string
@@ -58,8 +58,8 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getAuthors();
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface[] Required. One or more authors. Each author
-     *                                                               may contain the following property names.
+     * @return tubepress_platform_api_collection_MapInterface[] Required. One or more authors. Each author
+     *                                                          may contain the following property names.
      *
      *               key 'url'  : required, tubepress_platform_api_url_UrlInterface. URL to the license text.
      *               key 'type' : optional, string. An identifier to indicate to developer's the general license type.
@@ -147,7 +147,7 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getScreenshots();
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      *
      * @api
      * @since 4.0.0

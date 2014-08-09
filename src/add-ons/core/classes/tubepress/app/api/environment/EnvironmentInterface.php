@@ -87,7 +87,7 @@ interface tubepress_app_api_environment_EnvironmentInterface
     function setUserContentUrl($url);
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      *
      * @api
      * @since 4.0.0

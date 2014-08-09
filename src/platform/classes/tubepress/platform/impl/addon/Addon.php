@@ -27,9 +27,9 @@ class tubepress_platform_impl_addon_Addon extends tubepress_platform_impl_contri
 
         $props = $this->getProperties();
 
-        $props->set(self::$_PROPERTY_IOC_EXTENSIONS, array());
-        $props->set(self::$_PROPERTY_IOC_COMPILER_PASSES, array());
-        $props->set(self::$_PROPERTY_CLASSMAP, array());
+        $props->put(self::$_PROPERTY_IOC_EXTENSIONS, array());
+        $props->put(self::$_PROPERTY_IOC_COMPILER_PASSES, array());
+        $props->put(self::$_PROPERTY_CLASSMAP, array());
     }
 
     /**
@@ -70,16 +70,16 @@ class tubepress_platform_impl_addon_Addon extends tubepress_platform_impl_contri
 
     public function setClassMap(array $map)
     {
-        $this->getProperties()->set(self::$_PROPERTY_CLASSMAP, $map);
+        $this->getProperties()->put(self::$_PROPERTY_CLASSMAP, $map);
     }
 
     public function setCompilerPasses(array $passes)
     {
-        $this->getProperties()->set(self::$_PROPERTY_IOC_COMPILER_PASSES, $passes);
+        $this->getProperties()->put(self::$_PROPERTY_IOC_COMPILER_PASSES, $passes);
     }
 
     public function setExtensions(array $extensions)
     {
-        $this->getProperties()->set(self::$_PROPERTY_IOC_EXTENSIONS, $extensions);
+        $this->getProperties()->put(self::$_PROPERTY_IOC_EXTENSIONS, $extensions);
     }
 }

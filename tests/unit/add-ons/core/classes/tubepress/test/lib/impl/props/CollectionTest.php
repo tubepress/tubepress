@@ -10,51 +10,51 @@
  */
 
 /**
- * @covers tubepress_platform_impl_property_Collection<extended>
+ * @covers tubepress_platform_impl_collection_Map<extended>
  */
 class tubepress_test_lib_impl_props_CollectionTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_property_Collection
+     * @var tubepress_platform_impl_collection_Map
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut  = new tubepress_platform_impl_property_Collection();
+        $this->_sut  = new tubepress_platform_impl_collection_Map();
     }
 
     public function testHas()
     {
-        $this->assertFalse($this->_sut->has('foo'));
+        $this->assertFalse($this->_sut->containsKey('foo'));
 
-        $this->_sut->set('foo', 'bar');
+        $this->_sut->put('foo', 'bar');
 
-        $this->assertTrue($this->_sut->has('foo'));
+        $this->assertTrue($this->_sut->containsKey('foo'));
     }
 
     public function testGetAsBoolean()
     {
-        $this->_sut->set('foo', '0');
+        $this->_sut->put('foo', '0');
         $this->assertTrue($this->_sut->getAsBoolean('foo') === false);
     }
 
     public function testGetAll()
     {
-        $this->_sut->set('foo', 33);
-        $this->_sut->set('bar', 'hi');
-        $this->assertEquals(array('foo', 'bar'), $this->_sut->getAllNames());
+        $this->_sut->put('foo', 33);
+        $this->_sut->put('bar', 'hi');
+        $this->assertEquals(array('foo', 'bar'), $this->_sut->keySet());
     }
 
     public function testGet()
     {
-        $this->_sut->set('foo', 33);
+        $this->_sut->put('foo', 33);
         $this->assertEquals(33, $this->_sut->get('foo'));
     }
 
     public function testGetNoExist()
     {
-        $this->setExpectedException('InvalidArgumentException', 'No such property: foo');
+        $this->setExpectedException('InvalidArgumentException', 'No such key: foo');
 
         $this->_sut->get('foo');
     }

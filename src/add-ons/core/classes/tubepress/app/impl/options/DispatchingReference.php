@@ -70,7 +70,7 @@ class tubepress_app_impl_options_DispatchingReference implements tubepress_app_a
      * @param string $optionName   The option name.
      * @param string $propertyName The property name.
      *
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      *
      * @throws InvalidArgumentException If the option name does not exist, or no such property for the option.
      *

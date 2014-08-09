@@ -83,24 +83,24 @@ class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_
 
     public function setInlineCss($css)
     {
-        $this->getProperties()->set(self::$_PROPERTY_INLINE_CSS, $css);
+        $this->getProperties()->put(self::$_PROPERTY_INLINE_CSS, $css);
     }
 
     public function setTemplateNamesToAbsPathsMap(array $map)
     {
-        $this->getProperties()->set(self::$_PROPERTY_TEMPLATE_NAMES_TO_PATHS, $map);
+        $this->getProperties()->put(self::$_PROPERTY_TEMPLATE_NAMES_TO_PATHS, $map);
     }
 
     public function setManifestPath($path)
     {
-        $this->getProperties()->set(self::$_PROPERTY_MANIFEST_PATH, $path);
+        $this->getProperties()->put(self::$_PROPERTY_MANIFEST_PATH, $path);
 
         $themeAbsPath = dirname($path);
         $pathElements = array(TUBEPRESS_ROOT, 'web', 'themes');
         $needle       = implode(DIRECTORY_SEPARATOR, $pathElements);
         $isSystem     = strpos($themeAbsPath, $needle) !== false;
 
-        $this->getProperties()->set(self::$_PROPERTY_IS_SYSTEM, $isSystem);
+        $this->getProperties()->put(self::$_PROPERTY_IS_SYSTEM, $isSystem);
     }
 
     /**

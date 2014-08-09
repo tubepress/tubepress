@@ -21,8 +21,8 @@ class tubepress_test_CoreManifestTest extends tubepress_test_platform_impl_boot_
         $this->assertEquals('tubepress/core', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('TubePress Core', $addon->getTitle());
-        $this->assertEquals(array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')), $addon->getAuthors());
-        $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
+        $this->assertAuthors($addon, array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')));
+        $this->assertLicenses($addon, array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')));
     }
 
     protected function getPathToManifest()

@@ -15,7 +15,7 @@
 class tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider implements tubepress_app_api_options_ui_FieldProviderInterface
 {
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
@@ -44,7 +44,7 @@ class tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider implements tubep
     {
         $this->_translator = $translator;
         $this->_fields     = $fields;
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
     }
 
     /**
@@ -105,7 +105,7 @@ class tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider implements tubep
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      */
     public function getProperties()
     {
@@ -123,6 +123,6 @@ class tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider implements tubep
      */
     public function setProperty($name, $value)
     {
-        $this->_properties->set($name, $value);
+        $this->_properties->put($name, $value);
     }
 }

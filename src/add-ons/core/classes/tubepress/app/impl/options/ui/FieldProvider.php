@@ -29,7 +29,7 @@ class tubepress_app_impl_options_ui_FieldProvider implements tubepress_app_api_o
     private $_map;
 
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
@@ -38,7 +38,7 @@ class tubepress_app_impl_options_ui_FieldProvider implements tubepress_app_api_o
         $this->_categories = $categories;
         $this->_fields     = $fields;
         $this->_map        = $map;
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
     }
 
     /**
@@ -109,7 +109,7 @@ class tubepress_app_impl_options_ui_FieldProvider implements tubepress_app_api_o
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      */
     public function getProperties()
     {
@@ -127,7 +127,7 @@ class tubepress_app_impl_options_ui_FieldProvider implements tubepress_app_api_o
      */
     public function setProperty($name, $value)
     {
-        $this->_properties->set($name, $value);
+        $this->_properties->put($name, $value);
     }
 
     /**

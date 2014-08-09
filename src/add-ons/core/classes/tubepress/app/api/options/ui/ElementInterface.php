@@ -26,7 +26,7 @@ interface tubepress_app_api_options_ui_ElementInterface
     function getId();
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      */
     function getProperties();
 

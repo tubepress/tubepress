@@ -21,8 +21,8 @@ class tubepress_test_app_WordPressManifestValidityTestBoothelperuncached extends
         $this->assertEquals('tubepress/wordpress', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('WordPress', $addon->getTitle());
-        $this->assertEquals(array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')), $addon->getAuthors());
-        $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
+        $this->assertAuthors($addon, array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')));
+        $this->assertLicenses($addon, array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')));
         $this->assertEquals('Allows TubePress to integrate with WordPress', $addon->getDescription());
     }
 

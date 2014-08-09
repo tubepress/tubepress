@@ -33,21 +33,24 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
     private static $_PROPERTY_URL_BUGS          = 'urlBugs';
 
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
     public function __construct($name, $version, $title, array $authors, array $licenses)
     {
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
 
-        $this->_properties->set(self::$_PROPERTY_NAME, $name);
-        $this->_properties->set(self::$_PROPERTY_VERSION, $version);
-        $this->_properties->set(self::$_PROPERTY_TITLE, $title);
-        $this->_properties->set(self::$_PROPERTY_AUTHORS, $authors);
-        $this->_properties->set(self::$_PROPERTY_LICENSES, $licenses);
-        $this->_properties->set(self::$_PROPERTY_KEYWORDS, array());
-        $this->_properties->set(self::$_PROPERTY_SCREENSHOTS, array());
+        $this->_elementsToMaps($authors);
+        $this->_elementsToMaps($licenses);
+
+        $this->_properties->put(self::$_PROPERTY_NAME, $name);
+        $this->_properties->put(self::$_PROPERTY_VERSION, $version);
+        $this->_properties->put(self::$_PROPERTY_TITLE, $title);
+        $this->_properties->put(self::$_PROPERTY_AUTHORS, $authors);
+        $this->_properties->put(self::$_PROPERTY_LICENSES, $licenses);
+        $this->_properties->put(self::$_PROPERTY_KEYWORDS, array());
+        $this->_properties->put(self::$_PROPERTY_SCREENSHOTS, array());
     }
 
     /**
@@ -219,7 +222,7 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      *
      * @api
      * @since 4.0.0
@@ -231,51 +234,66 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
 
     public function setDescription($description)
     {
-        $this->_properties->set(self::$_PROPERTY_DESCRIPTION, $description);
+        $this->_properties->put(self::$_PROPERTY_DESCRIPTION, $description);
     }
 
     public function setKeywords(array $keywords)
     {
-        $this->_properties->set(self::$_PROPERTY_KEYWORDS, $keywords);
+        $this->_properties->put(self::$_PROPERTY_KEYWORDS, $keywords);
     }
 
     public function setScreenshots(array $screenshots)
     {
-        $this->_properties->set(self::$_PROPERTY_SCREENSHOTS, $screenshots);
+        $this->_properties->put(self::$_PROPERTY_SCREENSHOTS, $screenshots);
     }
 
     public function setBugTrackerUrl(tubepress_platform_api_url_UrlInterface $url)
     {
-        $this->_properties->set(self::$_PROPERTY_URL_BUGS, $url);
+        $this->_properties->put(self::$_PROPERTY_URL_BUGS, $url);
     }
 
     public function setDemoUrl(tubepress_platform_api_url_UrlInterface $url)
     {
-        $this->_properties->set(self::$_PROPERTY_URL_DEMO, $url);
+        $this->_properties->put(self::$_PROPERTY_URL_DEMO, $url);
     }
 
     public function setDownloadUrl(tubepress_platform_api_url_UrlInterface $url)
     {
-        $this->_properties->set(self::$_PROPERTY_URL_DOWNLOAD, $url);
+        $this->_properties->put(self::$_PROPERTY_URL_DOWNLOAD, $url);
     }
 
     public function setHomepageUrl(tubepress_platform_api_url_UrlInterface $url)
     {
-        $this->_properties->set(self::$_PROPERTY_URL_HOMEPAGE, $url);
+        $this->_properties->put(self::$_PROPERTY_URL_HOMEPAGE, $url);
     }
 
     public function setDocumentationUrl(tubepress_platform_api_url_UrlInterface $url)
     {
-        $this->_properties->set(self::$_PROPERTY_URL_DOCUMENTATION, $url);
+        $this->_properties->put(self::$_PROPERTY_URL_DOCUMENTATION, $url);
     }
 
     protected function getOptionalProperty($key, $default)
     {
-        if (!$this->_properties->has($key)) {
+        if (!$this->_properties->containsKey($key)) {
 
             return $default;
         }
 
         return $this->_properties->get($key);
+    }
+
+    private function _elementsToMaps(array &$incoming)
+    {
+        for ($x = 0; $x < count($incoming); $x++) {
+
+            $map = new tubepress_platform_impl_collection_Map();
+
+            foreach ($incoming[$x] as $key => $value) {
+
+                $map->put($key, $value);
+            }
+
+            $incoming[$x] = $map;
+        }
     }
 }

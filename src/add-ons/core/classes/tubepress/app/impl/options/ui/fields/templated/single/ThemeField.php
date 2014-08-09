@@ -97,7 +97,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_ThemeField extends t
 
     private function _buildThemeData(tubepress_app_api_theme_ThemeInterface $theme)
     {
-        return array(
+        $raw = array(
 
             'screenshots'   => $theme->getScreenshots(),
             'description'   => $theme->getDescription(),
@@ -111,5 +111,35 @@ class tubepress_app_impl_options_ui_fields_templated_single_ThemeField extends t
             'download'      => $theme->getDownloadUrl(),
             'bugs'          => $theme->getBugTrackerUrl(),
         );
+
+        return $this->_deepToString($raw);
+    }
+
+    private function _deepToString($element)
+    {
+        if (is_array($element)) {
+
+            foreach ($element as $key => $value) {
+
+                $element[$key] = $this->_deepToString($value);
+            }
+
+            return $element;
+        }
+
+        if ($element instanceof tubepress_platform_api_collection_MapInterface) {
+
+            $keys     = $element->keySet();
+            $toReturn = array();
+
+            foreach ($keys as $key) {
+
+                $toReturn[$key] = $this->_deepToString($element->get($key));
+            }
+
+            return $toReturn;
+        }
+
+        return "$element";
     }
 }

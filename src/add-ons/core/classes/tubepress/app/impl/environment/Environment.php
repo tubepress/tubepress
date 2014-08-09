@@ -50,7 +50,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     private $_bootSettings;
 
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
@@ -59,10 +59,10 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     {
         $this->_urlFactory   = $urlFactory;
         $this->_bootSettings = $bootSettings;
-        $this->_properties   = new tubepress_platform_impl_property_Collection();
+        $this->_properties   = new tubepress_platform_impl_collection_Map();
 
-        $this->_properties->set(self::$_PROPERTY_VERSION, tubepress_platform_api_version_Version::parse('9.9.9'));
-        $this->_properties->set(self::$_PROPERTY_IS_PRO, false);
+        $this->_properties->put(self::$_PROPERTY_VERSION, tubepress_platform_api_version_Version::parse('9.9.9'));
+        $this->_properties->put(self::$_PROPERTY_IS_PRO, false);
     }
 
     /**
@@ -73,7 +73,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
      */
     public function getBaseUrl()
     {
-        if (!$this->_properties->has(self::$_PROPERTY_URL_BASE)) {
+        if (!$this->_properties->containsKey(self::$_PROPERTY_URL_BASE)) {
 
             return null;
         }
@@ -101,7 +101,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
         $asUrl->freeze();
 
-        $this->_properties->set(self::$_PROPERTY_URL_BASE, $asUrl);
+        $this->_properties->put(self::$_PROPERTY_URL_BASE, $asUrl);
     }
 
     /**
@@ -112,7 +112,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
      */
     public function getUserContentUrl()
     {
-        if (!$this->_properties->has(self::$_PROPERTY_URL_USERCONTENT)) {
+        if (!$this->_properties->containsKey(self::$_PROPERTY_URL_USERCONTENT)) {
 
             if (defined('TUBEPRESS_CONTENT_URL')) {
 
@@ -126,7 +126,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
                 } else {
 
-                    if (!$this->_properties->has(self::$_PROPERTY_URL_BASE)) {
+                    if (!$this->_properties->containsKey(self::$_PROPERTY_URL_BASE)) {
 
                         return null;
                     }
@@ -150,7 +150,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
             $url->freeze();
 
-            $this->_properties->set(self::$_PROPERTY_URL_USERCONTENT, $url);
+            $this->_properties->put(self::$_PROPERTY_URL_USERCONTENT, $url);
         }
 
         return $this->_properties->get(self::$_PROPERTY_URL_USERCONTENT);
@@ -174,7 +174,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
         $asUrl->freeze();
 
-        $this->_properties->set(self::$_PROPERTY_URL_USERCONTENT, $asUrl);
+        $this->_properties->put(self::$_PROPERTY_URL_USERCONTENT, $asUrl);
     }
 
     /**
@@ -204,7 +204,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      *
      * @api
      * @since 4.0.0
@@ -226,7 +226,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
     public function markAsPro()
     {
-        $this->_properties->set(self::$_PROPERTY_IS_PRO, true);
+        $this->_properties->put(self::$_PROPERTY_IS_PRO, true);
     }
 
     private function _toUrl($url)

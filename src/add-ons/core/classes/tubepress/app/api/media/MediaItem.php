@@ -45,7 +45,7 @@ class tubepress_app_api_media_MediaItem
     const ATTRIBUTE_VIEW_COUNT               = 'viewCount';
 
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
     
@@ -56,9 +56,9 @@ class tubepress_app_api_media_MediaItem
             throw new InvalidArgumentException('Item IDs must be scalar');
         }
         
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
 
-        $this->_properties->set(self::ATTRIBUTE_ID, "$id");
+        $this->_properties->put(self::ATTRIBUTE_ID, "$id");
     }
 
     /**
@@ -73,7 +73,7 @@ class tubepress_app_api_media_MediaItem
      */
     public function getAttribute($key)
     {
-        if (!$this->_properties->has($key)) {
+        if (!$this->_properties->containsKey($key)) {
 
             return null;
         }
@@ -94,17 +94,17 @@ class tubepress_app_api_media_MediaItem
      */
     public function setAttribute($key, $value)
     {
-        $this->_properties->set($key, $value);
+        $this->_properties->put($key, $value);
     }
 
     public function hasAttribute($key)
     {
-        return $this->_properties->has($key);
+        return $this->_properties->containsKey($key);
     }
 
     public function getAttributeNames()
     {
-        return $this->_properties->getAllNames();
+        return $this->_properties->keySet();
     }
 
     public function getId()
@@ -114,7 +114,7 @@ class tubepress_app_api_media_MediaItem
 
     public function toHtmlSafeArray()
     {
-        $allNames = $this->_properties->getAllNames();
+        $allNames = $this->_properties->keySet();
         $toReturn = array();
         foreach ($allNames as $name) {
             $toReturn[$name] = $this->_properties->get($name);

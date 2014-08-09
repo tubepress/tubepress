@@ -411,25 +411,25 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
         $this->assertTrue(is_array($authors));
         $this->assertCount(2, $authors);
         $firstAuthor = $authors[0];
-        $this->assertTrue(is_array($firstAuthor));
-        $this->assertCount(2, $firstAuthor);
-        $this->assertEquals('author name', $firstAuthor['name']);
-        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $firstAuthor['url']);
-        $this->assertEquals('http://author.com/foo', (string) $firstAuthor['url']);
+        $this->assertInstanceOf('tubepress_platform_api_collection_MapInterface', $firstAuthor);
+        $this->assertTrue($firstAuthor->count() === 2);
+        $this->assertEquals('author name', $firstAuthor->get('name'));
+        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $firstAuthor->get('url'));
+        $this->assertEquals('http://author.com/foo', (string) $firstAuthor->get('url'));
         $secondAuthor = $authors[1];
-        $this->assertTrue(is_array($secondAuthor));
-        $this->assertCount(2, $secondAuthor);
-        $this->assertEquals('other author name', $secondAuthor['name']);
-        $this->assertEquals('fake@email.com', $secondAuthor['email']);
+        $this->assertInstanceOf('tubepress_platform_api_collection_MapInterface', $secondAuthor);
+        $this->assertTrue($secondAuthor->count() === 2);
+        $this->assertEquals('other author name', $secondAuthor->get('name'));
+        $this->assertEquals('fake@email.com', $secondAuthor->get('email'));
         $licenses = $valid->getLicenses();
         $this->assertTrue(is_array($licenses));
         $this->assertCount(1, $licenses);
         $license = $licenses[0];
-        $this->assertTrue(is_array($license));
-        $this->assertCount(2, $license);
-        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $license['url']);
-        $this->assertEquals('http://license.com/text.html', (string) $license['url']);
-        $this->assertEquals('some license type', $license['type']);
+        $this->assertInstanceOf('tubepress_platform_api_collection_MapInterface', $license);
+        $this->assertTrue($license->count() === 2);
+        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $license->get('url'));
+        $this->assertEquals('http://license.com/text.html', (string) $license->get('url'));
+        $this->assertEquals('some license type', $license->get('type'));
     }
 
     protected function setupForBasicsTest()

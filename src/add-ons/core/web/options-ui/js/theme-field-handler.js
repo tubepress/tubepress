@@ -193,7 +193,7 @@
 
             var newTab = e.target;
 
-            if (newTab.hash === '#tubepress-core-theme-category') {
+            if (newTab.hash === '#theme_category') {
 
                 switchTheme();
             }

@@ -19,13 +19,13 @@
 
                 {% if fieldIds is not empty %}
 
-                    {% set fieldProvider = fieldProviders.providerId %}
+                    {% set fieldProvider = attribute(fieldProviders, providerId) %}
 
                     {% for fieldId in fieldIds %}
 
-                        {% if fields.fieldId is defined %}
+                        {% if fieldId in fields|keys%}
 
-                            {% set field = fields.fieldId %}
+                            {% set field = attribute(fields, fieldId) %}
 
                             <dt>{{ field.untranslatedDisplayName|trans }}</dt>
                             <dd id="theme-field-dropdown">{{ field.widgetHTML|raw }}</dd>
@@ -45,7 +45,6 @@
                             } %}
 
                             {% for label, id in termMap %}
-
                                 <dt style="display: none">{{ label }}</dt>
                                 <dd style="display: none" id="theme-field-{{ id }}"></dd>
                             {% endfor %}
@@ -63,23 +62,15 @@
                     <p class="text-muted" style="display: none">None available.</p>
                 </div>
             </div>
-
-        </div>
-
+        </div>{# end of div#theme-screenshots #}
     </div>
-
-    <div id="theme-field-data" style="display: none">
-
-            <script style="text-javascript">
-
-                var TubePressThemes = {{ field.themeDataAsJson }}
-            </script>
-
-        </div>
-
 </div>
 
-
+<div id="theme-field-data" style="display: none">
+    <script type="text/javascript">
+        var TubePressThemes = {{ fields.theme.themeDataAsJson|raw }}
+    </script>
+</div>
 
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery">

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_app_EmbedPlusManifestValidityTestBoothelperuncached extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
+class tubepress_test_app_EmbedPlusManifestValidityTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
@@ -21,8 +21,8 @@ class tubepress_test_app_EmbedPlusManifestValidityTestBoothelperuncached extends
         $this->assertEquals('tubepress/embedplus', $addon->getName());
         $this->assertEquals('1.0.0', $addon->getVersion());
         $this->assertEquals('EmbedPlus', $addon->getTitle());
-        $this->assertEquals(array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')), $addon->getAuthors());
-        $this->assertEquals(array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')), $addon->getLicenses());
+        $this->assertAuthors($addon, array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')));
+        $this->assertLicenses($addon, array(array('type' => 'MPL-2.0', 'url' => 'http://www.mozilla.org/MPL/2.0/')));
         $this->assertEquals('Allows TubePress to play YouTube videos with EmbedPlus', $addon->getDescription());
     }
 

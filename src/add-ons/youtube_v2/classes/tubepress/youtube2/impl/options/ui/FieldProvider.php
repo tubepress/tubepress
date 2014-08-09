@@ -20,14 +20,14 @@ class tubepress_youtube2_impl_options_ui_FieldProvider implements tubepress_app_
     private $_fields;
 
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
     public function __construct(array $fields)
     {
         $this->_fields     = $fields;
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
     }
 
     /**
@@ -140,7 +140,7 @@ class tubepress_youtube2_impl_options_ui_FieldProvider implements tubepress_app_
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      */
     public function getProperties()
     {
@@ -158,6 +158,6 @@ class tubepress_youtube2_impl_options_ui_FieldProvider implements tubepress_app_
      */
     public function setProperty($name, $value)
     {
-        $this->_properties->set($name, $value);
+        $this->_properties->put($name, $value);
     }
 }

@@ -25,7 +25,7 @@ class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_app_ap
     private $_map;
 
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
@@ -33,7 +33,7 @@ class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_app_ap
     {
         $this->_fields     = $fields;
         $this->_map        = $map;
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
     }
 
     /**
@@ -94,7 +94,7 @@ class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_app_ap
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      */
     public function getProperties()
     {
@@ -112,6 +112,6 @@ class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_app_ap
      */
     public function setProperty($name, $value)
     {
-        $this->_properties->set($name, $value);
+        $this->_properties->put($name, $value);
     }
 }

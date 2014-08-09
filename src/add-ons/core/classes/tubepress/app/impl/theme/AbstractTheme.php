@@ -63,16 +63,16 @@ abstract class tubepress_app_impl_theme_AbstractTheme extends tubepress_platform
 
     public function setScripts(array $scripts)
     {
-        $this->getProperties()->set(self::$_PROPERTY_SCRIPTS, $scripts);
+        $this->getProperties()->put(self::$_PROPERTY_SCRIPTS, $scripts);
     }
 
     public function setStyles(array $styles)
     {
-        $this->getProperties()->set(self::$_PROPERTY_STYLES, $styles);
+        $this->getProperties()->put(self::$_PROPERTY_STYLES, $styles);
     }
 
     public function setParentThemeName($name)
     {
-        $this->getProperties()->set(self::$_PROPERTY_PARENT, $name);
+        $this->getProperties()->put(self::$_PROPERTY_PARENT, $name);
     }
 }

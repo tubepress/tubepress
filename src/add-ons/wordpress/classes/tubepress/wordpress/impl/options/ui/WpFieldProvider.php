@@ -25,7 +25,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
     {
         $this->_fields = $fields;
 
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
     }
 
     /**
@@ -90,7 +90,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      */
     public function getProperties()
     {
@@ -108,6 +108,6 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
      */
     public function setProperty($name, $value)
     {
-        $this->_properties->set($name, $value);
+        $this->_properties->put($name, $value);
     }
 }

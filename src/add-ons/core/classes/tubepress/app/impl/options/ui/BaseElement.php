@@ -16,7 +16,7 @@ class tubepress_app_impl_options_ui_BaseElement implements tubepress_app_api_opt
     protected static $PROPERTY_ID                   = 'id';
     protected static $PROPERTY_UNTRANS_DISPLAY_NAME = 'untranslatedDisplayName';
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
@@ -27,7 +27,7 @@ class tubepress_app_impl_options_ui_BaseElement implements tubepress_app_api_opt
             throw new InvalidArgumentException('Option page item IDs must be of type string');
         }
 
-        $this->_properties = new tubepress_platform_impl_property_Collection();
+        $this->_properties = new tubepress_platform_impl_collection_Map();
 
         $this->setProperty(self::$PROPERTY_ID, $id);
 
@@ -49,7 +49,7 @@ class tubepress_app_impl_options_ui_BaseElement implements tubepress_app_api_opt
     }
 
     /**
-     * @return tubepress_platform_api_property_CollectionInterface
+     * @return tubepress_platform_api_collection_MapInterface
      */
     public function getProperties()
     {
@@ -67,7 +67,7 @@ class tubepress_app_impl_options_ui_BaseElement implements tubepress_app_api_opt
      */
     public function setProperty($name, $value)
     {
-        $this->_properties->set($name, $value);
+        $this->_properties->put($name, $value);
     }
 
     /**
@@ -83,7 +83,7 @@ class tubepress_app_impl_options_ui_BaseElement implements tubepress_app_api_opt
 
     protected function getOptionalProperty($propertyName, $default)
     {
-        if (!$this->_properties->has($propertyName)) {
+        if (!$this->_properties->containsKey($propertyName)) {
 
             return $default;
         }

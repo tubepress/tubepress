@@ -110,10 +110,10 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
 
         $contributable = $this->buildWithValidNormalizedData($manifestPath, $manifestData);
 
-        $this->_setKeywords($manifestData, $contributable);
-        $this->_setUrls($manifestData, $contributable);
-        $this->_setScreenshots($manifestData, $contributable);
         $this->_setDescription($manifestData, $contributable);
+        $this->_setKeywords($manifestData, $contributable);
+        $this->_setScreenshots($manifestData, $contributable);
+        $this->_setUrls($manifestData, $contributable);
 
         return $contributable;
     }

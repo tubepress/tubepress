@@ -40,7 +40,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
     private $_environment;
 
     /**
-     * @var tubepress_platform_api_property_CollectionInterface
+     * @var tubepress_platform_api_collection_MapInterface
      */
     private $_cache;
 
@@ -56,7 +56,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
         $this->_currentThemeService = $currentThemeService;
         $this->_environment         = $environment;
 
-        $this->_cache = new tubepress_platform_impl_property_Collection();
+        $this->_cache = new tubepress_platform_impl_collection_Map();
     }
 
     /**
@@ -108,13 +108,13 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
      */
     public function getUrlsCSS()
     {
-        if (!$this->_cache->has('cached-urls-css')) {
+        if (!$this->_cache->containsKey('cached-urls-css')) {
 
             $currentTheme = $this->_currentThemeService->getCurrentTheme();
             $urls         = $this->_recursivelyGetFromTheme($currentTheme, 'getUrlsCSS');
             $urls         = $this->_fireEventAndReturnSubject(tubepress_app_api_event_Events::HTML_STYLESHEETS, $urls);
 
-            $this->_cache->set('cached-urls-css', $urls);
+            $this->_cache->put('cached-urls-css', $urls);
         }
 
         return $this->_cache->get('cached-urls-css');
@@ -128,7 +128,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
      */
     public function getUrlsJS()
     {
-        if (!$this->_cache->has('cached-urls-js')) {
+        if (!$this->_cache->containsKey('cached-urls-js')) {
 
             $currentTheme   = $this->_currentThemeService->getCurrentTheme();
             $themeScripts   = $this->_recursivelyGetFromTheme($currentTheme, 'getUrlsJS');
@@ -140,7 +140,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
 
             $urls = $this->_fireEventAndReturnSubject(tubepress_app_api_event_Events::HTML_SCRIPTS, $themeScripts);
 
-            $this->_cache->set('cached-urls-js', $urls);
+            $this->_cache->put('cached-urls-js', $urls);
         }
 
         return $this->_cache->get('cached-urls-js');
