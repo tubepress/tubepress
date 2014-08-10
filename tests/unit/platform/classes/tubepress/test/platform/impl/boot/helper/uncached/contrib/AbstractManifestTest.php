@@ -147,23 +147,27 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
         return array();
     }
 
-    protected function assertLicenses(tubepress_platform_api_addon_AddonInterface $addon, array $expected)
+    protected function assertLicense(tubepress_platform_api_addon_AddonInterface $addon, array $expected)
     {
-        $actual = $addon->getLicenses();
-        $this->_assertMaps($actual, $expected, 'licenses');
+        $actual = $addon->getLicense();
+
+        $map = $actual;
+        $this->assertInstanceOf('tubepress_platform_api_collection_MapInterface', $map);
+
+        foreach ($expected as $key => $value) {
+
+            $this->assertTrue($map->containsKey($key));
+            $this->assertEquals($value, $map->get($key));
+        }
     }
 
     protected function assertAuthors(tubepress_platform_api_addon_AddonInterface $addon, array $expected)
     {
         $actual = $addon->getAuthors();
-        $this->_assertMaps($actual, $expected, 'authors');
-    }
 
-    private function _assertMaps(array $actual, array $expected, $pluralName)
-    {
         if (count($actual) !== count($expected)) {
 
-            $this->fail('Wrong count of ' . $pluralName);
+            $this->fail('Wrong count of authors');
             return;
         }
 

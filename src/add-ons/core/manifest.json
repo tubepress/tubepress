@@ -8,12 +8,10 @@
             "url" : "http://tubepress.com"
         }
     ],
-    "licenses": [
-        {
-            "type" : "MPL-2.0",
-            "url" : "http://www.mozilla.org/MPL/2.0/"
-        }
-    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
     "container-builder": {
         "compiler-passes" : {
             "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : 60000,

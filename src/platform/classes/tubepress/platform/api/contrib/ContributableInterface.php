@@ -50,7 +50,8 @@ interface tubepress_platform_api_contrib_ContributableInterface
      *
      *               key 'name'  : required, string
      *               key 'email' : optional, string
-     *               key 'url'   : optional, tubepress_platform_api_url_UrlInterface
+     *               key 'url'   : optional, tubepress_platform_api_url_UrlInterface,
+     *               key 'role'  : optional, string
      *
      * @api
      * @since 4.0.0
@@ -58,17 +59,17 @@ interface tubepress_platform_api_contrib_ContributableInterface
     function getAuthors();
 
     /**
-     * @return tubepress_platform_api_collection_MapInterface[] Required. One or more authors. Each author
-     *                                                          may contain the following property names.
+     * @return tubepress_platform_api_collection_MapInterface Required. The license which may contain the following
+     *                                                        property names.
      *
-     *               key 'url'  : required, tubepress_platform_api_url_UrlInterface. URL to the license text.
-     *               key 'type' : optional, string. An identifier to indicate to developer's the general license type.
+     *               key 'urls' : required, tubepress_platform_api_url_UrlInterface[]. URL(s) to the license(s) text.
+     *               key 'type' : required, string. An identifier to indicate to developer's the general license type.
      *                            Consider using one of http://www.opensource.org/licenses/alphabetical.
      *
      * @api
      * @since 4.0.0
      */
-    function getLicenses();
+    function getLicense();
 
     /**
      * @return string Optional. A longer description of this contributable that may be shown to the user.
@@ -130,6 +131,22 @@ interface tubepress_platform_api_contrib_ContributableInterface
      * @since 4.0.0
      */
     function getBugTrackerUrl();
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the source code for this contributable. May be null.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getSourceCodeUrl();
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the support forum for this contributable. May be null.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getForumUrl();
 
     /**
      * @return array Optional. One or more screenshots of this contributable.

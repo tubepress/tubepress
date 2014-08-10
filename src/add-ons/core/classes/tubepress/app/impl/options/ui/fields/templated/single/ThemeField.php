@@ -102,7 +102,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_ThemeField extends t
             'screenshots'   => $theme->getScreenshots(),
             'description'   => $theme->getDescription(),
             'authors'       => $theme->getAuthors(),
-            'licenses'      => $theme->getLicenses(),
+            'license'       => $theme->getLicense(),
             'version'       => $theme->getVersion(),
             'demo'          => $theme->getDemoUrl(),
             'keywords'      => $theme->getKeywords(),
@@ -110,6 +110,8 @@ class tubepress_app_impl_options_ui_fields_templated_single_ThemeField extends t
             'docs'          => $theme->getDocumentationUrl(),
             'download'      => $theme->getDownloadUrl(),
             'bugs'          => $theme->getBugTrackerUrl(),
+            'forum'         => $theme->getForumUrl(),
+            'sourceCode'    => $theme->getSourceCodeUrl(),
         );
 
         return $this->_deepToString($raw);

@@ -14,11 +14,11 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
     /**
      * Required attributes.
      */
-    private static $_PROPERTY_NAME     = 'name';
-    private static $_PROPERTY_VERSION  = 'version';
-    private static $_PROPERTY_TITLE    = 'title';
-    private static $_PROPERTY_AUTHORS  = 'authors';
-    private static $_PROPERTY_LICENSES = 'licenses';
+    private static $_PROPERTY_NAME    = 'name';
+    private static $_PROPERTY_VERSION = 'version';
+    private static $_PROPERTY_TITLE   = 'title';
+    private static $_PROPERTY_AUTHORS = 'authors';
+    private static $_PROPERTY_LICENSE = 'license';
 
     /**
      * Optional attributes.
@@ -31,24 +31,26 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
     private static $_PROPERTY_URL_DEMO          = 'urlDemo';
     private static $_PROPERTY_URL_DOWNLOAD      = 'urlDownload';
     private static $_PROPERTY_URL_BUGS          = 'urlBugs';
+    private static $_PROPERTY_URL_FORUM         = 'urlForum';
+    private static $_PROPERTY_URL_SOURCE        = 'urlSource';
 
     /**
      * @var tubepress_platform_api_collection_MapInterface
      */
     private $_properties;
 
-    public function __construct($name, $version, $title, array $authors, array $licenses)
+    public function __construct($name, $version, $title, array $authors, array $license)
     {
         $this->_properties = new tubepress_platform_impl_collection_Map();
 
-        $this->_elementsToMaps($authors);
-        $this->_elementsToMaps($licenses);
+        $this->_setAuthors($authors);
+        $license = $this->_buildLicense($license);
 
         $this->_properties->put(self::$_PROPERTY_NAME, $name);
         $this->_properties->put(self::$_PROPERTY_VERSION, $version);
         $this->_properties->put(self::$_PROPERTY_TITLE, $title);
         $this->_properties->put(self::$_PROPERTY_AUTHORS, $authors);
-        $this->_properties->put(self::$_PROPERTY_LICENSES, $licenses);
+        $this->_properties->put(self::$_PROPERTY_LICENSE, $license);
         $this->_properties->put(self::$_PROPERTY_KEYWORDS, array());
         $this->_properties->put(self::$_PROPERTY_SCREENSHOTS, array());
     }
@@ -106,19 +108,19 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
     }
 
     /**
-     * @return array Required. One or more associative arrays of license information. Each associative array
-     *               may contain the following:
+     * @return tubepress_platform_api_collection_MapInterface Required. The license which may contain the following
+     *                                                        property names.
      *
-     *               key 'url'  : required, tubepress_platform_api_url_UrlInterface. URL to the license text.
-     *               key 'type' : optional, string. An identifier to indicate to developer's the general license type.
+     *               key 'urls' : required, tubepress_platform_api_url_UrlInterface[]. URL(s) to the license(s) text.
+     *               key 'type' : required, string. An identifier to indicate to developer's the general license type.
      *                            Consider using one of http://www.opensource.org/licenses/alphabetical.
      *
      * @api
      * @since 4.0.0
      */
-    public function getLicenses()
+    public function getLicense()
     {
-        return $this->_properties->get(self::$_PROPERTY_LICENSES);
+        return $this->_properties->get(self::$_PROPERTY_LICENSE);
     }
 
     /**
@@ -204,6 +206,28 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
     }
 
     /**
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the source code for this contributable. May be null.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getSourceCodeUrl()
+    {
+        return $this->getOptionalProperty(self::$_PROPERTY_URL_SOURCE, null);
+    }
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface Optional. A link to the support forum for this contributable. May be null.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getForumUrl()
+    {
+        return $this->getOptionalProperty(self::$_PROPERTY_URL_FORUM, null);
+    }
+
+    /**
      * @return array Optional. One or more screenshots of this contributable.
      *
      *               Each element of this array is an array of two tubepress_platform_api_url_UrlInterface instances
@@ -272,6 +296,16 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
         $this->_properties->put(self::$_PROPERTY_URL_DOCUMENTATION, $url);
     }
 
+    public function setSourceUrl(tubepress_platform_api_url_UrlInterface $url)
+    {
+        $this->_properties->put(self::$_PROPERTY_URL_SOURCE, $url);
+    }
+
+    public function setForumUrl(tubepress_platform_api_url_UrlInterface $url)
+    {
+        $this->_properties->put(self::$_PROPERTY_URL_FORUM, $url);
+    }
+
     protected function getOptionalProperty($key, $default)
     {
         if (!$this->_properties->containsKey($key)) {
@@ -282,7 +316,7 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
         return $this->_properties->get($key);
     }
 
-    private function _elementsToMaps(array &$incoming)
+    private function _setAuthors(array &$incoming)
     {
         for ($x = 0; $x < count($incoming); $x++) {
 
@@ -295,5 +329,17 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
 
             $incoming[$x] = $map;
         }
+    }
+
+    private function _buildLicense(array $incoming)
+    {
+        $map = new tubepress_platform_impl_collection_Map();
+
+        foreach ($incoming as $key => $value) {
+
+            $map->put($key, $value);
+        }
+
+        return $map;
     }
 }

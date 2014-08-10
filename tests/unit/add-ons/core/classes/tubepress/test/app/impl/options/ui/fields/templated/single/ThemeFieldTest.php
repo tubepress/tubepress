@@ -37,21 +37,23 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
         $mockTheme->shouldReceive('getName')->once()->andReturn('theme name');
         $mockTheme->shouldReceive('getDescription')->once()->andReturn('theme description');
         $mockTheme->shouldReceive('getAuthors')->once()->andReturn(array('theme author'));
-        $mockTheme->shouldReceive('getLicenses')->once()->andReturn(array(
-            array('type' => 'foo license', 'url' => 'http://foo.bar')
-        ));
+        $mockTheme->shouldReceive('getLicense')->once()->andReturn(
+            array('type' => 'foo license', 'urls' => array('http://foo.bar'))
+        );
         $mockTheme->shouldReceive('getVersion')->once()->andReturn('8.0.0');
         $mockTheme->shouldReceive('getDemoUrl')->once()->andReturn('http://foo.bar/demo');
         $mockTheme->shouldReceive('getHomepageUrl')->once()->andReturn('http://foo.bar/home');
         $mockTheme->shouldReceive('getDocumentationUrl')->once()->andReturn('http://foo.bar/docs');
         $mockTheme->shouldReceive('getDownloadUrl')->once()->andReturn('http://foo.bar/download');
         $mockTheme->shouldReceive('getBugTrackerUrl')->once()->andReturn('http://foo.bar/bugs');
+        $mockTheme->shouldReceive('getForumUrl')->once()->andReturn('http://foo.bar/forum');
+        $mockTheme->shouldReceive('getSourceCodeUrl')->once()->andReturn('http://foo.bar/source');
         $mockTheme->shouldReceive('getKeywords')->once()->andReturn(array('some', 'key', 'word'));
         $mockTheme->shouldReceive('getScreenshots')->once()->andReturn(array('some', 'screen', 'shot'));
         $this->_mockThemeRegistry->shouldReceive('getAll')->once()->andReturn($mockThemes);
 
         $actual = $this->getSut()->getThemeDataAsJson();
-        $expected = '{"theme name":{"screenshots":["some","screen","shot"],"description":"theme description","authors":["theme author"],"licenses":[{"type":"foo license","url":"http:\/\/foo.bar"}],"version":"8.0.0","demo":"http:\/\/foo.bar\/demo","keywords":["some","key","word"],"homepage":"http:\/\/foo.bar\/home","docs":"http:\/\/foo.bar\/docs","download":"http:\/\/foo.bar\/download","bugs":"http:\/\/foo.bar\/bugs"}}';
+        $expected = '{"theme name":{"screenshots":["some","screen","shot"],"description":"theme description","authors":["theme author"],"license":{"type":"foo license","urls":["http:\/\/foo.bar"]},"version":"8.0.0","demo":"http:\/\/foo.bar\/demo","keywords":["some","key","word"],"homepage":"http:\/\/foo.bar\/home","docs":"http:\/\/foo.bar\/docs","download":"http:\/\/foo.bar\/download","bugs":"http:\/\/foo.bar\/bugs","forum":"http:\/\/foo.bar\/forum","sourceCode":"http:\/\/foo.bar\/source"}}';
 
         $this->assertEquals($expected, $actual);
     }

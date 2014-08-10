@@ -8,12 +8,10 @@
             "url" : "http://tubepress.com"
         }
     ],
-    "licenses": [
-        {
-            "type" : "MPL-2.0",
-            "url" : "http://www.mozilla.org/MPL/2.0/"
-        }
-    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
     "description": "Provides backwards-compatability for older versions of TubePress",
     "container-builder": {
         "extensions" : [

@@ -112,10 +112,8 @@ abstract class tubepress_test_platform_impl_contrib_AbstractContributableTest ex
         );
 
         $licenses = array(
-            array(
-                'url'  => $urlFactory->fromString('http://license.com/text.html'),
-                'type' => 'some license type'
-            )
+            'urls' => array($urlFactory->fromString('http://license.com/text.html')),
+            'type' => 'some license type'
         );
 
         return $this->buildSut(
@@ -150,12 +148,13 @@ abstract class tubepress_test_platform_impl_contrib_AbstractContributableTest ex
         $this->assertEquals('other author name', $author2->get('name'));
         $this->assertEquals('fake@email.com', $author2->get('email'));
 
-        $licences = $contrib->getLicenses();
-        $this->assertCount(1, $licences);
-        $license = $licences[0];
+        $license = $contrib->getLicense();
         $this->assertInstanceOf('tubepress_platform_api_collection_MapInterface', $license);
         $this->assertTrue($license->count() === 2);
-        $licenseUrl = $license->get('url');
+        $licenseUrls = $license->get('urls');
+        $this->assertTrue(is_array($licenseUrls));
+        $this->assertCount(1, $licenseUrls);
+        $licenseUrl = $licenseUrls[0];
         $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $licenseUrl);
         $this->assertEquals('http://license.com/text.html', "$licenseUrl");
         $this->assertEquals('some license type', $license->get('type'));

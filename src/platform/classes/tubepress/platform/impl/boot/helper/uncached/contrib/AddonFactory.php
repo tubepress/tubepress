@@ -68,7 +68,7 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory extends 
             $manifestData[self::$FIRST_LEVEL_KEY_VERSION],
             $manifestData[self::$FIRST_LEVEL_KEY_TITLE],
             $manifestData[self::$FIRST_LEVEL_KEY_AUTHORS],
-            $manifestData[self::$FIRST_LEVEL_KEY_LICENSES]
+            $manifestData[self::$FIRST_LEVEL_KEY_LICENSE]
         );
 
         $classMapKey       = self::$_SECOND_LEVEL_KEY_CLASSMAP;

@@ -131,7 +131,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     public function testBadHomepage($candidate)
     {
         $data = array(
-            'urls' => array(
+            'support' => array(
                 'homepage' => $candidate
             ));
 
@@ -144,7 +144,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     public function testBadDocs($candidate)
     {
         $data = array(
-            'urls' => array(
+            'support' => array(
                 'documentation' => $candidate
             ));
 
@@ -157,7 +157,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     public function testBadDemo($candidate)
     {
         $data = array(
-            'urls' => array(
+            'support' => array(
                 'demo' => $candidate
             ));
 
@@ -170,7 +170,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     public function testBadDownload($candidate)
     {
         $data = array(
-            'urls' => array(
+            'support' => array(
                 'download' => $candidate
             ));
 
@@ -183,7 +183,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     public function testBadBugs($candidate)
     {
         $data = array(
-            'urls' => array(
+            'support' => array(
                 'bugTracker' => $candidate
             ));
 
@@ -254,7 +254,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     public function testBadLicenses($candidate, $message)
     {
         $data = array(
-            'licenses' => $candidate
+            'license' => $candidate
         );
 
         $this->confirmFailures($data, array($message));
@@ -264,16 +264,15 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     {
         return array(
 
-            array(null, 'Missing licenses'),
-            array(new stdClass(), 'Non-array data for licenses'),
-            array(array(), 'Missing licenses'),
-            array(array(array()), 'License 1 is missing URL attribute'),
-            array(array(array('foo' => 'bar')), 'License 1 is missing URL attribute'),
-            array(array(array('url' => '')), 'License 1 has an invalid URL attribute'),
-            array(array(array('url' => new stdClass())), 'License 1 has an invalid URL attribute'),
-            array(array(array('url' => 'http://foo.bar/license.txt', 'foo' => 'bar')), 'License 1 has attributes other than url and type'),
-            array(array(array('url' => 'http://foo.bar/license.txt', 'foo' => new stdClass())), 'License 1 has attributes other than url and type'),
-            array(array(array('url' => 'http://foo.bar/license.txt', 'type' => new stdClass())), 'License 1 has an invalid type attribute'),
+            array(null, 'Missing license'),
+            array(new stdClass(), 'License is not an array'),
+            array(array(), 'License is missing "type" attribute'),
+            array(array('foo' => 'bar'), 'License is missing "type" attribute'),
+            array(array('type' => 'foo', 'urls' => ''), 'License "urls" attribute is not an array'),
+            array(array('type' => 'foo', 'urls' => new stdClass()), 'License "urls" attribute is not an array'),
+            array(array('type' => 'foo', 'urls' => array('http://foo.bar/license.txt'), 'foo' => 'bar'), 'License has attributes other than urls and type'),
+            array(array('type' => 'foo', 'urls' => array('http://foo.bar/license.txt'), 'foo' => new stdClass()), 'License has attributes other than urls and type'),
+            array(array('type' => new stdClass(), 'urls' => array('http://foo.bar/license.txt')), 'License has an invalid "type" attribute'),
         );
     }
 
@@ -298,7 +297,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
             array(array(), 'Missing authors'),
             array(array(array()), 'Author 1 is missing name'),
             array(array(array('foo' => 'bar')), 'Author 1 is missing name'),
-            array(array(array('name' => 'some name', 'foo' => 'bar')), 'Author 1 has attributes other than name, email, and url'),
+            array(array(array('name' => 'some name', 'foo' => 'bar')), 'Author 1 has attributes other than name, email, role, and url'),
             array(array(array('name' => 'some name', 'email' => new stdClass())), 'Author 1 has an invalid email attribute'),
             array(array(array('name' => 'some name', 'url' => new stdClass())), 'Author 1 has an invalid URL attribute'),
         );
@@ -421,14 +420,15 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
         $this->assertTrue($secondAuthor->count() === 2);
         $this->assertEquals('other author name', $secondAuthor->get('name'));
         $this->assertEquals('fake@email.com', $secondAuthor->get('email'));
-        $licenses = $valid->getLicenses();
-        $this->assertTrue(is_array($licenses));
-        $this->assertCount(1, $licenses);
-        $license = $licenses[0];
+        $license = $valid->getLicense();
         $this->assertInstanceOf('tubepress_platform_api_collection_MapInterface', $license);
         $this->assertTrue($license->count() === 2);
-        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $license->get('url'));
-        $this->assertEquals('http://license.com/text.html', (string) $license->get('url'));
+        $urls = $license->get('urls');
+        $this->assertTrue(is_array($urls));
+        $this->assertCount(1, $urls);
+        $url = $urls[0];
+        $this->assertInstanceOf('tubepress_platform_api_url_UrlInterface', $url);
+        $this->assertEquals('http://license.com/text.html', (string) $url);
         $this->assertEquals('some license type', $license->get('type'));
     }
 
@@ -455,11 +455,9 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
                     'email' => 'fake@email.com'
                 ),
             ),
-            'licenses' => array(
-                array(
-                    'url'  => 'http://license.com/text.html',
-                    'type' => 'some license type'
-                )
+            'license' => array(
+                'urls' => array('http://license.com/text.html'),
+                'type' => 'some license type'
             )
         );
     }

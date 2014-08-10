@@ -36,28 +36,31 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
      */
     private $_shouldLog;
 
-    protected static $FIRST_LEVEL_KEY_NAME     = 'name';
-    protected static $FIRST_LEVEL_KEY_TITLE    = 'title';
-    protected static $FIRST_LEVEL_KEY_VERSION  = 'version';
-    protected static $FIRST_LEVEL_KEY_AUTHORS  = 'authors';
-    protected static $FIRST_LEVEL_KEY_LICENSES = 'licenses';
+    protected static $FIRST_LEVEL_KEY_NAME    = 'name';
+    protected static $FIRST_LEVEL_KEY_TITLE   = 'title';
+    protected static $FIRST_LEVEL_KEY_VERSION = 'version';
+    protected static $FIRST_LEVEL_KEY_AUTHORS = 'authors';
+    protected static $FIRST_LEVEL_KEY_LICENSE = 'license';
 
     private static $_FIRST_LEVEL_KEY_KEYWORDS    = 'keywords';
     private static $_FIRST_LEVEL_KEY_DESCRIPTION = 'description';
     private static $_FIRST_LEVEL_KEY_SCREENSHOTS = 'screenshots';
-    private static $_FIRST_LEVEL_KEY_URLS        = 'urls';
+    private static $_FIRST_LEVEL_KEY_SUPPORT     = 'support';
 
     private static $_SECOND_LEVEL_KEY_URL_BUGS     = 'bugTracker';
     private static $_SECOND_LEVEL_KEY_URL_DEMO     = 'demo';
     private static $_SECOND_LEVEL_KEY_URL_DOWNLOAD = 'download';
     private static $_SECOND_LEVEL_KEY_URL_HOME     = 'homepage';
     private static $_SECOND_LEVEL_KEY_URL_DOCS     = 'documentation';
+    private static $_SECOND_LEVEL_KEY_URL_FORUM    = 'forum';
+    private static $_SECOND_LEVEL_KEY_URL_SOURCE   = 'source';
 
     private static $_SECOND_LEVEL_KEY_AUTHOR_NAME  = 'name';
     private static $_SECOND_LEVEL_KEY_AUTHOR_EMAIL = 'email';
     private static $_SECOND_LEVEL_KEY_AUTHOR_URL   = 'url';
+    private static $_SECOND_LEVEL_KEY_AUTHOR_ROLE  = 'role';
 
-    private static $_SECOND_LEVEL_KEY_LICENSE_URL  = 'url';
+    private static $_SECOND_LEVEL_KEY_LICENSE_URLS = 'urls';
     private static $_SECOND_LEVEL_KEY_LICENSE_TYPE = 'type';
 
     /**
@@ -82,6 +85,8 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
             self::$_SECOND_LEVEL_KEY_URL_DEMO     => 'setDemoUrl',
             self::$_SECOND_LEVEL_KEY_URL_DOCS     => 'setDocumentationUrl',
             self::$_SECOND_LEVEL_KEY_URL_DOWNLOAD => 'setDownloadUrl',
+            self::$_SECOND_LEVEL_KEY_URL_SOURCE   => 'setSourceUrl',
+            self::$_SECOND_LEVEL_KEY_URL_FORUM    => 'setForumUrl',
         );
     }
 
@@ -113,7 +118,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         $this->_setDescription($manifestData, $contributable);
         $this->_setKeywords($manifestData, $contributable);
         $this->_setScreenshots($manifestData, $contributable);
-        $this->_setUrls($manifestData, $contributable);
+        $this->_setSupport($manifestData, $contributable);
 
         return $contributable;
     }
@@ -142,20 +147,20 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         }
     }
 
-    private function _setUrls(array $manifestData, tubepress_platform_impl_contrib_AbstractContributable $contrib)
+    private function _setSupport(array $manifestData, tubepress_platform_impl_contrib_AbstractContributable $contrib)
     {
-        $urlsKey = self::$_FIRST_LEVEL_KEY_URLS;
+        $supportKey = self::$_FIRST_LEVEL_KEY_SUPPORT;
 
-        if (!isset($manifestData[$urlsKey])) {
+        if (!isset($manifestData[$supportKey])) {
 
             return;
         }
 
         foreach ($this->_urlsToSettersMap as $key => $setter) {
 
-            if (isset($manifestData[$urlsKey][$key])) {
+            if (isset($manifestData[$supportKey][$key])) {
 
-                $contrib->$setter($manifestData[$urlsKey][$key]);
+                $contrib->$setter($manifestData[$supportKey][$key]);
             }
         }
     }
@@ -266,7 +271,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         $this->_handleTitle($manifestData, $errors);
         $this->_handleDescription($manifestData, $errors);
         $this->_handleAuthors($manifestData, $errors);
-        $this->_handleLicenses($manifestData, $errors);
+        $this->_handleLicense($manifestData, $errors);
 
         $this->_handleKeywords($manifestData, $errors);
         $this->_handleUrls($manifestData, $errors);
@@ -374,8 +379,23 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
     {
         $key = self::$FIRST_LEVEL_KEY_AUTHORS;
 
-        if (!$this->_atLeastOneAuthorOrLicense($manifestData, $errors, $key)) {
+        if (!isset($manifestData[$key])) {
 
+            $errors[] = "Missing $key";
+            return;
+        }
+
+        $candidate = $manifestData[$key];
+
+        if (!is_array($candidate)) {
+
+            $errors[] = "Non-array data for $key";
+            return;
+        }
+
+        if (count($candidate) < 1) {
+
+            $errors[] = "Missing $key";
             return;
         }
 
@@ -394,6 +414,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         $authorNameKey  = self::$_SECOND_LEVEL_KEY_AUTHOR_NAME;
         $authorEmailKey = self::$_SECOND_LEVEL_KEY_AUTHOR_EMAIL;
         $authorUrlKey   = self::$_SECOND_LEVEL_KEY_AUTHOR_URL;
+        $authorRoleKey  = self::$_SECOND_LEVEL_KEY_AUTHOR_ROLE;
 
         if (!isset($candidateAuthor[$authorNameKey])) {
 
@@ -406,12 +427,13 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         $extraKeys = array_diff(array_keys($candidateAuthor), array(
             $authorNameKey,
             $authorEmailKey,
-            $authorUrlKey
+            $authorUrlKey,
+            $authorRoleKey,
         ));
 
         if (count($extraKeys) > 0) {
 
-            $errors[] = sprintf('Author %d has attributes other than name, email, and url', ($index + 1));
+            $errors[] = sprintf('Author %d has attributes other than name, email, role, and url', ($index + 1));
             return;
         }
 
@@ -426,7 +448,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
 
             } else {
 
-                $candidateAuthor[$authorEmailKey] = trim($candidateAuthor[$authorEmailKey]);
+                $candidateAuthor[$authorEmailKey] = trim($email);
             }
         }
 
@@ -443,97 +465,103 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
                 $errors[] = sprintf('Author %d has an invalid URL attribute', ($index + 1));
             }
         }
-    }
 
-    private function _handleLicenses(array &$manifestData, array &$errors)
-    {
-        $key = self::$FIRST_LEVEL_KEY_LICENSES;
+        if (isset($candidateAuthor[$authorRoleKey])) {
 
-        if (!$this->_atLeastOneAuthorOrLicense($manifestData, $errors, $key)) {
+            $role = $candidateAuthor[$authorRoleKey];
 
-            return;
-        }
+            if (!$role || !is_string($role)) {
 
-        $allLicensesArray = &$manifestData[$key];
-
-        for ($x = 0; $x < count($allLicensesArray); $x++) {
-
-            $license = &$allLicensesArray[$x];
-
-            $this->_handleSingleLicense($license, $errors, $x);
-        }
-    }
-
-    private function _handleSingleLicense(array &$candidateLicense, array &$errors, $index)
-    {
-        $licenseUrlKey  = self::$_SECOND_LEVEL_KEY_LICENSE_URL;
-        $licenseTypeKey = self::$_SECOND_LEVEL_KEY_LICENSE_TYPE;
-
-        if (!isset($candidateLicense[$licenseUrlKey])) {
-
-            $errors[] = sprintf('License %d is missing URL attribute', ($index + 1));
-            return;
-
-        }
-
-        $realUrl = $this->toUrl($candidateLicense[$licenseUrlKey]);
-
-        if ($realUrl) {
-
-            $candidateLicense[$licenseUrlKey] = $realUrl;
-
-        } else {
-
-            $errors[] = sprintf('License %d has an invalid URL attribute', ($index + 1));
-            return;
-        }
-
-        $extraKeys = array_diff(array_keys($candidateLicense), array($licenseUrlKey, $licenseTypeKey));
-
-        if (count($extraKeys) > 0) {
-
-            $errors[] = sprintf('License %d has attributes other than url and type', ($index + 1));
-            return;
-        }
-
-        if (isset($candidateLicense[$licenseTypeKey])) {
-
-            $type = $candidateLicense[$licenseTypeKey];
-
-            if (!$type || !is_string($type)) {
-
-                $errors[] = sprintf('License %d has an invalid type attribute', ($index + 1));
+                $errors[] = sprintf('Author %d has an invalid role attribute', ($index + 1));
+                return;
 
             } else {
 
-                $candidateLicense[$licenseTypeKey] = trim($candidateLicense[$licenseTypeKey]);
+                $candidateAuthor[$authorRoleKey] = trim($role);
             }
         }
     }
 
-    private function _atLeastOneAuthorOrLicense(array &$manifestData, array &$errors, $key)
+    private function _handleLicense(array &$manifestData, array &$errors)
     {
+        $key = self::$FIRST_LEVEL_KEY_LICENSE;
+
         if (!isset($manifestData[$key])) {
 
-            $errors[] = "Missing $key";
-            return false;
+            $errors[] = 'Missing license';
+            return;
         }
 
-        $candidate = $manifestData[$key];
+        $license        = $manifestData[$key];
+        $licenseUrlKey  = self::$_SECOND_LEVEL_KEY_LICENSE_URLS;
+        $licenseTypeKey = self::$_SECOND_LEVEL_KEY_LICENSE_TYPE;
 
-        if (!is_array($candidate)) {
+        if (!is_array($license)) {
 
-            $errors[] = "Non-array data for $key";
-            return false;
+            $errors[] = 'License is not an array';
+            return;
         }
 
-        if (count($candidate) < 1) {
+        if (!isset($license[$licenseTypeKey])) {
 
-            $errors[] = "Missing $key";
-            return false;
+            $errors[] = 'License is missing "type" attribute';
+            return;
         }
 
-        return true;
+        $type = $license[$licenseTypeKey];
+
+        if (!$type || !is_string($type)) {
+
+            $errors[] = 'License has an invalid "type" attribute';
+            return;
+        }
+
+        $license[$licenseTypeKey] = trim($type);
+
+        if (!isset($license[$licenseUrlKey])) {
+
+            $errors[] = 'License is missing "urls" attribute';
+            return;
+        }
+
+        $urls = &$license[$licenseUrlKey];
+
+        if (!is_array($urls)) {
+
+            $errors[] = 'License "urls" attribute is not an array';
+            return;
+        }
+
+        if (count($urls) === 0) {
+
+            $errors[] = 'License must define at least one URL';
+            return;
+        }
+
+        for ($index = 0; $index < count($urls); $index++) {
+
+            $realUrl = $this->toUrl($urls[$index]);
+
+            if ($realUrl) {
+
+                $urls[$index] = $realUrl;
+
+            } else {
+
+                $errors[] = sprintf('License URL %d is invalid', ($index + 1));
+                return;
+            }
+        }
+
+        $extraKeys = array_diff(array_keys($license), array($licenseUrlKey, $licenseTypeKey));
+
+        if (count($extraKeys) > 0) {
+
+            $errors[] = 'License has attributes other than urls and type';
+            return;
+        }
+
+        $manifestData[$key] = $license;
     }
 
     private function _handleKeywords(array &$manifestData, array &$errors)
@@ -564,7 +592,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
 
     private function _handleUrls(array &$manifestData, array &$errors)
     {
-        $urlsKey = self::$_FIRST_LEVEL_KEY_URLS;
+        $urlsKey = self::$_FIRST_LEVEL_KEY_SUPPORT;
 
         if (!isset($manifestData[$urlsKey])) {
 
