@@ -34,20 +34,32 @@
 
                                 ''              : 'description',
                                 'Author(s)'     : 'authors',
-                                'License(s)'    : 'licenses',
+                                'License'       : 'license',
                                 'Version'       : 'version',
-                                'Demo'          : 'demo',
                                 'Keywords'      : 'keywords',
-                                'Homepage'      : 'homepage',
-                                'Documentation' : 'docs',
-                                'Download'      : 'download',
-                                'Bugs'          : 'bugs'
                             } %}
 
                             {% for label, id in termMap %}
                                 <dt style="display: none">{{ label }}</dt>
                                 <dd style="display: none" id="theme-field-{{ id }}"></dd>
                             {% endfor %}
+
+                            {% set termMap = {
+
+                            'Demo'          : 'demo',
+                            'Homepage'      : 'homepage',
+                            'Documentation' : 'docs',
+                            'Download'      : 'download',
+                            'Bugs'          : 'bugs',
+                            'Forum'         : 'forum',
+                            'Source code'   : 'sourceCode',
+                            } %}
+
+                            {% for label, id in termMap %}
+                                <dt style="display: none">{{ label }}</dt>
+                                <dd style="display: none" id="theme-field-support-{{ id }}"></dd>
+                            {% endfor %}
+
                         {% endif %}
                     {% endfor %}
                 {% endif %}

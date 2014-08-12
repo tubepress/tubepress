@@ -12,10 +12,12 @@
     'use strict';
 
     var themeData,
-        fieldNames = [
+        simpleFieldNames = [
 
-            'description', 'author', 'licenses', 'version',
-            'demo', 'keywords', 'homepage', 'docs', 'download', 'bugs'
+            'authors', 'description', 'license', 'screenshots', 'version'
+        ],
+        urlFieldNames = [
+            'demo', 'homepage', 'docs', 'download', 'bugs', 'forum', 'sourceCode'
         ],
         fieldMap = {},
         selectField,
@@ -56,27 +58,36 @@
 
             var data = activeThemeData[fieldName],
                 toReturn = '',
-                i;
+                i,
+                author,
+                license,
+                licenseUrls;
+
+            if (jquery.inArray(fieldName, urlFieldNames) !== -1) {
+
+                return makeUrl(data, data);
+            }
 
             switch (fieldName) {
 
-            case 'demo':
-            case 'homepage':
-            case 'docs':
-            case 'download':
-            case 'bugs':
-
-                return makeUrl(data, data);
-
-            case 'licenses':
+            case 'authors':
 
                 for (i in data) {
 
                     if (data.hasOwnProperty(i)) {
 
-                        toReturn += makeUrl(data[i].url, data[i].type);
+                        author = data[i];
 
-                        if (i !== (data.length - 1)) {
+                        if (author.hasOwnProperty('url')) {
+
+                            toReturn += makeUrl(author.url, author.name);
+
+                        } else {
+
+                            toReturn += author.name;
+                        }
+
+                        if (parseInt(i, 10) !== (data.length - 1) && data.length > (parseInt(i, 10) + 1)) {
 
                             toReturn += '<br />';
                         }
@@ -85,14 +96,42 @@
 
                 return toReturn;
 
-            case 'author':
+            case 'license':
 
-                if (data.hasOwnProperty('url')) {
+                license  = data;
+                toReturn = license.type;
 
-                    return makeUrl(data.url, data.name);
+                if (!license.hasOwnProperty('urls')) {
+
+                    return toReturn;
                 }
 
-                return data.name;
+                if (!jquery.isArray(license.urls)) {
+
+                    return toReturn;
+                }
+
+                licenseUrls = license.urls;
+
+                for (i in licenseUrls) {
+
+                    if (licenseUrls.hasOwnProperty(i)) {
+
+                        if (parseInt(i, 10) === 0) {
+
+                            toReturn += ' [';
+                        }
+
+                        toReturn += makeUrl(licenseUrls[i], (parseInt(i, 10) + 1));
+
+                        if (parseInt(i, 10) !== (licenseUrls.length - 1) && licenseUrls.length > (parseInt(i, 10) + 1)) {
+
+                            toReturn += ', ';
+                        }
+                    }
+                }
+
+                return toReturn + ']';
 
             default:
                 return data;
@@ -101,15 +140,18 @@
 
         getScreenshotDivs = function (screenshots) {
 
-            var thumbUrl, columnDiv, anchor, img, toReturn = [];
+            var i, urlThumb, urlFull, columnDiv, anchor, img, toReturn = [];
 
-            for (thumbUrl in screenshots) {
+            for (i in screenshots) {
 
-                if (screenshots.hasOwnProperty(thumbUrl)) {
+                if (screenshots.hasOwnProperty(i)) {
+
+                    urlThumb = screenshots[i][0];
+                    urlFull  = screenshots[i][1];
 
                     columnDiv = jquery(doc.createElement('div')).addClass('col-xs-6 col-sm-12 col-md-4').css('display', 'none');
-                    anchor    = jquery(doc.createElement('a')).attr('href', screenshots[thumbUrl]).addClass('thumbnail').attr('data-gallery', '');
-                    img       = jquery(doc.createElement('img')).attr('src', thumbUrl).addClass('img-responsive').attr('alt', 'theme screenshot');
+                    anchor    = jquery(doc.createElement('a')).attr('href', urlFull).addClass('thumbnail').attr('data-gallery', '');
+                    img       = jquery(doc.createElement('img')).attr('src', urlThumb).addClass('img-responsive').attr('alt', 'theme screenshot');
 
                     anchor.append(img);
                     columnDiv.append(anchor);
@@ -143,15 +185,17 @@
 
         loadTheme = function (themeName) {
 
-            var activeThemeData = themeData[themeName],
+            var activeThemeData  = themeData[themeName],
+                text_support     = 'support',
+                text_screenshots = 'screenshots',
                 i,
                 fieldName;
 
-            for (i in fieldNames) {
+            for (i in simpleFieldNames) {
 
-                if (fieldNames.hasOwnProperty(i)) {
+                if (simpleFieldNames.hasOwnProperty(i)) {
 
-                    fieldName = fieldNames[i];
+                    fieldName = simpleFieldNames[i];
 
                     if (activeThemeData[fieldName] && (!jquery.isArray(activeThemeData[fieldName]) || activeThemeData[fieldName].length > 0)) {
 
@@ -172,13 +216,34 @@
                 }
             }
 
-            if (activeThemeData.hasOwnProperty('screenshots') && jquery.isPlainObject(activeThemeData.screenshots)) {
+            for (i in urlFieldNames) {
 
-                showScreenshots(activeThemeData.screenshots);
+                if (urlFieldNames.hasOwnProperty(i)) {
 
-            } else {
+                    fieldName = urlFieldNames[i];
 
-                hideScreenshots();
+                    if (activeThemeData[text_support] && activeThemeData[text_support][fieldName] && (!jquery.isArray(activeThemeData[text_support][fieldName]) || activeThemeData[text_support][fieldName].length > 0)) {
+
+                        fieldMap[fieldName].html(getFieldHtml(activeThemeData[text_support], fieldName));
+                        showField(fieldMap[fieldName]);
+
+                    } else {
+
+                        hideField(fieldMap[fieldName]);
+                    }
+                }
+            }
+
+            if (activeThemeData.hasOwnProperty(text_screenshots) && jquery.isArray(activeThemeData[text_screenshots])) {
+
+                if (activeThemeData[text_screenshots].length > 0) {
+
+                    showScreenshots(activeThemeData[text_screenshots]);
+
+                } else {
+
+                    hideScreenshots();
+                }
             }
         },
 
@@ -208,13 +273,23 @@
 
             var i, fieldName, blueImpGallery = jquery('#blueimp-gallery');
 
-            for (i in fieldNames) {
+            for (i in simpleFieldNames) {
 
-                if (fieldNames.hasOwnProperty(i)) {
+                if (simpleFieldNames.hasOwnProperty(i)) {
 
-                    fieldName = fieldNames[i];
+                    fieldName = simpleFieldNames[i];
 
                     fieldMap[fieldName] = jquery('#theme-field-' + fieldName);
+                }
+            }
+
+            for (i in urlFieldNames) {
+
+                if (urlFieldNames.hasOwnProperty(i)) {
+
+                    fieldName = urlFieldNames[i];
+
+                    fieldMap[fieldName] = jquery('#theme-field-support-' + fieldName);
                 }
             }
 

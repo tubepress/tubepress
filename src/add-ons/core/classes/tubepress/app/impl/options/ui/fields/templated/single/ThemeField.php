@@ -99,19 +99,21 @@ class tubepress_app_impl_options_ui_fields_templated_single_ThemeField extends t
     {
         $raw = array(
 
-            'screenshots'   => $theme->getScreenshots(),
-            'description'   => $theme->getDescription(),
             'authors'       => $theme->getAuthors(),
+            'description'   => $theme->getDescription(),
+            //'keywords'      => $theme->getKeywords(),
             'license'       => $theme->getLicense(),
+            'screenshots'   => $theme->getScreenshots(),
+            'support'       => array(
+                'demo'          => $theme->getDemoUrl(),
+                'homepage'      => $theme->getHomepageUrl(),
+                'docs'          => $theme->getDocumentationUrl(),
+                'download'      => $theme->getDownloadUrl(),
+                'bugs'          => $theme->getBugTrackerUrl(),
+                'forum'         => $theme->getForumUrl(),
+                'sourceCode'    => $theme->getSourceCodeUrl(),
+            ),
             'version'       => $theme->getVersion(),
-            'demo'          => $theme->getDemoUrl(),
-            'keywords'      => $theme->getKeywords(),
-            'homepage'      => $theme->getHomepageUrl(),
-            'docs'          => $theme->getDocumentationUrl(),
-            'download'      => $theme->getDownloadUrl(),
-            'bugs'          => $theme->getBugTrackerUrl(),
-            'forum'         => $theme->getForumUrl(),
-            'sourceCode'    => $theme->getSourceCodeUrl(),
         );
 
         return $this->_deepToString($raw);

@@ -48,12 +48,11 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
         $mockTheme->shouldReceive('getBugTrackerUrl')->once()->andReturn('http://foo.bar/bugs');
         $mockTheme->shouldReceive('getForumUrl')->once()->andReturn('http://foo.bar/forum');
         $mockTheme->shouldReceive('getSourceCodeUrl')->once()->andReturn('http://foo.bar/source');
-        $mockTheme->shouldReceive('getKeywords')->once()->andReturn(array('some', 'key', 'word'));
         $mockTheme->shouldReceive('getScreenshots')->once()->andReturn(array('some', 'screen', 'shot'));
         $this->_mockThemeRegistry->shouldReceive('getAll')->once()->andReturn($mockThemes);
 
         $actual = $this->getSut()->getThemeDataAsJson();
-        $expected = '{"theme name":{"screenshots":["some","screen","shot"],"description":"theme description","authors":["theme author"],"license":{"type":"foo license","urls":["http:\/\/foo.bar"]},"version":"8.0.0","demo":"http:\/\/foo.bar\/demo","keywords":["some","key","word"],"homepage":"http:\/\/foo.bar\/home","docs":"http:\/\/foo.bar\/docs","download":"http:\/\/foo.bar\/download","bugs":"http:\/\/foo.bar\/bugs","forum":"http:\/\/foo.bar\/forum","sourceCode":"http:\/\/foo.bar\/source"}}';
+        $expected = '{"theme name":{"authors":["theme author"],"description":"theme description","license":{"type":"foo license","urls":["http:\/\/foo.bar"]},"screenshots":["some","screen","shot"],"support":{"demo":"http:\/\/foo.bar\/demo","homepage":"http:\/\/foo.bar\/home","docs":"http:\/\/foo.bar\/docs","download":"http:\/\/foo.bar\/download","bugs":"http:\/\/foo.bar\/bugs","forum":"http:\/\/foo.bar\/forum","sourceCode":"http:\/\/foo.bar\/source"},"version":"8.0.0"}}';
 
         $this->assertEquals($expected, $actual);
     }
