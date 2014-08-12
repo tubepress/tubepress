@@ -76,6 +76,8 @@ class tubepress_youtube2_impl_listeners_media_HttpItemListener
             $this->_relativeQuery($xpath, $index, 'atom:author/atom:name')->item(0)->nodeValue;
         $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID] =
             $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME];
+        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_URL] =
+            sprintf('https://www.youtube.com/user/%s', $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]);
 
         /* Category */
         /** @noinspection PhpUndefinedMethodInspection */

@@ -43,9 +43,13 @@
         {% endif %}
 
         {# Do we have an author URL? If so, let's make it an anchor. #}
-        {% if attributeName == 'authorDisplayName' and mediaItem.authorUrl is defined %}
+        {% if attributeName == 'authorDisplayName' %}
             {% block metaValueAuthorDisplayName %}
-                <a ref="nofollow" target="_blank" href="{{ mediaItem.authorUrl }}">{{ mediaItem.authorDisplayName }}</a>
+                {% if mediaItem.authorUrl is defined %}
+                    <a ref="nofollow" target="_blank" href="{{ mediaItem.authorUrl }}">{{ mediaItem.authorDisplayName }}</a>
+                {% else %}
+                    {{ mediaItem.authorDisplayName }}
+                {% endif %}
             {% endblock %}
         {% endif %}
 

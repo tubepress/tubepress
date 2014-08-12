@@ -66,6 +66,8 @@ class tubepress_vimeo2_impl_listeners_media_HttpItemListener
             $mediaItemArray[$index]->owner->display_name;
         $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID] =
             $mediaItemArray[$index]->owner->username;
+        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_URL] =
+            sprintf('https://vimeo.com/%s', $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]);
 
         /* Description */
         $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION] =

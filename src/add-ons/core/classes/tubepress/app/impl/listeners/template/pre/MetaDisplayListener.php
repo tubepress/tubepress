@@ -111,10 +111,15 @@ class tubepress_app_impl_listeners_template_pre_MetaDisplayListener
 
             foreach ($this->_mediaProviders as $mediaProvider) {
 
-                $this->_cacheOfMetaOptionNamesToAttributeDisplayNames = array_merge(
-                    $this->_cacheOfMetaOptionNamesToAttributeDisplayNames,
-                    $mediaProvider->getMapOfMetaOptionNamesToAttributeDisplayNames()
-                );
+                $mapFromProvider = $mediaProvider->getMapOfMetaOptionNamesToAttributeDisplayNames();
+
+                foreach ($mapFromProvider as $metaOptionName => $attributeName) {
+
+                    if (!isset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[$metaOptionName])) {
+
+                        $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[$metaOptionName] = $attributeName;
+                    }
+                }
             }
         }
 
