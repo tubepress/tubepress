@@ -58,7 +58,7 @@ class tubepress_test_jwplayer_ioc_JwPlayerExtensionTest extends tubepress_test_p
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
                 ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event' => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
+                    'event' => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
                     'priority' => 30000,
                     'method'   => 'onOption',
                 ));

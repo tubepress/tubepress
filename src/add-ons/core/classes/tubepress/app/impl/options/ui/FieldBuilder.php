@@ -96,6 +96,9 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
     {
         switch ($type) {
 
+            case 'gallerySource':
+                return $this->_buildGallerySource();
+
             case 'gallerySourceRadio':
                 return $this->_buildGallerySourceRadio($id, $options);
             
@@ -287,6 +290,14 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
             $this->_requestParams,
             $this->_templating,
             $this->_optionReference
+        );
+    }
+
+    private function _buildGallerySource()
+    {
+        return new tubepress_app_impl_options_ui_fields_GallerySourceField(
+            $this->_persistence,
+            $this->_requestParams
         );
     }
 

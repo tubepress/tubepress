@@ -905,6 +905,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'theme' => array(
                 tubepress_app_api_options_Names::THEME
             ),
+            'gallerySource' => array(
+                tubepress_app_api_options_Names::GALLERY_SOURCE,
+            ),
         );
         foreach ($fieldMap as $type => $ids) {
             foreach ($ids as $id) {

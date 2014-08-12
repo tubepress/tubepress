@@ -11,7 +11,7 @@
 
     'use strict';
 
-    var id = '#field-provider-filter-field',
+    var id = '#provider_filter_field',
 
         showAndHide = function (selected, all) {
 

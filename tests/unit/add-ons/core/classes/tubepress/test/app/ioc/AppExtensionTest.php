@@ -927,6 +927,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'theme' => array(
                 tubepress_app_api_options_Names::THEME
             ),
+            'gallerySource' => array(
+                tubepress_app_api_options_Names::GALLERY_SOURCE,
+            ),
         );
         foreach ($fieldMap as $type => $ids) {
             foreach ($ids as $id) {
