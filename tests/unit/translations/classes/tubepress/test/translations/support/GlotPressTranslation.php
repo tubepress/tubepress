@@ -12,7 +12,7 @@
 /**
  * A collection of strings that need translations.
  */
-class tubepress_test_lib_translation_support_GlotPressTranslation
+class tubepress_test_translations_support_GlotPressTranslation
 {
     private static $_POSSIBLE_MSGCAT_LOCATIONS = array(
 

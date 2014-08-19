@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_lib_translation_SynchronizationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_translations_SynchronizationTest extends tubepress_test_TubePressUnitTest
 {
     private static $_LOCALE_MAP = array(
 
@@ -41,12 +41,12 @@ class tubepress_test_lib_translation_SynchronizationTest extends tubepress_test_
     );
 
     /**
-     * @var tubepress_test_lib_translation_support_AbstractTranslation
+     * @var tubepress_test_translations_support_AbstractTranslation
      */
     private static $_greppedCode;
 
     /**
-     * @var tubepress_test_lib_translation_support_AbstractTranslation[]
+     * @var tubepress_test_translations_support_AbstractTranslation[]
      */
     private static $_localPoFiles = array();
 
@@ -74,11 +74,11 @@ class tubepress_test_lib_translation_SynchronizationTest extends tubepress_test_
         }
 
         $i18nPath           = TUBEPRESS_ROOT . '/src/translations';
-        self::$_greppedCode = new tubepress_test_lib_translation_support_GreppedCode();
+        self::$_greppedCode = new tubepress_test_translations_support_GreppedCode();
 
         foreach (self::$_LOCALE_MAP as $glotPressLocale => $tubePressLocale) {
 
-            $translation = new tubepress_test_lib_translation_support_GlotPressTranslation($glotPressLocale);
+            $translation = new tubepress_test_translations_support_GlotPressTranslation($glotPressLocale);
             $poFile      = $i18nPath . '/tubepress-' . $tubePressLocale . '.po';
 
             $translation->spitToPoFile($poFile);
@@ -88,7 +88,7 @@ class tubepress_test_lib_translation_SynchronizationTest extends tubepress_test_
                 throw new RuntimeException('Could not generate local PO file from GlotPress');
             }
 
-            self::$_localPoFiles[] = new tubepress_test_lib_translation_support_PoFileTranslation($poFile, $tubePressLocale);
+            self::$_localPoFiles[] = new tubepress_test_translations_support_PoFileTranslation($poFile, $tubePressLocale);
         }
     }
 
@@ -161,7 +161,7 @@ class tubepress_test_lib_translation_SynchronizationTest extends tubepress_test_
         return $return === 0;
     }
 
-    private function _doMsgIdDiff(tubepress_test_lib_translation_support_AbstractTranslation $collection1, tubepress_test_lib_translation_support_AbstractTranslation $collection2)
+    private function _doMsgIdDiff(tubepress_test_translations_support_AbstractTranslation $collection1, tubepress_test_translations_support_AbstractTranslation $collection2)
     {
         $msgIds1 = array_keys($collection1->getStrings());
         $msgIds2 = array_keys($collection2->getStrings());

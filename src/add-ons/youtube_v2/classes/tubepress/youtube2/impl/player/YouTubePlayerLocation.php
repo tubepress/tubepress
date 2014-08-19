@@ -54,7 +54,7 @@ class tubepress_youtube2_impl_player_YouTubePlayerLocation implements tubepress_
      */
     public function getUntranslatedDisplayName()
     {
-        return 'from the video\'s original YouTube page';    //>(translatable)<'))
+        return 'from the video\'s original YouTube page';    //>(translatable)<
     }
 
     /**

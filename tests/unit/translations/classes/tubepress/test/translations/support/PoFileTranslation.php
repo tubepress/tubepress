@@ -12,7 +12,7 @@
 /**
  * A collection of strings that need translations.
  */
-class tubepress_test_lib_translation_support_PoFileTranslation extends tubepress_test_lib_translation_support_AbstractTranslation
+class tubepress_test_translations_support_PoFileTranslation extends tubepress_test_translations_support_AbstractTranslation
 {
     private $_path;
 

@@ -12,7 +12,7 @@
 /**
  * A collection of strings that need translations.
  */
-class tubepress_test_lib_translation_support_GreppedCode extends tubepress_test_lib_translation_support_AbstractTranslation
+class tubepress_test_translations_support_GreppedCode extends tubepress_test_translations_support_AbstractTranslation
 {
     public function __construct()
     {
@@ -26,7 +26,7 @@ class tubepress_test_lib_translation_support_GreppedCode extends tubepress_test_
             TUBEPRESS_ROOT . '/src'
         );
 
-        $toReturn = array_map('rtrim', file(TUBEPRESS_ROOT . '/tests/unit/translations/extra-strings.txt'));
+        $toReturn = array_map('rtrim', file(TUBEPRESS_ROOT . '/tests/unit/translations/fixtures/extra-strings.txt'));
 
         foreach ($codeBaseDirectories as $codeBaseDirectory) {
 

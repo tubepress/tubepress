@@ -12,7 +12,7 @@
 /**
  * A collection of strings that need translations.
  */
-abstract class tubepress_test_lib_translation_support_AbstractTranslation
+abstract class tubepress_test_translations_support_AbstractTranslation
 {
     /**
      * @var string

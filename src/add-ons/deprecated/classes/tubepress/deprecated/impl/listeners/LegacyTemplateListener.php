@@ -116,7 +116,7 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
 
         if (!isset($existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM])) {
 
-            throw new RuntimeException(sprintf($this->_translator->trans('Video %s not found'), $itemId));
+            throw new RuntimeException(sprintf($this->_translator->trans('Video %s not found'), $itemId));   //>(translatable)<
         }
 
         $item = $existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM];
