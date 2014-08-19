@@ -51,7 +51,8 @@ return array(
     'tubepress_app_impl_template_ThemeTemplateLocator',
     'tubepress_app_impl_template_twig_Engine',
     'tubepress_app_impl_template_twig_EnvironmentBuilder',
-    'tubepress_app_impl_template_twig_Loader',
+    'tubepress_app_impl_template_twig_FsLoader',
+    'tubepress_app_impl_template_twig_ThemeLoader',
     'tubepress_app_impl_theme_AbstractTheme',
     'tubepress_app_impl_theme_CurrentThemeService',
     'tubepress_app_impl_theme_FilesystemTheme',
@@ -101,6 +102,7 @@ return array(
     'Twig_Loader_Chain',
     'Twig_Loader_Filesystem',
     'Twig_LoaderInterface',
+    'Twig_SimpleFilter',
     'Twig_Template',
     'Twig_TemplateInterface',
 );

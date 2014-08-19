@@ -44,7 +44,7 @@
  outer-most parent elements. Failure to do so will break most functionality for the user.
 
  #}
-<div class="js-tubepress-gallery js-tubepress-gallery-{{ widgetId }}">
+<div class="{% block galleryClasses %}{% endblock %} js-tubepress-gallery js-tubepress-gallery-{{ widgetId }}">
 
 {# First let's see if we have any items to display... #}
 {% if mediaPage.items is empty %}
@@ -52,7 +52,7 @@
     {% block noItemsFound %}
 
         <p class="tubepress-gallery-no-matching-videos">
-            {{ 'No matching videos'|trans }}                {# >(translatable)< #}
+            {{- 'No matching videos'|trans -}}                {# >(translatable)< #}
         </p>
 
     {% endblock %}
@@ -89,7 +89,7 @@
 
                     {% if paginationShowTop %}
 
-                        {{ paginationHTML|raw }}
+                        {{- paginationHTML|raw -}}
 
                     {% endif %}
 
@@ -132,7 +132,7 @@
                                      The following <a> and <img> display the clickable video thumbnail. The opening <a> is a bit complex,
                                      so we delegate it to a fragment.
                                      #}
-                                    {% include 'gallery/players/fragments/invoking_anchor.html.twig'%}
+                                    {% include 'gallery/players/fragments/invoking_anchor.html.twig' %}
 
                                     {% block meta %}
 
@@ -173,7 +173,7 @@
 
                     {% if paginationShowBottom %}
 
-                        {{ paginationHTML|raw }}
+                        {{- paginationHTML|raw -}}
 
                     {% endif %}
 

@@ -19,7 +19,7 @@
         <?php if (isset(${tubepress_api_const_template_Variable::PAGINATION_TOP})) : echo ${tubepress_api_const_template_Variable::PAGINATION_TOP}; endif; ?>
 
         <div class="tubepress_thumbs">
-            <?php /** @var $video tubepress_app_api_media_MediaItem */ foreach (${tubepress_api_const_template_Variable::VIDEO_ARRAY} as $video): ?>
+            <?php foreach (${tubepress_api_const_template_Variable::VIDEO_ARRAY} as $video): ?>
 
                 <div class="tubepress_thumb">
                     <a id="tubepress_image_<?php echo $video->getId(); ?>_<?php echo ${tubepress_api_const_template_Variable::GALLERY_ID}; ?>" rel="tubepress_<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME}; ?>_<?php echo ${tubepress_api_const_template_Variable::PLAYER_NAME}; ?>_<?php echo ${tubepress_api_const_template_Variable::GALLERY_ID}; ?>">

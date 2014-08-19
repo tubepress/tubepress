@@ -135,6 +135,23 @@ class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_
         return $this->_getStylesOrScripts($baseUrl, $userContentUrl, 'getUrlsCSS');
     }
 
+    public function getThemePath()
+    {
+        return dirname($this->getProperties()->get(self::$_PROPERTY_MANIFEST_PATH));
+    }
+
+    /**
+     * @param string $name The name of the template.
+     *
+     * @return string The template path.
+     */
+    public function getTemplatePath($name)
+    {
+        $map = $this->getProperties()->get(self::$_PROPERTY_TEMPLATE_NAMES_TO_PATHS);
+
+        return $map[$name];
+    }
+
     private function _getStylesOrScripts(tubepress_platform_api_url_UrlInterface $baseUrl,
                                          tubepress_platform_api_url_UrlInterface $userContentUrl,
                                          $getter)

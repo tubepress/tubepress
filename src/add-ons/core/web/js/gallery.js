@@ -386,9 +386,8 @@ var tubePressGalleryRegistrar;
          */
         pageTracker = (function () {
 
-            var data               = dataFacade,
-                get                = data.get,
-                set                = data.set,
+            var get                = dataFacade.get,
+                set                = dataFacade.set,
                 text_page          = 'page',
                 parseIntOrZero     = langUtils.parseIntOrZero,
                 pageFromQuery      = langUtils.getParameterByName(text_tubepress + text_underscore + text_page),

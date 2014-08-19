@@ -61,10 +61,15 @@ class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTes
     {
         $video = new tubepress_app_api_media_MediaItem('video-id');
 
-        $mockTemplate = $this->mock('tubepress_lib_api_template_TemplateInterface');
+        $mockTemplate = array('foo' => 'bar');
 
         $event = $this->mock('tubepress_lib_api_event_EventInterface');
         $event->shouldReceive('getSubject')->once()->andReturn($mockTemplate);
+        $event->shouldReceive('setSubject')->once()->with(array(
+            'foo' => 'bar',
+            tubepress_api_const_template_Variable::META_SHOULD_SHOW => array('meta' => '<<value of meta>>'),
+            tubepress_api_const_template_Variable::META_LABELS      => array('meta' => '##video-meta##'),
+        ));
 
         $this->_testVideoMetaStuff($mockTemplate);
 
@@ -73,24 +78,17 @@ class tubepress_test_deprecated_impl_listeners_LegacyMetadataTemplateListenerTes
         $this->assertTrue(true);
     }
 
-    private function _testVideoMetaStuff(ehough_mockery_mockery_MockInterface $mockTemplate)
+    private function _testVideoMetaStuff(array $mockTemplate)
     {
         $this->_mockMediaProvider->shouldReceive('getMapOfMetaOptionNamesToAttributeDisplayNames')->once()->andReturn(array(
 
             'meta' => 'something',
         ));
 
-        $shouldShow = array('meta' => '<<value of meta>>');
-        $labels     = array('meta' => '##video-meta##');
-
         $this->_mockExecutionContext->shouldReceive('get')->once()->with('meta')->andReturn("<<value of meta>>");
         $this->_mockOptionReference->shouldReceive('optionExists')->once()->with('meta')->andReturn(true);
         $this->_mockOptionReference->shouldReceive('getUntranslatedLabel')->once()->with('meta')->andReturn('meta label!');
         $this->_mockTranslator->shouldReceive('trans')->once()->with("meta label!")->andReturn("##video-meta##");
-
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_LABELS, $labels);
-
     }
 }
 

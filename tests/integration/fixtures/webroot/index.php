@@ -23,17 +23,28 @@ if (isset($_GET['options'])) {
     $options = array();
 }
 
-$shortcode = '';
+/**
+ * @var $context tubepress_app_api_options_ContextInterface
+ */
+$context = $container->get(tubepress_app_api_options_ContextInterface::_);
+
 foreach ($options as $name => $val) {
-    $shortcode .= "$name='$val' ";
+    $context->setEphemeralOption($name, $val);
 }
 
+/**
+ * @var $html tubepress_app_api_html_HtmlGeneratorInterface
+ */
 $html = $container->get(tubepress_app_api_html_HtmlGeneratorInterface::_);
-$env  = $container->get(tubepress_app_api_environment_EnvironmentInterface::_);
+
+/**
+ * @var $env tubepress_app_api_environment_EnvironmentInterface
+ */
+$env = $container->get(tubepress_app_api_environment_EnvironmentInterface::_);
 $env->setBaseUrl('http://localhost:54321/tubepress');
-$footer = $html->getJsHtml();
-$header = $html->getCssHtml();
-$content = $html->getHtmlForShortcode("[tubepress $shortcode]");
+$footer = $html->getJS();
+$header = $html->getCSS();
+$content = $html->getHtml();
 
 print <<<TOY
 <!doctype html>

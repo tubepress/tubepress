@@ -13,9 +13,7 @@
         "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
     },
     "description": "Clones the appearance of vimeo.com.",
-    "resources" : {
-        "styles" : [ "css/vimeo.css" ]
-    },
+    "styles" : [ "css/vimeo.css" ],
     "parent" : "tubepress/default",
     "screenshots" : [
 

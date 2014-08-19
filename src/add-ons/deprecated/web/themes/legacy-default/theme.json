@@ -13,9 +13,7 @@
         "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
     },
     "description": "The default theme for TubePress 3.1.5 and below.",
-    "resources" : {
-        "styles" : [ "css/tubepress.css" ]
-    },
+    "styles" : [ "css/tubepress.css" ],
     "screenshots" : [
 
         ["http://themes.tubepress-cdn.com/legacy-default/screenshots/1-thumbnail.png", "http://themes.tubepress-cdn.com/legacy-default/screenshots/1.png"],

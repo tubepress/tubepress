@@ -31,7 +31,7 @@
  #
  # The outer-most <div> for a single TubePress media item.
  #}
-<div class="tubepress-single-item-outermost">
+<div class="{% block singleItemClasses %}{% endblock %} tubepress-single-item-outermost">
 
 {% if mediaItem is not defined %}
 
@@ -53,7 +53,7 @@
             {% block singleItemTitle %}
 
                 <div class="tubepress-big-title">
-                    {{ mediaItem.title }}
+                    {{- mediaItem.title -}}
                 </div>
 
             {% endblock %}{# end block "singleItemTitle" #}

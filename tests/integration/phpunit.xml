@@ -13,6 +13,6 @@
 	   </testsuite>
 	</testsuites>
     <php>
-        <const name="ANT_PATH" value="/usr/bin/ant"/>
+        <const name="ANT_PATH" value="/opt/local/bin/ant"/>
     </php>
 </phpunit>

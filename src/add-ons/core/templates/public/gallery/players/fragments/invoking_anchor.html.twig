@@ -14,23 +14,22 @@
  # as doing so will likely break playback.
  #}
 
-{% block invokingAnchor %}
+{% block playerInvokingAnchor %}
+    {% spaceless %}
+        <a class="tubepress-cursor-pointer js-tubepress-invoker js-tubepress-itemid-{{ mediaItem.id }}"
 
-    <a class="tubepress-cursor-pointer js-tubepress-invoker js-tubepress-itemid-{{ mediaItem.id }}"
+            {%- if mediaItem.invokingAnchorHref is defined -%}
+                href="{{ mediaItem.invokingAnchorHref }}"
+            {%- endif -%}
 
-        {% if mediaItem.invokingAnchorHref is defined %}
-            href="{{ mediaItem.invokingAnchorHref }}"
-        {% endif %}
+            {%- if mediaItem.invokingAnchorRel -%}
+                rel="{{ mediaItem.invokingAnchorRel }}"
+            {%- endif -%}
 
-        {% if mediaItem.invokingAnchorRel %}
-            rel="{{ mediaItem.invokingAnchorRel }}"
-        {% endif %}
-
-        {% if mediaItem.invokingAnchorTarget %}
-            target="{{ mediaItem.invokingAnchorTarget }}"
-        {% endif %}>
-
-        {{ anchorContent|raw }}
-    </a>
-
+            {%- if mediaItem.invokingAnchorTarget -%}
+                target="{{ mediaItem.invokingAnchorTarget }} "
+            {%- endif -%}>
+            {{- anchorContent|raw -}}
+        </a>
+    {% endspaceless %}
 {% endblock %}

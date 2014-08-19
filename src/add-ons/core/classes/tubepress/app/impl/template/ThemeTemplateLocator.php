@@ -77,8 +77,28 @@ class tubepress_app_impl_template_ThemeTemplateLocator
      */
     public function getSource($name)
     {
-        return $this->_findSourceFromThemes($name);
+        $theme = $this->_findThemeForTemplate($name);
+
+        if ($theme === null) {
+
+            return null;
+        }
+
+        return $theme->getTemplateSource($name);
     }
+
+    public function getAbsolutePath($name)
+    {
+        $theme = $this->_findThemeForTemplate($name);
+
+        if ($theme === null || !($theme instanceof tubepress_app_impl_theme_FilesystemTheme)) {
+
+            return null;
+        }
+
+        return $theme->getTemplatePath($name);
+    }
+
 
     /**
      * Returns true if the template is still fresh.
@@ -141,7 +161,23 @@ class tubepress_app_impl_template_ThemeTemplateLocator
             $this->_logger->debug(sprintf('Seeing if able to find source of template %s from theme hierarchy', $templateName));
         }
 
-        $currentTheme = $this->_currentThemeService->getCurrentTheme();
+        $currentTheme = null;
+
+        if (strpos($templateName, '::') !== false) {
+
+            $exploded = explode('::', $templateName);
+
+            if (count($exploded) === 2 && $this->_themeRegistry->getInstanceByName($exploded[0]) !== null) {
+
+                $currentTheme = $this->_themeRegistry->getInstanceByName($exploded[0]);
+                $templateName = $exploded[1];
+            }
+        }
+
+        if (!$currentTheme) {
+
+            $currentTheme = $this->_currentThemeService->getCurrentTheme();
+        }
 
         do {
 
@@ -190,21 +226,5 @@ class tubepress_app_impl_template_ThemeTemplateLocator
         $this->_templateNameToThemeInstanceCache[$templateName] = false;
 
         return null;
-    }
-
-    /**
-     * @param $templateName
-     * @return null|string
-     */
-    private function _findSourceFromThemes($templateName)
-    {
-        $theme = $this->_findThemeForTemplate($templateName);
-
-        if ($theme === null) {
-
-            return null;
-        }
-
-        return $theme->getTemplateSource($templateName);
     }
 }

@@ -28,41 +28,55 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_platform
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-//        $containerBuilder->register(
-//            'tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener',
-//            'tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener'
-//        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-//         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
-//         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
-//         ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
-//            'tag'    => tubepress_app_api_media_MediaProviderInterface::_,
-//            'method' => 'setMediaProviders'))
-//         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-//            'event'    => tubepress_app_api_event_Events::GALLERY_TEMPLATE,
-//            'method'   => 'onTemplate',
-//            'priority' => 10400))
-//         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-//            'event'    => tubepress_app_api_event_Events::SINGLE_ITEM_TEMPLATE,
-//            'method'   => 'onTemplate',
-//            'priority' => 10100))
-//         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-//            'event'    => tubepress_app_api_event_Events::SINGLE_ITEM_TEMPLATE,
-//            'method'   => 'onSingleTemplate',
-//            'priority' => 10100
-//         ));
-//
-//        $containerBuilder->register(
-//            'tubepress_deprecated_impl_listeners_LegacyTemplateVarsListener',
-//            'tubepress_deprecated_impl_listeners_LegacyTemplateVarsListener'
-//        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-//         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-//            'event'    => tubepress_app_api_event_Events::GALLERY_TEMPLATE,
-//            'method'   => 'onTemplate',
-//            'priority' => 2000))
-//         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-//            'event'    => tubepress_app_api_event_Events::SINGLE_ITEM_TEMPLATE,
-//            'method'   => 'onTemplate',
-//            'priority' => 2000
-//         ));
+        $containerBuilder->register(
+            'tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener',
+            'tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => tubepress_app_api_media_MediaProviderInterface::__,
+            'method' => 'setMediaProviders'))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
+            'method'   => 'onTemplate',
+            'priority' => 10400))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
+            'method'   => 'onTemplate',
+            'priority' => 10100))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
+            'method'   => 'onSingleTemplate',
+            'priority' => 10100
+        ));
+
+        $containerBuilder->register(
+            'tubepress_deprecated_impl_listeners_LegacyTemplateListener',
+            'tubepress_deprecated_impl_listeners_LegacyTemplateListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
+            'method'   => 'onGalleryTemplate',
+            'priority' => 1000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/static',
+            'method'   => 'onPlayerTemplate',
+            'priority' => 10000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/ajax',
+            'method'   => 'onPlayerTemplate',
+            'priority' => 10000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input',
+            'method'   => 'onSearchInputTemplate',
+            'priority' => 10000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
+            'method'   => 'onSingleItemTemplate',
+            'priority' => 10000
+          ));
     }
 }

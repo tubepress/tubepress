@@ -8,6 +8,6 @@
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
 
-{% block popupPlayerEmbeddedSource %}
-    {{ embeddedSource|raw }}
-{% endblock %}
+{% extends 'tubepress/default::gallery/main.html.twig' %}
+
+{% block galleryClasses %}tubepress-vimeo{% endblock %}

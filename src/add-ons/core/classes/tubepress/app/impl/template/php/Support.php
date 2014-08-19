@@ -37,9 +37,9 @@ class tubepress_app_impl_template_php_Support implements ehough_templating_loade
             return false;
         }
 
-        $source = $this->_themeTemplateLocator->getSource($template->getLogicalName());
+        $path = $this->_themeTemplateLocator->getAbsolutePath($template->getLogicalName());
 
-        return new ehough_templating_storage_StringStorage($source);
+        return new ehough_templating_storage_FileStorage($path);
     }
 
     /**

@@ -1112,18 +1112,18 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
          * Twig loaders.
          */
         $this->expectRegistration(
-            'tubepress_app_impl_template_twig_Loader',
-            'tubepress_app_impl_template_twig_Loader'
+            'tubepress_app_impl_template_twig_ThemeLoader',
+            'tubepress_app_impl_template_twig_ThemeLoader'
         )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_ThemeTemplateLocator'));
         $this->expectRegistration(
             'Twig_Loader_Filesystem',
-            'Twig_Loader_Filesystem'
+            'tubepress_app_impl_template_twig_FsLoader'
         )->withArgument(array(
                 TUBEPRESS_ROOT . '/src/add-ons/core/templates/public',
                 TUBEPRESS_ROOT . '/src/add-ons/core/templates/admin',
         ));
         $twigLoaderReferences = array(
-            new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_Loader'),
+            new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_ThemeLoader'),
             new tubepress_platform_api_ioc_Reference('Twig_Loader_Filesystem')
         );
         $this->expectRegistration(

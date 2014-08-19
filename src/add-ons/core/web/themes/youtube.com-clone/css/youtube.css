@@ -41,7 +41,7 @@
 /**
  * Apply style to the video thumbnail.
  */
-.tubepress-youtube div.tubepress_img {
+.tubepress-youtube div.tubepress-youtube-thumbnail {
 
     /**
      * The "duration" has absolute position, so make this guy relative
@@ -71,7 +71,7 @@
 /**
  * This overlays the video duration on top of the thumbnail image.
  */
-.tubepress-youtube span.tubepress_meta_duration {
+.tubepress-youtube span.tubepress-meta-duration {
 
     padding: 0 4px;
     font-weight: bold;
@@ -90,22 +90,22 @@
 /**
  * Hide the dt for these attributes.
  */
-.tubepress-youtube dt.tubepress_meta_timePublishedFormatted,
-.tubepress-youtube dt.tubepress_meta_viewCount {
+.tubepress-youtube dt.tubepress-meta-timePublishedFormatted,
+.tubepress-youtube dt.tubepress-meta-viewCount {
     display: none;
 }
 
 /**
  * Colorize the time published.
  */
-.tubepress-youtube .tubepress_thumbnail_area dd.tubepress_meta_timePublishedFormatted {
+.tubepress-youtube .tubepress-thumbs dd.tubepress-meta-timePublishedFormatted {
     color: #999;
 }
 
 /**
  * Style the word "by"
  */
-.tubepress-youtube dt.tubepress_meta_authorDisplayName {
+.tubepress-youtube dt.tubepress-meta-authorDisplayName {
 
     font-weight: normal;
     font-style: normal;
@@ -115,7 +115,7 @@
 /**
  * Remove the ":" after the label for author display name.
  */
-.tubepress-youtube dt.tubepress_meta_authorDisplayName:after {
+.tubepress-youtube dt.tubepress-meta-authorDisplayName:after {
 
     content: '';
 }
@@ -123,15 +123,20 @@
 /**
  * Add a little space to the right of the view count.
  */
-.tubepress-youtube  dd.tubepress_meta_viewCount {
+.tubepress-youtube dd.tubepress-meta-viewCount {
 
     margin-right: 8px !important;
+}
+
+.tubepress-youtube dd.tubepress-meta-viewCount:after {
+
+    content: '';
 }
 
 /**
  * Make sure the actual author name is unstyled.
  */
-.tubepress-youtube dd.tubepress_meta_authorDisplayName a {
+.tubepress-youtube dd.tubepress-meta-authorDisplayName a {
 
     text-decoration: none;
 }
@@ -139,7 +144,7 @@
 /**
  * Underline the author during hover
  */
-.tubepress-youtube dd.tubepress_meta_authorDisplayName a:hover {
+.tubepress-youtube dd.tubepress-meta-authorDisplayName a:hover {
 
     text-decoration: underline;
 }
@@ -155,13 +160,13 @@
 /**
  * Apply style to the video title
  */
-div.tubepress_single_video.tubepress-youtube div.tubepress_embedded_title {
+div.tubepress-single-item-outermost.tubepress-youtube div.tubepress-big-title {
 
     font-size: 22px;
     font-weight: normal;
 }
 
-div.tubepress_single_video.tubepress-youtube dl.tubepress_meta_group {
+div.tubepress-single-item-outermost.tubepress-youtube dl.tubepress-meta-group {
 
     /**
      * This allows the view count to position itself on the right.
@@ -172,9 +177,9 @@ div.tubepress_single_video.tubepress-youtube dl.tubepress_meta_group {
 /**
  * Hide the words "author" and "view count", and hide the entire duration.
  */
-div.tubepress_single_video.tubepress-youtube dt.tubepress_meta_authorDisplayName,
-div.tubepress_single_video.tubepress-youtube dt.tubepress_meta_viewCount,
-div.tubepress_single_video.tubepress-youtube .tubepress_meta_duration {
+div.tubepress-single-item-outermost.tubepress-youtube dt.tubepress-meta-authorDisplayName,
+div.tubepress-single-item-outermost.tubepress-youtube dt.tubepress-meta-viewCount,
+div.tubepress-single-item-outermost.tubepress-youtube .tubepress-meta-duration {
 
     display: none;
 }
@@ -182,7 +187,7 @@ div.tubepress_single_video.tubepress-youtube .tubepress_meta_duration {
 /**
  * Ensure "published on" is visible.
  */
-div.tubepress_single_video.tubepress-youtube  dt.tubepress_meta_timePublishedFormatted {
+div.tubepress-single-item-outermost.tubepress-youtube  dt.tubepress-meta-timePublishedFormatted {
 
     display: inline;
 }
@@ -190,15 +195,16 @@ div.tubepress_single_video.tubepress-youtube  dt.tubepress_meta_timePublishedFor
 /**
  * Add a space after "published on"
  */
-div.tubepress_single_video.tubepress-youtube  dt.tubepress_meta_timePublishedFormatted:after {
+div.tubepress-single-item-outermost.tubepress-youtube dt.tubepress-meta-timePublishedFormatted:after {
 
     content: ' ';
 }
 
 /**
- * Colorize the time published.
+ * Bolden the time published.
  */
-div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_timePublishedFormatted {
+div.tubepress-single-item-outermost.tubepress-youtube dd.tubepress-meta-timePublishedFormatted {
+
     font-weight: bold;
 }
 
@@ -206,7 +212,7 @@ div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_timePublishedForm
 /**
  * Apply style to the video author.
  */
-div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_authorDisplayName {
+div.tubepress-single-item-outermost.tubepress-youtube dd.tubepress-meta-authorDisplayName {
 
     font-size: 13px;
     font-weight: bold;
@@ -215,7 +221,7 @@ div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_authorDisplayName
 /**
  * Position the view count over on the right.
  */
-div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_viewCount {
+div.tubepress-single-item-outermost.tubepress-youtube dd.tubepress-meta-viewCount {
 
     position: absolute;
     top: 0;
@@ -224,7 +230,7 @@ div.tubepress_single_video.tubepress-youtube dd.tubepress_meta_viewCount {
     line-height: 24px;
 }
 
-div.tubepress_single_video dl.tubepress_meta_group:nth-of-type(2) {
+div.tubepress-single-item-outermost dl.tubepress-meta-group:nth-of-type(2) {
 
     margin-top: 1em !important;
 }

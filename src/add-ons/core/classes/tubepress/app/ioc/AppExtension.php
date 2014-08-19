@@ -1034,18 +1034,18 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          * Twig loaders.
          */
         $containerBuilder->register(
-            'tubepress_app_impl_template_twig_Loader',
-            'tubepress_app_impl_template_twig_Loader'
+            'tubepress_app_impl_template_twig_ThemeLoader',
+            'tubepress_app_impl_template_twig_ThemeLoader'
         )->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_ThemeTemplateLocator'));
         $containerBuilder->register(
             'Twig_Loader_Filesystem',
-            'Twig_Loader_Filesystem'
+            'tubepress_app_impl_template_twig_FsLoader'
         )->addArgument(array(
                 TUBEPRESS_ROOT . '/src/add-ons/core/templates/public',
                 TUBEPRESS_ROOT . '/src/add-ons/core/templates/admin',
         ));
         $twigLoaderReferences = array(
-            new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_Loader'),
+            new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_ThemeLoader'),
             new tubepress_platform_api_ioc_Reference('Twig_Loader_Filesystem')
         );
         $containerBuilder->register(

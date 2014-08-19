@@ -17,36 +17,6 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const EMBEDDED_AUTOSTART = tubepress_app_api_template_VariableNames::EMBEDDED_AUTOSTART;
-
-    /**
-     * @deprecated
-     */
-    const EMBEDDED_COLOR_HIGHLIGHT = 'embeddedColorHightlight';
-
-    /**
-     * @deprecated
-     */
-    const EMBEDDED_COLOR_PRIMARY = 'embeddedColorPrimary';
-
-    /**
-     * @deprecated
-     */
-    const EMBEDDED_DATA_URL = tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL;
-
-    /**
-     * @deprecated
-     */
-    const EMBEDDED_FULLSCREEN = 'embeddedFullscreen';
-
-    /**
-     * @deprecated
-     */
-    const EMBEDDED_HEIGHT = tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT;
-
-    /**
-     * @deprecated
-     */
     const EMBEDDED_SOURCE = tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE;
 
     /**
@@ -67,7 +37,7 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const PLAYER_NAME = tubepress_app_api_template_VariableNames::PLAYER_NAME;
+    const PLAYER_NAME = 'playerName';
 
     /**
      * @deprecated
@@ -82,7 +52,7 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const SEARCH_BUTTON = tubepress_app_api_template_VariableNames::SEARCH_BUTTON_TEXT;
+    const SEARCH_BUTTON = 'searchButton';
 
     /**
      * @deprecated
@@ -107,27 +77,7 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const TUBEPRESS_BASE_URL = tubepress_app_api_template_VariableNames::HTML_TUBEPRESS_BASE_URL;
-
-    /**
-     * @deprecated
-     */
-    const VIDEO = tubepress_app_api_template_VariableNames::MEDIA_ITEM;
-
-    /**
-     * @deprecated
-     */
-    const VIDEO_ID = tubepress_app_api_template_VariableNames::MEDIA_ITEM_ID;
-
-    /**
-     * @deprecated
-     */
-    const VIDEO_DOM_ID = tubepress_app_api_template_VariableNames::EMBEDDED_MEDIA_ITEM_DOM_ID;
-
-    /**
-     * @deprecated
-     */
-    const VIDEO_PROVIDER_NAME = tubepress_app_api_template_VariableNames::EMBEDDED_MEDIA_PROVIDER_NAME;
+    const VIDEO = 'video';
     
     /**
      * @deprecated
@@ -137,12 +87,12 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const PAGINATION_TOP = tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_TOP;
+    const PAGINATION_TOP = 'topPagination';
 
     /**
      * @deprecated
      */
-    const PAGINATION_BOTTOM = tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_BOTTOM;
+    const PAGINATION_BOTTOM = 'bottomPagination';
 
     /**
      * @deprecated
@@ -152,10 +102,10 @@ interface tubepress_api_const_template_Variable
     /**
      * @deprecated
      */
-    const VIDEO_ARRAY = tubepress_app_api_template_VariableNames::GALLERY_MEDIA_ITEM_ARRAY;
+    const VIDEO_ARRAY = 'videoArray';
 
     /**
      * @deprecated
      */
-    const PLAYER_HTML = tubepress_app_api_template_VariableNames::GALLERY_PLAYER_HTML;
+    const PLAYER_HTML = tubepress_app_api_template_VariableNames::PLAYER_HTML;
 }

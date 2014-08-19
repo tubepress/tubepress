@@ -49,9 +49,9 @@ class tubepress_test_app_impl_template_php_SupportTest extends tubepress_test_Tu
     {
         $this->_mockTemplateReference->shouldReceive('getLogicalName')->twice()->andReturn('abc');
         $this->_mockThemeTemplateLocator->shouldReceive('exists')->once()->with('abc')->andReturn(true);
-        $this->_mockThemeTemplateLocator->shouldReceive('getSource')->once()->with('abc')->andReturn('hello');
+        $this->_mockThemeTemplateLocator->shouldReceive('getAbsolutePath')->once()->with('abc')->andReturn('hello');
         $actual = $this->_sut->load($this->_mockTemplateReference);
-        $this->assertInstanceOf('ehough_templating_storage_StringStorage', $actual);
+        $this->assertInstanceOf('ehough_templating_storage_FileStorage', $actual);
         $this->assertEquals('hello', "$actual");
     }
 

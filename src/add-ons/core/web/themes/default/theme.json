@@ -6,14 +6,11 @@
         {
             "name" : "TubePress LLC",
             "url" : "http://tubepress.com"
-        },
-        {
-            "name" : "Eric Hough"
         }
     ],
     "license": {
         "type" : "MPL-2.0",
-        "urls" : [ "http://www.mozilla.org/MPL/2.0/" , "http://foo.bar.some/thing" ]
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
     },
     "description": "The official TubePress default theme. Works well on virtually any website.",
     "styles" : [ "css/tubepress.css" ],
@@ -22,8 +19,5 @@
         ["http://themes.tubepress-cdn.com/default/screenshots/1-thumbnail.png", "http://themes.tubepress-cdn.com/default/screenshots/1.png"],
         ["http://themes.tubepress-cdn.com/default/screenshots/2-thumbnail.png", "http://themes.tubepress-cdn.com/default/screenshots/2.png"],
         ["http://themes.tubepress-cdn.com/default/screenshots/3-thumbnail.png", "http://themes.tubepress-cdn.com/default/screenshots/3.png"]
-    ],
-    "support" : {
-        "demo" : "http://some.demo/hi"
-    }
+    ]
 }

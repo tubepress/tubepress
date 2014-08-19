@@ -310,8 +310,7 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory extends 
 
         foreach ($allPaths as $path) {
 
-            $templateName            = substr($path, 0, strpos($path, '.'));
-            $toReturn[$templateName] = "$rootDirectory/templates/$path";
+            $toReturn[$path] = "$rootDirectory/templates/$path";
         }
 
         return $toReturn;

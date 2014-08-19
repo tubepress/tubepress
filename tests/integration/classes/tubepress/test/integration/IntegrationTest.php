@@ -35,6 +35,4 @@ abstract class tubepress_test_integration_IntegrationTest extends PHPUnit_Framew
 
         return file_get_contents('http://localhost:54321/index.php' . $queryString);
     }
-
-
 }

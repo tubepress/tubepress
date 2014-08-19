@@ -9,17 +9,19 @@
 #}
 
 {% block urls %}
+{% spaceless %}
 
-    {% for url in urls %}
+    {% for url in urls -%}
 
         <link href="{{ url }}" rel="stylesheet" type="text/css">
 
-    {% endfor %}
+    {%- endfor %}
 
+{% endspaceless %}
 {% endblock %}
 
 {% block inlineCSS %}
 
-    {{ inlineCSS|raw }}
+    {{- inlineCSS|raw -}}
 
 {% endblock %}

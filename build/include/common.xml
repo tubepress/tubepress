@@ -185,6 +185,11 @@
 
         <move file="${stagingdir}/src/add-ons/core/web"                           tofile="${stagingdir}/web" verbose="true" />
         <move file="${stagingdir}/src/add-ons/wordpress/web/options-gui"          tofile="${stagingdir}/web/options-ui/wordpress" verbose="true" />
+        <move todir="${stagingdir}/web/themes">
+            <fileset dir="${stagingdir}/src/add-ons/deprecated/web/themes/">
+                <include name="**" />
+            </fileset>
+        </move>
         <copy file="${stagingdir}/index.php"                                      tofile="${stagingdir}/web/index.php" />
 
         <move todir="${stagingdir}/web/js" verbose="true">

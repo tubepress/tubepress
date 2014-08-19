@@ -49,29 +49,27 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
 
     public function onSingleTemplate(tubepress_lib_api_event_EventInterface $event)
     {
-        /**
-         * @var $template tubepress_lib_api_template_TemplateInterface
-         */
-        $template = $event->getSubject();
+        $existingTemplateVars = $event->getSubject();
 
         if (!$event->hasArgument('item')) {
 
-            $template->setVariable('video', new tubepress_app_api_media_MediaItem('id'));
+            $existingTemplateVars[tubepress_api_const_template_Variable::VIDEO] = new tubepress_app_api_media_MediaItem('id');
 
         } else {
 
-            $template->setVariable('video', $event->getArgument('item'));
+            $existingTemplateVars[tubepress_api_const_template_Variable::VIDEO] = $event->getArgument('item');
         }
+
+        $event->setSubject($existingTemplateVars);
     }
 
     public function onTemplate(tubepress_lib_api_event_EventInterface $event)
     {
-        /**
-         * @var $template tubepress_lib_api_template_TemplateInterface
-         */
-        $template = $event->getSubject();
+        $existingVars = $event->getSubject();
 
-        $this->_setLegacyVariables($template);
+        $this->_setLegacyVariables($existingVars);
+
+        $event->setSubject($existingVars);
     }
 
     public function setMediaProviders(array $providers)
@@ -79,7 +77,7 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
         $this->_mediaProviders = $providers;
     }
 
-    private function _setLegacyVariables(tubepress_lib_api_template_TemplateInterface $template)
+    private function _setLegacyVariables(array &$templateVars)
     {
         $metaNames  = $this->_getAllMetaOptionNames();
         $shouldShow = array();
@@ -99,8 +97,8 @@ class tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener
             $labels[$metaName]     = $this->_translator->trans($untranslatedLabel);
         }
 
-        $template->setVariable(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(tubepress_api_const_template_Variable::META_LABELS, $labels);
+        $templateVars[tubepress_api_const_template_Variable::META_SHOULD_SHOW]         = $shouldShow;
+        $templateVars[tubepress_api_const_template_Variable::META_LABELS] = $labels;
     }
 
     private function _getAllMetaOptionNames()

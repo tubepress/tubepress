@@ -9,11 +9,13 @@
 #}
 
 {% block urls %}
+{% spaceless %}
 
-    {% for url in urls %}
+    {% for url in urls -%}
 
         <script type="text/javascript" src="{{ url }}"></script>
 
-    {% endfor %}
+    {%- endfor %}
 
+{% endspaceless %}
 {% endblock %}

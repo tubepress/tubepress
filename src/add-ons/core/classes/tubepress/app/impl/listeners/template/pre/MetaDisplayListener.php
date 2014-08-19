@@ -120,6 +120,16 @@ class tubepress_app_impl_listeners_template_pre_MetaDisplayListener
                         $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[$metaOptionName] = $attributeName;
                     }
                 }
+
+                /**
+                 * The description is best kept as the last element.
+                 */
+                if (isset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION])) {
+
+                    $oldVal = $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION];
+                    unset($this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION]);
+                    $this->_cacheOfMetaOptionNamesToAttributeDisplayNames[tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION] = $oldVal;
+                }
             }
         }
 
