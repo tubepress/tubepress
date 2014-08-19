@@ -86,6 +86,13 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
         }
 
         $existingTemplateVars = $event->getSubject();
+
+        if (isset($existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM])) {
+
+            $existingTemplateVars[tubepress_api_const_template_Variable::VIDEO] =
+                $existingTemplateVars[tubepress_app_api_template_VariableNames::MEDIA_ITEM];
+        }
+
         $existingTemplateVars[tubepress_api_const_template_Variable::EMBEDDED_WIDTH] = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_WIDTH);
         $existingTemplateVars[tubepress_api_const_template_Variable::GALLERY_ID]     = $this->_context->get(tubepress_app_api_options_Names::HTML_GALLERY_ID);
         $event->setSubject($existingTemplateVars);

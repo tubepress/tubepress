@@ -616,9 +616,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'Play each video',      //>(translatable)<
                 tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => 'Restrict search results to videos from author', //>(translatable)<
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'Shortcode keyword',  //>(translatable)<
-                tubepress_app_api_options_Names::TEMPLATE_CACHE_AUTORELOAD           => 'Recompile templates when source changes',    //>(translatable)<
+                tubepress_app_api_options_Names::TEMPLATE_CACHE_AUTORELOAD           => 'Monitor templates for changes',    //>(translatable)<
                 tubepress_app_api_options_Names::TEMPLATE_CACHE_DIR                  => 'Template cache directory',                   //>(translatable)<
-                tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED              => 'Template cache enabled',                     //>(translatable)<
+                tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED              => 'Enable template cache',                     //>(translatable)<
                 tubepress_app_api_options_Names::THEME                               => 'Theme',  //>(translatable)<
 
             ),
