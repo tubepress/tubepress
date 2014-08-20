@@ -32,7 +32,7 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
     /**
      * @var tubepress_platform_api_url_UrlFactoryInterface
      */
-    private $_currentUrlService;
+    private $_urlFactory;
 
     /**
      * @var tubepress_lib_api_http_RequestParametersInterface
@@ -44,13 +44,13 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
-                                tubepress_platform_api_url_UrlFactoryInterface         $currentUrlService,
+    public function __construct(tubepress_wordpress_impl_wp_WpFunctions           $wpFunctions,
+                                tubepress_platform_api_url_UrlFactoryInterface    $urlFactory,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher)
     {
         $this->_wpFunctions       = $wpFunctions;
-        $this->_currentUrlService = $currentUrlService;
+        $this->_urlFactory        = $urlFactory;
         $this->_httpRequestParams = $requestParams;
         $this->_eventDispatcher   = $eventDispatcher;
     }
@@ -101,7 +101,7 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
         }
 
         $nonce = $wpFunctions->wp_create_nonce(self::$_NONCE_ACTION);
-        $url   = $this->_currentUrlService->fromCurrent();
+        $url   = $this->_urlFactory->fromCurrent();
         $query = $url->getQuery();
         $urlToDocs = 'http://docs.tubepress.com/page/manual/wordpress/install-upgrade-uninstall.html#optimize-for-speed';
 

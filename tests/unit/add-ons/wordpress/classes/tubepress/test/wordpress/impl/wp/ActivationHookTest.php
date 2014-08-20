@@ -63,11 +63,11 @@ class tubepress_test_wordpress_impl_wp_ActivationHookTest extends tubepress_test
         $this->recursivelyDeleteDirectory($this->_userContentDirectory);
     }
 
-    public function testNeedToInstall()
+    public function testTotallyFreshInstallYo()
     {
         $this->_mockFilesystemInterface->shouldReceive('mirror')->once()->with(
 
-            TUBEPRESS_ROOT . '/src/user-content-skeleton',
+            TUBEPRESS_ROOT . '/src/add-ons/wordpress/resources/user-content-skeleton',
             $this->_userContentDirectory . '/tubepress-content'
         );
 

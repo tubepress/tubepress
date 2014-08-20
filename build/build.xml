@@ -19,9 +19,8 @@ Builds the free WordPress plugin package of Tubepress.
 
     <import file="include/common.xml" />
 	    
-    <target name="build-free" description="Builds the free version of TubePress" depends="init">
+    <target name="build-free" description="Builds the free version of TubePress" depends="__common__">
 	            
-        <antcall target="__common__" />
         <antcall target="compress-js" />
         <antcall target="compress-css" />
         <antcall target="stage-web-assets" />
@@ -30,9 +29,8 @@ Builds the free WordPress plugin package of Tubepress.
 
     </target>
 
-    <target name="quick" depends="init">
+    <target name="quick" depends="__common__">
 
-        <antcall target="__common__" />
         <antcall target="stage-web-assets" />
 
     </target>
@@ -40,6 +38,7 @@ Builds the free WordPress plugin package of Tubepress.
     <target name="__common__" depends="init">
 
         <antcall target="stage-self" />
+        <antcall target="copy-user-content-skeleton-into-wp" />
         <antcall target="move-wordpress-skeleton" />
         <antcall target="suppress-directory-listings" />
         <antcall target="update-version-in-php-code" />

@@ -38,8 +38,8 @@ class tubepress_wordpress_impl_Callback
 
     public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment,
                                 tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_wordpress_impl_wp_WpFunctions             $wpFunctions,
-                                tubepress_wordpress_impl_wp_ActivationHook          $activationHook)
+                                tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
+                                tubepress_wordpress_impl_wp_ActivationHook         $activationHook)
     {
         $this->_environment     = $environment;
         $this->_eventDispatcher = $eventDispatcher;

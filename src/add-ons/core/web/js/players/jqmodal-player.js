@@ -1,4 +1,4 @@
-/**
+/*!
  * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)

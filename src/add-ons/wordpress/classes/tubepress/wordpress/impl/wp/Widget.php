@@ -16,6 +16,7 @@ class tubepress_wordpress_impl_wp_Widget
     const WIDGET_SHORTCODE         = 'widgetShortcode';
     const WIDGET_TITLE             = 'widgetTitle';
     const WIDGET_SUBMIT_TAG        = 'tubepress-widget-submit';
+    const WIDGET_NONCE_FIELD       = 'widgetNonceField';
 
     /**
      * @var tubepress_lib_api_translation_TranslatorInterface
@@ -60,17 +61,17 @@ class tubepress_wordpress_impl_wp_Widget
     /**
      * @var tubepress_lib_api_template_TemplatingInterface
      */
-    private $_templateFactory;
+    private $_templating;
 
-    public function __construct(tubepress_app_api_options_ContextInterface          $context,
-                                tubepress_app_api_options_PersistenceInterface      $persistence,
-                                tubepress_lib_api_translation_TranslatorInterface   $translator,
-                                tubepress_app_api_html_HtmlGeneratorInterface       $htmlGenerator,
-                                tubepress_app_api_shortcode_ParserInterface         $parser,
-                                tubepress_wordpress_impl_wp_WpFunctions              $wpFunctions,
-                                tubepress_platform_api_util_StringUtilsInterface              $stringUtils,
-                                tubepress_lib_api_http_RequestParametersInterface   $requestParameters,
-                                tubepress_lib_api_template_TemplatingInterface $templateFactory)
+    public function __construct(tubepress_app_api_options_ContextInterface        $context,
+                                tubepress_app_api_options_PersistenceInterface    $persistence,
+                                tubepress_lib_api_translation_TranslatorInterface $translator,
+                                tubepress_app_api_html_HtmlGeneratorInterface     $htmlGenerator,
+                                tubepress_app_api_shortcode_ParserInterface       $parser,
+                                tubepress_wordpress_impl_wp_WpFunctions           $wpFunctions,
+                                tubepress_platform_api_util_StringUtilsInterface  $stringUtils,
+                                tubepress_lib_api_http_RequestParametersInterface $requestParameters,
+                                tubepress_lib_api_template_TemplatingInterface    $templating)
     {
         $this->_translator        = $translator;
         $this->_context           = $context;
@@ -80,7 +81,7 @@ class tubepress_wordpress_impl_wp_Widget
         $this->_wpFunctions       = $wpFunctions;
         $this->_stringUtils       = $stringUtils;
         $this->_httpRequestParams = $requestParameters;
-        $this->_templateFactory   = $templateFactory;
+        $this->_templating        = $templating;
     }
 
     /**
@@ -98,16 +99,16 @@ class tubepress_wordpress_impl_wp_Widget
 
         /* default widget options */
         $defaultWidgetOptions = array(
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE     => 3,
-            tubepress_app_api_options_Names::META_DISPLAY_VIEWS            => false,
-            tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION      => true,
-            tubepress_app_api_options_Names::META_DESC_LIMIT       => 50,
-            tubepress_app_api_options_Names::PLAYER_LOCATION        => 'shadowbox',
-            tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT    => 105,
-            tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH     => 135,
-            tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE  => false,
-            tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW  => false,
-            tubepress_app_api_options_Names::THEME                   => 'tubepress/legacy-sidebar',
+            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
+            tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => false,
+            tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => true,
+            tubepress_app_api_options_Names::META_DESC_LIMIT          => 50,
+            tubepress_app_api_options_Names::PLAYER_LOCATION          => 'shadowbox',
+            tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT     => 105,
+            tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH      => 135,
+            tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE   => false,
+            tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW   => false,
+            tubepress_app_api_options_Names::THEME                    => 'tubepress/default',
             tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS     => false
         );
 
@@ -122,10 +123,10 @@ class tubepress_wordpress_impl_wp_Widget
 
         if ($this->_context->get(tubepress_app_api_options_Names::THEME) === '') {
 
-            $this->_context->setEphemeralOption(tubepress_app_api_options_Names::THEME, 'tubepress/legacy-sidebar');
+            $this->_context->setEphemeralOption(tubepress_app_api_options_Names::THEME, 'tubepress/default');
         }
 
-        $out = $this->_htmlGenerator->getHtmlForShortcode('');
+        $out = $this->_htmlGenerator->getHtml();
 
         /* do the standard WordPress widget dance */
         /** @noinspection PhpUndefinedVariableInspection */
@@ -145,7 +146,7 @@ class tubepress_wordpress_impl_wp_Widget
         /* are we saving? */
         if ($this->_httpRequestParams->hasParam(self::WIDGET_SUBMIT_TAG)) {
 
-            self::_verifyNonce();
+            $this->_wpFunctions->check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
 
             $this->_persistence->queueForSave(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE, $this->_httpRequestParams->getParamValue('tubepress-widget-tagstring'));
             $this->_persistence->queueForSave(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE, $this->_httpRequestParams->getParamValue('tubepress-widget-title'));
@@ -153,23 +154,15 @@ class tubepress_wordpress_impl_wp_Widget
             $this->_persistence->flushSaveQueue();
         }
 
-        /* load up the gallery template */
-        $templatePath = TUBEPRESS_ROOT . '/src/add-ons/wordpress/resources/templates/widget_controls.tpl.php';
-        $tpl          = $this->_templateFactory->fromFilesystem(array($templatePath));
+        $templateVars = array(
+            self::WIDGET_TITLE             => $this->_persistence->fetch(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE),
+            self::WIDGET_CONTROL_TITLE     => $this->_translator->trans('Title'),                                                             //>(translatable)<
+            self::WIDGET_CONTROL_SHORTCODE => $this->_translator->trans(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/")), //>(translatable)<
+            self::WIDGET_SHORTCODE         => $this->_persistence->fetch(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE),
+            self::WIDGET_SUBMIT_TAG        => self::WIDGET_SUBMIT_TAG,
+            self::WIDGET_NONCE_FIELD       => $this->_wpFunctions->wp_nonce_field('tubepress-widget-nonce-save', 'tubepress-widget-nonce', true, false),
+        );
 
-        /* set up the template */
-        $tpl->setVariable(self::WIDGET_TITLE, $this->_persistence->fetch(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE));
-        $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $this->_translator->trans('Title'));                                                                                                            //>(translatable)<
-        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $this->_translator->trans(sprintf('TubePress shortcode for the widget. See the <a href="%s" target="_blank">documentation</a>.', "http://docs.tubepress.com/"))); //>(translatable)<
-        $tpl->setVariable(self::WIDGET_SHORTCODE, $this->_persistence->fetch(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE));
-        $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
-
-        /* get the template's output */
-        echo $tpl->toString();
-    }
-
-    private function _verifyNonce() {
-
-        $this->_wpFunctions->check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
+        echo $this->_templating->renderTemplate('wordpress/single-widget-controls', $templateVars);
     }
 }

@@ -34,8 +34,24 @@ class tubepress_wordpress_impl_wp_ActivationHook
         if (!is_dir(WP_CONTENT_DIR . '/tubepress-content')) {
 
             $this->_tryToMirror(
-                TUBEPRESS_ROOT . '/src/user-content-skeleton',
+                TUBEPRESS_ROOT . '/src/add-ons/wordpress/resources/user-content-skeleton',
                 WP_CONTENT_DIR . '/tubepress-content');
+        }
+
+        /* add the starter theme if it's not already there */
+        if (!is_dir(WP_CONTENT_DIR . '/tubepress-content/themes/starter')) {
+
+            $this->_tryToMirror(
+                TUBEPRESS_ROOT . '/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter',
+                WP_CONTENT_DIR . '/tubepress-content/themes/starter');
+        }
+
+        /* add templates to the starter theme if necessary */
+        if (!is_dir(WP_CONTENT_DIR . '/tubepress-content/themes/starter/templates')) {
+
+            $this->_tryToMirror(
+                TUBEPRESS_ROOT . '/src/add-ons/core/templates/public',
+                WP_CONTENT_DIR . '/tubepress-content/themes/starter/templates');
         }
 
         $this->_clearCachedContainer();

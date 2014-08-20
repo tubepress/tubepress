@@ -17,7 +17,7 @@
 return array(
 
     /**
-     * System settings. It's unlikely these need to be changed.
+     * System settings. Most users won't need to change these.
      */
     'system' => array(
 
@@ -28,7 +28,7 @@ return array(
 
             /**
              * "killerKey" defines the name of the query parameter that you can pass to
-             * TubePress to purge the entire system cache.
+             * TubePress to purge the entire system cache. e.g. ?tubepress_clear_system_cache=true
              */
             //'killerKey' => 'tubepress_clear_system_cache',
 

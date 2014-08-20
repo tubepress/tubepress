@@ -1,1 +1,1 @@
-This directory holds your custom TubePress add-ons!
+This directory holds your custom TubePress add-ons.

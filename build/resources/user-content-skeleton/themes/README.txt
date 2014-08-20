@@ -1,1 +1,1 @@
-This directory holds your custom TubePress themes!
+This directory holds your custom TubePress themes.

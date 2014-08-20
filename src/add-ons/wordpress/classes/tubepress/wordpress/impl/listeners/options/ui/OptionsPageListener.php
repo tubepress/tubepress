@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_wordpress_impl_wp_OptionsPage
+class tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
 {
     /**
      * @var tubepress_app_api_options_ui_FormInterface
@@ -42,5 +42,10 @@ class tubepress_wordpress_impl_wp_OptionsPage
         }
 
         print $this->_form->getHtml($errors, $justSubmitted);
+    }
+
+    public function onTemplateSelect(tubepress_lib_api_event_EventInterface $event)
+    {
+        $event->setSubject('options-ui/wp-settings-page');
     }
 }

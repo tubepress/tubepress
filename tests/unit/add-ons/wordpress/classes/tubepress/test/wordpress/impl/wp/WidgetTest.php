@@ -22,27 +22,27 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockMessageService;
+    private $_mockTranslator;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockExecutionContext;
+    private $_mockContext;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockEnvironmentDetector;
+    private $_mockEnvironment;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockTemplateBuilder;
+    private $_mockTemplating;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockHttpRequestParameterService;
+    private $_mockRequestParams;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -52,12 +52,12 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockShortCodeHtmlGenerator;
+    private $_mockHtmlGenerator;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockStorageManager;
+    private $_mockPersistence;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -76,49 +76,49 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
 
     public function onSetup()
     {
-        $this->_mockEvent                       = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockMessageService              = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
-        $this->_mockExecutionContext            = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockEnvironmentDetector         = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
-        $this->_mockTemplateBuilder             = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockShortcodeParser             = $this->mock(tubepress_app_api_shortcode_ParserInterface::_);
-        $this->_mockHttpRequestParameterService = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
-        $this->_mockShortCodeHtmlGenerator      = $this->mock(tubepress_app_api_html_HtmlGeneratorInterface::_);
-        $this->_mockStorageManager              = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
-        $this->_mockWpFunctions                 = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockStringUtils                 = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
+        $this->_mockEvent           = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockTranslator      = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockContext         = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockEnvironment     = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $this->_mockTemplating      = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
+        $this->_mockShortcodeParser = $this->mock(tubepress_app_api_shortcode_ParserInterface::_);
+        $this->_mockRequestParams   = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
+        $this->_mockHtmlGenerator   = $this->mock(tubepress_app_api_html_HtmlGeneratorInterface::_);
+        $this->_mockPersistence     = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
+        $this->_mockWpFunctions     = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
+        $this->_mockStringUtils     = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
 
-        $this->_mockMessageService->shouldReceive('trans')->atLeast(1)->andReturnUsing( function ($key) {
+        $this->_mockTranslator->shouldReceive('trans')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";
         });
 
         $this->_sut = new tubepress_wordpress_impl_wp_Widget(
-            $this->_mockExecutionContext,
-            $this->_mockStorageManager,
-            $this->_mockMessageService,
-            $this->_mockShortCodeHtmlGenerator,
+            $this->_mockContext,
+            $this->_mockPersistence,
+            $this->_mockTranslator,
+            $this->_mockHtmlGenerator,
             $this->_mockShortcodeParser,
             $this->_mockWpFunctions,
             $this->_mockStringUtils,
-            $this->_mockHttpRequestParameterService,
-            $this->_mockTemplateBuilder
+            $this->_mockRequestParams,
+            $this->_mockTemplating
         );
     }
 
     public function testPrintWidgetControl()
     {
-        $mockTemplate = $this->mock('tubepress_lib_api_template_TemplateInterface');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_wordpress_impl_wp_Widget::WIDGET_CONTROL_TITLE, '<<Title>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_wordpress_impl_wp_Widget::WIDGET_TITLE, 'value of widget title');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_wordpress_impl_wp_Widget::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://docs.tubepress.com/" target="_blank">documentation</a>.>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_wordpress_impl_wp_Widget::WIDGET_SHORTCODE, 'value of widget shortcode');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_wordpress_impl_wp_Widget::WIDGET_SUBMIT_TAG, tubepress_wordpress_impl_wp_Widget::WIDGET_SUBMIT_TAG);
-        $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');
-
-        $this->_mockStorageManager->shouldReceive('fetch')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE)->andReturn('value of widget title');
-        $this->_mockStorageManager->shouldReceive('fetch')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
-        $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress-widget-submit')->andReturn(false);
-        $this->_mockTemplateBuilder->shouldReceive('fromFilesystem')->once()->with(array(TUBEPRESS_ROOT . '/src/add-ons/wordpress/resources/templates/widget_controls.tpl.php'))->andReturn($mockTemplate);
+        $this->_mockPersistence->shouldReceive('fetch')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE)->andReturn('value of widget title');
+        $this->_mockPersistence->shouldReceive('fetch')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
+        $this->_mockRequestParams->shouldReceive('hasParam')->once()->with('tubepress-widget-submit')->andReturn(false);
+        $this->_mockWpFunctions->shouldReceive('wp_nonce_field')->once()->with('tubepress-widget-nonce-save', 'tubepress-widget-nonce', true, false)->andReturn('nonce-field');
+        $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('wordpress/single-widget-controls', array(
+            tubepress_wordpress_impl_wp_Widget::WIDGET_CONTROL_TITLE     => '<<Title>>',
+            tubepress_wordpress_impl_wp_Widget::WIDGET_TITLE             => 'value of widget title',
+            tubepress_wordpress_impl_wp_Widget::WIDGET_CONTROL_SHORTCODE => '<<TubePress shortcode for the widget. See the <a href="http://docs.tubepress.com/" target="_blank">documentation</a>.>>',
+            tubepress_wordpress_impl_wp_Widget::WIDGET_SHORTCODE         => 'value of widget shortcode',
+            tubepress_wordpress_impl_wp_Widget::WIDGET_SUBMIT_TAG        => tubepress_wordpress_impl_wp_Widget::WIDGET_SUBMIT_TAG,
+            tubepress_wordpress_impl_wp_Widget::WIDGET_NONCE_FIELD       => 'nonce-field',
+        ))->andReturn('final result');
 
         ob_start();
 
@@ -132,11 +132,11 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
 
     public function testPrintWidget()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE)->andReturn('shortcode string');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::THEME)->andReturn('theme');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE)->andReturn('widget title');
-        $this->_mockExecutionContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH => 22135));
-        $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with(array(
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE)->andReturn('shortcode string');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::THEME)->andReturn('theme');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE)->andReturn('widget title');
+        $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH => 22135));
+        $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array(
             tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE    => 3,
             tubepress_app_api_options_Names::META_DISPLAY_VIEWS                  => false,
             tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION            => true,
@@ -146,12 +146,12 @@ class tubepress_test_wordpress_impl_WidgetTest extends tubepress_test_TubePressU
             tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH         => 22135,
             tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE      => false,
             tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW      => false,
-            tubepress_app_api_options_Names::THEME               => 'tubepress/legacy-sidebar',
+            tubepress_app_api_options_Names::THEME               => 'tubepress/default',
             tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS        => false
         ));
-        $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->once()->with(array());
+        $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array());
 
-        $this->_mockShortCodeHtmlGenerator->shouldReceive('getHtmlForShortcode')->once()->with('')->andReturn('html result');
+        $this->_mockHtmlGenerator->shouldReceive('getHtml')->once()->andReturn('html result');
 
         $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('syz');
 

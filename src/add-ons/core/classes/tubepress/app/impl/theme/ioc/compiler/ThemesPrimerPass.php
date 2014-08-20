@@ -51,6 +51,12 @@ class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepres
                 continue;
             }
 
+            if ($theme->getName() === 'changeme/themename') {
+
+                //ignore the starter theme
+                continue;
+            }
+
             $themes[] = $theme;
         }
 

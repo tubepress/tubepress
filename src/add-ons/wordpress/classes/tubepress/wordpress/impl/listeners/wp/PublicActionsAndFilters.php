@@ -61,6 +61,9 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
      */
     private $_eventDispatcher;
 
+    /**
+     * @var tubepress_app_api_environment_EnvironmentInterface
+     */
     private $_environment;
 
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
@@ -93,8 +96,8 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
             $this->_translator->trans('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
 
-        $this->_wpFunctions->wp_register_sidebar_widget('tubepress', 'TubePress', array($this, 'printWidgetHtml'), $widgetOps);
-        $this->_wpFunctions->wp_register_widget_control('tubepress', 'TubePress', array($this, 'printControlHtml'));
+        $this->_wpFunctions->wp_register_sidebar_widget('tubepress', 'TubePress', array($this, '__fireWidgetHtmlEvent'), $widgetOps);
+        $this->_wpFunctions->wp_register_widget_control('tubepress', 'TubePress', array($this, '__fireWidgetControlEvent'));
     }
 
     public function __fireWidgetHtmlEvent($widgetOpts)

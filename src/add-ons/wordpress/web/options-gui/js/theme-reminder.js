@@ -14,20 +14,27 @@
 
     var createHtml = function () {
 
-            var row = jquery(doc.createElement('div')).addClass('row'),
-                col = jquery(doc.createElement('div')).addClass('col-xs-12'),
-                p   = jquery(doc.createElement('div')).addClass('well text-primary');
+            var row        = jquery(doc.createElement('div')).addClass('row'),
+                col        = jquery(doc.createElement('div')).addClass('col-xs-12'),
+                calloutDiv = jquery(doc.createElement('div')).addClass('bs-callout').addClass('bs-callout-warning'),
+                h4         = jquery(doc.createElement('h4')),
+                p          = jquery(doc.createElement('p'));
 
-            p.html('Don\'t see what you\'re after? You can <a target="_blank" href="http://docs.tubepress.com/page/extend/themes/" style="font-weight: bold; text-decoration: underline">create your own custom theme</a> in minutes.');
+            h4.html('Don\'t see what you\'re after?');
+            p.html('You can <a target="_blank" href="http://docs.tubepress.com/page/extend/themes/" style="font-weight: bold; text-decoration: underline">create your own custom theme</a> in minutes.');
 
-            row.append(col.append(p));
+            calloutDiv.append(h4);
+            calloutDiv.append(p);
+
+            col.append(calloutDiv);
+            row.append(col);
 
             return row;
         },
 
         appendHtml = function (element) {
 
-            element.insertAfter('#tubepress-core-theme-category div.row:last');
+            element.insertAfter('#theme_category div.row:last');
         },
 
         init = function () {

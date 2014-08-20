@@ -53,19 +53,26 @@
         <property file="config/pro.properties" />
     </target>
 
-    <target name="move-wordpress-skeleton" description="Copies WordPress resources into TubePress">
+    <target name="move-wordpress-skeleton" description="Copies WordPress resources into TubePress's root">
 
         <move todir="${stagingdir}">
 
-            <fileset dir="${stagingdir}/src/add-ons/wordpress/resources/skeleton">
+            <fileset dir="${stagingdir}/src/add-ons/wordpress/resources/root-skeleton">
                 <include name="**" />
             </fileset>
         </move>
     </target>
 
+    <target name="copy-user-content-skeleton-into-wp" description="Stages the user content skeleton into WP for the activation hook">
+
+        <copy verbose="true" todir="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton">
+            <fileset dir="${tubepress-build-common.basedir}/../resources/user-content-skeleton" />
+        </copy>
+    </target>
+
     <target name="suppress-directory-listings" description="Adds empty index.php files to various areas">
 
-        <copy file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/index.php" />
+        <copy verbose="true" file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/index.php" />
 
     </target>
 
@@ -118,7 +125,7 @@
 
 	<target name="compress-js" description="Compresses JS files">
 
-		<copy todir="${stagingdir}">
+		<copy verbose="true" todir="${stagingdir}">
 			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
 			<mapper type="glob" from="*.js" to="*-dev.js" />
 		</copy>
@@ -128,7 +135,7 @@
 
     <target name="compress-css" description="Compresses CSS files">
 
-        <copy todir="${stagingdir}">
+        <copy verbose="true" todir="${stagingdir}">
             <fileset dir="${stagingdir}/" includesfile="${csscompresslist}"/>
             <mapper type="glob" from="*.css" to="*-dev.css" />
         </copy>
@@ -162,7 +169,7 @@
 
     <target name="copy-locale-fallbacks">
 
-        <copy file="${stagingdir}/src/translations/tubepress-es_ES.mo" tofile="${stagingdir}/src/translations/tubepress-es_MX.mo" />
+        <copy verbose="true" file="${stagingdir}/src/translations/tubepress-es_ES.mo" tofile="${stagingdir}/src/translations/tubepress-es_MX.mo" />
 
     </target>
 
@@ -190,7 +197,7 @@
                 <include name="**" />
             </fileset>
         </move>
-        <copy file="${stagingdir}/index.php"                                      tofile="${stagingdir}/web/index.php" />
+        <copy verbose="true" file="${stagingdir}/index.php"                                      tofile="${stagingdir}/web/index.php" />
 
         <move todir="${stagingdir}/web/js" verbose="true">
             <fileset dir="${stagingdir}/src/add-ons/wordpress/web/js" />

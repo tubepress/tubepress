@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_wordpress_impl_wp_OptionsPage
+ * @covers tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
  */
 class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_wordpress_impl_wp_OptionsPage
+     * @var tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
      */
     private $_sut;
 
@@ -58,7 +58,7 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
         $this->_mockFormHandler                 = $this->mock('tubepress_app_api_options_ui_FormInterface');
         $this->_mockEnvironmentDetector         = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
 
-        $this->_sut = new tubepress_wordpress_impl_wp_OptionsPage(
+        $this->_sut = new tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener(
 
             $this->_mockFormHandler,
             $this->_mockHttpRequestParameterService
