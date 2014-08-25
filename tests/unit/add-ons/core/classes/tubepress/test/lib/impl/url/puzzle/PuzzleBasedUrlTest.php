@@ -241,7 +241,8 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
     {
         return array(
             array('/foo/..', '/'),
-            array('//foo//..', '/'),
+            array('//foo//..', '//foo/'),
+            array('/foo//', '/foo//'),
             array('/foo/../..', '/'),
             array('/foo/../.', '/'),
             array('/./foo/..', '/'),

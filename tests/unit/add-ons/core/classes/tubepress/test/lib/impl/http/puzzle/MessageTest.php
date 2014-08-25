@@ -58,7 +58,7 @@ class tubepress_test_lib_http_impl_puzzle_message_MessageTest extends tubepress_
         $m = new tubepress_test_lib_http_impl_puzzle_message_MessageTest__foo(new tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar());
         $m->setHeader('foo', 'bar');
         $m->setBody(new tubepress_lib_impl_streams_puzzle_FlexibleStream(puzzle_stream_Stream::factory('baz')));
-        $this->assertEquals("foobar\r\nfoo: bar\r\n\r\nbaz", (string) $m);
+        $this->assertEquals("GET / HTTP/1.1\r\nfoo: bar\r\n\r\nbaz", (string) $m);
     }
 
     public function testAddsHeadersWhenNotPresent()
@@ -209,16 +209,11 @@ class tubepress_test_lib_http_impl_puzzle_message_MessageTest extends tubepress_
     }
 }
 
-class tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar extends puzzle_message_AbstractMessage
+class tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar extends puzzle_message_Request
 {
-    /**
-     * Returns the start line of a message.
-     *
-     * @return string
-     */
-    protected function getStartLine()
+    public function __construct()
     {
-        return 'foobar';
+        parent::__construct('GET', '');
     }
 }
 

@@ -4,49 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b545e272f86d2e0f8e08b289c0b3facb",
+    "hash": "f7090283b3eef2f9fe3e3047f1d59f6a",
     "packages": [
-        {
-            "name": "ehough/contemplate",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ehough/contemplate.git",
-                "reference": "15f8dc18c40e68fa354993fb8406791ccab134db"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ehough/contemplate/zipball/15f8dc18c40e68fa354993fb8406791ccab134db",
-                "reference": "15f8dc18c40e68fa354993fb8406791ccab134db",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ehough_contemplate": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
-                }
-            ],
-            "description": "Template library that uses pure PHP syntax. Nothing new to learn, blazingly fast, and compatible with PHP 5.2+.",
-            "homepage": "https://github.com/ehough/contemplate",
-            "time": "2013-05-30 22:20:52"
-        },
         {
             "name": "ehough/filesystem",
             "version": "v2.5.0",
@@ -391,18 +350,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/puzzlehttp/puzzle.git",
-                "reference": "142826e5ae7f47839f53b44c2e47a51276bb083c"
+                "reference": "54a8d076adbe0b1a11007eb2e11fda6e899cac2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puzzlehttp/puzzle/zipball/142826e5ae7f47839f53b44c2e47a51276bb083c",
-                "reference": "142826e5ae7f47839f53b44c2e47a51276bb083c",
+                "url": "https://api.github.com/repos/puzzlehttp/puzzle/zipball/54a8d076adbe0b1a11007eb2e11fda6e899cac2a",
+                "reference": "54a8d076adbe0b1a11007eb2e11fda6e899cac2a",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": ">=5.2.0",
-                "puzzlehttp/streams": "~1.0"
+                "puzzlehttp/streams": "~2.1"
             },
             "require-dev": {
                 "ext-curl": "*",
@@ -415,7 +374,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1.x-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -453,20 +412,20 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-06-19 17:55:44"
+            "time": "2014-08-22 21:08:09"
         },
         {
             "name": "puzzlehttp/streams",
-            "version": "dev-master",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/puzzlehttp/streams.git",
-                "reference": "7694f6859da7ef2c3169966f7de3a1d620c0144f"
+                "reference": "b74e22d0f4e4a20da20ad68796287c8eb6516457"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puzzlehttp/streams/zipball/7694f6859da7ef2c3169966f7de3a1d620c0144f",
-                "reference": "7694f6859da7ef2c3169966f7de3a1d620c0144f",
+                "url": "https://api.github.com/repos/puzzlehttp/streams/zipball/b74e22d0f4e4a20da20ad68796287c8eb6516457",
+                "reference": "b74e22d0f4e4a20da20ad68796287c8eb6516457",
                 "shasum": ""
             },
             "require": {
@@ -478,7 +437,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -512,7 +471,7 @@
                 "puzzle",
                 "stream"
             ],
-            "time": "2014-04-22 18:34:41"
+            "time": "2014-08-21 15:47:48"
         },
         {
             "name": "twig/twig",
@@ -520,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "5fd428ed7603ea63998716995c123c99648aab26"
+                "reference": "e2d2a250d963dd5bba4ad23fc01c7282fc042946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/5fd428ed7603ea63998716995c123c99648aab26",
-                "reference": "5fd428ed7603ea63998716995c123c99648aab26",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/e2d2a250d963dd5bba4ad23fc01c7282fc042946",
+                "reference": "e2d2a250d963dd5bba4ad23fc01c7282fc042946",
                 "shasum": ""
             },
             "require": {
@@ -569,7 +528,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-07-08 13:46:25"
+            "time": "2014-08-06 06:46:32"
         }
     ],
     "packages-dev": [
@@ -828,12 +787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580"
+                "reference": "980a02b40496a25ce38acb4d3f4949b77abf9f20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/a0802561692c3b2bb0ed972f7ffafbfab068e580",
-                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/980a02b40496a25ce38acb4d3f4949b77abf9f20",
+                "reference": "980a02b40496a25ce38acb4d3f4949b77abf9f20",
                 "shasum": ""
             },
             "require": {
@@ -852,9 +811,6 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ""
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
@@ -870,7 +826,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-06-26 07:15:38"
+            "time": "2014-08-14 16:51:26"
         },
         {
             "name": "phpunit/phpunit",
@@ -1061,12 +1017,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "4d29ae5f1dbc3ee7fcd82ffbb292476975a78692"
+                "reference": "3075f28ebc958c2006d0267ae0d189eac1dd4b2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/4d29ae5f1dbc3ee7fcd82ffbb292476975a78692",
-                "reference": "4d29ae5f1dbc3ee7fcd82ffbb292476975a78692",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/3075f28ebc958c2006d0267ae0d189eac1dd4b2f",
+                "reference": "3075f28ebc958c2006d0267ae0d189eac1dd4b2f",
                 "shasum": ""
             },
             "require": {
@@ -1089,23 +1045,21 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
                 },
                 {
                     "name": "Jean-François Simon",
                     "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-17 08:32:45"
+            "time": "2014-07-18 07:44:18"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1114,12 +1068,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "e50da0a1af797151266110f432586d062bb873fb"
+                "reference": "3e422fb1963cefd679f724286ca22ae4e2c06dcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/e50da0a1af797151266110f432586d062bb873fb",
-                "reference": "e50da0a1af797151266110f432586d062bb873fb",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/3e422fb1963cefd679f724286ca22ae4e2c06dcb",
+                "reference": "3e422fb1963cefd679f724286ca22ae4e2c06dcb",
                 "shasum": ""
             },
             "require": {
@@ -1148,19 +1102,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-09 09:06:26"
+            "time": "2014-08-05 09:07:51"
         },
         {
             "name": "symfony/yaml",
@@ -1169,12 +1121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "07ff901ce8b081cf227091b4919d347fa999b2a0"
+                "reference": "d84b97a12046b2c34e8457626b9f2b72dec0c183"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/07ff901ce8b081cf227091b4919d347fa999b2a0",
-                "reference": "07ff901ce8b081cf227091b4919d347fa999b2a0",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/d84b97a12046b2c34e8457626b9f2b72dec0c183",
+                "reference": "d84b97a12046b2c34e8457626b9f2b72dec0c183",
                 "shasum": ""
             },
             "require": {
@@ -1197,34 +1149,27 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-09 09:06:26"
+            "time": "2014-08-05 09:07:51"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "symfony/class-loader": 20,
         "symfony/dom-crawler": 20,
         "symfony/css-selector": 20
     },
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "prefer-stable": false,
+    "platform": [],
+    "platform-dev": []
 }

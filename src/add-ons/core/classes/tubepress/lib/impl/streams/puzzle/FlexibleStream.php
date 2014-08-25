@@ -193,4 +193,14 @@ class tubepress_lib_impl_streams_puzzle_FlexibleStream implements puzzle_stream_
     {
         return $this->_delegate->__toString();
     }
+
+    /**
+     * Flush the write buffers of the stream.
+     *
+     * @return bool Returns true on success and false on failure
+     */
+    public function flush()
+    {
+        return $this->_delegate->flush();
+    }
 }
