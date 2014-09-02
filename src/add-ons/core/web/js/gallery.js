@@ -487,7 +487,7 @@ var tubePressGalleryRegistrar;
 
                 } else {
 
-                    loadJs('/src/core/pro/web/js/' + text_ajaxPagination + text_dot + text_js);
+                    loadJs('/web/js/' + text_ajaxPagination + text_dot + text_js);
                 }
             }
         };
