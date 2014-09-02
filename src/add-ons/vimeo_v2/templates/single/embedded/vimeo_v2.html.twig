@@ -7,4 +7,15 @@
  # License, v. 2.0. If a copy of the MPL was not distributed with this
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
-<iframe src="{{ dataURL }}" width="{{ embeddedWidthPx }}" height="{{ embeddedHeightPx }}" frameborder="0" allowfullscreen></iframe>
+
+{#
+ # If you decided to edit this template (and we do not recommend that you do so), keep in mind
+ # the following:
+ #
+ # 1. If you do not set the "id" and "name" attribute on the <iframe>, TubePress Pro will do so on your behalf.
+ #
+ # 2. If you *do* set the "id" attribute, you must set the "name" attribute and its value must be identical
+ #    to the "id" attribute. This value must be "globally" unique - do not set it to the video ID or anything
+ #    that might be repeated elsewhere on the page. Failure to do so will break user functionality.
+ #}
+<iframe src="{{ dataURL }}" width="{{ embeddedWidthPx }}" height="{{ embeddedHeightPx }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
