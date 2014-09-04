@@ -14,7 +14,6 @@
     "require": {
         "ehough/finder"      : "~2.5.0",
         "ehough/iconic"      : "~2.5.0",
-        "ehough/oauth"       : "~0.3.0",
         "ehough/pulsar"      : "~2.5.0",
         "ehough/stash"       : "~0.12.0",
         "ehough/tickertape"  : "~2.5.0",

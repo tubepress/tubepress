@@ -89,12 +89,26 @@ class tubepress_lib_impl_http_puzzle_PuzzleHttpClient extends tubepress_lib_impl
     {
         $tubePressBody = $request->getBody();
 
+        if ($tubePressBody instanceof tubepress_lib_impl_streams_puzzle_FlexibleStream) {
+
+            $underlyingStream = $tubePressBody->getUnderlyingStream();
+
+            if ($underlyingStream instanceof puzzle_stream_StreamInterface) {
+
+                $tubePressBody = $underlyingStream;
+            }
+
+        } else {
+
+            $tubePressBody = new tubepress_lib_impl_streams_puzzle_FlexibleStream($tubePressBody);
+        }
+
         $puzzleRequest = new puzzle_message_Request(
 
             $request->getMethod(),
             $request->getUrl()->toString(),
             $request->getHeaders(),
-            $tubePressBody ? new tubepress_lib_impl_streams_puzzle_FlexibleStream($tubePressBody) : null,
+            $tubePressBody,
             $request->getConfig()
         );
 

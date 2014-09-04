@@ -35,6 +35,14 @@ class tubepress_lib_impl_streams_puzzle_FlexibleStream implements puzzle_stream_
     }
 
     /**
+     * @return puzzle_stream_StreamInterface|tubepress_lib_api_streams_StreamInterface
+     */
+    public function getUnderlyingStream()
+    {
+        return $this->_delegate;
+    }
+
+    /**
      * Closes the stream and any underlying resources.
      */
     public function close()
