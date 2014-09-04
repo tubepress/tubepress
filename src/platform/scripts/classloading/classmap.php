@@ -328,7 +328,7 @@ return array (
     'ehough_stash_interfaces_drivers_ExtendInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/interfaces/drivers/ExtendInterface.php',
     'ehough_stash_interfaces_drivers_IncDecInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/interfaces/drivers/IncDecInterface.php',
     'ehough_stash_interfaces_drivers_MultiInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/interfaces/drivers/MultiInterface.php',
-    'ehough_stash_session_SessionHandlerInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/session/SessionHandlerInterface_Legacy.php',
+    'ehough_stash_session_SessionHandlerInterface' => TUBEPRESS_ROOT . '/vendor/ehough/stash/src/main/php/ehough/stash/session/SessionHandlerInterface.php',
     'ehough_templating_DebuggerInterface' => TUBEPRESS_ROOT . '/vendor/ehough/templating/src/main/php/ehough/templating/DebuggerInterface.php',
     'ehough_templating_DelegatingEngine' => TUBEPRESS_ROOT . '/vendor/ehough/templating/src/main/php/ehough/templating/DelegatingEngine.php',
     'ehough_templating_EngineInterface' => TUBEPRESS_ROOT . '/vendor/ehough/templating/src/main/php/ehough/templating/EngineInterface.php',
