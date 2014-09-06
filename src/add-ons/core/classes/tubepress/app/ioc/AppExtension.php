@@ -568,6 +568,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::TEMPLATE_CACHE_DIR                  => null,
                 tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED              => true,
                 tubepress_app_api_options_Names::THEME                               => 'tubepress/default',
+                tubepress_app_api_options_Names::THEME_ADMIN                         => 'tubepress/admin-default',
 
             ),
 
@@ -670,7 +671,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_AUTONEXT,
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
                 tubepress_app_api_options_Names::HTML_HTTPS
-            )
+            ),
         ));
 
         $toValidate = array(

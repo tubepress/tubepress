@@ -646,7 +646,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::TEMPLATE_CACHE_DIR                  => null,
                     tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED              => true,
                     tubepress_app_api_options_Names::THEME                               => 'tubepress/default',
-
+                    tubepress_app_api_options_Names::THEME_ADMIN                         => 'tubepress/admin-default',
                 ),
 
                 tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
