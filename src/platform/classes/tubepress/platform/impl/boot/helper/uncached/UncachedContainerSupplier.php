@@ -96,21 +96,12 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
 
         $this->_iocCompiler->compile($this->_containerBuilder, $addons);
 
-        if ($this->_bootSettings->isSystemCacheEnabled()) {
-
-            $toReturn = $this->_tryToCacheAndReturnIconicContainer($this->_containerBuilder);
-
-        } else {
-
-            $toReturn = $this->_containerBuilder->getDelegateContainerBuilder();
-        }
-
         if ($this->_bootSettings->isClassLoaderEnabled()) {
 
             spl_autoload_unregister(array($this->_mapClassLoader, 'loadClass'));
         }
 
-        return $toReturn;
+        return $this->_convertToIconicContainer($this->_containerBuilder);
     }
 
     private function _findAllAddons()
@@ -184,7 +175,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
      *
      * @return ehough_iconic_ContainerInterface
      */
-    private function _tryToCacheAndReturnIconicContainer(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder)
+    private function _convertToIconicContainer(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder)
     {
         if ($this->_shouldLog) {
 
@@ -192,7 +183,15 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
         }
 
         $dumpedContainerText = $this->_getDumpedIconicContainerAsString($containerBuilder->getDelegateContainerBuilder());
-        $storagePath         = $this->_bootSettings->getPathToSystemCacheDirectory() . '/TubePressServiceContainer.php';
+
+        if ($this->_bootSettings->isSystemCacheEnabled()) {
+
+            $storagePath = $this->_bootSettings->getPathToSystemCacheDirectory() . '/TubePressServiceContainer.php';
+
+        } else {
+
+            $storagePath = tempnam(sys_get_temp_dir(), 'TubePressServiceContainer');
+        }
 
         if (!is_dir(dirname($storagePath))) {
 

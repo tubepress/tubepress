@@ -38,7 +38,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
      * @var ehough_pulsar_MapClassLoader
      */
     private $_temporaryClassLoader;
-    
+
     public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
                                 tubepress_platform_api_boot_BootSettingsInterface $bootSettings)
     {
@@ -180,11 +180,6 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
         $tubePressContainer = new tubepress_platform_impl_ioc_Container($result);
 
         spl_autoload_unregister(array($this->_temporaryClassLoader, 'loadClass'));
-
-        if ($result instanceof ehough_iconic_ContainerBuilder) {
-
-            return $tubePressContainer;
-        }
 
         $this->_setEphemeralServicesToContainer($tubePressContainer, $result);
 
