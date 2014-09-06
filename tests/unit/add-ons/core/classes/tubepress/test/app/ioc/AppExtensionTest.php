@@ -902,12 +902,24 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ));
 
         $this->expectRegistration(
+            'tubepress_app_impl_html_CssAndJsGenerationHelper.admin',
+            'tubepress_app_impl_html_CssAndJsGenerationHelper'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN)
+            ->withArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS_ADMIN);
+
+        $this->expectRegistration(
             tubepress_app_api_options_ui_FormInterface::_,
             'tubepress_app_impl_options_ui_Form'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper.admin'))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
                 'method' => 'setFieldProviders',

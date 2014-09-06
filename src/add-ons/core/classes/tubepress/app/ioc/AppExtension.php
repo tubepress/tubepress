@@ -821,12 +821,24 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         ));
 
         $containerBuilder->register(
+            'tubepress_app_impl_html_CssAndJsGenerationHelper.admin',
+            'tubepress_app_impl_html_CssAndJsGenerationHelper'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService.admin'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN)
+         ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS_ADMIN);
+
+        $containerBuilder->register(
             tubepress_app_api_options_ui_FormInterface::_,
             'tubepress_app_impl_options_ui_Form'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper.admin'))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
             'method' => 'setFieldProviders',

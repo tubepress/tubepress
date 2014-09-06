@@ -39,15 +39,22 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
      */
     private $_stringUtils;
 
+    /**
+     * @var tubepress_app_impl_html_CssAndJsGenerationHelper
+     */
+    private $_cssAndJsGenerationHelper;
+
     public function __construct(tubepress_lib_api_template_TemplatingInterface     $templating,
                                 tubepress_app_api_environment_EnvironmentInterface $environment,
                                 tubepress_app_api_options_PersistenceInterface     $persistence,
-                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils)
+                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils,
+                                tubepress_app_impl_html_CssAndJsGenerationHelper   $cssAndJsGenerationHelper)
     {
-        $this->_templating  = $templating;
-        $this->_environment = $environment;
-        $this->_persistence = $persistence;
-        $this->_stringUtils = $stringUtils;
+        $this->_templating               = $templating;
+        $this->_environment              = $environment;
+        $this->_persistence              = $persistence;
+        $this->_stringUtils              = $stringUtils;
+        $this->_cssAndJsGenerationHelper = $cssAndJsGenerationHelper;
     }
 
     /**
@@ -107,6 +114,50 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
         $this->_persistence->flushSaveQueue();
 
         return $errors;
+    }
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface[]
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getUrlsCSS()
+    {
+        return $this->_cssAndJsGenerationHelper->getUrlsCSS();
+    }
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface[]
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getUrlsJS()
+    {
+        return $this->_cssAndJsGenerationHelper->getUrlsJS();
+    }
+
+    /**
+     * @return string
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getCSS()
+    {
+        return $this->_cssAndJsGenerationHelper->getCSS();
+    }
+
+    /**
+     * @return string
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getJS()
+    {
+        return $this->_cssAndJsGenerationHelper->getJS();
     }
 
     /**

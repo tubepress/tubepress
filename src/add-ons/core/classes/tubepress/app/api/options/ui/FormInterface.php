@@ -42,4 +42,36 @@ interface tubepress_app_api_options_ui_FormInterface
      * @since 4.0.0
      */
     function onSubmit();
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface[]
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getUrlsCSS();
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface[]
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getUrlsJS();
+
+    /**
+     * @return string
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getCSS();
+
+    /**
+     * @return string
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getJS();
 }
