@@ -44,11 +44,6 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
      */
     private $_mockForm;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockContext;
-
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper    = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
@@ -56,7 +51,6 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
         $this->_mockHttpRequestParameterService = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
         $this->_mockQss                         = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $this->_mockForm                        = $this->mock(tubepress_app_api_options_ui_FormInterface::_);
-        $this->_mockContext                     = $this->mock(tubepress_app_api_options_ContextInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters(
 
@@ -64,8 +58,7 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
             $this->_mockQss,
             $this->_mockHttpRequestParameterService,
             $this->_mockEventDispatcher,
-            $this->_mockForm,
-            $this->_mockContext
+            $this->_mockForm
         );
 
         $this->_sut->___doNotIgnoreExceptions();
@@ -243,8 +236,6 @@ ABC
 
     public function testEnqueueStylesAndScriptsDefault()
     {
-        $this->_mockContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_app_api_options_Names::THEME_ADMIN, 'tubepress/wordpress');
-
         $mockCssUrl  = $this->mock(tubepress_platform_api_url_UrlInterface::_);
         $mockCssUrl->shouldReceive('toString')->once()->andReturn('syz');
         $mockCssUrls = array($mockCssUrl);

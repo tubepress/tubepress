@@ -49,24 +49,17 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
      */
     private $_form;
 
-    /**
-     * @var tubepress_app_api_options_ContextInterface
-     */
-    private $_context;
-
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions           $wpFunctions,
                                 tubepress_platform_api_url_UrlFactoryInterface    $urlFactory,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher,
-                                tubepress_app_api_options_ui_FormInterface        $form,
-                                tubepress_app_api_options_ContextInterface        $context)
+                                tubepress_app_api_options_ui_FormInterface        $form)
     {
         $this->_wpFunctions       = $wpFunctions;
         $this->_urlFactory        = $urlFactory;
         $this->_httpRequestParams = $requestParams;
         $this->_eventDispatcher   = $eventDispatcher;
         $this->_form              = $form;
-        $this->_context           = $context;
     }
 
     /**
@@ -246,8 +239,6 @@ EOT;
 
             return;
         }
-
-        $this->_context->setEphemeralOption(tubepress_app_api_options_Names::THEME_ADMIN, 'tubepress/wordpress');
 
         $cssUrls = $this->_form->getUrlsCSS();
         $jsUrls  = $this->_form->getUrlsJS();

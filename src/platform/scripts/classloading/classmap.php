@@ -661,6 +661,7 @@ return array (
     'tubepress_wordpress_api_Constants' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/api/Constants.php',
     'tubepress_wordpress_impl_Callback' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/Callback.php',
     'tubepress_wordpress_impl_listeners_html_WpHtmlListener' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/html/WpHtmlListener.php',
+    'tubepress_wordpress_impl_listeners_options_AdminThemeListener' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/options/AdminThemeListener.php',
     'tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/options/ui/OptionsPageListener.php',
     'tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/wp/AdminActionsAndFilters.php',
     'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/listeners/wp/PublicActionsAndFilters.php',

@@ -92,7 +92,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ui_FormInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.admin_enqueue_scripts',
             'method'   => 'onAction_admin_enqueue_scripts',
@@ -183,7 +182,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
             'tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ui_FormInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_wordpress_api_Constants::EVENT_OPTIONS_PAGE_INVOKED,
             'method'   => 'run',
@@ -191,6 +189,15 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.options-ui/form',
             'method'   => 'onTemplateSelect',
+            'priority' => 10000,
+        ));
+
+        $containerBuilder->register(
+            'tubepress_wordpress_impl_listeners_options_AdminThemeListener',
+            'tubepress_wordpress_impl_listeners_options_AdminThemeListener'
+        )->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::OPTION_DEFAULT_VALUE . '.' . tubepress_app_api_options_Names::THEME_ADMIN,
+            'method'   => 'onDefaultValue',
             'priority' => 10000,
         ));
     }
