@@ -138,13 +138,22 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     private function _registerHtmlGenerator()
     {
         $this->expectRegistration(
-            tubepress_app_api_html_HtmlGeneratorInterface::_,
-            'tubepress_app_impl_html_HtmlGenerator'
+            'tubepress_app_impl_html_CssAndJsGenerationHelper',
+            'tubepress_app_impl_html_CssAndJsGenerationHelper'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_));
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withArgument(tubepress_app_api_event_Events::HTML_SCRIPTS)
+            ->withArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS);
+
+        $this->expectRegistration(
+            tubepress_app_api_html_HtmlGeneratorInterface::_,
+            'tubepress_app_impl_html_HtmlGenerator'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper'));
     }
 
     private function _registerHttpSingletons()

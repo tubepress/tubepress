@@ -57,13 +57,22 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
     private function _registerHtmlGenerator(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            tubepress_app_api_html_HtmlGeneratorInterface::_,
-            'tubepress_app_impl_html_HtmlGenerator'
+            'tubepress_app_impl_html_CssAndJsGenerationHelper',
+            'tubepress_app_impl_html_CssAndJsGenerationHelper'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_));
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS)
+         ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS);
+
+        $containerBuilder->register(
+            tubepress_app_api_html_HtmlGeneratorInterface::_,
+            'tubepress_app_impl_html_HtmlGenerator'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper'));
     }
 
     private function _registerHttpSingletons(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
