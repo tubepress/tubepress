@@ -78,7 +78,15 @@
 
     <target name="update-version-in-php-code">
 
-        <replace file="${stagingdir}/src/add-ons/core/classes/tubepress/app/impl/environment/Environment.php" token="9.9.9" value="${version.major}.${version.minor}.${version.micro}" />
+        <replace file="${stagingdir}/src/add-ons/core/classes/tubepress/app/impl/environment/Environment.php"
+                 token="9.9.9" value="${version.major}.${version.minor}.${version.micro}"
+                 failOnNoReplacements="true"
+                />
+
+        <replace file="${stagingdir}/src/platform/scripts/classloading/classes.php"
+                 token="parse('9.9.9')" value="parse('${version.major}.${version.minor}.${version.micro}')"
+                 failOnNoReplacements="true"
+                />
 
     </target>
 
