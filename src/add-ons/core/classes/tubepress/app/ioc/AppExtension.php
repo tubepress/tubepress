@@ -88,6 +88,13 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $listenerData = array(
 
             /**
+             * ADMIN GUI
+             */
+            'tubepress_app_impl_listeners_admingui_BootstrapIe8Listener' => array(
+                tubepress_app_api_environment_EnvironmentInterface::_
+            ),
+
+            /**
              * EMBEDDED
              */
             'tubepress_app_impl_listeners_embedded_EmbeddedListener' => array(
@@ -271,6 +278,13 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         );
 
         $listeners = array(
+
+            /**
+             * ADMIN GUI
+             */
+            tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN => array(
+                10000 => array('tubepress_app_impl_listeners_admingui_BootstrapIe8Listener' => 'onAdminScripts')
+            ),
 
             /**
              * GALLERY INIT JS
