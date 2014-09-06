@@ -39,6 +39,7 @@ class tubepress_test_lib_ioc_compiler_TemplatePathProvidersPassTest extends tube
     public function testNoDispatcherService()
     {
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with('Twig_Loader_Filesystem')->andReturn(false);
+        $this->_mockContainer->shouldReceive('hasDefinition')->once()->with('Twig_Loader_Filesystem.admin')->andReturn(false);
         $this->_sut->process($this->_mockContainer);
         $this->assertTrue(true);
     }
@@ -46,10 +47,15 @@ class tubepress_test_lib_ioc_compiler_TemplatePathProvidersPassTest extends tube
     public function testAddPaths()
     {
         $this->_mockContainer->shouldReceive('hasDefinition')->once()->with('Twig_Loader_Filesystem')->andReturn(true);
+        $this->_mockContainer->shouldReceive('hasDefinition')->once()->with('Twig_Loader_Filesystem.admin')->andReturn(true);
         $this->_mockContainer->shouldReceive('getDefinition')->once()->with('Twig_Loader_Filesystem')->andReturn($this->_mockTwigFsLoaderDefinition);
+        $this->_mockContainer->shouldReceive('getDefinition')->once()->with('Twig_Loader_Filesystem.admin')->andReturn($this->_mockTwigFsLoaderDefinition);
         $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_lib_api_template_PathProviderInterface')
             ->andReturn(array(
                 'foo' => array(),
+            ));
+        $this->_mockContainer->shouldReceive('findTaggedServiceIds')->once()->with('tubepress_lib_api_template_PathProviderInterface.admin')
+            ->andReturn(array(
                 'bar' => array()
             ));
 

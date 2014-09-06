@@ -44,15 +44,29 @@ class tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters
      */
     private $_eventDispatcher;
 
+    /**
+     * @var tubepress_app_api_options_ui_FormInterface
+     */
+    private $_form;
+
+    /**
+     * @var tubepress_app_api_options_ContextInterface
+     */
+    private $_context;
+
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions           $wpFunctions,
                                 tubepress_platform_api_url_UrlFactoryInterface    $urlFactory,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher)
+                                tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher,
+                                tubepress_app_api_options_ui_FormInterface        $form,
+                                tubepress_app_api_options_ContextInterface        $context)
     {
         $this->_wpFunctions       = $wpFunctions;
         $this->_urlFactory        = $urlFactory;
         $this->_httpRequestParams = $requestParams;
         $this->_eventDispatcher   = $eventDispatcher;
+        $this->_form              = $form;
+        $this->_context           = $context;
     }
 
     /**
@@ -233,104 +247,25 @@ EOT;
             return;
         }
 
-        $baseName = basename(TUBEPRESS_ROOT);
+        $this->_context->setEphemeralOption(tubepress_app_api_options_Names::THEME_ADMIN, 'tubepress/wordpress');
 
-        foreach ($this->_getCssMap() as $cssName => $cssRelativePath) {
+        $cssUrls = $this->_form->getUrlsCSS();
+        $jsUrls  = $this->_form->getUrlsJS();
 
-            $url = $this->_wpFunctions->plugins_url($baseName . $cssRelativePath, $baseName);
+        for ($x = 0; $x < count($cssUrls); $x++) {
 
-            $this->_wpFunctions->wp_register_style($cssName, $url);
-            $this->_wpFunctions->wp_enqueue_style($cssName);
+            $cssUrl = $cssUrls[$x];
+
+            $this->_wpFunctions->wp_register_style('tubepress-' . $x, $cssUrl->toString());
+            $this->_wpFunctions->wp_enqueue_style('tubepress-' . $x);
         }
 
-        foreach ($this->_getJsMap() as $jsName => $jsRelativePath) {
+        for ($x = 0; $x < count($jsUrls); $x++) {
 
-            $url = $this->_wpFunctions->plugins_url($baseName . $jsRelativePath, $baseName);
+            $jsUrl = $jsUrls[$x];
 
-            $this->_wpFunctions->wp_register_script($jsName, $url);
-            $this->_wpFunctions->wp_enqueue_script($jsName, false, array(), false, false);
+            $this->_wpFunctions->wp_register_script('tubepress-' . $x, $jsUrl->toString());
+            $this->_wpFunctions->wp_enqueue_script('tubepress-' . $x, false, array(), false, false);
         }
-    }
-
-    private function _getCssMap()
-    {
-        return array(
-
-            'bootstrap-3.1.1'         => '/web/options-ui/vendor/bootstrap-3.1.1/css/bootstrap-custom.css',
-            'bootstrap-theme'         => '/web/options-ui/vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css',
-            'bootstrap-multiselect'   => '/web/options-ui/vendor/bootstrap-multiselect-0.9.4/css/bootstrap-multiselect.css',
-            'blueimp-gallery-2.14.0'  => '/web/options-ui/vendor/blueimp-gallery-2.14.0/css/blueimp-gallery.min.css',
-            'bootstrap-image-gallery' => '/web/options-ui/vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css',
-            'tubepress-options-gui'   => '/web/options-ui/css/options-page.css',
-            'wordpress-options-gui'   => '/web/options-ui/wordpress/css/options-page.css',
-            'spectrum'                => '/web/options-ui/vendor/spectrum-1.3.4/spectrum.css',
-        );
-    }
-
-    private function _getJsMap()
-    {
-        $toReturn = array(
-
-            'bootstrap-3.1.1' => '/web/options-ui/vendor/bootstrap-3.1.1/js/bootstrap.min.js',
-        );
-
-        if ($this->_isIE8orLower()) {
-
-            $toReturn = array_merge($toReturn, array(
-
-                'html5-shiv-3.7.0' => '/web/options-ui/vendor/html5-shiv-3.7.0/html5shiv.js',
-                'respond-1.4.2'    => '/web/options-ui/vendor/respond-1.4.2/respond.min.js',
-            ));
-        }
-
-        $toReturn = array_merge($toReturn, array(
-
-            'bootstrap-multiselect'         => '/web/options-ui/vendor/bootstrap-multiselect-0.9.4/js/bootstrap-multiselect.js',
-            'spectrum'                      => '/web/options-ui/vendor/spectrum-1.3.4/spectrum.js',
-            'blueimp-gallery-2.14.0'        => '/web/options-ui/vendor/blueimp-gallery-2.14.0/js/blueimp-gallery.min.js',
-            'bootstrap-image-gallery'       => '/web/options-ui/vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js',
-            'bootstrap-field-error-handler' => '/web/options-ui/js/bootstrap-field-error-handler.js',
-            'field-provider-filter-handler' => '/web/options-ui/js/field-provider-filter-handler.js',
-            'spectrum-js-initializer'       => '/web/options-ui/js/spectrum-js-initializer.js',
-            'bootstrap-multiselect-init'    => '/web/options-ui/js/bootstrap-multiselect-initializer.js',
-            'theme-field-handler'           => '/web/options-ui/js/theme-field-handler.js',
-            'theme-reminder'                => '/web/options-ui/wordpress/js/theme-reminder.js',
-            'iframe-loader'                 => '/web/options-ui/wordpress/js/iframe-loader.js',
-        ));
-
-        return $toReturn;
-    }
-
-    private function _isIE8orLower()
-    {
-        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
-
-            //no user agent for some reason
-            return false;
-        }
-
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
-
-        if (stristr($userAgent, 'MSIE') === false) {
-
-            //shortcut - MSIE is not in user-agent header
-            return false;
-        }
-
-        if (!preg_match('/MSIE (.*?);/i', $userAgent, $m)) {
-
-            //not IE
-            return false;
-        }
-
-        if (!isset($m[1]) || !is_numeric($m[1])) {
-
-            //couldn't parse version for some reason
-            return false;
-        }
-
-        $version = (int) $m[1];
-
-        return $version <= 8;
     }
 }

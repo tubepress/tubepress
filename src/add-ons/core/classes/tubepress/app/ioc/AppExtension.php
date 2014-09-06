@@ -64,8 +64,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS)
-         ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS);
+         ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS)
+         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS);
 
         $containerBuilder->register(
             tubepress_app_api_html_HtmlGeneratorInterface::_,
@@ -809,7 +809,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'tubepress_app_impl_options_ui_FieldBuilder'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
@@ -828,13 +828,13 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN)
-         ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS_ADMIN);
+         ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS_ADMIN)
+         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN);
 
         $containerBuilder->register(
             tubepress_app_api_options_ui_FormInterface::_,
             'tubepress_app_impl_options_ui_Form'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
@@ -1193,11 +1193,15 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
 
         $parallelServices = array(
-            ''       => '',
-            '.admin' => 'admin-'
+            array('',       '',       tubepress_app_api_options_Names::THEME),
+            array('.admin', 'admin-', tubepress_app_api_options_Names::THEME_ADMIN),
         );
 
-        foreach ($parallelServices as $serviceSuffix => $artifactPrefix) {
+        foreach ($parallelServices as $serviceInfo) {
+
+            $serviceSuffix  = $serviceInfo[0];
+            $artifactPrefix = $serviceInfo[1];
+            $optionName     = $serviceInfo[2];
 
             $containerBuilder->register(
                 tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix,
@@ -1212,7 +1216,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 'tubepress_app_impl_theme_CurrentThemeService'
             )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
              ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix))
-             ->addArgument('tubepress/' . $artifactPrefix . 'default');
+             ->addArgument('tubepress/' . $artifactPrefix . 'default')
+             ->addArgument($optionName);
         }
     }
 

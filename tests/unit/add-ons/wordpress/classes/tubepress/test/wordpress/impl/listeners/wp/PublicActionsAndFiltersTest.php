@@ -195,13 +195,10 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-theme-0', false, array(), false, false);
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('tubepress/web/js/tubepress.js', 'tubepress')->andReturn('<tubepressjs>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('tubepress/web/js/wordpress-ajax.js', 'tubepress')->andReturn('<ajaxjs>');
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress', '<tubepressjs>', array('jquery'), 'tubepress-version');
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress_ajax', '<ajaxjs>', array('tubepress'), 'tubepress-version');
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress', false, array(), false, false);
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('jquery', false, array(), false, false);
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress_ajax', false, array(), false, false);
 

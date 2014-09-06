@@ -49,6 +49,11 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
      */
     private $_mockEvent;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockContext;
+
     public function onSetup()
     {
         $this->_mockEvent                       = $this->mock('tubepress_lib_api_event_EventInterface');
@@ -57,11 +62,13 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
         $this->_mockStorageManager              = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
         $this->_mockFormHandler                 = $this->mock('tubepress_app_api_options_ui_FormInterface');
         $this->_mockEnvironmentDetector         = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $this->_mockContext                     = $this->mock(tubepress_app_api_options_ContextInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener(
 
             $this->_mockFormHandler,
-            $this->_mockHttpRequestParameterService
+            $this->_mockHttpRequestParameterService,
+            $this->_mockContext
         );
     }
 
@@ -76,6 +83,8 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
         $_SERVER['REQUEST_METHOD'] = 'POST';
 
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
+
+        $this->_mockContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_app_api_options_Names::THEME_ADMIN, 'tubepress/wordpress');
 
         $this->_mockFormHandler->shouldReceive('getHtml')->once()->with(array(), true)->andReturn('yo');
         $this->_mockFormHandler->shouldReceive('onSubmit')->once()->andReturn(array());
@@ -96,6 +105,7 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
 
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
 
+        $this->_mockContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_app_api_options_Names::THEME_ADMIN, 'tubepress/wordpress');
         $this->_mockFormHandler->shouldReceive('getHtml')->once()->andReturn('yo');
         $this->_mockFormHandler->shouldReceive('onSubmit')->once()->andReturn(array('bad value!', 'another bad value!'));
 
@@ -111,6 +121,7 @@ class tubepress_test_wordpress_impl_OptionsPageTest extends tubepress_test_TubeP
     {
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
+        $this->_mockContext->shouldReceive('setEphemeralOption')->once()->with(tubepress_app_api_options_Names::THEME_ADMIN, 'tubepress/wordpress');
         $this->_mockFormHandler->shouldReceive('getHtml')->once()->andReturn('yo');
 
         ob_start();

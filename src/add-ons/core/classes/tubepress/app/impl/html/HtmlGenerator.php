@@ -146,7 +146,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
 
         $tubepressJsUrl->addPath('/web/js/tubepress.js');
 
-        array_unshift($themeScripts, $tubepressJsUrl);
+        array_unshift($existingUrls, $tubepressJsUrl);
 
         $event->setSubject($existingUrls);
     }

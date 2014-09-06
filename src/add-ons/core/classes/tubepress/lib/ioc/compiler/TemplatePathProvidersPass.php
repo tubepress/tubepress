@@ -19,13 +19,19 @@ class tubepress_lib_ioc_compiler_TemplatePathProvidersPass implements tubepress_
      */
     public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        if (!$containerBuilder->hasDefinition('Twig_Loader_Filesystem')) {
+        $this->_doProcess($containerBuilder, '');
+        $this->_doProcess($containerBuilder, '.admin');
+    }
+
+    private function _doProcess(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder, $serviceSuffix)
+    {
+        if (!$containerBuilder->hasDefinition('Twig_Loader_Filesystem' . $serviceSuffix)) {
 
             return;
         }
 
-        $twigFsLoaderDefinition = $containerBuilder->getDefinition('Twig_Loader_Filesystem');
-        $providerIds            = $containerBuilder->findTaggedServiceIds('tubepress_lib_api_template_PathProviderInterface');
+        $twigFsLoaderDefinition = $containerBuilder->getDefinition('Twig_Loader_Filesystem' . $serviceSuffix);
+        $providerIds            = $containerBuilder->findTaggedServiceIds('tubepress_lib_api_template_PathProviderInterface' . $serviceSuffix);
 
         foreach ($providerIds as $providerId => $tags) {
 

@@ -21,11 +21,18 @@ class tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
      */
     private $_httpRequestParams;
 
+    /**
+     * @var tubepress_app_api_options_ContextInterface
+     */
+    private $_context;
+
     public function __construct(tubepress_app_api_options_ui_FormInterface        $form,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
+                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
+                                tubepress_app_api_options_ContextInterface        $context)
     {
         $this->_form              = $form;
         $this->_httpRequestParams = $requestParams;
+        $this->_context           = $context;
     }
 
     public function run(tubepress_lib_api_event_EventInterface $event)
@@ -40,6 +47,8 @@ class tubepress_wordpress_impl_listeners_options_ui_OptionsPageListener
 
             $errors = $this->_form->onSubmit();
         }
+
+        $this->_context->setEphemeralOption(tubepress_app_api_options_Names::THEME_ADMIN, 'tubepress/wordpress');
 
         print $this->_form->getHtml($errors, $justSubmitted);
     }

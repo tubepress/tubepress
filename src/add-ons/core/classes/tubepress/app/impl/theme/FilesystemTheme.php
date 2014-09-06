@@ -18,6 +18,7 @@ class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_
     private static $_PROPERTY_INLINE_CSS              = 'inlineCSS';
     private static $_PROPERTY_MANIFEST_PATH           = 'manifestPath';
     private static $_PROPERTY_IS_SYSTEM               = 'isSystem';
+    private static $_PROPERTY_IS_ADMIN                = 'isAdmin';
 
     /**
      * @return string Inline CSS that should be added to the <head> when this theme is active.
@@ -96,11 +97,18 @@ class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_
         $this->getProperties()->put(self::$_PROPERTY_MANIFEST_PATH, $path);
 
         $themeAbsPath = dirname($path);
-        $pathElements = array(TUBEPRESS_ROOT, 'web', 'themes');
-        $needle       = implode(DIRECTORY_SEPARATOR, $pathElements);
-        $isSystem     = strpos($themeAbsPath, $needle) !== false;
+
+        $publicPathElements = array(TUBEPRESS_ROOT, 'web', 'themes');
+        $publicNeedle       = implode(DIRECTORY_SEPARATOR, $publicPathElements);
+        $adminPathElements  = array(TUBEPRESS_ROOT, 'web', 'admin-themes');
+        $adminNeedle        = implode(DIRECTORY_SEPARATOR, $adminPathElements);
+        $isSystem           = strpos($themeAbsPath, $publicNeedle) !== false
+            || strpos($themeAbsPath, $adminNeedle) !== false;
 
         $this->getProperties()->put(self::$_PROPERTY_IS_SYSTEM, $isSystem);
+
+        $isAdmin = strpos($themeAbsPath, DIRECTORY_SEPARATOR . 'admin-themes' . DIRECTORY_SEPARATOR) !== false;
+        $this->getProperties()->put(self::$_PROPERTY_IS_ADMIN, $isAdmin);
     }
 
     /**
@@ -114,7 +122,7 @@ class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_
      * @since 4.0.0
      */
     public function getUrlsJS(tubepress_platform_api_url_UrlInterface $baseUrl,
-                               tubepress_platform_api_url_UrlInterface $userContentUrl)
+                              tubepress_platform_api_url_UrlInterface $userContentUrl)
     {
         return $this->_getStylesOrScripts($baseUrl, $userContentUrl, 'getUrlsJS');
     }
@@ -130,7 +138,7 @@ class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_
      * @since 4.0.0
      */
     public function getUrlsCSS(tubepress_platform_api_url_UrlInterface $baseUrl,
-                              tubepress_platform_api_url_UrlInterface $userContentUrl)
+                               tubepress_platform_api_url_UrlInterface $userContentUrl)
     {
         return $this->_getStylesOrScripts($baseUrl, $userContentUrl, 'getUrlsCSS');
     }
@@ -182,19 +190,36 @@ class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_
                                                    tubepress_platform_api_url_UrlInterface $userContentUrl,
                                                    tubepress_platform_api_url_UrlInterface $candidate)
     {
-        $toReturn = null;
-        $manifestPath = $this->getProperties()->get(self::$_PROPERTY_MANIFEST_PATH);
+        $toReturn     = null;
+        $properties   = $this->getProperties();
+        $manifestPath = $properties->get(self::$_PROPERTY_MANIFEST_PATH);
         $themeBase    = basename(dirname($manifestPath));
 
-        if ($this->getProperties()->getAsBoolean(self::$_PROPERTY_IS_SYSTEM)) {
+        if ($properties->getAsBoolean(self::$_PROPERTY_IS_SYSTEM)) {
 
             $toReturn = $baseUrl->getClone();
-            $toReturn->addPath("/web/themes/$themeBase/$candidate");
+
+            if ($properties->getAsBoolean(self::$_PROPERTY_IS_ADMIN)) {
+
+                $toReturn->addPath("/web/admin-themes/$themeBase/$candidate");
+
+            } else {
+
+                $toReturn->addPath("/web/themes/$themeBase/$candidate");
+            }
 
         } else {
 
             $toReturn = $userContentUrl->getClone();
-            $toReturn->addPath("/themes/$themeBase/$candidate");
+
+            if ($properties->getAsBoolean(self::$_PROPERTY_IS_ADMIN)) {
+
+                $toReturn->addPath("/admin-themes/$themeBase/$candidate");
+
+            } else {
+
+                $toReturn->addPath("/themes/$themeBase/$candidate");
+            }
         }
 
         return $toReturn;

@@ -37,7 +37,8 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_t
         $this->_sut = new tubepress_app_impl_theme_CurrentThemeService(
             $this->_mockContext,
             $this->_mockThemeRegistry,
-            'tubepress/default'
+            'tubepress/default',
+            'option-name'
         );
     }
 
@@ -58,7 +59,7 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_t
 
         $mockThemes = array($mockTheme1, $mockTheme2, $mockTheme3, $mockTheme4);
 
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::THEME)->andReturn($storedValue);
+        $this->_mockContext->shouldReceive('get')->once()->with('option-name')->andReturn($storedValue);
         $this->_mockThemeRegistry->shouldReceive('getAll')->once()->andReturn($mockThemes);
 
         $actual = $this->_sut->getCurrentTheme();

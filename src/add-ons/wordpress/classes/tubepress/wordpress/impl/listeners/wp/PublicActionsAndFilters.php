@@ -120,16 +120,13 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
             return;
         }
 
-        $baseName       = basename(TUBEPRESS_ROOT);
-        $tubePressJsUrl = $this->_wpFunctions->plugins_url("$baseName/web/js/tubepress.js", $baseName);
-        $ajaxUrl        = $this->_wpFunctions->plugins_url("$baseName/web/js/wordpress-ajax.js", $baseName);
-        $version        = $this->_environment->getVersion();
+        $baseName = basename(TUBEPRESS_ROOT);
+        $ajaxUrl  = $this->_wpFunctions->plugins_url("$baseName/web/js/wordpress-ajax.js", $baseName);
+        $version  = $this->_environment->getVersion();
 
-        $this->_wpFunctions->wp_register_script('tubepress', $tubePressJsUrl, array('jquery'), "$version");
         $this->_wpFunctions->wp_register_script('tubepress_ajax', $ajaxUrl, array('tubepress'), "$version");
 
         $this->_wpFunctions->wp_enqueue_script('jquery', false, array(), false, false);
-        $this->_wpFunctions->wp_enqueue_script('tubepress', false, array(), false, false);
         $this->_wpFunctions->wp_enqueue_script('tubepress_ajax', false, array(), false, false);
 
         $this->_enqueueThemeResources($this->_wpFunctions, $version);
@@ -219,13 +216,16 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
 
             if ($this->_stringUtils->endsWith($scripts[$x]->getPath(), '/web/js/tubepress.js')) {
 
-                //we already loaded this above
-                continue;
+                $handle = 'tubepress';
+                $deps   = array();
+
+            } else {
+
+                $handle = 'tubepress-theme-' . $x;
+                $deps    = array('tubepress');
             }
 
-            $handle = 'tubepress-theme-' . $x;
-
-            $wpFunctions->wp_register_script($handle, $scripts[$x]->toString(), array('tubepress'), "$version");
+            $wpFunctions->wp_register_script($handle, $scripts[$x]->toString(), $deps, "$version");
             $wpFunctions->wp_enqueue_script($handle, false, array(), false, false);
         }
     }
