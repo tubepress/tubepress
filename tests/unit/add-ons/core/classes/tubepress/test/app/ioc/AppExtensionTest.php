@@ -153,7 +153,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_app_impl_html_HtmlGenerator'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper'));
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_));
     }
 
     private function _registerHttpSingletons()
@@ -400,6 +401,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
                 10000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
+            ),
+            tubepress_app_api_event_Events::HTML_SCRIPTS => array(
+                100000 => array('tubepress_app_api_html_HtmlGeneratorInterface' => 'onScripts')
             ),
 
             /**

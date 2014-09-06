@@ -34,13 +34,20 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
      */
     private $_cache;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher,
-                                tubepress_lib_api_template_TemplatingInterface   $templating,
-                                tubepress_app_impl_html_CssAndJsGenerationHelper $cssAndJsGenerationHelper)
+    /**
+     * @var tubepress_app_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_lib_api_template_TemplatingInterface     $templating,
+                                tubepress_app_impl_html_CssAndJsGenerationHelper   $cssAndJsGenerationHelper,
+                                tubepress_app_api_environment_EnvironmentInterface $environment)
     {
         $this->_eventDispatcher       = $eventDispatcher;
         $this->_cssJsGenerationHelper = $cssAndJsGenerationHelper;
         $this->_templating            = $templating;
+        $this->_environment           = $environment;
 
         $this->_cache = new tubepress_platform_impl_collection_Map();
     }
@@ -129,5 +136,18 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
     public function getJS()
     {
         return $this->_cssJsGenerationHelper->getJS();
+    }
+
+    public function onScripts(tubepress_lib_api_event_EventInterface $event)
+    {
+        $existingUrls = $event->getSubject();
+
+        $tubepressJsUrl = $this->_environment->getBaseUrl()->getClone();
+
+        $tubepressJsUrl->addPath('/web/js/tubepress.js');
+
+        array_unshift($themeScripts, $tubepressJsUrl);
+
+        $event->setSubject($existingUrls);
     }
 }
