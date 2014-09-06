@@ -190,19 +190,14 @@
 
     <target name="stage-web-assets">
 
-        <move file="${stagingdir}/src/add-ons/core/web"                           tofile="${stagingdir}/web" verbose="true" />
-        <move file="${stagingdir}/src/add-ons/wordpress/web/options-gui"          tofile="${stagingdir}/web/options-ui/wordpress" verbose="true" />
+        <move file="${stagingdir}/src/add-ons/core/web"               tofile="${stagingdir}/web" verbose="true" />
+        <move file="${stagingdir}/src/add-ons/wordpress/web"          tofile="${stagingdir}/web" verbose="true" />
         <move todir="${stagingdir}/web/themes">
             <fileset dir="${stagingdir}/src/add-ons/deprecated/web/themes/">
                 <include name="**" />
             </fileset>
         </move>
-        <copy verbose="true" file="${stagingdir}/index.php"                                      tofile="${stagingdir}/web/index.php" />
-
-        <move todir="${stagingdir}/web/js" verbose="true">
-            <fileset dir="${stagingdir}/src/add-ons/wordpress/web/js" />
-            <mapper type="glob" from="*.js" to="*.js"/>
-        </move>
+        <copy verbose="true" file="${stagingdir}/index.php" tofile="${stagingdir}/web/index.php" />
 
     </target>
 

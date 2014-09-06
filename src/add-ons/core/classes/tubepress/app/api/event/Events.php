@@ -67,7 +67,7 @@ interface tubepress_app_api_event_Events
      * This event is fired immediately after TubePress assembles its list of scripts to print.
      *
      * @subject `tubepress_platform_api_url_UrlInterface[]` An array of URLs for the scripts that TubePress will print in the HTML <head>
-     *                                                  or near the closing </body> tag.
+     *                                                      or near the closing </body> tag.
      *
      * @api
      * @since 4.0.0
@@ -83,6 +83,27 @@ interface tubepress_app_api_event_Events
      * @since 4.0.0
      */
     const HTML_STYLESHEETS = 'tubepress.app.html.stylesheets';
+
+    /**
+     * This event is fired immediately after TubePress assembles its list of scripts to print in the options GUI.
+     *
+     * @subject `tubepress_platform_api_url_UrlInterface[]` An array of URLs for the scripts that TubePress will print in the HTML <head>
+     *                                                      or near the closing </body> tag.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const HTML_SCRIPTS_ADMIN = 'tubepress.app.html.scripts.admin';
+
+    /**
+     * This event is fired immediately after TubePress assembles its list of stylesheets to print in the options GUI.
+     *
+     * @subject `tubepress_platform_api_url_UrlInterface[]` An array of URLs for the stylesheets that TubePress will print in the HTML <head>
+     *
+     * @api
+     * @since 4.0.0
+     */
+    const HTML_STYLESHEETS_ADMIN = 'tubepress.app.html.stylesheets.admin';
 
     /**
      * @api
