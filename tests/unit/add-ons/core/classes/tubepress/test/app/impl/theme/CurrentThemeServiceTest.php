@@ -36,7 +36,8 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_t
 
         $this->_sut = new tubepress_app_impl_theme_CurrentThemeService(
             $this->_mockContext,
-            $this->_mockThemeRegistry
+            $this->_mockThemeRegistry,
+            'tubepress/default'
         );
     }
 

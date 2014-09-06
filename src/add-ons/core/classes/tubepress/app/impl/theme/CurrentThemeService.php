@@ -14,8 +14,6 @@
  */
 class tubepress_app_impl_theme_CurrentThemeService
 {
-    private static $_DEFAULT_THEME_NAME = 'tubepress/default';
-
     /**
      * @var tubepress_platform_api_contrib_RegistryInterface
      */
@@ -31,11 +29,18 @@ class tubepress_app_impl_theme_CurrentThemeService
      */
     private $_themeMap;
 
+    /**
+     * @var string
+     */
+    private $_defaultThemeName;
+
     public function __construct(tubepress_app_api_options_ContextInterface       $context,
-                                tubepress_platform_api_contrib_RegistryInterface $themeRegistry)
+                                tubepress_platform_api_contrib_RegistryInterface $themeRegistry,
+                                $defaultThemeName)
     {
-        $this->_themeRegistry = $themeRegistry;
-        $this->_context       = $context;
+        $this->_themeRegistry    = $themeRegistry;
+        $this->_context          = $context;
+        $this->_defaultThemeName = $defaultThemeName;
     }
 
     /**
@@ -49,7 +54,7 @@ class tubepress_app_impl_theme_CurrentThemeService
 
         if ($currentTheme == '') {
 
-            $currentTheme = self::$_DEFAULT_THEME_NAME;
+            $currentTheme = $this->_defaultThemeName;
         }
 
         if (array_key_exists($currentTheme, $this->_themeMap)) {
@@ -67,7 +72,7 @@ class tubepress_app_impl_theme_CurrentThemeService
             return $this->_themeMap["unknown/legacy-$currentTheme"];
         }
 
-        return $this->_themeMap[self::$_DEFAULT_THEME_NAME];
+        return $this->_themeMap[$this->_defaultThemeName];
     }
 
     private function _initCache()
