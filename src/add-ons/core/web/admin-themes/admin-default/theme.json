@@ -1,0 +1,35 @@
+{
+    "name" : "tubepress/admin-default",
+    "version": "1.0.0",
+    "title" : "Admin Default",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "styles" : [
+        "vendor/bootstrap-3.1.1/css/bootstrap-custom.css",
+        "vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css",
+        "vendor/bootstrap-multiselect-0.9.4/css/bootstrap-multiselect.css",
+        "vendor/blueimp-gallery-2.14.0/css/blueimp-gallery.min.css",
+        "vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css",
+        "vendor/spectrum-1.3.4/spectrum.css",
+        "css/options-page.css"
+    ],
+    "scripts" : [
+        "vendor/bootstrap-multiselect-0.9.4/js/bootstrap-multiselect.js",
+        "vendor/spectrum-1.3.4/spectrum.js",
+        "vendor/blueimp-gallery-2.14.0/js/blueimp-gallery.min.js",
+        "vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js",
+        "js/bootstrap-field-error-handler.js",
+        "js/field-provider-filter-handler.js",
+        "js/spectrum-js-initializer.js",
+        "js/bootstrap-multiselect-initializer.js",
+        "js/theme-field-handler.js"
+    ]
+}

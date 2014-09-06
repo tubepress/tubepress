@@ -14,8 +14,6 @@
  */
 class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepress_platform_api_ioc_CompilerPassInterface
 {
-    private static $_LEGACY_THEME_NAME_PREFIX = 'unknown/legacy-';
-
     /**
      * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
      *
@@ -23,6 +21,12 @@ class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepres
      * @since 4.0.0
      */
     public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $this->_process($containerBuilder, 'themes');
+        $this->_process($containerBuilder, 'admin-themes');
+    }
+
+    private function _process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder, $id)
     {
         $logger         = $containerBuilder->get('tubepress_platform_impl_log_BootLogger');
         $finderFactory  = $containerBuilder->get('ehough_finder_FinderFactoryInterface');
@@ -32,12 +36,12 @@ class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepres
         $langUtils      = $containerBuilder->get(tubepress_platform_api_util_LangUtilsInterface::_);
         $stringUtils    = $containerBuilder->get(tubepress_platform_api_util_StringUtilsInterface::_);
         $serializer     = new tubepress_platform_impl_boot_helper_uncached_Serializer($bootSettings);
+        $factory        = new tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory(
+            $context, $urlFactory, $langUtils, $logger, $stringUtils, $finderFactory
+        );
 
         $manifestFinder = new tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder(
-            TUBEPRESS_ROOT . '/web/themes', '/themes', 'theme.json', $logger, $bootSettings, $finderFactory
-        );
-        $factory = new tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory(
-            $context, $urlFactory, $langUtils, $logger, $stringUtils, $finderFactory
+            TUBEPRESS_ROOT . "/web/$id", "/$id", 'theme.json', $logger, $bootSettings, $finderFactory
         );
 
         $manifests = $manifestFinder->find();
@@ -61,7 +65,7 @@ class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepres
         }
 
         $bootArtifacts = $containerBuilder->getParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
-        $bootArtifacts = array_merge($bootArtifacts, array('themes' => $serializer->serialize($themes)));
+        $bootArtifacts = array_merge($bootArtifacts, array($id => $serializer->serialize($themes)));
         $containerBuilder->setParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, $bootArtifacts);
         $containerBuilder->set('tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory', $factory);
     }
