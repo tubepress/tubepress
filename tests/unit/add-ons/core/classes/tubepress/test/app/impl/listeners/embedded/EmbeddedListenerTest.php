@@ -103,6 +103,8 @@ class tubepress_test_app_impl_listeners_embedded_EmbeddedListenerTest extends tu
         $this->_mockIncomingEvent->shouldReceive('getSubject')->once()->andReturn($initialTemplateVars);
         $this->_mockIncomingEvent->shouldReceive('setSubject')->once()->with(array_merge($initialTemplateVars, array(
             'embeddedSource' => 'hiya',
+            'embeddedWidthPx' => 'embedded-width',
+            'embeddedHeightPx' => 'embedded-height',
         )));
 
         $this->_sut->onPlayerTemplatePreRender($this->_mockIncomingEvent);

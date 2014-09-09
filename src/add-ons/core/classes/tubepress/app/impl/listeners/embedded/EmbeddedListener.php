@@ -107,7 +107,9 @@ class tubepress_app_impl_listeners_embedded_EmbeddedListener
             tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT_PX => $embedHeight,
         ), $templateVars));
 
-        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE] = $embeddedHtml;
+        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE]    = $embeddedHtml;
+        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX]  = $embedWidth;
+        $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT_PX] = $embedHeight;
 
         $event->setSubject($existingTemplateVars);
     }
