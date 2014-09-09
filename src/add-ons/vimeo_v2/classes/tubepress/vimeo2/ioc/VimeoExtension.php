@@ -56,7 +56,7 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST,
             'method'   => 'onRequest',
-            'priority' => 9000
+            'priority' => 98000
         ));
 
         $containerBuilder->register(
@@ -67,7 +67,7 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW,
             'method'   => 'onHttpItem',
-            'priority' => 40000
+            'priority' => 100000
         ));
 
         $containerBuilder->register(
@@ -77,7 +77,7 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR,
             'method'   => 'onOption',
-            'priority' => 9500,
+            'priority' => 100000,
         ));
 
         $validators = array(

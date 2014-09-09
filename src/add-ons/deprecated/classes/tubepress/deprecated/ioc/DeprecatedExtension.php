@@ -40,11 +40,11 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_platform
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'method'   => 'onTemplate',
-            'priority' => 10400))
+            'priority' => 90000))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'method'   => 'onTemplate',
-            'priority' => 10100))
+            'priority' => 94000))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'method'   => 'onSingleTemplate',
@@ -60,23 +60,23 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_platform
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main',
             'method'   => 'onGalleryTemplate',
-            'priority' => 1000))
+            'priority' => 92000))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/static',
             'method'   => 'onPlayerTemplate',
-            'priority' => 10000))
+            'priority' => 98000))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/ajax',
             'method'   => 'onPlayerTemplate',
-            'priority' => 10000))
+            'priority' => 98000))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input',
             'method'   => 'onSearchInputTemplate',
-            'priority' => 10000))
+            'priority' => 98000))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'method'   => 'onSingleItemTemplate',
-            'priority' => 10000
+            'priority' => 96000
           ));
     }
 }

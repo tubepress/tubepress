@@ -95,27 +95,27 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.admin_enqueue_scripts',
             'method'   => 'onAction_admin_enqueue_scripts',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.admin_head',
             'method'   => 'onAction_admin_head',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.admin_menu',
             'method'   => 'onAction_admin_menu',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.admin_notices',
             'method'   => 'onAction_admin_notices',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.filter.plugin_row_meta',
             'method'   => 'onFilter_row_meta',
-            'priority' => 10000))
+            'priority' => 100000))
           ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.filter.plugin_action_links',
             'method'   => 'onFilter_row_meta',
-            'priority' => 10000
+            'priority' => 100000
         ));
 
         $containerBuilder->register(
@@ -135,27 +135,27 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.wp_ajax_nopriv_tubepress',
             'method'   => 'onAction_ajax',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.wp_ajax_tubepress',
             'method'   => 'onAction_ajax',
-            'priority' => 10000
+            'priority' => 100000
          ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.init',
             'method'   => 'onAction_init',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.widgets_init',
             'method'   => 'onAction_widgets_init',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.wp_head',
             'method'   => 'onAction_wp_head',
-            'priority' => 10000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.filter.the_content',
             'method'   => 'onFilter_the_content',
-            'priority' => 10000
+            'priority' => 100000
         ));
 
         $containerBuilder->register(
@@ -166,15 +166,15 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG,
             'method'   => 'onGlobalJsConfig',
-            'priority' => 10000,
+            'priority' => 100000,
          ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/scripts",
             'method'   => 'onScriptsStylesTemplatePreRender',
-            'priority' => 10000,
+            'priority' => 100000,
          ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . ".cssjs/styles",
             'method'   => 'onScriptsStylesTemplatePreRender',
-            'priority' => 10000,
+            'priority' => 100000,
          ));
 
         $containerBuilder->register(
@@ -185,11 +185,11 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_wordpress_api_Constants::EVENT_OPTIONS_PAGE_INVOKED,
             'method'   => 'run',
-            'priority' => 20000
+            'priority' => 100000
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_SELECT . '.options-ui/form',
             'method'   => 'onTemplateSelect',
-            'priority' => 10000,
+            'priority' => 100000,
         ));
 
         $containerBuilder->register(
@@ -198,7 +198,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
         )->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::OPTION_DEFAULT_VALUE . '.' . tubepress_app_api_options_Names::THEME_ADMIN,
             'method'   => 'onDefaultValue',
-            'priority' => 10000,
+            'priority' => 100000,
         ));
     }
 
@@ -246,11 +246,11 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_wordpress_api_Constants::EVENT_WIDGET_PUBLIC_HTML,
             'method'   => 'printWidgetHtml',
-            'priority' => 20000))
+            'priority' => 100000))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_wordpress_api_Constants::EVENT_WIDGET_PRINT_CONTROLS,
             'method'   => 'printControlHtml',
-            'priority' => 20000
+            'priority' => 100000
         ));
 
         $containerBuilder->register(

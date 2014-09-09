@@ -57,7 +57,7 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW,
             'method'   => 'onHttpItem',
-            'priority' => 30000
+            'priority' => 100000
         ));
 
         $containerBuilder->register(
@@ -68,7 +68,7 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube2_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
             'method'   => 'onPreValidationOptionSet',
-            'priority' => 40000
+            'priority' => 100000
         ));
 
         $fixedValues = array(
@@ -105,7 +105,7 @@ class tubepress_youtube2_ioc_YouTubeExtension implements tubepress_platform_api_
             )->addArgument($values)
                 ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                     'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
-                    'priority' => 30000,
+                    'priority' => 100000,
                     'method'   => 'onAcceptableValues'
                 ));
         }

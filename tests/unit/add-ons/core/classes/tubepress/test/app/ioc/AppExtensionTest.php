@@ -374,33 +374,33 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
              * ADMIN GUI
              */
             tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN => array(
-                10000 => array('tubepress_app_impl_listeners_admingui_BootstrapIe8Listener' => 'onAdminScripts')
+                100000 => array('tubepress_app_impl_listeners_admingui_BootstrapIe8Listener' => 'onAdminScripts')
             ),
 
             /**
              * GALLERY
              */
             tubepress_app_api_event_Events::GALLERY_INIT_JS => array(
-                10000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onGalleryInitJs'),
-                9800  => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onGalleryInitJs'),
-                9600  => array('tubepress_app_impl_listeners_player_PlayerListener'     => 'onGalleryInitJs'),
+                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onGalleryInitJs'),
+                98000  => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onGalleryInitJs'),
+                96000  => array('tubepress_app_impl_listeners_player_PlayerListener'     => 'onGalleryInitJs'),
             ),
 
             /**
              * HTML
              */
             tubepress_app_api_event_Events::HTML_GENERATION => array(
-                10000 => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchInput',),
-                9500  => array('tubepress_app_impl_listeners_html_generation_SoloPlayerListener'   => 'onHtmlGeneration'),
-                9000  => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchOutput',),
-                8000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener'   => 'onHtmlGeneration',),
-                4000  => array('tubepress_app_impl_listeners_gallery_GalleryListener'              => 'onHtmlGeneration',)
+                100000 => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchInput',),
+                98000  => array('tubepress_app_impl_listeners_html_generation_SoloPlayerListener'   => 'onHtmlGeneration'),
+                96000  => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchOutput',),
+                94000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener'   => 'onHtmlGeneration',),
+                92000  => array('tubepress_app_impl_listeners_gallery_GalleryListener'              => 'onHtmlGeneration',)
             ),
             tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT => array(
-                10000 => array('tubepress_app_impl_listeners_html_exception_LoggingListener' => 'onException',)
+                100000 => array('tubepress_app_impl_listeners_html_exception_LoggingListener' => 'onException',)
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
-                10000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
+                100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
             ),
             tubepress_app_api_event_Events::HTML_SCRIPTS => array(
                 100000 => array('tubepress_app_api_html_HtmlGeneratorInterface' => 'onScripts')
@@ -410,117 +410,117 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
              * HTTP
              */
             tubepress_app_api_event_Events::HTTP_AJAX . '.playerHtml' => array(
-                10000 => array('tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => 'onAjax')
+                100000 => array('tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => 'onAjax')
             ),
             tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST => array(
-                10000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onRequest',)
+                100000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onRequest',)
             ),
             tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE => array(
-                10000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onResponse')
+                100000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onResponse')
             ),
 
             /**
              * MEDIA
              */
             tubepress_app_api_event_Events::MEDIA_PAGE_NEW => array(
-                10300 => array('tubepress_app_impl_listeners_media_PageListener'    => 'perPageSort'),
-                10200 => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
-                10100 => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
-                10000 => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
-                9900 => array('tubepress_app_impl_listeners_player_PlayerListener'  => 'onNewMediaPage'),
+                100000 => array('tubepress_app_impl_listeners_media_PageListener'    => 'perPageSort'),
+                98000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
+                96000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
+                94000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
+                92000  => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
             ),
             tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST => array(
-                20000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaPageRequest'),
-                18000 => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaPageRequest'),
+                100000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaPageRequest'),
+                98000  => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaPageRequest'),
             ),
             tubepress_app_api_event_Events::MEDIA_ITEM_REQUEST => array(
-                20000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaItemRequest'),
-                18000 => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaItemRequest'),
+                100000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaItemRequest'),
+                98000  => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaItemRequest'),
             ),
 
             /**
              * NVP
              */
             tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT => array(
-                30000 => array('tubepress_app_impl_listeners_nvp_StringMagicListener' => 'onExternalInput'),
+                100000 => array('tubepress_app_impl_listeners_nvp_StringMagicListener' => 'onExternalInput'),
             ),
 
             /**
              * OPTIONS SET
              */
             tubepress_app_api_event_Events::OPTION_SET => array(
-                30000  => array('tubepress_app_impl_listeners_options_set_BasicOptionValidity' => 'onOption'),
-                -10000 => array('tubepress_app_impl_listeners_options_set_LoggingListener'     => 'onOptionSet')
+                200000  => array('tubepress_app_impl_listeners_options_set_BasicOptionValidity' => 'onOption'),
+                -100000 => array('tubepress_app_impl_listeners_options_set_LoggingListener'     => 'onOptionSet')
             ),
             tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_app_api_options_Names::THEME => array(
-                30000 => array('tubepress_app_impl_listeners_options_set_LegacyThemeListener' => 'onPreValidationSet')
+                100000 => array('tubepress_app_impl_listeners_options_set_LegacyThemeListener' => 'onPreValidationSet')
             ),
 
             /**
              * OPTIONS VALUES
              */
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL => array(
-                30000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onAcceptableValues')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::SEARCH_PROVIDER => array(
-                30000 => array('tubepress_app_impl_listeners_search_SearchListener' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_search_SearchListener' => 'onAcceptableValues')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_ORDER_BY => array(
-                10300 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onOrderBy')
+                100000 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onOrderBy')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::GALLERY_SOURCE => array(
-                10300 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onMode')
+                100000 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onMode')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::THEME => array(
-                30000 => array('tubepress_app_impl_listeners_options_values_ThemeListener' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_options_values_ThemeListener' => 'onAcceptableValues')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::THEME_ADMIN => array(
-                30000 => array('tubepress_app_impl_listeners_options_values_ThemeListener.admin' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_options_values_ThemeListener.admin' => 'onAcceptableValues')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::PLAYER_LOCATION => array(
-                30000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAcceptableValues'),
+                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAcceptableValues'),
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_PER_PAGE_SORT => array(
-                30000 => array('tubepress_app_impl_listeners_options_values_PerPageSort' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_options_values_PerPageSort' => 'onAcceptableValues')
             ),
 
             /**
              * TEMPLATE - SELECTION
              */
             tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/static' => array(
-                20000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onStaticPlayerTemplateSelection')
+                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onStaticPlayerTemplateSelection')
             ),
             tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/ajax' => array(
-                20000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAjaxPlayerTemplateSelection')
+                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAjaxPlayerTemplateSelection')
             ),
             tubepress_app_api_event_Events::TEMPLATE_SELECT . '.single/embedded' => array(
-                20000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onEmbeddedTemplateSelect')
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onEmbeddedTemplateSelect')
             ),
 
             /**
              * TEMPLATE - PRE
              */
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main' => array(
-                10400 => array('tubepress_app_impl_listeners_gallery_GalleryListener'          => 'onGalleryTemplatePreRender'),
-                10300 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
-                10200 => array('tubepress_app_impl_listeners_template_pre_PaginationListener'  => 'onGalleryTemplatePreRender'),
-                10100 => array('tubepress_app_impl_listeners_player_PlayerListener'            => 'onGalleryTemplatePreRender'),
+                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener'         => 'onGalleryTemplatePreRender'),
+                98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
+                96000 => array('tubepress_app_impl_listeners_template_pre_PaginationListener'  => 'onGalleryTemplatePreRender'),
+                94000 => array('tubepress_app_impl_listeners_player_PlayerListener'            => 'onGalleryTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main' => array(
-                10500 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener'        => 'onSingleItemTemplatePreRender'),
-                10000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener'        => 'onSingleItemTemplatePreRender'),
+                98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input' => array(
-                10000 => array('tubepress_app_impl_listeners_template_pre_SearchInputListener' => 'onSearchInputTemplatePreRender',)
+                100000 => array('tubepress_app_impl_listeners_template_pre_SearchInputListener' => 'onSearchInputTemplatePreRender',)
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/ajax' => array(
-                10500 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/static' => array(
-                10500 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form' => array(
-                10000 => array('tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => 'onOptionsGuiTemplate'),
+                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => 'onOptionsGuiTemplate'),
             ),
 
 
@@ -528,13 +528,13 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
              * TEMPLATE - POST
              */
             tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.gallery/main' => array(
-                10000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onPostGalleryTemplateRender'),
+                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onPostGalleryTemplateRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/styles' => array(
-                10000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostStylesTemplateRender'),
+                100000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostStylesTemplateRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts' => array(
-                10000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostScriptsTemplateRender')
+                100000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostScriptsTemplateRender')
             ),
         );
 
@@ -823,7 +823,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
                     ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                         'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
-                        'priority' => 30000,
+                        'priority' => 100000,
                         'method'   => 'onOption',
                     ));
             }
@@ -845,7 +845,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 'tubepress_app_api_listeners_options_FixedValuesListener'
             )->withArgument($valuesMap)
                 ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'priority' => 30000,
+                    'priority' => 100000,
                     'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
                     'method'   => 'onAcceptableValues'
                 ));
