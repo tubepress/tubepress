@@ -76,3 +76,10 @@ vendor/ehough/tickertape/src/main/php/ehough/tickertape/debug/**
 vendor/ehough/tickertape/src/test/**
 vendor/phpunit/**
 vendor/symfony/**
+vendor/twig/twig/README.rst
+vendor/twig/twig/CHANGELOG
+vendor/twig/twig/doc/**
+vendor/twig/twig/lib/Twig/Test/**
+vendor/twig/twig/ext/**
+vendor/twig/twig/test/**
+vendor/ehough/templating/src/test/**
