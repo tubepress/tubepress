@@ -75,6 +75,13 @@ interface tubepress_lib_api_streams_StreamInterface
     function eof();
 
     /**
+     * Flush the write buffers of the stream.
+     *
+     * @return bool Returns true on success and false on failure
+     */
+    function flush();
+
+    /**
      * Returns the remaining contents in a string, up to maxlength bytes.
      *
      * @param int $maxLength The maximum bytes to read. Defaults to -1 (read
