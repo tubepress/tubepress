@@ -41,10 +41,10 @@ Builds the free WordPress plugin package of Tubepress.
         <antcall target="copy-user-content-skeleton-into-wp" />
         <antcall target="move-wordpress-skeleton" />
         <antcall target="suppress-directory-listings" />
-        <antcall target="update-version-in-php-code" />
         <antcall target="modify-wordpress-info" />
         <antcall target="php-version-compatability-mods" />
         <antcall target="build-boot-classes-file" />
+        <antcall target="update-version-in-php-code" />
         <antcall target="strip-phpunit-from-composer" />
 
     </target>

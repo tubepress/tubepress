@@ -64,7 +64,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_platform_ap
              ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
              ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event' => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
-                'priority' => 30000,
+                'priority' => 98000,
                 'method'   => 'onOption',
             ));
 
@@ -74,7 +74,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_platform_ap
             )->addArgument('#')
              ->addMethodCall('setModeToLtrim', array())
              ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'priority' => 3000,
+                'priority' => 100000,
                 'method'   => 'onOption',
                 'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName"
            ));

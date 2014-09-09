@@ -60,11 +60,13 @@
             "tubepress_app_api_template_VariableNames"                    : "classes/tubepress/app/api/template/VariableNames.php",
             "tubepress_app_api_theme_ThemeInterface"                      : "classes/tubepress/app/api/theme/ThemeInterface.php",
 
-            "tubepress_app_impl_environment_Environment" : "classes/tubepress/app/impl/environment/Environment.php",
-            "tubepress_app_impl_html_HtmlGenerator"      : "classes/tubepress/app/impl/html/HtmlGenerator.php",
-            "tubepress_app_impl_http_PrimaryAjaxHandler" : "classes/tubepress/app/impl/http/PrimaryAjaxHandler.php",
-            "tubepress_app_impl_http_RequestParameters"  : "classes/tubepress/app/impl/http/RequestParameters.php",
+            "tubepress_app_impl_environment_Environment"       : "classes/tubepress/app/impl/environment/Environment.php",
+            "tubepress_app_impl_html_CssAndJsGenerationHelper" : "classes/tubepress/app/impl/html/CssAndJsGenerationHelper.php",
+            "tubepress_app_impl_html_HtmlGenerator"            : "classes/tubepress/app/impl/html/HtmlGenerator.php",
+            "tubepress_app_impl_http_PrimaryAjaxHandler"       : "classes/tubepress/app/impl/http/PrimaryAjaxHandler.php",
+            "tubepress_app_impl_http_RequestParameters"        : "classes/tubepress/app/impl/http/RequestParameters.php",
 
+            "tubepress_app_impl_listeners_admingui_BootstrapIe8Listener"          : "classes/tubepress/app/impl/listeners/admingui/BootstrapIe8Listener.php",
             "tubepress_app_impl_listeners_embedded_EmbeddedListener"              : "classes/tubepress/app/impl/listeners/embedded/EmbeddedListener.php",
             "tubepress_app_impl_listeners_gallery_GalleryListener"                : "classes/tubepress/app/impl/listeners/gallery/GalleryListener.php",
             "tubepress_app_impl_listeners_html_exception_LoggingListener"         : "classes/tubepress/app/impl/listeners/html/exception/LoggingListener.php",

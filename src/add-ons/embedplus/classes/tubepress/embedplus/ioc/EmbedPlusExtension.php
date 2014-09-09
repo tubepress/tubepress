@@ -35,7 +35,7 @@ class tubepress_embedplus_ioc_EmbedPlusExtension implements tubepress_platform_a
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::GALLERY_INIT_JS,
             'method'   => 'onGalleryInitJs',
-            'priority' => 7000
+            'priority' => 94000,
         ));
     }
 }

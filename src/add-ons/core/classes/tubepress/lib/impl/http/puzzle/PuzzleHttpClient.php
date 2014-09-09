@@ -100,7 +100,10 @@ class tubepress_lib_impl_http_puzzle_PuzzleHttpClient extends tubepress_lib_impl
 
         } else {
 
-            $tubePressBody = new tubepress_lib_impl_streams_puzzle_FlexibleStream($tubePressBody);
+            if ($tubePressBody) {
+
+                $tubePressBody = new tubepress_lib_impl_streams_puzzle_FlexibleStream($tubePressBody);
+            }
         }
 
         $puzzleRequest = new puzzle_message_Request(

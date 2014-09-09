@@ -30,7 +30,7 @@ class tubepress_test_embedplus_ioc_EmbedPlusExtensionTest extends tubepress_test
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_app_api_event_Events::GALLERY_INIT_JS,
                 'method'   => 'onGalleryInitJs',
-                'priority' => 7000
+                'priority' => 94000
             ));
     }
 

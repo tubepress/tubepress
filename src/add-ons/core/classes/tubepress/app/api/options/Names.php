@@ -356,4 +356,10 @@ interface tubepress_app_api_options_Names
      * @since 4.0.0
      */
     const THEME = 'theme';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
+    const THEME_ADMIN = 'adminTheme';
 }

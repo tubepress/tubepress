@@ -20,9 +20,9 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_platform_api_contrib_RegistryInterface
+     * @var tubepress_app_impl_html_CssAndJsGenerationHelper
      */
-    private $_themeRegistry;
+    private $_cssJsGenerationHelper;
 
     /**
      * @var tubepress_lib_api_template_TemplatingInterface
@@ -30,31 +30,24 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
     private $_templating;
 
     /**
-     * @var tubepress_app_impl_theme_CurrentThemeService
+     * @var tubepress_platform_api_collection_MapInterface
      */
-    private $_currentThemeService;
+    private $_cache;
 
     /**
      * @var tubepress_app_api_environment_EnvironmentInterface
      */
     private $_environment;
 
-    /**
-     * @var tubepress_platform_api_collection_MapInterface
-     */
-    private $_cache;
-
     public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
-                                tubepress_platform_api_contrib_RegistryInterface   $themeRegistry,
                                 tubepress_lib_api_template_TemplatingInterface     $templating,
-                                tubepress_app_impl_theme_CurrentThemeService       $currentThemeService,
+                                tubepress_app_impl_html_CssAndJsGenerationHelper   $cssAndJsGenerationHelper,
                                 tubepress_app_api_environment_EnvironmentInterface $environment)
     {
-        $this->_eventDispatcher     = $eventDispatcher;
-        $this->_themeRegistry       = $themeRegistry;
-        $this->_templating          = $templating;
-        $this->_currentThemeService = $currentThemeService;
-        $this->_environment         = $environment;
+        $this->_eventDispatcher       = $eventDispatcher;
+        $this->_cssJsGenerationHelper = $cssAndJsGenerationHelper;
+        $this->_templating            = $templating;
+        $this->_environment           = $environment;
 
         $this->_cache = new tubepress_platform_impl_collection_Map();
     }
@@ -100,6 +93,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
         }
     }
 
+
     /**
      * @return tubepress_platform_api_url_UrlInterface[]
      *
@@ -108,16 +102,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
      */
     public function getUrlsCSS()
     {
-        if (!$this->_cache->containsKey('cached-urls-css')) {
-
-            $currentTheme = $this->_currentThemeService->getCurrentTheme();
-            $urls         = $this->_recursivelyGetFromTheme($currentTheme, 'getUrlsCSS');
-            $urls         = $this->_fireEventAndReturnSubject(tubepress_app_api_event_Events::HTML_STYLESHEETS, $urls);
-
-            $this->_cache->put('cached-urls-css', $urls);
-        }
-
-        return $this->_cache->get('cached-urls-css');
+        return $this->_cssJsGenerationHelper->getUrlsCSS();
     }
 
     /**
@@ -128,22 +113,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
      */
     public function getUrlsJS()
     {
-        if (!$this->_cache->containsKey('cached-urls-js')) {
-
-            $currentTheme   = $this->_currentThemeService->getCurrentTheme();
-            $themeScripts   = $this->_recursivelyGetFromTheme($currentTheme, 'getUrlsJS');
-            $tubepressJsUrl = $this->_environment->getBaseUrl()->getClone();
-
-            $tubepressJsUrl->addPath('/web/js/tubepress.js');
-
-            array_unshift($themeScripts, $tubepressJsUrl);
-
-            $urls = $this->_fireEventAndReturnSubject(tubepress_app_api_event_Events::HTML_SCRIPTS, $themeScripts);
-
-            $this->_cache->put('cached-urls-js', $urls);
-        }
-
-        return $this->_cache->get('cached-urls-js');
+        return $this->_cssJsGenerationHelper->getUrlsJs();
     }
 
     /**
@@ -154,15 +124,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
      */
     public function getCSS()
     {
-        $cssUrls      = $this->getUrlsCSS();
-        $currentTheme = $this->_currentThemeService->getCurrentTheme();
-        $css          = $this->_recursivelyGetFromTheme($currentTheme, 'getInlineCSS');
-
-        return $this->_templating->renderTemplate('cssjs/styles', array(
-
-            'inlineCSS' => $css,
-            'urls'      => $cssUrls
-        ));
+        return $this->_cssJsGenerationHelper->getCSS();
     }
 
     /**
@@ -173,60 +135,19 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
      */
     public function getJS()
     {
-        $jsUrls = $this->getUrlsJS();
-
-        return $this->_templating->renderTemplate('cssjs/scripts', array('urls' => $jsUrls));
+        return $this->_cssJsGenerationHelper->getJS();
     }
 
-    private function _fireEventAndReturnSubject($eventName, $raw)
+    public function onScripts(tubepress_lib_api_event_EventInterface $event)
     {
-        if ($raw instanceof tubepress_lib_api_event_EventInterface) {
+        $existingUrls = $event->getSubject();
 
-            $event = $raw;
+        $tubepressJsUrl = $this->_environment->getBaseUrl()->getClone();
 
-        } else {
+        $tubepressJsUrl->addPath('/web/js/tubepress.js');
 
-            $event = $this->_eventDispatcher->newEventInstance($raw);
-        }
+        array_unshift($existingUrls, $tubepressJsUrl);
 
-        $this->_eventDispatcher->dispatch($eventName, $event);
-
-        return $event->getSubject();
-    }
-
-
-
-    private function _recursivelyGetFromTheme(tubepress_app_api_theme_ThemeInterface $theme, $getter)
-    {
-        $toReturn = $theme->$getter(
-            $this->_environment->getBaseUrl(),
-            $this->_environment->getUserContentUrl()
-        );
-        $parentThemeName = $theme->getParentThemeName();
-
-        if (!$parentThemeName) {
-
-            return $toReturn;
-        }
-
-        $theme = $this->_themeRegistry->getInstanceByName($parentThemeName);
-
-        if (!$theme) {
-
-            return $toReturn;
-        }
-
-        $fromParent = $this->_recursivelyGetFromTheme($theme, $getter);
-
-        if (is_array($fromParent)) {
-
-            $toReturn = array_merge($fromParent, $toReturn);
-
-        } else {
-
-            $toReturn = $fromParent . $toReturn;
-        }
-
-        return $toReturn;
+        $event->setSubject($existingUrls);
     }
 }

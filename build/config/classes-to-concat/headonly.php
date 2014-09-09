@@ -35,6 +35,7 @@ return array(
     'tubepress_app_api_shortcode_ParserInterface',
     'tubepress_app_api_theme_ThemeInterface',
     'tubepress_app_impl_environment_Environment',
+    'tubepress_app_impl_html_CssAndJsGenerationHelper',
     'tubepress_app_impl_html_HtmlGenerator',
     'tubepress_app_impl_http_PrimaryAjaxHandler',
     'tubepress_app_impl_http_RequestParameters',

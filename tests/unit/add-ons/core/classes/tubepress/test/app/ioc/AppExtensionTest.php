@@ -35,8 +35,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $mockBootLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 
         $mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
-        $mockBootSettings->shouldReceive('getSerializationEncoding')->once()->andReturn('base64');
-        $mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->twice()->andReturn(sys_get_temp_dir());
+        $mockBootSettings->shouldReceive('getSerializationEncoding')->twice()->andReturn('base64');
+        $mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->times(3)->andReturn(sys_get_temp_dir());
 
         $mockCurrentUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
         $mockCurrentUrl->shouldReceive('removeSchemeAndAuthority');
@@ -94,11 +94,15 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     protected function getExpectedParameterMap()
     {
         $theme = new tubepress_app_impl_theme_FilesystemTheme('the name', '1.2.3', 'the title',
-        array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar/hi')));
+            array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar/hi')));
+
+        $adminTheme = new tubepress_app_impl_theme_FilesystemTheme('the admin name', '1.2.3', 'the admin title',
+            array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar.admin/hi')));
 
         return array(
             tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS => array(
-                'themes' => base64_encode(serialize(array($theme)))
+                'themes' => base64_encode(serialize(array($theme))),
+                'admin-themes' => base64_encode(serialize(array($adminTheme)))
             )
         );
     }
@@ -134,12 +138,22 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     private function _registerHtmlGenerator()
     {
         $this->expectRegistration(
-            tubepress_app_api_html_HtmlGeneratorInterface::_,
-            'tubepress_app_impl_html_HtmlGenerator'
+            'tubepress_app_impl_html_CssAndJsGenerationHelper',
+            'tubepress_app_impl_html_CssAndJsGenerationHelper'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS)
+            ->withArgument(tubepress_app_api_event_Events::HTML_SCRIPTS);
+
+        $this->expectRegistration(
+            tubepress_app_api_html_HtmlGeneratorInterface::_,
+            'tubepress_app_impl_html_HtmlGenerator'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_));
     }
 
@@ -163,6 +177,13 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     private function _registerListeners()
     {
         $listenerData = array(
+
+            /**
+             * ADMIN GUI
+             */
+            'tubepress_app_impl_listeners_admingui_BootstrapIe8Listener' => array(
+                tubepress_app_api_environment_EnvironmentInterface::_
+            ),
 
             /**
              * EMBEDDED
@@ -350,143 +371,156 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $listeners = array(
 
             /**
+             * ADMIN GUI
+             */
+            tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN => array(
+                100000 => array('tubepress_app_impl_listeners_admingui_BootstrapIe8Listener' => 'onAdminScripts')
+            ),
+
+            /**
              * GALLERY
              */
             tubepress_app_api_event_Events::GALLERY_INIT_JS => array(
-                10000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onGalleryInitJs'),
-                9800  => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onGalleryInitJs'),
-                9600  => array('tubepress_app_impl_listeners_player_PlayerListener'     => 'onGalleryInitJs'),
+                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onGalleryInitJs'),
+                98000  => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onGalleryInitJs'),
+                96000  => array('tubepress_app_impl_listeners_player_PlayerListener'     => 'onGalleryInitJs'),
             ),
 
             /**
              * HTML
              */
             tubepress_app_api_event_Events::HTML_GENERATION => array(
-                10000 => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchInput',),
-                9500  => array('tubepress_app_impl_listeners_html_generation_SoloPlayerListener'   => 'onHtmlGeneration'),
-                9000  => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchOutput',),
-                8000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener'   => 'onHtmlGeneration',),
-                4000  => array('tubepress_app_impl_listeners_gallery_GalleryListener'              => 'onHtmlGeneration',)
+                100000 => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchInput',),
+                98000  => array('tubepress_app_impl_listeners_html_generation_SoloPlayerListener'   => 'onHtmlGeneration'),
+                96000  => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchOutput',),
+                94000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener'   => 'onHtmlGeneration',),
+                92000  => array('tubepress_app_impl_listeners_gallery_GalleryListener'              => 'onHtmlGeneration',)
             ),
             tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT => array(
-                10000 => array('tubepress_app_impl_listeners_html_exception_LoggingListener' => 'onException',)
+                100000 => array('tubepress_app_impl_listeners_html_exception_LoggingListener' => 'onException',)
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
-                10000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
+                100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
+            ),
+            tubepress_app_api_event_Events::HTML_SCRIPTS => array(
+                100000 => array('tubepress_app_api_html_HtmlGeneratorInterface' => 'onScripts')
             ),
 
             /**
              * HTTP
              */
             tubepress_app_api_event_Events::HTTP_AJAX . '.playerHtml' => array(
-                10000 => array('tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => 'onAjax')
+                100000 => array('tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => 'onAjax')
             ),
             tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST => array(
-                10000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onRequest',)
+                100000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onRequest',)
             ),
             tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE => array(
-                10000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onResponse')
+                100000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onResponse')
             ),
 
             /**
              * MEDIA
              */
             tubepress_app_api_event_Events::MEDIA_PAGE_NEW => array(
-                10300 => array('tubepress_app_impl_listeners_media_PageListener'    => 'perPageSort'),
-                10200 => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
-                10100 => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
-                10000 => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
-                9900 => array('tubepress_app_impl_listeners_player_PlayerListener'  => 'onNewMediaPage'),
+                100000 => array('tubepress_app_impl_listeners_media_PageListener'    => 'perPageSort'),
+                98000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
+                96000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
+                94000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
+                92000  => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
             ),
             tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST => array(
-                20000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaPageRequest'),
-                18000 => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaPageRequest'),
+                100000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaPageRequest'),
+                98000  => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaPageRequest'),
             ),
             tubepress_app_api_event_Events::MEDIA_ITEM_REQUEST => array(
-                20000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaItemRequest'),
-                18000 => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaItemRequest'),
+                100000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaItemRequest'),
+                98000  => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaItemRequest'),
             ),
 
             /**
              * NVP
              */
             tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT => array(
-                30000 => array('tubepress_app_impl_listeners_nvp_StringMagicListener' => 'onExternalInput'),
+                100000 => array('tubepress_app_impl_listeners_nvp_StringMagicListener' => 'onExternalInput'),
             ),
 
             /**
              * OPTIONS SET
              */
             tubepress_app_api_event_Events::OPTION_SET => array(
-                30000  => array('tubepress_app_impl_listeners_options_set_BasicOptionValidity' => 'onOption'),
-                -10000 => array('tubepress_app_impl_listeners_options_set_LoggingListener'     => 'onOptionSet')
+                200000  => array('tubepress_app_impl_listeners_options_set_BasicOptionValidity' => 'onOption'),
+                -100000 => array('tubepress_app_impl_listeners_options_set_LoggingListener'     => 'onOptionSet')
             ),
             tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_app_api_options_Names::THEME => array(
-                30000 => array('tubepress_app_impl_listeners_options_set_LegacyThemeListener' => 'onPreValidationSet')
+                100000 => array('tubepress_app_impl_listeners_options_set_LegacyThemeListener' => 'onPreValidationSet')
             ),
 
             /**
              * OPTIONS VALUES
              */
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL => array(
-                30000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onAcceptableValues')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::SEARCH_PROVIDER => array(
-                30000 => array('tubepress_app_impl_listeners_search_SearchListener' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_search_SearchListener' => 'onAcceptableValues')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_ORDER_BY => array(
-                10300 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onOrderBy')
+                100000 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onOrderBy')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::GALLERY_SOURCE => array(
-                10300 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onMode')
+                100000 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onMode')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::THEME => array(
-                30000 => array('tubepress_app_impl_listeners_options_values_ThemeListener' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_options_values_ThemeListener' => 'onAcceptableValues')
+            ),
+            tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::THEME_ADMIN => array(
+                100000 => array('tubepress_app_impl_listeners_options_values_ThemeListener.admin' => 'onAcceptableValues')
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::PLAYER_LOCATION => array(
-                30000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAcceptableValues'),
+                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAcceptableValues'),
             ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_PER_PAGE_SORT => array(
-                30000 => array('tubepress_app_impl_listeners_options_values_PerPageSort' => 'onAcceptableValues')
+                100000 => array('tubepress_app_impl_listeners_options_values_PerPageSort' => 'onAcceptableValues')
             ),
 
             /**
              * TEMPLATE - SELECTION
              */
             tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/static' => array(
-                20000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onStaticPlayerTemplateSelection')
+                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onStaticPlayerTemplateSelection')
             ),
             tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/ajax' => array(
-                20000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAjaxPlayerTemplateSelection')
+                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAjaxPlayerTemplateSelection')
             ),
             tubepress_app_api_event_Events::TEMPLATE_SELECT . '.single/embedded' => array(
-                20000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onEmbeddedTemplateSelect')
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onEmbeddedTemplateSelect')
             ),
 
             /**
              * TEMPLATE - PRE
              */
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main' => array(
-                10400 => array('tubepress_app_impl_listeners_gallery_GalleryListener'          => 'onGalleryTemplatePreRender'),
-                10300 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
-                10200 => array('tubepress_app_impl_listeners_template_pre_PaginationListener'  => 'onGalleryTemplatePreRender'),
-                10100 => array('tubepress_app_impl_listeners_player_PlayerListener'            => 'onGalleryTemplatePreRender'),
+                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener'         => 'onGalleryTemplatePreRender'),
+                98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
+                96000 => array('tubepress_app_impl_listeners_template_pre_PaginationListener'  => 'onGalleryTemplatePreRender'),
+                94000 => array('tubepress_app_impl_listeners_player_PlayerListener'            => 'onGalleryTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main' => array(
-                10500 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener'        => 'onSingleItemTemplatePreRender'),
-                10000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener'        => 'onSingleItemTemplatePreRender'),
+                98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input' => array(
-                10000 => array('tubepress_app_impl_listeners_template_pre_SearchInputListener' => 'onSearchInputTemplatePreRender',)
+                100000 => array('tubepress_app_impl_listeners_template_pre_SearchInputListener' => 'onSearchInputTemplatePreRender',)
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/ajax' => array(
-                10500 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/player/static' => array(
-                10500 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
+                100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form' => array(
-                10000 => array('tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => 'onOptionsGuiTemplate'),
+                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => 'onOptionsGuiTemplate'),
             ),
 
 
@@ -494,15 +528,20 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
              * TEMPLATE - POST
              */
             tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.gallery/main' => array(
-                10000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onPostGalleryTemplateRender'),
+                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onPostGalleryTemplateRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/styles' => array(
-                10000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostStylesTemplateRender'),
+                100000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostStylesTemplateRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts' => array(
-                10000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostScriptsTemplateRender')
+                100000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostScriptsTemplateRender')
             ),
         );
+
+        $this->expectRegistration(
+            'tubepress_app_impl_listeners_options_values_ThemeListener.admin',
+            'tubepress_app_impl_listeners_options_values_ThemeListener'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin'));
 
         foreach ($listenerData as $serviceId => $args) {
 
@@ -646,7 +685,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::TEMPLATE_CACHE_DIR                  => null,
                     tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED              => true,
                     tubepress_app_api_options_Names::THEME                               => 'tubepress/default',
-
+                    tubepress_app_api_options_Names::THEME_ADMIN                         => 'tubepress/admin-default',
                 ),
 
                 tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
@@ -784,7 +823,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
                     ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                         'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
-                        'priority' => 30000,
+                        'priority' => 100000,
                         'method'   => 'onOption',
                     ));
             }
@@ -806,7 +845,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 'tubepress_app_api_listeners_options_FixedValuesListener'
             )->withArgument($valuesMap)
                 ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'priority' => 30000,
+                    'priority' => 100000,
                     'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
                     'method'   => 'onAcceptableValues'
                 ));
@@ -851,7 +890,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_app_impl_options_ui_FieldBuilder'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
@@ -863,12 +902,24 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ));
 
         $this->expectRegistration(
+            'tubepress_app_impl_html_CssAndJsGenerationHelper.admin',
+            'tubepress_app_impl_html_CssAndJsGenerationHelper'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS_ADMIN)
+            ->withArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN);
+
+        $this->expectRegistration(
             tubepress_app_api_options_ui_FormInterface::_,
             'tubepress_app_impl_options_ui_Form'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper.admin'))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
                 'method' => 'setFieldProviders',
@@ -1100,61 +1151,76 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
 
     private function _registerTemplatingService()
     {
-        $this->expectRegistration(
-            'tubepress_app_impl_template_ThemeTemplateLocator',
-            'tubepress_app_impl_template_ThemeTemplateLocator'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'));
-
-        /**
-         * Twig loaders.
-         */
-        $this->expectRegistration(
-            'tubepress_app_impl_template_twig_ThemeLoader',
-            'tubepress_app_impl_template_twig_ThemeLoader'
-        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_ThemeTemplateLocator'));
-        $this->expectRegistration(
-            'Twig_Loader_Filesystem',
-            'tubepress_app_impl_template_twig_FsLoader'
-        )->withArgument(array(
-                TUBEPRESS_ROOT . '/src/add-ons/core/templates/public',
-                TUBEPRESS_ROOT . '/src/add-ons/core/templates/admin',
-        ));
-        $twigLoaderReferences = array(
-            new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_ThemeLoader'),
-            new tubepress_platform_api_ioc_Reference('Twig_Loader_Filesystem')
+        $parallelServices = array(
+            ''       => 'public',
+            '.admin' => 'admin'
         );
-        $this->expectRegistration(
-            'Twig_LoaderInterface',
-            'Twig_Loader_Chain'
-        )->withArgument($twigLoaderReferences);
 
-        /**
-         * Twig environment
-         */
-        $this->expectRegistration(
-            'tubepress_app_impl_template_twig_EnvironmentBuilder',
-            'tubepress_app_impl_template_twig_EnvironmentBuilder'
-        )->withArgument(new tubepress_platform_api_ioc_Reference('Twig_LoaderInterface'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_));
+        foreach ($parallelServices as $serviceSuffix => $templatePath) {
 
-        $this->expectRegistration(
-            'Twig_Environment',
-            'Twig_Environment'
-        )->withFactoryService('tubepress_app_impl_template_twig_EnvironmentBuilder')
-            ->withFactoryMethod('buildTwigEnvironment');
+            /**
+             * Theme template locators.
+             */
+            $this->expectRegistration(
+                'tubepress_app_impl_template_ThemeTemplateLocator' . $serviceSuffix,
+                'tubepress_app_impl_template_ThemeTemplateLocator'
+            )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix))
+                ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService' . $serviceSuffix));
 
-        /**
-         * Register the Twig templating engine
-         */
-        $this->expectRegistration(
-            'tubepress_app_impl_template_twig_Engine',
-            'tubepress_app_impl_template_twig_Engine'
-        )->withArgument(new tubepress_platform_api_ioc_Reference('Twig_Environment'));
+            /**
+             * Twig loaders.
+             */
+            $this->expectRegistration(
+                'tubepress_app_impl_template_twig_ThemeLoader' . $serviceSuffix,
+                'tubepress_app_impl_template_twig_ThemeLoader'
+            )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_ThemeTemplateLocator' . $serviceSuffix));
+
+            $this->expectRegistration(
+                'Twig_Loader_Filesystem' . $serviceSuffix,
+                'tubepress_app_impl_template_twig_FsLoader'
+            )->withArgument(array(
+                    TUBEPRESS_ROOT . '/src/add-ons/core/templates/' . $templatePath,
+                ));
+
+            $twigLoaderReferences = array(
+                new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_ThemeLoader' . $serviceSuffix),
+                new tubepress_platform_api_ioc_Reference('Twig_Loader_Filesystem' . $serviceSuffix)
+            );
+            $this->expectRegistration(
+                'Twig_LoaderInterface' . $serviceSuffix,
+                'Twig_Loader_Chain'
+            )->withArgument($twigLoaderReferences);
+
+            /**
+             * Twig environment builder.
+             */
+            $this->expectRegistration(
+                'tubepress_app_impl_template_twig_EnvironmentBuilder' . $serviceSuffix,
+                'tubepress_app_impl_template_twig_EnvironmentBuilder'
+            )->withArgument(new tubepress_platform_api_ioc_Reference('Twig_LoaderInterface' . $serviceSuffix))
+                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_))
+                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_));
+
+            /**
+             * Twig environment.
+             */
+            $this->expectRegistration(
+                'Twig_Environment' . $serviceSuffix,
+                'Twig_Environment'
+            )->withFactoryService('tubepress_app_impl_template_twig_EnvironmentBuilder' . $serviceSuffix)
+                ->withFactoryMethod('buildTwigEnvironment');
+
+            /**
+             * Twig engine
+             */
+            $this->expectRegistration(
+                'tubepress_app_impl_template_twig_Engine' . $serviceSuffix,
+                'tubepress_app_impl_template_twig_Engine'
+            )->withArgument(new tubepress_platform_api_ioc_Reference('Twig_Environment' . $serviceSuffix));
+        }
 
         /**
          * Register PHP engine support
@@ -1174,7 +1240,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_php_Support'));
 
         /**
-         * Final templating engine
+         * Public templating engine
          */
         $engineReferences = array(
             new tubepress_platform_api_ioc_Reference('ehough_templating_PhpEngine'),
@@ -1185,10 +1251,18 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_app_impl_template_DelegatingEngine'
         )->withArgument($engineReferences);
 
+        /**
+         * Final templating services
+         */
         $this->expectRegistration(
             tubepress_lib_api_template_TemplatingInterface::_,
             'tubepress_app_impl_template_TemplatingService'
         )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_DelegatingEngine'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
+        $this->expectRegistration(
+            tubepress_lib_api_template_TemplatingInterface::_ . '.admin',
+            'tubepress_app_impl_template_TemplatingService'
+        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_Engine.admin'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
     }
 
@@ -1199,19 +1273,33 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_platform_impl_boot_helper_uncached_Serializer'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
 
-        $this->expectRegistration(
-            'tubepress_app_impl_theme_CurrentThemeService',
-            'tubepress_app_impl_theme_CurrentThemeService'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_));
+        $parallelServices = array(
+            array('',       '',       tubepress_app_api_options_Names::THEME),
+            array('.admin', 'admin-', tubepress_app_api_options_Names::THEME_ADMIN),
+        );
 
-        $this->expectRegistration(
-            tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_,
-            'tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry'
-        )->withArgument(sprintf('%%%s%%', tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS))
-            ->withArgument('themes')
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_platform_impl_boot_helper_uncached_Serializer'));
+        foreach ($parallelServices as $serviceInfo) {
+
+            $serviceSuffix  = $serviceInfo[0];
+            $artifactPrefix = $serviceInfo[1];
+            $optionName     = $serviceInfo[2];
+
+            $this->expectRegistration(
+                tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix,
+                'tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry'
+            )->withArgument(sprintf('%%%s%%', tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS))
+                ->withArgument($artifactPrefix . 'themes')
+                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+                ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_platform_impl_boot_helper_uncached_Serializer'));
+
+            $this->expectRegistration(
+                'tubepress_app_impl_theme_CurrentThemeService' . $serviceSuffix,
+                'tubepress_app_impl_theme_CurrentThemeService'
+            )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+                ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix))
+                ->withArgument('tubepress/' . $artifactPrefix . 'default')
+                ->withArgument($optionName);
+        }
     }
 
     private function _registerVendorServices()

@@ -39,19 +39,26 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
      */
     private $_mockQss;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockForm;
+
     public function onSetup()
     {
-        $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockEventDispatcher              = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $this->_mockWordPressFunctionWrapper    = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
+        $this->_mockEventDispatcher             = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
         $this->_mockHttpRequestParameterService = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
         $this->_mockQss                         = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
+        $this->_mockForm                        = $this->mock(tubepress_app_api_options_ui_FormInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters(
 
             $this->_mockWordPressFunctionWrapper,
             $this->_mockQss,
             $this->_mockHttpRequestParameterService,
-            $this->_mockEventDispatcher
+            $this->_mockEventDispatcher,
+            $this->_mockForm
         );
 
         $this->_sut->___doNotIgnoreExceptions();
@@ -229,107 +236,27 @@ ABC
 
     public function testEnqueueStylesAndScriptsDefault()
     {
-        $this->_testRegisterStylesAndScripts();
-    }
+        $mockCssUrl  = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockCssUrl->shouldReceive('toString')->once()->andReturn('syz');
+        $mockCssUrls = array($mockCssUrl);
+        $this->_mockForm->shouldReceive('getUrlsCSS')->once()->andReturn($mockCssUrls);
 
-    public function testEnqueueStylesAndScriptsIE7()
-    {
-        $_SERVER['HTTP_USER_AGENT'] = 'MSIE 7.4;';
+        $mockJsUrl  = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockJsUrl->shouldReceive('toString')->once()->andReturn('abc');
+        $mockJsUrls = array($mockJsUrl);
+        $this->_mockForm->shouldReceive('getUrlsJS')->once()->andReturn($mockJsUrls);
 
-        $this->_testRegisterStylesAndScripts(true);
-    }
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_style')->once()->with('tubepress-0', 'syz');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_style')->once()->with('tubepress-0');
 
-    public function testEnqueueStylesAndScriptsIE8()
-    {
-        $_SERVER['HTTP_USER_AGENT'] = 'MSIE 8.4;';
-
-        $this->_testRegisterStylesAndScripts(true);
-    }
-
-    public function testEnqueueStylesAndScriptsIE9()
-    {
-        $_SERVER['HTTP_USER_AGENT'] = 'MSIE 9.4;';
-
-        $this->_testRegisterStylesAndScripts(false);
-    }
-
-    public function testEnqueueStylesAndScriptsIE10()
-    {
-        $_SERVER['HTTP_USER_AGENT'] = 'MSIE 10.4;';
-
-        $this->_testRegisterStylesAndScripts(false);
-    }
-
-    private function _testRegisterStylesAndScripts($ie8orLess = false)
-    {
-        foreach ($this->_getCssMap() as $id => $path) {
-
-            $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('tubepress' . $path, 'tubepress')->andReturn(strtoupper($id));
-            $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_style')->once()->with($id, strtoupper($id));
-            $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_style')->once()->with($id);
-        }
-
-        foreach ($this->_getJsMap($ie8orLess) as $id => $path) {
-
-            $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('tubepress' . $path, 'tubepress')->andReturn(strtoupper($id));
-            $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_script')->once()->with($id, strtoupper($id));
-            $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with($id, false, array(), false, false);
-        }
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress-0', 'abc');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-0', false, array(), false, false);
 
         $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('settings_page_tubepress'));
         $this->_sut->onAction_admin_enqueue_scripts($mockEvent);
 
         $this->assertTrue(true);
-    }
-
-    private function _getCssMap()
-    {
-        return array(
-
-            'bootstrap-3.1.1'         => '/web/options-ui/vendor/bootstrap-3.1.1/css/bootstrap-custom.css',
-            'bootstrap-theme'         => '/web/options-ui/vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css',
-            'bootstrap-multiselect'   => '/web/options-ui/vendor/bootstrap-multiselect-0.9.4/css/bootstrap-multiselect.css',
-            'blueimp-gallery-2.14.0'  => '/web/options-ui/vendor/blueimp-gallery-2.14.0/css/blueimp-gallery.min.css',
-            'bootstrap-image-gallery' => '/web/options-ui/vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css',
-            'tubepress-options-gui'   => '/web/options-ui/css/options-page.css',
-            'wordpress-options-gui'   => '/web/options-ui/wordpress/css/options-page.css',
-            'spectrum'                => '/web/options-ui/vendor/spectrum-1.3.4/spectrum.css',
-        );
-    }
-
-    private function _getJsMap($ie8orLess)
-    {
-        $toReturn = array(
-
-            'bootstrap-3.1.1' => '/web/options-ui/vendor/bootstrap-3.1.1/js/bootstrap.min.js',
-        );
-
-        if ($ie8orLess) {
-
-            $toReturn = array_merge($toReturn, array(
-
-                'html5-shiv-3.7.0' => '/web/options-ui/vendor/html5-shiv-3.7.0/html5shiv.js',
-                'respond-1.4.2'    => '/web/options-ui/vendor/respond-1.4.2/respond.min.js',
-            ));
-        }
-
-        $toReturn = array_merge($toReturn, array(
-
-            'bootstrap-multiselect'         => '/web/options-ui/vendor/bootstrap-multiselect-0.9.4/js/bootstrap-multiselect.js',
-            'spectrum'                      => '/web/options-ui/vendor/spectrum-1.3.4/spectrum.js',
-            'blueimp-gallery-2.14.0'        => '/web/options-ui/vendor/blueimp-gallery-2.14.0/js/blueimp-gallery.min.js',
-            'bootstrap-image-gallery'       => '/web/options-ui/vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js',
-            'bootstrap-field-error-handler' => '/web/options-ui/js/bootstrap-field-error-handler.js',
-            'field-provider-filter-handler' => '/web/options-ui/js/field-provider-filter-handler.js',
-            'spectrum-js-initializer'       => '/web/options-ui/js/spectrum-js-initializer.js',
-            'bootstrap-multiselect-init'    => '/web/options-ui/js/bootstrap-multiselect-initializer.js',
-            'theme-field-handler'           => '/web/options-ui/js/theme-field-handler.js',
-            'theme-reminder'                => '/web/options-ui/wordpress/js/theme-reminder.js',
-            'iframe-loader'                 => '/web/options-ui/wordpress/js/iframe-loader.js',
-        ));
-
-        return $toReturn;
     }
 
     public function testRowMeta()
