@@ -101,7 +101,9 @@ class tubepress_wordpress_ApiIntegrator
             /** @noinspection PhpUndefinedFunctionInspection */
             $currentFilter = current_filter();
 
-            return $callback->onFilter($currentFilter, func_get_args());
+            $args = func_get_args();
+
+            return $callback->onFilter($currentFilter, $args);
 
         } catch (Exception $e) {
 
@@ -120,7 +122,9 @@ class tubepress_wordpress_ApiIntegrator
             /** @noinspection PhpUndefinedFunctionInspection */
             $currentFilter = current_filter();
 
-            $callback->onAction($currentFilter, func_get_args());
+            $args = func_get_args();
+
+            $callback->onAction($currentFilter, $args);
 
         } catch (Exception $e) {
 
@@ -134,7 +138,9 @@ class tubepress_wordpress_ApiIntegrator
 
             $callback = $this->_getCallback();
 
-            $callback->onPluginActivation(func_get_args());
+            $args = func_get_args();
+
+            $callback->onPluginActivation($args);
 
         } catch (Exception $e) {
 
