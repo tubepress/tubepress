@@ -376,6 +376,7 @@ return array (
     'puzzle_UriTemplate' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/UriTemplate.php',
     'puzzle_Url' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/Url.php',
     'puzzle_adapter_AdapterInterface' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/adapter/AdapterInterface.php',
+    'puzzle_adapter_FakeParallelAdapter' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/adapter/FakeParallelAdapter.php',
     'puzzle_adapter_ParallelAdapterInterface' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/adapter/ParallelAdapterInterface.php',
     'puzzle_adapter_StreamAdapter' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/adapter/StreamAdapter.php',
     'puzzle_adapter_StreamingProxyAdapter' => TUBEPRESS_ROOT . '/vendor/puzzlehttp/puzzle/src/main/php/puzzle/adapter/StreamingProxyAdapter.php',

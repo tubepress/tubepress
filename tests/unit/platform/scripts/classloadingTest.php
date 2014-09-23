@@ -222,7 +222,6 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
             '/ClassCollectionLoader',
             'BlackHole',
             'Xcache',
-            'adapter/Fake',
             'adapter/Mock',
             'MailHandler',
             'ErrorLogHandler',
