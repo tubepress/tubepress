@@ -12,32 +12,22 @@
 /**
  * Delegating stream.
  */
-class tubepress_lib_impl_streams_puzzle_FlexibleStream implements puzzle_stream_StreamInterface, tubepress_lib_api_streams_StreamInterface
+class tubepress_lib_impl_streams_puzzle_PuzzleBasedStream implements tubepress_lib_api_streams_StreamInterface
 {
     /**
-     * @var puzzle_stream_StreamInterface|tubepress_lib_api_streams_StreamInterface
+     * @var puzzle_stream_StreamInterface
      */
     private $_delegate;
 
-    public function __construct($delegate)
+    public function __construct(puzzle_stream_StreamInterface $delegate)
     {
-        if (!($delegate instanceof puzzle_stream_StreamInterface || $delegate instanceof tubepress_lib_api_streams_StreamInterface)) {
-
-            throw new InvalidArgumentException(sprintf('%s must be constructed with instance of either %s or %s',
-
-                'tubepress_lib_impl_streams_puzzle_FlexibleStream',
-                'puzzle_stream_StreamInterface',
-                'tubepress_lib_api_streams_StreamInterface'
-            ));
-        }
-
         $this->_delegate = $delegate;
     }
 
     /**
-     * @return puzzle_stream_StreamInterface|tubepress_lib_api_streams_StreamInterface
+     * @return puzzle_stream_StreamInterface
      */
-    public function getUnderlyingStream()
+    public function getUnderlyingPuzzleStream()
     {
         return $this->_delegate;
     }

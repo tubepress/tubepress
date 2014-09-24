@@ -37,6 +37,12 @@ interface tubepress_app_api_options_AcceptableValues
      * @api
      * @since 4.0.0
      */
+    const OUTPUT_PLAYER = 'player';
+
+    /**
+     * @api
+     * @since 4.0.0
+     */
     const OUTPUT_SEARCH_INPUT = 'searchInput';
 
     /**
