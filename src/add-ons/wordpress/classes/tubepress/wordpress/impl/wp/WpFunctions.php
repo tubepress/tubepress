@@ -443,12 +443,14 @@ class tubepress_wordpress_impl_wp_WpFunctions
      * The content_url template tag retrieves the url to the content area for the current site with the
      * appropriate protocol, 'https' if is_ssl() and 'http' otherwise.
      *
+     * @param string $path Path relative to the content url.
+     *
      * @return string Content url link with optional path appended.
      */
-    public function content_url()
+    public function content_url($path = '')
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return content_url();
+        return content_url($path);
     }
 
     /**
