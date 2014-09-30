@@ -35,7 +35,7 @@ class tubepress_test_lib_http_impl_puzzle_message_PuzzleResponseTest extends tub
     public function testConvertsToStringAndSeeksToByteZero()
     {
         $response = new tubepress_lib_impl_http_puzzle_PuzzleBasedResponse(new puzzle_message_Response(200));
-        $s = new tubepress_lib_impl_streams_puzzle_FlexibleStream(puzzle_stream_Stream::factory('foo'));
+        $s = new tubepress_lib_impl_streams_puzzle_PuzzleBasedStream(puzzle_stream_Stream::factory('foo'));
         $s->read(1);
         $response->setBody($s);
         $this->assertEquals("HTTP/1.1 200 OK\r\n\r\nfoo", (string) $response);

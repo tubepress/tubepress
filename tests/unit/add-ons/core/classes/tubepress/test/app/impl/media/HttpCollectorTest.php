@@ -64,12 +64,12 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
 
     public function testFetchSingle()
     {
-        $this->_setupHttpClient(tubepress_app_api_event_Events::MEDIA_ITEM_URL, array(
+        $this->_setupHttpClient(tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_URL, array(
 
-            'provider' => $this->_sut,
             'itemId'   => 'item fun',
         ));
 
+        $this->_mockFeedHandler->shouldReceive('getName')->twice()->andReturn('feedhandlername');
         $this->_mockFeedHandler->shouldReceive('buildUrlForItem')->once()->with('item fun')->andReturn($this->_mockUrl);
         $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc');
         $this->_mockFeedHandler->shouldReceive('getCurrentResultCount')->once()->andReturn(1);
@@ -91,12 +91,12 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
 
     public function testFetchPage()
     {
-        $this->_setupHttpClient(tubepress_app_api_event_Events::MEDIA_PAGE_URL, array(
+        $this->_setupHttpClient(tubepress_app_api_event_Events::MEDIA_PAGE_HTTP_URL, array(
 
             'pageNumber' => 33,
-            'provider' => $this->_sut
         ));
 
+        $this->_mockFeedHandler->shouldReceive('getName')->times(3)->andReturn('feedhandlername');
         $this->_mockFeedHandler->shouldReceive('buildUrlForPage')->once()->with(33)->andReturn($this->_mockUrl);
         $this->_mockFeedHandler->shouldReceive('onAnalysisStart')->once()->with('abc');
         $this->_mockFeedHandler->shouldReceive('getTotalResultCount')->once()->andReturn(22);
@@ -108,16 +108,11 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
         $this->_mockFeedHandler->shouldReceive('onAnalysisComplete')->once();
 
         $this->_setupNewHttpItemEvent();
+        $this->_setupNewHttpPageEvent();
 
         $result = $this->_sut->collectPage(33, $this->_mockFeedHandler);
 
-        $this->assertInstanceOf('tubepress_app_api_media_MediaPage', $result);
-        $this->assertEquals(22, $result->getTotalResultCount());
-        $items = $result->getItems();
-        $this->assertTrue(is_array($items));
-        $this->assertCount(1, $items);
-        $item = $items[0];
-        $this->assertEquals('hiya', $item);
+        $this->assertEquals('greetings', $result);
     }
 
     private function _setupNewHttpItemEvent()
@@ -129,10 +124,25 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
             ->andReturn($mockNewItemEvent);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW, $mockNewItemEvent
+            tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.feedhandlername', $mockNewItemEvent
         );
 
         $mockNewItemEvent->shouldReceive('getSubject')->once()->andReturn('hiya');
+    }
+
+    private function _setupNewHttpPageEvent()
+    {
+        $mockNewPageEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()
+            ->with(ehough_mockery_Mockery::type('tubepress_app_api_media_MediaPage'), array('pageNumber' => 33))
+            ->andReturn($mockNewPageEvent);
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+            tubepress_app_api_event_Events::MEDIA_PAGE_HTTP_NEW . '.feedhandlername', $mockNewPageEvent
+        );
+
+        $mockNewPageEvent->shouldReceive('getSubject')->once()->andReturn('greetings');
     }
 
     private function _setupHttpClient($eventName, array $eventArgs)
@@ -180,7 +190,7 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
 
         $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($this->_mockUrl, $eventArgs)->andReturn($mockUrlEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
-            $eventName, $mockUrlEvent
+            $eventName . '.feedhandlername', $mockUrlEvent
         );
 
         $mockUrlEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockUrl);

@@ -88,31 +88,30 @@ class tubepress_lib_impl_http_puzzle_PuzzleHttpClient extends tubepress_lib_impl
     protected function doSend(tubepress_lib_api_http_message_RequestInterface $request)
     {
         $tubePressBody = $request->getBody();
+        $puzzleBody    = null;
 
-        if ($tubePressBody instanceof tubepress_lib_impl_streams_puzzle_FlexibleStream) {
+        if ($tubePressBody) {
 
-            $underlyingStream = $tubePressBody->getUnderlyingStream();
+            if ($tubePressBody instanceof tubepress_lib_impl_streams_puzzle_PuzzleBasedStream) {
 
-            if ($underlyingStream instanceof puzzle_stream_StreamInterface) {
+                $puzzleBody = $tubePressBody->getUnderlyingPuzzleStream();
 
-                $tubePressBody = $underlyingStream;
-            }
+            } else {
 
-        } else {
-
-            if ($tubePressBody) {
-
-                $tubePressBody = new tubepress_lib_impl_streams_puzzle_FlexibleStream($tubePressBody);
+                $puzzleBody = new tubepress_lib_impl_streams_puzzle_PuzzleStream($tubePressBody);
             }
         }
+
+        $requestConfig            = $request->getConfig();
+        $requestConfig['emitter'] = $this->_delegate->getEmitter();
 
         $puzzleRequest = new puzzle_message_Request(
 
             $request->getMethod(),
             $request->getUrl()->toString(),
             $request->getHeaders(),
-            $tubePressBody,
-            $request->getConfig()
+            $puzzleBody,
+            $requestConfig
         );
 
         $puzzleResponse = null;

@@ -76,14 +76,19 @@ abstract class tubepress_lib_impl_http_puzzle_AbstractMessage implements tubepre
      */
     public function getBody()
     {
-        $fromDelegate = $this->_delegate->getBody();
+        $puzzleBody = $this->_delegate->getBody();
 
-        if ($fromDelegate && !($fromDelegate instanceof tubepress_lib_impl_streams_puzzle_FlexibleStream)) {
+        if (!$puzzleBody) {
 
-            $fromDelegate = new tubepress_lib_impl_streams_puzzle_FlexibleStream($fromDelegate);
+            return null;
         }
 
-        return $fromDelegate;
+        if ($puzzleBody instanceof tubepress_lib_impl_streams_puzzle_PuzzleStream) {
+
+            return $puzzleBody->getUnderlyingTubePressStream();
+        }
+
+        return new tubepress_lib_impl_streams_puzzle_PuzzleBasedStream($puzzleBody);
     }
 
     /**
@@ -183,21 +188,30 @@ abstract class tubepress_lib_impl_http_puzzle_AbstractMessage implements tubepre
      * The body MUST be a tubepress_lib_api_streams_StreamInterface object. Setting the body to null MUST
      * remove the existing body.
      *
-     * @param tubepress_lib_api_streams_StreamInterface|null $body Body.
+     * @param tubepress_lib_api_streams_StreamInterface|null $tubePressBody Body.
      *
      * @return tubepress_lib_api_http_message_MessageInterface Self.
      *
      * @api
      * @since 4.0.0
      */
-    public function setBody(tubepress_lib_api_streams_StreamInterface $body = null)
+    public function setBody(tubepress_lib_api_streams_StreamInterface $tubePressBody = null)
     {
-        if ($body !== null && (!($body instanceof tubepress_lib_impl_streams_puzzle_FlexibleStream))) {
+        $puzzleBody = null;
 
-            $body = new tubepress_lib_impl_streams_puzzle_FlexibleStream($body);
+        if ($tubePressBody) {
+
+            if ($tubePressBody instanceof tubepress_lib_impl_streams_puzzle_PuzzleBasedStream) {
+
+                $puzzleBody = $tubePressBody->getUnderlyingPuzzleStream();
+
+            } else {
+
+                $puzzleBody = new tubepress_lib_impl_streams_puzzle_PuzzleStream($tubePressBody);
+            }
         }
 
-        $this->_delegate->setBody($body);
+        $this->_delegate->setBody($puzzleBody);
 
         return $this;
     }

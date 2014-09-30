@@ -69,6 +69,17 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
     }
 
     /**
+     * @return string The name of this feed handler. Never empty or null. All lowercase alphanumerics and dashes.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getName()
+    {
+        return 'youtube_v2';
+    }
+
+    /**
      * Apply any data that might be needed from the feed to build attributes for this media item.
      *
      * @param tubepress_app_api_media_MediaItem $mediaItemId The media item.
@@ -82,8 +93,6 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
     public function getNewItemEventArguments(tubepress_app_api_media_MediaItem $mediaItemId, $index)
     {
         return array(
-
-            'api'            => 'youtube_v2',
             'domDocument'    => $this->_domDocument,
             'xpath'          => $this->_xpath,
             'zeroBasedIndex' => $index

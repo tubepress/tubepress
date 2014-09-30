@@ -132,7 +132,6 @@ class tubepress_test_youtube2_impl_listeners_media_HttpItemListenerTest extends 
         $event->setArgument('domDocument', $doc);
         $event->setArgument('xpath', $xpath);
         $event->setArgument('zeroBasedIndex', $index);
-        $event->setArgument('api', 'youtube_v2');
 
         $this->_mockAttributeFormatter->shouldReceive('formatNumberAttribute')->once()->with($mockMediaItem,
             tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_COUNT, tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_COUNT, 0);

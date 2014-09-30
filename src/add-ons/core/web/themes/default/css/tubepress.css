@@ -183,7 +183,7 @@ dd.tubepress-meta-description:after {
 .tubepress-normal-player {
 
     text-align: left;
-    margin: auto;
+    margin: auto auto 1em;
 }
 
 .tubepress-big-title {

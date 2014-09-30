@@ -66,6 +66,11 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
      */
     private $_environment;
 
+    /**
+     * @var tubepress_platform_api_collection_MapInterface
+     */
+    private $_urlCache;
+
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
                                 tubepress_platform_api_util_StringUtilsInterface   $stringUtils,
                                 tubepress_app_api_html_HtmlGeneratorInterface      $htmlGenerator,
@@ -121,7 +126,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         }
 
         $baseName = basename(TUBEPRESS_ROOT);
-        $ajaxUrl  = $this->_wpFunctions->plugins_url("$baseName/web/js/wordpress-ajax.js", $baseName);
+        $ajaxUrl  = $this->_wpFunctions->plugins_url("web/js/wordpress-ajax.js", "$baseName/tubepress.php");
         $version  = $this->_environment->getVersion();
 
         $this->_wpFunctions->wp_register_script('tubepress_ajax', $ajaxUrl, array('tubepress'), "$version");
@@ -199,22 +204,25 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
     private function _enqueueThemeResources(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions,
                                             tubepress_platform_api_version_Version $version)
     {
-        $styles       = $this->_htmlGenerator->getUrlsCSS();
-        $scripts      = $this->_htmlGenerator->getUrlsJS();
-        $styleCount   = count($styles);
-        $scriptCount  = count($scripts);
+        $callback       = array($this, '__callbackConvertToWpUrlString');
+        $stylesUrls     = $this->_htmlGenerator->getUrlsCSS();
+        $scriptsUrls    = $this->_htmlGenerator->getUrlsJS();
+        $stylesStrings  = array_map($callback, $stylesUrls);
+        $scriptsStrings = array_map($callback, $scriptsUrls);
+        $styleCount     = count($stylesStrings);
+        $scriptCount    = count($scriptsStrings);
 
         for ($x = 0; $x < $styleCount; $x++) {
 
             $handle = 'tubepress-theme-' . $x;
 
-            $wpFunctions->wp_register_style($handle, $styles[$x]->toString(), array(), "$version");
+            $wpFunctions->wp_register_style($handle, $stylesStrings[$x], array(), "$version");
             $wpFunctions->wp_enqueue_style($handle);
         }
 
         for ($x = 0; $x < $scriptCount; $x++) {
 
-            if ($this->_stringUtils->endsWith($scripts[$x]->getPath(), '/web/js/tubepress.js')) {
+            if ($this->_stringUtils->endsWith($scriptsStrings[$x], '/web/js/tubepress.js')) {
 
                 $handle = 'tubepress';
                 $deps   = array();
@@ -225,8 +233,52 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
                 $deps    = array('tubepress');
             }
 
-            $wpFunctions->wp_register_script($handle, $scripts[$x]->toString(), $deps, "$version");
+            $wpFunctions->wp_register_script($handle, $scriptsStrings[$x], $deps, "$version");
             $wpFunctions->wp_enqueue_script($handle, false, array(), false, false);
         }
+    }
+
+    public function __callbackConvertToWpUrlString(tubepress_platform_api_url_UrlInterface $url)
+    {
+        if ($url->isAbsolute()) {
+
+            return $url->toString();
+        }
+
+        if (!isset($this->_urlCache)) {
+
+            $this->_urlCache = new tubepress_platform_impl_collection_Map();
+
+            $this->_urlCache->put('url.base', rtrim($this->_environment->getBaseUrl()->toString(), '/'));
+            $this->_urlCache->put('url.user', rtrim($this->_environment->getUserContentUrl()->toString(), '/'));
+            $this->_urlCache->put('basename', basename(TUBEPRESS_ROOT));
+        }
+
+        $urlAsString      = $url->toString();
+        $tubePressBaseUrl = $this->_urlCache->get('url.base');
+        $userContentUrl   = $this->_urlCache->get('url.user');
+        $baseName         = $this->_urlCache->get('basename');
+        $isSystem         = false;
+
+        if ($this->_stringUtils->startsWith($urlAsString, "$tubePressBaseUrl/web/")) {
+
+            $isSystem = true;
+
+        } else if (!$this->_stringUtils->startsWith($urlAsString, "$userContentUrl/")) {
+
+            //this should never happen
+            return $urlAsString;
+        }
+
+        if ($isSystem) {
+
+            $path = str_replace($tubePressBaseUrl, '', $urlAsString);
+
+            return $this->_wpFunctions->plugins_url($path, "$baseName/tubepress.php");
+        }
+
+        $path = str_replace($userContentUrl, '', $urlAsString);
+
+        return $this->_wpFunctions->content_url('tubepress-content' . $path);
     }
 }

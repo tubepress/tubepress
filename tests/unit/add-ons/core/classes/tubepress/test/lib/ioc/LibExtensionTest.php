@@ -62,6 +62,21 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
 
     private function _expectHttpClient()
     {
+        $emitterDef = $this->expectRegistration(
+            'puzzle_event_Emitter',
+            'puzzle_event_Emitter'
+        );
+
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+
+            $this->expectRegistration(
+                'puzzle_subscriber_Chunked',
+                'puzzle_subscriber_Chunked'
+            );
+
+            $emitterDef->withMethodCall('attach', array(new tubepress_platform_api_ioc_Reference('puzzle_subscriber_Chunked')));
+        }
+
         $this->expectRegistration(
             tubepress_lib_api_http_oauth_v1_ClientInterface::_,
             'tubepress_lib_impl_http_oauth_v1_Client'
@@ -70,7 +85,7 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
         $this->expectRegistration(
             'puzzle.httpClient',
             'puzzle_Client'
-        );
+        )->withArgument(array('emitter' => new tubepress_platform_api_ioc_Reference('puzzle_event_Emitter')));
 
         $this->expectRegistration(
             tubepress_lib_api_http_HttpClientInterface::_,

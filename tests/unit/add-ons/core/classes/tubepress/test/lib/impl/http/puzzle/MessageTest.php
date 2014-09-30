@@ -36,16 +36,18 @@ class tubepress_test_lib_http_impl_puzzle_message_MessageTest extends tubepress_
     {
         $m = new tubepress_test_lib_http_impl_puzzle_message_MessageTest__foo(new tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar());
         $this->assertNull($m->getBody());
-        $s = new tubepress_lib_impl_streams_puzzle_FlexibleStream(puzzle_stream_Stream::factory('test'));
+        $s = new tubepress_lib_impl_streams_puzzle_PuzzleBasedStream(puzzle_stream_Stream::factory('test'));
         $m->setBody($s);
-        $this->assertSame($s, $m->getBody());
+        $actualBody = $m->getBody();
+        $this->assertInstanceOf('tubepress_lib_api_streams_StreamInterface', $actualBody);
+        $this->assertEquals('test', "$actualBody");
         $this->assertFalse($m->hasHeader('Content-Length'));
     }
 
     public function testCanRemoveBodyBySettingToNullAndRemovesCommonBodyHeaders()
     {
         $m = new tubepress_test_lib_http_impl_puzzle_message_MessageTest__foo(new tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar());
-        $m->setBody(new tubepress_lib_impl_streams_puzzle_FlexibleStream(puzzle_stream_Stream::factory('foo')));
+        $m->setBody(new tubepress_lib_impl_streams_puzzle_PuzzleBasedStream(puzzle_stream_Stream::factory('foo')));
         $m->setHeader('Content-Length', 3)->setHeader('Transfer-Encoding', 'chunked');
         $m->setBody(null);
         $this->assertNull($m->getBody());
@@ -57,7 +59,7 @@ class tubepress_test_lib_http_impl_puzzle_message_MessageTest extends tubepress_
     {
         $m = new tubepress_test_lib_http_impl_puzzle_message_MessageTest__foo(new tubepress_test_lib_http_impl_puzzle_message_MessageTest__bar());
         $m->setHeader('foo', 'bar');
-        $m->setBody(new tubepress_lib_impl_streams_puzzle_FlexibleStream(puzzle_stream_Stream::factory('baz')));
+        $m->setBody(new tubepress_lib_impl_streams_puzzle_PuzzleBasedStream(puzzle_stream_Stream::factory('baz')));
         $this->assertEquals("GET / HTTP/1.1\r\nfoo: bar\r\n\r\nbaz", (string) $m);
     }
 

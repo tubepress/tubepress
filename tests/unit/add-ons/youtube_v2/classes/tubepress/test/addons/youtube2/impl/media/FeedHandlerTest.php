@@ -85,7 +85,6 @@ class tubepress_test_youtube2_impl_media_FeedHandlerTest extends tubepress_test_
 
         $actual   = $this->_sut->getNewItemEventArguments($mockMediaItem, 4);
         $expected = array(
-            'api'            => 'youtube_v2',
             'domDocument'    => null,
             'xpath'          => null,
             'zeroBasedIndex' => 4

@@ -44,6 +44,16 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
      */
     private $_mockForm;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockStringUtils;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironment;
+
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper    = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
@@ -51,6 +61,8 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
         $this->_mockHttpRequestParameterService = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
         $this->_mockQss                         = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $this->_mockForm                        = $this->mock(tubepress_app_api_options_ui_FormInterface::_);
+        $this->_mockStringUtils                 = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
+        $this->_mockEnvironment                 = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_wordpress_impl_listeners_wp_AdminActionsAndFilters(
 
@@ -58,7 +70,9 @@ class tubepress_test_wordpress_impl_listeners_wp_AdminActionsAndFiltersTest exte
             $this->_mockQss,
             $this->_mockHttpRequestParameterService,
             $this->_mockEventDispatcher,
-            $this->_mockForm
+            $this->_mockForm,
+            $this->_mockStringUtils,
+            $this->_mockEnvironment
         );
 
         $this->_sut->___doNotIgnoreExceptions();
@@ -236,21 +250,54 @@ ABC
 
     public function testEnqueueStylesAndScriptsDefault()
     {
-        $mockCssUrl  = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockCssUrl->shouldReceive('toString')->once()->andReturn('syz');
-        $mockCssUrls = array($mockCssUrl);
-        $this->_mockForm->shouldReceive('getUrlsCSS')->once()->andReturn($mockCssUrls);
+        $mockSystemCssUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockSystemJsUrl  = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockUserCssUrl   = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockUserJsUrl    = $this->mock(tubepress_platform_api_url_UrlInterface::_);
+        $mockBaseUrl      = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockUserUrl      = $this->mock('tubepress_platform_api_url_UrlInterface');
 
-        $mockJsUrl  = $this->mock(tubepress_platform_api_url_UrlInterface::_);
-        $mockJsUrl->shouldReceive('toString')->once()->andReturn('abc');
-        $mockJsUrls = array($mockJsUrl);
+        $mockSystemCssUrl->shouldReceive('isAbsolute')->once()->andReturn(false);
+        $mockSystemJsUrl->shouldReceive('isAbsolute')->once()->andReturn(false);
+        $mockUserCssUrl->shouldReceive('isAbsolute')->once()->andReturn(false);
+        $mockUserJsUrl->shouldReceive('isAbsolute')->once()->andReturn(false);
+
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('--base-url--');
+        $mockUserUrl->shouldReceive('toString')->once()->andReturn('--user-url--');
+        $mockSystemCssUrl->shouldReceive('toString')->once()->andReturn('--base-url--/web/system-css-url');
+        $mockSystemJsUrl->shouldReceive('toString')->once()->andReturn('--base-url--/web/system-js-url');
+        $mockUserCssUrl->shouldReceive('toString')->once()->andReturn('--user-url--/something/user-css-url');
+        $mockUserJsUrl->shouldReceive('toString')->once()->andReturn('--user-url--/something/user-js-url');
+
+        $mockCssUrls = array($mockSystemCssUrl, $mockUserCssUrl);
+        $mockJsUrls = array($mockSystemJsUrl, $mockUserJsUrl);
+        $this->_mockForm->shouldReceive('getUrlsCSS')->once()->andReturn($mockCssUrls);
         $this->_mockForm->shouldReceive('getUrlsJS')->once()->andReturn($mockJsUrls);
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_style')->once()->with('tubepress-0', 'syz');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_style')->once()->with('tubepress-0', '<<system-style-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_style')->once()->with('tubepress-1', '<<user-style-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_style')->once()->with('tubepress-0');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_style')->once()->with('tubepress-1');
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress-0', 'abc');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress-0', '<<system-script-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress-1', '<<user-script-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-0', false, array(), false, false);
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-1', false, array(), false, false);
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-css-url', 'tubepress/tubepress.php')->andReturn('<<system-style-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-js-url', 'tubepress/tubepress.php')->andReturn('<<system-script-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-css-url')->andReturn('<<user-style-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-js-url')->andReturn('<<user-script-url>>');
+
+        $this->_mockEnvironment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
+        $this->_mockEnvironment->shouldReceive('getUserContentUrl')->once()->andReturn($mockUserUrl);
+
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--base-url--/web/system-css-url', '--base-url--/web/')->andReturn(true);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--base-url--/web/system-js-url', '--base-url--/web/')->andReturn(true);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--user-url--/something/user-css-url', '--base-url--/web/')->andReturn(false);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--user-url--/something/user-css-url', '--user-url--/')->andReturn(true);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--user-url--/something/user-js-url', '--base-url--/web/')->andReturn(false);
+        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('--user-url--/something/user-js-url', '--user-url--/')->andReturn(true);
 
         $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $mockEvent->shouldReceive('getSubject')->once()->andReturn(array('settings_page_tubepress'));
