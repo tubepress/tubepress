@@ -22,7 +22,7 @@ interface tubepress_app_api_event_Events
      * @subject `array` An associative `array` that will be converted into JSON and applied as
      *                  init code for the gallery in JavaScript.
      *
-     * @argument <var>page</var> (`{@link tubepress_app_api_media_MediaPage}`): The backing {@link tubepress_app_api_media_MediaPage}.
+     * @argument <var>mediaPage</var> (`{@link tubepress_app_api_media_MediaPage}`): The backing {@link tubepress_app_api_media_MediaPage}.
      * @argument <var>pageNumber</var> (`integer`): The page number.
      *
      * @api
@@ -112,10 +112,25 @@ interface tubepress_app_api_event_Events
     const HTTP_AJAX = 'tubepress.app.http.ajax';
 
     /**
+     * Fired when an HTTP-based media provider constructs a new item.
+     *
+     * @subject `tubepress_app_api_media_MediaItem` The media item being constructed.
+     *
+     * @arguments Varies based on the provider.
+     *
      * @api
      * @since 4.0.0
      */
     const MEDIA_ITEM_HTTP_NEW = 'tubepress.app.media.item.http.new';
+
+    /**
+     * This event is fired when TubePress constructs the URL for a single media item.
+     *
+     * @subject {@tubepress_platform_api_url_UrlInterface} The URL for the media item.
+     *
+     * @argument <var>itemId</var> (`string`) The item ID.
+     */
+    const MEDIA_ITEM_HTTP_URL = 'tubepress.app.media.item.http.url';
 
     /**
      * This event is fired when a TubePress collects a new media item.
@@ -128,19 +143,33 @@ interface tubepress_app_api_event_Events
     const MEDIA_ITEM_NEW = 'tubepress.app.media.item.new';
 
     /**
+     * This event is fired when TubePress receives a request to fetch a media item
+     * from a provider.
+     *
+     * @subject `string` The media item ID.
+     *
      * @api
      * @since 4.0.0
      */
     const MEDIA_ITEM_REQUEST = 'tubepress.app.media.item.request';
 
     /**
-     * This event is fired when TubePress constructs the URL for a single media item.
+     * This event is fired when TubePress constructs the URL for a media page.
      *
-     * @subject {@tubepress_platform_api_url_UrlInterface} The URL for the media item.
+     * @subject {@tubepress_platform_api_url_UrlInterface} The URL for the media page.
      *
-     * @argument <var>itemId</var> (`string`) The item ID.
+     * @argument <var>pageNumber</var> (`int`) The page number.
      */
-    const MEDIA_ITEM_URL = 'tubepress.app.media.item.url';
+    const MEDIA_PAGE_HTTP_NEW = 'tubepress.app.media.page.http.new';
+
+    /**
+     * This event is fired when TubePress constructs the URL for a media page.
+     *
+     * @subject {@tubepress_platform_api_url_UrlInterface} The URL for the media page.
+     *
+     * @argument <var>pageNumber</var> (`int`) The page number.
+     */
+    const MEDIA_PAGE_HTTP_URL = 'tubepress.app.media.page.http.url';
 
     /**
      * This event is fired when a TubePress collects a new tubepress_app_api_media_MediaPage.
@@ -155,19 +184,17 @@ interface tubepress_app_api_event_Events
     const MEDIA_PAGE_NEW = 'tubepress.app.media.page.new';
 
     /**
+     * This event is fired when TubePress receives a request to fetch a new page of media
+     * items from a provider.
+     *
+     * @subject `string` The current value of the "mode" option.
+     *
+     * @argument <var>pageNumber</var> (`int`) The page number.
+     *
      * @api
      * @since 4.0.0
      */
     const MEDIA_PAGE_REQUEST = 'tubepress.app.media.page.request';
-
-    /**
-     * This event is fired when TubePress constructs the URL for a single media item.
-     *
-     * @subject {@tubepress_platform_api_url_UrlInterface} The URL for the media page.
-     *
-     * @argument <var>pageNumber</var> (`int`) The page number.
-     */
-    const MEDIA_PAGE_URL = 'tubepress.app.media.page.url';
 
     /**
      * This event is fired when a name-value pair is being read from external input.
@@ -261,6 +288,10 @@ interface tubepress_app_api_event_Events
     const TEMPLATE_PRE_RENDER  = 'tubepress.app.template.pre';
 
     /**
+     * This event is fired after TubePress renders a template.
+     *
+     * @subject `string` The result of the template render.
+     *
      * @api
      * @since 4.0.0
      */

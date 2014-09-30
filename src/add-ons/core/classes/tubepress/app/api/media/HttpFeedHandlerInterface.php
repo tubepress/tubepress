@@ -23,6 +23,14 @@ interface tubepress_app_api_media_HttpFeedHandlerInterface
     const _ = 'tubepress_app_api_media_HttpFeedHandlerInterface';
 
     /**
+     * @return string The name of this feed handler. Never empty or null. All lowercase alphanumerics and dashes.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getName();
+
+    /**
      * Gather data that might be needed from the feed to build attributes for this media item.
      *
      * @param tubepress_app_api_media_MediaItem $mediaItemId The media item.

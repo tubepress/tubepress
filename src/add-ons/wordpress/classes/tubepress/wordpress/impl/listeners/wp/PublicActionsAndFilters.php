@@ -126,7 +126,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         }
 
         $baseName = basename(TUBEPRESS_ROOT);
-        $ajaxUrl  = $this->_wpFunctions->plugins_url("$baseName/web/js/wordpress-ajax.js", "$baseName/tubepress.php");
+        $ajaxUrl  = $this->_wpFunctions->plugins_url("web/js/wordpress-ajax.js", "$baseName/tubepress.php");
         $version  = $this->_environment->getVersion();
 
         $this->_wpFunctions->wp_register_script('tubepress_ajax', $ajaxUrl, array('tubepress'), "$version");

@@ -72,6 +72,17 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
     }
 
     /**
+     * @return string The name of this feed handler. Never empty or null. All lowercase alphanumerics and dashes.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getName()
+    {
+        return 'vimeo_v2';
+    }
+
+    /**
      * Builds a URL for a list of videos
      *
      * @param int $currentPage The current page number of the gallery.
@@ -464,7 +475,6 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
     public function getNewItemEventArguments(tubepress_app_api_media_MediaItem $mediaItemId, $index)
     {
         return array(
-            'api'              => 'vimeo_v2',
             'unserializedFeed' => $this->_unserialized,
             'videoArray'       => $this->_videoArray,
             'zeroBasedIndex'   => $index,

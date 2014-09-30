@@ -40,14 +40,7 @@ class tubepress_youtube2_impl_listeners_media_HttpItemListener
 
     public function onHttpItem(tubepress_lib_api_event_EventInterface $event)
     {
-        $mediaItem = $event->getSubject();
-        $args      = $event->getArguments();
-
-        if (!isset($args['api']) || $args['api'] !== 'youtube_v2') {
-
-            return;
-        }
-
+        $mediaItem    = $event->getSubject();
         $attributeMap = $this->_buildAttributeMap($event);
 
         foreach ($attributeMap as $attributeName => $attributeValue) {

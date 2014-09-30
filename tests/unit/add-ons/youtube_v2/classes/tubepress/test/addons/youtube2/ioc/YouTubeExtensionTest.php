@@ -51,7 +51,7 @@ class tubepress_test_youtube2_ioc_YouTubeExtensionTest extends tubepress_test_pl
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_util_TimeUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW,
+                'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.youtube_v2',
                 'method'   => 'onHttpItem',
                 'priority' => 100000
             ));

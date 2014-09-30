@@ -104,7 +104,6 @@ class tubepress_test_vimeo2_impl_listeners_media_HttpItemListenerTest extends tu
         $event = new tubepress_lib_impl_event_tickertape_EventBase($item);
         $event->setArgument('unserializedFeed', $unserialized);
         $event->setArgument('videoArray', $videoArray);
-        $event->setArgument('api', 'vimeo_v2');
         $event->setArgument('zeroBasedIndex', $index);
 
         $this->_mockAttributeFormatter->shouldReceive('formatNumberAttribute')->once()->with($item,
