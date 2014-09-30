@@ -17,5 +17,7 @@
  # 2. If you *do* set the "id" attribute, you must set the "name" attribute and its value must be identical
  #    to the "id" attribute. This value must be "globally" unique - do not set it to the video ID or anything
  #    that might be repeated elsewhere on the page. Failure to do so will break user functionality.
+ #
+ # 3. Do not remove the "js-tubepress-embed" class or you will break user functionality. You may add additional classes.
  #}
-<iframe type="text/html" width="{{ embeddedWidthPx }}" height="{{ embeddedHeightPx }}" src="{{ dataURL }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe type="text/html" width="{{ embeddedWidthPx }}" height="{{ embeddedHeightPx }}" src="{{ dataURL }}" frameborder="0" class="js-tubepress-embed" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
