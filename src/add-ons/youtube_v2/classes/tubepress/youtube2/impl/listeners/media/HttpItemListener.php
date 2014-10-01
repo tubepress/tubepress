@@ -64,13 +64,7 @@ class tubepress_youtube2_impl_listeners_media_HttpItemListener
         $xpath    = $event->getArgument('xpath');
         $index    = $event->getArgument('zeroBasedIndex');
 
-        /* Author */
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME] =
-            $this->_relativeQuery($xpath, $index, 'atom:author/atom:name')->item(0)->nodeValue;
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID] =
-            $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME];
-        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_URL] =
-            sprintf('https://www.youtube.com/user/%s', $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]);
+        $this->_findAndApplyVideoAuthor($toReturn, $xpath, $index);
 
         /* Category */
         /** @noinspection PhpUndefinedMethodInspection */
@@ -120,6 +114,29 @@ class tubepress_youtube2_impl_listeners_media_HttpItemListener
         return $toReturn;
     }
 
+    private function _findAndApplyVideoAuthor(array &$toReturn, DOMXPath $xpath, $index)
+    {
+        $creditNodeList = $this->_relativeQuery($xpath, $index, 'media:group/media:credit[@role=\'uploader\']');
+
+        if ($creditNodeList->length > 0) {
+
+            $firstCreditNode = $creditNodeList->item(0);
+            $authorId        = $firstCreditNode->nodeValue;
+            $displayName     = $firstCreditNode->attributes->getNamedItem('display')->nodeValue;
+
+        } else {
+
+            $displayName = $this->_relativeQuery($xpath, $index, 'atom:author/atom:name')->item(0)->nodeValue;
+            $authorId    = $displayName;
+        }
+
+        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]      = $authorId;
+        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME] = $displayName;
+        $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_URL]          =
+            sprintf('https://www.youtube.com/user/%s', $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID]);
+
+    }
+
     private function _getRatingAverage(DOMXPath $xpath, $index)
     {
         $count = $this->_relativeQuery($xpath, $index, 'gd:rating')->item(0);
@@ -146,6 +163,13 @@ class tubepress_youtube2_impl_listeners_media_HttpItemListener
         return '';
     }
 
+    /**
+     * @param DOMXPath $xpath
+     * @param          $index
+     * @param          $query
+     *
+     * @return DOMNodeList
+     */
     private function _relativeQuery(DOMXPath $xpath, $index, $query)
     {
         return $xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
