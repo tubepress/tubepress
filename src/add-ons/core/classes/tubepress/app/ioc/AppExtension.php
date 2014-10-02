@@ -940,6 +940,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::META_DESC_LIMIT,
                 tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP,
                 tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST,
+                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
+                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
             ),
             'fieldProviderFilter' => array(
                 tubepress_app_impl_options_ui_fields_templated_multi_FieldProviderFilterField::FIELD_ID
@@ -1037,8 +1039,10 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::META_DESC_LIMIT,
             ),
             tubepress_app_api_options_ui_CategoryNames::FEED => array(
+                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
                 tubepress_app_api_options_Names::FEED_ORDER_BY,
                 tubepress_app_api_options_Names::FEED_PER_PAGE_SORT,
+                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
                 tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP,
                 tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST,
             ),
