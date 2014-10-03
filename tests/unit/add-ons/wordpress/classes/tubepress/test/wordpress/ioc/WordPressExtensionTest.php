@@ -238,7 +238,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_wordpress_api_Constants::EVENT_WIDGET_PUBLIC_HTML,
                 'method'   => 'printWidgetHtml',
@@ -277,6 +277,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
             tubepress_app_api_shortcode_ParserInterface::_ => tubepress_app_api_shortcode_ParserInterface::_,
             tubepress_lib_api_event_EventDispatcherInterface::_ => tubepress_lib_api_event_EventDispatcherInterface::_,
             tubepress_lib_api_template_TemplatingInterface::_ => tubepress_lib_api_template_TemplatingInterface::_,
+            tubepress_lib_api_template_TemplatingInterface::_ . '.admin' => tubepress_lib_api_template_TemplatingInterface::_,
             tubepress_app_api_html_HtmlGeneratorInterface::_ => tubepress_app_api_html_HtmlGeneratorInterface::_,
             tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
             tubepress_app_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
