@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:16:07+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:18+0000\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "일치하는 동영상 없음"
 
 msgid "Search"
 msgstr "검색"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -356,6 +359,15 @@ msgstr "최대 폭 (픽셀)"
 msgid "random"
 msgstr "닥치는대로의"
 
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
+
 msgid "WordPress"
 msgstr ""
 
@@ -372,7 +384,7 @@ msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blan
 msgstr "위젯 단축 코드를 TubePress. 만약 당신이 좋아하면 것인지 href=\"%s\"> 설명서를 참조하십시오 </ a>를 참조하십시오."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
-msgstr "여기 TubePress에 대한 기본 옵션을 설정할 수 있습니다. 여기에 각 옵션 TubePress의 단축 코드와 페이지 당 / 포스트 기준으로 재정의 할 수 있습니다. 만약 당신이 좋아하면 것인지 href=\"%s\"> 문서에 대한 자세한 내용은 </ a>를 참조하십시오."
+msgstr "여기 TubePress에 대한 기본 옵션을 설정할 수 있습니다. 여기에 각 옵션 TubePress의 단축 코드와 페이지 당 / 포스트 기준으로 재정의 할 수 있습니다. 만약 당신이 좋아하면 것인지 <a href=\"%s\" target=\"_blank\">문서에 대한 자세한 내용은</a> 를 참조하십시오."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "이 비 메오를 사용자가 올린 동영상"

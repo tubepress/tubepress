@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:16:00+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:11+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "Ningún video coincide"
 
 msgid "Search"
 msgstr "Buscar"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr "Ninguna opción con el nombre \"%s\"."
@@ -355,6 +358,15 @@ msgstr "Ancho máximo (px)"
 
 msgid "random"
 msgstr "aleatorio"
+
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
 
 msgid "WordPress"
 msgstr "WordPress"

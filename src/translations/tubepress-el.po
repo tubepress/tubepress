@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:15:59+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:09+0000\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "Δεν υπάρχουν βίντεο που να ταυτίζονται"
 
 msgid "Search"
 msgstr "Αναζήτηση"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -356,6 +359,15 @@ msgstr "Μέγιστο πλάτος (px)"
 msgid "random"
 msgstr "Τυχαίοι"
 
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
+
 msgid "WordPress"
 msgstr ""
 
@@ -372,7 +384,7 @@ msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blan
 msgstr "TubePress shortcode για το widget. Δείτε το <a τεκμηρίωση href=\"%s\"> </ a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
-msgstr "Εδώ μπορείτε να ορίσετε τις προεπιλεγμένες επιλογές για TubePress. Κάθε επιλογή εδώ μπορεί να αγνοηθεί σε μια βάση ανά σελίδα / post με TubePress ΣΥΝΤΟΜΟΙ. Δείτε το <a τεκμηρίωση href=\"%s\"> </ a> για περισσότερες πληροφορίες."
+msgstr "Εδώ μπορείτε να ορίσετε τις προεπιλεγμένες επιλογές για TubePress. Κάθε επιλογή εδώ μπορεί να αγνοηθεί σε μια βάση ανά σελίδα / post με TubePress ΣΥΝΤΟΜΟΙ. Δείτε το <a href=\"%s\" target=\"_blank\">τεκμηρίωση</a> για περισσότερες πληροφορίες."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Βίντεο μεταφόρτωση από αυτόν τον χρήστη Vimeo"

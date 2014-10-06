@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:16:04+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:14+0000\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "אין סרטונים תואמים"
 
 msgid "Search"
 msgstr "לחפש"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -356,6 +359,15 @@ msgstr "רוחב מקסימלי (px פיקסלים)"
 msgid "random"
 msgstr "אקראי"
 
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
+
 msgid "WordPress"
 msgstr ""
 
@@ -372,7 +384,7 @@ msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blan
 msgstr "Shortcode TubePress עבור יישומון. צפה ב<a href=\"%s\"> תיעוד</a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
-msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"%s\"> תיעוד </ a> לקבלת מידע נוסף."
+msgstr "כאן אתה יכול להגדיר את אפשרויות ברירת המחדל עבור TubePress. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. ראה <a href=\"%s\" target=\"_blank\">תיעוד</a> לקבלת מידע נוסף."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "סרטונים שהועלו על ידי משתמש זה Vimeo"

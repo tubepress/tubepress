@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:16:12+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:24+0000\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "Inga matchande videor"
 
 msgid "Search"
 msgstr "Sök"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -356,6 +359,15 @@ msgstr "Max bredd (px)"
 msgid "random"
 msgstr "slumpvis"
 
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
+
 msgid "WordPress"
 msgstr ""
 
@@ -372,7 +384,7 @@ msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blan
 msgstr "TubePress kortkod för widgeten. Se <a href=\"%s\"> dokumentationen </ a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
-msgstr "Här kan du ställa in standardalternativ för TubePress. Varje alternativ här kan åsidosättas på en per sida/post basis med TubePress kortkoder. Se <a href=\"%s\">dokumentationen </ a> för mer information."
+msgstr "Här kan du ställa in standardalternativ för TubePress. Varje alternativ här kan åsidosättas på en per sida/post basis med TubePress kortkoder. Se <a href=\"%s\" target=\"_blank\">dokumentationen</a> för mer information."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Videos uppladdade av denna Vimeo användare"
