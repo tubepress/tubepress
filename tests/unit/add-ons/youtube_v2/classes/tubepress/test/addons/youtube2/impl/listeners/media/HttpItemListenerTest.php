@@ -82,7 +82,7 @@ class tubepress_test_youtube2_impl_listeners_media_HttpItemListenerTest extends 
         $video = $event->getSubject();
         $this->assertTrue($video instanceof tubepress_app_api_media_MediaItem);
         $this->assertEquals('PrankvsPrank', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_DISPLAY_NAME));
-        $this->assertEquals('PrankvsPrank', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID));
+        $this->assertEquals('prankvsprank', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_AUTHOR_USER_ID));
         $this->assertEquals('Comedy', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME));
         $this->assertEquals($this->_expectedDescription(), $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION));
         $this->assertEquals('207', $video->getAttribute(tubepress_app_api_media_MediaItem::ATTRIBUTE_DURATION_SECONDS));

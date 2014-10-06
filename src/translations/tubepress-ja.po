@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:16:06+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:17+0000\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "一致するビデオない"
 
 msgid "Search"
 msgstr "検索"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -356,6 +359,15 @@ msgstr "最大幅（ピクセル）"
 msgid "random"
 msgstr "ランダム"
 
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
+
 msgid "WordPress"
 msgstr ""
 
@@ -372,7 +384,7 @@ msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blan
 msgstr "ウィジェットのショートコードをTubePress。 <a href=\"%s\">マニュアルを参照してください</ a>を。"
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
-msgstr "ここでは、TubePressのデフォルトオプションを設定することができます。ここで各オプションはTubePressのショートコードでページごと/ポストベースで上書きすることができます。 <a href=\"%s\">マニュアルを参照してください</>詳細については、。"
+msgstr "ここでは、TubePressのデフォルトオプションを設定することができます。ここで各オプションはTubePressのショートコードでページごと/ポストベースで上書きすることができます。 <a href=\"%s\" target=\"_blank\">マニュアルを参照してください</a>詳細については、。"
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "このVimeoのユーザーがアップロードした動画"

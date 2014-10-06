@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:16:06+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:16+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "Nessun video corrispondente"
 
 msgid "Search"
 msgstr "Cerca"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -356,6 +359,15 @@ msgstr "Larghezza max. (px)"
 msgid "random"
 msgstr "casuale"
 
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
+
 msgid "WordPress"
 msgstr ""
 
@@ -372,7 +384,7 @@ msgid "TubePress shortcode for the widget. See the <a href=\"%s\" target=\"_blan
 msgstr "Shortcode di TubePress per il widget. Consulta la <a href=\"%s\"> documentazione</a>."
 
 msgid "Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"%s\" target=\"_blank\">documentation</a> for more information."
-msgstr "Qui è possibile impostare le opzioni predefinite per TubePress. Ogni opzione qui può essere sovrascritta in una pagina / messaggio base per con TubePress codici brevi. Vedere il <a href=\"%s\"> documentazione </ a> per ulteriori informazioni."
+msgstr "Qui è possibile impostare le opzioni predefinite per TubePress. Ogni opzione qui può essere sovrascritta in una pagina / messaggio base per con TubePress codici brevi. Vedere il <a href=\"%s\" target=\"_blank\">documentazione</a> per ulteriori informazioni."
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Video caricati da questo utente Vimeo"

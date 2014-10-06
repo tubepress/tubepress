@@ -233,10 +233,23 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
             return null;
         }
 
-        /* if state is other than limitedSyndication, it's not available */
-        if ($this->_relativeQuery($index, "app:control/yt:state[@reasonCode='limitedSyndication']")->length !== 0) {
+        /**
+         * @var $stateNodeList DOMNodeList
+         */
+        $stateNodeList = $this->_relativeQuery($index, "app:control/yt:state[@reasonCode='limitedSyndication']");
 
-            return 'embedding restricted';
+        /**
+         * @var $stateNode DOMNode
+         */
+        foreach ($stateNodeList as $stateNode) {
+
+            foreach ($stateNode->attributes as $name => $value) {
+
+                if ($name === 'reasonCode' && $value->nodeValue !== 'limitedSyndication') {
+
+                    return 'embedding restricted';
+                }
+            }
         }
 
         return null;
@@ -500,6 +513,12 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
         $this->_domDocument = $doc;
     }
 
+    /**
+     * @param $index
+     * @param $query
+     *
+     * @return DOMNodeList
+     */
     private function _relativeQuery($index, $query)
     {
         return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");

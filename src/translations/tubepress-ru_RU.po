@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TubePress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-08-25 17:16:11+0000\n"
+"PO-Revision-Date: 2014-10-06 23:14:23+0000\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "Нет соответствующих видео"
 
 msgid "Search"
 msgstr "Поиск"
+
+msgid "Item not found"
+msgstr ""
 
 msgid "No option with name \"%s\"."
 msgstr ""
@@ -355,6 +358,15 @@ msgstr "Макс ширина (в пикселях)"
 
 msgid "random"
 msgstr "случайно"
+
+msgid "Monitor templates for changes"
+msgstr ""
+
+msgid "Template cache directory"
+msgstr ""
+
+msgid "Enable template cache"
+msgstr ""
 
 msgid "WordPress"
 msgstr ""

@@ -41,7 +41,7 @@ class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepres
         );
 
         $manifestFinder = new tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder(
-            TUBEPRESS_ROOT . "/web/$id", "/$id", 'theme.json', $logger, $bootSettings, $finderFactory
+            TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . $id, DIRECTORY_SEPARATOR . $id, 'theme.json', $logger, $bootSettings, $finderFactory
         );
 
         $manifests = $manifestFinder->find();

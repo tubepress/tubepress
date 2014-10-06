@@ -67,7 +67,7 @@ class tubepress_wordpress_impl_options_ui_WpFieldProvider implements tubepress_a
     public function getCategoryIdsToFieldIdsMap()
     {
         return array(
-            'advanced-category' => array(
+            tubepress_app_api_options_ui_CategoryNames::ADVANCED => array(
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD
             )
         );
