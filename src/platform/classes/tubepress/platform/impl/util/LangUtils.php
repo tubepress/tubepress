@@ -24,9 +24,12 @@ class tubepress_platform_impl_util_LangUtils implements tubepress_platform_api_u
      */
     public function isAssociativeArray($candidate)
     {
-        return is_array($candidate)
-            && ! empty($candidate)
-            && count(array_filter(array_keys($candidate),'is_string')) == count($candidate);
+        if (!is_array($candidate) || empty($candidate)) {
+
+            return false;
+        }
+
+        return ($candidate !== array_values($candidate));
     }
 
     /**

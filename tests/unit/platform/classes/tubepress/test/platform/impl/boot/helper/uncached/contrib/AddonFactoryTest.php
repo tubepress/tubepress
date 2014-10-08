@@ -128,7 +128,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_AddonFactoryTest
 
             array(array(),                        'Compiler passes is a non-associative array'),
             array(array('foo' => new stdClass()), 'Compiler passes contains invalid data'),
-            array(array(3 => 'foo'),              'Compiler passes is a non-associative array'),
+            array(array(3 => 'foo'),              'Compiler passes contains invalid data'),
             array(array('bar' => 'foo'),          'Compiler passes contains invalid data'),
         );
     }
@@ -177,7 +177,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_AddonFactoryTest
 
             array(array(),                        'Classmap is non-associative array'),
             array(array('foo' => new stdClass()), 'Classmap contains non-string data'),
-            array(array(3 => 'foo'),              'Classmap is non-associative array'),
+            array(array(3 => 'foo'),              'Classmap contains non-string data'),
         );
     }
 }
