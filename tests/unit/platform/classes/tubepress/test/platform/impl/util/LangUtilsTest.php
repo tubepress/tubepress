@@ -23,33 +23,13 @@ class tubepress_test_impl_util_LangUtilsTest extends tubepress_test_TubePressUni
     {
         $this->_sut = new tubepress_platform_impl_util_LangUtils();
     }
-
-    /**
-     * @dataProvider getDataAssociativeArray
-     */
-    public function testAssocArray($candidate, $expected)
+    
+    public function testAssocArray()
     {
-        $actual = $this->_sut->isAssociativeArray($candidate);
-
-        $this->assertEquals($expected, $actual, 'Assertion failed for ' . print_r($candidate, true));
-    }
-
-    public function getDataAssociativeArray()
-    {
-        return array(
-
-            array(array('5' => 5), true),
-            array(new stdClass(), false),
-            array(44, false),
-            array('hello', false),
-            array(array(), false),
-            array(array('a' => 'a'), true),
-            array(array(1 => 'a'), true),
-            array(array(1, 2), false,),
-            array(array('foo' => 'bar', 'smack' => 'pap'), true),
-            array(array_fill_keys(range(2,1000,3),uniqid()), true),
-            array(array_fill(0,1000,uniqid()), false),
-        );
+        $this->assertFalse($this->_sut->isAssociativeArray(array(1, 2)));
+        $this->assertFalse($this->_sut->isAssociativeArray(array()));
+        $this->assertFalse($this->_sut->isAssociativeArray(array('foo' => 'bar', 3)));
+        $this->assertTrue($this->_sut->isAssociativeArray(array('foo' => 'bar', 'smack' => 'crack')));
     }
 
     public function testBooleanToOneOrZero()
