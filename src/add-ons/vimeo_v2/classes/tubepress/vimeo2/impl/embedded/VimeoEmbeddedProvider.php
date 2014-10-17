@@ -131,7 +131,7 @@ class tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider implements tubepress_
         $color    = $this->_context->get(tubepress_vimeo2_api_Constants::OPTION_PLAYER_COLOR);
 
         /* build the data URL based on these options */
-        $link  = $this->_urlFactory->fromString('http://player.vimeo.com/video/' . $mediaItem->getId());
+        $link  = $this->_urlFactory->fromString('https://player.vimeo.com/video/' . $mediaItem->getId());
         $query = $link->getQuery();
 
         $query->set(self::$_URL_PARAM_AUTOPLAY, $this->_langUtils->booleanToStringOneOrZero($autoPlay));

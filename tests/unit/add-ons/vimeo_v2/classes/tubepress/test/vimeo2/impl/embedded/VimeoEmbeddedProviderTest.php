@@ -74,7 +74,7 @@ class tubepress_test_vimeo2_impl_embedded_VimeoEmbeddedProviderTest extends tube
         $mockUrl   = $this->mock('tubepress_platform_api_url_UrlInterface');
         $mockQuery = $this->mock('tubepress_platform_api_url_QueryInterface');
         $mockUrl->shouldReceive('getQuery')->once()->andReturn($mockQuery);
-        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('http://player.vimeo.com/video/xx')->andReturn($mockUrl);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://player.vimeo.com/video/xx')->andReturn($mockUrl);
 
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(4)->with(true)->andReturn('troooo');
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->once()->with(false)->andReturn('fawlse');
