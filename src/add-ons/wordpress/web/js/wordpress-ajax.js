@@ -16,23 +16,26 @@
     var ajaxUrl,
         text_url       = 'url',
         text_tubepress = 'tubepress',
+        text_data      = 'data',
 
-        onAjax = function (e, dataToSend) {
+        onAjax = function (options, originalOptions, jqxhr) {
 
-            if (dataToSend[text_url] !== ajaxUrl) {
+            if (options[text_tubepress] !== true || options[text_url] !== ajaxUrl) {
 
                 return;
             }
 
-            var data = dataToSend.data;
+            var data = originalOptions[text_data];
 
             data.action = text_tubepress;
+
+            options[text_data] = jquery.param(data);
         },
 
         init = function () {
 
+            jquery.ajaxPrefilter(onAjax);
             ajaxUrl = tubePress.Environment.getAjaxEndpointUrl();
-            tubePress.Beacon.subscribe(text_tubepress + '.ajax', onAjax);
         };
 
     jquery(init);

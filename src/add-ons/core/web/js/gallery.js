@@ -787,12 +787,13 @@ var tubePressGalleryRegistrar;
 
                 /** Go fetch the HTML for it. */
                 method = options.getOption(galleryId, 'httpMethod', 'GET');
-                tubepress.Ajax.Executor.ajax({
-                    data     : dataToSend,
-                    dataType : 'json',
-                    success  : onPlayerHtmlReceived,
-                    type     : method,
-                    url      : environment.getAjaxEndpointUrl()
+                jquery.ajax({
+                    data      : dataToSend,
+                    dataType  : 'json',
+                    success   : onPlayerHtmlReceived,
+                    type      : method,
+                    url       : environment.getAjaxEndpointUrl(),
+                    tubepress : true
                 });
             };
 

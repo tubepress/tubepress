@@ -562,24 +562,6 @@ var tubePressDomInjector,
                 applyLoadingStyle  : applyLoadingStyle,
                 removeLoadingStyle : removeLoadingStyle
             };
-        }()),
-
-        /**
-         * Various Ajax utilities.
-         */
-        ajaxExecutor = (function () {
-
-            var doAjax = function (dataToSend) {
-
-                beacon.publish(text_tubepress + text_dot + text_ajax, dataToSend);
-
-                return jquery.ajax(dataToSend);
-            };
-
-            return {
-
-                ajax : doAjax
-            };
         }());
 
     /**
@@ -628,8 +610,6 @@ var tubePressDomInjector,
     return {
 
         Ajax : {
-
-            Executor   : ajaxExecutor,
             LoadStyler : loadStyler
         },
 
