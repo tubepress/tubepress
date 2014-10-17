@@ -487,7 +487,7 @@ var tubePressGalleryRegistrar;
 
                 } else {
 
-                    loadJs('/web/js/' + text_ajaxPagination + text_dot + text_js);
+                    loadJs('web/js/' + text_ajaxPagination + text_dot + text_js);
                 }
             }
         };
@@ -787,7 +787,13 @@ var tubePressGalleryRegistrar;
 
                 /** Go fetch the HTML for it. */
                 method = options.getOption(galleryId, 'httpMethod', 'GET');
-                tubepress.Ajax.Executor.get(method, environment.getAjaxEndpointUrl(), dataToSend, onPlayerHtmlReceived, 'json');
+                tubepress.Ajax.Executor.ajax({
+                    data     : dataToSend,
+                    dataType : 'json',
+                    success  : onPlayerHtmlReceived,
+                    type     : method,
+                    url      : environment.getAjaxEndpointUrl()
+                });
             };
 
         /** When a user clicks a thumbnail... */

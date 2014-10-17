@@ -34,21 +34,26 @@ var tubePressDomInjector,
      * Let's start with some variable declarations to help us with compression.
      */
     var text_tubepress      = 'tubepress',
-        text_urls           = 'urls',
+        text_ajax           = 'ajax',
         text_base           = 'base',
-        text_sys            = 'sys',
-        text_src            = 'src',
-        text_js             = 'js',
+        text_css            = 'css',
         text_gallery        = 'gallery',
-        text_html           = 'html',
-        text_error          = 'error',
+        text_head           = 'head',
+        text_http           = 'http',
+        text_js             = 'js',
+        text_php            = 'php',
+        text_script         = 'script',
+        text_src            = 'src',
+        text_sys            = 'sys',
+        text_text           = 'text',
+        text_urls           = 'urls',
         text_web            = 'web',
+        text_dot            = '.',
         text_path_separator = '/',
+        text_empty          = '',
         windowLocation      = win.location,
         dokument            = win.document,
         troo                = true,
-        jquery_isFunction   = jquery.isFunction,
-        nulll               = null,
         fawlse              = false,
 
         /**
@@ -69,7 +74,7 @@ var tubePressDomInjector,
                         regex   = new RegExp(regexS),
                         results = regex.exec(windowLocation.search);
 
-                    return results === nulll ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+                    return results === null ? text_empty : decodeURIComponent(results[1].replace(/\+/g, ' '));
                 },
 
                 parseIntOrZero = function (candidate) {
@@ -129,12 +134,18 @@ var tubePressDomInjector,
 
                 trimSlashes = function (haystack, leading) {
 
+                    var search;
+
                     if (leading) {
 
-                        return haystack.replace(/^\/+/, '');
+                        search = /^\/+/;
+
+                    } else {
+
+                        search = /\/+$/;
                     }
 
-                    return haystack.replace(/\/+$/, '');
+                    return haystack.replace(search, text_empty);
                 };
 
             return {
@@ -217,19 +228,19 @@ var tubePressDomInjector,
                         } else {
 
                             //http://stackoverflow.com/questions/2161159/get-script-path
-                            dokument.getElementsByTagName('script');
+                            dokument.getElementsByTagName(text_script);
                             x       = 0;
 
                             for (x; x < scripts.length; x += 1) {
 
                                 scriptSrc = scripts[x][text_src];
 
-                                if (scriptSrc.indexOf(text_path_separator + text_tubepress + '.js') !== -1) {
+                                if (scriptSrc.indexOf(text_path_separator + text_tubepress + text_dot + text_js) !== -1) {
 
                                     cachedBaseUrl = langUtils.trimSlashes(
                                         scriptSrc.substr(0, scriptSrc.lastIndexOf(text_path_separator))
                                             .split('?')[0]
-                                            .replace(text_web + '/js', '')
+                                            .replace(text_web + text_path_separator + text_js, text_empty)
                                         , fawlse);
                                     break;
                                 }
@@ -244,8 +255,7 @@ var tubePressDomInjector,
 
                 getAjaxEndpointUrl = function () {
 
-                    var text_ajaxEndpoint = 'ajaxEndpoint',
-                        text_php          = 'php',
+                    var text_ajaxEndpoint = text_ajax + 'Endpoint',
                         tubePressJsConfig = getJsConfig();
 
                     if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_php, text_sys, text_ajaxEndpoint)) {
@@ -254,7 +264,8 @@ var tubePressDomInjector,
 
                     }
 
-                    return getBaseUrl() + text_path_separator + text_src + '/core/http/web/php/' + text_ajaxEndpoint + '.php';
+                    return getBaseUrl() + text_path_separator + text_src + '/core/' + text_http + text_path_separator + text_web
+                        + text_path_separator + text_php + text_path_separator + text_ajaxEndpoint + '.' + text_php;
                 },
 
                 getUserContentUrl = function () {
@@ -342,7 +353,7 @@ var tubePressDomInjector,
 
                 convertToAbsoluteUrl = function (url, isSystem) {
 
-                    if (url.indexOf(text_path_separator) === 0 || url.indexOf('http') === 0) {
+                    if (url.indexOf(text_path_separator) === 0 || url.indexOf(text_http) === 0) {
 
                         //already absolute
                         return url;
@@ -359,7 +370,7 @@ var tubePressDomInjector,
                         prefix = environment.getUserContentUrl();
                     }
 
-                    return prefix + text_path_separator + langUtils.trimSlashes(url, true);
+                    return prefix + text_path_separator + langUtils.trimSlashes(url, troo);
                 },
 
                 doLog = function (path, type) {
@@ -372,12 +383,12 @@ var tubePressDomInjector,
 
                 appendToHead = function (element) {
 
-                    dokument.getElementsByTagName('head')[0].appendChild(element);
+                    dokument.getElementsByTagName(text_head)[0].appendChild(element);
                 },
 
                 loadCss = function (path, isSystem) {
 
-                    isSystem = langUtils.isDefined(isSystem) ? isSystem : true;
+                    isSystem = langUtils.isDefined(isSystem) ? isSystem : troo;
 
                     path = convertToAbsoluteUrl(path, isSystem);
 
@@ -391,17 +402,17 @@ var tubePressDomInjector,
                     var fileref   = dokument.createElement('link');
 
                     fileref.rel  = 'stylesheet';
-                    fileref.type = 'text/css';
+                    fileref.type = text_text + text_path_separator + text_css;
                     fileref.href = path;
 
-                    doLog(path, 'CSS');
+                    doLog(path, text_css);
 
                     appendToHead(fileref);
                 },
 
                 loadJs = function (path, isSystem) {
 
-                    isSystem = langUtils.isDefined(isSystem) ? isSystem : true;
+                    isSystem = langUtils.isDefined(isSystem) ? isSystem : troo;
 
                     path = convertToAbsoluteUrl(path, isSystem);
 
@@ -412,15 +423,15 @@ var tubePressDomInjector,
 
                     filesAlreadyLoaded[path] = troo;
 
-                    doLog(path, 'JS');
+                    doLog(path, text_js);
 
-                    var script = dokument.createElement('script');
+                    var script = dokument.createElement(text_script);
 
-                    script.type      = 'text/javascript';
+                    script.type      = text_text + '/java' + text_script;
                     script[text_src] = path;
                     script.async     = troo;
 
-                    dokument.getElementsByTagName('head')[0].appendChild(script);
+                    dokument.getElementsByTagName(text_head)[0].appendChild(script);
                 },
 
                 loadSystemScript = function (scriptName) {
@@ -433,7 +444,7 @@ var tubePressDomInjector,
 
                     } else {
 
-                        loadJs(text_web + text_path_separator + text_js + text_path_separator + scriptName + '.js');
+                        loadJs(text_web + text_path_separator + text_js + text_path_separator + scriptName + text_dot + text_js);
                     }
                 },
 
@@ -449,7 +460,7 @@ var tubePressDomInjector,
 
                 loadAjaxSearchJs = function () {
 
-                    loadSystemScript('ajaxSearch');
+                    loadSystemScript(text_ajax + 'Search');
                 };
 
             return {
@@ -528,17 +539,22 @@ var tubePressDomInjector,
             /**
              * Fade to "white".
              */
-            var applyLoadingStyle = function (targetDiv) {
+            var apply = function (selector, finalOpacity) {
 
-                    jquery(targetDiv).fadeTo(0, 0.3);
+                    jquery(selector).fadeTo(0, finalOpacity);
+                },
+
+                applyLoadingStyle = function (selector) {
+
+                    apply(selector, 0.3);
                 },
 
                 /**
                  * Fade back to full opacity.
                  */
-                removeLoadingStyle = function (targetDiv) {
+                removeLoadingStyle = function (selector ) {
 
-                    jquery(targetDiv).fadeTo(0, 1);
+                    apply(selector, 1);
                 };
 
             return {
@@ -555,121 +571,14 @@ var tubePressDomInjector,
 
             var doAjax = function (dataToSend) {
 
-                beacon.publish(text_tubepress + '.ajax', dataToSend);
+                beacon.publish(text_tubepress + text_dot + text_ajax, dataToSend);
 
-                jquery.ajax(dataToSend);
-            },
-
-                errorLogger = function (jqxhr, message, error) {
-
-                    if (logger.on()) {
-
-                        logger.log('Ajax error: ' + message);
-                    }
-                },
-
-                getErrorHandler = function (data) {
-
-                    if (!langUtils.isDefined(data[text_error])) {
-
-                        return errorLogger;
-                    }
-
-                    return function (jqxhr, message, error) {
-
-                        errorLogger(jqxhr, message, error);
-                        data[text_error](jqxhr, message, error);
-                    };
-                },
-
-                /**
-                 * Similar to jQuery's "load" but tolerates non-200 status codes.
-                 * https://github.com/jquery/jquery/blob/1.8-stable/src/ajax.js#L203
-                 */
-                load = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
-
-                var rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
-
-                    completeCallback = function (res) {
-
-                        var responseText = res.responseText,
-                            html         = selector ? jquery('<div>').append(responseText.replace(rscript, '')).find(selector) : responseText;
-
-                        jquery(targetDiv).html(html);
-
-                        /* did the user supply a post-load function? */
-                        if (jquery_isFunction(postLoadFunction)) {
-
-                            postLoadFunction();
-                        }
-                    }, dataToSend = {
-
-                        url      : url,
-                        type     : method,
-                        dataType : 'html',
-                        complete : completeCallback
-                    };
-
-                /** did the user supply a pre-load function? */
-                if (jquery_isFunction(preLoadFunction)) {
-
-                    preLoadFunction();
-                }
-
-                doAjax(dataToSend);
-            },
-
-            get = function (method, url, data, success, dataType) {
-
-                var dataToSend = {
-
-                    url      : url,
-                    type     : method,
-                    data     : data,
-                    dataType : dataType,
-                    success  : success,
-                    error    : getErrorHandler(data)
-                };
-
-                doAjax(dataToSend);
-            },
-
-            triggerDoneLoading = function (targetDiv) {
-
-                loadStyler.removeLoadingStyle(targetDiv);
-            },
-
-            /**
-             * Calls "load", but does some additional styling on the target element while it's processing.
-             */
-            loadAndStyle = function (method, url, targetDiv, selector, preLoadFunction, postLoadFunction) {
-
-                /** one way or another, we're removing the loading style when we're done... */
-                var post = function () {
-
-                    triggerDoneLoading(targetDiv);
-                };
-
-                loadStyler.applyLoadingStyle(targetDiv);
-
-                /** ... but maybe we want to do something else too */
-                if (jquery_isFunction(postLoadFunction)) {
-
-                    post = function () {
-
-                        triggerDoneLoading(targetDiv);
-                        postLoadFunction();
-                    };
-                }
-
-                /** do the load. do it! */
-                load(method, url, targetDiv, selector, preLoadFunction, post);
+                return jquery.ajax(dataToSend);
             };
 
             return {
 
-                loadAndStyle : loadAndStyle,
-                get          : get
+                ajax : doAjax
             };
         }());
 
