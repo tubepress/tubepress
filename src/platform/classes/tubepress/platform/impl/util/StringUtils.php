@@ -150,6 +150,22 @@ class tubepress_platform_impl_util_StringUtils implements tubepress_platform_api
      */
     public function redactSecrets($string)
     {
+        if (is_scalar($string)) {
+
+            $string = "$string";
+
+        } else {
+
+            if (is_array($string)) {
+
+                $string = var_export($string, true);
+
+            } else {
+
+                $string = 'resource/object';
+            }
+        }
+
         return preg_replace('/[0-9a-fA-F]{12,}/', 'XXXXXX', $string);
     }
 }
