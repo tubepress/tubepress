@@ -127,12 +127,6 @@ interface tubepress_app_api_options_Names
      * @api
      * @since 4.0.0
      */
-    const GALLERY_SEQUENCE = 'sequence';
-
-    /**
-     * @api
-     * @since 4.0.0
-     */
     const GALLERY_SOURCE = 'mode';
 
     /**
