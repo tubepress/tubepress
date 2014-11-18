@@ -67,6 +67,18 @@ class tubepress_platform_impl_ioc_ContainerBuilder extends tubepress_platform_im
             $pass->process($this);
         }
 
+        $compilerConfig = $this->_delegateContainerBuilder->getCompilerPassConfig();
+        $compilerConfig->setRemovingPasses(array(
+            new ehough_iconic_compiler_RemovePrivateAliasesPass(),
+            new ehough_iconic_compiler_RemoveAbstractDefinitionsPass(),
+            new ehough_iconic_compiler_ReplaceAliasByActualDefinitionPass(),
+            new ehough_iconic_compiler_RepeatedPass(array(
+                new ehough_iconic_compiler_AnalyzeServiceReferencesPass(),
+                new ehough_iconic_compiler_RemoveUnusedDefinitionsPass(),
+            )),
+            new ehough_iconic_compiler_CheckExceptionOnInvalidReferenceBehaviorPass(),
+        ));
+
         $this->_delegateContainerBuilder->compile();
     }
 
