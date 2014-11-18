@@ -17,18 +17,23 @@
         text_url       = 'url',
         text_tubepress = 'tubepress',
         text_data      = 'data',
+        text_dataType  = text_data + 'Type',
 
         onAjax = function (options, originalOptions, jqxhr) {
 
-            if (options[text_tubepress] !== true || options[text_url] !== ajaxUrl) {
+            var actualUrl = options[text_url],
+                data;
+
+            /**
+             * Only process if URLs match *or* dataType is HTML and URL has a space at the end.
+             */
+            if (actualUrl !== ajaxUrl && !(options[text_dataType] === 'html' && actualUrl.indexOf(ajaxUrl + ' ') === 0)) {
 
                 return;
             }
 
-            var data = originalOptions[text_data];
-
-            data.action = text_tubepress;
-
+            data               = originalOptions[text_data];
+            data.action        = text_tubepress;
             options[text_data] = jquery.param(data);
         },
 
