@@ -191,13 +191,13 @@ class tubepress_app_impl_listeners_media_PageListener
         $mode = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
 
         switch ($mode) {
-            case tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH:
+            case 'tag':
                 //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
                 return 500;
-            case tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES:
+            case 'favorites':
                 //http://code.google.com/apis/youtube/2.0/reference.html#User_favorites_feed
                 return 50;
-            case tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST:
+            case 'playlist':
                 //http://code.google.com/apis/youtube/2.0/reference.html#Playlist_feed
                 return 200;
         }
