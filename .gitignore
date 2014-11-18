@@ -1,6 +1,6 @@
 .DS_Store
 build/stage
 build/dist
-.idea
+/.idea*
 /vendor
 /tubepress.php
