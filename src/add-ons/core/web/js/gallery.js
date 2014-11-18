@@ -6,6 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/*jslint browser: true */
+
 /**
  * This script expects galleries to "register" themselves by including a snippet of JS
  * anywhere on the page. This snippet of JS should look something like this:
@@ -61,25 +63,13 @@
  *     "galleryId" : 123456789,
  *     "itemId"   : "ekv9384jJD"
  * }
- * 
+ *
  * tubepress.gallery.player.populate.<playername>   //When we have received a response from the server for some player HTML
  * {
  *     "galleryId" : 123456789,
  *     "itemId"    : "ekv9384jJD"
  *     "mediaItem" : { ... },            //a dictionary representing the backing tubepress_app_api_media_MediaItem attributes
  *     "html"      : " ... "             //the HTML for this player
- * }
- *
- * tubepress.gallery.player.error.<playername>     //When we have received an error response from the server for some player HTML
- * {
- *     "galleryId" : 123456789,
- *     "itemId"    : "ekv9384jJD"
- * }
- *
- * tubepress.gallery.pagechange                     //When the page for a gallery changes
- * {
- *     "galleryId" : 123456789,
- *     "page"      : 4
  * }
  */
 
@@ -90,7 +80,7 @@
  */
 var tubePressGalleryRegistrar;
 
-(function (jquery, win, tubepress) {
+(function (jquery, tubepress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -106,18 +96,14 @@ var tubePressGalleryRegistrar;
         text_player         = 'player',
         text_Id             = 'Id',
         text_id             = 'id',
-        text_page           = 'page',
         text_params         = 'params',
-        text_urls           = 'urls',
         text_sys            = 'sys',
         text_js             = 'js',
         text_div            = 'div',
         text_fluid          = 'fluid',
         text_class          = 'class',
-        text_ajaxPagination = 'ajaxPagination',
         text_fluidThumbs    = text_fluid + 'Thumbs',
         text_html           = 'html',
-        text_current        = 'current',
         text_thumb          = 'thumb',
         text_thumbs         = text_thumb + 's',
         text_js_dash        = text_js + text_dash,
@@ -129,13 +115,9 @@ var tubePressGalleryRegistrar;
 
         text_eventPrefix_gallery        = text_tubepress + text_dot + text_gallery + text_dot,
         text_event_tx_galleryLoad       = text_eventPrefix_gallery + 'load',
-        text_event_tx_galleryPageChange = text_eventPrefix_gallery + 'pagechange',
         text_event_rx_galleryNewThumbs  = text_eventPrefix_gallery + 'new' + text_thumbs,
 
-        text_eventPrefix_item    = text_eventPrefix_gallery + text_item + text_dot,
-        text_event_tx_itemChange = text_eventPrefix_item + 'change',
-        text_event_rx_itemStart  = text_eventPrefix_item + 'start',
-        text_event_rx_itemStop   = text_eventPrefix_item + 'stop',
+        text_event_tx_itemChange = text_eventPrefix_gallery + text_item + text_dot + 'change',
 
         text_eventPrefix_player         = text_eventPrefix_gallery + text_player + text_dot,
         text_eventPrefix_playerPopulate = text_eventPrefix_player + 'populate' + text_dot,
@@ -147,10 +129,8 @@ var tubePressGalleryRegistrar;
         langUtils         = tubepress.Lang.Utils,
         isDefined         = langUtils.isDefined,
         environment       = tubepress.Environment,
-        domInjector       = tubepress.DomInjector,
         troo              = true,
         fawlse            = false,
-        tubePressJsConfig = win.TubePressJsConfig,
 
         /**
          * Provides convenient selectors to access the outermost gallery div.
@@ -203,7 +183,10 @@ var tubePressGalleryRegistrar;
             return {
 
                 getOutermostElement        : getOutermostElement,
+                getOutermostSelectorLegacy : getOutermostSelectorLegacy,
                 getOutermostSelectorModern : getOutermostSelectorModern,
+                getThumbAreaSelectorLegacy : getThumbAreaSelectorLegacy,
+                getThumbAreaSelectorModern : getThumbAreaSelectorModern,
                 getThumbAreaElement        : getThumbAreaElement
             };
         }()),
@@ -278,9 +261,9 @@ var tubePressGalleryRegistrar;
                 onNewGallery = function (event, data) {
 
                     var galleryId = data[text_galleryId],
-                        options   = data[text_params];
+                        opts      = data[text_params];
 
-                    dataFacade.set(galleryId, text_params, options);
+                    dataFacade.set(galleryId, text_params, opts);
                 };
 
             subscribe(text_event_tx_galleryLoad, onNewGallery);
@@ -292,146 +275,27 @@ var tubePressGalleryRegistrar;
             };
         }()),
 
-        /**
-         * Keeps track of which item, if any, a gallery is currently playing.
-         */
-        nowShowing = (function () {
+        registry = (function () {
 
-            var data = dataFacade,
-                get  = data.get,
-                set  = data.set,
-
-                text_currentItem           = text_current + text_dash + text_item,
-                text_currentlyPlayingVideo = text_current + 'ly-playing-' + text_item,
-
-                /**
-                 * What item is this gallery currently playing?
-                 */
-                getCurrentVideoId = function (galleryId) {
-
-                    return get(galleryId, text_currentItem);
-                },
-
-                /**
-                 * Is this gallery currently playing an item?
-                 */
-                isCurrentlyPlayingVideo = function (galleryId) {
-
-                    return get(galleryId, text_currentlyPlayingVideo);
-                },
-
-                /**
-                 * An item on the page has stopped.
-                 */
-                onVideoStop = function (e, data) {
-
-                    set(data[text_galleryId], text_currentlyPlayingVideo, fawlse);
-                },
-
-                setItemIdAsCurrent = function (galleryId, itemId) {
-
-                    set(data[galleryId], text_currentItem, itemId);
-                },
-
-                /**
-                 * An item on the page has started.
-                 */
-                onVideoStart = function (e, data) {
-
-                    /**
-                     * Record the item as playing.
-                     */
-                    set(data[text_galleryId], text_currentlyPlayingVideo, troo);
-                    set(data[text_galleryId], text_currentItem, data[text_itemId]);
-                },
-
-                /**
-                 * Set an item as "current" for a gallery.
-                 */
-                onChangeVideo = function (event, data) {
-
-                    setItemIdAsCurrent(data[text_galleryId], data[text_itemId]);
-                },
-
-                onNewGallery = function (event, data) {
-
-                    var galleryId = data[text_galleryId],
-                        sequence  = options.getOption(galleryId, 'sequence', []);
-
-                    if (sequence.length > 0) {
-
-                        setItemIdAsCurrent(galleryId, sequence[0]);
-                    }
-
-                    /**
-                     * Record that we're *not* currently playing an item.
-                     */
-                    set(galleryId, text_currentlyPlayingVideo, fawlse);
-                };
-
-            subscribe(text_event_tx_itemChange,  onChangeVideo);
-            subscribe(text_event_rx_itemStop,    onVideoStop);
-            subscribe(text_event_rx_itemStart,   onVideoStart);
-            subscribe(text_event_tx_galleryLoad, onNewGallery);
-
-            return {
-
-                getCurrentVideoId       : getCurrentVideoId,
-                isCurrentlyPlayingVideo : isCurrentlyPlayingVideo
-            };
-        }()),
-
-        /**
-         * Keeps track of which page each gallery is on.
-         */
-        pageTracker = (function () {
-
-            var get                = dataFacade.get,
-                set                = dataFacade.set,
-                text_page          = 'page',
-                parseIntOrZero     = langUtils.parseIntOrZero,
-                pageFromQuery      = langUtils.getParameterByName(text_tubepress + text_underscore + text_page),
-                pageFromQueryAsInt = parseIntOrZero(pageFromQuery),
-
-                /**
-                 * What page is this gallery on?
-                 */
-                getCurrentPageNumber = function (galleryId) {
-
-                    var toReturn = get(galleryId, text_page);
-
-                    return toReturn === '' ? 1 : toReturn;
-                },
-
-                getRealPageNum = function (candidate) {
-
-                    var parsed = parseIntOrZero(candidate);
-
-                    return parsed === 0 ? 1 : parsed;
-                },
+            //noinspection JSLint
+            var internalRegistry = {},
 
                 onNewGallery = function (e, data) {
 
-                    /**
-                     * Save the current page.
-                     */
-                    set(data[text_galleryId], text_page, getRealPageNum(pageFromQueryAsInt));
+                    var galleryId = data[text_galleryId];
+
+                    internalRegistry[galleryId] = data[text_params];
                 },
 
-                onPageChange = function (event, data) {
+                getAll = function () {
 
-                    var galleryId = data[text_galleryId],
-                        newPage   = getRealPageNum(data[text_page]);
-
-                    set(galleryId, text_page, newPage);
+                    return jquery.extend(true, {}, internalRegistry);
                 };
 
             subscribe(text_event_tx_galleryLoad, onNewGallery);
-            subscribe(text_event_tx_galleryPageChange, onPageChange);
 
             return {
-
-                getCurrentPageNumber : getCurrentPageNumber
+                getAll : getAll
             };
         }()),
 
@@ -463,33 +327,6 @@ var tubePressGalleryRegistrar;
             var galleryId = data[text_galleryId];
 
             dataFacade.set(galleryId, text_id, galleryId);
-        };
-
-        subscribe(text_event_tx_galleryLoad, onGalleryLoad);
-    }());
-
-    /**
-     * Loads the Ajax pagination script, if required.
-     */
-    (function () {
-
-        var onGalleryLoad = function (e, data) {
-
-            var galleryId        = data[text_galleryId],
-                isAjaxPagination = options.getOption(galleryId, 'ajaxPagination', fawlse),
-                loadJs           = domInjector.loadJs;
-
-            if (isAjaxPagination) {
-
-                if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_js, text_sys, text_ajaxPagination)) {
-
-                    loadJs(tubePressJsConfig[text_urls][text_js][text_sys][text_ajaxPagination]);
-
-                } else {
-
-                    loadJs('web/js/' + text_ajaxPagination + text_dot + text_js);
-                }
-            }
         };
 
         subscribe(text_event_tx_galleryLoad, onGalleryLoad);
@@ -541,7 +378,7 @@ var tubePressGalleryRegistrar;
             getThumbWidth = function (galleryId) {
 
                 var firstModernThumbSelector = selectors.getOutermostSelectorModern(galleryId) + text_space +
-                    text_dot_js_dash + text_tubepress_dash + text_fluid + text_dash + text_thumb + text_dash + 'reference:' + text_first,
+                        text_dot_js_dash + text_tubepress_dash + text_fluid + text_dash + text_thumb + text_dash + 'reference:' + text_first,
                     firstModernThumb         = jquery(firstModernThumbSelector),
                     thumbArea,
                     firstVisualElement,
@@ -744,113 +581,60 @@ var tubePressGalleryRegistrar;
      */
     (function () {
 
-            /**
-             * Load up a TubePress player with the given item ID.
-             */
+        /**
+         * Load up a TubePress player with the given item ID.
+         */
         var onNewVideoRequested = function (e, data) {
 
-                var galleryId      = data[text_galleryId],
-                    itemId         = data[text_itemId],
-                    playerName     = options.getOption(galleryId, text_player + 'Location', '?'),
-                    text_mediaItem = 'mediaItem',
+            var galleryId      = data[text_galleryId],
+                itemId         = data[text_itemId],
+                playerName     = options.getOption(galleryId, text_player + 'Location', '?'),
+                text_mediaItem = 'mediaItem',
 
-                    /**
-                     * The data coming back should have the following keys:
-                     * 
-                     * item
-                     * html
-                     */
-                    onPlayerHtmlReceived = function (data) {
+                /**
+                 * The data coming back should have the following keys:
+                 *
+                 * item
+                 * html
+                 */
+                onPlayerHtmlReceived = function (data) {
 
-                        var dataToPublish = {};
+                    var dataToPublish = {};
 
-                        dataToPublish[text_mediaItem] = data[text_mediaItem];
-                        dataToPublish[text_html]      = data[text_html];
-                        dataToPublish[text_galleryId] = galleryId;
-                        dataToPublish[text_itemId]    = itemId;
+                    dataToPublish[text_mediaItem] = data[text_mediaItem];
+                    dataToPublish[text_html]      = data[text_html];
+                    dataToPublish[text_galleryId] = galleryId;
+                    dataToPublish[text_itemId]    = itemId;
 
-                        publish(text_eventPrefix_playerPopulate + playerName, dataToPublish);
-                    },
+                    publish(text_eventPrefix_playerPopulate + playerName, dataToPublish);
+                },
 
-                    dataToSend = {},
-                    method,
-                    dataToPublish = {};
+                dataToSend = {},
+                method,
+                dataToPublish = {};
 
-                dataToSend[text_tubepress + text_underscore + 'action']  = text_player + 'Html';
-                dataToSend[text_tubepress + text_underscore + text_item] = itemId;
-                dataToSend[text_tubepress + text_underscore + 'options'] = options.getEphemeralOptions(galleryId);
+            dataToSend[text_tubepress + text_underscore + 'action']  = text_player + 'Html';
+            dataToSend[text_tubepress + text_underscore + text_item] = itemId;
+            dataToSend[text_tubepress + text_underscore + 'options'] = options.getEphemeralOptions(galleryId);
 
-                /** Announce we're gonna invoke the player... */
-                dataToPublish[text_itemId]     = itemId;
-                dataToPublish[text_galleryId]  = galleryId;
-                publish(text_eventPrefix_playerInvoke + playerName, dataToPublish);
+            /** Announce we're gonna invoke the player... */
+            dataToPublish[text_itemId]     = itemId;
+            dataToPublish[text_galleryId]  = galleryId;
+            publish(text_eventPrefix_playerInvoke + playerName, dataToPublish);
 
-                /** Go fetch the HTML for it. */
-                method = options.getOption(galleryId, 'httpMethod', 'GET');
-                jquery.ajax({
-                    data      : dataToSend,
-                    dataType  : 'json',
-                    success   : onPlayerHtmlReceived,
-                    type      : method,
-                    url       : environment.getAjaxEndpointUrl(),
-                    tubepress : true
-                });
-            };
+            /** Go fetch the HTML for it. */
+            method = options.getOption(galleryId, 'httpMethod', 'GET');
+            jquery.ajax({
+                data      : dataToSend,
+                dataType  : 'json',
+                success   : onPlayerHtmlReceived,
+                type      : method,
+                url       : environment.getAjaxEndpointUrl()
+            });
+        };
 
         /** When a user clicks a thumbnail... */
         subscribe(text_event_tx_itemChange, onNewVideoRequested);
-    }());
-
-    /**
-     * Handles pagination clicks for legacy themes.
-     */
-    (function () {
-
-        var handlePaginationClick = function (anchor, galleryId) {
-
-                var page          = anchor.data(text_page),
-                    dataToPublish = {};
-
-                dataToPublish[text_galleryId] = galleryId;
-                dataToPublish[text_page]      = page;
-
-                publish(text_event_tx_galleryPageChange, dataToPublish);
-            },
-
-            onNewGalleryOrThumbs = function (event, data) {
-
-                var galleryId = data[text_galleryId],
-                    pagationClickCallback = function () {
-
-                        handlePaginationClick(jquery(this), galleryId);
-
-                        if (options.getOption(galleryId, text_ajaxPagination, fawlse)) {
-
-                            //prevent default click action
-                            event.preventDefault();
-                            return fawlse;
-                        }
-
-                        return troo;
-                    },
-                    selectorPrefix = text_hash + text_tubepress + text_underscore + text_gallery + text_underscore + galleryId + text_space;
-
-                /**
-                 * Modern themes will use div.tubepress-pagination, but there are still lots of themes
-                 * that have div.pagination.
-                 */
-                jquery(selectorPrefix + text_div + text_dot + 'pagination a').click(pagationClickCallback);
-            };
-
-        subscribe(text_event_rx_galleryNewThumbs + text_space + text_event_tx_galleryLoad, onNewGalleryOrThumbs);
-
-    }());
-
-    /**
-     * Handles pagination clicks for modern themes.
-     */
-    (function () {
-
     }());
 
     tubepress.AsyncUtil.processQueueCalls('tubePressGalleryRegistrar', asyncGalleryRegistrar);
@@ -860,10 +644,9 @@ var tubePressGalleryRegistrar;
      */
     tubepress.Gallery = {
 
-        Selectors   : selectors,
-        Options     : options,
-        NowShowing  : nowShowing,
-        PageTracker : pageTracker
+        Registry  : registry,
+        Selectors : selectors,
+        Options   : options
     };
 
     /**
@@ -871,4 +654,4 @@ var tubePressGalleryRegistrar;
      */
     tubepress.Beacon.publish(text_tubepress + text_dot + text_js + text_dot + text_sys + text_dot + text_gallery);
 
-}(jQuery, window, TubePress));
+}(jQuery, TubePress));
