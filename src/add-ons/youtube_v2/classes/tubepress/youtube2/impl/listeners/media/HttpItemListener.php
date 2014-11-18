@@ -185,7 +185,7 @@ class tubepress_youtube2_impl_listeners_media_HttpItemListener
             /** @noinspection PhpUndefinedMethodInspection */
             $url = $thumb->getAttribute('url');
 
-            if (strpos($url, 'hqdefault') === false && strpos($url, 'mqdefault') === false) {
+            if (strpos($url, 'hqdefault') === false && strpos($url, 'mqdefault') === false && strpos($url, 'sddefault') === false) {
 
                 $result[] = $url;
             }
