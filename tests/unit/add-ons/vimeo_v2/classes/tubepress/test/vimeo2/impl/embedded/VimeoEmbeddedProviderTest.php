@@ -86,10 +86,6 @@ class tubepress_test_vimeo2_impl_embedded_VimeoEmbeddedProviderTest extends tube
         $mockQuery->shouldReceive('set')->once()->with('byline', 'troooo');
         $mockQuery->shouldReceive('set')->once()->with('title', 'troooo');
         $mockQuery->shouldReceive('set')->once()->with('api', 1);
-        $mockQuery->shouldReceive('set')->once()->with('player_id', ehough_mockery_Mockery::on(function ($param) {
-            $stringUtils = new tubepress_platform_impl_util_StringUtils();
-            return $stringUtils->startsWith($param, 'tubepress-media-object-');
-        }));
 
         $this->_mockMediaItem->shouldReceive('getId')->once()->andReturn('xx');
 
