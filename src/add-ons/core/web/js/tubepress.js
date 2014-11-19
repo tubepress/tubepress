@@ -264,8 +264,8 @@ var tubePressDomInjector,
 
                     }
 
-                    return getBaseUrl() + text_path_separator + text_src + '/core/' + text_http + text_path_separator + text_web
-                        + text_path_separator + text_php + text_path_separator + text_ajaxEndpoint + '.' + text_php;
+                    return getBaseUrl() + text_path_separator + text_web + text_path_separator + text_php +
+                        text_path_separator + text_ajaxEndpoint + text_dot + text_php;
                 },
 
                 getUserContentUrl = function () {

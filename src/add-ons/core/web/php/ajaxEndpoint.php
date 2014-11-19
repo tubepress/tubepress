@@ -11,7 +11,7 @@
 /**
  * Boot tubepress.
  */
-$serviceContainer = require '../../scripts/boot.php';
+$serviceContainer = require dirname(__FILE__) . '/../../src/platform/scripts/boot.php';
 
 /**
  * @var $ajaxHandler tubepress_lib_api_http_AjaxInterface
