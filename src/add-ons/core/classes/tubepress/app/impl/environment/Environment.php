@@ -134,7 +134,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
                     $url = $this->_properties->get(self::$_PROPERTY_URL_BASE)->toString();
                 }
 
-                $url .= '/tubepress-content';
+                $url = rtrim($url, '/') . '/tubepress-content';
             }
 
             try {
