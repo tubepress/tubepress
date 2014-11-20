@@ -154,6 +154,18 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
         $map = $actual;
         $this->assertInstanceOf('tubepress_platform_api_collection_MapInterface', $map);
 
+        if ($map->containsKey('urls')) {
+
+            $actualUrls = $map->get('urls');
+
+            for ($x = 0; $x < count($actualUrls); $x++) {
+
+                $actualUrls[$x] = (string) $actualUrls[$x];
+            }
+
+            $map->put('urls', $actualUrls);
+        }
+
         foreach ($expected as $key => $value) {
 
             $this->assertTrue($map->containsKey($key));
