@@ -1,0 +1,5 @@
+src/add-ons/core/web/themes/default/css/tubepress.css
+src/add-ons/core/web/themes/legacy-default/css/tubepress.css
+src/add-ons/core/web/themes/vimeo.com-clone/css/vimeo.css
+src/add-ons/core/web/themes/youtube.com-clone/css/youtube.css
+src/add-ons/core/web/vendor/jqmodal/jqModal.css

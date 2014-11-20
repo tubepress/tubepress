@@ -1,0 +1,27 @@
+{#
+ # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+<p>
+    <label for="tubepress-widget-title">
+        {{ widgetTitle }}
+        <input class="widefat" id="tubepress-widget-title" name="tubepress-widget-title" type="text" value="{{ widgetTitle }}" />
+    </label>
+</p>
+<p>
+    <label for="tubepress-widget-tagstring">
+        {{ widgetControlShortcode|raw }}
+        <textarea class="widefat" rows="9" cols="12" id="tubepress-widget-tagstring" name="tubepress-widget-tagstring">
+            {{- widgetShortcode -}}
+        </textarea>
+    </label>
+</p>
+
+<input type="hidden" id="tubepress-widget-submit" name="tubepress-widget-submit" value="1" />
+
+{{ widgetNonceField|raw }}

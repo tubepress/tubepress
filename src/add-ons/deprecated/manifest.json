@@ -1,0 +1,38 @@
+{
+    "name" : "tubepress/core-deprecated",
+    "version": "1.0.0",
+    "title" : "TubePress Deprecated Classes and Functionality",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "description": "Provides backwards-compatability for older versions of TubePress",
+    "container-builder": {
+        "extensions" : [
+            "tubepress_deprecated_ioc_DeprecatedExtension"
+        ],
+        "compiler-passes" : {
+            "tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass" : 59000
+        }
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_api_const_template_Variable"  : "classes/tubepress/api/const/template/Variable.php",
+            "tubepress_api_const_options_names_Meta" : "classes/tubepress/api/const/options/names/Meta.php",
+            
+            "tubepress_addons_vimeo_api_const_options_names_Meta"   : "classes/tubepress/addons/vimeo/api/const/options/names/Meta.php",
+            "tubepress_addons_youtube_api_const_options_names_Meta" : "classes/tubepress/addons/youtube/api/const/options/names/Meta.php",
+            
+            "tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener" : "classes/tubepress/deprecated/impl/listeners/LegacyMetadataTemplateListener.php",
+            "tubepress_deprecated_impl_listeners_LegacyTemplateListener"         : "classes/tubepress/deprecated/impl/listeners/LegacyTemplateListener.php",
+            "tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass"           : "classes/tubepress/deprecated/ioc/compiler/LegacyThemesPrimerPass.php",
+            "tubepress_deprecated_ioc_DeprecatedExtension"                       : "classes/tubepress/deprecated/ioc/DeprecatedExtension.php"
+        }
+    }
+}

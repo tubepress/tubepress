@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/**
+ * WordPress option names.
+ */
+class tubepress_wordpress_api_Constants
+{
+    const OPTION_WIDGET_SHORTCODE = 'widget-tagstring';
+    const OPTION_WIDGET_TITLE     = 'widget-title';
+
+    const OPTION_WP_PAGE_WHITELIST = 'wpPageWhitelist';
+    const OPTION_WP_PAGE_BLACKLIST = 'wpPageBlacklist';
+
+    const EVENT_OPTIONS_PAGE_INVOKED  = 'tubepress.wordpress.event.optionsPageInvoked';
+    const EVENT_WIDGET_PUBLIC_HTML    = 'tubepress.wordpress.event.widget.publicHtml';
+    const EVENT_WIDGET_PRINT_CONTROLS = 'tubepress.wordpress.event.widget.printControls';
+}

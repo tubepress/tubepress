@@ -1,0 +1,82 @@
+{#
+ # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+<div class="tp-bs">
+
+    <form class="form-horizontal" role="form" method="post">
+        <div class="row">
+            <div class="col-md-9">
+                <h3>
+                    {{ 'TubePress Options'|trans }}    {# //>(translatable)< #}
+                </h3>
+                <div class="updated" style="border-left: 4px solid #2ea2cc; margin-left: 0; margin-bottom: 1em;">
+                    <p>
+                        {{ 'Here you can set the default options for TubePress. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="%s" target="_blank">documentation</a> for more information.'|trans({"%s" : "http://docs.tubepress.com/"})|raw }}  {# //>(translatable)< #}
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <p id="filter-wrapper" class="text-right">
+
+                    {% set filterField = fields.provider_filter_field %}
+                    {{ filterField.untranslatedDisplayName|trans }} {{ filterField.widgetHTML|raw }}
+
+                </p>{# end of p#filter-wrapper #}
+            </div>{# end of div.col-md-3 #}
+        </div>{# end of div.row #}
+
+        {% include 'options-ui/page-fragments/errors.html.twig' %}
+
+        {% include 'options-ui/page-fragments/success.html.twig' %}
+
+        {% include 'options-ui/page-fragments/tabs-parent.html.twig' %}
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary" name="tubepress_save">{{ 'Save'|trans }}</button>   {# //>(translatable)< #}
+            </div>
+            <div class="col-md-3">
+
+                {% if isPro %}
+                    &nbsp;
+                {% else %}
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><strong>You're Missing Out!</strong></div>
+                        <div class="panel-body has-iframe" data-src="http://snippets.wp.tubepress.com/youre-missing-out.php">
+
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading"><strong>TubePress News</strong></div>
+                    <div class="panel-body has-iframe" data-src="http://snippets.wp.tubepress.com/latest-news.php">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading"><strong>Need Help?</strong></div>
+                    <div class="panel-body has-iframe" data-src="http://snippets.wp.tubepress.com/need-help.php">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ fields.tubepress_nonce.widgetHTML|raw }}
+	</form>
+</div>

@@ -1,0 +1,28 @@
+{
+    "name" : "tubepress/integration-test-mocks",
+    "version": "1.0.0",
+    "title" : "TubePress integration testing mocks",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_test_integration_mocks_MocksExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_test_integration_mocks_MockCacheDriver" : "classes/tubepress/test/integration/mocks/MockCacheDriver.php",
+            "tubepress_test_integration_mocks_MocksExtension"  : "classes/tubepress/test/integration/mocks/MocksExtension.php",
+            "tubepress_test_integration_mocks_MockTranslator"  : "classes/tubepress/test/integration/mocks/MockTranslator.php",
+            "tubepress_test_integration_mocks_MockPersistence" : "classes/tubepress/test/integration/mocks/MockPersistence.php"
+        }
+    }
+}

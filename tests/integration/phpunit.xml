@@ -1,0 +1,18 @@
+<phpunit
+    colors="true"
+    stopOnError="false"
+    stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+    strict="true"
+    processIsolation="false"
+    bootstrap="./bootstrap.php">
+	<testsuites>
+	   <testsuite name="integration">
+           <directory>./classes</directory>
+	   </testsuite>
+	</testsuites>
+    <php>
+        <const name="ANT_PATH" value="/usr/bin/ant"/>
+    </php>
+</phpunit>

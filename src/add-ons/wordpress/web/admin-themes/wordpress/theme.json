@@ -1,0 +1,23 @@
+{
+    "name" : "tubepress/wordpress",
+    "version": "1.0.0",
+    "title" : "Admin for WordPress",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "styles" : [
+        "css/options-page.css"
+    ],
+    "scripts" : [
+        "js/iframe-loader.js",
+        "js/theme-reminder.js"
+    ],
+    "parent" : "tubepress/admin-default"
+}

@@ -1,0 +1,24 @@
+<phpunit
+    colors="true"
+    stopOnError="false"
+    stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+    strict="true"
+    processIsolation="false"
+    bootstrap="../../vendor/autoload.php">
+	<testsuites>
+	   <testsuite name="unit">
+           <directory>./add-ons</directory>
+           <directory>./platform</directory>
+	   </testsuite>
+        <testsuite name="translations">
+            <directory>./translations</directory>
+        </testsuite>
+	</testsuites>
+    <filter>
+        <whitelist>
+           <directory suffix=".php">../../src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

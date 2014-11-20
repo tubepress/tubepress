@@ -1,0 +1,23 @@
+{
+    "name" : "tubepress/legacy-default",
+    "version": "1.0.0",
+    "title" : "Default (legacy)",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "description": "The default theme for TubePress 3.1.5 and below.",
+    "styles" : [ "css/tubepress.css" ],
+    "screenshots" : [
+
+        ["http://themes.tubepress-cdn.com/legacy-default/screenshots/1-thumbnail.png", "http://themes.tubepress-cdn.com/legacy-default/screenshots/1.png"],
+        ["http://themes.tubepress-cdn.com/legacy-default/screenshots/2-thumbnail.png", "http://themes.tubepress-cdn.com/legacy-default/screenshots/2.png"],
+        ["http://themes.tubepress-cdn.com/legacy-default/screenshots/3-thumbnail.png", "http://themes.tubepress-cdn.com/legacy-default/screenshots/3.png"]
+    ]
+}

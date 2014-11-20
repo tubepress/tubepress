@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ *
+ * This file is part of TubePress (http://tubepress.com)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+-->
+<!--
+
+Builds the free WordPress plugin package of Tubepress.
+
+-->
+<project name="tubepress-free" default="build-free" basedir=".">
+
+    <import file="include/common.xml" />
+	    
+    <target name="build-free" description="Builds the free version of TubePress" depends="__common__">
+	            
+        <antcall target="compress-js" />
+        <antcall target="compress-css" />
+        <antcall target="stage-web-assets" />
+        <antcall target="copy-locale-fallbacks" />
+        <antcall target="package" />
+
+    </target>
+
+    <target name="quick" depends="__common__">
+
+        <antcall target="stage-web-assets" />
+
+    </target>
+
+    <target name="__common__" depends="init">
+
+        <antcall target="stage-self" />
+        <antcall target="copy-user-content-skeleton-into-wp" />
+        <antcall target="move-wordpress-skeleton" />
+        <antcall target="suppress-directory-listings" />
+        <antcall target="modify-wordpress-info" />
+        <antcall target="php-version-compatability-mods" />
+        <antcall target="build-boot-classes-file" />
+        <antcall target="update-version-in-php-code" />
+        <antcall target="strip-phpunit-from-composer" />
+
+    </target>
+
+</project>

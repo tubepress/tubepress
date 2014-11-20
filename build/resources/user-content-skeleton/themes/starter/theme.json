@@ -1,0 +1,20 @@
+{
+    "name"    : "changeme/themename",
+    "version" : "1.0.0",
+    "title"   : "Theme Title - Change Me!",
+    "authors" : [
+        {
+            "name" : "Your Name - Change Me!",
+            "url"  : "http://tubepress.com"
+        }
+    ],
+    "license" : {
+            "type" : "MPL-2.0",
+            "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "styles" : [
+        "css/theme.css"
+    ],
+    "parent" : "tubepress/default",
+    "screenshots" : []
+}

@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/embedplus",
+    "version": "1.0.0",
+    "title" : "EmbedPlus",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "description": "Allows TubePress to play YouTube videos with EmbedPlus",
+    "container-builder": {
+        "extensions" : [
+            "tubepress_embedplus_ioc_EmbedPlusExtension"
+        ]
+    },
+    "autoload": {
+        "classmap" : {
+            "tubepress_embedplus_impl_EmbedPlus"         : "classes/tubepress/embedplus/impl/EmbedPlus.php",
+            "tubepress_embedplus_ioc_EmbedPlusExtension" : "classes/tubepress/embedplus/ioc/EmbedPlusExtension.php"
+        }
+    }
+}
