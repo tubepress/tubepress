@@ -108,7 +108,7 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
         $currentTheme     = $this->_currentThemeService->getCurrentTheme();
         $currentThemeName = $currentTheme->getName();
 
-        if (strpos($currentThemeName, 'legacy/') === 0) {
+        if (strpos($currentThemeName, '/legacy') !== false) {
 
             return true;
         }
