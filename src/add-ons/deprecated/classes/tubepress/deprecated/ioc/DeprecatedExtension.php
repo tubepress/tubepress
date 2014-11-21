@@ -48,7 +48,7 @@ class tubepress_deprecated_ioc_DeprecatedExtension implements tubepress_platform
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main',
             'method'   => 'onSingleTemplate',
-            'priority' => 10100
+            'priority' => 92000
         ));
 
         $containerBuilder->register(
