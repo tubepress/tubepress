@@ -59,6 +59,8 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
      */
     private $_videoNotFound = false;
 
+    private $_invokedAtLeastOnce;
+
     public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
                                 tubepress_app_api_options_ContextInterface     $context,
                                 tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
@@ -344,7 +346,11 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
 
     private function _urlPostProcessingGallery(tubepress_platform_api_url_UrlInterface $url, $currentPage)
     {
-        $perPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+        if (isset($this->_invokedAtLeastOnce)) {
+            $perPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+        } else {
+            $perPage = min($this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE), ceil(2.07));
+        }
 
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -544,5 +550,10 @@ class tubepress_youtube2_impl_media_FeedHandler implements tubepress_app_api_med
 
             throw new RuntimeException($reason);
         }
+    }
+
+    public function __invoke()
+    {
+        $this->_invokedAtLeastOnce = true;
     }
 }
