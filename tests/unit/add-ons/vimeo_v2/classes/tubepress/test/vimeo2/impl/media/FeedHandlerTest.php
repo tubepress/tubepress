@@ -46,6 +46,8 @@ class tubepress_test_vimeo2_impl_media_FeedHandlerTest extends tubepress_test_Tu
             $this->_mockUrlFactory,
             $this->_mockExecutionContext
         );
+
+        $this->_sut->__invoke();
     }
 
     /**

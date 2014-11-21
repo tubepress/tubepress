@@ -51,6 +51,8 @@ class tubepress_test_youtube2_impl_media_FeedHandlerTest extends tubepress_test_
             $this->_mockContext,
             $this->_mockUrlFactory
         );
+
+        $this->_sut->__invoke();
     }
 
     public function singleVideoXml()

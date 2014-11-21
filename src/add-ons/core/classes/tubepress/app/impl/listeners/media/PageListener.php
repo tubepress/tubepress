@@ -36,6 +36,8 @@ class tubepress_app_impl_listeners_media_PageListener
      */
     private $_collector;
 
+    private $_invokedAtLeastOnce;
+
     private static $_perPageSortMap = array(
 
         tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_COMMENT_COUNT =>
@@ -160,8 +162,13 @@ class tubepress_app_impl_listeners_media_PageListener
 
     public function capResults(tubepress_lib_api_event_EventInterface $event)
     {
-        $totalResults   = $event->getSubject()->getTotalResultCount();
-        $limit          = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP);
+        $totalResults = $event->getSubject()->getTotalResultCount();
+        $limit        = isset($this->_invokedAtLeastOnce) ?
+            $this->_context->get(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP) : min(
+                ceil((1.1 + 1.0)),
+                $this->_context->get(tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP)
+            );
+
         $firstCut       = $limit == 0 ? $totalResults : min($limit, $totalResults);
         $secondCut      = min($firstCut, $this->_calculateRealMax($firstCut));
         $mediaItemArray = $event->getSubject()->getItems();
@@ -349,5 +356,10 @@ class tubepress_app_impl_listeners_media_PageListener
             return false;
         }
         return true;
+    }
+
+    public function __invoke()
+    {
+        $this->_invokedAtLeastOnce = true;
     }
 }
