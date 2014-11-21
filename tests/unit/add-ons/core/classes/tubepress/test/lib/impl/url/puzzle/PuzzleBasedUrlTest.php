@@ -16,6 +16,60 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
 {
     const RFC3986_BASE = "http://a/b/c/d;p?q";
 
+    /**
+     * @dataProvider dataProviderGetToString
+     */
+    public function testToString($url, $expectedAsString)
+    {
+        if (!($url instanceof tubepress_platform_api_url_UrlInterface)) {
+
+            $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+            $url        = $urlFactory->fromString($url);
+        }
+
+        $this->assertEquals($expectedAsString, $url->toString());
+    }
+
+    public function dataProviderGetToString()
+    {
+        $toReturn = array(
+            array('/', '/'),
+            array('', ''),
+            array('//foo', '//foo'),
+            array('http://foo.bar/some/thing', 'http://foo.bar/some/thing'),
+            array('http://foo.bar/some/thing/', 'http://foo.bar/some/thing/'),
+            array('http://foo.bar', 'http://foo.bar'),
+            array('http://foo.bar/', 'http://foo.bar/'),
+        );
+
+        $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+
+        $url = $urlFactory->fromString('http://foo.bar/some/thing');
+        $url->removeSchemeAndAuthority();
+        $toReturn[] = array($url, '/some/thing');
+
+        $url = $urlFactory->fromString('http://foo.bar/');
+        $url->removeSchemeAndAuthority();
+        $toReturn[] = array($url, '/');
+
+        $url = $urlFactory->fromString('http://foo.bar');
+        $url->removeSchemeAndAuthority();
+        $url->addPath('/foo/bar');
+        $toReturn[] = array($url, '/foo/bar');
+
+        $url = $urlFactory->fromString('http://foo.bar');
+        $url->removeSchemeAndAuthority();
+        $url->addPath('foo/bar');
+        $toReturn[] = array($url, '/foo/bar');
+
+        $url = $urlFactory->fromString('http://foo.bar/');
+        $url->removeSchemeAndAuthority();
+        $url->addPath('/foo/bar');
+        $toReturn[] = array($url, '/foo/bar');
+
+        return $toReturn;
+    }
+
     public function testEmptyUrl()
     {
         $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString(''));
@@ -237,7 +291,7 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
         $this->assertEquals('http://www.test.com?a=b', (string) $url);
     }
 
-    public function urlProvider()
+    public function removeDotSegmentsProvider()
     {
         return array(
             array('/foo/..', '/'),
@@ -261,7 +315,7 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
     }
 
     /**
-     * @dataProvider urlProvider
+     * @dataProvider removeDotSegmentsProvider
      */
     public function testRemoveDotSegments($path, $result)
     {

@@ -48,12 +48,7 @@ class tubepress_platform_impl_url_puzzle_UrlFactory implements tubepress_platfor
 
             throw new InvalidArgumentException('tubepress_platform_impl_url_puzzle_UrlFactory::fromString() can only accept strings.');
         }
-
-        if ($url === '/') {
-
-            $url = '';
-        }
-
+        
         return new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($url));
     }
 
