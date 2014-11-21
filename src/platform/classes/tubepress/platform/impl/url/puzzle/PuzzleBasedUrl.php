@@ -52,6 +52,11 @@ class tubepress_platform_impl_url_puzzle_PuzzleBasedUrl implements tubepress_pla
     {
         $this->_assertNotFrozen();
 
+        if ($this->getPath() === '/') {
+
+            $this->_delegateUrl->setPath('');
+        }
+
         $this->_delegateUrl->addPath($relativePath);
 
         return $this;
