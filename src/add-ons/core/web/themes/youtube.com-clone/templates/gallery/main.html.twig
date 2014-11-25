@@ -20,7 +20,7 @@
      We set this to the width of the thumbnail so that the metadata doesn't spill over
      onto other thumbnails.
      #}
-    <div class="tubepress-thumb js-tubepress-fluid-thumb-adjustable" style="width: {{ thumbWidthPx }}px">
+    <div class="tubepress-thumb js-tubepress-thumb js-tubepress-fluid-thumb-adjustable" style="width: {{ thumbWidthPx }}px">
 
         <div class="tubepress-youtube-thumbnail"  style="width: {{ thumbWidthPx }}px">
 
@@ -29,7 +29,7 @@
                   You must retain the js-tubepress-thumbnail-image class on the image. Failure to do
                   so will break fluid thumbnails.
                 #}
-                <img class="tubepress-thumbnail-image js-tubepress-fluid-thumb-reference" alt="{{ mediaItem.title }}" src="{{ mediaItem.thumbnailUrl }}" width="{{ thumbWidthPx }}" height="{{ thumbHeightPx }}" />
+                <img class="tubepress-thumbnail-image js-tubepress-fluid-thumb-reference js-tubepress-preview" alt="{{ mediaItem.title }}" src="{{ mediaItem.thumbnailUrl }}" width="{{ thumbWidthPx }}" height="{{ thumbHeightPx }}" />
 
             {% endset %}
 
@@ -54,7 +54,7 @@
 
              This <dl> wraps each video's metadata (title, runtime, etc).
              #}
-            <dl class="tubepress-meta-group" style="width: {{ thumbWidthPx }}px">
+            <dl class="tubepress-meta-group js-tubepress-meta-outer" style="width: {{ thumbWidthPx }}px">
 
                 {# Loop over the attributes for this media item. #}
                 {% for attributeName in attributesToShow if attributeName not in ['duration'] %}
