@@ -105,6 +105,7 @@ var tubePressGalleryRegistrar;
         text_fluidThumbs    = text_fluid + 'Thumbs',
         text_html           = 'html',
         text_thumb          = 'thumb',
+        text_length         = 'length',
         text_thumbs         = text_thumb + 's',
         text_js_dash        = text_js + text_dash,
         text_tubepress_dash = text_tubepress + text_dash,
@@ -348,7 +349,7 @@ var tubePressGalleryRegistrar;
 
             endswith = function (needle, haystack) {
 
-                return haystack.indexOf(needle, haystack.length - needle.length) !== -1;
+                return haystack.indexOf(needle, haystack[text_length] - needle[text_length]) !== -1;
             },
 
             getRealWidth = function (element) {
@@ -387,7 +388,7 @@ var tubePressGalleryRegistrar;
                 /**
                  * Handle modern themes first.
                  */
-                if (firstModernThumb.length > 0) {
+                if (firstModernThumb[text_length] > 0) {
 
                     return getRealWidth(firstModernThumb);
                 }
@@ -396,12 +397,12 @@ var tubePressGalleryRegistrar;
                 firstVisualElement = thumbArea.find('img:' + text_first);
                 width              = 120;
 
-                if (firstVisualElement.length === 0) {
+                if (firstVisualElement[text_length] === 0) {
 
                     firstVisualElement = thumbArea.find(text_div + text_dot + text_tubepress + text_underscore + text_thumb +
                         ':' + text_first + ' > ' + text_div + text_dot + text_tubepress + '_embed');
 
-                    if (firstVisualElement.length === 0) {
+                    if (firstVisualElement[text_length] === 0) {
 
                         return width;
                     }
@@ -465,11 +466,14 @@ var tubePressGalleryRegistrar;
             onWindowResize = function (e) {
 
                 var index  = 0,
-                    length = galleryIds.length;
+                    length = galleryIds[text_length],
+                    data   = {};
 
                 for (index; index < length; index += 1) {
 
-                    onNewGalleryOrThumbs(e, galleryIds[index]);
+                    data[text_galleryId] = galleryIds[index];
+
+                    onNewGalleryOrThumbs(e, data);
                 }
             };
 
@@ -537,7 +541,7 @@ var tubePressGalleryRegistrar;
                 var classes = element.attr(text_class).split(/\s+/),
                     i = 0;
 
-                for (i; i < classes.length; i += 1) {
+                for (i; i < classes[text_length]; i += 1) {
 
                     if (classes[i].indexOf(prefix) === 0) {
 

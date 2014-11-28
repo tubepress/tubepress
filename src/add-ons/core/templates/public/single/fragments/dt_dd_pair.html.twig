@@ -11,7 +11,7 @@
 
 {# The following block prints out each attribute label (e.g. Ratings, Views, Comment Count, etc). #}
 {% block metaLabelDt %}
-    <dt class="tubepress-meta-{{ attributeName }}">
+    <dt class="tubepress-meta-{{ attributeName }} js-tubepress-meta-label">
 
         {%- if attributeLabels[attributeName] is defined -%}
 
@@ -23,7 +23,7 @@
 
 {#The following <dd> prints out each attribute value. #}
 {% block metaValueDd %}
-    <dd class="tubepress-meta-{{ attributeName }}">{% spaceless %}
+    <dd class="tubepress-meta-{{ attributeName }} js-tubepress-meta-value">{% spaceless %}
 
         {# The title gets special treatment because we want users to be able to click on it to start the video. #}
         {%- if attributeName == 'title' -%}
