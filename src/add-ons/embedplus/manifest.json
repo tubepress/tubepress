@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/embedplus",
-    "version": "1.0.0",
+    "version": "@tubepress-version@",
     "title" : "EmbedPlus",
     "authors" : [
         {

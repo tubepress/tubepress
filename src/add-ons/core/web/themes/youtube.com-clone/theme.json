@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/youtube.com-clone",
-    "version": "1.0.0",
+    "version": "@tubepress-version@",
     "title" : "YouTube.com Clone",
     "authors" : [
         {

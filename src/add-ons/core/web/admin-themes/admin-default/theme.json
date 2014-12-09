@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/admin-default",
-    "version": "1.0.0",
+    "version": "@tubepress-version@",
     "title" : "Admin Default",
     "authors" : [
         {

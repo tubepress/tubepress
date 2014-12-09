@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/legacy-sidebar",
-    "version": "1.0.0",
+    "version": "@tubepress-version@",
     "title" : "Sidebar (legacy)",
     "authors" : [
         {
