@@ -231,8 +231,8 @@ class tubepress_app_impl_shortcode_Parser implements tubepress_app_api_shortcode
      */
     private static function _convertQuotes($text)
     {
-        $converted = str_replace(array('&#8216', '&#8217', '&#8242;'), '\'', $text);
+        $converted = str_replace(array('&#8216;', '&#8217;', '&#8242;'), '\'', $text);
 
-        return str_replace(array('&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $converted);
+        return str_replace(array('&#34;', '&#8220;', '&#8221;', '&#8243;'), '"', $converted);
     }
 }

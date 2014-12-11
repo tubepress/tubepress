@@ -55,7 +55,7 @@ class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePr
 
     public function testNothingToParse()
     {
-        $shortcode = '[bu mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
+        $shortcode = '[bu mode=&#8216;playlist&#8217;  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
         $this->_sut->parse($shortcode);
 
@@ -65,7 +65,7 @@ class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePr
     public function testMixedCommasWithAllSortsOfQuotes()
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
-        $shortcode = '[butters mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
+        $shortcode = '[butters mode=&#8216;playlist&#8217;  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
         $expected = array(
             tubepress_app_api_options_Names::GALLERY_SOURCE                => tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
@@ -89,7 +89,7 @@ class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePr
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
+        $shortcode = '[butters mode=&#8216;playlist&#8217; playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
 
         $expected = array(tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
             tubepress_youtube2_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar',
@@ -112,7 +112,7 @@ class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePr
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $shortcode = '[butters mode=&#8216playlist&#8217, playlistValue=&#8242;foobar&#8242;, author="true", resultCountCap=\'200\', resultsPerPage=3]';
+        $shortcode = '[butters mode=&#8216;playlist&#8217;, playlistValue=&#8242;foobar&#8242;, author="true", resultCountCap=\'200\', resultsPerPage=3]';
 
 
         $expected = array(
@@ -154,7 +154,7 @@ class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePr
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242;]';
+        $shortcode = '[butters mode=&#8216;playlist&#8217; playlistValue=&#8242;foobar&#8242;]';
 
         $expected = array(
             tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
@@ -176,7 +176,7 @@ class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePr
     {
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $shortcode = '[butters mode=&#34playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
+        $shortcode = '[butters mode=&#34;playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
 
         $expected = array(tubepress_app_api_options_Names::GALLERY_SOURCE => tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
             tubepress_youtube2_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE => 'foobar'
