@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/core-deprecated",
-    "version": "@tubepress-version@",
+    "version": "99.99.99",
     "title" : "TubePress Deprecated Classes and Functionality",
     "authors" : [
         {

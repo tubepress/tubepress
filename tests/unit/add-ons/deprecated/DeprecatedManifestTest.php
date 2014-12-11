@@ -19,7 +19,7 @@ class tubepress_test_app_deprecated_DeprecatedManifestTest extends tubepress_tes
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
         $this->assertEquals('tubepress/core-deprecated', $addon->getName());
-        $this->assertEquals('1.0.0', $addon->getVersion());
+        $this->assertEquals('99.99.99', $addon->getVersion());
         $this->assertEquals('TubePress Deprecated Classes and Functionality', $addon->getTitle());
         $this->assertAuthors($addon, array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')));
         $this->assertLicense($addon, array('type' => 'MPL-2.0', 'urls' => array('http://www.mozilla.org/MPL/2.0/')));

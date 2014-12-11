@@ -88,24 +88,24 @@
                  token="parse('9.9.9')" value="parse('${version.major}.${version.minor}.${version.micro}')"
                  failOnNoReplacements="true" />
 
-        <replace file="${stagingdir}/src/add-ons/core/manifest.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/manifest.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/embedplus/manifest.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/jwplayer5/manifest.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/vimeo_v2/manifest.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/wordpress/manifest.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/youtube_v2/manifest.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/embedplus/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/jwplayer5/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/vimeo_v2/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/wordpress/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/youtube_v2/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
 
-        <replace file="${stagingdir}/src/add-ons/core/web/admin-themes/admin-default/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/core/web/themes/default/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/core/web/themes/vimeo.com-clone/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/core/web/themes/youtube.com-clone/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-default/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-sidebar/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-vimeo/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-youtube/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/wordpress/web/admin-themes/wordpress/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter/theme.json" token="@tubepress-version@" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/web/admin-themes/admin-default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/web/themes/default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/web/themes/vimeo.com-clone/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/web/themes/youtube.com-clone/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-sidebar/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-vimeo/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-youtube/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/wordpress/web/admin-themes/wordpress/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
     </target>
 
     <target name="modify-wordpress-info">

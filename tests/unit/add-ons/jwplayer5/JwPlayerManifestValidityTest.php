@@ -19,7 +19,7 @@ class tubepress_test_JwPlayerManifestValidityTest extends tubepress_test_platfor
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
         $this->assertEquals('tubepress/jwplayer5', $addon->getName());
-        $this->assertEquals('1.0.0', $addon->getVersion());
+        $this->assertEquals('99.99.99', $addon->getVersion());
         $this->assertEquals('JW Player', $addon->getTitle());
         $this->assertAuthors($addon, array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')));
         $this->assertLicense($addon, array('type' => 'MPL-2.0', 'urls' => array('http://www.mozilla.org/MPL/2.0/')));

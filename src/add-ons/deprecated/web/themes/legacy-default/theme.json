@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/legacy-default",
-    "version": "@tubepress-version@",
+    "version": "99.99.99",
     "title" : "Default (legacy)",
     "authors" : [
         {

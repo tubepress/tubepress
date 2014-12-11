@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/legacy-youtube",
-    "version": "@tubepress-version@",
+    "version": "99.99.99",
     "title" : "YouTube (legacy)",
     "authors" : [
         {

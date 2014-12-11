@@ -1,6 +1,6 @@
 {
     "name" : "tubepress/wordpress",
-    "version": "@tubepress-version@",
+    "version": "99.99.99",
     "title" : "Admin for WordPress",
     "authors" : [
         {
