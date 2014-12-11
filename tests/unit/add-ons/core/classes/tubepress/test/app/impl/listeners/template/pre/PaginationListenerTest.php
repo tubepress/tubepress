@@ -110,6 +110,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
     public function testModern()
     {
         $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('something');
+        $this->_mockCurrentTheme->shouldReceive('getParentThemeName')->twice()->andReturn(null);
         $newTemplateVars = array(
 
             tubepress_app_api_template_VariableNames::GALLERY_PAGINATION_CURRENT_PAGE_NUMBER => 25,
@@ -153,6 +154,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
     public function testLegacyMiddlePage()
     {
         $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('unknown/something');
+        $this->_mockCurrentTheme->shouldReceive('getParentThemeName')->once()->andReturn(null);
         $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/core/fixtures/feature/gallery/pagination/legacy-middle.html');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(12);

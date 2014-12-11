@@ -37,7 +37,7 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
         $this->_mockActivationHook  = $this->mock('tubepress_wordpress_impl_wp_ActivationHook');
 
         $mockWpFunctions->shouldReceive('content_url')->once()->andReturn('booya');
-        $mockEnvironmentDetector->shouldReceive('setBaseUrl')->once()->with('booya/plugins/tubepress');
+        $mockEnvironmentDetector->shouldReceive('setBaseUrl')->once()->with('booya/plugins/core');
 
         $this->_sut = new tubepress_wordpress_impl_Callback(
 
