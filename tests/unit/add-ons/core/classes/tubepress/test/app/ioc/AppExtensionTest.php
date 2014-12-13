@@ -427,6 +427,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 98000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
                 96000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
                 94000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
+                93000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'filterDuplicates'),
                 92000  => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
             ),
             tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST => array(

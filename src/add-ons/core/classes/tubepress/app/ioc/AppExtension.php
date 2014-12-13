@@ -346,6 +346,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 98000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
                 96000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
                 94000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
+                93000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'filterDuplicates'),
                 92000  => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
             ),
             tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST => array(
