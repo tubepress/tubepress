@@ -25,11 +25,18 @@ class tubepress_app_impl_media_AttributeFormatter implements tubepress_app_api_m
      */
     private $_timeUtils;
 
-    public function __construct(tubepress_app_api_options_ContextInterface $context,
-                                tubepress_lib_api_util_TimeUtilsInterface  $timeUtils)
+    /**
+     * @var tubepress_lib_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    public function __construct(tubepress_app_api_options_ContextInterface        $context,
+                                tubepress_lib_api_util_TimeUtilsInterface         $timeUtils,
+                                tubepress_lib_api_translation_TranslatorInterface $translator)
     {
-        $this->_context   = $context;
-        $this->_timeUtils = $timeUtils;
+        $this->_context    = $context;
+        $this->_timeUtils  = $timeUtils;
+        $this->_translator = $translator;
     }
 
     /**
@@ -95,6 +102,11 @@ class tubepress_app_impl_media_AttributeFormatter implements tubepress_app_api_m
 
             return;
         }
+
+        /**
+         * Hacky way of warming up the translation service and thus setting locale etc.
+         */
+        $this->_translator->trans('');
 
         $dateFormat = $this->_context->get(tubepress_app_api_options_Names::META_DATEFORMAT);
         $relative   = $this->_context->get(tubepress_app_api_options_Names::META_RELATIVE_DATES);

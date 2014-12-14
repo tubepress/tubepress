@@ -29,15 +29,22 @@ class tubepress_test_app_api_media_AttributeFormatterTest extends tubepress_test
      */
     private $_mockTimeUtils;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockTranslator;
+
     public function onSetup()
     {
-        $this->_mockContext   = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockTimeUtils = $this->mock(tubepress_lib_api_util_TimeUtilsInterface::_);
-        
+        $this->_mockContext    = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockTimeUtils  = $this->mock(tubepress_lib_api_util_TimeUtilsInterface::_);
+        $this->_mockTranslator = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+
         $this->_sut = new tubepress_app_impl_media_AttributeFormatter(
 
             $this->_mockContext,
-            $this->_mockTimeUtils
+            $this->_mockTimeUtils,
+            $this->_mockTranslator
         );
     }
 
@@ -74,6 +81,7 @@ class tubepress_test_app_api_media_AttributeFormatterTest extends tubepress_test
         $mockMediaItem->shouldReceive('getAttribute')->once()->with('source')->andReturn(1406217118);
         $mockMediaItem->shouldReceive('setAttribute')->once()->with('dest', 'hi');
 
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('')->andReturn('does not matter');
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::META_DATEFORMAT)->andReturn('abc');
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::META_RELATIVE_DATES)->andReturn(true);
         $this->_mockTimeUtils->shouldReceive('unixTimeToHumanReadable')->once()->with(
