@@ -171,7 +171,7 @@ class tubepress_vimeo2_impl_media_FeedHandler implements tubepress_app_api_media
         if (isset($this->_invokedAtLeastOnce)) {
             $params[self::$_URL_PARAM_PER_PAGE] = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
         } else {
-            $params[self::$_URL_PARAM_PER_PAGE] = min($this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE), floor(2.04));
+            $params[self::$_URL_PARAM_PER_PAGE] = min($this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE), ceil(2.04));
         }
 
         $sort                                    = $this->_getSort($mode);
