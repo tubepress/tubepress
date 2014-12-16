@@ -207,10 +207,10 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
         $this->_mockHtmlGenerator->shouldReceive('getUrlsCSS')->once()->andReturn($themeStyles);
         $this->_mockHtmlGenerator->shouldReceive('getUrlsJS')->once()->andReturn($themeScripts);
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('web/js/wordpress-ajax.js', 'tubepress/tubepress.php')->andReturn('<ajaxjs>');
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/js/tubepress.js', 'tubepress/tubepress.php')->andReturn('<<system-js-url>>');
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/something/system-style-url', 'tubepress/tubepress.php')->andReturn('<<system-style-url>>');
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/something/system-script-url', 'tubepress/tubepress.php')->andReturn('<<system-script-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('web/js/wordpress-ajax.js', 'core/tubepress.php')->andReturn('<ajaxjs>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/js/tubepress.js', 'core/tubepress.php')->andReturn('<<system-js-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/something/system-style-url', 'core/tubepress.php')->andReturn('<<system-style-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/something/system-script-url', 'core/tubepress.php')->andReturn('<<system-script-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-style-url')->andReturn('<<user-style-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-script-url')->andReturn('<<user-script-url>>');
 

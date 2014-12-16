@@ -135,7 +135,11 @@ class tubepress_lib_impl_util_TimeUtils implements tubepress_lib_api_util_TimeUt
             return self::getRelativeTime($unixTime);
         }
 
-        return @date($format, $unixTime);
+        if (strpos($format, '%') === false) {
+
+            return @date($format, $unixTime);
+        }
+
+        return strftime($format, $unixTime);
     }
 }
-

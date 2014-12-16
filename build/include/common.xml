@@ -76,27 +76,46 @@
 
     </target>
 
-    <target name="update-version-in-php-code">
+    <target name="update-version-strings">
 
+        <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
+        <replace file="${stagingdir}/readme.txt"    token="@stableversion@" value="${version.major}.${version.minor}.${version.micro}" />
         <replace file="${stagingdir}/src/add-ons/core/classes/tubepress/app/impl/environment/Environment.php"
                  token="9.9.9" value="${version.major}.${version.minor}.${version.micro}"
-                 failOnNoReplacements="true"
-                />
+                 failOnNoReplacements="true" />
 
         <replace file="${stagingdir}/src/platform/scripts/classloading/classes.php"
                  token="parse('9.9.9')" value="parse('${version.major}.${version.minor}.${version.micro}')"
-                 failOnNoReplacements="true"
-                />
+                 failOnNoReplacements="true" />
 
+        <replace file="${stagingdir}/src/add-ons/core/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/embedplus/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/jwplayer5/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/vimeo_v2/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/wordpress/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/youtube_v2/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+
+        <replace file="${stagingdir}/src/add-ons/core/web/admin-themes/admin-default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/web/themes/default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/web/themes/vimeo.com-clone/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/core/web/themes/youtube.com-clone/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-sidebar/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-vimeo/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-youtube/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/wordpress/web/admin-themes/wordpress/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
     </target>
 
     <target name="modify-wordpress-info">
 
+        <!-- These two lines are duplicated. Keep them here for building Pro -->
         <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/tubepress.php" token="@description@"   value="${wordpress.desc.suffix}" />
-        <replace file="${stagingdir}/tubepress.php" token="@TubePress@"     value="${wordpress.desc.appname}" />
         <replace file="${stagingdir}/readme.txt"    token="@stableversion@" value="${version.major}.${version.minor}.${version.micro}" />
 
+        <replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.desc.suffix}" />
+        <replace file="${stagingdir}/tubepress.php" token="@TubePress@"   value="${wordpress.desc.appname}" />
     </target>
 
     <target name="compress-private-js" description="Compresses JS files">
@@ -178,6 +197,20 @@
     <target name="copy-locale-fallbacks">
 
         <copy verbose="true" file="${stagingdir}/src/translations/tubepress-es_ES.mo" tofile="${stagingdir}/src/translations/tubepress-es_MX.mo" />
+
+    </target>
+
+    <target name="package-starter-theme">
+
+        <mkdir dir="${stagingdir}/web/themes/temp" />
+
+        <copy verbose="true" todir="${stagingdir}/web/themes/temp/starter">
+            <fileset dir="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter" />
+        </copy>
+
+        <zip destfile="${stagingdir}/web/themes/starter-theme.zip" basedir="${stagingdir}/web/themes/temp" />
+
+        <delete dir="${stagingdir}/web/themes/temp" />
 
     </target>
 

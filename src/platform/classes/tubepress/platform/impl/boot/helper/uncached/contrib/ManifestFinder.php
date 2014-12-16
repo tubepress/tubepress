@@ -176,7 +176,7 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder
          */
         foreach ($finder as $infoFile) {
 
-            $toReturn[] = $infoFile->getPathname();
+            $toReturn[] = $infoFile->getRealPath();
         }
 
         if ($this->_shouldLog) {

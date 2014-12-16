@@ -35,7 +35,7 @@ if (!class_exists('__tubePressBoot', false)) {
              */
             if (!defined('TUBEPRESS_ROOT')) {
 
-                define('TUBEPRESS_ROOT', dirname(__FILE__) . '/../../..');
+                define('TUBEPRESS_ROOT', self::_calculateTubePressRoot());
             }
 
             if (!class_exists('tubepress_platform_impl_boot_PrimaryBootstrapper', false)) {
@@ -45,6 +45,25 @@ if (!class_exists('__tubePressBoot', false)) {
 
             $bootStrapper = new tubepress_platform_impl_boot_PrimaryBootstrapper();
             self::$SERVICE_CONTAINER = $bootStrapper->getServiceContainer();
+        }
+
+        private static function _calculateTubePressRoot()
+        {
+            /**
+             * We could call realpath() here but it's too darn expensive. So instead we peel off
+             * the last three dirs.
+             */
+            $thisPath = __FILE__;
+
+            /*
+             * Start with /home/bla/code/tubepress/src/platform/scripts/boot.php
+             */
+            $toRemove = DIRECTORY_SEPARATOR . 'src' .
+                        DIRECTORY_SEPARATOR . 'platform' .
+                        DIRECTORY_SEPARATOR . 'scripts' .
+                        DIRECTORY_SEPARATOR . 'boot.php';
+
+            return str_replace($toRemove, '', $thisPath);
         }
     }
 }

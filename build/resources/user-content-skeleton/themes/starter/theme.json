@@ -15,6 +15,7 @@
     "styles" : [
         "css/theme.css"
     ],
+    "description" : "Originally copied from TubePress 99.99.99",
     "parent" : "tubepress/default",
     "screenshots" : []
 }

@@ -193,6 +193,46 @@ class tubepress_app_impl_listeners_media_PageListener
         $event->getSubject()->setTotalResultCount($secondCut);
     }
 
+    public function filterDuplicates(tubepress_lib_api_event_EventInterface $event)
+    {
+        /**
+         * @var $mediaPage tubepress_app_api_media_MediaPage
+         */
+        $mediaPage = $event->getSubject();
+        $items     = $mediaPage->getItems();
+        $ids       = array();
+        $removed   = 0;
+
+        for ($x = 0; $x < count($items); $x++) {
+
+            $mediaItem = $items[$x];
+            $id        = $mediaItem->getId();
+
+            if (in_array($id, $ids)) {
+
+                if ($this->_logger->isEnabled()) {
+
+                    $this->_logger->debug(sprintf('Duplicate item detected (%s). Now removing.',$id));
+                }
+
+                unset($items[$x]);
+                $removed++;
+
+            } else {
+
+                $ids[] = $id;
+            }
+        }
+
+        $oldTotalResultCount = $mediaPage->getTotalResultCount();
+        $newTotalResultCount = ($oldTotalResultCount - 1);
+
+        $mediaPage->setTotalResultCount($newTotalResultCount);
+        $mediaPage->setItems($items);
+
+        $event->setSubject($mediaPage);
+    }
+
     private function _calculateRealMax($reported)
     {
         $mode = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);

@@ -113,7 +113,17 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
             return true;
         }
 
+        if (strpos($currentTheme->getParentThemeName(), '/legacy') !== false) {
+
+            return true;
+        }
+
         if (strpos($currentThemeName, 'unknown/') === 0) {
+
+            return true;
+        }
+
+        if (strpos($currentTheme->getParentThemeName(), 'unknown/') === 0) {
 
             return true;
         }

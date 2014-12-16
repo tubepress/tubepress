@@ -284,8 +284,8 @@ ABC
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-0', false, array(), false, false);
         $this->_mockWordPressFunctionWrapper->shouldReceive('wp_enqueue_script')->once()->with('tubepress-1', false, array(), false, false);
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-css-url', 'tubepress/tubepress.php')->andReturn('<<system-style-url>>');
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-js-url', 'tubepress/tubepress.php')->andReturn('<<system-script-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-css-url', 'core/tubepress.php')->andReturn('<<system-style-url>>');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugins_url')->once()->with('/web/system-js-url', 'core/tubepress.php')->andReturn('<<system-script-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-css-url')->andReturn('<<user-style-url>>');
         $this->_mockWordPressFunctionWrapper->shouldReceive('content_url')->once()->with('tubepress-content/something/user-js-url')->andReturn('<<user-script-url>>');
 
@@ -308,7 +308,7 @@ ABC
 
     public function testRowMeta()
     {
-        $this->_mockWordPressFunctionWrapper->shouldReceive('plugin_basename')->once()->with('tubepress/tubepress.php')->andReturn('something');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('plugin_basename')->once()->with('core/tubepress.php')->andReturn('something');
         $this->_mockWordPressFunctionWrapper->shouldReceive('__')->once()->with('Settings', 'tubepress')->andReturn('orange');
 
         $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');

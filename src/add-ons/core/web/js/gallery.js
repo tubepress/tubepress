@@ -153,12 +153,21 @@ var tubePressGalleryRegistrar;
 
                 getOutermostElement = function (galleryId) {
 
-                    if (!langUtils.isDefined(outerMostCache[galleryId])) {
+                    if (langUtils.isDefined(outerMostCache[galleryId])) {
 
-                        outerMostCache[galleryId] = jquery(getOutermostSelectorLegacy(galleryId)).add(getOutermostSelectorModern(galleryId));
+                        return outerMostCache[galleryId];
                     }
 
-                    return outerMostCache[galleryId];
+                    var legacyOutermostSelector = getOutermostSelectorLegacy(galleryId),
+                        modernOutermostSelector = getOutermostSelectorModern(galleryId),
+                        element                 = jquery(legacyOutermostSelector).add(modernOutermostSelector);
+
+                    if (element.length > 0) {
+
+                        outerMostCache[galleryId] = element;
+                    }
+
+                    return element;
                 },
 
                 getThumbAreaSelectorModern = function (galleryId) {

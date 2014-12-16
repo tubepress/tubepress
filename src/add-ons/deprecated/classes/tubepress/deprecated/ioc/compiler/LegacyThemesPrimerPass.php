@@ -199,7 +199,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
                 ),
                 'description' => "TubePress 3.x.x theme auto-generated from $themeRoot",
             );
-            $theme = $themeFactory->fromManifestData('/dev/null', $manifestData);
+            $theme = $themeFactory->fromManifestData(sys_get_temp_dir() . '/foobar', $manifestData);
 
             if (!($theme instanceof tubepress_app_impl_theme_FilesystemTheme)) {
 
@@ -208,7 +208,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
 
             $theme->setParentThemeName('tubepress/legacy-default');
             $theme->setTemplateNamesToAbsPathsMap($templateMap);
-            $theme->setManifestPath('/dev/null');
+            $theme->setManifestPath(sys_get_temp_dir() . '/foobar');
 
             $toReturn[] = $theme;
         }

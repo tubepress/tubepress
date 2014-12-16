@@ -139,7 +139,8 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
         $currentTheme     = $this->_currentThemeService->getCurrentTheme();
         $currentThemeName = $currentTheme->getName();
 
-        return strpos($currentThemeName, '/legacy-') !== false;
+        return strpos($currentThemeName, '/legacy-') !== false ||
+            strpos($currentTheme->getParentThemeName(), '/legacy-') !== false;
     }
 
     private function _adjustPlayerHtml(array &$templateVars)

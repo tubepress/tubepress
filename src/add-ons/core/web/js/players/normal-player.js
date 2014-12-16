@@ -33,11 +33,11 @@
         text_eventPrefix_player = text_tubepress + text_dot + text_gallery + text_dot + text_player + text_dot,
 
         /* this stuff helps compression */
-        beacon            = tubePress.Beacon,
-        subscribe         = beacon.subscribe,
-        styler            = tubePress.Ajax.LoadStyler,
-        addStyle          = styler.applyLoadingStyle,
-        remStyle          = styler.removeLoadingStyle,
+        beacon    = tubePress.Beacon,
+        subscribe = beacon.subscribe,
+        styler    = tubePress.Ajax.LoadStyler,
+        addStyle  = styler.applyLoadingStyle,
+        remStyle  = styler.removeLoadingStyle,
 
         getModernSelector = function (galleryId) {
 
@@ -50,7 +50,7 @@
             return text_hash + text_tubepress_ + text_embedded_ + text_title + '_' + galleryId;
         },
 
-        getTitleElement = function (galleryId) {
+        getLegacyTitleElement = function (galleryId) {
 
             return jquery(getLegacyTitleSelector(galleryId));
         },
@@ -60,7 +60,7 @@
             return text_hash + text_tubepress_ + text_embedded_ + 'object_' + galleryId;
         },
 
-        getEmbedElement = function (galleryId) {
+        getLegacyEmbedElement = function (galleryId) {
 
             return jquery(getLegacyEmbedSelector(galleryId));
         },
@@ -77,7 +77,7 @@
 
             var galleryId           = data[text_galleryId],
                 legacyTitleSelector = getLegacyTitleSelector(galleryId),
-                titleElement        = getTitleElement(galleryId),
+                legacyTitleElement  = getLegacyTitleElement(galleryId),
                 legacyEmbedSelector = getLegacyEmbedSelector(galleryId),
                 modernSelector      = getModernSelector(galleryId),
                 modernElement       = jquery(modernSelector);
@@ -87,29 +87,27 @@
             addStyle(legacyEmbedSelector);
 
             scrollTo(modernElement);
-            scrollTo(titleElement);
+            scrollTo(legacyTitleElement);
         },
 
         populate = function (e, data) {
 
             var galleryId           = data[text_galleryId],
-                legacyTitleSelector = getLegacyTitleSelector(galleryId),
-                legacyEmbedSelector = getLegacyEmbedSelector(galleryId),
-                embedElement        = getEmbedElement(galleryId),
+                legacyTitleElement  = getLegacyTitleElement(galleryId),
+                legacyEmbedElement  = getLegacyEmbedElement(galleryId),
                 html                = data[text_html],
                 modernSelector      = getModernSelector(galleryId),
                 modernElement       = jquery(modernSelector);
 
-            if (embedElement.length > 0) {
+            if (legacyEmbedElement.length > 0 && legacyTitleElement.length > 0) {
 
-                embedElement.html(html);
+                legacyTitleElement.parent('div').replaceWith(html);
+
+            } else {
+
+                modernElement.html(html);
+                remStyle(modernSelector);
             }
-
-            modernElement.html(html);
-
-            remStyle(modernSelector);
-            remStyle(legacyTitleSelector);
-            remStyle(legacyEmbedSelector);
         };
 
     subscribe(text_eventPrefix_player + 'invoke' + text_dot + text_normal, invoke);
