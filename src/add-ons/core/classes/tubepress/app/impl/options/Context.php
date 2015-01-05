@@ -153,16 +153,20 @@ class tubepress_app_impl_options_Context implements tubepress_app_api_options_Co
 
     protected function getErrors($optionName, &$optionValue)
     {
-        $event = $this->_dispatch($optionName, $optionValue, array(), tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT);
-        $event = $this->_dispatch(
+        $externallyCleanedValue = $this->_dispatchForExternalInput($optionName, $optionValue);
+
+        $event = $this->_dispatchForOptionSet(
+            $optionName,
+            $externallyCleanedValue,
+            array(),
+            tubepress_app_api_event_Events::OPTION_SET . '.' . $optionName
+        );
+
+        $event = $this->_dispatchForOptionSet(
             $optionName,
             $event->getArgument('optionValue'),
             $event->getSubject(),
-            tubepress_app_api_event_Events::OPTION_SET . '.' . $optionName
-        );
-        $event = $this->_dispatch($optionName,
-            $event->getArgument('optionValue'),
-            $event->getSubject(), tubepress_app_api_event_Events::OPTION_SET
+            tubepress_app_api_event_Events::OPTION_SET
         );
 
         $optionValue = $event->getArgument('optionValue');
@@ -170,14 +174,19 @@ class tubepress_app_impl_options_Context implements tubepress_app_api_options_Co
         return $event->getSubject();
     }
 
-    /**
-     * @param $optionName
-     * @param $optionValue
-     * @param array $errors
-     * @param $eventName
-     * @return tubepress_lib_api_event_EventInterface
-     */
-    private function _dispatch($optionName, $optionValue, array $errors, $eventName)
+    private function _dispatchForExternalInput($optionName, $optionValue)
+    {
+        $event = $this->_eventDispatcher->newEventInstance($optionValue, array(
+
+            'optionName' => $optionName
+        ));
+
+        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);
+
+        return $event->getSubject();
+    }
+
+    private function _dispatchForOptionSet($optionName, $optionValue, array $errors, $eventName)
     {
         $event = $this->_eventDispatcher->newEventInstance($errors, array(
 
