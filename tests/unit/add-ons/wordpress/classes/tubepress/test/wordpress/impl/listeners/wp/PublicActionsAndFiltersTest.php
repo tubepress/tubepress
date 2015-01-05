@@ -22,22 +22,7 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockStorageManager;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockShortcodeParser;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockHtmlGenerator;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockExecutionContext;
 
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -82,11 +67,8 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
     public function onSetup()
     {
         $this->_mockWordPressFunctionWrapper = $this->mock(tubepress_wordpress_impl_wp_WpFunctions::_);
-        $this->_mockExecutionContext         = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockMessageService           = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
         $this->_mockHtmlGenerator            = $this->mock(tubepress_app_api_html_HtmlGeneratorInterface::_);
-        $this->_mockShortcodeParser          = $this->mock(tubepress_app_api_shortcode_ParserInterface::_);
-        $this->_mockStorageManager           = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
         $this->_mockStringUtils              = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
         $this->_mockEventDispatcher          = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
         $this->_mockAjaxHandler              = $this->mock(tubepress_lib_api_http_AjaxInterface::_);
@@ -101,9 +83,6 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
             $this->_mockHtmlGenerator,
             $this->_mockAjaxHandler,
             $this->_mockHttpRequestParams,
-            $this->_mockExecutionContext,
-            $this->_mockStorageManager,
-            $this->_mockShortcodeParser,
             $this->_mockTranslator,
             $this->_mockEventDispatcher,
             $this->_mockEnvironment
@@ -244,33 +223,6 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
 
         $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $this->_sut->onAction_init($mockEvent);
-        $this->assertTrue(true);
-    }
-
-    public function testFilterContent()
-    {
-        $this->_mockStorageManager->shouldReceive('fetch')->once()->with(tubepress_app_api_options_Names::SHORTCODE_KEYWORD)->andReturn('trigger word');
-
-        $this->_mockShortcodeParser->shouldReceive('somethingToParse')->times(2)->with('the content', 'trigger word')->andReturn(true);
-        $this->_mockShortcodeParser->shouldReceive('somethingToParse')->times(2)->with('html for shortcode', 'trigger word')->andReturn(true, false);
-        $this->_mockShortcodeParser->shouldReceive('getLastShortcodeUsed')->times(4)->andReturn('<current shortcode>');
-        $this->_mockShortcodeParser->shouldReceive('parse')->times(2);
-
-        $this->_mockHtmlGenerator->shouldReceive('getHtml')->once()->andReturn('html for shortcode');
-        $this->_mockHtmlGenerator->shouldReceive('getHtml')->once()->andReturn('html for shortcode');
-
-        $this->_mockExecutionContext->shouldReceive('setEphemeralOptions')->twice()->with(array());
-
-        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $mockEvent->shouldReceive('getSubject')->once()->andReturn('the content');
-        $mockEvent->shouldReceive('setSubject')->once()->with('html for shortcode');
-
-        $this->_mockStringUtils->shouldReceive('replaceFirst')->once()->with('<current shortcode>', 'html for shortcode', 'the content')->andReturn('html for shortcode');
-        $this->_mockStringUtils->shouldReceive('replaceFirst')->once()->with('<current shortcode>', 'html for shortcode', 'html for shortcode')->andReturn('html for shortcode');
-        $this->_mockStringUtils->shouldReceive('removeEmptyLines')->twice()->with('html for shortcode')->andReturn('html for shortcode');
-
-        $this->_sut->onFilter_the_content($mockEvent);
-
         $this->assertTrue(true);
     }
 }
