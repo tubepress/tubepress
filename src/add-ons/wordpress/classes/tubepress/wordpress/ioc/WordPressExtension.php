@@ -128,9 +128,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_html_HtmlGeneratorInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_AjaxInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_shortcode_ParserInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
@@ -153,10 +150,6 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
         ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.action.wp_head',
             'method'   => 'onAction_wp_head',
-            'priority' => 100000
-        ))->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-            'event'    => 'tubepress.wordpress.filter.the_content',
-            'method'   => 'onFilter_the_content',
             'priority' => 100000
         ));
 
@@ -230,6 +223,9 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
             'tubepress_wordpress_impl_Callback'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_html_HtmlGeneratorInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_wordpress_impl_wp_WpFunctions::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_wordpress_impl_wp_ActivationHook'));
 

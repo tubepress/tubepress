@@ -47,17 +47,15 @@ abstract class tubepress_test_app_impl_options_AbstractOptionReaderTest extends 
         $mockSecondEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $mockThirdEvent  = $this->mock('tubepress_lib_api_event_EventInterface');
 
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(), array(
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($incomingValue, array(
             'optionName'  => $optionName,
-            'optionValue' => $incomingValue
         ))->andReturn($mockFirstEvent);
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
             tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $mockFirstEvent
         );
-        $mockFirstEvent->shouldReceive('getSubject')->once()->andReturn($errors);
-        $mockFirstEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('abc');
+        $mockFirstEvent->shouldReceive('getSubject')->once()->andReturn('abc');
 
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with($errors, array(
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(array(), array(
 
             'optionName' => $optionName,
             'optionValue' => 'abc'
