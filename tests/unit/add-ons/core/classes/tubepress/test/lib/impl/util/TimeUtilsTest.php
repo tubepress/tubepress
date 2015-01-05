@@ -28,7 +28,7 @@ class tubepress_test_lib_util_impl_TimeUtilsTest extends tubepress_test_TubePres
     public function testGetRelativeTimePastDecade()
     {
         $result = $this->_sut->getRelativeTime(1000000000);
-        $this->assertEquals('13 years ago', $result);
+        $this->assertEquals('14 years ago', $result);
     }
 
     public function testGetRelativeTimePast5Years()

@@ -34,6 +34,7 @@ class tubepress_wordpress_ApiIntegrator
         $this->_addFilters();
         $this->_addActions();
         $this->_addActivationHooks();
+        $this->_addShortcode();
     }
 
     private function _init()
@@ -51,9 +52,6 @@ class tubepress_wordpress_ApiIntegrator
     private function _addFilters()
     {
         $filterCallback = array($this, '__onFilter');
-
-        /** @noinspection PhpUndefinedFunctionInspection */
-        add_filter('the_content', $filterCallback);
 
         /** @noinspection PhpUndefinedFunctionInspection */
         add_filter($this->_calculateMetaRowsFilterPoint(), $filterCallback, 10, 2);
@@ -90,6 +88,41 @@ class tubepress_wordpress_ApiIntegrator
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         register_activation_hook($this->_baseName . '/tubepress.php', array($this, '__onActivation'));
+    }
+
+    private function _addShortcode()
+    {
+        /** @noinspection PhpIncludeInspection */
+        /**
+         * @var $serviceContainer tubepress_platform_api_ioc_ContainerInterface
+         */
+        $serviceContainer = require 'src/platform/scripts/boot.php';
+
+        /**
+         * @var $persistence tubepress_app_api_options_PersistenceInterface
+         */
+        $persistence = $serviceContainer->get(tubepress_app_api_options_PersistenceInterface::_);
+        $keyword     = $persistence->fetch(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
+
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_shortcode($keyword, array($this, '__onShortcode'));
+    }
+
+    public function __onShortcode()
+    {
+        try {
+
+            $callback = $this->_getCallback();
+            $args     = func_get_args();
+
+            return call_user_func_array(array($callback, 'onShortcode'), $args);
+
+        } catch (Exception $e) {
+
+            $this->_handleException($e);
+
+            return func_get_arg(0);
+        }
     }
 
     public function __onFilter()
