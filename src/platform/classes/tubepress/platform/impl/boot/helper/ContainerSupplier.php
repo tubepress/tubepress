@@ -197,7 +197,9 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
 
     private function _getPathToContainerCacheFile()
     {
-        return $this->_bootSettings->getPathToSystemCacheDirectory() . '/TubePressServiceContainer.php';
+        $cachePath = $this->_bootSettings->getPathToSystemCacheDirectory();
+
+        return sprintf('%s%sTubePress-%s-ServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR, TUBEPRESS_VERSION);
     }
 
     private function _buildTemporaryClassLoader()

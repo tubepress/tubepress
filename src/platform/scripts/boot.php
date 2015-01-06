@@ -38,6 +38,14 @@ if (!class_exists('__tubePressBoot', false)) {
                 define('TUBEPRESS_ROOT', self::_calculateTubePressRoot());
             }
 
+            if (!defined('TUBEPRESS_VERSION')) {
+
+                /**
+                 * This is set to the actual version during packaging.
+                 */
+                define('TUBEPRESS_VERSION', '99.99.99');
+            }
+
             if (!class_exists('tubepress_platform_impl_boot_PrimaryBootstrapper', false)) {
 
                 require TUBEPRESS_ROOT . '/src/platform/classes/tubepress/platform/impl/boot/PrimaryBootstrapper.php';

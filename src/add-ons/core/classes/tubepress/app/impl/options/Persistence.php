@@ -221,11 +221,12 @@ class tubepress_app_impl_options_Persistence implements tubepress_app_api_option
 
     private function _getErrors($optionName, &$optionValue)
     {
-        $event = $this->_dispatch($optionName, $optionValue, array(), tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT);
+        $externallyCleanedValue = $this->_dispatchForExternalInput($optionName, $optionValue);
+
         $event = $this->_dispatch(
             $optionName,
-            $event->getArgument('optionValue'),
-            $event->getSubject(),
+            $externallyCleanedValue,
+            array(),
             tubepress_app_api_event_Events::OPTION_SET . '.' . $optionName
         );
         $event = $this->_dispatch($optionName,
@@ -256,5 +257,17 @@ class tubepress_app_impl_options_Persistence implements tubepress_app_api_option
         $this->_eventDispatcher->dispatch($eventName, $event);
 
         return $event;
+    }
+
+    private function _dispatchForExternalInput($optionName, $optionValue)
+    {
+        $event = $this->_eventDispatcher->newEventInstance($optionValue, array(
+
+            'optionName' => $optionName
+        ));
+
+        $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT, $event);
+
+        return $event->getSubject();
     }
 }

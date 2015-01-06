@@ -106,6 +106,8 @@
         <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-youtube/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/wordpress/web/admin-themes/wordpress/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+
+        <replace file="${stagingdir}/src/platform/scripts/boot.php" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
     </target>
 
     <target name="modify-wordpress-info">

@@ -36,6 +36,11 @@ abstract class tubepress_test_TubePressUnitTest extends PHPUnit_Framework_TestCa
 
             define('TUBEPRESS_ROOT', realpath(__DIR__ . '/../../../../../../../'));
         }
+
+        if (!defined('TUBEPRESS_VERSION')) {
+
+            define('TUBEPRESS_VERSION', '99.99.99');
+        }
     }
 
     protected function onSetup()

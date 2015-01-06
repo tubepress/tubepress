@@ -186,7 +186,9 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
 
         if ($this->_bootSettings->isSystemCacheEnabled()) {
 
-            $storagePath = $this->_bootSettings->getPathToSystemCacheDirectory() . '/TubePressServiceContainer.php';
+            $cachePath = $this->_bootSettings->getPathToSystemCacheDirectory();
+
+            $storagePath = sprintf('%s%sTubePress-%s-ServiceContainer.php', $cachePath, DIRECTORY_SEPARATOR, TUBEPRESS_VERSION);
 
         } else {
 
