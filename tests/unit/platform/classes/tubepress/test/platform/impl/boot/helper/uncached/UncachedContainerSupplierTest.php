@@ -92,7 +92,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
     {
         $this->_setupMocks(3);
 
-        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of /abcdef/TubePressServiceContainer.php');
+        $this->_mockLogger->shouldReceive('error')->once()->with('Failed to create all the parent directories of /abcdef/TubePress-99.99.99-ServiceContainer.php');
         $this->_mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->once()->andReturn('/abcdef');
 
         $result = $this->_sut->getNewIconicContainer();
@@ -110,7 +110,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
 
         $result = $this->_sut->getNewIconicContainer();
 
-        $this->assertFileExists($mockSystemDir . '/TubePressServiceContainer.php');
+        $this->assertFileExists($mockSystemDir . '/TubePress-99.99.99-ServiceContainer.php');
 
         $this->assertInstanceOf('ehough_iconic_ContainerInterface', $result);
     }

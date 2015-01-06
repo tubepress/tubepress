@@ -53,15 +53,6 @@ class tubepress_wordpress_impl_wp_ActivationHook
                 TUBEPRESS_ROOT . '/src/add-ons/core/templates/public',
                 WP_CONTENT_DIR . '/tubepress-content/themes/starter/templates');
         }
-
-        $this->_clearCachedContainer();
-    }
-
-    private function _clearCachedContainer()
-    {
-        $containerLocation = $this->_bootSettings->getPathToSystemCacheDirectory() . '/TubePressServiceContainer.php';
-
-        @unlink($containerLocation);
     }
 
     private function _tryToMirror($source, $dest)
