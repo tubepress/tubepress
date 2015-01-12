@@ -293,6 +293,12 @@ interface tubepress_app_api_options_Names
 
     /**
      * @api
+     * @since 4.0.5
+     */
+    const RESPONSIVE_EMBEDS = 'responsiveEmbeds';
+
+    /**
+     * @api
      * @since 4.0.0
      */
     const SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';

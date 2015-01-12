@@ -594,6 +594,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::META_RELATIVE_DATES                 => false,
                 tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => null,
                 tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'normal',
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS                   => true,
                 tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => null,
                 tubepress_app_api_options_Names::SEARCH_PROVIDER                     => 'youtube',
                 tubepress_app_api_options_Names::SEARCH_RESULTS_ONLY                 => false,
@@ -651,6 +652,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::META_RELATIVE_DATES                 => 'Use relative dates',         //>(translatable)<
                 tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
                 tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'Play each video',      //>(translatable)<
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS                   => 'Responsive embeds',    //>(translatable)<
                 tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => 'Restrict search results to videos from author', //>(translatable)<
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'Shortcode keyword',  //>(translatable)<
                 tubepress_app_api_options_Names::TEMPLATE_CACHE_AUTORELOAD           => 'Monitor templates for changes',    //>(translatable)<
@@ -689,6 +691,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::META_DATEFORMAT          => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
                 tubepress_app_api_options_Names::META_DESC_LIMIT          => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
                 tubepress_app_api_options_Names::META_RELATIVE_DATES      => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS        => 'Auto-resize media players to best fit the viewer\'s screen.', //>(translatable)<
                 tubepress_app_api_options_Names::SEARCH_ONLY_USER         => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD        => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
 
@@ -705,7 +708,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION,
                 tubepress_app_api_options_Names::GALLERY_AUTONEXT,
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
-                tubepress_app_api_options_Names::HTML_HTTPS
+                tubepress_app_api_options_Names::HTML_HTTPS,
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS
             ),
         ));
 
@@ -921,6 +925,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::HTML_HTTPS,
                 tubepress_app_api_options_Names::DEBUG_ON,
                 tubepress_app_api_options_Names::META_RELATIVE_DATES,
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
             ),
             'dropdown' => array(
                 tubepress_app_api_options_Names::PLAYER_LOCATION,
@@ -1011,6 +1016,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH,
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
                 tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY,
                 tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO,
                 tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY,
