@@ -110,6 +110,11 @@ class tubepress_wordpress_impl_Callback
     {
         $this->_setBaseUrl();
 
+        if (!is_array($optionMap)) {
+
+            $optionMap = array();
+        }
+
         $normalizedOptions = $this->_normalizeIncomingShortcodeOptionMap($optionMap);
 
         $this->_context->setEphemeralOptions($normalizedOptions);

@@ -69,6 +69,19 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
         );
     }
 
+    public function testNonArrayIncoming()
+    {
+        $this->_mockOptionsReference->shouldReceive('getAllOptionNames')->once()->andReturn(array('foO'));
+
+        $this->_mockHtmlGenerator->shouldReceive('getHtml')->once()->andReturn('html for shortcode');
+
+        $this->_mockContext->shouldReceive('setEphemeralOptions')->twice()->with(array());
+
+        $result = $this->_sut->onShortcode('');
+
+        $this->assertEquals('html for shortcode', $result);
+    }
+
     public function testShortcode()
     {
         $this->_mockOptionsReference->shouldReceive('getAllOptionNames')->once()->andReturn(array('foO'));
