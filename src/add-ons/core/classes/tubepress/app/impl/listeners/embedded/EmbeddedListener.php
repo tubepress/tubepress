@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -97,6 +97,7 @@ class tubepress_app_impl_listeners_embedded_EmbeddedListener
         $embeddedProvider = $this->_selectEmbeddedProvider($mediaItem);
         $embedWidth       = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_WIDTH);
         $embedHeight      = $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_HEIGHT);
+        $responsive       = $this->_context->get(tubepress_app_api_options_Names::RESPONSIVE_EMBEDS);
         $templateVars     = $embeddedProvider->getTemplateVariables($mediaItem);
 
         $embeddedHtml = $this->_templating->renderTemplate('single/embedded', array_merge(array(
@@ -105,11 +106,13 @@ class tubepress_app_impl_listeners_embedded_EmbeddedListener
             tubepress_app_api_template_VariableNames::MEDIA_ITEM         => $mediaItem,
             tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX  => $embedWidth,
             tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT_PX => $embedHeight,
+            tubepress_app_api_options_Names::RESPONSIVE_EMBEDS           => $responsive,
         ), $templateVars));
 
         $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_SOURCE]    = $embeddedHtml;
         $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_WIDTH_PX]  = $embedWidth;
         $existingTemplateVars[tubepress_app_api_template_VariableNames::EMBEDDED_HEIGHT_PX] = $embedHeight;
+        $existingTemplateVars[tubepress_app_api_options_Names::RESPONSIVE_EMBEDS]           = $responsive;
 
         $event->setSubject($existingTemplateVars);
     }

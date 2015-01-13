@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -82,6 +82,7 @@ class tubepress_test_app_impl_listeners_embedded_EmbeddedListenerTest extends tu
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_WIDTH)->andReturn('embedded-width');
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::EMBEDDED_HEIGHT)->andReturn('embedded-height');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::RESPONSIVE_EMBEDS)->andReturn('responsive');
 
         $this->_mockTemplating->shouldReceive('renderTemplate')->once()->with('single/embedded', array(
 
@@ -89,6 +90,7 @@ class tubepress_test_app_impl_listeners_embedded_EmbeddedListenerTest extends tu
             'mediaItem'        => $mockMediaItem,
             'embeddedWidthPx'  => 'embedded-width',
             'embeddedHeightPx' => 'embedded-height',
+            'responsiveEmbeds' => 'responsive',
             'foo'              => 'bar',
         ))->andReturn('hiya');
 
@@ -105,6 +107,7 @@ class tubepress_test_app_impl_listeners_embedded_EmbeddedListenerTest extends tu
             'embeddedSource' => 'hiya',
             'embeddedWidthPx' => 'embedded-width',
             'embeddedHeightPx' => 'embedded-height',
+            'responsiveEmbeds' => 'responsive',
         )));
 
         $this->_sut->onPlayerTemplatePreRender($this->_mockIncomingEvent);

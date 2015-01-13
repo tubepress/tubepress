@@ -1,5 +1,5 @@
 {#
- # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ # Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  #
  # This file is part of TubePress (http://tubepress.com)
  #
@@ -7,7 +7,7 @@
  # License, v. 2.0. If a copy of the MPL was not distributed with this
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
-<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='{{ embeddedWidthPx }}' height='{{ embeddedHeightPx }}'>
+<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' class="js-tubepress-embed" width='{{ embeddedWidthPx }}' height='{{ embeddedHeightPx }}'>
     <param name='movie' value='{{ tubePressBaseUrl }}/src/add-ons/jwplayer5/web/player.swf'>
     <param name='allowfullscreen' value='true'>
     <param name='allowscriptaccess' value='always'>
@@ -22,6 +22,7 @@
         allowscriptaccess='always'
         allowfullscreen='true'
         wmode='transparent'
+        class="js-tubepress-embed"
         flashvars='file={{ dataURL }}&amp;autostart={{ autostart }}&amp;backcolor={{ jwPlayerBackColor }}&amp;frontcolor={{ jwPlayerFrontColor }}&amp;lightcolor={{ jwPlayerLightColor }}&amp;screencolor={{ jwPlayerScreenColor }}'
 </embed>
 </object>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -290,6 +290,12 @@ interface tubepress_app_api_options_Names
      * @since 4.0.0
      */
     const PLAYER_LOCATION  = 'playerLocation';
+
+    /**
+     * @api
+     * @since 4.0.5
+     */
+    const RESPONSIVE_EMBEDS = 'responsiveEmbeds';
 
     /**
      * @api

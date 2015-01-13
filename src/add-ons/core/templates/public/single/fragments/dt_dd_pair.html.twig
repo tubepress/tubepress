@@ -1,5 +1,5 @@
 {#
- # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ # Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  #
  # This file is part of TubePress (http://tubepress.com)
  #
@@ -7,6 +7,10 @@
  # License, v. 2.0. If a copy of the MPL was not distributed with this
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
+
+{# Only do this if the attribute value actually exists. #}
+{% if attribute(mediaItem, attributeName) is not empty %}
+
 {% spaceless %}
 
 {# The following block prints out each attribute label (e.g. Ratings, Views, Comment Count, etc). #}
@@ -61,3 +65,5 @@
         {%- endif -%}
     {% endspaceless %}</dd>
 {% endblock %}{# end block "metaValue" #}
+
+{% endif %}

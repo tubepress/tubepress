@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -67,6 +67,19 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
             $mockWpFunctions,
             $this->_mockActivationHook
         );
+    }
+
+    public function testNonArrayIncoming()
+    {
+        $this->_mockOptionsReference->shouldReceive('getAllOptionNames')->once()->andReturn(array('foO'));
+
+        $this->_mockHtmlGenerator->shouldReceive('getHtml')->once()->andReturn('html for shortcode');
+
+        $this->_mockContext->shouldReceive('setEphemeralOptions')->twice()->with(array());
+
+        $result = $this->_sut->onShortcode('');
+
+        $this->assertEquals('html for shortcode', $result);
     }
 
     public function testShortcode()

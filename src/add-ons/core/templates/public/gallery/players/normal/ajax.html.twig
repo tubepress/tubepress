@@ -1,5 +1,5 @@
 {#
- # Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ # Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  #
  # This file is part of TubePress (http://tubepress.com)
  #
@@ -12,7 +12,7 @@
  #
  # An outer wrapper for the title and embed.
  #}
-<div class="tubepress-normal-player js-tubepress-player-normal" style="width: {{ embeddedWidthPx }}px">
+<div class="tubepress-normal-player js-tubepress-player-normal" style="width: {% if responsiveEmbeds %}100%{% else %}{{ embeddedWidthPx }}px{% endif %}">
 
     {% block normalPlayerTitle %}
 
