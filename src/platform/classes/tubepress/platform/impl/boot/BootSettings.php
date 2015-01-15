@@ -467,6 +467,6 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
 
     private function _isWordPress()
     {
-        return defined('WPLANG') && defined('ABSPATH');
+        return defined('DB_NAME') && defined('ABSPATH');
     }
 }
