@@ -53,7 +53,7 @@ class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePress
     public function testUserContentDirWp1()
     {
         define('ABSPATH', 'blue/');
-        define('WPLANG', 'en_US');
+        define('DB_NAME', 'database_name');
 
         $this->assertEquals('blue/wp-content/tubepress-content', $this->_sut->getUserContentDirectory());
     }
@@ -62,7 +62,7 @@ class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePress
     {
         define('WP_CONTENT_DIR', 'bob');
         define('ABSPATH', 'blue/');
-        define('WPLANG', 'en_US');
+        define('DB_NAME', 'database_name');
 
         $this->assertEquals('bob/tubepress-content', $this->_sut->getUserContentDirectory());
     }
