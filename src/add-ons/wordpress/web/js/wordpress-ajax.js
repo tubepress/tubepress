@@ -16,25 +16,38 @@
     var ajaxUrl,
         text_url       = 'url',
         text_tubepress = 'tubepress',
+        text_action    = 'action',
         text_data      = 'data',
         text_dataType  = text_data + 'Type',
 
         onAjax = function (options, originalOptions, jqxhr) {
 
-            var actualUrl = options[text_url],
-                data;
+            var data               = originalOptions[text_data],
+                hasTubePressAction = data.hasOwnProperty(text_tubepress + '_' + text_action),
+                actualUrl,
+                dataTypeIsHtml,
+                exactUrlMatch,
+                spaceAfterUrl;
+
+            if (!hasTubePressAction) {
+
+                /** This is not a TubePress call */
+                return;
+            }
+
+            actualUrl      = options[text_url];
+            exactUrlMatch  = actualUrl === ajaxUrl;
+            dataTypeIsHtml = options[text_dataType] === 'html';
+            spaceAfterUrl  = actualUrl.indexOf(ajaxUrl + ' ') === 0;
 
             /**
              * Only process if URLs match *or* dataType is HTML and URL has a space at the end.
              */
-            if (actualUrl !== ajaxUrl && !(options[text_dataType] === 'html' && actualUrl.indexOf(ajaxUrl + ' ') === 0)) {
+            if (exactUrlMatch || (dataTypeIsHtml && spaceAfterUrl)) {
 
-                return;
+                data[text_action]  = text_tubepress;
+                options[text_data] = jquery.param(data);
             }
-
-            data               = originalOptions[text_data];
-            data.action        = text_tubepress;
-            options[text_data] = jquery.param(data);
         },
 
         init = function () {
