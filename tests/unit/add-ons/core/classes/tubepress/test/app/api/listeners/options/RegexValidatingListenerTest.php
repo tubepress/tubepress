@@ -84,6 +84,16 @@ class tubepress_test_app_api_listeners_options_RegexValidatingListenerTest exten
             array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, -1, false),
             array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE, '-1', false),
 
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, 1, true),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, -1, true),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, 0, true),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '1', true),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '-1', true),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '0', true),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '1.5', false),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '-1.5', false),
+            array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER, '0.5', false),
+
             array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '', true),
             array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, 'x', true),
             array(tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS, '3', true),
