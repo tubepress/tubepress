@@ -654,6 +654,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::GALLERY_HQ_THUMBS                   => false,
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE              => true,
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW              => true,
+                    tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE         => true,
                     tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS               => true,
                     tubepress_app_api_options_Names::GALLERY_SOURCE                      => tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
                     tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT                => 90,
@@ -717,6 +718,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::GALLERY_HQ_THUMBS                   => 'Use high-quality thumbnails',        //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE              => 'Show pagination above thumbnails',   //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW              => 'Show pagination below thumbnails',   //>(translatable)<
+                    tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE         => 'Responsive pagination',
                     tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS               => 'Randomize thumbnail images',         //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT                => 'Height (px) of thumbs',              //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH                 => 'Width (px) of thumbs',               //>(translatable)<
@@ -771,6 +773,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::GALLERY_HQ_THUMBS        => 'Note: this option cannot be used with the "randomize thumbnails" feature.', //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
+                    tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE => 'Keep pagination in a single row on all devices and screen sizes.',
                     tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS    => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT     => sprintf('Default is %s.', 90),   //>(translatable)<
                     tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH      => sprintf('Default is %s.', 120),  //>(translatable)<
@@ -804,6 +807,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
                     tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
                     tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
+                    tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE,
                 )
             ));
 
@@ -962,6 +966,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW,
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE,
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_AUTONEXT,
@@ -1078,6 +1083,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW,
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE,
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS
             ),

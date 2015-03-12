@@ -179,6 +179,12 @@ interface tubepress_app_api_options_Names
 
     /**
      * @api
+     * @since 4.0.9
+     */
+    const GALLERY_PAGINATE_RESPONSIVE = 'paginationResponsive';
+
+    /**
+     * @api
      * @since 4.0.0
      */
     const GALLERY_RANDOM_THUMBS = 'randomize_thumbnails';

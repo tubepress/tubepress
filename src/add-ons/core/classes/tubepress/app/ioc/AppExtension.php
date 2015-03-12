@@ -571,6 +571,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS                   => false,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE              => true,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW              => true,
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE         => true,
                 tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS               => true,
                 tubepress_app_api_options_Names::GALLERY_SOURCE                      => 'youtubeMostPopular',
                 tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT                => 90,
@@ -635,6 +636,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS                   => 'Use high-quality thumbnails',        //>(translatable)<
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE              => 'Show pagination above thumbnails',   //>(translatable)<
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW              => 'Show pagination below thumbnails',   //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE         => 'Responsive pagination',
                 tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS               => 'Randomize thumbnail images',         //>(translatable)<
                 tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT                => 'Height (px) of thumbs',              //>(translatable)<
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH                 => 'Width (px) of thumbs',               //>(translatable)<
@@ -669,40 +671,41 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             ),
 
             tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR    => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.', //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_DIRECTORY          => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.', //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_ENABLED            => 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS   => 'Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour).',   //>(translatable)<
-                tubepress_app_api_options_Names::DEBUG_ON                 => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  //>(translatable)<
-                tubepress_app_api_options_Names::EMBEDDED_HEIGHT          => sprintf('Default is %s.', 390), //>(translatable)<
-                tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY        => 'Auto-play each video after thumbnail click.', //>(translatable)<
-                tubepress_app_api_options_Names::EMBEDDED_LOOP            => 'Continue playing the video until the user stops it.', //>(translatable)<
-                tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', //>(translatable)<
-                tubepress_app_api_options_Names::EMBEDDED_WIDTH           => sprintf('Default is %s.', 640), //>(translatable)<
-                tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST   => 'A list of video IDs that should never be displayed.',                                          //>(translatable)<
-                tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP    => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', //>(translatable)<
-                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE    => sprintf('Default is %s. Maximum is %s.', 20, 50),                                               //>(translatable)<
-                tubepress_app_api_options_Names::FEED_PER_PAGE_SORT       => 'Additional sort order applied to each individual page of a gallery',                           //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION  => sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)"),  //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_AUTONEXT         => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS     => 'Dynamically set thumbnail spacing based on the width of their container.', //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_HQ_THUMBS        => 'Note: this option cannot be used with the "randomize thumbnails" feature.', //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW   => 'Only applies to galleries that span multiple pages.', //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS    => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT     => sprintf('Default is %s.', 90),   //>(translatable)<
-                tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH      => sprintf('Default is %s.', 120),  //>(translatable)<
-                tubepress_app_api_options_Names::HTML_HTTPS               => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
-                tubepress_app_api_options_Names::HTTP_METHOD              => 'Defines the HTTP method used in most TubePress Ajax operations',  //>(translatable)<
-                tubepress_app_api_options_Names::META_DATEFORMAT          => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
-                tubepress_app_api_options_Names::META_DESC_LIMIT          => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
-                tubepress_app_api_options_Names::META_RELATIVE_DATES      => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => 'Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players.',
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Set to 0 for "instant" scroll.',
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively.',
-                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS        => 'Auto-resize media players to best fit the viewer\'s screen.', //>(translatable)<
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER         => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
-                tubepress_app_api_options_Names::SHORTCODE_KEYWORD        => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
+                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR       => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.', //>(translatable)<
+                tubepress_app_api_options_Names::CACHE_DIRECTORY             => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.', //>(translatable)<
+                tubepress_app_api_options_Names::CACHE_ENABLED               => 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', //>(translatable)<
+                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS      => 'Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour).',   //>(translatable)<
+                tubepress_app_api_options_Names::DEBUG_ON                    => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  //>(translatable)<
+                tubepress_app_api_options_Names::EMBEDDED_HEIGHT             => sprintf('Default is %s.', 390), //>(translatable)<
+                tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY           => 'Auto-play each video after thumbnail click.', //>(translatable)<
+                tubepress_app_api_options_Names::EMBEDDED_LOOP               => 'Continue playing the video until the user stops it.', //>(translatable)<
+                tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL        => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', //>(translatable)<
+                tubepress_app_api_options_Names::EMBEDDED_WIDTH              => sprintf('Default is %s.', 640), //>(translatable)<
+                tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST      => 'A list of video IDs that should never be displayed.',                                          //>(translatable)<
+                tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP       => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.', //>(translatable)<
+                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE       => sprintf('Default is %s. Maximum is %s.', 20, 50),                                               //>(translatable)<
+                tubepress_app_api_options_Names::FEED_PER_PAGE_SORT          => 'Additional sort order applied to each individual page of a gallery',                           //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION     => sprintf('<a href="%s" target="_blank">Ajax</a>-enabled pagination', "http://wikipedia.org/wiki/Ajax_(programming)"),  //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_AUTONEXT            => 'When a video finishes, this will start playing the next video in the gallery.',  //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS        => 'Dynamically set thumbnail spacing based on the width of their container.', //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_HQ_THUMBS           => 'Note: this option cannot be used with the "randomize thumbnails" feature.', //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE      => 'Only applies to galleries that span multiple pages.', //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW      => 'Only applies to galleries that span multiple pages.', //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE => 'Keep pagination in a single row on all devices and screen sizes.',
+                tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS       => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT        => sprintf('Default is %s.', 90),   //>(translatable)<
+                tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH         => sprintf('Default is %s.', 120),  //>(translatable)<
+                tubepress_app_api_options_Names::HTML_HTTPS                  => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
+                tubepress_app_api_options_Names::HTTP_METHOD                 => 'Defines the HTTP method used in most TubePress Ajax operations',  //>(translatable)<
+                tubepress_app_api_options_Names::META_DATEFORMAT             => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
+                tubepress_app_api_options_Names::META_DESC_LIMIT             => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
+                tubepress_app_api_options_Names::META_RELATIVE_DATES         => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON          => 'Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players.',
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION    => 'Set to 0 for "instant" scroll.',
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET      => 'Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively.',
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS           => 'Auto-resize media players to best fit the viewer\'s screen.', //>(translatable)<
+                tubepress_app_api_options_Names::SEARCH_ONLY_USER            => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
+                tubepress_app_api_options_Names::SHORTCODE_KEYWORD           => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
 
             ),
         ))->addArgument(array(
@@ -721,7 +724,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
-                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS
+                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE,
             ),
         ));
 
@@ -936,6 +940,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW,
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE,
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_AUTONEXT,
@@ -1052,6 +1057,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW,
+                tubepress_app_api_options_Names::GALLERY_PAGINATE_RESPONSIVE,
                 tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
                 tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS
             ),
