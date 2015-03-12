@@ -35,9 +35,12 @@
         /* this stuff helps compression */
         beacon    = tubePress.Beacon,
         subscribe = beacon.subscribe,
+        publish   = beacon.publish,
         styler    = tubePress.Ajax.LoadStyler,
         addStyle  = styler.applyLoadingStyle,
         remStyle  = styler.removeLoadingStyle,
+
+        fawlse = false,
 
         getModernSelector = function (galleryId) {
 
@@ -65,11 +68,39 @@
             return jquery(getLegacyEmbedSelector(galleryId));
         },
 
-        scrollTo = function (element) {
+        scrollTo = function (element, galleryId) {
+
+            var data          = {},
+                text_disable  = 'disable',
+                text_target   = 'target',
+                text_duration = 'duration',
+                duration,
+                disable,
+                target;
 
             if (element.length > 0) {
 
-                element[0].scrollIntoView(true);
+                data[text_player + 'Name'] = text_normal;
+                data[text_disable]         = fawlse;
+                data[text_galleryId]       = galleryId;
+                data[text_target]          = element.offset().top;
+                data[text_duration]        = 0;
+
+                /** Publish that we're going to scroll */
+                publish(text_eventPrefix_player + 'scroll', data);
+
+                disable  = data[text_disable] !== fawlse;
+                target   = data[text_target];
+                duration = data[text_duration];
+
+                if (!disable) {
+
+                    jquery('html, body').animate({
+
+                        scrollTop: target
+
+                    }, duration);
+                }
             }
         },
 
@@ -86,8 +117,8 @@
             addStyle(legacyTitleSelector);
             addStyle(legacyEmbedSelector);
 
-            scrollTo(modernElement);
-            scrollTo(legacyTitleElement);
+            scrollTo(modernElement, galleryId);
+            scrollTo(legacyTitleElement, galleryId);
         },
 
         populate = function (e, data) {
