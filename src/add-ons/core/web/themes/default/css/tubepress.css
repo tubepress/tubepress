@@ -299,9 +299,9 @@ div.tubepress-single-item dl.tubepress-meta-group {
     }
 
     li.tubepress-pagination-item > * {
-        font-size: 18px;
+        font-size: 16px;
         border-left-width: 1px;
-        padding: 8px 18px;
+        padding: 7px 16px;
     }
 
     li.tubepress-pagination-item:first-of-type,
@@ -310,7 +310,7 @@ div.tubepress-single-item dl.tubepress-meta-group {
     }
 
     li.tubepress-pagination-item:last-of-type > * {
-
+        margin-left: 1em ! important;
     }
 }
 
