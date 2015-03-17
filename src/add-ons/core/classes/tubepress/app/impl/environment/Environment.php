@@ -25,6 +25,11 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     private static $_PROPERTY_URL_USERCONTENT = 'urlUserContent';
 
     /**
+     * tubepress_platform_api_url_UrlInterface The Ajax endpoint URL
+     */
+    private static $_PROPERTY_URL_AJAX = 'urlAjax';
+
+    /**
      * 
      */
     private static $_PROPERTY_VERSION = 'version';
@@ -66,7 +71,9 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface The base TubePress URL. May be null.
+     * @return tubepress_platform_api_url_UrlInterface The base TubePress URL.
+     *
+     * @throws RuntimeException If the base URL was not set or cannot be determined.
      *
      * @api
      * @since 4.0.0
@@ -75,7 +82,31 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     {
         if (!$this->_properties->containsKey(self::$_PROPERTY_URL_BASE)) {
 
-            return null;
+            /**
+             * See if it was defined in boot settings.
+             */
+            $fromBootSettings = $this->_bootSettings->getUrlBase();
+
+            if ($fromBootSettings) {
+
+                $this->_properties->put(self::$_PROPERTY_URL_BASE, $fromBootSettings);
+
+                return $fromBootSettings;
+            }
+
+            if (!$this->_isWordPress()) {
+
+                throw new RuntimeException('Please specify TubePress base URL in tubepress-content/config/settings.php');
+            }
+
+            $baseName = basename(TUBEPRESS_ROOT);
+
+            $prefix = $this->_getWpContentUrl();
+
+            $url = rtrim($prefix, '/') . "/plugins/$baseName";
+            $url = $this->_toUrl($url);
+
+            $this->_properties->put(self::$_PROPERTY_URL_BASE, $url);
         }
 
         return $this->_properties->get(self::$_PROPERTY_URL_BASE);
@@ -83,6 +114,8 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
     /**
      * Set the TubePress base URL.
+     *
+     * @deprecated Use settings.php instead.
      *
      * @param string|tubepress_platform_api_url_UrlInterface $url The new base URL.
      *
@@ -97,15 +130,13 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     {
         $asUrl = $this->_toUrl($url);
 
-        $asUrl->removeSchemeAndAuthority();
-
-        $asUrl->freeze();
-
         $this->_properties->put(self::$_PROPERTY_URL_BASE, $asUrl);
     }
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface The user content URL. May be null.
+     * @return tubepress_platform_api_url_UrlInterface The user content URL.
+     *
+     * @throws RuntimeException If the user content URL was not set or cannot be determined.
      *
      * @api
      * @since 4.0.0
@@ -114,41 +145,26 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     {
         if (!$this->_properties->containsKey(self::$_PROPERTY_URL_USERCONTENT)) {
 
-            if (defined('TUBEPRESS_CONTENT_URL')) {
+            $fromBootSettings = $this->_bootSettings->getUrlUserContent();
 
-                $url = rtrim(TUBEPRESS_CONTENT_URL, DIRECTORY_SEPARATOR);
+            if ($fromBootSettings) {
+
+                $this->_properties->put(self::$_PROPERTY_URL_USERCONTENT, $fromBootSettings);
+
+                return $fromBootSettings;
+            }
+
+            if ($this->_isWordPress()) {
+
+                $url = $this->_getWpContentUrl();
 
             } else {
 
-                if ($this->_isWordPress()) {
-
-                    $url = $this->_wpFunctionsInterface->content_url();
-
-                } else {
-
-                    if (!$this->_properties->containsKey(self::$_PROPERTY_URL_BASE)) {
-
-                        return null;
-                    }
-
-                    $url = $this->_properties->get(self::$_PROPERTY_URL_BASE)->toString();
-                }
-
-                $url = rtrim($url, '/') . '/tubepress-content';
+                $url = $this->getBaseUrl()->toString();
             }
 
-            try {
-
-                $url = $this->_toUrl($url);
-
-            } catch (InvalidArgumentException $e) {
-
-                return null;
-            }
-
-            $url->removeSchemeAndAuthority();
-
-            $url->freeze();
+            $url = rtrim($url, '/') . '/tubepress-content';
+            $url = $this->_toUrl($url);
 
             $this->_properties->put(self::$_PROPERTY_URL_USERCONTENT, $url);
         }
@@ -158,6 +174,8 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
     /**
      * Set the user content URL.
+     *
+     * @deprecated Use settings.php instead.
      *
      * @param string|tubepress_platform_api_url_UrlInterface $url The user content URL.
      *
@@ -172,9 +190,46 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     {
         $asUrl = $this->_toUrl($url);
 
-        $asUrl->freeze();
-
         $this->_properties->put(self::$_PROPERTY_URL_USERCONTENT, $asUrl);
+    }
+
+    /**
+     * @return tubepress_platform_api_url_UrlInterface The Ajax endpoint URL.
+     *
+     * @api
+     * @since 4.0.9
+     */
+    public function getAjaxEndpointUrl()
+    {
+        if (!$this->_properties->containsKey(self::$_PROPERTY_URL_AJAX)) {
+
+            /**
+             * See if it was defined in boot settings.
+             */
+            $fromBootSettings = $this->_bootSettings->getUrlAjaxEndpoint();
+
+            if ($fromBootSettings) {
+
+                $this->_properties->put(self::$_PROPERTY_URL_AJAX, $fromBootSettings);
+
+                return $fromBootSettings;
+            }
+
+            if ($this->_isWordPress()) {
+
+                $url = $this->_wpFunctionsInterface->admin_url('admin-ajax.php');
+
+            } else {
+
+                $url = $this->getBaseUrl()->getClone()->setPath('/web/php/ajaxEndpoint.php');
+            }
+
+            $url = $this->_toUrl($url);
+
+            $this->_properties->put(self::$_PROPERTY_URL_AJAX, $url);
+        }
+
+        return $this->_properties->get(self::$_PROPERTY_URL_AJAX);
     }
 
     /**
@@ -236,11 +291,29 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
             $url = $this->_urlFactory->fromString($url);
         }
 
+        $url->freeze();
+
         return $url;
     }
 
     private function _isWordPress()
     {
         return defined('WPLANG') && defined('ABSPATH');
+    }
+
+    private function _getWpContentUrl()
+    {
+        $isWpMuDomainMapped = defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
+
+        /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
+        if ($isWpMuDomainMapped) {
+
+            $scheme = $this->_wpFunctionsInterface->is_ssl() ? 'https://' : 'http://';
+
+            return $scheme . constant('COOKIE_DOMAIN') . '/wp-content';
+
+        }
+
+        return $this->_wpFunctionsInterface->content_url();
     }
 }

@@ -17,6 +17,35 @@
 return array(
 
     /**
+     * Settings that many users will want to change for their environment.
+     */
+    'user' => array(
+
+        /**
+         * Various URLs used by TubePress. Typically only standalone PHP users will need to adjust these settings,
+         * as they are auto-detected in other environments.
+         */
+        'urls' => array(
+
+            /**
+             * 'base' is the web-accessible URL of your TubePress installation.
+             */
+            //'base' => 'http://foo.com/path/to/tubepress',
+
+            /**
+             * 'userContent' is the URL to your TubePress Content Directory.
+             */
+            //'userContent' => http://foo.com/path/to/tubepress-content',
+
+            /**
+             * 'ajax' is the URL where TubePress's client-side code should send its Ajax requests.
+             * ** Most users will not need or want to mess with this - TubePress will detect it for you. **
+             */
+            //'ajax' => 'http://foo.com/path/to/tubepress/ajaxEndpoint.php',
+        ),
+    ),
+
+    /**
      * System settings. Most users won't need to change these.
      */
     'system' => array(

@@ -175,7 +175,7 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     {
         if (!isset($this->_bootSettings)) {
 
-            $this->_bootSettings = new tubepress_platform_impl_boot_BootSettings($this->_bootLogger);
+            $this->_bootSettings = new tubepress_platform_impl_boot_BootSettings($this->_bootLogger, new tubepress_platform_impl_url_puzzle_UrlFactory($_SERVER));
         }
 
         if (!isset($this->_containerSupplier)) {
