@@ -98,7 +98,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
     public function testGetBaseUrlNoBootSettingsRegularWp()
     {
         define('ABSPATH', 'some abspath');
-        define('WPLANG', 'lang');
+        define('DB_USER', 'user');
 
         $this->_mockBootSettings->shouldReceive('getUrlBase')->once()->andReturnNull();
 
@@ -124,7 +124,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
     public function testGetBaseUrlNoBootSettingsMultiWpSsl()
     {
         define('ABSPATH', 'some abspath');
-        define('WPLANG', 'lang');
+        define('DB_USER', 'user');
         define('DOMAIN_MAPPING', true);
         define('COOKIE_DOMAIN', 'gimme cookies!');
 
@@ -152,7 +152,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
     public function testGetBaseUrlNoBootSettingsMultiWpNoSsl()
     {
         define('ABSPATH', 'some abspath');
-        define('WPLANG', 'lang');
+        define('DB_USER', 'user');
         define('DOMAIN_MAPPING', true);
         define('COOKIE_DOMAIN', 'gimme cookies!');
 
@@ -190,7 +190,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
     public function testGetUserContentUrlWp()
     {
         define('ABSPATH', 'some abspath');
-        define('WPLANG', 'lang');
+        define('DB_USER', 'user');
 
         $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
         $this->_mockBootSettings->shouldReceive('getUrlUserContent')->once()->andReturn(null);
@@ -225,7 +225,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
     public function testGetAjaxUrlWp()
     {
         define('ABSPATH', 'some abspath');
-        define('WPLANG', 'lang');
+        define('DB_USER', 'user');
 
         $mockUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
         $this->_mockBootSettings->shouldReceive('getUrlAjaxEndpoint')->once()->andReturn(null);

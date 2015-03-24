@@ -298,7 +298,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
 
     private function _isWordPress()
     {
-        return defined('WPLANG') && defined('ABSPATH');
+        return defined('DB_USER') && defined('ABSPATH');
     }
 
     private function _getWpContentUrl()
