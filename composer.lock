@@ -475,25 +475,25 @@
         },
         {
             "name": "twig/twig",
-            "version": "dev-master",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "d375c805fb830f75aa3b8d4868cc2d9f99a4c2fa"
+                "reference": "eecf85e903322e425ea921fd2588238f632965d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d375c805fb830f75aa3b8d4868cc2d9f99a4c2fa",
-                "reference": "d375c805fb830f75aa3b8d4868cc2d9f99a4c2fa",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/eecf85e903322e425ea921fd2588238f632965d2",
+                "reference": "eecf85e903322e425ea921fd2588238f632965d2",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.4"
+                "php": ">=5.2.7"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.16-dev"
+                    "dev-master": "1.18-dev"
                 }
             },
             "autoload": {
@@ -528,7 +528,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-12-25 20:52:25"
+            "time": "2015-03-06 07:12:47"
         }
     ],
     "packages-dev": [
@@ -968,19 +968,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "cd030e0105b19bd8adf7c9a6ba441cbd7e46a2e5"
+                "reference": "372d1d6d4bf28c785dc5be3531144b12f9b29a22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/cd030e0105b19bd8adf7c9a6ba441cbd7e46a2e5",
-                "reference": "cd030e0105b19bd8adf7c9a6ba441cbd7e46a2e5",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/372d1d6d4bf28c785dc5be3531144b12f9b29a22",
+                "reference": "372d1d6d4bf28c785dc5be3531144b12f9b29a22",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "require-dev": {
-                "symfony/finder": "~2.7|~3.0"
+                "symfony/finder": "~2.7|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0"
             },
             "type": "library",
             "extra": {
@@ -1009,7 +1010,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-05 14:34:32"
+            "time": "2015-02-21 13:23:59"
         },
         {
             "name": "symfony/css-selector",
@@ -1018,16 +1019,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "bf472fda628507b21e08a95e137fde8523cd9cad"
+                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/bf472fda628507b21e08a95e137fde8523cd9cad",
-                "reference": "bf472fda628507b21e08a95e137fde8523cd9cad",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
+                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0"
             },
             "type": "library",
             "extra": {
@@ -1060,7 +1064,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 08:04:30"
+            "time": "2015-02-21 13:23:59"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1069,19 +1073,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "7f6361a50f01e551bda9a578d556208d8b8d4f3c"
+                "reference": "0e444fc344a589002d0e2087f10d388d62c5c94c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/7f6361a50f01e551bda9a578d556208d8b8d4f3c",
-                "reference": "7f6361a50f01e551bda9a578d556208d8b8d4f3c",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/0e444fc344a589002d0e2087f10d388d62c5c94c",
+                "reference": "0e444fc344a589002d0e2087f10d388d62c5c94c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "require-dev": {
-                "symfony/css-selector": "~2.7|~3.0"
+                "symfony/css-selector": "~2.7|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -1113,7 +1118,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 08:04:30"
+            "time": "2015-03-07 07:44:26"
         },
         {
             "name": "symfony/yaml",
@@ -1122,16 +1127,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "193d609c031e61eb2be7218e19de834e9957be04"
+                "reference": "601ca9abea0e2742b051de33f5de4bc764f5ce5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/193d609c031e61eb2be7218e19de834e9957be04",
-                "reference": "193d609c031e61eb2be7218e19de834e9957be04",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/601ca9abea0e2742b051de33f5de4bc764f5ce5c",
+                "reference": "601ca9abea0e2742b051de33f5de4bc764f5ce5c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0.0"
             },
             "type": "library",
             "extra": {
@@ -1160,7 +1168,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-05 15:02:28"
+            "time": "2015-03-07 07:43:00"
         }
     ],
     "aliases": [],
@@ -1171,6 +1179,7 @@
         "symfony/css-selector": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }

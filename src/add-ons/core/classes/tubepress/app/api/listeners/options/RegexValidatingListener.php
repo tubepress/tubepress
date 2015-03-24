@@ -17,6 +17,7 @@ class tubepress_app_api_listeners_options_RegexValidatingListener
 {
     const TYPE_INTEGER_POSITIVE                = 'positiveInteger';
     const TYPE_INTEGER_NONNEGATIVE             = 'nonNegativeInteger';
+    const TYPE_INTEGER                         = 'integer';
     const TYPE_ONE_OR_MORE_WORDCHARS           = 'oneOrMoreWordChars';
     const TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN = 'oneOrMoreWordCharsPlusHyphen';
     const TYPE_ZERO_OR_MORE_WORDCHARS          = 'zeroOrMoreWordChars';
@@ -27,6 +28,7 @@ class tubepress_app_api_listeners_options_RegexValidatingListener
 
         self::TYPE_INTEGER_POSITIVE,
         self::TYPE_INTEGER_NONNEGATIVE,
+        self::TYPE_INTEGER,
         self::TYPE_ONE_OR_MORE_WORDCHARS,
         self::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN,
         self::TYPE_ZERO_OR_MORE_WORDCHARS,
@@ -36,13 +38,14 @@ class tubepress_app_api_listeners_options_RegexValidatingListener
 
     private static $_REGEXES = array(
 
-        self::TYPE_INTEGER_POSITIVE                => '/[1-9][0-9]{0,6}/',
-        self::TYPE_INTEGER_NONNEGATIVE             => '/0|[1-9][0-9]{0,6}/',
-        self::TYPE_ONE_OR_MORE_WORDCHARS           => '/\w+/',
-        self::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => '/[\w-]+/',
-        self::TYPE_ZERO_OR_MORE_WORDCHARS          => '/\w*/',
+        self::TYPE_INTEGER_POSITIVE                => '/^[1-9][0-9]{0,6}$/',
+        self::TYPE_INTEGER_NONNEGATIVE             => '/^0|[1-9][0-9]{0,6}$/',
+        self::TYPE_INTEGER                         => '/^0|-?[1-9][0-9]{0,6}$/',
+        self::TYPE_ONE_OR_MORE_WORDCHARS           => '/^\w+$/',
+        self::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => '/^[\w-]+$/',
+        self::TYPE_ZERO_OR_MORE_WORDCHARS          => '/^\w*$/',
         self::TYPE_STRING_HEXCOLOR                 => '/^([0-9a-f]{1,2}){3}$/i',
-        self::TYPE_STRING_YOUTUBE_VIDEO_ID         => '/[a-zA-Z0-9_-]{11}/'
+        self::TYPE_STRING_YOUTUBE_VIDEO_ID         => '/^[a-zA-Z0-9_-]{11}$/'
     );
 
     /**

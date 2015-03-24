@@ -25,7 +25,6 @@
 {% set totalItems     = paginationTotalItems %}
 {% set itemsPerPage   = paginationResultsPerPage %}
 {% set pageCount      = (totalItems / itemsPerPage)|round(0, 'ceil') %}
-{% set dots           = '<li class="disabled"><a href="#">...</a></li>' %}
 {% set pageRange      = 5 %}
 
 {% if pageCount < currentPageNum %}
@@ -124,13 +123,13 @@
 
             {% if previousPage is defined %}
 
-                <li>
+                <li class="tubepress-pagination-item">
                     {{ pagination.anchor(previousPage, paginationHrefFormat, '&laquo;&nbsp;' ~ 'prev'|trans|escape) }}
                 </li>
 
             {% else %}
 
-                <li class="disabled">
+                <li class="tubepress-pagination-item disabled">
                     <span>&laquo;&nbsp;{{ 'prev'|trans }}</span>
                 </li>
 
@@ -138,19 +137,19 @@
 
             {% if startPage > 1 %}
 
-                <li>
+                <li class="tubepress-pagination-item">
                     {{ pagination.anchor(1, paginationHrefFormat) }}
                 </li>
 
                 {% if startPage == 3 %}
 
-                    <li>
+                    <li class="tubepress-pagination-item">
                         {{ pagination.anchor(2, paginationHrefFormat) }}
                     </li>
 
                 {% elseif startPage != 2 %}
 
-                    <li class="disabled">
+                    <li class="tubepress-pagination-item disabled">
                         <span>&hellip;</span>
                     </li>
 
@@ -161,13 +160,13 @@
 
                 {% if page != currentPageNum %}
 
-                    <li>
+                    <li class="tubepress-pagination-item">
                         {{ pagination.anchor(page, paginationHrefFormat) }}
                     </li>
 
                 {% else %}
 
-                    <li class="active">
+                    <li class="tubepress-pagination-item active">
                         <span>{{ page }}</span>
                     </li>
 
@@ -180,20 +179,20 @@
 
                     {% if pageCount > (endPage + 2) %}
 
-                        <li class="disabled">
+                        <li class="tubepress-pagination-item disabled">
                             <span>&hellip;</span>
                         </li>
 
                     {% else %}
 
-                        <li>
+                        <li class="tubepress-pagination-item">
                             {{ pagination.anchor(pageCount - 1, paginationHrefFormat) }}
                         </li>
 
                     {% endif %}
                 {% endif %}
 
-                <li>
+                <li class="tubepress-pagination-item">
                     {{ pagination.anchor(pageCount, paginationHrefFormat) }}
                 </li>
 
@@ -201,13 +200,13 @@
 
             {% if nextPage is defined %}
 
-                <li>
+                <li class="tubepress-pagination-item">
                     {{ pagination.anchor(nextPage, paginationHrefFormat, 'next'|trans|escape ~ '&nbsp;&raquo;') }}
                 </li>
 
             {% else %}
 
-                <li class="disabled">
+                <li class="tubepress-pagination-item disabled">
                     <span>{{ 'next'|trans }}&nbsp;&raquo;</span>
                 </li>
 

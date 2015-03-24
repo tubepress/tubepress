@@ -283,6 +283,36 @@ div.tubepress-single-item dl.tubepress-meta-group {
     text-align: right;
 }
 
+/**
+ * Hide everything but "prev" and "next" on small screens
+ */
+@media (max-width: 775px) {
+
+    .tubepress-pagination ul {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    li.tubepress-pagination-item {
+        display: none;
+    }
+
+    li.tubepress-pagination-item > * {
+        font-size: 16px;
+        border-left-width: 1px;
+        padding: 7px 16px;
+    }
+
+    li.tubepress-pagination-item:first-of-type,
+    li.tubepress-pagination-item:last-of-type {
+        display: inherit;
+    }
+
+    li.tubepress-pagination-item:last-of-type > * {
+        margin-left: 1em ! important;
+    }
+}
 
 
 /**

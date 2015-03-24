@@ -83,6 +83,24 @@ interface tubepress_app_api_options_Names
 
     /**
      * @api
+     * @since 4.0.9
+     */
+    const EMBEDDED_SCROLL_DURATION = 'embeddedScrollDuration';
+
+    /**
+     * @api
+     * @since 4.0.9
+     */
+    const EMBEDDED_SCROLL_OFFSET = 'embeddedScrollOffset';
+
+    /**
+     * @api
+     * @since 4.0.9
+     */
+    const EMBEDDED_SCROLL_ON = 'embeddedScrollOn';
+
+    /**
+     * @api
      * @since 4.0.0
      */
     const EMBEDDED_SHOW_INFO = 'showInfo';
