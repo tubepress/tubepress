@@ -43,7 +43,9 @@ interface tubepress_app_api_environment_EnvironmentInterface
     function getVersion();
 
     /**
-     * @return tubepress_platform_api_url_UrlInterface The base TubePress URL. May be null.
+     * @return tubepress_platform_api_url_UrlInterface The base TubePress URL.
+     *
+     * @throws RuntimeException If the base URL was not set or cannot be determined.
      *
      * @api
      * @since 4.0.0
@@ -51,21 +53,9 @@ interface tubepress_app_api_environment_EnvironmentInterface
     function getBaseUrl();
 
     /**
-     * Set the TubePress base URL.
+     * @return tubepress_platform_api_url_UrlInterface The user content URL.
      *
-     * @param string|tubepress_platform_api_url_UrlInterface $url The new base URL.
-     *
-     * @throws InvalidArgumentException If unable to parse URL.
-     *
-     * @return void
-     *
-     * @api
-     * @since 4.0.0
-     */
-    function setBaseUrl($url);
-
-    /**
-     * @return tubepress_platform_api_url_UrlInterface The user content URL. May be null.
+     * @throws RuntimeException If the user content URL was not set or cannot be determined.
      *
      * @api
      * @since 4.0.0
@@ -73,7 +63,31 @@ interface tubepress_app_api_environment_EnvironmentInterface
     function getUserContentUrl();
 
     /**
+     * @return tubepress_platform_api_url_UrlInterface The Ajax endpoint URL.
+     *
+     * @throws RuntimeException If the Ajax endpoint URL was not set or cannot be determined.
+     *
+     * @api
+     * @since 4.0.9
+     */
+    function getAjaxEndpointUrl();
+
+    /**
+     * @return tubepress_platform_api_collection_MapInterface
+     *
+     * @api
+     * @since 4.0.0
+     */
+    function getProperties();
+
+
+
+
+
+    /**
      * Set the user content URL.
+     *
+     * @deprecated Use settings.php instead.
      *
      * @param string|tubepress_platform_api_url_UrlInterface $url The user content URL.
      *
@@ -86,11 +100,20 @@ interface tubepress_app_api_environment_EnvironmentInterface
      */
     function setUserContentUrl($url);
 
+
     /**
-     * @return tubepress_platform_api_collection_MapInterface
+     * Set the TubePress base URL.
+     *
+     * @deprecated Use settings.php instead.
+     *
+     * @param string|tubepress_platform_api_url_UrlInterface $url The new base URL.
+     *
+     * @throws InvalidArgumentException If unable to parse URL.
+     *
+     * @return void
      *
      * @api
      * @since 4.0.0
      */
-    function getProperties();
+    function setBaseUrl($url);
 }

@@ -31,14 +31,22 @@ class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePress
      */
     private $_mockLogger;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockUrlFactory;
+
     public function onSetup()
     {
-        $this->_mockLogger              = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockLogger     = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut                     = new tubepress_platform_impl_boot_BootSettings($this->_mockLogger);
+        $this->_mockUrlFactory->shouldReceive('fromString')->andReturnUsing(array($this, '__callbackRealUrlFactory'));
+
+        $this->_sut = new tubepress_platform_impl_boot_BootSettings($this->_mockLogger, $this->_mockUrlFactory);
 
         $this->_userContentDirectory = sys_get_temp_dir() . '/tubepress-boot-settings-test/';
 
@@ -48,6 +56,13 @@ class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePress
         }
 
         mkdir($this->_userContentDirectory . '/config', 0777, true);
+    }
+
+    public function __callbackRealUrlFactory($incoming)
+    {
+        $realFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+
+        return $realFactory->fromString($incoming);
     }
 
     public function testUserContentDirWp1()
@@ -102,6 +117,65 @@ EOF
         $result = $this->_sut->getPathToSystemCacheDirectory();
 
         $this->assertEquals($path, $result);
+    }
+
+    /**
+     * @dataProvider getSuccessfulUrls
+     */
+    public function testSuccessfulUserUrls($key, $candidate, $getter, $expected)
+    {
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'user' => array(
+        'urls' => array(
+
+            '$key'  => '$candidate'
+        )
+    )
+);
+EOF
+        );
+
+        $result = $this->_sut->$getter();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function getSuccessfulUrls()
+    {
+        return array(
+
+            array('base', 'http://foo.com', 'getUrlBase', 'http://foo.com'),
+            array('base', '/foo', 'getUrlBase', '/foo'),
+            array('ajax', 'http://foo.com', 'getUrlAjaxEndpoint', 'http://foo.com'),
+            array('ajax', '/foo', 'getUrlAjaxEndpoint', '/foo'),
+            array('userContent', 'http://foo.com', 'getUrlUserContent', 'http://foo.com'),
+            array('userContent', '/foo', 'getUrlUserContent', '/foo'),
+        );
+    }
+
+    public function testBadUrl()
+    {
+        define('TUBEPRESS_CONTENT_DIRECTORY', $this->_userContentDirectory);
+
+        $this->_mockLogger->shouldReceive('error')->once()->with('Unable to parse base URL from settings.php');
+
+        $this->_writeBootConfig(<<<EOF
+<?php
+return array(
+    'user' => array(
+        'urls' => array(
+            'base'  => new stdClass()
+        )
+    )
+);
+EOF
+        );
+
+        $this->assertEquals(null, $this->_sut->getUrlBase());
     }
 
     public function testContainerStoragePathCreateDirectory()
@@ -253,6 +327,10 @@ EOF
 
         $result = $this->_sut->isSystemCacheEnabled();
         $this->assertTrue($result);
+
+        $this->assertNull($this->_sut->getUrlAjaxEndpoint());
+        $this->assertNull($this->_sut->getUrlBase());
+        $this->assertNull($this->_sut->getUrlUserContent());
 
         $this->recursivelyDeleteDirectory($this->_sut->getPathToSystemCacheDirectory());
     }

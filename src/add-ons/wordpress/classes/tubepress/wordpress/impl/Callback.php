@@ -12,24 +12,9 @@
 class tubepress_wordpress_impl_Callback
 {
     /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
-     */
-    private $_environment;
-
-    /**
      * @var tubepress_lib_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
-
-    /**
-     * @var bool
-     */
-    private $_baseUrlAlreadySet = false;
-
-    /**
-     * @var tubepress_wordpress_impl_wp_WpFunctions
-     */
-    private $_wpFunctions;
 
     /**
      * @var tubepress_wordpress_impl_wp_ActivationHook
@@ -56,17 +41,13 @@ class tubepress_wordpress_impl_Callback
      */
     private $_optionMapCache;
 
-    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment,
-                                tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
+    public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
                                 tubepress_app_api_options_ContextInterface         $context,
                                 tubepress_app_api_html_HtmlGeneratorInterface      $htmlGenerator,
                                 tubepress_app_api_options_ReferenceInterface       $optionsReference,
-                                tubepress_wordpress_impl_wp_WpFunctions            $wpFunctions,
                                 tubepress_wordpress_impl_wp_ActivationHook         $activationHook)
     {
-        $this->_environment      = $environment;
         $this->_eventDispatcher  = $eventDispatcher;
-        $this->_wpFunctions      = $wpFunctions;
         $this->_activationHook   = $activationHook;
         $this->_context          = $context;
         $this->_htmlGenerator    = $htmlGenerator;
@@ -75,8 +56,6 @@ class tubepress_wordpress_impl_Callback
 
     public function onFilter($filterName, array $args)
     {
-        $this->_setBaseUrl();
-
         $subject = $args[0];
         $args    = count($args) > 1 ? array_slice($args, 1) : array();
         $event   = $this->_eventDispatcher->newEventInstance(
@@ -92,8 +71,6 @@ class tubepress_wordpress_impl_Callback
 
     public function onAction($actionName, array $args)
     {
-        $this->_setBaseUrl();
-
         $event = $this->_eventDispatcher->newEventInstance($args);
 
         $this->_eventDispatcher->dispatch("tubepress.wordpress.action.$actionName", $event);
@@ -101,15 +78,11 @@ class tubepress_wordpress_impl_Callback
 
     public function onPluginActivation()
     {
-        $this->_setBaseUrl();
-
         $this->_activationHook->execute();
     }
 
     public function onShortcode($optionMap)
     {
-        $this->_setBaseUrl();
-
         if (!is_array($optionMap)) {
 
             $optionMap = array();
@@ -126,46 +99,6 @@ class tubepress_wordpress_impl_Callback
         $this->_context->setEphemeralOptions(array());
 
         return $toReturn;
-    }
-
-    private function _setBaseUrl()
-    {
-        if ($this->_baseUrlAlreadySet) {
-
-            return;
-        }
-
-        $baseName = basename(TUBEPRESS_ROOT);
-
-
-        /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
-        if ($this->_isWordPressMuDomainMapped()) {
-
-            $prefix = $this->_getScheme($this->_wpFunctions) . constant('COOKIE_DOMAIN') . '/wp-content';
-
-        } else {
-
-            $prefix = $this->_wpFunctions->content_url();
-        }
-
-        $this->_environment->setBaseUrl($prefix . "/plugins/$baseName");
-
-        $this->_baseUrlAlreadySet = true;
-    }
-
-    private function _getScheme(tubepress_wordpress_impl_wp_WpFunctions $wpFunctionWrapper)
-    {
-        if ($wpFunctionWrapper->is_ssl()) {
-
-            return 'https://';
-        }
-
-        return 'http://';
-    }
-
-    private function _isWordPressMuDomainMapped()
-    {
-        return defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
     }
 
     private function _normalizeIncomingShortcodeOptionMap(array $optionMap)

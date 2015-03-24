@@ -14,23 +14,6 @@
  */
 class tubepress_wordpress_impl_listeners_html_WpHtmlListener
 {
-    /**
-     * @var tubepress_wordpress_impl_wp_WpFunctions
-     */
-    private $_wpFunctions;
-
-    /**
-     * @var tubepress_platform_api_url_UrlFactoryInterface
-     */
-    private $_urlFactory;
-
-    public function __construct(tubepress_wordpress_impl_wp_WpFunctions        $wpFunctions,
-                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
-    {
-        $this->_wpFunctions = $wpFunctions;
-        $this->_urlFactory  = $urlFactory;
-    }
-
     public function onScriptsStylesTemplatePreRender(tubepress_lib_api_event_EventInterface $event)
     {
         $templateVars = $event->getSubject();
@@ -41,37 +24,5 @@ class tubepress_wordpress_impl_listeners_html_WpHtmlListener
 
             $event->setSubject($templateVars);
         }
-    }
-
-    public function onGlobalJsConfig(tubepress_lib_api_event_EventInterface $event)
-    {
-        /**
-         * @var $config array
-         */
-        $config = $event->getSubject();
-
-        if (!isset($config['urls'])) {
-
-            $config['urls'] = array();
-        }
-
-        if (!isset($config['urls']['php'])) {
-
-            $config['urls']['php'] = array();
-        }
-
-        if (!isset($config['urls']['php']['sys'])) {
-
-            $config['urls']['php']['sys'] = array();
-        }
-
-        $adminAjaxUrl = $this->_wpFunctions->admin_url('admin-ajax.php');
-        $adminAjaxUrl = $this->_urlFactory->fromString($adminAjaxUrl);
-
-        $adminAjaxUrl->removeSchemeAndAuthority();
-
-        $config['urls']['php']['sys']['ajaxEndpoint'] = "$adminAjaxUrl";
-
-        $event->setSubject($config);
     }
 }
