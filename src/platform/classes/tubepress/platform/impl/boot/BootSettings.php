@@ -15,10 +15,12 @@
 class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_api_boot_BootSettingsInterface
 {
     private static $_TOP_LEVEL_KEY_SYSTEM = 'system';
+    private static $_TOP_LEVEL_KEY_USER   = 'user';
 
     private static $_2ND_LEVEL_KEY_CLASSLOADER = 'classloader';
     private static $_2ND_LEVEL_KEY_CACHE       = 'cache';
     private static $_2ND_LEVEL_KEY_ADDONS      = 'add-ons';
+    private static $_2ND_LEVEL_KEY_URLS        = 'urls';
 
     private static $_3RD_LEVEL_KEY_CLASSLOADER_ENABLED = 'enabled';
     private static $_3RD_LEVEL_KEY_CACHE_KILLERKEY     = 'killerKey';
@@ -26,6 +28,9 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
     private static $_3RD_LEVEL_KEY_CACHE_DIR           = 'directory';
     private static $_3RD_LEVEL_KEY_ADDONS_BLACKLIST    = 'blacklist';
     private static $_3RD_LEVEL_KEY_SERIALIZATION_ENC   = 'serializationEncoding';
+    private static $_3RD_LEVEL_KEY_URL_BASE            = 'base';
+    private static $_3RD_LEVEL_KEY_URL_AJAX            = 'ajax';
+    private static $_3RD_LEVEL_KEY_URL_USERCONTENT     = 'userContent';
 
     /**
      * @var tubepress_platform_api_log_LoggerInterface
@@ -77,10 +82,32 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
      */
     private $_serializationEncoding;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface $logger)
+    /**
+     * @var tubepress_platform_api_url_UrlInterface|null
+     */
+    private $_urlBase;
+
+    /**
+     * @var tubepress_platform_api_url_UrlInterface|null
+     */
+    private $_urlAjax;
+
+    /**
+     * @var tubepress_platform_api_url_UrlInterface|null
+     */
+    private $_urlUserContent;
+
+    /**
+     * @var tubepress_platform_api_url_UrlFactoryInterface
+     */
+    private $_urlFactory;
+
+    public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
+                                tubepress_platform_api_url_UrlFactoryInterface $urlFactory)
     {
-        $this->_logger    = $logger;
-        $this->_shouldLog = $logger->isEnabled();
+        $this->_logger     = $logger;
+        $this->_shouldLog  = $logger->isEnabled();
+        $this->_urlFactory = $urlFactory;
     }
 
     /**
@@ -174,6 +201,45 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         return $this->_cachedUserContentDir;
     }
 
+    /**
+     * @api
+     * @since 4.0.9
+     *
+     * @return tubepress_platform_api_url_UrlInterface|null
+     */
+    public function getUrlBase()
+    {
+        $this->_init();
+
+        return $this->_urlBase;
+    }
+
+    /**
+     * @api
+     * @since 4.0.9
+     *
+     * @return tubepress_platform_api_url_UrlInterface|null
+     */
+    public function getUrlUserContent()
+    {
+        $this->_init();
+
+        return $this->_urlUserContent;
+    }
+
+    /**
+     * @api
+     * @since 4.0.9
+     *
+     * @return tubepress_platform_api_url_UrlInterface|null
+     */
+    public function getUrlAjaxEndpoint()
+    {
+        $this->_init();
+
+        return $this->_urlAjax;
+    }
+
     private function _init()
     {
         if ($this->_hasInitialized) {
@@ -249,6 +315,37 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         $this->_cacheDirectory        = rtrim($this->_getSystemCacheDirectory($config), DIRECTORY_SEPARATOR);
         $this->_isCacheEnabled        = $this->_getCacheEnablement($config);
         $this->_serializationEncoding = $this->_getSerializationEncoding($config);
+        $this->_urlAjax               = $this->_getUrl($config, self::$_3RD_LEVEL_KEY_URL_AJAX);
+        $this->_urlBase               = $this->_getUrl($config, self::$_3RD_LEVEL_KEY_URL_BASE);
+        $this->_urlUserContent        = $this->_getUrl($config, self::$_3RD_LEVEL_KEY_URL_USERCONTENT);
+    }
+
+    private function _getUrl(array $config, $key)
+    {
+        if (!$this->_isAllSet($config, self::$_TOP_LEVEL_KEY_USER, self::$_2ND_LEVEL_KEY_URLS, $key)) {
+
+            return null;
+        }
+
+        $candidate = $config[self::$_TOP_LEVEL_KEY_USER][self::$_2ND_LEVEL_KEY_URLS][$key];
+
+        try {
+
+            $toReturn = $this->_urlFactory->fromString($candidate);
+
+            $toReturn->freeze();
+
+            return $toReturn;
+
+        } catch (InvalidArgumentException $e) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->error("Unable to parse $key URL from settings.php");
+            }
+
+            return null;
+        }
     }
 
     private function _getSystemCacheDirectory(array $config)

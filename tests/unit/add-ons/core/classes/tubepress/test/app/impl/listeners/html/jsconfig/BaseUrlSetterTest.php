@@ -42,18 +42,22 @@ class tubepress_test_app_impl_listeners_html_jsconfig_BaseUrlSetterTest extends 
     {
         $mockBaseUrl        = $this->mock('tubepress_platform_api_url_UrlInterface');
         $mockUserContentUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $mockAjaxUrl        = $this->mock('tubepress_platform_api_url_UrlInterface');
 
         $mockBaseUrl->shouldReceive('__toString')->once()->andReturn('mockBaseUrl');
         $mockUserContentUrl->shouldReceive('__toString')->once()->andReturn('mock-user-url');
+        $mockAjaxUrl->shouldReceive('__toString')->once()->andReturn('mock-ajax-url');
 
         $this->_mockEnvironmentDetector->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentUrl')->once()->andReturn($mockUserContentUrl);
+        $this->_mockEnvironmentDetector->shouldReceive('getAjaxEndpointUrl')->once()->andReturn($mockAjaxUrl);
 
         $this->_mockEvent->shouldReceive('getSubject')->once()->andReturn(array());
         $this->_mockEvent->shouldReceive('setSubject')->once()->with(array(
             'urls' => array(
                 'base' => 'mockBaseUrl',
-                'usr'  => 'mock-user-url'
+                'usr'  => 'mock-user-url',
+                'ajax' => 'mock-ajax-url',
             )
         ));
 

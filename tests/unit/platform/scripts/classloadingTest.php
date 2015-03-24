@@ -209,6 +209,8 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
             '/ehough/iconic/dumper/YamlDumper.php',
             '/ehough/iconic/dumper/XmlDumper.php',
             '/ehough/iconic/dumper/GraphvizDumper.php',
+            '/ehough/iconic/ExpressionLanguage.php',
+            '/ehough/iconic/Scope',
             '/Logstash',
             '/Loggly',
             '/Gelf',
@@ -233,10 +235,13 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
             'processor/Web',
             '/psr/test/',
 
+            '/ehough/stash/driver/Apc.php',
+            '/ehough/stash/driver/Redis.php',
+
             '/ContainerAwareTrait\.php$',
             '/PrimaryBootstrapper.php',
 
-            'Twig_Test',
+            'Twig/Test',
         );
 
         return '~' . implode('|', $excludes) . '~';

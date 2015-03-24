@@ -72,10 +72,37 @@ interface tubepress_platform_api_boot_BootSettingsInterface
     function getUserContentDirectory();
 
     /**
-     * @return string
+     * Gets the encoding that should be applied to the add-ons and theme data before it is persisted
+     * to file.
+     *
+     * @return string One of base64, urlencode, gzip-then-base64, or none
      *
      * @api
      * @since 4.0.0
      */
     function getSerializationEncoding();
+
+    /**
+     * @api
+     * @since 4.0.9
+     *
+     * @return tubepress_platform_api_url_UrlInterface|null
+     */
+    function getUrlBase();
+
+    /**
+     * @api
+     * @since 4.0.9
+     *
+     * @return tubepress_platform_api_url_UrlInterface|null
+     */
+    function getUrlUserContent();
+
+    /**
+     * @api
+     * @since 4.0.9
+     *
+     * @return tubepress_platform_api_url_UrlInterface|null
+     */
+    function getUrlAjaxEndpoint();
 }

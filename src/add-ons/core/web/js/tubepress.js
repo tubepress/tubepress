@@ -258,9 +258,9 @@ var tubePressDomInjector,
                     var text_ajaxEndpoint = text_ajax + 'Endpoint',
                         tubePressJsConfig = getJsConfig();
 
-                    if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_php, text_sys, text_ajaxEndpoint)) {
+                    if (langUtils.hasOwnNestedProperty(tubePressJsConfig, text_urls, text_ajax)) {
 
-                        return tubePressJsConfig[text_urls][text_php][text_sys][text_ajaxEndpoint];
+                        return tubePressJsConfig[text_urls][text_ajax];
 
                     }
 
