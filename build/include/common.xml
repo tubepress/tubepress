@@ -79,7 +79,6 @@
     <target name="update-version-strings">
 
         <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/readme.txt"    token="@stableversion@" value="${version.major}.${version.minor}.${version.micro}" />
         <replace file="${stagingdir}/src/add-ons/core/classes/tubepress/app/impl/environment/Environment.php"
                  token="9.9.9" value="${version.major}.${version.minor}.${version.micro}"
                  failOnNoReplacements="true" />
@@ -114,8 +113,6 @@
 
         <!-- These two lines are duplicated. Keep them here for building Pro -->
         <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/readme.txt"    token="@stableversion@" value="${version.major}.${version.minor}.${version.micro}" />
-
         <replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.desc.suffix}" />
         <replace file="${stagingdir}/tubepress.php" token="@TubePress@"   value="${wordpress.desc.appname}" />
     </target>
