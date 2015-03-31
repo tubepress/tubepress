@@ -144,7 +144,7 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
         /**
          * This should be the common case in production.
          */
-        if (file_exists($classConcatenationPath)) {
+        if (!interface_exists('tubepress_platform_api_ioc_ContainerInterface', false) && file_exists($classConcatenationPath)) {
 
             /** @noinspection PhpIncludeInspection */
             require $classConcatenationPath;
