@@ -15,7 +15,7 @@
     "styles" : [
         "vendor/bootstrap-3.1.1/css/bootstrap-custom.css",
         "vendor/bootstrap-3.1.1/css/bootstrap-custom-theme.css",
-        "vendor/bootstrap-multiselect-0.9.4/css/bootstrap-multiselect.css",
+        "vendor/bootstrap-multiselect-0.9.12/css/bootstrap-multiselect.css",
         "vendor/blueimp-gallery-2.15.2/css/blueimp-gallery.min.css",
         "vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css",
         "vendor/spectrum-1.6.0/spectrum.css",
@@ -23,7 +23,7 @@
     ],
     "scripts" : [
         "vendor/bootstrap-3.1.1/js/bootstrap.min.js",
-        "vendor/bootstrap-multiselect-0.9.4/js/bootstrap-multiselect.js",
+        "vendor/bootstrap-multiselect-0.9.12/js/bootstrap-multiselect.js",
         "vendor/spectrum-1.6.0/spectrum.js",
         "vendor/blueimp-gallery-2.15.2/js/blueimp-gallery.min.js",
         "vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js",
