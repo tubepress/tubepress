@@ -8,45 +8,42 @@
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
 <div class="row">
+
     <div class="col-md-12">
-        <div class="tabbable">
 
-            <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs">
 
-                {% set tabIndex = 0 %}
-                {% for category in categories %}
+            {% set tabIndex = 0 %}
+            {% for category in categories %}
 
-                    <li{% if tabIndex == 0 %} class="active"{% endif %}>
+                <li{% if tabIndex == 0 %} class="active"{% endif %}>
 
-                        <a href="#{{ category.id }}" data-toggle="tab">
+                    <a href="#{{ category.id }}" data-toggle="tab">
 
-                            {{ category.untranslatedDisplayName|trans }}
+                        {{ category.untranslatedDisplayName|trans }}
 
-                        </a>
+                    </a>
 
-                    </li>
+                </li>
 
                 {% set tabIndex = tabIndex + 1 %}
-                {% endfor %}
-            </ul>
+            {% endfor %}
+        </ul>
 
-            <div class="tab-content">
+        <div class="tab-content">
 
-                {% set categoryIndex = 0 %}
-                {% for category in categories %}
+            {% set categoryIndex = 0 %}
+            {% for category in categories %}
 
-                    {% if category.id == 'theme_category' %}
-                        {% include 'options-ui/page-fragments/theme/category-theme.html.twig' %}
-                    {% else %}
-                        {% include 'options-ui/page-fragments/single-category.html.twig' %}
-                    {% endif %}
+                {% if category.id == 'theme_category' %}
+                    {% include 'options-ui/page-fragments/theme/category-theme.html.twig' %}
+                {% else %}
+                    {% include 'options-ui/page-fragments/single-category.html.twig' %}
+                {% endif %}
 
-                    {% set categoryIndex = categoryIndex + 1 %}
-                {% endfor %}
+                {% set categoryIndex = categoryIndex + 1 %}
+            {% endfor %}
 
-            </div>
         </div>
     </div>
 </div>
-
-
