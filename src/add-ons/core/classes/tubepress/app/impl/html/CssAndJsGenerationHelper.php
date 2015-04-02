@@ -54,13 +54,25 @@ class tubepress_app_impl_html_CssAndJsGenerationHelper
      */
     private $_eventNameUrlsJs;
 
+    /**
+     * @var string
+     */
+    private $_templateNameCss;
+
+    /**
+     * @var string
+     */
+    private $_templateNameJs;
+
     public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
                                 tubepress_platform_api_contrib_RegistryInterface   $themeRegistry,
                                 tubepress_lib_api_template_TemplatingInterface     $templating,
                                 tubepress_app_impl_theme_CurrentThemeService       $currentThemeService,
                                 tubepress_app_api_environment_EnvironmentInterface $environment,
                                 $eventNameUrlsCss,
-                                $eventNameUrlsJs)
+                                $eventNameUrlsJs,
+                                $templateNameCss,
+                                $templateNameJs)
     {
         $this->_eventDispatcher     = $eventDispatcher;
         $this->_themeRegistry       = $themeRegistry;
@@ -69,6 +81,8 @@ class tubepress_app_impl_html_CssAndJsGenerationHelper
         $this->_environment         = $environment;
         $this->_eventNameUrlsCss    = $eventNameUrlsCss;
         $this->_eventNameUrlsJs     = $eventNameUrlsJs;
+        $this->_templateNameCss     = $templateNameCss;
+        $this->_templateNameJs      = $templateNameJs;
 
         $this->_cache = new tubepress_platform_impl_collection_Map();
     }
@@ -122,7 +136,7 @@ class tubepress_app_impl_html_CssAndJsGenerationHelper
         $currentTheme = $this->_currentThemeService->getCurrentTheme();
         $css          = $this->_recursivelyGetFromTheme($currentTheme, 'getInlineCSS');
 
-        return $this->_templating->renderTemplate('cssjs/styles', array(
+        return $this->_templating->renderTemplate($this->_templateNameCss, array(
 
             'inlineCSS' => $css,
             'urls'      => $cssUrls
@@ -139,7 +153,7 @@ class tubepress_app_impl_html_CssAndJsGenerationHelper
     {
         $jsUrls = $this->getUrlsJS();
 
-        return $this->_templating->renderTemplate('cssjs/scripts', array('urls' => $jsUrls));
+        return $this->_templating->renderTemplate($this->_templateNameJs, array('urls' => $jsUrls));
     }
 
     private function _fireEventAndReturnSubject($eventName, $raw)

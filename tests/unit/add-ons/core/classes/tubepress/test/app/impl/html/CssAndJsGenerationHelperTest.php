@@ -60,7 +60,9 @@ class tubepress_test_app_impl_html_CssAndJsGenerationHelperTest extends tubepres
             $this->_mockCurrentThemeService,
             $this->_mockEnvironment,
             'css-event',
-            'js-event'
+            'js-event',
+            'css-template-name',
+            'js-template-name'
         );
     }
 
@@ -90,8 +92,8 @@ class tubepress_test_app_impl_html_CssAndJsGenerationHelperTest extends tubepres
     {
         return array(
 
-            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'cssjs/styles', array('inlineCSS' => 'parent theme datacurrent theme data',), 'css-event', 2, 4, 4, 2),
-            array('getJS', 'getUrlsJS', null, 'cssjs/scripts', array(), 'js-event', 1, 2, 2, 1),
+            array('getCSS', 'getUrlsCSS', 'getInlineCSS', 'css-template-name', array('inlineCSS' => 'parent theme datacurrent theme data',), 'css-event', 2, 4, 4, 2),
+            array('getJS', 'getUrlsJS', null, 'js-template-name', array(), 'js-event', 1, 2, 2, 1),
         );
     }
 
