@@ -7,71 +7,79 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
+
+/**
+ * Add a little gap to the left of the form
+ */
 div.tp-bs form.form-horizontal {
 
     margin-left: -15px;
 }
 
-.tp-bs .row {
 
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.tp-bs label {
-
-    background-color: transparent;
-}
-
+/**
+ * WP adds too much of a gap between dropdown items
+ */
 .tp-bs li {
 
     margin-bottom: 0;
 }
-
 .tp-bs .multiselect-container input {
 
     margin-top: 0;
 }
+.wp-admin p .multiselect-container label input[type=checkbox] {
 
+    margin-top: 0;
+}
+
+
+
+/**
+ * Push the filter field down to line up with the intro text
+ */
+#filter-wrapper {
+
+    padding-top: 48px;
+}
+
+
+/**
+ * Fix some padding on the "boxes" at the bottom of the screen
+ */
+div.has-iframe iframe body {
+
+    padding: 0;
+}
+
+
+/**
+ * Add some styling to the Pro labels
+ */
+.tp-bs label {
+
+    background-color: transparent;
+}
+.tp-bs label > a:hover {
+
+    text-decoration: none;
+}
+
+
+/**
+ * Make the blue checkboxes that WP uses a little bigger and center them
+ */
 input[type=checkbox]:checked:before {
 
     font-size: 23px;
     margin: -4px 0 0 -5px;
 }
 
-#filter-wrapper {
 
-    padding-top: 48px;
-}
 
-.tp-bs .tab-content {
 
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd;
-    padding-top: 24px;
-    margin-bottom: 24px;
-    background-color: white;
-}
 
-.tp-bs .form-control,
-.tp-bs .input-group .form-control {
-
-    width: auto;
-}
-
-button.close {
-    padding: 0;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    -webkit-appearance: none;
-}
-
-div.has-iframe iframe body {
-
-    padding: 0;
-}
 
 @media screen and ( max-width: 782px ) {
 
@@ -87,15 +95,6 @@ div.has-iframe iframe body {
     }
 }
 
-.tp-bs .form-horizontal .control-label, .tp-bs .form-horizontal .radio, .tp-bs .form-horizontal .checkbox, .tp-bs .form-horizontal .radio-inline, .tp-bs .form-horizontal .checkbox-inline {
-
-    padding-top: 4px;
-}
-
-.wp-admin p .multiselect-container label input[type=checkbox] {
-
-    margin-top: 0;
-}
 
 @media (min-width: 768px) {
 
@@ -103,63 +102,4 @@ div.has-iframe iframe body {
 
         text-align: left;
     }
-}
-
-.tp-bs label > a:hover {
-    text-decoration: none;
-}
-
-
-
-
-
-/*
- * Callouts
- *
- * Not quite alerts, but custom and helpful notes for folks reading the docs.
- * Requires a base and modifier class.
- */
-
-/* Common styles for all types */
-.tp-bs .bs-callout {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #eee;
-    border-left-width: 5px;
-    border-radius: 3px;
-}
-.tp-bs .bs-callout h4 {
-    margin-top: 0;
-    margin-bottom: 5px;
-}
-.tp-bs .bs-callout p:last-child {
-    margin-bottom: 0;
-}
-.tp-bs .bs-callout code {
-    border-radius: 3px;
-}
-
-/* Tighten up space between multiple callouts */
-.tp-bs .bs-callout + .tp-bs .bs-callout {
-    margin-top: -5px;
-}
-
-/* Variations */
-.tp-bs .bs-callout-danger {
-    border-left-color: #d9534f;
-}
-.tp-bs .bs-callout-danger h4 {
-    color: #d9534f;
-}
-.tp-bs .bs-callout-warning {
-    border-left-color: #f0ad4e;
-}
-.tp-bs .bs-callout-warning h4 {
-    color: #f0ad4e;
-}
-.tp-bs .bs-callout-info {
-    border-left-color: #5bc0de;
-}
-.tp-bs .bs-callout-info h4 {
-    color: #5bc0de;
 }
