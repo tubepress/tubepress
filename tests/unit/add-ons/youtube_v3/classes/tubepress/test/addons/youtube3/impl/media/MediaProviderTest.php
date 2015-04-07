@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_youtube2_impl_media_MediaProvider
+ * @covers tubepress_youtube3_impl_media_MediaProvider
  */
-class tubepress_test_youtube2_impl_media_MediaProviderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_youtube2_impl_media_MediaProvider
+     * @var tubepress_youtube3_impl_media_MediaProvider
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_youtube2_impl_media_MediaProviderTest extends tubepress_tes
         $this->_mockHttpCollector = $this->mock(tubepress_app_api_media_HttpCollectorInterface::_);
         $this->_mockFeedHandler   = $this->mock(tubepress_app_api_media_HttpFeedHandlerInterface::_);
 
-        $this->_sut = new tubepress_youtube2_impl_media_MediaProvider(
+        $this->_sut = new tubepress_youtube3_impl_media_MediaProvider(
 
             $this->_mockHttpCollector, $this->_mockFeedHandler
         );
@@ -69,16 +69,12 @@ class tubepress_test_youtube2_impl_media_MediaProviderTest extends tubepress_tes
     public function testGetFeedSortNamesToLabels()
     {
         $expected = array(
-            tubepress_youtube2_api_Constants::ORDER_BY_COMMENT_COUNT  => 'comment count',                   //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_DEFAULT        => 'default',                         //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_NEWEST         => 'date published (newest first)',   //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_DURATION       => 'length',                          //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_POSITION       => 'position in a playlist',          //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_REV_POSITION   => 'reversed position in a playlist', //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_RATING         => 'rating',                          //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_RELEVANCE      => 'relevance',                       //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_TITLE          => 'title',                           //>(translatable)<
-            tubepress_youtube2_api_Constants::ORDER_BY_VIEW_COUNT     => 'view count',                      //>(translatable)<
+            tubepress_youtube3_api_Constants::ORDER_BY_DEFAULT        => 'default',                         //>(translatable)<
+            tubepress_youtube3_api_Constants::ORDER_BY_NEWEST         => 'date published (newest first)',   //>(translatable)<
+            tubepress_youtube3_api_Constants::ORDER_BY_RATING         => 'rating',                          //>(translatable)<
+            tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE      => 'relevance',                       //>(translatable)<
+            tubepress_youtube3_api_Constants::ORDER_BY_TITLE          => 'title',                           //>(translatable)<
+            tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT     => 'view count',                      //>(translatable)<
         );
 
         $this->assertEquals($expected, $this->_sut->getMapOfFeedSortNamesToUntranslatedLabels());
@@ -94,8 +90,8 @@ class tubepress_test_youtube2_impl_media_MediaProviderTest extends tubepress_tes
             tubepress_app_api_options_Names::META_DISPLAY_URL         => tubepress_app_api_media_MediaItem::ATTRIBUTE_HOME_URL,
             tubepress_app_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_app_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
-            tubepress_youtube2_api_Constants::OPTION_RATINGS           => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_COUNT,
-            tubepress_youtube2_api_Constants::OPTION_RATING            => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_AVERAGE,
+            tubepress_youtube3_api_Constants::OPTION_RATINGS           => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_COUNT,
+            tubepress_youtube3_api_Constants::OPTION_RATING            => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_AVERAGE,
 
             tubepress_app_api_options_Names::META_DISPLAY_ID          => tubepress_app_api_media_MediaItem::ATTRIBUTE_ID,
             tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
@@ -118,12 +114,12 @@ class tubepress_test_youtube2_impl_media_MediaProviderTest extends tubepress_tes
 
     public function testGetSearchModeName()
     {
-        $this->assertEquals(tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH, $this->_sut->getSearchModeName());
+        $this->assertEquals(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH, $this->_sut->getSearchModeName());
     }
 
     public function testGetSearchQueryOptionName()
     {
-        $this->assertEquals(tubepress_youtube2_api_Constants::OPTION_YOUTUBE_TAG_VALUE, $this->_sut->getSearchQueryOptionName());
+        $this->assertEquals(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE, $this->_sut->getSearchQueryOptionName());
     }
 
     public function testRecognizesVideoId()
@@ -144,12 +140,11 @@ class tubepress_test_youtube2_impl_media_MediaProviderTest extends tubepress_tes
 
             array(
 
-                tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
-                tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
-                tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-                tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
-                tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
-                tubepress_youtube2_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
             ),
 
             $this->_sut->getGallerySourceNames()

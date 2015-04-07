@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_youtube2_impl_listeners_options_PlaylistIdListener
+ * @covers tubepress_youtube3_impl_listeners_options_PlaylistIdListener
  */
-class tubepress_test_youtube2_impl_listeners_options_PlaylistIdListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube3_impl_listeners_options_PlaylistIdListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_youtube2_impl_listeners_options_PlaylistIdListener
+     * @var tubepress_youtube3_impl_listeners_options_PlaylistIdListener
      */
     private $_sut;
 
@@ -38,13 +38,13 @@ class tubepress_test_youtube2_impl_listeners_options_PlaylistIdListenerTest exte
     {
         $this->_mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $this->_mockStringUtils  = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
-        $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(function ($a) {
+        $this->_mockUrlFactory->shouldReceive('newInstance')->atLeast(1)->andReturnUsing(function ($a) {
 
             $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory($_SERVER);
             return $urlFactory->fromString($a);
         });
         $this->_mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_sut = new tubepress_youtube2_impl_listeners_options_PlaylistIdListener($this->_mockUrlFactory, $this->_mockStringUtils);
+        $this->_sut = new tubepress_youtube3_impl_listeners_options_PlaylistIdListener($this->_mockUrlFactory, $this->_mockStringUtils);
     }
 
     public function testPullListFromUrl()
