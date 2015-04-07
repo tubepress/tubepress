@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -11,30 +11,6 @@
 
 class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_media_HttpFeedHandlerInterface
 {
-    private static $_URL_PARAM_FORMAT      = 'format';
-    private static $_URL_PARAM_KEY         = 'key';
-    private static $_URL_PARAM_SAFESEARCH  = 'safeSearch';
-
-    // New for v3
-    private static $_URL_PARAM_MAX_RESULTS = 'maxResults';
-    private static $_URL_PARAM_PAGE_TOKEN  = 'pageToken';
-    private static $_URL_PARAM_VERSION     = 'v';
-    private static $_URL_PARAM_VERSION_NUM = 3;
-    private static $_URL_PARAM_ORDER       = 'order';
-
-    private static $_YOUTUBE_API_URL       = 'https://www.googleapis.com/youtube/v3/';
-    private static $_YOUTUBE_REQUEST_URL   = '';
-
-    /**
-     * @var array().
-     */
-    private $_parts = array('id','snippet'); //  
-
-    /**
-     * @var array() $_feedResults.
-     */
-    private $_feedResults;
-
     /**
      * @var tubepress_platform_api_log_LoggerInterface
      */
@@ -51,24 +27,38 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     private $_urlFactory;
 
     /**
-     * @var bool
+     * @var tubepress_lib_api_array_ArrayReaderInterface
      */
-    private $_videoNotFound = false;
+    private $_arrayReader;
 
     /**
-     * @var tubepress_lib_api_http_HttpClientInterface
+     * @var array
      */
-    private $_httpClient;
+    private $_feedAsArray;
+
+    /**
+     * @var array
+     */
+    private $_metadataAsArray;
+
+    /**
+     * @var tubepress_youtube3_impl_ApiUtility
+     */
+    private $_apiUtility;
+
+    private $_invokedAtLeastOnce;
 
     public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
                                 tubepress_app_api_options_ContextInterface     $context,
                                 tubepress_platform_api_url_UrlFactoryInterface $urlFactory,
-                                tubepress_lib_api_http_HttpClientInterface     $httpClient)
+                                tubepress_lib_api_array_ArrayReaderInterface   $arrayReader,
+                                tubepress_youtube3_impl_ApiUtility             $apiUtility)
     {
-        $this->_logger     = $logger;
-        $this->_context    = $context;
-        $this->_urlFactory = $urlFactory;
-        $this->_httpClient = $httpClient;
+        $this->_logger      = $logger;
+        $this->_context     = $context;
+        $this->_urlFactory  = $urlFactory;
+        $this->_arrayReader = $arrayReader;
+        $this->_apiUtility  = $apiUtility;
     }
 
     /**
@@ -96,8 +86,10 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     public function getNewItemEventArguments(tubepress_app_api_media_MediaItem $mediaItemId, $index)
     {
         return array(
-            'feed'           => $this->_feedResults,
-            'zeroBasedIndex' => $index
+
+            'feedAsArray'     => $this->_feedAsArray,
+            'metadataAsArray' => $this->_metadataAsArray,
+            'zeroBasedIndex'  => $index
         );
     }
 
@@ -113,107 +105,31 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function buildUrlForPage($currentPage)
     {
-        $url = self::$_YOUTUBE_API_URL;  
+        $url           = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
+        $query         = $url->getQuery();
+        $requestedMode = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
 
-        switch ($this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE)) 
-        {
+        switch ($requestedMode) {
+
             case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR:
-                
-                $this->_parts[] = 'contentDetails';
-                $this->_parts[] = 'statistics';
+            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST:
 
-                $params = 'videos?chart=mostPopular';
-
-                if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_MOST_POPULAR_VALUE) == 'today')
-                {
-                    $params .= '&publishedAfter='. gmDate("Y-m-d\T00:00:00\Z"); 
-                }    
-
+                $this->_urlBuildingPageVideos($url, $query, $requestedMode);
                 break;
 
+            //https://developers.google.com/youtube/v3/docs/playlistItems/list
             case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST:
-
-                $this->_parts[] = 'contentDetails';
-
-                $params = sprintf('playlistItems?playlistId=%s', $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE));
-
-                break;
-
-            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED:
-
-                $params = sprintf('search?relatedToVideoId=%s&type=video', $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE));
-
-                break;
-
             case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES:
-
-                $username    = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE);               
-                $first_url   = self::$_YOUTUBE_API_URL . 'channels?part=contentDetails&forUsername='.$username;
-
-                $favoritesFeed = $this->_makeDirectCall($first_url);
-
-                if (!isset($favoritesFeed['items'][0]['contentDetails']['relatedPlaylists']['favorites']))
-                {
-                    throw new LogicException('Channel has no YouTube favorites');
-                }    
-
-                $favoritesPlaylistId = $favoritesFeed['items'][0]['contentDetails']['relatedPlaylists']['favorites'];
-
-                $this->_parts[] = 'contentDetails';
-                $this->_parts[] = 'status'; 
-
-                $params = sprintf('playlistItems?playlistId=%s', $favoritesPlaylistId);
-
-                break;
-
             case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER:
 
-                $username  = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE);
-                $first_url = self::$_YOUTUBE_API_URL . 'channels?part=contentDetails&forUsername='.$username;
-                
-                $feed = $this->_makeDirectCall($first_url);
+                $this->_urlBuildingPagePlaylistItems($url, $query, $requestedMode);
+                break;
 
-                if (!isset($feed['items'][0]['contentDetails']['relatedPlaylists']['uploads'])) {
-
-                    throw new LogicException('Channel has no YouTube uploads');
-                }
-
-                $favoritesPlaylistId = $feed['items'][0]['contentDetails']['relatedPlaylists']['uploads'];
-
-                $this->_parts[] = 'contentDetails';
-                $this->_parts[] = 'status'; 
-                
-                $params = sprintf('playlistItems?playlistId=%s', $favoritesPlaylistId);
-
-                 break;
-
+            //https://developers.google.com/youtube/v3/docs/search/list
+            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED:
             case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH:
 
-                // https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=skateboarding+dog&type=video&videoDefinition=high
-                // https://www.googleapis.com/youtube/v3/videos?q=iphone+ios+apple&type=video&part=id, snippet
-
-                $tags = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE);
-                $tags = self::_replaceQuotes($tags);
-                $tags = urlencode($tags);
-                $params = "search?q=$tags" . '&type=video'; 
-
-                $filter = $this->_context->get(tubepress_app_api_options_Names::SEARCH_ONLY_USER);
-                if ($filter != '') {
-
-                    $first_url   = self::$_YOUTUBE_API_URL . 'channels?part=contentDetails&forUsername='.$filter;
-                    
-                    $feed = $this->_makeDirectCall($first_url);
-
-                    if (!isset($feed['items'][0]['id']))
-                    {
-                        throw new LogicException('No Channel Id found');
-                    }  
-
-                    $channelId = $feed['items'][0]['id'];
-
-                    $params .= sprintf("&channelId=%s", $channelId);
-                }
-
+                $this->_urlBuildingPageSearch($url, $query, $requestedMode);
                 break;
 
             default:
@@ -221,18 +137,10 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
                 throw new LogicException('Invalid source supplied to YouTube');
         }
 
-        $params .= sprintf('&part=%s', implode(',', array_unique($this->_parts)));
+        $this->_urlBuildingPageCommonParams($url, $currentPage);
+        $this->_urlBuildingAddCommonParameters($url);
 
-        // stored for later use in the loops - it seems that nextPageToken is not enough info
-        self::$_YOUTUBE_REQUEST_URL = $url.$params;
-
-        $requestUrl = $this->_urlFactory->fromString($url.$params);
-        
-        $this->_urlPostProcessingCommon($requestUrl);
-
-        $this->_urlPostProcessingGallery($requestUrl, $currentPage);
-
-        return $requestUrl;
+        return $url;
     }
 
     /**
@@ -249,16 +157,15 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function buildUrlForItem($id)
     {
-        $this->_parts[] = 'contentDetails';
-        $this->_parts[] = 'statistics';
+        $url = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
+        $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEOS);
 
-        $url = self::$_YOUTUBE_API_URL; 
-        $params = sprintf('videos?id=%s&part=%s', $id, implode(',', array_unique($this->_parts))); 
+        $query = $url->getQuery();
+        $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_VIDEOS_ID, $id);
 
-        $requestURL = $this->_urlFactory->fromString($url.$params);
-        $this->_urlPostProcessingCommon($requestURL);
+        $this->_urlBuildingAddCommonParameters($url);
 
-        return $requestURL;
+        return $url;
     }
 
     /**
@@ -271,14 +178,13 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function getTotalResultCount()
     {
-        if (!isset($this->_feedResults['pageInfo'])) {
+        $query = sprintf('%s.%s',
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_PAGEINFO,
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_PAGEINFO_TOTALRESULTS
+        );
 
-            return 0;
-        }
-
-        $totalResults = $this->_feedResults['pageInfo']['totalResults'];
-
-        self::_makeSureNumeric($totalResults);
+        $totalResults = $this->_arrayReader->getAsInteger($this->_feedAsArray, $query, 0);
+        $totalResults = intval($totalResults);
 
         return $totalResults;
     }
@@ -295,12 +201,22 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function getReasonUnableToUseItemAtIndex($index)
     {
-        $item = $this->_feedResults['items'][$index];
+        $items = $this->_arrayReader->getAsArray($this->_feedAsArray, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS, array());
 
-        if (isset($item['snippet']['title'])
-            && $item['snippet']['title'] === 'Deleted video'
-            && isset($item['snippet']['description'])
-            && $item['snippet']['description'] === 'This video is unavailable.') {
+        if (!isset($items[$index])) {
+
+            return null;
+        }
+
+        $item  = $items[$index];
+        $title = $this->_arrayReader->getAsString($item, sprintf('%s.%s',
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET_TITLE));
+        $desc  = $this->_arrayReader->getAsString($item, sprintf('%s.%s',
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET_TITLE));
+
+        if ($title === 'Deleted video' && $desc === 'This video is unavailable.') {
 
             return 'Video has been deleted';
         }
@@ -318,12 +234,9 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function getCurrentResultCount()
     {
-        if ($this->_videoNotFound) {
+        $items = $this->_arrayReader->getAsArray($this->_feedAsArray, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS, array());
 
-            return 0;
-        }
-
-        return count($this->_feedResults['items']);
+        return count($items);
     }
 
     /**
@@ -338,22 +251,16 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function onAnalysisStart($feed)
     {
+        $this->_feedAsArray = json_decode($feed, true);
 
-        // poor man's - use Event or Collector
-        if(isset($_REQUEST['tubepress_page']) && ($_REQUEST['tubepress_page'] > 1))
-        {
-            $currentPage = $_REQUEST['tubepress_page'];
-            $decodedFeed = json_decode($feed, true); 
-            if (isset($decodedFeed['nextPageToken']))
-            {
-                $feed = $this->_get_page_token($decodedFeed['nextPageToken'], $currentPage);            
-            }    
-        } 
+        if ($this->_feedAsArray === null) {
 
-        $this->_createFeedArray($feed);
+            throw new RuntimeException('Unable to decode JSON from YouTube');
+        }
 
-        $this->_feedProcessing();
+        $this->_apiUtility->checkForApiResponseError($this->_feedAsArray);
 
+        $this->_metadataAsArray = $this->_collectMetadata();
     }
 
     /**
@@ -366,7 +273,8 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function onAnalysisComplete()
     {
-        unset($this->_feedResults);        
+        unset($this->_feedAsArray);
+        unset($this->_metadataAsArray);
     }
 
     /**
@@ -381,250 +289,493 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function getIdForItemAtIndex($index)
     {
-        // Thank you, YouTube API v3, for returning a different item array based on whether it is a 
-        // single or multiple requested items. Just thank you.
+        $items = $this->_arrayReader->getAsArray($this->_metadataAsArray, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS, array());
+        $item  = $items[$index];
+        $id    = $this->_arrayReader->getAsString($item, tubepress_youtube3_impl_ApiUtility::RESOURCE_ID);
 
-        $id  = isset($this->_feedResults['items'][$index]['id']['videoId'])? 
-            $this->_feedResults['items'][$index]['id']['videoId']:
-            $this->_feedResults['items'][$index]['id'];
+        if ($id === '') {
+
+            throw new RuntimeException(sprintf('Unable to find ID for item at index %d', $index));
+        }
 
         return $id;
-
     }
 
-    private static function _replaceQuotes($text)
+    private function _urlBuildingAddCommonParameters(tubepress_platform_api_url_UrlInterface $url)
     {
-        return str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $text);
+        $part = sprintf('%s,%s',
+            tubepress_youtube3_impl_ApiUtility::PART_ID,
+            tubepress_youtube3_impl_ApiUtility::PART_SNIPPET
+        );
+        $key  = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_API_KEY);
+
+        $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_APIKEY, $key)
+                        ->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, $part);
     }
 
-    private function _urlPostProcessingCommon(tubepress_platform_api_url_UrlInterface $url)
+    /**
+     * https://developers.google.com/youtube/v3/migration-guide#favorites
+     *
+     * @param $userChannelId
+     *
+     * return string|null
+     */
+    private function _urlBuildingDiscoverFavoritesChannelId($userChannelId)
     {
-        $query = $url->getQuery();
-        $query->set(self::$_URL_PARAM_VERSION, self::$_URL_PARAM_VERSION_NUM);
-        $query->set(self::$_URL_PARAM_KEY, $this->_context->get(tubepress_youtube3_api_Constants::OPTION_DEV_KEY));
+        if ($this->_logger->isEnabled()) {
+
+            $this->_logger->debug(sprintf('Looking up the channel ID for the videos favorited by %s', $userChannelId));
+        }
+
+        $channelListUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
+        $part           = tubepress_youtube3_impl_ApiUtility::PART_CHANNEL_CONTENT_DETAILS;
+        $fields         = sprintf('%s,%s/%s',
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ETAG,
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS
+        );
+
+        $channelListUrl->addPath(tubepress_youtube3_impl_ApiUtility::PATH_CHANNELS);
+        $channelListUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_ID, $userChannelId)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART,        $part)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, 1)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS,      $fields);
+
+        $response           = $this->_apiUtility->getDecodedApiResponse($channelListUrl);
+        $responseItems      = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
+        $firstItem          = $responseItems[0];
+        $favoritesChannelId = $this->_arrayReader->getAsString($firstItem, sprintf('%s.%s.%s',
+
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS_FAVORITES
+        ));
+
+        if ($favoritesChannelId === '') {
+
+            throw new InvalidArgumentException(sprintf('Favorites for channel %s are not public.', $userChannelId));
+        }
+
+        if ($this->_logger->isEnabled()) {
+
+            $this->_logger->debug(sprintf('Favorites channel ID for channel ID %s is %s', $userChannelId, $favoritesChannelId));
+        }
+
+        return $favoritesChannelId;
     }
 
-    private function _urlPostProcessingGallery(tubepress_platform_api_url_UrlInterface $url, $currentPage)
+    /**
+     * https://developers.google.com/youtube/v3/migration-guide#favorites
+     *
+     * @param $userChannelId
+     *
+     * return string|null
+     */
+    private function _urlBuildingDiscoverUploadsChannelId($userChannelId)
+    {
+        if ($this->_logger->isEnabled()) {
+
+            $this->_logger->debug(sprintf('Looking up the channel ID for the videos uploaded by %s', $userChannelId));
+        }
+
+        $channelListUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
+        $part           = tubepress_youtube3_impl_ApiUtility::PART_CHANNEL_CONTENT_DETAILS;
+        $fields         = sprintf('%s,%s/%s',
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ETAG,
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS
+        );
+
+        $channelListUrl->addPath(tubepress_youtube3_impl_ApiUtility::PATH_CHANNELS);
+        $channelListUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_ID, $userChannelId)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART,        $part)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, 1)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS,      $fields);
+
+        $response       = $this->_apiUtility->getDecodedApiResponse($channelListUrl);
+        $responseItems  = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
+        $firstItem      = $responseItems[0];
+        $favoritesChannelId = $this->_arrayReader->getAsString($firstItem, sprintf('%s.%s.%s',
+
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS_UPLOADS
+        ));
+
+        if ($favoritesChannelId === '') {
+
+            throw new InvalidArgumentException(sprintf('Uploads for channel %s are not public.', $userChannelId));
+        }
+
+        if ($this->_logger->isEnabled()) {
+
+            $this->_logger->debug(sprintf('Uploads channel ID for channel ID %s is %s', $userChannelId, $favoritesChannelId));
+        }
+
+        return $favoritesChannelId;
+    }
+
+    /**
+     * https://developers.google.com/youtube/v3/guides/working_with_channel_ids#v3
+     *
+     * @param $candidate
+     *
+     * @return string
+     */
+    private function _urlBuildingConvertUserOrChannelToChannelId($candidate)
+    {
+        if ($this->_logger->isEnabled()) {
+
+            $this->_logger->debug(sprintf('Determining if %s a YouTube user or channel ID. First, we\'ll assume it\'s a user', $candidate));
+        }
+
+        $channelListUrl = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
+        $part           = tubepress_youtube3_impl_ApiUtility::PART_ID;
+        $fields         = sprintf('%s,%s/%s',
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ETAG,
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS,
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_ID
+        );
+
+        $channelListUrl->addPath(tubepress_youtube3_impl_ApiUtility::PATH_CHANNELS);
+        $channelListUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, $part)
+            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_FORUSERNAME, $candidate)
+            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, 1)
+            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS, $fields);
+
+        $response       = $this->_apiUtility->getDecodedApiResponse($channelListUrl);
+        $responseItems  = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
+        $firstItem      = $responseItems[0];
+        $channelId      = $this->_arrayReader->getAsString($firstItem, tubepress_youtube3_impl_ApiUtility::RESOURCE_ID);
+
+        if ($this->_logger->isEnabled()) {
+
+            if ($channelId === '') {
+
+                $this->_logger->debug(sprintf('%s does not appear to be a YouTube user. Assuming it is a channel ID.', $candidate));
+
+            } else {
+
+                $this->_logger->debug(sprintf('%s is a YouTube user with channel ID %s', $candidate, $channelId));
+            }
+        }
+
+        return $channelId;
+    }
+
+    private function _urlBuildingPageCommonParams(tubepress_platform_api_url_UrlInterface $url, $currentPage)
     {
         $perPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
- 
-        $query = $url->getQuery();
-        $query->set(self::$_URL_PARAM_MAX_RESULTS, $perPage);
 
-        $this->_urlProcessingOrderBy($url);
+        $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, $perPage);
 
-        $query->set(self::$_URL_PARAM_SAFESEARCH, $this->_context->get(tubepress_youtube3_api_Constants::OPTION_FILTER));
+        if ($currentPage === 1) {
 
-        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY)) {
-
-            $query->set(self::$_URL_PARAM_FORMAT, '5');
-        }
-    }
-
-    private function _get_page_token($nextPageToken, $currentPage)
-    {
-        // $nextPageToken is for $currentPage + 1
-        $perPage     = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
-        
-        // start by getting page 2
-        foreach (range(2, $currentPage) as $key => $value) {
-        
-            $url   =    self::$_YOUTUBE_REQUEST_URL . '&maxResults='.$perPage.'&pageToken='.$nextPageToken;
-            
-            $feed = $this->_makeDirectCall($url);
-
-            if (isset($feed['nextPageToken']))
-            {
-                $nextPageToken = $feed['nextPageToken'];
-            }   
+            return;
         }
 
-        return $feed;
-     
+        $clone     = $url->getClone();
+        $query     = $clone->getQuery();
+        $nextToken = null;
+
+        $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART,   tubepress_youtube3_impl_ApiUtility::PART_ID);
+        $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS, tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN);
+
+        for ($page = 2; $page <= $currentPage; $page++) {
+
+            if ($nextToken !== null) {
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_PAGETOKEN, $nextToken);
+            }
+
+            $result = $this->_apiUtility->getDecodedApiResponse($clone);
+
+            if (!isset($result[tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN]) === null) {
+
+                throw new RuntimeException('Failed to retrieve pagination tokens');
+            }
+
+            $nextToken = $result[tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN];
+        }
+
+        $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_PAGETOKEN, $nextToken);
     }
 
-    private function _urlProcessingOrderBy(tubepress_platform_api_url_UrlInterface $url)
+    private function _urlBuildingPageSearchOrderBy(tubepress_platform_api_url_UrlInterface $url)
     {
-        $requestedSortOrder   = $this->_context->get(tubepress_app_api_options_Names::FEED_ORDER_BY);
-        $currentGallerySource = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
-        $filter               = $this->_context->get(tubepress_app_api_options_Names::SEARCH_ONLY_USER);     
-
-        $query                = $url->getQuery();
+        $requestedSortOrder = $this->_context->get(tubepress_app_api_options_Names::FEED_ORDER_BY);
+        $query              = $url->getQuery();
 
         if ($requestedSortOrder === tubepress_app_api_options_AcceptableValues::ORDER_BY_DEFAULT) {
 
-            $query->set(self::$_URL_PARAM_ORDER, $this->_calculateDefaultSearchOrder($currentGallerySource));
+            $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE);
             return;
         }
 
         if ($requestedSortOrder === tubepress_youtube3_api_Constants::ORDER_BY_NEWEST) {
 
-            $query->set(self::$_URL_PARAM_ORDER, 'date');
+            $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, 'date');
             return;
         }
 
         if ($requestedSortOrder == tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT) {
-            //not sure if this will cover all cases, but all I've seen at the moment
-            if ($filter != '') {
-                $query->set(self::$_URL_PARAM_ORDER, tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE);
 
-                return;
-            }  
-
-            $query->set(self::$_URL_PARAM_ORDER, 'viewCount');
+            $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT);
 
             return;
         }
 
         if (in_array($requestedSortOrder, array(
-                tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE, 
-                tubepress_youtube3_api_Constants::ORDER_BY_RATING,
-                tubepress_youtube3_api_Constants::ORDER_BY_TITLE))) 
-        {
+            tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE,
+            tubepress_youtube3_api_Constants::ORDER_BY_RATING,
+            tubepress_youtube3_api_Constants::ORDER_BY_TITLE))) {
 
-            $query->set(self::$_URL_PARAM_ORDER, $requestedSortOrder);
-
-            return;
+            $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_ORDER, $requestedSortOrder);
         }
-
-        //default
-        // TODO: best if we can figure out what legal values are for sorting when filtering on author
-        if ($filter != '') {
-            $query->set(self::$_URL_PARAM_ORDER, tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE);
-
-            return;
-        } 
-
-
-        $query->set(self::$_URL_PARAM_ORDER, 'viewCount');
-
-        return;
-
-
     }
 
-    private function _calculateDefaultSearchOrder($currentGallerySource)
+    //https://developers.google.com/youtube/v3/docs/videos/list
+    private function _urlBuildingPageVideos(tubepress_platform_api_url_UrlInterface $url,
+                                            tubepress_platform_api_url_QueryInterface $query,
+                                            $requestedMode)
     {
-        switch ($currentGallerySource) {
+        $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEOS);
 
-            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR:
+        switch ($requestedMode) {
 
-                return tubepress_youtube3_api_Constants::ORDER_BY_VIEW_COUNT;
+            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST:
 
-            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH:
-            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED:
+                $ids = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE);
+                $ids = preg_split('/\s*,\s*/', $ids);
+                $ids = implode(',', $ids);
 
-                return tubepress_youtube3_api_Constants::ORDER_BY_RELEVANCE;
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_VIDEOS_ID, $ids);
 
-            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER:
+                break;
+
+            default:
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_VIDEOS_CHART, 'mostPopular');
+        }
+    }
+
+    //https://developers.google.com/youtube/v3/docs/playlistItems/list
+    private function _urlBuildingPagePlaylistItems(tubepress_platform_api_url_UrlInterface $url,
+                                                   tubepress_platform_api_url_QueryInterface $query,
+                                                   $requestedMode)
+    {
+        $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_PLAYLIST_ITEMS);
+
+        switch ($requestedMode) {
+
+            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST:
+
+                $playlistId = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE);
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_PLITEMS_PL_ID, $playlistId);
+
+                break;
+
             case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES:
 
-                return 'date';
+                $username           = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE);
+                $userChannelId      = $this->_urlBuildingConvertUserOrChannelToChannelId($username);
+                $favoritesChannelId = $this->_urlBuildingDiscoverFavoritesChannelId($userChannelId);
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_PLITEMS_PL_ID, $favoritesChannelId);
+
+                break;
+
+            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER:
+
+                $username         = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE);
+                $userChannelId    = $this->_urlBuildingConvertUserOrChannelToChannelId($username);
+                $uploadsChannelId = $this->_urlBuildingDiscoverUploadsChannelId($userChannelId);
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_PLITEMS_PL_ID, $uploadsChannelId);
+
+                break;
+
+            default:
+
+                break;
         }
     }
 
-    private static function _makeSureNumeric($result)
+    private function _urlBuildingPageSearch(tubepress_platform_api_url_UrlInterface $url,
+                                            tubepress_platform_api_url_QueryInterface $query,
+                                            $requestedMode)
     {
-        if (is_numeric($result) === false) {
+        $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_SEARCH);
 
-            throw new RuntimeException("YouTube returned a non-numeric result count: $result");
+        switch ($requestedMode) {
+
+            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED:
+
+                $videoId = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE);
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_RELATED, $videoId);
+
+                break;
+
+            case tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH:
+
+                $tags   = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE);
+                $tags   = str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $tags);
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_Q, $tags);
+
+                break;
+
+            default:
+
+                break;
         }
+
+        $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_TYPE, 'video')
+            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_SYNDICATED, 'true');
+
+        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY)) {
+
+            $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_EMBEDDABLE, 'true');
+        }
+
+        $restrictToUser = $this->_context->get(tubepress_app_api_options_Names::SEARCH_ONLY_USER);
+
+        if ($restrictToUser) {
+
+            $userChannelId = $this->_urlBuildingConvertUserOrChannelToChannelId($restrictToUser);
+
+            $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_CHANNEL_ID, $userChannelId);
+        }
+
+        switch ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_FILTER)) {
+
+            case tubepress_youtube3_api_Constants::SAFESEARCH_STRICT:
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_SAFESEARCH, 'strict');
+                break;
+
+            case tubepress_youtube3_api_Constants::SAFESEARCH_MODERATE:
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_SAFESEARCH, 'moderate');
+                break;
+
+            default:
+
+                $query->set(tubepress_youtube3_impl_ApiUtility::QUERY_SEARCH_SAFESEARCH, 'none');
+        }
+
+        $this->_urlBuildingPageSearchOrderBy($url);
     }
 
-    function _createFeedArray($feed)
+    private function _collectMetadata()
     {
-        if (!is_array($feed)){ 
-            $feed = json_decode($feed, true);
-        }
+        $idQueriesToTest = array(
 
-        $this->_feedResults = $feed;
-    }
+            sprintf('%s.%s.%s',
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_PLITEM_SNIPPET,
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_PLITEM_SNIPPET_RESOURCE_ID,
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_PLITEM_SNIPPET_RESOURCE_ID_VIDEO_ID),
 
-    private function _feedProcessing()
-    {
-        if (!isset($this->_feedResults['items'])) {
+            sprintf('%s.%s',
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_SEARCH_ID,
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_SEARCH_ID_VIDEO_ID),
 
-            return;
-        }
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_ID,
+        );
 
-        // hopefully this can be worked around in the future. there is data missing from certain types
-        foreach ($this->_feedResults['items'] as $index => $item) {
+        $items         = $this->_arrayReader->getAsArray($this->_feedAsArray, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS, array());
+        $ids           = array();
+        $selectedQuery = null;
 
-            // if statistics are missing, that is the lowest common denominator so we'll get a separate pull for the video
-            if (!isset($this->_feedResults['statistics'])) {
+        foreach ($items as $item) {
 
-                // go get the video 
-                $videoId = $this->_getVideoId($item);
+            if ($selectedQuery === null) {
 
-                $this->_parts[] = 'contentDetails';
-                $this->_parts[] = 'statistics';
+                foreach ($idQueriesToTest as $query) {
 
-                $url = self::$_YOUTUBE_API_URL;
-                $params = 'videos?id='.$videoId.  '&part='. implode(',',$this->_parts);
-                $videoSingleFeed = $this->_makeDirectCall($url . $params);
+                    if ($this->_arrayReader->getAsString($item, $query) !== '') {
 
-                //or just array merge, but who knows what madness that might unleash...
-                if (!empty($videoSingleFeed['items'])) {
-
-                    $this->_feedResults['items'][$index]['snippet']['categoryId'] =  $videoSingleFeed['items'][0]['snippet']['categoryId'];
-                    $this->_feedResults['items'][$index]['contentDetails'] = $videoSingleFeed['items'][0]['contentDetails'];
-                    $this->_feedResults['items'][$index]['statistics']     = $videoSingleFeed['items'][0]['statistics'];                    
-                }    
-            }   
-
-            // Category
-            if (isset($this->_feedResults['items'][$index]['snippet']['categoryId'])) {
-
-                // go get the channel name
-                $params = 'videoCategories?part=snippet&id='. $this->_feedResults['items'][$index]['snippet']['categoryId'];
-                
-                $categorySingleFeed = $this->_makeDirectCall($url . $params);
-
-                $this->_feedResults['items'][$index]['snippet']['categoryName'] = $categorySingleFeed['items'][0]['snippet']['title'];
+                        $selectedQuery = $query;
+                        break;
+                    }
+                }
             }
+
+            if ($selectedQuery === null) {
+
+                throw new RuntimeException('Unable to determine query to get video IDs');
+            }
+
+            $id = $this->_arrayReader->getAsString($item, $selectedQuery);
+
+            if ($id == '') {
+
+                throw new RuntimeException('Unable to determine ID for a video in the result.');
+            }
+
+            $ids[] = $id;
         }
-    }
-
-    // we need to really check through & get a more foolproof way -maybe search videoId anywhere...?
-    function _getVideoId($item)
-    {
-        if (isset($item['snippet']['resourceId']['videoId']))
-        {
-            return $item['snippet']['resourceId']['videoId'];
-        }    
-        if (isset($item['id']['videoId']))
-        {
-            return $item['id']['videoId'];
-        }           
-        if (isset($item['id']))
-        {
-            return $item['id'];
-        }   
-        return false;
-    }
-
-    private function _makeDirectCall($url, $requestOpts = array())
-    {
-        $apikey      = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_DEV_KEY);
-        $url        .= '&key='.$apikey;
-        $httpRequest = $this->_httpClient->createRequest('GET', $url, $requestOpts);
-         
-        $httpRequest->setConfig(array_merge($httpRequest->getConfig(), array('tubepress-remote-api-call' => true)));
 
         if ($this->_logger->isEnabled()) {
 
-            $this->_logger->debug('Making sub-request for <code>' . $url . '</code>');
+            $this->_logger->debug(sprintf('Making API call to collect metadata for %d video(s): [ %s ]',
+                count($ids), implode(', ', $ids)));
         }
 
-        $httpResponse = $this->_httpClient->send($httpRequest);
-        $rawFeed      = $httpResponse->getBody()->toString();
+        $url = $this->_urlFactory->fromString(tubepress_youtube3_impl_ApiUtility::YOUTUBE_API_URL);
+        $url->addPath(tubepress_youtube3_impl_ApiUtility::PATH_VIDEOS);
 
-        if ($this->_logger->isEnabled()) {
+        $partsToRequest  = array(tubepress_youtube3_impl_ApiUtility::PART_ID, tubepress_youtube3_impl_ApiUtility::PART_SNIPPET);
+        $fieldsToRequest = array(tubepress_youtube3_impl_ApiUtility::RESOURCE_ID, tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET);
 
-            $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
-                $url, htmlspecialchars($rawFeed)));
+        if ($this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS) ||
+            $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES) ||
+            $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES) ||
+            $this->_context->get(tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES) ||
+            $this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_VIEWS)) {
+
+            $partsToRequest[]  = tubepress_youtube3_impl_ApiUtility::PART_VIDEO_STATISTICS;
+            $fieldsToRequest[] = tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_STATS;
         }
 
-        return json_decode($rawFeed, true);
+        if ($this->_context->get(tubepress_app_api_options_Names::META_DISPLAY_LENGTH)) {
+
+            $partsToRequest[]  = tubepress_youtube3_impl_ApiUtility::PART_VIDEO_CONTENT_DETAILS;
+            $fieldsToRequest[] = tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_CONTENT_DETAILS;
+        }
+
+        $fields = sprintf('%s,%s(%s)',
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ETAG,
+            tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS,
+            implode(',', $fieldsToRequest));
+
+        /**
+         * author           //snippet.channelId and snippet.channelTitle
+         * category         //snippet.categoryId
+         * comments count   //statistics.commentCount
+         * date uploaded    //snippet.publishedAt
+         * description      //snippet.description
+         * disklikes count  //statistics.disklikeCount
+         * favorites count  //statistics.favoriteCount
+         * id               //id
+         * length           //contentDetails.duration
+         * likes count      //statistics.likeCount
+         * tags             //snippet.tags
+         * title            //snippet.title
+         * url              //https://youtu.be/<id>
+         * view count       //statistics.viewCount
+         */
+        $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_VIDEOS_ID, implode(',', $ids))
+            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, implode(',', $partsToRequest))
+            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS, $fields);
+
+        return $this->_apiUtility->getDecodedApiResponse($url);
+    }
+
+    public function __invoke()
+    {
+        $this->_invokedAtLeastOnce = true;
     }
 }

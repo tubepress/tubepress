@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -22,6 +22,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
         tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
         tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
         tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
     );
 
     /**
@@ -165,8 +166,10 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
             tubepress_app_api_options_Names::META_DISPLAY_URL         => tubepress_app_api_media_MediaItem::ATTRIBUTE_HOME_URL,
             tubepress_app_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_app_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
-            tubepress_youtube3_api_Constants::OPTION_RATINGS          => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_COUNT,
-            tubepress_youtube3_api_Constants::OPTION_RATING           => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_AVERAGE,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED,
 
             tubepress_app_api_options_Names::META_DISPLAY_ID          => tubepress_app_api_media_MediaItem::ATTRIBUTE_ID,
             tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,

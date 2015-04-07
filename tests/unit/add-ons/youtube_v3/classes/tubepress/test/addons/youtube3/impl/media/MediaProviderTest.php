@@ -90,8 +90,10 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_tes
             tubepress_app_api_options_Names::META_DISPLAY_URL         => tubepress_app_api_media_MediaItem::ATTRIBUTE_HOME_URL,
             tubepress_app_api_options_Names::META_DISPLAY_CATEGORY    => tubepress_app_api_media_MediaItem::ATTRIBUTE_CATEGORY_DISPLAY_NAME,
 
-            tubepress_youtube3_api_Constants::OPTION_RATINGS           => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_COUNT,
-            tubepress_youtube3_api_Constants::OPTION_RATING            => tubepress_app_api_media_MediaItem::ATTRIBUTE_RATING_AVERAGE,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES     => tubepress_app_api_media_MediaItem::ATTRIBUTE_LIKES_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_DISLIKES_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS  => tubepress_app_api_media_MediaItem::ATTRIBUTE_COMMENT_COUNT_FORMATTED,
+            tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED,
 
             tubepress_app_api_options_Names::META_DISPLAY_ID          => tubepress_app_api_media_MediaItem::ATTRIBUTE_ID,
             tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
@@ -140,11 +142,13 @@ class tubepress_test_youtube3_impl_media_MediaProviderTest extends tubepress_tes
 
             array(
 
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
             ),
 
             $this->_sut->getGallerySourceNames()

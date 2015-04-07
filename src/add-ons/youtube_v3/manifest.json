@@ -1,6 +1,6 @@
 {
-    "name" : "tubepress/youtube3",
-    "version": "1.0.0",
+    "name" : "tubepress/youtube_v3",
+    "version": "99.99.99",
     "title" : "YouTube",
     "authors" : [
         {
@@ -21,6 +21,7 @@
     "autoload": {
         "classmap" : {
             "tubepress_youtube3_api_Constants"                             : "classes/tubepress/youtube3/api/Constants.php",
+            "tubepress_youtube3_impl_ApiUtility"                           : "classes/tubepress/youtube3/impl/ApiUtility.php",
             "tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider"     : "classes/tubepress/youtube3/impl/embedded/YouTubeEmbeddedProvider.php",
             "tubepress_youtube3_impl_listeners_media_HttpItemListener"     : "classes/tubepress/youtube3/impl/listeners/media/HttpItemListener.php",
             "tubepress_youtube3_impl_listeners_options_PlaylistIdListener" : "classes/tubepress/youtube3/impl/listeners/options/PlaylistIdListener.php",

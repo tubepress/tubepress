@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -38,7 +38,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
      */
     public function getUntranslatedDisplayName()
     {
-        return 'YouTube3';    //>(translatable)<
+        return 'YouTube';    //>(translatable)<
     }
 
     /**
@@ -49,7 +49,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
      */
     public function getId()
     {
-        return 'field-provider-youtube3';
+        return 'field-provider-youtube';
     }
 
     /**
@@ -91,8 +91,8 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
-                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
+                tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
             ),
 
             tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
@@ -111,7 +111,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
             tubepress_app_api_options_ui_CategoryNames::FEED => array(
 
                 tubepress_youtube3_api_Constants::OPTION_FILTER,
-                tubepress_youtube3_api_Constants::OPTION_DEV_KEY,
+                tubepress_youtube3_api_Constants::OPTION_API_KEY,
                 tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY,
             )
         );

@@ -89,7 +89,7 @@ class tubepress_test_youtube3_impl_embedded_YouTubeEmbeddedProviderTest extends 
         $mockQuery->shouldReceive('set')->once()->with('showinfo', 'troo');
         $mockQuery->shouldReceive('set')->once()->with('wmode', 'opaque');
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($mockFullUrl);
-        $this->_mockUrlFactory->shouldReceive('newInstance')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
+        $this->_mockUrlFactory->shouldReceive('fromString')->once()->with('https://www.youtube.com/embed/xx')->andReturn($mockUrl2);
 
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(3)->with(true)->andReturn('troo');
         $this->_mockLangUtils->shouldReceive('booleanToStringOneOrZero')->times(2)->with(false)->andReturn('fawlse');

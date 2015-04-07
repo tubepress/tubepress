@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2014 TubePress LLC (http://tubepress.com)
+ * Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
  *
  * This file is part of TubePress (http://tubepress.com)
  *
@@ -24,16 +24,19 @@ class tubepress_youtube3_api_Constants
     const OPTION_SHOW_RELATED     = 'showRelated';
     const OPTION_THEME            = 'youtubePlayerTheme';
 
-    const OPTION_DEV_KEY         = 'developerKey';
+    /**
+     * @api
+     * @since 4.1.0
+     */
+    const OPTION_API_KEY = 'googleApiKey';
+
     const OPTION_EMBEDDABLE_ONLY = 'embeddableOnly';
     const OPTION_FILTER          = 'filter_racy';
-
-
 
     /**
      * Standard feeds.
      *
-     * https://developers.google.com/youtube/2.0/reference#Standard_feeds
+     * @deprecated
      */
     const OPTION_YOUTUBE_MOST_POPULAR_VALUE   = 'youtubeMostPopularValue';
 
@@ -49,16 +52,26 @@ class tubepress_youtube3_api_Constants
     const OPTION_YOUTUBE_FAVORITES_VALUE = 'favoritesValue';
     const OPTION_YOUTUBE_TAG_VALUE       = 'tagValue';
     const OPTION_YOUTUBE_USER_VALUE      = 'userValue';
+    const OPTION_YOUTUBE_LIST_VALUE      = 'youtubeListValue';
 
+    const OPTION_META_COUNT_LIKES     = 'showCountLikes';
+    const OPTION_META_COUNT_DISLIKES  = 'showCountDislikes';
+    const OPTION_META_COUNT_FAVORITES = 'showCountFavorites';
+    const OPTION_META_COUNT_COMMENTS  = 'showCountComments';
 
+    /**
+     * @deprecated
+     */
     const OPTION_RATING  = 'rating';
+
+    /**
+     * @deprecated
+     */
     const OPTION_RATINGS = 'ratings';
 
 
     /**
-     * Standard feeds.
-     *
-     * https://developers.google.com/youtube/2.0/reference#Standard_feeds
+     * @deprecated
      */
     const GALLERYSOURCE_YOUTUBE_MOST_POPULAR   = 'youtubeMostPopular';
 
@@ -74,8 +87,7 @@ class tubepress_youtube3_api_Constants
     const GALLERYSOURCE_YOUTUBE_FAVORITES = 'favorites';
     const GALLERYSOURCE_YOUTUBE_SEARCH    = 'tag';
     const GALLERYSOURCE_YOUTUBE_USER      = 'user';
-
-
+    const GALLERYSOURCE_YOUTUBE_LIST      = 'youtubeList';
 
     const AUTOHIDE_SHOW_BOTH              = 'fadeNone';
     const AUTOHIDE_HIDE_BOTH              = 'fadeBoth';
@@ -85,12 +97,9 @@ class tubepress_youtube3_api_Constants
     const CONTROLS_SHOW_IMMEDIATE_FLASH = 'showImmediate';
     const CONTROLS_SHOW_DELAYED_FLASH   = 'showDelayed';
 
-    const TIMEFRAME_TODAY      = 'today';
-    const TIMEFRAME_ALL_TIME   = 'all_time';
-    
     const PLAYER_THEME_DARK  = 'dark';
     const PLAYER_THEME_LIGHT = 'light';
-    
+
     const SAFESEARCH_NONE     = 'none';
     const SAFESEARCH_MODERATE = 'moderate';
     const SAFESEARCH_STRICT   = 'strict';

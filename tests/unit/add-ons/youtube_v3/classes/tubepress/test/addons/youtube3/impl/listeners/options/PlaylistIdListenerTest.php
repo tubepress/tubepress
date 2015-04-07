@@ -38,7 +38,7 @@ class tubepress_test_youtube3_impl_listeners_options_PlaylistIdListenerTest exte
     {
         $this->_mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $this->_mockStringUtils  = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
-        $this->_mockUrlFactory->shouldReceive('newInstance')->atLeast(1)->andReturnUsing(function ($a) {
+        $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(function ($a) {
 
             $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory($_SERVER);
             return $urlFactory->fromString($a);

@@ -50,6 +50,9 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_AttributeFormatterInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_util_TimeUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_ApiUtility'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_array_ArrayReaderInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW . '.youtube_v3',
                 'method'   => 'onHttpItem',
@@ -130,13 +133,21 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
     private function _expectMediaProvider()
     {
         $this->expectRegistration(
+            'tubepress_youtube3_impl_ApiUtility',
+            'tubepress_youtube3_impl_ApiUtility'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_HttpClientInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_array_ArrayReaderInterface::_));
+
+        $this->expectRegistration(
             'tubepress_youtube3_impl_media_FeedHandler',
             'tubepress_youtube3_impl_media_FeedHandler'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_HttpClientInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_json_JsonStoreFactoryInterface::_));
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_array_ArrayReaderInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_ApiUtility'));
 
         $this->expectRegistration(
             'tubepress_youtube3_impl_media_MediaProvider',
@@ -172,6 +183,12 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'techcrunch',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'iphone ios',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'apple',
+                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => '9bZkp7q19f0, txqiwrbYGrs',
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => false,
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => false,
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES           => false,
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES       => false,
+                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_MOST_POPULAR_VALUE => '',
                     tubepress_youtube3_api_Constants::OPTION_RATING                     => false,
                     tubepress_youtube3_api_Constants::OPTION_RATINGS                    => false,
                 ),
@@ -194,8 +211,11 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'Favorite videos from this YouTube user or channel',         //>(translatable)<
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'YouTube search for',                   //>(translatable)<
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'Videos from this YouTube user or channel', //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_RATING                     => 'Average rating',                       //>(translatable)<
-                    tubepress_youtube3_api_Constants::OPTION_RATINGS                    => 'Number of ratings',                    //>(translatable)<
+                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => 'This list of YouTube videos',                       //>(translatable)<
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => 'Comment count',                                     //>(translatable)<
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES       => 'Number of times favorited',                         //>(translatable)<
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_LIKES           => 'Number of likes',                                   //>(translatable)<
+                    tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => 'Number of dislikes',
                 ),
 
                 tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
@@ -212,9 +232,11 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                         'boating', 'sailing', 'boating', 'sailing', 'boating', 'sailing', 'fishing', 'boating', 'sailing', 'fishing'),
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE     => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>).',    //>(translatable)<
                         'smosh', 'UCY30JRSgfhYXA6i6xX1erWg'),
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>). Ensure that the favorites playlist\'s privacy is <a href="%s" target="_blank">set to "Public"</a>.',   //>(translatable)<
+                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE => sprintf('You can supply either a YouTube username (e.g. <code>%s</code>) or a YouTube channel ID (e.g. <code>%s</code>). Ensure that the favorites <a href="%s" target="_blank">playlist\'s privacy</a> is set to "Public".',   //>(translatable)<
                         'smosh', 'UCY30JRSgfhYXA6i6xX1erWg', 'https://support.google.com/youtube/answer/3127309'),
-                    )))
+                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE => 'A comma-separated list of YouTube video IDs in the order that you would like them to appear.',
+
+                )))
         ->withArgument(array(
 
                 tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
@@ -264,6 +286,9 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
                 'text',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE),
+            array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
+                'text',
+                tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE),
         );
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
@@ -363,7 +388,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             tubepress_app_api_media_HttpCollectorInterface::_ => tubepress_app_api_media_HttpCollectorInterface::_,
             tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_,
             tubepress_lib_api_http_HttpClientInterface::_ => tubepress_lib_api_http_HttpClientInterface::_,
-            tubepress_lib_api_json_JsonStoreFactoryInterface::_ => tubepress_lib_api_json_JsonStoreFactoryInterface::_,
+            tubepress_lib_api_array_ArrayReaderInterface::_ => tubepress_lib_api_array_ArrayReaderInterface::_,
         );
     }
 }

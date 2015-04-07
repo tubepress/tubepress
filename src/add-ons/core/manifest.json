@@ -142,6 +142,7 @@
             "tubepress_app_impl_vendor_stash_FilesystemCacheBuilder" : "classes/tubepress/app/impl/vendor/stash/FilesystemCacheBuilder.php",
             "tubepress_app_ioc_AppExtension"                         : "classes/tubepress/app/ioc/AppExtension.php",
 
+            "tubepress_lib_api_array_ArrayReaderInterface"      : "classes/tubepress/lib/api/array/ArrayReaderInterface.php",
             "tubepress_lib_api_event_EventDispatcherInterface"  : "classes/tubepress/lib/api/event/EventDispatcherInterface.php",
             "tubepress_lib_api_event_EventInterface"            : "classes/tubepress/lib/api/event/EventInterface.php",
             "tubepress_lib_api_http_AjaxInterface"              : "classes/tubepress/lib/api/http/AjaxInterface.php",
@@ -162,6 +163,7 @@
             "tubepress_lib_api_translation_TranslatorInterface" : "classes/tubepress/lib/api/translation/TranslatorInterface.php",
             "tubepress_lib_api_util_TimeUtilsInterface"         : "classes/tubepress/lib/api/util/TimeUtilsInterface.php",
 
+            "tubepress_lib_impl_array_ArrayReader"                       : "classes/tubepress/lib/impl/array/ArrayReader.php",
             "tubepress_lib_impl_event_tickertape_EventBase"              : "classes/tubepress/lib/impl/event/tickertape/EventBase.php",
             "tubepress_lib_impl_event_tickertape_EventDispatcher"        : "classes/tubepress/lib/impl/event/tickertape/EventDispatcher.php",
             "tubepress_lib_impl_event_tickertape_TickertapeEventWrapper" : "classes/tubepress/lib/impl/event/tickertape/TickertapeEventWrapper.php",
