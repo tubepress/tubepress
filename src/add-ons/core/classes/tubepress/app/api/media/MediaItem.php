@@ -19,30 +19,37 @@
  */
 class tubepress_app_api_media_MediaItem
 {
-    const ATTRIBUTE_AUTHOR_DISPLAY_NAME      = 'authorDisplayName';
-    const ATTRIBUTE_AUTHOR_USER_ID           = 'authorUid';
-    const ATTRIBUTE_AUTHOR_URL               = 'authorUrl';
-    const ATTRIBUTE_CATEGORY_DISPLAY_NAME    = 'category';
-    const ATTRIBUTE_COMMENT_COUNT            = 'commentCount';
-    const ATTRIBUTE_DESCRIPTION              = 'description';
-    const ATTRIBUTE_DURATION_FORMATTED       = 'duration';
-    const ATTRIBUTE_DURATION_SECONDS         = 'durationInSeconds';
-    const ATTRIBUTE_HOME_URL                 = 'homeUrl';
-    const ATTRIBUTE_ID                       = 'id';
-    const ATTRIBUTE_INVOKING_ANCHOR_HREF     = 'invokingAnchorHref';
-    const ATTRIBUTE_INVOKING_ANCHOR_REL      = 'invokingAnchorRel';
-    const ATTRIBUTE_INVOKING_ANCHOR_TARGET   = 'invokingAnchorTarget';
-    const ATTRIBUTE_KEYWORD_ARRAY            = 'keywords';
-    const ATTRIBUTE_KEYWORDS_FORMATTED       = 'keywordsFormatted';
-    const ATTRIBUTE_LIKES_COUNT              = 'likesCount';
-    const ATTRIBUTE_PROVIDER                 = 'provider';
-    const ATTRIBUTE_RATING_AVERAGE           = 'ratingAverage';
-    const ATTRIBUTE_RATING_COUNT             = 'ratingCount';
-    const ATTRIBUTE_THUMBNAIL_URL            = 'thumbnailUrl';
-    const ATTRIBUTE_TIME_PUBLISHED_FORMATTED = 'timePublishedFormatted';
-    const ATTRIBUTE_TIME_PUBLISHED_UNIXTIME  = 'timePublishedUnixTime';
-    const ATTRIBUTE_TITLE                    = 'title';
-    const ATTRIBUTE_VIEW_COUNT               = 'viewCount';
+    const ATTRIBUTE_AUTHOR_DISPLAY_NAME       = 'authorDisplayName';
+    const ATTRIBUTE_AUTHOR_USER_ID            = 'authorUid';
+    const ATTRIBUTE_AUTHOR_URL                = 'authorUrl';
+    const ATTRIBUTE_CATEGORY_DISPLAY_NAME     = 'category';
+    const ATTRIBUTE_COMMENT_COUNT             = 'commentCount';
+    const ATTRIBUTE_COMMENT_COUNT_FORMATTED   = 'commentCountFormatted';
+    const ATTRIBUTE_DESCRIPTION               = 'description';
+    const ATTRIBUTE_COUNT_DISLIKES            = 'countDislikes';
+    const ATTRIBUTE_COUNT_DISLIKES_FORMATTED  = 'countDislikesFormatted';
+    const ATTRIBUTE_COUNT_FAVORITED           = 'countFavorited';
+    const ATTRIBUTE_COUNT_FAVORITED_FORMATTED = 'countFavoritedFormatted';
+    const ATTRIBUTE_DURATION_FORMATTED        = 'duration';
+    const ATTRIBUTE_DURATION_SECONDS          = 'durationInSeconds';
+    const ATTRIBUTE_HOME_URL                  = 'homeUrl';
+    const ATTRIBUTE_ID                        = 'id';
+    const ATTRIBUTE_INVOKING_ANCHOR_HREF      = 'invokingAnchorHref';
+    const ATTRIBUTE_INVOKING_ANCHOR_REL       = 'invokingAnchorRel';
+    const ATTRIBUTE_INVOKING_ANCHOR_TARGET    = 'invokingAnchorTarget';
+    const ATTRIBUTE_KEYWORD_ARRAY             = 'keywords';
+    const ATTRIBUTE_KEYWORDS_FORMATTED        = 'keywordsFormatted';
+    const ATTRIBUTE_LIKES_COUNT               = 'likesCount';
+    const ATTRIBUTE_LIKES_COUNT_FORMATTED     = 'likesCount';
+    const ATTRIBUTE_PROVIDER                  = 'provider';
+    const ATTRIBUTE_RATING_AVERAGE            = 'ratingAverage';
+    const ATTRIBUTE_RATING_COUNT              = 'ratingCount';
+    const ATTRIBUTE_THUMBNAIL_URL             = 'thumbnailUrl';
+    const ATTRIBUTE_TIME_PUBLISHED_FORMATTED  = 'timePublishedFormatted';
+    const ATTRIBUTE_TIME_PUBLISHED_UNIXTIME   = 'timePublishedUnixTime';
+    const ATTRIBUTE_TITLE                     = 'title';
+    const ATTRIBUTE_VIEW_COUNT                = 'viewCount';
+    const ATTRIBUTE_VIEW_COUNT_FORMATTED      = 'viewCount';
 
     /**
      * @var tubepress_platform_api_collection_MapInterface
