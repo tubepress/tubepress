@@ -57,8 +57,14 @@
             {% endblock %}
         {%- endif -%}
 
+        {%- if attributeName == 'description'  -%}
+            {% block metaValueDescription %}
+                {{- mediaItem.description|raw -}}
+            {% endblock %}
+        {%- endif -%}
+
         {# Print out the attribute value. #}
-        {%- if attributeName not in ['title', 'homeUrl', 'authorDisplayName'] -%}
+        {%- if attributeName not in ['title', 'homeUrl', 'authorDisplayName', 'description'] -%}
             {% block metaValueSimple %}
                 {{- attribute(mediaItem, attributeName) -}}
             {% endblock %}

@@ -92,10 +92,10 @@ interface tubepress_api_const_options_names_Meta
     /**
      * @deprecated
      */
-    const RATING = tubepress_youtube2_api_Constants::OPTION_RATING;
+    const RATING = tubepress_youtube3_api_Constants::OPTION_RATING;
 
     /**
      * @deprecated
      */
-    const RATINGS = tubepress_youtube2_api_Constants::OPTION_RATINGS;
+    const RATINGS = tubepress_youtube3_api_Constants::OPTION_RATINGS;
 }

@@ -10,6 +10,65 @@
 
 /**
  **********************************************************************************************
+ **** GLOBAL STUFF
+ **********************************************************************************************
+ */
+
+/**
+ * Prevents the tabs and such from slipping to the very left side of the screen
+ */
+.tp-bs .row {
+
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/**
+ * Prevent the form inputs from spanning the whole page
+ */
+.tp-bs .form-control,
+.tp-bs .input-group .form-control {
+
+    width: auto;
+}
+
+/**
+ * Move the labels up a little bit.
+ */
+.tp-bs .form-horizontal .control-label,
+.tp-bs .form-horizontal .radio,
+.tp-bs .form-horizontal .checkbox,
+.tp-bs .form-horizontal .radio-inline,
+.tp-bs .form-horizontal .checkbox-inline {
+
+    padding-top: 4px;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** TABS
+ **********************************************************************************************
+ */
+
+/**
+ * Make the border go all the way around the tabs
+ */
+.tp-bs .tab-content {
+
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding-top: 24px;
+    margin-bottom: 24px;
+    background-color: white;
+}
+
+
+
+/**
+ **********************************************************************************************
  **** THEME FIELD
  **********************************************************************************************
  */
@@ -52,4 +111,87 @@
 #theme-screenshots > div.panel > div.panel-heading {
 
     padding: 5px 8px;
+}
+
+
+
+
+
+/**
+ **********************************************************************************************
+ **** DROPDOWNS
+ **********************************************************************************************
+ */
+
+.tp-bs li {
+
+    margin-bottom: 0;
+}
+
+
+
+
+
+/**
+ **********************************************************************************************
+ **** CALLOUTS (copied pretty much directly from Bootstrap)
+ **********************************************************************************************
+ */
+.tp-bs .bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.tp-bs .bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.tp-bs .bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.tp-bs .bs-callout code {
+    border-radius: 3px;
+}
+.tp-bs .bs-callout + .tp-bs .bs-callout {
+    margin-top: -5px;
+}
+.tp-bs .bs-callout-danger {
+    border-left-color: #d9534f;
+}
+.tp-bs .bs-callout-danger h4 {
+    color: #d9534f;
+}
+.tp-bs .bs-callout-warning {
+    border-left-color: #f0ad4e;
+}
+.tp-bs .bs-callout-warning h4 {
+    color: #f0ad4e;
+}
+.tp-bs .bs-callout-info {
+    border-left-color: #5bc0de;
+}
+.tp-bs .bs-callout-info h4 {
+    color: #5bc0de;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** BLUEIMP GALLERY
+ **********************************************************************************************
+ */
+button.close {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+.blueimp-gallery a:hover {
+
+    text-decoration: none;
 }

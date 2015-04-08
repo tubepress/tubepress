@@ -65,7 +65,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS)
-         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS);
+         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS)
+         ->addArgument('cssjs/styles')
+         ->addArgument('cssjs/scripts');
 
         $containerBuilder->register(
             tubepress_app_api_html_HtmlGeneratorInterface::_,
@@ -849,7 +851,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS_ADMIN)
-         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN);
+         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN)
+         ->addArgument('options-ui/cssjs/styles')
+         ->addArgument('options-ui/cssjs/scripts');
 
         $containerBuilder->register(
             tubepress_app_api_options_ui_FormInterface::_,
