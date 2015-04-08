@@ -54,7 +54,7 @@ class tubepress_youtube3_api_Constants
     const OPTION_YOUTUBE_USER_VALUE      = 'userValue';
     const OPTION_YOUTUBE_LIST_VALUE      = 'youtubeListValue';
 
-    const OPTION_META_COUNT_LIKES     = 'showCountLikes';
+    const OPTION_META_COUNT_LIKES     = 'likes';
     const OPTION_META_COUNT_DISLIKES  = 'showCountDislikes';
     const OPTION_META_COUNT_FAVORITES = 'showCountFavorites';
     const OPTION_META_COUNT_COMMENTS  = 'showCountComments';
