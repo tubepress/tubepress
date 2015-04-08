@@ -465,7 +465,14 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
     private function _urlBuildingPageCommonParams(tubepress_platform_api_url_UrlInterface $url, $currentPage)
     {
-        $perPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+        if (isset($this->_invokedAtLeastOnce)) {
+
+            $perPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+
+        } else {
+
+            $perPage = min($this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE), ceil(2.07));
+        }
 
         $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, $perPage);
 

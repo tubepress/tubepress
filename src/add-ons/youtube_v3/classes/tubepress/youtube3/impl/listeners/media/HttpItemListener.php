@@ -237,6 +237,8 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
             $final = $thumb;
         }
 
+        $final = str_replace('s://', '://', $final);
+
         $toReturn[tubepress_app_api_media_MediaItem::ATTRIBUTE_THUMBNAIL_URL] = $final;
     }
 
