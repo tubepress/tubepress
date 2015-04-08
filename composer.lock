@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d0b9ea6a6eb11a721b06c555425d9046",
+    "hash": "491f24514b9a8058da12ba8cce24462b",
     "packages": [
         {
             "name": "ehough/filesystem",
@@ -479,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "eecf85e903322e425ea921fd2588238f632965d2"
+                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/eecf85e903322e425ea921fd2588238f632965d2",
-                "reference": "eecf85e903322e425ea921fd2588238f632965d2",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/67920147a81d5bd5bcd052b239ff85bae789f5a3",
+                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3",
                 "shasum": ""
             },
             "require": {
@@ -528,7 +528,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-03-06 07:12:47"
+            "time": "2015-03-26 12:33:23"
         }
     ],
     "packages-dev": [
@@ -650,31 +650,33 @@
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "1.3.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "acd690379117b042d1c8af1fafd61bde001bf6bb"
+                "reference": "a923bb15680d0089e2316f7a4af8f437046e96bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/acd690379117b042d1c8af1fafd61bde001bf6bb",
-                "reference": "acd690379117b042d1c8af1fafd61bde001bf6bb",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/a923bb15680d0089e2316f7a4af8f437046e96bb",
+                "reference": "a923bb15680d0089e2316f7a4af8f437046e96bb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
-                    "File/"
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ""
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
@@ -691,7 +693,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2013-10-10 15:34:57"
+            "time": "2015-04-02 05:19:05"
         },
         {
             "name": "phpunit/php-text-template",
@@ -968,12 +970,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "372d1d6d4bf28c785dc5be3531144b12f9b29a22"
+                "reference": "47cadbb512dd905e657ed29b6c75a6ffd48ad0d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/372d1d6d4bf28c785dc5be3531144b12f9b29a22",
-                "reference": "372d1d6d4bf28c785dc5be3531144b12f9b29a22",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/47cadbb512dd905e657ed29b6c75a6ffd48ad0d2",
+                "reference": "47cadbb512dd905e657ed29b6c75a6ffd48ad0d2",
                 "shasum": ""
             },
             "require": {
@@ -1010,7 +1012,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2015-02-21 13:23:59"
+            "time": "2015-03-30 08:41:59"
         },
         {
             "name": "symfony/css-selector",
@@ -1019,12 +1021,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299"
+                "reference": "37a78249e7b013459d05c836d4cc9011f15d20d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
-                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/37a78249e7b013459d05c836d4cc9011f15d20d5",
+                "reference": "37a78249e7b013459d05c836d4cc9011f15d20d5",
                 "shasum": ""
             },
             "require": {
@@ -1064,7 +1066,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2015-02-21 13:23:59"
+            "time": "2015-03-24 17:09:17"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1073,12 +1075,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "0e444fc344a589002d0e2087f10d388d62c5c94c"
+                "reference": "4bd9dfe4807e2f3d0114c44363fa373276d6423b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/0e444fc344a589002d0e2087f10d388d62c5c94c",
-                "reference": "0e444fc344a589002d0e2087f10d388d62c5c94c",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/4bd9dfe4807e2f3d0114c44363fa373276d6423b",
+                "reference": "4bd9dfe4807e2f3d0114c44363fa373276d6423b",
                 "shasum": ""
             },
             "require": {
@@ -1118,7 +1120,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-07 07:44:26"
+            "time": "2015-03-30 15:59:03"
         },
         {
             "name": "symfony/yaml",
@@ -1127,12 +1129,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "601ca9abea0e2742b051de33f5de4bc764f5ce5c"
+                "reference": "3882af2f22672e347030b561cc6c5abc2b335566"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/601ca9abea0e2742b051de33f5de4bc764f5ce5c",
-                "reference": "601ca9abea0e2742b051de33f5de4bc764f5ce5c",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/3882af2f22672e347030b561cc6c5abc2b335566",
+                "reference": "3882af2f22672e347030b561cc6c5abc2b335566",
                 "shasum": ""
             },
             "require": {
@@ -1168,7 +1170,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-07 07:43:00"
+            "time": "2015-03-30 15:55:07"
         }
     ],
     "aliases": [],
