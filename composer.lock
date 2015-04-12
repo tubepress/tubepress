@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "491f24514b9a8058da12ba8cce24462b",
+    "hash": "8b828f60b8adec60126ddca73ef45e99",
     "packages": [
         {
             "name": "ehough/filesystem",
@@ -529,6 +529,45 @@
                 "templating"
             ],
             "time": "2015-03-26 12:33:23"
+        },
+        {
+            "name": "yahnis-elsts/plugin-update-checker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
+                "reference": "acb8476be2e91506fe863ad385c05f4b16b9fb40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/acb8476be2e91506fe863ad385c05f4b16b9fb40",
+                "reference": "acb8476be2e91506fe863ad385c05f4b16b9fb40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yahnis Elsts",
+                    "email": "whiteshadow@w-shadow.com",
+                    "homepage": "http://w-shadow.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A custom update checker for WordPress plugins. Useful if you can't host your plugin in the official WP plugin repository but still want it to support automatic plugin updates.",
+            "homepage": "https://github.com/YahnisElsts/plugin-update-checker/",
+            "keywords": [
+                "automatic updates",
+                "plugin updates",
+                "wordpress"
+            ],
+            "time": "2015-02-22 10:03:27"
         }
     ],
     "packages-dev": [
@@ -970,20 +1009,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "47cadbb512dd905e657ed29b6c75a6ffd48ad0d2"
+                "reference": "0f1a69897353191eee3045d9634c39f3f6b46231"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/47cadbb512dd905e657ed29b6c75a6ffd48ad0d2",
-                "reference": "47cadbb512dd905e657ed29b6c75a6ffd48ad0d2",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/0f1a69897353191eee3045d9634c39f3f6b46231",
+                "reference": "0f1a69897353191eee3045d9634c39f3f6b46231",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "require-dev": {
-                "symfony/finder": "~2.7|~3.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0"
+                "symfony/finder": "~2.8|~3.0",
+                "symfony/phpunit-bridge": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
@@ -1012,7 +1051,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-30 08:41:59"
+            "time": "2015-04-10 07:31:54"
         },
         {
             "name": "symfony/css-selector",
@@ -1021,19 +1060,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "37a78249e7b013459d05c836d4cc9011f15d20d5"
+                "reference": "1e82612c86afcd075dbb2f4e3e5f20caafe03974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/37a78249e7b013459d05c836d4cc9011f15d20d5",
-                "reference": "37a78249e7b013459d05c836d4cc9011f15d20d5",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/1e82612c86afcd075dbb2f4e3e5f20caafe03974",
+                "reference": "1e82612c86afcd075dbb2f4e3e5f20caafe03974",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "~2.7|~3.0"
+                "symfony/phpunit-bridge": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
@@ -1066,7 +1105,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-24 17:09:17"
+            "time": "2015-04-10 07:31:54"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1075,20 +1114,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "4bd9dfe4807e2f3d0114c44363fa373276d6423b"
+                "reference": "f40c899c09a9a5a2808715d2ef5e8fc39cbcc1c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/4bd9dfe4807e2f3d0114c44363fa373276d6423b",
-                "reference": "4bd9dfe4807e2f3d0114c44363fa373276d6423b",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/f40c899c09a9a5a2808715d2ef5e8fc39cbcc1c0",
+                "reference": "f40c899c09a9a5a2808715d2ef5e8fc39cbcc1c0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "require-dev": {
-                "symfony/css-selector": "~2.7|~3.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0"
+                "symfony/css-selector": "~2.8|~3.0",
+                "symfony/phpunit-bridge": "~2.8|~3.0"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -1120,21 +1159,21 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-30 15:59:03"
+            "time": "2015-04-10 07:31:54"
         },
         {
             "name": "symfony/yaml",
-            "version": "2.7.x-dev",
+            "version": "2.8.x-dev",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "3882af2f22672e347030b561cc6c5abc2b335566"
+                "reference": "fdded56dde4ca9efce6322887bf5eaa7bb0aae3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/3882af2f22672e347030b561cc6c5abc2b335566",
-                "reference": "3882af2f22672e347030b561cc6c5abc2b335566",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/fdded56dde4ca9efce6322887bf5eaa7bb0aae3e",
+                "reference": "fdded56dde4ca9efce6322887bf5eaa7bb0aae3e",
                 "shasum": ""
             },
             "require": {
@@ -1146,7 +1185,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -1170,12 +1209,13 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-30 15:55:07"
+            "time": "2015-04-10 08:56:33"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "yahnis-elsts/plugin-update-checker": 20,
         "symfony/class-loader": 20,
         "symfony/dom-crawler": 20,
         "symfony/css-selector": 20

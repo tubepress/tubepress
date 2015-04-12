@@ -12,14 +12,15 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "ehough/finder"      : "~2.5.0",
-        "ehough/iconic"      : "~2.5.0",
-        "ehough/pulsar"      : "~2.5.0",
-        "ehough/stash"       : "~0.12.0",
-        "ehough/tickertape"  : "~2.5.0",
-        "ehough/templating"  : "~2.5.0",
-        "puzzlehttp/puzzle"  : "~4.2.0",
-        "twig/twig"          : "1.*"
+        "ehough/finder"                      : "~2.5.0",
+        "ehough/iconic"                      : "~2.5.0",
+        "ehough/pulsar"                      : "~2.5.0",
+        "ehough/stash"                       : "~0.12.0",
+        "ehough/tickertape"                  : "~2.5.0",
+        "ehough/templating"                  : "~2.5.0",
+        "puzzlehttp/puzzle"                  : "~4.2.0",
+        "twig/twig"                          : "1.*",
+        "yahnis-elsts/plugin-update-checker" : "dev-master"
     },
     "require-dev": {
         "ehough/mockery"       : "~0.8",
