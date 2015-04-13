@@ -3,34 +3,21 @@ Contributors: k2eric
 Donate link: http://tubepress.com
 Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
-Tested up to: 3.8
+Tested up to: 4.2
 License: Mozilla Public License v2.0
 Stable tag: @stableversion@
 
-Modern video galleries for the web. Visit us at tubepress.com for more!
+Modern video galleries for the web. Now moved entirely to tubepress.com.
 
-== Description ==
+**Available for download exclusively from [tubepress.com](http://tubepress.com/).**
 
-**Demos**
-
-* [Simple gallery](http://tubepress.com/demo/)
-* [Feature showcase](http://tubepress.com/showcase/)
-* [Standalone PHP](http://tubepress.com/standalone_php_demo/)
-
-**Support**
-
-* [Documentation](http://tubepress.com/documentation/)
-* [Support forum](http://community.tubepress.com/)
-* [GitHub page](http://github.com/tubepress/tubepress)
-
-== Installation ==
-
-1. Unzip into your plugins directory at `(wp-content/plugins)`
-1. Activate TubePress from `Site Admin > Plugins`
-1. Configure from `Site Admin > Settings > TubePress`
-1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
+We are no longer providing updates or support here at wordpress.org. Please see [this blog post](http://tubepress.com/blog/2015/04/the-death-of-the-youtube-api-v2-and-its-impact-on-tubepress/) for details.
 
 == Changelog ==
+= 3.1.7 =
+* Transitional release that provides a seamless upgrade path from 3.x.x to 4.x.x. Once you upgrade to 3.1.7, you will prompted again to upgrade to the latest TubePress from the 4.x.x series.
+* Final release from wordpress.org plugin repository.
+
 = 3.1.6 =
 * Bug Fixes
     * Fixed bug that prevented fullscreen playback in Chrome
@@ -607,7 +594,7 @@ Modern video galleries for the web. Visit us at tubepress.com for more!
 * Fixed major bug with CSS file path 
 
 = 0.1 =
-* Initial release 
+* Initial release
 
 == Screenshots ==
 

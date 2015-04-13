@@ -1,5 +1,7 @@
 **/.travis.yml
 .idea/**
+.idea*/**
+build/**
 composer.*
 .git/**
 .gitignore

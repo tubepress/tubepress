@@ -17,3 +17,10 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 include 'src/main/php/scripts/boot.php';
+
+require 'vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+    'http://snippets.wp.tubepress.com/update.php',
+    __FILE__,
+    plugin_basename(basename(dirname(__FILE__)) . '/tubepress.php')
+);

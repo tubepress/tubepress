@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "7f5c4ab1675e95de6ddf1cdf6fe1378a",
+    "hash": "62dcf6c5d5cfd4e27a99f63ce032f7e4",
     "packages": [
         {
             "name": "ehough/chaingang",
@@ -170,31 +171,46 @@
         },
         {
             "name": "ehough/epilog",
-            "version": "1.7.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/epilog.git",
-                "reference": "dbdb5edb126d5e09fb6cb05aab11451e584f8cbd"
+                "reference": "e0ede22ae45622d9ff4a64d5d10074cab9e16410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/epilog/zipball/dbdb5edb126d5e09fb6cb05aab11451e584f8cbd",
-                "reference": "dbdb5edb126d5e09fb6cb05aab11451e584f8cbd",
+                "url": "https://api.github.com/repos/ehough/epilog/zipball/e0ede22ae45622d9ff4a64d5d10074cab9e16410",
+                "reference": "e0ede22ae45622d9ff4a64d5d10074cab9e16410",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "~2.4.8",
-                "doctrine/couchdb": "dev-master",
+                "aws/aws-sdk-php": "~2.4, >2.4.8",
+                "doctrine/couchdb": "~1.0@dev",
                 "ehough/pulsar": "~2.3",
-                "mlehner/gelf-php": "1.0.*",
+                "graylog2/gelf-php": "~1.0",
                 "phpunit/phpunit": "~3.7.0",
-                "raven/raven": "0.5.*",
+                "raven/raven": "~0.5",
                 "ruflin/elastica": "0.90.*"
             },
+            "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mongo": "Allow sending log messages to a MongoDB server",
+                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "raven/raven": "Allow sending log messages to a Sentry server",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "ehough_epilog": "src/main/php"
@@ -206,27 +222,33 @@
             ],
             "authors": [
                 {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be",
+                    "role": "Developer"
+                },
+                {
                     "name": "Eric Hough",
-                    "email": "eric@ehough.com",
-                    "homepage": "http://ehough.com"
+                    "email": "eric@tubepress.org",
+                    "homepage": "https://github.com/ehough"
                 }
             ],
-            "description": "Fork of seldaek/monolog compatible with PHP 5.2+.",
+            "description": "Fork of seldaek/monolog compatible with PHP 5.2+",
             "homepage": "https://github.com/ehough/epilog",
-            "time": "2013-12-05 02:07:00"
+            "time": "2014-06-18 23:56:08"
         },
         {
             "name": "ehough/filesystem",
-            "version": "v2.4.0",
+            "version": "v2.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/filesystem.git",
-                "reference": "8efba59e82f6fc4c855acdf09387ef6aaef9f235"
+                "reference": "53bdbc8290f8c99cf294b2c04f25e2a82fe8d148"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/filesystem/zipball/8efba59e82f6fc4c855acdf09387ef6aaef9f235",
-                "reference": "8efba59e82f6fc4c855acdf09387ef6aaef9f235",
+                "url": "https://api.github.com/repos/ehough/filesystem/zipball/53bdbc8290f8c99cf294b2c04f25e2a82fe8d148",
+                "reference": "53bdbc8290f8c99cf294b2c04f25e2a82fe8d148",
                 "shasum": ""
             },
             "require": {
@@ -256,20 +278,20 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2013-12-04 20:26:38"
+            "time": "2014-09-24 16:39:46"
         },
         {
             "name": "ehough/finder",
-            "version": "v2.4.0",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/finder.git",
-                "reference": "6070a85d73d38be99411861adfddead706833a34"
+                "reference": "cdd66b316344d47808623b7d4a956ec945534f91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/finder/zipball/6070a85d73d38be99411861adfddead706833a34",
-                "reference": "6070a85d73d38be99411861adfddead706833a34",
+                "url": "https://api.github.com/repos/ehough/finder/zipball/cdd66b316344d47808623b7d4a956ec945534f91",
+                "reference": "cdd66b316344d47808623b7d4a956ec945534f91",
                 "shasum": ""
             },
             "require": {
@@ -297,20 +319,20 @@
                 }
             ],
             "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
-            "time": "2013-12-05 00:28:26"
+            "time": "2014-04-29 23:44:58"
         },
         {
             "name": "ehough/iconic",
-            "version": "v2.4.0",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/iconic.git",
-                "reference": "6f8008253cb525d97c283b0a7809b483ce0db43f"
+                "reference": "a68f04a40240bbb2c8db9874ebd218fed8586c7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/iconic/zipball/6f8008253cb525d97c283b0a7809b483ce0db43f",
-                "reference": "6f8008253cb525d97c283b0a7809b483ce0db43f",
+                "url": "https://api.github.com/repos/ehough/iconic/zipball/a68f04a40240bbb2c8db9874ebd218fed8586c7a",
+                "reference": "a68f04a40240bbb2c8db9874ebd218fed8586c7a",
                 "shasum": ""
             },
             "require": {
@@ -346,20 +368,20 @@
             ],
             "description": "Fork of Symfony's Dependency Injection component compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/iconic",
-            "time": "2013-12-05 00:04:34"
+            "time": "2014-04-30 01:27:36"
         },
         {
             "name": "ehough/pulsar",
-            "version": "v2.4.0",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/pulsar.git",
-                "reference": "cbc89cafa739146111dfc8127ebe318bb64c159a"
+                "reference": "84a16936a6b0059f1a09e10eee37c2288892e87f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/pulsar/zipball/cbc89cafa739146111dfc8127ebe318bb64c159a",
-                "reference": "cbc89cafa739146111dfc8127ebe318bb64c159a",
+                "url": "https://api.github.com/repos/ehough/pulsar/zipball/84a16936a6b0059f1a09e10eee37c2288892e87f",
+                "reference": "84a16936a6b0059f1a09e10eee37c2288892e87f",
                 "shasum": ""
             },
             "require": {
@@ -381,7 +403,7 @@
             ],
             "authors": [
                 {
-                    "name": "Eric D. Hough",
+                    "name": "Eric Hough",
                     "email": "eric@ehough.com",
                     "homepage": "http://ehough.com"
                 }
@@ -393,7 +415,7 @@
                 "autoloader",
                 "psr-0"
             ],
-            "time": "2013-12-04 22:08:10"
+            "time": "2014-04-30 02:03:58"
         },
         {
             "name": "ehough/shortstop",
@@ -443,23 +465,25 @@
         },
         {
             "name": "ehough/stash",
-            "version": "v0.11.4",
+            "version": "v0.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/stash.git",
-                "reference": "199a06cced0e8ba5441f2d09b9fc0fa1e1a83d6c"
+                "reference": "0e03f75d286733f6d0540138a9c448ef106b36eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/stash/zipball/199a06cced0e8ba5441f2d09b9fc0fa1e1a83d6c",
-                "reference": "199a06cced0e8ba5441f2d09b9fc0fa1e1a83d6c",
+                "url": "https://api.github.com/repos/ehough/stash/zipball/0e03f75d286733f6d0540138a9c448ef106b36eb",
+                "reference": "0e03f75d286733f6d0540138a9c448ef106b36eb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "fabpot/php-cs-fixer": "0.4.0",
+                "phpunit/phpunit": "4.0.*",
+                "satooshi/php-coveralls": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -489,20 +513,20 @@
                 "redis",
                 "sessions"
             ],
-            "time": "2013-12-29 23:18:35"
+            "time": "2014-06-19 22:31:57"
         },
         {
             "name": "ehough/tickertape",
-            "version": "v2.4.0",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ehough/tickertape.git",
-                "reference": "d096f5591755ebc64fe67504243c413ccac79ceb"
+                "reference": "c76e77e37cc9096910864aad973234d42a58cf30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ehough/tickertape/zipball/d096f5591755ebc64fe67504243c413ccac79ceb",
-                "reference": "d096f5591755ebc64fe67504243c413ccac79ceb",
+                "url": "https://api.github.com/repos/ehough/tickertape/zipball/c76e77e37cc9096910864aad973234d42a58cf30",
+                "reference": "c76e77e37cc9096910864aad973234d42a58cf30",
                 "shasum": ""
             },
             "require": {
@@ -510,7 +534,12 @@
             },
             "require-dev": {
                 "ehough/iconic": "~2.3",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "~1.0",
+                "symfony/stopwatch": "~2.2"
+            },
+            "suggest": {
+                "symfony/http-kernel": ""
             },
             "type": "library",
             "autoload": {
@@ -531,7 +560,46 @@
             ],
             "description": "Fork of Symfony's Event Dispatcher compatible with PHP 5.2+.",
             "homepage": "https://github.com/ehough/tickertape",
-            "time": "2013-12-04 21:04:42"
+            "time": "2014-04-30 02:12:06"
+        },
+        {
+            "name": "yahnis-elsts/plugin-update-checker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
+                "reference": "acb8476be2e91506fe863ad385c05f4b16b9fb40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/acb8476be2e91506fe863ad385c05f4b16b9fb40",
+                "reference": "acb8476be2e91506fe863ad385c05f4b16b9fb40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yahnis Elsts",
+                    "email": "whiteshadow@w-shadow.com",
+                    "homepage": "http://w-shadow.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A custom update checker for WordPress plugins. Useful if you can't host your plugin in the official WP plugin repository but still want it to support automatic plugin updates.",
+            "homepage": "https://github.com/YahnisElsts/plugin-update-checker/",
+            "keywords": [
+                "automatic updates",
+                "plugin updates",
+                "wordpress"
+            ],
+            "time": "2015-02-22 10:03:27"
         }
     ],
     "packages-dev": [
@@ -592,23 +660,23 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "1.2.13",
+            "version": "1.2.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94"
+                "reference": "fe2466802556d3fe4e4d1d58ffd3ccfd0a19be0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/fe2466802556d3fe4e4d1d58ffd3ccfd0a19be0b",
+                "reference": "fe2466802556d3fe4e4d1d58ffd3ccfd0a19be0b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "phpunit/php-file-iterator": ">=1.3.0@stable",
-                "phpunit/php-text-template": ">=1.1.1@stable",
-                "phpunit/php-token-stream": ">=1.1.3@stable"
+                "phpunit/php-text-template": ">=1.2.0@stable",
+                "phpunit/php-token-stream": ">=1.1.3,<1.3.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "3.7.*@dev"
@@ -649,35 +717,37 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-10 08:14:32"
+            "time": "2014-09-02 10:13:14"
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "1.3.4",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "acd690379117b042d1c8af1fafd61bde001bf6bb"
+                "reference": "a923bb15680d0089e2316f7a4af8f437046e96bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/acd690379117b042d1c8af1fafd61bde001bf6bb",
-                "reference": "acd690379117b042d1c8af1fafd61bde001bf6bb",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/a923bb15680d0089e2316f7a4af8f437046e96bb",
+                "reference": "a923bb15680d0089e2316f7a4af8f437046e96bb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
-                    "File/"
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ""
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
@@ -694,20 +764,20 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2013-10-10 15:34:57"
+            "time": "2015-04-02 05:19:05"
         },
         {
             "name": "phpunit/php-text-template",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23"
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/5180896f51c5b3648ac946b05f9ec02be78a0b23",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
                 "shasum": ""
             },
             "require": {
@@ -738,7 +808,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2012-10-31 18:15:28"
+            "time": "2014-01-30 17:20:04"
         },
         {
             "name": "phpunit/php-timer",
@@ -786,16 +856,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "5220af2a7929aa35cf663d97c89ad3d50cf5fa3e"
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/5220af2a7929aa35cf663d97c89ad3d50cf5fa3e",
-                "reference": "5220af2a7929aa35cf663d97c89ad3d50cf5fa3e",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
                 "shasum": ""
             },
             "require": {
@@ -832,43 +902,42 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-09-13 04:58:23"
+            "time": "2014-03-03 05:10:30"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.28",
+            "version": "3.7.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
+                "reference": "38709dc22d519a3d1be46849868aa2ddf822bcf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/38709dc22d519a3d1be46849868aa2ddf822bcf6",
+                "reference": "38709dc22d519a3d1be46849868aa2ddf822bcf6",
                 "shasum": ""
             },
             "require": {
+                "ext-ctype": "*",
                 "ext-dom": "*",
+                "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-reflection": "*",
                 "ext-spl": "*",
                 "php": ">=5.3.3",
-                "phpunit/php-code-coverage": "~1.2.1",
-                "phpunit/php-file-iterator": ">=1.3.1",
-                "phpunit/php-text-template": ">=1.1.1",
-                "phpunit/php-timer": ">=1.0.4",
-                "phpunit/phpunit-mock-objects": "~1.2.0",
+                "phpunit/php-code-coverage": "~1.2",
+                "phpunit/php-file-iterator": "~1.3",
+                "phpunit/php-text-template": "~1.1",
+                "phpunit/php-timer": "~1.0",
+                "phpunit/phpunit-mock-objects": "~1.2",
                 "symfony/yaml": "~2.0"
             },
             "require-dev": {
-                "pear-pear/pear": "1.9.4"
+                "pear-pear.php.net/pear": "1.9.4"
             },
             "suggest": {
-                "ext-json": "*",
-                "ext-simplexml": "*",
-                "ext-tokenizer": "*",
-                "phpunit/php-invoker": ">=1.1.0,<1.2.0"
+                "phpunit/php-invoker": "~1.1"
             },
             "bin": [
                 "composer/bin/phpunit"
@@ -906,7 +975,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-10-17 07:27:40"
+            "time": "2014-10-17 09:04:17"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -959,26 +1028,29 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.4.0",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "1ae235a1b9d3ad3d9f3860ff20acc072df95b7f5"
+                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1ae235a1b9d3ad3d9f3860ff20acc072df95b7f5",
-                "reference": "1ae235a1b9d3ad3d9f3860ff20acc072df95b7f5",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/174f009ed36379a801109955fc5a71a49fe62dd4",
+                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -992,30 +1064,26 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-26 16:40:27"
+            "time": "2015-03-30 15:54:10"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "stability-flags": {
+        "yahnis-elsts/plugin-update-checker": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
 }

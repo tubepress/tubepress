@@ -21,7 +21,8 @@
         "ehough/pulsar":      "~2.4.0",
         "ehough/shortstop":   "~2.0",
         "ehough/stash":       "~0.10",
-        "ehough/tickertape":  "~2.4.0"
+        "ehough/tickertape":  "~2.4.0",
+        "yahnis-elsts/plugin-update-checker": "dev-master"
     },
     "require-dev": {
         "ehough/mockery": "~0.8",
