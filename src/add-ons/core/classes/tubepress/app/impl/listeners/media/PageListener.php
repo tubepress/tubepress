@@ -225,7 +225,7 @@ class tubepress_app_impl_listeners_media_PageListener
         }
 
         $oldTotalResultCount = $mediaPage->getTotalResultCount();
-        $newTotalResultCount = max(0, ($oldTotalResultCount - 1));
+        $newTotalResultCount = max(0, ($oldTotalResultCount - $removed));
 
         $mediaPage->setTotalResultCount($newTotalResultCount);
         $mediaPage->setItems($items);
