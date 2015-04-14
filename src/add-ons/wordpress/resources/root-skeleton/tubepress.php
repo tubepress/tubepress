@@ -2,7 +2,7 @@
 /**
 Plugin Name: @TubePress@
 Plugin URI: http://tubepress.com
-Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. @description@
+Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and widgets. @description@
 Author: TubePress LLC
 Version: git-bleeding
 Author URI: http://tubepress.com
@@ -35,6 +35,7 @@ class tubepress_wordpress_ApiIntegrator
         $this->_addActions();
         $this->_addActivationHooks();
         $this->_addShortcode();
+        $this->_addUpdateChecker();
     }
 
     private function _init()
@@ -92,11 +93,7 @@ class tubepress_wordpress_ApiIntegrator
 
     private function _addShortcode()
     {
-        /** @noinspection PhpIncludeInspection */
-        /**
-         * @var $serviceContainer tubepress_platform_api_ioc_ContainerInterface
-         */
-        $serviceContainer = require 'src/platform/scripts/boot.php';
+        $serviceContainer = $this->_getServiceContainer();
 
         /**
          * @var $persistence tubepress_app_api_options_PersistenceInterface
@@ -198,26 +195,51 @@ class tubepress_wordpress_ApiIntegrator
      */
     private function _getCallback()
     {
-        /** @noinspection PhpIncludeInspection */
-        /**
-         * @var $serviceContainer tubepress_platform_api_ioc_ContainerInterface
-         */
-        $serviceContainer = require 'src/platform/scripts/boot.php';
+        $serviceContainer = $this->_getServiceContainer();
 
         return $serviceContainer->get('tubepress_wordpress_impl_Callback');
     }
 
     private function _handleException(Exception $e)
     {
-        /** @noinspection PhpIncludeInspection */
-        /**
-         * @var $serviceContainer tubepress_platform_api_ioc_ContainerInterface
-         */
-        $serviceContainer = require 'src/platform/scripts/boot.php';
+        $serviceContainer = $this->_getServiceContainer();
 
         $logger = $serviceContainer->get(tubepress_platform_api_log_LoggerInterface::_);
 
         $logger->error($e->getMessage());
+    }
+
+    private function _addUpdateChecker()
+    {
+        $serviceContainer = $this->_getServiceContainer();
+
+        /**
+         * @var $environment tubepress_app_api_environment_EnvironmentInterface
+         */
+        $environment = $serviceContainer->get(tubepress_app_api_environment_EnvironmentInterface::_);
+        $updateUrl   = 'http://snippets.wp.tubepress.com/update.php';
+
+        if ($environment->isPro()) {
+
+            $updateUrl .= '?pro';
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        require 'vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
+
+        /** @noinspection PhpUndefinedFunctionInspection */
+        PucFactory::buildUpdateChecker($updateUrl, __FILE__,
+
+            plugin_basename(basename(dirname(__FILE__)) . '/tubepress.php')
+        );
+    }
+
+    /**
+     * @return tubepress_platform_api_ioc_ContainerInterface
+     */
+    private function _getServiceContainer()
+    {
+        return require 'src/platform/scripts/boot.php';
     }
 }
 
