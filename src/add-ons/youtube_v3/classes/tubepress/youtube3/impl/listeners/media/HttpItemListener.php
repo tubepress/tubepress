@@ -440,7 +440,13 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
     private function _relativeQueryAsString(array $json, $index, array $query, $default = '')
     {
         $items = $this->_arrayReader->getAsArray($json, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
-        $item  = $items[$index];
+
+        if (!isset($items[$index])) {
+
+            return $default;
+        }
+
+        $item = $items[$index];
 
         return $this->_arrayReader->getAsString($item, implode('.', $query), $default);
     }
@@ -448,7 +454,13 @@ class tubepress_youtube3_impl_listeners_media_HttpItemListener
     private function _relativeQueryAsArray(array $json, $index, array $query, $default = array())
     {
         $items = $this->_arrayReader->getAsArray($json, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
-        $item  = $items[$index];
+
+        if (!isset($items[$index])) {
+
+            return $default;
+        }
+
+        $item = $items[$index];
 
         return $this->_arrayReader->getAsArray($item, implode('.', $query), $default);
     }

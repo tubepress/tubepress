@@ -290,8 +290,13 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     public function getIdForItemAtIndex($index)
     {
         $items = $this->_arrayReader->getAsArray($this->_metadataAsArray, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS, array());
-        $item  = $items[$index];
-        $id    = $this->_arrayReader->getAsString($item, tubepress_youtube3_impl_ApiUtility::RESOURCE_ID);
+        $id    = '';
+
+        if (isset($items[$index])) {
+
+            $item = $items[$index];
+            $id   = $this->_arrayReader->getAsString($item, tubepress_youtube3_impl_ApiUtility::RESOURCE_ID);
+        }
 
         if ($id === '') {
 
@@ -343,13 +348,18 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
         $response           = $this->_apiUtility->getDecodedApiResponse($channelListUrl);
         $responseItems      = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
-        $firstItem          = $responseItems[0];
-        $favoritesChannelId = $this->_arrayReader->getAsString($firstItem, sprintf('%s.%s.%s',
+        $favoritesChannelId = '';
 
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS_FAVORITES
-        ));
+        if (count($responseItems) > 0) {
+
+            $firstItem          = $responseItems[0];
+            $favoritesChannelId = $this->_arrayReader->getAsString($firstItem, sprintf('%s.%s.%s',
+
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS,
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS,
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS_FAVORITES
+            ));
+        }
 
         if ($favoritesChannelId === '') {
 
@@ -392,15 +402,20 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
                                    ->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, 1)
                                    ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS,      $fields);
 
-        $response       = $this->_apiUtility->getDecodedApiResponse($channelListUrl);
-        $responseItems  = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
-        $firstItem      = $responseItems[0];
-        $favoritesChannelId = $this->_arrayReader->getAsString($firstItem, sprintf('%s.%s.%s',
+        $response           = $this->_apiUtility->getDecodedApiResponse($channelListUrl);
+        $responseItems      = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
+        $favoritesChannelId = '';
 
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS_UPLOADS
-        ));
+        if (count($responseItems) > 0) {
+
+            $firstItem      = $responseItems[0];
+            $favoritesChannelId = $this->_arrayReader->getAsString($firstItem, sprintf('%s.%s.%s',
+
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS,
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS,
+                tubepress_youtube3_impl_ApiUtility::RESOURCE_CHANNEL_CONTENTDETAILS_RELATED_PLAYLISTS_UPLOADS
+            ));
+        }
 
         if ($favoritesChannelId === '') {
 
@@ -424,7 +439,9 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     private function _urlBuildingConvertUserOrChannelToChannelId($candidate)
     {
-        if ($this->_logger->isEnabled()) {
+        $debugEnabled = $this->_logger->isEnabled();
+
+        if ($debugEnabled) {
 
             $this->_logger->debug(sprintf('Determining if %s a YouTube user or channel ID. First, we\'ll assume it\'s a user', $candidate));
         }
@@ -439,28 +456,81 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
         $channelListUrl->addPath(tubepress_youtube3_impl_ApiUtility::PATH_CHANNELS);
         $channelListUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, $part)
-            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_FORUSERNAME, $candidate)
-            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, 1)
-            ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS, $fields);
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_FORUSERNAME, $candidate)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_MAX_RESULTS, 1)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_FIELDS, $fields);
 
-        $response       = $this->_apiUtility->getDecodedApiResponse($channelListUrl);
-        $responseItems  = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
-        $firstItem      = $responseItems[0];
-        $channelId      = $this->_arrayReader->getAsString($firstItem, tubepress_youtube3_impl_ApiUtility::RESOURCE_ID);
+        $channelId = $this->_getChannelIdOrNullFromUrl($channelListUrl);
 
-        if ($this->_logger->isEnabled()) {
+        if ($channelId) {
 
-            if ($channelId === '') {
-
-                $this->_logger->debug(sprintf('%s does not appear to be a YouTube user. Assuming it is a channel ID.', $candidate));
-
-            } else {
+            if ($debugEnabled) {
 
                 $this->_logger->debug(sprintf('%s is a YouTube user with channel ID %s', $candidate, $channelId));
             }
+
+            return $channelId;
         }
 
-        return $channelId;
+        if ($debugEnabled) {
+
+            $this->_logger->debug(sprintf('%s does not appear to be a YouTube user. See if it is an exact channel ID', $candidate));
+        }
+
+        $channelListUrl->getQuery()->remove(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_FORUSERNAME)
+                                   ->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_ID, $candidate);
+
+        $channelId = $this->_getChannelIdOrNullFromUrl($channelListUrl);
+
+        if ($channelId) {
+
+            if ($debugEnabled) {
+
+                $this->_logger->debug(sprintf('%s is an exact channel ID.', $channelId));
+            }
+
+            return $channelId;
+        }
+
+        if ($debugEnabled) {
+
+            $this->_logger->debug(sprintf('%s does not appear to be a YouTube user or an exact channel ID. Last resort - trying to add "UC" in front of it.', $candidate));
+        }
+
+        $channelListUrl->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_CHANNELS_ID, "UC$candidate");
+
+        $channelId = $this->_getChannelIdOrNullFromUrl($channelListUrl);
+
+        if ($channelId) {
+
+            if ($debugEnabled) {
+
+                $this->_logger->debug(sprintf('%s is a valid channel ID, we will use that instead.', $channelId));
+            }
+
+            return $channelId;
+        }
+
+        throw new InvalidArgumentException(sprintf('%s is not a valid YouTube user or channel', $candidate));
+    }
+
+    private function _getChannelIdOrNullFromUrl(tubepress_platform_api_url_UrlInterface $url)
+    {
+        $response      = $this->_apiUtility->getDecodedApiResponse($url);
+        $responseItems = $this->_arrayReader->getAsArray($response, tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS);
+
+        if (count($responseItems) > 0) {
+
+            $firstItem = $responseItems[0];
+            $channelId = $this->_arrayReader->getAsString($firstItem, tubepress_youtube3_impl_ApiUtility::RESOURCE_ID);
+
+            if ($channelId !== '') {
+
+                return $channelId;
+            }
+        }
+
+        return null;
     }
 
     private function _urlBuildingPageCommonParams(tubepress_platform_api_url_UrlInterface $url, $currentPage)
