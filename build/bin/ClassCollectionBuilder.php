@@ -135,6 +135,8 @@ EOT;
             $c = self::fixNamespaceDeclarations('<?php '.$c);
             $c = preg_replace('/^\s*<\?php/', '', $c);
 
+            $c = self::_addedConditionalsIfNeeded($class, $c);
+
             $content .= $c;
         }
 
@@ -148,6 +150,41 @@ EOT;
             // save the resources
             self::writeCacheFile($metadata, serialize(array($files, $classes)));
         }
+    }
+
+    private static function _addedConditionalsIfNeeded(ReflectionClass $class, $currentContent)
+    {
+        //BEGIN TUBEPRESS MODIFY
+        $safeClassPrefixes = array(
+            'tubepress_',
+            'puzzle_',
+            'ehough_'
+        );
+        $externalClassPrefix = array(
+
+            'Twig_',
+        );
+        //END TUBEPRESS MODIFY
+
+        $className = $class->getName();
+
+        foreach ($safeClassPrefixes as $safeClassPrefix) {
+
+            if (strpos($className, $safeClassPrefix) === 0) {
+
+                return $currentContent;
+            }
+        }
+
+        foreach ($externalClassPrefix as $externalClassPrefix) {
+
+            if (strpos($className, $externalClassPrefix) === 0) {
+
+                return "\nif ((!class_exists('$className', false)) && (!interface_exists('$className', false))) { $currentContent }\n";
+            }
+        }
+
+        return $currentContent;
     }
 
     /**
