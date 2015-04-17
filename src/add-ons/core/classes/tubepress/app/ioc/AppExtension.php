@@ -1135,7 +1135,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             $containerBuilder->register(
                 'Twig_Loader_Filesystem' . $serviceSuffix,
                 'tubepress_app_impl_template_twig_FsLoader'
-            )->addArgument(array(
+            )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+             ->addArgument(array(
                 TUBEPRESS_ROOT . '/src/add-ons/core/templates/' . $templatePath,
             ));
 

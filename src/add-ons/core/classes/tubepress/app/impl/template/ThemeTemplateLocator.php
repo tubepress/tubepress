@@ -179,6 +179,11 @@ class tubepress_app_impl_template_ThemeTemplateLocator
             $currentTheme = $this->_currentThemeService->getCurrentTheme();
         }
 
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Current theme is %s v%s', $currentTheme->getName(), $currentTheme->getVersion()));
+        }
+
         do {
 
             if ($currentTheme->hasTemplateSource($templateName)) {
@@ -224,6 +229,11 @@ class tubepress_app_impl_template_ThemeTemplateLocator
         } while ($currentTheme !== null);
 
         $this->_templateNameToThemeInstanceCache[$templateName] = false;
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Unable to find source of template %s from theme hierarchy. Falling back to registered path providers.', $templateName));
+        }
 
         return null;
     }

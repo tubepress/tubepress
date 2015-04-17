@@ -1217,7 +1217,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             $this->expectRegistration(
                 'Twig_Loader_Filesystem' . $serviceSuffix,
                 'tubepress_app_impl_template_twig_FsLoader'
-            )->withArgument(array(
+            )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+                ->withArgument(array(
                     TUBEPRESS_ROOT . '/src/add-ons/core/templates/' . $templatePath,
                 ));
 
