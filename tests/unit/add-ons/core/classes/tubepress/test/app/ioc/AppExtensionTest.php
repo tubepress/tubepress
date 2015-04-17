@@ -1287,7 +1287,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $this->expectRegistration(
             'tubepress_app_impl_template_DelegatingEngine',
             'tubepress_app_impl_template_DelegatingEngine'
-        )->withArgument($engineReferences);
+        )->withArgument($engineReferences)
+         ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
 
         /**
          * Final templating services

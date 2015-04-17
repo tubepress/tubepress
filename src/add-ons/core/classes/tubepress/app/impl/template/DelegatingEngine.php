@@ -12,6 +12,24 @@
 class tubepress_app_impl_template_DelegatingEngine extends ehough_templating_DelegatingEngine
 {
     /**
+     * @var tubepress_platform_api_log_LoggerInterface
+     */
+    private $_logger;
+
+    /**
+     * @var bool
+     */
+    private $_shouldLog;
+
+    public function __construct(array $engines = array(), tubepress_platform_api_log_LoggerInterface $logger)
+    {
+        parent::__construct($engines);
+
+        $this->_logger    = $logger;
+        $this->_shouldLog = $this->_logger->isEnabled();
+    }
+
+    /**
      * Get an engine able to render the given template.
      *
      * @param string|ehough_templating_TemplateReferenceInterface $name A template name or a ehough_templating_TemplateReferenceInterface instance
@@ -25,11 +43,47 @@ class tubepress_app_impl_template_DelegatingEngine extends ehough_templating_Del
     public function getEngine($name)
     {
         foreach ($this->engines as $engine) {
-            if ($engine->supports($name) && $engine->exists($name)) {
-                return $engine;
+
+            if (!$engine->supports($name)) {
+
+                if ($this->_shouldLog) {
+
+                    $this->_logger->debug(sprintf('Template engine %s does not support template %s',
+
+                        get_class($engine),
+                        $name
+                    ));
+                }
+
+                continue;
             }
+
+            if (!$engine->exists($name)) {
+
+                if ($this->_shouldLog) {
+
+                    $this->_logger->debug(sprintf('Template engine %s cannot find template %s',
+
+                        get_class($engine),
+                        $name
+                    ));
+                }
+
+                continue;
+            }
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('Template engine %s will handle template %s',
+
+                    get_class($engine),
+                    $name
+                ));
+            }
+
+            return $engine;
         }
 
-        throw new RuntimeException(sprintf('No engine is able to work with the template "%s".', $name));
+        throw new RuntimeException(sprintf('Template "%s" not found.', $name));
     }
 }
