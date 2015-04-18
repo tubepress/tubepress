@@ -112,7 +112,15 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
                 'event'    => 'tubepress.wordpress.filter.plugin_action_links',
                 'method'   => 'onFilter_row_meta',
                 'priority' => 100000
-            ));
+            ))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.puc_request_info_query_args-tubepress',
+                'method'   => 'onFilter_PucRequestInfoQueryArgsTubePress',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => 'tubepress.wordpress.filter.puc_request_info_result-tubepress',
+                'method'   => 'onFilter_PucRequestInfoResultTubePress',
+                'priority' => 100000));
 
         $this->expectRegistration(
             'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters',
