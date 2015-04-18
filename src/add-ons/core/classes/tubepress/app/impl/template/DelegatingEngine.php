@@ -48,7 +48,7 @@ class tubepress_app_impl_template_DelegatingEngine extends ehough_templating_Del
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template engine %s does not support template %s',
+                    $this->_logger->debug(sprintf('Template engine <code>%s</code> does not support template <code>%s</code>',
 
                         get_class($engine),
                         $name
@@ -62,7 +62,7 @@ class tubepress_app_impl_template_DelegatingEngine extends ehough_templating_Del
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template engine %s cannot find template %s',
+                    $this->_logger->debug(sprintf('Template engine <code>%s</code> cannot find template <code>%s</code>',
 
                         get_class($engine),
                         $name
@@ -74,7 +74,7 @@ class tubepress_app_impl_template_DelegatingEngine extends ehough_templating_Del
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Template engine %s will handle template %s',
+                $this->_logger->debug(sprintf('Template engine <code>%s</code> will handle template <code>%s</code>',
 
                     get_class($engine),
                     $name
@@ -84,6 +84,6 @@ class tubepress_app_impl_template_DelegatingEngine extends ehough_templating_Del
             return $engine;
         }
 
-        throw new RuntimeException(sprintf('Template "%s" not found.', $name));
+        throw new RuntimeException(sprintf('Template <code>%s</code> not found.', $name));
     }
 }

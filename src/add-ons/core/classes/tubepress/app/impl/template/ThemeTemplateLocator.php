@@ -148,7 +148,7 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
                 if ($cachedValue) {
 
-                    $this->_logger->debug(sprintf('Theme for template %s was found in the cache', $templateName));
+                    $this->_logger->debug(sprintf('Theme for template <code>%s</code> was found in the cache', $templateName));
 
                 }
             }
@@ -158,7 +158,7 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Seeing if able to find source of template %s from theme hierarchy', $templateName));
+            $this->_logger->debug(sprintf('Seeing if able to find source of template <code>%s</code> from theme hierarchy', $templateName));
         }
 
         $currentTheme = null;
@@ -181,7 +181,7 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Current theme is %s v%s', $currentTheme->getName(), $currentTheme->getVersion()));
+            $this->_logger->debug(sprintf('Current theme is <code>%s</code> version <code>%s</code>', $currentTheme->getName(), $currentTheme->getVersion()));
         }
 
         do {
@@ -192,7 +192,7 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template source for %s was found in theme %s',
+                    $this->_logger->debug(sprintf('Template source for <code>%s</code> was found in theme <code>%s</code>',
                         $templateName, $currentTheme->getName()));
                 }
 
@@ -208,7 +208,7 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
             if ($this->_shouldLog) {
 
-                $this->_logger->debug(sprintf('Template source for %s was not found in theme %s. Now trying its parent theme: %s.',
+                $this->_logger->debug(sprintf('Template source for <code>%s</code> was not found in theme <code>%s</code>. Now trying its parent theme: <code>%s</code>.',
                     $templateName, $currentTheme->getName(), $nextThemeNameToCheck));
             }
 
@@ -220,7 +220,7 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->error(sprintf('Unable to get the theme instance for %s. This should never happen!', $nextThemeNameToCheck));
+                    $this->_logger->error(sprintf('Unable to get the theme instance for <code>%s</code>. This should never happen!', $nextThemeNameToCheck));
                 }
 
                 break;
@@ -232,7 +232,7 @@ class tubepress_app_impl_template_ThemeTemplateLocator
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Unable to find source of template %s from theme hierarchy. Falling back to registered path providers.', $templateName));
+            $this->_logger->debug(sprintf('Unable to find source of template <code>%s</code> from theme hierarchy. Falling back to registered path providers.', $templateName));
         }
 
         return null;

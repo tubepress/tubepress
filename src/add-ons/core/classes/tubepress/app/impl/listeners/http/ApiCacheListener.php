@@ -138,7 +138,7 @@ class tubepress_app_impl_listeners_http_ApiCacheListener
 
         if ($isDebugEnabled && !$cacheEnabled) {
 
-            $this->_logger->debug('API cache is disabled only during debugging');
+            $this->_logger->debug('Skip API cache for debugging.');
 
             return false;
         }

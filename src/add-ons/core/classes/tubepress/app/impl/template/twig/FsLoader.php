@@ -50,7 +50,7 @@ class tubepress_app_impl_template_twig_FsLoader extends Twig_Loader_Filesystem
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Template source for %s was found on the filesystem at %s',
+            $this->_logger->debug(sprintf('Template source for <code>%s</code> was found on the filesystem at <code>%s</code>',
 
                 $name,
                 $this->findTemplate($name)
