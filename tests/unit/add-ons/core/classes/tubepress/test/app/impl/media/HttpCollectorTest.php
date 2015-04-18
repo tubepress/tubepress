@@ -194,7 +194,5 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
         );
 
         $mockUrlEvent->shouldReceive('getSubject')->once()->andReturn($this->_mockUrl);
-
-        $this->_mockUrl->shouldReceive('__toString')->twice()->andReturn('url as string');
     }
 }

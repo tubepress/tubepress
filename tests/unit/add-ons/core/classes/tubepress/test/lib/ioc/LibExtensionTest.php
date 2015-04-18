@@ -101,7 +101,8 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
             tubepress_lib_api_http_HttpClientInterface::_,
             'tubepress_lib_impl_http_puzzle_PuzzleHttpClient'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('puzzle.httpClient'));
+            ->withArgument(new tubepress_platform_api_ioc_Reference('puzzle.httpClient'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
 
         $this->expectRegistration(
             tubepress_lib_api_http_ResponseCodeInterface::_,
