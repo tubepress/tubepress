@@ -59,6 +59,12 @@ class tubepress_wordpress_ApiIntegrator
 
         /** @noinspection PhpUndefinedFunctionInspection */
         add_filter('upgrader_pre_install', $filterCallback, 10, 2);
+
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_filter('puc_request_info_query_args-tubepress', $filterCallback);
+
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_filter('puc_request_info_result-tubepress', $filterCallback);
     }
 
     private function _addActions()
@@ -211,26 +217,15 @@ class tubepress_wordpress_ApiIntegrator
 
     private function _addUpdateChecker()
     {
-        $serviceContainer = $this->_getServiceContainer();
-
-        /**
-         * @var $environment tubepress_app_api_environment_EnvironmentInterface
-         */
-        $environment = $serviceContainer->get(tubepress_app_api_environment_EnvironmentInterface::_);
-        $updateUrl   = 'http://snippets.wp.tubepress.com/update.php';
-
-        if ($environment->isPro()) {
-
-            $updateUrl .= '?pro';
-        }
-
         /** @noinspection PhpIncludeInspection */
         require 'vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
 
         /** @noinspection PhpUndefinedFunctionInspection */
-        PucFactory::buildUpdateChecker($updateUrl, __FILE__,
+        PucFactory::buildUpdateChecker(
 
-            plugin_basename(basename(dirname(__FILE__)) . '/tubepress.php')
+            'http://snippets.wp.tubepress.com/update.php',
+            __FILE__,
+            'tubepress'
         );
     }
 

@@ -16,9 +16,10 @@ class tubepress_lib_impl_http_puzzle_PuzzleHttpClient extends tubepress_lib_impl
     private $_delegate;
 
     public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher,
-                                puzzle_Client                                    $delegate)
+                                puzzle_Client                                    $delegate,
+                                tubepress_platform_api_log_LoggerInterface       $logger)
     {
-        parent::__construct($eventDispatcher);
+        parent::__construct($eventDispatcher, $logger);
 
         if (!function_exists('puzzle_request')) {
 

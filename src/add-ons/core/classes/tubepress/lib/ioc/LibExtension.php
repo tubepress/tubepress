@@ -88,7 +88,8 @@ class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_Conta
             tubepress_lib_api_http_HttpClientInterface::_,
             'tubepress_lib_impl_http_puzzle_PuzzleHttpClient'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference('puzzle.httpClient'));
+         ->addArgument(new tubepress_platform_api_ioc_Reference('puzzle.httpClient'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
 
         $containerBuilder->register(
             tubepress_lib_api_http_ResponseCodeInterface::_,

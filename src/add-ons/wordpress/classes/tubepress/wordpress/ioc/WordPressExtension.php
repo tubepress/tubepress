@@ -117,8 +117,15 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
           ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.filter.plugin_action_links',
             'method'   => 'onFilter_row_meta',
-            'priority' => 100000
-        ));
+            'priority' => 100000))
+          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.filter.puc_request_info_query_args-tubepress',
+            'method'   => 'onFilter_PucRequestInfoQueryArgsTubePress',
+            'priority' => 100000))
+          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.filter.puc_request_info_result-tubepress',
+            'method'   => 'onFilter_PucRequestInfoResultTubePress',
+            'priority' => 100000));
 
         $containerBuilder->register(
             'tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters',

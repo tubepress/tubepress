@@ -245,6 +245,33 @@ EOT;
         $event->setSubject($toReturn);
     }
 
+    public function onFilter_PucRequestInfoQueryArgsTubePress(tubepress_lib_api_event_EventInterface $event)
+    {
+        $queryArgs = $event->getSubject();
+
+        if ($this->_environment->isPro()) {
+
+            $queryArgs['pro'] = 'true';
+        }
+
+        $event->setSubject($queryArgs);
+    }
+
+    public function onFilter_PucRequestInfoResultTubePress(tubepress_lib_api_event_EventInterface $event)
+    {
+        $pluginInfo = $event->getSubject();
+
+        if ($pluginInfo && $this->_environment->isPro()) {
+
+            /**
+             * We don't want to downgrade Pro users.
+             */
+            $pluginInfo->download_url = null;
+        }
+
+        $event->setSubject($pluginInfo);
+    }
+
     /**
      * Filter the content (which may be empty).
      */

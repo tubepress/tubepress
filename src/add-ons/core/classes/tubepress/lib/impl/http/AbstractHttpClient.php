@@ -19,9 +19,22 @@ abstract class tubepress_lib_impl_http_AbstractHttpClient implements tubepress_l
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    /**
+     * @var tubepress_platform_api_log_LoggerInterface
+     */
+    private $_logger;
+
+    /**
+     * @var bool
+     */
+    private $_shouldLog;
+
+    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher,
+                                tubepress_platform_api_log_LoggerInterface       $logger)
     {
         $this->_eventDispatcher = $eventDispatcher;
+        $this->_logger          = $logger;
+        $this->_shouldLog       = $logger->isEnabled();
     }
 
     /**
@@ -57,6 +70,13 @@ abstract class tubepress_lib_impl_http_AbstractHttpClient implements tubepress_l
      */
     public function send(tubepress_lib_api_http_message_RequestInterface $request)
     {
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Executing HTTP <code>%s</code> to <code>%s</code>', $request->getMethod(), $request->getUrl()));
+            $this->_logger->debug('Request headers follow:');
+            $this->_logHeaders($request);
+        }
+
         $response = $this->_getQuickResponse($request);
 
         if (!$response) {
@@ -95,6 +115,14 @@ abstract class tubepress_lib_impl_http_AbstractHttpClient implements tubepress_l
 
         $this->_eventDispatcher->dispatch(tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE, $event);
 
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Response headers from <code>%s</code> to <code>%s</code> follow:', $request->getMethod(), $request->getUrl()));
+            $this->_logHeaders($response);
+            $this->_logger->debug(sprintf('Raw result for <code>%s</code> is in the HTML source for this page. <span style="display:none">%s</span>',
+                $request->getUrl(), htmlspecialchars($response->getBody()->toString())));
+        }
+
         return $event->getSubject();
     }
 
@@ -127,5 +155,20 @@ abstract class tubepress_lib_impl_http_AbstractHttpClient implements tubepress_l
         }
 
         return $response;
+    }
+
+    private function _logHeaders(tubepress_lib_api_http_message_MessageInterface $message)
+    {
+        $headers = $message->getHeaders();
+
+        foreach ($headers as $name => $value) {
+
+            if (is_array($value)) {
+
+                $value = implode(', ', $value);
+            }
+
+            $this->_logger->debug(sprintf('<code>%s: %s</code>', $name, $value));
+        }
     }
 }

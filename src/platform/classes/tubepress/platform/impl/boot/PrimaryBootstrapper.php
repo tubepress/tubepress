@@ -168,6 +168,18 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
              * Keep track of how long this takes.
              */
             $this->_startTime = microtime(true);
+
+            /**
+             * Add a poorly obscured copy of phpinfo() to the output. We encode it just in case
+             * search engines try to pick it up. Weaksauce, I know.
+             */
+            ob_start();
+            phpinfo();
+            $phpInfo = ob_get_contents();
+            ob_end_clean();
+            $phpInfo = base64_encode($phpInfo);
+
+            $this->_bootLogger->debug(sprintf('<span style="display: none" class="php-debug">%s</span>', $phpInfo));
         }
     }
     

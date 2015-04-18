@@ -136,12 +136,9 @@ class tubepress_app_impl_listeners_http_ApiCacheListener
         $cacheEnabled   = $this->_context->get(tubepress_app_api_options_Names::CACHE_ENABLED);
         $isDebugEnabled = $this->_logger->isEnabled();
 
-        if (!$cacheEnabled) {
+        if ($isDebugEnabled && !$cacheEnabled) {
 
-            if ($isDebugEnabled) {
-
-                $this->_logger->debug('API cache is disabled');
-            }
+            $this->_logger->debug('Skip API cache for debugging.');
 
             return false;
         }

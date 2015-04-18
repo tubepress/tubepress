@@ -34,8 +34,14 @@ class tubepress_test_lib_http_impl_puzzle_http_PuzzleHttpClientTest extends tube
      */
     private $_mockEmitter;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockLogger;
+
     public function onSetup()
     {
+        $this->_mockLogger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
         $this->_mockEmitter = $this->mock('puzzle_event_EmitterInterface');
         $this->_mockPuzzleClient = $this->mock('puzzle_Client');
         $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
@@ -45,10 +51,14 @@ class tubepress_test_lib_http_impl_puzzle_http_PuzzleHttpClientTest extends tube
         $this->_mockPuzzleClient->shouldReceive('getEmitter')->atLeast(1)->andReturn($this->_mockEmitter);
         $this->_mockEmitter->shouldReceive('attach')->once()->with(ehough_mockery_Mockery::type('tubepress_lib_impl_http_puzzle_PuzzleHttpClient'));
 
+        $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->atLeast(1);
+
         $this->_sut = new tubepress_lib_impl_http_puzzle_PuzzleHttpClient(
 
             $this->_mockEventDispatcher,
-            $this->_mockPuzzleClient
+            $this->_mockPuzzleClient,
+            $this->_mockLogger
         );
     }
 
@@ -117,13 +127,18 @@ class tubepress_test_lib_http_impl_puzzle_http_PuzzleHttpClientTest extends tube
         $mockPuzzleBody = $this->mock('puzzle_stream_StreamInterface');
         $mockConfig = $this->mock('puzzle_Collection');
         $mockConfig->shouldReceive('toArray')->once()->andReturn(array('some' => 'config'));
-        $mockPuzzleRequest = $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2));
-        $mockPuzzleRequest->shouldReceive('getHeaders')->once()->andReturn(array('foo' => 'bar'));
+        $mockPuzzleRequest = $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2), 3);
+        $mockPuzzleRequest->shouldReceive('getHeaders')->times(2)->andReturn(array('foo' => 'bar'));
         $mockPuzzleRequest->shouldReceive('getBody')->once()->andReturn($mockPuzzleBody);
         $mockPuzzleRequest->shouldReceive('getConfig')->once()->andReturn($mockConfig);
 
+        $mockPuzzleBody = $this->mock('puzzle_stream_StreamInterface');
+        $mockPuzzleBody->shouldReceive('__toString')->once()->andReturn('x');
+
         $mockPuzzleResponse = $this->mock('puzzle_message_ResponseInterface');
         $mockPuzzleResponse->shouldReceive('getEffectiveUrl')->once()->andReturn('http://bar.foo/z/abc.php');
+        $mockPuzzleResponse->shouldReceive('getHeaders')->once()->andReturn(array('boo' => 'foo'));
+        $mockPuzzleResponse->shouldReceive('getBody')->once()->andReturn($mockPuzzleBody);
         $this->_mockPuzzleClient->shouldReceive('send')->once()->with(ehough_mockery_Mockery::on(function ($r) {
 
             return $r instanceof puzzle_message_Request && $r->getMethod() === 'GET' && $r->getUrl() === 'http://foo.bar/z/y.php?test=false#frag';
@@ -156,7 +171,7 @@ class tubepress_test_lib_http_impl_puzzle_http_PuzzleHttpClientTest extends tube
 
     public function testCreateRequest()
     {
-        $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2));
+        $this->_setupMocksForCreateRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2), 1);
 
         $request = $this->_sut->createRequest('GET', 'http://foo.bar/z/y.php?test=false#frag', array('one' => 2));
 
@@ -165,11 +180,11 @@ class tubepress_test_lib_http_impl_puzzle_http_PuzzleHttpClientTest extends tube
         $this->assertEquals('GET', $request->getMethod());
     }
 
-    private function _setupMocksForCreateRequest($method, $url, $options)
+    private function _setupMocksForCreateRequest($method, $url, $options, $getMethodCount)
     {
         $mockPuzzleRequest = $this->mock('puzzle_message_RequestInterface');
         $mockPuzzleRequest->shouldReceive('getUrl')->atLeast(1)->andReturn("$url");
-        $mockPuzzleRequest->shouldReceive('getMethod')->once()->andReturn($method);
+        $mockPuzzleRequest->shouldReceive('getMethod')->times($getMethodCount)->andReturn($method);
 
         $this->_mockPuzzleClient->shouldReceive('createRequest')->once()->with($method, "$url", $options)->andReturn($mockPuzzleRequest);
 

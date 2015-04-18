@@ -113,7 +113,7 @@ class tubepress_test_app_apicache_impl_listeners_http_ApiCacheListenerTest exten
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::CACHE_ENABLED)->andReturn(false);
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
-        $this->_mockLogger->shouldReceive('debug')->once()->with('API cache is disabled');
+        $this->_mockLogger->shouldReceive('debug')->once()->with('Skip API cache for debugging.');
         $this->_setupRequestFromEvent($request);
         $this->_runEvent($method);
     }

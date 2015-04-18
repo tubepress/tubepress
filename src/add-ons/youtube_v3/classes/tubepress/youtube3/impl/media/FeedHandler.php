@@ -46,6 +46,11 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     private $_apiUtility;
 
+    /**
+     * @var int
+     */
+    private $_skippedVideoCount;
+
     private $_invokedAtLeastOnce;
 
     public function __construct(tubepress_platform_api_log_LoggerInterface     $logger,
@@ -186,7 +191,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         $totalResults = $this->_arrayReader->getAsInteger($this->_feedAsArray, $query, 0);
         $totalResults = intval($totalResults);
 
-        return $totalResults;
+        return $totalResults - $this->_skippedVideoCount;
     }
 
     /**
@@ -214,11 +219,16 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET_TITLE));
         $desc  = $this->_arrayReader->getAsString($item, sprintf('%s.%s',
             tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET,
-            tubepress_youtube3_impl_ApiUtility::RESOURCE_SNIPPET_TITLE));
+            tubepress_youtube3_impl_ApiUtility::RESOURCE_VIDEO_SNIPPET_DESCRIPTION));
 
         if ($title === 'Deleted video' && $desc === 'This video is unavailable.') {
 
             return 'Video has been deleted';
+        }
+
+        if ($title === 'Private video' && $desc === 'This video is private.') {
+
+            return 'Video is private';
         }
 
         return null;
@@ -251,7 +261,8 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
      */
     public function onAnalysisStart($feed)
     {
-        $this->_feedAsArray = json_decode($feed, true);
+        $this->_skippedVideoCount = 0;
+        $this->_feedAsArray       = json_decode($feed, true);
 
         if ($this->_feedAsArray === null) {
 
@@ -766,7 +777,25 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         $ids           = array();
         $selectedQuery = null;
 
-        foreach ($items as $item) {
+        for ($index = 0; $index < count($items); $index++) {
+
+            if ($this->getReasonUnableToUseItemAtIndex($index) !== null) {
+
+                if ($this->_logger->isEnabled()) {
+
+                    $reason = $this->getReasonUnableToUseItemAtIndex($index);
+
+                    $this->_logger->debug(sprintf('Skipping video at index %d: %s', $index, $reason));
+                }
+
+                $this->_skippedVideoCount++;
+
+                unset($this->_feedAsArray[tubepress_youtube3_impl_ApiUtility::RESPONSE_ITEMS][$index]);
+
+                continue;
+            }
+
+            $item = $items[$index];
 
             if ($selectedQuery === null) {
 

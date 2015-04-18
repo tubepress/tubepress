@@ -55,11 +55,6 @@ class tubepress_app_impl_media_HttpCollector implements tubepress_app_api_media_
         $mediaItemUrl = $this->_dispatchAndReturnSubject($feedHandler, tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_URL,
                                                          $mediaItemUrl, $eventArgs);
 
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('URL to fetch is <a href="%s">this</a>', $mediaItemUrl));
-        }
-
         $this->_fetchFeedAndPrepareForAnalysis($mediaItemUrl, $feedHandler);
 
         $mediaItemArray = $this->_feedToMediaItemArray($feedHandler);
@@ -80,11 +75,6 @@ class tubepress_app_impl_media_HttpCollector implements tubepress_app_api_media_
         $eventArgs = array('pageNumber' => $currentPage);
         $url       = $this->_dispatchAndReturnSubject($feedHandler, tubepress_app_api_event_Events::MEDIA_PAGE_HTTP_URL,
                                             $url, $eventArgs);
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('URL to fetch is <code>%s</code>', $url));
-        }
 
         $this->_fetchFeedAndPrepareForAnalysis($url, $feedHandler);
 
@@ -197,12 +187,6 @@ class tubepress_app_impl_media_HttpCollector implements tubepress_app_api_media_
         $this->_flushDebugStream($debugStream, false);
 
         $rawFeed = $httpResponse->getBody()->toString();
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
-                $url, htmlspecialchars($rawFeed)));
-        }
 
         $feedHandler->onAnalysisStart($rawFeed);
 

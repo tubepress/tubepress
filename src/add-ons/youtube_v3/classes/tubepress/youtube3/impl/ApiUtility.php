@@ -194,11 +194,6 @@ class tubepress_youtube3_impl_ApiUtility
 
         if (!isset($this->_memoryCache[$urlAsString])) {
 
-            if ($this->_logger->isEnabled()) {
-
-                $this->_logger->debug(sprintf('Now making HTTP request to <code>%s</code>', $urlAsString));
-            }
-
             $httpResponse = $this->_httpClient->send($httpRequest);
             $rawFeed      = $httpResponse->getBody()->toString();
             $decoded      = json_decode($rawFeed, true);
@@ -217,8 +212,6 @@ class tubepress_youtube3_impl_ApiUtility
             if ($this->_logger->isEnabled()) {
 
                 $this->_logger->debug(sprintf('Response for <a href="%s">URL</a> found in the in-memory cache.', $urlAsString));
-                $this->_logger->debug(sprintf('Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
-                    $urlAsString, htmlspecialchars(print_r($this->_memoryCache[$urlAsString], true))));
             }
         }
 

@@ -11,6 +11,24 @@
 
 class tubepress_app_impl_template_twig_FsLoader extends Twig_Loader_Filesystem
 {
+    /**
+     * @var tubepress_platform_api_log_LoggerInterface
+     */
+    private $_logger;
+
+    /**
+     * @var bool
+     */
+    private $_shouldLog;
+
+    public function __construct(tubepress_platform_api_log_LoggerInterface $logger, array $paths)
+    {
+        parent::__construct($paths);
+
+        $this->_logger    = $logger;
+        $this->_shouldLog = $logger->isEnabled();
+    }
+
     protected function normalizeName($name)
     {
         if (strpos($name, '::') !== false) {
@@ -24,5 +42,21 @@ class tubepress_app_impl_template_twig_FsLoader extends Twig_Loader_Filesystem
         }
 
         return parent::normalizeName($name);
+    }
+
+    public function getSource($name)
+    {
+        $source = file_get_contents($this->findTemplate($name));
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Template source for <code>%s</code> was found on the filesystem at <code>%s</code>',
+
+                $name,
+                $this->findTemplate($name)
+            ));
+        }
+
+        return $source;
     }
 }
