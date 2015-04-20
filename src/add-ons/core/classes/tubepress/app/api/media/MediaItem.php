@@ -49,7 +49,7 @@ class tubepress_app_api_media_MediaItem
     const ATTRIBUTE_TIME_PUBLISHED_UNIXTIME   = 'timePublishedUnixTime';
     const ATTRIBUTE_TITLE                     = 'title';
     const ATTRIBUTE_VIEW_COUNT                = 'viewCount';
-    const ATTRIBUTE_VIEW_COUNT_FORMATTED      = 'viewCount';
+    const ATTRIBUTE_VIEW_COUNT_FORMATTED      = 'viewCountFormatted';
 
     /**
      * @var tubepress_platform_api_collection_MapInterface
