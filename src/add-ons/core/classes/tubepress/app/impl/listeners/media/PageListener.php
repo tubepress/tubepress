@@ -390,7 +390,7 @@ class tubepress_app_impl_listeners_media_PageListener
 
             if ($this->_logger->isEnabled()) {
 
-                $this->_logger->debug(sprintf('Video with ID %s is blacklisted. Skipping it.', $id));
+                $this->_logger->debug(sprintf('Video with ID <code>%s</code> is blacklisted. Skipping it.', $id));
             }
 
             return false;
