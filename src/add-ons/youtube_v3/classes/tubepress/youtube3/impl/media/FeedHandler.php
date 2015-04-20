@@ -262,6 +262,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
     public function onAnalysisStart($feed)
     {
         $this->_skippedVideoCount = 0;
+        $loggerEnabled            = $this->_logger->isEnabled();
         $this->_feedAsArray       = json_decode($feed, true);
 
         if ($this->_feedAsArray === null) {
@@ -269,9 +270,25 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
             throw new RuntimeException('Unable to decode JSON from YouTube');
         }
 
+        if ($loggerEnabled) {
+
+            $this->_logger->debug(sprintf('Decoded feed from YouTube is visible in the HTML source of this page.<span style="display:none">%s</span>',
+
+                htmlspecialchars(print_r($this->_feedAsArray, true))
+            ));
+        }
+
         $this->_apiUtility->checkForApiResponseError($this->_feedAsArray);
 
         $this->_metadataAsArray = $this->_collectMetadata();
+
+        if ($loggerEnabled) {
+
+            $this->_logger->debug(sprintf('Decoded metadata collected from YouTube is visible in the HTML source of this page.<span style="display:none">%s</span>',
+
+                htmlspecialchars(print_r($this->_metadataAsArray, true))
+            ));
+        }
     }
 
     /**
@@ -311,7 +328,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
         if ($id === '') {
 
-            throw new RuntimeException(sprintf('Unable to find ID for item at index %d', $index));
+            return null;
         }
 
         return $id;

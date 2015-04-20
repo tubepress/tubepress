@@ -80,9 +80,9 @@ interface tubepress_app_api_media_HttpFeedHandlerInterface
     function getCurrentResultCount();
 
     /**
-     * @param int   $zeroBasedIndex
+     * @param int $zeroBasedIndex
      *
-     * @return tubepress_app_api_media_MediaItem
+     * @return string|null The item ID for the item at the given index, or null if unable to determine.
      */
     function getIdForItemAtIndex($zeroBasedIndex);
 

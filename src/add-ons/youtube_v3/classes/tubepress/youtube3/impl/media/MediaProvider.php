@@ -172,7 +172,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
             tubepress_youtube3_api_Constants::OPTION_META_COUNT_FAVORITES => tubepress_app_api_media_MediaItem::ATTRIBUTE_COUNT_FAVORITED_FORMATTED,
 
             tubepress_app_api_options_Names::META_DISPLAY_ID          => tubepress_app_api_media_MediaItem::ATTRIBUTE_ID,
-            tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT,
+            tubepress_app_api_options_Names::META_DISPLAY_VIEWS       => tubepress_app_api_media_MediaItem::ATTRIBUTE_VIEW_COUNT_FORMATTED,
             tubepress_app_api_options_Names::META_DISPLAY_UPLOADED    => tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
             tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
         );

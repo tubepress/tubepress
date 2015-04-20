@@ -23,7 +23,7 @@
         onAjax = function (options, originalOptions, jqxhr) {
 
             var data               = originalOptions[text_data],
-                hasTubePressAction = data.hasOwnProperty(text_tubepress + '_' + text_action),
+                hasTubePressAction = data && data.hasOwnProperty(text_tubepress + '_' + text_action),
                 actualUrl,
                 dataTypeIsHtml,
                 exactUrlMatch,
