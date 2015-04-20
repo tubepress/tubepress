@@ -16,6 +16,16 @@
 class tubepress_lib_impl_array_ArrayReader implements tubepress_lib_api_array_ArrayReaderInterface
 {
     /**
+     * @var bool
+     */
+    private $_php53orHigher;
+
+    public function __construct()
+    {
+        $this->_php53orHigher = version_compare(PHP_VERSION, '5.3.0') >= 0;
+    }
+
+    /**
      * @api
      * @since 4.1.0
      *
@@ -164,9 +174,19 @@ class tubepress_lib_impl_array_ArrayReader implements tubepress_lib_api_array_Ar
 
         foreach ($pathKeys as $pathKey) {
 
-            if (!isset($intermediate[$pathKey])) {
+            if ($this->_php53orHigher) {
 
-                return null;
+                if (!isset($intermediate[$pathKey])) {
+
+                    return null;
+                }
+
+            } else {
+
+                if (!is_array($intermediate) || !array_key_exists($pathKey, $intermediate)) {
+
+                    return null;
+                }
             }
 
             $intermediate = $intermediate[$pathKey];
