@@ -553,7 +553,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR               => 20,
                 tubepress_app_api_options_Names::CACHE_DIRECTORY                     => null,
                 tubepress_app_api_options_Names::CACHE_ENABLED                       => true,
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS              => 3600,
+                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS              => 21600, //six hours
                 tubepress_app_api_options_Names::DEBUG_ON                            => true,
                 tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY                   => false,
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT                     => 390,
