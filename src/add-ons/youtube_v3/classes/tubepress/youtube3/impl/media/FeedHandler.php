@@ -328,7 +328,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
         if ($id === '') {
 
-            throw new RuntimeException(sprintf('Unable to find ID for item at index %d', $index));
+            return null;
         }
 
         return $id;

@@ -136,7 +136,18 @@ class tubepress_app_impl_media_HttpCollector implements tubepress_app_api_media_
                 continue;
             }
 
-            $mediaItemId      = $feedHandler->getIdForItemAtIndex($index);
+            $mediaItemId = $feedHandler->getIdForItemAtIndex($index);
+
+            if (!$mediaItemId) {
+
+                if ($this->_logger->isEnabled()) {
+
+                    $this->_logger->error(sprintf('Unable to determine ID for item at index %d. Skipping it.', $index));
+                }
+
+                continue;
+            }
+
             $mediaItem        = new tubepress_app_api_media_MediaItem($mediaItemId);
             $initialEventArgs = $feedHandler->getNewItemEventArguments($mediaItem, $index);
             $finalItem        = $this->_dispatchAndReturnSubject($feedHandler, tubepress_app_api_event_Events::MEDIA_ITEM_HTTP_NEW,
