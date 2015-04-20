@@ -494,7 +494,7 @@ var tubePressDomInjector,
                         delegate[method].apply(this, args);
                     };
 
-                if (langUtils.isDefined(queue)) {
+                if (langUtils.isDefined(queue) && jquery.isArray(queue)) {
 
                     queueLength = queue.length;
 
