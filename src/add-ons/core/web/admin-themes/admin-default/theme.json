@@ -25,7 +25,7 @@
         "vendor/bootstrap-3.3.4/js/bootstrap.min.js",
         "vendor/bootstrap-multiselect-0.9.12/js/bootstrap-multiselect.js",
         "vendor/spectrum-1.6.0/spectrum.js",
-        "vendor/blueimp-gallery-2.15.2/js/blueimp-gallery.min.js",
+        "vendor/blueimp-gallery-2.15.2/js/jquery.blueimp-gallery.min.js",
         "vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js",
         "js/bootstrap-field-error-handler.js",
         "js/field-provider-filter-handler.js",
