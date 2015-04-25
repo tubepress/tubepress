@@ -148,6 +148,25 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
             'class' => 'TubePressServiceContainer'
         ))->andReturn('<?php class TubePressServiceContainer extends ehough_iconic_Container {}');
 
+
+        $eventDispatcherMethodCalls = array(
+            array('addListenerService',
+                array(
+                    'eventName',
+                    array('listener-service-id', 'method'),
+                    30
+                ),
+            ),
+            array('somethingElse', array())
+        );
+
+        $eventDispatcherDefinition = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $eventDispatcherDefinition->shouldReceive('getClass')->once()->andReturn(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $eventDispatcherDefinition->shouldReceive('getMethodCalls')->once()->andReturn($eventDispatcherMethodCalls);
+
+        $listenerServiceDefinition = $this->mock('stdClass');
+        $listenerServiceDefinition->shouldReceive('getClass')->once()->andReturn('listener-class');
+
         $this->_mockContainerBuilder->shouldReceive('getDelegateContainerBuilder')->times($times)->andReturn($mockIconicBuilder);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_platform_impl_log_BootLogger', $this->_mockLogger);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_mockBootSettings);
@@ -167,6 +186,9 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
 
             return $ok;
         }));
+        $this->_mockContainerBuilder->shouldReceive('getDefinition')->once()->with(tubepress_lib_api_event_EventDispatcherInterface::_)->andReturn($eventDispatcherDefinition);
+        $this->_mockContainerBuilder->shouldReceive('hasDefinition')->once()->with('listener-service-id')->andReturn(true);
+        $this->_mockContainerBuilder->shouldReceive('getDefinition')->once()->with('listener-service-id')->andReturn($listenerServiceDefinition);
     }
 
     public function __callbackSerialize(array $addons, tubepress_platform_api_boot_BootSettingsInterface $bootSettings)

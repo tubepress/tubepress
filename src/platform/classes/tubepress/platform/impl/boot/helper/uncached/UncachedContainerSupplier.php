@@ -101,6 +101,8 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
             spl_autoload_unregister(array($this->_mapClassLoader, 'loadClass'));
         }
 
+        $this->_logContainerBuilder();
+
         return $this->_convertToIconicContainer($this->_containerBuilder);
     }
 
@@ -315,6 +317,76 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
         }
 
         return $toReturn;
+    }
+
+    private function _logContainerBuilder()
+    {
+        if (!$this->_shouldLog) {
+
+            return;
+        }
+
+        $this->_logEventDispatcher();
+    }
+
+    private function _logEventDispatcher()
+    {
+        $eventDispatcherDefinition = $this->_containerBuilder->getDefinition(tubepress_lib_api_event_EventDispatcherInterface::_);
+
+        $clazz = $eventDispatcherDefinition->getClass();
+
+        $this->_logger->debug(sprintf('Event dispatcher is of type <code>%s</code>', $clazz));
+
+        $methodCalls = $eventDispatcherDefinition->getMethodCalls();
+        $events      = array();
+
+        foreach ($methodCalls as $methodCall) {
+
+            $methodName = $methodCall[0];
+            $details    = $methodCall[1];
+
+            if ($methodName !== 'addListenerService') {
+
+                continue;
+            }
+
+            $eventName          = $details[0];
+            $callbackServiceId  = $details[1][0];
+            $callbackMethod     = $details[1][1];
+            $priority           = count($details) > 2 ? $details[2] : 0;
+
+            if (!$this->_containerBuilder->hasDefinition($callbackServiceId)) {
+
+                $this->_logger->error(sprintf('Event listener service ID <code>%s</code> does not exist.', $callbackServiceId));
+                continue;
+            }
+
+            $callbackDefinition = $this->_containerBuilder->getDefinition($callbackServiceId);
+            $callbackClass      = $callbackDefinition->getClass();
+
+            if (!isset($events[$eventName])) {
+
+                $events[$eventName] = array();
+            }
+
+            $events[$eventName][$priority] = sprintf('%s::%s', $callbackClass, $callbackMethod);
+        }
+
+        $this->_logger->debug(sprintf('There are %d events that can be triggered. Details follow...', count($events)));
+
+        ksort($events);
+
+        foreach ($events as $eventName => $listeners) {
+
+            krsort($listeners);
+
+            $this->_logger->debug(sprintf('<code>&nbsp;&nbsp;%s</code>', $eventName));
+
+            foreach ($listeners as $priority => $listener) {
+
+                $this->_logger->debug(sprintf('<code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;priority %d - %s</code>', $priority, $listener));
+            }
+        }
     }
 
     /**
