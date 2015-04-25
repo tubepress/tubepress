@@ -479,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3"
+                "reference": "7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/67920147a81d5bd5bcd052b239ff85bae789f5a3",
-                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5",
+                "reference": "7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5",
                 "shasum": ""
             },
             "require": {
@@ -528,7 +528,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-03-26 12:33:23"
+            "time": "2015-04-19 08:35:47"
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
@@ -1005,16 +1005,15 @@
         {
             "name": "symfony/class-loader",
             "version": "dev-master",
-            "target-dir": "Symfony/Component/ClassLoader",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "0f1a69897353191eee3045d9634c39f3f6b46231"
+                "reference": "851494d51d6d15c1af6b57f23c153d68e9c81318"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/0f1a69897353191eee3045d9634c39f3f6b46231",
-                "reference": "0f1a69897353191eee3045d9634c39f3f6b46231",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/851494d51d6d15c1af6b57f23c153d68e9c81318",
+                "reference": "851494d51d6d15c1af6b57f23c153d68e9c81318",
                 "shasum": ""
             },
             "require": {
@@ -1031,7 +1030,7 @@
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\ClassLoader\\": ""
                 }
             },
@@ -1051,21 +1050,20 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2015-04-10 07:31:54"
+            "time": "2015-04-24 07:12:41"
         },
         {
             "name": "symfony/css-selector",
             "version": "dev-master",
-            "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "1e82612c86afcd075dbb2f4e3e5f20caafe03974"
+                "reference": "af212eef645f31239e5c99929fd4844e4446d5c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/1e82612c86afcd075dbb2f4e3e5f20caafe03974",
-                "reference": "1e82612c86afcd075dbb2f4e3e5f20caafe03974",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/af212eef645f31239e5c99929fd4844e4446d5c6",
+                "reference": "af212eef645f31239e5c99929fd4844e4446d5c6",
                 "shasum": ""
             },
             "require": {
@@ -1081,7 +1079,7 @@
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\CssSelector\\": ""
                 }
             },
@@ -1105,21 +1103,20 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2015-04-10 07:31:54"
+            "time": "2015-04-24 07:12:41"
         },
         {
             "name": "symfony/dom-crawler",
             "version": "dev-master",
-            "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "f40c899c09a9a5a2808715d2ef5e8fc39cbcc1c0"
+                "reference": "b63eb94e4e9e426827b4280bed1a8c71241d8357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/f40c899c09a9a5a2808715d2ef5e8fc39cbcc1c0",
-                "reference": "f40c899c09a9a5a2808715d2ef5e8fc39cbcc1c0",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/b63eb94e4e9e426827b4280bed1a8c71241d8357",
+                "reference": "b63eb94e4e9e426827b4280bed1a8c71241d8357",
                 "shasum": ""
             },
             "require": {
@@ -1139,7 +1136,7 @@
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\DomCrawler\\": ""
                 }
             },
@@ -1159,21 +1156,20 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-04-10 07:31:54"
+            "time": "2015-04-24 07:12:41"
         },
         {
             "name": "symfony/yaml",
             "version": "2.8.x-dev",
-            "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "fdded56dde4ca9efce6322887bf5eaa7bb0aae3e"
+                "reference": "4ededb1d00dc2c65fcd16ae3dafc785f92b3f95f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/fdded56dde4ca9efce6322887bf5eaa7bb0aae3e",
-                "reference": "fdded56dde4ca9efce6322887bf5eaa7bb0aae3e",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4ededb1d00dc2c65fcd16ae3dafc785f92b3f95f",
+                "reference": "4ededb1d00dc2c65fcd16ae3dafc785f92b3f95f",
                 "shasum": ""
             },
             "require": {
@@ -1189,7 +1185,7 @@
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
                 }
             },
@@ -1209,7 +1205,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-04-10 08:56:33"
+            "time": "2015-04-24 07:03:44"
         }
     ],
     "aliases": [],
