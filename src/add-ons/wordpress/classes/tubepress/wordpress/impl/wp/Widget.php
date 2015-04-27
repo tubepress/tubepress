@@ -9,6 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/**
+ * @deprecated
+ */
 class tubepress_wordpress_impl_wp_Widget
 {
     const WIDGET_CONTROL_SHORTCODE = 'widgetControlShortcode';

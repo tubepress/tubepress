@@ -684,6 +684,7 @@ return array (
     'tubepress_wordpress_impl_wp_TemplatePathProvider' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/TemplatePathProvider.php',
     'tubepress_wordpress_impl_wp_Widget' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/Widget.php',
     'tubepress_wordpress_impl_wp_WpFunctions' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/WpFunctions.php',
+    'tubepress_wordpress_impl_wp_WpWidget' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/WpWidget.php',
     'tubepress_wordpress_ioc_WordPressExtension' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/ioc/WordPressExtension.php',
     'tubepress_wordpress_ioc_compiler_EnvironmentCompilerPass' => TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/ioc/compiler/EnvironmentCompilerPass.php',
     'tubepress_youtube3_api_Constants' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/api/Constants.php',
