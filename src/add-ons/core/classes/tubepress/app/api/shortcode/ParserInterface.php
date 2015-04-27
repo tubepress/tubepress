@@ -31,6 +31,8 @@ interface tubepress_app_api_shortcode_ParserInterface
      *
      * @api
      * @since 4.0.0
+     *
+     * @deprecated
      */
     function parse($content);
 
@@ -39,6 +41,8 @@ interface tubepress_app_api_shortcode_ParserInterface
      *
      * @api
      * @since 4.0.0
+     *
+     * @deprecated
      */
     function getLastShortcodeUsed();
 
@@ -52,6 +56,8 @@ interface tubepress_app_api_shortcode_ParserInterface
      *
      * @api
      * @since 4.0.0
+     *
+     * @deprecated
      */
     function somethingToParse($content, $trigger = "tubepress");
 }
