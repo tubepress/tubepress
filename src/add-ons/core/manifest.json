@@ -15,6 +15,7 @@
     "container-builder": {
         "compiler-passes" : {
             "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : 60000,
+            "tubepress_app_ioc_compiler_EventDispatcherLoggingPass"  : 0,
 
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass" : 70000,
             "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000,
@@ -140,7 +141,9 @@
             "tubepress_app_impl_theme_FilesystemTheme"               : "classes/tubepress/app/impl/theme/FilesystemTheme.php",
             "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : "classes/tubepress/app/impl/theme/ioc/compiler/ThemesPrimerPass.php",
             "tubepress_app_impl_vendor_stash_FilesystemCacheBuilder" : "classes/tubepress/app/impl/vendor/stash/FilesystemCacheBuilder.php",
+
             "tubepress_app_ioc_AppExtension"                         : "classes/tubepress/app/ioc/AppExtension.php",
+            "tubepress_app_ioc_compiler_EventDispatcherLoggingPass"  : "classes/tubepress/app/ioc/compiler/EventDispatcherLoggingPass.php",
 
             "tubepress_lib_api_array_ArrayReaderInterface"      : "classes/tubepress/lib/api/array/ArrayReaderInterface.php",
             "tubepress_lib_api_event_EventDispatcherInterface"  : "classes/tubepress/lib/api/event/EventDispatcherInterface.php",

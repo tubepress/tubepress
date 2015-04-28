@@ -568,6 +568,7 @@ return array (
     'tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/theme/ioc/compiler/ThemesPrimerPass.php',
     'tubepress_app_impl_vendor_stash_FilesystemCacheBuilder' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/vendor/stash/FilesystemCacheBuilder.php',
     'tubepress_app_ioc_AppExtension' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/ioc/AppExtension.php',
+    'tubepress_app_ioc_compiler_EventDispatcherLoggingPass' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/ioc/compiler/EventDispatcherLoggingPass.php',
     'tubepress_deprecated_impl_listeners_LegacyMetadataTemplateListener' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/deprecated/impl/listeners/LegacyMetadataTemplateListener.php',
     'tubepress_deprecated_impl_listeners_LegacyTemplateListener' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/deprecated/impl/listeners/LegacyTemplateListener.php',
     'tubepress_deprecated_ioc_DeprecatedExtension' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/deprecated/ioc/DeprecatedExtension.php',
