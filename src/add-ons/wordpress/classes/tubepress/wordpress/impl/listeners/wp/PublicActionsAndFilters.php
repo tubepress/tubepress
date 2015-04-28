@@ -77,7 +77,7 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
 
     public function onAction_widgets_init(tubepress_lib_api_event_EventInterface $event)
     {
-        if (!class_exists('tubepress_wordpress_impl_wp_WpWidget')) {
+        if (!$event->hasArgument('unit-testing') && !class_exists('tubepress_wordpress_impl_wp_WpWidget')) {
 
             require TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/WpWidget.php';
         }
