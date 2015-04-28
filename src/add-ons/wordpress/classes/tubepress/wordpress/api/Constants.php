@@ -21,6 +21,14 @@ class tubepress_wordpress_api_Constants
     const OPTION_WP_PAGE_BLACKLIST = 'wpPageBlacklist';
 
     const EVENT_OPTIONS_PAGE_INVOKED  = 'tubepress.wordpress.event.optionsPageInvoked';
+
+    /**
+     * @deprecated
+     */
     const EVENT_WIDGET_PUBLIC_HTML    = 'tubepress.wordpress.event.widget.publicHtml';
+
+    /**
+     * @deprecated
+     */
     const EVENT_WIDGET_PRINT_CONTROLS = 'tubepress.wordpress.event.widget.printControls';
 }

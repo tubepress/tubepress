@@ -38,6 +38,7 @@
             "tubepress_wordpress_impl_wp_TemplatePathProvider"                  : "classes/tubepress/wordpress/impl/wp/TemplatePathProvider.php",
             "tubepress_wordpress_impl_wp_Widget"                                : "classes/tubepress/wordpress/impl/wp/Widget.php",
             "tubepress_wordpress_impl_wp_WpFunctions"                           : "classes/tubepress/wordpress/impl/wp/WpFunctions.php",
+            "tubepress_wordpress_impl_wp_WpWidget"                              : "classes/tubepress/wordpress/impl/wp/WpWidget.php",
             "tubepress_wordpress_ioc_compiler_EnvironmentCompilerPass"          : "classes/tubepress/wordpress/ioc/compiler/EnvironmentCompilerPass.php",
             "tubepress_wordpress_ioc_WordPressExtension"                        : "classes/tubepress/wordpress/ioc/WordPressExtension.php"
 

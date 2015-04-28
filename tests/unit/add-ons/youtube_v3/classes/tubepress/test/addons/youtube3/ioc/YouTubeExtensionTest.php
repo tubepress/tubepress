@@ -175,7 +175,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                     tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS              => tubepress_youtube3_api_Constants::CONTROLS_SHOW_IMMEDIATE_FLASH,
                     tubepress_youtube3_api_Constants::OPTION_SHOW_RELATED               => true,
                     tubepress_youtube3_api_Constants::OPTION_THEME                      => tubepress_youtube3_api_Constants::PLAYER_THEME_DARK,
-                    tubepress_youtube3_api_Constants::OPTION_API_KEY                    => 'AIzaSyDENt00ayilKKoHolD9WGB_b9zvDjiHIso',
+                    tubepress_youtube3_api_Constants::OPTION_API_KEY                    => '',
                     tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY            => true,
                     tubepress_youtube3_api_Constants::OPTION_FILTER                     => tubepress_youtube3_api_Constants::SAFESEARCH_NONE,
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE      => 'P9M__yYbsZ4',

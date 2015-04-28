@@ -62,6 +62,8 @@ class tubepress_app_impl_shortcode_Parser implements tubepress_app_api_shortcode
      * @param string $content The haystack in which to search
      *
      * @return array The associative array of parsed options.
+     *
+     * @deprecated
      */
     public function parse($content)
     {
@@ -131,6 +133,8 @@ class tubepress_app_impl_shortcode_Parser implements tubepress_app_api_shortcode
      * @param string $trigger The shortcode trigger word
      *
      * @return boolean True if there's a shortcode in the content, false otherwise.
+     *
+     * @deprecated
      */
     public function somethingToParse($content, $trigger = "tubepress")
     {
@@ -139,6 +143,8 @@ class tubepress_app_impl_shortcode_Parser implements tubepress_app_api_shortcode
 
     /**
      * @return string|null The last shortcode used, or null if never parsed.
+     *
+     * @deprecated
      */
     public function getLastShortcodeUsed()
     {

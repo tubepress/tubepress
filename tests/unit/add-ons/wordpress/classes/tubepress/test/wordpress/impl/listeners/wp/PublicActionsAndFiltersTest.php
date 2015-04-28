@@ -91,14 +91,17 @@ class tubepress_test_wordpress_impl_listeners_wp_PublicActionsAndFiltersTest ext
 
     public function testWidgetInitAction()
     {
+
         $widgetOps = array('classname' => 'widget_tubepress', 'description' => 'X');
 
-        $this->_mockTranslator->shouldReceive('trans')->once()->with('Displays YouTube or Vimeo videos with TubePress')->andReturn('X');
+        $this->_mockTranslator->shouldReceive('trans')->once()->with('Displays YouTube or Vimeo videos with TubePress. Limited to a single instance per site. Use the other TubePress widget instead!')->andReturn('X');
 
-        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_sidebar_widget')->once()->with('tubepress', 'TubePress', array($this->_sut, '__fireWidgetHtmlEvent'), $widgetOps);
-        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_widget_control')->once()->with('tubepress', 'TubePress', array($this->_sut, '__fireWidgetControlEvent'));
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_sidebar_widget')->once()->with('tubepress', 'TubePress (legacy)', array($this->_sut, '__fireWidgetHtmlEvent'), $widgetOps);
+        $this->_mockWordPressFunctionWrapper->shouldReceive('wp_register_widget_control')->once()->with('tubepress', 'TubePress (legacy)', array($this->_sut, '__fireWidgetControlEvent'));
+        $this->_mockWordPressFunctionWrapper->shouldReceive('register_widget')->once()->with('tubepress_wordpress_impl_wp_WpWidget');
 
         $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockEvent->shouldReceive('hasArgument')->once()->with('unit-testing')->andReturn(true);
         $this->_sut->onAction_widgets_init($mockEvent);
         $this->assertTrue(true);
     }

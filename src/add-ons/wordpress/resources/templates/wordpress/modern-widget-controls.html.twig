@@ -1,0 +1,23 @@
+{#
+ # Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+<p>
+    <label for="{{ titleFieldId }}">
+        Title
+        <input class="widefat" id="{{ titleFieldId }}" name="{{ titleFieldName }}" type="text" value="{{ titleFieldValue }}" />
+    </label>
+</p>
+<p>
+    <label for="{{ textFieldId }}">
+        {{ textFieldDesc|raw }}
+        <textarea class="widefat" rows="9" cols="12" id="{{ textFieldId }}" name="{{ textFieldName }}">
+            {{- textFieldValue|raw -}}{# wordpress already escaped this #}
+        </textarea>
+    </label>
+</p>

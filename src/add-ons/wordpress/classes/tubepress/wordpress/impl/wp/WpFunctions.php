@@ -624,4 +624,16 @@ class tubepress_wordpress_impl_wp_WpFunctions
         /** @noinspection PhpUndefinedFunctionInspection */
         return wp_get_current_user();
     }
+
+    /**
+     * Registers a widget.
+     *
+     * @param string $class
+     * @return void
+     */
+    public function register_widget($class)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        register_widget($class);
+    }
 }

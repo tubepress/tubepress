@@ -342,6 +342,14 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         );
         $key  = $this->_context->get(tubepress_youtube3_api_Constants::OPTION_API_KEY);
 
+        /**
+         * Check to see if we're using the short-lived "shared" API key from TubePress 4.1.0 - 4.1.6.
+         */
+        if ($key === 'AIzaSyDENt00ayilKKoHolD9WGB_b9zvDjiHIso') {
+
+            throw new RuntimeException('Invalid Google API key. Please follow these instructions to fix: http://community.tubepress.com/topic/5633-how-to-enter-your-google-api-key-into-tubepress/');
+        }
+
         $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_APIKEY, $key)
                         ->set(tubepress_youtube3_impl_ApiUtility::QUERY_PART, $part);
     }

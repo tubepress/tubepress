@@ -77,13 +77,25 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
 
     public function onAction_widgets_init(tubepress_lib_api_event_EventInterface $event)
     {
-        $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
-            $this->_translator->trans('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
+        if (!$event->hasArgument('unit-testing') && !class_exists('tubepress_wordpress_impl_wp_WpWidget')) {
 
-        $this->_wpFunctions->wp_register_sidebar_widget('tubepress', 'TubePress', array($this, '__fireWidgetHtmlEvent'), $widgetOps);
-        $this->_wpFunctions->wp_register_widget_control('tubepress', 'TubePress', array($this, '__fireWidgetControlEvent'));
+            require TUBEPRESS_ROOT . '/src/add-ons/wordpress/classes/tubepress/wordpress/impl/wp/WpWidget.php';
+        }
+
+        $this->_wpFunctions->register_widget('tubepress_wordpress_impl_wp_WpWidget');
+
+        /**
+         * These next three lines are deprecated!
+         */
+        $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
+            $this->_translator->trans('Displays YouTube or Vimeo videos with TubePress. Limited to a single instance per site. Use the other TubePress widget instead!'));  //>(translatable)<
+        $this->_wpFunctions->wp_register_sidebar_widget('tubepress', 'TubePress (legacy)', array($this, '__fireWidgetHtmlEvent'), $widgetOps);
+        $this->_wpFunctions->wp_register_widget_control('tubepress', 'TubePress (legacy)', array($this, '__fireWidgetControlEvent'));
     }
 
+    /**
+     * @deprecated
+     */
     public function __fireWidgetHtmlEvent($widgetOpts)
     {
         $event = $this->_eventDispatcher->newEventInstance($widgetOpts);
@@ -91,6 +103,9 @@ class tubepress_wordpress_impl_listeners_wp_PublicActionsAndFilters
         $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PUBLIC_HTML, $event);
     }
 
+    /**
+     * @deprecated
+     */
     public function __fireWidgetControlEvent()
     {
         $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::EVENT_WIDGET_PRINT_CONTROLS);
