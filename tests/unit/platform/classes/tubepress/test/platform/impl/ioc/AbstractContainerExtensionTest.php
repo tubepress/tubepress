@@ -30,6 +30,11 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
      */
     private $_expectedServiceConstructions;
 
+    /**
+     * @var array
+     */
+    private $_expectedDecoratedServices;
+
     public function onSetup()
     {
         $this->_sut = $this->buildSut();
@@ -37,6 +42,7 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
         $this->_mockContainer = $this->mock('tubepress_platform_api_ioc_ContainerBuilderInterface');
 
         $this->_expectedServiceConstructions = array();
+        $this->_expectedDecoratedServices    = array();
     }
 
     public function testLoad()
@@ -64,6 +70,16 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
         foreach ($this->getExpectedParameterMap() as $key => $value) {
 
             $realContainerBuilder->setParameter($key, $value);
+        }
+
+        foreach ($this->_expectedDecoratedServices as $serviceId) {
+
+            $decoratedDefinition = new tubepress_platform_impl_ioc_Definition($serviceId);
+            $decoratedDefinition->setFactoryClass('ehough_mockery_Mockery');
+            $decoratedDefinition->setFactoryMethod('mock');
+            $decoratedDefinition->addArgument($serviceId);
+
+            $realContainerBuilder->setDefinition(strtolower($serviceId), $decoratedDefinition);
         }
 
         $this->preCompile($realContainerBuilder);
@@ -114,7 +130,7 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
         $this->_mockContainer->shouldReceive('setDefinition')->once()->with($id, ehough_mockery_Mockery::on(function ($actualDefinition) use ($definition) {
 
             return $actualDefinition instanceof tubepress_platform_api_ioc_DefinitionInterface
-                && $actualDefinition->getClass() === $definition->getClass();
+            && $actualDefinition->getClass() === $definition->getClass();
 
         }))->andReturn($this->_mockDefinition);
 
@@ -160,6 +176,15 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
             return "$actual" === "$service";
 
         }))->andReturn($this->_mockDefinition);
+
+        return $this;
+    }
+
+    protected function withDecoratedService($serviceId)
+    {
+        $this->_mockDefinition->shouldReceive('setDecoratedService')->once()->with($serviceId)->andReturn($this->_mockDefinition);
+
+        $this->_expectedDecoratedServices[] = $serviceId;
 
         return $this;
     }
