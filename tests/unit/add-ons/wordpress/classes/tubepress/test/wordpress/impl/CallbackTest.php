@@ -69,8 +69,18 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
         $this->_mockHtmlGenerator->shouldReceive('getHtml')->once()->andReturn('html for shortcode');
 
         $this->_mockContext->shouldReceive('setEphemeralOptions')->twice()->with(array());
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
 
-        $result = $this->_sut->onShortcode('');
+        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::on(function ($shortcode) {
+
+            return $shortcode instanceof tubepress_lib_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
+                && $shortcode->getInnerContent() === 'shortcode content' && $shortcode->getAttributes() === array();
+
+        }))->andReturn($mockEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_wordpress_api_Constants::SHORTCODE_PARSED, $mockEvent);
+
+        $result = $this->_sut->onShortcode('', 'shortcode content');
 
         $this->assertEquals('html for shortcode', $result);
     }
@@ -83,10 +93,20 @@ class tubepress_test_wordpress_impl_CallbackTest extends tubepress_test_TubePres
 
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array('foO' => 'bar'));
         $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array());
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SHORTCODE_KEYWORD)->andReturn('sc');
+
+        $mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with(ehough_mockery_Mockery::on(function ($shortcode) {
+
+            return $shortcode instanceof tubepress_lib_api_shortcode_ShortcodeInterface && $shortcode->getName() === 'sc'
+            && $shortcode->getInnerContent() === 'shortcode content' && $shortcode->getAttributes() === array('foO' => 'bar');
+
+        }))->andReturn($mockEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_wordpress_api_Constants::SHORTCODE_PARSED, $mockEvent);
 
         $options = array('foo' => 'bar');
 
-        $result = $this->_sut->onShortcode($options);
+        $result = $this->_sut->onShortcode($options, 'shortcode content');
 
         $this->assertEquals('html for shortcode', $result);
     }

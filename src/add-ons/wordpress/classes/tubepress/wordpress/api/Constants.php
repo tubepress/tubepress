@@ -23,6 +23,16 @@ class tubepress_wordpress_api_Constants
     const EVENT_OPTIONS_PAGE_INVOKED  = 'tubepress.wordpress.event.optionsPageInvoked';
 
     /**
+     * This event is fired after TubePress parses a shortcode.
+     *
+     * @subject `tubepress_lib_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.
+     *
+     * @api
+     * @since 4.2.0
+     */
+    const SHORTCODE_PARSED = 'tubepress.app.shortcode.parsed';
+
+    /**
      * @deprecated
      */
     const EVENT_WIDGET_PUBLIC_HTML    = 'tubepress.wordpress.event.widget.publicHtml';
