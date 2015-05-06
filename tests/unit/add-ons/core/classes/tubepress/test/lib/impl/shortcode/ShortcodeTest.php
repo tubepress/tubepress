@@ -16,12 +16,11 @@ class tubepress_test_lib_impl_shortcode_ShortcodeTest extends tubepress_test_Tub
 {
     public function testOtherAttributes()
     {
-        $shortcode = new tubepress_lib_impl_shortcode_Shortcode('name', array('foo' => 'bar'), ' inner ', 'original text');
+        $shortcode = new tubepress_lib_impl_shortcode_Shortcode('name', array('foo' => 'bar'), ' inner ');
 
         $this->assertEquals('name', $shortcode->getName());
         $this->assertEquals(array('foo' => 'bar'), $shortcode->getAttributes());
         $this->assertEquals(' inner ', $shortcode->getInnerContent());
-        $this->assertEquals('original text', $shortcode->getOriginalText());
     }
 
     /**
@@ -49,41 +48,37 @@ class tubepress_test_lib_impl_shortcode_ShortcodeTest extends tubepress_test_Tub
     /**
      * @dataProvider getDataInvalidConstructions
      */
-    public function testInvalidConstructions($name, $attributes, $innerContent, $originalText, $expectedErrorMessage)
+    public function testInvalidConstructions($name, $attributes, $innerContent, $expectedErrorMessage)
     {
         $this->setExpectedException('InvalidArgumentException', $expectedErrorMessage);
 
-        new tubepress_lib_impl_shortcode_Shortcode($name, $attributes, $innerContent, $originalText);
+        new tubepress_lib_impl_shortcode_Shortcode($name, $attributes, $innerContent);
     }
 
     public function getDataInvalidConstructions()
     {
         return array(
 
-            array('',                  array(), null, null, 'Invalid shortcode name'),
-            array('$',                 array(), null, null, 'Invalid shortcode name'),
-            array(' . ',               array(), null, null, 'Invalid shortcode name'),
-            array(' ',                 array(), null, null, 'Invalid shortcode name'),
-            array(str_repeat('x', 51), array(), null, null, 'Invalid shortcode name'),
+            array('',                  array(), null, 'Invalid shortcode name'),
+            array('$',                 array(), null, 'Invalid shortcode name'),
+            array(' . ',               array(), null, 'Invalid shortcode name'),
+            array(' ',                 array(), null, 'Invalid shortcode name'),
+            array(str_repeat('x', 51), array(), null, 'Invalid shortcode name'),
 
-            array(new stdClass(), array(),    null, null, 'Shortcode name must be a string'),
-            array(array(),        array(),    null, null, 'Shortcode name must be a string'),
-            array(3,              array(),    null, null, 'Shortcode name must be a string'),
-            array(null,              array(), null, null, 'Shortcode name must be a string'),
+            array(new stdClass(), array(),    null, 'Shortcode name must be a string'),
+            array(array(),        array(),    null, 'Shortcode name must be a string'),
+            array(3,              array(),    null, 'Shortcode name must be a string'),
+            array(null,              array(), null, 'Shortcode name must be a string'),
 
-            array('name', new stdClass(), null, null, 'Shortcode attributes must be an array'),
-            array('name', '',             null, null, 'Shortcode attributes must be an array'),
-            array('name', null,           null, null, 'Shortcode attributes must be an array'),
+            array('name', new stdClass(), null, 'Shortcode attributes must be an array'),
+            array('name', '',             null, 'Shortcode attributes must be an array'),
+            array('name', null,           null, 'Shortcode attributes must be an array'),
 
-            array('name', array(''),      null, null, 'Shortcode attributes must be an associative array'),
+            array('name', array(''),      null, 'Shortcode attributes must be an associative array'),
 
-            array('name', array(), array(),        null, 'Inner content must either be null or a string'),
-            array('name', array(), new stdClass(), null, 'Inner content must either be null or a string'),
-            array('name', array(), 0,              null, 'Inner content must either be null or a string'),
-
-            array('name', array(), null, array(),        'Original text must either be null or a string'),
-            array('name', array(), null, new stdClass(), 'Original text must either be null or a string'),
-            array('name', array(), null, 0,              'Original text must either be null or a string'),
+            array('name', array(), array(),        'Inner content must either be null or a string'),
+            array('name', array(), new stdClass(), 'Inner content must either be null or a string'),
+            array('name', array(), 0,              'Inner content must either be null or a string'),
         );
     }
 }

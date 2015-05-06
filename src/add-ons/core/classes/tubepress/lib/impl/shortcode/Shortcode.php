@@ -55,12 +55,7 @@ class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortc
      */
     private $_innerContent;
 
-    /**
-     * @var string
-     */
-    private $_originalText;
-
-    public function __construct($name, $attributes = array(), $innerContent = null, $originalText = null)
+    public function __construct($name, $attributes = array(), $innerContent = null)
     {
         if (!is_string($name)) {
 
@@ -92,15 +87,9 @@ class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortc
             throw new InvalidArgumentException('Inner content must either be null or a string');
         }
 
-        if ($originalText !== null && !is_string($originalText)) {
-
-            throw new InvalidArgumentException('Original text must either be null or a string');
-        }
-
         $this->_name         = $name;
         $this->_attributes   = $attributes;
         $this->_innerContent = $innerContent;
-        $this->_originalText = $originalText;
     }
 
     /**
@@ -134,17 +123,5 @@ class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortc
     public function getInnerContent()
     {
         return $this->_innerContent;
-    }
-
-    /**
-     * @api
-     * @since 4.2.0
-     *
-     * @return string|null The original text from which this shortcode was parsed. This may be null
-     *                     in WordPress, so use with caution.
-     */
-    public function getOriginalText()
-    {
-        return $this->_originalText;
     }
 }

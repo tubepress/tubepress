@@ -63,13 +63,4 @@ interface tubepress_lib_api_shortcode_ShortcodeInterface
      * @return string The "inner" content of this shortcode. May be null.
      */
     function getInnerContent();
-
-    /**
-     * @api
-     * @since 4.2.0
-     *
-     * @return string|null The original text from which this shortcode was parsed. This may be null
-     *                     in WordPress, so use with caution.
-     */
-    function getOriginalText();
 }
