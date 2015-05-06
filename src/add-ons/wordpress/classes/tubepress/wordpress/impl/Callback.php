@@ -106,6 +106,11 @@ class tubepress_wordpress_impl_Callback
 
     private function _buildShortcodeEvent(array $normalizedOptions, $innerContent)
     {
+        if (!$innerContent) {
+
+            $innerContent = null;
+        }
+
         $name      = $this->_context->get(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
         $shortcode = new tubepress_lib_impl_shortcode_Shortcode($name, $normalizedOptions, $innerContent);
 
