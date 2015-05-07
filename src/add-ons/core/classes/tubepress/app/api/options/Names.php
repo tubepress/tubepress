@@ -353,6 +353,12 @@ interface tubepress_app_api_options_Names
 
     /**
      * @api
+     * @since 4.2.0
+     */
+    const SOURCES = 'sources';
+
+    /**
+     * @api
      * @since 4.0.0
      */
     const TEMPLATE_CACHE_AUTORELOAD = 'templateCacheAutoreload';

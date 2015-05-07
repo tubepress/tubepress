@@ -24,19 +24,12 @@ class tubepress_test_app_impl_listeners_nvp_StringMagicTest extends tubepress_te
      */
     private $_mockEventDispatcher;
 
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
-    private $_mockStringUtils;
-
     public function onSetup()
     {
         $this->_mockEventDispatcher = $this->mock('tubepress_lib_api_event_EventDispatcherInterface');
-        $this->_mockStringUtils     = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
 
         $this->_sut = new tubepress_app_impl_listeners_nvp_StringMagicListener(
 
-            $this->_mockStringUtils,
             $this->_mockEventDispatcher
         );
     }
@@ -77,8 +70,6 @@ class tubepress_test_app_impl_listeners_nvp_StringMagicTest extends tubepress_te
             )
         ));
 
-        $this->_mockStringUtils->shouldReceive('stripslashes_deep')->once()->with('true')->andReturn('z');
-
         $this->_sut->onSet($mockTopEvent);
 
         $this->assertTrue(true);
@@ -87,12 +78,6 @@ class tubepress_test_app_impl_listeners_nvp_StringMagicTest extends tubepress_te
     private function _booleanConversion($expected, $val)
     {
         $event = $this->_buildEvent($val, $expected);
-
-        $this->_mockStringUtils->shouldReceive('stripslashes_deep')->once()->with(trim($val))->andReturnUsing(function ($x) {
-
-            $mockUtils = new tubepress_platform_impl_util_StringUtils();
-            return $mockUtils->stripslashes_deep($x);
-        });
 
         $event->shouldReceive('setArgument')->once()->with('optionValue', $expected);
 

@@ -15,19 +15,12 @@
 class tubepress_app_impl_listeners_nvp_StringMagicListener
 {
     /**
-     * @var tubepress_platform_api_util_StringUtilsInterface
-     */
-    private $_stringUtils;
-
-    /**
      * @var tubepress_lib_api_event_EventDispatcherInterface
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_platform_api_util_StringUtilsInterface $stringUtils,
-                                tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
+    public function __construct(tubepress_lib_api_event_EventDispatcherInterface $eventDispatcher)
     {
-        $this->_stringUtils     = $stringUtils;
         $this->_eventDispatcher = $eventDispatcher;
     }
 
@@ -69,7 +62,6 @@ class tubepress_app_impl_listeners_nvp_StringMagicListener
 
         $value = trim($value);
         $value = htmlspecialchars($value, ENT_NOQUOTES);
-        $value = $this->_stringUtils->stripslashes_deep($value);
         $value = $this->_booleanMagic($value);
     }
 
