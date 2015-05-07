@@ -65,6 +65,16 @@
     background-color: white;
 }
 
+/**
+ * Get rid of any shadows around the tab headers
+ */
+.tp-bs .nav-tabs li > a:focus {
+
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    outline: none;
+}
 
 
 /**
@@ -194,4 +204,41 @@ button.close {
 .blueimp-gallery a:hover {
 
     text-decoration: none;
+}
+
+
+
+
+/**
+ **********************************************************************************************
+ **** GALLERY SOURCES
+ **********************************************************************************************
+ */
+#gallery_source_category .media-provider-icon {
+
+    margin-right: 1em; /** Put some space to the right of the provider icon. */
+}
+
+#gallery_source_category .source-control-icon {
+
+    margin-top: 4px;  /** The image makes the panel heading too tall, which moves the control icons too high. */
+    margin-left: 1em; /** Space out the control icons */
+    cursor: pointer;  /** Indicate that stuff can be done by clicking */
+}
+
+#gallery_source_category .source-control-icon.source-control-reorder {
+
+    cursor: move; /** Indicate that this can be reordered. */
+}
+
+#gallery_source_category a:focus {
+
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+#gallery_source_category .add-media-source-button {
+
+    margin-bottom: 2em;
 }
