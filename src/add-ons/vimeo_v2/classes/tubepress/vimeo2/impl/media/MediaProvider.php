@@ -36,11 +36,17 @@ class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_app_api_med
      */
     private $_feedHandler;
 
+    /**
+     * @var tubepress_platform_api_collection_MapInterface
+     */
+    private $_properties;
+
     public function __construct(tubepress_app_api_media_HttpCollectorInterface   $httpCollector,
                                 tubepress_app_api_media_HttpFeedHandlerInterface $feedHandler)
     {
         $this->_httpCollector = $httpCollector;
         $this->_feedHandler   = $feedHandler;
+        $this->_properties    = new tubepress_platform_impl_collection_Map();
     }
 
 
@@ -177,5 +183,16 @@ es for the "mode" option.
     public function collectSingle($id)
     {
         return $this->_httpCollector->collectSingle($id, $this->_feedHandler);
+    }
+
+    /**
+     * @api
+     * @since 4.2.0
+     *
+     * @return tubepress_platform_api_collection_MapInterface
+     */
+    public function getProperties()
+    {
+        return $this->_properties;
     }
 }

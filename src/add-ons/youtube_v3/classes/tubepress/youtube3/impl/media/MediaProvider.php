@@ -35,11 +35,17 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
      */
     private $_feedHandler;
 
+    /**
+     * @var tubepress_platform_api_collection_MapInterface
+     */
+    private $_properties;
+
     public function __construct(tubepress_app_api_media_HttpCollectorInterface   $httpCollector,
                                 tubepress_app_api_media_HttpFeedHandlerInterface $feedHandler)
     {
         $this->_httpCollector = $httpCollector;
         $this->_feedHandler   = $feedHandler;
+        $this->_properties    = new tubepress_platform_impl_collection_Map();
     }
 
     /**
@@ -176,5 +182,16 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
             tubepress_app_api_options_Names::META_DISPLAY_UPLOADED    => tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
             tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
         );
+    }
+
+    /**
+     * @api
+     * @since 4.2.0
+     *
+     * @return tubepress_platform_api_collection_MapInterface
+     */
+    public function getProperties()
+    {
+        return $this->_properties;
     }
 }
