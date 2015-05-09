@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_listeners_template_pre_OptionsGuiSorter
+class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 {
     private static $_categorySortMap = array(
         tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE,

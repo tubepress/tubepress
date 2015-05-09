@@ -253,7 +253,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_ReferenceInterface::_,
                 tubepress_lib_api_translation_TranslatorInterface::_
             ),
-            'tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => array(),
+            'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(),
             'tubepress_app_impl_listeners_template_pre_PaginationListener' => array(
                 tubepress_app_api_options_ContextInterface::_,
                 tubepress_platform_api_url_UrlFactoryInterface::_,
@@ -443,7 +443,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form' => array(
-                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => 'onOptionsGuiTemplate'),
+                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => 'onOptionsGuiTemplate'),
             ),
 
             /**
