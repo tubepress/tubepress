@@ -1016,18 +1016,32 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_options_Names::GALLERY_SOURCE,
             ),
         );
+
+        $multiSourceFields = array(
+
+            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
+            tubepress_app_api_options_Names::FEED_ORDER_BY,
+            tubepress_app_api_options_Names::SEARCH_ONLY_USER,
+        );
+
         foreach ($fieldMap as $type => $ids) {
             foreach ($ids as $id) {
 
                 $serviceId = 'core_field_' . $id;
 
-                $this->expectRegistration(
+                $definition = $this->expectRegistration(
                     $serviceId,
                     'tubepress_app_api_options_ui_FieldInterface'
                 )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
                     ->withFactoryMethod('newInstance')
                     ->withArgument($id)
-                    ->withArgument($type);
+                    ->withArgument($type)
+                    ->andReturnDefinition();
+
+                if (in_array($id, $multiSourceFields)) {
+
+                    $definition->shouldReceive('addMethodCall')->once()->with('setProperty', array(tubepress_app_api_options_ui_FieldInterface::PROPERTY_APPLIES_TO_MULTISOURCE, true));
+                }
 
                 $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
             }
