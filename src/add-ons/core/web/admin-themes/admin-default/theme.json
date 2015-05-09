@@ -19,6 +19,7 @@
         "vendor/blueimp-gallery-2.15.2/css/blueimp-gallery.min.css",
         "vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css",
         "vendor/spectrum-1.6.0/spectrum.css",
+        "vendor/bootstrap-vertical-tabs-1.2.1/bootstrap.vertical-tabs.min.css",
         "css/options-page.css"
     ],
     "scripts" : [
@@ -27,6 +28,8 @@
         "vendor/spectrum-1.6.0/spectrum.js",
         "vendor/blueimp-gallery-2.15.2/js/jquery.blueimp-gallery.min.js",
         "vendor/bootstrap-image-gallery-3.1.0/js/bootstrap-image-gallery.js",
+        "vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js",
+        "js/gallery-sources-handler.js",
         "js/bootstrap-field-error-handler.js",
         "js/field-provider-filter-handler.js",
         "js/spectrum-js-initializer.js",

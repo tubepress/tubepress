@@ -238,7 +238,43 @@ button.close {
     -moz-box-shadow: none;
 }
 
-#gallery_source_category .add-media-source-button {
+/**
+ * Put some space between the "Add Source" button and the content below it.
+ */
+#gallery_source_category .add-gallery-source-button {
 
     margin-bottom: 2em;
 }
+
+/**
+ * Get rid of left/right padding inside the tab content.
+ */
+#gallery_source_category .panel-body {
+
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/**
+ * In the vertical tabs content area, get rid of borders and the vertical padding.
+ */
+#gallery_source_category .tab-content {
+
+    border: none;
+    padding-top: 0;
+}
+
+
+
+
+
+/**
+ **********************************************************************************************
+ **** BOOTSTRAP MODAL MODS
+ **********************************************************************************************
+ */
+.tp-bs .modal-dialog {
+
+    margin-top: 60px;
+}
+

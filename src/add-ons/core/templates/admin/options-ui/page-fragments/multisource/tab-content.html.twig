@@ -14,51 +14,21 @@
 
         <div class="col-xs-12">
 
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
+            <div class="panel-group" id="js-gallery-sources-accordion" role="tablist" aria-multiselectable="true">
 
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <img class="media-provider-icon" src="/wp-content/plugins/tubepress/src/add-ons/youtube_v3/web/images/icons/youtube-icon-34w_x_24h.png" alt="YouTube logo" />YouTube search for cats and dogs
-                            </a>
-                            <span class="source-control-icon glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                            <span class="source-control-icon glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-                            <span class="source-control-icon source-control-reorder glyphicon glyphicon-sort pull-right" aria-hidden="true"></span>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>{# .panel .panel-default #}
+                {% include 'options-ui/page-fragments/multisource/single-source.html.twig' %}
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <img class="media-provider-icon" src="/wp-content/plugins/tubepress/src/add-ons/vimeo_v2/web/images/icons/vimeo-icon-24w_x_24h.png" alt="YouTube logo" />Collapsible Group Item #2
-                            </a>
-                            <span class="source-control-icon glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                            <span class="source-control-icon glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-                            <span class="source-control-icon source-control-reorder glyphicon glyphicon-sort pull-right" aria-hidden="true"></span>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>{# .panel .panel-default #}
+            </div>{# .panel-group #js-gallery-sources-accordion #}
 
-            </div>{# .panel-group #accordion #}
         </div>{# .col-xs-12 #}
 
         <div class="col-xs-12">
-            <button type="button" class="add-media-source-button btn btn-default" aria-label="Left Align">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Source
-            </button>
-        </div>
+
+            {% include 'options-ui/page-fragments/multisource/add-source-button.html.twig' %}
+        </div>{# .col-xs-12 #}
+
     </div>{# .row #}
+
 </div>{# .tab-pane #}
+
+{% include 'options-ui/page-fragments/multisource/confirm-delete-modal.html.twig' %}
