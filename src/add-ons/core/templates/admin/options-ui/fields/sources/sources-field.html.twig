@@ -1,0 +1,31 @@
+{#
+ # Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+<div class="row">
+
+    <div class="col-xs-12">
+
+        <div class="panel-group" id="js-gallery-sources-accordion" role="tablist" aria-multiselectable="true">
+
+            {% include 'options-ui/fields/sources/single-source.html.twig' %}
+
+        </div>{# .panel-group #js-gallery-sources-accordion #}
+
+    </div>{# .col-xs-12 #}
+
+    <div class="col-xs-12">
+
+        {% include 'options-ui/fields/sources/add-source-button.html.twig' %}
+
+    </div>{# .col-xs-12 #}
+
+</div>{# .row #}
+
+{% include 'options-ui/fields/sources/confirm-delete-modal.html.twig' %}

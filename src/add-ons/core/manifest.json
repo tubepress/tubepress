@@ -119,6 +119,7 @@
             "tubepress_app_impl_options_ui_fields_templated_single_DropdownField"               : "classes/tubepress/app/impl/options/ui/fields/templated/single/DropdownField.php",
             "tubepress_app_impl_options_ui_fields_templated_single_OrderByField"                : "classes/tubepress/app/impl/options/ui/fields/templated/single/OrderByField.php",
             "tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField"           : "classes/tubepress/app/impl/options/ui/fields/templated/single/SingleOptionField.php",
+            "tubepress_app_impl_options_ui_fields_templated_single_SourcesField"                : "classes/tubepress/app/impl/options/ui/fields/templated/single/SourcesField.php",
             "tubepress_app_impl_options_ui_fields_templated_single_SpectrumColorField"          : "classes/tubepress/app/impl/options/ui/fields/templated/single/SpectrumColorField.php",
             "tubepress_app_impl_options_ui_fields_templated_single_TextField"                   : "classes/tubepress/app/impl/options/ui/fields/templated/single/TextField.php",
             "tubepress_app_impl_options_ui_fields_templated_single_ThemeField"                  : "classes/tubepress/app/impl/options/ui/fields/templated/single/ThemeField.php",

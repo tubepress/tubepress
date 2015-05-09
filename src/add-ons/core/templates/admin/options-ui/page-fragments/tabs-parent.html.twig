@@ -37,8 +37,6 @@
 
                 {% if category.id == 'theme_category' %}
                     {% include 'options-ui/page-fragments/theme/category-theme.html.twig' %}
-                {% elseif category.id == 'gallery_source_category' %}
-                    {% include 'options-ui/page-fragments/multisource/tab-content.html.twig' %}
                 {% else %}
                     {% include 'options-ui/page-fragments/single-category.html.twig' %}
                 {% endif %}

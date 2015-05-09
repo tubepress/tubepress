@@ -11,6 +11,9 @@
 
 class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 {
+    private static $_TEMPLATE_VAR_MAP    = 'categoryIdToProviderIdToFieldsMap';
+    private static $_TEMPLATE_VAR_FIELDS = 'fields';
+
     private static $_categorySortMap = array(
         tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE,
         tubepress_app_api_options_ui_CategoryNames::THUMBNAILS,
@@ -31,24 +34,173 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         'field-provider-wordpress',
     );
 
-    public function onOptionsGuiTemplate(tubepress_lib_api_event_EventInterface $event)
+    /**
+     * @var tubepress_app_api_options_PersistenceInterface
+     */
+    private $_persistence;
+
+    /**
+     * @var tubepress_lib_api_http_RequestParametersInterface
+     */
+    private $_requestParams;
+
+    /**
+     * @var tubepress_lib_api_template_TemplatingInterface
+     */
+    private $_templating;
+
+    public function __construct(tubepress_app_api_options_PersistenceInterface    $persistence,
+                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
+                                tubepress_lib_api_template_TemplatingInterface    $templating)
     {
-        $existingArgs = $event->getSubject();
-
-        $this->_sortCategories($existingArgs);
-        $this->_sortProviders($existingArgs);
-
-        $event->setSubject($existingArgs);
+        $this->_persistence   = $persistence;
+        $this->_requestParams = $requestParams;
+        $this->_templating    = $templating;
     }
 
-    private function _sortProviders(array &$existingArgs)
+    public function onOptionsGuiTemplate(tubepress_lib_api_event_EventInterface $event)
     {
-        if (!isset($existingArgs['categoryIdToProviderIdToFieldsMap'])) {
+        $templateVariables = $event->getSubject();
+
+        $this->_sortCategories($templateVariables);
+        $this->_sortProviders($templateVariables);
+        $this->_applyMultiSource($templateVariables);
+
+        $event->setSubject($templateVariables);
+    }
+
+    /**
+     * Remove any multisource fields from the "fields" array
+     */
+    public function _applyMultiSource(array &$templateVariables)
+    {
+        if (!isset($templateVariables[self::$_TEMPLATE_VAR_MAP])) {
+
+            //this should never happen, but let's be defensive
+            return;
+        }
+
+        if (!isset($templateVariables[self::$_TEMPLATE_VAR_FIELDS])) {
+
+            //this should never happen, but let's be defensive
+            return;
+        }
+
+        $map                  = $templateVariables[self::$_TEMPLATE_VAR_MAP];
+        $fields               = $templateVariables[self::$_TEMPLATE_VAR_FIELDS];
+        $feedFields           = array();
+        $originalSourceFields = array();
+
+        /**
+         * Collect any feed options that are multisource. Remove them from the fields
+         * array and save them for the sources field instead.
+         */
+        if (isset($map[tubepress_app_api_options_ui_CategoryNames::FEED])) {
+
+            foreach ($map[tubepress_app_api_options_ui_CategoryNames::FEED] as $providerId => $fieldIds) {
+
+                foreach ($fieldIds as $fieldId) {
+
+                    if ($this->_isFieldMultiSource($fields, $fieldId)) {
+
+                        if (!isset($feedFields[$providerId])) {
+
+                            $feedFields[$providerId] = array();
+                        }
+
+                        $feedFields[$providerId][] = $fields[$fieldId];
+                        unset($fields[$fieldId]);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Collect all the fields for the gallery source tab. Remove them from the fields array
+         * and save them for the sources field instead.
+         */
+        if (isset($map[tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE])) {
+
+            foreach ($map[tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE] as $providerId => $fieldIds) {
+
+                foreach ($fieldIds as $fieldId) {
+
+                    if (!isset($fields[$fieldId])) {
+
+                        continue;
+                    }
+
+                    $field = $fields[$fieldId];
+
+                    if (!isset($originalSourceFields[$providerId])) {
+
+                        $originalSourceFields[$providerId] = array();
+                    }
+
+                    $originalSourceFields[$providerId][] = $field;
+                    unset($fields[$fieldId]);
+                }
+            }
+        }
+
+        /**
+         * Create the sources field and send it to the gallery sources tab.
+         */
+        if (isset($templateVariables['fieldProviders'])) {
+
+            $sourcesField = new tubepress_app_impl_options_ui_fields_templated_single_SourcesField(
+                $this->_persistence,
+                $this->_requestParams,
+                $this->_templating,
+                $originalSourceFields,
+                $feedFields,
+                $templateVariables['fieldProviders']
+            );
+
+            $fields[tubepress_app_api_options_Names::SOURCES] = $sourcesField;
+            $map[tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE] = array(
+                'field-provider-core' => array(
+                    tubepress_app_api_options_Names::SOURCES
+                )
+            );
+        }
+
+        $templateVariables[self::$_TEMPLATE_VAR_FIELDS] = $fields;
+        $templateVariables[self::$_TEMPLATE_VAR_MAP]    = $map;
+    }
+
+    private function _isFieldMultiSource(array $fields, $fieldId)
+    {
+        if (!array_key_exists($fieldId, $fields)) {
+
+            return false;
+        }
+
+        /**
+         * @var $field tubepress_app_api_options_ui_FieldInterface
+         */
+        $field           = $fields[$fieldId];
+        $fieldProperties = $field->getProperties();
+        $containsKey     = $fieldProperties->containsKey(tubepress_app_api_options_ui_FieldInterface::PROPERTY_APPLIES_TO_MULTISOURCE);
+
+        if (!$containsKey) {
+
+            return false;
+        }
+
+        $isMultiSource = $fieldProperties->get(tubepress_app_api_options_ui_FieldInterface::PROPERTY_APPLIES_TO_MULTISOURCE);
+
+        return $isMultiSource === true;
+    }
+
+    public function _sortProviders(array &$templateVariables)
+    {
+        if (!isset($templateVariables[self::$_TEMPLATE_VAR_MAP])) {
 
             return;
         }
 
-        $map = &$existingArgs['categoryIdToProviderIdToFieldsMap'];
+        $map = &$templateVariables[self::$_TEMPLATE_VAR_MAP];
 
         foreach ($map as $categoryId => $providerMap) {
 
@@ -79,9 +231,9 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         return $toReturn;
     }
 
-    private function _sortCategories(array &$existingArgs)
+    public function _sortCategories(array &$templateVariables)
     {
-        if (!isset($existingArgs['categories'])) {
+        if (!isset($templateVariables['categories'])) {
 
             return;
         }
@@ -94,7 +246,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         /**
          * @var $existingCategories tubepress_app_api_options_ui_ElementInterface[]
          */
-        $existingCategories = $existingArgs['categories'];
+        $existingCategories = $templateVariables['categories'];
 
         foreach (self::$_categorySortMap as $categoryId) {
 
@@ -127,6 +279,6 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
             }
         }
 
-        $existingArgs['categories'] = $newCategories;
+        $templateVariables['categories'] = $newCategories;
     }
 }

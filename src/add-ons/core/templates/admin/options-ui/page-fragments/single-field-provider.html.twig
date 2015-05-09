@@ -20,7 +20,16 @@
 {% for fieldId in fieldIds %}
     {% if fieldId in fields|keys %}
         {% set field = attribute(fields, fieldId) %}
-        {% include 'options-ui/page-fragments/single-field.html.twig' %}
+
+        {% if fieldId == 'sources' %}
+
+            {% include 'options-ui/page-fragments/bare-field.html.twig' %}
+
+        {% else %}
+
+            {% include 'options-ui/page-fragments/single-field.html.twig' %}
+
+        {% endif %}
     {% endif %}
 {% endfor %}
 

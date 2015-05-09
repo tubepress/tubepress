@@ -548,6 +548,7 @@ return array (
     'tubepress_app_impl_options_ui_fields_templated_single_DropdownField' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/options/ui/fields/templated/single/DropdownField.php',
     'tubepress_app_impl_options_ui_fields_templated_single_OrderByField' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/options/ui/fields/templated/single/OrderByField.php',
     'tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/options/ui/fields/templated/single/SingleOptionField.php',
+    'tubepress_app_impl_options_ui_fields_templated_single_SourcesField' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/options/ui/fields/templated/single/SourcesField.php',
     'tubepress_app_impl_options_ui_fields_templated_single_SpectrumColorField' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/options/ui/fields/templated/single/SpectrumColorField.php',
     'tubepress_app_impl_options_ui_fields_templated_single_TextField' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/options/ui/fields/templated/single/TextField.php',
     'tubepress_app_impl_options_ui_fields_templated_single_ThemeField' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/impl/options/ui/fields/templated/single/ThemeField.php',
