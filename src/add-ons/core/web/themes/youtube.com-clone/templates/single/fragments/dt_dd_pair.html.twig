@@ -62,8 +62,14 @@
             {{- mediaItem.viewCount }} {{ 'views'|trans -}}
         {%- endif -%}
 
+        {%- if attributeName == 'description'  -%}
+            {% block metaValueDescription %}
+                {{- mediaItem.description|raw -}}
+            {% endblock %}
+        {%- endif -%}
+
         {# Print out the attribute value. #}
-        {%- if attributeName not in ['title', 'homeUrl', 'authorDisplayName', 'viewCount'] -%}
+        {%- if attributeName not in ['title', 'homeUrl', 'authorDisplayName', 'description', 'viewCount'] -%}
             {% block metaValueSimple %}
                 {{- attribute(mediaItem, attributeName) -}}
             {% endblock %}
