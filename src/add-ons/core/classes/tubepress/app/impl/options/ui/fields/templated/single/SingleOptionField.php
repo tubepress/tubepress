@@ -24,14 +24,21 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
      */
     private $_templateName;
 
+    /**
+     * @var string
+     */
+    private $_multiSourcePrefix;
+
     public function __construct($optionName, $templateName,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ReferenceInterface      $optionReference)
+                                tubepress_app_api_options_ReferenceInterface      $optionReference,
+                                $multiSourcePrefix = '')
     {
-        $this->_optionProvider = $optionReference;
-        $this->_templateName   = $templateName;
+        $this->_optionProvider    = $optionReference;
+        $this->_templateName      = $templateName;
+        $this->_multiSourcePrefix = $multiSourcePrefix;
 
         if (!$this->_optionProvider->optionExists($optionName)) {
 
@@ -69,23 +76,25 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
      */
     public function onSubmit()
     {
-        $id        = $this->getId();
-        $isBoolean = $this->_optionProvider->isBoolean($this->getId());
+        $optionName    = $this->getId();
+        $isBoolean     = $this->_optionProvider->isBoolean($optionName);
+        $paramName     = $this->_multiSourcePrefix . $optionName;
+        $requestParams = $this->getHttpRequestParameters();
 
         if ($isBoolean) {
 
-            return $this->sendToStorage($id, $this->getHttpRequestParameters()->hasParam($id));
+            return $this->sendToStorage($optionName, $requestParams->hasParam($paramName));
         }
 
-        if (! $this->getHttpRequestParameters()->hasParam($id)) {
+        if (!$requestParams->hasParam($paramName)) {
 
             /* not submitted. */
             return null;
         }
 
-        $value = $this->getHttpRequestParameters()->getParamValue($id);
+        $value = $requestParams->getParamValue($paramName);
 
-        return $this->sendToStorage($id, $this->convertIncomingStringValueToStorageFormat($value));
+        return $this->sendToStorage($optionName, $this->convertIncomingStringValueToStorageFormat($value));
     }
 
     /**
@@ -98,8 +107,9 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
 
         return array_merge(array(
 
-            'id'    => $id,
-            'value' => $value,
+            'id'     => $id,
+            'value'  => $value,
+            'prefix' => $this->_multiSourcePrefix,
 
         ), $this->getAdditionalTemplateVariables());
     }

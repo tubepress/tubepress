@@ -23,11 +23,16 @@ class tubepress_app_impl_options_ui_fields_templated_single_TextField extends tu
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ReferenceInterface      $optionReference)
+                                tubepress_app_api_options_ReferenceInterface      $optionReference,
+                                $multiSourcePrefix = '')
     {
-        parent::__construct(
-            $optionName, 'options-ui/fields/text',
-            $persistence, $requestParams, $templating, $optionReference
+        parent::__construct($optionName,
+                            'options-ui/fields/text',
+                            $persistence,
+                            $requestParams,
+                            $templating,
+                            $optionReference,
+                            $multiSourcePrefix
         );
     }
 

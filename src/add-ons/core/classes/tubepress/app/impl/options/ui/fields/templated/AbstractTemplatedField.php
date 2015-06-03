@@ -49,6 +49,14 @@ abstract class tubepress_app_impl_options_ui_fields_templated_AbstractTemplatedF
     }
 
     /**
+     * @return tubepress_lib_api_template_TemplatingInterface
+     */
+    protected function getTemplating()
+    {
+        return $this->_templating;
+    }
+
+    /**
      * @return string The absolute path to the template for this field.
      */
     protected abstract function getTemplateName();

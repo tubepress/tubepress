@@ -18,19 +18,11 @@
 interface tubepress_app_api_options_ui_FieldInterface extends tubepress_app_api_options_ui_ElementInterface
 {
     /**
-     * Boolean indicating whether this field applies to multisource.
-     *
-     * @api
-     * @since 4.2.0
-     */
-    const PROPERTY_APPLIES_TO_MULTISOURCE = 'appliesToMultiSource';
-
-    /**
      * @return string The optional description of this element that is displayed to the user. May be empty or null.
      *
      * @api
      * @since 4.0.0
-     */
+*/
     function getUntranslatedDescription();
 
     /**

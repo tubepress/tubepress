@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_options_ui_fields_templated_single_TextField<extended>
+ * @covers tubepress_app_impl_options_ui_fields_templated_single_MultiSourceTextField<extended>
  */
-class tubepress_test_app_impl_options_ui_fields_templated_single_TextField extends tubepress_test_app_impl_options_ui_fields_templated_single_AbstractSingleOptionFieldTest
+class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceTextFieldTest extends tubepress_test_app_impl_options_ui_fields_templated_single_AbstractSingleOptionFieldTest
 {
     public function testInvalidSize()
     {
@@ -28,13 +28,14 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_TextField exten
 
     protected function getSut()
     {
-        $field = new tubepress_app_impl_options_ui_fields_templated_single_TextField(
+        $field = new tubepress_app_impl_options_ui_fields_templated_single_MultiSourceTextField(
 
-            $this->getOptionsPageItemId(),
+            $this->getId(),
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
-            $this->getMockOptionsReference()
+            $this->getMockOptionsReference(),
+            'abc-123-'
         );
 
         $field->setSize(99);
@@ -49,14 +50,22 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_TextField exten
 
     protected function getAdditionalExpectedTemplateVariables()
     {
-        return array('size' => 99);
+        return array(
+            'prefix' => 'abc-123-',
+            'size' => 99
+        );
     }
 
     /**
      * @return string
      */
-    protected function getOptionsPageItemId()
+    protected function getId()
     {
         return 'foo';
+    }
+
+    protected function getMultiSourcePrefix()
+    {
+        return 'abc-123-';
     }
 }

@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_options_ui_fields_templated_single_DropdownField<extended>
+ * @covers tubepress_app_impl_options_ui_fields_templated_single_MultiSourceDropdownField<extended>
  */
-class tubepress_test_app_impl_options_ui_fields_templated_single_DropdownFieldTest extends tubepress_test_app_impl_options_ui_fields_templated_single_AbstractSingleOptionFieldTest
+class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceDropdownFieldTest extends tubepress_test_app_impl_options_ui_fields_templated_single_AbstractSingleOptionFieldTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -32,20 +32,6 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_DropdownFieldTe
         $this->onAfterDropDownFieldSetup();
     }
 
-    protected function buildSut()
-    {
-        return new tubepress_app_impl_options_ui_fields_templated_single_DropdownField(
-
-            $this->getOptionsPageItemId(),
-            $this->getMockPersistence(),
-            $this->getMockHttpRequestParams(),
-            $this->getMockOptionsReference(),
-            $this->getMockTemplating(),
-            $this->_mockLangUtils,
-            $this->_mockAcceptableValues
-        );
-    }
-
     /**
      * @return string
      */
@@ -61,12 +47,13 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_DropdownFieldTe
     {
         $this->_mockLangUtils->shouldReceive('isAssociativeArray')->once()->andReturn(true);
 
-        $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with($this->getOptionsPageItemId())->andReturn(array(
+        $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with($this->getId())->andReturn(array(
 
             'foo' => 'abc', 'smack' => 'xyz'
         ));
 
         return array(
+            'prefix' => 'abc-123-',
             'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz')
         );
     }
@@ -84,7 +71,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_DropdownFieldTe
     /**
      * @return string
      */
-    protected function getOptionsPageItemId()
+    protected function getId()
     {
         return 'bla';
     }
@@ -94,20 +81,26 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_DropdownFieldTe
         //override point
     }
 
+    protected function getMultiSourcePrefix()
+    {
+        return 'abc-123-';
+    }
+
     /**
      * @return tubepress_app_impl_options_ui_fields_templated_AbstractTemplatedField
      */
     protected function getSut()
     {
-        return new tubepress_app_impl_options_ui_fields_templated_single_DropdownField(
+        return new tubepress_app_impl_options_ui_fields_templated_single_MultiSourceDropdownField(
 
-            $this->getOptionsPageItemId(),
+            $this->getId(),
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockOptionsReference(),
             $this->getMockTemplating(),
             $this->getMockLangUtils(),
-            $this->getMockAcceptableValues()
+            $this->getMockAcceptableValues(),
+            'abc-123-'
         );
     }
 }

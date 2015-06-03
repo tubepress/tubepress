@@ -25,7 +25,7 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
     private $_persistence;
 
     /**
-     * @var tubepress_app_api_options_ui_FieldProviderInterface[] Categories.
+     * @var tubepress_app_api_options_ui_FieldProviderInterface[]
      */
     private $_fieldProviders;
 
@@ -161,8 +161,6 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
     }
 
     /**
-     * This function is called by the IOC container.
-     *
      * @param tubepress_app_api_options_ui_FieldProviderInterface[] $providers
      */
     public function setFieldProviders(array $providers)

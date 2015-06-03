@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends tubepress_app_impl_options_ui_fields_templated_single_DropdownField
+class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends tubepress_app_impl_options_ui_fields_templated_single_MultiSourceDropdownField
 {
     public function __construct(tubepress_app_api_options_PersistenceInterface      $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface   $requestParams,
@@ -21,7 +21,8 @@ class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends
                                 tubepress_app_api_options_ContextInterface          $context,
                                 tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
                                 tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                array                                               $mediaProviders)
+                                array                                               $mediaProviders,
+                                $multiSourcePrefix)
     {
         parent::__construct(
 
@@ -31,7 +32,8 @@ class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends
             $optionsReference,
             $templating,
             $langUtils,
-            $acceptableValues
+            $acceptableValues,
+            $multiSourcePrefix
         );
 
         $this->setProperty(self::$PROPERTY_UNTRANS_DISPLAY_NAME, 'Order videos by');            //>(translatable)<

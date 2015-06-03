@@ -12,7 +12,7 @@
 /**
  * Displays a single radio input.
  */
-class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField extends tubepress_app_impl_options_ui_fields_templated_AbstractTemplatedField
+class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField extends tubepress_app_impl_options_ui_fields_templated_AbstractTemplatedField implements tubepress_app_api_options_ui_MultiSourceFieldInterface
 {
     /**
      * @var tubepress_app_api_options_ui_FieldInterface
@@ -24,7 +24,12 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
      */
     private $_context;
 
-    public function __construct($modeName,
+    /**
+     * @var string
+     */
+    private $_multiSourcePrefix;
+
+    public function __construct($modeName, $multiSourcePrefix,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
@@ -39,8 +44,9 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
             $templating
         );
 
-        $this->_additionalField = $additionalField;
-        $this->_context         = $context;
+        $this->_additionalField   = $additionalField;
+        $this->_context           = $context;
+        $this->_multiSourcePrefix = $multiSourcePrefix;
     }
 
     /**
@@ -63,6 +69,7 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
             'modeName'                  => $this->getId(),
             'currentMode'               => $currentMode,
             'additionalFieldWidgetHtml' => isset($this->_additionalField) ? $this->_additionalField->getWidgetHTML() : '',
+            'prefix'                    => $this->_multiSourcePrefix,
         );
     }
 
@@ -112,5 +119,31 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
     public function isProOnly()
     {
         return false;
+    }
+
+    /**
+     * @param $prefix
+     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     *
+     * @return tubepress_app_api_options_ui_FieldInterface
+     */
+    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    {
+        $httpRequestParams = $this->getHttpRequestParameters();
+        $templating        = $this->getTemplating();
+        $context           = $this->_context;
+        $additionalField   = null;
+
+        if ($this->_additionalField && $this->_additionalField instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface) {
+
+            /**
+             * @var $temp tubepress_app_api_options_ui_MultiSourceFieldInterface
+             */
+            $temp = $this->_additionalField;
+
+            $additionalField = $temp->cloneForMultiSource($prefix, $persistence);
+        }
+
+        return new self($this->getId(), $prefix, $persistence, $httpRequestParams, $templating, $context, $additionalField);
     }
 }

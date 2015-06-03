@@ -24,6 +24,17 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
      */
     private $_mockAdditionalField;
 
+    public function testCloneForMultiSource()
+    {
+        $mockPersistence = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
+
+        $actual = $this->getSut()->cloneForMultiSource('foobar', $mockPersistence);
+
+        $this->assertInstanceOf('tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField', $actual);
+
+        $this->assertNotSame($this->getSut(), $actual);
+    }
+
     public function testGetName()
     {
         $this->_mockAdditionalField->shouldReceive('getUntranslatedDisplayName')->once()->andReturn('hi');
@@ -75,6 +86,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
         return new tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField(
 
             'foo',
+            'abc-123-',
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
@@ -103,7 +115,8 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
 
             'modeName'                  => 'foo',
             'currentMode'               => 'somethin',
-            'additionalFieldWidgetHtml' => 'boo'
+            'additionalFieldWidgetHtml' => 'boo',
+            'prefix'                    => 'abc-123-',
         );
     }
 }

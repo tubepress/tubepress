@@ -30,7 +30,8 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
                                 tubepress_app_api_options_ReferenceInterface        $optionsReference,
                                 tubepress_lib_api_template_TemplatingInterface      $templating,
                                 tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues)
+                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
+                                $multiSourcePrefix = '')
     {
         parent::__construct(
 
@@ -39,7 +40,8 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
             $persistence,
             $requestParams,
             $templating,
-            $optionsReference
+            $optionsReference,
+            $multiSourcePrefix
         );
 
         $this->_langUtils        = $langUtils;
@@ -56,5 +58,21 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
         }
 
         return array('ungroupedChoices' => $map);
+    }
+
+    /**
+     * @return tubepress_platform_api_util_LangUtilsInterface
+     */
+    protected function getLangUtils()
+    {
+        return $this->_langUtils;
+    }
+
+    /**
+     * @return tubepress_app_api_options_AcceptableValuesInterface
+     */
+    protected function getAcceptableValues()
+    {
+        return $this->_acceptableValues;
     }
 }

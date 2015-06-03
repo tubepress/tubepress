@@ -15,6 +15,10 @@
  */
 interface tubepress_app_api_media_MediaProviderInterface extends tubepress_app_api_media_CollectorInterface
 {
+    /**
+     * @api
+     * @since 4.0.0
+     */
     const __ = 'tubepress_app_api_media_MediaProviderInterface';
 
     /**
