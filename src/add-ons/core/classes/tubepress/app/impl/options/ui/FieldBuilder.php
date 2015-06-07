@@ -105,9 +105,16 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
             case 'bool':
             case 'boolean':
                 return $this->_buildBooleanField($id, $options);
+
+            case 'multiSourceBool':
+            case 'multiSourceBoolean':
+                return $this->_buildMultiSourceBoolean($id, $options);
             
             case 'dropdown':
                 return $this->_buildDropdown($id, $options);
+
+            case 'multiSourceDropdown':
+                return $this->_buildMultiSourceDropdown($id, $options);
             
             case 'hidden':
                 return $this->_buildHidden($id, $options);
@@ -117,6 +124,9 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
             
             case 'text':
                 return $this->_buildText($id, $options);
+
+            case 'multiSourceText':
+                return $this->_buildMultiSourceText($id, $options);
 
             case 'theme':
                 return $this->_buildTheme();
@@ -131,7 +141,7 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
                 return $this->_buildFieldProviderFilter();
 
             default:
-                throw new InvalidArgumentException('Unknown field type');
+                throw new InvalidArgumentException('Unknown field type: ' . $type);
         }
     }
 
@@ -256,6 +266,24 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
         return $toReturn;
     }
 
+    private function _buildMultiSourceText($id, $options)
+    {
+        $toReturn = new tubepress_app_impl_options_ui_fields_templated_single_MultiSourceTextField(
+            $id,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_optionReference
+        );
+
+        if (isset($options['size'])) {
+
+            $toReturn->setSize($options['size']);
+        }
+
+        return $toReturn;
+    }
+
     private function _buildHidden($id)
     {
         return new tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField(
@@ -278,6 +306,33 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
             $this->_templating,
             $this->_langUtils,
             $this->_acceptableValues
+        );
+    }
+
+    private function _buildMultiSourceDropdown($id)
+    {
+        return new tubepress_app_impl_options_ui_fields_templated_single_MultiSourceDropdownField(
+
+            $id,
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_optionReference,
+            $this->_templating,
+            $this->_langUtils,
+            $this->_acceptableValues
+        );
+    }
+
+    private function _buildMultiSourceBoolean($id)
+    {
+        return new tubepress_app_impl_options_ui_fields_templated_single_MultiSourceSingleOptionField(
+
+            $id,
+            'options-ui/fields/checkbox',
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_optionReference
         );
     }
 

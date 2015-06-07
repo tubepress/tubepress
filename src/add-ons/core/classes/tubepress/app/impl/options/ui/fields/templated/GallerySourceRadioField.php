@@ -27,9 +27,9 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
     /**
      * @var string
      */
-    private $_multiSourcePrefix;
+    private $_multiSourcePrefix = '';
 
-    public function __construct($modeName, $multiSourcePrefix,
+    public function __construct($modeName,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
@@ -46,7 +46,17 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
 
         $this->_additionalField   = $additionalField;
         $this->_context           = $context;
-        $this->_multiSourcePrefix = $multiSourcePrefix;
+    }
+
+    /**
+     * @return string The page-unique identifier for this item.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getId()
+    {
+        return $this->_multiSourcePrefix . parent::getId();
     }
 
     /**
@@ -121,6 +131,11 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
         return false;
     }
 
+    public function setMultiSourcePrefix($prefix)
+    {
+        $this->_multiSourcePrefix = $prefix;
+    }
+
     /**
      * @param $prefix
      * @param tubepress_app_api_options_PersistenceInterface $persistence
@@ -144,6 +159,10 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
             $additionalField = $temp->cloneForMultiSource($prefix, $persistence);
         }
 
-        return new self($this->getId(), $prefix, $persistence, $httpRequestParams, $templating, $context, $additionalField);
+        $toReturn = new self($this->getId(), $persistence, $httpRequestParams, $templating, $context, $additionalField);
+
+        $toReturn->setMultiSourcePrefix($prefix);
+
+        return $toReturn;
     }
 }

@@ -13,12 +13,12 @@
 
         var getSourceContainerForElement = function (element) {
 
-                return element.closest('.js-gallery-source-outermost');
+                return element.closest('.js-multisource-single-source-outermost');
             },
 
             getAllSourceContainers = function () {
 
-                return jquery('.js-gallery-source-outermost');
+                return jquery('.js-multisource-single-source-outermost');
             };
 
         return {
@@ -44,7 +44,7 @@
 
             init = function () {
 
-                jquery('#js-add-gallery-source-button').click(onAddSourceButtonClicked);
+                jquery('#js-multisource-button-add').click(onAddSourceButtonClicked);
             };
 
         jquery(init);
@@ -112,7 +112,7 @@
             /**
              * Make the accordion sortable.
              */
-            jquery('#js-gallery-sources-accordion').sortable();
+            jquery('#js-multisource-accordion').sortable();
         };
 
         jquery(init);

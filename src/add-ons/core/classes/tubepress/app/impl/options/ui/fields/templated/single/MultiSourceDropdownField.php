@@ -29,6 +29,10 @@ class tubepress_app_impl_options_ui_fields_templated_single_MultiSourceDropdownF
         $langUtils        = $this->getLangUtils();
         $acceptableValues = $this->getAcceptableValues();
 
-        return new self($optionName, $persistence, $requestParams, $optionsReference, $templating, $langUtils, $acceptableValues, $prefix);
+        $toReturn = new self($optionName, $persistence, $requestParams, $optionsReference, $templating, $langUtils, $acceptableValues);
+
+        $toReturn->setMultiSourcePrefix($prefix);
+
+        return $toReturn;
     }
 }

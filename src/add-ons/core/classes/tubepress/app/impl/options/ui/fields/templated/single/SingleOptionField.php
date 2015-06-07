@@ -27,18 +27,16 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
     /**
      * @var string
      */
-    private $_multiSourcePrefix;
+    private $_multiSourcePrefix = '';
 
     public function __construct($optionName, $templateName,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ReferenceInterface      $optionReference,
-                                $multiSourcePrefix = '')
+                                tubepress_app_api_options_ReferenceInterface      $optionReference)
     {
         $this->_optionProvider    = $optionReference;
         $this->_templateName      = $templateName;
-        $this->_multiSourcePrefix = $multiSourcePrefix;
 
         if (!$this->_optionProvider->optionExists($optionName)) {
 
@@ -57,6 +55,17 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
             $label,
             $description
         );
+    }
+
+    /**
+     * @return string The page-unique identifier for this item.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getId()
+    {
+        return $this->_multiSourcePrefix . parent::getId();
     }
 
     /**
@@ -154,5 +163,10 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
     protected function getTemplateName()
     {
         return $this->_templateName;
+    }
+
+    protected function setMultiSourcePrefix($prefix)
+    {
+        $this->_multiSourcePrefix = $prefix;
     }
 }

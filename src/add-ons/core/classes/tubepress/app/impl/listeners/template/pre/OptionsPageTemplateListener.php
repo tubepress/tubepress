@@ -11,8 +11,12 @@
 
 class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 {
-    private static $_TEMPLATE_VAR_MAP    = 'categoryIdToProviderIdToFieldsMap';
-    private static $_TEMPLATE_VAR_FIELDS = 'fields';
+    private static $_TEMPLATE_VAR_CATEGORIES      = 'categories';
+    private static $_TEMPLATE_VAR_MAP             = 'categoryIdToProviderIdToFieldsMap';
+    private static $_TEMPLATE_VAR_FIELD_PROVIDERS = 'fieldProviders';
+    private static $_TEMPLATE_VAR_GALLERY_SOURCES = 'gallerySources';
+    private static $_TEMPLATE_VAR_IS_PRO          = 'isPro';
+    private static $_TEMPLATE_VAR_BASEURL         = 'baseUrl';
 
     private static $_categorySortMap = array(
         tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE,
@@ -35,165 +39,361 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
     );
 
     /**
-     * @var tubepress_app_api_options_PersistenceInterface
+     * @var tubepress_app_api_environment_EnvironmentInterface
      */
-    private $_persistence;
+    private $_environment;
 
     /**
-     * @var tubepress_lib_api_http_RequestParametersInterface
+     * @var tubepress_app_api_options_ui_FieldProviderInterface[]
      */
-    private $_requestParams;
+    private $_fieldProviders;
 
     /**
-     * @var tubepress_lib_api_template_TemplatingInterface
+     * @var array
      */
-    private $_templating;
+    private $_fieldIdToProviderInstanceCache;
 
-    public function __construct(tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                tubepress_lib_api_template_TemplatingInterface    $templating)
+    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment)
     {
-        $this->_persistence   = $persistence;
-        $this->_requestParams = $requestParams;
-        $this->_templating    = $templating;
+        $this->_environment                    = $environment;
+        $this->_fieldIdToProviderInstanceCache = array();
     }
 
+    /**
+     * This listener has several very important tasks:
+     *
+     * 1. Add the template variables:
+     *      categories
+     *      categoryIdToProviderIdToFieldsMap
+     *      fieldProviders
+     *      tubePressBaseUrl
+     *      isPro
+     *
+     * 2. Add the multisource template vars (complicated).
+     *
+     * 3. Sort the categories.
+     *
+     * 4. Sort the field providers
+     *
+     * @param tubepress_lib_api_event_EventInterface $event
+     */
     public function onOptionsGuiTemplate(tubepress_lib_api_event_EventInterface $event)
     {
         $templateVariables = $event->getSubject();
 
+        //1
+        $this->_addTemplateVariableCategories($templateVariables);
+        $this->_addTemplateVariableCategoryIdToProviderIdToFieldsMap($templateVariables);
+        $this->_addTemplateVariableFieldProviders($templateVariables);
+        $this->_addTemplateVariableTubePressBaseUrl($templateVariables);
+        $this->_addTemplateVariableIsPro($templateVariables);
+
+        //2
+        $this->_addTemplateVariableGallerySources($templateVariables);
+
+        //3
         $this->_sortCategories($templateVariables);
-        $this->_sortProviders($templateVariables);
-        $this->_applyMultiSource($templateVariables);
+
+        //4
+        $this->_sortFieldProviders($templateVariables);
 
         $event->setSubject($templateVariables);
     }
 
+    public function setFieldProviders(array $fieldProviders)
+    {
+        foreach ($fieldProviders as $fieldProvider) {
+
+            if (!($fieldProvider instanceof tubepress_app_api_options_ui_FieldProviderInterface)) {
+
+                throw new InvalidArgumentException('Non tubepress_app_api_options_ui_FieldProviderInterface in call to tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener::setFieldProviders');
+            }
+        }
+
+        $this->_fieldProviders = $fieldProviders;
+    }
+
+    private function _addTemplateVariableCategories(array &$templateVariables)
+    {
+        $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES] = $this->_buildCategoriesArray();
+    }
+
+    private function _addTemplateVariableFieldProviders(array &$templateVariables)
+    {
+        $templateVariables[self::$_TEMPLATE_VAR_FIELD_PROVIDERS] = $this->_buildFieldProviderArray();
+    }
+
+    private function _addTemplateVariableCategoryIdToProviderIdToFieldsMap(array &$templateVariables)
+    {
+        $templateVariables[self::$_TEMPLATE_VAR_MAP] = $this->_buildCategoryIdToProviderIdToFieldsMap($templateVariables);
+    }
+
+    private function _addTemplateVariableTubePressBaseUrl(array &$templateVariables)
+    {
+        $templateVariables[self::$_TEMPLATE_VAR_BASEURL] = $this->_environment->getBaseUrl();
+    }
+
+    private function _addTemplateVariableIsPro(array &$templateVariables)
+    {
+        $templateVariables[self::$_TEMPLATE_VAR_IS_PRO] = $this->_environment->isPro();
+    }
+
     /**
-     * Remove any multisource fields from the "fields" array
+     * This is a fairly complex template variable. Here's the pseudocode:
+     *
+     * sources is the top-level variable. it's an array of arrays. Each child array looks like the following:
+     *
+     *    id              => the group id
+     *    icon            => string representing relative URL to icon
+     *    title           => title to be displayed
+     *    gallery sources => array of field providers, multisource fields only
+     *    feed options    => array of field providers, multisource fields only
+     *
+     * @param array $templateVariables
      */
-    public function _applyMultiSource(array &$templateVariables)
+    private function _addTemplateVariableGallerySources(array &$templateVariables)
     {
-        if (!isset($templateVariables[self::$_TEMPLATE_VAR_MAP])) {
+        if (!isset($templateVariables['fields'])) {
 
-            //this should never happen, but let's be defensive
+            //this should never happen, but just to be safe.
             return;
         }
 
-        if (!isset($templateVariables[self::$_TEMPLATE_VAR_FIELDS])) {
+        $multiSourceGroupIdsToFieldsMap = $this->_buildMultiSourceGroupIdsToFieldsMap($templateVariables);
+        $toReturn                       = array();
 
-            //this should never happen, but let's be defensive
-            return;
+        foreach ($multiSourceGroupIdsToFieldsMap as $groupNumber => $fieldArray) {
+
+            $toReturn[] = $this->_buildTemplateVarForSourceGroup($groupNumber, $fieldArray);
         }
 
-        $map                  = $templateVariables[self::$_TEMPLATE_VAR_MAP];
-        $fields               = $templateVariables[self::$_TEMPLATE_VAR_FIELDS];
-        $feedFields           = array();
-        $originalSourceFields = array();
+        $templateVariables[self::$_TEMPLATE_VAR_GALLERY_SOURCES] = $toReturn;
+    }
+
+    /**
+     * @param string                                                   $groupNumber
+     * @param tubepress_app_api_options_ui_MultiSourceFieldInterface[] $fieldsInGroup
+     *
+     * @return array
+     */
+    private function _buildTemplateVarForSourceGroup($groupNumber, array $fieldsInGroup)
+    {
+        return array(
+
+            'id'                          => $groupNumber,
+            'icon'                        => '',
+            'title'                       => '',
+            'gallerySourceFieldProviders' => $this->_buildWrappedFieldProviders($groupNumber, $fieldsInGroup, true),
+            'feedOptionFieldProviders'    => $this->_buildWrappedFieldProviders($groupNumber, $fieldsInGroup, false),
+        );
+    }
+
+    /**
+     * @param $groupNumber
+     * @param tubepress_app_api_options_ui_MultiSourceFieldInterface[] $fieldsInGroup
+     * @param $gallerySources
+     *
+     * @return array
+     */
+    private function _buildWrappedFieldProviders($groupNumber, $fieldsInGroup, $gallerySources)
+    {
+        $fieldProviderIdToFieldsMap   = array();
+        $fieldProviderIdToInstanceMap = array();
+
+        foreach ($fieldsInGroup as $field) {
+
+            $currentFieldId        = $field->getId();
+            $originalFieldId       = str_replace("tubepress-multisource-$groupNumber-", '', $currentFieldId);
+            $actualFieldProvider   = $this->_findFieldProviderForFieldId($originalFieldId);
+            $actualCategory        = $this->_getCategoryIdOfFieldId($originalFieldId, $actualFieldProvider);
+            $actualFieldProviderId = $actualFieldProvider->getId();
+            $fieldProviderIdToInstanceMap[$actualFieldProviderId] = $actualFieldProvider;
+
+            if ($gallerySources && $actualCategory !== tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE) {
+
+                //we only want gallery sources
+                continue;
+            }
+
+            if (!$gallerySources && $actualCategory === tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE) {
+
+                //we've already done gallery sources
+                continue;
+            }
+
+            if (!isset($fieldProviderIdToFieldsMap[$actualFieldProviderId])) {
+
+                $wrappedFieldProviders[$actualFieldProviderId] = array();
+            }
+
+            $fieldProviderIdToFieldsMap[$actualFieldProviderId][] = $field;
+        }
+
+        $wrappedFieldProviders = array();
+
+        foreach ($fieldProviderIdToFieldsMap as $fieldProviderId => $fields) {
+
+            $actualFieldProvider = $fieldProviderIdToInstanceMap[$fieldProviderId];
+            $wrappedFieldProviders[] = new tubepress_app_impl_options_ui_MultiSourceFieldProviderWrapper($actualFieldProvider, $fields);
+        }
+
+        return $wrappedFieldProviders;
+    }
+
+    private function _getCategoryIdOfFieldId($fieldId, tubepress_app_api_options_ui_FieldProviderInterface $fieldProvider)
+    {
+        $map = $fieldProvider->getCategoryIdsToFieldIdsMap();
+
+        foreach ($map as $categoryId => $fieldIds) {
+
+            if (in_array($fieldId, $fieldIds)) {
+
+                return $categoryId;
+            }
+        }
+
+        throw new RuntimeException(sprintf('Unable to find original category for field %s', $fieldId));
+    }
+
+    /**
+     * @param $fieldId
+     *
+     * @return tubepress_app_api_options_ui_FieldProviderInterface
+     */
+    private function _findFieldProviderForFieldId($fieldId)
+    {
+        if (!isset($this->_fieldIdToProviderInstanceCache[$fieldId])) {
+
+            foreach ($this->_fieldProviders as $fieldProvider) {
+
+                $map = $fieldProvider->getCategoryIdsToFieldIdsMap();
+
+                foreach ($map as $categoryId => $fieldIds) {
+
+                    if (in_array($fieldId, $fieldIds)) {
+
+                        $this->_fieldIdToProviderInstanceCache[$fieldId] = $fieldProvider;
+                        break;
+                    }
+                }
+
+                if (isset($this->_fieldIdToProviderInstanceCache[$fieldId])) {
+
+                    break;
+                }
+            }
+
+            if (!isset($this->_fieldIdToProviderInstanceCache[$fieldId])) {
+
+                throw new RuntimeException(sprintf('Could not find field provider for field %s', $fieldId));
+            }
+        }
+
+        return $this->_fieldIdToProviderInstanceCache[$fieldId];
+    }
+
+    private function _buildMultiSourceGroupIdsToFieldsMap(array $templateVariables)
+    {
+        $toReturn = array();
+        $fields   = $templateVariables['fields'];
+
+        foreach ($fields as $fieldId => $field) {
+
+            if (!($field instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface)) {
+
+                continue;
+            }
+
+            if (preg_match_all('/^tubepress-multisource-([0-9]+)-.+$/', $fieldId, $matches) !== 1) {
+
+                continue;
+            }
+
+            if (!is_array($matches) || count($matches) !== 2 || !is_array($matches[1]) || count($matches[1]) !== 1) {
+
+                continue;
+            }
+
+            $groupNumbers = $matches[1][0];
+
+            if (!isset($toReturn["$groupNumbers"])) {
+
+                $toReturn["$groupNumbers"] = array();
+            }
+
+            $toReturn["$groupNumbers"][] = $field;
+        }
+
+        return $toReturn;
+    }
+
+    private function _buildCategoryIdToProviderIdToFieldsMap(array $templateVariables)
+    {
+        $toReturn   = array();
+        $categories = $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES];
 
         /**
-         * Collect any feed options that are multisource. Remove them from the fields
-         * array and save them for the sources field instead.
+         * @var $category tubepress_app_api_options_ui_ElementInterface
          */
-        if (isset($map[tubepress_app_api_options_ui_CategoryNames::FEED])) {
+        foreach ($categories as $category) {
 
-            foreach ($map[tubepress_app_api_options_ui_CategoryNames::FEED] as $providerId => $fieldIds) {
+            $categoryId = $category->getId();
 
-                foreach ($fieldIds as $fieldId) {
+            if (!isset($toReturn[$categoryId])) {
 
-                    if ($this->_isFieldMultiSource($fields, $fieldId)) {
+                $toReturn[$categoryId] = array();
+            }
 
-                        if (!isset($feedFields[$providerId])) {
+            foreach ($this->_fieldProviders as $fieldProvider) {
 
-                            $feedFields[$providerId] = array();
-                        }
+                $map = $fieldProvider->getCategoryIdsToFieldIdsMap();
 
-                        $feedFields[$providerId][] = $fields[$fieldId];
-                        unset($fields[$fieldId]);
-                    }
+                if (!isset($map[$categoryId])) {
+
+                    continue;
+                }
+
+                $toReturn[$categoryId][$fieldProvider->getId()] = $map[$categoryId];
+            }
+        }
+
+        return $toReturn;
+    }
+
+    private function _buildFieldProviderArray()
+    {
+        $toReturn = array();
+
+        foreach ($this->_fieldProviders as $fieldProvider) {
+
+            $toReturn[$fieldProvider->getId()] = $fieldProvider;
+        }
+
+        return $toReturn;
+    }
+
+    private function _buildCategoriesArray()
+    {
+        $toReturn     = array();
+        $alreadyAdded = array();
+
+        foreach ($this->_fieldProviders as $fieldProvider) {
+
+            $categoriesFromProvider = $fieldProvider->getCategories();
+
+            foreach ($categoriesFromProvider as $category) {
+
+                if (!in_array($category->getId(), $alreadyAdded)) {
+
+                    $toReturn[] = $category;
                 }
             }
         }
 
-        /**
-         * Collect all the fields for the gallery source tab. Remove them from the fields array
-         * and save them for the sources field instead.
-         */
-        if (isset($map[tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE])) {
-
-            foreach ($map[tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE] as $providerId => $fieldIds) {
-
-                foreach ($fieldIds as $fieldId) {
-
-                    if (!isset($fields[$fieldId])) {
-
-                        continue;
-                    }
-
-                    $field = $fields[$fieldId];
-
-                    if (!isset($originalSourceFields[$providerId])) {
-
-                        $originalSourceFields[$providerId] = array();
-                    }
-
-                    $originalSourceFields[$providerId][] = $field;
-                    unset($fields[$fieldId]);
-                }
-            }
-        }
-
-        /**
-         * Create the sources field and send it to the gallery sources tab.
-         */
-        if (isset($templateVariables['fieldProviders'])) {
-
-            $sourcesField = new tubepress_app_impl_options_ui_fields_templated_single_SourcesField(
-                $this->_persistence,
-                $this->_requestParams,
-                $this->_templating,
-                $originalSourceFields,
-                $feedFields,
-                $templateVariables['fieldProviders']
-            );
-
-            $fields[tubepress_app_api_options_Names::SOURCES] = $sourcesField;
-            $map[tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE] = array(
-                'field-provider-core' => array(
-                    tubepress_app_api_options_Names::SOURCES
-                )
-            );
-        }
-
-        $templateVariables[self::$_TEMPLATE_VAR_FIELDS] = $fields;
-        $templateVariables[self::$_TEMPLATE_VAR_MAP]    = $map;
+        return $toReturn;
     }
 
-    private function _isFieldMultiSource(array $fields, $fieldId)
-    {
-        if (!array_key_exists($fieldId, $fields)) {
-
-            return false;
-        }
-
-        /**
-         * @var $field tubepress_app_api_options_ui_FieldInterface
-         */
-        $field           = $fields[$fieldId];
-        $fieldProperties = $field->getProperties();
-        $containsKey     = $fieldProperties->containsKey(tubepress_app_api_options_ui_FieldInterface::PROPERTY_APPLIES_TO_MULTISOURCE);
-
-        if (!$containsKey) {
-
-            return false;
-        }
-
-        $isMultiSource = $fieldProperties->get(tubepress_app_api_options_ui_FieldInterface::PROPERTY_APPLIES_TO_MULTISOURCE);
-
-        return $isMultiSource === true;
-    }
-
-    public function _sortProviders(array &$templateVariables)
+    public function _sortFieldProviders(array &$templateVariables)
     {
         if (!isset($templateVariables[self::$_TEMPLATE_VAR_MAP])) {
 
@@ -233,7 +433,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 
     public function _sortCategories(array &$templateVariables)
     {
-        if (!isset($templateVariables['categories'])) {
+        if (!isset($templateVariables[self::$_TEMPLATE_VAR_CATEGORIES])) {
 
             return;
         }
@@ -246,7 +446,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         /**
          * @var $existingCategories tubepress_app_api_options_ui_ElementInterface[]
          */
-        $existingCategories = $templateVariables['categories'];
+        $existingCategories = $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES];
 
         foreach (self::$_categorySortMap as $categoryId) {
 
@@ -279,6 +479,6 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
             }
         }
 
-        $templateVariables['categories'] = $newCategories;
+        $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES] = $newCategories;
     }
 }

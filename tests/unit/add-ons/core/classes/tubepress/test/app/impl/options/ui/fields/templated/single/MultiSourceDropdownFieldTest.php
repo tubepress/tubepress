@@ -53,7 +53,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceDrop
         ));
 
         return array(
-            'prefix' => 'abc-123-',
+            'prefix' => '',
             'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz')
         );
     }
@@ -99,8 +99,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceDrop
             $this->getMockOptionsReference(),
             $this->getMockTemplating(),
             $this->getMockLangUtils(),
-            $this->getMockAcceptableValues(),
-            'abc-123-'
+            $this->getMockAcceptableValues()
         );
     }
 }

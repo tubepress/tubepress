@@ -86,7 +86,6 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
         return new tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField(
 
             'foo',
-            'abc-123-',
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
@@ -116,7 +115,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
             'modeName'                  => 'foo',
             'currentMode'               => 'somethin',
             'additionalFieldWidgetHtml' => 'boo',
-            'prefix'                    => 'abc-123-',
+            'prefix'                    => '',
         );
     }
 }

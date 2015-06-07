@@ -21,8 +21,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends
                                 tubepress_app_api_options_ContextInterface          $context,
                                 tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
                                 tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                array                                               $mediaProviders,
-                                $multiSourcePrefix)
+                                array                                               $mediaProviders)
     {
         parent::__construct(
 
@@ -32,8 +31,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends
             $optionsReference,
             $templating,
             $langUtils,
-            $acceptableValues,
-            $multiSourcePrefix
+            $acceptableValues
         );
 
         $this->setProperty(self::$PROPERTY_UNTRANS_DISPLAY_NAME, 'Order videos by');            //>(translatable)<

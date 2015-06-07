@@ -34,8 +34,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceText
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
-            $this->getMockOptionsReference(),
-            'abc-123-'
+            $this->getMockOptionsReference()
         );
 
         $field->setSize(99);
@@ -51,7 +50,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_MultiSourceText
     protected function getAdditionalExpectedTemplateVariables()
     {
         return array(
-            'prefix' => 'abc-123-',
+            'prefix' => '',
             'size' => 99
         );
     }

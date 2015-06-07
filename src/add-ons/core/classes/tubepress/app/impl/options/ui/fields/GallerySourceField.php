@@ -17,15 +17,12 @@ class tubepress_app_impl_options_ui_fields_GallerySourceField extends tubepress_
     /**
      * @var string
      */
-    private $_multiSourcePrefix;
+    private $_multiSourcePrefix = '';
 
     public function __construct(tubepress_app_api_options_PersistenceInterface    $persistence,
-                                tubepress_lib_api_http_RequestParametersInterface $requestParams,
-                                $multiSourcePrefix)
+                                tubepress_lib_api_http_RequestParametersInterface $requestParams)
     {
         parent::__construct(tubepress_app_api_options_Names::GALLERY_SOURCE, $persistence, $requestParams);
-
-        $this->_multiSourcePrefix = $multiSourcePrefix;
     }
 
     /**
@@ -65,6 +62,22 @@ class tubepress_app_impl_options_ui_fields_GallerySourceField extends tubepress_
         return false;
     }
 
+    public function setMultiSourcePrefix($prefix)
+    {
+        $this->_multiSourcePrefix = $prefix;
+    }
+
+    /**
+     * @return string The page-unique identifier for this item.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getId()
+    {
+        return $this->_multiSourcePrefix . tubepress_app_api_options_Names::GALLERY_SOURCE;
+    }
+
     /**
      * @param $prefix
      * @param tubepress_app_api_options_PersistenceInterface $persistence
@@ -73,6 +86,10 @@ class tubepress_app_impl_options_ui_fields_GallerySourceField extends tubepress_
      */
     public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
     {
-        return new self($persistence, $this->getHttpRequestParameters(), $prefix);
+        $toReturn = new self($persistence, $this->getHttpRequestParameters());
+
+        $toReturn->setMultiSourcePrefix($prefix);
+
+        return $toReturn;
     }
 }

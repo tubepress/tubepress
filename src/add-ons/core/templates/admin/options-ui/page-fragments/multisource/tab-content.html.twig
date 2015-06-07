@@ -1,0 +1,36 @@
+{#
+ # Copyright 2006 - 2015 TubePress LLC (http://tubepress.com)
+ #
+ # This file is part of TubePress (http://tubepress.com)
+ #
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ #}
+
+<div class="tab-pane fade{% if categoryIndex == 0 %} in active{% endif %}" id="{{ category.id }}">
+
+    <div class="row">
+
+        {# Build the accordion #}
+        <div class="col-xs-12">
+            <div class="panel-group" id="js-multisource-accordion" role="tablist" aria-multiselectable="true">
+
+                {% for source in gallerySources %}
+                    {% include 'options-ui/page-fragments/multisource/single-source.html.twig' %}
+                {% endfor %}
+
+            </div>{# .panel-group #js-multisource-accordion #}
+        </div>{# .col-xs-12 #}
+
+        {# Include an "Add Source" button #}
+        <div class="col-xs-12">
+            {% include 'options-ui/page-fragments/multisource/add-source-button.html.twig' %}
+        </div>
+
+    </div>{# .row #}
+
+</div>{# .tab-pane #}
+
+{# Include a hidden modal for a delete dialog #}
+{% include 'options-ui/page-fragments/multisource/confirm-delete-modal.html.twig' %}

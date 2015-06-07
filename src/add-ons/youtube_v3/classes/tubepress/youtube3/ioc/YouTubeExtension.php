@@ -271,27 +271,27 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
 
             array(
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE),
         );
 
@@ -330,7 +330,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
             tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS    => 'dropdown',
 
             //Feed fields
-            tubepress_youtube3_api_Constants::OPTION_FILTER           => 'dropdown',
+            tubepress_youtube3_api_Constants::OPTION_FILTER           => 'multiSourceDropdown',
             tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY  => 'bool',
         );
 

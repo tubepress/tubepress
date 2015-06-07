@@ -30,8 +30,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
                                 tubepress_app_api_options_ReferenceInterface        $optionsReference,
                                 tubepress_lib_api_template_TemplatingInterface      $templating,
                                 tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
-                                $multiSourcePrefix = '')
+                                tubepress_app_api_options_AcceptableValuesInterface $acceptableValues)
     {
         parent::__construct(
 
@@ -40,8 +39,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
             $persistence,
             $requestParams,
             $templating,
-            $optionsReference,
-            $multiSourcePrefix
+            $optionsReference
         );
 
         $this->_langUtils        = $langUtils;

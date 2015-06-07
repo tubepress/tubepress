@@ -23,12 +23,11 @@ class tubepress_test_app_impl_options_ui_fields_GallerySourceFieldTest extends t
 
     public function onAfterAbstractFieldSetup()
     {
-        self::$_PARAM_NAME = 'abc-123-' . tubepress_app_api_options_Names::GALLERY_SOURCE;
+        self::$_PARAM_NAME = tubepress_app_api_options_Names::GALLERY_SOURCE;
 
         $this->_sut = new tubepress_app_impl_options_ui_fields_GallerySourceField(
             $this->getMockPersistence(),
-            $this->getMockHttpRequestParams(),
-            'abc-123-'
+            $this->getMockHttpRequestParams()
         );
     }
 

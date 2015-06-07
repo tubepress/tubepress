@@ -28,6 +28,10 @@ class tubepress_app_impl_options_ui_fields_templated_single_MultiSourceSingleOpt
         $templating      = $this->getTemplating();
         $optionReference = $this->getOptionProvider();
 
-        return new self($id, $templateName, $persistence, $requestParams, $templating, $optionReference, $prefix);
+        $toReturn = new self($id, $templateName, $persistence, $requestParams, $templating, $optionReference);
+
+        $toReturn->setMultiSourcePrefix($prefix);
+
+        return $toReturn;
     }
 }

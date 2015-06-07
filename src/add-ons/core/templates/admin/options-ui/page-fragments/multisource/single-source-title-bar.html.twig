@@ -1,0 +1,17 @@
+{# Icon and title #}
+<a data-toggle="collapse" data-parent="#js-multisource-accordion" href="#{{ contentAreaId }}"
+   aria-expanded="true" aria-controls="#{{ contentAreaId }}">
+
+    <img class="media-provider-icon" src="{{ source.icon }}" />{{ source.title }} Hello
+</a>
+
+{# Delete button #}
+<span class="multisource-control-icon glyphicon glyphicon-remove pull-right js-gallery-sources-delete-initiate" aria-hidden="true"></span>
+
+{# Edit button #}
+<span class="multisource-control-icon glyphicon glyphicon-pencil pull-right" aria-hidden="true" data-toggle="collapse"
+      data-parent="#js-multisource-accordion" href="#{{ contentAreaId }}"
+      aria-controls="collapseOne"></span>
+
+{# Reorder icon #}
+<span class="multisource-control-icon multisource-control-reorder glyphicon glyphicon-sort pull-right" aria-hidden="true"></span>

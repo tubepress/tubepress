@@ -36,7 +36,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
 
         $mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
         $mockBootSettings->shouldReceive('getSerializationEncoding')->twice()->andReturn('base64');
-        $mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->times(3)->andReturn(sys_get_temp_dir());
+        $mockBootSettings->shouldReceive('getPathToSystemCacheDirectory')->times(1)->andReturn(sys_get_temp_dir());
 
         $mockCurrentUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
         $mockCurrentUrl->shouldReceive('removeSchemeAndAuthority');
@@ -335,9 +335,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_lib_api_translation_TranslatorInterface::_
             ),
             'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
-                tubepress_app_api_options_PersistenceInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_,
-                tubepress_lib_api_template_TemplatingInterface::_ . '.admin',
+                tubepress_app_api_environment_EnvironmentInterface::_,
             ),
             'tubepress_app_impl_listeners_template_pre_PaginationListener' => array(
                 tubepress_app_api_options_ContextInterface::_,
@@ -373,6 +371,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_app_impl_listeners_search_SearchListener' => array(
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
+            'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
+                'tubepress_app_api_options_ui_FieldProviderInterface' => 'setFieldProviders',
+            )
         );
 
         $listeners = array(
@@ -947,11 +948,12 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $this->expectRegistration(
             tubepress_app_api_options_ui_FormInterface::_,
             'tubepress_app_impl_options_ui_Form'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
                 'method' => 'setFieldProviders',
@@ -1019,21 +1021,19 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'gallerySource' => array(
                 tubepress_app_api_options_Names::GALLERY_SOURCE,
             ),
+            'multiSourceText' => array(
+                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
+                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
+            )
         );
 
-        $multiSourceFields = array(
-
-            tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
-            tubepress_app_api_options_Names::FEED_ORDER_BY,
-            tubepress_app_api_options_Names::SEARCH_ONLY_USER,
-        );
 
         foreach ($fieldMap as $type => $ids) {
             foreach ($ids as $id) {
 
                 $serviceId = 'core_field_' . $id;
 
-                $definition = $this->expectRegistration(
+                $this->expectRegistration(
                     $serviceId,
                     'tubepress_app_api_options_ui_FieldInterface'
                 )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
@@ -1041,11 +1041,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     ->withArgument($id)
                     ->withArgument($type)
                     ->andReturnDefinition();
-
-                if (in_array($id, $multiSourceFields)) {
-
-                    $definition->shouldReceive('addMethodCall')->once()->with('setProperty', array(tubepress_app_api_options_ui_FieldInterface::PROPERTY_APPLIES_TO_MULTISOURCE, true));
-                }
 
                 $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
             }
@@ -1075,6 +1070,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         }
 
         $fieldMap = array(
+            tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
+                tubepress_app_api_options_Names::GALLERY_SOURCE,
+            ),
             tubepress_app_api_options_ui_CategoryNames::CACHE => array(
                 tubepress_app_api_options_Names::CACHE_ENABLED,
                 tubepress_app_api_options_Names::CACHE_DIRECTORY,

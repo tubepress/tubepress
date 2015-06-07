@@ -219,14 +219,14 @@ button.close {
     margin-right: 1em; /** Put some space to the right of the provider icon. */
 }
 
-#gallery_source_category .source-control-icon {
+#gallery_source_category .multisource-control-icon {
 
     margin-top: 4px;  /** The image makes the panel heading too tall, which moves the control icons too high. */
     margin-left: 1em; /** Space out the control icons */
     cursor: pointer;  /** Indicate that stuff can be done by clicking */
 }
 
-#gallery_source_category .source-control-icon.source-control-reorder {
+#gallery_source_category .multisource-control-icon.multisource-control-reorder {
 
     cursor: move; /** Indicate that this can be reordered. */
 }

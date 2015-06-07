@@ -32,8 +32,8 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
     {
         $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(false);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getMultiSourcePrefix() . $this->getId())->andReturn(true);
-        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getMultiSourcePrefix() . $this->getId())->andReturn('some-value');
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getId())->andReturn('some-value');
 
         $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getId(), 'some-value')->andReturn('you suck');
 
@@ -44,7 +44,7 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
     {
         $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(false);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getMultiSourcePrefix() . $this->getId())->andReturn(false);
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(false);
 
         $this->assertNull($this->getSut()->onSubmit());
     }
@@ -53,7 +53,7 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
     {
         $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(true);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getMultiSourcePrefix() . $this->getId())->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(true);
 
         $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getId(), true)->andReturn(null);
 
@@ -64,8 +64,8 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
     {
         $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(false);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getMultiSourcePrefix() . $this->getId())->andReturn(true);
-        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getMultiSourcePrefix() . $this->getId())->andReturn('some-value');
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getId())->andReturn('some-value');
 
         $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getId(), 'some-value')->andReturn(null);
 
@@ -117,7 +117,7 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
 
             'id'     => $this->getId(),
             'value'  => 'some value',
-            'prefix' => $this->getMultiSourcePrefix(),
+            'prefix' => '',
         );
         $fromChild = $this->getAdditionalExpectedTemplateVariables();
 
@@ -135,6 +135,4 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
     }
 
     protected abstract function getId();
-
-    protected abstract function getMultiSourcePrefix();
 }
