@@ -8,6 +8,11 @@
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
 
+<script type="text/javascript">
+
+    var tubePressMediaProviderProperties = {{ mediaProviderPropertiesAsJson|raw }};
+</script>
+
 <div class="tab-pane fade{% if categoryIndex == 0 %} in active{% endif %}" id="{{ category.id }}">
 
     <div class="row">

@@ -17,11 +17,8 @@
     <div class="panel-body">
 {% endif %}
 
-{% for fieldId in fieldIds %}
-    {% if fieldId in fields|keys %}
-        {% set field = attribute(fields, fieldId) %}
-        {% include 'options-ui/page-fragments/single-field.html.twig' %}
-    {% endif %}
+{% for field in fieldProvider.fields %}
+    {% include 'options-ui/page-fragments/single-field.html.twig' %}
 {% endfor %}
 
 {% if fieldProvider.fieldsShouldBeInSeparateBoxes %}

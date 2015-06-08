@@ -11,12 +11,13 @@
 
 class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 {
-    private static $_TEMPLATE_VAR_CATEGORIES      = 'categories';
-    private static $_TEMPLATE_VAR_MAP             = 'categoryIdToProviderIdToFieldsMap';
-    private static $_TEMPLATE_VAR_FIELD_PROVIDERS = 'fieldProviders';
-    private static $_TEMPLATE_VAR_GALLERY_SOURCES = 'gallerySources';
-    private static $_TEMPLATE_VAR_IS_PRO          = 'isPro';
-    private static $_TEMPLATE_VAR_BASEURL         = 'baseUrl';
+    private static $_TEMPLATE_VAR_CATEGORIES           = 'categories';
+    private static $_TEMPLATE_VAR_MAP                  = 'categoryIdToProviderIdToFieldsMap';
+    private static $_TEMPLATE_VAR_FIELD_PROVIDERS      = 'fieldProviders';
+    private static $_TEMPLATE_VAR_GALLERY_SOURCES      = 'gallerySources';
+    private static $_TEMPLATE_VAR_IS_PRO               = 'isPro';
+    private static $_TEMPLATE_VAR_BASEURL              = 'baseUrl';
+    private static $_TEMPLATE_VAR_MEDIA_PROVIDER_PROPS = 'mediaProviderPropertiesAsJson';
 
     private static $_categorySortMap = array(
         tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE,
@@ -49,6 +50,11 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
     private $_fieldProviders;
 
     /**
+     * @var tubepress_app_api_media_MediaProviderInterface[]
+     */
+    private $_mediaProviders;
+
+    /**
      * @var array
      */
     private $_fieldIdToProviderInstanceCache;
@@ -71,9 +77,11 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
      *
      * 2. Add the multisource template vars (complicated).
      *
-     * 3. Sort the categories.
+     * 3. Add the field provider properties as JSON
      *
-     * 4. Sort the field providers
+     * 4. Sort the categories.
+     *
+     * 5. Sort the field providers
      *
      * @param tubepress_lib_api_event_EventInterface $event
      */
@@ -91,10 +99,12 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         //2
         $this->_addTemplateVariableGallerySources($templateVariables);
 
-        //3
-        $this->_sortCategories($templateVariables);
+        $this->_addTemplateVariableFieldProviderProperties($templateVariables);
 
         //4
+        $this->_sortCategories($templateVariables);
+
+        //5
         $this->_sortFieldProviders($templateVariables);
 
         $event->setSubject($templateVariables);
@@ -111,6 +121,19 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         }
 
         $this->_fieldProviders = $fieldProviders;
+    }
+
+    public function setMediaProviders(array $mediaProviders)
+    {
+        foreach ($mediaProviders as $mediaProvider) {
+
+            if (!($mediaProvider instanceof tubepress_app_api_media_MediaProviderInterface)) {
+
+                throw new InvalidArgumentException('Non tubepress_app_api_media_MediaProviderInterface in call to tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener::setMediaProviders');
+            }
+        }
+
+        $this->_mediaProviders = $mediaProviders;
     }
 
     private function _addTemplateVariableCategories(array &$templateVariables)
@@ -144,8 +167,6 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
      * sources is the top-level variable. it's an array of arrays. Each child array looks like the following:
      *
      *    id              => the group id
-     *    icon            => string representing relative URL to icon
-     *    title           => title to be displayed
      *    gallery sources => array of field providers, multisource fields only
      *    feed options    => array of field providers, multisource fields only
      *
@@ -159,15 +180,45 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
             return;
         }
 
+        $finalFieldsVar = $templateVariables['fields'];
+
         $multiSourceGroupIdsToFieldsMap = $this->_buildMultiSourceGroupIdsToFieldsMap($templateVariables);
         $toReturn                       = array();
 
         foreach ($multiSourceGroupIdsToFieldsMap as $groupNumber => $fieldArray) {
 
-            $toReturn[] = $this->_buildTemplateVarForSourceGroup($groupNumber, $fieldArray);
+            $finalFieldsVar = array_merge($finalFieldsVar, $fieldArray);
+            $toReturn[]     = $this->_buildTemplateVarForSourceGroup($groupNumber, $fieldArray);
         }
 
         $templateVariables[self::$_TEMPLATE_VAR_GALLERY_SOURCES] = $toReturn;
+        $templateVariables['fields']                             = $finalFieldsVar;
+    }
+
+    private function _addTemplateVariableFieldProviderProperties(array &$templateVariables)
+    {
+        $final = array();
+        $toSet = array('miniIconUrl');
+
+        foreach ($this->_mediaProviders as $mediaProvider) {
+
+            $props = array(
+                'displayName' => $mediaProvider->getDisplayName(),
+                'sourceNames' => $mediaProvider->getGallerySourceNames(),
+            );
+
+            foreach ($toSet as $propertyName) {
+
+                if ($mediaProvider->getProperties()->containsKey($propertyName)) {
+
+                    $props[$propertyName] = $mediaProvider->getProperties()->get($propertyName);
+                }
+            }
+
+            $final[$mediaProvider->getName()] = $props;
+        }
+
+        $templateVariables[self::$_TEMPLATE_VAR_MEDIA_PROVIDER_PROPS] = json_encode($final);
     }
 
     /**
@@ -181,8 +232,6 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         return array(
 
             'id'                          => $groupNumber,
-            'icon'                        => '',
-            'title'                       => '',
             'gallerySourceFieldProviders' => $this->_buildWrappedFieldProviders($groupNumber, $fieldsInGroup, true),
             'feedOptionFieldProviders'    => $this->_buildWrappedFieldProviders($groupNumber, $fieldsInGroup, false),
         );

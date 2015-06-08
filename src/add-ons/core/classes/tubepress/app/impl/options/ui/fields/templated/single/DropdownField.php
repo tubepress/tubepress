@@ -48,7 +48,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
 
     protected function getAdditionalTemplateVariables()
     {
-        $map = $this->_acceptableValues->getAcceptableValues($this->getId());
+        $map = $this->_acceptableValues->getAcceptableValues($this->getOptionName());
 
         if (!$this->_langUtils->isAssociativeArray($map)) {
 

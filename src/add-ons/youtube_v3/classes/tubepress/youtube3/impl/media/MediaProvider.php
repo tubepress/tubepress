@@ -40,12 +40,18 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
      */
     private $_properties;
 
-    public function __construct(tubepress_app_api_media_HttpCollectorInterface   $httpCollector,
-                                tubepress_app_api_media_HttpFeedHandlerInterface $feedHandler)
+    public function __construct(tubepress_app_api_media_HttpCollectorInterface     $httpCollector,
+                                tubepress_app_api_media_HttpFeedHandlerInterface   $feedHandler,
+                                tubepress_app_api_environment_EnvironmentInterface $environment)
     {
         $this->_httpCollector = $httpCollector;
         $this->_feedHandler   = $feedHandler;
         $this->_properties    = new tubepress_platform_impl_collection_Map();
+
+        $baseUrlClone = $environment->getBaseUrl()->getClone();
+        $miniIconUrl  = $baseUrlClone->addPath('/src/add-ons/youtube_v3/web/images/icons/youtube-icon-34w_x_24h.png')->toString();
+        $this->getProperties()->put('miniIconUrl', $miniIconUrl);
+
     }
 
     /**

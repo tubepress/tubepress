@@ -22,7 +22,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_MultiSourceTextField
      */
     public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
     {
-        $optionName      = $this->getId();
+        $optionName      = $this->getOptionName();
         $requestParams   = $this->getHttpRequestParameters();
         $templating      = $this->getTemplating();
         $optionReference = $this->getOptionProvider();

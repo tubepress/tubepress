@@ -29,6 +29,11 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
      */
     private $_multiSourcePrefix = '';
 
+    /**
+     * @var string
+     */
+    private $_modeName;
+
     public function __construct($modeName,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
@@ -44,8 +49,9 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
             $templating
         );
 
-        $this->_additionalField   = $additionalField;
-        $this->_context           = $context;
+        $this->_additionalField = $additionalField;
+        $this->_context         = $context;
+        $this->_modeName        = $modeName;
     }
 
     /**
@@ -76,7 +82,7 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
 
         return array(
 
-            'modeName'                  => $this->getId(),
+            'modeName'                  => $this->_modeName,
             'currentMode'               => $currentMode,
             'additionalFieldWidgetHtml' => isset($this->_additionalField) ? $this->_additionalField->getWidgetHTML() : '',
             'prefix'                    => $this->_multiSourcePrefix,

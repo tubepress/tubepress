@@ -292,6 +292,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             ),
             'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
                 'tubepress_app_api_options_ui_FieldProviderInterface' => 'setFieldProviders',
+                'tubepress_app_api_media_MediaProviderInterface'      => 'setMediaProviders',
             )
         );
 

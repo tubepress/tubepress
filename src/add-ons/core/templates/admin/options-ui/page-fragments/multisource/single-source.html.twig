@@ -42,12 +42,20 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="{{ sourceSelectionAreaId }}">
 
-                        {% include 'options-ui/page-fragments/multisource/single-source-tab-selection.html.twig' %}
+                        {% for fieldProvider in source.gallerySourceFieldProviders %}
+
+                            {% include 'options-ui/page-fragments/multisource/single-field-provider.html.twig' %}
+
+                        {% endfor %}
 
                     </div>
                     <div class="tab-pane" id="{{ feedOptionsAreaId }}">
 
-                        {% include 'options-ui/page-fragments/multisource/single-source-tab-options.html.twig' %}
+                        {% for fieldProvider in source.feedOptionFieldProviders %}
+
+                            {% include 'options-ui/page-fragments/multisource/single-field-provider.html.twig' %}
+
+                        {% endfor %}
 
                     </div>
                 </div>

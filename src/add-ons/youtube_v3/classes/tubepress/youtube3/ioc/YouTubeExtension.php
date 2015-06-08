@@ -158,6 +158,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
             'tubepress_youtube3_impl_media_MediaProvider'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_HttpCollectorInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_media_FeedHandler'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addTag(tubepress_app_api_media_MediaProviderInterface::__);
     }
 

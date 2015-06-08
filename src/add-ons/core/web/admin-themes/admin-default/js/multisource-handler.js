@@ -188,18 +188,50 @@
      */
     (function () {
 
-        var getAccordion = function () {
-
-            return jquery('#js-multisource-accordion');
-
-        },
-
-            onAfterNewSourceAdded = function () {
+        var onAfterNewSourceAdded = function () {
 
                 var colls = jquery('#gallery_source_category .collapse'),
                     last  = colls.last();
 
                 last.collapse('show');
+            },
+
+            init = function () {
+
+                win.tubePressBeacon.subscribe('newsource.post', onAfterNewSourceAdded);
+
+                if (sourceFinder.getAllSourceContainers().length === 1) {
+
+                    onAfterNewSourceAdded();
+                }
+            };
+
+        jquery(init);
+    }());
+
+    /**
+     * Title bar handling.
+     */
+    (function () {
+
+        var init = function () {
+
+            jquery('.js-media-provider-icon').attr('src', win.tubePressMediaProviderProperties.youtube.miniIconUrl);
+            jquery('.js-media-provider-title').html(win.tubePressMediaProviderProperties.youtube.displayName);
+        };
+
+        jquery(init);
+    }());
+
+    /**
+     * Reorder handler.
+     */
+    (function () {
+
+        var getAccordion = function () {
+
+                return jquery('#js-multisource-accordion');
+
             },
 
             onSortStop = function () {
@@ -209,18 +241,17 @@
 
             init = function () {
 
-            /**
-             * Make the accordion sortable.
-             */
-            getAccordion().sortable({
+                /**
+                 * Make the accordion sortable.
+                 */
+                getAccordion().sortable({
 
-                stop: onSortStop
-            });
-
-            win.tubePressBeacon.subscribe('newsource.post', onAfterNewSourceAdded);
-        };
+                    stop: onSortStop
+                });
+            };
 
         jquery(init);
+
     }());
 
 }(jQuery, window));
