@@ -563,6 +563,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL                => tubepress_app_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED,
                 tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO                  => false,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH                      => 640,
+                tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE      => null,
                 tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST              => null,
                 tubepress_app_api_options_Names::FEED_ORDER_BY                       => 'default',
                 tubepress_app_api_options_Names::FEED_PER_PAGE_SORT                  => tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NONE,
@@ -715,6 +716,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::HTML_GALLERY_ID,
                 tubepress_app_api_options_Names::HTML_OUTPUT,
                 tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID,
+                tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE,
             ),
 
             tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
@@ -736,6 +738,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH,
                 tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
+                tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE,
                 tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT,
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH,
             ),
