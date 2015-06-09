@@ -81,7 +81,7 @@ class tubepress_wordpress_impl_Callback
         $this->_activationHook->execute();
     }
 
-    public function onShortcode($optionMap)
+    public function onShortcode($optionMap, $content)
     {
         if (!is_array($optionMap)) {
 
@@ -92,6 +92,9 @@ class tubepress_wordpress_impl_Callback
 
         $this->_context->setEphemeralOptions($normalizedOptions);
 
+        $event = $this->_buildShortcodeEvent($normalizedOptions, $content);
+        $this->_eventDispatcher->dispatch(tubepress_wordpress_api_Constants::SHORTCODE_PARSED, $event);
+
         /* Get the HTML for this particular shortcode. */
         $toReturn = $this->_htmlGenerator->getHtml();
 
@@ -99,6 +102,19 @@ class tubepress_wordpress_impl_Callback
         $this->_context->setEphemeralOptions(array());
 
         return $toReturn;
+    }
+
+    private function _buildShortcodeEvent(array $normalizedOptions, $innerContent)
+    {
+        if (!$innerContent) {
+
+            $innerContent = null;
+        }
+
+        $name      = $this->_context->get(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
+        $shortcode = new tubepress_lib_impl_shortcode_Shortcode($name, $normalizedOptions, $innerContent);
+
+        return $this->_eventDispatcher->newEventInstance($shortcode);
     }
 
     private function _normalizeIncomingShortcodeOptionMap(array $optionMap)

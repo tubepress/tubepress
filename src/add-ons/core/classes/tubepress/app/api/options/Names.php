@@ -131,6 +131,12 @@ interface tubepress_app_api_options_Names
 
     /**
      * @api
+     * @since 4.1.9
+     */
+    const FEED_ADJUSTED_RESULTS_PER_PAGE = 'adjustedResultsPerPage';
+
+    /**
+     * @api
      * @since 4.0.0
      */
     const FEED_ITEM_ID_BLACKLIST = 'videoBlacklist';
@@ -350,6 +356,12 @@ interface tubepress_app_api_options_Names
      * @since 4.0.0
      */
     const SINGLE_MEDIA_ITEM_ID = 'video';
+
+    /**
+     * @api
+     * @since 4.2.0
+     */
+    const SOURCES = 'sources';
 
     /**
      * @api

@@ -35,7 +35,7 @@ return array(
             /**
              * 'userContent' is the URL to your TubePress Content Directory.
              */
-            //'userContent' => http://foo.com/path/to/tubepress-content',
+            //'userContent' => 'http://foo.com/path/to/tubepress-content',
 
             /**
              * 'ajax' is the URL where TubePress's client-side code should send its Ajax requests.

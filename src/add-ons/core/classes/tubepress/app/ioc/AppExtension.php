@@ -187,7 +187,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              * NVP
              */
             'tubepress_app_impl_listeners_nvp_StringMagicListener' => array(
-                tubepress_platform_api_util_StringUtilsInterface::_,
                 tubepress_lib_api_event_EventDispatcherInterface::_
             ),
 
@@ -212,7 +211,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             /**
              * OPTIONS VALUES
              */
-            'tubepress_app_impl_listeners_options_values_FeedOptions'    => array(),
+            'tubepress_app_impl_listeners_options_values_FeedOptions'    => array(
+                tubepress_app_api_environment_EnvironmentInterface::_
+            ),
             'tubepress_app_impl_listeners_options_values_PerPageSort'    => array(),
             'tubepress_app_impl_listeners_options_values_ThemeListener' => array(
                 tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_
@@ -562,6 +563,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL                => tubepress_app_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED,
                 tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO                  => false,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH                      => 640,
+                tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE      => null,
                 tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST              => null,
                 tubepress_app_api_options_Names::FEED_ORDER_BY                       => 'default',
                 tubepress_app_api_options_Names::FEED_PER_PAGE_SORT                  => tubepress_app_api_options_AcceptableValues::PER_PAGE_SORT_NONE,
@@ -606,6 +608,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::SEARCH_RESULTS_URL                  => null,
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'tubepress',
                 tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID                => null,
+                tubepress_app_api_options_Names::SOURCES                             => null,
                 tubepress_app_api_options_Names::TEMPLATE_CACHE_AUTORELOAD           => false,
                 tubepress_app_api_options_Names::TEMPLATE_CACHE_DIR                  => null,
                 tubepress_app_api_options_Names::TEMPLATE_CACHE_ENABLED              => true,
@@ -713,6 +716,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::HTML_GALLERY_ID,
                 tubepress_app_api_options_Names::HTML_OUTPUT,
                 tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID,
+                tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE,
             ),
 
             tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
@@ -724,6 +728,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
                 tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
+                tubepress_app_api_options_Names::SOURCES,
             ),
         ));
 
@@ -733,6 +738,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH,
                 tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
+                tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE,
                 tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT,
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH,
             ),

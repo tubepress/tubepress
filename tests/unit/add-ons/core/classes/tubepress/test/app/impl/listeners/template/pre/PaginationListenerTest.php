@@ -81,6 +81,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE)->andReturn(true);
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW)->andReturn(true);
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE)->andReturnNull();
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE)->andReturn(4);
 
         $this->_mockMediaPage = new tubepress_app_api_media_MediaPage();
