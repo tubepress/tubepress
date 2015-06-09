@@ -75,8 +75,14 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
     private function _getHtml($vidCount)
     {
         $currentPage = $this->_requestParams->getParamValueAsInt('tubepress_page', 1);
-        $vidsPerPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
-        $newurl      = $this->_urlFactory->fromCurrent();
+        $vidsPerPage = $this->_context->get(tubepress_app_api_options_Names::FEED_ADJUSTED_RESULTS_PER_PAGE);
+
+        if (!$vidsPerPage) {
+
+            $vidsPerPage = $this->_context->get(tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE);
+        }
+
+        $newurl = $this->_urlFactory->fromCurrent();
 
         if (!$this->_isLegacyTheme()) {
 

@@ -264,6 +264,13 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         if (is_readable($userSettingsFilePath)) {
 
             $configArray = $this->_readUserConfig($userSettingsFilePath);
+
+        } else {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('No readable settings file at %s', $userSettingsFilePath));
+            }
         }
 
         $this->_mergeConfig($configArray);
@@ -273,7 +280,7 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
     {
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Candidate settings.php at %s', $settingsFilePath));
+            $this->_logger->debug(sprintf('Detected candidate settings.php at %s', $settingsFilePath));
         }
 
         try {
@@ -291,6 +298,11 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
             if (!is_array($configArray)) {
 
                 throw new RuntimeException('settings.php did not return an array of config values.');
+            }
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('Successfully read %s: %s', $settingsFilePath, htmlspecialchars(json_encode($configArray))));
             }
 
             return $configArray;
@@ -318,6 +330,18 @@ class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_ap
         $this->_urlAjax               = $this->_getUrl($config, self::$_3RD_LEVEL_KEY_URL_AJAX);
         $this->_urlBase               = $this->_getUrl($config, self::$_3RD_LEVEL_KEY_URL_BASE);
         $this->_urlUserContent        = $this->_getUrl($config, self::$_3RD_LEVEL_KEY_URL_USERCONTENT);
+
+        if ($this->_shouldLog) {
+
+            $this->_logger->debug(sprintf('Add-on blacklist: %s',       htmlspecialchars(json_encode($this->_addonBlacklistArray))));
+            $this->_logger->debug(sprintf('Class loader enabled? %s',   $this->_isClassLoaderEnabled ? 'yes' : 'no'));
+            $this->_logger->debug(sprintf('Cache directory: %s',        $this->_cacheDirectory));
+            $this->_logger->debug(sprintf('Cache enabled? %s',          $this->_isCacheEnabled ? 'yes' : 'no'));
+            $this->_logger->debug(sprintf('Serialization encoding: %s', $this->_serializationEncoding));
+            $this->_logger->debug(sprintf('Ajax URL: %s',               $this->_urlAjax));
+            $this->_logger->debug(sprintf('Base URL: %s',               $this->_urlBase));
+            $this->_logger->debug(sprintf('User content URL: %s',       $this->_urlUserContent));
+        }
     }
 
     private function _getUrl(array $config, $key)

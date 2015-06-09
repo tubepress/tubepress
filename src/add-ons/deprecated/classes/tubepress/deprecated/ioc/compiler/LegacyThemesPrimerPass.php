@@ -111,7 +111,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
 
         if (count($templates) === 0) {
 
-            return null;
+            return $toReturn;
         }
 
         foreach ($templates as $splFileInfo) {
