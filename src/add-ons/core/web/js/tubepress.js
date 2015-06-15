@@ -228,7 +228,7 @@ var tubePressDomInjector,
                         } else {
 
                             //http://stackoverflow.com/questions/2161159/get-script-path
-                            dokument.getElementsByTagName(text_script);
+                            scripts = dokument.getElementsByTagName(text_script);
                             x       = 0;
 
                             for (x; x < scripts.length; x += 1) {
