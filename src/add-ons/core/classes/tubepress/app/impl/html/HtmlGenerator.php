@@ -64,19 +64,28 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
     {
         try {
 
-            $htmlProviderSelectionEvent = $this->_eventDispatcher->newEventInstance('');
+            $htmlGenerationEventPre = $this->_eventDispatcher->newEventInstance('');
 
-            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_GENERATION, $htmlProviderSelectionEvent);
+            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_GENERATION, $htmlGenerationEventPre);
 
             /**
              * @var $selected string
              */
-            $html = $htmlProviderSelectionEvent->getSubject();
+            $html = $htmlGenerationEventPre->getSubject();
 
             if ($html === null) {
 
                 throw new RuntimeException('Unable to generate HTML.');
             }
+
+            $htmlGenerationEventPost = $this->_eventDispatcher->newEventInstance($html);
+
+            $this->_eventDispatcher->dispatch(tubepress_app_api_event_Events::HTML_GENERATION_POST, $htmlGenerationEventPost);
+
+            /**
+             * @var $html string
+             */
+            $html = $htmlGenerationEventPost->getSubject();
 
             return $html;
 

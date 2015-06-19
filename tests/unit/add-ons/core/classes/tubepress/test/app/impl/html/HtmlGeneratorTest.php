@@ -75,14 +75,19 @@ class tubepress_test_app_impl_html_HtmlGeneratorTest extends tubepress_test_Tube
 
     public function testHtmlOK()
     {
-        $mockGenerationEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('')->andReturn($mockGenerationEvent);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::HTML_GENERATION, $mockGenerationEvent);
-        $mockGenerationEvent->shouldReceive('getSubject')->once()->andReturn('abc');
+        $mockGenerationEventPre = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('')->andReturn($mockGenerationEventPre);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::HTML_GENERATION, $mockGenerationEventPre);
+        $mockGenerationEventPre->shouldReceive('getSubject')->once()->andReturn('abc');
+
+        $mockGenerationEventPost = $this->mock('tubepress_lib_api_event_EventInterface');
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('abc')->andReturn($mockGenerationEventPost);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_app_api_event_Events::HTML_GENERATION_POST, $mockGenerationEventPost);
+        $mockGenerationEventPost->shouldReceive('getSubject')->once()->andReturn('xyz');
 
         $actual = $this->_sut->getHtml();
 
-        $this->assertEquals('abc', $actual);
+        $this->assertEquals('xyz', $actual);
     }
 
     /**
