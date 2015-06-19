@@ -1,0 +1,26 @@
+{
+    "name" : "tubepress/htmlcache",
+    "version": "99.99.99",
+    "title" : "TubePress HTML Cache",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_htmlcache_ioc_HtmlCacheExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_htmlcache_impl_options_ui_FieldProvider" : "classes/tubepress/htmlcache/impl/options/ui/FieldProvider.php",
+          "tubepress_htmlcache_ioc_HtmlCacheExtension"        : "classes/tubepress/htmlcache/ioc/HtmlCacheExtension.php"
+        }
+    }
+}

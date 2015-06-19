@@ -40,6 +40,7 @@
             "tubepress_api_const_"  : "src/add-ons/deprecated/classes",
             "tubepress_addons_"     : "src/add-ons/deprecated/classes",
 
+            "tubepress_htmlcache_" : "src/add-ons/htmlcache/classes",
             "tubepress_embedplus_" : "src/add-ons/embedplus/classes",
             "tubepress_jwplayer5_" : "src/add-ons/jwplayer5/classes",
             "tubepress_vimeo2_"    : "src/add-ons/vimeo_v2/classes",
