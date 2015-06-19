@@ -623,7 +623,12 @@ var tubePressDomInjector,
             Utils : langUtils
         },
 
-        Logger : logger
+        Logger : logger,
+
+        Vendors : {
+
+            jQuery : jquery
+        }
     };
 
 }(jQuery, window));

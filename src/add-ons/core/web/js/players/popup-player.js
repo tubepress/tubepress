@@ -11,7 +11,7 @@
 /* global jQuery, TubePressEvents */
 /* jslint white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
 
-(function (jquery, tubePress, screen, win) {
+(function (tubePress, screen, win) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -65,4 +65,4 @@
     subscribe(event_prefix_players + 'invoke.' + text_popup, invoke);
     subscribe(event_prefix_players + 'populate.' + text_popup, populate);
 
-}(jQuery, TubePress, screen, window));
+}(TubePress, screen, window));
