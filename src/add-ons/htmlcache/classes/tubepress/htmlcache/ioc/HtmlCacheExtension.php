@@ -43,7 +43,7 @@ class tubepress_htmlcache_ioc_HtmlCacheExtension implements tubepress_platform_a
             tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                 tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR  => 100,
                 tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY        => null,
-                tubepress_app_api_options_Names::CACHE_HTML_ENABLED          => true,
+                tubepress_app_api_options_Names::CACHE_HTML_ENABLED          => false,
                 tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => 21600, //six hours
             ),
 

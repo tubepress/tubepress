@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_htmlcache_HtmlCacheExtensionTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
+class tubepress_test_htmlcache_HtmlCacheManifestValidityTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
