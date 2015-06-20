@@ -35,6 +35,7 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
 
                 tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                     tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR  => 100,
+                    tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY     => 'tubepress_clear_html_cache',
                     tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY        => null,
                     tubepress_app_api_options_Names::CACHE_HTML_ENABLED          => false,
                     tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => 21600, //six hours
@@ -42,6 +43,7 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
 
                 tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
                     tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR  => 'Cache cleaning factor',           //>(translatable)<
+                    tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY     => 'Cache cleaning key',           //>(translatable)<
                     tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY        => 'Cache directory',                 //>(translatable)<
                     tubepress_app_api_options_Names::CACHE_HTML_ENABLED          => 'Enable HTML cache',               //>(translatable)<
                     tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => 'Cache expiration time (seconds)', //>(translatable)<
@@ -49,6 +51,7 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
 
                 tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
                     tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR  => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.', //>(translatable)<
+                    tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY     => 'The name of the HTTP request parameter that, when set to <code>true</code>, can remotely flush the cache. For instance, if you enter <code>foobar</code>, then adding <code>?foobar=true</code> to the end of a URL would remotely trigger a clear of the cache.', //>(translatable)<
                     tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY        => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.', //>(translatable)<
                     tubepress_app_api_options_Names::CACHE_HTML_ENABLED          => 'Store TubePress\'s HTML output in a cache file to significantly improve performance at the slight expense of freshness.', //>(translatable)<
                     tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS => 'Cache entries will be considered stale after the specified number of seconds. Default is 21600 (six hours).',   //>(translatable)<
@@ -57,6 +60,7 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
 
                 tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
                     tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR,
+                    tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY,
                     tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY,
                     tubepress_app_api_options_Names::CACHE_HTML_ENABLED,
                     tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS,
@@ -69,6 +73,9 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
             ),
             tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR,
+            ),
+            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS_OR_HYPHEN => array(
+                tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY
             ),
         );
 
@@ -100,6 +107,7 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
                 tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY,
                 tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS,
                 tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR,
+                tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY,
             ),
         );
         foreach ($fieldMap as $type => $ids) {
@@ -125,6 +133,7 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
                 tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY,
                 tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS,
                 tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR,
+                tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY,
             ),
         );
 
@@ -143,6 +152,7 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
             tubepress_app_api_options_Names::CACHE_HTML_DIRECTORY,
             tubepress_app_api_options_Names::CACHE_HTML_LIFETIME_SECONDS,
             tubepress_app_api_options_Names::CACHE_HTML_CLEANING_FACTOR,
+            tubepress_app_api_options_Names::CACHE_HTML_CLEANING_KEY,
         );
 
         $mockFieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);

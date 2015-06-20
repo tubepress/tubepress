@@ -49,6 +49,12 @@ interface tubepress_app_api_options_Names
      * @api
      * @since 4.1.10
      */
+    const CACHE_HTML_CLEANING_KEY = 'htmlCacheCleaningKey';
+
+    /**
+     * @api
+     * @since 4.1.10
+     */
     const CACHE_HTML_DIRECTORY = 'htmlCacheDirectory';
 
     /**
