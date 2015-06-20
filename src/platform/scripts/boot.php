@@ -9,9 +9,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-if (!class_exists('__tubePressBoot', false)) {
+if (!class_exists('tubePressBootScript', false)) {
 
-    class __tubePressBoot
+    class tubePressBootScript
     {
         public static $SERVICE_CONTAINER = null;
 
@@ -76,4 +76,4 @@ if (!class_exists('__tubePressBoot', false)) {
     }
 }
 
-return __tubePressBoot::getServiceContainer();
+return tubePressBootScript::getServiceContainer();

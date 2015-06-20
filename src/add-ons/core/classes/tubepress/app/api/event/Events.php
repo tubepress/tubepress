@@ -64,6 +64,17 @@ interface tubepress_app_api_event_Events
     const HTML_GENERATION = 'tubepress.app.html.generation';
 
     /**
+     * This event is fired after TubePress generates its "primary" HTML (e.g. a media gallery,
+     * search input widget, embedded media player, etc).
+     *
+     * @subject `string` The HTML that will be returned to the user.
+     *
+     * @api
+     * @since 4.1.10
+     */
+    const HTML_GENERATION_POST = 'tubepress.app.html.generation.post';
+
+    /**
      * This event is fired immediately after TubePress assembles its list of scripts to print.
      *
      * @subject `tubepress_platform_api_url_UrlInterface[]` An array of URLs for the scripts that TubePress will print in the HTML <head>

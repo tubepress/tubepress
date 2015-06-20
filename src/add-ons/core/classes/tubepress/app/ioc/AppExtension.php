@@ -677,7 +677,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR       => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.', //>(translatable)<
                 tubepress_app_api_options_Names::CACHE_DIRECTORY             => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.', //>(translatable)<
                 tubepress_app_api_options_Names::CACHE_ENABLED               => 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS      => 'Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour).',   //>(translatable)<
+                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS      => 'Cache entries will be considered stale after the specified number of seconds. Default is 21600 (six hours).',   //>(translatable)<
                 tubepress_app_api_options_Names::DEBUG_ON                    => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  //>(translatable)<
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT             => sprintf('Default is %s.', 390), //>(translatable)<
                 tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY           => 'Auto-play each video after thumbnail click.', //>(translatable)<
@@ -1282,7 +1282,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'tubepress_app_impl_vendor_stash_FilesystemCacheBuilder',
             'tubepress_app_impl_vendor_stash_FilesystemCacheBuilder'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
 
         $containerBuilder->register(
 

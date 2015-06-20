@@ -80,7 +80,7 @@
  */
 var tubePressGalleryRegistrar;
 
-(function (jquery, tubepress) {
+(function (tubepress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -132,6 +132,7 @@ var tubePressGalleryRegistrar;
         environment       = tubepress.Environment,
         troo              = true,
         fawlse            = false,
+        jquery            = tubepress.Vendors.jQuery,
 
         /**
          * Provides convenient selectors to access the outermost gallery div.
@@ -667,4 +668,4 @@ var tubePressGalleryRegistrar;
      */
     tubepress.Beacon.publish(text_tubepress + text_dot + text_js + text_dot + text_sys + text_dot + text_gallery);
 
-}(jQuery, TubePress));
+}(TubePress));

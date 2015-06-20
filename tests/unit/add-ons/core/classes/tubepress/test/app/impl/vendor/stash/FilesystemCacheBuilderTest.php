@@ -29,15 +29,25 @@ class tubepress_test_app_vendor_impl_stash_FilesystemCacheBuilderTest extends tu
      */
     private $_mockBootSettings;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockLogger;
 
     public function onSetup()
     {
         $this->_mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
         $this->_mockContext      = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockLogger       = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+
+        $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
+        $this->_mockLogger->shouldReceive('debug')->atLeast(1);
+
         $this->_sut              = new tubepress_app_impl_vendor_stash_FilesystemCacheBuilder(
 
             $this->_mockContext,
-            $this->_mockBootSettings
+            $this->_mockBootSettings,
+            $this->_mockLogger
         );
     }
 

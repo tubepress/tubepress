@@ -303,14 +303,15 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory extends 
 
     private function _findTemplates($rootDirectory)
     {
-        $legacy   = $this->_doFind("$rootDirectory/templates", '.tpl.php');
-        $twig     = $this->_doFind("$rootDirectory/templates", '.html.twig');
+        $legacy   = $this->_doFind($rootDirectory, '.tpl.php');
+        $twig     = $this->_doFind($rootDirectory, '.html.twig');
         $allPaths = array_merge($twig, $legacy);
         $toReturn = array();
 
         foreach ($allPaths as $path) {
 
-            $toReturn[$path] = "$rootDirectory/templates/$path";
+            $key            = str_replace('\\', '/', $path);
+            $toReturn[$key] = sprintf('%s%stemplates%s%s', $rootDirectory, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
         }
 
         return $toReturn;
@@ -318,6 +319,8 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory extends 
 
     private function _doFind($rootDirectory, $suffix)
     {
+        $rootDirectory = $rootDirectory . DIRECTORY_SEPARATOR . 'templates';
+
         if ($this->shouldLog()) {
 
             $this->getLogger()->debug(sprintf('Looking for %s files in %s', $suffix, $rootDirectory));

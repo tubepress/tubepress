@@ -575,6 +575,8 @@ return array (
     'tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/deprecated/ioc/compiler/LegacyThemesPrimerPass.php',
     'tubepress_embedplus_impl_EmbedPlus' => TUBEPRESS_ROOT . '/src/add-ons/embedplus/classes/tubepress/embedplus/impl/EmbedPlus.php',
     'tubepress_embedplus_ioc_EmbedPlusExtension' => TUBEPRESS_ROOT . '/src/add-ons/embedplus/classes/tubepress/embedplus/ioc/EmbedPlusExtension.php',
+    'tubepress_htmlcache_impl_options_ui_FieldProvider' => TUBEPRESS_ROOT . '/src/add-ons/htmlcache/classes/tubepress/htmlcache/impl/options/ui/FieldProvider.php',
+    'tubepress_htmlcache_ioc_HtmlCacheExtension' => TUBEPRESS_ROOT . '/src/add-ons/htmlcache/classes/tubepress/htmlcache/ioc/HtmlCacheExtension.php',
     'tubepress_jwplayer5_api_OptionNames' => TUBEPRESS_ROOT . '/src/add-ons/jwplayer5/classes/tubepress/jwplayer5/api/OptionNames.php',
     'tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider' => TUBEPRESS_ROOT . '/src/add-ons/jwplayer5/classes/tubepress/jwplayer5/impl/embedded/JwPlayer5EmbeddedProvider.php',
     'tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider' => TUBEPRESS_ROOT . '/src/add-ons/jwplayer5/classes/tubepress/jwplayer5/impl/options/ui/JwPlayerFieldProvider.php',

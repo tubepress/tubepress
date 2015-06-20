@@ -12,7 +12,7 @@
 /*jslint sloppy: true, white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
 
 
-(function (jquery, tubePress) {
+(function (tubePress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -32,6 +32,7 @@
         domInjector          = tubePress.DomInjector,
         event_prefix_players = 'tubepress.' + text_gallery + '.' + text_player + '.',
         sbId                 = '#sb-' + text_player,
+        jquery               = tubePress.Vendors.jQuery,
 
         isShadowBoxAvailable = function () {
 
@@ -118,4 +119,4 @@
 
     loadShadowboxIfNeeded();
 
-}(jQuery, TubePress));
+}(TubePress));
