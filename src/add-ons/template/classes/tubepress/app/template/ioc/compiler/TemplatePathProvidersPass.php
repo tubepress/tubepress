@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_lib_ioc_compiler_TemplatePathProvidersPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_app_template_ioc_compiler_TemplatePathProvidersPass implements tubepress_platform_api_ioc_CompilerPassInterface
 {
     /**
      * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.

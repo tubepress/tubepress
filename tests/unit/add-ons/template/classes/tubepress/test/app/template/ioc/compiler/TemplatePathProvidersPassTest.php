@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_lib_ioc_compiler_TemplatePathProvidersPass<extended>
+ * @covers tubepress_app_template_ioc_compiler_TemplatePathProvidersPass<extended>
  */
-class tubepress_test_lib_ioc_compiler_TemplatePathProvidersPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_app_template_ioc_compiler_TemplatePathProvidersPassTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_lib_ioc_compiler_TemplatePathProvidersPass
+     * @var tubepress_app_template_ioc_compiler_TemplatePathProvidersPass
      */
     private $_sut;
 
@@ -31,7 +31,7 @@ class tubepress_test_lib_ioc_compiler_TemplatePathProvidersPassTest extends tube
 
     public function onSetup()
     {
-        $this->_sut                        = new tubepress_lib_ioc_compiler_TemplatePathProvidersPass();
+        $this->_sut                        = new tubepress_app_template_ioc_compiler_TemplatePathProvidersPass();
         $this->_mockContainer              = $this->mock('tubepress_platform_api_ioc_ContainerBuilderInterface');
         $this->_mockTwigFsLoaderDefinition = $this->mock('tubepress_platform_api_ioc_Definition');
     }

@@ -18,8 +18,7 @@
             "tubepress_app_ioc_compiler_EventDispatcherLoggingPass"  : 0,
 
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass" : 70000,
-            "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000,
-            "tubepress_lib_ioc_compiler_TemplatePathProvidersPass"  : 70000
+            "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000
         },
         "extensions" : [
             "tubepress_app_ioc_AppExtension",
@@ -186,7 +185,6 @@
             "tubepress_lib_impl_util_TimeUtils"                          : "classes/tubepress/lib/impl/util/TimeUtils.php",
             "tubepress_lib_ioc_compiler_EventListenersPass"              : "classes/tubepress/lib/ioc/compiler/EventListenersPass.php",
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"      : "classes/tubepress/lib/ioc/compiler/TaggedServicesConsumerPass.php",
-            "tubepress_lib_ioc_compiler_TemplatePathProvidersPass"       : "classes/tubepress/lib/ioc/compiler/TemplatePathProvidersPass.php",
             "tubepress_lib_ioc_LibExtension"                             : "classes/tubepress/lib/ioc/LibExtension.php"
         }
     }

@@ -1,0 +1,30 @@
+{
+    "name" : "tubepress/template",
+    "version": "99.99.99",
+    "title" : "TubePress Template Functionality",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "compiler-passes" : {
+            "tubepress_app_template_ioc_compiler_TemplatePathProvidersPass"  : 70000
+        },
+        "extensions" : [
+            "tubepress_app_template_ioc_TemplateExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_app_template_ioc_compiler_TemplatePathProvidersPass" : "classes/tubepress/app/template/ioc/compiler/TemplatePathProvidersPass.php",
+          "tubepress_app_template_ioc_TemplateExtension"                  : "classes/tubepress/app/template/ioc/TemplateExtension.php",
+          "tubepress_app_template_impl_options_ui_FieldProvider"          : "classes/tubepress/app/template/impl/options/ui/FieldProvider.php"
+        }
+    }
+}
