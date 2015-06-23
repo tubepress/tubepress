@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_template_php_Support<extended>
+ * @covers tubepress_app_template_impl_php_Support<extended>
  */
 class tubepress_test_app_impl_template_php_SupportTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_template_php_Support
+     * @var tubepress_app_template_impl_php_Support
      */
     private $_sut;
 
@@ -31,10 +31,10 @@ class tubepress_test_app_impl_template_php_SupportTest extends tubepress_test_Tu
 
     public function onSetup()
     {
-        $this->_mockThemeTemplateLocator = $this->mock('tubepress_app_impl_template_ThemeTemplateLocator');
+        $this->_mockThemeTemplateLocator = $this->mock('tubepress_app_template_impl_ThemeTemplateLocator');
         $this->_mockTemplateReference    = $this->mock('ehough_templating_TemplateReferenceInterface');
 
-        $this->_sut = new tubepress_app_impl_template_php_Support($this->_mockThemeTemplateLocator);
+        $this->_sut = new tubepress_app_template_impl_php_Support($this->_mockThemeTemplateLocator);
     }
 
     public function testIsFresh()

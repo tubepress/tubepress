@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_template_TemplatingService implements tubepress_lib_api_template_TemplatingInterface
+class tubepress_app_template_impl_TemplatingService implements tubepress_lib_api_template_TemplatingInterface
 {
     /**
      * @var ehough_templating_EngineInterface

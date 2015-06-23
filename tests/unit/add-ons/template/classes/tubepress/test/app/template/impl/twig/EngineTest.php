@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_template_twig_Engine<extended>
+ * @covers tubepress_app_template_impl_twig_Engine<extended>
  */
 class tubepress_test_app_impl_template_twig_EngineTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_template_twig_Engine
+     * @var tubepress_app_template_impl_twig_Engine
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_app_impl_template_twig_EngineTest extends tubepress_test_Tu
         $this->_mockTwigEnvironment = $this->mock('Twig_Environment');
         $this->_mockTwigLoader      = $this->mock('Twig_LoaderInterface');
 
-        $this->_sut = new tubepress_app_impl_template_twig_Engine($this->_mockTwigEnvironment);
+        $this->_sut = new tubepress_app_template_impl_twig_Engine($this->_mockTwigEnvironment);
     }
 
     public function testRenderNotExists()

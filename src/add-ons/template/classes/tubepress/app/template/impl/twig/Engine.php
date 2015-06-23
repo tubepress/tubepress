@@ -38,7 +38,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class tubepress_app_impl_template_twig_Engine implements ehough_templating_EngineInterface
+class tubepress_app_template_impl_twig_Engine implements ehough_templating_EngineInterface
 {
     /**
      * @var Twig_Environment

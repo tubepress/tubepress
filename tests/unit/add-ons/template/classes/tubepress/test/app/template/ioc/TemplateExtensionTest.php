@@ -114,8 +114,8 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
              * Theme template locators.
              */
             $this->expectRegistration(
-                'tubepress_app_impl_template_ThemeTemplateLocator' . $serviceSuffix,
-                'tubepress_app_impl_template_ThemeTemplateLocator'
+                'tubepress_app_template_impl_ThemeTemplateLocator' . $serviceSuffix,
+                'tubepress_app_template_impl_ThemeTemplateLocator'
             )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix))
@@ -125,20 +125,20 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
              * Twig loaders.
              */
             $this->expectRegistration(
-                'tubepress_app_impl_template_twig_ThemeLoader' . $serviceSuffix,
-                'tubepress_app_impl_template_twig_ThemeLoader'
-            )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_ThemeTemplateLocator' . $serviceSuffix));
+                'tubepress_app_template_impl_twig_ThemeLoader' . $serviceSuffix,
+                'tubepress_app_template_impl_twig_ThemeLoader'
+            )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_ThemeTemplateLocator' . $serviceSuffix));
 
             $this->expectRegistration(
                 'Twig_Loader_Filesystem' . $serviceSuffix,
-                'tubepress_app_impl_template_twig_FsLoader'
+                'tubepress_app_template_impl_twig_FsLoader'
             )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
                 ->withArgument(array(
                     TUBEPRESS_ROOT . '/src/add-ons/core/templates/' . $templatePath,
                 ));
 
             $twigLoaderReferences = array(
-                new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_ThemeLoader' . $serviceSuffix),
+                new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_twig_ThemeLoader' . $serviceSuffix),
                 new tubepress_platform_api_ioc_Reference('Twig_Loader_Filesystem' . $serviceSuffix)
             );
             $this->expectRegistration(
@@ -150,8 +150,8 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
              * Twig environment builder.
              */
             $this->expectRegistration(
-                'tubepress_app_impl_template_twig_EnvironmentBuilder' . $serviceSuffix,
-                'tubepress_app_impl_template_twig_EnvironmentBuilder'
+                'tubepress_app_template_impl_twig_EnvironmentBuilder' . $serviceSuffix,
+                'tubepress_app_template_impl_twig_EnvironmentBuilder'
             )->withArgument(new tubepress_platform_api_ioc_Reference('Twig_LoaderInterface' . $serviceSuffix))
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_))
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
@@ -163,15 +163,15 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
             $this->expectRegistration(
                 'Twig_Environment' . $serviceSuffix,
                 'Twig_Environment'
-            )->withFactoryService('tubepress_app_impl_template_twig_EnvironmentBuilder' . $serviceSuffix)
+            )->withFactoryService('tubepress_app_template_impl_twig_EnvironmentBuilder' . $serviceSuffix)
                 ->withFactoryMethod('buildTwigEnvironment');
 
             /**
              * Twig engine
              */
             $this->expectRegistration(
-                'tubepress_app_impl_template_twig_Engine' . $serviceSuffix,
-                'tubepress_app_impl_template_twig_Engine'
+                'tubepress_app_template_impl_twig_Engine' . $serviceSuffix,
+                'tubepress_app_template_impl_twig_Engine'
             )->withArgument(new tubepress_platform_api_ioc_Reference('Twig_Environment' . $serviceSuffix));
         }
 
@@ -179,9 +179,9 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
          * Register PHP engine support
          */
         $this->expectRegistration(
-            'tubepress_app_impl_template_php_Support',
-            'tubepress_app_impl_template_php_Support'
-        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_ThemeTemplateLocator'));
+            'tubepress_app_template_impl_php_Support',
+            'tubepress_app_template_impl_php_Support'
+        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_ThemeTemplateLocator'));
 
         /**
          * Register the PHP templating engine
@@ -189,19 +189,19 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
         $this->expectRegistration(
             'ehough_templating_PhpEngine',
             'ehough_templating_PhpEngine'
-        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_php_Support'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_php_Support'));
+        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_php_Support'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_php_Support'));
 
         /**
          * Public templating engine
          */
         $engineReferences = array(
             new tubepress_platform_api_ioc_Reference('ehough_templating_PhpEngine'),
-            new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_Engine')
+            new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_twig_Engine')
         );
         $this->expectRegistration(
-            'tubepress_app_impl_template_DelegatingEngine',
-            'tubepress_app_impl_template_DelegatingEngine'
+            'tubepress_app_template_impl_DelegatingEngine',
+            'tubepress_app_template_impl_DelegatingEngine'
         )->withArgument($engineReferences)
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
 
@@ -210,13 +210,13 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
          */
         $this->expectRegistration(
             tubepress_lib_api_template_TemplatingInterface::_,
-            'tubepress_app_impl_template_TemplatingService'
-        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_DelegatingEngine'))
+            'tubepress_app_template_impl_TemplatingService'
+        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_DelegatingEngine'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
         $this->expectRegistration(
             tubepress_lib_api_template_TemplatingInterface::_ . '.admin',
-            'tubepress_app_impl_template_TemplatingService'
-        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_template_twig_Engine.admin'))
+            'tubepress_app_template_impl_TemplatingService'
+        )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_twig_Engine.admin'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
     }
 

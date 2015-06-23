@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_template_TemplatingService<extended>
+ * @covers tubepress_app_template_impl_TemplatingService<extended>
  */
 class tubepress_test_app_impl_template_TemplatingServiceTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_template_TemplatingService
+     * @var tubepress_app_template_impl_TemplatingService
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_app_impl_template_TemplatingServiceTest extends tubepress_t
         $this->_mockDelegateEngine  = $this->mock('ehough_templating_EngineInterface');
         $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
 
-        $this->_sut = new tubepress_app_impl_template_TemplatingService(
+        $this->_sut = new tubepress_app_template_impl_TemplatingService(
 
             $this->_mockDelegateEngine,
             $this->_mockEventDispatcher

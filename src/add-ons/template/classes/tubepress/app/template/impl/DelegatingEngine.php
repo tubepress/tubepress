@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_template_DelegatingEngine extends ehough_templating_DelegatingEngine
+class tubepress_app_template_impl_DelegatingEngine extends ehough_templating_DelegatingEngine
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface

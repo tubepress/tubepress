@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_template_ThemeTemplateLocator<extended>
+ * @covers tubepress_app_template_impl_ThemeTemplateLocator<extended>
  */
 class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_template_ThemeTemplateLocator
+     * @var tubepress_app_template_impl_ThemeTemplateLocator
      */
     private $_sut;
 
@@ -61,7 +61,7 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut = new tubepress_app_impl_template_ThemeTemplateLocator(
+        $this->_sut = new tubepress_app_template_impl_ThemeTemplateLocator(
 
             $this->_mockLogger,
             $this->_mockContext,

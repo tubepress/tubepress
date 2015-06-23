@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_template_twig_FsLoader extends Twig_Loader_Filesystem
+class tubepress_app_template_impl_twig_FsLoader extends Twig_Loader_Filesystem
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface

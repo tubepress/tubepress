@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_template_twig_EnvironmentBuilder<extended>
+ * @covers tubepress_app_template_impl_twig_EnvironmentBuilder<extended>
  */
 class tubepress_test_app_impl_template_twig_EnvironmentBuilderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_template_twig_EnvironmentBuilder
+     * @var tubepress_app_template_impl_twig_EnvironmentBuilder
      */
     private $_sut;
 
@@ -54,7 +54,7 @@ class tubepress_test_app_impl_template_twig_EnvironmentBuilderTest extends tubep
         $this->_mockSystemCacheDir = sys_get_temp_dir() . '/environment-builder-test';
         mkdir($this->_mockSystemCacheDir, 0755, true);
 
-        $this->_sut = new tubepress_app_impl_template_twig_EnvironmentBuilder(
+        $this->_sut = new tubepress_app_template_impl_twig_EnvironmentBuilder(
             $this->_mockTwigLoader,
             $this->_mockBootSettings,
             $this->_mockContext,

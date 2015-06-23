@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_template_twig_ThemeLoader<extended>
+ * @covers tubepress_app_template_impl_twig_ThemeLoader<extended>
  */
 class tubepress_test_app_impl_template_twig_LoaderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_template_twig_ThemeLoader
+     * @var tubepress_app_template_impl_twig_ThemeLoader
      */
     private $_sut;
 
@@ -26,9 +26,9 @@ class tubepress_test_app_impl_template_twig_LoaderTest extends tubepress_test_Tu
 
     public function onSetup()
     {
-        $this->_mockThemeTemplateLocator = $this->mock('tubepress_app_impl_template_ThemeTemplateLocator');
+        $this->_mockThemeTemplateLocator = $this->mock('tubepress_app_template_impl_ThemeTemplateLocator');
 
-        $this->_sut = new tubepress_app_impl_template_twig_ThemeLoader($this->_mockThemeTemplateLocator);
+        $this->_sut = new tubepress_app_template_impl_twig_ThemeLoader($this->_mockThemeTemplateLocator);
     }
 
     /**

@@ -9,14 +9,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_template_twig_ThemeLoader implements Twig_LoaderInterface
+class tubepress_app_template_impl_twig_ThemeLoader implements Twig_LoaderInterface
 {
     /**
-     * @var tubepress_app_impl_template_ThemeTemplateLocator
+     * @var tubepress_app_template_impl_ThemeTemplateLocator
      */
     private $_themeTemplateLocator;
 
-    public function __construct(tubepress_app_impl_template_ThemeTemplateLocator $locator)
+    public function __construct(tubepress_app_template_impl_ThemeTemplateLocator $locator)
     {
         $this->_themeTemplateLocator = $locator;
     }
