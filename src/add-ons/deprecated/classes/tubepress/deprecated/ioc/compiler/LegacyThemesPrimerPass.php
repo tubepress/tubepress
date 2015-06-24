@@ -186,6 +186,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
              */
             $themeFactory = $containerBuilder->get('tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory');
             $templateMap  = $this->_getTemplateMapForLegacyDirectory($containerBuilder, $themeRoot);
+            $manifestPath = $bootSettings->getPathToSystemCacheDirectory() . DIRECTORY_SEPARATOR . 'foobar';
             $manifestData = array(
                 'name'     => "unknown/legacy-$baseName",
                 'version'  => '1.0.0',
@@ -199,7 +200,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
                 ),
                 'description' => "TubePress 3.x.x theme auto-generated from $themeRoot",
             );
-            $theme = $themeFactory->fromManifestData(sys_get_temp_dir() . '/foobar', $manifestData);
+            $theme = $themeFactory->fromManifestData($manifestPath, $manifestData);
 
             if (!($theme instanceof tubepress_app_impl_theme_FilesystemTheme)) {
 
@@ -208,7 +209,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
 
             $theme->setParentThemeName('tubepress/legacy-default');
             $theme->setTemplateNamesToAbsPathsMap($templateMap);
-            $theme->setManifestPath(sys_get_temp_dir() . '/foobar');
+            $theme->setManifestPath($manifestPath);
 
             $toReturn[] = $theme;
         }

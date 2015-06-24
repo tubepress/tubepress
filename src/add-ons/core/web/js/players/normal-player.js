@@ -10,7 +10,7 @@
 
 /*global jQuery, TubePressAjax, TubePressEvents */
 /*jslint sloppy: true, white: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
-(function (jquery, tubePress) {
+(function (tubePress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -41,6 +41,7 @@
         remStyle  = styler.removeLoadingStyle,
 
         fawlse = false,
+        jquery = tubePress.Vendors.jQuery,
 
         getModernSelector = function (galleryId) {
 
@@ -144,4 +145,4 @@
     subscribe(text_eventPrefix_player + 'invoke' + text_dot + text_normal, invoke);
     subscribe(text_eventPrefix_player + 'populate' + text_dot + text_normal, populate);
 
-}(jQuery, TubePress));
+}(TubePress));

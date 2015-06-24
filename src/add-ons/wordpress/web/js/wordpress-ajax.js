@@ -8,7 +8,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-(function (jquery, tubePress) {
+(function (tubePress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -19,6 +19,7 @@
         text_action    = 'action',
         text_data      = 'data',
         text_dataType  = text_data + 'Type',
+        jquery         = tubePress.Vendors.jQuery,
 
         onAjax = function (options, originalOptions, jqxhr) {
 
@@ -58,4 +59,4 @@
 
     jquery(init);
 
-}(jQuery, TubePress));
+}(TubePress));

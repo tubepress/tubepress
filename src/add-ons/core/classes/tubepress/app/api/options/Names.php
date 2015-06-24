@@ -41,6 +41,36 @@ interface tubepress_app_api_options_Names
 
     /**
      * @api
+     * @since 4.1.10
+     */
+    const CACHE_HTML_CLEANING_FACTOR = 'htmlCacheCleaningFactor';
+
+    /**
+     * @api
+     * @since 4.1.10
+     */
+    const CACHE_HTML_CLEANING_KEY = 'htmlCacheCleaningKey';
+
+    /**
+     * @api
+     * @since 4.1.10
+     */
+    const CACHE_HTML_DIRECTORY = 'htmlCacheDirectory';
+
+    /**
+     * @api
+     * @since 4.1.10
+     */
+    const CACHE_HTML_ENABLED = 'htmlCacheEnabled';
+
+    /**
+     * @api
+     * @since 4.1.10
+     */
+    const CACHE_HTML_LIFETIME_SECONDS = 'htmlCacheLifetimeSeconds';
+
+    /**
+     * @api
      * @since 4.0.0
      */
     const DEBUG_ON = 'debugging_enabled';

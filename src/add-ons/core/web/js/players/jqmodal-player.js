@@ -9,7 +9,7 @@
  */
 /* jslint browser: true, devel: true */
 /* global jQuery TubePress */
-(function (jquery, tubePress) {
+(function (tubePress) {
 
     /** http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/ */
     'use strict';
@@ -27,6 +27,7 @@
         event_prefix_players = 'tubepress.' + text_gallery + '.player.',
         text_galleryId       = text_gallery + text_Id,
         text_itemId          = 'item' + text_Id,
+        jquery               = tubePress.Vendors.jQuery,
 
         hider = function (hash) {
 
@@ -76,4 +77,4 @@
     subscribe(event_prefix_players + 'invoke.' + text_jqmodal, invoke);
     subscribe(event_prefix_players + 'populate.' + text_jqmodal, populate);
 
-}(jQuery, TubePress));
+}(TubePress));

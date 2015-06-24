@@ -18,8 +18,7 @@
             "tubepress_app_ioc_compiler_EventDispatcherLoggingPass"  : 0,
 
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass" : 70000,
-            "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000,
-            "tubepress_lib_ioc_compiler_TemplatePathProvidersPass"  : 70000
+            "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000
         },
         "extensions" : [
             "tubepress_app_ioc_AppExtension",
@@ -134,14 +133,6 @@
             "tubepress_app_impl_player_SoloOrStaticPlayerLocation" : "classes/tubepress/app/impl/player/SoloOrStaticPlayerLocation.php",
 
             "tubepress_app_impl_shortcode_Parser"                    : "classes/tubepress/app/impl/shortcode/Parser.php",
-            "tubepress_app_impl_template_DelegatingEngine"           : "classes/tubepress/app/impl/template/DelegatingEngine.php",
-            "tubepress_app_impl_template_php_Support"                : "classes/tubepress/app/impl/template/php/Support.php",
-            "tubepress_app_impl_template_TemplatingService"          : "classes/tubepress/app/impl/template/TemplatingService.php",
-            "tubepress_app_impl_template_ThemeTemplateLocator"       : "classes/tubepress/app/impl/template/ThemeTemplateLocator.php",
-            "tubepress_app_impl_template_twig_Engine"                : "classes/tubepress/app/impl/template/twig/Engine.php",
-            "tubepress_app_impl_template_twig_EnvironmentBuilder"    : "classes/tubepress/app/impl/template/twig/EnvironmentBuilder.php",
-            "tubepress_app_impl_template_twig_FsLoader"              : "classes/tubepress/app/impl/template/twig/FsLoader.php",
-            "tubepress_app_impl_template_twig_ThemeLoader"           : "classes/tubepress/app/impl/template/twig/ThemeLoader.php",
             "tubepress_app_impl_theme_AbstractTheme"                 : "classes/tubepress/app/impl/theme/AbstractTheme.php",
             "tubepress_app_impl_theme_CurrentThemeService"           : "classes/tubepress/app/impl/theme/CurrentThemeService.php",
             "tubepress_app_impl_theme_FilesystemTheme"               : "classes/tubepress/app/impl/theme/FilesystemTheme.php",
@@ -192,7 +183,6 @@
             "tubepress_lib_impl_util_TimeUtils"                          : "classes/tubepress/lib/impl/util/TimeUtils.php",
             "tubepress_lib_ioc_compiler_EventListenersPass"              : "classes/tubepress/lib/ioc/compiler/EventListenersPass.php",
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"      : "classes/tubepress/lib/ioc/compiler/TaggedServicesConsumerPass.php",
-            "tubepress_lib_ioc_compiler_TemplatePathProvidersPass"       : "classes/tubepress/lib/ioc/compiler/TemplatePathProvidersPass.php",
             "tubepress_lib_ioc_LibExtension"                             : "classes/tubepress/lib/ioc/LibExtension.php"
         }
     }

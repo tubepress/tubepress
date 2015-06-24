@@ -90,7 +90,9 @@
         <replace file="${stagingdir}/src/add-ons/core/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/deprecated/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/embedplus/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/htmlcache/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/jwplayer5/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
+        <replace file="${stagingdir}/src/add-ons/template/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/vimeo_v2/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/wordpress/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
         <replace file="${stagingdir}/src/add-ons/youtube_v3/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
