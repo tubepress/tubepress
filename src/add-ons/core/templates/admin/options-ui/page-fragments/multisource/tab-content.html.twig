@@ -17,16 +17,26 @@
 
     <div class="row">
 
-        {# Build the accordion #}
         <div class="col-xs-12">
-            <div class="panel-group" id="js-multisource-accordion" role="tablist" aria-multiselectable="true">
 
-                {% for source in gallerySources %}
-                    {% include 'options-ui/page-fragments/multisource/single-source.html.twig' %}
-                {% endfor %}
+            {% for source in gallerySources %}
 
-            </div>{# .panel-group #js-multisource-accordion #}
+                {% include 'options-ui/page-fragments/multisource/single-source.html.twig' %}
+
+            {% endfor %}
+
         </div>{# .col-xs-12 #}
+
+        {#&#123;&#35; Build the accordion &#35;&#125;#}
+        {#<div class="col-xs-12">#}
+            {#<div class="panel-group" id="js-multisource-accordion" role="tablist" aria-multiselectable="true">#}
+
+                {#{% for source in gallerySources %}#}
+                    {#{% include 'options-ui/page-fragments/multisource/single-source.html.twig' %}#}
+                {#{% endfor %}#}
+
+            {#</div>&#123;&#35; .panel-group #js-multisource-accordion &#35;&#125;#}
+        {#</div>&#123;&#35; .col-xs-12 &#35;&#125;#}
 
         {# Include an "Add Source" button #}
         <div class="col-xs-12">

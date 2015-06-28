@@ -19,7 +19,6 @@
         "vendor/blueimp-gallery-2.15.2/css/blueimp-gallery.min.css",
         "vendor/bootstrap-image-gallery-3.1.0/css/bootstrap-image-gallery.css",
         "vendor/spectrum-1.6.0/spectrum.css",
-        "vendor/bootstrap-vertical-tabs-1.2.1/bootstrap.vertical-tabs.min.css",
         "css/options-page.css"
     ],
     "scripts" : [

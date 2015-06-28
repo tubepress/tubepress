@@ -239,33 +239,40 @@ button.close {
 }
 
 /**
- * Put some space between the "Add Source" button and the content below it.
+ * Put some space between the "Add Source" button and the content above/below it.
  */
 #gallery_source_category .add-gallery-source-button {
 
-    margin-bottom: 2em;
+    margin: 2em 0;
 }
 
-/**
- * Get rid of left/right padding inside the tab content.
- */
-#gallery_source_category .panel-body {
+#gallery_source_category .multisource-single-container {
 
-    padding-left: 0;
-    padding-right: 0;
+    border: 1px solid #dddddd;
+    margin-top: -1px;
 }
 
-/**
- * In the vertical tabs content area, get rid of borders and the vertical padding.
- */
-#gallery_source_category .tab-content {
+#gallery_source_category .multisource-single-container ul {
 
-    border: none;
-    padding-top: 0;
+    margin-top: 5px;
 }
 
+#gallery_source_category .multisource-single-container .multisource-title-bar {
 
+    padding: 15px;
+    cursor: pointer;
+    font-size: 140%;
+}
 
+#gallery_source_category .multisource-single-container .multisource-title-bar:hover {
+
+    background-color: #f9f9f9;
+}
+
+#gallery_source_category .multisource-single-container .multisource-tab-area > * {
+
+    padding-bottom: 15px;
+}
 
 
 /**
