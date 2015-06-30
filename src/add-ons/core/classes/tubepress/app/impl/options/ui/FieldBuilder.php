@@ -128,6 +128,9 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
             case 'multiSourceText':
                 return $this->_buildMultiSourceText($id, $options);
 
+            case 'multiSourceTextArea':
+                return $this->_buildMultiSourceTextArea($id, $options);
+
             case 'theme':
                 return $this->_buildTheme();
 
@@ -282,6 +285,19 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
         }
 
         return $toReturn;
+    }
+
+    private function _buildMultiSourceTextArea($id, $options)
+    {
+        return new tubepress_app_impl_options_ui_fields_templated_single_MultiSourceSingleOptionField(
+
+            $id,
+            'options-ui/fields/textarea',
+            $this->_persistence,
+            $this->_requestParams,
+            $this->_templating,
+            $this->_optionReference
+        );
     }
 
     private function _buildHidden($id)

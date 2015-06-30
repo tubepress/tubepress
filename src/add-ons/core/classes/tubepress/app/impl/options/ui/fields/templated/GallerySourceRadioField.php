@@ -82,6 +82,7 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
 
         return array(
 
+            'id'                        => $this->getId(),
             'modeName'                  => $this->_modeName,
             'currentMode'               => $currentMode,
             'additionalFieldWidgetHtml' => isset($this->_additionalField) ? $this->_additionalField->getWidgetHTML() : '',

@@ -25,6 +25,16 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
         tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
     );
 
+    private static $_MODE_TEMPLATE_MAP = array(
+
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED   => 'videos related to %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST  => 'playlist %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES => 'videos favorited by %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH    => 'videos matching search term %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER      => 'uploads of %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST      => 'manual list of videos: %s',
+    );
+
     /**
      * @var tubepress_app_api_media_HttpCollectorInterface
      */
@@ -51,7 +61,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
         $baseUrlClone = $environment->getBaseUrl()->getClone();
         $miniIconUrl  = $baseUrlClone->addPath('/src/add-ons/youtube_v3/web/images/icons/youtube-icon-34w_x_24h.png')->toString();
         $this->getProperties()->put('miniIconUrl', $miniIconUrl);
-
+        $this->getProperties()->put('untranslatedModeTemplateMap', self::$_MODE_TEMPLATE_MAP);
     }
 
     /**

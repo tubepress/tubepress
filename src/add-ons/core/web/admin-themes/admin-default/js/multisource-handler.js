@@ -9,23 +9,29 @@
  */
 (function (jquery, win) {
 
-    var sourceFinder = (function () {
+    'use strict';
+
+    var text_dot_js_multisource_single_container = '.js-multisource-single-container',
+        text_multisourceid                       = 'multisourceid',
+        text_deleting                            = 'deleting',
+
+        sourceFinder = (function () {
 
         var getSourceContainerForElement = function (element) {
 
-                return element.closest('.js-multisource-single-container');
+                return element.closest(text_dot_js_multisource_single_container);
             },
 
             getAllSourceContainers = function () {
 
-                return jquery('.js-multisource-single-container');
+                return jquery(text_dot_js_multisource_single_container);
             };
 
         return {
 
             getSourceContainerForElement : getSourceContainerForElement,
             getAllSourceContainers       : getAllSourceContainers
-        }
+        };
     }());
 
     /**
@@ -37,7 +43,7 @@
 
                 var dis        = jquery(this),
                     allSources = sourceFinder.getAllSourceContainers(),
-                    source     =  sourceFinder.getSourceContainerForElement(dis),
+                    source     = sourceFinder.getSourceContainerForElement(dis),
                     buttons    = jquery('.js-gallery-sources-delete-initiate');
 
                 /**
@@ -59,7 +65,7 @@
                 /**
                  * Note that we are thinking about deleting this source.
                  */
-                source.data('deleting', true);
+                source.data(text_deleting, true);
 
                 /**
                  * Show the confirmation modal.
@@ -69,7 +75,7 @@
 
             isDeleting = function () {
 
-                return jquery(this).data('deleting') === true;
+                return jquery(this).data(text_deleting) === true;
             },
 
             onDeleteConfirmationClicked = function () {
@@ -111,27 +117,6 @@
     }());
 
     /**
-     * Expands the last/single source.
-     */
-    (function () {
-
-        var onAfterNewSourceAdded = function () {
-
-                var colls = jquery('#gallery_source_category .collapse'),
-                    last  = colls.last();
-
-                //last.collapse('show');
-            },
-
-            init = function () {
-
-                win.tubePressBeacon.subscribe('newsource.post', onAfterNewSourceAdded);
-            };
-
-        jquery(init);
-    }());
-
-    /**
      * Add source button
      */
     (function () {
@@ -161,9 +146,9 @@
                     }
                 }
 
-                if (element.data('multisourceid') !== undefined) {
+                if (element.data(text_multisourceid) !== undefined) {
 
-                    element.data('multisourceid', newId.toString());
+                    element.data(text_multisourceid, newId.toString());
                 }
             },
 
@@ -173,7 +158,7 @@
 
                 var allContainers = sourceFinder.getAllSourceContainers(),
                     last          = allContainers.last(),
-                    oldId         = last.data('multisourceid'),
+                    oldId         = last.data(text_multisourceid),
                     newId         = newRandomSourceId(),
                     clone         = last.clone(false).find('*').andSelf().each(function () {
 
@@ -206,7 +191,7 @@
 
                     allDoneCollapsing = function () {
 
-                        var allDone = jquery('.js-multisource-single-container .collapse.in,.js-multisource-single-container .collapsing').length === 0;
+                        var allDone = jquery(text_dot_js_multisource_single_container + ' .collapse.in,' + text_dot_js_multisource_single_container + ' .collapsing').length === 0;
 
                         if (allDone) {
 
@@ -227,7 +212,7 @@
 
             init = function () {
 
-                jquery('#js-multisource-button-add').click(onAddSourceButtonClicked);
+                jquery('#js-multisource-button-add').click(onAddSourceButtonClicked).popover();
             };
 
         jquery(init);
@@ -238,11 +223,172 @@
      */
     (function () {
 
-        var init = function () {
+        var radioNameRegex                     = /^tubepress-multisource-[0-9]+-mode$/,
+            gallerySourceNameToProviderIdCache = {},
 
-            jquery('.js-media-provider-icon').attr('src', win.tubePressMediaProviderProperties.youtube.miniIconUrl);
-            jquery('.js-media-provider-title').html(win.tubePressMediaProviderProperties.youtube.displayName);
-        };
+            hasProp = function (element, propertyName) {
+
+                return element.hasOwnProperty(propertyName);
+            },
+
+            getMediaProviderProperties = function () {
+
+                return win.tubePressMediaProviderProperties;
+            },
+
+            getSingleProviderPropertyByProviderIdAndPropertyName = function (providerId, propertyName) {
+
+                var providerProps    = getMediaProviderProperties()[providerId];
+
+                if (hasProp(providerProps, propertyName)) {
+
+                    return providerProps[propertyName];
+                }
+
+                return '';
+            },
+
+            getProviderDisplayNameById = function (providerId) {
+
+                return getSingleProviderPropertyByProviderIdAndPropertyName(providerId, 'displayName');
+            },
+
+            getIconUrlByProviderId = function (providerId) {
+
+                return getSingleProviderPropertyByProviderIdAndPropertyName(providerId, 'miniIconUrl');
+            },
+
+            findProviderIdByGallerySourceValue = function (gallerySourceName) {
+
+                var mediaProviderProperties = getMediaProviderProperties(),
+                    providerId,
+                    providerProps,
+                    sourceNames,
+                    text_sourceNames = 'sourceNames';
+
+                if (!hasProp(gallerySourceNameToProviderIdCache, gallerySourceName)) {
+
+                    for (providerId in mediaProviderProperties) {
+
+                        if (hasProp(mediaProviderProperties, providerId)) {
+
+                            providerProps = mediaProviderProperties[providerId];
+
+                            if (hasProp(providerProps, text_sourceNames)) {
+
+                                sourceNames = providerProps[text_sourceNames];
+
+                                if (jquery.inArray(gallerySourceName, sourceNames) !== -1) {
+
+                                    gallerySourceNameToProviderIdCache[gallerySourceName] = providerId;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return gallerySourceNameToProviderIdCache[gallerySourceName];
+            },
+
+            escapeHtml = function (text) {
+                var map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+
+                return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+            },
+
+            getDescriptiveTextForSource = function (providerId, gallerySourceName, originalRadioElement) {
+
+                var mediaProviderProps = getMediaProviderProperties(),
+                    rawTemplate        = mediaProviderProps[providerId]['untranslatedModeTemplateMap'][gallerySourceName],
+                    nextField          = originalRadioElement.parent().next('textarea,input').first(),
+                    nextFieldRawValue,
+                    nextFieldValueClean;
+
+                if (!nextField) {
+
+                    return rawTemplate;
+                }
+
+                nextFieldRawValue = nextField.val();
+
+                if (nextFieldRawValue.length > 20) {
+
+                    nextFieldRawValue = nextFieldRawValue.substr(0, 17) + '...';
+                }
+
+                nextFieldValueClean = escapeHtml(nextFieldRawValue);
+
+                return rawTemplate.replace('%s', '<code>' + nextFieldValueClean + '</code>');
+            },
+
+            updateTitleBarToCurrentSelection = function (currentlyActiveRadioElement) {
+
+                var nearestContainer = currentlyActiveRadioElement.closest(text_dot_js_multisource_single_container),
+                    icon             = nearestContainer.find('.js-media-provider-icon'),
+                    text             = nearestContainer.find('.js-media-provider-title'),
+                    value            = currentlyActiveRadioElement.attr('value'),
+                    providerId       = findProviderIdByGallerySourceValue(value),
+                    displayName,
+                    iconUrl,
+                    template;
+
+                if (!providerId) {
+
+                    icon.attr('src', '');
+                    text.html('...');
+                    return;
+                }
+
+                displayName = getProviderDisplayNameById(providerId);
+                iconUrl     = getIconUrlByProviderId(providerId);
+                template    = getDescriptiveTextForSource(providerId, value, currentlyActiveRadioElement);
+
+                icon.attr('src', iconUrl);
+                text.html(displayName + ' - ' + template);
+            },
+
+            onRadioInputChange = function () {
+
+                var dis     = jquery(this),
+                    name    = dis.attr('name'),
+                    checked = dis.is(':checked');
+
+                if (!name || !checked || !radioNameRegex.test(name)) {
+
+                    return;
+                }
+
+                updateTitleBarToCurrentSelection(dis);
+            },
+
+            onGallerySourceTextChange = function () {
+
+                var dis    = jquery(this),
+                    parent = dis.parent(),
+                    radio  = parent.find('input:radio').first();
+
+                if (!radio.is(':checked')) {
+
+                    return;
+                }
+
+                onRadioInputChange.apply(radio);
+            },
+
+            init = function () {
+
+                jquery(document).on('change', '#gallery_source_category input:radio', {}, onRadioInputChange);
+                jquery(document).on('change keyup paste', '#gallery_source_category input:text,#gallery_source_category textarea,#gallery_source_category select', {}, onGallerySourceTextChange);
+
+                jquery('#gallery_source_category input:radio').each(onRadioInputChange);
+            };
 
         jquery(init);
     }());
@@ -252,7 +398,12 @@
      */
     (function () {
 
-        var onSortStop = function () {
+        var onNewSourceAdded = function (e) {
+
+                jquery('div[data-multisourceid="' + e.newId + '"]:first .js-multisource-control-reorder').popover();
+            },
+
+            onSortStop = function () {
 
                 win.tubePressBeacon.publish('sources.sort');
             },
@@ -261,8 +412,14 @@
 
                 jquery('#gallery_source_category > .row > .col-xs-12').sortable({
 
-                    stop: onSortStop
+                    axis   : 'y',
+                    handle : '.multisource-title-bar',
+                    stop   : onSortStop
                 });
+
+                jquery('.js-multisource-control-reorder').popover();
+
+                tubePressBeacon.subscribe('newsource.post', onNewSourceAdded);
             };
 
         jquery(init);

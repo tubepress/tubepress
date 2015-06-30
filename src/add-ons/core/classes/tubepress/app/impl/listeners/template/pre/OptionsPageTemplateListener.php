@@ -55,13 +55,20 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
     private $_mediaProviders;
 
     /**
+     * @var tubepress_lib_api_translation_TranslatorInterface
+     */
+    private $_translator;
+
+    /**
      * @var array
      */
     private $_fieldIdToProviderInstanceCache;
 
-    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment)
+    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment,
+                                tubepress_lib_api_translation_TranslatorInterface  $translator)
     {
         $this->_environment                    = $environment;
+        $this->_translator                     = $translator;
         $this->_fieldIdToProviderInstanceCache = array();
     }
 
@@ -75,7 +82,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
      *      tubePressBaseUrl
      *      isPro
      *
-     * 2. Add the multisource template vars (complicated).
+     * 2. Add the multisource template vars (super complicated).
      *
      * 3. Add the field provider properties as JSON
      *
@@ -99,7 +106,8 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         //2
         $this->_addTemplateVariableGallerySources($templateVariables);
 
-        $this->_addTemplateVariableFieldProviderProperties($templateVariables);
+        //3
+        $this->_addTemplateVariableMediaProviderProperties($templateVariables);
 
         //4
         $this->_sortCategories($templateVariables);
@@ -195,10 +203,10 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         $templateVariables['fields']                             = $finalFieldsVar;
     }
 
-    private function _addTemplateVariableFieldProviderProperties(array &$templateVariables)
+    private function _addTemplateVariableMediaProviderProperties(array &$templateVariables)
     {
         $final = array();
-        $toSet = array('miniIconUrl');
+        $toSet = array('miniIconUrl', 'untranslatedModeTemplateMap');
 
         foreach ($this->_mediaProviders as $mediaProvider) {
 
@@ -211,7 +219,14 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 
                 if ($mediaProvider->getProperties()->containsKey($propertyName)) {
 
-                    $props[$propertyName] = $mediaProvider->getProperties()->get($propertyName);
+                    $propertyValue = $mediaProvider->getProperties()->get($propertyName);
+
+                    if ($toSet === 'untranslatedModeTemplateMap') {
+
+                        $propertyValue = $this->_prepareModeTemplateMap($propertyValue);
+                    }
+
+                    $props[$propertyName] = $propertyValue;
                 }
             }
 
@@ -529,5 +544,21 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         }
 
         $templateVariables[self::$_TEMPLATE_VAR_CATEGORIES] = $newCategories;
+    }
+
+    private function _prepareModeTemplateMap($map)
+    {
+        if (!is_array($map)) {
+
+            //this should never happen
+            return $map;
+        }
+
+        foreach ($map as $key => $untranslated) {
+
+            $map[$key] = $this->_translator->trans($untranslated);
+        }
+
+        return map;
     }
 }

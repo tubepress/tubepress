@@ -7,30 +7,36 @@
  # License, v. 2.0. If a copy of the MPL was not distributed with this
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  #}
-<div class="form-group" {% if false %}style="display:none"{% endif %}>
 
-    <label for="{{ field.id }}" class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">
+{% set fieldHtml = field.widgetHTML %}
+{% set fieldDesc = field.untranslatedDescription|trans %}
+{% set fieldName = field.untranslatedDisplayName|trans %}
 
-        {% if (not isPro) and field.proOnly %}
+{% if fieldHtml != '' %}
+    <div class="form-group" {% if false %}style="display:none"{% endif %}>
 
-            <a href="http://tubepress.com/pro">
-                <span class="label label-primary" style="font-size: 100%">Pro</span>
-            </a>
+        <label for="{{ field.id }}" class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">
 
-        {% endif %}
+            {% if (not isPro) and field.proOnly %}
 
-        {{ field.untranslatedDisplayName|trans|raw }}
+                <a href="http://tubepress.com/pricing/">
+                    <span class="label label-primary" style="font-size: 100%">Pro</span>
+                </a>
 
-    </label>
+            {% endif %}
 
+            {{ fieldName|raw }}
 
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+        </label>
 
-        {{ field.widgetHTML|raw }}
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
 
-        <span class="help-block">
-            {{ field.untranslatedDescription|trans|raw }}
-        </span>
+            {{ fieldHtml|raw }}
 
+            <span class="help-block">
+                {{ fieldDesc|raw }}
+            </span>
+
+        </div>
     </div>
-</div>
+{% endif %}

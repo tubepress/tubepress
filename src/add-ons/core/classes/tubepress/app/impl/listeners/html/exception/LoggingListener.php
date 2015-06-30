@@ -40,6 +40,7 @@ class tubepress_app_impl_listeners_html_exception_LoggingListener
 
         foreach ($traceData as $line) {
 
+            $line = htmlspecialchars($line);
             $this->_logger->error("<tt>$line</tt><br />");
         }
     }

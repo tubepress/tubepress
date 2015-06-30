@@ -24,15 +24,6 @@
 }
 
 /**
- * Prevent the form inputs from spanning the whole page
- */
-.tp-bs .form-control,
-.tp-bs .input-group .form-control {
-
-    width: auto;
-}
-
-/**
  * Move the labels up a little bit.
  */
 .tp-bs .form-horizontal .control-label,
@@ -274,6 +265,12 @@ button.close {
     padding-bottom: 15px;
 }
 
+#gallery_source_category .media-provider-icon {
+
+    width: 34px;
+    text-align: right;
+}
+
 
 /**
  **********************************************************************************************
@@ -285,3 +282,11 @@ button.close {
     margin-top: 60px;
 }
 
+
+
+
+textarea {
+    /** Ensure that our text areas are as big as possible */
+    width: 100% !important;
+    height: 100px !important;
+}

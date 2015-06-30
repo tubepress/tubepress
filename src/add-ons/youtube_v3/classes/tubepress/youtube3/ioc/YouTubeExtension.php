@@ -292,7 +292,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
-                'multiSourceText',
+                'multiSourceTextArea',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE),
         );
 

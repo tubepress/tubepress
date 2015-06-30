@@ -26,6 +26,18 @@ class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_app_api_med
         tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY
     );
 
+    private static $_MODE_TEMPLATE_MAP = array(
+
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_ALBUM      => 'album %s',
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_APPEARS_IN => 'videos in which %s appears',
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_CHANNEL    => 'channel %s',
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_CREDITED   => 'credited to %s',
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_GROUP      => 'group %s',
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_LIKES      => 'liked by %s',
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_SEARCH     => 'matching search term %s',
+        tubepress_vimeo2_api_Constants::GALLERYSOURCE_VIMEO_UPLOADEDBY => 'uploads of %s',
+    );
+
     /**
      * @var tubepress_app_api_media_HttpCollectorInterface
      */
@@ -41,12 +53,18 @@ class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_app_api_med
      */
     private $_properties;
 
-    public function __construct(tubepress_app_api_media_HttpCollectorInterface   $httpCollector,
-                                tubepress_app_api_media_HttpFeedHandlerInterface $feedHandler)
+    public function __construct(tubepress_app_api_media_HttpCollectorInterface     $httpCollector,
+                                tubepress_app_api_media_HttpFeedHandlerInterface   $feedHandler,
+                                tubepress_app_api_environment_EnvironmentInterface $environment)
     {
         $this->_httpCollector = $httpCollector;
         $this->_feedHandler   = $feedHandler;
         $this->_properties    = new tubepress_platform_impl_collection_Map();
+
+        $baseUrlClone = $environment->getBaseUrl()->getClone();
+        $miniIconUrl  = $baseUrlClone->addPath('src/add-ons/vimeo_v2/web/images/icons/vimeo-icon-24w_x_24h.png')->toString();
+        $this->getProperties()->put('miniIconUrl', $miniIconUrl);
+        $this->getProperties()->put('untranslatedModeTemplateMap', self::$_MODE_TEMPLATE_MAP);
     }
 
 
