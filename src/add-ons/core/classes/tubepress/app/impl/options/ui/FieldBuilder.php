@@ -40,11 +40,6 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
     private $_langUtils;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
-     */
-    private $_context;
-
-    /**
      * @var tubepress_app_api_options_AcceptableValuesInterface
      */
     private $_acceptableValues;
@@ -64,7 +59,6 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
                                 tubepress_lib_api_template_TemplatingInterface      $templating,
                                 tubepress_app_api_options_ReferenceInterface        $optionReference,
                                 tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                tubepress_app_api_options_ContextInterface          $context,
                                 tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
                                 tubepress_platform_api_contrib_RegistryInterface    $themeRegistry)
     {
@@ -73,7 +67,6 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
         $this->_templating       = $templating;
         $this->_optionReference  = $optionReference;
         $this->_langUtils        = $langUtils;
-        $this->_context          = $context;
         $this->_acceptableValues = $acceptableValues;
         $this->_themeRegistry    = $themeRegistry;
     }
@@ -172,10 +165,8 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
             $this->_requestParams,
             $this->_templating,
             $this->_optionReference,
-            $this->_context,
             $this->_acceptableValues,
-            $this->_langUtils,
-            $this->_mediaProviders
+            $this->_langUtils
         );
     }
 
@@ -381,7 +372,6 @@ class tubepress_app_impl_options_ui_FieldBuilder implements tubepress_app_api_op
             $this->_persistence,
             $this->_requestParams,
             $this->_templating,
-            $this->_context,
             $additionalField
         );
     }

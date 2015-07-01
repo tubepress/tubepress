@@ -18,10 +18,8 @@ class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends
                                 tubepress_lib_api_http_RequestParametersInterface   $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface      $templating,
                                 tubepress_app_api_options_ReferenceInterface        $optionsReference,
-                                tubepress_app_api_options_ContextInterface          $context,
                                 tubepress_app_api_options_AcceptableValuesInterface $acceptableValues,
-                                tubepress_platform_api_util_LangUtilsInterface      $langUtils,
-                                array                                               $mediaProviders)
+                                tubepress_platform_api_util_LangUtilsInterface      $langUtils)
     {
         parent::__construct(
 
@@ -57,5 +55,26 @@ class tubepress_app_impl_options_ui_fields_templated_single_OrderByField extends
     public function isProOnly()
     {
         return false;
+    }
+
+    /**
+     * @param $prefix
+     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     *
+     * @return tubepress_app_api_options_ui_FieldInterface
+     */
+    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    {
+        $requestParams    = $this->getHttpRequestParameters();
+        $optionsReference = $this->getOptionProvider();
+        $templating       = $this->getTemplating();
+        $langUtils        = $this->getLangUtils();
+        $acceptableValues = $this->getAcceptableValues();
+
+        $toReturn = new self($persistence, $requestParams, $templating, $optionsReference, $acceptableValues, $langUtils);
+
+        $toReturn->setMultiSourcePrefix($prefix);
+
+        return $toReturn;
     }
 }

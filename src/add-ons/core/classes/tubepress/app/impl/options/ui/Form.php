@@ -357,13 +357,14 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
     {
         if ($hasErrors && isset($this->_cachedGroupIds[$index])) {
 
-            $prefix = $this->_cachedGroupIds[$index];
+            $groupId = $this->_cachedGroupIds[$index];
 
         } else {
 
-            $prefix = 'tubepress-multisource-' . mt_rand(100000, 1000000) . '-';
+            $groupId = mt_rand(100000, 1000000);
         }
 
+        $prefix                        = "tubepress-multisource-$groupId-";
         $multiSourcePersistenceBackend = new tubepress_app_impl_options_MultiSourcePersistenceBackend($options);
         $readOnlyPersistence           = $this->_persistence->getCloneWithCustomBackend($multiSourcePersistenceBackend);
         $toReturn                      = array();

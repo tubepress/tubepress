@@ -17,7 +17,7 @@
 
             jquery.each(all, function (index, value) {
 
-                var elements = jquery('div.' + value);
+                var elements = jquery('div[class*="' + value + '"]');
 
                 if (jquery.inArray(value, selected) === -1) {
 

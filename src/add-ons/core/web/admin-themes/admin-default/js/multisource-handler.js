@@ -128,7 +128,7 @@
 
             replaceIds = function (element, oldId, newId) {
 
-                var attrs = [ 'id', 'href', 'data-multisourceid', 'aria-labelledby', 'aria-controls'],
+                var attrs = [ 'id', 'href', 'name', 'data-multisourceid', 'aria-labelledby', 'aria-controls'],
                     attribute,
                     oldAttrValue,
                     newAttrValue,

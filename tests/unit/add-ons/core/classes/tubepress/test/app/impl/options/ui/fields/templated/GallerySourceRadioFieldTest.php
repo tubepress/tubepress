@@ -17,11 +17,6 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockContext;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockAdditionalField;
 
     public function testCloneForMultiSource()
@@ -89,7 +84,6 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
-            $this->_mockContext,
             $this->_mockAdditionalField
         );
     }
@@ -107,7 +101,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
      */
     protected function getExpectedTemplateVariables()
     {
-        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)->andReturn('somethin');
+        $this->getMockPersistence()->shouldReceive('fetch')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)->andReturn('somethin');
         $this->_mockAdditionalField->shouldReceive('getWidgetHTML')->once()->andReturn('boo');
 
         return array(

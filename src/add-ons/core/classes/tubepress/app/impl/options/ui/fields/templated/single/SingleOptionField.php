@@ -92,7 +92,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
     public function onSubmit()
     {
         $isBoolean     = $this->_optionProvider->isBoolean($this->_optionName);
-        $paramName     = $this->_multiSourcePrefix . $this->getId();
+        $paramName     = $this->getId();
         $requestParams = $this->getHttpRequestParameters();
 
         if ($isBoolean) {
