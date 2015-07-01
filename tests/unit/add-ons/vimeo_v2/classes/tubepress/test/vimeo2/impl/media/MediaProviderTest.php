@@ -30,14 +30,28 @@ class tubepress_test_vimeo2_impl_media_MediaProviderTest extends tubepress_test_
      */
     private $_mockFeedHandler;
 
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockEnvironment;
+
     public function onSetup()
     {
         $this->_mockHttpCollector = $this->mock(tubepress_app_api_media_HttpCollectorInterface::_);
         $this->_mockFeedHandler   = $this->mock(tubepress_app_api_media_HttpFeedHandlerInterface::_);
+        $this->_mockEnvironment   = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $mockBaseUrl              = $this->mock('tubepress_platform_api_url_UrlInterface');
+
+        $this->_mockEnvironment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('getClone')->once()->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('addPath')->once()->with('src/add-ons/vimeo_v2/web/images/icons/vimeo-icon-34w_x_34h.png')->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('icon-url');
 
         $this->_sut = new tubepress_vimeo2_impl_media_MediaProvider(
 
-            $this->_mockHttpCollector, $this->_mockFeedHandler
+            $this->_mockHttpCollector,
+            $this->_mockFeedHandler,
+            $this->_mockEnvironment
         );
     }
 

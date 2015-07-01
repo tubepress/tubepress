@@ -337,6 +337,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ),
             'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
                 tubepress_app_api_environment_EnvironmentInterface::_,
+                tubepress_lib_api_translation_TranslatorInterface::_,
+                tubepress_platform_api_util_StringUtilsInterface::_,
             ),
             'tubepress_app_impl_listeners_template_pre_PaginationListener' => array(
                 tubepress_app_api_options_ContextInterface::_,
@@ -374,6 +376,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ),
             'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
                 'tubepress_app_api_options_ui_FieldProviderInterface' => 'setFieldProviders',
+                'tubepress_app_api_media_MediaProviderInterface'      => 'setMediaProviders',
             )
         );
 

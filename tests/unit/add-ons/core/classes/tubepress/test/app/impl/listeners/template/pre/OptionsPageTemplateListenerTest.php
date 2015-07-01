@@ -32,6 +32,16 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
+    private $_mockMediaProviderVimeo;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockMediaProviderYouTube;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockFieldProviderCore;
 
     /**
@@ -47,7 +57,17 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
+    private $_mockTranslator;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockBaseUrl;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
+    private $_mockStringUtils;
 
     /**
      * @var tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
@@ -65,14 +85,21 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
         $this->_mockEnvironment           = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
         $this->_mockFieldProviderVimeo    = $this->mock('tubepress_app_api_options_ui_FieldProviderInterface');
         $this->_mockFieldProviderCore     = $this->mock('tubepress_app_api_options_ui_FieldProviderInterface');
+        $this->_mockMediaProviderVimeo    = $this->mock('tubepress_app_api_media_MediaProviderInterface');
+        $this->_mockMediaProviderYouTube  = $this->mock('tubepress_app_api_media_MediaProviderInterface');
         $this->_mockCategoryEmbedded      = $this->mock('tubepress_app_api_options_ui_ElementInterface');
         $this->_mockCategoryGallerySource = $this->mock('tubepress_app_api_options_ui_ElementInterface');
+        $this->_mockTranslator            = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
+        $this->_mockStringUtils           = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
 
         $this->_sut = new tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener(
-            $this->_mockEnvironment
+            $this->_mockEnvironment,
+            $this->_mockTranslator,
+            $this->_mockStringUtils
         );
 
         $this->_sut->setFieldProviders(array($this->_mockFieldProviderVimeo, $this->_mockFieldProviderCore));
+        $this->_sut->setMediaProviders(array($this->_mockMediaProviderVimeo, $this->_mockMediaProviderYouTube));
     }
 
     public function testEvent()
@@ -81,10 +108,57 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
         $this->_prepMockFieldProviders();
         $this->_prepEnvironment();
         $this->_prepEvent();
+        $this->_prepTranslator();
+        $this->_prepMediaProviders();
+        $this->_prepStringUtils();
 
         $this->_sut->onOptionsGuiTemplate($this->_mockIncomingEvent);
 
         $this->assertTrue(true);
+    }
+
+    private function _prepStringUtils()
+    {
+        $stringUtils = new tubepress_platform_impl_util_StringUtils();
+
+        $this->_mockStringUtils->shouldReceive('startsWith')->andReturnUsing(array($stringUtils, 'startsWith'));
+    }
+
+    private function _prepMediaProviders()
+    {
+        $this->_mockMediaProviderYouTube->shouldReceive('getDisplayName')->once()->andReturn('YouTube');
+        $this->_mockMediaProviderVimeo->shouldReceive('getDisplayName')->once()->andReturn('Vimeo');
+        $this->_mockMediaProviderYouTube->shouldReceive('getName')->once()->andReturn('youtube-media-provider');
+        $this->_mockMediaProviderVimeo->shouldReceive('getName')->once()->andReturn('vimeo-media-provider');
+
+        $ytProps = new tubepress_platform_impl_collection_Map();
+        $vimeoProps = new tubepress_platform_impl_collection_Map();
+
+        $ytProps->put('miniIconUrl', 'yt-icon');
+        $vimeoProps->put('miniIconUrl', 'vimeo-icon');
+        $ytProps->put('untranslatedModeTemplateMap',array(
+            'tag' => 'tag template',
+            'user' => 'user template',
+        ));
+        $vimeoProps->put('untranslatedModeTemplateMap',array(
+            'vimeoChannel' => 'template for channel',
+            'vimeoAlbum' => 'template for album',
+        ));
+
+        $this->_mockMediaProviderYouTube->shouldReceive('getGallerySourceNames')->once()->andReturn(array(
+            'tag', 'user'
+        ));
+        $this->_mockMediaProviderVimeo->shouldReceive('getGallerySourceNames')->once()->andReturn(array(
+            'vimeoChannel', 'vimeoAlbum',
+        ));
+
+        $this->_mockMediaProviderYouTube->shouldReceive('getProperties')->times(4)->andReturn($ytProps);
+        $this->_mockMediaProviderVimeo->shouldReceive('getProperties')->times(4)->andReturn($vimeoProps);
+    }
+
+    private function _prepTranslator()
+    {
+
     }
 
     private function _prepEnvironment()
@@ -258,6 +332,11 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
         if ($firstSource['id'] !== 999999) {
 
             return false;
+        }
+
+        if ($candidate['mediaProviderPropertiesAsJson'] !== '{"vimeo-media-provider":{"displayName":"Vimeo","sourceNames":["vimeoChannel","vimeoAlbum"],"miniIconUrl":"vimeo-icon","untranslatedModeTemplateMap":{"vimeoChannel":"template for channel","vimeoAlbum":"template for album"}},"youtube-media-provider":{"displayName":"YouTube","sourceNames":["tag","user"],"miniIconUrl":"yt-icon","untranslatedModeTemplateMap":{"tag":"tag template","user":"user template"}}}') {
+
+
         }
 
         return true;

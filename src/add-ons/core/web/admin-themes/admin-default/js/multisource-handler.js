@@ -398,9 +398,11 @@
      */
     (function () {
 
-        var onNewSourceAdded = function (e) {
+        var onNewSourceAdded = function (e, data) {
 
-                jquery('div[data-multisourceid="' + e.newId + '"]:first .js-multisource-control-reorder').popover();
+                var reorder = jquery('div[data-multisourceid="' + data.newId + '"]:first .js-multisource-control-reorder');
+
+                reorder.popover();
             },
 
             onSortStop = function () {

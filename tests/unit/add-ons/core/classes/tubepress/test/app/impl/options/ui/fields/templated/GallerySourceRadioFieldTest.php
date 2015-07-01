@@ -112,6 +112,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_GallerySourceRadioFiel
 
         return array(
 
+            'id'                        => 'foo',
             'modeName'                  => 'foo',
             'currentMode'               => 'somethin',
             'additionalFieldWidgetHtml' => 'boo',

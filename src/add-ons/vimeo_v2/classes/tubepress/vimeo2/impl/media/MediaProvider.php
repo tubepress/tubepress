@@ -62,7 +62,7 @@ class tubepress_vimeo2_impl_media_MediaProvider implements tubepress_app_api_med
         $this->_properties    = new tubepress_platform_impl_collection_Map();
 
         $baseUrlClone = $environment->getBaseUrl()->getClone();
-        $miniIconUrl  = $baseUrlClone->addPath('src/add-ons/vimeo_v2/web/images/icons/vimeo-icon-24w_x_24h.png')->toString();
+        $miniIconUrl  = $baseUrlClone->addPath('src/add-ons/vimeo_v2/web/images/icons/vimeo-icon-34w_x_34h.png')->toString();
         $this->getProperties()->put('miniIconUrl', $miniIconUrl);
         $this->getProperties()->put('untranslatedModeTemplateMap', self::$_MODE_TEMPLATE_MAP);
     }

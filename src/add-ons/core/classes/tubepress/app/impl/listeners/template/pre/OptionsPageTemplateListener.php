@@ -60,15 +60,22 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
     private $_translator;
 
     /**
+     * @var tubepress_platform_api_util_StringUtilsInterface
+     */
+    private $_stringUtils;
+
+    /**
      * @var array
      */
     private $_fieldIdToProviderInstanceCache;
 
     public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment,
-                                tubepress_lib_api_translation_TranslatorInterface  $translator)
+                                tubepress_lib_api_translation_TranslatorInterface  $translator,
+                                tubepress_platform_api_util_StringUtilsInterface   $stringUtils)
     {
         $this->_environment                    = $environment;
         $this->_translator                     = $translator;
+        $this->_stringUtils                    = $stringUtils;
         $this->_fieldIdToProviderInstanceCache = array();
     }
 
@@ -195,8 +202,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 
         foreach ($multiSourceGroupIdsToFieldsMap as $groupNumber => $fieldArray) {
 
-            $finalFieldsVar = array_merge($finalFieldsVar, $fieldArray);
-            $toReturn[]     = $this->_buildTemplateVarForSourceGroup($groupNumber, $fieldArray);
+            $toReturn[] = $this->_buildTemplateVarForSourceGroup($groupNumber, $fieldArray);
         }
 
         $templateVariables[self::$_TEMPLATE_VAR_GALLERY_SOURCES] = $toReturn;
@@ -464,12 +470,73 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
             return;
         }
 
-        $map = &$templateVariables[self::$_TEMPLATE_VAR_MAP];
+        $map            = &$templateVariables[self::$_TEMPLATE_VAR_MAP];
+        $gallerySources = &$templateVariables[self::$_TEMPLATE_VAR_GALLERY_SOURCES];
 
         foreach ($map as $categoryId => $providerMap) {
 
             $map[$categoryId] = $this->_sortProviderMap($providerMap);
         }
+
+        $internalTemplateVars = array(
+            'gallerySourceFieldProviders',
+            'feedOptionFieldProviders'
+        );
+
+        foreach ($gallerySources as &$gallerySource) {
+
+            foreach ($internalTemplateVars as $internalTemplateVar) {
+
+                if (!isset($gallerySource[$internalTemplateVar])) {
+
+                    continue;
+                }
+
+                $fieldProviderArray                  = $gallerySource[$internalTemplateVar];
+                $sorted                              = $this->_sortMultisourceFieldProviders($fieldProviderArray);
+                $gallerySource[$internalTemplateVar] = $sorted;
+            }
+        }
+    }
+
+
+    /**
+     * @param tubepress_app_api_options_ui_FieldProviderInterface[] $multiSourceFieldProviders
+     *
+     * @return array
+     */
+    private function _sortMultisourceFieldProviders(array $multiSourceFieldProviders)
+    {
+        $toReturn = array();
+        $addedIds = array();
+
+        foreach (self::$_providerSortMap as $providerId) {
+
+            foreach ($multiSourceFieldProviders as $multiSourceFieldProvider) {
+
+                $msFieldProviderId = $multiSourceFieldProvider->getId();
+
+                if (!$this->_stringUtils->startsWith($msFieldProviderId, $providerId)) {
+
+                    continue;
+                }
+
+                $toReturn[] = $multiSourceFieldProvider;
+                $addedIds[] = $msFieldProviderId;
+            }
+        }
+
+        foreach ($multiSourceFieldProviders as $multiSourceFieldProvider) {
+
+            $msFieldProviderId = $multiSourceFieldProvider->getId();
+
+            if (!in_array($msFieldProviderId, $addedIds)) {
+
+                $toReturn[] = $multiSourceFieldProvider;
+            }
+        }
+
+        return $toReturn;
     }
 
     private function _sortProviderMap(array &$providerMap)
@@ -559,6 +626,6 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
             $map[$key] = $this->_translator->trans($untranslated);
         }
 
-        return map;
+        return $map;
     }
 }

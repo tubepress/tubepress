@@ -59,7 +59,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
         $this->_properties    = new tubepress_platform_impl_collection_Map();
 
         $baseUrlClone = $environment->getBaseUrl()->getClone();
-        $miniIconUrl  = $baseUrlClone->addPath('/src/add-ons/youtube_v3/web/images/icons/youtube-icon-34w_x_24h.png')->toString();
+        $miniIconUrl  = $baseUrlClone->addPath('/src/add-ons/youtube_v3/web/images/icons/youtube-icon-34w_x_34h.png')->toString();
         $this->getProperties()->put('miniIconUrl', $miniIconUrl);
         $this->getProperties()->put('untranslatedModeTemplateMap', self::$_MODE_TEMPLATE_MAP);
     }

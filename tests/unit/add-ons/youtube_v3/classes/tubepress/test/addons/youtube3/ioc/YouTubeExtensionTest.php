@@ -154,6 +154,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             'tubepress_youtube3_impl_media_MediaProvider'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_HttpCollectorInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_media_FeedHandler'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
             ->withTag(tubepress_app_api_media_MediaProviderInterface::__);
     }
 
@@ -287,7 +288,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
                 'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE),
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
-                'multiSourceText',
+                'multiSourceTextArea',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE),
         );
 
@@ -373,6 +374,13 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
         $mockFieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);
         $mockFieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
+        $mockBaseUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $environment = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $environment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('getClone')->once()->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('addPath')->once()->with('/src/add-ons/youtube_v3/web/images/icons/youtube-icon-34w_x_34h.png')->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('icon-url');
+
         return array(
 
             tubepress_app_api_options_ContextInterface::_         => tubepress_app_api_options_ContextInterface::_,
@@ -389,6 +397,7 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_,
             tubepress_lib_api_http_HttpClientInterface::_ => tubepress_lib_api_http_HttpClientInterface::_,
             tubepress_lib_api_array_ArrayReaderInterface::_ => tubepress_lib_api_array_ArrayReaderInterface::_,
+            tubepress_app_api_environment_EnvironmentInterface::_ => $environment
         );
     }
 }
