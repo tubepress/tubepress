@@ -70,9 +70,24 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
-            'method'   => 'onPreValidationOptionSet',
-            'priority' => 100000
-        ));
+            'method'   => 'onPlaylistValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE,
+            'method'  => 'onUserOrFavoritesValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
+            'method'  => 'onUserOrFavoritesValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE,
+            'method'  => 'onRelatedToValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE,
+            'method'  => 'onListValue',
+            'priority' => 100000));
 
         $fixedValues = array(
             tubepress_youtube3_api_Constants::OPTION_AUTOHIDE => array(
@@ -102,11 +117,11 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
                 "fixed_values.$optionName",
                 'tubepress_app_api_listeners_options_FixedValuesListener'
             )->addArgument($values)
-                ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
-                    'priority' => 100000,
-                    'method'   => 'onAcceptableValues'
-                ));
+             ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
+                'priority' => 100000,
+                'method'   => 'onAcceptableValues'
+            ));
         }
 
         $validators = array(

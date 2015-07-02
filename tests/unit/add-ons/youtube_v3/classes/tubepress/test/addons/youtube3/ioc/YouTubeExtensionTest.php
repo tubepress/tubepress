@@ -66,9 +66,24 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
                 'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
-                'method'   => 'onPreValidationOptionSet',
-                'priority' => 100000
-            ));
+                'method'   => 'onPlaylistValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE,
+                'method'  => 'onUserOrFavoritesValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
+                'method'  => 'onUserOrFavoritesValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE,
+                'method'  => 'onRelatedToValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE,
+                'method'  => 'onListValue',
+                'priority' => 100000));
 
         $fixedValues = array(
             tubepress_youtube3_api_Constants::OPTION_AUTOHIDE => array(

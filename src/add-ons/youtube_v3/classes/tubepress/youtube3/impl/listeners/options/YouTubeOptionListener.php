@@ -27,12 +27,96 @@ class tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
         $this->_stringUtils = $stringUtils;
     }
 
-    public function onPreValidationOptionSet(tubepress_lib_api_event_EventInterface $event)
+    public function onPlaylistValue(tubepress_lib_api_event_EventInterface $event)
     {
-        $filteredValue = $this->_maybeGetListValueFromUrl($event->getArgument('optionValue'));
+        $filteredValue = $this->_maybeGetPlaylistValueFromUrl($event->getArgument('optionValue'));
         $filteredValue = $this->_maybeRemoveLeadingPL($filteredValue);
 
         $event->setArgument('optionValue', $filteredValue);
+    }
+
+    public function onUserOrFavoritesValue(tubepress_lib_api_event_EventInterface $event)
+    {
+        $filteredValue = $this->_maybeConvertUserOrChannel($event->getArgument('optionValue'));
+
+        $event->setArgument('optionValue', $filteredValue);
+    }
+
+    public function onRelatedToValue(tubepress_lib_api_event_EventInterface $event)
+    {
+        $filteredValue = $this->_maybeGetVideoId($event->getArgument('optionValue'));
+
+        $event->setArgument('optionValue', $filteredValue);
+    }
+
+    public function onListValue(tubepress_lib_api_event_EventInterface $event)
+    {
+        $filteredValue = $this->_normalizeListValue($event->getArgument('optionValue'));
+
+        $event->setArgument('optionValue', $filteredValue);
+    }
+
+    private function _normalizeListValue($candidate)
+    {
+        if (!is_string($candidate)) {
+
+            return $candidate;
+        }
+
+        $exploded = preg_split('~\s*,\s*~', $candidate);
+
+        if (count($exploded) === 0) {
+
+            return $candidate;
+        }
+
+        $collection = array();
+
+        foreach ($exploded as $candidateId) {
+
+            $collection[] = $this->_maybeGetVideoId($candidateId);
+        }
+
+        return implode(',', $collection);
+    }
+
+    private function _maybeConvertUserOrChannel($originalValue)
+    {
+        $url = null;
+
+        try {
+
+            $url = $this->_urlFactory->fromString($originalValue);
+
+        } catch (Exception $e) {
+
+            return $originalValue;
+        }
+
+        $host = $url->getHost();
+
+        if (!$this->_stringUtils->endsWith($host, 'youtube.com')) {
+
+            return $originalValue;
+        }
+
+        $path                  = $url->getPath();
+        $pathStartsWithChannel = $this->_stringUtils->startsWith($path, '/channel');
+        $pathStartsWithUser    = $this->_stringUtils->startsWith($path, '/user');
+
+        if (!$pathStartsWithChannel && !$pathStartsWithUser) {
+
+            return $originalValue;
+        }
+
+        $explodedPath = preg_split('~/~', $path);
+
+        if (count($explodedPath) < 3) {
+
+            return $originalValue;
+        }
+
+        return $explodedPath[2];
     }
 
     private function _maybeRemoveLeadingPL($originalValue)
@@ -45,7 +129,7 @@ class tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
         return $this->_stringUtils->replaceFirst('PL', '', $originalValue);
     }
 
-    private function _maybeGetListValueFromUrl($originalValue)
+    private function _maybeGetPlaylistValueFromUrl($originalValue)
     {
         $url = null;
 
@@ -78,5 +162,22 @@ class tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
         }
 
         return $params->get('p');
+    }
+
+    /**
+     * https://stackoverflow.com/questions/7693218/youtube-i-d-parsing-for-new-url-formats
+     */
+    private function _maybeGetVideoId($candidate)
+    {
+        if (!is_string($candidate)) {
+
+            return $candidate;
+        }
+
+        $pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=|/watch\?.+&v=))([\w-]{11})(?:.+)?$#x';
+
+        preg_match($pattern, trim($candidate), $matches);
+
+        return (isset($matches[1])) ? $matches[1] : $candidate;
     }
 }

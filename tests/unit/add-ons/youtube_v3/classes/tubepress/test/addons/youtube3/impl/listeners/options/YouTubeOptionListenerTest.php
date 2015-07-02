@@ -36,96 +36,118 @@ class tubepress_test_youtube3_impl_listeners_options_YouTubeOptionListenerTest e
 
     public function onSetup()
     {
-        $this->_mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
-        $this->_mockStringUtils  = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
-        $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(function ($a) {
+        $this->_mockUrlFactory  = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
+        $this->_mockStringUtils = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
+        $this->_mockEvent       = $this->mock('tubepress_lib_api_event_EventInterface');
 
-            $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory($_SERVER);
-            return $urlFactory->fromString($a);
-        });
-        $this->_mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_sut = new tubepress_youtube3_impl_listeners_options_YouTubeOptionListener($this->_mockUrlFactory, $this->_mockStringUtils);
+        $realUrlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(array($realUrlFactory, 'fromString'));
+
+        $realStringUtils = new tubepress_platform_impl_util_StringUtils();
+        $this->_mockStringUtils->shouldReceive('endsWith')->andReturnUsing(array($realStringUtils, 'endsWith'));
+        $this->_mockStringUtils->shouldReceive('startsWith')->andReturnUsing(array($realStringUtils, 'startsWith'));
+        $this->_mockStringUtils->shouldReceive('replaceFirst')->andReturnUsing(array($realStringUtils, 'replaceFirst'));
+
+        $this->_sut = new tubepress_youtube3_impl_listeners_options_YouTubeOptionListener(
+
+            $this->_mockUrlFactory,
+            $this->_mockStringUtils
+        );
     }
 
-    public function testPullListFromUrl()
+    /**
+     * @dataProvider getDataList
+     */
+    public function testList($incoming, $expected)
     {
-        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('youtube.com', 'youtube.com')->andReturn(true);
-        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('PL123', 'PL')->andReturn(true);
-        $this->_mockStringUtils->shouldReceive('replaceFirst')->once()->with('PL', '', 'PL123')->andReturn('123');
-
-        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('http://youtube.com/?list=PL123');
-
-        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', '123');
-        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
+        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($incoming);
+        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', $expected);
+        $this->_sut->onListValue($this->_mockEvent);
         $this->assertTrue(true);
     }
 
-    public function testPullListFromUrlNoListParam()
+    public function getDataList()
     {
-        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('youtube.com', 'youtube.com')->andReturn(true);
-        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('http://youtube.com/?lt=123', 'PL')->andReturn(false);
+        return array(
 
-        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('http://youtube.com/?lt=123');
-
-        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', 'http://youtube.com/?lt=123');
-        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
-
-        $this->assertTrue(true);
-
+            array('http://www.youtube.com/watch?v=-wtIMTCHWuI  ,  22837452321, cafecafe123', '-wtIMTCHWuI,22837452321,cafecafe123'),
+            array("\t\t\nhttp://youtube.com/embed/-wtIMTCHWuI  , \n   http://youtu.be/22837452321\t,\tcafecafe123", '-wtIMTCHWuI,22837452321,cafecafe123'),
+            array(array(),                                      array()),
+        );
     }
 
-    public function testPullListFromUrlNonYouTube()
+    /**
+     * @dataProvider getDataRelated
+     */
+    public function testRelatedTo($incoming, $expected)
     {
-        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('vimeo.com', 'youtube.com')->andReturn(false);
-        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('http://vimeo.com/?list=123', 'PL')->andReturn(false);
-
-        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('http://vimeo.com/?list=123');
-        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', 'http://vimeo.com/?list=123');
-
-        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
-
-        $this->assertTrue(true);
-
-    }
-
-    public function testAlterNonString()
-    {
-        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with(array('hello'), 'PL')->andReturn(false);
-
-        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn(array('hello'));
-        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', array('hello'));
-
-        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
-
+        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($incoming);
+        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', $expected);
+        $this->_sut->onRelatedToValue($this->_mockEvent);
         $this->assertTrue(true);
     }
 
-    public function testAlterHtmlNonPrefix()
+    public function getDataRelated()
     {
-        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('', 'youtube.com')->andReturn(false);
-        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('hello', 'PL')->andReturn(false);
+        return array(
 
-        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('hello');
-
-        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', 'hello');
-        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
-
-        $this->assertTrue(true);
-
+            array('http://www.youtube.com/watch?v=-wtIMTCHWuI', '-wtIMTCHWuI'),
+            array('http://www.youtube.com/v/-wtIMTCHWuI?version=3&autohide=1', '-wtIMTCHWuI'),
+            array('http://youtu.be/-wtIMTCHWuI', '-wtIMTCHWuI'),
+            array('http://youtube.com/embed/-wtIMTCHWuI', '-wtIMTCHWuI'),
+            array('http://youtube.com/x/blabla/yo',             'http://youtube.com/x/blabla/yo'),
+            array('http://vimeo.com/channel/blabla/yo',         'http://vimeo.com/channel/blabla/yo'),
+            array(array(),                                      array()),
+        );
     }
 
-    public function testAlterPrefix()
+    /**
+     * @dataProvider getDataUser
+     */
+    public function testUser($incoming, $expected)
     {
-        $this->_mockStringUtils->shouldReceive('endsWith')->once()->with('', 'youtube.com')->andReturn(false);
-        $this->_mockStringUtils->shouldReceive('startsWith')->once()->with('PLhelloPL', 'PL')->andReturn(true);
-        $this->_mockStringUtils->shouldReceive('replaceFirst')->once()->with('PL', '', 'PLhelloPL')->andReturn('helloPL');
-
-        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn('PLhelloPL');
-
-        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', 'helloPL');
-        $this->_sut->onPreValidationOptionSet($this->_mockEvent);
-
+        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($incoming);
+        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', $expected);
+        $this->_sut->onUserOrFavoritesValue($this->_mockEvent);
         $this->assertTrue(true);
+    }
 
+    public function getDataUser()
+    {
+        return array(
+
+            array('http://youtube.com/user/foobar',       'foobar'),
+            array('http://youtube.com/channel/blabla',    'blabla'),
+            array('http://youtube.com/user/foobar/hi',    'foobar'),
+            array('http://youtube.com/channel/blabla/yo', 'blabla'),
+            array('http://youtube.com/x/blabla/yo',       'http://youtube.com/x/blabla/yo'),
+            array('http://vimeo.com/channel/blabla/yo',   'http://vimeo.com/channel/blabla/yo'),
+            array(array(),                                array()),
+        );
+    }
+
+    /**
+     * @dataProvider getDataPlaylist
+     */
+    public function testPlaylist($incoming, $expected)
+    {
+        $this->_mockEvent->shouldReceive('getArgument')->once()->with('optionValue')->andReturn($incoming);
+        $this->_mockEvent->shouldReceive('setArgument')->once()->with('optionValue', $expected);
+        $this->_sut->onPlaylistValue($this->_mockEvent);
+        $this->assertTrue(true);
+    }
+
+    public function getDataPlaylist()
+    {
+        return array(
+
+            array('http://youtube.com/?list=PL123',  '123'),
+            array('http://youtube.com/?f=b&p=PL123', '123'),
+            array('http://youtube.com/?lt=123',      'http://youtube.com/?lt=123'),
+            array('http://vimeo.com/?list=123',      'http://vimeo.com/?list=123'),
+            array(array('hello'),                    array('hello')),
+            array('hello',                           'hello'),
+            array('PLhelloPL',                       'helloPL'),
+        );
     }
 }
