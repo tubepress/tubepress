@@ -583,7 +583,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE              => true,
                 tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW              => true,
                 tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS               => true,
-                tubepress_app_api_options_Names::GALLERY_SOURCE                      => 'youtubeMostPopular',
+                tubepress_app_api_options_Names::GALLERY_SOURCE                      => 'user',
                 tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT                => 90,
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH                 => 120,
                 tubepress_app_api_options_Names::HTML_GALLERY_ID                     => null,

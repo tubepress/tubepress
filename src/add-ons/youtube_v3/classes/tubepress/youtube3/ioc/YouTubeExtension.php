@@ -202,7 +202,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE     => 'F679CB240DD4C112',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'techcrunch',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'iphone ios',
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'apple',
+                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'PenWeddings',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => '9bZkp7q19f0, txqiwrbYGrs',
                     tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => false,
                     tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => false,

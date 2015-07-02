@@ -668,7 +668,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE              => true,
                     tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW              => true,
                     tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS               => true,
-                    tubepress_app_api_options_Names::GALLERY_SOURCE                      => tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_MOST_POPULAR,
+                    tubepress_app_api_options_Names::GALLERY_SOURCE                      => 'user',
                     tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT                => 90,
                     tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH                 => 120,
                     tubepress_app_api_options_Names::HTML_GALLERY_ID                     => null,
