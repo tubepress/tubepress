@@ -105,6 +105,24 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
                     ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_));
             }
         }
+
+        $this->expectRegistration(
+            'tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener',
+            'tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_VIMEO_ALBUM_VALUE,
+                'method'   => 'onAlbumValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_VIMEO_GROUP_VALUE,
+                'method'  => 'onGroupValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_VIMEO_CHANNEL_VALUE,
+                'method'  => 'onChannelValue',
+                'priority' => 100000));
     }
 
     private function _expectMediaProvider()
@@ -333,6 +351,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
             tubepress_app_api_media_HttpCollectorInterface::_ => tubepress_app_api_media_HttpCollectorInterface::_,
             tubepress_app_api_media_AttributeFormatterInterface::_ => tubepress_app_api_media_AttributeFormatterInterface::_,
             tubepress_app_api_environment_EnvironmentInterface::_ => $environment,
+            tubepress_platform_api_util_StringUtilsInterface::_ => tubepress_platform_api_util_StringUtilsInterface::_,
         );
     }
 }

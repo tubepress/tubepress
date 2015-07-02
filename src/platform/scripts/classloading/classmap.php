@@ -676,6 +676,7 @@ return array (
     'tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider' => TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/classes/tubepress/vimeo2/impl/embedded/VimeoEmbeddedProvider.php',
     'tubepress_vimeo2_impl_listeners_http_OauthListener' => TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/classes/tubepress/vimeo2/impl/listeners/http/OauthListener.php',
     'tubepress_vimeo2_impl_listeners_media_HttpItemListener' => TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/classes/tubepress/vimeo2/impl/listeners/media/HttpItemListener.php',
+    'tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener' => TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/classes/tubepress/vimeo2/impl/listeners/options/VimeoOptionsListener.php',
     'tubepress_vimeo2_impl_media_FeedHandler' => TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/classes/tubepress/vimeo2/impl/media/FeedHandler.php',
     'tubepress_vimeo2_impl_media_MediaProvider' => TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/classes/tubepress/vimeo2/impl/media/MediaProvider.php',
     'tubepress_vimeo2_impl_options_ui_FieldProvider' => TUBEPRESS_ROOT . '/src/add-ons/vimeo_v2/classes/tubepress/vimeo2/impl/options/ui/FieldProvider.php',

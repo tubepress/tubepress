@@ -20,15 +20,16 @@
     },
     "autoload": {
         "classmap" : {
-            "tubepress_vimeo2_api_Constants"                         : "classes/tubepress/vimeo2/api/Constants.php",
-            "tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider"   : "classes/tubepress/vimeo2/impl/embedded/VimeoEmbeddedProvider.php",
-            "tubepress_vimeo2_impl_listeners_http_OauthListener"     : "classes/tubepress/vimeo2/impl/listeners/http/OauthListener.php",
-            "tubepress_vimeo2_impl_listeners_media_HttpItemListener" : "classes/tubepress/vimeo2/impl/listeners/media/HttpItemListener.php",
-            "tubepress_vimeo2_impl_media_FeedHandler"                : "classes/tubepress/vimeo2/impl/media/FeedHandler.php",
-            "tubepress_vimeo2_impl_media_MediaProvider"              : "classes/tubepress/vimeo2/impl/media/MediaProvider.php",
-            "tubepress_vimeo2_impl_options_ui_FieldProvider"         : "classes/tubepress/vimeo2/impl/options/ui/FieldProvider.php",
-            "tubepress_vimeo2_impl_player_VimeoPlayerLocation"       : "classes/tubepress/vimeo2/impl/player/VimeoPlayerLocation.php",
-            "tubepress_vimeo2_ioc_VimeoExtension"                    : "classes/tubepress/vimeo2/ioc/VimeoExtension.php"
+            "tubepress_vimeo2_api_Constants"                               : "classes/tubepress/vimeo2/api/Constants.php",
+            "tubepress_vimeo2_impl_embedded_VimeoEmbeddedProvider"         : "classes/tubepress/vimeo2/impl/embedded/VimeoEmbeddedProvider.php",
+            "tubepress_vimeo2_impl_listeners_http_OauthListener"           : "classes/tubepress/vimeo2/impl/listeners/http/OauthListener.php",
+            "tubepress_vimeo2_impl_listeners_media_HttpItemListener"       : "classes/tubepress/vimeo2/impl/listeners/media/HttpItemListener.php",
+            "tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener" : "classes/tubepress/vimeo2/impl/listeners/options/VimeoOptionsListener.php",
+            "tubepress_vimeo2_impl_media_FeedHandler"                      : "classes/tubepress/vimeo2/impl/media/FeedHandler.php",
+            "tubepress_vimeo2_impl_media_MediaProvider"                    : "classes/tubepress/vimeo2/impl/media/MediaProvider.php",
+            "tubepress_vimeo2_impl_options_ui_FieldProvider"               : "classes/tubepress/vimeo2/impl/options/ui/FieldProvider.php",
+            "tubepress_vimeo2_impl_player_VimeoPlayerLocation"             : "classes/tubepress/vimeo2/impl/player/VimeoPlayerLocation.php",
+            "tubepress_vimeo2_ioc_VimeoExtension"                          : "classes/tubepress/vimeo2/ioc/VimeoExtension.php"
         }
     }
 }
