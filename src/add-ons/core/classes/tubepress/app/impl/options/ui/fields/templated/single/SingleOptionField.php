@@ -24,14 +24,25 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
      */
     private $_templateName;
 
+    /**
+     * @var string
+     */
+    private $_multiSourcePrefix = '';
+
+    /**
+     * @var string
+     */
+    private $_optionName;
+
     public function __construct($optionName, $templateName,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
                                 tubepress_app_api_options_ReferenceInterface      $optionReference)
     {
-        $this->_optionProvider = $optionReference;
-        $this->_templateName   = $templateName;
+        $this->_optionProvider    = $optionReference;
+        $this->_templateName      = $templateName;
+        $this->_optionName        = $optionName;
 
         if (!$this->_optionProvider->optionExists($optionName)) {
 
@@ -53,13 +64,24 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
     }
 
     /**
+     * @return string The page-unique identifier for this item.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getId()
+    {
+        return $this->_multiSourcePrefix . parent::getId();
+    }
+
+    /**
      * Gets whether or not this field is TubePress Pro only.
      *
      * @return boolean True if this field is TubePress Pro only. False otherwise.
      */
     public function isProOnly()
     {
-        return $this->_optionProvider->isProOnly($this->getId());
+        return $this->_optionProvider->isProOnly($this->_optionName);
     }
 
     /**
@@ -69,23 +91,24 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
      */
     public function onSubmit()
     {
-        $id        = $this->getId();
-        $isBoolean = $this->_optionProvider->isBoolean($this->getId());
+        $isBoolean     = $this->_optionProvider->isBoolean($this->_optionName);
+        $paramName     = $this->getId();
+        $requestParams = $this->getHttpRequestParameters();
 
         if ($isBoolean) {
 
-            return $this->sendToStorage($id, $this->getHttpRequestParameters()->hasParam($id));
+            return $this->sendToStorage($this->_optionName, $requestParams->hasParam($paramName));
         }
 
-        if (! $this->getHttpRequestParameters()->hasParam($id)) {
+        if (!$requestParams->hasParam($paramName)) {
 
             /* not submitted. */
             return null;
         }
 
-        $value = $this->getHttpRequestParameters()->getParamValue($id);
+        $value = $requestParams->getParamValue($paramName);
 
-        return $this->sendToStorage($id, $this->convertIncomingStringValueToStorageFormat($value));
+        return $this->sendToStorage($this->_optionName, $this->convertIncomingStringValueToStorageFormat($value));
     }
 
     /**
@@ -94,12 +117,13 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
     protected function getTemplateVariables()
     {
         $id      = $this->getId();
-        $value   = $this->convertStorageFormatToStringValueForHTML($this->getOptionPersistence()->fetch($id));
+        $value   = $this->convertStorageFormatToStringValueForHTML($this->getOptionPersistence()->fetch($this->_optionName));
 
         return array_merge(array(
 
-            'id'    => $id,
-            'value' => $value,
+            'id'     => $id,
+            'value'  => $value,
+            'prefix' => $this->_multiSourcePrefix,
 
         ), $this->getAdditionalTemplateVariables());
     }
@@ -144,5 +168,18 @@ class tubepress_app_impl_options_ui_fields_templated_single_SingleOptionField ex
     protected function getTemplateName()
     {
         return $this->_templateName;
+    }
+
+    protected function setMultiSourcePrefix($prefix)
+    {
+        $this->_multiSourcePrefix = $prefix;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getOptionName()
+    {
+        return $this->_optionName;
     }
 }

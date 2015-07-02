@@ -47,11 +47,6 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_test
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
-    private $_mockContext;
-
-    /**
-     * @var ehough_mockery_mockery_MockInterface
-     */
     private $_mockAcceptableValues;
 
     /**
@@ -66,7 +61,6 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_test
         $this->_mockTemplating       = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
         $this->_mockOptionsReference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
         $this->_mockLangUtils        = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
-        $this->_mockContext          = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockAcceptableValues = $this->mock(tubepress_app_api_options_AcceptableValuesInterface::_);
         $this->_mockThemeRegistry    = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
 
@@ -76,7 +70,6 @@ class tubepress_test_app_impl_options_ui_FieldBuilderTest extends tubepress_test
             $this->_mockTemplating,
             $this->_mockOptionsReference,
             $this->_mockLangUtils,
-            $this->_mockContext,
             $this->_mockAcceptableValues,
             $this->_mockThemeRegistry
         );

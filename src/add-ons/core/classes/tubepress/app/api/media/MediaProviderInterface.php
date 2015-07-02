@@ -15,6 +15,10 @@
  */
 interface tubepress_app_api_media_MediaProviderInterface extends tubepress_app_api_media_CollectorInterface
 {
+    /**
+     * @api
+     * @since 4.0.0
+     */
     const __ = 'tubepress_app_api_media_MediaProviderInterface';
 
     /**
@@ -85,4 +89,12 @@ interface tubepress_app_api_media_MediaProviderInterface extends tubepress_app_a
      * @since 4.0.0
      */
     function ownsItem($itemId);
+
+    /**
+     * @api
+     * @since 4.2.0
+     *
+     * @return tubepress_platform_api_collection_MapInterface
+     */
+    function getProperties();
 }

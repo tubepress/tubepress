@@ -335,7 +335,11 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_options_ReferenceInterface::_,
                 tubepress_lib_api_translation_TranslatorInterface::_
             ),
-            'tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => array(),
+            'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
+                tubepress_app_api_environment_EnvironmentInterface::_,
+                tubepress_lib_api_translation_TranslatorInterface::_,
+                tubepress_platform_api_util_StringUtilsInterface::_,
+            ),
             'tubepress_app_impl_listeners_template_pre_PaginationListener' => array(
                 tubepress_app_api_options_ContextInterface::_,
                 tubepress_platform_api_url_UrlFactoryInterface::_,
@@ -370,6 +374,10 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_app_impl_listeners_search_SearchListener' => array(
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
+            'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
+                'tubepress_app_api_options_ui_FieldProviderInterface' => 'setFieldProviders',
+                'tubepress_app_api_media_MediaProviderInterface'      => 'setMediaProviders',
+            )
         );
 
         $listeners = array(
@@ -525,7 +533,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form' => array(
-                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => 'onOptionsGuiTemplate'),
+                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => 'onOptionsGuiTemplate'),
             ),
 
 
@@ -917,7 +925,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_AcceptableValuesInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
@@ -941,11 +948,12 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $this->expectRegistration(
             tubepress_app_api_options_ui_FormInterface::_,
             'tubepress_app_impl_options_ui_Form'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper.admin'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
                 'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
                 'method' => 'setFieldProviders',
@@ -1013,7 +1021,13 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'gallerySource' => array(
                 tubepress_app_api_options_Names::GALLERY_SOURCE,
             ),
+            'multiSourceText' => array(
+                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
+                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
+            )
         );
+
+
         foreach ($fieldMap as $type => $ids) {
             foreach ($ids as $id) {
 
@@ -1025,7 +1039,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
                     ->withFactoryMethod('newInstance')
                     ->withArgument($id)
-                    ->withArgument($type);
+                    ->withArgument($type)
+                    ->andReturnDefinition();
 
                 $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
             }
@@ -1055,6 +1070,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         }
 
         $fieldMap = array(
+            tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
+                tubepress_app_api_options_Names::GALLERY_SOURCE,
+            ),
             tubepress_app_api_options_ui_CategoryNames::CACHE => array(
                 tubepress_app_api_options_Names::CACHE_ENABLED,
                 tubepress_app_api_options_Names::CACHE_DIRECTORY,

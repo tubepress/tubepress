@@ -252,7 +252,11 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_ReferenceInterface::_,
                 tubepress_lib_api_translation_TranslatorInterface::_
             ),
-            'tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => array(),
+            'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
+                tubepress_app_api_environment_EnvironmentInterface::_,
+                tubepress_lib_api_translation_TranslatorInterface::_,
+                tubepress_platform_api_util_StringUtilsInterface::_,
+            ),
             'tubepress_app_impl_listeners_template_pre_PaginationListener' => array(
                 tubepress_app_api_options_ContextInterface::_,
                 tubepress_platform_api_url_UrlFactoryInterface::_,
@@ -287,6 +291,10 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'tubepress_app_impl_listeners_search_SearchListener' => array(
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
+            'tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => array(
+                'tubepress_app_api_options_ui_FieldProviderInterface' => 'setFieldProviders',
+                'tubepress_app_api_media_MediaProviderInterface'      => 'setMediaProviders',
+            )
         );
 
         $listeners = array(
@@ -442,7 +450,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form' => array(
-                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsGuiSorter' => 'onOptionsGuiTemplate'),
+                100000 => array('tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener' => 'onOptionsGuiTemplate'),
             ),
 
             /**
@@ -833,7 +841,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_AcceptableValuesInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
@@ -857,11 +864,12 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $containerBuilder->register(
             tubepress_app_api_options_ui_FormInterface::_,
             'tubepress_app_impl_options_ui_Form'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper.admin'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
             'method' => 'setFieldProviders',
@@ -985,7 +993,12 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'gallerySource' => array(
                 tubepress_app_api_options_Names::GALLERY_SOURCE,
             ),
+            'multiSourceText' => array(
+                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
+                tubepress_app_api_options_Names::SEARCH_ONLY_USER
+            ),
         );
+
         foreach ($fieldMap as $type => $ids) {
             foreach ($ids as $id) {
 
@@ -1027,6 +1040,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         }
 
         $fieldMap = array(
+            tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
+                tubepress_app_api_options_Names::GALLERY_SOURCE,
+            ),
             tubepress_app_api_options_ui_CategoryNames::CACHE => array(
                 tubepress_app_api_options_Names::CACHE_ENABLED,
                 tubepress_app_api_options_Names::CACHE_DIRECTORY,

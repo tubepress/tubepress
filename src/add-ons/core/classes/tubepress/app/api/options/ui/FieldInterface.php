@@ -22,7 +22,7 @@ interface tubepress_app_api_options_ui_FieldInterface extends tubepress_app_api_
      *
      * @api
      * @since 4.0.0
-     */
+*/
     function getUntranslatedDescription();
 
     /**

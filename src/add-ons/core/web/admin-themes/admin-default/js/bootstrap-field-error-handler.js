@@ -13,9 +13,17 @@
 
     var scrollTo = function (selector) {
 
+            var element = jquery(selector),
+                offset  = element.offset();
+
+            if (!offset) {
+
+                return;
+            }
+
             jquery('html, body').animate({
 
-                scrollTop: jquery(selector).offset().top - 80
+                scrollTop: offset.top - 80
             }, 800);
         },
 

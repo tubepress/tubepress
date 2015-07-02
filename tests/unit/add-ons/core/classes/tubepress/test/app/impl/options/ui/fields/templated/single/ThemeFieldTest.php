@@ -78,7 +78,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
         $this->_mockThemeRegistry  = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
     }
 
-    protected function getOptionsPageItemId()
+    protected function getId()
     {
         return 'theme';
     }
@@ -98,7 +98,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
     {
         $this->_mockLangUtils->shouldReceive('isAssociativeArray')->once()->andReturn(true);
 
-        $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with($this->getOptionsPageItemId())->andReturn(array(
+        $this->_mockAcceptableValues->shouldReceive('getAcceptableValues')->once()->with($this->getId())->andReturn(array(
 
             'foo' => 'abc', 'smack' => 'xyz'
         ));
@@ -106,5 +106,10 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_ThemeFieldTest 
         return array(
             'ungroupedChoices' => array('foo' => 'abc', 'smack' => 'xyz')
         );
+    }
+
+    protected function getMultiSourcePrefix()
+    {
+        return '';
     }
 }

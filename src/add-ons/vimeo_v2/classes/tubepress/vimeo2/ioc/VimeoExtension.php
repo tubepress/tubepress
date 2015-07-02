@@ -123,6 +123,7 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
             'tubepress_vimeo2_impl_media_MediaProvider'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_HttpCollectorInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_vimeo2_impl_media_FeedHandler'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addTag(tubepress_app_api_media_MediaProviderInterface::__);
     }
 
@@ -177,27 +178,25 @@ class tubepress_vimeo2_ioc_VimeoExtension implements tubepress_platform_api_ioc_
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $subFieldId = 'vimeo_options_field_' . $fieldIndex++;
-
             $containerBuilder->register(
 
-                $subFieldId,
+                'vimeo_options_subfield_' . $fieldIndex,
                 'tubepress_app_api_options_ui_FieldInterface'
             )->setFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
              ->setFactoryMethod('newInstance')
              ->addArgument($gallerySourceFieldArray[1])
-             ->addArgument('text');
+             ->addArgument('multiSourceText');
 
             $containerBuilder->register(
 
-                'vimeo_options_field_' . $fieldIndex++,
+                'vimeo_options_field_' . $fieldIndex,
                 'tubepress_app_api_options_ui_FieldInterface'
             )->setFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
              ->setFactoryMethod('newInstance')
              ->addArgument($gallerySourceFieldArray[0])
              ->addArgument('gallerySourceRadio')
              ->addArgument(array(
-                'additionalField' => new tubepress_platform_api_ioc_Reference($subFieldId)
+                'additionalField' => new tubepress_platform_api_ioc_Reference('vimeo_options_subfield_' . $fieldIndex++)
              ));
         }
 

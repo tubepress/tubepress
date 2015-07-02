@@ -12,7 +12,7 @@
 /**
  * Displays a single radio input.
  */
-class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField extends tubepress_app_impl_options_ui_fields_templated_AbstractTemplatedField
+class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField extends tubepress_app_impl_options_ui_fields_templated_AbstractTemplatedField implements tubepress_app_api_options_ui_MultiSourceFieldInterface
 {
     /**
      * @var tubepress_app_api_options_ui_FieldInterface
@@ -20,15 +20,19 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
     private $_additionalField;
 
     /**
-     * @var tubepress_app_api_options_ContextInterface
+     * @var string
      */
-    private $_context;
+    private $_multiSourcePrefix = '';
+
+    /**
+     * @var string
+     */
+    private $_modeName;
 
     public function __construct($modeName,
                                 tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
-                                tubepress_app_api_options_ContextInterface        $context,
                                 tubepress_app_api_options_ui_FieldInterface       $additionalField = null)
     {
         parent::__construct(
@@ -40,7 +44,18 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
         );
 
         $this->_additionalField = $additionalField;
-        $this->_context         = $context;
+        $this->_modeName        = $modeName;
+    }
+
+    /**
+     * @return string The page-unique identifier for this item.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getId()
+    {
+        return $this->_multiSourcePrefix . parent::getId();
     }
 
     /**
@@ -56,13 +71,15 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
      */
     protected function getTemplateVariables()
     {
-        $currentMode = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
+        $currentMode = $this->getOptionPersistence()->fetch(tubepress_app_api_options_Names::GALLERY_SOURCE);
 
         return array(
 
-            'modeName'                  => $this->getId(),
+            'id'                        => $this->getId(),
+            'modeName'                  => $this->_modeName,
             'currentMode'               => $currentMode,
             'additionalFieldWidgetHtml' => isset($this->_additionalField) ? $this->_additionalField->getWidgetHTML() : '',
+            'prefix'                    => $this->_multiSourcePrefix,
         );
     }
 
@@ -112,5 +129,39 @@ class tubepress_app_impl_options_ui_fields_templated_GallerySourceRadioField ext
     public function isProOnly()
     {
         return false;
+    }
+
+    public function setMultiSourcePrefix($prefix)
+    {
+        $this->_multiSourcePrefix = $prefix;
+    }
+
+    /**
+     * @param $prefix
+     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     *
+     * @return tubepress_app_api_options_ui_FieldInterface
+     */
+    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    {
+        $httpRequestParams = $this->getHttpRequestParameters();
+        $templating        = $this->getTemplating();
+        $additionalField   = null;
+
+        if ($this->_additionalField && $this->_additionalField instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface) {
+
+            /**
+             * @var $temp tubepress_app_api_options_ui_MultiSourceFieldInterface
+             */
+            $temp = $this->_additionalField;
+
+            $additionalField = $temp->cloneForMultiSource($prefix, $persistence);
+        }
+
+        $toReturn = new self($this->getId(), $persistence, $httpRequestParams, $templating, $additionalField);
+
+        $toReturn->setMultiSourcePrefix($prefix);
+
+        return $toReturn;
     }
 }

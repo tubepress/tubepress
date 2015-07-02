@@ -25,6 +25,16 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
         tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
     );
 
+    private static $_MODE_TEMPLATE_MAP = array(
+
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED   => 'videos related to %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST  => 'playlist %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES => 'videos favorited by %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH    => 'videos matching search term %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER      => 'uploads of %s',
+        tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST      => 'manual list of videos: %s',
+    );
+
     /**
      * @var tubepress_app_api_media_HttpCollectorInterface
      */
@@ -35,11 +45,23 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
      */
     private $_feedHandler;
 
-    public function __construct(tubepress_app_api_media_HttpCollectorInterface   $httpCollector,
-                                tubepress_app_api_media_HttpFeedHandlerInterface $feedHandler)
+    /**
+     * @var tubepress_platform_api_collection_MapInterface
+     */
+    private $_properties;
+
+    public function __construct(tubepress_app_api_media_HttpCollectorInterface     $httpCollector,
+                                tubepress_app_api_media_HttpFeedHandlerInterface   $feedHandler,
+                                tubepress_app_api_environment_EnvironmentInterface $environment)
     {
         $this->_httpCollector = $httpCollector;
         $this->_feedHandler   = $feedHandler;
+        $this->_properties    = new tubepress_platform_impl_collection_Map();
+
+        $baseUrlClone = $environment->getBaseUrl()->getClone();
+        $miniIconUrl  = $baseUrlClone->addPath('/src/add-ons/youtube_v3/web/images/icons/youtube-icon-34w_x_34h.png')->toString();
+        $this->getProperties()->put('miniIconUrl', $miniIconUrl);
+        $this->getProperties()->put('untranslatedModeTemplateMap', self::$_MODE_TEMPLATE_MAP);
     }
 
     /**
@@ -176,5 +198,16 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
             tubepress_app_api_options_Names::META_DISPLAY_UPLOADED    => tubepress_app_api_media_MediaItem::ATTRIBUTE_TIME_PUBLISHED_FORMATTED,
             tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION => tubepress_app_api_media_MediaItem::ATTRIBUTE_DESCRIPTION,
         );
+    }
+
+    /**
+     * @api
+     * @since 4.2.0
+     *
+     * @return tubepress_platform_api_collection_MapInterface
+     */
+    public function getProperties()
+    {
+        return $this->_properties;
     }
 }
