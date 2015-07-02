@@ -704,7 +704,7 @@ return array (
     'tubepress_youtube3_impl_ApiUtility' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/ApiUtility.php',
     'tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/embedded/YouTubeEmbeddedProvider.php',
     'tubepress_youtube3_impl_listeners_media_HttpItemListener' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/listeners/media/HttpItemListener.php',
-    'tubepress_youtube3_impl_listeners_options_PlaylistIdListener' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/listeners/options/PlaylistIdListener.php',
+    'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/listeners/options/YouTubeOptionListener.php',
     'tubepress_youtube3_impl_media_FeedHandler' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/media/FeedHandler.php',
     'tubepress_youtube3_impl_media_MediaProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/media/MediaProvider.php',
     'tubepress_youtube3_impl_options_ui_FieldProvider' => TUBEPRESS_ROOT . '/src/add-ons/youtube_v3/classes/tubepress/youtube3/impl/options/ui/FieldProvider.php',

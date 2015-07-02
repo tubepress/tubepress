@@ -60,8 +60,8 @@ class tubepress_test_youtube3_ioc_YouTubeExtensionTest extends tubepress_test_pl
             ));
 
         $this->expectRegistration(
-            'tubepress_youtube3_impl_listeners_options_PlaylistIdListener',
-            'tubepress_youtube3_impl_listeners_options_PlaylistIdListener'
+            'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener',
+            'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
             ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(

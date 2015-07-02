@@ -64,8 +64,8 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
         ));
 
         $containerBuilder->register(
-            'tubepress_youtube3_impl_listeners_options_PlaylistIdListener',
-            'tubepress_youtube3_impl_listeners_options_PlaylistIdListener'
+            'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener',
+            'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(

@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_youtube3_impl_listeners_options_PlaylistIdListener
+ * @covers tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
  */
-class tubepress_test_youtube3_impl_listeners_options_PlaylistIdListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_youtube3_impl_listeners_options_YouTubeOptionListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_youtube3_impl_listeners_options_PlaylistIdListener
+     * @var tubepress_youtube3_impl_listeners_options_YouTubeOptionListener
      */
     private $_sut;
 
@@ -44,7 +44,7 @@ class tubepress_test_youtube3_impl_listeners_options_PlaylistIdListenerTest exte
             return $urlFactory->fromString($a);
         });
         $this->_mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
-        $this->_sut = new tubepress_youtube3_impl_listeners_options_PlaylistIdListener($this->_mockUrlFactory, $this->_mockStringUtils);
+        $this->_sut = new tubepress_youtube3_impl_listeners_options_YouTubeOptionListener($this->_mockUrlFactory, $this->_mockStringUtils);
     }
 
     public function testPullListFromUrl()
