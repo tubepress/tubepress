@@ -26,6 +26,7 @@
           "tubepress_app_template_ioc_TemplateExtension"                  : "classes/tubepress/app/template/ioc/TemplateExtension.php",
           "tubepress_app_template_impl_options_ui_FieldProvider"          : "classes/tubepress/app/template/impl/options/ui/FieldProvider.php",
           "tubepress_app_template_impl_DelegatingEngine"                  : "classes/tubepress/app/template/impl/DelegatingEngine.php",
+          "tubepress_app_template_impl_php_PhpEngine"                     : "classes/tubepress/app/template/impl/php/PhpEngine.php",
           "tubepress_app_template_impl_php_Support"                       : "classes/tubepress/app/template/impl/php/Support.php",
           "tubepress_app_template_impl_TemplatingService"                 : "classes/tubepress/app/template/impl/TemplatingService.php",
           "tubepress_app_template_impl_ThemeTemplateLocator"              : "classes/tubepress/app/template/impl/ThemeTemplateLocator.php",

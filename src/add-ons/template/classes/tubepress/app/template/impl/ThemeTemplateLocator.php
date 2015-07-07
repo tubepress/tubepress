@@ -42,7 +42,7 @@ class tubepress_app_template_impl_ThemeTemplateLocator
     /**
      * @var array
      */
-    private $_templateNameToThemeInstanceCache = array();
+    private $_currentThemeNameToTemplateNameToThemeInstanceCache = array();
 
     public function __construct(tubepress_platform_api_log_LoggerInterface       $logger,
                                 tubepress_app_api_options_ContextInterface       $context,
@@ -140,28 +140,8 @@ class tubepress_app_template_impl_ThemeTemplateLocator
      */
     private function _findThemeForTemplate($templateName)
     {
-        if (isset($this->_templateNameToThemeInstanceCache[$templateName])) {
-
-            $cachedValue = $this->_templateNameToThemeInstanceCache[$templateName];
-
-            if ($this->_shouldLog) {
-
-                if ($cachedValue) {
-
-                    $this->_logger->debug(sprintf('Theme for template <code>%s</code> was found in the cache', $templateName));
-
-                }
-            }
-
-            return $cachedValue ? $cachedValue : null;
-        }
-
-        if ($this->_shouldLog) {
-
-            $this->_logger->debug(sprintf('Seeing if able to find source of template <code>%s</code> from theme hierarchy', $templateName));
-        }
-
-        $currentTheme = null;
+        $activeTheme     = $this->_currentThemeService->getCurrentTheme();
+        $activeThemeName = $activeTheme->getName();
 
         if (strpos($templateName, '::') !== false) {
 
@@ -169,37 +149,70 @@ class tubepress_app_template_impl_ThemeTemplateLocator
 
             if (count($exploded) === 2 && $this->_themeRegistry->getInstanceByName($exploded[0]) !== null) {
 
-                $currentTheme = $this->_themeRegistry->getInstanceByName($exploded[0]);
-                $templateName = $exploded[1];
+                $activeTheme     = $this->_themeRegistry->getInstanceByName($exploded[0]);
+                $activeThemeName = $activeTheme->getName();
+                $templateName    = $exploded[1];
             }
-        }
-
-        if (!$currentTheme) {
-
-            $currentTheme = $this->_currentThemeService->getCurrentTheme();
         }
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Current theme is <code>%s</code> version <code>%s</code>', $currentTheme->getName(), $currentTheme->getVersion()));
+            $this->_logger->debug(sprintf('Seeing if we can find <code>%s</code> in the theme hierarchy. %s.',
+                $templateName, $this->_loggerPostfix($activeTheme)));
+        }
+
+        if (isset($this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName]) &&
+                isset($this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName][$templateName])) {
+
+            $cachedValue = $this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName][$templateName];
+
+            if ($this->_shouldLog) {
+
+                if ($cachedValue) {
+
+                    $this->_logger->debug(sprintf('Theme for template <code>%s</code> was found in the cache to be contained in theme <code>%s</code> version <code>%s</code>. %s.',
+                        $templateName, $cachedValue->getName(), $cachedValue->getVersion(), $this->_loggerPostfix($activeTheme)));
+
+                } else {
+
+                    $this->_logger->debug(sprintf('We already tried to find a theme that contains <code>%s</code> in the theme hierarchy but didn\'t find it anywhere. %s.',
+                        $templateName, $this->_loggerPostfix($activeTheme)));
+                }
+            }
+
+            return $cachedValue ? $cachedValue : null;
+
+        } else {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug(sprintf('Looks like this is the first time searching for a theme that contains <code>%s</code>. %s.', $templateName, $this->_loggerPostfix($activeTheme)));
+            }
         }
 
         do {
 
-            if ($currentTheme->hasTemplateSource($templateName)) {
+            $activeThemeName = $activeTheme->getName();
 
-                $this->_templateNameToThemeInstanceCache[$templateName] = $currentTheme;
+            if ($activeTheme->hasTemplateSource($templateName)) {
+
+                if (!isset($this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName])) {
+
+                    $this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName] = array();
+                }
+
+                $this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName][$templateName] = $activeTheme;
 
                 if ($this->_shouldLog) {
 
-                    $this->_logger->debug(sprintf('Template source for <code>%s</code> was found in theme <code>%s</code>',
-                        $templateName, $currentTheme->getName()));
+                    $this->_logger->debug(sprintf('Template source for <code>%s</code> was found in theme <code>%s</code> version <code>%s</code>. %s.',
+                        $templateName, $activeThemeName, $activeTheme->getVersion(), $this->_loggerPostfix($activeTheme)));
                 }
 
-                return $currentTheme;
+                return $activeTheme;
             }
 
-            $nextThemeNameToCheck = $currentTheme->getParentThemeName();
+            $nextThemeNameToCheck = $activeTheme->getParentThemeName();
 
             if ($nextThemeNameToCheck === null) {
 
@@ -209,12 +222,12 @@ class tubepress_app_template_impl_ThemeTemplateLocator
             if ($this->_shouldLog) {
 
                 $this->_logger->debug(sprintf('Template source for <code>%s</code> was not found in theme <code>%s</code>. Now trying its parent theme: <code>%s</code>.',
-                    $templateName, $currentTheme->getName(), $nextThemeNameToCheck));
+                    $templateName, $activeTheme->getName(), $nextThemeNameToCheck));
             }
 
             try {
 
-                $currentTheme = $this->_themeRegistry->getInstanceByName($nextThemeNameToCheck);
+                $activeTheme = $this->_themeRegistry->getInstanceByName($nextThemeNameToCheck);
 
             } catch (InvalidArgumentException $e) {
 
@@ -226,15 +239,25 @@ class tubepress_app_template_impl_ThemeTemplateLocator
                 break;
             }
 
-        } while ($currentTheme !== null);
+        } while ($activeTheme !== null);
 
-        $this->_templateNameToThemeInstanceCache[$templateName] = false;
+        if (!isset($this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName])) {
+
+            $this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName] = array();
+        }
+
+        $this->_currentThemeNameToTemplateNameToThemeInstanceCache[$activeThemeName][$templateName] = false;
 
         if ($this->_shouldLog) {
 
-            $this->_logger->debug(sprintf('Unable to find source of template <code>%s</code> from theme hierarchy. Falling back to registered path providers.', $templateName));
+            $this->_logger->debug(sprintf('Unable to find source of template <code>%s</code> from theme hierarchy.', $templateName));
         }
 
         return null;
+    }
+
+    private function _loggerPostfix(tubepress_app_api_theme_ThemeInterface $theme)
+    {
+        return sprintf('Theme <code>%s</code> version <code>%s</code>', $theme->getName(), $theme->getVersion());
     }
 }

@@ -571,6 +571,7 @@ return array (
     'tubepress_app_template_impl_TemplatingService' => TUBEPRESS_ROOT . '/src/add-ons/template/classes/tubepress/app/template/impl/TemplatingService.php',
     'tubepress_app_template_impl_ThemeTemplateLocator' => TUBEPRESS_ROOT . '/src/add-ons/template/classes/tubepress/app/template/impl/ThemeTemplateLocator.php',
     'tubepress_app_template_impl_options_ui_FieldProvider' => TUBEPRESS_ROOT . '/src/add-ons/template/classes/tubepress/app/template/impl/options/ui/FieldProvider.php',
+    'tubepress_app_template_impl_php_PhpEngine' => TUBEPRESS_ROOT . '/src/add-ons/template/classes/tubepress/app/template/impl/php/PhpEngine.php',
     'tubepress_app_template_impl_php_Support' => TUBEPRESS_ROOT . '/src/add-ons/template/classes/tubepress/app/template/impl/php/Support.php',
     'tubepress_app_template_impl_twig_Engine' => TUBEPRESS_ROOT . '/src/add-ons/template/classes/tubepress/app/template/impl/twig/Engine.php',
     'tubepress_app_template_impl_twig_EnvironmentBuilder' => TUBEPRESS_ROOT . '/src/add-ons/template/classes/tubepress/app/template/impl/twig/EnvironmentBuilder.php',

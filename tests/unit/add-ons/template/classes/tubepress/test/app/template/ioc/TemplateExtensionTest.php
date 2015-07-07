@@ -187,8 +187,8 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
          * Register the PHP templating engine
          */
         $this->expectRegistration(
-            'ehough_templating_PhpEngine',
-            'ehough_templating_PhpEngine'
+            'tubepress_app_template_impl_php_PhpEngine',
+            'tubepress_app_template_impl_php_PhpEngine'
         )->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_php_Support'))
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_php_Support'));
 
@@ -196,7 +196,7 @@ class tubepress_test_app_template_ioc_TemplateExtensionTest extends tubepress_te
          * Public templating engine
          */
         $engineReferences = array(
-            new tubepress_platform_api_ioc_Reference('ehough_templating_PhpEngine'),
+            new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_php_PhpEngine'),
             new tubepress_platform_api_ioc_Reference('tubepress_app_template_impl_twig_Engine')
         );
         $this->expectRegistration(
