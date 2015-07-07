@@ -21,7 +21,7 @@
                 p          = jquery(doc.createElement('p'));
 
             h4.html('Don\'t see what you\'re after?');
-            p.html('You can <a target="_blank" href="http://docs.tubepress.com/page/extend/themes/" style="font-weight: bold; text-decoration: underline">create your own custom theme</a> in minutes.');
+            p.html('You can <a target="_blank" href="http://support.tubepress.com/customer/portal/articles/2046757-introduction" style="font-weight: bold; text-decoration: underline">create your own custom theme</a> in minutes.');
 
             calloutDiv.append(h4);
             calloutDiv.append(p);
