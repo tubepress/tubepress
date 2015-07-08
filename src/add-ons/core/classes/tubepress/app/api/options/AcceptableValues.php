@@ -23,12 +23,6 @@ interface tubepress_app_api_options_AcceptableValues
 
     /**
      * @api
-     * @since 4.2.0
-     */
-    const GALLERY_SOURCE_MULTI = 'multi';
-
-    /**
-     * @api
      * @since 3.1.2
      */
     const ORDER_BY_DEFAULT = 'default';

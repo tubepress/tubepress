@@ -293,9 +293,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             /**
              * OPTIONS VALUES
              */
-            'tubepress_app_impl_listeners_options_values_FeedOptions'    => array(
-                tubepress_app_api_environment_EnvironmentInterface::_
-            ),
+            'tubepress_app_impl_listeners_options_values_FeedOptions'    => array(),
             'tubepress_app_impl_listeners_options_values_PerPageSort'    => array(),
             'tubepress_app_impl_listeners_options_values_ThemeListener' => array(
                 tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_
