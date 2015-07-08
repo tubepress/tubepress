@@ -107,7 +107,7 @@
          If you modify this template, do not remove the "js-tubepress-*" class names as doing
          so will break Ajax pagination.
      #}
-    <a href="{{ href }}" class="js-tubepress-pager js-tubepress-page-{{ page }}"{{ noFollow}}>{{ text|raw }}</a>
+    <a href="{{ href }}" class="js-tubepress-pager js-tubepress-page-{{ page }}"{{ noFollow|raw }}>{{ text|raw }}</a>
 
 {% endmacro %}
 
