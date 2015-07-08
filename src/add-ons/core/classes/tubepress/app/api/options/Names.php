@@ -389,7 +389,7 @@ interface tubepress_app_api_options_Names
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      */
     const SOURCES = 'sources';
 

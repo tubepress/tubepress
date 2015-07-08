@@ -36,13 +36,13 @@
 
 /**
  * @api
- * @since 4.2.0
+ * @since 4.1.11
  */
 interface tubepress_lib_api_shortcode_ShortcodeInterface
 {
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return string The "name" of this shortcode.
      */
@@ -50,7 +50,7 @@ interface tubepress_lib_api_shortcode_ShortcodeInterface
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return array An associative array of attribute names to attribute values. May be empty, never null.
      */
@@ -58,7 +58,7 @@ interface tubepress_lib_api_shortcode_ShortcodeInterface
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return string The "inner" content of this shortcode. May be null.
      */

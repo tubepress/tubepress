@@ -36,7 +36,7 @@
 
 /**
  * @api
- * @since 4.2.0
+ * @since 4.1.11
  */
 class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortcode_ShortcodeInterface
 {
@@ -94,7 +94,7 @@ class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortc
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return string The "name" of this shortcode.
      */
@@ -105,7 +105,7 @@ class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortc
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return array An associative array of attribute names to attribute values. May be empty, never null.
      */
@@ -116,7 +116,7 @@ class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortc
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return string The "inner" content of this shortcode. May be null.
      */

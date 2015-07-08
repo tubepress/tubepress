@@ -92,7 +92,7 @@ interface tubepress_app_api_media_MediaProviderInterface extends tubepress_app_a
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return tubepress_platform_api_collection_MapInterface
      */

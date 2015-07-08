@@ -202,7 +202,7 @@ class tubepress_youtube3_impl_media_MediaProvider implements tubepress_app_api_m
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return tubepress_platform_api_collection_MapInterface
      */

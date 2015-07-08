@@ -28,7 +28,7 @@ class tubepress_wordpress_api_Constants
      * @subject `tubepress_lib_api_shortcode_ShortcodeInterface` The shortcode that was just parsed.
      *
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      */
     const SHORTCODE_PARSED = 'tubepress.app.shortcode.parsed';
 

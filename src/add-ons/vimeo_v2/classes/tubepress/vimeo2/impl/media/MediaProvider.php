@@ -205,7 +205,7 @@ es for the "mode" option.
 
     /**
      * @api
-     * @since 4.2.0
+     * @since 4.1.11
      *
      * @return tubepress_platform_api_collection_MapInterface
      */

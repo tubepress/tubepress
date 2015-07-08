@@ -13,7 +13,7 @@
  * A form element that appears and participates in the options page.
  *
  * @api
- * @since 4.2.0
+ * @since 4.1.11
  */
 interface tubepress_app_api_options_ui_MultiSourceFieldInterface extends tubepress_app_api_options_ui_FieldInterface
 {
