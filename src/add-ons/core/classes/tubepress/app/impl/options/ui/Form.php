@@ -296,7 +296,7 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
             $this->_cachedGroupIds[] = $matches[1][0];
         }
 
-        $this->_cachedGroupIds = array_unique($this->_cachedGroupIds);
+        $this->_cachedGroupIds = array_values(array_unique($this->_cachedGroupIds));
 
         if ($this->_shouldLog) {
 
