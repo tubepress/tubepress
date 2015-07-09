@@ -318,8 +318,7 @@ ABC
 
             'x', 1, 'three',
             '<a href="options-general.php?page=tubepress.php">orange</a>',
-            '<a href="http://docs.tubepress.com/">Documentation</a>',
-            '<a href="http://community.tubepress.com/">Support</a>',
+            '<a href="http://support.tubepress.com/">Support</a>',
 
         ));
 

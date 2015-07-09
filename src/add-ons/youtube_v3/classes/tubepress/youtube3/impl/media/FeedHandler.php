@@ -608,7 +608,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
             $result = $this->_apiUtility->getDecodedApiResponse($clone);
 
-            if (!isset($result[tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN]) === null) {
+            if (!isset($result[tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN])) {
 
                 throw new RuntimeException('Failed to retrieve pagination tokens');
             }

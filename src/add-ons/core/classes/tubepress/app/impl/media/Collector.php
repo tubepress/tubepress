@@ -34,14 +34,21 @@ class tubepress_app_impl_media_Collector implements tubepress_app_api_media_Coll
      */
     private $_eventDispatcher;
 
-    public function __construct(tubepress_platform_api_log_LoggerInterface        $logger,
-                                tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_lib_api_event_EventDispatcherInterface  $eventDispatcher)
+    /*
+     * tubepress_app_api_environment_EnvironmentInterface
+     */
+    private $_environment;
+
+    public function __construct(tubepress_platform_api_log_LoggerInterface         $logger,
+                                tubepress_app_api_options_ContextInterface         $context,
+                                tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
+                                tubepress_app_api_environment_EnvironmentInterface $environment)
     {
         $this->_context         = $context;
         $this->_eventDispatcher = $eventDispatcher;
         $this->_logger          = $logger;
         $this->_shouldLog       = $logger->isEnabled();
+        $this->_environment     = $environment;
     }
 
     /**
@@ -56,6 +63,17 @@ class tubepress_app_impl_media_Collector implements tubepress_app_api_media_Coll
     {
         $modeValueFromContext     = $this->_context->get(tubepress_app_api_options_Names::GALLERY_SOURCE);
         $originalEphemeralOptions = $this->_context->getEphemeralOptions();
+        $isPro                    = $this->_environment->isPro();
+
+        if ($isPro) {
+
+            if ($this->_shouldLog) {
+
+                $this->_logger->debug('Pro user, leaving collection up to collection listeners.');
+            }
+
+            return $this->_collectPage($modeValueFromContext, $currentPage);
+        }
 
         /**
          * Did the user include mode in their ephemeral options?
