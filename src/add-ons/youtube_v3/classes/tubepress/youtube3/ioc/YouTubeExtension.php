@@ -64,15 +64,30 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
         ));
 
         $containerBuilder->register(
-            'tubepress_youtube3_impl_listeners_options_PlaylistIdListener',
-            'tubepress_youtube3_impl_listeners_options_PlaylistIdListener'
+            'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener',
+            'tubepress_youtube3_impl_listeners_options_YouTubeOptionListener'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE,
-            'method'   => 'onPreValidationOptionSet',
-            'priority' => 100000
-        ));
+            'method'   => 'onPlaylistValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE,
+            'method'  => 'onUserOrFavoritesValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE,
+            'method'  => 'onUserOrFavoritesValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE,
+            'method'  => 'onRelatedToValue',
+            'priority' => 100000))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE,
+            'method'  => 'onListValue',
+            'priority' => 100000));
 
         $fixedValues = array(
             tubepress_youtube3_api_Constants::OPTION_AUTOHIDE => array(
@@ -102,11 +117,11 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
                 "fixed_values.$optionName",
                 'tubepress_app_api_listeners_options_FixedValuesListener'
             )->addArgument($values)
-                ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
-                    'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
-                    'priority' => 100000,
-                    'method'   => 'onAcceptableValues'
-                ));
+             ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
+                'priority' => 100000,
+                'method'   => 'onAcceptableValues'
+            ));
         }
 
         $validators = array(
@@ -158,6 +173,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
             'tubepress_youtube3_impl_media_MediaProvider'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_HttpCollectorInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_youtube3_impl_media_FeedHandler'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
          ->addTag(tubepress_app_api_media_MediaProviderInterface::__);
     }
 
@@ -186,7 +202,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE     => 'F679CB240DD4C112',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE    => 'techcrunch',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE          => 'iphone ios',
-                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'apple',
+                    tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE         => 'PenWeddings',
                     tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE         => '9bZkp7q19f0, txqiwrbYGrs',
                     tubepress_youtube3_api_Constants::OPTION_META_COUNT_COMMENTS        => false,
                     tubepress_youtube3_api_Constants::OPTION_META_COUNT_DISLIKES        => false,
@@ -271,27 +287,27 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
 
             array(
                 tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_SEARCH,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_TAG_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_USER,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_USER_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_PLAYLIST,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_PLAYLIST_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_FAVORITES,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_FAVORITES_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_RELATED,
-                'text',
+                'multiSourceText',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_RELATED_VALUE),
 
             array(tubepress_youtube3_api_Constants::GALLERYSOURCE_YOUTUBE_LIST,
-                'text',
+                'multiSourceTextArea',
                 tubepress_youtube3_api_Constants::OPTION_YOUTUBE_LIST_VALUE),
         );
 
@@ -330,7 +346,7 @@ class tubepress_youtube3_ioc_YouTubeExtension implements tubepress_platform_api_
             tubepress_youtube3_api_Constants::OPTION_SHOW_CONTROLS    => 'dropdown',
 
             //Feed fields
-            tubepress_youtube3_api_Constants::OPTION_FILTER           => 'dropdown',
+            tubepress_youtube3_api_Constants::OPTION_FILTER           => 'multiSourceDropdown',
             tubepress_youtube3_api_Constants::OPTION_EMBEDDABLE_ONLY  => 'bool',
         );
 

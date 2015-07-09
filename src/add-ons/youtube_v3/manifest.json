@@ -20,16 +20,16 @@
     },
     "autoload": {
         "classmap" : {
-            "tubepress_youtube3_api_Constants"                             : "classes/tubepress/youtube3/api/Constants.php",
-            "tubepress_youtube3_impl_ApiUtility"                           : "classes/tubepress/youtube3/impl/ApiUtility.php",
-            "tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider"     : "classes/tubepress/youtube3/impl/embedded/YouTubeEmbeddedProvider.php",
-            "tubepress_youtube3_impl_listeners_media_HttpItemListener"     : "classes/tubepress/youtube3/impl/listeners/media/HttpItemListener.php",
-            "tubepress_youtube3_impl_listeners_options_PlaylistIdListener" : "classes/tubepress/youtube3/impl/listeners/options/PlaylistIdListener.php",
-            "tubepress_youtube3_impl_media_FeedHandler"                    : "classes/tubepress/youtube3/impl/media/FeedHandler.php",
-            "tubepress_youtube3_impl_media_MediaProvider"                  : "classes/tubepress/youtube3/impl/media/MediaProvider.php",
-            "tubepress_youtube3_impl_options_ui_FieldProvider"             : "classes/tubepress/youtube3/impl/options/ui/FieldProvider.php",
-            "tubepress_youtube3_impl_player_YouTubePlayerLocation"         : "classes/tubepress/youtube3/impl/player/YouTubePlayerLocation.php",
-            "tubepress_youtube3_ioc_YouTubeExtension"                      : "classes/tubepress/youtube3/ioc/YouTubeExtension.php"
+            "tubepress_youtube3_api_Constants"                                : "classes/tubepress/youtube3/api/Constants.php",
+            "tubepress_youtube3_impl_ApiUtility"                              : "classes/tubepress/youtube3/impl/ApiUtility.php",
+            "tubepress_youtube3_impl_embedded_YouTubeEmbeddedProvider"        : "classes/tubepress/youtube3/impl/embedded/YouTubeEmbeddedProvider.php",
+            "tubepress_youtube3_impl_listeners_media_HttpItemListener"        : "classes/tubepress/youtube3/impl/listeners/media/HttpItemListener.php",
+            "tubepress_youtube3_impl_listeners_options_YouTubeOptionListener" : "classes/tubepress/youtube3/impl/listeners/options/YouTubeOptionListener.php",
+            "tubepress_youtube3_impl_media_FeedHandler"                       : "classes/tubepress/youtube3/impl/media/FeedHandler.php",
+            "tubepress_youtube3_impl_media_MediaProvider"                     : "classes/tubepress/youtube3/impl/media/MediaProvider.php",
+            "tubepress_youtube3_impl_options_ui_FieldProvider"                : "classes/tubepress/youtube3/impl/options/ui/FieldProvider.php",
+            "tubepress_youtube3_impl_player_YouTubePlayerLocation"            : "classes/tubepress/youtube3/impl/player/YouTubePlayerLocation.php",
+            "tubepress_youtube3_ioc_YouTubeExtension"                         : "classes/tubepress/youtube3/ioc/YouTubeExtension.php"
         }
     }
 }

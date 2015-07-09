@@ -12,8 +12,13 @@
 /**
  * Displays a drop-down input for the TubePress theme.
  */
-class tubepress_app_impl_options_ui_fields_GallerySourceField extends tubepress_app_impl_options_ui_fields_AbstractField
+class tubepress_app_impl_options_ui_fields_GallerySourceField extends tubepress_app_impl_options_ui_fields_AbstractField implements tubepress_app_api_options_ui_MultiSourceFieldInterface
 {
+    /**
+     * @var string
+     */
+    private $_multiSourcePrefix = '';
+
     public function __construct(tubepress_app_api_options_PersistenceInterface    $persistence,
                                 tubepress_lib_api_http_RequestParametersInterface $requestParams)
     {
@@ -27,14 +32,16 @@ class tubepress_app_impl_options_ui_fields_GallerySourceField extends tubepress_
      */
     public function onSubmit()
     {
-        $fieldName = tubepress_app_api_options_Names::GALLERY_SOURCE;
+        $optionName    = tubepress_app_api_options_Names::GALLERY_SOURCE;
+        $paramName     = $this->_multiSourcePrefix . $optionName;
+        $requestParams = $this->getHttpRequestParameters();
 
-        if (!$this->getHttpRequestParameters()->hasParam($fieldName)) {
+        if (!$requestParams->hasParam($paramName)) {
 
             return null;
         }
 
-        return $this->sendToStorage($fieldName, $this->getHttpRequestParameters()->getParamValue($fieldName));
+        return $this->sendToStorage($optionName, $requestParams->getParamValue($paramName));
     }
 
     public function getWidgetHTML()
@@ -53,5 +60,36 @@ class tubepress_app_impl_options_ui_fields_GallerySourceField extends tubepress_
     public function isProOnly()
     {
         return false;
+    }
+
+    public function setMultiSourcePrefix($prefix)
+    {
+        $this->_multiSourcePrefix = $prefix;
+    }
+
+    /**
+     * @return string The page-unique identifier for this item.
+     *
+     * @api
+     * @since 4.0.0
+     */
+    public function getId()
+    {
+        return $this->_multiSourcePrefix . tubepress_app_api_options_Names::GALLERY_SOURCE;
+    }
+
+    /**
+     * @param $prefix
+     * @param tubepress_app_api_options_PersistenceInterface $persistence
+     *
+     * @return tubepress_app_api_options_ui_FieldInterface
+     */
+    public function cloneForMultiSource($prefix, tubepress_app_api_options_PersistenceInterface $persistence)
+    {
+        $toReturn = new self($persistence, $this->getHttpRequestParameters());
+
+        $toReturn->setMultiSourcePrefix($prefix);
+
+        return $toReturn;
     }
 }

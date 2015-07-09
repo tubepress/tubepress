@@ -103,3 +103,47 @@ input[type=checkbox]:checked:before {
         text-align: left;
     }
 }
+
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000000;
+}
+.modal-backdrop.fade {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.modal-backdrop.in {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+
+.tp-bs .popover > .arrow {
+
+    margin-left: 0 !important;
+    overflow: visible !important;
+    bottom: 0 !important;
+}
+
+.tp-bs .popover > .arrow:after {
+
+    background-color: inherit !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-transform: none !important;
+    -ms-transform: none !important;
+    transform: none !important;
+    top: auto !important;
+}
+
+.tp-bs .popover.left > .arrow,
+.tp-bs .popover.left > .arrow:after {
+
+    left: auto !important;
+}

@@ -41,6 +41,17 @@ class tubepress_test_app_options_PersistenceTest extends tubepress_test_app_impl
         );
     }
 
+    public function testCloneWithCustomBackend()
+    {
+        $mockBackend = $this->mock(tubepress_app_api_options_PersistenceBackendInterface::_);
+
+        $actual = $this->_sut->getCloneWithCustomBackend($mockBackend);
+
+        $this->assertInstanceOf('tubepress_app_impl_options_Persistence', $actual);
+
+        $this->assertNotSame($this->_sut, $actual);
+    }
+
     public function testFetchNoSuchOption()
     {
         $this->setExpectedException('InvalidArgumentException', 'No such option: no such');

@@ -238,8 +238,7 @@ EOT;
         $toReturn = array_merge($links, array(
 
             sprintf('<a href="options-general.php?page=tubepress.php">%s</a>', $this->_wpFunctions->__('Settings', 'tubepress')),
-            sprintf('<a href="http://docs.tubepress.com/">Documentation</a>'),
-            sprintf('<a href="http://community.tubepress.com/">Support</a>'),
+            sprintf('<a href="http://support.tubepress.com/">Support</a>'),
         ));
 
         $event->setSubject($toReturn);

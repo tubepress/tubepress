@@ -345,9 +345,14 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
         /**
          * Check to see if we're using the short-lived "shared" API key from TubePress 4.1.0 - 4.1.6.
          */
-        if ($key === 'AIzaSyDENt00ayilKKoHolD9WGB_b9zvDjiHIso') {
+        if (!$key || $key === 'AIzaSyDENt00ayilKKoHolD9WGB_b9zvDjiHIso') {
 
-            throw new RuntimeException('Invalid Google API key. Please follow these instructions to fix: http://community.tubepress.com/topic/5633-how-to-enter-your-google-api-key-into-tubepress/');
+            if (defined('ABSPATH') && defined('DB_NAME')) {
+
+                throw new RuntimeException('Invalid Google API key. Please follow these instructions to fix: http://support.tubepress.com/customer/portal/articles/2026361-initial-setup');
+            }
+
+            throw new RuntimeException('Invalid Google API key. Please follow these instructions to fix: http://support.tubepress.com/customer/portal/articles/2029702-initial-setup');
         }
 
         $url->getQuery()->set(tubepress_youtube3_impl_ApiUtility::QUERY_APIKEY, $key)
@@ -603,7 +608,7 @@ class tubepress_youtube3_impl_media_FeedHandler implements tubepress_app_api_med
 
             $result = $this->_apiUtility->getDecodedApiResponse($clone);
 
-            if (!isset($result[tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN]) === null) {
+            if (!isset($result[tubepress_youtube3_impl_ApiUtility::RESPONSE_NEXT_PAGE_TOKEN])) {
 
                 throw new RuntimeException('Failed to retrieve pagination tokens');
             }

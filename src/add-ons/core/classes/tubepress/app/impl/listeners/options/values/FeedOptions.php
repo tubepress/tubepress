@@ -19,26 +19,9 @@ class tubepress_app_impl_listeners_options_values_FeedOptions
      */
     private $_mediaProviders;
 
-    /**
-     * @var tubepress_app_api_environment_EnvironmentInterface
-     */
-    private $_environment;
-
-    public function __construct(tubepress_app_api_environment_EnvironmentInterface $environment)
-    {
-        $this->_environment = $environment;
-    }
-
     public function onMode(tubepress_lib_api_event_EventInterface $event)
     {
         $this->_handle($event, 'getGallerySourceNames');
-
-        if ($this->_environment->isPro()) {
-
-            $current = $event->getSubject();
-            $current[] = tubepress_app_api_options_AcceptableValues::GALLERY_SOURCE_MULTI;
-            $event->setSubject($current);
-        }
     }
 
     public function onOrderBy(tubepress_lib_api_event_EventInterface $event)

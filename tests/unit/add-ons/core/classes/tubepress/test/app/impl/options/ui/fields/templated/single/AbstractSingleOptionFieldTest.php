@@ -19,71 +19,89 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
     public final function onAfterTemplateBasedFieldSetup()
     {
         $this->_mockOptionsReference = $this->mock(tubepress_app_api_options_ReferenceInterface::_);
-        $optionName                  = $this->getOptionsPageItemId();
+        $optionName                  = $this->getId();
 
-        $this->_mockOptionsReference->shouldReceive('optionExists')->once()->with($optionName)->andReturn(true);
-        $this->_mockOptionsReference->shouldReceive('getUntranslatedLabel')->once()->with($optionName)->andReturn('the label');
-        $this->_mockOptionsReference->shouldReceive('getUntranslatedDescription')->once()->with($optionName)->andReturn('the description');
+        $this->_mockOptionsReference->shouldReceive('optionExists')->atLeast(1)->with($optionName)->andReturn(true);
+        $this->_mockOptionsReference->shouldReceive('getUntranslatedLabel')->atLeast(1)->with($optionName)->andReturn('the label');
+        $this->_mockOptionsReference->shouldReceive('getUntranslatedDescription')->atLeast(1)->with($optionName)->andReturn('the description');
 
         $this->onAfterSingleFieldSetup();
     }
 
     public function testSubmitSimpleInvalid()
     {
-        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getOptionsPageItemId())->andReturn(false);
+        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(false);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getOptionsPageItemId())->andReturn(true);
-        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getOptionsPageItemId())->andReturn('some-value');
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getId())->andReturn('some-value');
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getOptionsPageItemId(), 'some-value')->andReturn('you suck');
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getId(), 'some-value')->andReturn('you suck');
 
         $this->assertEquals('you suck', $this->getSut()->onSubmit());
     }
 
     public function testSubmitNoExist()
     {
-        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getOptionsPageItemId())->andReturn(false);
+        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(false);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getOptionsPageItemId())->andReturn(false);
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(false);
 
         $this->assertNull($this->getSut()->onSubmit());
     }
 
     public function testSubmitBoolean()
     {
-        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getOptionsPageItemId())->andReturn(true);
+        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(true);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getOptionsPageItemId())->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(true);
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getOptionsPageItemId(), true)->andReturn(null);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getId(), true)->andReturn(null);
 
         $this->assertNull($this->getSut()->onSubmit());
     }
 
     public function testSubmitSimple()
     {
-        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getOptionsPageItemId())->andReturn(false);
+        $this->_mockOptionsReference->shouldReceive('isBoolean')->once()->with($this->getId())->andReturn(false);
 
-        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getOptionsPageItemId())->andReturn(true);
-        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getOptionsPageItemId())->andReturn('some-value');
+        $this->getMockHttpRequestParams()->shouldReceive('hasParam')->once()->with($this->getId())->andReturn(true);
+        $this->getMockHttpRequestParams()->shouldReceive('getParamValue')->once()->with($this->getId())->andReturn('some-value');
 
-        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getOptionsPageItemId(), 'some-value')->andReturn(null);
+        $this->getMockPersistence()->shouldReceive('queueForSave')->once()->with($this->getId(), 'some-value')->andReturn(null);
 
         $this->assertNull($this->getSut()->onSubmit());
     }
 
     public function testGetProOnlyNo()
     {
-        $this->_mockOptionsReference->shouldReceive('isProOnly')->once()->with($this->getOptionsPageItemId())->andReturn(false);
+        $this->_mockOptionsReference->shouldReceive('isProOnly')->once()->with($this->getId())->andReturn(false);
 
         $this->assertTrue($this->getSut()->isProOnly() === false);
     }
 
     public function testGetProOnlyYes()
     {
-        $this->_mockOptionsReference->shouldReceive('isProOnly')->once()->with($this->getOptionsPageItemId())->andReturn(true);
+        $this->_mockOptionsReference->shouldReceive('isProOnly')->once()->with($this->getId())->andReturn(true);
 
         $this->assertTrue($this->getSut()->isProOnly() === true);
+    }
+
+    public function testCloneForMultiSource()
+    {
+        $sut = $this->getSut();
+
+        if ($sut instanceof tubepress_app_api_options_ui_MultiSourceFieldInterface) {
+
+            $mockPersistence = $this->mock(tubepress_app_api_options_PersistenceInterface::_);
+            $actual          = $sut->cloneForMultiSource('xyz-456-', $mockPersistence);
+            $sutClass        = get_class($sut);
+
+            $this->assertInstanceOf($sutClass, $actual);
+
+            $this->assertNotSame($sut, $actual);
+        }
+
+        $this->assertTrue(true);
     }
 
     protected function onAfterSingleFieldSetup()
@@ -93,12 +111,13 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
 
     protected final function getExpectedTemplateVariables()
     {
-        $this->getMockPersistence()->shouldReceive('fetch')->once()->with($this->getOptionsPageItemId())->andReturn('some value');
+        $this->getMockPersistence()->shouldReceive('fetch')->once()->with($this->getId())->andReturn('some value');
 
         $dis = array(
 
-            'id' => $this->getOptionsPageItemId(),
-            'value' => 'some value'
+            'id'     => $this->getId(),
+            'value'  => 'some value',
+            'prefix' => '',
         );
         $fromChild = $this->getAdditionalExpectedTemplateVariables();
 
@@ -115,5 +134,5 @@ abstract class tubepress_test_app_impl_options_ui_fields_templated_single_Abstra
         return array();
     }
 
-    protected abstract function getOptionsPageItemId();
+    protected abstract function getId();
 }

@@ -24,15 +24,6 @@
 }
 
 /**
- * Prevent the form inputs from spanning the whole page
- */
-.tp-bs .form-control,
-.tp-bs .input-group .form-control {
-
-    width: auto;
-}
-
-/**
  * Move the labels up a little bit.
  */
 .tp-bs .form-horizontal .control-label,
@@ -65,6 +56,16 @@
     background-color: white;
 }
 
+/**
+ * Get rid of any shadows around the tab headers
+ */
+.tp-bs .nav-tabs li > a:focus {
+
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    outline: none;
+}
 
 
 /**
@@ -194,4 +195,107 @@ button.close {
 .blueimp-gallery a:hover {
 
     text-decoration: none;
+}
+
+
+
+
+/**
+ **********************************************************************************************
+ **** GALLERY SOURCES
+ **********************************************************************************************
+ */
+#gallery_source_category .media-provider-icon {
+
+    margin-right: 1em; /** Put some space to the right of the provider icon. */
+}
+
+#gallery_source_category .multisource-control-icon {
+
+    margin-top: 4px;  /** The image makes the panel heading too tall, which moves the control icons too high. */
+    margin-left: 1em; /** Space out the control icons */
+    cursor: pointer;  /** Indicate that stuff can be done by clicking */
+}
+
+#gallery_source_category .multisource-control-icon.multisource-control-reorder {
+
+    cursor: move; /** Indicate that this can be reordered. */
+}
+
+#gallery_source_category a:focus {
+
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+/**
+ * Put some space between the "Add Source" button and the content above/below it.
+ */
+#gallery_source_category .add-gallery-source-button {
+
+    margin: 2em 0;
+}
+
+#gallery_source_category .multisource-single-container {
+
+    border: 1px solid #dddddd;
+    margin-top: -1px;
+}
+
+#gallery_source_category .multisource-single-container ul {
+
+    margin-top: 5px;
+}
+
+#gallery_source_category .multisource-single-container .multisource-title-bar {
+
+    padding: 15px;
+    cursor: pointer;
+    font-size: 140%;
+}
+
+#gallery_source_category .multisource-single-container .multisource-title-bar:hover {
+
+    background-color: #f9f9f9;
+}
+
+#gallery_source_category .multisource-single-container .multisource-tab-area > * {
+
+    padding-bottom: 15px;
+}
+
+#gallery_source_category .media-provider-icon {
+
+    width: 34px;
+    text-align: right;
+}
+
+
+/**
+ **********************************************************************************************
+ **** BOOTSTRAP MODAL MODS
+ **********************************************************************************************
+ */
+.tp-bs .modal-dialog {
+
+    margin-top: 60px;
+}
+
+
+
+/**
+ **********************************************************************************************
+ **** FIELD AND INPUT MODS
+ **********************************************************************************************
+ */
+select {
+
+    width: auto !important;
+}
+
+textarea {
+    /** Ensure that our text areas are as big as possible */
+    width: 100% !important;
+    height: 100px !important;
 }

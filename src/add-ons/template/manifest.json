@@ -1,0 +1,39 @@
+{
+    "name" : "tubepress/template",
+    "version": "99.99.99",
+    "title" : "TubePress Template Functionality",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "compiler-passes" : {
+            "tubepress_app_template_ioc_compiler_TemplatePathProvidersPass"  : 70000
+        },
+        "extensions" : [
+            "tubepress_app_template_ioc_TemplateExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_app_template_ioc_compiler_TemplatePathProvidersPass" : "classes/tubepress/app/template/ioc/compiler/TemplatePathProvidersPass.php",
+          "tubepress_app_template_ioc_TemplateExtension"                  : "classes/tubepress/app/template/ioc/TemplateExtension.php",
+          "tubepress_app_template_impl_options_ui_FieldProvider"          : "classes/tubepress/app/template/impl/options/ui/FieldProvider.php",
+          "tubepress_app_template_impl_DelegatingEngine"                  : "classes/tubepress/app/template/impl/DelegatingEngine.php",
+          "tubepress_app_template_impl_php_PhpEngine"                     : "classes/tubepress/app/template/impl/php/PhpEngine.php",
+          "tubepress_app_template_impl_php_Support"                       : "classes/tubepress/app/template/impl/php/Support.php",
+          "tubepress_app_template_impl_TemplatingService"                 : "classes/tubepress/app/template/impl/TemplatingService.php",
+          "tubepress_app_template_impl_ThemeTemplateLocator"              : "classes/tubepress/app/template/impl/ThemeTemplateLocator.php",
+          "tubepress_app_template_impl_twig_Engine"                       : "classes/tubepress/app/template/impl/twig/Engine.php",
+          "tubepress_app_template_impl_twig_EnvironmentBuilder"           : "classes/tubepress/app/template/impl/twig/EnvironmentBuilder.php",
+          "tubepress_app_template_impl_twig_FsLoader"                     : "classes/tubepress/app/template/impl/twig/FsLoader.php",
+          "tubepress_app_template_impl_twig_ThemeLoader"                  : "classes/tubepress/app/template/impl/twig/ThemeLoader.php"
+        }
+    }
+}

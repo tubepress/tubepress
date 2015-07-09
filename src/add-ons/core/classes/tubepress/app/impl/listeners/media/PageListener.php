@@ -335,6 +335,7 @@ class tubepress_app_impl_listeners_media_PageListener
             if ($mediaItem) {
 
                 array_unshift($mediaItemArray, $mediaItem);
+                array_pop($mediaItemArray);
             }
         }
 

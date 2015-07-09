@@ -23,7 +23,6 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
         return new tubepress_vimeo2_ioc_VimeoExtension();
     }
 
-
     protected function prepareForLoad()
     {
         $this->_expectEmbedded();
@@ -106,6 +105,24 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
                     ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_));
             }
         }
+
+        $this->expectRegistration(
+            'tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener',
+            'tubepress_vimeo2_impl_listeners_options_VimeoOptionsListener'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_VIMEO_ALBUM_VALUE,
+                'method'   => 'onAlbumValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_VIMEO_GROUP_VALUE,
+                'method'  => 'onGroupValue',
+                'priority' => 100000))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'   => tubepress_app_api_event_Events::OPTION_SET . '.' . tubepress_vimeo2_api_Constants::OPTION_VIMEO_CHANNEL_VALUE,
+                'method'  => 'onChannelValue',
+                'priority' => 100000));
     }
 
     private function _expectMediaProvider()
@@ -123,6 +140,7 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
             'tubepress_vimeo2_impl_media_MediaProvider'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_media_HttpCollectorInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_vimeo2_impl_media_FeedHandler'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
             ->withTag(tubepress_app_api_media_MediaProviderInterface::__);
     }
 
@@ -177,27 +195,25 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
 
         foreach ($gallerySourceMap as $gallerySourceFieldArray) {
 
-            $subFieldId = 'vimeo_options_field_' . $fieldIndex++;
-
             $this->expectRegistration(
 
-                $subFieldId,
+                'vimeo_options_subfield_' . $fieldIndex,
                 'tubepress_app_api_options_ui_FieldInterface'
             )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
                 ->withFactoryMethod('newInstance')
                 ->withArgument($gallerySourceFieldArray[1])
-                ->withArgument('text');
+                ->withArgument('multiSourceText');
 
             $this->expectRegistration(
 
-                'vimeo_options_field_' . $fieldIndex++,
+                'vimeo_options_field_' . $fieldIndex,
                 'tubepress_app_api_options_ui_FieldInterface'
             )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
                 ->withFactoryMethod('newInstance')
                 ->withArgument($gallerySourceFieldArray[0])
                 ->withArgument('gallerySourceRadio')
                 ->withArgument(array(
-                    'additionalField' => new tubepress_platform_api_ioc_Reference($subFieldId)
+                    'additionalField' => new tubepress_platform_api_ioc_Reference('vimeo_options_subfield_' . $fieldIndex++)
                 ));
         }
 
@@ -312,6 +328,13 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
         $mockfieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);
         $mockfieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
 
+        $mockBaseUrl = $this->mock('tubepress_platform_api_url_UrlInterface');
+        $environment = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
+        $environment->shouldReceive('getBaseUrl')->once()->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('getClone')->once()->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('addPath')->once()->with('src/add-ons/vimeo_v2/web/images/icons/vimeo-icon-34w_x_34h.png')->andReturn($mockBaseUrl);
+        $mockBaseUrl->shouldReceive('toString')->once()->andReturn('icon-url');
+
         return array(
 
             tubepress_app_api_options_ContextInterface::_ => tubepress_app_api_options_ContextInterface::_,
@@ -326,7 +349,9 @@ class tubepress_test_vimeo2_ioc_VimeoExtensionTest extends tubepress_test_platfo
             tubepress_lib_api_translation_TranslatorInterface::_ => tubepress_lib_api_translation_TranslatorInterface::_,
             tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_,
             tubepress_app_api_media_HttpCollectorInterface::_ => tubepress_app_api_media_HttpCollectorInterface::_,
-            tubepress_app_api_media_AttributeFormatterInterface::_ => tubepress_app_api_media_AttributeFormatterInterface::_
+            tubepress_app_api_media_AttributeFormatterInterface::_ => tubepress_app_api_media_AttributeFormatterInterface::_,
+            tubepress_app_api_environment_EnvironmentInterface::_ => $environment,
+            tubepress_platform_api_util_StringUtilsInterface::_ => tubepress_platform_api_util_StringUtilsInterface::_,
         );
     }
 }

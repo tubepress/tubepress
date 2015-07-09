@@ -97,7 +97,7 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
 
         $this->_sut->prependItems($event);
 
-        $this->assertEquals(array('x', $video), $providerResult->getItems());
+        $this->assertEquals(array('x'), $providerResult->getItems());
     }
 
     public function testPrependNoCustomVideo()

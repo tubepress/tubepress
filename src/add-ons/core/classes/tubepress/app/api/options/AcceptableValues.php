@@ -23,12 +23,6 @@ interface tubepress_app_api_options_AcceptableValues
 
     /**
      * @api
-     * @since 4.2.0
-     */
-    const GALLERY_SOURCE_MULTI = 'multi';
-
-    /**
-     * @api
      * @since 3.1.2
      */
     const ORDER_BY_DEFAULT = 'default';
@@ -122,6 +116,12 @@ interface tubepress_app_api_options_AcceptableValues
      * @since 4.0.0
      */
     const PLAYER_LOC_FANCYBOX = 'fancybox';
+
+    /**
+     * @api
+     * @since 4.1.11
+     */
+    const PLAYER_LOC_FANCYBOX2 = 'fancybox2';
 
     /**
      * @api

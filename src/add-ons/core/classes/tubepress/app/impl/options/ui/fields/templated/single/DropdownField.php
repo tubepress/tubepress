@@ -48,7 +48,7 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
 
     protected function getAdditionalTemplateVariables()
     {
-        $map = $this->_acceptableValues->getAcceptableValues($this->getId());
+        $map = $this->_acceptableValues->getAcceptableValues($this->getOptionName());
 
         if (!$this->_langUtils->isAssociativeArray($map)) {
 
@@ -56,5 +56,21 @@ class tubepress_app_impl_options_ui_fields_templated_single_DropdownField extend
         }
 
         return array('ungroupedChoices' => $map);
+    }
+
+    /**
+     * @return tubepress_platform_api_util_LangUtilsInterface
+     */
+    protected function getLangUtils()
+    {
+        return $this->_langUtils;
+    }
+
+    /**
+     * @return tubepress_app_api_options_AcceptableValuesInterface
+     */
+    protected function getAcceptableValues()
+    {
+        return $this->_acceptableValues;
     }
 }

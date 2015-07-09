@@ -32,13 +32,19 @@ class tubepress_test_app_media_provider_impl_CollectorTest extends tubepress_tes
     /**
      * @var ehough_mockery_mockery_MockInterface
      */
+    private $_mockEnvironment;
+
+    /**
+     * @var ehough_mockery_mockery_MockInterface
+     */
     private $_mockLogger;
 
     public function onSetup()
     {
-        $this->_mockContext            = $this->mock(tubepress_app_api_options_ContextInterface::_);
-        $this->_mockEventDispatcher             = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $this->_mockLogger                      = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockContext         = $this->mock(tubepress_app_api_options_ContextInterface::_);
+        $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
+        $this->_mockLogger          = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $this->_mockEnvironment     = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
@@ -47,20 +53,25 @@ class tubepress_test_app_media_provider_impl_CollectorTest extends tubepress_tes
 
             $this->_mockLogger,
             $this->_mockContext,
-            $this->_mockEventDispatcher
+            $this->_mockEventDispatcher,
+            $this->_mockEnvironment
         );
     }
 
     public function testGetPageNobodyHandled()
     {
-        $this->setExpectedException('RuntimeException', 'No acceptable providers');
+        $this->setExpectedException('RuntimeException', 'No media providers were able to fulfill the page request for <code>some source</code>');
 
         $this->_mockProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
 
+        $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
+
+        $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
+            'foo' => 'bar',
+            tubepress_app_api_options_Names::GALLERY_SOURCE => 'some source',
+        ));
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)
             ->andReturn('some source');
-
-        $mockMediaPage = $this->mock('tubepress_app_api_media_MediaPage');
 
         $mockCollectionEvent = $this->mock('tubepress_lib_api_event_EventInterface');
         $mockCollectionEvent->shouldReceive('hasArgument')->once()->with('mediaPage')->andReturn(false);
@@ -74,12 +85,85 @@ class tubepress_test_app_media_provider_impl_CollectorTest extends tubepress_tes
         $this->_sut->collectPage(78);
     }
 
-    public function testGetPage()
+    public function testGetPageExplicitMode()
     {
         $this->_mockProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
+        $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
 
+        $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
+            'foo' => 'bar',
+            tubepress_app_api_options_Names::GALLERY_SOURCE => 'some source',
+        ));
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)
             ->andReturn('some source');
+
+        $mockMediaPage = $this->mock('tubepress_app_api_media_MediaPage');
+
+        $mockCollectionEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockCollectionEvent->shouldReceive('hasArgument')->once()->with('mediaPage')->andReturn(true);
+        $mockCollectionEvent->shouldReceive('getArgument')->once()->with('mediaPage')->andReturn($mockMediaPage);
+
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('some source', array(
+            'pageNumber' => 78
+        ))->andReturn($mockCollectionEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
+            ->with(tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST, $mockCollectionEvent);
+
+        $result = $this->_sut->collectPage(78);
+
+        $this->assertSame($mockMediaPage, $result);
+    }
+
+    public function testGetPageNoExplicitModeNoSources()
+    {
+        $this->_mockProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
+        $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
+
+        $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
+            'foo' => 'bar',
+        ));
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)
+            ->andReturn('some source');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SOURCES)
+            ->andReturn('');
+
+        $mockMediaPage = $this->mock('tubepress_app_api_media_MediaPage');
+
+        $mockCollectionEvent = $this->mock('tubepress_lib_api_event_EventInterface');
+        $mockCollectionEvent->shouldReceive('hasArgument')->once()->with('mediaPage')->andReturn(true);
+        $mockCollectionEvent->shouldReceive('getArgument')->once()->with('mediaPage')->andReturn($mockMediaPage);
+
+        $this->_mockEventDispatcher->shouldReceive('newEventInstance')->once()->with('some source', array(
+            'pageNumber' => 78
+        ))->andReturn($mockCollectionEvent);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()
+            ->with(tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST, $mockCollectionEvent);
+
+        $result = $this->_sut->collectPage(78);
+
+        $this->assertSame($mockMediaPage, $result);
+    }
+
+    public function testGetPageNoExplicitModeStoredSources()
+    {
+        $this->_mockProvider = $this->mock(tubepress_app_api_media_MediaProviderInterface::_);
+        $this->_mockEnvironment->shouldReceive('isPro')->once()->andReturn(false);
+
+        $this->_mockContext->shouldReceive('getEphemeralOptions')->once()->andReturn(array(
+            'foo' => 'bar',
+        ));
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::GALLERY_SOURCE)
+            ->andReturn('some source');
+        $this->_mockContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SOURCES)
+            ->andReturn(json_encode(array(array('stored' => 'source'))));
+        $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array(
+           'foo'     => 'bar',
+            'stored' => 'source',
+            tubepress_app_api_options_Names::GALLERY_SOURCE => 'some source',
+        ));
+        $this->_mockContext->shouldReceive('setEphemeralOptions')->once()->with(array(
+            'foo'     => 'bar',
+        ));
 
         $mockMediaPage = $this->mock('tubepress_app_api_media_MediaPage');
 

@@ -51,6 +51,11 @@ class tubepress_app_impl_options_Persistence implements tubepress_app_api_option
         $this->_backend          = $backend;
     }
 
+    public function getCloneWithCustomBackend(tubepress_app_api_options_PersistenceBackendInterface $persistenceBackend)
+    {
+        return new self($this->_optionsReference, $this->_eventDispatcher, $persistenceBackend);
+    }
+
     /**
      * Retrieve the current value of an option from this storage manager.
      *

@@ -35,7 +35,7 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_SpectrumColorFi
     /**
      * @return string
      */
-    protected function getOptionsPageItemId()
+    protected function getId()
     {
         return 'abc';
     }
@@ -47,11 +47,16 @@ class tubepress_test_app_impl_options_ui_fields_templated_single_SpectrumColorFi
     {
         return new tubepress_app_impl_options_ui_fields_templated_single_SpectrumColorField(
 
-            $this->getOptionsPageItemId(),
+            $this->getId(),
             $this->getMockPersistence(),
             $this->getMockHttpRequestParams(),
             $this->getMockTemplating(),
             $this->getMockOptionsReference()
         );
+    }
+
+    protected function getMultiSourcePrefix()
+    {
+        return '';
     }
 }

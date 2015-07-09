@@ -59,7 +59,7 @@ abstract class tubepress_app_impl_options_ui_fields_templated_multi_AbstractMult
      */
     public function onSubmit()
     {
-        $id   = $this->getId();
+        $id = $this->getId();
 
         if (! $this->getHttpRequestParameters()->hasParam($id)) {
 
