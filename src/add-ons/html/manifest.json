@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/html",
+    "version": "99.99.99",
+    "title" : "TubePress HTML Services and Templates",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_html_ioc_HtmlExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_html_impl_CssAndJsGenerationHelper" : "classes/tubepress/html/impl/CssAndJsGenerationHelper.php",
+          "tubepress_html_impl_HtmlGenerator"            : "classes/tubepress/html/impl/HtmlGenerator.php",
+          "tubepress_html_ioc_HtmlExtension"             : "classes/tubepress/html/ioc/HtmlExtension.php"
+        }
+    }
+}

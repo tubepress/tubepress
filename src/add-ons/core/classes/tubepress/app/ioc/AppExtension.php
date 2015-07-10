@@ -28,7 +28,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerHtmlGenerator($containerBuilder);
         $this->_registerHttpSingletons($containerBuilder);
         $this->_registerListeners($containerBuilder);
         $this->_registerLogger($containerBuilder);
@@ -40,30 +39,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $this->_registerPlayers($containerBuilder);
         $this->_registerTheme($containerBuilder);
         $this->_registerVendorServices($containerBuilder);
-    }
-
-    private function _registerHtmlGenerator(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-            'tubepress_app_impl_html_CssAndJsGenerationHelper',
-            'tubepress_app_impl_html_CssAndJsGenerationHelper'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
-         ->addArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS)
-         ->addArgument(tubepress_app_api_event_Events::HTML_SCRIPTS)
-         ->addArgument('cssjs/styles')
-         ->addArgument('cssjs/scripts');
-
-        $containerBuilder->register(
-            tubepress_app_api_html_HtmlGeneratorInterface::_,
-            'tubepress_app_impl_html_HtmlGenerator'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper'))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_));
     }
 
     private function _registerHttpSingletons(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -312,9 +287,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
                 100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
-            ),
-            tubepress_app_api_event_Events::HTML_SCRIPTS => array(
-                100000 => array('tubepress_app_api_html_HtmlGeneratorInterface' => 'onScripts')
             ),
 
             /**
@@ -811,8 +783,8 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         ));
 
         $containerBuilder->register(
-            'tubepress_app_impl_html_CssAndJsGenerationHelper.admin',
-            'tubepress_app_impl_html_CssAndJsGenerationHelper'
+            'tubepress_html_impl_CssAndJsGenerationHelper.admin',
+            'tubepress_html_impl_CssAndJsGenerationHelper'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
@@ -830,7 +802,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_ . '.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_PersistenceInterface::_))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_html_CssAndJsGenerationHelper.admin'))
+         ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_html_impl_CssAndJsGenerationHelper.admin'))
          ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
          ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
             'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',

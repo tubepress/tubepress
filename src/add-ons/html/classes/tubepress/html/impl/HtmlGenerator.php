@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_HtmlGeneratorInterface
+class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGeneratorInterface
 {
     /**
      * @var tubepress_lib_api_event_EventDispatcherInterface
@@ -20,7 +20,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
     private $_eventDispatcher;
 
     /**
-     * @var tubepress_app_impl_html_CssAndJsGenerationHelper
+     * @var tubepress_html_impl_CssAndJsGenerationHelper
      */
     private $_cssJsGenerationHelper;
 
@@ -41,7 +41,7 @@ class tubepress_app_impl_html_HtmlGenerator implements tubepress_app_api_html_Ht
 
     public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
                                 tubepress_lib_api_template_TemplatingInterface     $templating,
-                                tubepress_app_impl_html_CssAndJsGenerationHelper   $cssAndJsGenerationHelper,
+                                tubepress_html_impl_CssAndJsGenerationHelper   $cssAndJsGenerationHelper,
                                 tubepress_app_api_environment_EnvironmentInterface $environment)
     {
         $this->_eventDispatcher       = $eventDispatcher;

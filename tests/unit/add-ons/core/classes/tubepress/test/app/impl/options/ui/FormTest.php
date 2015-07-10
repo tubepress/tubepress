@@ -74,7 +74,7 @@ class tubepress_test_app_impl_options_ui_FormTest extends tubepress_test_TubePre
         $this->_mockPersistence         = $this->mock('tubepress_app_impl_options_Persistence');
         $this->_mockTemplating          = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
         $this->_mockStringUtils         = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
-        $this->_mockCssAndJsHelper      = $this->mock('tubepress_app_impl_html_CssAndJsGenerationHelper');
+        $this->_mockCssAndJsHelper      = $this->mock('tubepress_html_impl_CssAndJsGenerationHelper');
         $this->_mockRequestParams       = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
         $this->_mockLogger              = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
         $this->_mockSingleSourceField   = $this->mock('tubepress_app_api_options_ui_FieldInterface');

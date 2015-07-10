@@ -56,8 +56,6 @@
             "tubepress_app_api_template_VariableNames"                    : "classes/tubepress/app/api/template/VariableNames.php",
             "tubepress_app_api_theme_ThemeInterface"                      : "classes/tubepress/app/api/theme/ThemeInterface.php",
 
-            "tubepress_app_impl_html_CssAndJsGenerationHelper" : "classes/tubepress/app/impl/html/CssAndJsGenerationHelper.php",
-            "tubepress_app_impl_html_HtmlGenerator"            : "classes/tubepress/app/impl/html/HtmlGenerator.php",
             "tubepress_app_impl_http_PrimaryAjaxHandler"       : "classes/tubepress/app/impl/http/PrimaryAjaxHandler.php",
             "tubepress_app_impl_http_RequestParameters"        : "classes/tubepress/app/impl/http/RequestParameters.php",
 

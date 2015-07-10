@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_html_CssAndJsGenerationHelper
+class tubepress_html_impl_CssAndJsGenerationHelper
 {
     /**
      * @var tubepress_lib_api_event_EventDispatcherInterface

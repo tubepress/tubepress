@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_html_CssAndJsGenerationHelper
+ * @covers tubepress_html_impl_CssAndJsGenerationHelper
  */
-class tubepress_test_app_impl_html_CssAndJsGenerationHelperTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_html_CssAndJsGenerationHelper
+     * @var tubepress_html_impl_CssAndJsGenerationHelper
      */
     private $_sut;
 
@@ -52,7 +52,7 @@ class tubepress_test_app_impl_html_CssAndJsGenerationHelperTest extends tubepres
         $this->_mockCurrentThemeService = $this->mock('tubepress_app_impl_theme_CurrentThemeService');
         $this->_mockEnvironment         = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
 
-        $this->_sut = new tubepress_app_impl_html_CssAndJsGenerationHelper(
+        $this->_sut = new tubepress_html_impl_CssAndJsGenerationHelper(
 
             $this->_mockEventDispatcher,
             $this->_mockThemeRegistry,

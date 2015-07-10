@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_html_HtmlGenerator
+ * @covers tubepress_html_impl_HtmlGenerator
  */
-class tubepress_test_app_impl_html_HtmlGeneratorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_HtmlGeneratorTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_html_HtmlGenerator
+     * @var tubepress_html_impl_HtmlGenerator
      */
     private $_sut;
 
@@ -43,10 +43,10 @@ class tubepress_test_app_impl_html_HtmlGeneratorTest extends tubepress_test_Tube
     {
         $this->_mockEventDispatcher      = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
         $this->_mockTemplating           = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_cssAndJsGenerationHelper = $this->mock('tubepress_app_impl_html_CssAndJsGenerationHelper');
+        $this->_cssAndJsGenerationHelper = $this->mock('tubepress_html_impl_CssAndJsGenerationHelper');
         $this->_mockEnvironment          = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
 
-        $this->_sut = new tubepress_app_impl_html_HtmlGenerator(
+        $this->_sut = new tubepress_html_impl_HtmlGenerator(
 
             $this->_mockEventDispatcher,
             $this->_mockTemplating,

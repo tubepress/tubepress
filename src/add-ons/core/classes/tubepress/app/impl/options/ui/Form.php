@@ -35,7 +35,7 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
     private $_stringUtils;
 
     /**
-     * @var tubepress_app_impl_html_CssAndJsGenerationHelper
+     * @var tubepress_html_impl_CssAndJsGenerationHelper
      */
     private $_cssAndJsGenerationHelper;
 
@@ -73,7 +73,7 @@ class tubepress_app_impl_options_ui_Form implements tubepress_app_api_options_ui
                                 tubepress_lib_api_template_TemplatingInterface    $templating,
                                 tubepress_app_impl_options_Persistence            $persistence,
                                 tubepress_platform_api_util_StringUtilsInterface  $stringUtils,
-                                tubepress_app_impl_html_CssAndJsGenerationHelper  $cssAndJsGenerationHelper,
+                                tubepress_html_impl_CssAndJsGenerationHelper      $cssAndJsGenerationHelper,
                                 tubepress_lib_api_http_RequestParametersInterface $httpRequestParams)
     {
         $this->_logger                   = $logger;
