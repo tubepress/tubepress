@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_media_HttpCollector
+ * @covers tubepress_media_impl_HttpCollector
  */
-class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_media_impl_HttpCollectorTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -40,7 +40,7 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
     private $_mockUrl;
 
     /**
-     * @var tubepress_app_impl_media_HttpCollector
+     * @var tubepress_media_impl_HttpCollector
      */
     private $_sut;
 
@@ -55,7 +55,7 @@ class tubepress_test_app_api_media_HttpCollectorTest extends tubepress_test_Tube
         $this->_mockLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut = new tubepress_app_impl_media_HttpCollector(
+        $this->_sut = new tubepress_media_impl_HttpCollector(
             $this->_mockLogger,
             $this->_mockEventDispatcher,
             $this->_mockHttpClient

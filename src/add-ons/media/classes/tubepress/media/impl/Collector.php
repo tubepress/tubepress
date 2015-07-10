@@ -12,7 +12,7 @@
 /**
  * Simple media item collector.
  */
-class tubepress_app_impl_media_Collector implements tubepress_app_api_media_CollectorInterface
+class tubepress_media_impl_Collector implements tubepress_app_api_media_CollectorInterface
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface Logger.

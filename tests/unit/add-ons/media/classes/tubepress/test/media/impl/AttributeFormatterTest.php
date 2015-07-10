@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_media_AttributeFormatter
+ * @covers tubepress_media_impl_AttributeFormatter
  */
-class tubepress_test_app_api_media_AttributeFormatterTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_media_impl_AttributeFormatterTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_media_AttributeFormatter
+     * @var tubepress_media_impl_AttributeFormatter
      */
     private $_sut;
 
@@ -40,7 +40,7 @@ class tubepress_test_app_api_media_AttributeFormatterTest extends tubepress_test
         $this->_mockTimeUtils  = $this->mock(tubepress_lib_api_util_TimeUtilsInterface::_);
         $this->_mockTranslator = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
 
-        $this->_sut = new tubepress_app_impl_media_AttributeFormatter(
+        $this->_sut = new tubepress_media_impl_AttributeFormatter(
 
             $this->_mockContext,
             $this->_mockTimeUtils,

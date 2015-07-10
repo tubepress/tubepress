@@ -30,7 +30,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
     {
         $this->_registerHttpSingletons($containerBuilder);
         $this->_registerListeners($containerBuilder);
-        $this->_registerMediaSingletons($containerBuilder);
         $this->_registerOptions($containerBuilder);
         $this->_registerOptionsSingletons($containerBuilder);
         $this->_registerOptionsUiSingletons($containerBuilder);
@@ -461,31 +460,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 ));
             }
         }
-    }
-
-    private function _registerMediaSingletons(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-            tubepress_app_api_media_AttributeFormatterInterface::_,
-            'tubepress_app_impl_media_AttributeFormatter'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_util_TimeUtilsInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_));
-
-        $containerBuilder->register(
-            tubepress_app_api_media_CollectorInterface::_,
-            'tubepress_app_impl_media_Collector'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_));
-
-        $containerBuilder->register(
-            tubepress_app_api_media_HttpCollectorInterface::_,
-            'tubepress_app_impl_media_HttpCollector'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_HttpClientInterface::_));
     }
 
     private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_app_impl_media_AttributeFormatter implements tubepress_app_api_media_AttributeFormatterInterface
+class tubepress_media_impl_AttributeFormatter implements tubepress_app_api_media_AttributeFormatterInterface
 {
     /**
      * @var tubepress_app_api_options_ContextInterface

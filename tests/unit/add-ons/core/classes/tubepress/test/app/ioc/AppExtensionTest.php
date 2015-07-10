@@ -63,7 +63,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             tubepress_lib_api_template_TemplatingInterface::_    => tubepress_lib_api_template_TemplatingInterface::_,
             tubepress_lib_api_template_TemplatingInterface::_ . '.admin'    => tubepress_lib_api_template_TemplatingInterface::_,
             tubepress_app_api_html_HtmlGeneratorInterface::_     => tubepress_app_api_html_HtmlGeneratorInterface::_,
-            tubepress_platform_api_log_LoggerInterface::_ => $logger
+            tubepress_platform_api_log_LoggerInterface::_ => $logger,
+            tubepress_app_api_media_CollectorInterface::_ => tubepress_app_api_media_CollectorInterface::_,
         );
     }
 
@@ -118,7 +119,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     {
         $this->_registerHttpSingletons();
         $this->_registerListeners();
-        $this->_registerMediaSingletons();
         $this->_registerOptions();
         $this->_registerOptionsSingletons();
         $this->_registerOptionsUiSingletons();
@@ -550,34 +550,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 ));
             }
         }
-    }
-
-
-
-    private function _registerMediaSingletons()
-    {
-        $this->expectRegistration(
-            tubepress_app_api_media_AttributeFormatterInterface::_,
-            'tubepress_app_impl_media_AttributeFormatter'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_util_TimeUtilsInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_));
-
-
-        $this->expectRegistration(
-            tubepress_app_api_media_CollectorInterface::_,
-            'tubepress_app_impl_media_Collector'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_));
-
-        $this->expectRegistration(
-            tubepress_app_api_media_HttpCollectorInterface::_,
-            'tubepress_app_impl_media_HttpCollector'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_HttpClientInterface::_));
     }
 
     private function _registerOptions()

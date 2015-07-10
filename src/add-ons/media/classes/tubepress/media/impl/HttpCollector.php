@@ -11,7 +11,7 @@
 
 /**
  */
-class tubepress_app_impl_media_HttpCollector implements tubepress_app_api_media_HttpCollectorInterface
+class tubepress_media_impl_HttpCollector implements tubepress_app_api_media_HttpCollectorInterface
 {
     /**
      * @var tubepress_lib_api_http_HttpClientInterface

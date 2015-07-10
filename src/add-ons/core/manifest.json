@@ -86,9 +86,6 @@
             "tubepress_app_impl_listeners_template_pre_PaginationListener"          : "classes/tubepress/app/impl/listeners/template/pre/PaginationListener.php",
             "tubepress_app_impl_listeners_template_pre_SearchInputListener"         : "classes/tubepress/app/impl/listeners/template/pre/SearchInputListener.php",
 
-            "tubepress_app_impl_media_AttributeFormatter"              : "classes/tubepress/app/impl/media/AttributeFormatter.php",
-            "tubepress_app_impl_media_Collector"                       : "classes/tubepress/app/impl/media/Collector.php",
-            "tubepress_app_impl_media_HttpCollector"                   : "classes/tubepress/app/impl/media/HttpCollector.php",
             "tubepress_app_impl_options_AcceptableValues"              : "classes/tubepress/app/impl/options/AcceptableValues.php",
             "tubepress_app_impl_options_Context"                       : "classes/tubepress/app/impl/options/Context.php",
             "tubepress_app_impl_options_DispatchingReference"          : "classes/tubepress/app/impl/options/DispatchingReference.php",
