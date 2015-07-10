@@ -10,19 +10,18 @@
  */
 
 /**
- * @covers tubepress_lib_impl_array_ArrayReader
+ * @covers tubepress_array_impl_ArrayReader
  */
-class tubepress_test_lib_impl_array_ArrayReaderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_array_impl_ArrayReaderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_lib_impl_array_ArrayReader
+     * @var tubepress_array_impl_ArrayReader
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_lib_impl_array_ArrayReader();
-
+        $this->_sut = new tubepress_array_impl_ArrayReader();
     }
 
     /**

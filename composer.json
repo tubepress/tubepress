@@ -32,6 +32,8 @@
     "autoload": {
         "psr-0": {
 
+            "tubepress_array_" : "src/add-ons/array/classes",
+
             "tubepress_app_"       : "src/add-ons/core/classes",
             "tubepress_lib_"       : "src/add-ons/core/classes",
             "tubepress_platform_"  : "src/platform/classes",
@@ -56,6 +58,11 @@
             "tubepress_test_translations_" : "tests/unit/translations/classes",
             "tubepress_test_app_template_" : "tests/unit/add-ons/template/classes",
             "tubepress_test_"              : "tests/unit/add-ons/core/classes"
+        }
+    },
+    "autoload-dev" : {
+        "psr-0" : {
+            "tubepress_test_array_" : "tests/unit/add-ons/array/classes"
         }
     }
 }

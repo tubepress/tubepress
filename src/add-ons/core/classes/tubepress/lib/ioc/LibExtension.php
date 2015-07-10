@@ -28,20 +28,10 @@ class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_Conta
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerArrayReader($containerBuilder);
         $this->_registerEventDispatcher($containerBuilder);
         $this->_registerHttpClient($containerBuilder);
         $this->_registerUrlFactory($containerBuilder);
         $this->_registerUtils($containerBuilder);
-    }
-
-    private function _registerArrayReader(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_lib_api_array_ArrayReaderInterface::_,
-            'tubepress_lib_impl_array_ArrayReader'
-        );
     }
 
     private function _registerEventDispatcher(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

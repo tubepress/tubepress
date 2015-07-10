@@ -1,0 +1,26 @@
+{
+    "name" : "tubepress/array",
+    "version": "99.99.99",
+    "title" : "TubePress Array Reader",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_array_ioc_ArrayExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_array_impl_ArrayReader"   : "classes/tubepress/array/impl/ArrayReader.php",
+          "tubepress_array_ioc_ArrayExtension" : "classes/tubepress/array/ioc/ArrayExtension.php"
+        }
+    }
+}

@@ -25,20 +25,10 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
 
     protected function prepareForLoad()
     {
-        $this->_expectArrayReader();
         $this->_expectEventDispatcher();
         $this->_expectHttpClient();
         $this->_expectUrlFactory();
         $this->_expectUtils();
-    }
-
-    private function _expectArrayReader()
-    {
-        $this->expectRegistration(
-
-            tubepress_lib_api_array_ArrayReaderInterface::_,
-            'tubepress_lib_impl_array_ArrayReader'
-        );
     }
     
     private function _expectEventDispatcher()
