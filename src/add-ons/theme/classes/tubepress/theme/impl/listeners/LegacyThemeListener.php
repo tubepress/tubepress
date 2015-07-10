@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_options_set_LegacyThemeListener
+class tubepress_theme_impl_listeners_LegacyThemeListener
 {
     private static $_LEGACY_THEME_VALUES = array(
 

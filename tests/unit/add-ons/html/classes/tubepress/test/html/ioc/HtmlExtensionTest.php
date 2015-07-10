@@ -30,7 +30,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService'))
+            ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_theme_impl_CurrentThemeService'))
             ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
             ->withArgument(tubepress_app_api_event_Events::HTML_STYLESHEETS)
             ->withArgument(tubepress_app_api_event_Events::HTML_SCRIPTS)
@@ -57,7 +57,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
             tubepress_lib_api_event_EventDispatcherInterface::_   => tubepress_lib_api_event_EventDispatcherInterface::_,
             tubepress_lib_api_template_TemplatingInterface::_     => tubepress_lib_api_template_TemplatingInterface::_,
             tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
-            'tubepress_app_impl_theme_CurrentThemeService'        => 'tubepress_app_impl_theme_CurrentThemeService',
+            'tubepress_theme_impl_CurrentThemeService'        => 'tubepress_theme_impl_CurrentThemeService',
             tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ => tubepress_platform_api_contrib_RegistryInterface::_,
         );
     }

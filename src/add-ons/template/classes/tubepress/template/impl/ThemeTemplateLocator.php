@@ -25,7 +25,7 @@ class tubepress_template_impl_ThemeTemplateLocator
     private $_context;
 
     /**
-     * @var tubepress_app_impl_theme_CurrentThemeService
+     * @var tubepress_theme_impl_CurrentThemeService
      */
     private $_currentThemeService;
 
@@ -47,7 +47,7 @@ class tubepress_template_impl_ThemeTemplateLocator
     public function __construct(tubepress_platform_api_log_LoggerInterface       $logger,
                                 tubepress_app_api_options_ContextInterface       $context,
                                 tubepress_platform_api_contrib_RegistryInterface $themeRegistry,
-                                tubepress_app_impl_theme_CurrentThemeService     $currentThemeService)
+                                tubepress_theme_impl_CurrentThemeService         $currentThemeService)
     {
         $this->_themeRegistry       = $themeRegistry;
         $this->_context             = $context;

@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_theme_CurrentThemeService<extended>
+ * @covers tubepress_theme_impl_CurrentThemeService<extended>
  */
 class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_theme_CurrentThemeService
+     * @var tubepress_theme_impl_CurrentThemeService
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_app_impl_theme_ThemeTemplateLocatorTest extends tubepress_t
         $this->_mockContext             = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockThemeRegistry       = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
 
-        $this->_sut = new tubepress_app_impl_theme_CurrentThemeService(
+        $this->_sut = new tubepress_theme_impl_CurrentThemeService(
             $this->_mockContext,
             $this->_mockThemeRegistry,
             'tubepress/default',

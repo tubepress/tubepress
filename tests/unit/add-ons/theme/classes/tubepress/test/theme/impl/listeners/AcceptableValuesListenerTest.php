@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_options_values_ThemeListener
+ * @covers tubepress_theme_impl_listeners_AcceptableValuesListener
  */
-class tubepress_test_app_impl_listeners_options_values_ThemeListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_theme_impl_listeners_AcceptableValuesListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_options_values_ThemeListener
+     * @var tubepress_theme_impl_listeners_AcceptableValuesListener
      */
     private $_sut;
 
@@ -27,7 +27,7 @@ class tubepress_test_app_impl_listeners_options_values_ThemeListenerTest extends
     public function onSetup()
     {
         $this->_mockThemeRegistry = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
-        $this->_sut               = new tubepress_app_impl_listeners_options_values_ThemeListener($this->_mockThemeRegistry);
+        $this->_sut               = new tubepress_theme_impl_listeners_AcceptableValuesListener($this->_mockThemeRegistry);
     }
 
     public function testOnAcceptableValues()

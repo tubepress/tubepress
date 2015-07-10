@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_theme_CurrentThemeService
+class tubepress_theme_impl_CurrentThemeService
 {
     /**
      * @var tubepress_platform_api_contrib_RegistryInterface

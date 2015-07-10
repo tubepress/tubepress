@@ -119,7 +119,7 @@ class tubepress_test_template_ioc_TemplateExtensionTest extends tubepress_test_p
             )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix))
-                ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_app_impl_theme_CurrentThemeService' . $serviceSuffix));
+                ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_theme_impl_CurrentThemeService' . $serviceSuffix));
 
             /**
              * Twig loaders.
@@ -260,8 +260,8 @@ class tubepress_test_template_ioc_TemplateExtensionTest extends tubepress_test_p
             tubepress_app_api_options_ContextInterface::_ => $context,
             tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ => tubepress_platform_api_contrib_RegistryInterface::_,
             tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . '.admin' => tubepress_platform_api_contrib_RegistryInterface::_,
-            'tubepress_app_impl_theme_CurrentThemeService' => 'tubepress_app_impl_theme_CurrentThemeService',
-            'tubepress_app_impl_theme_CurrentThemeService.admin' => 'tubepress_app_impl_theme_CurrentThemeService',
+            'tubepress_theme_impl_CurrentThemeService' => 'tubepress_theme_impl_CurrentThemeService',
+            'tubepress_theme_impl_CurrentThemeService.admin' => 'tubepress_theme_impl_CurrentThemeService',
             tubepress_platform_api_boot_BootSettingsInterface::_ => $bootSettings,
             tubepress_lib_api_translation_TranslatorInterface::_ => tubepress_lib_api_translation_TranslatorInterface::_,
             tubepress_lib_api_event_EventDispatcherInterface::_ => tubepress_lib_api_event_EventDispatcherInterface::_,

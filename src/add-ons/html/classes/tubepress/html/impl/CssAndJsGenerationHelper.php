@@ -30,7 +30,7 @@ class tubepress_html_impl_CssAndJsGenerationHelper
     private $_templating;
 
     /**
-     * @var tubepress_app_impl_theme_CurrentThemeService
+     * @var tubepress_theme_impl_CurrentThemeService
      */
     private $_currentThemeService;
 
@@ -67,7 +67,7 @@ class tubepress_html_impl_CssAndJsGenerationHelper
     public function __construct(tubepress_lib_api_event_EventDispatcherInterface   $eventDispatcher,
                                 tubepress_platform_api_contrib_RegistryInterface   $themeRegistry,
                                 tubepress_lib_api_template_TemplatingInterface     $templating,
-                                tubepress_app_impl_theme_CurrentThemeService       $currentThemeService,
+                                tubepress_theme_impl_CurrentThemeService           $currentThemeService,
                                 tubepress_app_api_environment_EnvironmentInterface $environment,
                                 $eventNameUrlsCss,
                                 $eventNameUrlsJs,

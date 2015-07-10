@@ -17,7 +17,7 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
     private $_context;
 
     /**
-     * @var tubepress_app_impl_theme_CurrentThemeService
+     * @var tubepress_theme_impl_CurrentThemeService
      */
     private $_currentThemeService;
 
@@ -36,7 +36,7 @@ class tubepress_deprecated_impl_listeners_LegacyTemplateListener
     );
 
     public function __construct(tubepress_app_api_options_ContextInterface        $context,
-                                tubepress_app_impl_theme_CurrentThemeService      $currentThemeService,
+                                tubepress_theme_impl_CurrentThemeService          $currentThemeService,
                                 tubepress_lib_api_translation_TranslatorInterface $translator)
     {
         $this->_context             = $context;

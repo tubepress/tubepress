@@ -75,7 +75,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
         $this->_mockUrlFactory          = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $this->_mockRequestParams       = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
         $this->_mockTemplating          = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockCurrentThemeService = $this->mock('tubepress_app_impl_theme_CurrentThemeService');
+        $this->_mockCurrentThemeService = $this->mock('tubepress_theme_impl_CurrentThemeService');
         $this->_mockTranslator          = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
         $this->_mockCurrentTheme        = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
 

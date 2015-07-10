@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass<extended>
+ * @covers tubepress_theme_ioc_compiler_ThemesPrimerPass<extended>
  */
 class tubepress_test_app_impl_theme_ioc_compiler_ThemesPrimerPassTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass
+     * @var tubepress_theme_ioc_compiler_ThemesPrimerPass
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_app_impl_theme_ioc_compiler_ThemesPrimerPassTest extends tu
 
     public function onSetup()
     {
-        $this->_sut                  = new tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass();
+        $this->_sut                  = new tubepress_theme_ioc_compiler_ThemesPrimerPass();
         $this->_mockContainerBuilder = $this->mock(tubepress_platform_api_ioc_ContainerBuilderInterface::_);
     }
 

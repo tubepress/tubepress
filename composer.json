@@ -46,6 +46,7 @@
             "tubepress_media_"       : "src/add-ons/media/classes",
             "tubepress_shortcode_"   : "src/add-ons/shortcode/classes",
             "tubepress_template_"    : "src/add-ons/template/classes",
+            "tubepress_theme_"       : "src/add-ons/theme/classes",
             "tubepress_url_"         : "src/add-ons/url/classes",
             "tubepress_util_"        : "src/add-ons/util/classes",
 
@@ -95,6 +96,7 @@
             "tubepress_test_media_"       : "tests/unit/add-ons/media/classes",
             "tubepress_test_shortcode_"   : "tests/unit/add-ons/shortcode/classes",
             "tubepress_test_template_"    : "tests/unit/add-ons/template/classes",
+            "tubepress_test_theme_"       : "tests/unit/add-ons/theme/classes",
             "tubepress_test_url_"         : "tests/unit/add-ons/url/classes",
             "tubepress_test_util_"        : "tests/unit/add-ons/util/classes"
         }

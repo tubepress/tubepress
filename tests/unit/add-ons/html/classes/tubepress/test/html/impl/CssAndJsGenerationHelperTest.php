@@ -49,7 +49,7 @@ class tubepress_test_html_impl_CssAndJsGenerationHelperTest extends tubepress_te
         $this->_mockEventDispatcher     = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
         $this->_mockThemeRegistry       = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
         $this->_mockTemplating          = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
-        $this->_mockCurrentThemeService = $this->mock('tubepress_app_impl_theme_CurrentThemeService');
+        $this->_mockCurrentThemeService = $this->mock('tubepress_theme_impl_CurrentThemeService');
         $this->_mockEnvironment         = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
 
         $this->_sut = new tubepress_html_impl_CssAndJsGenerationHelper(

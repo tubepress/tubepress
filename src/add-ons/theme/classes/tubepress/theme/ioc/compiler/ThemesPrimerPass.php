@@ -12,7 +12,7 @@
 /**
  * Discovers add-ons for TubePress.
  */
-class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_theme_ioc_compiler_ThemesPrimerPass implements tubepress_platform_api_ioc_CompilerPassInterface
 {
     /**
      * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.

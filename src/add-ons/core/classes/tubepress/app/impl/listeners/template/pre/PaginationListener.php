@@ -37,7 +37,7 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
     private $_templating;
 
     /**
-     * @var tubepress_app_impl_theme_CurrentThemeService
+     * @var tubepress_theme_impl_CurrentThemeService
      */
     private $_currentThemeService;
     
@@ -45,7 +45,7 @@ class tubepress_app_impl_listeners_template_pre_PaginationListener
                                 tubepress_platform_api_url_UrlFactoryInterface      $urlFactory,
                                 tubepress_lib_api_http_RequestParametersInterface   $requestParams,
                                 tubepress_lib_api_template_TemplatingInterface      $templating,
-                                tubepress_app_impl_theme_CurrentThemeService        $currentThemeService,
+                                tubepress_theme_impl_CurrentThemeService            $currentThemeService,
                                 tubepress_lib_api_translation_TranslatorInterface   $translator)
     {
         $this->_context              = $context;

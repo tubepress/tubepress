@@ -54,7 +54,7 @@ class tubepress_test_app_impl_template_ThemeTemplateLocatorTest extends tubepres
         $this->_mockLogger              = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
         $this->_mockContext             = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockThemeRegistry       = $this->mock(tubepress_platform_api_contrib_RegistryInterface::_);
-        $this->_mockCurrentThemeService = $this->mock('tubepress_app_impl_theme_CurrentThemeService');
+        $this->_mockCurrentThemeService = $this->mock('tubepress_theme_impl_CurrentThemeService');
         $this->_mockChildTheme          = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
         $this->_mockParentTheme         = $this->mock(tubepress_app_api_theme_ThemeInterface::_);
 

@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_options_set_LegacyThemeListener
+ * @covers tubepress_theme_impl_listeners_LegacyThemeListener
  */
-class tubepress_test_app_impl_listeners_options_set_LegacyThemeListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_theme_impl_listeners_LegacyThemeListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_options_set_LegacyThemeListener
+     * @var tubepress_theme_impl_listeners_LegacyThemeListener
      */
     private $_sut;
 
@@ -43,7 +43,7 @@ class tubepress_test_app_impl_listeners_options_set_LegacyThemeListenerTest exte
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut = new tubepress_app_impl_listeners_options_set_LegacyThemeListener(
+        $this->_sut = new tubepress_theme_impl_listeners_LegacyThemeListener(
 
             $this->_mockLogger,
             $this->_mockThemeRegistry

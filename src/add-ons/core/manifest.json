@@ -13,9 +13,6 @@
         "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
     },
     "container-builder": {
-        "compiler-passes" : {
-            "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : 60000
-        },
         "extensions" : [
             "tubepress_app_ioc_AppExtension"
         ]
@@ -73,11 +70,9 @@
             "tubepress_app_impl_listeners_media_PageListener"                       : "classes/tubepress/app/impl/listeners/media/PageListener.php",
             "tubepress_app_impl_listeners_nvp_StringMagicListener"                  : "classes/tubepress/app/impl/listeners/nvp/StringMagicListener.php",
             "tubepress_app_impl_listeners_options_set_BasicOptionValidity"          : "classes/tubepress/app/impl/listeners/options/set/BasicOptionValidity.php",
-            "tubepress_app_impl_listeners_options_set_LegacyThemeListener"          : "classes/tubepress/app/impl/listeners/options/set/LegacyThemeListener.php",
             "tubepress_app_impl_listeners_options_set_LoggingListener"              : "classes/tubepress/app/impl/listeners/options/set/LoggingListener.php",
             "tubepress_app_impl_listeners_options_values_FeedOptions"               : "classes/tubepress/app/impl/listeners/options/values/FeedOptions.php",
             "tubepress_app_impl_listeners_options_values_PerPageSort"               : "classes/tubepress/app/impl/listeners/options/values/PerPageSort.php",
-            "tubepress_app_impl_listeners_options_values_ThemeListener"             : "classes/tubepress/app/impl/listeners/options/values/ThemeListener.php",
             "tubepress_app_impl_listeners_player_PlayerListener"                    : "classes/tubepress/app/impl/listeners/player/PlayerListener.php",
             "tubepress_app_impl_listeners_search_SearchListener"                    : "classes/tubepress/app/impl/listeners/search/SearchListener.php",
             "tubepress_app_impl_listeners_template_post_CssJsPostListener"          : "classes/tubepress/app/impl/listeners/template/post/CssJsPostListener.php",
@@ -120,9 +115,7 @@
             "tubepress_app_impl_player_SoloOrStaticPlayerLocation" : "classes/tubepress/app/impl/player/SoloOrStaticPlayerLocation.php",
 
             "tubepress_app_impl_theme_AbstractTheme"                 : "classes/tubepress/app/impl/theme/AbstractTheme.php",
-            "tubepress_app_impl_theme_CurrentThemeService"           : "classes/tubepress/app/impl/theme/CurrentThemeService.php",
             "tubepress_app_impl_theme_FilesystemTheme"               : "classes/tubepress/app/impl/theme/FilesystemTheme.php",
-            "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : "classes/tubepress/app/impl/theme/ioc/compiler/ThemesPrimerPass.php",
 
             "tubepress_app_ioc_AppExtension"                         : "classes/tubepress/app/ioc/AppExtension.php",
 
