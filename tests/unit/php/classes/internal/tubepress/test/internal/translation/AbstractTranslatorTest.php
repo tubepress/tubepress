@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_lib_impl_translation_AbstractTranslator
+ * @covers tubepress_internal_translation_AbstractTranslator
  */
-class tubepress_test_lib_impl_translation_AbstractTranslatorTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_internal_translation_AbstractTranslatorTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_test_lib_impl_translation_AbstractTranslatorTest__translator
@@ -73,7 +73,7 @@ class tubepress_test_lib_impl_translation_AbstractTranslatorTest extends tubepre
     }
 }
 
-class tubepress_test_lib_impl_translation_AbstractTranslatorTest__translator extends tubepress_lib_impl_translation_AbstractTranslator
+class tubepress_test_lib_impl_translation_AbstractTranslatorTest__translator extends tubepress_internal_translation_AbstractTranslator
 {
     private $_locale = 'en';
 

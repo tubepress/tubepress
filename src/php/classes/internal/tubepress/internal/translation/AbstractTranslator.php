@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_lib_impl_translation_AbstractTranslator implements tubepress_lib_api_translation_TranslatorInterface
+abstract class tubepress_internal_translation_AbstractTranslator implements tubepress_lib_api_translation_TranslatorInterface
 {
     private $_pluralRules;
 
