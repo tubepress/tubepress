@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_JwPlayerManifestValidityTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
+class tubepress_test_jwplayer5_JwPlayerManifestValidityTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
@@ -28,6 +28,6 @@ class tubepress_test_JwPlayerManifestValidityTest extends tubepress_test_platfor
 
     protected function getPathToManifest()
     {
-        return TUBEPRESS_ROOT . '/src/add-ons/jwplayer5/manifest.json';
+        return TUBEPRESS_ROOT . '/src/add-ons/embedded-jwplayer5/manifest.json';
     }
 }

@@ -101,10 +101,10 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
             'tubePressBaseUrl'                                          => $this->_environment->getBaseUrl(),
             'autostart'                                                 => $this->_context->get(tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY),
             tubepress_app_api_template_VariableNames::EMBEDDED_DATA_URL => $dataUrl,
-            tubepress_jwplayer5_api_OptionNames::COLOR_FRONT  => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_FRONT),
-            tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT  => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT),
-            tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN),
-            tubepress_jwplayer5_api_OptionNames::COLOR_BACK   => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_BACK),
+            tubepress_jwplayer5_api_OptionNames::COLOR_FRONT            => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_FRONT),
+            tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT            => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT),
+            tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN           => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN),
+            tubepress_jwplayer5_api_OptionNames::COLOR_BACK             => $this->_context->get(tubepress_jwplayer5_api_OptionNames::COLOR_BACK),
         );
     }
 
@@ -117,7 +117,7 @@ class tubepress_jwplayer5_impl_embedded_JwPlayer5EmbeddedProvider implements tub
     public function getTemplateDirectories()
     {
         return array(
-            TUBEPRESS_ROOT . '/src/add-ons/jwplayer5/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/embedded-jwplayer5/templates'
         );
     }
 }

@@ -111,9 +111,7 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_platform_ap
 
     private function _registerOptionsUi(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-
         $colors = array(
-
             tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
             tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,
             tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT,
@@ -138,12 +136,27 @@ class tubepress_jwplayer5_ioc_JwPlayerExtension implements tubepress_platform_ap
             $fieldReferences[] = new tubepress_platform_api_ioc_Reference('jwplayer_field_' . $x);
         }
 
+        $fieldMap = array(
+
+            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
+
+                tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
+                tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,
+                tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT,
+                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN)
+        );
+
         $containerBuilder->register(
 
-            'jw_player_field_provider',
-            'tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+            'tubepress_api_options_ui_BaseFieldProvider__jwplayer5',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->addArgument('field-provider-jwplayer5')
+         ->addArgument('JW Player')
+         ->addArgument(false)
+         ->addArgument(true)
+         ->addArgument(array())
          ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
          ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }
 }

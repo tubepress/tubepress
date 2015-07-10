@@ -54,7 +54,7 @@ class tubepress_test_jwplayer5_impl_embedded_JwPlayer5EmbeddedProviderTest exten
         $this->assertEquals('JW Player (by Longtail Video)', $this->_sut->getUntranslatedDisplayName());
         $this->assertEquals(array('youtube'), $this->_sut->getCompatibleMediaProviderNames());
         $this->assertEquals('single/embedded/jwplayer5', $this->_sut->getTemplateName());
-        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/jwplayer5/templates'), $this->_sut->getTemplateDirectories());
+        $this->assertEquals(array(TUBEPRESS_ROOT . '/src/add-ons/embedded-jwplayer5/templates'), $this->_sut->getTemplateDirectories());
     }
 
     public function testGetTemplateVariables()

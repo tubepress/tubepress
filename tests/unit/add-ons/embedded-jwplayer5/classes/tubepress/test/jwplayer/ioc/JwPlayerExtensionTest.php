@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_jwplayer5_ioc_JwPlayerExtension<extended>
  */
-class tubepress_test_jwplayer_ioc_JwPlayerExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_jwplayer5_ioc_JwPlayerExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
 {
     protected function buildSut()
     {
@@ -133,12 +133,27 @@ class tubepress_test_jwplayer_ioc_JwPlayerExtensionTest extends tubepress_test_p
             $fieldReferences[] = new tubepress_platform_api_ioc_Reference('jwplayer_field_' . $x);
         }
 
+        $fieldMap = array(
+
+            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
+
+                tubepress_jwplayer5_api_OptionNames::COLOR_BACK,
+                tubepress_jwplayer5_api_OptionNames::COLOR_FRONT,
+                tubepress_jwplayer5_api_OptionNames::COLOR_LIGHT,
+                tubepress_jwplayer5_api_OptionNames::COLOR_SCREEN)
+        );
+
         $this->expectRegistration(
 
-            'jw_player_field_provider',
-            'tubepress_jwplayer5_impl_options_ui_JwPlayerFieldProvider'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+            'tubepress_api_options_ui_BaseFieldProvider__jwplayer5',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->withArgument('field-provider-jwplayer5')
+            ->withArgument('JW Player')
+            ->withArgument(false)
+            ->withArgument(true)
+            ->withArgument(array())
             ->withArgument($fieldReferences)
+            ->withArgument($fieldMap)
             ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }
 
