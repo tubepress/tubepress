@@ -35,6 +35,7 @@
             "tubepress_array_"       : "src/add-ons/array/classes",
             "tubepress_cache_api_"   : "src/add-ons/cache-api/classes",
             "tubepress_cache_html_"  : "src/add-ons/cache-html/classes",
+            "tubepress_embedplus_"   : "src/add-ons/embedded-embedplus/classes",
             "tubepress_environment_" : "src/add-ons/environment/classes",
             "tubepress_event_"       : "src/add-ons/event/classes",
             "tubepress_http_"        : "src/add-ons/http/classes",
@@ -57,7 +58,6 @@
             "tubepress_api_const_"  : "src/add-ons/deprecated/classes",
             "tubepress_addons_"     : "src/add-ons/deprecated/classes",
 
-            "tubepress_embedplus_"    : "src/add-ons/embedplus/classes",
             "tubepress_jwplayer5_"    : "src/add-ons/jwplayer5/classes",
             "tubepress_vimeo2_"       : "src/add-ons/vimeo_v2/classes",
             "tubepress_wordpress_"    : "src/add-ons/wordpress/classes",
@@ -81,6 +81,7 @@
             "tubepress_test_array_"       : "tests/unit/add-ons/array/classes",
             "tubepress_test_cache_html_"  : "tests/unit/add-ons/cache-html/classes",
             "tubepress_test_cache_api_"   : "tests/unit/add-ons/cache-api/classes",
+            "tubepress_test_embedplus_"   : "tests/unit/add-ons/embedded-embedplus/classes",
             "tubepress_test_environment_" : "tests/unit/add-ons/environment/classes",
             "tubepress_test_event_"       : "tests/unit/add-ons/event/classes",
             "tubepress_test_http_"        : "tests/unit/add-ons/http/classes",
