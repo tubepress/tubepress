@@ -28,50 +28,8 @@ class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_Conta
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerHttpClient($containerBuilder);
         $this->_registerUtils($containerBuilder);
     }
-
-    private function _registerHttpClient(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $emitterDef = $containerBuilder->register(
-            'puzzle_event_Emitter',
-            'puzzle_event_Emitter'
-        );
-
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-
-            $containerBuilder->register(
-                'puzzle_subscriber_Chunked',
-                'puzzle_subscriber_Chunked'
-            );
-
-            $emitterDef->addMethodCall('attach', array(new tubepress_platform_api_ioc_Reference('puzzle_subscriber_Chunked')));
-        }
-
-        $containerBuilder->register(
-            tubepress_lib_api_http_oauth_v1_ClientInterface::_,
-            'tubepress_lib_impl_http_oauth_v1_Client'
-        );
-
-        $containerBuilder->register(
-            'puzzle.httpClient',
-            'puzzle_Client'
-        )->addArgument(array('emitter' => new tubepress_platform_api_ioc_Reference('puzzle_event_Emitter')));
-
-        $containerBuilder->register(
-            tubepress_lib_api_http_HttpClientInterface::_,
-            'tubepress_lib_impl_http_puzzle_PuzzleHttpClient'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference('puzzle.httpClient'))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
-
-        $containerBuilder->register(
-            tubepress_lib_api_http_ResponseCodeInterface::_,
-            'tubepress_lib_impl_http_ResponseCode'
-        );
-    }
-
     private function _registerUtils(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(

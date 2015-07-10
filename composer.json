@@ -37,6 +37,7 @@
             "tubepress_cache_html_"  : "src/add-ons/cache-html/classes",
             "tubepress_environment_" : "src/add-ons/environment/classes",
             "tubepress_event_"       : "src/add-ons/event/classes",
+            "tubepress_http_"        : "src/add-ons/http/classes",
             "tubepress_shortcode_"   : "src/add-ons/shortcode/classes",
             "tubepress_template_"    : "src/add-ons/template/classes",
             "tubepress_url_"         : "src/add-ons/url/classes",
@@ -77,6 +78,7 @@
             "tubepress_test_cache_api_"   : "tests/unit/add-ons/cache-api/classes",
             "tubepress_test_environment_" : "tests/unit/add-ons/environment/classes",
             "tubepress_test_event_"       : "tests/unit/add-ons/event/classes",
+            "tubepress_test_http_"        : "tests/unit/add-ons/http/classes",
             "tubepress_test_shortcode_"   : "tests/unit/add-ons/shortcode/classes",
             "tubepress_test_template_"    : "tests/unit/add-ons/template/classes",
             "tubepress_test_url_"         : "tests/unit/add-ons/url/classes"

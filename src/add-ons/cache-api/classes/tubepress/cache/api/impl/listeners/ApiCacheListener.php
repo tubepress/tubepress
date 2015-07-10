@@ -55,7 +55,7 @@ class tubepress_cache_api_impl_listeners_ApiCacheListener
             return;
         }
 
-        $response = new tubepress_lib_impl_http_puzzle_PuzzleBasedResponse(new puzzle_message_Response(
+        $response = new tubepress_http_impl_puzzle_PuzzleBasedResponse(new puzzle_message_Response(
 
             200,
             array('TubePress-API-Cache-Hit' => 'true'),

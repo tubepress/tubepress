@@ -25,7 +25,6 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
 
     protected function prepareForLoad()
     {
-        $this->_expectHttpClient();
         $this->_expectUtils();
     }
 
@@ -38,46 +37,6 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
 
             tubepress_platform_api_log_LoggerInterface::_ => $logger,
             tubepress_lib_api_event_EventDispatcherInterface::_ => tubepress_lib_api_event_EventDispatcherInterface::_,
-        );
-    }
-
-    private function _expectHttpClient()
-    {
-        $emitterDef = $this->expectRegistration(
-            'puzzle_event_Emitter',
-            'puzzle_event_Emitter'
-        );
-
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-
-            $this->expectRegistration(
-                'puzzle_subscriber_Chunked',
-                'puzzle_subscriber_Chunked'
-            );
-
-            $emitterDef->withMethodCall('attach', array(new tubepress_platform_api_ioc_Reference('puzzle_subscriber_Chunked')));
-        }
-
-        $this->expectRegistration(
-            tubepress_lib_api_http_oauth_v1_ClientInterface::_,
-            'tubepress_lib_impl_http_oauth_v1_Client'
-        );
-
-        $this->expectRegistration(
-            'puzzle.httpClient',
-            'puzzle_Client'
-        )->withArgument(array('emitter' => new tubepress_platform_api_ioc_Reference('puzzle_event_Emitter')));
-
-        $this->expectRegistration(
-            tubepress_lib_api_http_HttpClientInterface::_,
-            'tubepress_lib_impl_http_puzzle_PuzzleHttpClient'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference('puzzle.httpClient'))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
-
-        $this->expectRegistration(
-            tubepress_lib_api_http_ResponseCodeInterface::_,
-            'tubepress_lib_impl_http_ResponseCode'
         );
     }
 
