@@ -112,7 +112,7 @@ class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_Tu
 
     public function __callbackTestBootException($arg)
     {
-        $stringUtils = new tubepress_platform_impl_util_StringUtils();
+        $stringUtils = new tubepress_util_impl_StringUtils();
         return $stringUtils->startsWith($arg, '<tt>');
     }
 }

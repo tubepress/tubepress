@@ -27,8 +27,8 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
         $logger       = new tubepress_platform_impl_log_BootLogger(false);
         $urlFactory   = new tubepress_url_impl_puzzle_UrlFactory();
         $bootSettings = new tubepress_platform_impl_boot_BootSettings($logger, $urlFactory);
-        $langUtils    = new tubepress_platform_impl_util_LangUtils();
-        $stringUtils  = new tubepress_platform_impl_util_StringUtils();
+        $langUtils    = new tubepress_util_impl_LangUtils();
+        $stringUtils  = new tubepress_util_impl_StringUtils();
         $finderFactory = new ehough_finder_FinderFactory();
 
         $manifestFinder = new tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder(

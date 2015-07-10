@@ -225,7 +225,7 @@ interface tubepress_app_api_event_Events
      *
      * @subject `array`|`null` Initially null, the acceptable values for this option. This *may* be an associative array
      *                         where the keys are values and the values are untranslated labels. You can use
-     *                         {@link tubepress_platform_impl_util_LangUtils::isAssociativeArray()} to check the type of array.
+     *                         {@link tubepress_util_impl_LangUtils::isAssociativeArray()} to check the type of array.
      *
      * @argument <var>optionName</var> (`string`): The name of the option.
      *

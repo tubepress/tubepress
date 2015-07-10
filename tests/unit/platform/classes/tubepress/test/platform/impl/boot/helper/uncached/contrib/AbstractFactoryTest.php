@@ -45,14 +45,14 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
 
         $this->_mockLangUtils->shouldReceive('isAssociativeArray')->andReturnUsing(function ($candidate) {
 
-            $util = new tubepress_platform_impl_util_LangUtils();
+            $util = new tubepress_util_impl_LangUtils();
 
             return $util->isAssociativeArray($candidate);
         });
 
         $this->_mockLangUtils->shouldReceive('isSimpleArrayOfStrings')->andReturnUsing(function ($candidate) {
 
-            $util = new tubepress_platform_impl_util_LangUtils();
+            $util = new tubepress_util_impl_LangUtils();
 
             return $util->isSimpleArrayOfStrings($candidate);
         });
@@ -66,7 +66,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
 
         $this->_mockStringUtils->shouldReceive('endsWith')->andReturnUsing(function ($haystack, $needle) {
 
-            $utils = new tubepress_platform_impl_util_StringUtils();
+            $utils = new tubepress_util_impl_StringUtils();
 
             return $utils->endsWith($haystack, $needle);
         });

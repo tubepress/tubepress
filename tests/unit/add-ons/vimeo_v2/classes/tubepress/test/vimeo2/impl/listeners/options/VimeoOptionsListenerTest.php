@@ -43,7 +43,7 @@ class tubepress_test_vimeo2_impl_listeners_options_VimeoOptionsListenerTest exte
         $realUrlFactory = new tubepress_url_impl_puzzle_UrlFactory();
         $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(array($realUrlFactory, 'fromString'));
 
-        $realStringUtils = new tubepress_platform_impl_util_StringUtils();
+        $realStringUtils = new tubepress_util_impl_StringUtils();
         $this->_mockStringUtils->shouldReceive('endsWith')->andReturnUsing(array($realStringUtils, 'endsWith'));
         $this->_mockStringUtils->shouldReceive('startsWith')->andReturnUsing(array($realStringUtils, 'startsWith'));
         $this->_mockStringUtils->shouldReceive('replaceFirst')->andReturnUsing(array($realStringUtils, 'replaceFirst'));

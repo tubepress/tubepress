@@ -129,7 +129,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
     {
         $toReturn           = array();
         $pathExcludePattern = $this->_getPathExcludeRegex();
-        $stringUtils        = new tubepress_platform_impl_util_StringUtils();
+        $stringUtils        = new tubepress_util_impl_StringUtils();
 
         foreach ($original as $className => $path) {
 

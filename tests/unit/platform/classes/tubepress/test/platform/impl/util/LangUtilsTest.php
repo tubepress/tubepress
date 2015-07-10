@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_platform_impl_util_LangUtils
+ * @covers tubepress_util_impl_LangUtils
  */
 class tubepress_test_impl_util_LangUtilsTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_util_LangUtils
+     * @var tubepress_util_impl_LangUtils
      */
     private $_sut;
     
     public function onSetup()
     {
-        $this->_sut = new tubepress_platform_impl_util_LangUtils();
+        $this->_sut = new tubepress_util_impl_LangUtils();
     }
     
     public function testAssocArray()

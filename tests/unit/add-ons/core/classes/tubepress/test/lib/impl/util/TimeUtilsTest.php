@@ -10,19 +10,19 @@
  */
 
 /**
- * @covers tubepress_lib_impl_util_TimeUtils
+ * @covers tubepress_util_impl_TimeUtils
  */
 class tubepress_test_lib_util_impl_TimeUtilsTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_lib_impl_util_TimeUtils
+     * @var tubepress_util_impl_TimeUtils
      */
     private $_sut;
 
     public function onSetup()
     {
-        $stringUtils = new tubepress_platform_impl_util_StringUtils();
-        $this->_sut = new tubepress_lib_impl_util_TimeUtils($stringUtils);
+        $stringUtils = new tubepress_util_impl_StringUtils();
+        $this->_sut = new tubepress_util_impl_TimeUtils($stringUtils);
     }
     
     public function testGetRelativeTimePastDecade()

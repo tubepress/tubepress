@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_util_ioc_UtilExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
@@ -28,23 +28,19 @@ class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_Conta
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerUtils($containerBuilder);
-    }
-    private function _registerUtils(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
         $containerBuilder->register(
             tubepress_lib_api_util_TimeUtilsInterface::_,
-            'tubepress_lib_impl_util_TimeUtils'
+            'tubepress_util_impl_TimeUtils'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_));
 
         $containerBuilder->register(
             tubepress_platform_api_util_LangUtilsInterface::_,
-            'tubepress_platform_impl_util_LangUtils'
+            'tubepress_util_impl_LangUtils'
         );
 
         $containerBuilder->register(
             tubepress_platform_api_util_StringUtilsInterface::_,
-            'tubepress_platform_impl_util_StringUtils'
+            'tubepress_util_impl_StringUtils'
         );
     }
 }

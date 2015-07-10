@@ -119,7 +119,7 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
 
     private function _prepStringUtils()
     {
-        $stringUtils = new tubepress_platform_impl_util_StringUtils();
+        $stringUtils = new tubepress_util_impl_StringUtils();
 
         $this->_mockStringUtils->shouldReceive('startsWith')->andReturnUsing(array($stringUtils, 'startsWith'));
     }

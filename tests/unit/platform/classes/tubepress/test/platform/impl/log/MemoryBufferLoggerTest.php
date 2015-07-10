@@ -35,7 +35,7 @@ class tubepress_test_impl_log_BootLoggerTest extends tubepress_test_TubePressUni
 
         $mockLogger->shouldReceive('debug')->once()->with(ehough_mockery_Mockery::on(function ($m) {
 
-            $utils = new tubepress_platform_impl_util_StringUtils();
+            $utils = new tubepress_util_impl_StringUtils();
             return $utils->endsWith($m, 'something');
         }), array());
         $this->_sut->debug('something');

@@ -18,8 +18,7 @@
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"  : 70000
         },
         "extensions" : [
-            "tubepress_app_ioc_AppExtension",
-            "tubepress_lib_ioc_LibExtension"
+            "tubepress_app_ioc_AppExtension"
         ]
     },
     "autoload":{
@@ -156,9 +155,7 @@
             "tubepress_lib_api_translation_TranslatorInterface" : "classes/tubepress/lib/api/translation/TranslatorInterface.php",
             "tubepress_lib_api_util_TimeUtilsInterface"         : "classes/tubepress/lib/api/util/TimeUtilsInterface.php",
 
-            "tubepress_lib_impl_util_TimeUtils"                          : "classes/tubepress/lib/impl/util/TimeUtils.php",
-            "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"      : "classes/tubepress/lib/ioc/compiler/TaggedServicesConsumerPass.php",
-            "tubepress_lib_ioc_LibExtension"                             : "classes/tubepress/lib/ioc/LibExtension.php"
+            "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"      : "classes/tubepress/lib/ioc/compiler/TaggedServicesConsumerPass.php"
         }
     }
 }

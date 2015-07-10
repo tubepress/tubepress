@@ -13,7 +13,7 @@
  * Time conversion utilities.
  *
  */
-class tubepress_lib_impl_util_TimeUtils implements tubepress_lib_api_util_TimeUtilsInterface
+class tubepress_util_impl_TimeUtils implements tubepress_lib_api_util_TimeUtilsInterface
 {
     /**
      * @var tubepress_platform_api_util_StringUtilsInterface

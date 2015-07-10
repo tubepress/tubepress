@@ -152,7 +152,7 @@ class tubepress_test_translations_SynchronizationTest extends tubepress_test_Tub
             return true;
         }
 
-        $stringUtils = new tubepress_platform_impl_util_StringUtils();
+        $stringUtils = new tubepress_util_impl_StringUtils();
         $msgFmt      = $stringUtils->removeNewLines($msgFmtPath);
         $toRun       = "$msgFmt -o $outputfile $file";
 

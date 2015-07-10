@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_platform_impl_util_StringUtils
+ * @covers tubepress_util_impl_StringUtils
  */
 class tubepress_test_impl_util_StringUtilsTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_util_StringUtils
+     * @var tubepress_util_impl_StringUtils
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_platform_impl_util_StringUtils();
+        $this->_sut = new tubepress_util_impl_StringUtils();
     }
     
     public function testStartsWith()
