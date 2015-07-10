@@ -25,27 +25,9 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
 
     protected function prepareForLoad()
     {
-        $this->_expectEventDispatcher();
         $this->_expectHttpClient();
         $this->_expectUrlFactory();
         $this->_expectUtils();
-    }
-    
-    private function _expectEventDispatcher()
-    {
-        $this->expectRegistration(
-
-            'ehough_tickertape_ContainerAwareEventDispatcher',
-            'ehough_tickertape_ContainerAwareEventDispatcher'
-
-        )->withArgument(new tubepress_platform_api_ioc_Reference('ehough_iconic_ContainerInterface'));
-
-        $this->expectRegistration(
-
-            tubepress_lib_api_event_EventDispatcherInterface::_,
-            'tubepress_lib_impl_event_tickertape_EventDispatcher'
-
-        )->withArgument(new tubepress_platform_api_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
     }
 
     protected function getExpectedExternalServicesMap()
@@ -55,8 +37,8 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
 
         return array(
 
-            'ehough_iconic_ContainerInterface'            => 'ehough_iconic_ContainerInterface',
             tubepress_platform_api_log_LoggerInterface::_ => $logger,
+            tubepress_lib_api_event_EventDispatcherInterface::_ => tubepress_lib_api_event_EventDispatcherInterface::_,
         );
     }
 

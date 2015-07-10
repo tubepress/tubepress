@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_ioc_compiler_EventDispatcherLoggingPass
+ * @covers tubepress_event_ioc_compiler_LoggingPass
  */
-class tubepress_test_app_ioc_compiler_EventDispatcherLoggingPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_event_ioc_compiler_LoggingPassTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_ioc_compiler_EventDispatcherLoggingPass
+     * @var tubepress_event_ioc_compiler_LoggingPass
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_app_ioc_compiler_EventDispatcherLoggingPassTest extends tub
 
     public function onSetup()
     {
-        $this->_sut                  = new tubepress_app_ioc_compiler_EventDispatcherLoggingPass();
+        $this->_sut                  = new tubepress_event_ioc_compiler_LoggingPass();
         $this->_mockContainerBuilder = $this->mock(tubepress_platform_api_ioc_ContainerBuilderInterface::_);
     }
 

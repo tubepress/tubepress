@@ -28,23 +28,9 @@ class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_Conta
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerEventDispatcher($containerBuilder);
         $this->_registerHttpClient($containerBuilder);
         $this->_registerUrlFactory($containerBuilder);
         $this->_registerUtils($containerBuilder);
-    }
-
-    private function _registerEventDispatcher(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-            'ehough_tickertape_ContainerAwareEventDispatcher',
-            'ehough_tickertape_ContainerAwareEventDispatcher'
-        )->addArgument(new tubepress_platform_api_ioc_Reference('ehough_iconic_ContainerInterface'));
-
-        $containerBuilder->register(
-            tubepress_lib_api_event_EventDispatcherInterface::_,
-            'tubepress_lib_impl_event_tickertape_EventDispatcher'
-        )->addArgument(new tubepress_platform_api_ioc_Reference('ehough_tickertape_ContainerAwareEventDispatcher'));
     }
 
     private function _registerHttpClient(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

@@ -13,7 +13,7 @@
  * Providers a wrapper to allow tubepress_lib_api_event_EventInterface instances to be passed off as
  * ehough_tickertape_Event instances.
  */
-class tubepress_lib_impl_event_tickertape_TickertapeEventWrapper extends ehough_tickertape_Event implements tubepress_lib_api_event_EventInterface
+class tubepress_event_impl_tickertape_TickertapeEventWrapper extends ehough_tickertape_Event implements tubepress_lib_api_event_EventInterface
 {
     /**
      * @var tubepress_lib_api_event_EventInterface
@@ -24,7 +24,7 @@ class tubepress_lib_impl_event_tickertape_TickertapeEventWrapper extends ehough_
     {
         if (!$event) {
 
-            $event = new tubepress_lib_impl_event_tickertape_EventBase();
+            $event = new tubepress_event_impl_tickertape_EventBase();
         }
 
         $this->_delegate = $event;

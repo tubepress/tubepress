@@ -1,0 +1,34 @@
+{
+    "name" : "tubepress/event",
+    "version": "99.99.99",
+    "title" : "TubePress Event Dispatcher",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "compiler-passes" : {
+            "tubepress_event_ioc_compiler_RegisterListenersPass" : 70000,
+            "tubepress_event_ioc_compiler_LoggingPass"           : 0
+        },
+        "extensions" : [
+            "tubepress_event_ioc_EventExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_event_impl_tickertape_EventBase"              : "classes/tubepress/event/impl/tickertape/EventBase.php",
+          "tubepress_event_impl_tickertape_EventDispatcher"        : "classes/tubepress/event/impl/tickertape/EventDispatcher.php",
+          "tubepress_event_impl_tickertape_TickertapeEventWrapper" : "classes/tubepress/event/impl/tickertape/TickertapeEventWrapper.php",
+          "tubepress_event_ioc_EventExtension"                     : "classes/tubepress/event/ioc/EventExtension.php",
+          "tubepress_event_ioc_compiler_LoggingPass"               : "classes/tubepress/event/ioc/compiler/LoggingPass.php",
+          "tubepress_event_ioc_compiler_RegisterListenersPass"     : "classes/tubepress/event/ioc/compiler/RegisterListenersPass.php"
+        }
+    }
+}

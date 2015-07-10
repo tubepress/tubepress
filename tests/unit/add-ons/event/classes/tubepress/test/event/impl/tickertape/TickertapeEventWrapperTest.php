@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_lib_impl_event_tickertape_TickertapeEventWrapper
+ * @covers tubepress_event_impl_tickertape_TickertapeEventWrapper
  */
-class tubepress_test_lib_impl_event_tickertape_TickertapeEventWrapperTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_event_impl_tickertape_TickertapeEventWrapperTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_lib_impl_event_tickertape_TickertapeEventWrapper
+     * @var tubepress_event_impl_tickertape_TickertapeEventWrapper
      */
     private $_sut;
 
@@ -28,7 +28,7 @@ class tubepress_test_lib_impl_event_tickertape_TickertapeEventWrapperTest extend
     {
         $this->_mockEvent = $this->mock('tubepress_lib_api_event_EventInterface');
 
-        $this->_sut = new tubepress_lib_impl_event_tickertape_TickertapeEventWrapper($this->_mockEvent);
+        $this->_sut = new tubepress_event_impl_tickertape_TickertapeEventWrapper($this->_mockEvent);
     }
 
     public function testPropagation()
@@ -45,7 +45,7 @@ class tubepress_test_lib_impl_event_tickertape_TickertapeEventWrapperTest extend
 
     public function testGetDelegate()
     {
-        $this->_sut = new tubepress_lib_impl_event_tickertape_TickertapeEventWrapper();
+        $this->_sut = new tubepress_event_impl_tickertape_TickertapeEventWrapper();
 
         $disp = $this->_sut->getDispatcher();
 

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_lib_impl_event_tickertape_EventDispatcher implements tubepress_lib_api_event_EventDispatcherInterface
+class tubepress_event_impl_tickertape_EventDispatcher implements tubepress_lib_api_event_EventDispatcherInterface
 {
     /**
      * @var ehough_tickertape_ContainerAwareEventDispatcher
@@ -75,7 +75,7 @@ class tubepress_lib_impl_event_tickertape_EventDispatcher implements tubepress_l
     {
         if (!$event || (!($event instanceof ehough_tickertape_Event))) {
 
-            $event = new tubepress_lib_impl_event_tickertape_TickertapeEventWrapper($event);
+            $event = new tubepress_event_impl_tickertape_TickertapeEventWrapper($event);
         }
 
         return $this->_wrappedDispatcher->dispatch($eventName, $event);
@@ -136,6 +136,6 @@ class tubepress_lib_impl_event_tickertape_EventDispatcher implements tubepress_l
      */
     public function newEventInstance($subject = null, array $arguments = array())
     {
-        return new tubepress_lib_impl_event_tickertape_EventBase($subject, $arguments);
+        return new tubepress_event_impl_tickertape_EventBase($subject, $arguments);
     }
 }

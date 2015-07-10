@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_lib_impl_event_tickertape_EventBase
+ * @covers tubepress_event_impl_tickertape_EventBase
  */
-class tubepress_test_lib_impl_event_tickertape_EventBaseTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_event_impl_tickertape_EventBaseTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_lib_impl_event_tickertape_EventBase
+     * @var tubepress_event_impl_tickertape_EventBase
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_lib_impl_event_tickertape_EventBase();
+        $this->_sut = new tubepress_event_impl_tickertape_EventBase();
     }
 
     public function testBasics()

@@ -27,7 +27,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
         $mockEventDispatcher->shouldReceive('newEventInstance')->atLeast(1)->andReturnUsing(function ($subject, $args) {
 
-            return new tubepress_lib_impl_event_tickertape_EventBase($subject, $args);
+            return new tubepress_event_impl_tickertape_EventBase($subject, $args);
         });
         $mockEventDispatcher->shouldReceive('dispatch')->atLeast(1);
 

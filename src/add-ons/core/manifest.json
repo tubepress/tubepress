@@ -15,10 +15,7 @@
     "container-builder": {
         "compiler-passes" : {
             "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : 60000,
-            "tubepress_app_ioc_compiler_EventDispatcherLoggingPass"  : 0,
-
-            "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass" : 70000,
-            "tubepress_lib_ioc_compiler_EventListenersPass"         : 70000
+            "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"  : 70000
         },
         "extensions" : [
             "tubepress_app_ioc_AppExtension",
@@ -140,7 +137,6 @@
             "tubepress_app_impl_vendor_stash_FilesystemCacheBuilder" : "classes/tubepress/app/impl/vendor/stash/FilesystemCacheBuilder.php",
 
             "tubepress_app_ioc_AppExtension"                         : "classes/tubepress/app/ioc/AppExtension.php",
-            "tubepress_app_ioc_compiler_EventDispatcherLoggingPass"  : "classes/tubepress/app/ioc/compiler/EventDispatcherLoggingPass.php",
 
             "tubepress_lib_api_array_ArrayReaderInterface"      : "classes/tubepress/lib/api/array/ArrayReaderInterface.php",
             "tubepress_lib_api_event_EventDispatcherInterface"  : "classes/tubepress/lib/api/event/EventDispatcherInterface.php",
@@ -164,9 +160,6 @@
             "tubepress_lib_api_translation_TranslatorInterface" : "classes/tubepress/lib/api/translation/TranslatorInterface.php",
             "tubepress_lib_api_util_TimeUtilsInterface"         : "classes/tubepress/lib/api/util/TimeUtilsInterface.php",
 
-            "tubepress_lib_impl_event_tickertape_EventBase"              : "classes/tubepress/lib/impl/event/tickertape/EventBase.php",
-            "tubepress_lib_impl_event_tickertape_EventDispatcher"        : "classes/tubepress/lib/impl/event/tickertape/EventDispatcher.php",
-            "tubepress_lib_impl_event_tickertape_TickertapeEventWrapper" : "classes/tubepress/lib/impl/event/tickertape/TickertapeEventWrapper.php",
             "tubepress_lib_impl_http_AbstractHttpClient"                 : "classes/tubepress/lib/impl/http/AbstractHttpClient.php",
             "tubepress_lib_impl_http_oauth_v1_Client"                    : "classes/tubepress/lib/impl/http/oauth/v1/Client.php",
             "tubepress_lib_impl_http_puzzle_AbstractMessage"             : "classes/tubepress/lib/impl/http/puzzle/AbstractMessage.php",
@@ -180,7 +173,6 @@
             "tubepress_lib_impl_streams_puzzle_PuzzleStream"             : "classes/tubepress/lib/impl/streams/puzzle/PuzzleStream.php",
             "tubepress_lib_impl_translation_AbstractTranslator"          : "classes/tubepress/lib/impl/translation/AbstractTranslator.php",
             "tubepress_lib_impl_util_TimeUtils"                          : "classes/tubepress/lib/impl/util/TimeUtils.php",
-            "tubepress_lib_ioc_compiler_EventListenersPass"              : "classes/tubepress/lib/ioc/compiler/EventListenersPass.php",
             "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"      : "classes/tubepress/lib/ioc/compiler/TaggedServicesConsumerPass.php",
             "tubepress_lib_ioc_LibExtension"                             : "classes/tubepress/lib/ioc/LibExtension.php"
         }

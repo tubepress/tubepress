@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_lib_impl_event_tickertape_EventDispatcher
+ * @covers tubepress_event_impl_tickertape_EventDispatcher
  */
-class tubepress_test_lib_impl_event_tickertape_EventDispatcherTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_event_impl_tickertape_EventDispatcherTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_lib_impl_event_tickertape_EventDispatcher
+     * @var tubepress_event_impl_tickertape_EventDispatcher
      */
     private $_sut;
 
@@ -28,7 +28,7 @@ class tubepress_test_lib_impl_event_tickertape_EventDispatcherTest extends tubep
     {
         $this->_mockDispatcher = $this->mock('ehough_tickertape_ContainerAwareEventDispatcher');
 
-        $this->_sut = new tubepress_lib_impl_event_tickertape_EventDispatcher($this->_mockDispatcher);
+        $this->_sut = new tubepress_event_impl_tickertape_EventDispatcher($this->_mockDispatcher);
     }
 
     public function testAddListener()
@@ -78,7 +78,7 @@ class tubepress_test_lib_impl_event_tickertape_EventDispatcherTest extends tubep
 
         $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', ehough_mockery_Mockery::on(function ($event) {
 
-            return $event instanceof tubepress_lib_impl_event_tickertape_TickertapeEventWrapper;
+            return $event instanceof tubepress_event_impl_tickertape_TickertapeEventWrapper;
 
         }))->andReturn(array('x'));
 
@@ -89,11 +89,11 @@ class tubepress_test_lib_impl_event_tickertape_EventDispatcherTest extends tubep
 
     public function testDispatchTickertapeEvent()
     {
-        $event = new tubepress_lib_impl_event_tickertape_EventBase();
+        $event = new tubepress_event_impl_tickertape_EventBase();
 
         $this->_mockDispatcher->shouldReceive('dispatch')->once()->with('some event', ehough_mockery_Mockery::on(function ($event) {
 
-            return $event instanceof tubepress_lib_impl_event_tickertape_EventBase;
+            return $event instanceof tubepress_event_impl_tickertape_EventBase;
         }))->andReturn(array('x'));
 
         $result = $this->_sut->dispatch('some event', $event);
@@ -105,7 +105,7 @@ class tubepress_test_lib_impl_event_tickertape_EventDispatcherTest extends tubep
     {
         $result = $this->_sut->newEventInstance('foo', array('bar' => 'fuzz'));
 
-        $this->assertInstanceOf('tubepress_lib_impl_event_tickertape_EventBase', $result);
+        $this->assertInstanceOf('tubepress_event_impl_tickertape_EventBase', $result);
 
         $this->assertEquals('foo', $result->getSubject());
         $this->assertEquals(array('bar' => 'fuzz'), $result->getArguments());
