@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_platform_impl_url_puzzle_UrlFactory<extended>
+ * @covers tubepress_url_impl_puzzle_UrlFactory<extended>
  */
-class tubepress_test_lib_url_impl_puzzle_UrlFactoryTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_url_impl_puzzle_UrlFactoryTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_url_puzzle_UrlFactory
+     * @var tubepress_url_impl_puzzle_UrlFactory
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_platform_impl_url_puzzle_UrlFactory(array());
+        $this->_sut = new tubepress_url_impl_puzzle_UrlFactory(array());
     }
 
     public function testValid()
@@ -33,7 +33,7 @@ class tubepress_test_lib_url_impl_puzzle_UrlFactoryTest extends tubepress_test_T
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage tubepress_platform_impl_url_puzzle_UrlFactory::fromString() can only accept strings.
+     * @expectedExceptionMessage tubepress_url_impl_puzzle_UrlFactory::fromString() can only accept strings.
      */
     public function testInvalid()
     {
@@ -54,7 +54,7 @@ class tubepress_test_lib_url_impl_puzzle_UrlFactoryTest extends tubepress_test_T
             'REQUEST_URI' => '*(&*&&*foo/bar',
         );
 
-        $sut = new tubepress_platform_impl_url_puzzle_UrlFactory($serverArray);
+        $sut = new tubepress_url_impl_puzzle_UrlFactory($serverArray);
 
         $sut->fromCurrent();
     }
@@ -67,7 +67,7 @@ class tubepress_test_lib_url_impl_puzzle_UrlFactoryTest extends tubepress_test_T
      */
     public function testCannotGetUrlMissingServerVars()
     {
-        $sut = new tubepress_platform_impl_url_puzzle_UrlFactory(array());
+        $sut = new tubepress_url_impl_puzzle_UrlFactory(array());
         $sut->fromCurrent();
     }
 
@@ -78,7 +78,7 @@ class tubepress_test_lib_url_impl_puzzle_UrlFactoryTest extends tubepress_test_T
      */
     public function testGetFullUrl($serverArray, $expectedUrl)
     {
-        $sut = new tubepress_platform_impl_url_puzzle_UrlFactory($serverArray);
+        $sut = new tubepress_url_impl_puzzle_UrlFactory($serverArray);
 
         $result = $sut->fromCurrent();
 

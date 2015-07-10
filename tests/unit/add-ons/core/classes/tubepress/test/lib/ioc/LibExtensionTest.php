@@ -26,7 +26,6 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
     protected function prepareForLoad()
     {
         $this->_expectHttpClient();
-        $this->_expectUrlFactory();
         $this->_expectUtils();
     }
 
@@ -79,15 +78,6 @@ class tubepress_test_lib_ioc_LibExtensionTest extends tubepress_test_platform_im
         $this->expectRegistration(
             tubepress_lib_api_http_ResponseCodeInterface::_,
             'tubepress_lib_impl_http_ResponseCode'
-        );
-    }
-
-    private function _expectUrlFactory()
-    {
-        $this->expectRegistration(
-
-            tubepress_platform_api_url_UrlFactoryInterface::_,
-            'tubepress_platform_impl_url_puzzle_UrlFactory'
         );
     }
 

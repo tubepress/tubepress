@@ -32,7 +32,7 @@ class tubepress_lib_impl_http_puzzle_PuzzleBasedResponse extends tubepress_lib_i
         if ($urlString !== null) {
 
             $puzzleUrl           = puzzle_Url::fromString($urlString);
-            $this->_effectiveUrl = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl($puzzleUrl);
+            $this->_effectiveUrl = new tubepress_url_impl_puzzle_PuzzleBasedUrl($puzzleUrl);
         }
 
         parent::__construct($this->_delegate);

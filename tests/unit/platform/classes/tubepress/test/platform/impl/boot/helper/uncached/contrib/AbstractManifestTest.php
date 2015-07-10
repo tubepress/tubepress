@@ -20,12 +20,12 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
         $mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $mockUrlFactory->shouldReceive('fromString')->andReturnUsing(function ($incoming) {
 
-            $factory = new tubepress_platform_impl_url_puzzle_UrlFactory($_SERVER);
+            $factory = new tubepress_url_impl_puzzle_UrlFactory($_SERVER);
             return $factory->fromString($incoming);
         });
 
         $logger       = new tubepress_platform_impl_log_BootLogger(false);
-        $urlFactory   = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $urlFactory   = new tubepress_url_impl_puzzle_UrlFactory();
         $bootSettings = new tubepress_platform_impl_boot_BootSettings($logger, $urlFactory);
         $langUtils    = new tubepress_platform_impl_util_LangUtils();
         $stringUtils  = new tubepress_platform_impl_util_StringUtils();

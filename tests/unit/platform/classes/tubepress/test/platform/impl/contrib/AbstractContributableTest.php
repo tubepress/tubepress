@@ -13,7 +13,7 @@ abstract class tubepress_test_platform_impl_contrib_AbstractContributableTest ex
 {
     public function testScreenshots()
     {
-        $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
         $first      = $urlFactory->fromString('http://img.com/1.png');
         $second     = $urlFactory->fromString('http://bla.com/2.jpg');
         $third      = $urlFactory->fromString('http://foo.com/2.png');
@@ -58,7 +58,7 @@ abstract class tubepress_test_platform_impl_contrib_AbstractContributableTest ex
 
     private function _testUrl($method)
     {
-        $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
 
         $url = $urlFactory->fromString('http://foo.com/bar.txt');
 
@@ -98,7 +98,7 @@ abstract class tubepress_test_platform_impl_contrib_AbstractContributableTest ex
 
     protected function buildContributable()
     {
-        $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
 
         $authors = array(
             array(

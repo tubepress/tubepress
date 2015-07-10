@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_platform_impl_url_puzzle_UrlFactory implements tubepress_platform_api_url_UrlFactoryInterface
+class tubepress_url_impl_puzzle_UrlFactory implements tubepress_platform_api_url_UrlFactoryInterface
 {
     private static $_KEY_HTTPS = 'HTTPS';
     private static $_KEY_NAME  = 'SERVER_NAME';
@@ -46,10 +46,10 @@ class tubepress_platform_impl_url_puzzle_UrlFactory implements tubepress_platfor
     {
         if (!is_string($url)) {
 
-            throw new InvalidArgumentException('tubepress_platform_impl_url_puzzle_UrlFactory::fromString() can only accept strings.');
+            throw new InvalidArgumentException('tubepress_url_impl_puzzle_UrlFactory::fromString() can only accept strings.');
         }
 
-        return new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($url));
+        return new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($url));
     }
 
     /**

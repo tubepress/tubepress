@@ -1,5 +1,15 @@
 <?php
-class tubepress_platform_impl_url_puzzle_PuzzleBasedQuery implements tubepress_platform_api_url_QueryInterface
+/**
+ * Copyright 2006 - 2013 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of coauthor (https://github.com/ehough/coauthor)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+class tubepress_url_impl_puzzle_PuzzleBasedQuery implements tubepress_platform_api_url_QueryInterface
 {
     /**
      * @var puzzle_Query

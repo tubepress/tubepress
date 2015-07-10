@@ -60,7 +60,7 @@ class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePress
 
     public function __callbackRealUrlFactory($incoming)
     {
-        $realFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $realFactory = new tubepress_url_impl_puzzle_UrlFactory();
 
         return $realFactory->fromString($incoming);
     }

@@ -70,7 +70,7 @@ class tubepress_test_lib_http_impl_oauth_v1_ClientTest extends tubepress_test_Tu
 
     private function _createMockRequest($method, $url)
     {
-        $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
         $realUrl    = $urlFactory->fromString($url);
 
         $mockRequest = $this->mock('tubepress_lib_api_http_message_RequestInterface');

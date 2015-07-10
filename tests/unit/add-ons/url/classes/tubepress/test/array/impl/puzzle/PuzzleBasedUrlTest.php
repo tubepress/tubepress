@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_platform_impl_url_puzzle_PuzzleBasedUrl<extended>
+ * @covers tubepress_url_impl_puzzle_PuzzleBasedUrl<extended>
  */
-class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_test_TubePressUnitTest
 {
     const RFC3986_BASE = "http://a/b/c/d;p?q";
 
@@ -23,7 +23,7 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
     {
         if (!($url instanceof tubepress_platform_api_url_UrlInterface)) {
 
-            $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+            $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
             $url        = $urlFactory->fromString($url);
         }
 
@@ -42,7 +42,7 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
             array('http://foo.bar/', 'http://foo.bar/'),
         );
 
-        $urlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $urlFactory = new tubepress_url_impl_puzzle_UrlFactory();
 
         $url = $urlFactory->fromString('http://foo.bar/some/thing');
         $url->removeSchemeAndAuthority();
@@ -72,27 +72,27 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
 
     public function testEmptyUrl()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString(''));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString(''));
         $this->assertEquals('', (string) $url);
     }
 
     public function testPortIsDeterminedFromScheme()
     {
-        $u = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com/'));
+        $u = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com/'));
         $this->assertEquals(80, $u->getPort());
-        $u = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('https://www.test.com/'));
+        $u = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('https://www.test.com/'));
         $this->assertEquals(443, $u->getPort());
-        $u = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('ftp://www.test.com/'));
+        $u = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('ftp://www.test.com/'));
         $this->assertEquals(21, $u->getPort());
-        $u = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com:8192/'));
+        $u = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com:8192/'));
         $this->assertEquals(8192, $u->getPort());
-        $u = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('foo://www.test.com/'));
+        $u = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('foo://www.test.com/'));
         $this->assertEquals(null, $u->getPort());
     }
 
     public function testRemovesDefaultPortWhenSettingScheme()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com/'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com/'));
         $url->setPort(80);
         $url->setScheme('https');
         $this->assertEquals(443, $url->getPort());
@@ -100,19 +100,19 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
 
     public function testValidatesUrlPartsInFactory()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('/index.php'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('/index.php'));
         $this->assertEquals('/index.php', (string) $url);
         $this->assertFalse($url->isAbsolute());
 
         $url = 'http://michael:test@test.com:80/path/123?q=abc#test';
-        $u = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($url));
+        $u = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($url));
         $this->assertEquals('http://michael:test@test.com/path/123?q=abc#test', (string) $u);
         $this->assertTrue($u->isAbsolute());
     }
 
     public function testAllowsFalsyUrlParts()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://a:50/0?0#0'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://a:50/0?0#0'));
         $this->assertSame('a', $url->getHost());
         $this->assertEquals(50, $url->getPort());
         $this->assertSame('/0', $url->getPath());
@@ -120,10 +120,10 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
         $this->assertSame('0', $url->getFragment());
         $this->assertEquals('http://a:50/0?0#0', (string) $url);
 
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString(''));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString(''));
         $this->assertSame('', (string) $url);
 
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('0'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('0'));
         $this->assertSame('0', (string) $url);
     }
 
@@ -138,7 +138,7 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
 
     public function testUrlStoresParts()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://test:pass@www.test.com:8081/path/path2/?a=1&b=2#fragment'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://test:pass@www.test.com:8081/path/path2/?a=1&b=2#fragment'));
         $this->assertEquals('http', $url->getScheme());
         $this->assertEquals('test', $url->getUsername());
         $this->assertEquals('pass', $url->getPassword());
@@ -162,7 +162,7 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
 
     public function testHandlesPathsCorrectly()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com'));
         $this->assertEquals('', $url->getPath());
         $url->setPath('test');
         $this->assertEquals('test', $url->getPath());
@@ -187,13 +187,13 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
     public function testAddsToPath()
     {
         // Does nothing here
-        $this->assertEquals('http://e.com/base?a=1', (string) new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath(false)));
-        $this->assertEquals('http://e.com/base?a=1', (string) new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('')));
-        $this->assertEquals('http://e.com/base?a=1', (string) new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('/')));
-        $this->assertEquals('http://e.com/base/0', (string) new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base')->addPath('0')));
+        $this->assertEquals('http://e.com/base?a=1', (string) new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath(false)));
+        $this->assertEquals('http://e.com/base?a=1', (string) new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('')));
+        $this->assertEquals('http://e.com/base?a=1', (string) new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('/')));
+        $this->assertEquals('http://e.com/base/0', (string) new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base')->addPath('0')));
 
-        $this->assertEquals('http://e.com/base/relative?a=1', (string) new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('relative')));
-        $this->assertEquals('http://e.com/base/relative?a=1', (string) new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('/relative')));
+        $this->assertEquals('http://e.com/base/relative?a=1', (string) new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('relative')));
+        $this->assertEquals('http://e.com/base/relative?a=1', (string) new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://e.com/base?a=1')->addPath('/relative')));
     }
 
     /**
@@ -263,12 +263,12 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
      */
     public function testCombinesUrls($a, $b, $c)
     {
-        $this->assertEquals($c, (string) new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($a)->combine($b)));
+        $this->assertEquals($c, (string) new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString($a)->combine($b)));
     }
 
     public function testHasGettersAndSetters()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com/'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com/'));
         $this->assertEquals('example.com', $url->setHost('example.com')->getHost());
         $this->assertEquals('8080', $url->setPort(8080)->getPort());
         $this->assertEquals('/foo/bar', $url->setPath('/foo/bar')->getPath());
@@ -278,7 +278,7 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
         $this->assertEquals('https', $url->setScheme('https')->getScheme());
         $this->assertEquals('a=123', (string) $url->setQuery('a=123')->getQuery());
         $this->assertEquals('https://b:a@example.com:8080/foo/bar?a=123#abc', (string) $url);
-        $this->assertEquals('b=boo', (string) $url->setQuery(new tubepress_platform_impl_url_puzzle_PuzzleBasedQuery(new puzzle_Query(array(
+        $this->assertEquals('b=boo', (string) $url->setQuery(new tubepress_url_impl_puzzle_PuzzleBasedQuery(new puzzle_Query(array(
             'b' => 'boo'
         ))))->getQuery());
         $this->assertEquals('https://b:a@example.com:8080/foo/bar?b=boo#abc', (string) $url);
@@ -286,8 +286,8 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
 
     public function testSetQueryAcceptsArray()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com'));
-        $url->setQuery(new tubepress_platform_impl_url_puzzle_PuzzleBasedQuery(new puzzle_Query(array('a' => 'b'))));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.test.com'));
+        $url->setQuery(new tubepress_url_impl_puzzle_PuzzleBasedQuery(new puzzle_Query(array('a' => 'b'))));
         $this->assertEquals('http://www.test.com?a=b', (string) $url);
     }
 
@@ -319,14 +319,14 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
      */
     public function testRemoveDotSegments($path, $result)
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.example.com'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.example.com'));
         $url->setPath($path)->removeDotSegments();
         $this->assertEquals($result, $url->getPath());
     }
 
     public function testSettingHostWithPortModifiesPort()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.example.com'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://www.example.com'));
         $url->setHost('foo:8983');
         $this->assertEquals('foo', $url->getHost());
         $this->assertEquals(8983, $url->getPort());
@@ -337,19 +337,19 @@ class tubepress_test_lib_url_impl_puzzle_PuzzleBasedUrlTest extends tubepress_te
      */
     public function testValidatesUrlCanBeParsed()
     {
-        new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('foo:////'));
+        new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('foo:////'));
     }
 
     public function testConvertsSpecialCharsInPathWhenCastingToString()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://foo.com/baz bar?a=b'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://foo.com/baz bar?a=b'));
         $url->addPath('?');
         $this->assertEquals('http://foo.com/baz%20bar/%3F?a=b', (string) $url);
     }
 
     public function testAuthority()
     {
-        $url = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://eric:pass@foo.com:344/baz/bar?a=b'));
+        $url = new tubepress_url_impl_puzzle_PuzzleBasedUrl(puzzle_Url::fromString('http://eric:pass@foo.com:344/baz/bar?a=b'));
 
         $this->assertEquals('eric:pass@foo.com:344', $url->getAuthority());
     }

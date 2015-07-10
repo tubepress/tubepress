@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-class tubepress_platform_impl_url_puzzle_PuzzleBasedUrl implements tubepress_platform_api_url_UrlInterface
+class tubepress_url_impl_puzzle_PuzzleBasedUrl implements tubepress_platform_api_url_UrlInterface
 {
     /**
      * @var tubepress_platform_api_url_QueryInterface
@@ -37,7 +37,7 @@ class tubepress_platform_impl_url_puzzle_PuzzleBasedUrl implements tubepress_pla
 
         if ($this->_delegateUrl->getQuery()) {
 
-            $this->_query = new tubepress_platform_impl_url_puzzle_PuzzleBasedQuery($this->_delegateUrl->getQuery());
+            $this->_query = new tubepress_url_impl_puzzle_PuzzleBasedQuery($this->_delegateUrl->getQuery());
         }
     }
 
@@ -350,7 +350,7 @@ class tubepress_platform_impl_url_puzzle_PuzzleBasedUrl implements tubepress_pla
             $puzzleQuery = new puzzle_Query($query);
         }
 
-        $this->_query = new tubepress_platform_impl_url_puzzle_PuzzleBasedQuery($puzzleQuery);
+        $this->_query = new tubepress_url_impl_puzzle_PuzzleBasedQuery($puzzleQuery);
 
         return $this;
     }

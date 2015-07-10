@@ -84,7 +84,7 @@ class tubepress_test_lib_http_impl_puzzle_message_PuzzleRequestTest extends tube
         $r = new puzzle_message_Request('GET', 'http://www.foo.com?baz=bar');
         $r = new tubepress_lib_impl_http_puzzle_PuzzleBasedRequest($r);
 
-        $r->getUrl()->setQuery(new tubepress_platform_impl_url_puzzle_PuzzleBasedQuery(new puzzle_Query(array('foo' => 'bar'))));
+        $r->getUrl()->setQuery(new tubepress_url_impl_puzzle_PuzzleBasedQuery(new puzzle_Query(array('foo' => 'bar'))));
         $this->assertEquals('foo=bar', $r->getUrl()->getQuery()->toString());
     }
 

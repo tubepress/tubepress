@@ -29,7 +29,6 @@ class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_Conta
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerHttpClient($containerBuilder);
-        $this->_registerUrlFactory($containerBuilder);
         $this->_registerUtils($containerBuilder);
     }
 
@@ -70,14 +69,6 @@ class tubepress_lib_ioc_LibExtension implements tubepress_platform_api_ioc_Conta
         $containerBuilder->register(
             tubepress_lib_api_http_ResponseCodeInterface::_,
             'tubepress_lib_impl_http_ResponseCode'
-        );
-    }
-
-    private function _registerUrlFactory(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-            tubepress_platform_api_url_UrlFactoryInterface::_,
-            'tubepress_platform_impl_url_puzzle_UrlFactory'
         );
     }
 

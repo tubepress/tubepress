@@ -226,7 +226,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
         }
 
         $finderFactory = new ehough_finder_FinderFactory();
-        $urlFactory    = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $urlFactory    = new tubepress_url_impl_puzzle_UrlFactory();
         $langUtils     = new tubepress_platform_impl_util_LangUtils();
         $stringUtils   = new tubepress_platform_impl_util_StringUtils();
         $addonFactory  = new tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory(

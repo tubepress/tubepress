@@ -29,7 +29,7 @@ class tubepress_lib_impl_http_puzzle_PuzzleBasedRequest extends tubepress_lib_im
         $this->_delegate = $delegate;
         $stringUrl       = $this->_delegate->getUrl();
         $puzzleUrl       = puzzle_Url::fromString($stringUrl);
-        $this->_url      = new tubepress_platform_impl_url_puzzle_PuzzleBasedUrl($puzzleUrl);
+        $this->_url      = new tubepress_url_impl_puzzle_PuzzleBasedUrl($puzzleUrl);
 
         parent::__construct($this->_delegate);
     }

@@ -40,7 +40,7 @@ class tubepress_test_youtube3_impl_listeners_options_YouTubeOptionListenerTest e
         $this->_mockStringUtils = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
         $this->_mockEvent       = $this->mock('tubepress_lib_api_event_EventInterface');
 
-        $realUrlFactory = new tubepress_platform_impl_url_puzzle_UrlFactory();
+        $realUrlFactory = new tubepress_url_impl_puzzle_UrlFactory();
         $this->_mockUrlFactory->shouldReceive('fromString')->atLeast(1)->andReturnUsing(array($realUrlFactory, 'fromString'));
 
         $realStringUtils = new tubepress_platform_impl_util_StringUtils();
