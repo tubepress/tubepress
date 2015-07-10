@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_http_PrimaryAjaxHandler
+ * @covers tubepress_http_impl_PrimaryAjaxHandler
  */
-class tubepress_test_app_impl_http_PrimaryAjaxHandlerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_PrimaryAjaxHandlerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_http_PrimaryAjaxHandler
+     * @var tubepress_http_impl_PrimaryAjaxHandler
      */
     private $_sut;
 
@@ -55,7 +55,7 @@ class tubepress_test_app_impl_http_PrimaryAjaxHandlerTest extends tubepress_test
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1)->andReturn(true);
 
-        $this->_sut = new tubepress_app_impl_http_PrimaryAjaxHandler(
+        $this->_sut = new tubepress_http_impl_PrimaryAjaxHandler(
 
             $this->_mockLogger,
             $this->_mockHttpRequestParameterService,

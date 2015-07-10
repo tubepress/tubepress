@@ -28,7 +28,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerHttpSingletons($containerBuilder);
         $this->_registerListeners($containerBuilder);
         $this->_registerOptions($containerBuilder);
         $this->_registerOptionsSingletons($containerBuilder);
@@ -36,23 +35,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $this->_registerOptionsUiFieldProvider($containerBuilder);
         $this->_registerPlayers($containerBuilder);
         $this->_registerVendorServices($containerBuilder);
-    }
-
-    private function _registerHttpSingletons(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-            tubepress_lib_api_http_AjaxInterface::_,
-            'tubepress_app_impl_http_PrimaryAjaxHandler'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_ResponseCodeInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_));
-
-        $containerBuilder->register(
-            tubepress_lib_api_http_RequestParametersInterface::_,
-            'tubepress_app_impl_http_RequestParameters'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
     }
 
     private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

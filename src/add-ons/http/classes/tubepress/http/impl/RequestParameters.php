@@ -12,7 +12,7 @@
 /**
  * Pulls out info from $_GET or $_POST.
  */
-class tubepress_app_impl_http_RequestParameters implements tubepress_lib_api_http_RequestParametersInterface
+class tubepress_http_impl_RequestParameters implements tubepress_lib_api_http_RequestParametersInterface
 {
     /**
      * @var array A merged array of $_GET and $_POST for this request.

@@ -12,7 +12,7 @@
 /**
  * Handles incoming Ajax requests and outputs a response.
  */
-class tubepress_app_impl_http_PrimaryAjaxHandler implements tubepress_lib_api_http_AjaxInterface
+class tubepress_http_impl_PrimaryAjaxHandler implements tubepress_lib_api_http_AjaxInterface
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface Logger.

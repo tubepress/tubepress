@@ -69,16 +69,31 @@ class tubepress_test_http_ioc_HttpExtensionTest extends tubepress_test_platform_
             tubepress_lib_api_http_oauth_v1_ClientInterface::_,
             'tubepress_http_impl_oauth_v1_Client'
         );
+
+        $this->expectRegistration(
+            tubepress_lib_api_http_AjaxInterface::_,
+            'tubepress_http_impl_PrimaryAjaxHandler'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_ResponseCodeInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_));
+
+        $this->expectRegistration(
+            tubepress_lib_api_http_RequestParametersInterface::_,
+            'tubepress_http_impl_RequestParameters'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
     }
 
     protected function getExpectedExternalServicesMap()
     {
         $logger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $logger->shouldReceive('isEnabled')->once()->andReturn(true);
+        $logger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 
         return array(
             tubepress_lib_api_event_EventDispatcherInterface::_ => tubepress_lib_api_event_EventDispatcherInterface::_,
             tubepress_platform_api_log_LoggerInterface::_       => $logger,
+            tubepress_lib_api_template_TemplatingInterface::_ => tubepress_lib_api_template_TemplatingInterface::_
         );
     }
 }

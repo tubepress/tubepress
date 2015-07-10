@@ -73,5 +73,19 @@ class tubepress_http_ioc_HttpExtension implements tubepress_platform_api_ioc_Con
             tubepress_lib_api_http_oauth_v1_ClientInterface::_,
             'tubepress_http_impl_oauth_v1_Client'
         );
+
+        $containerBuilder->register(
+            tubepress_lib_api_http_AjaxInterface::_,
+            'tubepress_http_impl_PrimaryAjaxHandler'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_ResponseCodeInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_template_TemplatingInterface::_));
+
+        $containerBuilder->register(
+         tubepress_lib_api_http_RequestParametersInterface::_,
+         'tubepress_http_impl_RequestParameters'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
     }
 }

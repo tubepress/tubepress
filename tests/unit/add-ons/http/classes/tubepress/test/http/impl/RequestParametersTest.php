@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_http_RequestParameters<extended>
+ * @covers tubepress_http_impl_RequestParameters<extended>
  */
-class tubepress_test_app_impl_http_RequestParametersTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_http_impl_RequestParametersTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_http_RequestParameters
+     * @var tubepress_http_impl_RequestParameters
      */
     private $_sut;
 
@@ -28,7 +28,7 @@ class tubepress_test_app_impl_http_RequestParametersTest extends tubepress_test_
     {
         $this->_mockEventDispatcher = $this->mock(tubepress_lib_api_event_EventDispatcherInterface::_);
 
-        $this->_sut = new tubepress_app_impl_http_RequestParameters($this->_mockEventDispatcher);
+        $this->_sut = new tubepress_http_impl_RequestParameters($this->_mockEventDispatcher);
     }
 
     public function testParamExists()
