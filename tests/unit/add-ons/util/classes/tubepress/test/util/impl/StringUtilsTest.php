@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_util_impl_StringUtils
  */
-class tubepress_test_impl_util_StringUtilsTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_util_impl_StringUtilsTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_util_impl_StringUtils
