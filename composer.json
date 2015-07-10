@@ -36,6 +36,7 @@
             "tubepress_cache_html_"  : "src/add-ons/cache-html/classes",
             "tubepress_environment_" : "src/add-ons/environment/classes",
             "tubepress_event_"       : "src/add-ons/event/classes",
+            "tubepress_template_"    : "src/add-ons/template/classes",
             "tubepress_url_"         : "src/add-ons/url/classes",
 
             "tubepress_app_"       : "src/add-ons/core/classes",
@@ -46,10 +47,8 @@
             "tubepress_api_const_"  : "src/add-ons/deprecated/classes",
             "tubepress_addons_"     : "src/add-ons/deprecated/classes",
 
-            "tubepress_htmlcache_"    : "src/add-ons/htmlcache/classes",
             "tubepress_embedplus_"    : "src/add-ons/embedplus/classes",
             "tubepress_jwplayer5_"    : "src/add-ons/jwplayer5/classes",
-            "tubepress_app_template_" : "src/add-ons/template/classes",
             "tubepress_vimeo2_"       : "src/add-ons/vimeo_v2/classes",
             "tubepress_wordpress_"    : "src/add-ons/wordpress/classes",
             "tubepress_youtube3_"     : "src/add-ons/youtube_v3/classes",
@@ -60,7 +59,6 @@
             "tubepress_test_lib_"          : "tests/unit/add-ons/core/classes",
             "tubepress_test_boot_"         : "tests/unit/platform/fixtures/mock-user-content-dir/add-ons/bootmocks/classes",
             "tubepress_test_translations_" : "tests/unit/translations/classes",
-            "tubepress_test_app_template_" : "tests/unit/add-ons/template/classes",
             "tubepress_test_"              : "tests/unit/add-ons/core/classes"
         }
     },
@@ -70,6 +68,7 @@
             "tubepress_test_cache_html_"  : "tests/unit/add-ons/cache-html/classes",
             "tubepress_test_environment_" : "tests/unit/add-ons/environment/classes",
             "tubepress_test_event_"       : "tests/unit/add-ons/event/classes",
+            "tubepress_test_template_"    : "tests/unit/add-ons/template/classes",
             "tubepress_test_url_"         : "tests/unit/add-ons/url/classes"
         }
     }
