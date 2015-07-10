@@ -12,7 +12,7 @@
 /**
  * Detects TubePress's environment
  */
-class tubepress_app_impl_environment_Environment implements tubepress_app_api_environment_EnvironmentInterface
+class tubepress_environment_impl_Environment implements tubepress_app_api_environment_EnvironmentInterface
 {
     /**
      * tubepress_platform_api_url_UrlInterface The base URL
@@ -273,7 +273,7 @@ class tubepress_app_impl_environment_Environment implements tubepress_app_api_en
     {
         if (!is_a($wpFunctionsInterface, 'tubepress_wordpress_impl_wp_WpFunctions')) {
 
-            throw new InvalidArgumentException('Invalid argument to tubepress_app_impl_environment_Environment::setWpFunctionsInterface');
+            throw new InvalidArgumentException('Invalid argument to tubepress_environment_impl_Environment::setWpFunctionsInterface');
         }
 
         $this->_wpFunctionsInterface = $wpFunctionsInterface;

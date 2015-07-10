@@ -1,0 +1,26 @@
+{
+    "name" : "tubepress/environment",
+    "version": "99.99.99",
+    "title" : "TubePress Environment Detection Services",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_environment_ioc_EnvironmentExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_environment_impl_Environment"         : "classes/tubepress/environment/impl/Environment.php",
+          "tubepress_environment_ioc_EnvironmentExtension" : "classes/tubepress/environment/ioc/EnvironmentExtension.php"
+        }
+    }
+}

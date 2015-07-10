@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_environment_Environment<extended>
+ * @covers tubepress_environment_impl_Environment<extended>
  */
-class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_environment_impl_EnvironmentTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_environment_Environment
+     * @var tubepress_environment_impl_Environment
      */
     private $_sut;
 
@@ -33,7 +33,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
     {
         $this->_mockUrlFactory   = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $this->_mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
-        $this->_sut              = new tubepress_app_impl_environment_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
+        $this->_sut              = new tubepress_environment_impl_Environment($this->_mockUrlFactory, $this->_mockBootSettings);
     }
 
     public function testVersion()
@@ -52,7 +52,7 @@ class tubepress_test_app_impl_environment_EnvironmentTest extends tubepress_test
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Invalid argument to tubepress_app_impl_environment_Environment::setWpFunctionsInterface
+     * @expectedExceptionMessage Invalid argument to tubepress_environment_impl_Environment::setWpFunctionsInterface
      */
     public function testBadWpInterface()
     {

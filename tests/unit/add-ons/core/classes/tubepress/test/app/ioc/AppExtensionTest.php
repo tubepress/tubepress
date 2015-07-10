@@ -46,6 +46,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
 
         return array(
 
+            tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
             tubepress_lib_api_event_EventDispatcherInterface::_  => $mockEventDispatcher,
             tubepress_lib_api_http_ResponseCodeInterface::_      => tubepress_lib_api_http_ResponseCodeInterface::_,
             tubepress_lib_api_translation_TranslatorInterface::_ => tubepress_lib_api_translation_TranslatorInterface::_,
@@ -111,7 +112,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
 
     protected function prepareForLoad()
     {
-        $this->_registerEnvironment();
         $this->_registerHtmlGenerator();
         $this->_registerHttpSingletons();
         $this->_registerListeners();
@@ -125,15 +125,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $this->_registerShortcode();
         $this->_registerTheme();
         $this->_registerVendorServices();
-    }
-
-    private function _registerEnvironment()
-    {
-        $this->expectRegistration(
-            tubepress_app_api_environment_EnvironmentInterface::_,
-            'tubepress_app_impl_environment_Environment'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
     }
 
     private function _registerHtmlGenerator()

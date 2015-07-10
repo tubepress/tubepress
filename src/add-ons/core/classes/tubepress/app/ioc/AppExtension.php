@@ -28,7 +28,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $this->_registerEnvironment($containerBuilder);
         $this->_registerHtmlGenerator($containerBuilder);
         $this->_registerHttpSingletons($containerBuilder);
         $this->_registerListeners($containerBuilder);
@@ -42,15 +41,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $this->_registerShortcode($containerBuilder);
         $this->_registerTheme($containerBuilder);
         $this->_registerVendorServices($containerBuilder);
-    }
-
-    private function _registerEnvironment(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-            tubepress_app_api_environment_EnvironmentInterface::_,
-            'tubepress_app_impl_environment_Environment'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
     }
 
     private function _registerHtmlGenerator(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
