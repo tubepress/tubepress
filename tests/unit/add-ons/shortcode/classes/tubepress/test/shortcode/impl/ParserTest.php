@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_shortcode_Parser<extended>
+ * @covers tubepress_shortcode_impl_Parser<extended>
  */
-class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_shortcode_impl_ParserTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_shortcode_Parser
+     * @var tubepress_shortcode_impl_Parser
      */
     private $_sut;
 
@@ -49,7 +49,7 @@ class tubepress_test_app_shortcode_impl_ParserTest extends tubepress_test_TubePr
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
 
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_app_api_options_Names::SHORTCODE_KEYWORD)->andReturn('butters');
-        $this->_sut = new tubepress_app_impl_shortcode_Parser($this->_mockLogger, $this->_mockExecutionContext, $this->_mockEventDispatcher, $this->_mockStringUtils);
+        $this->_sut = new tubepress_shortcode_impl_Parser($this->_mockLogger, $this->_mockExecutionContext, $this->_mockEventDispatcher, $this->_mockStringUtils);
     }
 
 

@@ -12,7 +12,7 @@
 /**
  * Adds shortcode handlers to TubePress.
  */
-class tubepress_app_impl_vendor_stash_FilesystemCacheBuilder
+class tubepress_cache_api_impl_stash_FilesystemCacheBuilder
 {
     /**
      * @var tubepress_app_api_options_ContextInterface

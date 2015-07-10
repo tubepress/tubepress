@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_http_ApiCacheListener
+ * @covers tubepress_cache_api_impl_listeners_ApiCacheListener
  */
-class tubepress_test_app_apicache_impl_listeners_http_ApiCacheListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_cache_api_impl_listeners_ApiCacheListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_http_ApiCacheListener
+     * @var tubepress_cache_api_impl_listeners_ApiCacheListener
      */
     private $_sut;
 
@@ -76,7 +76,7 @@ class tubepress_test_app_apicache_impl_listeners_http_ApiCacheListenerTest exten
         $this->_mockUrl       = $this->mock('tubepress_platform_api_url_UrlInterface');
         $this->_mockBody      = $this->mock('tubepress_lib_api_streams_StreamInterface');
         $this->_mockCacheItem = $this->mock('ehough_stash_interfaces_ItemInterface');
-        $this->_sut           = new tubepress_app_impl_listeners_http_ApiCacheListener(
+        $this->_sut           = new tubepress_cache_api_impl_listeners_ApiCacheListener(
 
             $this->_mockLogger,
             $this->_mockContext,

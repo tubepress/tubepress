@@ -12,7 +12,7 @@
 /**
  * Parses shortcodes.
  */
-class tubepress_app_impl_shortcode_Parser implements tubepress_app_api_shortcode_ParserInterface
+class tubepress_shortcode_impl_Parser implements tubepress_app_api_shortcode_ParserInterface
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface

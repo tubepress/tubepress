@@ -44,7 +44,7 @@ return array(
     'tubepress_app_impl_options_Context',
     'tubepress_app_impl_options_DispatchingReference',
     'tubepress_app_impl_options_Persistence',
-    'tubepress_app_impl_shortcode_Parser',
+    'tubepress_shortcode_impl_Parser',
     'tubepress_app_impl_theme_AbstractTheme',
     'tubepress_app_impl_theme_CurrentThemeService',
     'tubepress_app_impl_theme_FilesystemTheme',

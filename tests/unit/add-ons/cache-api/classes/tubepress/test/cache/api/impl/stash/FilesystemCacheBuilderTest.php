@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_vendor_stash_FilesystemCacheBuilder
+ * @covers tubepress_cache_api_impl_stash_FilesystemCacheBuilder
  */
-class tubepress_test_app_vendor_impl_stash_FilesystemCacheBuilderTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_cache_api_impl_stash_FilesystemCacheBuilderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_vendor_stash_FilesystemCacheBuilder
+     * @var tubepress_cache_api_impl_stash_FilesystemCacheBuilder
      */
     private $_sut;
 
@@ -43,7 +43,7 @@ class tubepress_test_app_vendor_impl_stash_FilesystemCacheBuilderTest extends tu
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut              = new tubepress_app_impl_vendor_stash_FilesystemCacheBuilder(
+        $this->_sut              = new tubepress_cache_api_impl_stash_FilesystemCacheBuilder(
 
             $this->_mockContext,
             $this->_mockBootSettings,

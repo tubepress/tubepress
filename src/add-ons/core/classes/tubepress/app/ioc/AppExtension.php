@@ -38,7 +38,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $this->_registerOptionsUiSingletons($containerBuilder);
         $this->_registerOptionsUiFieldProvider($containerBuilder);
         $this->_registerPlayers($containerBuilder);
-        $this->_registerShortcode($containerBuilder);
         $this->_registerTheme($containerBuilder);
         $this->_registerVendorServices($containerBuilder);
     }
@@ -147,11 +146,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_lib_api_http_RequestParametersInterface::_,
                 tubepress_lib_api_http_ResponseCodeInterface::_,
                 tubepress_lib_api_template_TemplatingInterface::_
-            ),
-            'tubepress_app_impl_listeners_http_ApiCacheListener' => array(
-                tubepress_platform_api_log_LoggerInterface::_,
-                tubepress_app_api_options_ContextInterface::_,
-                'ehough_stash_interfaces_PoolInterface',
             ),
             'tubepress_app_impl_listeners_http_UserAgentListener' => array(
                 tubepress_app_api_environment_EnvironmentInterface::_
@@ -328,12 +322,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              */
             tubepress_app_api_event_Events::HTTP_AJAX . '.playerHtml' => array(
                 100000 => array('tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => 'onAjax')
-            ),
-            tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST => array(
-                100000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onRequest',)
-            ),
-            tubepress_lib_api_http_Events::EVENT_HTTP_RESPONSE => array(
-                100000 => array('tubepress_app_impl_listeners_http_ApiCacheListener' => 'onResponse')
             ),
 
             /**
@@ -547,10 +535,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addArgument(array(
 
             tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR               => 20,
-                tubepress_app_api_options_Names::CACHE_DIRECTORY                     => null,
-                tubepress_app_api_options_Names::CACHE_ENABLED                       => true,
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS              => 21600, //six hours
                 tubepress_app_api_options_Names::DEBUG_ON                            => true,
                 tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY                   => false,
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT                     => 390,
@@ -611,10 +595,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             ),
 
             tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR               => 'Cache cleaning factor',        //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_DIRECTORY                     => 'Cache directory',           //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_ENABLED                       => 'Enable API cache',                //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS              => 'Cache expiration time (seconds)', //>(translatable)<
                 tubepress_app_api_options_Names::DEBUG_ON                            => 'Enable debugging',   //>(translatable)<
                 tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY                   => 'Auto-play all videos',                               //>(translatable)<
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT                     => 'Max height (px)',                                    //>(translatable)<
@@ -664,10 +644,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             ),
 
             tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR       => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.', //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_DIRECTORY             => 'Leave blank to attempt to use your system\'s temp directory. Otherwise enter the absolute path of a writeable directory.', //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_ENABLED               => 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', //>(translatable)<
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS      => 'Cache entries will be considered stale after the specified number of seconds. Default is 21600 (six hours).',   //>(translatable)<
                 tubepress_app_api_options_Names::DEBUG_ON                    => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',  //>(translatable)<
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT             => sprintf('Default is %s.', 390), //>(translatable)<
                 tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY           => 'Auto-play each video after thumbnail click.', //>(translatable)<
@@ -724,7 +700,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
 
         $toValidate = array(
             tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS,
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH,
                 tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
@@ -739,7 +714,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD,
             ),
             tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
-                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR,
                 tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP,
                 tubepress_app_api_options_Names::META_DESC_LIMIT,
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
@@ -925,7 +899,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $fieldReferences = array();
         $fieldMap = array(
             'boolean' => array(
-                tubepress_app_api_options_Names::CACHE_ENABLED,
                 tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY,
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
                 tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO,
@@ -950,9 +923,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::FEED_PER_PAGE_SORT,
             ),
             'text' => array(
-                tubepress_app_api_options_Names::CACHE_DIRECTORY,
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS,
-                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR,
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
                 tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
@@ -1011,7 +981,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             array(tubepress_app_api_options_ui_CategoryNames::EMBEDDED,       'Player'),        //>(translatable)<
             array(tubepress_app_api_options_ui_CategoryNames::META,           'Meta'),          //>(translatable)<
             array(tubepress_app_api_options_ui_CategoryNames::FEED,           'Feed'),          //>(translatable)<
-            array(tubepress_app_api_options_ui_CategoryNames::CACHE,          'Cache'),         //>(translatable)<,
             array(tubepress_app_api_options_ui_CategoryNames::ADVANCED,       'Advanced'),      //>(translatable)<
             array(tubepress_app_api_options_ui_CategoryNames::THEME,          'Theme'),          //>(translatable)<
         );
@@ -1030,12 +999,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $fieldMap = array(
             tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
                 tubepress_app_api_options_Names::GALLERY_SOURCE,
-            ),
-            tubepress_app_api_options_ui_CategoryNames::CACHE => array(
-                tubepress_app_api_options_Names::CACHE_ENABLED,
-                tubepress_app_api_options_Names::CACHE_DIRECTORY,
-                tubepress_app_api_options_Names::CACHE_LIFETIME_SECONDS,
-                tubepress_app_api_options_Names::CACHE_CLEANING_FACTOR,
             ),
             tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
                 tubepress_app_api_options_Names::PLAYER_LOCATION,
@@ -1095,18 +1058,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
          ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }
 
-    private function _registerShortcode(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
-    {
-        $containerBuilder->register(
-
-            tubepress_app_api_shortcode_ParserInterface::_,
-            'tubepress_app_impl_shortcode_Parser'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_));
-    }
-
     private function _registerTheme(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
@@ -1154,25 +1105,5 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'ehough_finder_FinderFactoryInterface',
             'ehough_finder_FinderFactory'
         );
-
-        $containerBuilder->register(
-
-            'tubepress_app_impl_vendor_stash_FilesystemCacheBuilder',
-            'tubepress_app_impl_vendor_stash_FilesystemCacheBuilder'
-        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_))
-         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_));
-
-        $containerBuilder->register(
-
-            'ehough_stash_interfaces_PoolInterface',
-            'ehough_stash_Pool'
-        )->addMethodCall('setDriver', array(new tubepress_platform_api_ioc_Reference('ehough_stash_interfaces_DriverInterface')));
-
-        $containerBuilder->register(
-            'ehough_stash_interfaces_DriverInterface',
-            'ehough_stash_interfaces_DriverInterface'
-        )->setFactoryService('tubepress_app_impl_vendor_stash_FilesystemCacheBuilder')
-         ->setFactoryMethod('buildFilesystemDriver');
     }
 }

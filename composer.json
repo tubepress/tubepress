@@ -33,11 +33,16 @@
         "psr-0": {
 
             "tubepress_array_"       : "src/add-ons/array/classes",
+            "tubepress_cache_api_"   : "src/add-ons/cache-api/classes",
             "tubepress_cache_html_"  : "src/add-ons/cache-html/classes",
             "tubepress_environment_" : "src/add-ons/environment/classes",
             "tubepress_event_"       : "src/add-ons/event/classes",
+            "tubepress_shortcode_"   : "src/add-ons/shortcode/classes",
             "tubepress_template_"    : "src/add-ons/template/classes",
             "tubepress_url_"         : "src/add-ons/url/classes",
+
+            "tubepress_api_" : "src/php/classes/public",
+            "tubepress_spi_" : "src/php/classes/public",
 
             "tubepress_app_"       : "src/add-ons/core/classes",
             "tubepress_lib_"       : "src/add-ons/core/classes",
@@ -64,10 +69,15 @@
     },
     "autoload-dev" : {
         "psr-0" : {
+
+            "tubepress_test_api_" : "tests/unit/php/classes/public",
+
             "tubepress_test_array_"       : "tests/unit/add-ons/array/classes",
             "tubepress_test_cache_html_"  : "tests/unit/add-ons/cache-html/classes",
+            "tubepress_test_cache_api_"   : "tests/unit/add-ons/cache-api/classes",
             "tubepress_test_environment_" : "tests/unit/add-ons/environment/classes",
             "tubepress_test_event_"       : "tests/unit/add-ons/event/classes",
+            "tubepress_test_shortcode_"   : "tests/unit/add-ons/shortcode/classes",
             "tubepress_test_template_"    : "tests/unit/add-ons/template/classes",
             "tubepress_test_url_"         : "tests/unit/add-ons/url/classes"
         }

@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_listeners_http_ApiCacheListener
+class tubepress_cache_api_impl_listeners_ApiCacheListener
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface
