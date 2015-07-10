@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_htmlcache_impl_options_ui_FieldProvider<extended>
+ * @covers tubepress_cache_html_impl_options_ui_FieldProvider<extended>
  */
 class tubepress_test_htmlcache_impl_options_ui_FieldProviderTest extends tubepress_test_TubePressUnitTest
 {
@@ -34,7 +34,7 @@ class tubepress_test_htmlcache_impl_options_ui_FieldProviderTest extends tubepre
         $this->_mockField = $this->mock('tubepress_app_api_options_ui_FieldInterface');
         $this->_mockFields = array($this->_mockField);
 
-        $this->_sut = new tubepress_htmlcache_impl_options_ui_FieldProvider(
+        $this->_sut = new tubepress_cache_html_impl_options_ui_FieldProvider(
 
             $this->_mockFields,
             array('foo' => 'bar')

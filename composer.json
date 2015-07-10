@@ -32,9 +32,10 @@
     "autoload": {
         "psr-0": {
 
-            "tubepress_array_" : "src/add-ons/array/classes",
-            "tubepress_event_" : "src/add-ons/event/classes",
-            "tubepress_url_"   : "src/add-ons/url/classes",
+            "tubepress_array_"      : "src/add-ons/array/classes",
+            "tubepress_cache_html_" : "src/add-ons/cache-html/classes",
+            "tubepress_event_"      : "src/add-ons/event/classes",
+            "tubepress_url_"        : "src/add-ons/url/classes",
 
             "tubepress_app_"       : "src/add-ons/core/classes",
             "tubepress_lib_"       : "src/add-ons/core/classes",
@@ -64,9 +65,10 @@
     },
     "autoload-dev" : {
         "psr-0" : {
-            "tubepress_test_array_" : "tests/unit/add-ons/array/classes",
-            "tubepress_test_event_" : "tests/unit/add-ons/event/classes",
-            "tubepress_test_url_"   : "tests/unit/add-ons/url/classes"
+            "tubepress_test_array_"      : "tests/unit/add-ons/array/classes",
+            "tubepress_test_cache_html_" : "tests/unit/add-ons/cache-html/classes",
+            "tubepress_test_event_"      : "tests/unit/add-ons/event/classes",
+            "tubepress_test_url_"        : "tests/unit/add-ons/url/classes"
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name" : "tubepress/htmlcache",
+    "name" : "tubepress/cache-html",
     "version": "99.99.99",
     "title" : "TubePress HTML Cache",
     "authors" : [
@@ -14,13 +14,13 @@
     },
     "container-builder": {
         "extensions" : [
-            "tubepress_htmlcache_ioc_HtmlCacheExtension"
+            "tubepress_cache_html_ioc_HtmlCacheExtension"
         ]
     },
     "autoload":{
         "classmap" : {
-          "tubepress_htmlcache_impl_options_ui_FieldProvider" : "classes/tubepress/htmlcache/impl/options/ui/FieldProvider.php",
-          "tubepress_htmlcache_ioc_HtmlCacheExtension"        : "classes/tubepress/htmlcache/ioc/HtmlCacheExtension.php"
+          "tubepress_cache_html_impl_options_ui_FieldProvider" : "classes/tubepress/cache/html/impl/options/ui/FieldProvider.php",
+          "tubepress_cache_html_ioc_HtmlCacheExtension"        : "classes/tubepress/cache/html/ioc/HtmlCacheExtension.php"
         }
     }
 }

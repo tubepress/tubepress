@@ -10,13 +10,13 @@
  */
 
 /**
- * @covers tubepress_htmlcache_ioc_HtmlCacheExtension<extended>
+ * @covers tubepress_cache_html_ioc_HtmlCacheExtension<extended>
  */
-class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
+class tubepress_test_cache_html_ioc_HtmlCacheExtensionTest extends tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest
 {
     protected function buildSut()
     {
-        return new tubepress_htmlcache_ioc_HtmlCacheExtension();
+        return new tubepress_cache_html_ioc_HtmlCacheExtension();
     }
 
     protected function prepareForLoad()
@@ -138,8 +138,8 @@ class tubepress_test_htmlcache_ioc_HtmlCacheExtensionTest extends tubepress_test
         );
 
         $this->expectRegistration(
-            'tubepress_htmlcache_impl_options_ui_FieldProvider',
-            'tubepress_htmlcache_impl_options_ui_FieldProvider'
+            'tubepress_cache_html_impl_options_ui_FieldProvider',
+            'tubepress_cache_html_impl_options_ui_FieldProvider'
         )->withArgument($fieldReferences)
             ->withArgument($fieldMap)
             ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');

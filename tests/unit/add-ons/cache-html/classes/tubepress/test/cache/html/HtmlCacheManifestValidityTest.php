@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_test_htmlcache_HtmlCacheManifestValidityTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
+class tubepress_test_cache_html_HtmlCacheManifestValidityTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractManifestTest
 {
     public function testManifest()
     {
@@ -18,7 +18,7 @@ class tubepress_test_htmlcache_HtmlCacheManifestValidityTest extends tubepress_t
          */
         $addon = $this->getAddonFromManifest($this->getPathToManifest());
 
-        $this->assertEquals('tubepress/htmlcache', $addon->getName());
+        $this->assertEquals('tubepress/cache-html', $addon->getName());
         $this->assertEquals('99.99.99', $addon->getVersion());
         $this->assertEquals('TubePress HTML Cache', $addon->getTitle());
         $this->assertAuthors($addon, array(array('name' => 'TubePress LLC', 'url' => 'http://tubepress.com')));
@@ -27,6 +27,6 @@ class tubepress_test_htmlcache_HtmlCacheManifestValidityTest extends tubepress_t
 
     protected function getPathToManifest()
     {
-        return TUBEPRESS_ROOT . '/src/add-ons/htmlcache/manifest.json';
+        return TUBEPRESS_ROOT . '/src/add-ons/cache-html/manifest.json';
     }
 }

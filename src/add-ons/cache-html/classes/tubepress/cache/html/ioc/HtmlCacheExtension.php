@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_htmlcache_ioc_HtmlCacheExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
+class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_platform_api_ioc_ContainerExtensionInterface
 {
     /**
      * Called during construction of the TubePress service container. If an add-on intends to add
@@ -145,8 +145,8 @@ class tubepress_htmlcache_ioc_HtmlCacheExtension implements tubepress_platform_a
         );
 
         $containerBuilder->register(
-            'tubepress_htmlcache_impl_options_ui_FieldProvider',
-            'tubepress_htmlcache_impl_options_ui_FieldProvider'
+            'tubepress_cache_html_impl_options_ui_FieldProvider',
+            'tubepress_cache_html_impl_options_ui_FieldProvider'
         )->addArgument($fieldReferences)
          ->addArgument($fieldMap)
          ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
