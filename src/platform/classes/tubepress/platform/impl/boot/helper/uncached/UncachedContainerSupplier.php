@@ -84,7 +84,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
 
         $this->_containerBuilder->set('tubepress_platform_api_ioc_ContainerInterface',      $this->_containerBuilder);
         $this->_containerBuilder->set('ehough_iconic_ContainerInterface',                   $this->_containerBuilder->getDelegateContainerBuilder());
-        $this->_containerBuilder->set('tubepress_platform_impl_log_BootLogger',             $this->_logger);
+        $this->_containerBuilder->set('tubepress_internal_logger_BootLogger',             $this->_logger);
         $this->_containerBuilder->set(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_bootSettings);
 
         $addons = $this->_findAllAddons();

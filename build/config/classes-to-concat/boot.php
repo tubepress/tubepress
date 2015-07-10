@@ -6,5 +6,5 @@ return array(
     'tubepress_platform_impl_boot_helper_ContainerSupplier',
     'tubepress_platform_impl_boot_BootSettings',
     'tubepress_platform_impl_ioc_Container',
-    'tubepress_platform_impl_log_BootLogger'
+    'tubepress_internal_logger_BootLogger'
 );

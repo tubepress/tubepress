@@ -28,7 +28,7 @@ class tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass implements tubepres
 
     private function _process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder, $id)
     {
-        $logger         = $containerBuilder->get('tubepress_platform_impl_log_BootLogger');
+        $logger         = $containerBuilder->get('tubepress_internal_logger_BootLogger');
         $finderFactory  = $containerBuilder->get('ehough_finder_FinderFactoryInterface');
         $bootSettings   = $containerBuilder->get(tubepress_platform_api_boot_BootSettingsInterface::_);
         $context        = $containerBuilder->get(tubepress_app_api_options_ContextInterface::_);

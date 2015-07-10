@@ -31,7 +31,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         });
         $mockEventDispatcher->shouldReceive('dispatch')->atLeast(1);
 
-        $mockBootLogger = $this->mock('tubepress_platform_impl_log_BootLogger');
+        $mockBootLogger = $this->mock('tubepress_internal_logger_BootLogger');
         $mockBootLogger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
 
         $mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
@@ -43,6 +43,9 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         $mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $mockUrlFactory->shouldReceive('fromCurrent')->atLeast(1)->andReturn($mockCurrentUrl);
 
+        $logger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
+        $logger->shouldReceive('isEnabled')->atLeast(1)->andReturn(true);
+
         return array(
 
             tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
@@ -53,13 +56,14 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             tubepress_platform_api_boot_BootSettingsInterface::_ => $mockBootSettings,
             tubepress_platform_api_util_LangUtilsInterface::_    => tubepress_platform_api_util_LangUtilsInterface::_,
             tubepress_platform_api_util_StringUtilsInterface::_  => tubepress_platform_api_util_StringUtilsInterface::_,
-            'tubepress_platform_impl_log_BootLogger'             => $mockBootLogger,
+            'tubepress_internal_logger_BootLogger'             => $mockBootLogger,
             tubepress_lib_api_util_TimeUtilsInterface::_         => tubepress_lib_api_util_TimeUtilsInterface::_,
             tubepress_lib_api_http_HttpClientInterface::_        => tubepress_lib_api_http_HttpClientInterface::_,
             tubepress_app_api_options_PersistenceBackendInterface::_ => tubepress_app_api_options_PersistenceBackendInterface::_,
             tubepress_lib_api_template_TemplatingInterface::_    => tubepress_lib_api_template_TemplatingInterface::_,
             tubepress_lib_api_template_TemplatingInterface::_ . '.admin'    => tubepress_lib_api_template_TemplatingInterface::_,
             tubepress_app_api_html_HtmlGeneratorInterface::_     => tubepress_app_api_html_HtmlGeneratorInterface::_,
+            tubepress_platform_api_log_LoggerInterface::_ => $logger
         );
     }
 
@@ -114,7 +118,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     {
         $this->_registerHttpSingletons();
         $this->_registerListeners();
-        $this->_registerLogger();
         $this->_registerMediaSingletons();
         $this->_registerOptions();
         $this->_registerOptionsSingletons();
@@ -549,14 +552,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
         }
     }
 
-    private function _registerLogger()
-    {
-        $this->expectRegistration(
-            tubepress_platform_api_log_LoggerInterface::_,
-            'tubepress_app_impl_log_HtmlLogger'
-        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ContextInterface::_))
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_));
-    }
+
 
     private function _registerMediaSingletons()
     {

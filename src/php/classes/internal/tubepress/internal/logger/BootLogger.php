@@ -12,7 +12,7 @@
 /**
  * Logger that stores messages in memory. Used during boot.
  */
-class tubepress_platform_impl_log_BootLogger implements tubepress_platform_api_log_LoggerInterface
+class tubepress_internal_logger_BootLogger implements tubepress_platform_api_log_LoggerInterface
 {
     /**
      * @var bool

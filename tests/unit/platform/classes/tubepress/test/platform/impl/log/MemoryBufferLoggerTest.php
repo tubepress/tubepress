@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_platform_impl_log_BootLogger
+ * @covers tubepress_internal_logger_BootLogger
  */
 class tubepress_test_impl_log_BootLoggerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_log_BootLogger
+     * @var tubepress_internal_logger_BootLogger
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_platform_impl_log_BootLogger(true);
+        $this->_sut = new tubepress_internal_logger_BootLogger(true);
     }
 
     public function testEnabled()

@@ -149,7 +149,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
         ))->andReturn('<?php class TubePressServiceContainer extends ehough_iconic_Container {}');
 
         $this->_mockContainerBuilder->shouldReceive('getDelegateContainerBuilder')->times($times)->andReturn($mockIconicBuilder);
-        $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_platform_impl_log_BootLogger', $this->_mockLogger);
+        $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger', $this->_mockLogger);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_mockBootSettings);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicBuilder);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_platform_api_ioc_ContainerInterface', $this->_mockContainerBuilder);

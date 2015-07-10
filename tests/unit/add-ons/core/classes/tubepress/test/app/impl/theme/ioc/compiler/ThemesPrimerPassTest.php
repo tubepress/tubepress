@@ -41,7 +41,7 @@ class tubepress_test_app_impl_theme_ioc_compiler_ThemesPrimerPassTest extends tu
 //
 //        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('ehough_finder_FinderFactoryInterface')->andReturn($mockFinderFactory);
 //        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('x')->andReturn($mockThemeFinder);
-//        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('tubepress_platform_impl_log_BootLogger')->andReturn($mockLogger);
+//        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('tubepress_internal_logger_BootLogger')->andReturn($mockLogger);
 //        $this->_mockContainerBuilder->shouldReceive('findTaggedServiceIds')->once()->with(tubepress_platform_api_contrib_FilesystemPathFinderInterface::_)->andReturn(array(
 //            'x' => array(array('type' => tubepress_app_api_theme_ThemeInterface::_))
 //        ));

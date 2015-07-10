@@ -1,0 +1,26 @@
+{
+    "name" : "tubepress/logger",
+    "version": "99.99.99",
+    "title" : "TubePress Logger",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_logger_ioc_LoggerExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_logger_ioc_LoggerExtension" : "classes/tubepress/logger/ioc/LoggerExtension.php",
+          "tubepress_logger_impl_HtmlLogger"     : "classes/tubepress/logger/impl/HtmlLogger.php"
+        }
+    }
+}

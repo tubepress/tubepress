@@ -47,7 +47,7 @@ class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_Tu
 
         $this->_bootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
         $this->_mockContainerSupplier            = $this->mock('tubepress_platform_impl_boot_helper_ContainerSupplier');
-        $this->_mockBootLogger                   = $this->mock('tubepress_platform_impl_log_BootLogger');
+        $this->_mockBootLogger                   = $this->mock('tubepress_internal_logger_BootLogger');
         $this->_mockServiceContainer             = $this->mock('tubepress_platform_api_ioc_ContainerInterface');
 
         $this->_sut->___setContainerSupplier($this->_mockContainerSupplier);

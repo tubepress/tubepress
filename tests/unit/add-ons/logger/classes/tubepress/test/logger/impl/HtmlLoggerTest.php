@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_log_HtmlLogger
+ * @covers tubepress_logger_impl_HtmlLogger
  */
-class tubepress_test_app_impl_log_HtmlLoggerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_logger_impl_HtmlLoggerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_log_HtmlLogger
+     * @var tubepress_logger_impl_HtmlLogger
      */
     private $_sut;
 
@@ -39,7 +39,7 @@ class tubepress_test_app_impl_log_HtmlLoggerTest extends tubepress_test_TubePres
         $this->_mockHttpRequestParams->shouldReceive('hasParam')->once()->with('tubepress_debug')->andReturn(true);
         $this->_mockHttpRequestParams->shouldReceive('getParamValue')->once()->with('tubepress_debug')->andReturn(true);
 
-        $this->_sut = new tubepress_app_impl_log_HtmlLogger(
+        $this->_sut = new tubepress_logger_impl_HtmlLogger(
             $this->_mockContext,
             $this->_mockHttpRequestParams
         );

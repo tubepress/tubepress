@@ -28,7 +28,7 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     private static $_BOOT_EXCEPTION;
 
     /**
-     * @var tubepress_platform_impl_log_BootLogger
+     * @var tubepress_internal_logger_BootLogger
      */
     private $_bootLogger;
 
@@ -156,7 +156,7 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
         if (!isset($this->_bootLogger)) {
 
             $loggingRequested  = isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0;
-            $this->_bootLogger = new tubepress_platform_impl_log_BootLogger($loggingRequested);
+            $this->_bootLogger = new tubepress_internal_logger_BootLogger($loggingRequested);
         }
     }
 
@@ -429,11 +429,11 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     /**
      * This is here strictly for testing :/
      *
-     * @param tubepress_platform_impl_log_BootLogger $logger
+     * @param tubepress_internal_logger_BootLogger $logger
      *
      * @internal
      */
-    public function ___setTemporaryLogger(tubepress_platform_impl_log_BootLogger $logger)
+    public function ___setTemporaryLogger(tubepress_internal_logger_BootLogger $logger)
     {
         $this->_bootLogger = $logger;
     }

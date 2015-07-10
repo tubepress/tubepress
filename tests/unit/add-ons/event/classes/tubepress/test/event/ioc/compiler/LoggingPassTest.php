@@ -50,13 +50,13 @@ class tubepress_test_event_ioc_compiler_LoggingPassTest extends tubepress_test_T
         $listenerServiceDefinition = $this->mock('stdClass');
         $listenerServiceDefinition->shouldReceive('getClass')->once()->andReturn('listener-class');
 
-        $mockBootLogger = $this->mock('tubepress_platform_impl_log_BootLogger');
+        $mockBootLogger = $this->mock('tubepress_internal_logger_BootLogger');
         $mockBootLogger->shouldReceive('debug')->atLeast(1);
 
         $this->_mockContainerBuilder->shouldReceive('hasDefinition')->with(tubepress_lib_api_event_EventDispatcherInterface::_)->andReturn(true);
-        $this->_mockContainerBuilder->shouldReceive('has')->with('tubepress_platform_impl_log_BootLogger')->andReturn(true);
+        $this->_mockContainerBuilder->shouldReceive('has')->with('tubepress_internal_logger_BootLogger')->andReturn(true);
         $this->_mockContainerBuilder->shouldReceive('getDefinition')->once()->with(tubepress_lib_api_event_EventDispatcherInterface::_)->andReturn($eventDispatcherDefinition);
-        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('tubepress_platform_impl_log_BootLogger')->andReturn($mockBootLogger);
+        $this->_mockContainerBuilder->shouldReceive('get')->once()->with('tubepress_internal_logger_BootLogger')->andReturn($mockBootLogger);
         $this->_mockContainerBuilder->shouldReceive('hasDefinition')->once()->with('listener-service-id')->andReturn(true);
         $this->_mockContainerBuilder->shouldReceive('getDefinition')->once()->with('listener-service-id')->andReturn($listenerServiceDefinition);
 
@@ -67,7 +67,7 @@ class tubepress_test_event_ioc_compiler_LoggingPassTest extends tubepress_test_T
     public function testMissingEventDispatcher()
     {
         $this->_mockContainerBuilder->shouldReceive('hasDefinition')->with(tubepress_lib_api_event_EventDispatcherInterface::_)->andReturn(false);
-        $this->_mockContainerBuilder->shouldReceive('has')->with('tubepress_platform_impl_log_BootLogger')->andReturn(true);
+        $this->_mockContainerBuilder->shouldReceive('has')->with('tubepress_internal_logger_BootLogger')->andReturn(true);
 
         $this->_sut->process($this->_mockContainerBuilder);
         $this->assertTrue(true);
@@ -76,7 +76,7 @@ class tubepress_test_event_ioc_compiler_LoggingPassTest extends tubepress_test_T
     public function testMissingBootLogger()
     {
         $this->_mockContainerBuilder->shouldReceive('hasDefinition')->with(tubepress_lib_api_event_EventDispatcherInterface::_)->andReturn(true);
-        $this->_mockContainerBuilder->shouldReceive('has')->with('tubepress_platform_impl_log_BootLogger')->andReturn(false);
+        $this->_mockContainerBuilder->shouldReceive('has')->with('tubepress_internal_logger_BootLogger')->andReturn(false);
 
         $this->_sut->process($this->_mockContainerBuilder);
         $this->assertTrue(true);

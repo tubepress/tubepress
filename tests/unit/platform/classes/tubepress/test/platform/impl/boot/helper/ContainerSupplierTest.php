@@ -121,7 +121,7 @@ XYZ;
 
         $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_platform_api_ioc_ContainerInterface', ehough_mockery_Mockery::type('tubepress_platform_api_ioc_ContainerInterface'));
         $mockIconicContainer->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicContainer);
-        $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_platform_impl_log_BootLogger', $this->_mockLogger);
+        $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_internal_logger_BootLogger', $this->_mockLogger);
         $mockIconicContainer->shouldReceive('set')->once()->with('tubepress_platform_api_boot_BootSettingsInterface', $this->_mockSettingsFileReader);
 
         $result = $this->_sut->getServiceContainer();

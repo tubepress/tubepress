@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_log_HtmlLogger implements tubepress_platform_api_log_LoggerInterface
+class tubepress_logger_impl_HtmlLogger implements tubepress_platform_api_log_LoggerInterface
 {
     /**
      * @var boolean

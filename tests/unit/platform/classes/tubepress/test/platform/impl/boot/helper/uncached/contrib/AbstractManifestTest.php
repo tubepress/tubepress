@@ -24,7 +24,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
             return $factory->fromString($incoming);
         });
 
-        $logger       = new tubepress_platform_impl_log_BootLogger(false);
+        $logger       = new tubepress_internal_logger_BootLogger(false);
         $urlFactory   = new tubepress_url_impl_puzzle_UrlFactory();
         $bootSettings = new tubepress_platform_impl_boot_BootSettings($logger, $urlFactory);
         $langUtils    = new tubepress_util_impl_LangUtils();

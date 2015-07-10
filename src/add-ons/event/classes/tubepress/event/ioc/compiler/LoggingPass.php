@@ -20,13 +20,13 @@ class tubepress_event_ioc_compiler_LoggingPass implements tubepress_platform_api
     public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         if (!$containerBuilder->hasDefinition(tubepress_lib_api_event_EventDispatcherInterface::_) ||
-            !$containerBuilder->has('tubepress_platform_impl_log_BootLogger')) {
+            !$containerBuilder->has('tubepress_internal_logger_BootLogger')) {
 
             return;
         }
 
         $eventDispatcherDefinition = $containerBuilder->getDefinition(tubepress_lib_api_event_EventDispatcherInterface::_);
-        $logger                    = $containerBuilder->get('tubepress_platform_impl_log_BootLogger');
+        $logger                    = $containerBuilder->get('tubepress_internal_logger_BootLogger');
 
         $clazz = $eventDispatcherDefinition->getClass();
 

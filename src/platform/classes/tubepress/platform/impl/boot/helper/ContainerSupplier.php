@@ -191,7 +191,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
     {
         $tubePressContainer->set('tubepress_platform_api_ioc_ContainerInterface',      $tubePressContainer);
         $tubePressContainer->set('ehough_iconic_ContainerInterface',                   $iconicContainer);
-        $tubePressContainer->set('tubepress_platform_impl_log_BootLogger',             $this->_logger);
+        $tubePressContainer->set('tubepress_internal_logger_BootLogger',             $this->_logger);
         $tubePressContainer->set(tubepress_platform_api_boot_BootSettingsInterface::_, $this->_bootSettings);
     }
 
