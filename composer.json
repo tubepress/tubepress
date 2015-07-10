@@ -45,6 +45,8 @@
             "tubepress_api_" : "src/php/classes/public",
             "tubepress_spi_" : "src/php/classes/public",
 
+            "tubepress_internal_" : "src/php/classes/internal",
+
             "tubepress_app_"       : "src/add-ons/core/classes",
             "tubepress_lib_"       : "src/add-ons/core/classes",
             "tubepress_platform_"  : "src/platform/classes",
@@ -72,6 +74,7 @@
         "psr-0" : {
 
             "tubepress_test_api_" : "tests/unit/php/classes/public",
+            "tubepress_internal_" : "tests/unit/php/classes/internal",
 
             "tubepress_test_array_"       : "tests/unit/add-ons/array/classes",
             "tubepress_test_cache_html_"  : "tests/unit/add-ons/cache-html/classes",

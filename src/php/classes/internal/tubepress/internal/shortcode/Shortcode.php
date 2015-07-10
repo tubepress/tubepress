@@ -38,7 +38,7 @@
  * @api
  * @since 4.1.11
  */
-class tubepress_lib_impl_shortcode_Shortcode implements tubepress_lib_api_shortcode_ShortcodeInterface
+class tubepress_internal_shortcode_Shortcode implements tubepress_lib_api_shortcode_ShortcodeInterface
 {
     /**
      * @var string

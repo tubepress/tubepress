@@ -112,7 +112,7 @@ class tubepress_wordpress_impl_Callback
         }
 
         $name      = $this->_context->get(tubepress_app_api_options_Names::SHORTCODE_KEYWORD);
-        $shortcode = new tubepress_lib_impl_shortcode_Shortcode($name, $normalizedOptions, $innerContent);
+        $shortcode = new tubepress_internal_shortcode_Shortcode($name, $normalizedOptions, $innerContent);
 
         return $this->_eventDispatcher->newEventInstance($shortcode);
     }
