@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_lib_ioc_compiler_TaggedServicesConsumerPass<extended>
+ * @covers tubepress_ioc_compiler_TaggedServicesConsumerPass<extended>
  */
-class tubepress_test_lib_impl_ioc_compiler_TaggedServicesConsumerPassTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_ioc_compiler_TaggedServicesConsumerPassTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_lib_ioc_compiler_TaggedServicesConsumerPass
+     * @var tubepress_ioc_compiler_TaggedServicesConsumerPass
      */
     private $_sut;
 
@@ -26,7 +26,7 @@ class tubepress_test_lib_impl_ioc_compiler_TaggedServicesConsumerPassTest extend
 
     public function onSetup()
     {
-        $this->_sut           = new tubepress_lib_ioc_compiler_TaggedServicesConsumerPass();
+        $this->_sut           = new tubepress_ioc_compiler_TaggedServicesConsumerPass();
         $this->_mockContainer = $this->mock('tubepress_platform_api_ioc_ContainerBuilderInterface');
     }
 

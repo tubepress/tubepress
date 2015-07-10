@@ -1,0 +1,25 @@
+{
+    "name" : "tubepress/ioc",
+    "version": "99.99.99",
+    "title" : "TubePress Inversion of Control Services",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "compiler-passes" : {
+            "tubepress_ioc_compiler_TaggedServicesConsumerPass"  : 70000
+        }
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_ioc_compiler_TaggedServicesConsumerPass" : "classes/tubepress/ioc/compiler/TaggedServicesConsumerPass.php"
+        }
+    }
+}

@@ -14,8 +14,7 @@
     },
     "container-builder": {
         "compiler-passes" : {
-            "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : 60000,
-            "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"  : 70000
+            "tubepress_app_impl_theme_ioc_compiler_ThemesPrimerPass" : 60000
         },
         "extensions" : [
             "tubepress_app_ioc_AppExtension"
@@ -153,9 +152,7 @@
             "tubepress_lib_api_template_PathProviderInterface"  : "classes/tubepress/lib/api/template/PathProviderInterface.php",
             "tubepress_lib_api_template_TemplatingInterface"    : "classes/tubepress/lib/api/template/TemplatingInterface.php",
             "tubepress_lib_api_translation_TranslatorInterface" : "classes/tubepress/lib/api/translation/TranslatorInterface.php",
-            "tubepress_lib_api_util_TimeUtilsInterface"         : "classes/tubepress/lib/api/util/TimeUtilsInterface.php",
-
-            "tubepress_lib_ioc_compiler_TaggedServicesConsumerPass"      : "classes/tubepress/lib/ioc/compiler/TaggedServicesConsumerPass.php"
+            "tubepress_lib_api_util_TimeUtilsInterface"         : "classes/tubepress/lib/api/util/TimeUtilsInterface.php"
         }
     }
 }

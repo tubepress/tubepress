@@ -12,7 +12,7 @@
 /**
  * Finds registered listeners and adds them to the event dispatcher.
  */
-class tubepress_lib_ioc_compiler_TaggedServicesConsumerPass implements tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_ioc_compiler_TaggedServicesConsumerPass implements tubepress_platform_api_ioc_CompilerPassInterface
 {
     /**
      * @param tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder The primary service container builder.
