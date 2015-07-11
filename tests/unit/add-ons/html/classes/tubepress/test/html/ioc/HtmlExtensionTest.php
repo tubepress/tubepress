@@ -25,6 +25,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
     protected function prepareForLoad()
     {
         $this->_registerListeners();
+        $this->_registerPathProvider();
 
         $this->expectRegistration(
             'tubepress_html_impl_CssAndJsGenerationHelper',
@@ -78,6 +79,16 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
                 'event'    => tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts',
                 'priority' => 100000,
                 'method'   => 'onPostScriptsTemplateRender'));
+    }
+
+    private function _registerPathProvider()
+    {
+        $this->expectRegistration(
+            'tubepress_api_template_BasePathProvider__template',
+            'tubepress_api_template_BasePathProvider'
+        )->withArgument(array(
+            TUBEPRESS_ROOT . '/src/add-ons/html/templates',
+        ))->withTag('tubepress_lib_api_template_PathProviderInterface');
     }
 
     protected function getExpectedExternalServicesMap()

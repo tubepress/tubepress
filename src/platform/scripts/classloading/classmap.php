@@ -461,6 +461,7 @@ return array (
     'tubepress_api_const_options_names_Meta' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/api/const/options/names/Meta.php',
     'tubepress_api_const_template_Variable' => TUBEPRESS_ROOT . '/src/add-ons/deprecated/classes/tubepress/api/const/template/Variable.php',
     'tubepress_api_options_ui_BaseFieldProvider' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/options/ui/BaseFieldProvider.php',
+    'tubepress_api_template_BasePathProvider' => TUBEPRESS_ROOT . '/src/php/classes/public/tubepress/api/template/BasePathProvider.php',
     'tubepress_app_api_embedded_EmbeddedProviderInterface' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/api/embedded/EmbeddedProviderInterface.php',
     'tubepress_app_api_environment_EnvironmentInterface' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/api/environment/EnvironmentInterface.php',
     'tubepress_app_api_event_Events' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/api/event/Events.php',

@@ -29,6 +29,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerListeners($containerBuilder);
+        $this->_registerPathProvider($containerBuilder);
 
         $containerBuilder->register(
             'tubepress_html_impl_CssAndJsGenerationHelper',
@@ -53,8 +54,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
              'event'    => tubepress_app_api_event_Events::HTML_SCRIPTS,
              'priority' => 100000,
-             'method'   => 'onScripts',
-        ));
+             'method'   => 'onScripts'));
     }
 
     private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -82,5 +82,15 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
             'event'    => tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts',
             'priority' => 100000,
             'method'   => 'onPostScriptsTemplateRender'));
+    }
+
+    private function _registerPathProvider(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_api_template_BasePathProvider__template',
+            'tubepress_api_template_BasePathProvider'
+        )->addArgument(array(
+            TUBEPRESS_ROOT . '/src/add-ons/html/templates',
+        ))->addTag('tubepress_lib_api_template_PathProviderInterface');
     }
 }
