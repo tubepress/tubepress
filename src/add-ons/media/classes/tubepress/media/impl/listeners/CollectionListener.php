@@ -11,7 +11,7 @@
 
 /**
  */
-class tubepress_app_impl_listeners_media_CollectionListener
+class tubepress_media_impl_listeners_CollectionListener
 {
     /**
      * @var tubepress_app_api_media_MediaProviderInterface[]

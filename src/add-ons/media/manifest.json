@@ -19,10 +19,13 @@
     },
     "autoload":{
         "classmap" : {
-          "tubepress_media_ioc_MediaExtension"      : "classes/tubepress/media/ioc/MediaExtension.php",
-          "tubepress_media_impl_AttributeFormatter" : "classes/tubepress/media/impl/AttributeFormatter.php",
-          "tubepress_media_impl_Collector"          : "classes/tubepress/media/impl/Collector.php",
-          "tubepress_media_impl_HttpCollector"      : "classes/tubepress/media/impl/HttpCollector.php"
+          "tubepress_media_ioc_MediaExtension"                 : "classes/tubepress/media/ioc/MediaExtension.php",
+          "tubepress_media_impl_AttributeFormatter"            : "classes/tubepress/media/impl/AttributeFormatter.php",
+          "tubepress_media_impl_Collector"                     : "classes/tubepress/media/impl/Collector.php",
+          "tubepress_media_impl_HttpCollector"                 : "classes/tubepress/media/impl/HttpCollector.php",
+          "tubepress_media_impl_listeners_CollectionListener"  : "classes/tubepress/media/impl/listeners/CollectionListener.php",
+          "tubepress_media_impl_listeners_DispatchingListener" : "classes/tubepress/media/impl/listeners/DispatchingListener.php",
+          "tubepress_media_impl_listeners_PageListener"        : "classes/tubepress/media/impl/listeners/PageListener.php"
         }
     }
 }

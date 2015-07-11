@@ -12,7 +12,7 @@
 /**
  * Filters out any videos that the user has in their blacklist.
  */
-class tubepress_app_impl_listeners_media_PageListener
+class tubepress_media_impl_listeners_PageListener
 {
     private $_logger;
 

@@ -11,7 +11,7 @@
 
 /**
  */
-class tubepress_app_impl_listeners_media_DispatchingListener
+class tubepress_media_impl_listeners_DispatchingListener
 {
     /**
      * @var tubepress_lib_api_event_EventDispatcherInterface

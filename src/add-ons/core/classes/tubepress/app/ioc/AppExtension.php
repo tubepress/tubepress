@@ -99,20 +99,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_environment_EnvironmentInterface::_
             ),
 
-            /**
-             * MEDIA
-             */
-            'tubepress_app_impl_listeners_media_PageListener' => array(
-                tubepress_platform_api_log_LoggerInterface::_,
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_,
-                tubepress_app_api_media_CollectorInterface::_,
-                tubepress_platform_api_url_UrlFactoryInterface::_,
-            ),
-            'tubepress_app_impl_listeners_media_CollectionListener' => array(),
-            'tubepress_app_impl_listeners_media_DispatchingListener' => array(
-                tubepress_lib_api_event_EventDispatcherInterface::_
-            ),
 
             /**
              * NVP
@@ -193,9 +179,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'tubepress_app_impl_listeners_options_values_FeedOptions' => array(
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
-            'tubepress_app_impl_listeners_media_CollectionListener' => array(
-                tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders'
-            ),
             'tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => array(
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders'
             ),
@@ -257,20 +240,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              * MEDIA
              */
             tubepress_app_api_event_Events::MEDIA_PAGE_NEW => array(
-                100000 => array('tubepress_app_impl_listeners_media_PageListener'    => 'perPageSort'),
-                98000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'blacklist'),
-                96000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'capResults'),
-                94000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'prependItems'),
-                93000  => array('tubepress_app_impl_listeners_media_PageListener'    => 'filterDuplicates'),
                 92000  => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
-            ),
-            tubepress_app_api_event_Events::MEDIA_PAGE_REQUEST => array(
-                100000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaPageRequest'),
-                98000  => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaPageRequest'),
-            ),
-            tubepress_app_api_event_Events::MEDIA_ITEM_REQUEST => array(
-                100000 => array('tubepress_app_impl_listeners_media_CollectionListener'  => 'onMediaItemRequest'),
-                98000  => array('tubepress_app_impl_listeners_media_DispatchingListener' => 'onMediaItemRequest'),
             ),
 
             /**

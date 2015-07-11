@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_media_PageListener
+ * @covers tubepress_media_impl_listeners_PageListener
  */
-class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_media_impl_listeners_PageListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_media_PageListener
+     * @var tubepress_media_impl_listeners_PageListener
      */
     private $_sut;
 
@@ -69,7 +69,7 @@ class tubepress_test_app_impl_listeners_media_PageListenerTest extends tubepress
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
-        $this->_sut = new tubepress_app_impl_listeners_media_PageListener(
+        $this->_sut = new tubepress_media_impl_listeners_PageListener(
             $this->_mockLogger,
             $this->_mockContext,
             $this->_mockRequestParams,
