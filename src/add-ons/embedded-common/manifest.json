@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/embedded-common",
+    "version": "99.99.99",
+    "title" : "TubePress Common Embedded Functionality",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_embedded_common_ioc_EmbeddedCommonExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_embedded_common_ioc_EmbeddedCommonExtension"     : "classes/tubepress/embedded/common/ioc/EmbeddedCommonExtension.php",
+            "tubepress_embedded_common_impl_listeners_EmbeddedListener" : "classes/tubepress/embedded/common/impl/listeners/EmbeddedListener.php"
+
+        }
+    }
+}

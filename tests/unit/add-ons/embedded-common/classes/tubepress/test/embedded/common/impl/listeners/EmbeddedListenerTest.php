@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_embedded_EmbeddedListener
+ * @covers tubepress_embedded_common_impl_listeners_EmbeddedListener
  */
-class tubepress_test_app_impl_listeners_embedded_EmbeddedListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_embedded_common_impl_listeners_EmbeddedListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_embedded_EmbeddedListener
+     * @var tubepress_embedded_common_impl_listeners_EmbeddedListener
      */
     private $_sut;
 
@@ -52,7 +52,7 @@ class tubepress_test_app_impl_listeners_embedded_EmbeddedListenerTest extends tu
         $this->_mockEmbeddedProvider2 = $this->mock('tubepress_app_api_embedded_EmbeddedProviderInterface');
         $this->_mockIncomingEvent     = $this->mock('tubepress_lib_api_event_EventInterface');
 
-        $this->_sut = new tubepress_app_impl_listeners_embedded_EmbeddedListener(
+        $this->_sut = new tubepress_embedded_common_impl_listeners_EmbeddedListener(
             $this->_mockContext, $this->_mockTemplating
         );
 
