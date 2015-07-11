@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_gallery_GalleryListener<extended>
+ * @covers tubepress_gallery_impl_listeners_GalleryListener<extended>
  */
-class tubepress_test_app_impl_listeners_gallery_GalleryListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_gallery_impl_listeners_GalleryListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_gallery_GalleryListener
+     * @var tubepress_gallery_impl_listeners_GalleryListener
      */
     private $_sut;
 
@@ -82,7 +82,7 @@ class tubepress_test_app_impl_listeners_gallery_GalleryListenerTest extends tube
         $this->_mockMediaPage        = $this->mock('tubepress_app_api_media_MediaPage');
         $this->_mockMediaItem        = $this->mock('tubepress_app_api_media_MediaItem');
 
-        $this->_sut = new tubepress_app_impl_listeners_gallery_GalleryListener(
+        $this->_sut = new tubepress_gallery_impl_listeners_GalleryListener(
 
             $this->_mockLogger,
             $this->_mockExecutionContext,

@@ -46,18 +46,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_lib_api_template_TemplatingInterface::_,
             ),
 
-            /**
-             * GALLERY
-             */
-            'tubepress_app_impl_listeners_gallery_GalleryListener' => array(
-                tubepress_platform_api_log_LoggerInterface::_,
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_,
-                tubepress_app_api_media_CollectorInterface::_,
-                tubepress_lib_api_template_TemplatingInterface::_,
-                tubepress_lib_api_event_EventDispatcherInterface::_,
-                tubepress_app_api_options_ReferenceInterface::_,
-            ),
 
             /**
              * HTML
@@ -148,14 +136,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_ReferenceInterface::_,
                 tubepress_lib_api_translation_TranslatorInterface::_
             ),
-            'tubepress_app_impl_listeners_template_pre_PaginationListener' => array(
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_platform_api_url_UrlFactoryInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_,
-                tubepress_lib_api_template_TemplatingInterface::_,
-                'tubepress_theme_impl_CurrentThemeService',
-                tubepress_lib_api_translation_TranslatorInterface::_
-            ),
             'tubepress_app_impl_listeners_template_pre_SearchInputListener' => array(
                 tubepress_app_api_options_ContextInterface::_,
                 tubepress_platform_api_url_UrlFactoryInterface::_,
@@ -187,7 +167,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              * GALLERY INIT JS
              */
             tubepress_app_api_event_Events::GALLERY_INIT_JS => array(
-                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener'   => 'onGalleryInitJs'),
                 98000  => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onGalleryInitJs'),
                 96000  => array('tubepress_app_impl_listeners_player_PlayerListener'     => 'onGalleryInitJs'),
             ),
@@ -200,7 +179,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 98000  => array('tubepress_app_impl_listeners_html_generation_SoloPlayerListener' => 'onHtmlGeneration'),
                 96000  => array('tubepress_app_impl_listeners_search_SearchListener'              => 'onHtmlGenerationSearchOutput',),
                 94000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener' => 'onHtmlGeneration',),
-                92000  => array('tubepress_app_impl_listeners_gallery_GalleryListener'            => 'onHtmlGeneration',)
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
                 100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
@@ -275,9 +253,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              * TEMPLATE - PRE
              */
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main' => array(
-                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener'         => 'onGalleryTemplatePreRender'),
                 98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
-                96000 => array('tubepress_app_impl_listeners_template_pre_PaginationListener'  => 'onGalleryTemplatePreRender'),
                 94000 => array('tubepress_app_impl_listeners_player_PlayerListener'            => 'onGalleryTemplatePreRender')
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main' => array(
@@ -294,12 +270,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 100000 => array('tubepress_app_impl_listeners_embedded_EmbeddedListener' => 'onPlayerTemplatePreRender'),
             ),
 
-            /**
-             * TEMPLATE - POST
-             */
-            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.gallery/main' => array(
-                100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onPostGalleryTemplateRender'),
-            ),
+
 
         );
 

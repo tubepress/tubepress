@@ -12,7 +12,7 @@
 /**
  * Handles applying pagination to the gallery template.
  */
-class tubepress_app_impl_listeners_template_pre_PaginationListener
+class tubepress_gallery_impl_listeners_PaginationListener
 {
     const DOTS = '<span class="tubepress_pagination_dots">...</span>';
 

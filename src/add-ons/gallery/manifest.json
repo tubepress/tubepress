@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/gallery",
+    "version": "99.99.99",
+    "title" : "TubePress Gallery Functionality",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_gallery_ioc_GalleryExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_gallery_ioc_GalleryExtension"              : "classes/tubepress/gallery/ioc/GalleryExtension.php",
+            "tubepress_gallery_impl_listeners_GalleryListener"    : "classes/tubepress/gallery/impl/listeners/GalleryListener.php",
+            "tubepress_gallery_impl_listeners_PaginationListener" : "classes/tubepress/gallery/impl/listeners/PaginationListener.php"
+        }
+    }
+}

@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_template_pre_PaginationListener
+ * @covers tubepress_gallery_impl_listeners_PaginationListener
  */
-class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_template_pre_PaginationListener
+     * @var tubepress_gallery_impl_listeners_PaginationListener
      */
     private $_sut;
 
@@ -97,7 +97,7 @@ class tubepress_test_app_impl_listeners_template_pre_PaginationListenerTest exte
 
         $this->_mockCurrentThemeService->shouldReceive('getCurrentTheme')->atLeast(1)->andReturn($this->_mockCurrentTheme);
 
-        $this->_sut = new tubepress_app_impl_listeners_template_pre_PaginationListener(
+        $this->_sut = new tubepress_gallery_impl_listeners_PaginationListener(
             
             $this->_mockContext,
             $this->_mockUrlFactory,

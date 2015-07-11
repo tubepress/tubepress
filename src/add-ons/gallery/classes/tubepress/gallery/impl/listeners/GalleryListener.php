@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_gallery_GalleryListener
+class tubepress_gallery_impl_listeners_GalleryListener
 {
     /**
      * @var tubepress_lib_api_http_RequestParametersInterface
