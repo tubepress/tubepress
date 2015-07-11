@@ -30,6 +30,38 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_platform_
     {
         $this->_registerOptionsUiSingletons($containerBuilder);
         $this->_registerOptionsUiFieldProvider($containerBuilder);
+        $this->_registerListeners($containerBuilder);
+    }
+
+    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_options_ui_impl_listeners_BootstrapIe8Listener',
+            'tubepress_options_ui_impl_listeners_BootstrapIe8Listener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN,
+            'priority' => 100000,
+            'method'   => 'onAdminScripts',
+        ));
+
+        $containerBuilder->register(
+            'tubepress_options_ui_impl_listeners_OptionsPageTemplateListener',
+            'tubepress_options_ui_impl_listeners_OptionsPageTemplateListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
+            'method' => 'setFieldProviders'))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+            'tag'    => 'tubepress_app_api_media_MediaProviderInterface',
+            'method' => 'setMediaProviders'))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form',
+            'priority' => 100000,
+            'method'   => 'onOptionsGuiTemplate',
+        ));
     }
 
     private function _registerOptionsUiSingletons(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

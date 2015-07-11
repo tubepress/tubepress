@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
+class tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
 {
     private static $_TEMPLATE_VAR_CATEGORIES           = 'categories';
     private static $_TEMPLATE_VAR_MAP                  = 'categoryIdToProviderIdToFieldsMap';
@@ -131,7 +131,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 
             if (!($fieldProvider instanceof tubepress_app_api_options_ui_FieldProviderInterface)) {
 
-                throw new InvalidArgumentException('Non tubepress_app_api_options_ui_FieldProviderInterface in call to tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener::setFieldProviders');
+                throw new InvalidArgumentException('Non tubepress_app_api_options_ui_FieldProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setFieldProviders');
             }
         }
 
@@ -144,7 +144,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
 
             if (!($mediaProvider instanceof tubepress_app_api_media_MediaProviderInterface)) {
 
-                throw new InvalidArgumentException('Non tubepress_app_api_media_MediaProviderInterface in call to tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener::setMediaProviders');
+                throw new InvalidArgumentException('Non tubepress_app_api_media_MediaProviderInterface in call to tubepress_options_ui_impl_listeners_OptionsPageTemplateListener::setMediaProviders');
             }
         }
 

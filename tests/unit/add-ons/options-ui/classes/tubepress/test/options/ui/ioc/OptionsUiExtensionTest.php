@@ -26,6 +26,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
     {
         $this->_registerOptionsUiSingletons();
         $this->_registerOptionsUiFieldProvider();
+        $this->_registerListeners();
     }
 
     protected function getExpectedExternalServicesMap()
@@ -59,9 +60,41 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             tubepress_app_api_environment_EnvironmentInterface::_        => tubepress_app_api_environment_EnvironmentInterface::_,
             tubepress_platform_api_log_LoggerInterface::_                => $logger,
             tubepress_platform_api_util_StringUtilsInterface::_          => tubepress_platform_api_util_StringUtilsInterface::_,
+            tubepress_lib_api_translation_TranslatorInterface::_         => tubepress_lib_api_translation_TranslatorInterface::_,
         );
     }
 
+    private function _registerListeners()
+    {
+        $this->expectRegistration(
+            'tubepress_options_ui_impl_listeners_BootstrapIe8Listener',
+            'tubepress_options_ui_impl_listeners_BootstrapIe8Listener'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::HTML_SCRIPTS_ADMIN,
+                'priority' => 100000,
+                'method'   => 'onAdminScripts',
+            ));
+
+        $this->expectRegistration(
+            'tubepress_options_ui_impl_listeners_OptionsPageTemplateListener',
+            'tubepress_options_ui_impl_listeners_OptionsPageTemplateListener'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => 'tubepress_app_api_options_ui_FieldProviderInterface',
+                'method' => 'setFieldProviders'))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::TAGGED_SERVICES_CONSUMER, array(
+                'tag'    => 'tubepress_app_api_media_MediaProviderInterface',
+                'method' => 'setMediaProviders'))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.options-ui/form',
+                'priority' => 100000,
+                'method'   => 'onOptionsGuiTemplate',
+            ));
+    }
+    
     private function _registerOptionsUiSingletons()
     {
         $this->expectRegistration(

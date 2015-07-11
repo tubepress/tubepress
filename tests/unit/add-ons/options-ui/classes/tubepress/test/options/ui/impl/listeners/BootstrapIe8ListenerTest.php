@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_admingui_BootstrapIe8Listener
+ * @covers tubepress_options_ui_impl_listeners_BootstrapIe8Listener
  */
-class tubepress_test_app_impl_listeners_admingui_BootstrapIe8ListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_ui_impl_listeners_BootstrapIe8ListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_admingui_BootstrapIe8Listener
+     * @var tubepress_options_ui_impl_listeners_BootstrapIe8Listener
      */
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_test_app_impl_listeners_admingui_BootstrapIe8ListenerTest extend
         $this->_mockEnvironment   = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
         $this->_mockIncomingEvent = $this->mock('tubepress_lib_api_event_EventInterface');
 
-        $this->_sut = new tubepress_app_impl_listeners_admingui_BootstrapIe8Listener(
+        $this->_sut = new tubepress_options_ui_impl_listeners_BootstrapIe8Listener(
             $this->_mockEnvironment
         );
     }

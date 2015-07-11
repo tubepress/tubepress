@@ -53,7 +53,6 @@
             "tubepress_app_api_template_VariableNames"                    : "classes/tubepress/app/api/template/VariableNames.php",
             "tubepress_app_api_theme_ThemeInterface"                      : "classes/tubepress/app/api/theme/ThemeInterface.php",
 
-            "tubepress_app_impl_listeners_admingui_BootstrapIe8Listener"            : "classes/tubepress/app/impl/listeners/admingui/BootstrapIe8Listener.php",
             "tubepress_app_impl_listeners_embedded_EmbeddedListener"                : "classes/tubepress/app/impl/listeners/embedded/EmbeddedListener.php",
             "tubepress_app_impl_listeners_gallery_GalleryListener"                  : "classes/tubepress/app/impl/listeners/gallery/GalleryListener.php",
             "tubepress_app_impl_listeners_html_generation_SingleItemListener"       : "classes/tubepress/app/impl/listeners/html/generation/SingleItemListener.php",
@@ -69,7 +68,6 @@
             "tubepress_app_impl_listeners_player_PlayerListener"                    : "classes/tubepress/app/impl/listeners/player/PlayerListener.php",
             "tubepress_app_impl_listeners_search_SearchListener"                    : "classes/tubepress/app/impl/listeners/search/SearchListener.php",
             "tubepress_app_impl_listeners_template_pre_MetaDisplayListener"         : "classes/tubepress/app/impl/listeners/template/pre/MetaDisplayListener.php",
-            "tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener" : "classes/tubepress/app/impl/listeners/template/pre/OptionsPageTemplateListener.php",
             "tubepress_app_impl_listeners_template_pre_PaginationListener"          : "classes/tubepress/app/impl/listeners/template/pre/PaginationListener.php",
             "tubepress_app_impl_listeners_template_pre_SearchInputListener"         : "classes/tubepress/app/impl/listeners/template/pre/SearchInputListener.php",
 

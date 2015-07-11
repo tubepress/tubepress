@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_listeners_admingui_BootstrapIe8Listener
+class tubepress_options_ui_impl_listeners_BootstrapIe8Listener
 {
     /**
      * @var tubepress_app_api_environment_EnvironmentInterface

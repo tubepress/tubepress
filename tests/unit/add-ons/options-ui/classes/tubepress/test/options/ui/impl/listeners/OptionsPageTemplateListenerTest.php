@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
+ * @covers tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
  */
-class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -70,7 +70,7 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
     private $_mockStringUtils;
 
     /**
-     * @var tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
+     * @var tubepress_options_ui_impl_listeners_OptionsPageTemplateListener
      */
     private $_sut;
 
@@ -92,7 +92,7 @@ class tubepress_test_app_impl_listeners_template_pre_OptionsPageTemplateListener
         $this->_mockTranslator            = $this->mock(tubepress_lib_api_translation_TranslatorInterface::_);
         $this->_mockStringUtils           = $this->mock(tubepress_platform_api_util_StringUtilsInterface::_);
 
-        $this->_sut = new tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener(
+        $this->_sut = new tubepress_options_ui_impl_listeners_OptionsPageTemplateListener(
             $this->_mockEnvironment,
             $this->_mockTranslator,
             $this->_mockStringUtils
