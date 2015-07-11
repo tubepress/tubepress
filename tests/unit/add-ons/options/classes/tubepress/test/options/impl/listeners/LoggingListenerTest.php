@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_options_set_LoggingListener<extended>
+ * @covers tubepress_options_impl_listeners_LoggingListener<extended>
  */
-class tubepress_test_app_impl_listeners_options_set_LoggingListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_listeners_LoggingListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -35,7 +35,7 @@ class tubepress_test_app_impl_listeners_options_set_LoggingListenerTest extends 
     private $_mockStringUtils;
 
     /**
-     * @var tubepress_app_impl_listeners_options_set_LoggingListener
+     * @var tubepress_options_impl_listeners_LoggingListener
      */
     private $_sut;
 
@@ -46,7 +46,7 @@ class tubepress_test_app_impl_listeners_options_set_LoggingListenerTest extends 
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
 
-        $this->_sut = new tubepress_app_impl_listeners_options_set_LoggingListener(
+        $this->_sut = new tubepress_options_impl_listeners_LoggingListener(
 
             $this->_mockLogger,
             $this->_mockStringUtils

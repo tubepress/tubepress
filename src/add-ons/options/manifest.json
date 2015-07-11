@@ -19,11 +19,14 @@
     },
     "autoload":{
         "classmap" : {
-          "tubepress_options_ioc_OptionsExtension"      : "classes/tubepress/options/ioc/OptionsExtension.php",
-          "tubepress_options_impl_AcceptableValues"     : "classes/tubepress/options/impl/AcceptableValues.php",
-          "tubepress_options_impl_Context"              : "classes/tubepress/options/impl/Context.php",
-          "tubepress_options_impl_DispatchingReference" : "classes/tubepress/options/impl/DispatchingReference.php",
-          "tubepress_options_impl_Persistence"          : "classes/tubepress/options/impl/Persistence.php"
+          "tubepress_options_ioc_OptionsExtension"               : "classes/tubepress/options/ioc/OptionsExtension.php",
+          "tubepress_options_impl_AcceptableValues"              : "classes/tubepress/options/impl/AcceptableValues.php",
+          "tubepress_options_impl_Context"                       : "classes/tubepress/options/impl/Context.php",
+          "tubepress_options_impl_DispatchingReference"          : "classes/tubepress/options/impl/DispatchingReference.php",
+          "tubepress_options_impl_Persistence"                   : "classes/tubepress/options/impl/Persistence.php",
+          "tubepress_options_impl_listeners_StringMagicListener" : "classes/tubepress/options/impl/listeners/StringMagicListener.php",
+          "tubepress_options_impl_listeners_BasicOptionValidity" : "classes/tubepress/options/impl/listeners/BasicOptionValidity.php",
+          "tubepress_options_impl_listeners_LoggingListener"     : "classes/tubepress/options/impl/listeners/LoggingListener.php"
         }
     }
 }

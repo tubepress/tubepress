@@ -82,28 +82,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
 
 
             /**
-             * NVP
-             */
-            'tubepress_app_impl_listeners_nvp_StringMagicListener' => array(
-                tubepress_lib_api_event_EventDispatcherInterface::_
-            ),
-
-            /**
-             * OPTIONS SET
-             */
-            'tubepress_app_impl_listeners_options_set_BasicOptionValidity' => array(
-                tubepress_app_api_options_ReferenceInterface::_,
-                tubepress_app_api_options_AcceptableValuesInterface::_,
-                tubepress_lib_api_translation_TranslatorInterface::_,
-                tubepress_platform_api_util_LangUtilsInterface::_
-            ),
-
-            'tubepress_app_impl_listeners_options_set_LoggingListener' => array(
-                tubepress_platform_api_log_LoggerInterface::_,
-                tubepress_platform_api_util_StringUtilsInterface::_
-            ),
-
-            /**
              * OPTIONS VALUES
              */
             'tubepress_app_impl_listeners_options_values_FeedOptions'    => array(),
@@ -196,21 +174,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              */
             tubepress_app_api_event_Events::MEDIA_PAGE_NEW => array(
                 92000  => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
-            ),
-
-            /**
-             * NVP
-             */
-            tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT => array(
-                100000 => array('tubepress_app_impl_listeners_nvp_StringMagicListener' => 'onExternalInput'),
-            ),
-
-            /**
-             * OPTIONS SET
-             */
-            tubepress_app_api_event_Events::OPTION_SET => array(
-                200000  => array('tubepress_app_impl_listeners_options_set_BasicOptionValidity' => 'onOption'),
-                -100000 => array('tubepress_app_impl_listeners_options_set_LoggingListener'     => 'onOptionSet')
             ),
 
 

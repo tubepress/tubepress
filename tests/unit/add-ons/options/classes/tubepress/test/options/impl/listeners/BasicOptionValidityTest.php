@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_options_set_BasicOptionValidity<extended>
+ * @covers tubepress_options_impl_listeners_BasicOptionValidity<extended>
  */
-class tubepress_test_app_impl_listeners_options_set_BasicOptionValidityTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_listeners_BasicOptionValidityTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -35,7 +35,7 @@ class tubepress_test_app_impl_listeners_options_set_BasicOptionValidityTest exte
     private $_mockLangUtils;
 
     /**
-     * @var tubepress_app_impl_listeners_options_set_BasicOptionValidity
+     * @var tubepress_options_impl_listeners_BasicOptionValidity
      */
     private $_sut;
 
@@ -46,7 +46,7 @@ class tubepress_test_app_impl_listeners_options_set_BasicOptionValidityTest exte
         $this->_mockAcceptableValues  = $this->mock(tubepress_app_api_options_AcceptableValuesInterface::_);
         $this->_mockLangUtils  = $this->mock(tubepress_platform_api_util_LangUtilsInterface::_);
 
-        $this->_sut = new tubepress_app_impl_listeners_options_set_BasicOptionValidity(
+        $this->_sut = new tubepress_options_impl_listeners_BasicOptionValidity(
 
             $this->_mockReference,
             $this->_mockAcceptableValues,

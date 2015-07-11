@@ -29,8 +29,46 @@ class tubepress_options_ioc_OptionsExtension implements tubepress_platform_api_i
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $this->_registerServices($containerBuilder);
+        $this->_registerListeners($containerBuilder);
     }
-    
+
+    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_options_impl_listeners_StringMagicListener',
+            'tubepress_options_impl_listeners_StringMagicListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::NVP_FROM_EXTERNAL_INPUT,
+            'priority' => 100000,
+            'method'   => 'onExternalInput',
+        ));
+
+        $containerBuilder->register(
+            'tubepress_options_impl_listeners_LoggingListener',
+            'tubepress_options_impl_listeners_LoggingListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_StringUtilsInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::OPTION_SET,
+            'priority' => -100000,
+            'method'   => 'onOptionSet',
+        ));
+
+        $containerBuilder->register(
+            'tubepress_options_impl_listeners_BasicOptionValidity',
+            'tubepress_options_impl_listeners_BasicOptionValidity'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_AcceptableValuesInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_util_LangUtilsInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::OPTION_SET,
+            'priority' => 200000,
+            'method'   => 'onOption',
+        ));
+    }
+
     private function _registerServices(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(

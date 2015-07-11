@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_options_set_BasicOptionValidity
+class tubepress_options_impl_listeners_BasicOptionValidity
 {
     /**
      * @var tubepress_app_api_options_ReferenceInterface

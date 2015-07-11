@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_nvp_StringMagicListener
+ * @covers tubepress_options_impl_listeners_StringMagicListener
  */
-class tubepress_test_app_impl_listeners_nvp_StringMagicTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_options_impl_listeners_StringMagicListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_nvp_StringMagicListener
+     * @var tubepress_options_impl_listeners_StringMagicListener
      */
     private $_sut;
 
@@ -28,7 +28,7 @@ class tubepress_test_app_impl_listeners_nvp_StringMagicTest extends tubepress_te
     {
         $this->_mockEventDispatcher = $this->mock('tubepress_lib_api_event_EventDispatcherInterface');
 
-        $this->_sut = new tubepress_app_impl_listeners_nvp_StringMagicListener(
+        $this->_sut = new tubepress_options_impl_listeners_StringMagicListener(
 
             $this->_mockEventDispatcher
         );

@@ -12,7 +12,7 @@
 /**
  * Performs filtering on potentially malicious or typo'd string input.
  */
-class tubepress_app_impl_listeners_nvp_StringMagicListener
+class tubepress_options_impl_listeners_StringMagicListener
 {
     /**
      * @var tubepress_lib_api_event_EventDispatcherInterface
