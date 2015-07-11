@@ -145,9 +145,14 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_platform_
         );
 
         $containerBuilder->register(
-            'tubepress_cache_html_impl_options_ui_FieldProvider',
-            'tubepress_cache_html_impl_options_ui_FieldProvider'
-        )->addArgument($fieldReferences)
+            'tubepress_api_options_ui_BaseFieldProvider',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->addArgument('field-provider-htmlcache')
+         ->addArgument('HTML Cache')
+         ->addArgument(false)
+         ->addArgument(true)
+         ->addArgument(array())
+         ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
          ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }

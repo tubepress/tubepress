@@ -19,8 +19,7 @@
     },
     "autoload":{
         "classmap" : {
-          "tubepress_cache_html_impl_options_ui_FieldProvider" : "classes/tubepress/cache/html/impl/options/ui/FieldProvider.php",
-          "tubepress_cache_html_ioc_HtmlCacheExtension"        : "classes/tubepress/cache/html/ioc/HtmlCacheExtension.php"
+          "tubepress_cache_html_ioc_HtmlCacheExtension" : "classes/tubepress/cache/html/ioc/HtmlCacheExtension.php"
         }
     }
 }
