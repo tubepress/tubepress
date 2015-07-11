@@ -16,7 +16,7 @@
  * tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTES_TO_SHOW
  * tubepress_app_api_template_VariableNames::MEDIA_ITEM_ATTRIBUTE_LABELS
  */
-class tubepress_app_impl_listeners_template_pre_MetaDisplayListener
+class tubepress_meta_impl_listeners_MetaDisplayListener
 {
     /**
      * @var tubepress_app_api_media_MediaProviderInterface[]

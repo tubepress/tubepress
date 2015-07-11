@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_template_pre_MetaDisplayListener
+ * @covers tubepress_meta_impl_listeners_MetaDisplayListener
  */
-class tubepress_test_app_impl_listeners_template_pre_MetaDisplayListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_meta_impl_listeners_MetaDisplayListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -35,7 +35,7 @@ class tubepress_test_app_impl_listeners_template_pre_MetaDisplayListenerTest ext
     private $_mockMediaProvider;
 
     /**
-     * @var tubepress_app_impl_listeners_template_pre_MetaDisplayListener
+     * @var tubepress_meta_impl_listeners_MetaDisplayListener
      */
     private $_sut;
     
@@ -46,7 +46,7 @@ class tubepress_test_app_impl_listeners_template_pre_MetaDisplayListenerTest ext
         $this->_mockContext          = $this->mock(tubepress_app_api_options_ContextInterface::_);
         $this->_mockMediaProvider    = $this->mock(tubepress_app_api_media_MediaProviderInterface::__);
 
-        $this->_sut = new tubepress_app_impl_listeners_template_pre_MetaDisplayListener(
+        $this->_sut = new tubepress_meta_impl_listeners_MetaDisplayListener(
             $this->_mockContext,
             $this->_mockOptionsReference
         );

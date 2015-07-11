@@ -1,0 +1,26 @@
+{
+    "name" : "tubepress/meta",
+    "version": "99.99.99",
+    "title" : "TubePress Metadata Functionality",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_meta_ioc_MetaExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_meta_impl_listeners_MetaDisplayListener" : "classes/tubepress/meta/impl/listeners/MetaDisplayListener.php",
+          "tubepress_meta_ioc_MetaExtension"                  : "classes/tubepress/meta/ioc/MetaExtension.php"
+        }
+    }
+}

@@ -86,27 +86,13 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_ContextInterface::_,
                 tubepress_lib_api_template_TemplatingInterface::_,
             ),
-
-
-
-            /**
-             * TEMPLATE PRE
-             */
-            'tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => array(
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_app_api_options_ReferenceInterface::_,
-                tubepress_lib_api_translation_TranslatorInterface::_
-            ),
-
         );
 
         $servicesConsumers = array(
             'tubepress_app_impl_listeners_options_values_FeedOptions' => array(
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
-            'tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => array(
-                tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders'
-            ),
+
 
             'tubepress_app_impl_listeners_player_PlayerListener' => array(
                 'tubepress_app_api_player_PlayerLocationInterface' => 'setPlayerLocations',
@@ -182,12 +168,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
              * TEMPLATE - PRE
              */
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main' => array(
-                98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
                 94000 => array('tubepress_app_impl_listeners_player_PlayerListener'            => 'onGalleryTemplatePreRender')
             ),
-            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main' => array(
-                98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
-            ),
+
 
         );
 
@@ -265,19 +248,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::HTML_HTTPS                          => false,
                 tubepress_app_api_options_Names::HTML_OUTPUT                         => null,
                 tubepress_app_api_options_Names::HTTP_METHOD                         => 'GET',
-                tubepress_app_api_options_Names::META_DATEFORMAT                     => 'M j, Y',
-                tubepress_app_api_options_Names::META_DESC_LIMIT                     => 80,
-                tubepress_app_api_options_Names::META_DISPLAY_AUTHOR                 => false,
-                tubepress_app_api_options_Names::META_DISPLAY_CATEGORY               => false,
-                tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION            => false,
-                tubepress_app_api_options_Names::META_DISPLAY_ID                     => false,
-                tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS               => false,
-                tubepress_app_api_options_Names::META_DISPLAY_LENGTH                 => true,
-                tubepress_app_api_options_Names::META_DISPLAY_TITLE                  => true,
-                tubepress_app_api_options_Names::META_DISPLAY_UPLOADED               => false,
-                tubepress_app_api_options_Names::META_DISPLAY_URL                    => false,
-                tubepress_app_api_options_Names::META_DISPLAY_VIEWS                  => true,
-                tubepress_app_api_options_Names::META_RELATIVE_DATES                 => false,
                 tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => null,
                 tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'normal',
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'tubepress',
@@ -303,19 +273,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH                 => 'Width (px) of thumbs',               //>(translatable)<
                 tubepress_app_api_options_Names::HTML_HTTPS                          => 'Enable HTTPS',       //>(translatable)<
                 tubepress_app_api_options_Names::HTTP_METHOD                         => 'HTTP method',        //>(translatable)<
-                tubepress_app_api_options_Names::META_DATEFORMAT                     => 'Date format',                //>(translatable)<
-                tubepress_app_api_options_Names::META_DESC_LIMIT                     => 'Maximum description length', //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_AUTHOR                 => 'Author',           //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_CATEGORY               => 'Category',         //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_DESCRIPTION            => 'Description',      //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_ID                     => 'ID',               //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_KEYWORDS               => 'Keywords',         //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_LENGTH                 => 'Runtime',          //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_TITLE                  => 'Title',            //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_UPLOADED               => 'Date posted',      //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_URL                    => 'URL',              //>(translatable)<
-                tubepress_app_api_options_Names::META_DISPLAY_VIEWS                  => 'View count',       //>(translatable)<
-                tubepress_app_api_options_Names::META_RELATIVE_DATES                 => 'Use relative dates',         //>(translatable)<
                 tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
                 tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'Play each video',      //>(translatable)<
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'Shortcode keyword',  //>(translatable)<
@@ -339,9 +296,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH         => sprintf('Default is %s.', 120),  //>(translatable)<
                 tubepress_app_api_options_Names::HTML_HTTPS                  => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
                 tubepress_app_api_options_Names::HTTP_METHOD                 => 'Defines the HTTP method used in most TubePress Ajax operations',  //>(translatable)<
-                tubepress_app_api_options_Names::META_DATEFORMAT             => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
-                tubepress_app_api_options_Names::META_DESC_LIMIT             => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
-                tubepress_app_api_options_Names::META_RELATIVE_DATES         => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
                 tubepress_app_api_options_Names::SHORTCODE_KEYWORD           => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
 
             ),
@@ -375,7 +329,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             ),
             tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
                 tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP,
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
             ),
         );
 
@@ -501,7 +454,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::GALLERY_AUTONEXT,
                 tubepress_app_api_options_Names::HTML_HTTPS,
                 tubepress_app_api_options_Names::DEBUG_ON,
-                tubepress_app_api_options_Names::META_RELATIVE_DATES,
             ),
             'dropdown' => array(
                 tubepress_app_api_options_Names::PLAYER_LOCATION,
@@ -511,17 +463,9 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             'text' => array(
                 tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT,
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH,
-                tubepress_app_api_options_Names::META_DATEFORMAT,
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
                 tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP,
                 tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST,
                 tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
-            ),
-            'fieldProviderFilter' => array(
-                tubepress_app_impl_options_ui_fields_templated_multi_FieldProviderFilterField::FIELD_ID
-            ),
-            'metaMultiSelect' => array(
-                'does not matter'
             ),
             'orderBy' => array(
                 tubepress_app_api_options_Names::FEED_ORDER_BY
@@ -558,7 +502,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
         $categories = array(
             array(tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE, 'Which videos?'), //>(translatable)<
             array(tubepress_app_api_options_ui_CategoryNames::THUMBNAILS,     'Thumbnails'),    //>(translatable)<
-            array(tubepress_app_api_options_ui_CategoryNames::META,           'Meta'),          //>(translatable)<
             array(tubepress_app_api_options_ui_CategoryNames::FEED,           'Feed'),          //>(translatable)<
             array(tubepress_app_api_options_ui_CategoryNames::ADVANCED,       'Advanced'),      //>(translatable)<
             array(tubepress_app_api_options_ui_CategoryNames::THEME,          'Theme'),          //>(translatable)<
@@ -597,12 +540,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
                 tubepress_app_api_options_Names::HTML_HTTPS,
                 tubepress_app_api_options_Names::HTTP_METHOD,
                 tubepress_app_api_options_Names::DEBUG_ON
-            ),
-            tubepress_app_api_options_ui_CategoryNames::META => array(
-                tubepress_app_impl_options_ui_fields_templated_multi_MetaMultiSelectField::FIELD_ID,
-                tubepress_app_api_options_Names::META_DATEFORMAT,
-                tubepress_app_api_options_Names::META_RELATIVE_DATES,
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
             ),
             tubepress_app_api_options_ui_CategoryNames::FEED => array(
                 tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
