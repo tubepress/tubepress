@@ -68,5 +68,19 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
             'priority' => 100000,
             'method'   => 'onException'
         ));
+
+        $containerBuilder->register(
+            'tubepress_html_impl_listeners_CssJsPostListener',
+            'tubepress_html_impl_listeners_CssJsPostListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_))
+         ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_http_RequestParametersInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/styles',
+            'priority' => 100000,
+            'method'   => 'onPostStylesTemplateRender'))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts',
+            'priority' => 100000,
+            'method'   => 'onPostScriptsTemplateRender'));
     }
 }

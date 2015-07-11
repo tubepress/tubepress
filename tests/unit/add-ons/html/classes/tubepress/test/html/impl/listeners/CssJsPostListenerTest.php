@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_template_post_CssJsPostListener
+ * @covers tubepress_html_impl_listeners_CssJsPostListener
  */
-class tubepress_test_app_impl_listeners_template_post_CssJsPostListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_listeners_CssJsPostListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -30,7 +30,7 @@ class tubepress_test_app_impl_listeners_template_post_CssJsPostListenerTest exte
     private $_mockRequestParams;
 
     /**
-     * @var tubepress_app_impl_listeners_template_post_CssJsPostListener
+     * @var tubepress_html_impl_listeners_CssJsPostListener
      */
     private $_sut;
 
@@ -40,7 +40,7 @@ class tubepress_test_app_impl_listeners_template_post_CssJsPostListenerTest exte
         $this->_mockEvent           = $this->mock('tubepress_lib_api_event_EventInterface');
         $this->_mockRequestParams   = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
 
-        $this->_sut = new tubepress_app_impl_listeners_template_post_CssJsPostListener(
+        $this->_sut = new tubepress_html_impl_listeners_CssJsPostListener(
             $this->_mockEventDispatcher,
             $this->_mockRequestParams
         );

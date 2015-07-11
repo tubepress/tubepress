@@ -162,14 +162,6 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             ),
 
             /**
-             * TEMPLATE POST
-             */
-            'tubepress_app_impl_listeners_template_post_CssJsPostListener' => array(
-                tubepress_lib_api_event_EventDispatcherInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_
-            ),
-
-            /**
              * TEMPLATE PRE
              */
             'tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => array(
@@ -364,12 +356,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
             tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.gallery/main' => array(
                 100000 => array('tubepress_app_impl_listeners_gallery_GalleryListener' => 'onPostGalleryTemplateRender'),
             ),
-            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/styles' => array(
-                100000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostStylesTemplateRender'),
-            ),
-            tubepress_app_api_event_Events::TEMPLATE_POST_RENDER . '.cssjs/scripts' => array(
-                100000 => array('tubepress_app_impl_listeners_template_post_CssJsPostListener' => 'onPostScriptsTemplateRender')
-            ),
+
         );
 
         foreach ($listenerData as $serviceId => $args) {

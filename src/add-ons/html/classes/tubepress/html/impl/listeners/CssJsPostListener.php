@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_template_post_CssJsPostListener
+class tubepress_html_impl_listeners_CssJsPostListener
 {
     /**
      * @var tubepress_lib_api_event_EventDispatcherInterface
