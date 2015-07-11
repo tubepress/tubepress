@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_search_SearchListener
+class tubepress_search_impl_listeners_SearchListener
 {
     /**
      * @var tubepress_app_api_options_ContextInterface

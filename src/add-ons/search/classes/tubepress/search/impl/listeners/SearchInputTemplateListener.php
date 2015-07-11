@@ -12,7 +12,7 @@
 /**
  * Adds some core variables to the search input template.
  */
-class tubepress_app_impl_listeners_template_pre_SearchInputListener
+class tubepress_search_impl_listeners_SearchInputTemplateListener
 {
     /**
      * @var tubepress_platform_api_url_UrlFactoryInterface

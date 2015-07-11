@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_search_SearchListener
+ * @covers tubepress_search_impl_listeners_SearchListener
  */
-class tubepress_test_app_impl_listeners_search_SearchListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_search_impl_listeners_SearchListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_search_SearchListener
+     * @var tubepress_search_impl_listeners_SearchListener
      */
     private $_sut;
 
@@ -64,7 +64,7 @@ class tubepress_test_app_impl_listeners_search_SearchListenerTest extends tubepr
         $this->_mockLogger           = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
         $this->_mockRequestParams    = $this->mock(tubepress_lib_api_http_RequestParametersInterface::_);
 
-        $this->_sut = new tubepress_app_impl_listeners_search_SearchListener(
+        $this->_sut = new tubepress_search_impl_listeners_SearchListener(
             $this->_mockLogger,
             $this->_mockExecutionContext,
             $this->_mockTemplating,

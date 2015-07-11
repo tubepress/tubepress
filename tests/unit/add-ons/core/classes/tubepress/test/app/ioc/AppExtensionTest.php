@@ -136,15 +136,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_lib_api_template_TemplatingInterface::_,
             ),
 
-            /**
-             * SEARCH
-             */
-            'tubepress_app_impl_listeners_search_SearchListener' => array(
-                tubepress_platform_api_log_LoggerInterface::_,
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_lib_api_template_TemplatingInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_,
-            ),
 
             /**
              * TEMPLATE PRE
@@ -153,11 +144,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_options_ContextInterface::_,
                 tubepress_app_api_options_ReferenceInterface::_,
                 tubepress_lib_api_translation_TranslatorInterface::_
-            ),
-            'tubepress_app_impl_listeners_template_pre_SearchInputListener' => array(
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_platform_api_url_UrlFactoryInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_
             ),
         );
 
@@ -170,9 +156,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ),
             'tubepress_app_impl_listeners_player_PlayerListener' => array(
                 'tubepress_app_api_player_PlayerLocationInterface' => 'setPlayerLocations',
-            ),
-            'tubepress_app_impl_listeners_search_SearchListener' => array(
-                tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
         );
 
@@ -189,9 +172,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
              * HTML
              */
             tubepress_app_api_event_Events::HTML_GENERATION => array(
-                100000 => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchInput',),
                 98000  => array('tubepress_app_impl_listeners_html_generation_SoloPlayerListener'   => 'onHtmlGeneration'),
-                96000  => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchOutput',),
                 94000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener'   => 'onHtmlGeneration',),
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
@@ -215,9 +196,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             /**
              * OPTIONS VALUES
              */
-            tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::SEARCH_PROVIDER => array(
-                100000 => array('tubepress_app_impl_listeners_search_SearchListener' => 'onAcceptableValues')
-            ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_ORDER_BY => array(
                 100000 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onOrderBy')
             ),
@@ -250,9 +228,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ),
             tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.single/main' => array(
                 98000 => array('tubepress_app_impl_listeners_template_pre_MetaDisplayListener' => 'onPreTemplate'),
-            ),
-            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.search/input' => array(
-                100000 => array('tubepress_app_impl_listeners_template_pre_SearchInputListener' => 'onSearchInputTemplatePreRender',)
             ),
 
         );
@@ -346,10 +321,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::META_RELATIVE_DATES                 => false,
                     tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => null,
                     tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'normal',
-                    tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => null,
-                    tubepress_app_api_options_Names::SEARCH_PROVIDER                     => 'youtube',
-                    tubepress_app_api_options_Names::SEARCH_RESULTS_ONLY                 => false,
-                    tubepress_app_api_options_Names::SEARCH_RESULTS_URL                  => null,
                     tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'tubepress',
                     tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID                => null,
                     tubepress_app_api_options_Names::SOURCES                             => null,
@@ -387,7 +358,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::META_RELATIVE_DATES                 => 'Use relative dates',         //>(translatable)<
                     tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
                     tubepress_app_api_options_Names::PLAYER_LOCATION                     => 'Play each video',      //>(translatable)<
-                    tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => 'Restrict search results to videos from author', //>(translatable)<
                     tubepress_app_api_options_Names::SHORTCODE_KEYWORD                   => 'Shortcode keyword',  //>(translatable)<
 
                 ),
@@ -412,7 +382,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     tubepress_app_api_options_Names::META_DATEFORMAT          => sprintf('Set the textual formatting of date information for videos. See <a href="%s" target="_blank">date</a> for examples.', "http://php.net/date"),    //>(translatable)<
                     tubepress_app_api_options_Names::META_DESC_LIMIT          => 'Maximum number of characters to display in video descriptions. Set to 0 for no limit.', //>(translatable)<
                     tubepress_app_api_options_Names::META_RELATIVE_DATES      => 'e.g. "yesterday" instead of "November 3, 1980".',  //>(translatable)<
-                    tubepress_app_api_options_Names::SEARCH_ONLY_USER         => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
                     tubepress_app_api_options_Names::SHORTCODE_KEYWORD        => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
 
                 ),
@@ -439,9 +408,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
                 tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT,
                 tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH,
-            ),
-            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ZERO_OR_MORE_WORDCHARS => array(
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER
             ),
             tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
                 tubepress_app_api_options_Names::HTML_GALLERY_ID,

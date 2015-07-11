@@ -1,0 +1,27 @@
+{
+    "name" : "tubepress/search",
+    "version": "99.99.99",
+    "title" : "TubePress Interactive Search Capability",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_search_ioc_SearchExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_search_ioc_SearchExtension"                        : "classes/tubepress/search/ioc/SearchExtension.php",
+          "tubepress_search_impl_listeners_SearchInputTemplateListener" : "classes/tubepress/search/impl/listeners/SearchInputTemplateListener.php",
+          "tubepress_search_impl_listeners_SearchListener"              : "classes/tubepress/search/impl/listeners/SearchListener.php"
+        }
+    }
+}
