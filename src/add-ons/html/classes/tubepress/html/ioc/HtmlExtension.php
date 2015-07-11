@@ -28,6 +28,8 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
      */
     public function load(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
+        $this->_registerListeners($containerBuilder);
+
         $containerBuilder->register(
             'tubepress_html_impl_CssAndJsGenerationHelper',
             'tubepress_html_impl_CssAndJsGenerationHelper'
@@ -52,6 +54,19 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
              'event'    => tubepress_app_api_event_Events::HTML_SCRIPTS,
              'priority' => 100000,
              'method'   => 'onScripts',
+        ));
+    }
+
+    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_html_impl_listeners_ExceptionLogger',
+            'tubepress_html_impl_listeners_ExceptionLogger'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    =>   tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT,
+            'priority' => 100000,
+            'method'   => 'onException'
         ));
     }
 }

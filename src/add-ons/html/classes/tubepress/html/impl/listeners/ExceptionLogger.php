@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_html_exception_LoggingListener
+class tubepress_html_impl_listeners_ExceptionLogger
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface

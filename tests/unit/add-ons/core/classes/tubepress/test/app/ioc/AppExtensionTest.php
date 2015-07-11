@@ -130,9 +130,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_media_CollectorInterface::_,
                 tubepress_lib_api_template_TemplatingInterface::_
             ),
-            'tubepress_app_impl_listeners_html_exception_LoggingListener' => array(
-                tubepress_platform_api_log_LoggerInterface::_
-            ),
             'tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => array(
                 tubepress_app_api_environment_EnvironmentInterface::_
             ),
@@ -300,9 +297,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 96000  => array('tubepress_app_impl_listeners_search_SearchListener'                => 'onHtmlGenerationSearchOutput',),
                 94000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener'   => 'onHtmlGeneration',),
                 92000  => array('tubepress_app_impl_listeners_gallery_GalleryListener'              => 'onHtmlGeneration',)
-            ),
-            tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT => array(
-                100000 => array('tubepress_app_impl_listeners_html_exception_LoggingListener' => 'onException',)
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
                 100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)

@@ -24,6 +24,8 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
 
     protected function prepareForLoad()
     {
+        $this->_registerListeners();
+
         $this->expectRegistration(
             'tubepress_html_impl_CssAndJsGenerationHelper',
             'tubepress_html_impl_CssAndJsGenerationHelper'
@@ -51,14 +53,28 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
             ));
     }
 
+    private function _registerListeners()
+    {
+        $this->expectRegistration(
+            'tubepress_html_impl_listeners_ExceptionLogger',
+            'tubepress_html_impl_listeners_ExceptionLogger'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    =>   tubepress_app_api_event_Events::HTML_EXCEPTION_CAUGHT,
+                'priority' => 100000,
+                'method'   => 'onException'
+            ));
+    }
+
     protected function getExpectedExternalServicesMap()
     {
         return array(
             tubepress_lib_api_event_EventDispatcherInterface::_   => tubepress_lib_api_event_EventDispatcherInterface::_,
             tubepress_lib_api_template_TemplatingInterface::_     => tubepress_lib_api_template_TemplatingInterface::_,
             tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
-            'tubepress_theme_impl_CurrentThemeService'        => 'tubepress_theme_impl_CurrentThemeService',
+            'tubepress_theme_impl_CurrentThemeService'            => 'tubepress_theme_impl_CurrentThemeService',
             tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ => tubepress_platform_api_contrib_RegistryInterface::_,
+            tubepress_platform_api_log_LoggerInterface::_         => tubepress_platform_api_log_LoggerInterface::_,
         );
     }
 }
