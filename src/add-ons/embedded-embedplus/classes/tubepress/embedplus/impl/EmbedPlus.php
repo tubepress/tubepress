@@ -80,7 +80,7 @@ class tubepress_embedplus_impl_EmbedPlus implements tubepress_app_api_embedded_E
     {
         return array(
 
-            TUBEPRESS_ROOT . '/src/add-ons/embedplus/templates'
+            TUBEPRESS_ROOT . '/src/add-ons/embedded-embedplus/templates'
         );
     }
 
