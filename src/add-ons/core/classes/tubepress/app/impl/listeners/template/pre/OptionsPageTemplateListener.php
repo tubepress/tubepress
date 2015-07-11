@@ -304,7 +304,7 @@ class tubepress_app_impl_listeners_template_pre_OptionsPageTemplateListener
         foreach ($fieldProviderIdToFieldsMap as $fieldProviderId => $fields) {
 
             $actualFieldProvider = $fieldProviderIdToInstanceMap[$fieldProviderId];
-            $wrappedFieldProviders[] = new tubepress_app_impl_options_ui_MultiSourceFieldProviderWrapper($actualFieldProvider, $fields);
+            $wrappedFieldProviders[] = new tubepress_options_ui_impl_MultiSourceFieldProviderWrapper($actualFieldProvider, $fields);
         }
 
         return $wrappedFieldProviders;

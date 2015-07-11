@@ -132,7 +132,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
 
         $this->expectRegistration(
             'theme_category',
-            'tubepress_app_impl_options_ui_BaseElement'
+            'tubepress_options_ui_impl_BaseElement'
         )->withArgument(tubepress_app_api_options_ui_CategoryNames::THEME)
             ->withArgument('Theme'); //>(translatable)<
 

@@ -1,0 +1,49 @@
+{
+    "name" : "tubepress/options-ui",
+    "version": "99.99.99",
+    "title" : "TubePress Array Reader",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_options_ui_ioc_OptionsUiExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_options_ui_impl_BaseElement"                                          : "classes/tubepress/options/ui/impl/BaseElement.php",
+            "tubepress_options_ui_impl_FieldBuilder"                                         : "classes/tubepress/options/ui/impl/FieldBuilder.php",
+            "tubepress_options_ui_impl_FieldProvider"                                        : "classes/tubepress/options/ui/impl/FieldProvider.php",
+            "tubepress_options_ui_impl_MultiSourceFieldProviderWrapper"                      : "classes/tubepress/options/ui/impl/MultiSourceFieldProviderWrapper.php",
+            "tubepress_options_ui_impl_MultiSourcePersistenceBackend"                        : "classes/tubepress/options/ui/impl/MultiSourcePersistenceBackend.php",
+            "tubepress_options_ui_impl_fields_AbstractField"                                 : "classes/tubepress/options/ui/impl/fields/AbstractField.php",
+            "tubepress_options_ui_impl_fields_GallerySourceField"                            : "classes/tubepress/options/ui/impl/fields/GallerySourceField.php",
+            "tubepress_options_ui_impl_fields_templated_AbstractTemplatedField"              : "classes/tubepress/options/ui/impl/fields/templated/AbstractTemplatedField.php",
+            "tubepress_options_ui_impl_fields_templated_GallerySourceRadioField"             : "classes/tubepress/options/ui/impl/fields/templated/GallerySourceRadioField.php",
+            "tubepress_options_ui_impl_fields_templated_multi_AbstractMultiSelectField"      : "classes/tubepress/options/ui/impl/fields/templated/multi/AbstractMultiSelectField.php",
+            "tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField"      : "classes/tubepress/options/ui/impl/fields/templated/multi/FieldProviderFilterField.php",
+            "tubepress_options_ui_impl_fields_templated_multi_MediaProviderFieldHelper"      : "classes/tubepress/options/ui/impl/fields/templated/multi/MediaProviderFieldHelper.php",
+            "tubepress_options_ui_impl_fields_templated_multi_MediaProviderFieldInterface"   : "classes/tubepress/options/ui/impl/fields/templated/multi/MediaProviderFieldInterface.php",
+            "tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField"          : "classes/tubepress/options/ui/impl/fields/templated/multi/MetaMultiSelectField.php",
+            "tubepress_options_ui_impl_fields_templated_single_DropdownField"                : "classes/tubepress/options/ui/impl/fields/templated/single/DropdownField.php",
+            "tubepress_options_ui_impl_fields_templated_single_OrderByField"                 : "classes/tubepress/options/ui/impl/fields/templated/single/OrderByField.php",
+            "tubepress_options_ui_impl_fields_templated_single_MultiSourceDropdownField"     : "classes/tubepress/options/ui/impl/fields/templated/single/MultiSourceDropdownField.php",
+            "tubepress_options_ui_impl_fields_templated_single_MultiSourceSingleOptionField" : "classes/tubepress/options/ui/impl/fields/templated/single/MultiSourceSingleOptionField.php",
+            "tubepress_options_ui_impl_fields_templated_single_MultiSourceTextField"         : "classes/tubepress/options/ui/impl/fields/templated/single/MultiSourceTextField.php",
+            "tubepress_options_ui_impl_fields_templated_single_SingleOptionField"            : "classes/tubepress/options/ui/impl/fields/templated/single/SingleOptionField.php",
+            "tubepress_options_ui_impl_fields_templated_single_SpectrumColorField"           : "classes/tubepress/options/ui/impl/fields/templated/single/SpectrumColorField.php",
+            "tubepress_options_ui_impl_fields_templated_single_TextField"                    : "classes/tubepress/options/ui/impl/fields/templated/single/TextField.php",
+            "tubepress_options_ui_impl_fields_templated_single_ThemeField"                   : "classes/tubepress/options/ui/impl/fields/templated/single/ThemeField.php",
+            "tubepress_options_ui_impl_Form"                                                 : "classes/tubepress/options/ui/impl/Form.php",
+            "tubepress_options_ui_ioc_OptionsUiExtension"                                    : "classes/tubepress/options/ui/ioc/OptionsUiExtension.php"
+        }
+    }
+}

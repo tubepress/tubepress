@@ -136,7 +136,7 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_platform_api_ioc_C
 
         $containerBuilder->register(
             'theme_category',
-            'tubepress_app_impl_options_ui_BaseElement'
+            'tubepress_options_ui_impl_BaseElement'
         )->addArgument(tubepress_app_api_options_ui_CategoryNames::THEME)
          ->addArgument('Theme'); //>(translatable)<
 

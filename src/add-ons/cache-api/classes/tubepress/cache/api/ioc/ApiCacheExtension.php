@@ -169,7 +169,7 @@ class tubepress_cache_api_ioc_ApiCacheExtension implements tubepress_platform_ap
             $serviceId = 'cache_api_category_' . $categoryIdAndLabel[0];
             $containerBuilder->register(
                 $serviceId,
-                'tubepress_app_impl_options_ui_BaseElement'
+                'tubepress_options_ui_impl_BaseElement'
             )->addArgument($categoryIdAndLabel[0])
              ->addArgument($categoryIdAndLabel[1]);
 

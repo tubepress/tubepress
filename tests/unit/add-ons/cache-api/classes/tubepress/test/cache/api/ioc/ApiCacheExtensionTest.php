@@ -165,7 +165,7 @@ class tubepress_test_cache_api_ioc_ApiCacheExtensionTest extends tubepress_test_
             $serviceId = 'cache_api_category_' . $categoryIdAndLabel[0];
             $this->expectRegistration(
                 $serviceId,
-                'tubepress_app_impl_options_ui_BaseElement'
+                'tubepress_options_ui_impl_BaseElement'
             )->withArgument($categoryIdAndLabel[0])
                 ->withArgument($categoryIdAndLabel[1]);
 
