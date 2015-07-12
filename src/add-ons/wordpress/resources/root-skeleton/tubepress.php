@@ -234,7 +234,7 @@ class tubepress_wordpress_ApiIntegrator
      */
     private function _getServiceContainer()
     {
-        return require 'src/platform/scripts/boot.php';
+        return require 'src/php/scripts/boot.php';
     }
 }
 

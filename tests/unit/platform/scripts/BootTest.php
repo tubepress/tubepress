@@ -30,7 +30,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
 
         $this->_removeCachedContainer();
 
-        $result = require TUBEPRESS_ROOT . '/src/platform/scripts/boot.php';
+        $result = require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
 
         $this->_testBasics($result);
     }
@@ -43,7 +43,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
     {
         $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php', '<?php ') !== false);
 
-        $result = require TUBEPRESS_ROOT . '/src/platform/scripts/boot.php';
+        $result = require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
 
         $this->_testBasics($result);
     }
@@ -63,7 +63,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
 
         $this->assertInstanceOf('tubepress_platform_api_log_LoggerInterface', $logger);
 
-        $nextBoot = require TUBEPRESS_ROOT . '/src/platform/scripts/boot.php';
+        $nextBoot = require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
 
         $this->assertSame($container, $nextBoot);
 
@@ -92,7 +92,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
             '/Tests/',
             '\\',
             '/vendor/symfony/',
-            '/src/platform/scripts/boot.php',
+            '/src/php/scripts/boot.php',
             '/ContainerAwareTrait.php',
             '/vendor/composer/',
             '/ehough/tickertape/debug/',

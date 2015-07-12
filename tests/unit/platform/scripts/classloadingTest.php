@@ -201,7 +201,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
             'Amqp',
             'Wildfire',
             'SimpleXMLElement',
-            '/src/platform/scripts/boot.php',
+            '/src/php/scripts/boot.php',
             '/ehough/tickertape/debug/',
             '/ehough/pulsar/Psr4ClassLoader.php',
             '/ehough/pulsar/Debug',

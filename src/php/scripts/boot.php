@@ -64,10 +64,10 @@ if (!class_exists('tubePressBootScript', false)) {
             $thisPath = __FILE__;
 
             /*
-             * Start with /home/bla/code/tubepress/src/platform/scripts/boot.php
+             * Start with /home/bla/code/tubepress/src/php/scripts/boot.php
              */
             $toRemove = DIRECTORY_SEPARATOR . 'src' .
-                        DIRECTORY_SEPARATOR . 'platform' .
+                        DIRECTORY_SEPARATOR . 'php' .
                         DIRECTORY_SEPARATOR . 'scripts' .
                         DIRECTORY_SEPARATOR . 'boot.php';
 

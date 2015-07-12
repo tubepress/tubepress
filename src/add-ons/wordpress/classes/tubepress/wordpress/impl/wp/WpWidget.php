@@ -149,7 +149,7 @@ class tubepress_wordpress_impl_wp_WpWidget extends WP_Widget
      */
     private function _getServiceContainer()
     {
-        return require TUBEPRESS_ROOT . '/src/platform/scripts/boot.php';
+        return require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
     }
 
     private function _getDefaultShortcode()

@@ -12,7 +12,7 @@
 define('TUBEPRESS_CONTENT_DIRECTORY', realpath(__DIR__ . '/tubepress-content-directory'));
 
 /** @noinspection PhpIncludeInspection */
-$container = require __DIR__ . '/tubepress/src/platform/scripts/boot.php';
+$container = require __DIR__ . '/tubepress/src/php/scripts/boot.php';
 
 if (isset($_GET['options'])) {
 
