@@ -27,7 +27,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
     private $_iocCompiler;
 
     /**
-     * @var tubepress_platform_impl_ioc_ContainerBuilder
+     * @var tubepress_internal_ioc_ContainerBuilder
      */
     private $_containerBuilder;
 
@@ -79,7 +79,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
     {
         if (!isset($this->_containerBuilder)) {
 
-            $this->_containerBuilder = new tubepress_platform_impl_ioc_ContainerBuilder();
+            $this->_containerBuilder = new tubepress_internal_ioc_ContainerBuilder();
         }
 
         $this->_containerBuilder->set('tubepress_platform_api_ioc_ContainerInterface',      $this->_containerBuilder);
@@ -171,11 +171,11 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
     }
 
     /**
-     * @param tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder
+     * @param tubepress_internal_ioc_ContainerBuilder $containerBuilder
      *
      * @return ehough_iconic_ContainerInterface
      */
-    private function _convertToIconicContainer(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder)
+    private function _convertToIconicContainer(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
     {
         if ($this->_shouldLog) {
 
@@ -320,9 +320,9 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
     /**
      * This is here strictly for testing! :/
      *
-     * @param tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder
+     * @param tubepress_internal_ioc_ContainerBuilder $containerBuilder
      */
-    public function __setContainerBuilder(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder)
+    public function __setContainerBuilder(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
     {
         $this->_containerBuilder = $containerBuilder;
     }

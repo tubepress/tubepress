@@ -151,7 +151,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
             $this->_logger->debug('Done rehydrating cached service container.');
         }
 
-        $tubePressContainer = new tubepress_platform_impl_ioc_Container($iconicContainer);
+        $tubePressContainer = new tubepress_internal_ioc_Container($iconicContainer);
 
         $this->_setEphemeralServicesToContainer($tubePressContainer, $iconicContainer);
 
@@ -177,7 +177,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
         $this->_buildUncachedContainerSupplier();
 
         $result             = $this->_uncachedContainerSupplier->getNewIconicContainer($this->_bootSettings);
-        $tubePressContainer = new tubepress_platform_impl_ioc_Container($result);
+        $tubePressContainer = new tubepress_internal_ioc_Container($result);
 
         spl_autoload_unregister(array($this->_temporaryClassLoader, 'loadClass'));
 

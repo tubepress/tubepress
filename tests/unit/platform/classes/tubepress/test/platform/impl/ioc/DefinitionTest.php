@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_platform_impl_ioc_Definition
+ * @covers tubepress_internal_ioc_Definition
  */
 class tubepress_test_impl_ioc_DefinitionTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_ioc_Definition
+     * @var tubepress_internal_ioc_Definition
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_platform_impl_ioc_Definition('foo', array('x', 'z'));
+        $this->_sut = new tubepress_internal_ioc_Definition('foo', array('x', 'z'));
     }
 
     public function testAddMethodCallBad()

@@ -32,7 +32,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_CompilerTest extends tub
     public function onSetup()
     {
         $this->_mockLogger       = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockIocContainer = $this->mock('tubepress_platform_impl_ioc_ContainerBuilder');
+        $this->_mockIocContainer = $this->mock('tubepress_internal_ioc_ContainerBuilder');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);

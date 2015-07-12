@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_platform_impl_ioc_Definition implements tubepress_platform_api_ioc_DefinitionInterface
+class tubepress_internal_ioc_Definition implements tubepress_platform_api_ioc_DefinitionInterface
 {
     /**
      * @var ehough_iconic_Definition

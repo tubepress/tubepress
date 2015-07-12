@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_platform_impl_ioc_Container
+ * @covers tubepress_internal_ioc_Container
  */
 class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_ioc_Container
+     * @var tubepress_internal_ioc_Container
      */
     private $_sut;
 
@@ -27,7 +27,7 @@ class tubepress_test_impl_ioc_IconicContainerTest extends tubepress_test_TubePre
     public function onSetup()
     {
         $this->_mockContainer = $this->mock('ehough_iconic_ContainerInterface');
-        $this->_sut           = new tubepress_platform_impl_ioc_Container($this->_mockContainer);
+        $this->_sut           = new tubepress_internal_ioc_Container($this->_mockContainer);
     }
 
     public function testHasParameter()

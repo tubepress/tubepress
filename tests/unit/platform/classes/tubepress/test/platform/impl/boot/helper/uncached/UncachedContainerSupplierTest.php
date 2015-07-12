@@ -59,7 +59,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
         $this->_mockLogger           = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
         $this->_mockManifestFinder   = $this->mock('tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder');
         $this->_mockCompiler         = $this->mock('tubepress_platform_impl_boot_helper_uncached_Compiler');
-        $this->_mockContainerBuilder = $this->mock('tubepress_platform_impl_ioc_ContainerBuilder');
+        $this->_mockContainerBuilder = $this->mock('tubepress_internal_ioc_ContainerBuilder');
         $this->_mockContainerDumper  = $this->mock('ehough_iconic_dumper_DumperInterface');
         $this->_mockBootSettings     = $this->mock('tubepress_platform_impl_boot_BootSettings');
         $this->_mockAddonFactory     = $this->mock('tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory');

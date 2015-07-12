@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_platform_impl_ioc_ContainerBuilder
+ * @covers tubepress_internal_ioc_ContainerBuilder
  */
 class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_ioc_ContainerBuilder
+     * @var tubepress_internal_ioc_ContainerBuilder
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_platform_impl_ioc_ContainerBuilder();
+        $this->_sut = new tubepress_internal_ioc_ContainerBuilder();
     }
 
     public function testGetParameterNoSuchParam()
@@ -67,7 +67,7 @@ class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePr
 
     public function testRemoveDefinition()
     {
-        $tubePressDefinition = $this->mock('tubepress_platform_impl_ioc_Definition');
+        $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
         $iconicDefinition = $this->mock('ehough_iconic_Definition');
         $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
 
@@ -106,7 +106,7 @@ class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePr
     {
         $this->setExpectedException('BadMethodCallException', 'Adding definition to a frozen container is not allowed');
 
-        $tubePressDefinition = $this->mock('tubepress_platform_impl_ioc_Definition');
+        $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
         $iconicDefinition = $this->mock('ehough_iconic_Definition');
         $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
         $this->_sut->compile();
@@ -116,7 +116,7 @@ class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePr
 
     public function testSetDefinition()
     {
-        $tubePressDefinition = $this->mock('tubepress_platform_impl_ioc_Definition');
+        $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
         $iconicDefinition = $this->mock('ehough_iconic_Definition');
         $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
 
@@ -139,7 +139,7 @@ class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePr
 
         $this->_sut->compile();
 
-        $tubePressDefinition = $this->mock('tubepress_platform_impl_ioc_Definition');
+        $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
         $iconicDefinition = $this->mock('ehough_iconic_Definition');
         $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
 
@@ -148,7 +148,7 @@ class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePr
 
     public function testSetDefinitions()
     {
-        $tubePressDefinition = $this->mock('tubepress_platform_impl_ioc_Definition');
+        $tubePressDefinition = $this->mock('tubepress_internal_ioc_Definition');
         $iconicDefinition = $this->mock('ehough_iconic_Definition');
         $tubePressDefinition->shouldReceive('getUnderlyingIconicDefinition')->once()->andReturn($iconicDefinition);
         $this->assertEmpty($this->_sut->getDefinitions());
@@ -191,7 +191,7 @@ class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePr
         $mockContainer->shouldReceive('addDefinitions')->once()->with($mockDefs);
 
         $mockExtension = $this->mock('tubepress_platform_api_ioc_ContainerExtensionInterface');
-        $mockExtension->shouldReceive('load')->once()->with(ehough_mockery_Mockery::any('tubepress_platform_impl_ioc_ContainerBuilder'));
+        $mockExtension->shouldReceive('load')->once()->with(ehough_mockery_Mockery::any('tubepress_internal_ioc_ContainerBuilder'));
 
         $this->_sut->registerExtension($mockExtension);
 
@@ -205,6 +205,6 @@ class tubepress_test_impl_ioc_ContainerBuilderTest extends tubepress_test_TubePr
         $this->setExpectedException('BadMethodCallException', 'Adding definition to a frozen container is not allowed');
 
         $this->_sut->compile();
-        $this->_sut->addDefinitions(array(new tubepress_platform_impl_ioc_Definition('clazz')));
+        $this->_sut->addDefinitions(array(new tubepress_internal_ioc_Definition('clazz')));
     }
 }

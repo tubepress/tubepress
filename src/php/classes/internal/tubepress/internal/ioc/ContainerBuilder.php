@@ -13,7 +13,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-class tubepress_platform_impl_ioc_ContainerBuilder extends tubepress_platform_impl_ioc_Container implements tubepress_platform_api_ioc_ContainerBuilderInterface, tubepress_platform_api_ioc_CompilerPassInterface
+class tubepress_internal_ioc_ContainerBuilder extends tubepress_internal_ioc_Container implements tubepress_platform_api_ioc_ContainerBuilderInterface, tubepress_platform_api_ioc_CompilerPassInterface
 {
     /**
      * @var ehough_iconic_ContainerBuilder
@@ -220,7 +220,7 @@ class tubepress_platform_impl_ioc_ContainerBuilder extends tubepress_platform_im
      */
     public function register($id, $class = null)
     {
-        return $this->setDefinition(strtolower($id), new tubepress_platform_impl_ioc_Definition($class));
+        return $this->setDefinition(strtolower($id), new tubepress_internal_ioc_Definition($class));
     }
 
     /**
@@ -293,7 +293,7 @@ class tubepress_platform_impl_ioc_ContainerBuilder extends tubepress_platform_im
         $parameters = $this->_delegateContainerBuilder->getParameterBag()->all();
 
         /**
-         * These will all be tubepress_platform_impl_ioc_Definition instances
+         * These will all be tubepress_internal_ioc_Definition instances
          */
         $definitions = $self->getDefinitions();
 
@@ -302,7 +302,7 @@ class tubepress_platform_impl_ioc_ContainerBuilder extends tubepress_platform_im
          */
         foreach ($this->_tubePressContainerExtensions as $extension) {
 
-            $tmpContainer = new tubepress_platform_impl_ioc_ContainerBuilder($this->_delegateContainerBuilder->getParameterBag());
+            $tmpContainer = new tubepress_internal_ioc_ContainerBuilder($this->_delegateContainerBuilder->getParameterBag());
 
             $extension->load($tmpContainer);
 
@@ -335,7 +335,7 @@ class tubepress_platform_impl_ioc_ContainerBuilder extends tubepress_platform_im
     /**
      * @internal
      */
-    private function merge(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder)
+    private function merge(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
     {
         $this->addDefinitions($containerBuilder->getDefinitions());
         $this->getParameterBag()->add($containerBuilder->getParameterBag()->all());
@@ -343,12 +343,12 @@ class tubepress_platform_impl_ioc_ContainerBuilder extends tubepress_platform_im
 
     public function toTubePressDefinition(ehough_iconic_Definition $definition)
     {
-        return tubepress_platform_impl_ioc_Definition::fromIconicDefinition($definition);
+        return tubepress_internal_ioc_Definition::fromIconicDefinition($definition);
     }
 
     public function toIconicDefinition(tubepress_platform_api_ioc_DefinitionInterface $definition)
     {
-        if ($definition instanceof tubepress_platform_impl_ioc_Definition) {
+        if ($definition instanceof tubepress_internal_ioc_Definition) {
 
             return $definition->getUnderlyingIconicDefinition();
         }

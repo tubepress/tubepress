@@ -51,7 +51,7 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
 
         $this->_sut->load($this->_mockContainer);
 
-        $realContainerBuilder = new tubepress_platform_impl_ioc_ContainerBuilder();
+        $realContainerBuilder = new tubepress_internal_ioc_ContainerBuilder();
 
         $realContainerBuilder->registerExtension($this->_sut);
 
@@ -74,7 +74,7 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
 
         foreach ($this->_expectedDecoratedServices as $serviceId) {
 
-            $decoratedDefinition = new tubepress_platform_impl_ioc_Definition($serviceId);
+            $decoratedDefinition = new tubepress_internal_ioc_Definition($serviceId);
             $decoratedDefinition->setFactoryClass('ehough_mockery_Mockery');
             $decoratedDefinition->setFactoryMethod('mock');
             $decoratedDefinition->addArgument($serviceId);
@@ -265,12 +265,12 @@ abstract class tubepress_test_platform_impl_ioc_AbstractContainerExtensionTest e
         return array();
     }
 
-    protected function postCompile(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder)
+    protected function postCompile(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
     {
         return;
     }
 
-    protected function preCompile(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder)
+    protected function preCompile(tubepress_internal_ioc_ContainerBuilder $containerBuilder)
     {
         return;
     }

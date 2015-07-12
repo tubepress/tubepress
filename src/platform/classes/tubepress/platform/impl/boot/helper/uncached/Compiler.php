@@ -33,12 +33,12 @@ class tubepress_platform_impl_boot_helper_uncached_Compiler
     /**
      * Compiles the container, if necessary.
      *
-     * @param tubepress_platform_impl_ioc_ContainerBuilder $container
+     * @param tubepress_internal_ioc_ContainerBuilder $container
      * @param array                                     $addons
      *
      * @return void
      */
-    public function compile(tubepress_platform_impl_ioc_ContainerBuilder $container, array $addons)
+    public function compile(tubepress_internal_ioc_ContainerBuilder $container, array $addons)
     {
         if ($this->_shouldLog) {
 
@@ -76,7 +76,7 @@ class tubepress_platform_impl_boot_helper_uncached_Compiler
         }
     }
 
-    private function _registerIocContainerExtensions(tubepress_platform_impl_ioc_ContainerBuilder $containerBuilder, array $addons)
+    private function _registerIocContainerExtensions(tubepress_internal_ioc_ContainerBuilder $containerBuilder, array $addons)
     {
         $index = 1;
         $count = count($addons);
@@ -116,7 +116,7 @@ class tubepress_platform_impl_boot_helper_uncached_Compiler
         }
     }
 
-    private function _registerIocCompilerPasses(tubepress_platform_impl_ioc_ContainerBuilder $container, array $addons)
+    private function _registerIocCompilerPasses(tubepress_internal_ioc_ContainerBuilder $container, array $addons)
     {
         $index             = 1;
         $count             = count($addons);
@@ -180,13 +180,13 @@ class tubepress_platform_impl_boot_helper_uncached_Compiler
     }
 
     /**
-     * @param tubepress_platform_impl_ioc_ContainerBuilder $container
+     * @param tubepress_internal_ioc_ContainerBuilder $container
      * @param                                           $extensionClassName
      * @param                                           $index
      * @param                                           $count
      * @param                                           $addon
      */
-    private function _registerModernExtension(tubepress_platform_impl_ioc_ContainerBuilder $container, $extensionClassName, $index, $count, tubepress_platform_api_addon_AddonInterface $addon)
+    private function _registerModernExtension(tubepress_internal_ioc_ContainerBuilder $container, $extensionClassName, $index, $count, tubepress_platform_api_addon_AddonInterface $addon)
     {
         try {
 
