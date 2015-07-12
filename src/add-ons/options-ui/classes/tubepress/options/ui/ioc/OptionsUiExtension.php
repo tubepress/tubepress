@@ -31,6 +31,17 @@ class tubepress_options_ui_ioc_OptionsUiExtension implements tubepress_platform_
         $this->_registerOptionsUiSingletons($containerBuilder);
         $this->_registerOptionsUiFieldProvider($containerBuilder);
         $this->_registerListeners($containerBuilder);
+        $this->_registerPathProvider($containerBuilder);
+    }
+
+    private function _registerPathProvider(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_api_template_BasePathProvider__options_ui',
+            'tubepress_api_template_BasePathProvider'
+        )->addArgument(array(
+            TUBEPRESS_ROOT . '/src/add-ons/options-ui/templates'
+        ))->addTag('tubepress_lib_api_template_PathProviderInterface.admin');
     }
 
     private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

@@ -27,6 +27,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
         $this->_registerOptionsUiSingletons();
         $this->_registerOptionsUiFieldProvider();
         $this->_registerListeners();
+        $this->_registerPathProvider();
     }
 
     protected function getExpectedExternalServicesMap()
@@ -63,6 +64,18 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             tubepress_lib_api_translation_TranslatorInterface::_         => tubepress_lib_api_translation_TranslatorInterface::_,
         );
     }
+
+
+    private function _registerPathProvider()
+    {
+        $this->expectRegistration(
+            'tubepress_api_template_BasePathProvider__options_ui',
+            'tubepress_api_template_BasePathProvider'
+        )->withArgument(array(
+            TUBEPRESS_ROOT . '/src/add-ons/options-ui/templates'
+        ))->withTag('tubepress_lib_api_template_PathProviderInterface.admin');
+    }
+
 
     private function _registerListeners()
     {
