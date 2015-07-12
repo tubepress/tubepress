@@ -84,7 +84,7 @@ class tubepress_html_impl_CssAndJsGenerationHelper
         $this->_templateNameCss     = $templateNameCss;
         $this->_templateNameJs      = $templateNameJs;
 
-        $this->_cache = new tubepress_platform_impl_collection_Map();
+        $this->_cache = new tubepress_internal_collection_Map();
     }
 
     /**

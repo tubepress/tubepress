@@ -33,7 +33,7 @@ class tubepress_vimeo2_impl_options_ui_FieldProvider implements tubepress_app_ap
     {
         $this->_fields     = $fields;
         $this->_map        = $map;
-        $this->_properties = new tubepress_platform_impl_collection_Map();
+        $this->_properties = new tubepress_internal_collection_Map();
     }
 
     /**

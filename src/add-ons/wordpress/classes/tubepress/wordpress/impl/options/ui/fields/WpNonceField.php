@@ -27,7 +27,7 @@ class tubepress_wordpress_impl_options_ui_fields_WpNonceField implements tubepre
     public function __construct(tubepress_wordpress_impl_wp_WpFunctions $wpFunctions)
     {
         $this->_wpFunctions = $wpFunctions;
-        $this->_properties  = new tubepress_platform_impl_collection_Map();
+        $this->_properties  = new tubepress_internal_collection_Map();
     }
 
     /**

@@ -27,7 +27,7 @@ class tubepress_options_ui_impl_BaseElement implements tubepress_app_api_options
             throw new InvalidArgumentException('Option page item IDs must be of type string');
         }
 
-        $this->_properties = new tubepress_platform_impl_collection_Map();
+        $this->_properties = new tubepress_internal_collection_Map();
 
         $this->setProperty(self::$PROPERTY_ID, $id);
 

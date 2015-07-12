@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_platform_impl_collection_Map<extended>
+ * @covers tubepress_internal_collection_Map<extended>
  */
 class tubepress_test_lib_impl_props_CollectionTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_collection_Map
+     * @var tubepress_internal_collection_Map
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut  = new tubepress_platform_impl_collection_Map();
+        $this->_sut  = new tubepress_internal_collection_Map();
     }
 
     public function testHas()

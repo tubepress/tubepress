@@ -39,7 +39,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_platform_impl_collection_Map implements tubepress_platform_api_collection_MapInterface
+class tubepress_internal_collection_Map implements tubepress_platform_api_collection_MapInterface
 {
     /**
      * @var array

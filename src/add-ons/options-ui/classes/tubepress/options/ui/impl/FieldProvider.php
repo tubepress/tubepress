@@ -38,7 +38,7 @@ class tubepress_options_ui_impl_FieldProvider implements tubepress_app_api_optio
         $this->_categories = $categories;
         $this->_fields     = $fields;
         $this->_map        = $map;
-        $this->_properties = new tubepress_platform_impl_collection_Map();
+        $this->_properties = new tubepress_internal_collection_Map();
     }
 
     /**

@@ -63,7 +63,7 @@ class tubepress_app_api_media_MediaItem
             throw new InvalidArgumentException('Item IDs must be scalar');
         }
         
-        $this->_properties = new tubepress_platform_impl_collection_Map();
+        $this->_properties = new tubepress_internal_collection_Map();
 
         $this->_properties->put(self::ATTRIBUTE_ID, "$id");
     }

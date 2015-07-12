@@ -27,7 +27,7 @@ class tubepress_youtube3_impl_options_ui_FieldProvider implements tubepress_app_
     public function __construct(array $fields)
     {
         $this->_fields     = $fields;
-        $this->_properties = new tubepress_platform_impl_collection_Map();
+        $this->_properties = new tubepress_internal_collection_Map();
     }
 
     /**

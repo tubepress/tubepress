@@ -313,7 +313,7 @@ EOT;
 
         if (!isset($this->_urlCache)) {
 
-            $this->_urlCache = new tubepress_platform_impl_collection_Map();
+            $this->_urlCache = new tubepress_internal_collection_Map();
 
             $this->_urlCache->put('url.base', rtrim($this->_environment->getBaseUrl()->toString(), '/'));
             $this->_urlCache->put('url.user', rtrim($this->_environment->getUserContentUrl()->toString(), '/'));

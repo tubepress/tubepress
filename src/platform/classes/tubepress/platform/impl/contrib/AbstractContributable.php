@@ -41,7 +41,7 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
 
     public function __construct($name, $version, $title, array $authors, array $license)
     {
-        $this->_properties = new tubepress_platform_impl_collection_Map();
+        $this->_properties = new tubepress_internal_collection_Map();
 
         $this->_setAuthors($authors);
         $license = $this->_buildLicense($license);
@@ -320,7 +320,7 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
     {
         for ($x = 0; $x < count($incoming); $x++) {
 
-            $map = new tubepress_platform_impl_collection_Map();
+            $map = new tubepress_internal_collection_Map();
 
             foreach ($incoming[$x] as $key => $value) {
 
@@ -333,7 +333,7 @@ abstract class tubepress_platform_impl_contrib_AbstractContributable implements 
 
     private function _buildLicense(array $incoming)
     {
-        $map = new tubepress_platform_impl_collection_Map();
+        $map = new tubepress_internal_collection_Map();
 
         foreach ($incoming as $key => $value) {
 

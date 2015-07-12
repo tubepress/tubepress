@@ -67,7 +67,7 @@ class tubepress_api_options_ui_BaseFieldProvider implements tubepress_app_api_op
         $this->_categories              = $categories;
         $this->_fields                  = $fields;
         $this->_map                     = $map;
-        $this->_properties              = new tubepress_platform_impl_collection_Map();
+        $this->_properties              = new tubepress_internal_collection_Map();
         $this->_untranslatedDisplayName = $untranslatedDisplayName;
         $this->_ableToBeFilteredFromGui = $ableToBeFilteredFromGui;
         $this->_fieldsInSeparateBoxes   = $fieldsInSeparateBoxes;

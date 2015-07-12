@@ -131,8 +131,8 @@ class tubepress_test_options_ui_impl_listeners_OptionsPageTemplateListenerTest e
         $this->_mockMediaProviderYouTube->shouldReceive('getName')->once()->andReturn('youtube-media-provider');
         $this->_mockMediaProviderVimeo->shouldReceive('getName')->once()->andReturn('vimeo-media-provider');
 
-        $ytProps = new tubepress_platform_impl_collection_Map();
-        $vimeoProps = new tubepress_platform_impl_collection_Map();
+        $ytProps = new tubepress_internal_collection_Map();
+        $vimeoProps = new tubepress_internal_collection_Map();
 
         $ytProps->put('miniIconUrl', 'yt-icon');
         $vimeoProps->put('miniIconUrl', 'vimeo-icon');

@@ -49,7 +49,7 @@ class tubepress_html_impl_HtmlGenerator implements tubepress_app_api_html_HtmlGe
         $this->_templating            = $templating;
         $this->_environment           = $environment;
 
-        $this->_cache = new tubepress_platform_impl_collection_Map();
+        $this->_cache = new tubepress_internal_collection_Map();
     }
 
     /**
