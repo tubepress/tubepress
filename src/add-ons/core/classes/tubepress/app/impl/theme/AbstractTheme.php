@@ -12,7 +12,7 @@
 /**
  * Simple implementation of a theme.
  */
-abstract class tubepress_app_impl_theme_AbstractTheme extends tubepress_platform_impl_contrib_AbstractContributable implements tubepress_app_api_theme_ThemeInterface
+abstract class tubepress_app_impl_theme_AbstractTheme extends tubepress_internal_contrib_AbstractContributable implements tubepress_app_api_theme_ThemeInterface
 {
     /**
      * Optional attributes.

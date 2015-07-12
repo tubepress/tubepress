@@ -63,7 +63,7 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory extends 
      * @param string $manifestPath
      * @param array  &$manifestData
      *
-     * @return tubepress_platform_impl_contrib_AbstractContributable
+     * @return tubepress_internal_contrib_AbstractContributable
      */
     protected function buildWithValidNormalizedData($manifestPath, array &$manifestData)
     {

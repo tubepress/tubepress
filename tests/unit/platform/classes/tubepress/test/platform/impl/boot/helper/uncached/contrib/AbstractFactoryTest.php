@@ -375,7 +375,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     }
 
     /**
-     * @return tubepress_platform_impl_contrib_AbstractContributable
+     * @return tubepress_internal_contrib_AbstractContributable
      */
     protected function fromManifest(array $data = array())
     {

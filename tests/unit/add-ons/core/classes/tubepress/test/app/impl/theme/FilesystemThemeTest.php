@@ -132,7 +132,7 @@ class tubepress_test_app_impl_theme_FilesystemThemeTest extends tubepress_test_p
     }
 
     /**
-     * @return tubepress_platform_impl_contrib_AbstractContributable
+     * @return tubepress_internal_contrib_AbstractContributable
      */
     protected function buildSut($name, $version, $title, array $authors, array $licenses)
     {

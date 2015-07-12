@@ -32,7 +32,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_SerializedRegist
 
     public function testUnserialize()
     {
-        $mockAddon = new tubepress_platform_impl_addon_Addon('name', '1.2.3', 'some title', array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar/license.txt')));
+        $mockAddon = new tubepress_internal_contrib_Addon('name', '1.2.3', 'some title', array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar/license.txt')));
 
         $this->_mockSerializer->shouldReceive('unserialize')->once()->with('sdf')->andReturn(array($mockAddon));
 

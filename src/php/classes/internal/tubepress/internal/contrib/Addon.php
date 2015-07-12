@@ -12,7 +12,7 @@
 /**
  * Simple implementation of an add-on.
  */
-class tubepress_platform_impl_addon_Addon extends tubepress_platform_impl_contrib_AbstractContributable implements tubepress_platform_api_addon_AddonInterface
+class tubepress_internal_contrib_Addon extends tubepress_internal_contrib_AbstractContributable implements tubepress_platform_api_addon_AddonInterface
 {
     /**
      * Optional attributes.

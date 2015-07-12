@@ -94,7 +94,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
      * @param string $manifestPath
      * @param array  $manifestData
      *
-     * @return tubepress_platform_impl_contrib_AbstractContributable
+     * @return tubepress_internal_contrib_AbstractContributable
      */
     public function fromManifestData($manifestPath, array $manifestData)
     {
@@ -123,7 +123,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         return $contributable;
     }
 
-    private function _setDescription(array $manifestData, tubepress_platform_impl_contrib_AbstractContributable $contrib)
+    private function _setDescription(array $manifestData, tubepress_internal_contrib_AbstractContributable $contrib)
     {
         if (isset($manifestData[self::$_FIRST_LEVEL_KEY_DESCRIPTION])) {
 
@@ -131,7 +131,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         }
     }
 
-    private function _setKeywords(array $manifestData, tubepress_platform_impl_contrib_AbstractContributable $contrib)
+    private function _setKeywords(array $manifestData, tubepress_internal_contrib_AbstractContributable $contrib)
     {
         if (isset($manifestData[self::$_FIRST_LEVEL_KEY_KEYWORDS])) {
 
@@ -139,7 +139,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         }
     }
 
-    private function _setScreenshots(array $manifestData, tubepress_platform_impl_contrib_AbstractContributable $contrib)
+    private function _setScreenshots(array $manifestData, tubepress_internal_contrib_AbstractContributable $contrib)
     {
         if (isset($manifestData[self::$_FIRST_LEVEL_KEY_SCREENSHOTS])) {
 
@@ -147,7 +147,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
         }
     }
 
-    private function _setSupport(array $manifestData, tubepress_platform_impl_contrib_AbstractContributable $contrib)
+    private function _setSupport(array $manifestData, tubepress_internal_contrib_AbstractContributable $contrib)
     {
         $supportKey = self::$_FIRST_LEVEL_KEY_SUPPORT;
 
@@ -252,7 +252,7 @@ abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFact
      * @param string $manifestPath
      * @param array  $manifestData
      *
-     * @return tubepress_platform_impl_contrib_AbstractContributable
+     * @return tubepress_internal_contrib_AbstractContributable
      */
     protected abstract function buildWithValidNormalizedData($manifestPath, array &$manifestData);
 

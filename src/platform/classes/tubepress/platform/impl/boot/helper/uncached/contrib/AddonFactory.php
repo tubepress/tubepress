@@ -59,11 +59,11 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory extends 
      * @param string $manifestPath
      * @param array  &$manifestData
      *
-     * @return tubepress_platform_impl_contrib_AbstractContributable
+     * @return tubepress_internal_contrib_AbstractContributable
      */
     protected function buildWithValidNormalizedData($manifestPath, array &$manifestData)
     {
-        $addon = new tubepress_platform_impl_addon_Addon(
+        $addon = new tubepress_internal_contrib_Addon(
             $manifestData[self::$FIRST_LEVEL_KEY_NAME],
             $manifestData[self::$FIRST_LEVEL_KEY_VERSION],
             $manifestData[self::$FIRST_LEVEL_KEY_TITLE],

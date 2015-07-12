@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_platform_impl_contrib_AbstractContributable implements tubepress_platform_api_contrib_ContributableInterface
+abstract class tubepress_internal_contrib_AbstractContributable implements tubepress_platform_api_contrib_ContributableInterface
 {
     /**
      * Required attributes.

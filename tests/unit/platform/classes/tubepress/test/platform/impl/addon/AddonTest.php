@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_platform_impl_addon_Addon<extended>
+ * @covers tubepress_internal_contrib_Addon<extended>
  */
 class tubepress_test_impl_addon_AddonTest extends tubepress_test_platform_impl_contrib_AbstractContributableTest
 {
@@ -19,7 +19,7 @@ class tubepress_test_impl_addon_AddonTest extends tubepress_test_platform_impl_c
         $classMap = array('a' => 'c');
 
         /**
-         * @var $addon tubepress_platform_impl_addon_Addon
+         * @var $addon tubepress_internal_contrib_Addon
          */
         $addon = $this->buildContributable();
 
@@ -38,7 +38,7 @@ class tubepress_test_impl_addon_AddonTest extends tubepress_test_platform_impl_c
         );
 
         /**
-         * @var $addon tubepress_platform_impl_addon_Addon
+         * @var $addon tubepress_internal_contrib_Addon
          */
         $addon = $this->buildContributable();
 
@@ -52,7 +52,7 @@ class tubepress_test_impl_addon_AddonTest extends tubepress_test_platform_impl_c
         $extensions = array('a', 'b', 'c');
 
         /**
-         * @var $addon tubepress_platform_impl_addon_Addon
+         * @var $addon tubepress_internal_contrib_Addon
          */
         $addon = $this->buildContributable();
 
@@ -63,10 +63,10 @@ class tubepress_test_impl_addon_AddonTest extends tubepress_test_platform_impl_c
 
 
     /**
-     * @return tubepress_platform_impl_contrib_AbstractContributable
+     * @return tubepress_internal_contrib_AbstractContributable
      */
     protected function buildSut($name, $version, $title, array $authors, array $licenses)
     {
-        return new tubepress_platform_impl_addon_Addon($name, $version, $title, $authors, $licenses);
+        return new tubepress_internal_contrib_Addon($name, $version, $title, $authors, $licenses);
     }
 }
