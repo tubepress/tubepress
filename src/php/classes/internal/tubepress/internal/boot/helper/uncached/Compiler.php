@@ -12,7 +12,7 @@
 /**
  * Handles constructing/initializing the IOC container.
  */
-class tubepress_platform_impl_boot_helper_uncached_Compiler
+class tubepress_internal_boot_helper_uncached_Compiler
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface

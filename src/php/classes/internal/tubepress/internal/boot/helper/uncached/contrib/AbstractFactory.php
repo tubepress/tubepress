@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-abstract class tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFactory
+abstract class tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface

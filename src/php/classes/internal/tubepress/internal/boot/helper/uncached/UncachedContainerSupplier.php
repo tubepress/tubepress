@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
+class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface
@@ -22,7 +22,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
     private $_shouldLog;
 
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_Compiler
+     * @var tubepress_internal_boot_helper_uncached_Compiler
      */
     private $_iocCompiler;
 
@@ -47,12 +47,12 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
     private $_mapClassLoader;
 
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder
+     * @var tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
      */
     private $_manifestFinder;
 
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory
+     * @var tubepress_internal_boot_helper_uncached_contrib_AddonFactory
      */
     private $_addonFactory;
 
@@ -62,9 +62,9 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
     private $_serializer;
 
     public function __construct(tubepress_platform_api_log_LoggerInterface                          $logger,
-                                tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder $manifestFinder,
-                                tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory   $addonFactory,
-                                tubepress_platform_impl_boot_helper_uncached_Compiler               $ici,
+                                tubepress_internal_boot_helper_uncached_contrib_ManifestFinder $manifestFinder,
+                                tubepress_internal_boot_helper_uncached_contrib_AddonFactory   $addonFactory,
+                                tubepress_internal_boot_helper_uncached_Compiler               $ici,
                                 tubepress_platform_api_boot_BootSettingsInterface                   $sfri)
     {
         $this->_logger         = $logger;
@@ -132,7 +132,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
         if (!isset($this->_serializer)) {
 
             $this->_serializer = array(
-                new tubepress_platform_impl_boot_helper_uncached_Serializer($this->_bootSettings),
+                new tubepress_internal_boot_helper_uncached_Serializer($this->_bootSettings),
                 'serialize'
             );
         }
@@ -142,7 +142,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
         );
 
         $this->_containerBuilder->setParameter(
-            tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
+            tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
             $artifacts
         );
 
@@ -158,7 +158,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
         $this->_mapClassLoader = new ehough_pulsar_MapClassLoader($finalClassMap);
         $this->_mapClassLoader->register();
 
-        $existingArtifacts = $this->_containerBuilder->getParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
+        $existingArtifacts = $this->_containerBuilder->getParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
 
         $artifacts = array_merge($existingArtifacts, array(
             'classloading' => array(
@@ -166,7 +166,7 @@ class tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
             )
         ));
 
-        $this->_containerBuilder->setParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
+        $this->_containerBuilder->setParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
             $artifacts);
     }
 

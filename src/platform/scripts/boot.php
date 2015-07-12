@@ -46,12 +46,12 @@ if (!class_exists('tubePressBootScript', false)) {
                 define('TUBEPRESS_VERSION', '99.99.99');
             }
 
-            if (!class_exists('tubepress_platform_impl_boot_PrimaryBootstrapper', false)) {
+            if (!class_exists('tubepress_internal_boot_PrimaryBootstrapper', false)) {
 
-                require TUBEPRESS_ROOT . '/src/platform/classes/tubepress/platform/impl/boot/PrimaryBootstrapper.php';
+                require TUBEPRESS_ROOT . '/src/php/classes/internal/tubepress/internal/boot/PrimaryBootstrapper.php';
             }
 
-            $bootStrapper = new tubepress_platform_impl_boot_PrimaryBootstrapper();
+            $bootStrapper = new tubepress_internal_boot_PrimaryBootstrapper();
             self::$SERVICE_CONTAINER = $bootStrapper->getServiceContainer();
         }
 

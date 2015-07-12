@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_platform_impl_boot_helper_ContainerSupplier
+class tubepress_internal_boot_helper_ContainerSupplier
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface
@@ -30,7 +30,7 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
     private $_logEnabled = false;
 
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
+     * @var tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
      */
     private $_uncachedContainerSupplier;
 
@@ -229,24 +229,24 @@ class tubepress_platform_impl_boot_helper_ContainerSupplier
         $urlFactory    = new tubepress_url_impl_puzzle_UrlFactory();
         $langUtils     = new tubepress_util_impl_LangUtils();
         $stringUtils   = new tubepress_util_impl_StringUtils();
-        $addonFactory  = new tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory(
+        $addonFactory  = new tubepress_internal_boot_helper_uncached_contrib_AddonFactory(
             $this->_logger, $urlFactory, $langUtils, $stringUtils, $this->_bootSettings
         );
-        $manifestFinder = new tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder(
+        $manifestFinder = new tubepress_internal_boot_helper_uncached_contrib_ManifestFinder(
             TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'add-ons', DIRECTORY_SEPARATOR . 'add-ons', 'manifest.json',
             $this->_logger, $this->_bootSettings, $finderFactory
         );
-        $uncached = new tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier(
+        $uncached = new tubepress_internal_boot_helper_uncached_UncachedContainerSupplier(
 
             $this->_logger, $manifestFinder, $addonFactory,
-            new tubepress_platform_impl_boot_helper_uncached_Compiler($this->_logger),
+            new tubepress_internal_boot_helper_uncached_Compiler($this->_logger),
             $this->_bootSettings
         );
 
         $this->_uncachedContainerSupplier = $uncached;
     }
 
-    public function ___setUncachedContainerSupplier(tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier $supplier)
+    public function ___setUncachedContainerSupplier(tubepress_internal_boot_helper_uncached_UncachedContainerSupplier $supplier)
     {
         $this->_uncachedContainerSupplier = $supplier;
     }

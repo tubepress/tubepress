@@ -12,12 +12,12 @@
 /**
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
- * @covers tubepress_platform_impl_boot_helper_ContainerSupplier<extended>
+ * @covers tubepress_internal_boot_helper_ContainerSupplier<extended>
  */
 class tubepress_test_impl_boot_helper_ContainerSupplierTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_boot_helper_ContainerSupplier
+     * @var tubepress_internal_boot_helper_ContainerSupplier
      */
     private $_sut;
 
@@ -34,12 +34,12 @@ class tubepress_test_impl_boot_helper_ContainerSupplierTest extends tubepress_te
     public function onSetup()
     {
         $this->_mockLogger              = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockSettingsFileReader = $this->mock('tubepress_platform_impl_boot_BootSettings');
+        $this->_mockSettingsFileReader = $this->mock('tubepress_internal_boot_BootSettings');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut = new tubepress_platform_impl_boot_helper_ContainerSupplier(
+        $this->_sut = new tubepress_internal_boot_helper_ContainerSupplier(
 
             $this->_mockLogger,
             $this->_mockSettingsFileReader
@@ -113,7 +113,7 @@ XYZ;
     private function _completeUncachedTest()
     {
         $mockIconicContainer  = $this->mock('ehough_iconic_ContainerInterface');
-        $mockUncachedProvider = $this->mock('tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier');
+        $mockUncachedProvider = $this->mock('tubepress_internal_boot_helper_uncached_UncachedContainerSupplier');
 
         $mockUncachedProvider->shouldReceive('getNewIconicContainer')->once()->andReturn($mockIconicContainer);
 

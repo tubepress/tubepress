@@ -13,7 +13,7 @@
  * Performs TubePress-wide initialization. This is a complicated
  * and somewhat delicate process. Take your time and read carefully!
  */
-class tubepress_platform_impl_boot_PrimaryBootstrapper
+class tubepress_internal_boot_PrimaryBootstrapper
 {
     const CONTAINER_PARAM_BOOT_ARTIFACTS = 'boot-artifacts';
 
@@ -43,7 +43,7 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     private $_bootSettings;
 
     /**
-     * @var tubepress_platform_impl_boot_helper_ContainerSupplier
+     * @var tubepress_internal_boot_helper_ContainerSupplier
      */
     private $_containerSupplier;
 
@@ -187,12 +187,12 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     {
         if (!isset($this->_bootSettings)) {
 
-            $this->_bootSettings = new tubepress_platform_impl_boot_BootSettings($this->_bootLogger, new tubepress_url_impl_puzzle_UrlFactory($_SERVER));
+            $this->_bootSettings = new tubepress_internal_boot_BootSettings($this->_bootLogger, new tubepress_url_impl_puzzle_UrlFactory($_SERVER));
         }
 
         if (!isset($this->_containerSupplier)) {
 
-            $this->_containerSupplier = new tubepress_platform_impl_boot_helper_ContainerSupplier(
+            $this->_containerSupplier = new tubepress_internal_boot_helper_ContainerSupplier(
                 
                 $this->_bootLogger,
                 $this->_bootSettings
@@ -389,12 +389,12 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
 
     public function _handleFatalError()
     {
-        if (!class_exists('tubepress_platform_impl_boot_helper_FatalErrorHandler', false)) {
+        if (!class_exists('tubepress_internal_boot_helper_FatalErrorHandler', false)) {
             
             require dirname(__FILE__) . '/helper/FatalErrorHandler.php';
         }
         
-        $handler = new tubepress_platform_impl_boot_helper_FatalErrorHandler();
+        $handler = new tubepress_internal_boot_helper_FatalErrorHandler();
         $handler->onFatalError();
     }
 
@@ -417,11 +417,11 @@ class tubepress_platform_impl_boot_PrimaryBootstrapper
     /**
      * This is here strictly for testing :/
      *
-     * @param tubepress_platform_impl_boot_helper_ContainerSupplier $sbi The container supplier.
+     * @param tubepress_internal_boot_helper_ContainerSupplier $sbi The container supplier.
      *
      * @internal
      */
-    public function ___setContainerSupplier(tubepress_platform_impl_boot_helper_ContainerSupplier $sbi)
+    public function ___setContainerSupplier(tubepress_internal_boot_helper_ContainerSupplier $sbi)
     {
         $this->_containerSupplier = $sbi;
     }

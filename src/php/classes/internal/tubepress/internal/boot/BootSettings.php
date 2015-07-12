@@ -12,7 +12,7 @@
 /**
  * Retrieves settings from a PHP file.
  */
-class tubepress_platform_impl_boot_BootSettings implements tubepress_platform_api_boot_BootSettingsInterface
+class tubepress_internal_boot_BootSettings implements tubepress_platform_api_boot_BootSettingsInterface
 {
     private static $_TOP_LEVEL_KEY_SYSTEM = 'system';
     private static $_TOP_LEVEL_KEY_USER   = 'user';

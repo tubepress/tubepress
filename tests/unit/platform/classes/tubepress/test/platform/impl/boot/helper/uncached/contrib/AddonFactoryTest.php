@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory<extended>
+ * @covers tubepress_internal_boot_helper_uncached_contrib_AddonFactory<extended>
  */
 class tubepress_test_platform_impl_boot_helper_uncached_contrib_AddonFactoryTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractFactoryTest
 {
@@ -19,7 +19,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_AddonFactoryTest
     private $_addonBlackList;
 
     /**
-     * @return tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory
+     * @return tubepress_internal_boot_helper_uncached_contrib_AddonFactory
      */
     protected function buildSut(tubepress_platform_api_log_LoggerInterface $logger,
                                 tubepress_platform_api_url_UrlFactoryInterface $urlFactory,
@@ -30,7 +30,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_AddonFactoryTest
         $this->_mockBootSettingsInterface->shouldReceive('getAddonBlacklistArray')->once()->andReturnUsing(array($this, 'getAddonBlackList'));
         $this->_addonBlackList = array();
 
-        return new tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory(
+        return new tubepress_internal_boot_helper_uncached_contrib_AddonFactory(
 
             $logger, $urlFactory, $langUtils, $stringUtils, $this->_mockBootSettingsInterface
         );

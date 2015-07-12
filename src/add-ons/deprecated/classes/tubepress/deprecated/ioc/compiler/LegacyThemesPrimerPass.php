@@ -29,12 +29,12 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
      */
     public function process(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        if (!$containerBuilder->hasParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)) {
+        if (!$containerBuilder->hasParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)) {
 
             return;
         }
 
-        $bootArtifacts = $containerBuilder->getParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
+        $bootArtifacts = $containerBuilder->getParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
 
         if (!is_array($bootArtifacts) || !isset($bootArtifacts['themes'])) {
 
@@ -43,7 +43,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
 
         $serializedThemes        = $bootArtifacts['themes'];
         $bootSettings            = $containerBuilder->get(tubepress_platform_api_boot_BootSettingsInterface::_);
-        $serializer              = new tubepress_platform_impl_boot_helper_uncached_Serializer($bootSettings);
+        $serializer              = new tubepress_internal_boot_helper_uncached_Serializer($bootSettings);
         $unserializedThemes      = $serializer->unserialize($serializedThemes);
         $adjustedSystemThemes    = $this->_adjustLegacySystemThemes($containerBuilder, $unserializedThemes);
         $userLegacyThemes        = $this->_findUserLegacyThemes($bootSettings, $containerBuilder);
@@ -52,7 +52,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
         $serializedThemes        = $serializer->serialize($allThemes);
         $bootArtifacts['themes'] = $serializedThemes;
 
-        $containerBuilder->setParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, $bootArtifacts);
+        $containerBuilder->setParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, $bootArtifacts);
     }
 
     private function _adjustLegacySystemThemes(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder, array $allThemes)
@@ -182,9 +182,9 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
             }
 
             /**
-             * @var $themeFactory tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory
+             * @var $themeFactory tubepress_internal_boot_helper_uncached_contrib_ThemeFactory
              */
-            $themeFactory = $containerBuilder->get('tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory');
+            $themeFactory = $containerBuilder->get('tubepress_internal_boot_helper_uncached_contrib_ThemeFactory');
             $templateMap  = $this->_getTemplateMapForLegacyDirectory($containerBuilder, $themeRoot);
             $manifestPath = $bootSettings->getPathToSystemCacheDirectory() . DIRECTORY_SEPARATOR . 'foobar';
             $manifestData = array(

@@ -12,12 +12,12 @@
 /**
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
- * @covers tubepress_platform_impl_boot_BootSettings<extended>
+ * @covers tubepress_internal_boot_BootSettings<extended>
  */
 class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_boot_BootSettings
+     * @var tubepress_internal_boot_BootSettings
      */
     private $_sut;
 
@@ -46,7 +46,7 @@ class tubepress_test_impl_boot_BootSettingsTest extends tubepress_test_TubePress
 
         $this->_mockUrlFactory->shouldReceive('fromString')->andReturnUsing(array($this, '__callbackRealUrlFactory'));
 
-        $this->_sut = new tubepress_platform_impl_boot_BootSettings($this->_mockLogger, $this->_mockUrlFactory);
+        $this->_sut = new tubepress_internal_boot_BootSettings($this->_mockLogger, $this->_mockUrlFactory);
 
         $this->_userContentDirectory = sys_get_temp_dir() . '/tubepress-boot-settings-test/';
 

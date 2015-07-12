@@ -33,8 +33,8 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
     private function _expectSingletonServices()
     {
         $this->expectRegistration(
-            'tubepress_platform_impl_boot_helper_uncached_Serializer',
-            'tubepress_platform_impl_boot_helper_uncached_Serializer'
+            'tubepress_internal_boot_helper_uncached_Serializer',
+            'tubepress_internal_boot_helper_uncached_Serializer'
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
 
         $parallelServices = array(
@@ -50,11 +50,11 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
 
             $this->expectRegistration(
                 tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix,
-                'tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry'
-            )->withArgument(sprintf('%%%s%%', tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS))
+                'tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry'
+            )->withArgument(sprintf('%%%s%%', tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS))
                 ->withArgument($artifactPrefix . 'themes')
                 ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-                ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_platform_impl_boot_helper_uncached_Serializer'));
+                ->withArgument(new tubepress_platform_api_ioc_Reference('tubepress_internal_boot_helper_uncached_Serializer'));
 
             $this->expectRegistration(
                 'tubepress_theme_impl_CurrentThemeService' . $serviceSuffix,
@@ -165,7 +165,7 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
             array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar.admin/hi')));
 
         return array(
-            tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS => array(
+            tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS => array(
                 'themes'       => base64_encode(serialize(array($theme))),
                 'admin-themes' => base64_encode(serialize(array($adminTheme)))
             )

@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier<extended>
+ * @covers tubepress_internal_boot_helper_uncached_UncachedContainerSupplier<extended>
  */
 class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplierTest extends tubepress_test_TubePressUnitTest
 {
@@ -50,24 +50,24 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
     private $_mockAddonFactory;
 
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier
+     * @var tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
      */
     private $_sut;
 
     public function onSetup()
     {
         $this->_mockLogger           = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockManifestFinder   = $this->mock('tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder');
-        $this->_mockCompiler         = $this->mock('tubepress_platform_impl_boot_helper_uncached_Compiler');
+        $this->_mockManifestFinder   = $this->mock('tubepress_internal_boot_helper_uncached_contrib_ManifestFinder');
+        $this->_mockCompiler         = $this->mock('tubepress_internal_boot_helper_uncached_Compiler');
         $this->_mockContainerBuilder = $this->mock('tubepress_internal_ioc_ContainerBuilder');
         $this->_mockContainerDumper  = $this->mock('ehough_iconic_dumper_DumperInterface');
-        $this->_mockBootSettings     = $this->mock('tubepress_platform_impl_boot_BootSettings');
-        $this->_mockAddonFactory     = $this->mock('tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory');
+        $this->_mockBootSettings     = $this->mock('tubepress_internal_boot_BootSettings');
+        $this->_mockAddonFactory     = $this->mock('tubepress_internal_boot_helper_uncached_contrib_AddonFactory');
 
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut = new tubepress_platform_impl_boot_helper_uncached_UncachedContainerSupplier(
+        $this->_sut = new tubepress_internal_boot_helper_uncached_UncachedContainerSupplier(
 
             $this->_mockLogger,
             $this->_mockManifestFinder,
@@ -154,11 +154,11 @@ class tubepress_test_platform_impl_boot_helper_uncached_UncachedContainerSupplie
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('ehough_iconic_ContainerInterface', $mockIconicBuilder);
         $this->_mockContainerBuilder->shouldReceive('set')->once()->with('tubepress_platform_api_ioc_ContainerInterface', $this->_mockContainerBuilder);
         $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with(
-            tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
+            tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS,
             array('add-ons' => 'hiya')
         );
-        $this->_mockContainerBuilder->shouldReceive('getParameter')->once()->with(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(array('ww' => 'xx'));
-        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, ehough_mockery_Mockery::on(function ($arr) {
+        $this->_mockContainerBuilder->shouldReceive('getParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(array('ww' => 'xx'));
+        $this->_mockContainerBuilder->shouldReceive('setParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, ehough_mockery_Mockery::on(function ($arr) {
 
             $ok = is_array($arr);
 

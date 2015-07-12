@@ -10,14 +10,14 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_PrimaryBootstrapper<extended>
+ * @covers tubepress_internal_boot_PrimaryBootstrapper<extended>
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
 class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_boot_PrimaryBootstrapper
+     * @var tubepress_internal_boot_PrimaryBootstrapper
      */
     private $_sut;
 
@@ -43,10 +43,10 @@ class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_Tu
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_platform_impl_boot_PrimaryBootstrapper();
+        $this->_sut = new tubepress_internal_boot_PrimaryBootstrapper();
 
         $this->_bootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
-        $this->_mockContainerSupplier            = $this->mock('tubepress_platform_impl_boot_helper_ContainerSupplier');
+        $this->_mockContainerSupplier            = $this->mock('tubepress_internal_boot_helper_ContainerSupplier');
         $this->_mockBootLogger                   = $this->mock('tubepress_internal_logger_BootLogger');
         $this->_mockServiceContainer             = $this->mock('tubepress_platform_api_ioc_ContainerInterface');
 
@@ -75,8 +75,8 @@ class tubepress_test_impl_boot_PrimaryBootstrapperTest extends tubepress_test_Tu
         $mockLogger->shouldReceive('debug')->atLeast(1);
         $mockLogger->shouldReceive('onBootComplete')->once();
         $this->_mockServiceContainer->shouldReceive('get')->once()->with(tubepress_platform_api_log_LoggerInterface::_)->andReturn($mockLogger);
-        $this->_mockServiceContainer->shouldReceive('hasParameter')->once()->with(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(true);
-        $this->_mockServiceContainer->shouldReceive('getParameter')->once()->with(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(array('a' => 'b'));
+        $this->_mockServiceContainer->shouldReceive('hasParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(true);
+        $this->_mockServiceContainer->shouldReceive('getParameter')->once()->with(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS)->andReturn(array('a' => 'b'));
 
         $this->_bootSettings->shouldReceive('isClassLoaderEnabled')->once()->andReturn(true);
         $this->_bootSettings->shouldReceive('shouldClearCache')->once()->andReturn(true);

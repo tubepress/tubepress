@@ -35,12 +35,12 @@ class tubepress_theme_ioc_compiler_ThemesPrimerPass implements tubepress_platfor
         $urlFactory     = $containerBuilder->get(tubepress_platform_api_url_UrlFactoryInterface::_);
         $langUtils      = $containerBuilder->get(tubepress_platform_api_util_LangUtilsInterface::_);
         $stringUtils    = $containerBuilder->get(tubepress_platform_api_util_StringUtilsInterface::_);
-        $serializer     = new tubepress_platform_impl_boot_helper_uncached_Serializer($bootSettings);
-        $factory        = new tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory(
+        $serializer     = new tubepress_internal_boot_helper_uncached_Serializer($bootSettings);
+        $factory        = new tubepress_internal_boot_helper_uncached_contrib_ThemeFactory(
             $context, $urlFactory, $langUtils, $logger, $stringUtils, $finderFactory
         );
 
-        $manifestFinder = new tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder(
+        $manifestFinder = new tubepress_internal_boot_helper_uncached_contrib_ManifestFinder(
             TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . $id, DIRECTORY_SEPARATOR . $id, 'theme.json', $logger, $bootSettings, $finderFactory
         );
 
@@ -64,9 +64,9 @@ class tubepress_theme_ioc_compiler_ThemesPrimerPass implements tubepress_platfor
             $themes[] = $theme;
         }
 
-        $bootArtifacts = $containerBuilder->getParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
+        $bootArtifacts = $containerBuilder->getParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS);
         $bootArtifacts = array_merge($bootArtifacts, array($id => $serializer->serialize($themes)));
-        $containerBuilder->setParameter(tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, $bootArtifacts);
-        $containerBuilder->set('tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory', $factory);
+        $containerBuilder->setParameter(tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS, $bootArtifacts);
+        $containerBuilder->set('tubepress_internal_boot_helper_uncached_contrib_ThemeFactory', $factory);
     }
 }

@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_helper_uncached_Compiler<extended>
+ * @covers tubepress_internal_boot_helper_uncached_Compiler<extended>
  */
 class tubepress_test_platform_impl_boot_helper_uncached_CompilerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_Compiler
+     * @var tubepress_internal_boot_helper_uncached_Compiler
      */
     private $_sut;
 
@@ -37,7 +37,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_CompilerTest extends tub
         $this->_mockLogger->shouldReceive('isEnabled')->once()->andReturn(true);
         $this->_mockLogger->shouldReceive('debug')->atLeast(1);
 
-        $this->_sut = new tubepress_platform_impl_boot_helper_uncached_Compiler($this->_mockLogger);
+        $this->_sut = new tubepress_internal_boot_helper_uncached_Compiler($this->_mockLogger);
     }
 
     public static function setUpBeforeClass()

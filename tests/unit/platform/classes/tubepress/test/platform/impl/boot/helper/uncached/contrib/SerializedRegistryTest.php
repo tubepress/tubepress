@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry<extended>
+ * @covers tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry<extended>
  */
 class tubepress_test_platform_impl_boot_helper_uncached_contrib_SerializedRegistryTest extends tubepress_test_TubePressUnitTest
 {
@@ -27,7 +27,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_SerializedRegist
     public function onSetup()
     {
         $this->_mockLogger     = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
-        $this->_mockSerializer = $this->mock('tubepress_platform_impl_boot_helper_uncached_Serializer');
+        $this->_mockSerializer = $this->mock('tubepress_internal_boot_helper_uncached_Serializer');
     }
 
     public function testUnserialize()
@@ -40,7 +40,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_SerializedRegist
 
         $result = $this->_buildSut($bootArtifacts);
 
-        $this->assertInstanceOf('tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry', $result);
+        $this->assertInstanceOf('tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry', $result);
 
         $all = $result->getAll();
 
@@ -88,7 +88,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_SerializedRegist
 
     private function _buildSut(array $bootArtifacts)
     {
-        return new tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry(
+        return new tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry(
             $bootArtifacts,
             'add-ons',
             $this->_mockLogger,

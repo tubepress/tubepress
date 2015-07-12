@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_platform_impl_boot_helper_uncached_contrib_AddonFactory extends tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFactory
+class tubepress_internal_boot_helper_uncached_contrib_AddonFactory extends tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
 {
     private static $_FIRST_LEVEL_KEY_IOC      = 'container-builder';
     private static $_FIRST_LEVEL_KEY_AUTOLOAD = 'autoload';

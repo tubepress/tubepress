@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder<extended>
+ * @covers tubepress_internal_boot_helper_uncached_contrib_ManifestFinder<extended>
  */
 class tubepress_test_impl_boot_helper_uncached_contrib_ManifestFinderTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder
+     * @var tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
      */
     private $_sut;
 
@@ -63,7 +63,7 @@ class tubepress_test_impl_boot_helper_uncached_contrib_ManifestFinderTest extend
         $created = mkdir($this->_mockUserDirectory, 0755, true) && mkdir($this->_mockSystemDirectory, 0755, true);
         $this->assertTrue($created);
 
-        $this->_sut = new tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder(
+        $this->_sut = new tubepress_internal_boot_helper_uncached_contrib_ManifestFinder(
             $this->_mockSystemDirectory,
             $this->_mockUserDirectory,
             'foobar.json',

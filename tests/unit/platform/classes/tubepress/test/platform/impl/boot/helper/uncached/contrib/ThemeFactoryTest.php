@@ -10,7 +10,7 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory<extended>
+ * @covers tubepress_internal_boot_helper_uncached_contrib_ThemeFactory<extended>
  */
 class tubepress_test_platform_impl_boot_helper_uncached_contrib_ThemeFactoryTest extends tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractFactoryTest
 {
@@ -146,7 +146,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_ThemeFactoryTest
     }
 
     /**
-     * @return tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory
+     * @return tubepress_internal_boot_helper_uncached_contrib_ThemeFactory
      */
     protected function buildSut(tubepress_platform_api_log_LoggerInterface       $logger,
                                 tubepress_platform_api_url_UrlFactoryInterface   $urlFactory,
@@ -157,7 +157,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_ThemeFactoryTest
         $this->_mockEnvironment = $this->mock(tubepress_app_api_environment_EnvironmentInterface::_);
         $this->_mockFinderFactory = $this->mock('ehough_finder_FinderFactory');
 
-        return new tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory(
+        return new tubepress_internal_boot_helper_uncached_contrib_ThemeFactory(
 
             $this->_mockContext, $urlFactory, $langUtils, $logger, $stringUtils, $this->_mockFinderFactory
         );

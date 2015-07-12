@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_platform_impl_boot_helper_uncached_Serializer<extended>
+ * @covers tubepress_internal_boot_helper_uncached_Serializer<extended>
  */
 class tubepress_test_platform_impl_boot_helper_uncached_SerializerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_Serializer
+     * @var tubepress_internal_boot_helper_uncached_Serializer
      */
     private $_sut;
 
@@ -27,7 +27,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_SerializerTest extends t
     public function onSetup()
     {
         $this->_mockBootSettings = $this->mock(tubepress_platform_api_boot_BootSettingsInterface::_);
-        $this->_sut              = new tubepress_platform_impl_boot_helper_uncached_Serializer($this->_mockBootSettings);
+        $this->_sut              = new tubepress_internal_boot_helper_uncached_Serializer($this->_mockBootSettings);
     }
 
     public function testUnserializeCannotUnserialize()

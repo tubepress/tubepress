@@ -10,7 +10,7 @@
  */
 
 
-class tubepress_platform_impl_boot_helper_uncached_contrib_ThemeFactory extends tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFactory
+class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
 {
     /**
      * @var tubepress_app_api_options_ContextInterface

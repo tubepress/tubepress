@@ -37,8 +37,8 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_platform_api_ioc_C
     private function _registerSingletonServices(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_platform_impl_boot_helper_uncached_Serializer',
-            'tubepress_platform_impl_boot_helper_uncached_Serializer'
+            'tubepress_internal_boot_helper_uncached_Serializer',
+            'tubepress_internal_boot_helper_uncached_Serializer'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_boot_BootSettingsInterface::_));
 
         $parallelServices = array(
@@ -54,11 +54,11 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_platform_api_ioc_C
 
             $containerBuilder->register(
                 tubepress_platform_api_contrib_RegistryInterface::_ . '.' . tubepress_app_api_theme_ThemeInterface::_ . $serviceSuffix,
-                'tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry'
-            )->addArgument(sprintf('%%%s%%', tubepress_platform_impl_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS))
+                'tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry'
+            )->addArgument(sprintf('%%%s%%', tubepress_internal_boot_PrimaryBootstrapper::CONTAINER_PARAM_BOOT_ARTIFACTS))
              ->addArgument($artifactPrefix . 'themes')
              ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-             ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_platform_impl_boot_helper_uncached_Serializer'));
+             ->addArgument(new tubepress_platform_api_ioc_Reference('tubepress_internal_boot_helper_uncached_Serializer'));
 
             $containerBuilder->register(
                 'tubepress_theme_impl_CurrentThemeService' . $serviceSuffix,

@@ -12,7 +12,7 @@
 abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_AbstractFactoryTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFactory
+     * @var tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
      */
     private $_sut;
 
@@ -83,7 +83,7 @@ abstract class tubepress_test_platform_impl_boot_helper_uncached_contrib_Abstrac
     }
 
     /**
-     * @return tubepress_platform_impl_boot_helper_uncached_contrib_AbstractFactory
+     * @return tubepress_internal_boot_helper_uncached_contrib_AbstractFactory
      */
     protected abstract function buildSut(tubepress_platform_api_log_LoggerInterface       $logger,
                                          tubepress_platform_api_url_UrlFactoryInterface   $urlFactory,

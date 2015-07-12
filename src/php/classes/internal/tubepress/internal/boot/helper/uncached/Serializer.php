@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_platform_impl_boot_helper_uncached_Serializer
+class tubepress_internal_boot_helper_uncached_Serializer
 {
     /**
      * @var tubepress_platform_api_boot_BootSettingsInterface

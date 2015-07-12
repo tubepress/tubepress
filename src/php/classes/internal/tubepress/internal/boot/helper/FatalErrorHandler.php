@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_platform_impl_boot_helper_FatalErrorHandler
+class tubepress_internal_boot_helper_FatalErrorHandler
 {
     public function onFatalError()
     {

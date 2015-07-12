@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry implements tubepress_platform_api_contrib_RegistryInterface
+class tubepress_internal_boot_helper_uncached_contrib_SerializedRegistry implements tubepress_platform_api_contrib_RegistryInterface
 {
     /**
      * @var
@@ -27,7 +27,7 @@ class tubepress_platform_impl_boot_helper_uncached_contrib_SerializedRegistry im
 
     public function __construct(array $bootArtifacts, $key,
                                 tubepress_platform_api_log_LoggerInterface $logger,
-                                tubepress_platform_impl_boot_helper_uncached_Serializer $serializer)
+                                tubepress_internal_boot_helper_uncached_Serializer $serializer)
     {
         $this->_logger            = $logger;
         $this->_nameToInstanceMap = array();

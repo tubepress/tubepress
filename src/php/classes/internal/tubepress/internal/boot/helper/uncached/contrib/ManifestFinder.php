@@ -13,7 +13,7 @@
  * @api
  * @since 4.0.0
  */
-class tubepress_platform_impl_boot_helper_uncached_contrib_ManifestFinder
+class tubepress_internal_boot_helper_uncached_contrib_ManifestFinder
 {
     /**
      * @var bool
