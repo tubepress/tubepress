@@ -56,7 +56,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
         $actualCoreClasses     = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/src');
         $actualVendorClasses   = \Symfony\Component\ClassLoader\ClassMapGenerator::createMap(TUBEPRESS_ROOT . '/vendor');
         $actualClasses         = array_merge($actualCoreClasses, $actualVendorClasses);
-        $actualClassMap        = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
+        $actualClassMap        = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
 
         ksort($actualClasses);
 
@@ -67,7 +67,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
 
     private function _messageForClassMapValidity(array $expected, array $actual)
     {
-        $toReturn = "src/platform/scripts/classloading/classmap.php does not have the right contents\n\n";
+        $toReturn = "src/php/scripts/classloading/classmap.php does not have the right contents\n\n";
 
         $expectedClassNames = array_keys($expected);
         $actualClassNames   = array_keys($actual);

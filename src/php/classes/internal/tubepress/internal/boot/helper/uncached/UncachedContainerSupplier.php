@@ -152,7 +152,7 @@ class tubepress_internal_boot_helper_uncached_UncachedContainerSupplier
     private function _setupClassLoader(array $addons)
     {
         $addonClassMap = $this->_getClassMapFromAddons($addons);
-        $fullClassMap  = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
+        $fullClassMap  = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
         $finalClassMap = array_merge($fullClassMap, $addonClassMap);
 
         $this->_mapClassLoader = new ehough_pulsar_MapClassLoader($finalClassMap);

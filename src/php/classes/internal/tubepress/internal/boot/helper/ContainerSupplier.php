@@ -213,7 +213,7 @@ class tubepress_internal_boot_helper_ContainerSupplier
          * Create a temporary classloader so we can do the full boot.
          */
         /** @noinspection PhpIncludeInspection */
-        $fullClassMap = require TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classmap.php';
+        $fullClassMap = require TUBEPRESS_ROOT . '/src/php/scripts/classloading/classmap.php';
         $this->_temporaryClassLoader  = new ehough_pulsar_MapClassLoader($fullClassMap);
         $this->_temporaryClassLoader->register();
     }
