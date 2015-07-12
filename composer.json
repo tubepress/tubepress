@@ -69,9 +69,9 @@
             "tubepress_api_const_"  : "src/add-ons/deprecated/classes",
             "tubepress_addons_"     : "src/add-ons/deprecated/classes",
 
-            "tubepress_vimeo2_"       : "src/add-ons/vimeo_v2/classes",
+            "tubepress_vimeo2_"       : "src/add-ons/provider-vimeo-v2/classes",
             "tubepress_wordpress_"    : "src/add-ons/wordpress/classes",
-            "tubepress_youtube3_"     : "src/add-ons/youtube_v3/classes",
+            "tubepress_youtube3_"     : "src/add-ons/provider-youtube-v3/classes",
 
             "tubepress_test_integration_"  : "tests/integration/classes",
             "tubepress_test_platform_"     : "tests/unit/platform/classes",
