@@ -126,12 +126,19 @@
             <log msg="Staging web assets" />
             <move file="${staging-directory}/src/add-ons/core/web"               tofile="${staging-directory}/web" verbose="true" />
             <move file="${staging-directory}/src/add-ons/wordpress/web"          tofile="${staging-directory}/web" verbose="true" />
-            <move todir="${staging-directory}/web/themes" verbose="true">
-                <fileset dir="${staging-directory}/src/add-ons/deprecated/web/themes/">
+            <copy verbose="true" file="${staging-directory}/index.php" tofile="${staging-directory}/web/index.php" />
+            <log msg="Staging themes" />
+            <move todir="${staging-directory}/web/themes">
+                <fileset dir="${staging-directory}/src/themes/public/">
                     <include name="**" />
                 </fileset>
             </move>
-            <copy verbose="true" file="${staging-directory}/index.php" tofile="${staging-directory}/web/index.php" />
+            <move todir="${staging-directory}/web/admin-themes">
+                <fileset dir="${staging-directory}/src/themes/admin/">
+                    <include name="**" />
+                </fileset>
+            </move>
+            <delete dir="${staging-directory}/src/themes" verbose="true" />
         </sequential>
     </macrodef>
 
