@@ -65,9 +65,6 @@
             "tubepress_app_impl_player_JsPlayerLocation"           : "classes/tubepress/app/impl/player/JsPlayerLocation.php",
             "tubepress_app_impl_player_SoloOrStaticPlayerLocation" : "classes/tubepress/app/impl/player/SoloOrStaticPlayerLocation.php",
 
-            "tubepress_app_impl_theme_AbstractTheme"                 : "classes/tubepress/app/impl/theme/AbstractTheme.php",
-            "tubepress_app_impl_theme_FilesystemTheme"               : "classes/tubepress/app/impl/theme/FilesystemTheme.php",
-
             "tubepress_app_ioc_AppExtension"                         : "classes/tubepress/app/ioc/AppExtension.php",
 
             "tubepress_lib_api_array_ArrayReaderInterface"      : "classes/tubepress/lib/api/array/ArrayReaderInterface.php",

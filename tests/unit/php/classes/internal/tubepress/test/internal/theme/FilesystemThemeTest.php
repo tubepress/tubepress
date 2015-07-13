@@ -10,9 +10,9 @@
  */
 
 /**
- * @covers tubepress_app_impl_theme_FilesystemTheme<extended>
+ * @covers tubepress_internal_theme_FilesystemTheme<extended>
  */
-class tubepress_test_app_impl_theme_FilesystemThemeTest extends tubepress_test_platform_impl_contrib_AbstractContributableTest
+class tubepress_test_internal_theme_FilesystemThemeTest extends tubepress_test_platform_impl_contrib_AbstractContributableTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface
@@ -33,7 +33,7 @@ class tubepress_test_app_impl_theme_FilesystemThemeTest extends tubepress_test_p
     public function testParentThemeName()
     {
         /**
-         * @var $theme tubepress_app_impl_theme_FilesystemTheme
+         * @var $theme tubepress_internal_theme_FilesystemTheme
          */
         $theme = $this->buildContributable();
 
@@ -50,7 +50,7 @@ class tubepress_test_app_impl_theme_FilesystemThemeTest extends tubepress_test_p
     public function testScripts($setter, $getter, $isAbsolute)
     {
         /**
-         * @var $theme tubepress_app_impl_theme_FilesystemTheme
+         * @var $theme tubepress_internal_theme_FilesystemTheme
          */
         $theme = $this->buildContributable();
 
@@ -97,7 +97,7 @@ class tubepress_test_app_impl_theme_FilesystemThemeTest extends tubepress_test_p
     public function testInlineCss()
     {
         /**
-         * @var $theme tubepress_app_impl_theme_FilesystemTheme
+         * @var $theme tubepress_internal_theme_FilesystemTheme
          */
         $theme = $this->buildContributable();
 
@@ -115,7 +115,7 @@ class tubepress_test_app_impl_theme_FilesystemThemeTest extends tubepress_test_p
         $map = array('a' => $path);
 
         /**
-         * @var $theme tubepress_app_impl_theme_FilesystemTheme
+         * @var $theme tubepress_internal_theme_FilesystemTheme
          */
         $theme = $this->buildContributable();
 
@@ -136,6 +136,6 @@ class tubepress_test_app_impl_theme_FilesystemThemeTest extends tubepress_test_p
      */
     protected function buildSut($name, $version, $title, array $authors, array $licenses)
     {
-        return new tubepress_app_impl_theme_FilesystemTheme($name, $version, $title, $authors, $licenses);
+        return new tubepress_internal_theme_FilesystemTheme($name, $version, $title, $authors, $licenses);
     }
 }

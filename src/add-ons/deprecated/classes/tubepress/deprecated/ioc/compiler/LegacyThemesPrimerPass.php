@@ -66,7 +66,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
 
         foreach ($allThemes as $systemTheme) {
 
-            if (!($systemTheme instanceof tubepress_app_impl_theme_FilesystemTheme)) {
+            if (!($systemTheme instanceof tubepress_internal_theme_FilesystemTheme)) {
 
                 $toReturn[] = $systemTheme;
                 continue;
@@ -202,7 +202,7 @@ class tubepress_deprecated_ioc_compiler_LegacyThemesPrimerPass implements tubepr
             );
             $theme = $themeFactory->fromManifestData($manifestPath, $manifestData);
 
-            if (!($theme instanceof tubepress_app_impl_theme_FilesystemTheme)) {
+            if (!($theme instanceof tubepress_internal_theme_FilesystemTheme)) {
 
                 continue;
             }

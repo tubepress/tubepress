@@ -81,7 +81,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_ThemeFactoryTest
         fwrite($handle, 'bla bla bla');
 
         /**
-         * @var $theme tubepress_app_impl_theme_FilesystemTheme
+         * @var $theme tubepress_internal_theme_FilesystemTheme
          */
         $theme = $this->fromManifest(array());
 
@@ -94,7 +94,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_ThemeFactoryTest
     public function testInlineCss($asJson, $expectedCss)
     {
         /**
-         * @var $theme tubepress_app_impl_theme_FilesystemTheme
+         * @var $theme tubepress_internal_theme_FilesystemTheme
          */
         $theme = $this->fromManifest(array(
             'inlineCSS' => json_decode($asJson, true)
@@ -136,7 +136,7 @@ class tubepress_test_platform_impl_boot_helper_uncached_contrib_ThemeFactoryTest
     public function testValidConstruction()
     {
         /**
-         * @var $theme tubepress_app_impl_theme_FilesystemTheme
+         * @var $theme tubepress_internal_theme_FilesystemTheme
          */
         $theme = $this->fromManifest();
 

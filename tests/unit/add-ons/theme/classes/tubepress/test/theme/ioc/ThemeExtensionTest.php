@@ -158,10 +158,10 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
 
     protected function getExpectedParameterMap()
     {
-        $theme = new tubepress_app_impl_theme_FilesystemTheme('the name', '1.2.3', 'the title',
+        $theme = new tubepress_internal_theme_FilesystemTheme('the name', '1.2.3', 'the title',
             array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar/hi')));
 
-        $adminTheme = new tubepress_app_impl_theme_FilesystemTheme('the admin name', '1.2.3', 'the admin title',
+        $adminTheme = new tubepress_internal_theme_FilesystemTheme('the admin name', '1.2.3', 'the admin title',
             array(array('name' => 'eric hough')), array(array('url' => 'http://foo.bar.admin/hi')));
 
         return array(

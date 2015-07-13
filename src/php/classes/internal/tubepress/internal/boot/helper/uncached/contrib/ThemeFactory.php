@@ -67,7 +67,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
      */
     protected function buildWithValidNormalizedData($manifestPath, array &$manifestData)
     {
-        $theme = new tubepress_app_impl_theme_FilesystemTheme(
+        $theme = new tubepress_internal_theme_FilesystemTheme(
             $manifestData[self::$FIRST_LEVEL_KEY_NAME],
             $manifestData[self::$FIRST_LEVEL_KEY_VERSION],
             $manifestData[self::$FIRST_LEVEL_KEY_TITLE],
@@ -189,7 +189,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
         $manifestData[$key] = $cssString;
     }
 
-    private function _setParentThemeName(tubepress_app_impl_theme_FilesystemTheme $theme, array $manifestData)
+    private function _setParentThemeName(tubepress_internal_theme_FilesystemTheme $theme, array $manifestData)
     {
         if (isset($manifestData[self::$_FIRST_LEVEL_KEY_PARENT])) {
 
@@ -197,7 +197,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
         }
     }
 
-    private function _setInlineCss(tubepress_app_impl_theme_FilesystemTheme $theme, array $manifestData)
+    private function _setInlineCss(tubepress_internal_theme_FilesystemTheme $theme, array $manifestData)
     {
         if (isset($manifestData[self::$_FIRST_LEVEL_KEY_CSS])) {
 
@@ -205,7 +205,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
         }
     }
 
-    private function _setStyles(tubepress_app_impl_theme_FilesystemTheme $theme, array $manifestData)
+    private function _setStyles(tubepress_internal_theme_FilesystemTheme $theme, array $manifestData)
     {
         if (isset($manifestData[self::$_FIRST_LEVEL_KEY_STYLES])) {
 
@@ -213,7 +213,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
         }
     }
 
-    private function _setScripts(tubepress_app_impl_theme_FilesystemTheme $theme, array $manifestData)
+    private function _setScripts(tubepress_internal_theme_FilesystemTheme $theme, array $manifestData)
     {
         if (isset($manifestData[self::$_FIRST_LEVEL_KEY_SCRIPTS])) {
 
@@ -221,7 +221,7 @@ class tubepress_internal_boot_helper_uncached_contrib_ThemeFactory extends tubep
         }
     }
 
-    private function _setTemplates($manifestPath, tubepress_app_impl_theme_FilesystemTheme $theme)
+    private function _setTemplates($manifestPath, tubepress_internal_theme_FilesystemTheme $theme)
     {
         $themeRoot  = dirname($manifestPath);
         $templates  = $this->_findTemplates($themeRoot);

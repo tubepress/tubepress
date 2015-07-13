@@ -111,11 +111,11 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_platform_api
     private function _registerTemplatingService(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $parallelServices = array(
-            ''       => 'public',
-            '.admin' => 'admin'
+            '',
+            '.admin'
         );
 
-        foreach ($parallelServices as $serviceSuffix => $templatePath) {
+        foreach ($parallelServices as $serviceSuffix) {
 
             /**
              * Theme template locators.
@@ -140,9 +140,7 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_platform_api
                 'Twig_Loader_Filesystem' . $serviceSuffix,
                 'tubepress_template_impl_twig_FsLoader'
             )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-             ->addArgument(array(
-                TUBEPRESS_ROOT . '/src/add-ons/core/templates/' . $templatePath,
-            ));
+             ->addArgument(array());
 
             $twigLoaderReferences = array(
                 new tubepress_platform_api_ioc_Reference('tubepress_template_impl_twig_ThemeLoader' . $serviceSuffix),

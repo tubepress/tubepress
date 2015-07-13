@@ -104,11 +104,11 @@ class tubepress_test_template_ioc_TemplateExtensionTest extends tubepress_test_p
     private function _expectTemplateService()
     {
         $parallelServices = array(
-            ''       => 'public',
-            '.admin' => 'admin'
+            '',
+            '.admin'
         );
 
-        foreach ($parallelServices as $serviceSuffix => $templatePath) {
+        foreach ($parallelServices as $serviceSuffix) {
 
             /**
              * Theme template locators.
@@ -133,9 +133,7 @@ class tubepress_test_template_ioc_TemplateExtensionTest extends tubepress_test_p
                 'Twig_Loader_Filesystem' . $serviceSuffix,
                 'tubepress_template_impl_twig_FsLoader'
             )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_log_LoggerInterface::_))
-                ->withArgument(array(
-                    TUBEPRESS_ROOT . '/src/add-ons/core/templates/' . $templatePath,
-                ));
+                ->withArgument(array());
 
             $twigLoaderReferences = array(
                 new tubepress_platform_api_ioc_Reference('tubepress_template_impl_twig_ThemeLoader' . $serviceSuffix),

@@ -12,7 +12,7 @@
 /**
  * Simple implementation of a theme.
  */
-class tubepress_app_impl_theme_FilesystemTheme extends tubepress_app_impl_theme_AbstractTheme
+class tubepress_internal_theme_FilesystemTheme extends tubepress_internal_theme_AbstractTheme
 {
     private static $_PROPERTY_TEMPLATE_NAMES_TO_PATHS = 'templateNamesToAbsPaths';
     private static $_PROPERTY_INLINE_CSS              = 'inlineCSS';

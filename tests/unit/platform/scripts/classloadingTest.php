@@ -29,7 +29,7 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
 
     public function onSetup()
     {
-        @unlink(TUBEPRESS_ROOT . "/src/platform/scripts/classloading/classes.php");
+        @unlink(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
     }
 
     public function onTearDown()
@@ -115,14 +115,14 @@ class tubepress_test_platform_scripts_ClassLoadingtest extends tubepress_test_Tu
      */
     public function testConcatenationWorks()
     {
-        $this->assertFileNotExists(TUBEPRESS_ROOT . "/src/platform/scripts/classloading/classes.php");
+        $this->assertFileNotExists(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
 
         if (!class_exists('tubepress_build_ClassCollectionBuilder', false)) {
 
             require TUBEPRESS_ROOT . '/build/bin/ClassCollectionBuilder.php';
         }
 
-        $this->assertFileExists(TUBEPRESS_ROOT . "/src/platform/scripts/classloading/classes.php");
+        $this->assertFileExists(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
     }
 
     private function _getExpectedClassMap(array $original)

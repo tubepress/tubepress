@@ -91,7 +91,7 @@ class tubepress_template_impl_ThemeTemplateLocator
     {
         $theme = $this->_findThemeForTemplate($name);
 
-        if ($theme === null || !($theme instanceof tubepress_app_impl_theme_FilesystemTheme)) {
+        if ($theme === null || !($theme instanceof tubepress_internal_theme_FilesystemTheme)) {
 
             return null;
         }
