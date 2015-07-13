@@ -22,7 +22,7 @@ class tubepress_build_ClassCollectionBuilder
 
     public static function build()
     {
-        @unlink(TUBEPRESS_ROOT . "/src/platform/scripts/classloading/classes.php");
+        @unlink(TUBEPRESS_ROOT . "/src/php/scripts/classloading/classes.php");
 
         $classes = array();
         foreach (glob(__DIR__ . '/../config/classes-to-concat/*.php') as $filename) {
@@ -32,7 +32,7 @@ class tubepress_build_ClassCollectionBuilder
 
         self::load(
             $classes,
-            TUBEPRESS_ROOT . '/src/platform/scripts/classloading',
+            TUBEPRESS_ROOT . '/src/php/scripts/classloading',
             'classes',
             false
         );

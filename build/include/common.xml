@@ -12,121 +12,16 @@
 -->
 <project name="tubepress-build-common">
 
-    <!-- Store the path of our directory -->
-	<dirname property="tubepress-build-common.basedir" file="${ant.file.tubepress-build-common}"/>
 
-    <!-- Initialize some properties. -->
-    <property file="${tubepress-build-common.basedir}/../config/common.properties" />
-    <property file="config/custom.properties" />
-	<property name="stagingdir"      value="stage/${build.directory.stage.basename}" />
-	<property name="jscompresslist"  value="config/js-to-compress.txt" />
-	<property name="csscompresslist" value="config/css-to-compress.txt" />
-
-    <target name="init" description="Cleans and preps the build directory for a new build">
-
-        <!-- Clean up. -->
-        <antcall target="clean" />
-
-        <!-- Create the output directories. -->
-        <echo message="Creating empty directories at dist and stage" />
-        <mkdir dir="dist" />
-        <mkdir dir="stage" />
-
-    </target>
-
-    <target name="clean" description="Cleans build environment">
-
-        <echo message="Deleting dist and stage" />
-
-        <delete dir="dist" />
-        <delete dir="stage" />
-    </target>
-
-    <target name="stage-self" description="Copies over TubePress into the staging directory for processing">
-
-        <echo message="Copying self into ${stagingdir}" />
-
-        <copy todir="${stagingdir}">
-
-            <fileset dir=".." excludesfile="${tubepress-build-common.basedir}/../config/distribution-exclusions.txt" />
-        </copy>
-        <property file="config/pro.properties" />
-    </target>
-
-    <target name="move-wordpress-skeleton" description="Copies WordPress resources into TubePress's root">
-
-        <move todir="${stagingdir}">
-
-            <fileset dir="${stagingdir}/src/add-ons/wordpress/resources/root-skeleton">
-                <include name="**" />
-            </fileset>
-        </move>
-    </target>
-
-    <target name="copy-user-content-skeleton-into-wp" description="Stages the user content skeleton into WP for the activation hook">
-
-        <copy verbose="true" todir="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton">
-            <fileset dir="${tubepress-build-common.basedir}/../resources/user-content-skeleton" />
-        </copy>
-    </target>
-
-    <target name="suppress-directory-listings" description="Adds empty index.php files to various areas">
-
-        <copy verbose="true" file="resources/directory-listing-suppressor.php" tofile="${stagingdir}/index.php" />
-
-    </target>
-
-    <target name="update-version-strings">
-
-        <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/src/add-ons/core/classes/tubepress/app/impl/environment/Environment.php"
-                 token="9.9.9" value="${version.major}.${version.minor}.${version.micro}"
-                 failOnNoReplacements="true" />
-
-        <replace file="${stagingdir}/src/platform/scripts/classloading/classes.php"
-                 token="parse('9.9.9')" value="parse('${version.major}.${version.minor}.${version.micro}')"
-                 failOnNoReplacements="true" />
-
-        <replace file="${stagingdir}/src/add-ons/core/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/embedplus/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/htmlcache/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/jwplayer5/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/template/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/provider-vimeo-v2/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/wordpress/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/provider-youtube-v3/manifest.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-
-        <replace file="${stagingdir}/src/add-ons/core/web/admin-themes/admin-default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/core/web/themes/default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/core/web/themes/vimeo.com-clone/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/core/web/themes/youtube.com-clone/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-default/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-sidebar/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-vimeo/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/deprecated/web/themes/legacy-youtube/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/wordpress/web/admin-themes/wordpress/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-        <replace file="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter/theme.json" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-
-        <replace file="${stagingdir}/src/php/scripts/boot.php" token="99.99.99" value="${version.major}.${version.minor}.${version.micro}" failOnNoReplacements="true" />
-    </target>
-
-    <target name="modify-wordpress-info">
-
-        <!-- These two lines are duplicated. Keep them here for building Pro -->
-        <replace file="${stagingdir}/tubepress.php" token="git-bleeding"    value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.desc.suffix}" />
-        <replace file="${stagingdir}/tubepress.php" token="@TubePress@"   value="${wordpress.desc.appname}" />
-    </target>
 
     <target name="compress-private-js" description="Compresses JS files">
 
         <echo message="Compressing JS. This may take a moment..." />
 
-        <apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
-            <fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
+        <apply executable="java" parallel="false" dir="${staging-directory}" relative="true">
+            <fileset dir="${staging-directory}/" includesfile="${jscompresslist}"/>
             <arg line="-jar"/>
-            <arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.8.jar"/>
+            <arg path="bin/yuicompressor-2.4.8.jar"/>
             <srcfile />
             <arg line="-o" />
             <mapper type="identity" />
@@ -139,10 +34,10 @@
 
         <echo message="Compressing CSS. This may take a moment..." />
 
-        <apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
-            <fileset dir="${stagingdir}/" includesfile="${csscompresslist}"/>
+        <apply executable="java" parallel="false" dir="${staging-directory}" relative="true">
+            <fileset dir="${staging-directory}/" includesfile="${csscompresslist}"/>
             <arg line="-jar"/>
-            <arg path="${tubepress-build-common.basedir}/../bin/yuicompressor-2.4.8.jar"/>
+            <arg path="bin/yuicompressor-2.4.8.jar"/>
             <srcfile />
             <arg line="-o" />
             <mapper type="identity" />
@@ -153,8 +48,8 @@
 
 	<target name="compress-js" description="Compresses JS files">
 
-		<copy verbose="true" todir="${stagingdir}">
-			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
+		<copy verbose="true" todir="${staging-directory}">
+			<fileset dir="${staging-directory}/" includesfile="${jscompresslist}"/>
 			<mapper type="glob" from="*.js" to="*-dev.js" />
 		</copy>
 
@@ -163,84 +58,12 @@
 
     <target name="compress-css" description="Compresses CSS files">
 
-        <copy verbose="true" todir="${stagingdir}">
-            <fileset dir="${stagingdir}/" includesfile="${csscompresslist}"/>
+        <copy verbose="true" todir="${staging-directory}">
+            <fileset dir="${staging-directory}/" includesfile="${csscompresslist}"/>
             <mapper type="glob" from="*.css" to="*-dev.css" />
         </copy>
 
         <antcall target="compress-private-css" />
-    </target>
-
-    <target name="php-version-compatability-mods">
-
-        <replace dir="${stagingdir}" token="__DIR__" value="dirname(__FILE__)" />
-
-    </target>
-
-    <target name="strip-phpunit-from-composer">
-
-        <exec dir="${stagingdir}" failonerror="true" searchpath="true" executable="sed" os="Linux">
-
-            <arg value="-i" />
-            <arg value="/\/phpunit\//d" />
-            <arg value="vendor/composer/autoload_classmap.php" />
-        </exec>
-
-        <exec dir="${stagingdir}" failonerror="true" searchpath="true" executable="sed" os="Mac OS X">
-
-            <arg value="-i" />
-            <arg value="''" />
-            <arg value="/\/phpunit\//d" />
-            <arg value="vendor/composer/autoload_classmap.php" />
-        </exec>
-    </target>
-
-    <target name="copy-locale-fallbacks">
-
-        <copy verbose="true" file="${stagingdir}/src/translations/tubepress-es_ES.mo" tofile="${stagingdir}/src/translations/tubepress-es_MX.mo" />
-
-    </target>
-
-    <target name="package-starter-theme">
-
-        <mkdir dir="${stagingdir}/web/themes/temp" />
-
-        <copy verbose="true" todir="${stagingdir}/web/themes/temp/starter">
-            <fileset dir="${stagingdir}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter" />
-        </copy>
-
-        <zip destfile="${stagingdir}/web/themes/starter-theme.zip" basedir="${stagingdir}/web/themes/temp" />
-
-        <delete dir="${stagingdir}/web/themes/temp" />
-
-    </target>
-
-	<target name="package">
-
-		<zip destfile="dist/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="stage" />
-
-	</target>
-
-    <target name="build-boot-classes-file">
-
-        <exec dir="bin" failonerror="true" searchpath="true" executable="php">
-            <arg value="./ClassCollectionBuilder.php" />
-        </exec>
-
-        <move file="../src/platform/scripts/classloading/classes.php" tofile="${stagingdir}/src/platform/scripts/classloading/classes.php" verbose="true"/>
-    </target>
-
-    <target name="stage-web-assets">
-
-        <move file="${stagingdir}/src/add-ons/core/web"               tofile="${stagingdir}/web" verbose="true" />
-        <move file="${stagingdir}/src/add-ons/wordpress/web"          tofile="${stagingdir}/web" verbose="true" />
-        <move todir="${stagingdir}/web/themes">
-            <fileset dir="${stagingdir}/src/add-ons/deprecated/web/themes/">
-                <include name="**" />
-            </fileset>
-        </move>
-        <copy verbose="true" file="${stagingdir}/index.php" tofile="${stagingdir}/web/index.php" />
-
     </target>
 
 </project>

@@ -66,7 +66,7 @@ class tubepress_environment_impl_Environment implements tubepress_app_api_enviro
         $this->_bootSettings = $bootSettings;
         $this->_properties   = new tubepress_internal_collection_Map();
 
-        $this->_properties->put(self::$_PROPERTY_VERSION, tubepress_platform_api_version_Version::parse('9.9.9'));
+        $this->_properties->put(self::$_PROPERTY_VERSION, tubepress_platform_api_version_Version::parse('99.99.99'));
         $this->_properties->put(self::$_PROPERTY_IS_PRO, false);
     }
 

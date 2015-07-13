@@ -38,7 +38,7 @@ class tubepress_test_environment_impl_EnvironmentTest extends tubepress_test_Tub
 
     public function testVersion()
     {
-        $latest = tubepress_platform_api_version_Version::parse('9.9.9');
+        $latest = tubepress_platform_api_version_Version::parse('99.99.99');
         $current = $this->_sut->getVersion();
         $this->assertTrue($current instanceof tubepress_platform_api_version_Version);
         $this->assertTrue($latest->compareTo($current) === 0, "Expected $latest but got $current");

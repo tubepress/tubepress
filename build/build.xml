@@ -10,44 +10,238 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 -->
-<!--
-
-Builds the free WordPress plugin package of Tubepress.
-
--->
-<project name="tubepress-free" default="build-free" basedir=".">
+<project name="tubepress-free" default="package" basedir=".">
 
     <import file="include/common.xml" />
-	    
-    <target name="build-free" description="Builds the free version of TubePress" depends="__common__">
-	            
+
+    <target name="clean" description="Cleans build environment">
+        <log msg="Deleting dist and stage" />
+        <delete dir="dist" />
+        <delete dir="stage" />
+    </target>
+
+    <target name="package" description="Builds the free version of TubePress">
+
+        <__common__ />
         <antcall target="compress-js" />
         <antcall target="compress-css" />
-        <antcall target="stage-web-assets" />
-        <antcall target="copy-locale-fallbacks" />
-        <antcall target="package-starter-theme" />
-        <antcall target="package" />
+        <stage-web-assets />
+        <copy-locale-fallbacks />
+        <package-starter-theme />
+        <final-package />
 
     </target>
 
-    <target name="quick" depends="__common__">
+    <target name="stage">
 
-        <antcall target="stage-web-assets" />
-
-    </target>
-
-    <target name="__common__" depends="init">
-
-        <antcall target="stage-self" />
-        <antcall target="copy-user-content-skeleton-into-wp" />
-        <antcall target="move-wordpress-skeleton" />
-        <antcall target="suppress-directory-listings" />
-        <antcall target="modify-wordpress-info" />
-        <antcall target="php-version-compatability-mods" />
-        <antcall target="build-boot-classes-file" />
-        <antcall target="strip-phpunit-from-composer" />
-        <antcall target="update-version-strings" />
+        <__common__ />
+        <stage-web-assets />
 
     </target>
+
+    <target name="deploy" depends="stage">
+        <log msg="Deploying to ${tubepress.deploy.directory}" />
+        <exec executable="rsync">
+            <arg value="-ah" />
+            <arg value="--delete" />
+            <arg value="${staging-directory}/" />
+            <arg value="${tubepress.deploy.directory}/" />
+        </exec>
+    </target>
+
+    <macrodef name="__common__" description="internal use only">
+        <sequential>
+            <init />
+            <copy-all-to-staging-directory />
+            <copy-user-content-skeleton-into-wp />
+            <move-wordpress-skeleton />
+            <suppress-directory-listings />
+            <modify-wp-manifest />
+            <build-boot-classes-file />
+            <php-52-compatability-mods />
+            <strip-phpunit-from-composer />
+            <replace-version-placeholders-with-real-version />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="init" description="Cleans and preps the build directory for a new build">
+        <sequential>
+            <delete dir="dist" />
+            <log msg="Creating empty directories at dist and stage" />
+            <mkdir dir="dist" />
+            <mkdir dir="stage" />
+            <__init-properties />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="copy-all-to-staging-directory" description="Copies over TubePress into the staging directory for processing">
+        <sequential>
+            <log msg="Copying files into ${staging-directory}" />
+            <exec executable="rsync">
+                <arg value="-ah" />
+                <arg value="--delete" />
+                <arg value="--exclude-from=${basedir}/config/lists/distribution-exclusions.txt" />
+                <arg value="../" />
+                <arg value="${staging-directory}/" />
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="copy-user-content-skeleton-into-wp" description="Stages the user content skeleton into WP for the activation hook">
+        <sequential>
+            <log msg="Copying user content skeleton into WP add-on for activation hook purposes" />
+            <copy verbose="true" todir="${staging-directory}/src/add-ons/wordpress/resources/user-content-skeleton">
+                <fileset dir="resources/user-content-skeleton" />
+            </copy>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="move-wordpress-skeleton" description="Copies WordPress resources into TubePress's root">
+        <sequential>
+            <log msg="Moving WP-specific files to root directory" />
+            <move todir="${staging-directory}" verbose="true">
+                <fileset dir="${staging-directory}/src/add-ons/wordpress/resources/root-skeleton">
+                    <include name="**" />
+                </fileset>
+            </move>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="suppress-directory-listings" description="Adds empty index.php files to various areas">
+        <sequential>
+            <log msg="Suppressing directory listing" />
+            <copy verbose="true" file="resources/directory-listing-suppressor.php" tofile="${staging-directory}/index.php" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="php-52-compatability-mods" description="Minor code tweaks for PHP 5.2 compatibility">
+        <sequential>
+            <log msg="PHP 5.2 compatability mods" />
+            <replace dir="${staging-directory}" token="__DIR__" value="dirname(__FILE__)" includes="**/*.php" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="stage-web-assets" description="Moves add-on web assets into the root web directory">
+        <sequential>
+            <log msg="Staging web assets" />
+            <move file="${staging-directory}/src/add-ons/core/web"               tofile="${staging-directory}/web" verbose="true" />
+            <move file="${staging-directory}/src/add-ons/wordpress/web"          tofile="${staging-directory}/web" verbose="true" />
+            <move todir="${staging-directory}/web/themes" verbose="true">
+                <fileset dir="${staging-directory}/src/add-ons/deprecated/web/themes/">
+                    <include name="**" />
+                </fileset>
+            </move>
+            <copy verbose="true" file="${staging-directory}/index.php" tofile="${staging-directory}/web/index.php" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="replace-version-placeholders-with-real-version" description="Replaces 99.99.99 with the actual TubePress version">
+        <sequential>
+            <__replace-version-in-files includes="**/manifest.json" />
+            <__replace-version-in-files includes="**/theme.json" />
+            <__replace-version-in-files includes="src/php/scripts/boot.php" />
+            <__replace-version-in-files includes="src/add-ons/environment/classes/tubepress/environment/impl/Environment.php" />
+            <__replace-version-in-files includes="tubepress.php" />
+            <__replace-version-in-files includes="src/php/scripts/classloading/classes.php" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="__replace-version-in-files" description="internal use only">
+        <attribute name="includes" />
+        <sequential>
+            <log msg="Replacing version placeholders in @{includes} with real version" />
+            <replace dir="${staging-directory}"
+                     token="99.99.99"
+                     value="${tubepress.version.major}.${tubepress.version.minor}.${tubepress.version.micro}"
+                     failOnNoReplacements="true"
+                     includes="@{includes}" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="modify-wp-manifest" description="Updates tubepress.php with the correct title and description, for WP users">
+        <sequential>
+            <log msg="Updating tubepress.php with the correct title and description, for WP users" />
+            <replace file="${staging-directory}/tubepress.php" token="@description@" value="${tubepress.wp.desc}"  failOnNoReplacements="true"/>
+            <replace file="${staging-directory}/tubepress.php" token="@TubePress@"   value="${tubepress.wp.title}" failOnNoReplacements="true" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="strip-phpunit-from-composer" description="Removes PHPUnit from composer's classloader">
+        <sequential>
+            <__strip-phpunit-from-composer file="vendor/composer/autoload_classmap.php" />
+            <__strip-phpunit-from-composer file="vendor/composer/include_paths.php" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="__strip-phpunit-from-composer" description="Removes PHPUnit from composer's classloader">
+        <attribute name="file" />
+        <sequential>
+            <log msg="Removing PHPUnit from @{file}" />
+            <exec dir="${staging-directory}" failonerror="true" searchpath="true" executable="sed" os="Linux">
+                <arg value="-i" />
+                <arg value="/\/phpunit\//d" />
+                <arg value="@{file}" />
+            </exec>
+            <exec dir="${staging-directory}" failonerror="true" searchpath="true" executable="sed" os="Mac OS X">
+                <arg value="-i" />
+                <arg value="''" />
+                <arg value="/\/phpunit\//d" />
+                <arg value="@{file}" />
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="build-boot-classes-file">
+        <sequential>
+            <exec dir="bin" failonerror="true" searchpath="true" executable="php">
+                <arg value="./ClassCollectionBuilder.php" />
+            </exec>
+            <move file="../src/php/scripts/classloading/classes.php"
+                  tofile="${staging-directory}/src/php/scripts/classloading/classes.php" verbose="true"/>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="copy-locale-fallbacks">
+        <sequential>
+            <copy verbose="true" file="${staging-directory}/src/translations/tubepress-es_ES.mo"
+                  tofile="${staging-directory}/src/translations/tubepress-es_MX.mo" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="package-starter-theme">
+        <sequential>
+            <log msg="Zipping up starter theme" />
+            <mkdir dir="${staging-directory}/web/themes/temp" />
+            <copy verbose="true" todir="${staging-directory}/web/themes/temp/starter">
+                <fileset dir="${staging-directory}/src/add-ons/wordpress/resources/user-content-skeleton/themes/starter" />
+            </copy>
+            <zip destfile="${staging-directory}/web/themes/starter-theme.zip" basedir="${staging-directory}/web/themes/temp" />
+            <delete dir="${staging-directory}/web/themes/temp" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="final-package">
+        <sequential>
+            <zip destfile="dist/${tubepress.stage-directory-basename}_${tubepress.version.major}_${tubepress.version.minor}_${tubepress.version.micro}.zip" basedir="stage" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="__init-properties">
+        <sequential>
+            <property file="config/default.properties" />
+            <property name="staging-directory" value="stage/${tubepress.stage-directory-basename}" />
+            <property name="jscompresslist"    value="config/lists/js-to-compress.txt" />
+            <property name="csscompresslist"   value="config/lists/css-to-compress.txt" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="log">
+        <attribute name="msg" />
+        <sequential>
+            <echo message="######################################################################################" />
+            <echo message="## @{msg} " />
+            <echo message="######################################################################################" />
+        </sequential>
+    </macrodef>
 
 </project>
