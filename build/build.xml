@@ -90,7 +90,7 @@
     <macrodef name="copy-user-content-skeleton-into-wp" description="Stages the user content skeleton into WP for the activation hook">
         <sequential>
             <log msg="Copying user content skeleton into WP add-on for activation hook purposes" />
-            <copy verbose="true" todir="${staging-directory}/src/add-ons/wordpress/resources/user-content-skeleton">
+            <copy todir="${staging-directory}/src/add-ons/wordpress/resources/user-content-skeleton">
                 <fileset dir="resources/user-content-skeleton" />
             </copy>
         </sequential>
@@ -99,7 +99,7 @@
     <macrodef name="move-wordpress-skeleton" description="Copies WordPress resources into TubePress's root">
         <sequential>
             <log msg="Moving WP-specific files to root directory" />
-            <move todir="${staging-directory}" verbose="true">
+            <move todir="${staging-directory}">
                 <fileset dir="${staging-directory}/src/add-ons/wordpress/resources/root-skeleton">
                     <include name="**" />
                 </fileset>
@@ -123,10 +123,15 @@
 
     <macrodef name="stage-web-assets" description="Moves add-on web assets into the root web directory">
         <sequential>
-            <log msg="Staging web assets" />
-            <move file="${staging-directory}/src/add-ons/core/web"               tofile="${staging-directory}/web" verbose="true" />
-            <move file="${staging-directory}/src/add-ons/wordpress/web"          tofile="${staging-directory}/web" verbose="true" />
-            <copy verbose="true" file="${staging-directory}/index.php" tofile="${staging-directory}/web/index.php" />
+
+            <log msg="Staging web assets from add-ons" />
+            <move file="${staging-directory}/src/add-ons/core/web"      tofile="${staging-directory}/web" />
+            <move file="${staging-directory}/src/add-ons/gallery/web"   tofile="${staging-directory}/web" />
+            <move file="${staging-directory}/src/add-ons/wordpress/web" tofile="${staging-directory}/web" />
+
+            <log msg="Suppressing directory listing of /web directory" />
+            <copy file="${staging-directory}/index.php" tofile="${staging-directory}/web/index.php" />
+
             <log msg="Staging themes" />
             <move todir="${staging-directory}/web/themes">
                 <fileset dir="${staging-directory}/src/themes/public/">
@@ -139,6 +144,7 @@
                 </fileset>
             </move>
             <delete dir="${staging-directory}/src/themes" verbose="true" />
+
         </sequential>
     </macrodef>
 
@@ -156,7 +162,7 @@
     <macrodef name="__replace-version-in-files" description="internal use only">
         <attribute name="includes" />
         <sequential>
-            <log msg="Replacing version placeholders in @{includes} with real version" />
+            <log msg="Replacing version placeholder(s) in @{includes} with real version" />
             <replace dir="${staging-directory}"
                      token="99.99.99"
                      value="${tubepress.version.major}.${tubepress.version.minor}.${tubepress.version.micro}"
@@ -245,9 +251,7 @@
     <macrodef name="log">
         <attribute name="msg" />
         <sequential>
-            <echo message="######################################################################################" />
-            <echo message="## @{msg} " />
-            <echo message="######################################################################################" />
+            <echo message="@{msg} " />
         </sequential>
     </macrodef>
 
