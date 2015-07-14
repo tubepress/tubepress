@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_internal_collection_Map<extended>
  */
-class tubepress_test_lib_impl_props_CollectionTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_internal_collection_MapTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var tubepress_internal_collection_Map

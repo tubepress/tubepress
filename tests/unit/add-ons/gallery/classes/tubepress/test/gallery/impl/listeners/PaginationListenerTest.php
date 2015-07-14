@@ -135,7 +135,7 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
     public function testLegacyHighPage()
     {
         $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('tubepress/legacy-something');
-        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/core/fixtures/feature/gallery/pagination/legacy-high.html');
+        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/gallery/fixtures/feature/gallery/pagination/legacy-high.html');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(25);
 
@@ -156,7 +156,7 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
     {
         $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('unknown/something');
         $this->_mockCurrentTheme->shouldReceive('getParentThemeName')->once()->andReturn(null);
-        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/core/fixtures/feature/gallery/pagination/legacy-middle.html');
+        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/gallery/fixtures/feature/gallery/pagination/legacy-middle.html');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(12);
 
@@ -177,7 +177,7 @@ class tubepress_test_gallery_impl_listeners_PaginationListenerTest extends tubep
     public function testLegacy()
     {
         $this->_mockCurrentTheme->shouldReceive('getName')->once()->andReturn('tubepress/legacy-something');
-        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/core/fixtures/feature/gallery/pagination/legacy-low.html');
+        $expectedHtml = file_get_contents(TUBEPRESS_ROOT . '/tests/unit/add-ons/gallery/fixtures/feature/gallery/pagination/legacy-low.html');
 
         $this->_mockRequestParams->shouldReceive('getParamValueAsInt')->once()->with('tubepress_page', 1)->andReturn(1);
 
