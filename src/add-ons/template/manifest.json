@@ -24,7 +24,6 @@
         "classmap" : {
           "tubepress_template_ioc_compiler_TemplatePathProvidersPass" : "classes/tubepress/template/ioc/compiler/TemplatePathProvidersPass.php",
           "tubepress_template_ioc_TemplateExtension"                  : "classes/tubepress/template/ioc/TemplateExtension.php",
-          "tubepress_template_impl_options_ui_FieldProvider"          : "classes/tubepress/template/impl/options/ui/FieldProvider.php",
           "tubepress_template_impl_DelegatingEngine"                  : "classes/tubepress/template/impl/DelegatingEngine.php",
           "tubepress_template_impl_php_PhpEngine"                     : "classes/tubepress/template/impl/php/PhpEngine.php",
           "tubepress_template_impl_php_Support"                       : "classes/tubepress/template/impl/php/Support.php",

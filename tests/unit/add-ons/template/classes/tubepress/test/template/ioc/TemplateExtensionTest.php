@@ -94,9 +94,14 @@ class tubepress_test_template_ioc_TemplateExtensionTest extends tubepress_test_p
         );
 
         $this->expectRegistration(
-            'tubepress_template_impl_options_ui_FieldProvider',
-            'tubepress_template_impl_options_ui_FieldProvider'
-        )->withArgument($fieldReferences)
+            'tubepress_api_options_ui_BaseFieldProvider__template',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->withArgument('field-provider-template')
+            ->withArgument('HTML Templates')
+            ->withArgument(false)
+            ->withArgument(true)
+            ->withArgument(array())
+            ->withArgument($fieldReferences)
             ->withArgument($fieldMap)
             ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }

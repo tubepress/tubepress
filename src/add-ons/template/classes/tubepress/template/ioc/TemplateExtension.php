@@ -101,9 +101,14 @@ class tubepress_template_ioc_TemplateExtension implements tubepress_platform_api
         );
 
         $containerBuilder->register(
-            'tubepress_template_impl_options_ui_FieldProvider',
-            'tubepress_template_impl_options_ui_FieldProvider'
-        )->addArgument($fieldReferences)
+            'tubepress_api_options_ui_BaseFieldProvider__template',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->addArgument('field-provider-template')
+         ->addArgument('HTML Templates')
+         ->addArgument(false)
+         ->addArgument(true)
+         ->addArgument(array())
+         ->addArgument($fieldReferences)
          ->addArgument($fieldMap)
          ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }
