@@ -53,7 +53,6 @@
             "tubepress_app_api_template_VariableNames"                    : "classes/tubepress/app/api/template/VariableNames.php",
             "tubepress_app_api_theme_ThemeInterface"                      : "classes/tubepress/app/api/theme/ThemeInterface.php",
 
-            "tubepress_app_impl_listeners_html_generation_SingleItemListener"       : "classes/tubepress/app/impl/listeners/html/generation/SingleItemListener.php",
             "tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter"              : "classes/tubepress/app/impl/listeners/html/jsconfig/BaseUrlSetter.php",
             "tubepress_app_impl_listeners_options_values_FeedOptions"               : "classes/tubepress/app/impl/listeners/options/values/FeedOptions.php",
             "tubepress_app_impl_listeners_options_values_PerPageSort"               : "classes/tubepress/app/impl/listeners/options/values/PerPageSort.php",

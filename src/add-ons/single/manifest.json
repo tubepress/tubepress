@@ -1,0 +1,26 @@
+{
+    "name" : "tubepress/single",
+    "version": "99.99.99",
+    "title" : "TubePress Single Video Embeds",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_single_ioc_SingleExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+          "tubepress_single_impl_listeners_SingleItemListener" : "classes/tubepress/single/impl/listeners/SingleItemListener.php",
+          "tubepress_single_ioc_SingleExtension"               : "classes/tubepress/single/ioc/SingleExtension.php"
+        }
+    }
+}

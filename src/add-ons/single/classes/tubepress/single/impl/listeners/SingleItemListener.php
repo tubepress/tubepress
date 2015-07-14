@@ -12,7 +12,7 @@
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class tubepress_app_impl_listeners_html_generation_SingleItemListener
+class tubepress_single_impl_listeners_SingleItemListener
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface
