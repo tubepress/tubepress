@@ -80,7 +80,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     {
         $this->_registerListeners();
         $this->_registerOptions();
-        $this->_registerPlayers();
         $this->_registerVendorServices();
     }
 
@@ -88,14 +87,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     {
         $listenerData = array(
 
-            /**
-             * HTML
-             */
-            'tubepress_app_impl_listeners_html_generation_SoloPlayerListener' => array(
-                tubepress_platform_api_log_LoggerInterface::_,
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_
-            ),
             'tubepress_app_impl_listeners_html_generation_SingleItemListener' => array(
                 tubepress_platform_api_log_LoggerInterface::_,
                 tubepress_app_api_options_ContextInterface::_,
@@ -106,17 +97,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                 tubepress_app_api_environment_EnvironmentInterface::_
             ),
 
-            /**
-             * HTTP
-             */
-            'tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => array(
-                tubepress_platform_api_log_LoggerInterface::_,
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_app_api_media_CollectorInterface::_,
-                tubepress_lib_api_http_RequestParametersInterface::_,
-                tubepress_lib_api_http_ResponseCodeInterface::_,
-                tubepress_lib_api_template_TemplatingInterface::_
-            ),
+
             'tubepress_app_impl_listeners_http_UserAgentListener' => array(
                 tubepress_app_api_environment_EnvironmentInterface::_
             ),
@@ -128,13 +109,7 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_app_impl_listeners_options_values_FeedOptions'    => array(),
             'tubepress_app_impl_listeners_options_values_PerPageSort'    => array(),
 
-            /**
-             * PLAYER
-             */
-            'tubepress_app_impl_listeners_player_PlayerListener' => array(
-                tubepress_app_api_options_ContextInterface::_,
-                tubepress_lib_api_template_TemplatingInterface::_,
-            ),
+
 
         );
 
@@ -142,44 +117,22 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             'tubepress_app_impl_listeners_options_values_FeedOptions' => array(
                 tubepress_app_api_media_MediaProviderInterface::__ => 'setMediaProviders',
             ),
-            'tubepress_app_impl_listeners_player_PlayerListener' => array(
-                'tubepress_app_api_player_PlayerLocationInterface' => 'setPlayerLocations',
-            ),
+
         );
 
         $listeners = array(
 
-            /**
-             * GALLERY
-             */
-            tubepress_app_api_event_Events::GALLERY_INIT_JS => array(
-                96000  => array('tubepress_app_impl_listeners_player_PlayerListener'     => 'onGalleryInitJs'),
-            ),
 
             /**
              * HTML
              */
             tubepress_app_api_event_Events::HTML_GENERATION => array(
-                98000  => array('tubepress_app_impl_listeners_html_generation_SoloPlayerListener'   => 'onHtmlGeneration'),
                 94000  => array('tubepress_app_impl_listeners_html_generation_SingleItemListener'   => 'onHtmlGeneration',),
             ),
             tubepress_app_api_event_Events::HTML_GLOBAL_JS_CONFIG => array(
                 100000 => array('tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter' => 'onGlobalJsConfig',)
             ),
 
-            /**
-             * HTTP
-             */
-            tubepress_app_api_event_Events::HTTP_AJAX . '.playerHtml' => array(
-                100000 => array('tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand' => 'onAjax')
-            ),
-
-            /**
-             * MEDIA
-             */
-            tubepress_app_api_event_Events::MEDIA_PAGE_NEW => array(
-                92000  => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onNewMediaPage'),
-            ),
 
             /**
              * OPTIONS VALUES
@@ -190,28 +143,8 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::GALLERY_SOURCE => array(
                 100000 => array('tubepress_app_impl_listeners_options_values_FeedOptions' => 'onMode')
             ),
-            tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::PLAYER_LOCATION => array(
-                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAcceptableValues'),
-            ),
             tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . '.' . tubepress_app_api_options_Names::FEED_PER_PAGE_SORT => array(
                 100000 => array('tubepress_app_impl_listeners_options_values_PerPageSort' => 'onAcceptableValues')
-            ),
-
-            /**
-             * TEMPLATE - SELECTION
-             */
-            tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/static' => array(
-                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onStaticPlayerTemplateSelection')
-            ),
-            tubepress_app_api_event_Events::TEMPLATE_SELECT . '.gallery/player/ajax' => array(
-                100000 => array('tubepress_app_impl_listeners_player_PlayerListener' => 'onAjaxPlayerTemplateSelection')
-            ),
-
-            /**
-             * TEMPLATE - PRE
-             */
-            tubepress_app_api_event_Events::TEMPLATE_PRE_RENDER . '.gallery/main' => array(
-                94000 => array('tubepress_app_impl_listeners_player_PlayerListener'            => 'onGalleryTemplatePreRender'),
             ),
 
         );
@@ -410,62 +343,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
                     'method'   => 'onAcceptableValues'
                 ));
         }
-    }
-
-    private function _registerPlayers()
-    {
-        $this->expectRegistration(
-            'tubepress_app_impl_player_JsPlayerLocation__jqmodal',
-            'tubepress_app_impl_player_JsPlayerLocation'
-        )->withArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_JQMODAL)
-            ->withArgument('with jqModal')                                          //>(translatable)<)
-            ->withArgument('gallery/players/jqmodal/static')
-            ->withArgument('gallery/players/jqmodal/ajax')
-            ->withTag('tubepress_app_api_player_PlayerLocationInterface');
-
-        $this->expectRegistration(
-            'tubepress_app_impl_player_JsPlayerLocation__normal',
-            'tubepress_app_impl_player_JsPlayerLocation'
-        )->withArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_NORMAL)
-            ->withArgument('normally (at the top of your gallery)')                 //>(translatable)<
-            ->withArgument('gallery/players/normal/static')
-            ->withArgument('gallery/players/normal/ajax')
-            ->withTag('tubepress_app_api_player_PlayerLocationInterface');
-
-        $this->expectRegistration(
-            'tubepress_app_impl_player_JsPlayerLocation__popup',
-            'tubepress_app_impl_player_JsPlayerLocation'
-        )->withArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_POPUP)
-            ->withArgument('in a popup window')                 //>(translatable)<
-            ->withArgument('gallery/players/popup/static')
-            ->withArgument('gallery/players/popup/ajax')
-            ->withTag('tubepress_app_api_player_PlayerLocationInterface');
-
-        $this->expectRegistration(
-            'tubepress_app_impl_player_JsPlayerLocation__shadowbox',
-            'tubepress_app_impl_player_JsPlayerLocation'
-        )->withArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_SHADOWBOX)
-            ->withArgument('with Shadowbox')                 //>(translatable)<
-            ->withArgument('gallery/players/shadowbox/static')
-            ->withArgument('gallery/players/shadowbox/ajax')
-            ->withTag('tubepress_app_api_player_PlayerLocationInterface');
-
-        $this->expectRegistration(
-            'tubepress_app_impl_player_SoloOrStaticPlayerLocation__solo',
-            'tubepress_app_impl_player_SoloOrStaticPlayerLocation'
-        )->withArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_SOLO)
-            ->withArgument('in a new window on its own')                 //>(translatable)<
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withTag('tubepress_app_api_player_PlayerLocationInterface');
-
-        $this->expectRegistration(
-            'tubepress_app_impl_player_SoloOrStaticPlayerLocation__static',
-            'tubepress_app_impl_player_SoloOrStaticPlayerLocation'
-        )->withArgument(tubepress_app_api_options_AcceptableValues::PLAYER_LOC_STATIC)
-            ->withArgument('statically (page refreshes on each thumbnail click)')                 //>(translatable)<
-            ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_platform_api_url_UrlFactoryInterface::_))
-            ->withArgument('gallery/players/static/static')
-            ->withTag('tubepress_app_api_player_PlayerLocationInterface');
     }
 
     private function _registerVendorServices()

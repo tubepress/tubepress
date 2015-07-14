@@ -1,0 +1,30 @@
+{
+    "name" : "tubepress/player",
+    "version": "99.99.99",
+    "title" : "TubePress Player Functionality and Default Players",
+    "authors" : [
+        {
+            "name" : "TubePress LLC",
+            "url" : "http://tubepress.com"
+        }
+    ],
+    "license": {
+        "type" : "MPL-2.0",
+        "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
+    },
+    "container-builder": {
+        "extensions" : [
+            "tubepress_player_ioc_PlayerExtension"
+        ]
+    },
+    "autoload":{
+        "classmap" : {
+            "tubepress_player_ioc_PlayerExtension"               : "classes/tubepress/player/ioc/PlayerExtension.php",
+            "tubepress_player_impl_JsPlayerLocation"             : "classes/tubepress/player/impl/JsPlayerLocation.php",
+            "tubepress_player_impl_SoloOrStaticPlayerLocation"   : "classes/tubepress/player/impl/SoloOrStaticPlayerLocation.php",
+            "tubepress_player_impl_listeners_PlayerAjaxListener" : "classes/tubepress/player/impl/listeners/PlayerAjaxListener.php",
+            "tubepress_player_impl_listeners_PlayerListener"     : "classes/tubepress/player/impl/listeners/PlayerListener.php",
+            "tubepress_player_impl_listeners_SoloPlayerListener" : "classes/tubepress/player/impl/listeners/SoloPlayerListener.php"
+        }
+    }
+}

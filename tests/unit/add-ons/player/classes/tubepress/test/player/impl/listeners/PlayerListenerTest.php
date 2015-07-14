@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_player_PlayerListener
+ * @covers tubepress_player_impl_listeners_PlayerListener
  */
-class tubepress_test_app_impl_listeners_player_PlayerListenerTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_player_impl_listeners_PlayerListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_player_PlayerListener
+     * @var tubepress_player_impl_listeners_PlayerListener
      */
     private $_sut;
 
@@ -64,7 +64,7 @@ class tubepress_test_app_impl_listeners_player_PlayerListenerTest extends tubepr
         $this->_mockPlayerLocation1 = $this->mock('tubepress_app_api_player_PlayerLocationInterface');
         $this->_mockPlayerLocation2 = $this->mock('tubepress_app_api_player_PlayerLocationInterface');
 
-        $this->_sut = new tubepress_app_impl_listeners_player_PlayerListener(
+        $this->_sut = new tubepress_player_impl_listeners_PlayerListener(
             $this->_mockContext,
             $this->_mockTemplating
         );

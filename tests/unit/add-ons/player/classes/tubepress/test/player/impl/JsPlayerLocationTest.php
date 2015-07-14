@@ -10,18 +10,18 @@
  */
 
 /**
- * @covers tubepress_app_impl_player_JsPlayerLocation<extended>
+ * @covers tubepress_player_impl_JsPlayerLocation<extended>
  */
-class tubepress_test_app_impl_player_JsPlayerLocationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_player_impl_JsPlayerLocationTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_player_JsPlayerLocation
+     * @var tubepress_player_impl_JsPlayerLocation
      */
     private $_sut;
 
     public function onSetup()
     {
-        $this->_sut = new tubepress_app_impl_player_JsPlayerLocation('name', 'display name', 'static', 'ajax');
+        $this->_sut = new tubepress_player_impl_JsPlayerLocation('name', 'display name', 'static', 'ajax');
     }
 
     public function testBasics()

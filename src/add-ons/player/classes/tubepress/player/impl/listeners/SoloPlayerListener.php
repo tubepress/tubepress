@@ -12,7 +12,7 @@
 /**
  * HTML-generation command that implements the "solo" player command.
  */
-class tubepress_app_impl_listeners_html_generation_SoloPlayerListener
+class tubepress_player_impl_listeners_SoloPlayerListener
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface

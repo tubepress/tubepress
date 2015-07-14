@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_player_SoloOrStaticPlayerLocation<extended>
+ * @covers tubepress_player_impl_SoloOrStaticPlayerLocation<extended>
  */
-class tubepress_test_app_impl_player_SoloOrStaticPlayerLocationTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_player_impl_SoloOrStaticPlayerLocationTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_player_SoloOrStaticPlayerLocation
+     * @var tubepress_player_impl_SoloOrStaticPlayerLocation
      */
     private $_sut;
 
@@ -37,7 +37,7 @@ class tubepress_test_app_impl_player_SoloOrStaticPlayerLocationTest extends tube
         $this->_mockUrlFactory->shouldReceive('fromCurrent')->once()->andReturn($this->_mockUrl);
         $this->_mockUrl->shouldReceive('removeSchemeAndAuthority');
 
-        $this->_sut = new tubepress_app_impl_player_SoloOrStaticPlayerLocation('name', 'display name', $this->_mockUrlFactory);
+        $this->_sut = new tubepress_player_impl_SoloOrStaticPlayerLocation('name', 'display name', $this->_mockUrlFactory);
     }
 
     public function testAnchorAttributes()

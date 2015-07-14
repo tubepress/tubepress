@@ -10,12 +10,12 @@
  */
 
 /**
- * @covers tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand<extended>
+ * @covers tubepress_player_impl_listeners_PlayerAjaxListener<extended>
  */
-class tubepress_test_app_impl_listeners_http_ajax_PlayerAjaxCommandTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_player_impl_listeners_PlayerAjaxListenerTest extends tubepress_test_TubePressUnitTest
 {
     /**
-     * @var tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand
+     * @var tubepress_player_impl_listeners_PlayerAjaxListener
      */
     private $_sut;
 
@@ -64,7 +64,7 @@ class tubepress_test_app_impl_listeners_http_ajax_PlayerAjaxCommandTest extends 
         $this->_mockTemplating                  = $this->mock(tubepress_lib_api_template_TemplatingInterface::_);
         $this->_mockAjaxEvent                   = $this->mock('tubepress_lib_api_event_EventInterface');
 
-        $this->_sut = new tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand(
+        $this->_sut = new tubepress_player_impl_listeners_PlayerAjaxListener(
             $this->_mockLogger,
             $this->_mockExecutionContext,
             $this->_mockVideoCollector,

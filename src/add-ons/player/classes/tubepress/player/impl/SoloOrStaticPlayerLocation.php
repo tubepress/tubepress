@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_player_SoloOrStaticPlayerLocation extends tubepress_app_impl_player_JsPlayerLocation
+class tubepress_player_impl_SoloOrStaticPlayerLocation extends tubepress_player_impl_JsPlayerLocation
 {
     /**
      * @var tubepress_platform_api_url_UrlInterface

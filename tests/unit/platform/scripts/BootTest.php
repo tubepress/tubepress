@@ -17,7 +17,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
 
     public function onTearDown()
     {
-        $this->assertTrue(unlink(TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php'));
+        $this->assertTrue(unlink(TUBEPRESS_ROOT . '/src/php/scripts/classloading/classes.php'));
     }
 
     /**
@@ -26,7 +26,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
      */
     public function testUncachedBoot()
     {
-        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php', '<?php ') !== false);
+        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/php/scripts/classloading/classes.php', '<?php ') !== false);
 
         $this->_removeCachedContainer();
 
@@ -41,7 +41,7 @@ class tubepress_test_platform_scripts_BootTest extends tubepress_test_TubePressU
      */
     public function testCachedBoot()
     {
-        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/platform/scripts/classloading/classes.php', '<?php ') !== false);
+        $this->assertTrue(file_put_contents(TUBEPRESS_ROOT . '/src/php/scripts/classloading/classes.php', '<?php ') !== false);
 
         $result = require TUBEPRESS_ROOT . '/src/php/scripts/boot.php';
 

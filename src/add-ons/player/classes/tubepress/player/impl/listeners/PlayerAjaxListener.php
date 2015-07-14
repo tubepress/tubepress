@@ -9,7 +9,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class tubepress_app_impl_listeners_http_ajax_PlayerAjaxCommand
+class tubepress_player_impl_listeners_PlayerAjaxListener
 {
     /**
      * @var tubepress_platform_api_log_LoggerInterface
