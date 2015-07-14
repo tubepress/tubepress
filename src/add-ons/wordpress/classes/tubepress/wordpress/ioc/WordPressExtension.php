@@ -125,6 +125,10 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
           ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
             'event'    => 'tubepress.wordpress.filter.puc_request_info_result-tubepress',
             'method'   => 'onFilter_PucRequestInfoResultTubePress',
+            'priority' => 100000))
+          ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => 'tubepress.wordpress.action.admin_print_scripts-settings_page_tubepress',
+            'method'   => 'onAction_admin_print_scripts',
             'priority' => 100000));
 
         $containerBuilder->register(

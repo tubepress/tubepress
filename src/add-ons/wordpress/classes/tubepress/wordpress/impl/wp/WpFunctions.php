@@ -636,4 +636,19 @@ class tubepress_wordpress_impl_wp_WpFunctions
         /** @noinspection PhpUndefinedFunctionInspection */
         register_widget($class);
     }
+
+    /**
+     * @return WP_Scripts
+     */
+    public function wp_scripts() {
+
+        global $wp_scripts;
+
+        if (!($wp_scripts instanceof WP_Scripts)) {
+
+            $wp_scripts = new WP_Scripts();
+        }
+
+        return $wp_scripts;
+    }
 }
