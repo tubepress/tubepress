@@ -30,7 +30,11 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
     {
         $this->_registerListeners($containerBuilder);
         $this->_registerPathProvider($containerBuilder);
+        $this->_registerServices($containerBuilder);
+    }
 
+    private function _registerServices(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
         $containerBuilder->register(
             'tubepress_html_impl_CssAndJsGenerationHelper',
             'tubepress_html_impl_CssAndJsGenerationHelper'
@@ -97,7 +101,7 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
     private function _registerPathProvider(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_api_template_BasePathProvider__template',
+            'tubepress_api_template_BasePathProvider__html',
             'tubepress_api_template_BasePathProvider'
         )->addArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/html/templates',

@@ -187,10 +187,7 @@ class tubepress_app_ioc_AppExtension implements tubepress_platform_api_ioc_Conta
 
     private function _registerVendorServices(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
-        $containerBuilder->register(
-            'ehough_filesystem_FilesystemInterface',
-            'ehough_filesystem_Filesystem'
-        );
+
 
         $containerBuilder->register(
             'ehough_finder_FinderFactoryInterface',

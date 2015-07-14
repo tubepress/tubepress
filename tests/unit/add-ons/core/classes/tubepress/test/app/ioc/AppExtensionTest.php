@@ -237,11 +237,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
     private function _registerVendorServices()
     {
         $this->expectRegistration(
-            'ehough_filesystem_FilesystemInterface',
-            'ehough_filesystem_Filesystem'
-        );
-
-        $this->expectRegistration(
             'ehough_finder_FinderFactoryInterface',
             'ehough_finder_FinderFactory'
         );

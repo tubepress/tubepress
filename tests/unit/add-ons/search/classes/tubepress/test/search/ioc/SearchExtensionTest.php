@@ -70,7 +70,7 @@ class tubepress_test_search_ioc_SearchExtensionTest extends tubepress_test_platf
     private function _registerTemplatePathProvider()
     {
         $this->expectRegistration(
-            'tubepress_api_template_BasePathProvider',
+            'tubepress_api_template_BasePathProvider__search',
             'tubepress_api_template_BasePathProvider'
         )->withArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/search/templates',

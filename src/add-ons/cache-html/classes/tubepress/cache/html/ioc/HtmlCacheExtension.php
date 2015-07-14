@@ -145,7 +145,7 @@ class tubepress_cache_html_ioc_HtmlCacheExtension implements tubepress_platform_
         );
 
         $containerBuilder->register(
-            'tubepress_api_options_ui_BaseFieldProvider',
+            'tubepress_api_options_ui_BaseFieldProvider__cache_html',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->addArgument('field-provider-htmlcache')
          ->addArgument('HTML Cache')

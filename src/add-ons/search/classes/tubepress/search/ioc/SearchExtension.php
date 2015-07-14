@@ -74,7 +74,7 @@ class tubepress_search_ioc_SearchExtension implements tubepress_platform_api_ioc
     private function _registerTemplatePathProvider(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
     {
         $containerBuilder->register(
-            'tubepress_api_template_BasePathProvider',
+            'tubepress_api_template_BasePathProvider__search',
             'tubepress_api_template_BasePathProvider'
         )->addArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/search/templates',

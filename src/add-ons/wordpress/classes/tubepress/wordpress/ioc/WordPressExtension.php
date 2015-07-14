@@ -39,6 +39,7 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
         $this->_registerOptionsUi($containerBuilder);
         $this->_registerSingletons($containerBuilder);
         $this->_registerWpServices($containerBuilder);
+        $this->_registerVendorServices($containerBuilder);
     }
 
     private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -259,5 +260,13 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
             'tubepress_wordpress_impl_wp_TemplatePathProvider',
             'tubepress_wordpress_impl_wp_TemplatePathProvider'
         )->addTag('tubepress_lib_api_template_PathProviderInterface.admin');
+    }
+
+    private function _registerVendorServices(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'ehough_filesystem_FilesystemInterface',
+            'ehough_filesystem_Filesystem'
+        );
     }
 }

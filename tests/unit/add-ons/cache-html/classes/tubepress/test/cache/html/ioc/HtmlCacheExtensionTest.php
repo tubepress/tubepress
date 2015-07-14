@@ -138,7 +138,7 @@ class tubepress_test_cache_html_ioc_HtmlCacheExtensionTest extends tubepress_tes
         );
 
         $this->expectRegistration(
-            'tubepress_api_options_ui_BaseFieldProvider',
+            'tubepress_api_options_ui_BaseFieldProvider__cache_html',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->withArgument('field-provider-htmlcache')
             ->withArgument('HTML Cache')

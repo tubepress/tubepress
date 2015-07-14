@@ -94,7 +94,7 @@ class tubepress_test_html_ioc_HtmlExtensionTest extends tubepress_test_platform_
     private function _registerPathProvider()
     {
         $this->expectRegistration(
-            'tubepress_api_template_BasePathProvider__template',
+            'tubepress_api_template_BasePathProvider__html',
             'tubepress_api_template_BasePathProvider'
         )->withArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/html/templates',

@@ -34,6 +34,7 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
         $this->_registerOptionsUi();
         $this->_registerSingletons();
         $this->_registerWpServices();
+        $this->_registerVendorServices();
     }
 
     private function _registerOptions()
@@ -256,6 +257,14 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
         )->withTag('tubepress_lib_api_template_PathProviderInterface.admin');
     }
 
+    private function _registerVendorServices()
+    {
+        $this->expectRegistration(
+            'ehough_filesystem_FilesystemInterface',
+            'ehough_filesystem_Filesystem'
+        );
+    }
+
     protected function getExpectedExternalServicesMap()
     {
         $mockFieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);
@@ -278,7 +287,6 @@ class tubepress_test_wordpress_ioc_WordPressExtensionTest extends tubepress_test
             tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_,
             tubepress_app_api_options_ui_FieldBuilderInterface::_ => $mockFieldBuilder,
             tubepress_platform_api_boot_BootSettingsInterface::_ => tubepress_platform_api_boot_BootSettingsInterface::_,
-            'ehough_filesystem_FilesystemInterface' => 'ehough_filesystem_FilesystemInterface',
             tubepress_lib_api_http_AjaxInterface::_ => tubepress_lib_api_http_AjaxInterface::_,
             tubepress_app_api_options_ReferenceInterface::_ => tubepress_app_api_options_ReferenceInterface::_,
             tubepress_app_api_options_PersistenceInterface::_ => tubepress_app_api_options_PersistenceInterface::_

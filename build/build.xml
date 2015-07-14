@@ -129,6 +129,7 @@
             <move file="${staging-directory}/src/add-ons/gallery/web"   tofile="${staging-directory}/web" />
             <move file="${staging-directory}/src/add-ons/html/web"      tofile="${staging-directory}/web" />
             <move file="${staging-directory}/src/add-ons/http/web"      tofile="${staging-directory}/web" />
+            <move file="${staging-directory}/src/add-ons/player/web"    tofile="${staging-directory}/web" />
             <move file="${staging-directory}/src/add-ons/wordpress/web" tofile="${staging-directory}/web" />
 
             <log msg="Suppressing directory listing of /web directory" />
