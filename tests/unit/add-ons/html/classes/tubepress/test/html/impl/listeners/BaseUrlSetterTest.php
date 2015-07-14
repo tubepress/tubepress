@@ -12,7 +12,7 @@
 /**
  * @covers tubepress_html_impl_listeners_BaseUrlSetter
  */
-class tubepress_test_app_impl_listeners_html_jsconfig_BaseUrlSetterTest extends tubepress_test_TubePressUnitTest
+class tubepress_test_html_impl_listeners_BaseUrlSetterTest extends tubepress_test_TubePressUnitTest
 {
     /**
      * @var ehough_mockery_mockery_MockInterface

@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_options_values_FeedOptions
+class tubepress_feed_impl_listeners_FeedOptions
 {
     /**
      * @var tubepress_app_api_media_MediaProviderInterface[]

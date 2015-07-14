@@ -12,7 +12,7 @@
 /**
  *
  */
-class tubepress_app_impl_listeners_options_values_PerPageSort
+class tubepress_feed_impl_listeners_PerPageSort
 {
     public function onAcceptableValues(tubepress_lib_api_event_EventInterface $event)
     {
