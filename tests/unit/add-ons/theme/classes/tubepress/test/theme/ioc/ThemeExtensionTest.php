@@ -64,6 +64,11 @@ class tubepress_test_theme_ioc_ThemeExtensionTest extends tubepress_test_platfor
                 ->withArgument('tubepress/' . $artifactPrefix . 'default')
                 ->withArgument($optionName);
         }
+
+        $this->expectRegistration(
+            'ehough_finder_FinderFactoryInterface',
+            'ehough_finder_FinderFactory'
+        );
     }
 
     private function _expectListeners()

@@ -86,20 +86,19 @@ class tubepress_test_search_ioc_SearchExtensionTest extends tubepress_test_platf
             ->withArgument(array(
 
                 tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
-                    tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => null,
-                    tubepress_app_api_options_Names::SEARCH_PROVIDER                     => 'youtube',
-                    tubepress_app_api_options_Names::SEARCH_RESULTS_ONLY                 => false,
-                    tubepress_app_api_options_Names::SEARCH_RESULTS_URL                  => null,
-
+                    tubepress_app_api_options_Names::SEARCH_ONLY_USER    => null,
+                    tubepress_app_api_options_Names::SEARCH_PROVIDER     => 'youtube',
+                    tubepress_app_api_options_Names::SEARCH_RESULTS_ONLY => false,
+                    tubepress_app_api_options_Names::SEARCH_RESULTS_URL  => null,
                 ),
 
                 tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
-                    tubepress_app_api_options_Names::SEARCH_ONLY_USER                    => 'Restrict search results to videos from author', //>(translatable)<
+                    tubepress_app_api_options_Names::SEARCH_ONLY_USER => 'Restrict search results to videos from author', //>(translatable)<
 
                 ),
 
                 tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
-                    tubepress_app_api_options_Names::SEARCH_ONLY_USER            => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
+                    tubepress_app_api_options_Names::SEARCH_ONLY_USER => 'A YouTube or Vimeo user name. Only applies to search-based galleries.',      //>(translatable)<
 
                 ),
             ))->withArgument(array());
@@ -160,7 +159,7 @@ class tubepress_test_search_ioc_SearchExtensionTest extends tubepress_test_platf
         );
 
         $this->expectRegistration(
-            'tubepress_api_options_ui_BaseFieldProvider',
+            'tubepress_api_options_ui_BaseFieldProvider__search',
             'tubepress_api_options_ui_BaseFieldProvider'
         )->withArgument('field-provider-search')
             ->withArgument('Search')

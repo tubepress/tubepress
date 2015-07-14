@@ -68,6 +68,11 @@ class tubepress_theme_ioc_ThemeExtension implements tubepress_platform_api_ioc_C
              ->addArgument('tubepress/' . $artifactPrefix . 'default')
              ->addArgument($optionName);
         }
+
+        $containerBuilder->register(
+            'ehough_finder_FinderFactoryInterface',
+            'ehough_finder_FinderFactory'
+        );
     }
 
     private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)

@@ -495,7 +495,6 @@ return array (
     'tubepress_app_api_shortcode_ParserInterface' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/api/shortcode/ParserInterface.php',
     'tubepress_app_api_template_VariableNames' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/api/template/VariableNames.php',
     'tubepress_app_api_theme_ThemeInterface' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/api/theme/ThemeInterface.php',
-    'tubepress_app_ioc_AppExtension' => TUBEPRESS_ROOT . '/src/add-ons/core/classes/tubepress/app/ioc/AppExtension.php',
     'tubepress_array_impl_ArrayReader' => TUBEPRESS_ROOT . '/src/add-ons/array/classes/tubepress/array/impl/ArrayReader.php',
     'tubepress_array_ioc_ArrayExtension' => TUBEPRESS_ROOT . '/src/add-ons/array/classes/tubepress/array/ioc/ArrayExtension.php',
     'tubepress_cache_api_impl_listeners_ApiCacheListener' => TUBEPRESS_ROOT . '/src/add-ons/cache-api/classes/tubepress/cache/api/impl/listeners/ApiCacheListener.php',

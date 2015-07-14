@@ -31,6 +31,8 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_platform_api_ioc
         $this->_registerListeners($containerBuilder);
         $this->_registerDefaultPlayers($containerBuilder);
         $this->_registerTemplatePaths($containerBuilder);
+        $this->_registerOptions($containerBuilder);
+        $this->_registerOptionsUi($containerBuilder);
     }
 
     private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -160,5 +162,124 @@ class tubepress_player_ioc_PlayerExtension implements tubepress_platform_api_ioc
         )->addArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/player/templates',
         ))->addTag('tubepress_lib_api_template_PathProviderInterface');
+    }
+
+    private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_app_api_options_Reference__player',
+            'tubepress_app_api_options_Reference'
+        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+            ->addArgument(array(
+
+                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+
+                    tubepress_app_api_options_Names::PLAYER_LOCATION          => 'normal',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => true,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 0,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 0,
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                    tubepress_app_api_options_Names::PLAYER_LOCATION          => 'Play each video',      //>(translatable)<
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => 'Scroll page to embedded player after thumbnail click',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Scroll duration (ms)',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Scroll offset (px)',
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => 'Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players.',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Set to 0 for "instant" scroll.',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively.',
+
+                ),
+            ))->addArgument(array(
+
+                tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+                ),
+            ));
+
+        $toValidate = array(
+            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+            ),
+            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+            ),
+        );
+
+        foreach ($toValidate as $type => $optionNames) {
+            foreach ($optionNames as $optionName) {
+                $containerBuilder->register(
+                    'regex_validator.' . $optionName,
+                    'tubepress_app_api_listeners_options_RegexValidatingListener'
+                )->addArgument($type)
+                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
+                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+                 ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                    'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
+                    'priority' => 100000,
+                    'method'   => 'onOption',
+                ));
+            }
+        }
+    }
+
+    private function _registerOptionsUi(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $fieldReferences = array();
+        $fieldMap = array(
+            'boolean' => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
+            ),
+            'dropdown' => array(
+                tubepress_app_api_options_Names::PLAYER_LOCATION,
+            ),
+            'text' => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+            ),
+        );
+
+        foreach ($fieldMap as $type => $ids) {
+            foreach ($ids as $id) {
+
+                $serviceId = 'player_field_' . $id;
+
+                $containerBuilder->register(
+                    $serviceId,
+                    'tubepress_app_api_options_ui_FieldInterface'
+                )->setFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                 ->setFactoryMethod('newInstance')
+                 ->addArgument($id)
+                 ->addArgument($type);
+
+                $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
+            }
+        }
+
+        $fieldMap = array(
+            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
+                tubepress_app_api_options_Names::PLAYER_LOCATION,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+            ),
+        );
+
+        $containerBuilder->register(
+            'tubepress_api_options_ui_BaseFieldProvider__player',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->addArgument('field-provider-player')
+         ->addArgument('Player')
+         ->addArgument(false)
+         ->addArgument(false)
+         ->addArgument(array())
+         ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }
 }

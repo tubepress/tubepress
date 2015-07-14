@@ -30,6 +30,7 @@ class tubepress_single_ioc_SingleExtension implements tubepress_platform_api_ioc
     {
         $this->_registerListeners($containerBuilder);
         $this->_registerTemplatePathProvider($containerBuilder);
+        $this->_registerOptions($containerBuilder);
     }
 
     private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -56,5 +57,22 @@ class tubepress_single_ioc_SingleExtension implements tubepress_platform_api_ioc
         )->addArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/single/templates',
         ))->addTag('tubepress_lib_api_template_PathProviderInterface');
+    }
+
+    private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_app_api_options_Reference__single',
+            'tubepress_app_api_options_Reference'
+        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+         ->addArgument(array(
+            tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID => null,
+            ),
+        ))->addArgument(array(
+            tubepress_app_api_options_Reference::PROPERTY_NO_PERSIST => array(
+                tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID,
+            ),
+        ));
     }
 }

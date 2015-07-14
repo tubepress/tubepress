@@ -12,11 +12,6 @@
         "type" : "MPL-2.0",
         "urls" : [ "http://www.mozilla.org/MPL/2.0/" ]
     },
-    "container-builder": {
-        "extensions" : [
-            "tubepress_app_ioc_AppExtension"
-        ]
-    },
     "autoload":{
         "classmap" : {
             "tubepress_app_api_embedded_EmbeddedProviderInterface"        : "classes/tubepress/app/api/embedded/EmbeddedProviderInterface.php",
@@ -52,9 +47,6 @@
             "tubepress_app_api_shortcode_ParserInterface"                 : "classes/tubepress/app/api/shortcode/ParserInterface.php",
             "tubepress_app_api_template_VariableNames"                    : "classes/tubepress/app/api/template/VariableNames.php",
             "tubepress_app_api_theme_ThemeInterface"                      : "classes/tubepress/app/api/theme/ThemeInterface.php",
-
-
-            "tubepress_app_ioc_AppExtension"                         : "classes/tubepress/app/ioc/AppExtension.php",
 
             "tubepress_lib_api_array_ArrayReaderInterface"      : "classes/tubepress/lib/api/array/ArrayReaderInterface.php",
             "tubepress_lib_api_event_EventDispatcherInterface"  : "classes/tubepress/lib/api/event/EventDispatcherInterface.php",

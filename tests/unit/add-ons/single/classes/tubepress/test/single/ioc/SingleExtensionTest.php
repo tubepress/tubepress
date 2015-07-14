@@ -26,6 +26,24 @@ class tubepress_test_single_ioc_SingleExtensionTest extends tubepress_test_platf
     {
         $this->_registerListeners();
         $this->_registerTemplatePathProvider();
+        $this->_registerOptions();
+    }
+
+    private function _registerOptions()
+    {
+        $this->expectRegistration(
+            'tubepress_app_api_options_Reference__single',
+            'tubepress_app_api_options_Reference'
+        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+            ->withArgument(array(
+                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                    tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID => null,
+                ),
+            ))->withArgument(array(
+                tubepress_app_api_options_Reference::PROPERTY_NO_PERSIST => array(
+                    tubepress_app_api_options_Names::SINGLE_MEDIA_ITEM_ID,
+                ),
+            ));
     }
 
     private function _registerListeners()

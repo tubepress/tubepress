@@ -27,6 +27,8 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_test_platf
         $this->_registerListeners();
         $this->_registerDefaultPlayers();
         $this->_registerTemplatePaths();
+        $this->_registerOptions();
+        $this->_registerOptionsUi();
     }
 
     private function _registerListeners()
@@ -158,6 +160,125 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_test_platf
         ))->withTag('tubepress_lib_api_template_PathProviderInterface');
     }
 
+    private function _registerOptions()
+    {
+        $this->expectRegistration(
+            'tubepress_app_api_options_Reference__player',
+            'tubepress_app_api_options_Reference'
+        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+            ->withArgument(array(
+
+                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+
+                    tubepress_app_api_options_Names::PLAYER_LOCATION          => 'normal',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => true,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 0,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 0,
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                    tubepress_app_api_options_Names::PLAYER_LOCATION          => 'Play each video',      //>(translatable)<
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => 'Scroll page to embedded player after thumbnail click',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Scroll duration (ms)',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Scroll offset (px)',
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => 'Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players.',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Set to 0 for "instant" scroll.',
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively.',
+
+                ),
+            ))->withArgument(array(
+
+                tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+                ),
+            ));
+
+        $toValidate = array(
+            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+            ),
+            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+            ),
+        );
+
+        foreach ($toValidate as $type => $optionNames) {
+            foreach ($optionNames as $optionName) {
+                $this->expectRegistration(
+                    'regex_validator.' . $optionName,
+                    'tubepress_app_api_listeners_options_RegexValidatingListener'
+                )->withArgument($type)
+                    ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
+                    ->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+                    ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                        'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
+                        'priority' => 100000,
+                        'method'   => 'onOption',
+                    ));
+            }
+        }
+    }
+
+    private function _registerOptionsUi()
+    {
+        $fieldReferences = array();
+        $fieldMap = array(
+            'boolean' => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
+            ),
+            'dropdown' => array(
+                tubepress_app_api_options_Names::PLAYER_LOCATION,
+            ),
+            'text' => array(
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+            ),
+        );
+
+        foreach ($fieldMap as $type => $ids) {
+            foreach ($ids as $id) {
+
+                $serviceId = 'player_field_' . $id;
+
+                $this->expectRegistration(
+                    $serviceId,
+                    'tubepress_app_api_options_ui_FieldInterface'
+                )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                    ->withFactoryMethod('newInstance')
+                    ->withArgument($id)
+                    ->withArgument($type);
+
+                $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
+            }
+        }
+
+        $fieldMap = array(
+            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
+                tubepress_app_api_options_Names::PLAYER_LOCATION,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
+                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
+            ),
+        );
+
+        $this->expectRegistration(
+            'tubepress_api_options_ui_BaseFieldProvider__player',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->withArgument('field-provider-player')
+            ->withArgument('Player')
+            ->withArgument(false)
+            ->withArgument(false)
+            ->withArgument(array())
+            ->withArgument($fieldReferences)
+            ->withArgument($fieldMap)
+            ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
+    }
+    
     protected function getExpectedExternalServicesMap()
     {
         $mockCurrentUrl = $this->mock(tubepress_platform_api_url_UrlInterface::_);
@@ -166,14 +287,21 @@ class tubepress_test_player_ioc_PlayerExtensionTest extends tubepress_test_platf
         $mockUrlFactory = $this->mock(tubepress_platform_api_url_UrlFactoryInterface::_);
         $mockUrlFactory->shouldReceive('fromCurrent')->atLeast(1)->andReturn($mockCurrentUrl);
 
+        $fieldBuilder = $this->mock(tubepress_app_api_options_ui_FieldBuilderInterface::_);
+        $mockField    = $this->mock('tubepress_app_api_options_ui_FieldInterface');
+        $fieldBuilder->shouldReceive('newInstance')->atLeast(1)->andReturn($mockField);
+
         return array(
-            tubepress_platform_api_log_LoggerInterface::_        => tubepress_platform_api_log_LoggerInterface::_,
-            tubepress_app_api_options_ContextInterface::_        => tubepress_app_api_options_ContextInterface::_,
-            tubepress_app_api_media_CollectorInterface::_        => tubepress_app_api_media_CollectorInterface::_,
-            tubepress_lib_api_http_RequestParametersInterface::_ => tubepress_lib_api_http_RequestParametersInterface::_,
-            tubepress_lib_api_http_ResponseCodeInterface::_      => tubepress_lib_api_http_ResponseCodeInterface::_,
-            tubepress_lib_api_template_TemplatingInterface::_    => tubepress_lib_api_template_TemplatingInterface::_,
-            tubepress_platform_api_url_UrlFactoryInterface::_    => $mockUrlFactory,
+            tubepress_platform_api_log_LoggerInterface::_         => tubepress_platform_api_log_LoggerInterface::_,
+            tubepress_app_api_options_ContextInterface::_         => tubepress_app_api_options_ContextInterface::_,
+            tubepress_app_api_media_CollectorInterface::_         => tubepress_app_api_media_CollectorInterface::_,
+            tubepress_lib_api_http_RequestParametersInterface::_  => tubepress_lib_api_http_RequestParametersInterface::_,
+            tubepress_lib_api_http_ResponseCodeInterface::_       => tubepress_lib_api_http_ResponseCodeInterface::_,
+            tubepress_lib_api_template_TemplatingInterface::_     => tubepress_lib_api_template_TemplatingInterface::_,
+            tubepress_platform_api_url_UrlFactoryInterface::_     => $mockUrlFactory,
+            tubepress_app_api_options_ui_FieldBuilderInterface::_ => $fieldBuilder,
+            tubepress_app_api_options_ReferenceInterface::_       => tubepress_app_api_options_ReferenceInterface::_,
+            tubepress_lib_api_translation_TranslatorInterface::_  => tubepress_lib_api_translation_TranslatorInterface::_,
         );
     }
 }

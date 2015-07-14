@@ -50,9 +50,40 @@ class tubepress_wordpress_ioc_WordPressExtension implements tubepress_platform_a
         )->addArgument(array(
             tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
                 tubepress_wordpress_api_Constants::OPTION_WIDGET_TITLE     => 'TubePress',
-                tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']'
-            )
+                tubepress_wordpress_api_Constants::OPTION_WIDGET_SHORTCODE => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
+                tubepress_app_api_options_Names::SHORTCODE_KEYWORD         => 'tubepress',
+            ),
+            tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                tubepress_app_api_options_Names::SHORTCODE_KEYWORD => 'Shortcode keyword',  //>(translatable)<
+            ),
+
+            tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+                tubepress_app_api_options_Names::SHORTCODE_KEYWORD => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', //>(translatable)<,
+
+            ),
         ))->addTag(tubepress_app_api_options_ReferenceInterface::_);
+
+        $toValidate = array(
+            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
+                tubepress_app_api_options_Names::SHORTCODE_KEYWORD,
+            ),
+        );
+
+        foreach ($toValidate as $type => $optionNames) {
+            foreach ($optionNames as $optionName) {
+                $containerBuilder->register(
+                    'regex_validator.' . $optionName,
+                    'tubepress_app_api_listeners_options_RegexValidatingListener'
+                )->addArgument($type)
+                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
+                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+                 ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                    'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
+                    'priority' => 100000,
+                    'method'   => 'onOption',
+                ));
+            }
+        }
     }
 
 

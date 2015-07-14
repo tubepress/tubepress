@@ -31,6 +31,8 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
         $this->_registerListeners($containerBuilder);
         $this->_registerPathProvider($containerBuilder);
         $this->_registerServices($containerBuilder);
+        $this->_registerOptions($containerBuilder);
+        $this->_registerOptionsUi($containerBuilder);
     }
 
     private function _registerServices(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -106,5 +108,134 @@ class tubepress_html_ioc_HtmlExtension implements tubepress_platform_api_ioc_Con
         )->addArgument(array(
             TUBEPRESS_ROOT . '/src/add-ons/html/templates',
         ))->addTag('tubepress_lib_api_template_PathProviderInterface');
+    }
+
+    private function _registerOptions(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_app_api_options_Reference__html',
+            'tubepress_app_api_options_Reference'
+        )->addTag(tubepress_app_api_options_ReferenceInterface::_)
+            ->addArgument(array(
+
+                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+
+                    tubepress_app_api_options_Names::HTML_GALLERY_ID => null,
+                    tubepress_app_api_options_Names::HTML_HTTPS      => false,
+                    tubepress_app_api_options_Names::HTML_OUTPUT     => null,
+                    tubepress_app_api_options_Names::HTTP_METHOD     => 'GET',
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+
+                    tubepress_app_api_options_Names::HTML_HTTPS  => 'Enable HTTPS',       //>(translatable)<
+                    tubepress_app_api_options_Names::HTTP_METHOD => 'HTTP method',        //>(translatable)<
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_DESCRIPTION => array(
+
+                    tubepress_app_api_options_Names::HTML_HTTPS                  => 'Serve thumbnails and embedded video player over a secure connection.',  //>(translatable)<
+                    tubepress_app_api_options_Names::HTTP_METHOD                 => 'Defines the HTTP method used in most TubePress Ajax operations',  //>(translatable)<
+                ),
+            ))->addArgument(array(
+
+                tubepress_app_api_options_Reference::PROPERTY_NO_PERSIST => array(
+                    tubepress_app_api_options_Names::HTML_GALLERY_ID,
+                    tubepress_app_api_options_Names::HTML_OUTPUT,
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
+                    tubepress_app_api_options_Names::HTML_HTTPS,
+                ),
+            ));
+
+        $toValidate = array(
+            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_ONE_OR_MORE_WORDCHARS => array(
+                tubepress_app_api_options_Names::HTML_GALLERY_ID,
+            ),
+        );
+
+        foreach ($toValidate as $type => $optionNames) {
+            foreach ($optionNames as $optionName) {
+                $containerBuilder->register(
+                    'regex_validator.' . $optionName,
+                    'tubepress_app_api_listeners_options_RegexValidatingListener'
+                )->addArgument($type)
+                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_options_ReferenceInterface::_))
+                 ->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_translation_TranslatorInterface::_))
+                 ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                    'event'    => tubepress_app_api_event_Events::OPTION_SET . ".$optionName",
+                    'priority' => 100000,
+                    'method'   => 'onOption',
+                ));
+            }
+        }
+
+        $fixedValuesMap = array(
+            tubepress_app_api_options_Names::HTTP_METHOD => array(
+                'GET'  => 'GET',
+                'POST' => 'POST'
+            ),
+        );
+        foreach ($fixedValuesMap as $optionName => $valuesMap) {
+            $containerBuilder->register(
+                'fixed_values.' . $optionName,
+                'tubepress_app_api_listeners_options_FixedValuesListener'
+            )->addArgument($valuesMap)
+             ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'priority' => 100000,
+                'event'    => tubepress_app_api_event_Events::OPTION_ACCEPTABLE_VALUES . ".$optionName",
+                'method'   => 'onAcceptableValues'
+            ));
+        }
+    }
+
+    private function _registerOptionsUi(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $fieldReferences = array();
+        $fieldMap = array(
+            'boolean' => array(
+                tubepress_app_api_options_Names::HTML_HTTPS,
+            ),
+            'dropdown' => array(
+                tubepress_app_api_options_Names::HTTP_METHOD,
+            ),
+        );
+
+        foreach ($fieldMap as $type => $ids) {
+            foreach ($ids as $id) {
+
+                $serviceId = 'html_field_' . $id;
+
+                $containerBuilder->register(
+                    $serviceId,
+                    'tubepress_app_api_options_ui_FieldInterface'
+                )->setFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
+                 ->setFactoryMethod('newInstance')
+                 ->addArgument($id)
+                 ->addArgument($type);
+
+                $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
+            }
+        }
+
+        $fieldMap = array(
+            tubepress_app_api_options_ui_CategoryNames::ADVANCED => array(
+                tubepress_app_api_options_Names::HTML_HTTPS,
+                tubepress_app_api_options_Names::HTTP_METHOD,
+            ),
+        );
+
+        $containerBuilder->register(
+            'tubepress_api_options_ui_BaseFieldProvider__html',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->addArgument('field-provider-html')
+         ->addArgument('HTML')
+         ->addArgument(false)
+         ->addArgument(false)
+         ->addArgument(array())
+         ->addArgument($fieldReferences)
+         ->addArgument($fieldMap)
+         ->addTag('tubepress_app_api_options_ui_FieldProviderInterface');
     }
 }

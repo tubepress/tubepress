@@ -25,7 +25,8 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
     protected function prepareForLoad()
     {
         $this->_registerOptionsUiSingletons();
-        $this->_registerOptionsUiFieldProvider();
+        $this->_registerOptions();
+        $this->_registerOptionsUi();
         $this->_registerListeners();
         $this->_registerPathProvider();
     }
@@ -64,8 +65,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             tubepress_lib_api_translation_TranslatorInterface::_         => tubepress_lib_api_translation_TranslatorInterface::_,
         );
     }
-
-
+    
     private function _registerPathProvider()
     {
         $this->expectRegistration(
@@ -75,8 +75,7 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             TUBEPRESS_ROOT . '/src/add-ons/options-ui/templates'
         ))->withTag('tubepress_lib_api_template_PathProviderInterface.admin');
     }
-
-
+    
     private function _registerListeners()
     {
         $this->expectRegistration(
@@ -153,97 +152,15 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             ));
     }
 
-    private function _registerOptionsUiFieldProvider()
+    private function _registerOptionsUi()
     {
-        $fieldReferences = array();
-        $fieldMap = array(
-            'boolean' => array(
-                tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
-                tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO,
-                tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY,
-                tubepress_app_api_options_Names::EMBEDDED_LOOP,
-                tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION,
-                tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS,
-                tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE,
-                tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW,
-                tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
-                tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS,
-                tubepress_app_api_options_Names::GALLERY_AUTONEXT,
-                tubepress_app_api_options_Names::HTML_HTTPS,
-                tubepress_app_api_options_Names::DEBUG_ON,
-                tubepress_app_api_options_Names::META_RELATIVE_DATES,
-                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
-            ),
-            'dropdown' => array(
-                tubepress_app_api_options_Names::PLAYER_LOCATION,
-                tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
-                tubepress_app_api_options_Names::HTTP_METHOD,
-                tubepress_app_api_options_Names::FEED_PER_PAGE_SORT,
-            ),
-            'text' => array(
-                tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
-                tubepress_app_api_options_Names::EMBEDDED_WIDTH,
-                tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT,
-                tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH,
-                tubepress_app_api_options_Names::META_DATEFORMAT,
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
-                tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP,
-                tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST,
-                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
-            ),
-            'fieldProviderFilter' => array(
-                tubepress_options_ui_impl_fields_templated_multi_FieldProviderFilterField::FIELD_ID
-            ),
-            'metaMultiSelect' => array(
-                'does not matter'
-            ),
-            'orderBy' => array(
-                tubepress_app_api_options_Names::FEED_ORDER_BY
-            ),
-            'gallerySource' => array(
-                tubepress_app_api_options_Names::GALLERY_SOURCE,
-            ),
-            'multiSourceText' => array(
-                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
-            )
-        );
-
-
-        foreach ($fieldMap as $type => $ids) {
-            foreach ($ids as $id) {
-
-                $serviceId = 'core_field_' . $id;
-
-                $this->expectRegistration(
-                    $serviceId,
-                    'tubepress_app_api_options_ui_FieldInterface'
-                )->withFactoryService(tubepress_app_api_options_ui_FieldBuilderInterface::_)
-                    ->withFactoryMethod('newInstance')
-                    ->withArgument($id)
-                    ->withArgument($type)
-                    ->andReturnDefinition();
-
-                $fieldReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
-            }
-        }
-
         $categoryReferences = array();
         $categories = array(
-            array(tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE, 'Which videos?'), //>(translatable)<
-            array(tubepress_app_api_options_ui_CategoryNames::THUMBNAILS,     'Thumbnails'),    //>(translatable)<
-            array(tubepress_app_api_options_ui_CategoryNames::EMBEDDED,       'Player'),        //>(translatable)<
-            array(tubepress_app_api_options_ui_CategoryNames::META,           'Meta'),          //>(translatable)<
-            array(tubepress_app_api_options_ui_CategoryNames::FEED,           'Feed'),          //>(translatable)<
-            array(tubepress_app_api_options_ui_CategoryNames::ADVANCED,       'Advanced'),      //>(translatable)<
+            array(tubepress_app_api_options_ui_CategoryNames::ADVANCED, 'Advanced'),      //>(translatable)<
         );
         foreach ($categories as $categoryIdAndLabel) {
 
-            $serviceId = 'core_category_' . $categoryIdAndLabel[0];
+            $serviceId = 'options_ui_category_' . $categoryIdAndLabel[0];
             $this->expectRegistration(
                 $serviceId,
                 'tubepress_options_ui_impl_BaseElement'
@@ -253,62 +170,35 @@ class tubepress_test_options_ui_ioc_OptionsUiExtensionTest extends tubepress_tes
             $categoryReferences[] = new tubepress_platform_api_ioc_Reference($serviceId);
         }
 
-        $fieldMap = array(
-            tubepress_app_api_options_ui_CategoryNames::GALLERY_SOURCE => array(
-                tubepress_app_api_options_Names::GALLERY_SOURCE,
-            ),
-            tubepress_app_api_options_ui_CategoryNames::EMBEDDED => array(
-                tubepress_app_api_options_Names::PLAYER_LOCATION,
-                tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL,
-                tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
-                tubepress_app_api_options_Names::EMBEDDED_WIDTH,
-                tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
-                tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY,
-                tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO,
-                tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY,
-                tubepress_app_api_options_Names::EMBEDDED_LOOP,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
-                tubepress_app_api_options_Names::GALLERY_AUTONEXT
-            ),
-            tubepress_app_api_options_ui_CategoryNames::THUMBNAILS => array(
-                tubepress_app_api_options_Names::GALLERY_THUMB_HEIGHT,
-                tubepress_app_api_options_Names::GALLERY_THUMB_WIDTH,
-                tubepress_app_api_options_Names::GALLERY_AJAX_PAGINATION,
-                tubepress_app_api_options_Names::GALLERY_FLUID_THUMBS,
-                tubepress_app_api_options_Names::GALLERY_PAGINATE_ABOVE,
-                tubepress_app_api_options_Names::GALLERY_PAGINATE_BELOW,
-                tubepress_app_api_options_Names::GALLERY_HQ_THUMBS,
-                tubepress_app_api_options_Names::GALLERY_RANDOM_THUMBS
-            ),
-            tubepress_app_api_options_ui_CategoryNames::ADVANCED => array(
-                tubepress_app_api_options_Names::HTML_HTTPS,
-                tubepress_app_api_options_Names::HTTP_METHOD,
-                tubepress_app_api_options_Names::DEBUG_ON
-            ),
-            tubepress_app_api_options_ui_CategoryNames::META => array(
-                tubepress_options_ui_impl_fields_templated_multi_MetaMultiSelectField::FIELD_ID,
-                tubepress_app_api_options_Names::META_DATEFORMAT,
-                tubepress_app_api_options_Names::META_RELATIVE_DATES,
-                tubepress_app_api_options_Names::META_DESC_LIMIT,
-            ),
-            tubepress_app_api_options_ui_CategoryNames::FEED => array(
-                tubepress_app_api_options_Names::FEED_RESULTS_PER_PAGE,
-                tubepress_app_api_options_Names::FEED_ORDER_BY,
-                tubepress_app_api_options_Names::FEED_PER_PAGE_SORT,
-                tubepress_app_api_options_Names::SEARCH_ONLY_USER,
-                tubepress_app_api_options_Names::FEED_RESULT_COUNT_CAP,
-                tubepress_app_api_options_Names::FEED_ITEM_ID_BLACKLIST,
-            ),
-        );
-
         $this->expectRegistration(
-            'tubepress_options_ui_impl_FieldProvider',
-            'tubepress_options_ui_impl_FieldProvider'
-        )->withArgument($categoryReferences)
-            ->withArgument($fieldReferences)
-            ->withArgument($fieldMap)
+            'tubepress_api_options_ui_BaseFieldProvider__options_ui',
+            'tubepress_api_options_ui_BaseFieldProvider'
+        )->withArgument('field-provider-options-ui')
+            ->withArgument('Options UI')
+            ->withArgument(false)
+            ->withArgument(false)
+            ->withArgument($categoryReferences)
+            ->withArgument(array())
+            ->withArgument(array())
             ->withTag('tubepress_app_api_options_ui_FieldProviderInterface');
+    }
+
+    private function _registerOptions()
+    {
+        $this->expectRegistration(
+            'tubepress_app_api_options_Reference__options_ui',
+            'tubepress_app_api_options_Reference'
+        )->withTag(tubepress_app_api_options_ReferenceInterface::_)
+            ->withArgument(array(
+
+                tubepress_app_api_options_Reference::PROPERTY_DEFAULT_VALUE => array(
+                    tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => null
+                ),
+
+                tubepress_app_api_options_Reference::PROPERTY_UNTRANSLATED_LABEL => array(
+                    tubepress_app_api_options_Names::OPTIONS_UI_DISABLED_FIELD_PROVIDERS => 'Only show options applicable to...', //>(translatable)<
+                ),
+
+            ))->withArgument(array());
     }
 }

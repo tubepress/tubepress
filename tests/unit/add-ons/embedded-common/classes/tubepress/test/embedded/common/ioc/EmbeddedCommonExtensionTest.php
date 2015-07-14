@@ -45,9 +45,6 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
                     tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL     => tubepress_app_api_options_AcceptableValues::EMBEDDED_IMPL_PROVIDER_BASED,
                     tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO       => false,
                     tubepress_app_api_options_Names::EMBEDDED_WIDTH           => 640,
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => true,
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 0,
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 0,
                     tubepress_app_api_options_Names::RESPONSIVE_EMBEDS        => true,
                 ),
 
@@ -59,9 +56,6 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
                     tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'Implementation',                                     //>(translatable)<
                     tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO       => 'Show title and rating before video starts',          //>(translatable)<
                     tubepress_app_api_options_Names::EMBEDDED_WIDTH           => 'Max width (px)',                                     //>(translatable)<
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => 'Scroll page to embedded player after thumbnail click',
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Scroll duration (ms)',
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Scroll offset (px)',
                     tubepress_app_api_options_Names::RESPONSIVE_EMBEDS        => 'Responsive embeds',    //>(translatable)<
                 ),
 
@@ -71,17 +65,11 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
                     tubepress_app_api_options_Names::EMBEDDED_LOOP            => 'Continue playing the video until the user stops it.', //>(translatable)<
                     tubepress_app_api_options_Names::EMBEDDED_PLAYER_IMPL     => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', //>(translatable)<
                     tubepress_app_api_options_Names::EMBEDDED_WIDTH           => sprintf('Default is %s.', 640), //>(translatable)<
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON       => 'Only applies when the video player is already embedded on the page; i.e. does not apply to modal or popup players.',
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION => 'Set to 0 for "instant" scroll.',
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET   => 'Set to 0 to scroll to the top of the embedded player. Negative or positive values here will scroll to above or below the player, respectively.',
                     tubepress_app_api_options_Names::RESPONSIVE_EMBEDS        => 'Auto-resize media players to best fit the viewer\'s screen.', //>(translatable)<
                 ),
             ))->withArgument(array(
 
                 tubepress_app_api_options_Reference::PROPERTY_PRO_ONLY => array(
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
-                    tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
                     tubepress_app_api_options_Names::RESPONSIVE_EMBEDS,
                 ),
             ));
@@ -90,12 +78,6 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
             tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_POSITIVE => array(
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH,
-            ),
-            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER_NONNEGATIVE => array(
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
-            ),
-            tubepress_app_api_listeners_options_RegexValidatingListener::TYPE_INTEGER => array(
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
             ),
         );
 
@@ -158,7 +140,6 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
         $fieldMap = array(
             'boolean' => array(
                 tubepress_app_api_options_Names::EMBEDDED_LAZYPLAY,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
                 tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO,
                 tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY,
                 tubepress_app_api_options_Names::EMBEDDED_LOOP,
@@ -169,8 +150,6 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
             ),
             'text' => array(
                 tubepress_app_api_options_Names::EMBEDDED_HEIGHT,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
                 tubepress_app_api_options_Names::EMBEDDED_WIDTH,
             ),
         );
@@ -213,9 +192,6 @@ class tubepress_test_embedded_common_ioc_EmbeddedCommonExtensionTest extends tub
                 tubepress_app_api_options_Names::EMBEDDED_SHOW_INFO,
                 tubepress_app_api_options_Names::EMBEDDED_AUTOPLAY,
                 tubepress_app_api_options_Names::EMBEDDED_LOOP,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_ON,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_DURATION,
-                tubepress_app_api_options_Names::EMBEDDED_SCROLL_OFFSET,
             ),
         );
 
