@@ -2,4 +2,4 @@ src/themes/default/css/tubepress.css
 src/themes/legacy-default/css/tubepress.css
 src/themes/vimeo.com-clone/css/vimeo.css
 src/themes/youtube.com-clone/css/youtube.css
-src/add-ons/core/web/vendor/jqmodal/jqModal.css
+src/add-ons/player/web/vendor/jqmodal/jqModal.css
