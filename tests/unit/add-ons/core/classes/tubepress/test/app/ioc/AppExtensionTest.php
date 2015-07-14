@@ -98,11 +98,6 @@ class tubepress_test_app_ioc_AppExtensionTest extends tubepress_test_platform_im
             ),
 
 
-            'tubepress_app_impl_listeners_http_UserAgentListener' => array(
-                tubepress_app_api_environment_EnvironmentInterface::_
-            ),
-
-
             /**
              * OPTIONS VALUES
              */

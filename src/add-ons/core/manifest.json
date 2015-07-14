@@ -55,7 +55,6 @@
 
             "tubepress_app_impl_listeners_html_generation_SingleItemListener"       : "classes/tubepress/app/impl/listeners/html/generation/SingleItemListener.php",
             "tubepress_app_impl_listeners_html_jsconfig_BaseUrlSetter"              : "classes/tubepress/app/impl/listeners/html/jsconfig/BaseUrlSetter.php",
-            "tubepress_app_impl_listeners_http_UserAgentListener"                   : "classes/tubepress/app/impl/listeners/http/UserAgentListener.php",
             "tubepress_app_impl_listeners_options_values_FeedOptions"               : "classes/tubepress/app/impl/listeners/options/values/FeedOptions.php",
             "tubepress_app_impl_listeners_options_values_PerPageSort"               : "classes/tubepress/app/impl/listeners/options/values/PerPageSort.php",
 

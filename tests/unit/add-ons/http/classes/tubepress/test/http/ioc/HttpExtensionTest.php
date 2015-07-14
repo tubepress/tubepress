@@ -26,6 +26,7 @@ class tubepress_test_http_ioc_HttpExtensionTest extends tubepress_test_platform_
     {
         $this->_expectClient();
         $this->_expectMiscServices();
+        $this->_expectListeners();
     }
 
     private function _expectClient()
@@ -85,6 +86,19 @@ class tubepress_test_http_ioc_HttpExtensionTest extends tubepress_test_platform_
         )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
     }
 
+    private function _expectListeners()
+    {
+        $this->expectRegistration(
+            'tubepress_http_impl_listeners_UserAgentListener',
+            'tubepress_http_impl_listeners_UserAgentListener'
+        )->withArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+            ->withTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+                'event'    => tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST,
+                'priority' => 100000,
+                'method'   => 'onRequest'
+            ));
+    }
+
     protected function getExpectedExternalServicesMap()
     {
         $logger = $this->mock(tubepress_platform_api_log_LoggerInterface::_);
@@ -93,7 +107,8 @@ class tubepress_test_http_ioc_HttpExtensionTest extends tubepress_test_platform_
         return array(
             tubepress_lib_api_event_EventDispatcherInterface::_ => tubepress_lib_api_event_EventDispatcherInterface::_,
             tubepress_platform_api_log_LoggerInterface::_       => $logger,
-            tubepress_lib_api_template_TemplatingInterface::_ => tubepress_lib_api_template_TemplatingInterface::_
+            tubepress_lib_api_template_TemplatingInterface::_ => tubepress_lib_api_template_TemplatingInterface::_,
+            tubepress_app_api_environment_EnvironmentInterface::_ => tubepress_app_api_environment_EnvironmentInterface::_
         );
     }
 }

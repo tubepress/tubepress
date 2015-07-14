@@ -30,6 +30,7 @@ class tubepress_http_ioc_HttpExtension implements tubepress_platform_api_ioc_Con
     {
         $this->_registerClient($containerBuilder);
         $this->_registerMiscServices($containerBuilder);
+        $this->_registerListeners($containerBuilder);
     }
 
     private function _registerClient(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
@@ -87,5 +88,18 @@ class tubepress_http_ioc_HttpExtension implements tubepress_platform_api_ioc_Con
          tubepress_lib_api_http_RequestParametersInterface::_,
          'tubepress_http_impl_RequestParameters'
         )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_lib_api_event_EventDispatcherInterface::_));
+    }
+
+    private function _registerListeners(tubepress_platform_api_ioc_ContainerBuilderInterface $containerBuilder)
+    {
+        $containerBuilder->register(
+            'tubepress_http_impl_listeners_UserAgentListener',
+            'tubepress_http_impl_listeners_UserAgentListener'
+        )->addArgument(new tubepress_platform_api_ioc_Reference(tubepress_app_api_environment_EnvironmentInterface::_))
+         ->addTag(tubepress_lib_api_ioc_ServiceTags::EVENT_LISTENER, array(
+            'event'    => tubepress_lib_api_http_Events::EVENT_HTTP_REQUEST,
+            'priority' => 100000,
+            'method'   => 'onRequest'
+        ));
     }
 }
