@@ -91,7 +91,7 @@
         {% set text = page %}
     {% endif %}
 
-    {% set href = anchorFormat|format(page) %}
+    {% set href = anchorFormat|replace({'>>>page-number<<<' : page}) %}
 
     {% if page > 1 %}
 
